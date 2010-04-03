@@ -1,0 +1,4 @@
+Programación:
+. Sacar verificación consistencia de no grabar 2 representantes iguales (con nombre y apellido)?? o solo avisar??
+
+. Verificar consistencia de no grabar 2 teléfonos iguales.
