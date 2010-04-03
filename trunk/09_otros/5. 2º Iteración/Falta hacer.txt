@@ -1,0 +1,19 @@
+modificar el DER. Venta tiene que tener la clave foránea de Transaccion venta y no al reves.
+
+.el reclamo tiene que tener un tiporeclamo
+
+.el cliente tiene un mail.
+
+.el clienteparticular tiene sexo y fechanacimiento
+
+.al proveedor hay que agregarle un mail
+
+. En el DER-Ventas hay que cambiar la multiplicidad de la relación entre reclamoCliente y TransaccionVenta ( no entiendo)
+
+Todo lo de ventas ( solo der) ya lo hice
+
+
+-agregar atributos en los diag de clases
+-falta clase ambitoestado en diag de clases
+- ver vehiculo en la base de datos
+-der compras hayq sacar en detalle recpecion la fk a producto, porq lo sacamos en el diag de clases, en la bd tmb pero no se si cambia la programacion

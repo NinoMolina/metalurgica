@@ -1,0 +1,6 @@
+. El CU "Consultar Vehículo" no existe, porque están dentro de "Consultar 
+  Cliente". Se puede dividir si es necesario.
+
+. El CU "Eliminar Vehículo" no existe. Quizas sería necesario agregarlo (en 
+  el diagrama de CU, en un trazo grueso y en el listado de CU). O si no 
+  meterlo en el "Eliminar Cliente".

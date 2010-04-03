@@ -1,0 +1,13 @@
+Cambios Concretados:
+
+- Agregue un atributo "numeroTransaccionVenta", en la clase TransaccionVenta
+
+- Agregue como atributo "numero cliente", al la clase Cliente.
+
+- Saque atributos cantidad y precio unitario, del detalle de la factura, los posee el mismo detalle de transaccion venta, al cual apunta
+
+- Saque el atributo nroComprobante de la clase Venta, ya que es el nro de factura.
+
+- Crear clase Entrega y DetalleEntrega, para el pedido de Cliente. Esto en paquete Ventas.
+  A la vez esto provoca que se eliminen los atributos fechaRealEntrega y horaRealEntrega de la clase  pedido cliente, ambos atributos pasan a formar parte de la nueva clase EntregaPedidoCliente
+
