@@ -521,7 +521,7 @@
 		origin_y   	0
 		items      	(list diagram_item_list
 		    (object UseCaseView "Use Case View::4. Realizar Presupuesto" @1
-			location   	(1584, 192)
+			location   	(1632, 192)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -533,7 +533,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@1
-			    location   	(1583, 367)
+			    location   	(1631, 367)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -571,7 +571,7 @@
 			quidu      	"4BB7DD4B0155"
 			width      	306)
 		    (object UseCaseView "Use Case View::18. Administrar Clientes" @3
-			location   	(1584, 1456)
+			location   	(1632, 1456)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -583,7 +583,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@3
-			    location   	(1583, 1631)
+			    location   	(1631, 1631)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -596,7 +596,7 @@
 			quidu      	"4BB7DD9402DA"
 			width      	306)
 		    (object UseCaseView "Use Case View::19. Realizar Planificación de Producción" @4
-			location   	(1520, 1040)
+			location   	(1568, 1040)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -608,7 +608,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@4
-			    location   	(1519, 1215)
+			    location   	(1567, 1215)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -621,7 +621,7 @@
 			quidu      	"4BB7DDC8018C"
 			width      	306)
 		    (object UseCaseView "Use Case View::20. Administrar Procesos de Producción" @5
-			location   	(1744, 768)
+			location   	(1792, 768)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -633,7 +633,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@5
-			    location   	(1743, 943)
+			    location   	(1791, 943)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -646,7 +646,7 @@
 			quidu      	"4BB7DDF90026"
 			width      	306)
 		    (object UseCaseView "Use Case View::21. Realizar Producción" @6
-			location   	(2000, 1328)
+			location   	(2048, 1328)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -658,7 +658,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@6
-			    location   	(1999, 1503)
+			    location   	(2047, 1503)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -671,7 +671,7 @@
 			quidu      	"4BB7DE3701FA"
 			width      	306)
 		    (object UseCaseView "Use Case View::22. Replanificar Producción" @7
-			location   	(1744, 1776)
+			location   	(1792, 1776)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -683,7 +683,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@7
-			    location   	(1743, 1951)
+			    location   	(1791, 1951)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -696,7 +696,7 @@
 			quidu      	"4BB7DE7602DC"
 			width      	306)
 		    (object UseCaseView "Use Case View::23. Administrar Tipos de Piezas" @8
-			location   	(1072, 1600)
+			location   	(1120, 1600)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -708,7 +708,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@8
-			    location   	(1071, 1775)
+			    location   	(1119, 1775)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -746,7 +746,7 @@
 			quidu      	"4BB7E2200172"
 			width      	306)
 		    (object UseCaseView "Use Case View::31. Realizar Planificación de Control de Calidad" @10
-			location   	(2176, 128)
+			location   	(2256, 112)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -758,7 +758,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@10
-			    location   	(2175, 303)
+			    location   	(2255, 287)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -771,7 +771,7 @@
 			quidu      	"4BB7E38D011B"
 			width      	306)
 		    (object UseCaseView "Use Case View::32. Realizar Control de Calidad" @11
-			location   	(2176, 400)
+			location   	(2192, 448)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -783,7 +783,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@11
-			    location   	(2175, 575)
+			    location   	(2191, 623)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -796,7 +796,7 @@
 			quidu      	"4BB7E3BC0241"
 			width      	306)
 		    (object UseCaseView "Use Case View::33. Administrar Procesos de Control de Calidad" @12
-			location   	(2320, 704)
+			location   	(2400, 720)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -808,7 +808,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@12
-			    location   	(2319, 879)
+			    location   	(2399, 895)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -821,7 +821,7 @@
 			quidu      	"4BB7E40A01A1"
 			width      	306)
 		    (object UseCaseView "Use Case View::34. Replanificar Control de Calidad" @13
-			location   	(2320, 1040)
+			location   	(2368, 1040)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -833,7 +833,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@13
-			    location   	(2319, 1215)
+			    location   	(2367, 1215)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -846,7 +846,7 @@
 			quidu      	"4BB7E44C0071"
 			width      	306)
 		    (object UseCaseView "Use Case View::35. Realizar Armado de Pedido" @14
-			location   	(2432, 1424)
+			location   	(2480, 1424)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -858,7 +858,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@14
-			    location   	(2431, 1599)
+			    location   	(2479, 1599)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -871,7 +871,7 @@
 			quidu      	"4BB7E46D0297"
 			width      	306)
 		    (object UseCaseView "Use Case View::36. Administrar Scrap" @15
-			location   	(2352, 1744)
+			location   	(2400, 1744)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -883,7 +883,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@15
-			    location   	(2351, 1919)
+			    location   	(2399, 1919)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -896,7 +896,7 @@
 			quidu      	"4BB7E4930189"
 			width      	306)
 		    (object UseCaseView "Use Case View::38. Administrar Máquinas" @16
-			location   	(2944, 1680)
+			location   	(2992, 1680)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -908,7 +908,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@16
-			    location   	(2943, 1855)
+			    location   	(2991, 1855)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -921,7 +921,7 @@
 			quidu      	"4BB7E4E501CD"
 			width      	306)
 		    (object UseCaseView "Use Case View::39. Administrar Mantenimiento Preventivo de Maquinaria" @17
-			location   	(480, 2016)
+			location   	(528, 2016)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -933,7 +933,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@17
-			    location   	(479, 2191)
+			    location   	(527, 2191)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -946,7 +946,7 @@
 			quidu      	"4BB7E4FF00DF"
 			width      	306)
 		    (object UseCaseView "Use Case View::40. Realizar Mantenimiento Máquina" @18
-			location   	(1280, 2032)
+			location   	(1328, 2032)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -958,7 +958,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@18
-			    location   	(1279, 2207)
+			    location   	(1327, 2207)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -971,7 +971,7 @@
 			quidu      	"4BB7E52603D7"
 			width      	306)
 		    (object UseCaseView "Use Case View::41. Administrar Roturas de Máquinas" @19
-			location   	(2144, 2080)
+			location   	(2192, 2080)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -983,7 +983,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@19
-			    location   	(2143, 2255)
+			    location   	(2191, 2255)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -996,7 +996,7 @@
 			quidu      	"4BB7E59F03A7"
 			width      	306)
 		    (object UseCaseView "Use Case View::42. Administrar Empleados" @20
-			location   	(3056, 2064)
+			location   	(3104, 2064)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1008,7 +1008,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@20
-			    location   	(3055, 2239)
+			    location   	(3103, 2239)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1046,7 +1046,7 @@
 			quidu      	"4BB7E8E70181"
 			width      	306)
 		    (object UseCaseView "Use Case View::44. Administrar Matrices" @22
-			location   	(3792, 2016)
+			location   	(3840, 2016)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1058,7 +1058,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@22
-			    location   	(3791, 2191)
+			    location   	(3839, 2191)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1071,7 +1071,7 @@
 			quidu      	"4BB7E9980241"
 			width      	306)
 		    (object UseCaseView "Use Case View::45. Generar Informes de Proveedores" @23
-			location   	(3680, 1632)
+			location   	(3728, 1632)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1083,7 +1083,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@23
-			    location   	(3679, 1807)
+			    location   	(3727, 1807)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1096,7 +1096,7 @@
 			quidu      	"4BB7EAE9027A"
 			width      	306)
 		    (object UseCaseView "Use Case View::46. Generar Informes de Pedidos" @24
-			location   	(3616, 1280)
+			location   	(3664, 1280)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1108,7 +1108,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@24
-			    location   	(3615, 1455)
+			    location   	(3663, 1455)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1121,7 +1121,7 @@
 			quidu      	"4BB7EB120094"
 			width      	306)
 		    (object UseCaseView "Use Case View::47. Generar Informes de Clientes" @25
-			location   	(2928, 1312)
+			location   	(2976, 1312)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1133,7 +1133,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@25
-			    location   	(2927, 1487)
+			    location   	(2975, 1487)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1146,7 +1146,7 @@
 			quidu      	"4BB7EB42019C"
 			width      	306)
 		    (object UseCaseView "Use Case View::48. Generar Informes de Ventas" @26
-			location   	(3008, 992)
+			location   	(3056, 992)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1158,7 +1158,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@26
-			    location   	(3007, 1167)
+			    location   	(3055, 1167)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1171,7 +1171,7 @@
 			quidu      	"4BB7EB8302E2"
 			width      	306)
 		    (object UseCaseView "Use Case View::49. Generar Informes de Materia Prima" @27
-			location   	(2864, 528)
+			location   	(3008, 512)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1183,7 +1183,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@27
-			    location   	(2863, 703)
+			    location   	(3007, 687)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1196,7 +1196,7 @@
 			quidu      	"4BB7EBA403A2"
 			width      	306)
 		    (object UseCaseView "Use Case View::50. Generar Informes de Ingresos y Egresos" @28
-			location   	(2800, 208)
+			location   	(3008, 176)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1208,7 +1208,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@28
-			    location   	(2799, 383)
+			    location   	(3007, 351)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1221,7 +1221,7 @@
 			quidu      	"4BB7EBC30214"
 			width      	306)
 		    (object UseCaseView "Use Case View::51. Generar Informes de Producción" @29
-			location   	(3344, 128)
+			location   	(3664, 96)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1233,7 +1233,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@29
-			    location   	(3343, 303)
+			    location   	(3663, 271)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1246,7 +1246,7 @@
 			quidu      	"4BB7EBF20252"
 			width      	306)
 		    (object UseCaseView "Use Case View::52. Generar Informes de Control de Calidad" @30
-			location   	(3616, 448)
+			location   	(3664, 448)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1258,7 +1258,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@30
-			    location   	(3615, 623)
+			    location   	(3663, 623)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1271,7 +1271,7 @@
 			quidu      	"4BB7EC140358"
 			width      	306)
 		    (object UseCaseView "Use Case View::53. Generar Informes de Control Estadístico de Calidad" @31
-			location   	(3616, 864)
+			location   	(3664, 864)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1283,7 +1283,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@31
-			    location   	(3615, 1039)
+			    location   	(3663, 1039)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1296,7 +1296,7 @@
 			quidu      	"4BB7EC43009E"
 			width      	306)
 		    (object UseCaseView "Use Case View::1. Atender Pedido de Cotización" @32
-			location   	(400, 144)
+			location   	(448, 144)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1308,7 +1308,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@32
-			    location   	(399, 319)
+			    location   	(447, 319)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1321,7 +1321,7 @@
 			quidu      	"4BB7D6B90255"
 			width      	306)
 		    (object UseCaseView "Use Case View::3. Atender Consulta Vía Web" @33
-			location   	(768, 496)
+			location   	(816, 496)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1333,7 +1333,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@33
-			    location   	(767, 671)
+			    location   	(815, 671)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1346,7 +1346,7 @@
 			quidu      	"4BB7D79E034C"
 			width      	306)
 		    (object UseCaseView "Use Case View::6. Enviar Cotización" @34
-			location   	(1184, 704)
+			location   	(1232, 704)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1358,7 +1358,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@34
-			    location   	(1183, 879)
+			    location   	(1231, 879)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1371,7 +1371,7 @@
 			quidu      	"4BB7D9120159"
 			width      	306)
 		    (object UseCaseView "Use Case View::7. Atender Confirmación Pedido Cliente" @35
-			location   	(960, 960)
+			location   	(1008, 960)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1383,7 +1383,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@35
-			    location   	(959, 1135)
+			    location   	(1007, 1135)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1396,7 +1396,7 @@
 			quidu      	"4BB7D94F0239"
 			width      	306)
 		    (object UseCaseView "Use Case View::8. Enviar Pedido" @36
-			location   	(176, 1392)
+			location   	(224, 1392)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1408,7 +1408,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@36
-			    location   	(175, 1567)
+			    location   	(223, 1567)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1421,7 +1421,7 @@
 			quidu      	"4BB7D9A9023B"
 			width      	306)
 		    (object UseCaseView "Use Case View::9. Realizar Cobro Pedido" @37
-			location   	(560, 1216)
+			location   	(608, 1216)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1433,7 +1433,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@37
-			    location   	(559, 1391)
+			    location   	(607, 1391)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1446,7 +1446,7 @@
 			quidu      	"4BB7D9C50299"
 			width      	306)
 		    (object UseCaseView "Use Case View::10. Atender Cancelación Pedido" @38
-			location   	(1040, 1280)
+			location   	(1088, 1280)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1458,7 +1458,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@38
-			    location   	(1039, 1455)
+			    location   	(1087, 1455)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1471,7 +1471,7 @@
 			quidu      	"4BB7DA3B0383"
 			width      	306)
 		    (object UseCaseView "Use Case View::16. Atender Reclamo de Cliente" @39
-			location   	(1536, 464)
+			location   	(1584, 464)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1483,7 +1483,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@39
-			    location   	(1535, 639)
+			    location   	(1583, 639)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -1496,7 +1496,7 @@
 			quidu      	"4BB7DD2603E7"
 			width      	306)
 		    (object UseCaseView "Use Case View::2. Atender Pedido de Cotización Vía Web" @40
-			location   	(1024, 112)
+			location   	(1072, 112)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -1508,7 +1508,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@40
-			    location   	(1023, 287)
+			    location   	(1071, 287)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -2353,7 +2353,7 @@
 				    (1544, 2787))
 				line_style 	0)))
 		    (object UseCaseView "Use Case View::37. Realizar Seguimiento de Clientes Morosos" @91
-			location   	(496, 1696)
+			location   	(544, 1696)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2365,7 +2365,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@91
-			    location   	(495, 1871)
+			    location   	(543, 1871)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	879
@@ -2383,7 +2383,7 @@
 			SuppressOperation 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(160, 800)
+			location   	(208, 800)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2395,7 +2395,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@92
-			    location   	(159, 1008)
+			    location   	(207, 1008)
 			    anchor_loc 	1
 			    nlines     	2
 			    max_width  	570
@@ -2410,7 +2410,7 @@
 			annotation 	8
 			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$0" @93
-			location   	(263, 508)
+			location   	(311, 508)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2426,30 +2426,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$1" @94
 				Parent_View 	@93
-				location   	(103, 60)
+				location   	(151, 60)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D7CA032A"
 				client     	@93
 				supplier   	@32
 				vertices   	(list Points
-				    (263, 508)
-				    (323, 346))
+				    (311, 508)
+				    (371, 346))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$2" @95
 				Parent_View 	@93
-				location   	(103, 60)
+				location   	(151, 60)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D7CA032C"
 				client     	@93
 				supplier   	@92
 				vertices   	(list Points
-				    (263, 508)
-				    (203, 671))
+				    (311, 508)
+				    (251, 671))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$3" @96
-			location   	(375, 690)
+			location   	(423, 690)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2465,30 +2465,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$4" @97
 				Parent_View 	@96
-				location   	(199, 258)
+				location   	(247, 258)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D7D602C8"
 				client     	@96
 				supplier   	@33
 				vertices   	(list Points
-				    (375, 690)
-				    (493, 632))
+				    (423, 690)
+				    (541, 632))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$5" @98
 				Parent_View 	@96
-				location   	(199, 258)
+				location   	(247, 258)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D7D602CA"
 				client     	@96
 				supplier   	@92
 				vertices   	(list Points
-				    (375, 690)
-				    (258, 748))
+				    (423, 690)
+				    (306, 748))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$6" @99
-			location   	(644, 751)
+			location   	(692, 751)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2504,30 +2504,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$7" @100
 				Parent_View 	@99
-				location   	(-92, -81)
+				location   	(-44, -81)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D92802D5"
 				client     	@99
 				supplier   	@92
 				vertices   	(list Points
-				    (644, 751)
-				    (258, 788))
+				    (692, 751)
+				    (306, 788))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$8" @101
 				Parent_View 	@99
-				location   	(-92, -81)
+				location   	(-44, -81)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D92802E9"
 				client     	@99
 				supplier   	@34
 				vertices   	(list Points
-				    (644, 751)
-				    (1030, 715))
+				    (692, 751)
+				    (1078, 715))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$9" @102
-			location   	(533, 872)
+			location   	(581, 872)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2543,30 +2543,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$10" @103
 				Parent_View 	@102
-				location   	(357, 440)
+				location   	(405, 440)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9720145"
 				client     	@102
 				supplier   	@35
 				vertices   	(list Points
-				    (533, 872)
-				    (808, 927))
+				    (581, 872)
+				    (856, 927))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$11" @104
 				Parent_View 	@102
-				location   	(357, 440)
+				location   	(405, 440)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9720147"
 				client     	@102
 				supplier   	@92
 				vertices   	(list Points
-				    (533, 872)
-				    (258, 818))
+				    (581, 872)
+				    (306, 818))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$12" @105
-			location   	(167, 1164)
+			location   	(215, 1165)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2582,30 +2582,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$13" @106
 				Parent_View 	@105
-				location   	(-121, 92)
+				location   	(-73, 93)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9BF02DF"
 				client     	@105
 				supplier   	@92
 				vertices   	(list Points
-				    (167, 1164)
-				    (164, 1033))
+				    (215, 1165)
+				    (212, 1035))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$14" @107
 				Parent_View 	@105
-				location   	(-121, 92)
+				location   	(-73, 93)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9BF02E9"
 				client     	@105
 				supplier   	@36
 				vertices   	(list Points
-				    (167, 1164)
-				    (171, 1295))
+				    (215, 1165)
+				    (219, 1295))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$15" @108
-			location   	(361, 1010)
+			location   	(409, 1010)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2621,30 +2621,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$16" @109
 				Parent_View 	@108
-				location   	(-247, -222)
+				location   	(-199, -222)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9E9011F"
 				client     	@108
 				supplier   	@92
 				vertices   	(list Points
-				    (361, 1010)
-				    (258, 902))
+				    (409, 1010)
+				    (306, 902))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$17" @110
 				Parent_View 	@108
-				location   	(-247, -222)
+				location   	(-199, -222)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7D9E90129"
 				client     	@108
 				supplier   	@37
 				vertices   	(list Points
-				    (361, 1010)
-				    (465, 1119))
+				    (409, 1010)
+				    (513, 1119))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$18" @111
-			location   	(573, 1024)
+			location   	(621, 1024)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2660,30 +2660,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$19" @112
 				Parent_View 	@111
-				location   	(397, 432)
+				location   	(445, 432)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7DA5C013B"
 				client     	@111
 				supplier   	@38
 				vertices   	(list Points
-				    (573, 1024)
-				    (888, 1197))
+				    (621, 1024)
+				    (936, 1197))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$20" @113
 				Parent_View 	@111
-				location   	(397, 432)
+				location   	(445, 432)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7DA5C0146"
 				client     	@111
 				supplier   	@92
 				vertices   	(list Points
-				    (573, 1024)
-				    (258, 852))
+				    (621, 1024)
+				    (306, 852))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$36" @114
-			location   	(821, 636)
+			location   	(869, 636)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2699,30 +2699,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$37" @115
 				Parent_View 	@114
-				location   	(645, 44)
+				location   	(693, 44)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7DD3C0057"
 				client     	@114
 				supplier   	@39
 				vertices   	(list Points
-				    (821, 636)
-				    (1384, 498))
+				    (869, 636)
+				    (1432, 498))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$38" @116
 				Parent_View 	@114
-				location   	(645, 44)
+				location   	(693, 44)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BB7DD3C0062"
 				client     	@114
 				supplier   	@92
 				vertices   	(list Points
-				    (821, 636)
-				    (258, 774))
+				    (869, 636)
+				    (306, 774))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$54" @117
-			location   	(514, 515)
+			location   	(562, 515)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2738,30 +2738,30 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$55" @118
 				Parent_View 	@117
-				location   	(370, -141)
+				location   	(418, -141)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BBB7A4A0179"
 				client     	@117
 				supplier   	@40
 				vertices   	(list Points
-				    (514, 515)
-				    (771, 314))
+				    (562, 515)
+				    (819, 314))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$56" @119
 				Parent_View 	@117
-				location   	(370, -141)
+				location   	(418, -141)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BBB7A4A017B"
 				client     	@117
 				supplier   	@92
 				vertices   	(list Points
-				    (514, 515)
-				    (258, 717))
+				    (562, 515)
+				    (306, 717))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$63" @120
-			location   	(343, 1295)
+			location   	(391, 1295)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -2777,27 +2777,27 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$64" @121
 				Parent_View 	@120
-				location   	(-153, -401)
+				location   	(-105, -401)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BC3D7E60026"
 				client     	@120
 				supplier   	@92
 				vertices   	(list Points
-				    (343, 1295)
-				    (229, 990))
+				    (391, 1295)
+				    (277, 990))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$65" @122
 				Parent_View 	@120
-				location   	(-153, -401)
+				location   	(-105, -401)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BC3D7E60045"
 				client     	@120
 				supplier   	@91
 				vertices   	(list Points
-				    (343, 1295)
-				    (457, 1601))
+				    (391, 1295)
+				    (505, 1601))
 				line_style 	0)))))
 	    (object UseCaseDiagram "Main"
 		quid       	"39C9261001B7"
