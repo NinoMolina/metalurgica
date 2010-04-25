@@ -1,5 +1,0 @@
-COSAS QUE ESTAN MAL (Y NOS ARRIESGAMOS)
-
-. En el diagrama de colaboración y en el de secuencia del CU "Registrar Proveedor" falta el curso alternativo del teléfono y el de validar datos mínimos. (Armando)
-
-. En el CU "Tomar recepcion pedido combustible" y todos los relacionados con ese le falta el metodo de la pantalla al gestor "tomar numero remito factura recibido". (Fer)
