@@ -1,0 +1,54 @@
+calendario?
+
+Planificacion?
+
+Ejecucion de la produccion (lanzamiento CU69)?
+
+Etapa de produccion real y no real?
+
+ver administrar tipo pieza en negocio.. seria administrar
+tipo materia prima dado que segun la mp que se use para
+hacer la pieza se determina el tipo de pieza.
+
+CU 70 Generar lista MP a comprar?
+
+DetalleMantenimientoPreventivo/correctivo: pongo duracion o fechaHoraFin 
+(y calculo la duracion)? 
+Rta: Es la duracion para que el sist sepa cuanto tiempo va a estar 
+sin la maquina y ajustar la planificacion del pedido
+
+CU 152 RegistrarParadaMaquina? dentro de las clases MantCorrectivo y MantPreventivo?
+
+En MantenimientoPreventivo/Correctivo un nuevo atributo fechaFinMantenimientoReal dado 
+que la duracion es una estimacion para poder replanificar, luego registro la fecha real de fin (CU161)
+
+
+Matriz relacionada con la Pieza (es para cuando tengo la matriz)
+pero el CU72 es RegistrarPedidoMatriz, cuando y donde registro el pedido?
+
+
+CU72 consultar pedido cotizacion? extends?
+
+Planificacion de control de calidad de TRABAJO TERCERIZADO, PRODUCTO y MP. Que clases? igual que la planificacion
+de la produccion o se relaciona con ella? si se atrasa ésta tambien se atrasa la de calidad?
+
+lanzamiento control calidad? CU114
+
+el CU24 RegistrarCosultaWeb no se modela en Clases dado que la cosulta se envia a una casilla de correo
+
+EstadoEmpleado (Activo, Vacaciones, Suspendido, Despedido)
+
+Cuando un empleado se va tiene una fecha egreso pero si despues vuelve?
+
+CU94 registrar entrega de materia prima a produccion? donde se registra?
+
+CU96 registrar egreso de piezas a trabajo: se refleja en la fecha de envio en el detalle de trabajo tercerizado
+dado que puedo enviar diferentes piezas en diferentes momentos
+
+CU92 lo hago con fecha egreso en detalle reclamo proveedor
+
+como manejo lo que entra y lo que sale de stock? CU93 registrar ingreso de pieza de produccion
+rta: podria tener una clase stock con relacion a MP y pieza donde la pieza puede ser scrap
+
+
+como manejo el scrap?
