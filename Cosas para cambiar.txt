@@ -1,0 +1,6 @@
+Sistemas:
+Agregar CU registrar reclamo a cliente ( tiene que extender de consultar clientes morosos)
+nuevo Actor Responsable Web de Ventas
+Agregar CU Administrar Empresa de Mantenimiento
+cambiar nombre cliente web por responsable web
+
