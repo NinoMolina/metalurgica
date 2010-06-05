@@ -3,4 +3,5 @@ Agregar CU registrar reclamo a cliente ( tiene que extender de consultar cliente
 nuevo Actor Responsable Web de Ventas
 Agregar CU Administrar Empresa de Mantenimiento
 cambiar nombre cliente web por responsable web
+Agregar en el glosario terminos presupuest, pedido de cotizacion del cliente, y pedido de cotizacion a proveedor
 
