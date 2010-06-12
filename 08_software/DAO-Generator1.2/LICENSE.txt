@@ -1,0 +1,46 @@
+Akcess License Agreement version 1.0 for DAO-generator version 1.2
+
+
+This licence agreement is a binding contract between you and Akcess regarding the above 
+mentioned Software. Read the terms of this agreement carefully. By 
+installing the Software you accept the terms and conditions of this 
+agreement. If you do not agree to the terms of this licence agreement, 
+delete the entire package immediately.
+
+
+1. Licence Grant 
+
+a) Akcess grants to you, subject to the following terms and 
+conditions, a limited non-exclusive and non-transferable right to use 
+the Software. 
+b) You must acquire one copy of the Software for each central processing 
+unit (CPU) on which the Software will be installed and used. 
+
+c) You must not reverse engineer, decompile, disassemble, modify or 
+translate the Software or make any attempt to discover the source code 
+of the Software or create derivative works from the Software. 
+
+d) You may not duplicate, sell, redistribute, encumber, give, lend, 
+rent, lease, sublicense or otherwise transfer the Software or any 
+portions of the Software to anyone without the prior written consent of 
+Akcess. 
+
+f) All intellectual property rights in the Software and user 
+documentation are owned by Akcess. Akcess retains all rights not 
+expressly granted. 
+
+2. Updates, Support 
+
+a) This licence does only grant the right to use the Software version as 
+specified in this licence agreement. You are not entitled to use any 
+update, upgrade or any other new version of the Software, unless you 
+acquire a new licence for such new version or the license agreement of 
+the new version expressly grants this right. 
+
+b) You may obtain e-mail support as justified in volume and quality by 
+the amount you paid for the Software by sending an e-mail with your 
+questions regarding the Software to the e-mail address 
+support@akcess.in. 
+
+ 
+

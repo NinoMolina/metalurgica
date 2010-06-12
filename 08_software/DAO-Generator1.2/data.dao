@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
+ <object class="vo.dao.com.JDBCDriverConnectionDetail"> 
+  <void property="connectionDetails"> 
+   <array class="vo.dao.com.ConnectionDetail" length="7"> 
+    <void index="0"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:mysql://server:3306/test</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>MySql</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>com.mysql.jdbc.Driver</string> 
+      </void> 
+      <void property="password"> 
+       <string>abc</string> 
+      </void> 
+      <void property="userID"> 
+       <string>abc</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:access:/c:/db.mdb</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>Akcess</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>com.hxtt.sql.access.AccessDriver</string> 
+      </void> 
+      <void property="password"> 
+       <string>a</string> 
+      </void> 
+      <void property="userID"> 
+       <string>a</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:access:/c:/db.mdb</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>Access</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>com.hxtt.sql.access.AccessDriver</string> 
+      </void> 
+      <void property="password"> 
+       <string>a</string> 
+      </void> 
+      <void property="userID"> 
+       <string>a</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:oracle:thin:@localhost:1521:orcl</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>Oracle</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>oracle.jdbc.driver.OracleDriver</string> 
+      </void> 
+      <void property="password"> 
+       <string>test</string> 
+      </void> 
+      <void property="userID"> 
+       <string>test</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="4"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:microsoft:sqlserver://HELLO:1433;DatabaseName=Northwind</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>SQLServer</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>com.microsoft.jdbc.sqlserver.SQLServerDriver</string> 
+      </void> 
+      <void property="password"> 
+       <string>test</string> 
+      </void> 
+      <void property="userID"> 
+       <string>test</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="5"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:mimer://server/test</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>MimerSql</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>com.mimer.jdbc.Driver</string> 
+      </void> 
+      <void property="password"> 
+       <string>SYSADM</string> 
+      </void> 
+      <void property="userID"> 
+       <string>SYSADM</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="6"> 
+     <object class="vo.dao.com.ConnectionDetail"> 
+      <void property="URL"> 
+       <string>jdbc:postgresql://localhost:5432/metalsoft</string> 
+      </void> 
+      <void property="connectionName"> 
+       <string>Postgre</string> 
+      </void> 
+      <void property="driverClass"> 
+       <string>org.postgresql.Driver</string> 
+      </void> 
+      <void property="password"> 
+       <string>admin</string> 
+      </void> 
+      <void property="userID"> 
+       <string>admin</string> 
+      </void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="hashMapDriverDetail"> 
+   <void method="put"> 
+    <string>Ingress</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:ingres://serve:II7/testdb</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>ca.ingres.jdbc.IngresDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Ingress</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string></string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string></string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string></string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string></string> 
+     </void> 
+     <void property="driverName"> 
+      <string></string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>Postgres</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:postgresql://localhostr:5432/metalsoft</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>org.postgresql.Driver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the JDBC jar file with complete path;D:\Mis documentos\Facultad\Proyecto Final\Repositorio\metalurgica\08_software\librerías\jdbc\postgresql-8.3-603.jdbc3.jar</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Postgres</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>SQL Server</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:microsoft:sqlserver://server:1433;DatabaseName=Northwind</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.microsoft.jdbc.sqlserver.SQLServerDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>SQL Server</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>MaxDB</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:sapdb://localhost/demodb</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.sap.dbtech.jdbc.DriverSapDB</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>MaxDB</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>McKoi</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:mckoi://localhost/</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.mckoi.JDBCDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>McKoi</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>Informix 10.0</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:informix-sqli://server:1527/stores_demo:informixserver=ol_hello1</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.informix.jdbc.IfxDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Informix 10.0</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>MimerSql</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:mimer://server/test</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.mimer.jdbc.Driver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. Enter the JDBC jar file with complete path.</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>MimerSql</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>Oracle</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:oracle:thin:@localhost:1521:orcl</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>oracle.jdbc.driver.OracleDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Please enter the jar file name with complate path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Oracle</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>MySql</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:mysql://server:3306/test</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.mysql.jdbc.Driver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Please enter the jar file name with complate path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>MySql</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>Access</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:access:/c:/db.mdb</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.hxtt.sql.access.AccessDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string></string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Access</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
+    <string>DB2 UDB 8.2</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:db2://server:50000/TestDB</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>com.ibm.db2.jcc.DB2Driver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>DB2 UDB 8.2</string> 
+     </void> 
+    </object> 
+   </void> 
+  </void> 
+  <void property="lookAndFeel"> 
+   <string>windows</string> 
+  </void> 
+ </object> 
+</java> 

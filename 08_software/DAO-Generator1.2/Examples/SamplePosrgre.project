@@ -1,0 +1,3291 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_04" class="java.beans.XMLDecoder"> 
+ <object class="vo.dao.com.Data"> 
+  <void property="projectDetails"> 
+   <object class="vo.dao.com.ProjectDetails"> 
+    <void property="projectFolder"> 
+     <string>D:\delivery\DAO-Generator1.2\Examples</string> 
+    </void> 
+    <void property="projectName"> 
+     <string>SamplePosrgre</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="rdbmsVendor"> 
+   <string>POSTGRESQL</string> 
+  </void> 
+  <void property="schema"> 
+   <array class="vo.dao.com.ClassProperty" length="11"> 
+    <void index="0"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>address</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="5"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>address_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>address</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>address_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>address_line_one</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>address</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>address_line_one</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>address_line_two</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>address</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>address_line_two</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>state</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>address</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>state</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>country</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>address</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>country</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="2"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>country</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>country</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>country</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>state</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>state</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>state</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Address</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>address</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>address_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>address</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>address_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>app_user</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="4"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_first_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_first_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_middle_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_middle_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_address</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_address</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="1"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_address</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_address</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>address</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>App_user</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>app_user</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>user_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>app_user</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>user_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>company</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="5"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>company_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>company</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>company_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>company_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>company</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>company_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>company_description</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>company</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>company_description</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>company_address</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>company</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>company_address</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>company_phone_number</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>company</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>company_phone_number</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="1"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>company_address</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>company_address</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>address</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Company</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>company</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>company_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>company</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>company_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>country</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="2"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>country</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>country_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>country</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>country_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>country</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>country_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>country</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>country_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="0"/> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Country</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>country</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>country_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>country</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>country_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="4"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>department</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="7"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>department_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>department_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>department_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>department_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>department_address</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>department_address</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="5"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="6"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>department</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="2"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>department_address</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>department_address</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>address</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="2"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_modified</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_modified</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void index="1"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_created</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_created</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>app_user</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Department</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>department</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>department_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>department</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>department_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="5"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>employee</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="13"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_dob</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_dob</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_department</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_department</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_address</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_address</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="5"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_phone_number</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_phone_number</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="6"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_mobile_number</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_mobile_number</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="7"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_identification_mark</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_identification_mark</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="8"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="9"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="10"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="11"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="12"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="4"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>employee_address</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>employee_address</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>address</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>app_user</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="2"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_modified</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_modified</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void index="1"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_created</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_created</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>app_user</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>country</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>employee_department</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>employee_department</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>department</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>department</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>employee_type</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>employee_type</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>employee_type</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Employee</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>employee</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>employee_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>employee</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>employee_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="6"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>employee_type</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="2"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_type_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_type_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>employee_type_description</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>employee_type_description</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="0"/> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Employee_type</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>employee_type</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>employee_type_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>employee_type</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>employee_type_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="7"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>project_category</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="3"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_category_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_category_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_category_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_category_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_category_description</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_category_description</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="0"/> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Project_category</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>project_category</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>project_category_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>project_category</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>project_category_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="8"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>project_type</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="3"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_type_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_type_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_type_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_type_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_type_description</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_type_description</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="0"/> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Project_type</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>project_type</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>project_type_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>project_type</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>project_type_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="9"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="className"> 
+       <string>projects</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="14"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_description</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_description</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_type</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_category</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="5"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_start_date</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_start_date</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="6"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_end_date</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_end_date</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="7"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_manager</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_manager</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="8"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>project_architect</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>project_architect</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="9"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>sponsoring_company</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>sponsoring_company</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="10"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="11"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_created</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="12"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>date</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>Date</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>date_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>Date</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="13"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>projects</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="foreignkey"> 
+           <boolean>true</boolean> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>projects</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>user_modified</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="5"> 
+        <void index="0"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>address</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="2"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_created</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_created</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void index="1"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>user_modified</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>user_modified</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>app_user</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>company</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>sponsoring_company</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>sponsoring_company</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>company</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="2"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>country</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="2"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>project_architect</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>project_architect</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void index="1"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>project_manager</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>project_manager</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>employee</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="3"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>employee</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>project_category</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>project_category</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>project_category</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="4"> 
+         <object class="vo.dao.com.ForeignKey"> 
+          <void property="className"> 
+           <string>employee_type</string> 
+          </void> 
+          <void property="foreignKey"> 
+           <array class="vo.dao.com.FieldProperty" length="1"> 
+            <void index="0"> 
+             <object class="vo.dao.com.FieldProperty"> 
+              <void property="fieldName"> 
+               <string>project_type</string> 
+              </void> 
+              <void property="oldFieldName"> 
+               <string>project_type</string> 
+              </void> 
+             </object> 
+            </void> 
+           </array> 
+          </void> 
+          <void property="foreignKeyName"> 
+           <string></string> 
+          </void> 
+          <void property="relatedClassName"> 
+           <string>project_type</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="newClassName"> 
+       <string>Projects</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>projects</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>project_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>projects</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>project_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+    <void index="10"> 
+     <object class="vo.dao.com.ClassProperty"> 
+      <void property="classComment"> 
+       <string>/**
+*
+* @author
+**/</string> 
+      </void> 
+      <void property="className"> 
+       <string>state</string> 
+      </void> 
+      <void property="fields"> 
+       <array class="vo.dao.com.FieldProperty" length="2"> 
+        <void index="0"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>state</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>state_id</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>state</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>state_id</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="primaryKey"> 
+           <boolean>true</boolean> 
+          </void> 
+         </object> 
+        </void> 
+        <void index="1"> 
+         <object class="vo.dao.com.FieldProperty"> 
+          <void property="DBFieldType"> 
+           <string>varchar</string> 
+          </void> 
+          <void property="DBPrecision"> 
+           <string></string> 
+          </void> 
+          <void property="DBSize"> 
+           <string></string> 
+          </void> 
+          <void property="className"> 
+           <string>state</string> 
+          </void> 
+          <void property="defaultValue"> 
+           <string></string> 
+          </void> 
+          <void property="fieldName"> 
+           <string>state_name</string> 
+          </void> 
+          <void property="fieldType"> 
+           <string>String</string> 
+          </void> 
+          <void property="oldClassName"> 
+           <string>state</string> 
+          </void> 
+          <void property="oldFieldName"> 
+           <string>state_name</string> 
+          </void> 
+          <void property="oldFieldType"> 
+           <string>String</string> 
+          </void> 
+         </object> 
+        </void> 
+       </array> 
+      </void> 
+      <void property="foreignKey"> 
+       <array class="vo.dao.com.ForeignKey" length="0"/> 
+      </void> 
+      <void property="newClassName"> 
+       <string>State</string> 
+      </void> 
+      <void property="primaryKey"> 
+       <object class="vo.dao.com.PrimaryKey"> 
+        <void property="primaryKey"> 
+         <array class="vo.dao.com.FieldProperty" length="1"> 
+          <void index="0"> 
+           <object class="vo.dao.com.FieldProperty"> 
+            <void property="DBFieldType"> 
+             <string>varchar</string> 
+            </void> 
+            <void property="DBPrecision"> 
+             <string></string> 
+            </void> 
+            <void property="DBSize"> 
+             <string></string> 
+            </void> 
+            <void property="className"> 
+             <string>state</string> 
+            </void> 
+            <void property="defaultValue"> 
+             <string></string> 
+            </void> 
+            <void property="fieldName"> 
+             <string>state_id</string> 
+            </void> 
+            <void property="fieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="oldClassName"> 
+             <string>state</string> 
+            </void> 
+            <void property="oldFieldName"> 
+             <string>state_id</string> 
+            </void> 
+            <void property="oldFieldType"> 
+             <string>String</string> 
+            </void> 
+            <void property="primaryKey"> 
+             <boolean>true</boolean> 
+            </void> 
+           </object> 
+          </void> 
+         </array> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+ </object> 
+</java> 
