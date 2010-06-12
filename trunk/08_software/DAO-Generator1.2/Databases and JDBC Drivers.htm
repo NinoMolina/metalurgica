@@ -1,0 +1,1227 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./Databases%20and%20JDBC%20Drivers_files/filelist.xml">
+<title>Databases and JDBC Drivers</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>hello</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>hello</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>31</o:TotalTime>
+  <o:Created>2005-11-21T18:53:00Z</o:Created>
+  <o:LastSaved>2005-11-21T18:53:00Z</o:LastSaved>
+  <o:Pages>4</o:Pages>
+  <o:Words>842</o:Words>
+  <o:Characters>4802</o:Characters>
+  <o:Company>hello</o:Company>
+  <o:Lines>40</o:Lines>
+  <o:Paragraphs>9</o:Paragraphs>
+  <o:CharactersWithSpaces>5897</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:536871559 0 0 0 415 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;
+	font-weight:bold;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:Arial;
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	mso-layout-grid-align:none;
+	text-autospace:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:EN;
+	font-weight:bold;}
+p.MsoIndex1, li.MsoIndex1, div.MsoIndex1
+	{mso-style-update:auto;
+	mso-style-parent:"Heading 1";
+	mso-style-next:"Heading 1";
+	margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:12.0pt;
+	text-indent:-12.0pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+p.MsoIndex2, li.MsoIndex2, div.MsoIndex2
+	{mso-style-update:auto;
+	mso-style-parent:"Heading 2";
+	mso-style-next:"Heading 2";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:24.0pt;
+	text-indent:-12.0pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;
+	font-style:italic;}
+p.MsoIndex3, li.MsoIndex3, div.MsoIndex3
+	{mso-style-update:auto;
+	mso-style-parent:"Heading 3";
+	mso-style-next:"Heading 3";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-12.0pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	mso-layout-grid-align:none;
+	text-autospace:none;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoBlockText, li.MsoBlockText, div.MsoBlockText
+	{margin-top:0in;
+	margin-right:1.0in;
+	margin-bottom:6.0pt;
+	margin-left:1.0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";}
+p.tableheading1, li.tableheading1, div.tableheading1
+	{mso-style-name:tableheading1;
+	margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.tabletext1, li.tabletext1, div.tabletext1
+	{mso-style-name:tabletext1;
+	margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	layout-grid-mode:char;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";}
+span.screenoutput
+	{mso-style-name:screenoutput;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:674574222;
+	mso-list-type:hybrid;
+	mso-list-template-ids:335965184 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050">
+  <o:colormenu v:ext="edit" fillcolor="silver"/>
+ </o:shapedefaults></xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p align=center style='text-align:center'><b><span style='font-size:16.0pt;
+mso-bidi-font-size:12.0pt'>Databases and JDBC Drivers<o:p></o:p></span></b></p>
+
+<p>This page lists the databases and JDBC drivers supported by DAO-Generator.
+Download the JDBC Driver you require if that does not come with the software. Either modify the <b>CLASSPATH</b> in <b>run.bat</b> or
+start DAO-Generator and using Driver Manager menu option provide<span
+style="mso-spacerun: yes">  </span>the ZIP/Jar file name with complete path.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2 style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span><![endif]>Oracle</h2>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Oracle JDBC Driver</span></b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The Oracle JDBC driver is part
+  of the Oracle software<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Classes111.zip<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>oracle.jdbc.driver.OracleDriver</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'> <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>jdbc:oracle:thin:@&lt;host&gt;:&lt;port1521&gt;:&lt;sid&gt;<o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>Example:-jdbc:oracle:thin:@localhost:1521:orcl</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Links:</span></b> <b><a
+  href="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">Driver
+  Download</a></b><span style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:14.0pt'><br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>SQL Server<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>SQL Server 2000 JDBC Driver
+  by Microsoft</b><span style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Download and install <b>setup.exe</b>
+  (Windows)<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>mssqlserver.jar, msbase.jar, msutil.jar<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>com.microsoft.jdbc.sqlserver.SQLServerDriver<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>jdbc:microsoft:sqlserver://&lt;&lt;host&gt;&gt;:&lt;&lt;port
+  number 1433&gt;&gt;<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'>;DatabaseName=&lt;database&gt;<o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>dbc:microsoft:sqlserver://HELLO:1433;DatabaseName=Northwind</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Links:</span></b><span style='font-size:
+  10.0pt;font-family:Verdana;color:black'> <b><a
+  href="http://www.microsoft.com/downloads/details.aspx?FamilyID=86212D54-8488-481D-B46B-AF29BB18E1E5&amp;displaylang=en">Download
+  Driver</a></b><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:14.0pt'><br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>MySQL<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>MySQL JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>mysql-connector-java-3_1.1.8a.zip<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>com.mysql.jdbc.Driver<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>jdbc:mysql://&lt;machineName&gt;<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>:&lt;port3306&gt;/</span>&lt;databaseName&gt;<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>jdbc:mysql://hello:3306/test</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Links:</span></b><span style='font-size:
+  10.0pt;font-family:Verdana;color:black'> <b><a
+  href="http://dev.mysql.com/downloads/connector/j/3.1.html">Download Driver</a></b><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:14.0pt'><br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>PostgreSql<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>PostgreSql JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The PostgreSql<span
+  style="mso-spacerun: yes">  </span>JDBC driver is part of the PostgreSql<span
+  style="mso-spacerun: yes">  </span>software<span style='font-size:10.0pt;
+  font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>postgresql-8.0.309.jdbc2ee.jar<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>org.postgresql.Driver<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>jdbc:postgresql://&lt;host&gt;:&lt;port,
+  default 5432&gt;/&lt;DB Name&gt;<span style='font-size:10.0pt;font-family:
+  Verdana;color:black'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>jdbc:postgresql://hello:5432/test</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:14.0pt'><br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>MaxDB<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>MaxDB JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The MaxDB JDBC driver is part
+  of the MaxDB software<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<span
+  style="mso-spacerun: yes">  </span><o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>sapdbc.jar<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>com.sap.dbtech.jdbc.DriverSapDB</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<span
+  style="mso-spacerun: yes">  </span><o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span class=screenoutput><span
+  lang=DE style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman";
+  mso-ansi-language:DE'>jdbc:sapdb://&lt;database_server&gt;[:&lt;port&gt;]/&lt;database_name&gt;[&lt;options&gt;]</span></span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>jdbc:sapdb://localhost/demodb</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Links: </span></b><span style='font-size:
+  10.0pt;font-family:Verdana;color:black'><span style="mso-spacerun:
+  yes"> </span><b><a href="http://dev.mysql.com/downloads/maxdb">Download
+  Driver</a></b><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:14.0pt'><br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>Mimer SQL<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>Mimer SQL JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The Mimer SQL JDBC driver is
+  part of the Mimer SQL software<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>mimjdbc3.jar<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span lang=EN style='mso-ansi-language:
+  EN'>com.mimer.jdbc.Driver</span><span style='font-size:10.0pt;font-family:
+  Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span lang=EN style='mso-ansi-language:
+  EN'>jdbc:mimer:[URL-field-list][property-list]</span><span style='font-size:
+  10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>jdbc:mimer://hello/testDB</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><b><i><span style='font-size:
+14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>Ingres<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>Ingres JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The Ingres JDBC driver is part
+  of the Ingres software<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>iijdbc.jar<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>ca.ingres.jdbc.IngresDriver</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span lang=EN style='mso-ansi-language:
+  EN'>jdbc:ingres://host:port/db;attr=value<o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'><span style="mso-spacerun:
+  yes"> </span>Example :- <span style='font-size:10.0pt;font-family:"Courier New"'>jdbc:ingres://hello:II7/testdb</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>The URL parameters are as follows:<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN
+  style='mso-ansi-language:EN'>host</span></b><span lang=EN style='mso-ansi-language:
+  EN'>—the network name or address of the host on which the target DAS is
+  running.<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN
+  style='mso-ansi-language:EN'>port</span></b><span lang=EN style='mso-ansi-language:
+  EN'>—the network port used by the DAS . This can be a numeric port number or
+  an Ingres symbolic port address such as II7.<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN
+  style='mso-ansi-language:EN'>db</span></b><span lang=EN style='mso-ansi-language:
+  EN'>—the target database specification. Any valid Ingres database designation
+  can be used including vnode and server class (that is,
+  vnode::dbname/server_class).<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN
+  style='mso-ansi-language:EN'>attr</span></b><span lang=EN style='mso-ansi-language:
+  EN'>=value—optional attribute name and value pair. Multiple attribute pairs
+  are separated by a semi-colon.<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span lang=EN
+  style='font-size:10.0pt;font-family:Verdana;color:black;mso-ansi-language:
+  EN'><span style="mso-spacerun: yes"> </span></span>Note:</b> Please refer the
+  Ingres r3 Connectivity guide(comes along with the software)</p>
+  <p class=MsoNormal style='line-height:14.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+lang=EN style='mso-ansi-language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.25in;line-height:14.0pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>DB2 UDB<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>DB2 UDB JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The DB2 UDB JDBC driver is part
+  of the DB2 UDB software<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>db2jcc.jar,
+  db2jcc_license_cu.jar<span style='font-size:10.0pt;font-family:Verdana;
+  color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>com.ibm.db2.jcc.DB2Driver</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>jdbc:db2://<var>host</var>:<var>port_number</var>/<var>database_name<o:p></o:p></var></p>
+  <p class=MsoNormal style='line-height:14.0pt'><span style="mso-spacerun:
+  yes"> </span>Example :- <span style='font-size:10.0pt;font-family:"Courier New"'>jdbc:db2://HELLO:50000/TestDB</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='margin-left:1.0in;text-indent:-67.15pt;tab-stops:
+  4.85pt 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>The URL parameters:<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-top:12.0pt;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-67.15pt;tab-stops:
+  4.85pt 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>host</b></var><b>
+  -</b><span lang=EN style='mso-ansi-language:EN'> The network name or address
+  of the host on which the target database server is<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:1.5in;text-indent:-67.15pt;tab-stops:
+  4.85pt 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>running.<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-top:0in;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-67.15pt;tab-stops:
+  4.85pt 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>port_number</b></var><b><span
+  style="mso-spacerun: yes">  </span>-</b>The port number used to connect to
+  the server. To determine the port number, enter the following command from
+  the DB2 command line at the server machine: db2jstrt port#</p>
+  <p class=MsoNormal style='margin-top:0in;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-67.15pt;tab-stops:
+  4.85pt 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>database_name</b></var><b>
+  -</b>The database to which you are connecting.</p>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'><span style="mso-spacerun: yes"> </span></span></b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+lang=EN style='mso-ansi-language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='margin-left:.25in;line-height:14.0pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:14.0pt;
+mso-list:l0 level1 lfo2;tab-stops:list .5in'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>McKoi</span></i> </b><b><i><span style='font-size:14.0pt;font-family:
+Arial'>1.0 (A pure java database engine)<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>Mckoi JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The McKoi<span
+  style="mso-spacerun: yes">  </span>JDBC driver is part of the Mckoi software<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>mkjdbc.jar<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='color:black'>com.mckoi.JDBCDriver</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><code><span style='font-size:
+  10.0pt;font-family:"Courier New"'>jdbc:mckoi://<b><i>host</i></b><i>[:<b>port</b>][/<b>schema</b>]</i>/</span></code>
+  </p>
+  <p class=MsoNormal style='line-height:14.0pt'><span style="mso-spacerun:
+  yes"> </span>Example :- <span style='font-size:10.0pt;font-family:"Courier New"'>jdbc:mckoi://localhost/</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>The URL parameters:<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-top:12.0pt;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:4.85pt;margin-bottom:.0001pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>host</b></var><b>
+  -</b><span lang=EN style='mso-ansi-language:EN'> The network name or address
+  of the host on which the target database server is<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>running.<o:p></o:p></span></p>
+  <pre style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:
+  4.85pt;margin-bottom:.0001pt'><var><b><span style='font-size:12.0pt;
+  mso-bidi-font-size:10.0pt;font-family:"Times New Roman"'>port</span></b></var><b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;font-family:"Times New Roman"'><span style="mso-spacerun: yes">  </span>-</span></b><span
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;font-family:"Times New Roman"'>The port number used to connect to the server. The :port is optional and if not given the driver will <o:p></o:p></span></pre><pre
+  style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:4.85pt;
+  margin-bottom:.0001pt'><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt;
+  font-family:"Times New Roman"'>attempt to connect to the default port of 9157.<o:p></o:p></span></pre><pre
+  style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:4.85pt;
+  margin-bottom:.0001pt'><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt;
+  font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></pre>
+  <p class=MsoNormal style='margin-left:4.85pt;line-height:14.0pt;tab-stops:
+  45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><b><span
+  style="mso-spacerun: yes"> </span>schema</b>-The /<b>schema</b> part is also
+  optional. If the schema part is included, the JDBC<sup><span
+  style='mso-bidi-font-size:7.5pt'>TM</span></sup> driver will attempt to
+  initialize the connection in the given schema after successfully connecting
+  to the database. If the <b>schema</b> is not included in the URL, the engine
+  will attempt to initialize the connection in a schema with the same name as
+  the username. If the engine is unable to find the schema, the connection will
+  default to the '<code><span style='mso-ansi-font-size:12.0pt;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
+  "Times New Roman"'>APP</span></code>' schema.<b><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'> <o:p></o:p></span></b></p>
+  <p class=MsoNormal style='margin-left:67.85pt;line-height:14.0pt;tab-stops:
+  45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:.25in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.25in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in left 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportLists]><b><i><span
+style='font-size:14.0pt;font-family:Arial'>10.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></i></b><![endif]><b><i><span style='font-size:14.0pt;font-family:
+Arial'>Informix<o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='margin-left:.25in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>Informix JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>Unzip the JDBC.2.21.JC6.zip file and execute
+  setup.jar<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>ifxjdbc.jar<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>com.informix.jdbc.IfxDriver<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span style='font-size:10.0pt;
+  font-family:Verdana;color:black'>jdbc:informix-sqli://&lt;host&gt;:&lt;port&gt;/&lt;database&gt;:informixserver=&lt;dbservername&gt;</span></p>
+  <p class=MsoNormal style='line-height:14.0pt'><span style="mso-spacerun:
+  yes"> </span>Ex:-<span style='font-size:10.0pt;font-family:"Courier New"'>jdbc:informix-sqli://hello:1527/stores_demo:informixserver=ol_hello1</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <h4><span lang=EN>Link</span></h4>
+  <p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN
+  style='mso-ansi-language:EN'><a
+  href="http://www14.software.ibm.com/webapp/download/search.jsp?go=y&amp;rs=ifxjdbc">Download
+  Driver</a><o:p></o:p></span></b></p>
+  <p class=MsoNormal style='margin-left:1.0in;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>The URL parameters:<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-top:12.0pt;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:4.85pt;margin-bottom:.0001pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>host</b></var><b>
+  -</b><span lang=EN style='mso-ansi-language:EN'> The network name or address
+  of the host on which the target database server is<o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:4.85pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+  mso-layout-grid-align:none;text-autospace:none'><span lang=EN
+  style='mso-ansi-language:EN'>running.<o:p></o:p></span></p>
+  <pre style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:
+  4.85pt;margin-bottom:.0001pt'><var><b>port</b></var><b><span style="mso-spacerun: yes">  </span>-</b>The port number used to connect to the server.</pre><pre
+  style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:4.85pt;
+  margin-bottom:.0001pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></pre>
+  <p class=MsoNormal style='margin-top:0in;margin-right:12.0pt;margin-bottom:
+  0in;margin-left:4.85pt;margin-bottom:.0001pt;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><var><b>database</b></var><b>
+  -</b>The database to which you are connecting.. </p>
+  <pre style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:
+  4.85pt;margin-bottom:.0001pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></pre><pre
+  style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:4.85pt;
+  margin-bottom:.0001pt'><b><span style='font-family:Verdana;color:black'>dbservername</span></b> -The database server name</pre><pre
+  style='margin-top:0in;margin-right:12.0pt;margin-bottom:0in;margin-left:1.0in;
+  margin-bottom:.0001pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></pre>
+  <p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Notes: </span></b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Follow the
+  instructions provided with the downloaded file</span></p>
+  <p class=MsoNormal style='margin-left:67.85pt;line-height:14.0pt;tab-stops:
+  45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-left:67.85pt;line-height:14.0pt;tab-stops:
+  45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:.25in;line-height:14.0pt'><b><i><span
+style='font-size:14.0pt;font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></b></p>
+
+<ol style='margin-top:0in' start=11 type=1>
+ <li class=MsoNormal style='line-height:14.0pt;mso-list:l0 level1 lfo2;
+     tab-stops:list .5in'><b><i><span style='font-size:14.0pt;font-family:Arial'>MS
+     Access </span></i></b><span style='font-size:10.0pt;font-family:Verdana'><o:p></o:p></span></li>
+</ol>
+
+<p class=MsoNormal style='margin-left:.25in;line-height:14.0pt'><span
+style='font-size:10.0pt;font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width="89%" bgcolor=white
+ style='width:89.3%;mso-cellspacing:0in;background:white;border:solid black .75pt;
+ mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b>MS Access JDBC Driver </b><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>The MS Access type 4 JDBC
+  driver can be downloaded from the link mentioned below<span style='font-size:
+  10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Files<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p style='margin:0in;margin-bottom:.0001pt;line-height:14.0pt'>Access_JDBC30.jar<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>Driver Class:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'>com.hxtt.sql.access.AccessDriver<span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal align=right style='text-align:right;line-height:14.0pt'><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'>URL:<o:p></o:p></span></p>
+  </td>
+  <td style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><span lang=EN style='mso-ansi-language:
+  EN'>jdbc:access:/&lt;drive&gt;:/&lt;file name&gt;<o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:14.0pt'>Example :- <span
+  style='font-size:10.0pt;font-family:"Courier New"'>jdbc:access:/f:/FPNWIND.mdb</span><span
+  style='font-size:10.0pt;font-family:Verdana;color:black'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 valign=top style='border:solid black .75pt;padding:3.0pt 3.0pt 3.0pt 3.0pt'>
+  <p class=MsoNormal style='line-height:14.0pt'><b><span lang=EN
+  style='mso-ansi-language:EN'>Link</span></b><span lang=EN style='mso-ansi-language:
+  EN'> <b><a href="http://www.hxtt.com/">Download Driver</a></b><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>
