@@ -1,7 +1,8 @@
 Sistemas:
 *Agregar CU registrar reclamo a cliente ( tiene que extender de consultar clientes morosos)
 *Agregar CU Administrar Empresa de Mantenimiento
-*cambiar nombre cliente web por responsable web
+Agregar CU Asignar materia prima a Proveedor
+Agregar CU Consultar calendario
 *Tener en cuenta que en negocio se hizo un cu de sseguimiento de vencimientos de facturas y aparte 
 	el cobro del mismo
 
