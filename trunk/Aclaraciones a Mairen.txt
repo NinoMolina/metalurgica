@@ -1,6 +1,0 @@
-Aclaraciones a Mairen:
----> En diag de Clases:
-	* clase Rotura: el motivo es porque se puesde producir, y la descripcion es como es la rotura, que afecta.
-	
-
-
