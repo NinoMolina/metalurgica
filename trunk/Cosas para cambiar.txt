@@ -5,6 +5,8 @@ Agregar CU Asignar materia prima a Proveedor
 Agregar CU Consultar calendario
 *Tener en cuenta que en negocio se hizo un cu de sseguimiento de vencimientos de facturas y aparte 
 	el cobro del mismo
+La pieza no lleva codigo de  barra????
+Y el producto reeal en diag de clases sist????
 
 
 
