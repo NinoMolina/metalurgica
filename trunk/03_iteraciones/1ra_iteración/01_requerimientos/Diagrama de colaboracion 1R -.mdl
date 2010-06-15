@@ -7062,7 +7062,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "Impresora"
+		    (object Class "ImpresorConsultarAgenda()"
 			quid       	"4C16C39C0128"
 			stereotype 	"boundary")
 		    (object Class "Presupuesto"
@@ -7184,6 +7184,12 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
+		    (object Class "ImpresotConsultarPrecioMateriaPrima()"
+			quid       	"4C1780B20089"
+			stereotype 	"boundary")
+		    (object Class "ImpresorConsultarClienete"
+			quid       	"4C1780F8023B"
+			stereotype 	"boundary")
 		    (object Mechanism @27
 			logical_models 	(list unit_reference_list
 			    (object Object "$UNNAMED$399"
@@ -10298,7 +10304,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$459"
 				quid       	"4C176EA301F2"
-				class      	"Logical View::Diagramas de Colaboracion::Impresora"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarAgenda()"
 				quidu      	"4C16C39C0128"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -10847,7 +10853,7 @@
 				    (object Link
 					quid       	"4C16C3A90104"
 					supplier   	"$UNNAMED$475"
-					quidu      	"4C16C39702D5"
+					quidu      	"4C1780AB02C6"
 					messages   	(list Messages
 					    (object Message "imprimir()"
 						quid       	"4C16C3AB0296"
@@ -10915,9 +10921,9 @@
 				creationObj 	FALSE
 				multi      	FALSE)
 			    (object Object "$UNNAMED$475"
-				quid       	"4C16C39702D5"
-				class      	"Logical View::Diagramas de Colaboracion::Impresora"
-				quidu      	"4C16C39C0128"
+				quid       	"4C1780AB02C6"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresotConsultarPrecioMateriaPrima()"
+				quidu      	"4C1780B20089"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)))
@@ -12877,7 +12883,7 @@
 				    (object Link
 					quid       	"4C16EA4B037D"
 					supplier   	"$UNNAMED$511"
-					quidu      	"4C16EA480008"
+					quidu      	"4C1780F1011E"
 					messages   	(list Messages
 					    (object Message "imprimir()"
 						quid       	"4C16EA4F022F"
@@ -13044,9 +13050,9 @@
 				creationObj 	FALSE
 				multi      	FALSE)
 			    (object Object "$UNNAMED$511"
-				quid       	"4C16EA480008"
-				class      	"Logical View::Diagramas de Colaboracion::Impresora"
-				quidu      	"4C16C39C0128"
+				quid       	"4C1780F1011E"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarClienete"
+				quidu      	"4C1780F8023B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)))
@@ -22039,7 +22045,7 @@
 				    location   	(1337, 1071)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	711
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -22108,7 +22114,7 @@
 				    location   	(3271, 715)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -22373,8 +22379,8 @@
 			zoom       	100
 			max_height 	28350
 			max_width  	21600
-			origin_x   	0
-			origin_y   	516
+			origin_x   	1700
+			origin_y   	563
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$454" @472
 				location   	(393, 990)
@@ -22632,7 +22638,7 @@
 				    location   	(2489, 1822)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	711
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -23165,7 +23171,7 @@
 			zoom       	100
 			max_height 	28350
 			max_width  	21600
-			origin_x   	613
+			origin_x   	612
 			origin_y   	0
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$460" @511
@@ -23213,7 +23219,7 @@
 				    location   	(1348, 1096)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	865
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -23244,7 +23250,7 @@
 				    location   	(2389, 1106)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	680
+				    max_width  	648
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -23343,7 +23349,7 @@
 				    location   	(3387, 881)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1187
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -23373,7 +23379,7 @@
 				    location   	(3657, 1487)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1102
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -24347,7 +24353,7 @@
 				    location   	(1236, 1156)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	711
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -24540,7 +24546,7 @@
 				    location   	(3790, 709)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -24648,7 +24654,7 @@
 				    location   	(4205, 1356)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	488
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -24662,38 +24668,7 @@
 				subobjects 	0
 				x_offset   	0.000000
 				y_offset   	0.000000)
-			    (object ObjectView "$UNNAMED$475" @583
-				location   	(1952, 1703)
-				font       	(object Font
-				    size       	9
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@583
-				    location   	(1951, 1859)
-				    anchor_loc 	1
-				    nlines     	2
-				    max_width  	711
-				    justify    	0
-				    label      	"")
-				icon       	"boundary"
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4C16C39702D5"
-				width      	230
-				height     	154
-				annotation 	4
-				autoResize 	TRUE
-				subobjects 	0
-				x_offset   	0.000000
-				y_offset   	0.000000)
-			    (object NoteView @584
+			    (object NoteView @583
 				location   	(806, 1425)
 				font       	(object Font
 				    size       	9
@@ -24705,7 +24680,7 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@584
+				    Parent_View 	@583
 				    location   	(171, 1322)
 				    fill_color 	13434879
 				    nlines     	4
@@ -24719,6 +24694,37 @@
 				fill_color 	13434879
 				width      	1295
 				height     	219)
+			    (object ObjectView "$UNNAMED$475" @584
+				location   	(2238, 1674)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@584
+				    location   	(2237, 1830)
+				    anchor_loc 	1
+				    nlines     	2
+				    max_width  	693
+				    justify    	0
+				    label      	"")
+				icon       	"boundary"
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4C1780AB02C6"
+				width      	230
+				height     	154
+				annotation 	4
+				autoResize 	TRUE
+				subobjects 	0
+				x_offset   	0.000000
+				y_offset   	0.000000)
 			    (object LinkView "" @585
 				stereotype 	TRUE
 				line_color 	3342489
@@ -25078,10 +25084,10 @@
 				line_color 	3342489
 				quidu      	"4C16C3A90104"
 				client     	@569
-				supplier   	@583
+				supplier   	@584
 				line_style 	0)
 			    (object MessView "" @606
-				location   	(2268, 1458)
+				location   	(2448, 1429)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -25094,7 +25100,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @607
 				    Parent_View 	@606
-				    location   	(2301, 1488)
+				    location   	(2487, 1451)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -25105,9 +25111,8 @@
 					color      	0
 					default_color 	TRUE)
 				    quidu      	"4C16C3AB0296"
-				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	231
+				    max_width  	450
 				    justify    	0
 				    label      	"imprimir()"
 				    pctDist    	0.500000
@@ -25118,8 +25123,8 @@
 				height     	64
 				orientation 	0
 				dir        	1
-				origin     	(2308, 1414)
-				terminus   	(2228, 1502))
+				origin     	(2477, 1377)
+				terminus   	(2419, 1481))
 			    (object LinkView "" @608
 				stereotype 	TRUE
 				line_color 	3342489
@@ -30200,7 +30205,7 @@
 			max_height 	28350
 			max_width  	21600
 			origin_x   	0
-			origin_y   	960
+			origin_y   	56
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$506" @857
 				location   	(255, 928)
@@ -30218,7 +30223,7 @@
 				    location   	(255, 1088)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	399
+				    max_width  	381
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -30247,7 +30252,7 @@
 				    location   	(1421, 1078)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	861
+				    max_width  	693
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -30278,7 +30283,7 @@
 				    location   	(2407, 1091)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	677
+				    max_width  	648
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -30419,7 +30424,7 @@
 				    location   	(3264, 603)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30449,7 +30454,7 @@
 				    location   	(3110, 1453)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30479,7 +30484,7 @@
 				    location   	(3640, 1146)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30509,7 +30514,7 @@
 				    location   	(2272, 1456)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30539,7 +30544,7 @@
 				    location   	(1731, 1750)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30569,7 +30574,7 @@
 				    location   	(2385, 1998)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30599,7 +30604,7 @@
 				    location   	(3113, 2000)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1067
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30613,38 +30618,7 @@
 				subobjects 	0
 				x_offset   	0.000000
 				y_offset   	0.000000)
-			    (object ObjectView "$UNNAMED$511" @873
-				location   	(1757, 271)
-				font       	(object Font
-				    size       	9
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@873
-				    location   	(1756, 427)
-				    anchor_loc 	1
-				    nlines     	2
-				    max_width  	861
-				    justify    	0
-				    label      	"")
-				icon       	"boundary"
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4C16EA480008"
-				width      	230
-				height     	154
-				annotation 	4
-				autoResize 	TRUE
-				subobjects 	0
-				x_offset   	0.000000
-				y_offset   	0.000000)
-			    (object NoteView @874
+			    (object NoteView @873
 				location   	(806, 1425)
 				font       	(object Font
 				    size       	9
@@ -30656,7 +30630,7 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@874
+				    Parent_View 	@873
 				    location   	(171, 1322)
 				    fill_color 	13434879
 				    nlines     	4
@@ -30670,6 +30644,37 @@
 				fill_color 	13434879
 				width      	1295
 				height     	219)
+			    (object ObjectView "$UNNAMED$511" @874
+				location   	(1800, 228)
+				font       	(object Font
+				    size       	9
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@874
+				    location   	(1799, 384)
+				    anchor_loc 	1
+				    nlines     	2
+				    max_width  	693
+				    justify    	0
+				    label      	"")
+				icon       	"boundary"
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4C1780F1011E"
+				width      	230
+				height     	154
+				annotation 	4
+				autoResize 	TRUE
+				subobjects 	0
+				x_offset   	0.000000
+				y_offset   	0.000000)
 			    (object LinkView "" @875
 				stereotype 	TRUE
 				line_color 	3342489
@@ -31113,10 +31118,10 @@
 				line_color 	3342489
 				quidu      	"4C16EA4B037D"
 				client     	@859
-				supplier   	@873
+				supplier   	@874
 				line_style 	0)
 			    (object MessView "" @900
-				location   	(1928, 545)
+				location   	(1948, 509)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -31129,7 +31134,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @901
 				    Parent_View 	@900
-				    location   	(1897, 576)
+				    location   	(1915, 538)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -31142,7 +31147,7 @@
 				    quidu      	"4C16EA4F022F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	231
+				    max_width  	241
 				    justify    	0
 				    label      	"imprimir()"
 				    pctDist    	0.500000
@@ -31153,8 +31158,8 @@
 				height     	72
 				orientation 	0
 				dir        	1
-				origin     	(1969, 587)
-				terminus   	(1887, 503))
+				origin     	(1986, 553)
+				terminus   	(1910, 465))
 			    (object LinkView "" @902
 				stereotype 	TRUE
 				line_color 	3342489
@@ -47970,7 +47975,7 @@
 				icon_style 	"Icon"
 				line_color 	3342489
 				fill_color 	13434879
-				quidu      	"4C16EA480008"
+				quidu      	"4C1780F1011E"
 				width      	662
 				height     	8998
 				icon_height 	153
@@ -47978,7 +47983,7 @@
 				icon_y_offset 	0
 				annotation 	1
 				Focus_Of_Control 	(object Focus_Of_Control "" @2066
-				    location   	(3750, 8661)
+				    location   	(4080, 8661)
 				    line_color 	3342489
 				    InterObjView 	@2065
 				    height     	60
@@ -51665,7 +51670,7 @@
 				    location   	(1445, 1303)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	711
+				    max_width  	693
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
