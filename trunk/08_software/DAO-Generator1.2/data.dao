@@ -140,23 +140,6 @@
   </void> 
   <void property="hashMapDriverDetail"> 
    <void method="put"> 
-    <string>Ingress</string> 
-    <object class="vo.dao.com.JDBCDriverDetail"> 
-     <void property="URLFormat"> 
-      <string>jdbc:ingres://serve:II7/testdb</string> 
-     </void> 
-     <void property="driverClassName"> 
-      <string>ca.ingres.jdbc.IngresDriver</string> 
-     </void> 
-     <void property="driverJarFile"> 
-      <string>Pl. enter the jar file name with complete path</string> 
-     </void> 
-     <void property="driverName"> 
-      <string>Ingress</string> 
-     </void> 
-    </object> 
-   </void> 
-   <void method="put"> 
     <string></string> 
     <object class="vo.dao.com.JDBCDriverDetail"> 
      <void property="URLFormat"> 
@@ -174,16 +157,33 @@
     </object> 
    </void> 
    <void method="put"> 
+    <string>Ingress</string> 
+    <object class="vo.dao.com.JDBCDriverDetail"> 
+     <void property="URLFormat"> 
+      <string>jdbc:ingres://serve:II7/testdb</string> 
+     </void> 
+     <void property="driverClassName"> 
+      <string>ca.ingres.jdbc.IngresDriver</string> 
+     </void> 
+     <void property="driverJarFile"> 
+      <string>Pl. enter the jar file name with complete path</string> 
+     </void> 
+     <void property="driverName"> 
+      <string>Ingress</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="put"> 
     <string>Postgres</string> 
     <object class="vo.dao.com.JDBCDriverDetail"> 
      <void property="URLFormat"> 
-      <string>jdbc:postgresql://localhostr:5432/metalsoft</string> 
+      <string>jdbc:postgresql://localhost:5432/metalsoft</string> 
      </void> 
      <void property="driverClassName"> 
       <string>org.postgresql.Driver</string> 
      </void> 
      <void property="driverJarFile"> 
-      <string>Pl. enter the JDBC jar file with complete path;D:\Mis documentos\Facultad\Proyecto Final\Repositorio\metalurgica\08_software\librerías\jdbc\postgresql-8.3-603.jdbc3.jar</string> 
+      <string></string> 
      </void> 
      <void property="driverName"> 
       <string>Postgres</string> 
@@ -268,7 +268,7 @@
       <string>com.mimer.jdbc.Driver</string> 
      </void> 
      <void property="driverJarFile"> 
-      <string>Pl. Enter the JDBC jar file with complete path.</string> 
+      <string></string> 
      </void> 
      <void property="driverName"> 
       <string>MimerSql</string> 
