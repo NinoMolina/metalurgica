@@ -53,4 +53,6 @@ Tb saque codigo de barra porq eso va en el prod real
 
 Agregue la clase estado Producto real
 
+agregue clase estado ejecucion proceso calidad
+
 BUeno corregí otras cosas pero me canse de escribir en este block... je je
