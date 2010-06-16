@@ -1,0 +1,56 @@
+Cambios realizados:
+ 
+en trabajo tercerizado: fechaEntregaReq (agr)
+
+en Detalle Compra: saque nroCompra
+
+en Cliente saque boolean es moroso. Se tiene q ver el estado
+agregue conocer Estado, usuario, pedido
+
+Compra: agre conocerEstadoCompra, proveedor, detalle
+        saque conocerPago (No entra en el dominio)
+        cambie PRecioHistorico x PrecioUnitario
+        agregue cancelacion
+
+matriz: saque observaciones xq es lo mismo que descripcion 
+agregue conocer materia prima, conocer tipomaterial
+
+Materia Prima: agregue conocer codigo, tipomaterial
+agregue dimensiones
+
+Persona Juridica: agr. conocer domicilio, responsable
+
+persona: agre. conocer domicilio, tipodoc
+
+empleado: saque conocer tipodoc, sueldo
+agr. conocer usuario
+
+maquina: agregue: conocer marca, estado, tipomaq
+agregue fecha alta y fecha baja
+
+Mantenimiento Preventivo: agregue metodo calcular prox mant prev
+
+Provincia, Loaclidad, Barrio y Domicilio: agregue  todos los conocer
+a todos los reclamos les agregue los conocer
+
+Pieza saque conocer Calidad
+agreg todos los conocery atributo item: Pieza Real
+
+pieza Real: agregue codigobarra: codigoBArra
+
+pedido: agregue todos los conocer
+
+Agregue los 3 planes
+
+Factura saque conocer cobro q no existe y agregue conocer
+
+Planificacion: agregue atributos y metodos charlados en clase  
+
+DetallePedido: agregue  los conocer
+
+Producto:saque atributo stock.No tenemos stock de productos ademas producto es generico
+Tb saque codigo de barra porq eso va en el prod real
+
+Agregue la clase estado Producto real
+
+BUeno corregí otras cosas pero me canse de escribir en este block... je je
