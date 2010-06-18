@@ -1,16 +1,11 @@
 Sistemas:
-*Agregar CU registrar reclamo a cliente ( tiene que extender de consultar clientes morosos)
-*Agregar CU Administrar Empresa de Mantenimiento
-Agregar CU Asignar materia prima a Proveedor
-Agregar CU Consultar calendario
+CU registrar reclamo a cliente y los 4 correspondientes a la empresa de mantenimiento ( tiene que extender de consultar clientes morosos) está agregado a la tabla de objetivos, pero no entre en la primera iteración, por eso no está hecha la espec en t fino.
+
+
 *Tener en cuenta que en negocio se hizo un cu de sseguimiento de vencimientos de facturas y aparte 
 	el cobro del mismo
-La pieza no lleva codigo de  barra????
-Y el producto reeal en diag de clases sist????
 
 
 
 
-
-Agregar en el glosario terminos presupuest, pedido de cotizacion del cliente, y pedido de cotizacion a proveedor
 
