@@ -5,7 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
-import Datos.PostgreSQLManager;
+import metalsoft.datos.PostgreSQLManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
