@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package Datos;
+package metalsoft.datos;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
