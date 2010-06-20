@@ -5,7 +5,7 @@
 
 package metalsoft.datos.dao;
 
-import Datos.PostgreSQLManager;
+import metalsoft.datos.PostgreSQLManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import metalsoft.datos.dbobject.Usuario;
