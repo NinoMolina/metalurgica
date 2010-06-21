@@ -4947,7 +4947,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$226"
 					quid       	"4BCBE9B3037C"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresas Metalúrgicas"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresa Metalúrgica"
 					quidu      	"4BCBDF930245"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$227"
@@ -5236,7 +5236,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$297"
 					quid       	"4BCBEFC50292"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real Producción"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real de Producción"
 					quidu      	"4BCBEBD501E7"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$298"
@@ -5320,7 +5320,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$318"
 					quid       	"4BCBEFD102FC"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Productos"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Producto"
 					quidu      	"4BCBECD80194"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$319"
@@ -5344,7 +5344,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$324"
 					quid       	"4BCBEFD5018E"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Productos"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Producto"
 					quidu      	"4BCBECC802C7"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$325"
@@ -5356,7 +5356,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$327"
 					quid       	"4BCBEFD7013D"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Elimiar Producto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Eliminar Producto"
 					quidu      	"4BCBECD202B7"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$328"
@@ -5440,7 +5440,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$348"
 					quid       	"4BCBEFEC011C"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envio a Mantenimiento Correctivo de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina"
 					quidu      	"4BCBED6A0260"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$349"
@@ -5452,7 +5452,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$351"
 					quid       	"4BCBEFEE0157"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Maquina de Reparacion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Máquina de Reparación"
 					quidu      	"4BCBED970237"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$352"
@@ -5464,7 +5464,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$354"
 					quid       	"4BCBEFEF03C5"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Máquina"
 					quidu      	"4BCBEC73016B"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$355"
@@ -5476,7 +5476,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$357"
 					quid       	"4BCBEFF100B6"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Máquina"
 					quidu      	"4BCBEC5F013D"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$358"
@@ -5488,7 +5488,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$360"
 					quid       	"4BCBEFF2018F"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Máquina"
 					quidu      	"4BCBEC660299"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$361"
@@ -6064,7 +6064,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$504"
 					quid       	"4BCBFD980220"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleados"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleado"
 					quidu      	"4BCBFCFD0215"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$505"
@@ -6160,7 +6160,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$528"
 					quid       	"4BCC0FF30246"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Máquina"
 					quidu      	"4BCC0F9403A9"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$529"
@@ -6172,7 +6172,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$531"
 					quid       	"4BCC133001F9"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Máquina"
 					quidu      	"4BCC12CC03D1"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$532"
@@ -6184,7 +6184,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$534"
 					quid       	"4BCC13320282"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Máquina"
 					quidu      	"4BCC12CE0219"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$535"
@@ -6196,7 +6196,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$537"
 					quid       	"4BCC133401F3"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Máquina"
 					quidu      	"4BCC12D00061"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$538"
@@ -6208,7 +6208,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$540"
 					quid       	"4BCC13850078"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Máquina"
 					quidu      	"4BCC12CF0227"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$541"
@@ -6244,7 +6244,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$549"
 					quid       	"4BE57B3F025E"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::123. Registrar Ingreso de Cotizacion de Trabajo"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::123. Registrar Ingreso de Cotización de Trabajo"
 					quidu      	"4BE57A8103CE"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$550"
@@ -6292,7 +6292,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$561"
 					quid       	"4BE582F20143"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::12. Consultar Listado de Procedimientos Para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::12. Consultar Plan de Procedimientos Para Presupuesto"
 					quidu      	"4BE582B5006D"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$562"
@@ -6304,7 +6304,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$564"
 					quid       	"4BE584B00232"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::13. Consultar Listado de Procedimientos de Control de Calidad"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::13. Consultar Plan de Procesos de Control de Calidad"
 					quidu      	"4BE58382027F"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$565"
@@ -6340,7 +6340,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$573"
 					quid       	"4BE59017032B"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envio de Mantenimiento Correctivo de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envío de Mantenimiento Correctivo de Máquina"
 					quidu      	"4BE58AEC00FE"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$574"
@@ -6364,7 +6364,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$579"
 					quid       	"4BE590CB02A8"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envio de Mantenimiento Preventivo de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina"
 					quidu      	"4BE58A7403B1"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$580"
@@ -6376,7 +6376,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$582"
 					quid       	"4BE590D30069"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envio de Mantenimiento Preventivo de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envío de Mantenimiento Preventivo de Máquina"
 					quidu      	"4BE58AC80157"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$583"
@@ -6388,7 +6388,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$585"
 					quid       	"4BE5922C0341"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Generar Listado Materia Prima para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto"
 					quidu      	"4BE591B70093"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$586"
@@ -6400,7 +6400,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$588"
 					quid       	"4BE592340170"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Generar Listado Procedimientos para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Registrar Plan de Procedimientos para Presupuesto"
 					quidu      	"4BE591FA0095"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$589"
@@ -6412,7 +6412,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$591"
 					quid       	"4BE59596000D"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización"
 					quidu      	"4BE594BB036E"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$592"
@@ -6436,7 +6436,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$597"
 					quid       	"4BE59A230352"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción"
 					quidu      	"4BE598C50247"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$598"
@@ -6448,7 +6448,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$600"
 					quid       	"4BE59ACE0251"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Generar Listado de Procedimientos de Control de Calidad"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Registrar Plan de Procesos de Control de Calidad"
 					quidu      	"4BE59AA8001D"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$601"
@@ -6472,7 +6472,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$606"
 					quid       	"4BE59C060000"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotizacion Web"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotización Web"
 					quidu      	"4BE59BF20252"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$607"
@@ -6544,7 +6544,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$624"
 					quid       	"4BE5B38E039B"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Producción"
 					quidu      	"4BE5B3730165"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$625"
@@ -6580,7 +6580,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$633"
 					quid       	"4BE5B4F0022B"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Codigo de Barra"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Código de Barra"
 					quidu      	"4BE5B4CE02A6"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$634"
@@ -6592,7 +6592,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$636"
 					quid       	"4BE5B4F70173"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Codigo de Barra"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Código de Barra"
 					quidu      	"4BE5B4CE02A6"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$637"
@@ -6604,7 +6604,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$639"
 					quid       	"4BE5B50201B3"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Producción"
 					quidu      	"4BE5B48A0389"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$640"
@@ -6628,7 +6628,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$645"
 					quid       	"4BE5B55B0060"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Producción"
 					quidu      	"4BE5B3F201E2"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$646"
@@ -6652,7 +6652,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$651"
 					quid       	"4BE5B57101F7"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Producción"
 					quidu      	"4BE5B3730165"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$652"
@@ -6700,7 +6700,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$663"
 					quid       	"4BCBFE3F0138"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Eliminar Pedido Cotización Web"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Registrar Baja Pedido Cotización Web"
 					quidu      	"4BCBFE1A03CE"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$664"
@@ -6820,7 +6820,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$693"
 					quid       	"4BE64E430309"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Produccion Realizada"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Producción Realizada"
 					quidu      	"4BE64D840128"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$694"
@@ -6832,7 +6832,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$696"
 					quid       	"4BE64E6901CB"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadistico de Produccion"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadístico de Producción"
 					quidu      	"4BE64DD1014E"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$697"
@@ -6844,7 +6844,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$699"
 					quid       	"4BE64EEB01D4"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Maquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Máquina"
 					quidu      	"4BE64EC700A7"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$700"
@@ -6856,7 +6856,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$702"
 					quid       	"4BE64F6301AA"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadistico de Calidad"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadístico de Calidad"
 					quidu      	"4BE64F2B00CB"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$703"
@@ -6940,7 +6940,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$723"
 					quid       	"4BE9201C02B4"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Generar Listado Materia Prima para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto"
 					quidu      	"4BE591B70093"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$724"
@@ -6952,7 +6952,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$726"
 					quid       	"4BE920200175"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Generar Listado Procedimientos para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Registrar Plan de Procedimientos para Presupuesto"
 					quidu      	"4BE591FA0095"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$727"
@@ -6964,7 +6964,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$729"
 					quid       	"4BFC2B830301"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Listado de Materia Prima Para Presupuesto"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Plan de Requerimientos de Materia Prima Para Presupuesto"
 					quidu      	"4BE58279012A"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$730"
@@ -6976,7 +6976,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$732"
 					quid       	"4BFC2C0000F2"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::10. Consultar Agenda"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::10. Consultar Dsiponibilidad Horaria"
 					quidu      	"4BCBE00203A6"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$733"
@@ -7621,7 +7621,7 @@
 					quid       	"4BCBF93B008C")
 				    (object UseCase "30. Modificar Pedido"
 					quid       	"4BCBF45A0138")
-				    (object UseCase "46. Eliminar Pedido Cotización Web"
+				    (object UseCase "46. Registrar Baja Pedido Cotización Web"
 					quid       	"4BCBFE1A03CE")
 				    (object UseCase "21. Registrar Baja Cliente"
 					quid       	"4BCBF3760285")
@@ -7661,19 +7661,19 @@
 					    (object Dependency_Relationship
 						quid       	"4BE8E30B01B2"
 						stereotype 	"include"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Listado de Materia Prima Para Presupuesto"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Plan de Requerimientos de Materia Prima Para Presupuesto"
 						quidu      	"4BE58279012A")
 					    (object Dependency_Relationship
 						quid       	"4BE8E34D0384"
 						stereotype 	"include"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización"
 						quidu      	"4BE594BB036E")
 					    (object Dependency_Relationship
 						quid       	"4BE8EB4E00BE"
 						stereotype 	"include"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::14. Consultar Precio Materia Prima"
 						quidu      	"4BCBDFB701BD")))
-				    (object UseCase "10. Consultar Agenda"
+				    (object UseCase "10. Consultar Dsiponibilidad Horaria"
 					quid       	"4BCBE00203A6"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
@@ -7689,7 +7689,7 @@
 					quid       	"4BE57AA50365")
 				    (object UseCase "16. Modificar Presupuesto"
 					quid       	"4BE57A9A029D")
-				    (object UseCase "11. Consultar Listado de Materia Prima Para Presupuesto"
+				    (object UseCase "11. Consultar Plan de Requerimientos de Materia Prima Para Presupuesto"
 					quid       	"4BE58279012A"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
@@ -7707,7 +7707,7 @@
 						stereotype 	"extend"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::9. Generar Presupuesto"
 						quidu      	"4BCBDAE50354")))
-				    (object UseCase "12. Consultar Listado de Procedimientos Para Presupuesto"
+				    (object UseCase "12. Consultar Plan de Procedimientos Para Presupuesto"
 					quid       	"4BE582B5006D"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
@@ -7715,14 +7715,16 @@
 						stereotype 	"include"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::9. Generar Presupuesto"
 						quidu      	"4BCBDAE50354")))
-				    (object UseCase "13. Consultar Listado de Procedimientos de Control de Calidad"
+				    (object UseCase "13. Consultar Plan de Procesos de Control de Calidad"
 					quid       	"4BE58382027F"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
 						quid       	"4BE8EA8502A1"
 						stereotype 	"extend"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::9. Generar Presupuesto"
-						quidu      	"4BCBDAE50354"))))
+						quidu      	"4BCBDAE50354")))
+				    (object UseCase "31. Registrar Reclamo a Cliente"
+					quid       	"4C1F8BF7008C"))
 				logical_presentations 	(list unit_reference_list
 				    (object UseCaseDiagram "DCU Gestión de Ventas"
 					quid       	"4BE5E98A00B4"
@@ -7922,7 +7924,7 @@
 							    (2856, 637)
 							    (2740, 694))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Eliminar Pedido Cotización Web" @226
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Registrar Baja Pedido Cotización Web" @226
 						location   	(2612, 312)
 						font       	(object Font
 						    size       	9
@@ -7940,7 +7942,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"46. Eliminar Pedido Cotización Web")
+						    label      	"46. Registrar Baja Pedido Cotización Web")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -12153,7 +12155,9 @@
 				    (object UseCase "51. Registrar Proveedor"
 					quid       	"4BCBDB6B0155")
 				    (object UseCase "61. Registrar Reclamo a Proveedor"
-					quid       	"4BCBE0110053"))
+					quid       	"4BCBE0110053")
+				    (object UseCase "5. Asignar Materia Prima a Proveedor"
+					quid       	"4C1F89860213"))
 				logical_presentations 	(list unit_reference_list
 				    (object UseCaseDiagram "DCU Gestión de Compras"
 					quid       	"4BE5E139019C"
@@ -14124,9 +14128,9 @@
 					quid       	"4BCBECB30181")
 				    (object UseCase "87. Consultar Máquina"
 					quid       	"4BCBEDF9017B")
-				    (object UseCase "74. Consultar Pedido de Cotizacion"
+				    (object UseCase "74. Consultar Pedido de Cotización"
 					quid       	"4BE594BB036E")
-				    (object UseCase "75. Consultar Pedido de Cotizacion Web"
+				    (object UseCase "75. Consultar Pedido de Cotización Web"
 					quid       	"4BE59BF20252")
 				    (object UseCase "79. Consultar Pieza"
 					quid       	"4BCBDFD9010A"
@@ -14156,11 +14160,11 @@
 						quidu      	"4BCBEC99011F")))
 				    (object UseCase "91. Consultar Tipo Material"
 					quid       	"4BCBEC5000F7")
-				    (object UseCase "84. Elimiar Producto"
+				    (object UseCase "84. Eliminar Producto"
 					quid       	"4BCBECD202B7")
 				    (object UseCase "65. Eliminar Etapa Producción"
 					quid       	"4BCBECBD00B6")
-				    (object UseCase "88. Eliminar Maquina"
+				    (object UseCase "88. Eliminar Máquina"
 					quid       	"4BCBEC73016B")
 				    (object UseCase "80. Eliminar Pieza"
 					quid       	"4BCBEDE80148")
@@ -14168,25 +14172,25 @@
 					quid       	"4BCBEC7C01AB")
 				    (object UseCase "72. Generar Lista de Materia Prima Necesaria a Comprar"
 					quid       	"4BCBEC1D001D")
-				    (object UseCase "70. Generar Listado Materia Prima para Presupuesto"
+				    (object UseCase "70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto"
 					quid       	"4BE591B70093"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
 						quid       	"4BE5951403DA"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización"
 						quidu      	"4BE594BB036E")))
-				    (object UseCase "68. Generar Listado Procedimientos para Presupuesto"
+				    (object UseCase "68. Registrar Plan de Procedimientos para Presupuesto"
 					quid       	"4BE591FA0095"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
 						quid       	"4BE5951F00FA"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización"
 						quidu      	"4BE594BB036E")))
 				    (object UseCase "66. Modificar Etapa Producción"
 					quid       	"4BCBECA900F5")
-				    (object UseCase "86. Modificar Maquina"
+				    (object UseCase "86. Modificar Máquina"
 					quid       	"4BCBEC660299")
 				    (object UseCase "78. Modificar Pieza"
 					quid       	"4BCBEDF000AF")
@@ -14198,7 +14202,7 @@
 						stereotype 	"extend"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::30. Modificar Pedido"
 						quidu      	"4BCBF45A0138")))
-				    (object UseCase "82. Modificar Productos"
+				    (object UseCase "82. Modificar Producto"
 					quid       	"4BCBECD80194")
 				    (object UseCase "90. Modificar Tipo Material"
 					quid       	"4BCBEC58002F")
@@ -14215,11 +14219,11 @@
 						stereotype 	"extend"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::62. Registrar Planificación Producción"
 						quidu      	"4BCBEC0E011F")))
-				    (object UseCase "69. Registrar Etapa Real Producción"
+				    (object UseCase "69. Registrar Etapa Real de Producción"
 					quid       	"4BCBEBD501E7")
 				    (object UseCase "71. Registrar Lanzamiento Producción"
 					quid       	"4BCBEBF00323")
-				    (object UseCase "85. Registrar Maquina"
+				    (object UseCase "85. Registrar Máquina"
 					quid       	"4BCBEC5F013D")
 				    (object UseCase "76. Registrar Pedido Matriz"
 					quid       	"4BE594FC00D5"
@@ -14227,13 +14231,13 @@
 					    (object Dependency_Relationship
 						quid       	"4BE595610024"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización"
 						quidu      	"4BE594BB036E")))
 				    (object UseCase "77. Registrar Pieza"
 					quid       	"4BCBEDE00329")
 				    (object UseCase "62. Registrar Planificación Producción"
 					quid       	"4BCBEC0E011F")
-				    (object UseCase "81. Registrar Productos"
+				    (object UseCase "81. Registrar Producto"
 					quid       	"4BCBECC802C7")
 				    (object UseCase "89. Registrar Tipo Material"
 					quid       	"4BCBEC4701F0")
@@ -14310,7 +14314,7 @@
 						quidu      	"4BCBFDEE01B5"
 						annotation 	8
 						autoResize 	TRUE)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotizacion Web" @548
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotización Web" @548
 						location   	(2747, 637)
 						font       	(object Font
 						    size       	9
@@ -14328,7 +14332,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"75. Consultar Pedido de Cotizacion Web")
+						    label      	"75. Consultar Pedido de Cotización Web")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -14788,7 +14792,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEC7C01AB")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real Producción" @571
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real de Producción" @571
 						location   	(1168, 2257)
 						font       	(object Font
 						    size       	9
@@ -14806,7 +14810,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"69. Registrar Etapa Real Producción")
+						    label      	"69. Registrar Etapa Real de Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -14926,7 +14930,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEC5000F7")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Productos" @577
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Producto" @577
 						location   	(2681, 922)
 						font       	(object Font
 						    size       	9
@@ -14944,7 +14948,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"82. Modificar Productos")
+						    label      	"82. Modificar Producto")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -14972,7 +14976,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEC4701F0")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Productos" @579
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Producto" @579
 						location   	(2768, 1653)
 						font       	(object Font
 						    size       	9
@@ -14990,12 +14994,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"81. Registrar Productos")
+						    label      	"81. Registrar Producto")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBECC802C7")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Elimiar Producto" @580
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Eliminar Producto" @580
 						location   	(2760, 1144)
 						font       	(object Font
 						    size       	9
@@ -15013,7 +15017,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"84. Elimiar Producto")
+						    label      	"84. Eliminar Producto")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -15041,7 +15045,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEDF000AF")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Maquina" @582
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Máquina" @582
 						location   	(243, 2049)
 						font       	(object Font
 						    size       	9
@@ -15059,12 +15063,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"88. Eliminar Maquina")
+						    label      	"88. Eliminar Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEC73016B")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Maquina" @583
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Máquina" @583
 						location   	(2434, 572)
 						font       	(object Font
 						    size       	9
@@ -15082,12 +15086,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"85. Registrar Maquina")
+						    label      	"85. Registrar Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBEC5F013D")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Maquina" @584
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Máquina" @584
 						location   	(2818, 1963)
 						font       	(object Font
 						    size       	9
@@ -15105,7 +15109,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"86. Modificar Maquina")
+						    label      	"86. Modificar Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -15156,7 +15160,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5875A03D9")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Generar Listado Materia Prima para Presupuesto" @587
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto" @587
 						location   	(1480, 2532)
 						font       	(object Font
 						    size       	9
@@ -15174,12 +15178,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"70. Generar Listado Materia Prima para Presupuesto")
+						    label      	"70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE591B70093")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Generar Listado Procedimientos para Presupuesto" @588
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Registrar Plan de Procedimientos para Presupuesto" @588
 						location   	(2789, 2301)
 						font       	(object Font
 						    size       	9
@@ -15197,12 +15201,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"68. Generar Listado Procedimientos para Presupuesto")
+						    label      	"68. Registrar Plan de Procedimientos para Presupuesto")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE591FA0095")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion" @589
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización" @589
 						location   	(2075, 2278)
 						font       	(object Font
 						    size       	9
@@ -15220,7 +15224,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"74. Consultar Pedido de Cotizacion")
+						    label      	"74. Consultar Pedido de Cotización")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -17903,7 +17907,7 @@
 					quid       	"4BCBF82C003E")
 				    (object UseCase "111. Eliminar Matriz"
 					quid       	"4BCBF7B40203")
-				    (object UseCase "101. Generar Codigo de Barra"
+				    (object UseCase "101. Generar Código de Barra"
 					quid       	"4BE5B4CE02A6")
 				    (object UseCase "102. Generar Solicitud Reclamo"
 					quid       	"4BE5B1B70073"
@@ -17927,13 +17931,13 @@
 					quid       	"4BCBF7A7034F")
 				    (object UseCase "103. Registrar Armado del Producto"
 					quid       	"4BCBF80C0093")
-				    (object UseCase "104. Registrar Asignacion de Scrap a Produccion"
+				    (object UseCase "104. Registrar Asignacion de Scrap a Producción"
 					quid       	"4BE5B48A0389")
 				    (object UseCase "98. Registrar Egreso de Piezas a Trabajo"
 					quid       	"4BE5B3210091")
 				    (object UseCase "94. Registrar Egreso Materia Prima"
 					quid       	"4BE5B34902B2")
-				    (object UseCase "96. Registrar Entrega de Materia Prima a Produccion"
+				    (object UseCase "96. Registrar Entrega de Materia Prima a Producción"
 					quid       	"4BE5B3730165")
 				    (object UseCase "100. Registrar Entrega de Pieza"
 					quid       	"4BE5B3AA0310")
@@ -17945,7 +17949,7 @@
 						stereotype 	"include"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::110. Consultar Orden de compra"
 						quidu      	"4BE5B2BE0277")))
-				    (object UseCase "95. Registrar Ingreso de Pieza de Produccion"
+				    (object UseCase "95. Registrar Ingreso de Pieza de Producción"
 					quid       	"4BE5B3F201E2")
 				    (object UseCase "97. Registrar Ingreso de Pieza de Trabajo"
 					quid       	"4BE59E1E010B")
@@ -18358,7 +18362,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5B3210091")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Codigo de Barra" @753
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Código de Barra" @753
 						location   	(300, 934)
 						font       	(object Font
 						    size       	9
@@ -18376,12 +18380,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"101. Generar Codigo de Barra")
+						    label      	"101. Generar Código de Barra")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5B4CE02A6")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Produccion" @754
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Producción" @754
 						location   	(312, 1221)
 						font       	(object Font
 						    size       	9
@@ -18399,7 +18403,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"104. Registrar Asignacion de Scrap a Produccion")
+						    label      	"104. Registrar Asignacion de Scrap a Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -18427,7 +18431,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5B4DD0136")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Produccion" @756
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Producción" @756
 						location   	(1665, 2103)
 						font       	(object Font
 						    size       	9
@@ -18445,7 +18449,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"95. Registrar Ingreso de Pieza de Produccion")
+						    label      	"95. Registrar Ingreso de Pieza de Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -18473,7 +18477,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5B3AA0310")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Produccion" @758
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Producción" @758
 						location   	(2576, 1065)
 						font       	(object Font
 						    size       	9
@@ -18491,7 +18495,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"96. Registrar Entrega de Materia Prima a Produccion")
+						    label      	"96. Registrar Entrega de Materia Prima a Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -20395,7 +20399,7 @@
 					quid       	"4BCBFB9001C2")
 				    (object UseCase "121. Eliminar Proceso de Calidad"
 					quid       	"4BCBFB870384")
-				    (object UseCase "119. Generar Listado de Procedimientos de Control de Calidad"
+				    (object UseCase "119. Registrar Plan de Procesos de Control de Calidad"
 					quid       	"4BE59AA8001D")
 				    (object UseCase "117. Modificar Planificación Control de Calidad"
 					quid       	"4BCBEC370199"
@@ -20411,7 +20415,7 @@
 					quid       	"4BCBFB6400C0")
 				    (object UseCase "112. Registrar Planificación de Control de Calidad de Materia Prima"
 					quid       	"4BCBFB510373")
-				    (object UseCase "113. Registrar Planificacion de Control de Calidad de Produccion"
+				    (object UseCase "113. Registrar Planificacion de Control de Calidad de Producción"
 					quid       	"4BE598C50247")
 				    (object UseCase "114. Registrar Planificacion de Control de Calidad de Trabajo"
 					quid       	"4BE5992A0129")
@@ -20421,7 +20425,7 @@
 					    (object Dependency_Relationship
 						quid       	"4BE59A57030F"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Produccion"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción"
 						quidu      	"4BE598C50247")
 					    (object Dependency_Relationship
 						quid       	"4BE59A5A030A"
@@ -20705,7 +20709,7 @@
 						    (1389, 1717)
 						    (1042, 1429))
 						line_style 	0)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Produccion" @873
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción" @873
 						location   	(331, 1419)
 						font       	(object Font
 						    size       	9
@@ -20723,7 +20727,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"113. Registrar Planificacion de Control de Calidad de Produccion")
+						    label      	"113. Registrar Planificacion de Control de Calidad de Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -21623,7 +21627,7 @@
 							    (652, 1160)
 							    (396, 1360))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Generar Listado de Procedimientos de Control de Calidad" @922
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Registrar Plan de Procesos de Control de Calidad" @922
 						location   	(287, 841)
 						font       	(object Font
 						    size       	9
@@ -21641,7 +21645,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"119. Generar Listado de Procedimientos de Control de Calidad")
+						    label      	"119. Registrar Plan de Procesos de Control de Calidad")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -21752,7 +21756,7 @@
 					quid       	"4BCBE0D90200")
 				    (object UseCase "124. Registrar Confirmación de Trabajo Tercerizado"
 					quid       	"4BCBDF6F024F")
-				    (object UseCase "125. Registrar Empresas Metalúrgicas"
+				    (object UseCase "125. Registrar Empresa Metalúrgica"
 					quid       	"4BCBDF930245"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
@@ -21770,7 +21774,7 @@
 						quidu      	"4BCBDAE50354")))
 				    (object UseCase "130. Registrar Reclamo a Empresa Metalúrgica"
 					quid       	"4BCBDFA20365")
-				    (object UseCase "123. Registrar Ingreso de Cotizacion de Trabajo"
+				    (object UseCase "123. Registrar Ingreso de Cotización de Trabajo"
 					quid       	"4BE57A8103CE"))
 				logical_presentations 	(list unit_reference_list
 				    (object UseCaseDiagram "DCU Gestión de Trabajos Tercerizados"
@@ -21810,7 +21814,7 @@
 						quidu      	"4BCBF73B0235"
 						annotation 	8
 						autoResize 	TRUE)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresas Metalúrgicas" @929
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresa Metalúrgica" @929
 						location   	(1349, 1647)
 						font       	(object Font
 						    size       	9
@@ -21828,7 +21832,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"125. Registrar Empresas Metalúrgicas")
+						    label      	"125. Registrar Empresa Metalúrgica")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -22811,7 +22815,7 @@
 					quid       	"4BCBFD120054")
 				    (object UseCase "141. Modificar Tipo Documento"
 					quid       	"4BCBFD37004C")
-				    (object UseCase "135. Registrar Asistencia Empleados"
+				    (object UseCase "135. Registrar Asistencia Empleado"
 					quid       	"4BCBFCFD0215")
 				    (object UseCase "134. Registrar Baja Empleado"
 					quid       	"4BCBFD180195")
@@ -22831,7 +22835,7 @@
 					    (object Dependency_Relationship
 						quid       	"4BE5E7F402DF"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresas Metalúrgicas"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresa Metalúrgica"
 						quidu      	"4BCBDF930245")
 					    (object Dependency_Relationship
 						quid       	"4BE5E8BB0173"
@@ -22876,7 +22880,7 @@
 					    (object Dependency_Relationship
 						quid       	"4BE5E7F80191"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresas Metalúrgicas"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresa Metalúrgica"
 						quidu      	"4BCBDF930245")
 					    (object Dependency_Relationship
 						quid       	"4BE5E8B803B9"
@@ -22908,6 +22912,8 @@
 					quid       	"4BE5F4D9025F")
 				    (object UseCase "137. Modificar Calendario"
 					quid       	"4BE5F4F90151")
+				    (object UseCase "177. Consultar Calendario"
+					quid       	"4C1F94A70119")
 				    (object Association "$UNNAMED$737"
 					quid       	"4BE5F5130195"
 					roles      	(list role_list
@@ -23250,7 +23256,7 @@
 						    (2053, 687)
 						    (1654, 821))
 						line_style 	0)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleados" @994
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleado" @994
 						location   	(514, 1418)
 						font       	(object Font
 						    size       	9
@@ -23268,7 +23274,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"135. Registrar Asistencia Empleados")
+						    label      	"135. Registrar Asistencia Empleado")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -24325,7 +24331,7 @@
 					quid       	"4BE64BCF00A8")
 				    (object UseCase "165. Generar Informe de Reclamos de Cliente"
 					quid       	"4BE64BE1029D")
-				    (object UseCase "166. Generar Informe Estadistico de Calidad"
+				    (object UseCase "166. Generar Informe Estadístico de Calidad"
 					quid       	"4BE64F2B00CB")
 				    (object UseCase "167. Generar Informe de Clientes"
 					quid       	"4BE64BFA0302")
@@ -24335,11 +24341,11 @@
 					quid       	"4BE64C5F02DD")
 				    (object UseCase "170. Generar Informes de Materia prima"
 					quid       	"4BE64CF80034")
-				    (object UseCase "171. Generar Informe de Produccion Realizada"
+				    (object UseCase "171. Generar Informe de Producción Realizada"
 					quid       	"4BE64D840128")
-				    (object UseCase "172. Generar Informe Estadistico de Produccion"
+				    (object UseCase "172. Generar Informe Estadístico de Producción"
 					quid       	"4BE64DD1014E")
-				    (object UseCase "173. Generar Informe de Mantenimiento de Maquina"
+				    (object UseCase "173. Generar Informe de Mantenimiento de Máquina"
 					quid       	"4BE64EC700A7")
 				    (object UseCase "174. Generar Informe de Defectos"
 					quid       	"4BE64F040285")
@@ -24498,7 +24504,7 @@
 							    (1209, 265)
 							    (1350, 211))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadistico de Calidad" @1059
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadístico de Calidad" @1059
 						location   	(1134, 2647)
 						font       	(object Font
 						    size       	9
@@ -24516,7 +24522,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"166. Generar Informe Estadistico de Calidad")
+						    label      	"166. Generar Informe Estadístico de Calidad")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -25014,7 +25020,7 @@
 							    (1662, 1260)
 							    (2037, 1407))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Produccion Realizada" @1085
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Producción Realizada" @1085
 						location   	(2268, 2059)
 						font       	(object Font
 						    size       	9
@@ -25032,12 +25038,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"171. Generar Informe de Produccion Realizada")
+						    label      	"171. Generar Informe de Producción Realizada")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE64D840128")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadistico de Produccion" @1086
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadístico de Producción" @1086
 						location   	(2262, 1759)
 						font       	(object Font
 						    size       	9
@@ -25055,7 +25061,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"172. Generar Informe Estadistico de Produccion")
+						    label      	"172. Generar Informe Estadístico de Producción")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -25272,7 +25278,7 @@
 							    (1628, 1790)
 							    (2152, 1761))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Maquina" @1098
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Máquina" @1098
 						location   	(1776, 2170)
 						font       	(object Font
 						    size       	9
@@ -25290,7 +25296,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"173. Generar Informe de Mantenimiento de Maquina")
+						    label      	"173. Generar Informe de Mantenimiento de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -26225,9 +26231,9 @@
 				quid       	"4BE5CEB3026E"
 				exportControl 	"Public"
 				logical_models 	(list unit_reference_list
-				    (object UseCase "147. Consultar Envio de Mantenimiento Correctivo de Maquina"
+				    (object UseCase "147. Consultar Envío de Mantenimiento Correctivo de Máquina"
 					quid       	"4BE58AEC00FE")
-				    (object UseCase "146. Consultar Envio de Mantenimiento Preventivo de Maquina"
+				    (object UseCase "146. Consultar Envío de Mantenimiento Preventivo de Máquina"
 					quid       	"4BE58AC80157")
 				    (object UseCase "150. Consultar Mantenimiento Preventivo"
 					quid       	"4BCBEC8802C0")
@@ -26237,37 +26243,37 @@
 					    (object Dependency_Relationship
 						quid       	"4BCC100A030B"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Maquina"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Máquina"
 						quidu      	"4BCC0F9403A9")))
-				    (object UseCase "159. Consultar Servicio de Maquina"
+				    (object UseCase "159. Consultar Servicio de Máquina"
 					quid       	"4BCC12CF0227"
 					visible_modules 	(list dependency_list
 					    (object Dependency_Relationship
 						quid       	"4BCC1380039B"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envio a Mantenimiento Correctivo de Maquina"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina"
 						quidu      	"4BCBED6A0260")))
 				    (object UseCase "151. Eliminar Mantenimiento Preventivo"
 					quid       	"4BE589560184")
 				    (object UseCase "156. Eliminar Rotura"
 					quid       	"4BCBED3A0165")
-				    (object UseCase "160. Eliminar Servicio de Maquina"
+				    (object UseCase "160. Eliminar Servicio de Máquina"
 					quid       	"4BCC12D00061")
 				    (object UseCase "149. Modificar Mantenimiento Preventivo"
 					quid       	"4BE5899402C6")
 				    (object UseCase "154. Modificar Rotura"
 					quid       	"4BCBECE20194")
-				    (object UseCase "158. Modificar Servicio de Maquina"
+				    (object UseCase "158. Modificar Servicio de Máquina"
 					quid       	"4BCC12CE0219")
-				    (object UseCase "145. Registrar Envio a Mantenimiento Correctivo de Maquina"
+				    (object UseCase "145. Registrar Envío a Mantenimiento Correctivo de Máquina"
 					quid       	"4BCBED6A0260")
-				    (object UseCase "144. Registrar Envio de Mantenimiento Preventivo de Maquina"
+				    (object UseCase "144. Registrar Envío de Mantenimiento Preventivo de Máquina"
 					quid       	"4BE58A7403B1")
-				    (object UseCase "161. Registrar Ingreso Maquina de Reparacion"
+				    (object UseCase "161. Registrar Ingreso Máquina de Reparación"
 					quid       	"4BCBED970237")
 				    (object UseCase "148. Registrar Mantenimiento Preventivo"
 					quid       	"4BCBED5C02F3")
-				    (object UseCase "152. Registrar Parada De Maquina"
+				    (object UseCase "152. Registrar Parada De Máquina"
 					quid       	"4BCC0F9403A9")
 				    (object UseCase "153. Registrar Rotura"
 					quid       	"4BCBECE000AD"
@@ -26275,10 +26281,18 @@
 					    (object Dependency_Relationship
 						quid       	"4BE596AD0236"
 						stereotype 	"extend"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envio a Mantenimiento Correctivo de Maquina"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina"
 						quidu      	"4BCBED6A0260")))
-				    (object UseCase "157. Registrar Servicio de Maquina"
-					quid       	"4BCC12CC03D1"))
+				    (object UseCase "157. Registrar Servicio de Máquina"
+					quid       	"4BCC12CC03D1")
+				    (object UseCase "178. Registrar Empresa de Mantenimiento"
+					quid       	"4C1F94CD0261")
+				    (object UseCase "179. Consultar Empresa de Mantenimiento"
+					quid       	"4C1F94E801E4")
+				    (object UseCase "180. Modificar Empresa de Mantenimiento"
+					quid       	"4C1F950D0399")
+				    (object UseCase "181. Registrar Baja Empresa de Mantenimiento "
+					quid       	"4C1F95280138"))
 				logical_presentations 	(list unit_reference_list
 				    (object UseCaseDiagram "DCU Gestion de Mantenimiento de Maquinarias"
 					quid       	"4BE5E3B003B8"
@@ -26404,7 +26418,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBED5C02F3")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envio a Mantenimiento Correctivo de Maquina" @1154
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina" @1154
 						location   	(1574, 190)
 						font       	(object Font
 						    size       	9
@@ -26422,7 +26436,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"145. Registrar Envio a Mantenimiento Correctivo de Maquina")
+						    label      	"145. Registrar Envío a Mantenimiento Correctivo de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -26466,7 +26480,7 @@
 						    (2479, 306)
 						    (1682, 201))
 						line_style 	0)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Maquina de Reparacion" @1157
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Máquina de Reparación" @1157
 						location   	(2727, 1152)
 						font       	(object Font
 						    size       	9
@@ -26484,7 +26498,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"161. Registrar Ingreso Maquina de Reparacion")
+						    label      	"161. Registrar Ingreso Máquina de Reparación")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -26512,7 +26526,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCBED4B0021")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Maquina" @1159
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Máquina" @1159
 						location   	(306, 631)
 						font       	(object Font
 						    size       	9
@@ -26530,12 +26544,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"152. Registrar Parada De Maquina")
+						    label      	"152. Registrar Parada De Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCC0F9403A9")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Maquina" @1160
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Máquina" @1160
 						location   	(790, 1668)
 						font       	(object Font
 						    size       	9
@@ -26553,12 +26567,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"157. Registrar Servicio de Maquina")
+						    label      	"157. Registrar Servicio de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCC12CC03D1")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Maquina" @1161
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Máquina" @1161
 						location   	(1269, 1603)
 						font       	(object Font
 						    size       	9
@@ -26576,12 +26590,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"158. Modificar Servicio de Maquina")
+						    label      	"158. Modificar Servicio de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCC12CE0219")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Maquina" @1162
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Máquina" @1162
 						location   	(2398, 956)
 						font       	(object Font
 						    size       	9
@@ -26599,12 +26613,12 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"160. Eliminar Servicio de Maquina")
+						    label      	"160. Eliminar Servicio de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BCC12D00061")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Maquina" @1163
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Máquina" @1163
 						location   	(990, 302)
 						font       	(object Font
 						    size       	9
@@ -26622,7 +26636,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"159. Consultar Servicio de Maquina")
+						    label      	"159. Consultar Servicio de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -26689,7 +26703,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE5899402C6")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envio de Mantenimiento Correctivo de Maquina" @1167
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envío de Mantenimiento Correctivo de Máquina" @1167
 						location   	(365, 896)
 						font       	(object Font
 						    size       	9
@@ -26707,7 +26721,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"147. Consultar Envio de Mantenimiento Correctivo de Maquina")
+						    label      	"147. Consultar Envío de Mantenimiento Correctivo de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -26735,7 +26749,7 @@
 						line_color 	3342489
 						fill_color 	13434879
 						quidu      	"4BE589560184")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envio de Mantenimiento Preventivo de Maquina" @1169
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina" @1169
 						location   	(2755, 687)
 						font       	(object Font
 						    size       	9
@@ -26753,7 +26767,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"144. Registrar Envio de Mantenimiento Preventivo de Maquina")
+						    label      	"144. Registrar Envío de Mantenimiento Preventivo de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -28442,7 +28456,7 @@
 							    (2012, 934)
 							    (2434, 792))
 							line_style 	0)))
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envio de Mantenimiento Preventivo de Maquina" @1261
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envío de Mantenimiento Preventivo de Máquina" @1261
 						location   	(384, 1184)
 						font       	(object Font
 						    size       	9
@@ -28460,7 +28474,7 @@
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"146. Consultar Envio de Mantenimiento Preventivo de Maquina")
+						    label      	"146. Consultar Envío de Mantenimiento Preventivo de Máquina")
 						icon_style 	"Icon"
 						line_color 	3342489
 						fill_color 	13434879
@@ -29626,7 +29640,7 @@
 					fill_color 	16744576
 					quidu      	"4BE59B22014E"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotizacion Web" @1329
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::75. Consultar Pedido de Cotización Web" @1329
 					location   	(3334, 8609)
 					font       	(object Font
 					    size       	9
@@ -29644,13 +29658,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"75. Consultar Pedido de Cotizacion Web")
+					    label      	"75. Consultar Pedido de Cotización Web")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE59BF20252"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Eliminar Pedido Cotización Web" @1330
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::46. Registrar Baja Pedido Cotización Web" @1330
 					location   	(2190, 8513)
 					font       	(object Font
 					    size       	9
@@ -29668,7 +29682,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"46. Eliminar Pedido Cotización Web")
+					    label      	"46. Registrar Baja Pedido Cotización Web")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -31943,7 +31957,7 @@
 					fill_color 	16744576
 					quidu      	"4BE5B3210091"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Codigo de Barra" @1466
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::101. Generar Código de Barra" @1466
 					location   	(4103, 5048)
 					font       	(object Font
 					    size       	9
@@ -31961,13 +31975,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"101. Generar Codigo de Barra")
+					    label      	"101. Generar Código de Barra")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE5B4CE02A6"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Produccion" @1467
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::104. Registrar Asignacion de Scrap a Producción" @1467
 					location   	(4545, 5241)
 					font       	(object Font
 					    size       	9
@@ -31985,7 +31999,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"104. Registrar Asignacion de Scrap a Produccion")
+					    label      	"104. Registrar Asignacion de Scrap a Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
@@ -32015,7 +32029,7 @@
 					fill_color 	16744576
 					quidu      	"4BE5B4DD0136"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Produccion" @1469
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::95. Registrar Ingreso de Pieza de Producción" @1469
 					location   	(4912, 3863)
 					font       	(object Font
 					    size       	9
@@ -32033,7 +32047,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"95. Registrar Ingreso de Pieza de Produccion")
+					    label      	"95. Registrar Ingreso de Pieza de Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -32063,7 +32077,7 @@
 					fill_color 	16744576
 					quidu      	"4BE5B3AA0310"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Produccion" @1471
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::96. Registrar Entrega de Materia Prima a Producción" @1471
 					location   	(4524, 3428)
 					font       	(object Font
 					    size       	9
@@ -32081,7 +32095,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"96. Registrar Entrega de Materia Prima a Produccion")
+					    label      	"96. Registrar Entrega de Materia Prima a Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -33143,7 +33157,7 @@
 					fill_color 	16744576
 					quidu      	"4BCBFD0B02EA"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleados" @1544
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleado" @1544
 					location   	(4999, 7238)
 					font       	(object Font
 					    size       	9
@@ -33161,7 +33175,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"135. Registrar Asistencia Empleados")
+					    label      	"135. Registrar Asistencia Empleado")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -34586,7 +34600,7 @@
 					    (1027, 7917)
 					    (678, 7733))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Produccion" @1627
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción" @1627
 					location   	(420, 7850)
 					font       	(object Font
 					    size       	9
@@ -34604,7 +34618,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"113. Registrar Planificacion de Control de Calidad de Produccion")
+					    label      	"113. Registrar Planificacion de Control de Calidad de Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -34649,7 +34663,7 @@
 					    (1024, 7954)
 					    (740, 7903))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Generar Listado de Procedimientos de Control de Calidad" @1630
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::119. Registrar Plan de Procesos de Control de Calidad" @1630
 					location   	(1795, 8725)
 					font       	(object Font
 					    size       	9
@@ -34667,13 +34681,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"119. Generar Listado de Procedimientos de Control de Calidad")
+					    label      	"119. Registrar Plan de Procesos de Control de Calidad")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE59AA8001D"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadistico de Calidad" @1631
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::166. Generar Informe Estadístico de Calidad" @1631
 					location   	(2357, 8819)
 					font       	(object Font
 					    size       	9
@@ -34691,7 +34705,7 @@
 					    nlines     	2
 					    max_width  	1021
 					    justify    	0
-					    label      	"166. Generar Informe Estadistico de Calidad")
+					    label      	"166. Generar Informe Estadístico de Calidad")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -35572,7 +35586,7 @@
 					fill_color 	8454016
 					quidu      	"4BCBEC7C01AB"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real Producción" @1686
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::69. Registrar Etapa Real de Producción" @1686
 					location   	(1790, 4742)
 					font       	(object Font
 					    size       	9
@@ -35590,7 +35604,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"69. Registrar Etapa Real Producción")
+					    label      	"69. Registrar Etapa Real de Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -35739,7 +35753,7 @@
 					fill_color 	8454016
 					quidu      	"4BCBEC5000F7"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Productos" @1693
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::82. Modificar Producto" @1693
 					location   	(3040, 6096)
 					font       	(object Font
 					    size       	9
@@ -35757,7 +35771,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"82. Modificar Productos")
+					    label      	"82. Modificar Producto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
@@ -35787,7 +35801,7 @@
 					fill_color 	8454016
 					quidu      	"4BCBEC4701F0"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Productos" @1695
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::81. Registrar Producto" @1695
 					location   	(3040, 6320)
 					font       	(object Font
 					    size       	9
@@ -35805,13 +35819,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"81. Registrar Productos")
+					    label      	"81. Registrar Producto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCBECC802C7"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Elimiar Producto" @1696
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::84. Eliminar Producto" @1696
 					location   	(2576, 6288)
 					font       	(object Font
 					    size       	9
@@ -35829,7 +35843,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"84. Elimiar Producto")
+					    label      	"84. Eliminar Producto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
@@ -35955,7 +35969,7 @@
 					fill_color 	16744576
 					quidu      	"4BCBED5C02F3"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envio a Mantenimiento Correctivo de Maquina" @1702
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina" @1702
 					location   	(2431, 6968)
 					font       	(object Font
 					    size       	9
@@ -35973,7 +35987,7 @@
 					    nlines     	2
 					    max_width  	784
 					    justify    	0
-					    label      	"145. Registrar Envio a Mantenimiento Correctivo de Maquina")
+					    label      	"145. Registrar Envío a Mantenimiento Correctivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -36018,7 +36032,7 @@
 					    (2906, 6867)
 					    (2431, 6968))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Maquina de Reparacion" @1705
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Máquina de Reparación" @1705
 					location   	(1193, 6982)
 					font       	(object Font
 					    size       	9
@@ -36036,13 +36050,13 @@
 					    nlines     	2
 					    max_width  	784
 					    justify    	0
-					    label      	"161. Registrar Ingreso Maquina de Reparacion")
+					    label      	"161. Registrar Ingreso Máquina de Reparación")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BCBED970237"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Maquina" @1706
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::88. Eliminar Máquina" @1706
 					location   	(878, 6414)
 					font       	(object Font
 					    size       	9
@@ -36060,13 +36074,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"88. Eliminar Maquina")
+					    label      	"88. Eliminar Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCBEC73016B"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Maquina" @1707
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::85. Registrar Máquina" @1707
 					location   	(977, 7402)
 					font       	(object Font
 					    size       	9
@@ -36084,13 +36098,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"85. Registrar Maquina")
+					    label      	"85. Registrar Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCBEC5F013D"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Maquina" @1708
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::86. Modificar Máquina" @1708
 					location   	(252, 6671)
 					font       	(object Font
 					    size       	9
@@ -36108,7 +36122,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"86. Modificar Maquina")
+					    label      	"86. Modificar Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
@@ -36203,7 +36217,7 @@
 					fill_color 	16744576
 					quidu      	"4BCBED4B0021"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Maquina" @1713
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::152. Registrar Parada De Máquina" @1713
 					location   	(1989, 7326)
 					font       	(object Font
 					    size       	9
@@ -36221,7 +36235,7 @@
 					    nlines     	2
 					    max_width  	784
 					    justify    	0
-					    label      	"152. Registrar Parada De Maquina")
+					    label      	"152. Registrar Parada De Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -36267,7 +36281,7 @@
 					    (1555, 7174)
 					    (1878, 7285))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Maquina" @1716
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::157. Registrar Servicio de Máquina" @1716
 					location   	(3075, 5899)
 					font       	(object Font
 					    size       	9
@@ -36285,13 +36299,13 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"157. Registrar Servicio de Maquina")
+					    label      	"157. Registrar Servicio de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCC12CC03D1"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Maquina" @1717
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::158. Modificar Servicio de Máquina" @1717
 					location   	(2649, 5762)
 					font       	(object Font
 					    size       	9
@@ -36309,13 +36323,13 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"158. Modificar Servicio de Maquina")
+					    label      	"158. Modificar Servicio de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCC12CE0219"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Maquina" @1718
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Máquina" @1718
 					location   	(1965, 5794)
 					font       	(object Font
 					    size       	9
@@ -36333,13 +36347,13 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"160. Eliminar Servicio de Maquina")
+					    label      	"160. Eliminar Servicio de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCC12D00061"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Maquina" @1719
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Máquina" @1719
 					location   	(2055, 6533)
 					font       	(object Font
 					    size       	9
@@ -36357,7 +36371,7 @@
 					    nlines     	2
 					    max_width  	784
 					    justify    	0
-					    label      	"159. Consultar Servicio de Maquina")
+					    label      	"159. Consultar Servicio de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -36450,7 +36464,7 @@
 					fill_color 	8454016
 					quidu      	"4BE5899402C6"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envio de Mantenimiento Correctivo de Maquina" @1724
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envío de Mantenimiento Correctivo de Máquina" @1724
 					location   	(3240, 4300)
 					font       	(object Font
 					    size       	9
@@ -36468,7 +36482,7 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"147. Consultar Envio de Mantenimiento Correctivo de Maquina")
+					    label      	"147. Consultar Envío de Mantenimiento Correctivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -36498,7 +36512,7 @@
 					fill_color 	8454016
 					quidu      	"4BE589560184"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envio de Mantenimiento Preventivo de Maquina" @1726
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina" @1726
 					location   	(3230, 4790)
 					font       	(object Font
 					    size       	9
@@ -36516,13 +36530,13 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"144. Registrar Envio de Mantenimiento Preventivo de Maquina")
+					    label      	"144. Registrar Envío de Mantenimiento Preventivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE58A7403B1"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envio de Mantenimiento Preventivo de Maquina" @1727
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::146. Consultar Envío de Mantenimiento Preventivo de Máquina" @1727
 					location   	(3216, 5078)
 					font       	(object Font
 					    size       	9
@@ -36540,13 +36554,13 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"146. Consultar Envio de Mantenimiento Preventivo de Maquina")
+					    label      	"146. Consultar Envío de Mantenimiento Preventivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE58AC80157"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotizacion" @1728
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::74. Consultar Pedido de Cotización" @1728
 					location   	(288, 6367)
 					font       	(object Font
 					    size       	9
@@ -36564,13 +36578,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"74. Consultar Pedido de Cotizacion")
+					    label      	"74. Consultar Pedido de Cotización")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE594BB036E"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Produccion Realizada" @1729
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Producción Realizada" @1729
 					location   	(1916, 6933)
 					font       	(object Font
 					    size       	9
@@ -36588,13 +36602,13 @@
 					    nlines     	2
 					    max_width  	1081
 					    justify    	0
-					    label      	"171. Generar Informe de Produccion Realizada")
+					    label      	"171. Generar Informe de Producción Realizada")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE64D840128"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadistico de Produccion" @1730
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::172. Generar Informe Estadístico de Producción" @1730
 					location   	(350, 4777)
 					font       	(object Font
 					    size       	9
@@ -36612,13 +36626,13 @@
 					    nlines     	2
 					    max_width  	1102
 					    justify    	0
-					    label      	"172. Generar Informe Estadistico de Produccion")
+					    label      	"172. Generar Informe Estadístico de Producción")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BE64DD1014E"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Maquina" @1731
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::173. Generar Informe de Mantenimiento de Máquina" @1731
 					location   	(2854, 7211)
 					font       	(object Font
 					    size       	9
@@ -36636,7 +36650,7 @@
 					    nlines     	2
 					    max_width  	800
 					    justify    	0
-					    label      	"173. Generar Informe de Mantenimiento de Maquina")
+					    label      	"173. Generar Informe de Mantenimiento de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -36690,7 +36704,7 @@
 					fill_color 	16744576
 					quidu      	"4BE594FC00D5"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Generar Listado Materia Prima para Presupuesto" @1734
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto" @1734
 					location   	(536, 7291)
 					font       	(object Font
 					    size       	9
@@ -36708,13 +36722,13 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"70. Generar Listado Materia Prima para Presupuesto")
+					    label      	"70. Registrar Plan de Requerimientos de Materia Prima para Presupuesto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE591B70093"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Generar Listado Procedimientos para Presupuesto" @1735
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::68. Registrar Plan de Procedimientos para Presupuesto" @1735
 					location   	(819, 6784)
 					font       	(object Font
 					    size       	9
@@ -36732,7 +36746,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"68. Generar Listado Procedimientos para Presupuesto")
+					    label      	"68. Registrar Plan de Procedimientos para Presupuesto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -38975,7 +38989,7 @@
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCBE0110053")
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresas Metalúrgicas" @1897
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::125. Registrar Empresa Metalúrgica" @1897
 					location   	(2631, 1371)
 					font       	(object Font
 					    size       	9
@@ -38993,7 +39007,7 @@
 					    nlines     	2
 					    max_width  	642
 					    justify    	0
-					    label      	"125. Registrar Empresas Metalúrgicas")
+					    label      	"125. Registrar Empresa Metalúrgica")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -39817,7 +39831,7 @@
 					    (1587, 172)
 					    (1971, 181))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::123. Registrar Ingreso de Cotizacion de Trabajo" @1937
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Trabajos Tercerizados::123. Registrar Ingreso de Cotización de Trabajo" @1937
 					location   	(2490, 425)
 					font       	(object Font
 					    size       	9
@@ -39835,7 +39849,7 @@
 					    nlines     	2
 					    max_width  	642
 					    justify    	0
-					    label      	"123. Registrar Ingreso de Cotizacion de Trabajo")
+					    label      	"123. Registrar Ingreso de Cotización de Trabajo")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -39936,7 +39950,7 @@
 					line_color 	8388608
 					fill_color 	8454016
 					quidu      	"4BCBDB310386")
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::12. Consultar Listado de Procedimientos Para Presupuesto" @1942
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::12. Consultar Plan de Procedimientos Para Presupuesto" @1942
 					location   	(616, 2421)
 					font       	(object Font
 					    size       	9
@@ -39954,13 +39968,13 @@
 					    nlines     	2
 					    max_width  	953
 					    justify    	0
-					    label      	"12. Consultar Listado de Procedimientos Para Presupuesto")
+					    label      	"12. Consultar Plan de Procedimientos Para Presupuesto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE582B5006D"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::13. Consultar Listado de Procedimientos de Control de Calidad" @1943
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::13. Consultar Plan de Procesos de Control de Calidad" @1943
 					location   	(1478, 2911)
 					font       	(object Font
 					    size       	9
@@ -39978,7 +39992,7 @@
 					    nlines     	2
 					    max_width  	1281
 					    justify    	0
-					    label      	"13. Consultar Listado de Procedimientos de Control de Calidad")
+					    label      	"13. Consultar Plan de Procesos de Control de Calidad")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
@@ -40144,7 +40158,7 @@
 					fill_color 	16744576
 					quidu      	"4BE64B030345"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Listado de Materia Prima Para Presupuesto" @1951
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::11. Consultar Plan de Requerimientos de Materia Prima Para Presupuesto" @1951
 					location   	(779, 2753)
 					font       	(object Font
 					    size       	9
@@ -40162,13 +40176,13 @@
 					    nlines     	2
 					    max_width  	921
 					    justify    	0
-					    label      	"11. Consultar Listado de Materia Prima Para Presupuesto")
+					    label      	"11. Consultar Plan de Requerimientos de Materia Prima Para Presupuesto")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
 					quidu      	"4BE58279012A"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::10. Consultar Agenda" @1952
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Ventas::10. Consultar Dsiponibilidad Horaria" @1952
 					location   	(232, 2229)
 					font       	(object Font
 					    size       	9
@@ -40186,7 +40200,7 @@
 					    nlines     	2
 					    max_width  	630
 					    justify    	0
-					    label      	"10. Consultar Agenda")
+					    label      	"10. Consultar Dsiponibilidad Horaria")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	16744576
