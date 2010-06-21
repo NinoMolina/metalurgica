@@ -368,7 +368,7 @@
 							    location   	(448, 1184)
 							    anchor_loc 	1
 							    nlines     	2
-							    max_width  	395
+							    max_width  	362
 							    justify    	0
 							    label      	"<Actor Name>")
 							icon       	"Actor"
@@ -593,7 +593,7 @@
 				    location   	(528, 1136)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"<Actor Name>")
 				icon       	"Actor"
@@ -5784,7 +5784,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "InterfazRegistrarPedidoCotizacion"
+		    (object Class "InterfazPedidoCotizacion"
 			quid       	"4BFC18340315"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -5923,7 +5923,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarPedidoCotizacion"
+		    (object Class "GestorPedidoCotizacion"
 			quid       	"4BFC185800C9"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -6102,7 +6102,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "InterfazRegistrarPedidoWeb"
+		    (object Class "InterfazPedidoCotizacionWeb"
 			quid       	"4BFC22A103C9"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -6236,7 +6236,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarPedidoWeb"
+		    (object Class "GestorPedidoCotizacionWeb"
 			quid       	"4BFC22BE0253"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -6561,6 +6561,101 @@
 				quid       	"4C16C3C901AB"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarProveedoresPorMateriaPrima()"
+				quid       	"4C1E7F4702EC"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionMateriaPrima()"
+				quid       	"4C1E7EAB0030"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarPrecio() *"
+				quid       	"4C1E7FAC0210"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomar"
+				quid       	"4C1E7FF303AA"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "solicitarConfirmacion()"
+				quid       	"4C1E7FFD008A"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1E800503E6"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionRegistrarNuevaMateriaPrima()"
+				quid       	"4C1E802702CE"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "informarFracasoAlRegistrarMateriaPrima()"
+				quid       	"4C1E80670198"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCancelacion()"
+				quid       	"4C1E80740076"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1E808C0080"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarUnidadDeMedida()"
+				quid       	"4C1F77E50196"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1EC8DE0097"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCancelacion()"
+				quid       	"4C1EC8C50283"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1EC87B0144"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "informarNoExisteMateriaPrima()"
+				quid       	"4C1EC8B1017B"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCambiosMateriaPrima()"
+				quid       	"4C1EC7A30158"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionProveedores()"
+				quid       	"4C1EC77F0172"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarProveedores()"
+				quid       	"4C1EC773033A"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionMateriaPrima()"
+				quid       	"4C1EC69E00AC"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
 		    (object Class "GestorPrecioMateriaPrima"
 			quid       	"4BFC32AE03D9"
@@ -6633,6 +6728,126 @@
 				uid        	0)
 			    (object Operation "finCasoDeUso()"
 				quid       	"4C16C3E30059"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1E809A038D"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1E808202D8"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "materiaPrimaSeleccionada()"
+				quid       	"4C1E7EBF0350"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "buscarProveedoresPorMateriaPrima()"
+				quid       	"4C1E7F1701D4"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "precio() *"
+				quid       	"4C1E7FB60030"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "registrarPrecio() *"
+				quid       	"4C1E7FBD0378"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "confirmacion()"
+				quid       	"4C1E800D01AC"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1E801203DC"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "registrarNuevaMateriaPrima()"
+				quid       	"4C1E803A0274"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "llamarCasoDeUsoRegistrarMateriaPrima()"
+				quid       	"4C1E805500B2"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "cancelacion()"
+				quid       	"4C1E807B0210"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "noConfirmacion()"
+				quid       	"4C1E80930293"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "unidadDeMedida()"
+				quid       	"4C1F77EF01B4"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "noConfirmacion()"
+				quid       	"4C1EC8E5028E"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "cancelacion()"
+				quid       	"4C1EC8CD01DA"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1EC8EC012C"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1EC8D500F3"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1EC89F01A7"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "actualizarPrecio()"
+				quid       	"4C1EC8880229"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "confirmacion()"
+				quid       	"4C1EC88202A0"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "cambiosPrecioMateriaPrima()"
+				quid       	"4C1EC8620244"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "proveedoresSeleccionados()"
+				quid       	"4C1EC78900E5"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "buscarProveedores()"
+				quid       	"4C1EC714021D"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "materiaPrimaSeleccionada()"
+				quid       	"4C1EC6AD018D"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
@@ -6797,6 +7012,31 @@
 				quid       	"4C16CA3003E7"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCriterioDeBusquedaSeleccionado()"
+				quid       	"4C1E7A280326"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionImprimir()"
+				quid       	"4C1E7B6A01A1"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "informarNoExistePresupuesto()"
+				quid       	"4C1E7BC1002F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCancelacion()"
+				quid       	"4C1E7BDA0331"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionNoImprimir()"
+				quid       	"4C1E7BFE039F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
 		    (object Class "GestorPresupuesto"
 			quid       	"4BFC5A47018B"
@@ -6921,8 +7161,53 @@
 				quid       	"4C16C99600AD"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "criterioDeBusquedaSeleccionado()"
+				quid       	"4C1E7A380182"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarDatosPresupuesto()"
+				quid       	"4C1E7AE1024A"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "imprimir()"
+				quid       	"4C1E7B770179"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "generarDocumento()"
+				quid       	"4C1E7B850395"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1E7BAF0363"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "cancelacion"
+				quid       	"4C1E7BE302B9"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1E7BED0133"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "noImprimir()"
+				quid       	"4C1E7C0801B5"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1E7C130241"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "InterfazRegistrarCliente"
+		    (object Class "InterfazCliente"
 			quid       	"4BFC60B2015E"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -7035,8 +7320,38 @@
 				quid       	"4BFC67DA0188"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "FinalizarConsulta()"
+				quid       	"4BFC6DB50356"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarOpcionImprimir()"
+				quid       	"4C16EA290134"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionCliente()"
+				quid       	"4BFC6BE803C6"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionCliente()"
+				quid       	"4BFC762C031F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "ingresarDatosAMoificar()"
+				quid       	"4BFC7785003C"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4BFC77B2013C"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarCliente"
+		    (object Class "GestorCliente"
 			quid       	"4BFC60D302BF"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -7174,30 +7489,7 @@
 				quid       	"4BFC67F00349"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazrConsultarCliente"
-			quid       	"4BFC6B1400F7"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionCliente()"
-				quid       	"4BFC6BE803C6"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "FinalizarConsulta()"
-				quid       	"4BFC6DB50356"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarOpcionImprimir()"
-				quid       	"4C16EA290134"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorConsultarCliente"
-			quid       	"4BFC6B4C010B"
-			stereotype 	"control"
-			operations 	(list Operations
 			    (object Operation "clienteSeleccionado()"
 				quid       	"4BFC6BF50122"
 				concurrency 	"Sequential"
@@ -7227,30 +7519,7 @@
 				quid       	"4C16EA5E0246"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazModificarCliente"
-			quid       	"4BFC75150347"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionCliente()"
-				quid       	"4BFC762C031F"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "ingresarDatosAMoificar()"
-				quid       	"4BFC7785003C"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4BFC77B2013C"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorModificarCliente"
-			quid       	"4BFC754002F3"
-			stereotype 	"control"
-			operations 	(list Operations
 			    (object Operation "clienteSeleccionado()"
 				quid       	"4BFC76350005"
 				concurrency 	"Sequential"
@@ -7702,7 +7971,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresorConsultarAgenda()"
+		    (object Class "ImpresorAgenda()"
 			quid       	"4C16C39C0128"
 			stereotype 	"boundary")
 		    (object Class "Presupuesto"
@@ -7914,10 +8183,10 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresotConsultarPrecioMateriaPrima"
+		    (object Class "ImpresorPrecioMateriaPrima"
 			quid       	"4C1780B20089"
 			stereotype 	"boundary")
-		    (object Class "ImpresorConsultarClienete"
+		    (object Class "ImpresorClienete"
 			quid       	"4C1780F8023B"
 			stereotype 	"boundary")
 		    (object Class "PlanRequerimientosMateriaPrima"
@@ -7937,10 +8206,10 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresoraConsultaDePlan"
+		    (object Class "ImpresoraDePlan"
 			quid       	"4C1D4C540067"
 			stereotype 	"entity")
-		    (object Class "ImpresorConsultarPlan"
+		    (object Class "ImpresorPlan"
 			quid       	"4C1D4CAF01F7"
 			stereotype 	"boundary")
 		    (object Class "PlanProcedimientos"
@@ -7982,219 +8251,10 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresorConsultaClientesMorosos"
+		    (object Class "ImpresorClientesMorosos"
 			quid       	"4C1E757D0027"
 			stereotype 	"boundary")
-		    (object Class "InterfazConsultarPresupuesto"
-			quid       	"4C1E78B702B8"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarCriterioDeBusquedaSeleccionado()"
-				quid       	"4C1E7A280326"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opcionImprimir()"
-				quid       	"4C1E7B6A01A1"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "informarNoExistePresupuesto()"
-				quid       	"4C1E7BC1002F"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCancelacion()"
-				quid       	"4C1E7BDA0331"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opcionNoImprimir()"
-				quid       	"4C1E7BFE039F"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorConsultarPresupuesto"
-			quid       	"4C1E79550038"
-			stereotype 	"control"
-			operations 	(list Operations
-			    (object Operation "criterioDeBusquedaSeleccionado()"
-				quid       	"4C1E7A380182"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "mostrarDatosPresupuesto()"
-				quid       	"4C1E7AE1024A"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "imprimir()"
-				quid       	"4C1E7B770179"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "generarDocumento()"
-				quid       	"4C1E7B850395"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1E7BAF0363"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "cancelacion()"
-				quid       	"4C1E7BE302B9"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1E7BED0133"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "noImprimir()"
-				quid       	"4C1E7C0801B5"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1E7C130241"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazEliminarCotizacionWeb"
-			quid       	"4C1E7CC4013D"
-			stereotype 	"boundary")
-		    (object Class "InterfazPrecioMateriasPrimas"
-			quid       	"4C1E7DFB0238"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionMateriaPrima()"
-				quid       	"4C1E7EAB0030"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "mostrarProveedoresPorMateriaPrima()"
-				quid       	"4C1E7F4702EC"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarPrecio() *"
-				quid       	"4C1E7FAC0210"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomar"
-				quid       	"4C1E7FF303AA"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "solicitarConfirmacion()"
-				quid       	"4C1E7FFD008A"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1E800503E6"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opcionRegistrarNuevaMateriaPrima()"
-				quid       	"4C1E802702CE"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "informarFracasoAlRegistrarMateriaPrima()"
-				quid       	"4C1E80670198"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCancelacion()"
-				quid       	"4C1E80740076"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1E808C0080"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarUnidadDeMedida()"
-				quid       	"4C1F77E50196"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorPrecioMateriasPrimas"
-			quid       	"4C1E7E17024C"
-			stereotype 	"control"
-			operations 	(list Operations
-			    (object Operation "materiaPrimaSeleccionada()"
-				quid       	"4C1E7EBF0350"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "buscarProveedoresPorMateriaPrima()"
-				quid       	"4C1E7F1701D4"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "precio() *"
-				quid       	"4C1E7FB60030"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "registrarPrecio() *"
-				quid       	"4C1E7FBD0378"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "confirmacion()"
-				quid       	"4C1E800D01AC"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1E801203DC"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "registrarNuevaMateriaPrima()"
-				quid       	"4C1E803A0274"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "llamarCasoDeUsoRegistrarMateriaPrima()"
-				quid       	"4C1E805500B2"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "cancelacion()"
-				quid       	"4C1E807B0210"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1E808202D8"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "noConfirmacion()"
-				quid       	"4C1E80930293"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1E809A038D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "unidadDeMedida()"
-				quid       	"4C1F77EF01B4"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazRegistrarProveedor"
+		    (object Class "InterfazProveedor"
 			quid       	"4C1E81A1017B"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -8317,8 +8377,78 @@
 				quid       	"4C1E89D20160"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCriterioBusqueda()"
+				quid       	"4C1E8F7C02CA"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "informarNoExisteProveedor()"
+				quid       	"4C1E918700E1"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCancelacion()"
+				quid       	"4C1E919300D7"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1E91B20181"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionProveedor()"
+				quid       	"4C1E8AF8034A"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarDatosProveedor()"
+				quid       	"4C1E8C6701D9"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCambios()"
+				quid       	"4C1E8C78019D"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "solicitarConfirmacion()"
+				quid       	"4C1E8C95026F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1E8C9E02DD"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1E8CCD0265"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionProveedor()"
+				quid       	"4C1E932C02DF"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "solicitarConfirmacion()"
+				quid       	"4C1E933F014F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1E934C000F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1E936801C7"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarProveedor"
+		    (object Class "GestorProveedor"
 			quid       	"4C1E81B30257"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -8417,16 +8547,6 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "opname"
-				quid       	"4C1E87B4037B"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opname2"
-				quid       	"4C1E87F3030D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
 			    (object Operation "finCasoDeUso()"
 				quid       	"4C1E880C0169"
 				concurrency 	"Sequential"
@@ -8491,123 +8611,7 @@
 				quid       	"4C1E89E1025A"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazModificarProveedor"
-			quid       	"4C1E8A4201BA"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionProveedor()"
-				quid       	"4C1E8AF8034A"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "mostrarDatosProveedor()"
-				quid       	"4C1E8C6701D9"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCambios()"
-				quid       	"4C1E8C78019D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "solicitarConfirmacion()"
-				quid       	"4C1E8C95026F"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1E8C9E02DD"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1E8CCD0265"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorModificarProveedor"
-			quid       	"4C1E8A5702F0"
-			stereotype 	"control"
-			operations 	(list Operations
-			    (object Operation "proveedorSeleccionado()"
-				quid       	"4C1E8B0300F2"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "mostrarDatosProveedor()"
-				quid       	"4C1E8B2C032C"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "cambios()"
-				quid       	"4C1E8C7E0111"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "confirmacion()"
-				quid       	"4C1E8CA500E9"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "actualizarDatos()"
-				quid       	"4C1E8CAE00DF"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1E8CC6007B"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "noConfirmacion()"
-				quid       	"4C1E8CD5039B"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1E8CDF0229"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "mostrarDatosProveedor"
-				quid       	"4C1E8F0803A6"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazConsultarProveedor"
-			quid       	"4C1E8DA30161"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarCriterioBusqueda()"
-				quid       	"4C1E8F7C02CA"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opname"
-				quid       	"4C1E917900AF"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "informarNoExisteProveedor()"
-				quid       	"4C1E918700E1"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCancelacion()"
-				quid       	"4C1E919300D7"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1E91B20181"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorConsultarProveedor"
-			quid       	"4C1E8DCC01F7"
-			stereotype 	"control"
-			operations 	(list Operations
 			    (object Operation "mostrarDatosProveedor()"
 				quid       	"4C1E8ECB037E"
 				concurrency 	"Sequential"
@@ -8657,43 +8661,52 @@
 				quid       	"4C1E91C002D5"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "impresorConsultaProveedor"
-			quid       	"4C1E914802CA"
-			stereotype 	"boundary")
-		    (object Class "InterfazRegistrarBajaProveedor"
-			quid       	"4C1E92A60177"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "opname"
-				quid       	"4C1E9319027B"
+				uid        	0)
+			    (object Operation "proveedorSeleccionado()"
+				quid       	"4C1E8B0300F2"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarSeleccionProveedor()"
-				quid       	"4C1E932C02DF"
+			    (object Operation "mostrarDatosProveedor()"
+				quid       	"4C1E8B2C032C"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "solicitarConfirmacion()"
-				quid       	"4C1E933F014F"
+			    (object Operation "cambios()"
+				quid       	"4C1E8C7E0111"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1E934C000F"
+			    (object Operation "confirmacion()"
+				quid       	"4C1E8CA500E9"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1E936801C7"
+			    (object Operation "actualizarDatos()"
+				quid       	"4C1E8CAE00DF"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorRegistrarBajaProveedor"
-			quid       	"4C1E92B70357"
-			stereotype 	"control"
-			operations 	(list Operations
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1E8CC6007B"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "noConfirmacion()"
+				quid       	"4C1E8CD5039B"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "seCancelaCasoDeUso()"
+				quid       	"4C1E8CDF0229"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarDatosProveedor"
+				quid       	"4C1E8F0803A6"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
 			    (object Operation "proveedorSeleccionado()"
 				quid       	"4C1E933603B1"
 				concurrency 	"Sequential"
@@ -8719,7 +8732,10 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "InterfazRegistrarMateriaPrima"
+		    (object Class "impresorProveedor"
+			quid       	"4C1E914802CA"
+			stereotype 	"boundary")
+		    (object Class "InterfazMateriaPrima"
 			quid       	"4C1E943D025E"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -8772,8 +8788,38 @@
 				quid       	"4C1E96C40182"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionMateriaPrima()"
+				quid       	"4C1E99640061"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarDatosMateriaPrima()"
+				quid       	"4C1E9C920161"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCambios()"
+				quid       	"4C1E9CD70161"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1E9D0302BF"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1E9D390085"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionNoImprimir()"
+				quid       	"4C1E9F8402DE"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarMateriaPrima"
+		    (object Class "GestorMateriaPrima"
 			quid       	"4C1E945003DA"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -8861,40 +8907,7 @@
 				quid       	"4C1E96D20146"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazModificarMateriaPrima"
-			quid       	"4C1E97DC0223"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionMateriaPrima()"
-				quid       	"4C1E99640061"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "mostrarDatosMateriaPrima()"
-				quid       	"4C1E9C920161"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCambios()"
-				quid       	"4C1E9CD70161"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1E9D0302BF"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1E9D390085"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorModificarMateriaPrima"
-			quid       	"4C1E97F401E7"
-			stereotype 	"control"
-			operations 	(list Operations
 			    (object Operation "materiaPrimaSeleccionada()"
 				quid       	"4C1E997001A1"
 				concurrency 	"Sequential"
@@ -8934,20 +8947,7 @@
 				quid       	"4C1E9D560193"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazConsultarMateriaPrima"
-			quid       	"4C1E9DEE003F"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "opcionNoImprimir()"
-				quid       	"4C1E9F8402DE"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorConsultarMateriaPrima"
-			quid       	"4C1E9E14021F"
-			stereotype 	"control"
-			operations 	(list Operations
+				uid        	0)
 			    (object Operation "mostrarDatosMateriaPrima()"
 				quid       	"4C1E9E5E0355"
 				concurrency 	"Sequential"
@@ -8988,113 +8988,10 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresorConsultaMateriaPrima"
+		    (object Class "ImpresorMateriaPrima"
 			quid       	"4C1E9F50005E"
 			stereotype 	"boundary")
-		    (object Class "InterfazModificarPrecioMateriaPrima"
-			quid       	"4C1EC5EE006E"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionMateriaPrima()"
-				quid       	"4C1EC69E00AC"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "mostrarProveedores()"
-				quid       	"4C1EC773033A"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarSeleccionProveedores()"
-				quid       	"4C1EC77F0172"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCambiosMateriaPrima()"
-				quid       	"4C1EC7A30158"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1EC87B0144"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "informarNoExisteMateriaPrima()"
-				quid       	"4C1EC8B1017B"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarCancelacion()"
-				quid       	"4C1EC8C50283"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1EC8DE0097"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorModificarPrecioMateriaPrima"
-			quid       	"4C1EC609013C"
-			stereotype 	"control"
-			operations 	(list Operations
-			    (object Operation "materiaPrimaSeleccionada()"
-				quid       	"4C1EC6AD018D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "buscarProveedores()"
-				quid       	"4C1EC714021D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "proveedoresSeleccionados()"
-				quid       	"4C1EC78900E5"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "cambiosPrecioMateriaPrima()"
-				quid       	"4C1EC8620244"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "confirmacion()"
-				quid       	"4C1EC88202A0"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "actualizarPrecio()"
-				quid       	"4C1EC8880229"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1EC89F01A7"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "cancelacion()"
-				quid       	"4C1EC8CD01DA"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1EC8D500F3"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "noConfirmacion()"
-				quid       	"4C1EC8E5028E"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "seCancelaCasoDeUso()"
-				quid       	"4C1EC8EC012C"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazRegistrarEtapaProduccion"
+		    (object Class "InterfazEtapaProduccion"
 			quid       	"4C1EC9E60335"
 			stereotype 	"boundary"
 			operations 	(list Operations
@@ -9132,8 +9029,48 @@
 				quid       	"4C1F783A0081"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarSeleccionEtapaProduccion()"
+				quid       	"4C1ED17000B5"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "mostrarDatosEtapaProduccion()"
+				quid       	"4C1ED22A00E3"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarCambios()"
+				quid       	"4C1ED24E023F"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarConfirmacion()"
+				quid       	"4C1ED25B0140"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "tomarNoConfirmacion()"
+				quid       	"4C1ED28602DF"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionImprimir()"
+				quid       	"4C1ED4780311"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finalizarConsulta()"
+				quid       	"4C1ED4E90134"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "opcionNoImprimir()"
+				quid       	"4C1ED50E0368"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "GestorRegistrarEtapaProduccion"
+		    (object Class "GestorEtapaProduccion"
 			quid       	"4C1EC9F9026B"
 			stereotype 	"control"
 			operations 	(list Operations
@@ -9201,40 +9138,47 @@
 				quid       	"4C1F784903B4"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "InterfazModificarEtapaProduccion"
-			quid       	"4C1ECECC002D"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "tomarSeleccionEtapaProduccion()"
-				quid       	"4C1ED17000B5"
+				uid        	0)
+			    (object Operation "buscarDatosEtapa()"
+				quid       	"4C1ED3FC01D4"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "mostrarDatosEtapaProduccion()"
-				quid       	"4C1ED22A00E3"
+			    (object Operation "imprimir()"
+				quid       	"4C1ED48800B6"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarCambios()"
-				quid       	"4C1ED24E023F"
+			    (object Operation "generarDocumento()"
+				quid       	"4C1ED497005F"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarConfirmacion()"
-				quid       	"4C1ED25B0140"
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1ED4D102A2"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)
-			    (object Operation "tomarNoConfirmacion()"
-				quid       	"4C1ED28602DF"
+			    (object Operation "finConsulta"
+				quid       	"4C1ED4F501CC"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestionModificarEtapaProduccion"
-			quid       	"4C1ECEEA001C"
-			stereotype 	"control"
-			operations 	(list Operations
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1ED4FF019D"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "noImprimir()"
+				quid       	"4C1ED51A0104"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "finCasoDeUso()"
+				quid       	"4C1ED522028D"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
 			    (object Operation "etapaProduccionSeleccionada()"
 				quid       	"4C1ED17B03BF"
 				concurrency 	"Sequential"
@@ -9275,70 +9219,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "InterfazConsultarEtapasProduccion"
-			quid       	"4C1ED37F000D"
-			stereotype 	"boundary"
-			operations 	(list Operations
-			    (object Operation "opcionImprimir()"
-				quid       	"4C1ED4780311"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finalizarConsulta()"
-				quid       	"4C1ED4E90134"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "opcionNoImprimir()"
-				quid       	"4C1ED50E0368"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "GestorConsultarEtapaProduccion"
-			quid       	"4C1ED3AB038D"
-			stereotype 	"control"
-			operations 	(list Operations
-			    (object Operation "buscarDatosEtapa()"
-				quid       	"4C1ED3FC01D4"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "imprimir()"
-				quid       	"4C1ED48800B6"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "generarDocumento()"
-				quid       	"4C1ED497005F"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1ED4D102A2"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finConsulta"
-				quid       	"4C1ED4F501CC"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1ED4FF019D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "noImprimir()"
-				quid       	"4C1ED51A0104"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)
-			    (object Operation "finCasoDeUso()"
-				quid       	"4C1ED522028D"
-				concurrency 	"Sequential"
-				opExportControl 	"Public"
-				uid        	0)))
-		    (object Class "ImpresorConsultarEtapaProduccion"
+		    (object Class "ImpresorEtapaProduccion"
 			quid       	"4C1ED4A600B5"
 			stereotype 	"boundary")
 		    (object Class "InterfazRegistrarPlan"
@@ -9509,7 +9390,7 @@
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
 				uid        	0)))
-		    (object Class "ImpresorRegistroPlan()"
+		    (object Class "ImpresorPlan()"
 			quid       	"4C1EDD220206"
 			stereotype 	"boundary")
 		    (object Class "Responsable"
@@ -11484,7 +11365,7 @@
 						ordinal    	54
 						quidu      	"4C16B63201F6"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarPedidoCotizacion"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazPedidoCotizacion"
 				quidu      	"4BFC18340315"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -11694,7 +11575,7 @@
 						Operation  	"crear( )"
 						quidu      	"4BC2618C0292"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarPedidoCotizacion"
+				class      	"Logical View::Diagramas de Colaboracion::GestorPedidoCotizacion"
 				quidu      	"4BFC185800C9"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -12077,7 +11958,7 @@
 						ordinal    	41
 						quidu      	"4BFC2CA200F5"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarPedidoWeb"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazPedidoCotizacionWeb"
 				quidu      	"4BFC22A103C9"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -12214,7 +12095,7 @@
 						Operation  	"crear( )"
 						quidu      	"4BC2618C0292"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarPedidoWeb"
+				class      	"Logical View::Diagramas de Colaboracion::GestorPedidoCotizacionWeb"
 				quidu      	"4BFC22BE0253"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -13354,7 +13235,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$468"
 				quid       	"4C176EA301F2"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarAgenda()"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorAgenda()"
 				quidu      	"4C16C39C0128"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -13722,7 +13603,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$474"
 				quid       	"4C1D4CAA0357"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarPlan"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan"
 				quidu      	"4C1D4CAF01F7"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -14052,7 +13933,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$483"
 				quid       	"4C1D510C019F"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarPlan"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan"
 				quidu      	"4C1D4CAF01F7"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -14367,7 +14248,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$492"
 				quid       	"4C1780AB02C6"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresotConsultarPrecioMateriaPrima"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPrecioMateriaPrima"
 				quidu      	"4C1780B20089"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -15798,7 +15679,7 @@
 						ordinal    	49
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarCliente"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazCliente"
 				quidu      	"4BFC60B2015E"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -16055,7 +15936,7 @@
 						ordinal    	46
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarCliente"
+				class      	"Logical View::Diagramas de Colaboracion::GestorCliente"
 				quidu      	"4BFC60D302BF"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -16221,8 +16102,8 @@
 						ordinal    	25
 						quidu      	"4C16EA3501AD"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazrConsultarCliente"
-				quidu      	"4BFC6B1400F7"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazCliente"
+				quidu      	"4BFC60B2015E"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -16259,7 +16140,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"24"
 						ordinal    	23
-						quidu      	"4BFC6DD003C6"
+						quidu      	"4BFC64AA0318"
 						creation   	FALSE)
 					    (object Message "finCasoDeUso()"
 						quid       	"4C16EA5E02A3"
@@ -16268,7 +16149,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"28"
 						ordinal    	27
-						quidu      	"4C16EA5E0246"
+						quidu      	"4BFC64AA0318"
 						creation   	FALSE)))
 				    (object Link
 					quid       	"4BFC6BC103E5"
@@ -16348,8 +16229,8 @@
 						ordinal    	26
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorConsultarCliente"
-				quidu      	"4BFC6B4C010B"
+				class      	"Logical View::Diagramas de Colaboracion::GestorCliente"
+				quidu      	"4BFC60D302BF"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -16505,7 +16386,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$528"
 				quid       	"4C1780F1011E"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarClienete"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorClienete"
 				quidu      	"4C1780F8023B"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -16614,8 +16495,8 @@
 						ordinal    	23
 						quidu      	"4BFC77BB01BA"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazModificarCliente"
-				quidu      	"4BFC75150347"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazCliente"
+				quidu      	"4BFC60B2015E"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -16718,8 +16599,8 @@
 						ordinal    	11
 						quidu      	"4BFC76A600E6"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorModificarCliente"
-				quidu      	"4BFC754002F3"
+				class      	"Logical View::Diagramas de Colaboracion::GestorCliente"
+				quidu      	"4BFC60D302BF"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -17825,7 +17706,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$557"
 				quid       	"4C1E757900F8"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultaClientesMorosos"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorClientesMorosos"
 				quidu      	"4C1E757D0027"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -18162,7 +18043,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$571"
 				quid       	"4C1D4E390196"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarPlan"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan"
 				quidu      	"4C1D4CAF01F7"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -18328,7 +18209,7 @@
 						ordinal    	16
 						quidu      	"4C1E7BC1002F"
 						creation   	FALSE)
-					    (object Message "cancelacion()"
+					    (object Message "cancelacion( )"
 						quid       	"4C1E7BE30309"
 						frequency  	"Aperiodic"
 						synchronization 	"Simple"
@@ -18346,8 +18227,8 @@
 						ordinal    	21
 						quidu      	"4C1E7C0801B5"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazConsultarPresupuesto"
-				quidu      	"4C1E78B702B8"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazPresupuesto"
+				quidu      	"4BFC5A2A014C"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -18469,8 +18350,8 @@
 						ordinal    	10
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorConsultarPresupuesto"
-				quidu      	"4C1E79550038"
+				class      	"Logical View::Diagramas de Colaboracion::GestorPresupuesto"
+				quidu      	"4BFC5A47018B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -18499,7 +18380,6 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$581"
 				quid       	"4C1E7CF603C7"
-				class      	"Logical View::Diagramas de Colaboracion::InterfazEliminarCotizacionWeb"
 				quidu      	"4C1E7CC4013D"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -18566,7 +18446,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"24"
 						ordinal    	23
-						quidu      	"4C1E80740076"
+						quidu      	"4BFC35AC03C2"
 						creation   	FALSE)
 					    (object Message "tomarNoConfirmacion()"
 						quid       	"4C1E808C00DA"
@@ -18678,7 +18558,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"25"
 						ordinal    	24
-						quidu      	"4C1E807B0210"
+						quidu      	"4BFC35B40338"
 						creation   	FALSE)
 					    (object Message "noConfirmacion()"
 						quid       	"4C1E809302E3"
@@ -18689,8 +18569,8 @@
 						ordinal    	27
 						quidu      	"4C1E80930293"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazPrecioMateriasPrimas"
-				quidu      	"4C1E7DFB0238"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazPrecioMateriaPrima"
+				quidu      	"4BFC32880270"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -18736,7 +18616,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"19"
 						ordinal    	18
-						quidu      	"4C1E801203DC"
+						quidu      	"4BFC34F600A1"
 						creation   	FALSE)
 					    (object Message "llamarCasoDeUsoRegistrarMateriaPrima()"
 						quid       	"4C1E80550102"
@@ -18754,7 +18634,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"26"
 						ordinal    	25
-						quidu      	"4C1E808202D8"
+						quidu      	"4C1E809A038D"
 						creation   	FALSE)
 					    (object Message "seCancelaCasoDeUso()"
 						quid       	"4C1E809A03BF"
@@ -18803,8 +18683,8 @@
 						ordinal    	14
 						quidu      	"4C1E7FD503C8"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorPrecioMateriasPrimas"
-				quidu      	"4C1E7E17024C"
+				class      	"Logical View::Diagramas de Colaboracion::GestorPrecioMateriaPrima"
+				quidu      	"4BFC32AE03D9"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -19264,7 +19144,7 @@
 						ordinal    	65
 						quidu      	"4C1E89DA02F0"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarProveedor"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazProveedor"
 				quidu      	"4C1E81A1017B"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -19501,7 +19381,7 @@
 						Operation  	"crear( )"
 						quidu      	"4BC25DFC01AF"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarProveedor"
+				class      	"Logical View::Diagramas de Colaboracion::GestorProveedor"
 				quidu      	"4C1E81B30257"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -19703,8 +19583,8 @@
 						ordinal    	34
 						quidu      	"4C1E8CD5039B"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazModificarProveedor"
-				quidu      	"4C1E8A4201BA"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazProveedor"
+				quidu      	"4C1E81A1017B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -19861,8 +19741,8 @@
 						ordinal    	31
 						quidu      	"4C1E8CBF003F"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorModificarProveedor"
-				quidu      	"4C1E8A5702F0"
+				class      	"Logical View::Diagramas de Colaboracion::GestorProveedor"
+				quidu      	"4C1E81B30257"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -20017,7 +19897,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"8"
 						ordinal    	7
-						quidu      	"000000000000"
+						quidu      	"4C1E8AF8034A"
 						creation   	FALSE)
 					    (object Message "opcionImprimir()"
 						quid       	"4C1E8E2C039F"
@@ -20035,7 +19915,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"33"
 						ordinal    	32
-						quidu      	"000000000000"
+						quidu      	"4C1E873603AD"
 						creation   	FALSE)
 					    (object Message "tomarCriterioBusqueda()"
 						quid       	"4C1E8F7C0324"
@@ -20053,7 +19933,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"39"
 						ordinal    	38
-						quidu      	"4C1E919300D7"
+						quidu      	"4C1E882B0119"
 						creation   	FALSE)
 					    (object Message "tomarNoConfirmacion()"
 						quid       	"4C1E91B201BD"
@@ -20062,7 +19942,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"42"
 						ordinal    	41
-						quidu      	"4C1E91B20181"
+						quidu      	"4C1E89D20160"
 						creation   	FALSE))))
 				class      	"Use Case View::Use-Case Model::Responsable de Compra"
 				quidu      	"4BFC326F03B1"
@@ -20332,8 +20212,8 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"10"
 						ordinal    	9
-						Operation  	"mostrarDatosProveedor() *"
-						quidu      	"000000000000"
+						Operation  	"mostrarDatosProveedor( )"
+						quidu      	"4C1E8F0803A6"
 						creation   	FALSE)
 					    (object Message "generarInforme()"
 						quid       	"4C1E8F130310"
@@ -20351,7 +20231,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"37"
 						ordinal    	36
-						quidu      	"4C1E917103CF"
+						quidu      	"4C1E880C0169"
 						creation   	FALSE)
 					    (object Message "seCancelaCasoDeUso()"
 						quid       	"4C1E91A402AD"
@@ -20360,7 +20240,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"41"
 						ordinal    	40
-						quidu      	"4C1E91A40267"
+						quidu      	"4C1E883B02A9"
 						creation   	FALSE)
 					    (object Message "seCancelaCasoDeUso()"
 						quid       	"4C1E91C0032F"
@@ -20369,7 +20249,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"44"
 						ordinal    	43
-						quidu      	"4C1E91C002D5"
+						quidu      	"4C1E883B02A9"
 						creation   	FALSE)))
 				    (object Link
 					quid       	"4C1E915D0131"
@@ -20385,8 +20265,8 @@
 						ordinal    	35
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorConsultarProveedor"
-				quidu      	"4C1E8DCC01F7"
+				class      	"Logical View::Diagramas de Colaboracion::GestorProveedor"
+				quidu      	"4C1E81B30257"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -20423,7 +20303,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"9"
 						ordinal    	8
-						quidu      	"000000000000"
+						quidu      	"4C1E8B0300F2"
 						creation   	FALSE)
 					    (object Message "mostrarDatosProveedor()"
 						quid       	"4C1E8E2C03AE"
@@ -20432,7 +20312,7 @@
 						dir        	"ToClientFromSupplier"
 						sequence   	"29"
 						ordinal    	28
-						quidu      	"000000000000"
+						quidu      	"4C1E8C6701D9"
 						creation   	FALSE)
 					    (object Message "imprimir()"
 						quid       	"4C1E8E2C03AF"
@@ -20450,7 +20330,7 @@
 						dir        	"ToClientFromSupplier"
 						sequence   	"32"
 						ordinal    	31
-						quidu      	"000000000000"
+						quidu      	"4C1E8C95026F"
 						creation   	FALSE)
 					    (object Message "confirmacion()"
 						quid       	"4C1E8E2C03B1"
@@ -20459,7 +20339,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"34"
 						ordinal    	33
-						quidu      	"000000000000"
+						quidu      	"4C1E873E01A5"
 						creation   	FALSE)
 					    (object Message "criterioDeBusqueda()"
 						quid       	"4C1E8FA30158"
@@ -20486,7 +20366,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"40"
 						ordinal    	39
-						quidu      	"4C1E919C02A3"
+						quidu      	"4C1E8833028B"
 						creation   	FALSE)
 					    (object Message "noConfirmacion()"
 						quid       	"4C1E91BA0005"
@@ -20495,10 +20375,10 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"43"
 						ordinal    	42
-						quidu      	"4C1E91B90393"
+						quidu      	"4C1E89DA02F0"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazConsultarProveedor"
-				quidu      	"4C1E8DA30161"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazProveedor"
+				quidu      	"4C1E81A1017B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -20511,7 +20391,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$614"
 				quid       	"4C1E914500A4"
-				class      	"Logical View::Diagramas de Colaboracion::impresorConsultaProveedor"
+				class      	"Logical View::Diagramas de Colaboracion::impresorProveedor"
 				quidu      	"4C1E914802CA"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -20629,8 +20509,8 @@
 						ordinal    	12
 						quidu      	"4C1E93710271"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarBajaProveedor"
-				quidu      	"4C1E92A60177"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazProveedor"
+				quidu      	"4C1E81A1017B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -20683,8 +20563,8 @@
 						ordinal    	3
 						quidu      	"4C1E8B830188"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarBajaProveedor"
-				quidu      	"4C1E92B70357"
+				class      	"Logical View::Diagramas de Colaboracion::GestorProveedor"
+				quidu      	"4C1E81B30257"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -20916,7 +20796,7 @@
 						ordinal    	32
 						quidu      	"4C1E96CB03B2"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarMateriaPrima"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazMateriaPrima"
 				quidu      	"4C1E943D025E"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -21058,7 +20938,7 @@
 						Operation  	"crear( )"
 						quidu      	"4BC24DD1004D"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarMateriaPrima"
+				class      	"Logical View::Diagramas de Colaboracion::GestorMateriaPrima"
 				quidu      	"4C1E945003DA"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -21135,7 +21015,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"22"
 						ordinal    	21
-						quidu      	"4C1E9D0302BF"
+						quidu      	"4C1E960A02FE"
 						creation   	FALSE)
 					    (object Message "tomarNoConfirmacion()"
 						quid       	"4C1E9D3900DF"
@@ -21144,7 +21024,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"27"
 						ordinal    	26
-						quidu      	"4C1E9D390085"
+						quidu      	"4C1E96C40182"
 						creation   	FALSE))))
 				class      	"Use Case View::Use-Case Model::Responsable de Compra"
 				quidu      	"4BFC326F03B1"
@@ -21211,7 +21091,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"23"
 						ordinal    	22
-						quidu      	"4C1E9D0D0247"
+						quidu      	"4C1E96120042"
 						creation   	FALSE)
 					    (object Message "noConfirmacion()"
 						quid       	"4C1E9D42037D"
@@ -21220,10 +21100,10 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"28"
 						ordinal    	27
-						quidu      	"4C1E9D420319"
+						quidu      	"4C1E96CB03B2"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazModificarMateriaPrima"
-				quidu      	"4C1E97DC0223"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazMateriaPrima"
+				quidu      	"4C1E943D025E"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -21269,7 +21149,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"26"
 						ordinal    	25
-						quidu      	"4C1E9D25014D"
+						quidu      	"4C1E96B7027C"
 						creation   	FALSE)
 					    (object Message "seCancelaCasoDeUso()"
 						quid       	"4C1E9D560201"
@@ -21278,7 +21158,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"29"
 						ordinal    	28
-						quidu      	"4C1E9D560193"
+						quidu      	"4C1E96D20146"
 						creation   	FALSE)))
 				    (object Link
 					quid       	"4C1E994F0287"
@@ -21371,8 +21251,8 @@
 						ordinal    	24
 						quidu      	"4C1E9CF60193"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorModificarMateriaPrima"
-				quidu      	"4C1E97F401E7"
+				class      	"Logical View::Diagramas de Colaboracion::GestorMateriaPrima"
+				quidu      	"4C1E945003DA"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -21481,7 +21361,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"6"
 						ordinal    	5
-						quidu      	"000000000000"
+						quidu      	"4C1E99640061"
 						creation   	FALSE)
 					    (object Message "opcionImprimir()"
 						quid       	"4C1E9DD40061"
@@ -21617,7 +21497,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"7"
 						ordinal    	6
-						quidu      	"000000000000"
+						quidu      	"4C1E997001A1"
 						creation   	FALSE)
 					    (object Message "mostrarDatosMateriaPrima()"
 						quid       	"4C1E9DD40070"
@@ -21626,7 +21506,7 @@
 						dir        	"ToClientFromSupplier"
 						sequence   	"19"
 						ordinal    	18
-						quidu      	"000000000000"
+						quidu      	"4C1E9C920161"
 						creation   	FALSE)
 					    (object Message "imprimir()"
 						quid       	"4C1E9DD40071"
@@ -21646,8 +21526,8 @@
 						ordinal    	25
 						quidu      	"4C1E9F8E0108"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazConsultarMateriaPrima"
-				quidu      	"4C1E9DEE003F"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazMateriaPrima"
+				quidu      	"4C1E943D025E"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -21757,7 +21637,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"8"
 						ordinal    	7
-						quidu      	"4C1E9E5E0355"
+						quidu      	"4C1E99E50318"
 						creation   	FALSE)
 					    (object Message "generarDocumento()"
 						quid       	"4C1E9F370040"
@@ -21775,7 +21655,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"24"
 						ordinal    	23
-						quidu      	"4C1E9F7202FC"
+						quidu      	"4C1E9EB0039B"
 						creation   	FALSE)
 					    (object Message "finCasoDeUso()"
 						quid       	"4C1E9F970176"
@@ -21784,7 +21664,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"27"
 						ordinal    	26
-						quidu      	"4C1E9F970126"
+						quidu      	"4C1E9EB0039B"
 						creation   	FALSE)))
 				    (object Link
 					quid       	"4C1E9F68018A"
@@ -21800,14 +21680,14 @@
 						ordinal    	22
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorConsultarMateriaPrima"
-				quidu      	"4C1E9E14021F"
+				class      	"Logical View::Diagramas de Colaboracion::GestorMateriaPrima"
+				quidu      	"4C1E945003DA"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
 			    (object Object "$UNNAMED$642"
 				quid       	"4C1E9F4C0194"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultaMateriaPrima"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorMateriaPrima"
 				quidu      	"4C1E9F50005E"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -21961,8 +21841,8 @@
 						ordinal    	21
 						quidu      	"4C1EC8E5028E"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazModificarPrecioMateriaPrima"
-				quidu      	"4C1EC5EE006E"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazPrecioMateriaPrima"
+				quidu      	"4BFC32880270"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -22056,8 +21936,8 @@
 						ordinal    	18
 						quidu      	"4C1EC8930063"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorModificarPrecioMateriaPrima"
-				quidu      	"4C1EC609013C"
+				class      	"Logical View::Diagramas de Colaboracion::GestorPrecioMateriaPrima"
+				quidu      	"4BFC32AE03D9"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -22273,7 +22153,7 @@
 						ordinal    	14
 						quidu      	"4C1F784903B4"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazRegistrarEtapaProduccion"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazEtapaProduccion"
 				quidu      	"4C1EC9E60335"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -22392,7 +22272,7 @@
 						Operation  	"crear( )"
 						quidu      	"4BC24F6801B8"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorRegistrarEtapaProduccion"
+				class      	"Logical View::Diagramas de Colaboracion::GestorEtapaProduccion"
 				quidu      	"4C1EC9F9026B"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -22549,8 +22429,8 @@
 						ordinal    	24
 						quidu      	"4C1ED28D0351"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazModificarEtapaProduccion"
-				quidu      	"4C1ECECC002D"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazEtapaProduccion"
+				quidu      	"4C1EC9E60335"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -22690,8 +22570,8 @@
 						ordinal    	21
 						quidu      	"4C1ED26F0130"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestionModificarEtapaProduccion"
-				quidu      	"4C1ECEEA001C"
+				class      	"Logical View::Diagramas de Colaboracion::GestorEtapaProduccion"
+				quidu      	"4C1EC9F9026B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -22757,7 +22637,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"6"
 						ordinal    	5
-						quidu      	"000000000000"
+						quidu      	"4C1ED17000B5"
 						creation   	FALSE)
 					    (object Message "opcionImprimir()"
 						quid       	"4C1ED478035F"
@@ -22860,7 +22740,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"7"
 						ordinal    	6
-						quidu      	"000000000000"
+						quidu      	"4C1ED17B03BF"
 						creation   	FALSE)
 					    (object Message "mostrarDatosEtapaProduccion()"
 						quid       	"4C1ED30D0131"
@@ -22869,7 +22749,7 @@
 						dir        	"ToClientFromSupplier"
 						sequence   	"17"
 						ordinal    	16
-						quidu      	"000000000000"
+						quidu      	"4C1ED22A00E3"
 						creation   	FALSE)
 					    (object Message "imprimir()"
 						quid       	"4C1ED4880104"
@@ -22898,8 +22778,8 @@
 						ordinal    	25
 						quidu      	"4C1ED51A0104"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::InterfazConsultarEtapasProduccion"
-				quidu      	"4C1ED37F000D"
+				class      	"Logical View::Diagramas de Colaboracion::InterfazEtapaProduccion"
+				quidu      	"4C1EC9E60335"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
@@ -23027,7 +22907,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"24"
 						ordinal    	23
-						quidu      	"4C1ED4FF019D"
+						quidu      	"4C1ECC21020A"
 						creation   	FALSE)
 					    (object Message "finCasoDeUso()"
 						quid       	"4C1ED52202DB"
@@ -23036,7 +22916,7 @@
 						dir        	"FromClientToSupplier"
 						sequence   	"27"
 						ordinal    	26
-						quidu      	"4C1ED522028D"
+						quidu      	"4C1ECC21020A"
 						creation   	FALSE)))
 				    (object Link
 					quid       	"4C1ED4B800D6"
@@ -23052,14 +22932,14 @@
 						ordinal    	20
 						quidu      	"000000000000"
 						creation   	FALSE))))
-				class      	"Logical View::Diagramas de Colaboracion::GestorConsultarEtapaProduccion"
-				quidu      	"4C1ED3AB038D"
+				class      	"Logical View::Diagramas de Colaboracion::GestorEtapaProduccion"
+				quidu      	"4C1EC9F9026B"
 				persistence 	"Transient"
 				creationObj 	FALSE
 				multi      	FALSE)
 			    (object Object "$UNNAMED$667"
 				quid       	"4C1ED49F02F1"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorConsultarEtapaProduccion"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorEtapaProduccion"
 				quidu      	"4C1ED4A600B5"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -23637,7 +23517,7 @@
 				multi      	TRUE)
 			    (object Object "$UNNAMED$675"
 				quid       	"4C1EDD120193"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorRegistroPlan()"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan()"
 				quidu      	"4C1EDD220206"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -24222,7 +24102,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$689"
 				quid       	"4C1EDE2903A9"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorRegistroPlan()"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan()"
 				quidu      	"4C1EDD220206"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -24711,7 +24591,7 @@
 				multi      	FALSE)
 			    (object Object "$UNNAMED$702"
 				quid       	"4C1EE1060251"
-				class      	"Logical View::Diagramas de Colaboracion::ImpresorRegistroPlan()"
+				class      	"Logical View::Diagramas de Colaboracion::ImpresorPlan()"
 				quidu      	"4C1EDD220206"
 				persistence 	"Transient"
 				creationObj 	FALSE
@@ -24851,7 +24731,7 @@
 				    location   	(1393, 1218)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	701
+				    max_width  	705
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -24882,7 +24762,7 @@
 				    location   	(2479, 1225)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	523
+				    max_width  	526
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -24912,7 +24792,7 @@
 				    location   	(203, 1219)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	381
+				    max_width  	385
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -25052,7 +24932,7 @@
 				    location   	(3193, 591)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	891
+				    max_width  	895
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -25082,7 +24962,7 @@
 				    location   	(3214, 1428)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	891
+				    max_width  	895
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -25460,7 +25340,7 @@
 				    location   	(233, 1072)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	761
+				    max_width  	764
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -25489,7 +25369,7 @@
 				    location   	(1308, 1065)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	869
+				    max_width  	873
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -25520,7 +25400,7 @@
 				    location   	(2581, 1072)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	694
+				    max_width  	697
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -25745,7 +25625,7 @@
 				    location   	(3397, 509)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1493
+				    max_width  	1497
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -25775,7 +25655,7 @@
 				    location   	(3198, 1262)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1493
+				    max_width  	1497
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -25832,7 +25712,7 @@
 				    location   	(3726, 1271)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1493
+				    max_width  	1497
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -25862,7 +25742,7 @@
 				    location   	(4230, 955)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1493
+				    max_width  	1497
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -26413,7 +26293,7 @@
 				    location   	(217, 1116)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	365
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -26442,7 +26322,7 @@
 				    location   	(1292, 1115)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -26473,7 +26353,7 @@
 				    location   	(2581, 1125)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	476
+				    max_width  	479
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -26635,7 +26515,7 @@
 				    location   	(3393, 565)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	891
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -26665,7 +26545,7 @@
 				    location   	(3578, 1353)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	891
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -26695,7 +26575,7 @@
 				    location   	(2780, 1756)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	891
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -27394,7 +27274,7 @@
 				    location   	(363, 1001)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -27423,7 +27303,7 @@
 				    location   	(1392, 993)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	869
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -27454,7 +27334,7 @@
 				    location   	(2554, 1000)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	694
+				    max_width  	479
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -27616,7 +27496,7 @@
 				    location   	(3632, 512)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1535
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -27646,7 +27526,7 @@
 				    location   	(3582, 1094)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1535
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -27703,7 +27583,7 @@
 				    location   	(4277, 1021)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1535
+				    max_width  	1539
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -27733,7 +27613,7 @@
 				    location   	(4281, 1540)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1535
+				    max_width  	1539
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -27763,7 +27643,7 @@
 				    location   	(3531, 1540)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1535
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -28535,7 +28415,7 @@
 				    location   	(367, 1278)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -28564,7 +28444,7 @@
 				    location   	(1218, 1278)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	869
+				    max_width  	711
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -28595,7 +28475,7 @@
 				    location   	(2239, 1284)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	694
+				    max_width  	552
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -28869,7 +28749,7 @@
 				    location   	(3062, 618)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1634
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -28899,7 +28779,7 @@
 				    location   	(3268, 1009)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1634
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -28929,7 +28809,7 @@
 				    location   	(3173, 1624)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1634
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -28959,7 +28839,7 @@
 				    location   	(3893, 1637)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1634
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -28989,7 +28869,7 @@
 				    location   	(2797, 1837)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1634
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -29832,7 +29712,7 @@
 				    location   	(217, 1103)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	456
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -29861,7 +29741,7 @@
 				    location   	(958, 1099)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	701
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -29892,7 +29772,7 @@
 				    location   	(2219, 1091)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	808
+				    max_width  	581
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -30201,7 +30081,7 @@
 				    location   	(3168, 421)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30231,7 +30111,7 @@
 				    location   	(2972, 1096)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30261,7 +30141,7 @@
 				    location   	(3508, 1081)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	488
+				    max_width  	490
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30291,7 +30171,7 @@
 				    location   	(3206, 1565)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30321,7 +30201,7 @@
 				    location   	(1769, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30351,7 +30231,7 @@
 				    location   	(3300, 1923)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -30381,7 +30261,7 @@
 				    location   	(2640, 1921)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1134
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -31653,7 +31533,7 @@
 				    location   	(180, 1251)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	419
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -31682,7 +31562,7 @@
 				    location   	(1076, 1246)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	745
+				    max_width  	733
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -31713,7 +31593,7 @@
 				    location   	(2376, 1241)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	520
+				    max_width  	616
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -31959,7 +31839,7 @@
 				    location   	(3097, 756)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -31989,7 +31869,7 @@
 				    location   	(3229, 1246)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -32019,7 +31899,7 @@
 				    location   	(3176, 1759)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -32049,7 +31929,7 @@
 				    location   	(2270, 1743)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33033,7 +32913,7 @@
 				    location   	(164, 1066)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -33062,7 +32942,7 @@
 				    location   	(1140, 1062)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -33093,7 +32973,7 @@
 				    location   	(2557, 1334)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -33131,7 +33011,7 @@
 				    location   	(3981, 1043)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33579,7 +33459,7 @@
 				    location   	(3385, 1512)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33609,7 +33489,7 @@
 				    location   	(2757, 1956)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33639,7 +33519,7 @@
 				    location   	(4832, 462)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33669,7 +33549,7 @@
 				    location   	(3808, 468)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33699,7 +33579,7 @@
 				    location   	(4709, 1709)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33729,7 +33609,7 @@
 				    location   	(4922, 1043)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33759,7 +33639,7 @@
 				    location   	(2272, 1900)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33789,7 +33669,7 @@
 				    location   	(4139, 1484)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -33819,7 +33699,7 @@
 				    location   	(3834, 1931)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -35032,7 +34912,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @567
 				    Parent_View 	@566
-				    location   	(4161, 1142)
+				    location   	(4161, 1143)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -35377,7 +35257,7 @@
 				    location   	(393, 1150)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	441
+				    max_width  	445
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -35406,7 +35286,7 @@
 				    location   	(1499, 1150)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	785
+				    max_width  	789
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -35437,7 +35317,7 @@
 				    location   	(2583, 1150)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	790
+				    max_width  	793
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -35557,7 +35437,7 @@
 				    location   	(3652, 765)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -35587,7 +35467,7 @@
 				    location   	(3651, 1440)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -35617,7 +35497,7 @@
 				    location   	(2489, 1822)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	785
+				    max_width  	795
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -36169,7 +36049,7 @@
 				    location   	(233, 1097)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -36198,7 +36078,7 @@
 				    location   	(1223, 1100)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -36229,7 +36109,7 @@
 				    location   	(2489, 1096)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -36412,7 +36292,7 @@
 				    location   	(3387, 881)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -36442,7 +36322,7 @@
 				    location   	(3657, 1487)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -36472,7 +36352,7 @@
 				    location   	(2951, 1968)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -36502,7 +36382,7 @@
 				    location   	(3163, 1534)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -36532,7 +36412,7 @@
 				    location   	(1378, 1922)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -36562,7 +36442,7 @@
 				    location   	(1928, 1607)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -37319,7 +37199,7 @@
 				    location   	(233, 1097)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	369
+				    max_width  	373
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -37348,7 +37228,7 @@
 				    location   	(1060, 1100)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -37379,7 +37259,7 @@
 				    location   	(2489, 1096)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -37409,7 +37289,7 @@
 				    location   	(3387, 881)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -37439,7 +37319,7 @@
 				    location   	(3657, 1487)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -37469,7 +37349,7 @@
 				    location   	(3163, 1534)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -37499,7 +37379,7 @@
 				    location   	(1928, 1607)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -37710,7 +37590,7 @@
 				    location   	(3835, 2041)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -37740,7 +37620,7 @@
 				    location   	(2366, 2031)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -38490,7 +38370,7 @@
 				    location   	(334, 1163)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -38519,7 +38399,7 @@
 				    location   	(1236, 1156)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	719
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -38550,7 +38430,7 @@
 				    location   	(2619, 1163)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	491
+				    max_width  	587
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -38712,7 +38592,7 @@
 				    location   	(3790, 709)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -38820,7 +38700,7 @@
 				    location   	(4205, 1356)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	465
+				    max_width  	469
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -38876,7 +38756,7 @@
 				    location   	(2237, 1830)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	719
+				    max_width  	705
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -39350,7 +39230,7 @@
 			origin_y   	563
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$494" @783
-				location   	(238, 1009)
+				location   	(217, 990)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -39362,10 +39242,10 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@783
-				    location   	(238, 1169)
+				    location   	(217, 1150)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	425
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -39394,7 +39274,7 @@
 				    location   	(893, 1150)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	777
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -39425,7 +39305,7 @@
 				    location   	(2444, 1159)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	785
+				    max_width  	502
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -39629,7 +39509,7 @@
 				    location   	(3554, 571)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	915
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -39659,7 +39539,7 @@
 				    location   	(4183, 821)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1205
+				    max_width  	1208
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -39689,7 +39569,7 @@
 				    location   	(3524, 1065)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	915
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -39719,7 +39599,7 @@
 				    location   	(3617, 1503)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	915
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -39775,7 +39655,7 @@
 				    location   	(4195, 356)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1205
+				    max_width  	1208
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -39797,7 +39677,7 @@
 				supplier   	@784
 				line_style 	0)
 			    (object MessView "" @802
-				location   	(529, 956)
+				location   	(517, 947)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -39810,7 +39690,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @803
 				    Parent_View 	@802
-				    location   	(531, 823)
+				    location   	(519, 814)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -39831,7 +39711,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @804
 				    Parent_View 	@802
-				    location   	(531, 866)
+				    location   	(519, 857)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -39852,7 +39732,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @805
 				    Parent_View 	@802
-				    location   	(531, 909)
+				    location   	(519, 900)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -39876,8 +39756,8 @@
 				height     	44
 				orientation 	0
 				dir        	1
-				origin     	(469, 956)
-				terminus   	(589, 956))
+				origin     	(457, 947)
+				terminus   	(577, 947))
 			    (object LinkView "" @806
 				stereotype 	TRUE
 				line_color 	3342489
@@ -40331,7 +40211,7 @@
 				    location   	(266, 1191)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -40391,7 +40271,7 @@
 				    location   	(2385, 1194)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	587
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -40734,7 +40614,7 @@
 				    location   	(4062, 1196)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	1088
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -41474,7 +41354,7 @@
 				    location   	(305, 1160)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	369
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -41503,7 +41383,7 @@
 				    location   	(1254, 1159)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -41534,7 +41414,7 @@
 				    location   	(2341, 1166)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	587
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -41738,7 +41618,7 @@
 				    location   	(3346, 678)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	791
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -41768,7 +41648,7 @@
 				    location   	(3406, 1325)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	791
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -42317,7 +42197,7 @@
 			zoom       	100
 			max_height 	28350
 			max_width  	21600
-			origin_x   	175
+			origin_x   	0
 			origin_y   	0
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$514" @929
@@ -42336,7 +42216,7 @@
 				    location   	(223, 1232)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -42365,7 +42245,7 @@
 				    location   	(1117, 1228)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	733
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -42396,7 +42276,7 @@
 				    location   	(2232, 1228)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	633
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -44411,7 +44291,7 @@
 				    location   	(255, 1088)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -44425,7 +44305,7 @@
 				x_offset   	0.000000
 				y_offset   	0.000000)
 			    (object ObjectView "$UNNAMED$524" @1031
-				location   	(1422, 922)
+				location   	(1259, 922)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -44437,10 +44317,10 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@1031
-				    location   	(1421, 1078)
+				    location   	(1258, 1078)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	733
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -44471,7 +44351,7 @@
 				    location   	(2407, 1091)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	633
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -44520,7 +44400,7 @@
 				    quidu      	"4BFC6BA6000B"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	322
+				    max_width  	332
 				    justify    	0
 				    label      	"mostrarCliente()"
 				    pctDist    	0.500000
@@ -44672,7 +44552,7 @@
 				    location   	(3640, 1146)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	532
+				    max_width  	534
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -44848,7 +44728,7 @@
 				    location   	(1799, 384)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	748
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -44871,7 +44751,7 @@
 				supplier   	@1031
 				line_style 	0)
 			    (object MessView "" @1049
-				location   	(830, 885)
+				location   	(745, 885)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -44884,7 +44764,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @1050
 				    Parent_View 	@1049
-				    location   	(830, 712)
+				    location   	(745, 712)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -44905,7 +44785,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1051
 				    Parent_View 	@1049
-				    location   	(830, 755)
+				    location   	(745, 755)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -44926,7 +44806,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1052
 				    Parent_View 	@1049
-				    location   	(830, 798)
+				    location   	(745, 798)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -44947,7 +44827,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1053
 				    Parent_View 	@1049
-				    location   	(830, 841)
+				    location   	(745, 841)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -44971,8 +44851,8 @@
 				height     	38
 				orientation 	0
 				dir        	1
-				origin     	(770, 885)
-				terminus   	(890, 885))
+				origin     	(685, 885)
+				terminus   	(805, 885))
 			    (object LinkView "" @1054
 				stereotype 	TRUE
 				line_color 	3342489
@@ -44981,7 +44861,7 @@
 				supplier   	@1032
 				line_style 	0)
 			    (object MessView "" @1055
-				location   	(1854, 884)
+				location   	(1756, 884)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -44994,7 +44874,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @1056
 				    Parent_View 	@1055
-				    location   	(1854, 711)
+				    location   	(1756, 711)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45007,7 +44887,7 @@
 				    quidu      	"4BFC6B8800C7"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	347
+				    max_width  	357
 				    justify    	0
 				    label      	"consultarCliente()"
 				    pctDist    	0.500000
@@ -45015,7 +44895,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1057
 				    Parent_View 	@1055
-				    location   	(1854, 754)
+				    location   	(1756, 754)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45036,7 +44916,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1058
 				    Parent_View 	@1055
-				    location   	(1854, 797)
+				    location   	(1756, 797)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45057,7 +44937,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @1059
 				    Parent_View 	@1055
-				    location   	(1854, 840)
+				    location   	(1756, 840)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45081,10 +44961,10 @@
 				height     	40
 				orientation 	0
 				dir        	1
-				origin     	(1794, 884)
-				terminus   	(1914, 884))
+				origin     	(1696, 884)
+				terminus   	(1816, 884))
 			    (object MessView "" @1060
-				location   	(1903, 968)
+				location   	(1816, 968)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -45097,7 +44977,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @1061
 				    Parent_View 	@1060
-				    location   	(1903, 1013)
+				    location   	(1816, 1013)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45110,7 +44990,7 @@
 				    quidu      	"4BFC6DA60061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	447
+				    max_width  	457
 				    justify    	0
 				    label      	"mostrarDatosCliente()"
 				    pctDist    	0.500000
@@ -45121,8 +45001,8 @@
 				height     	45
 				orientation 	1
 				dir        	-1
-				origin     	(1962, 968)
-				terminus   	(1844, 968))
+				origin     	(1875, 968)
+				terminus   	(1757, 968))
 			    (object LinkView "" @1062
 				stereotype 	TRUE
 				line_color 	3342489
@@ -45672,7 +45552,7 @@
 				    location   	(275, 1454)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	419
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -45701,7 +45581,7 @@
 				    location   	(1352, 1456)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	879
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -45732,7 +45612,7 @@
 				    location   	(2466, 1462)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	692
+				    max_width  	479
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -45873,7 +45753,7 @@
 				    location   	(3234, 837)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -45903,7 +45783,7 @@
 				    location   	(3340, 1456)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -45933,7 +45813,7 @@
 				    location   	(3897, 1074)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	1088
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -45963,7 +45843,7 @@
 				    location   	(3875, 1728)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	1088
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -45993,7 +45873,7 @@
 				    location   	(3016, 1762)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -46023,7 +45903,7 @@
 				    location   	(2384, 2123)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -46053,7 +45933,7 @@
 				    location   	(3337, 2292)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1085
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -62257,7 +62137,7 @@
 				    quidu      	"4BFC6B720000"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	431
+				    max_width  	10
 				    justify    	0
 				    label      	"opcionConsultarCliente()"
 				    pctDist    	0.500000
@@ -62297,7 +62177,7 @@
 				    quidu      	"4BFC6B8800C7"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	306
+				    max_width  	10
 				    justify    	0
 				    label      	"consultarCliente()"
 				    pctDist    	0.500000
@@ -62337,7 +62217,7 @@
 				    quidu      	"4BFC6BA6000B"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	281
+				    max_width  	10
 				    justify    	0
 				    label      	"mostrarCliente()"
 				    pctDist    	0.500000
@@ -63017,7 +62897,7 @@
 				    quidu      	"4BFC6DA60061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	385
+				    max_width  	10
 				    justify    	0
 				    label      	"mostrarDatosCliente()"
 				    pctDist    	0.500000
@@ -63377,7 +63257,7 @@
 				    location   	(180, 1232)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	365
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -63406,7 +63286,7 @@
 				    location   	(1030, 1234)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	693
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -63437,7 +63317,7 @@
 				    location   	(2839, 1225)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	476
+				    max_width  	479
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -63641,7 +63521,7 @@
 				    location   	(3606, 962)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	516
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -63671,7 +63551,7 @@
 				    location   	(4138, 962)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1205
+				    max_width  	1208
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -63701,7 +63581,7 @@
 				    location   	(3535, 1546)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	516
+				    max_width  	518
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -63731,7 +63611,7 @@
 				    location   	(4254, 1528)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1205
+				    max_width  	1208
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -63809,7 +63689,7 @@
 				    location   	(3951, 409)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1205
+				    max_width  	1208
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -65883,7 +65763,7 @@
 				    location   	(176, 1310)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -65912,7 +65792,7 @@
 				    location   	(1445, 1303)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -65928,7 +65808,7 @@
 				x_offset   	0.000000
 				y_offset   	0.000000)
 			    (object ObjectView "$UNNAMED$554" @2453
-				location   	(2498, 1173)
+				location   	(2579, 1167)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -65940,10 +65820,10 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@2453
-				    location   	(2497, 1335)
+				    location   	(2578, 1328)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	587
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -65952,14 +65832,13 @@
 				fill_color 	13434879
 				quidu      	"4C17660F035E"
 				width      	158
-				height     	166
 				annotation 	4
 				autoResize 	TRUE
 				subobjects 	0
 				x_offset   	0.000000
 				y_offset   	0.000000)
 			    (object LinkSelfView "" @2454
-				location   	(2498, 936)
+				location   	(2579, 931)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4C1E6DFE019C"
@@ -65967,7 +65846,7 @@
 				supplier   	@2453
 				line_style 	4)
 			    (object MessView "" @2455
-				location   	(2498, 892)
+				location   	(2579, 887)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -65980,7 +65859,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2456
 				    Parent_View 	@2455
-				    location   	(2498, 590)
+				    location   	(2579, 585)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66001,7 +65880,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2457
 				    Parent_View 	@2455
-				    location   	(2498, 633)
+				    location   	(2579, 628)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66022,7 +65901,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2458
 				    Parent_View 	@2455
-				    location   	(2498, 676)
+				    location   	(2579, 671)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66043,7 +65922,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2459
 				    Parent_View 	@2455
-				    location   	(2498, 719)
+				    location   	(2579, 714)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66064,7 +65943,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2460
 				    Parent_View 	@2455
-				    location   	(2498, 762)
+				    location   	(2579, 757)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66085,7 +65964,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2461
 				    Parent_View 	@2455
-				    location   	(2498, 805)
+				    location   	(2579, 800)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66106,7 +65985,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2462
 				    Parent_View 	@2455
-				    location   	(2498, 848)
+				    location   	(2579, 843)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66130,8 +66009,8 @@
 				height     	45
 				orientation 	0
 				dir        	1
-				origin     	(2438, 892)
-				terminus   	(2558, 892))
+				origin     	(2519, 887)
+				terminus   	(2639, 887))
 			    (object ObjectView "$UNNAMED$555" @2463
 				location   	(3309, 787)
 				font       	(object Font
@@ -66148,7 +66027,7 @@
 				    location   	(3309, 943)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66178,7 +66057,7 @@
 				    location   	(3335, 1778)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66208,7 +66087,7 @@
 				    location   	(2560, 1856)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66238,7 +66117,7 @@
 				    location   	(1825, 1878)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66268,7 +66147,7 @@
 				    location   	(2288, 2293)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66298,7 +66177,7 @@
 				    location   	(2923, 2293)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66328,7 +66207,7 @@
 				    location   	(4002, 2105)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66358,7 +66237,7 @@
 				    location   	(4144, 1628)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66388,7 +66267,7 @@
 				    location   	(3993, 1072)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66418,7 +66297,7 @@
 				    location   	(1830, 619)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	705
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -66476,7 +66355,7 @@
 				    location   	(3515, 2376)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -66650,7 +66529,7 @@
 				supplier   	@2453
 				line_style 	0)
 			    (object MessView "" @2484
-				location   	(1844, 1118)
+				location   	(1871, 1116)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -66663,7 +66542,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2485
 				    Parent_View 	@2484
-				    location   	(1845, 859)
+				    location   	(1872, 857)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66684,7 +66563,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2486
 				    Parent_View 	@2484
-				    location   	(1845, 902)
+				    location   	(1872, 900)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66705,7 +66584,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2487
 				    Parent_View 	@2484
-				    location   	(1845, 945)
+				    location   	(1872, 943)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66726,7 +66605,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2488
 				    Parent_View 	@2484
-				    location   	(1845, 988)
+				    location   	(1872, 986)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66747,7 +66626,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2489
 				    Parent_View 	@2484
-				    location   	(1845, 1031)
+				    location   	(1872, 1029)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66768,7 +66647,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2490
 				    Parent_View 	@2484
-				    location   	(1845, 1074)
+				    location   	(1872, 1072)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66792,10 +66671,10 @@
 				height     	37
 				orientation 	0
 				dir        	1
-				origin     	(1784, 1116)
-				terminus   	(1904, 1120))
+				origin     	(1811, 1115)
+				terminus   	(1931, 1117))
 			    (object MessView "" @2491
-				location   	(1976, 1202)
+				location   	(2014, 1198)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -66808,7 +66687,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2492
 				    Parent_View 	@2491
-				    location   	(1976, 1247)
+				    location   	(2014, 1243)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66829,7 +66708,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2493
 				    Parent_View 	@2491
-				    location   	(1976, 1290)
+				    location   	(2014, 1286)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66850,7 +66729,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2494
 				    Parent_View 	@2491
-				    location   	(1976, 1333)
+				    location   	(2014, 1329)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66874,8 +66753,8 @@
 				height     	44
 				orientation 	1
 				dir        	-1
-				origin     	(2035, 1203)
-				terminus   	(1917, 1201))
+				origin     	(2073, 1198)
+				terminus   	(1955, 1198))
 			    (object LinkView "" @2495
 				stereotype 	TRUE
 				line_color 	3342489
@@ -66884,7 +66763,7 @@
 				supplier   	@2463
 				line_style 	0)
 			    (object MessView "" @2496
-				location   	(2906, 934)
+				location   	(2943, 932)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -66897,7 +66776,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2497
 				    Parent_View 	@2496
-				    location   	(2888, 894)
+				    location   	(2924, 893)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66921,8 +66800,8 @@
 				height     	38
 				orientation 	0
 				dir        	1
-				origin     	(2852, 959)
-				terminus   	(2960, 909))
+				origin     	(2890, 959)
+				terminus   	(2996, 905))
 			    (object LinkView "" @2498
 				stereotype 	TRUE
 				line_color 	3342489
@@ -66931,7 +66810,7 @@
 				supplier   	@2464
 				line_style 	0)
 			    (object MessView "" @2499
-				location   	(3130, 1450)
+				location   	(3152, 1448)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -66944,7 +66823,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2500
 				    Parent_View 	@2499
-				    location   	(3151, 1024)
+				    location   	(3175, 1023)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66965,7 +66844,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2501
 				    Parent_View 	@2499
-				    location   	(3151, 1067)
+				    location   	(3175, 1066)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -66986,7 +66865,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2502
 				    Parent_View 	@2499
-				    location   	(3151, 1110)
+				    location   	(3175, 1109)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67007,7 +66886,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2503
 				    Parent_View 	@2499
-				    location   	(3151, 1153)
+				    location   	(3175, 1152)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67028,7 +66907,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2504
 				    Parent_View 	@2499
-				    location   	(3151, 1196)
+				    location   	(3175, 1195)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67049,7 +66928,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2505
 				    Parent_View 	@2499
-				    location   	(3151, 1239)
+				    location   	(3175, 1238)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67070,7 +66949,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2506
 				    Parent_View 	@2499
-				    location   	(3151, 1282)
+				    location   	(3175, 1281)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67091,7 +66970,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2507
 				    Parent_View 	@2499
-				    location   	(3151, 1325)
+				    location   	(3175, 1324)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67112,7 +66991,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2508
 				    Parent_View 	@2499
-				    location   	(3151, 1368)
+				    location   	(3175, 1367)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67133,7 +67012,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @2509
 				    Parent_View 	@2499
-				    location   	(3151, 1411)
+				    location   	(3175, 1410)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67157,8 +67036,8 @@
 				height     	54
 				orientation 	0
 				dir        	1
-				origin     	(3077, 1422)
-				terminus   	(3183, 1478))
+				origin     	(3100, 1417)
+				terminus   	(3204, 1479))
 			    (object LinkView "" @2510
 				stereotype 	TRUE
 				line_color 	3342489
@@ -67167,7 +67046,7 @@
 				supplier   	@2472
 				line_style 	0)
 			    (object MessView "" @2511
-				location   	(2069, 756)
+				location   	(2106, 759)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -67180,7 +67059,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @2512
 				    Parent_View 	@2511
-				    location   	(2037, 788)
+				    location   	(2077, 792)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -67204,8 +67083,8 @@
 				height     	28
 				orientation 	0
 				dir        	1
-				origin     	(2109, 799)
-				terminus   	(2029, 713))
+				origin     	(2149, 799)
+				terminus   	(2063, 719))
 			    (object LinkView "" @2513
 				stereotype 	TRUE
 				line_color 	3342489
@@ -69589,7 +69468,7 @@
 				    location   	(233, 1097)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	369
+				    max_width  	373
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -69618,7 +69497,7 @@
 				    location   	(1102, 1097)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -69649,7 +69528,7 @@
 				    location   	(2489, 1096)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -69679,7 +69558,7 @@
 				    location   	(3387, 881)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -69709,7 +69588,7 @@
 				    location   	(3657, 1487)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -69739,7 +69618,7 @@
 				    location   	(3163, 1534)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -69769,7 +69648,7 @@
 				    location   	(1928, 1607)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -69953,7 +69832,7 @@
 				    location   	(3504, 2076)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -69983,7 +69862,7 @@
 				    location   	(2129, 2077)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	546
+				    max_width  	548
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -74433,7 +74312,7 @@
 			zoom       	100
 			max_height 	28350
 			max_width  	21600
-			origin_x   	450
+			origin_x   	0
 			origin_y   	988
 			items      	(list diagram_item_list
 			    (object ObjectView "$UNNAMED$575" @2975
@@ -74452,7 +74331,7 @@
 				    location   	(208, 1216)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -74481,7 +74360,7 @@
 				    location   	(1033, 1209)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	719
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -74512,7 +74391,7 @@
 				    location   	(2197, 1213)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	610
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -74695,7 +74574,7 @@
 				    location   	(3011, 634)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -74725,7 +74604,7 @@
 				    location   	(3019, 1394)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	638
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -74994,9 +74873,9 @@
 				    quidu      	"4C1E7BE30309"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	304
+				    max_width  	313
 				    justify    	0
-				    label      	"cancelacion()"
+				    label      	"cancelacion( )"
 				    pctDist    	0.500000
 				    height     	45
 				    orientation 	0)
@@ -75246,10 +75125,10 @@
 				dir        	1
 				origin     	(2612, 1104)
 				terminus   	(2730, 1130))))
-		    (object ObjectDiagram "CU 46: Eliminar Pedido de Cotizacion Web"
+		    (object ObjectDiagram "CU 46: Registrar Baja Pedido de Cotizacion Web"
 			mechanism_ref 	@49
 			quid       	"4C1E7C8C00B1"
-			title      	"CU 46: Eliminar Pedido de Cotizacion Web"
+			title      	"CU 46: Registrar Baja Pedido de Cotizacion Web"
 			zoom       	100
 			max_height 	28350
 			max_width  	21600
@@ -75267,6 +75146,14 @@
 				    strike     	FALSE
 				    color      	0
 				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@3015
+				    location   	(248, 1363)
+				    anchor_loc 	1
+				    nlines     	2
+				    max_width  	362
+				    justify    	0
+				    label      	"")
 				icon       	"Actor"
 				icon_style 	"Icon"
 				line_color 	3342489
@@ -75326,7 +75213,7 @@
 				    location   	(238, 1169)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -75355,7 +75242,7 @@
 				    location   	(955, 1162)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	690
+				    max_width  	726
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -75386,7 +75273,7 @@
 				    location   	(2423, 1172)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	497
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -75409,7 +75296,7 @@
 				supplier   	@3019
 				line_style 	4)
 			    (object MessView "" @3021
-				location   	(2380, 732)
+				location   	(2381, 732)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -75422,7 +75309,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @3022
 				    Parent_View 	@3021
-				    location   	(2380, 430)
+				    location   	(2381, 430)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75435,7 +75322,7 @@
 				    quidu      	"4C1E7E69006C"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	460
+				    max_width  	469
 				    justify    	0
 				    label      	"buscarMateriasPrimas()"
 				    pctDist    	0.500000
@@ -75443,7 +75330,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3023
 				    Parent_View 	@3021
-				    location   	(2380, 473)
+				    location   	(2381, 473)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75456,7 +75343,7 @@
 				    quidu      	"4C1E7F17022E"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	722
+				    max_width  	729
 				    justify    	0
 				    label      	"buscarProveedoresPorMateriaPrima() *"
 				    pctDist    	0.500000
@@ -75464,7 +75351,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3024
 				    Parent_View 	@3021
-				    location   	(2380, 516)
+				    location   	(2381, 516)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75485,7 +75372,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3025
 				    Parent_View 	@3021
-				    location   	(2380, 559)
+				    location   	(2381, 559)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75506,7 +75393,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3026
 				    Parent_View 	@3021
-				    location   	(2380, 602)
+				    location   	(2381, 602)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75527,7 +75414,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3027
 				    Parent_View 	@3021
-				    location   	(2380, 645)
+				    location   	(2381, 645)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75548,7 +75435,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3028
 				    Parent_View 	@3021
-				    location   	(2380, 688)
+				    location   	(2381, 688)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -75572,8 +75459,8 @@
 				height     	44
 				orientation 	0
 				dir        	1
-				origin     	(2320, 732)
-				terminus   	(2440, 732))
+				origin     	(2321, 732)
+				terminus   	(2441, 732))
 			    (object ObjectView "$UNNAMED$585" @3029
 				location   	(3451, 541)
 				font       	(object Font
@@ -75725,7 +75612,7 @@
 				    quidu      	"4C1E7E4E03D2"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	560
+				    max_width  	563
 				    justify    	0
 				    label      	"opcionRegistrarListaPrecios()"
 				    pctDist    	0.500000
@@ -75898,7 +75785,7 @@
 				    quidu      	"4C1E7E5B0012"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	428
+				    max_width  	438
 				    justify    	0
 				    label      	"resgitrarListaPrecios()"
 				    pctDist    	0.500000
@@ -75919,7 +75806,7 @@
 				    quidu      	"4C1E7EBF03A0"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	566
+				    max_width  	569
 				    justify    	0
 				    label      	"materiaPrimaSeleccionada() *"
 				    pctDist    	0.500000
@@ -76064,7 +75951,7 @@
 				    quidu      	"4C1E7E9D00A8"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	472
+				    max_width  	475
 				    justify    	0
 				    label      	"mostrarMateriasPrimas()"
 				    pctDist    	0.500000
@@ -76085,7 +75972,7 @@
 				    quidu      	"4C1E7F47033C"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	754
+				    max_width  	753
 				    justify    	0
 				    label      	"mostrarProveedoresPorMateriaPrima() *"
 				    pctDist    	0.500000
@@ -76563,7 +76450,7 @@
 				    location   	(1110, 248)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	499
+				    max_width  	471
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -77244,7 +77131,7 @@
 				    quidu      	"4C1E7F17022E"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	691
+				    max_width  	681
 				    justify    	0
 				    label      	"buscarProveedoresPorMateriaPrima() *"
 				    pctDist    	0.500000
@@ -77324,7 +77211,7 @@
 				    quidu      	"4C1E7F47033C"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	704
+				    max_width  	694
 				    justify    	0
 				    label      	"mostrarProveedoresPorMateriaPrima() *"
 				    pctDist    	0.500000
@@ -78084,7 +77971,7 @@
 				    location   	(202, 1400)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -78144,7 +78031,7 @@
 				    location   	(2084, 1409)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	474
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -80054,7 +79941,7 @@
 				    location   	(217, 1450)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	441
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -80114,7 +80001,7 @@
 				    location   	(2031, 1453)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	805
+				    max_width  	474
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -80276,7 +80163,7 @@
 				    location   	(2873, 1071)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1113
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -80306,7 +80193,7 @@
 				    location   	(2919, 1799)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1113
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -80336,7 +80223,7 @@
 				    location   	(2100, 1896)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1113
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -80366,7 +80253,7 @@
 				    location   	(1478, 2426)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1113
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -80396,7 +80283,7 @@
 				    location   	(2391, 2423)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1113
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81314,7 +81201,7 @@
 				    location   	(255, 1434)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -81343,7 +81230,7 @@
 				    location   	(3026, 1040)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81373,7 +81260,7 @@
 				    location   	(2938, 1855)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81403,7 +81290,7 @@
 				    location   	(2179, 1909)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81433,7 +81320,7 @@
 				    location   	(1626, 2457)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81463,7 +81350,7 @@
 				    location   	(2410, 2486)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81493,7 +81380,7 @@
 				    location   	(2034, 1384)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	474
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -81508,7 +81395,7 @@
 				x_offset   	0.000000
 				y_offset   	0.000000)
 			    (object ObjectView "$UNNAMED$606" @3353
-				location   	(878, 1313)
+				location   	(912, 1285)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -81520,7 +81407,7 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@3353
-				    location   	(877, 1469)
+				    location   	(911, 1441)
 				    anchor_loc 	1
 				    nlines     	2
 				    max_width  	697
@@ -81573,7 +81460,7 @@
 				    quidu      	"4C1E8EA000B8"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	425
+				    max_width  	416
 				    justify    	0
 				    label      	"buscarProveedores()"
 				    pctDist    	0.500000
@@ -81596,7 +81483,7 @@
 				    nlines     	1
 				    max_width  	513
 				    justify    	0
-				    label      	"mostrarDatosProveedor() "
+				    label      	"mostrarDatosProveedor()"
 				    pctDist    	0.500000
 				    height     	45
 				    orientation 	0)
@@ -81707,7 +81594,7 @@
 				    location   	(3122, 2307)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -81737,7 +81624,7 @@
 				    location   	(1352, 643)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	719
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -81787,7 +81674,7 @@
 				supplier   	@3353
 				line_style 	0)
 			    (object MessView "" @3366
-				location   	(554, 1231)
+				location   	(570, 1219)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -81800,7 +81687,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @3367
 				    Parent_View 	@3366
-				    location   	(556, 929)
+				    location   	(571, 917)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81821,7 +81708,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3368
 				    Parent_View 	@3366
-				    location   	(556, 1015)
+				    location   	(571, 1003)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81842,7 +81729,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3369
 				    Parent_View 	@3366
-				    location   	(556, 1058)
+				    location   	(571, 1046)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81863,7 +81750,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3370
 				    Parent_View 	@3366
-				    location   	(556, 1101)
+				    location   	(571, 1089)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81884,7 +81771,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3371
 				    Parent_View 	@3366
-				    location   	(556, 972)
+				    location   	(571, 960)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81905,7 +81792,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3372
 				    Parent_View 	@3366
-				    location   	(556, 1144)
+				    location   	(571, 1132)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81926,7 +81813,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3373
 				    Parent_View 	@3366
-				    location   	(556, 1187)
+				    location   	(571, 1175)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -81950,8 +81837,8 @@
 				height     	60
 				orientation 	0
 				dir        	1
-				origin     	(494, 1228)
-				terminus   	(614, 1234))
+				origin     	(510, 1218)
+				terminus   	(630, 1220))
 			    (object LinkView "" @3374
 				stereotype 	TRUE
 				line_color 	3342489
@@ -82515,7 +82402,7 @@
 				supplier   	@3363
 				line_style 	0)
 			    (object MessView "" @3406
-				location   	(1567, 784)
+				location   	(1550, 749)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -82528,7 +82415,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @3407
 				    Parent_View 	@3406
-				    location   	(1535, 816)
+				    location   	(1518, 781)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82548,12 +82435,12 @@
 				    height     	45
 				    orientation 	0)
 				object_arc 	@3405
-				pctDist    	0.671903
-				height     	45
+				pctDist    	0.718325
+				height     	34
 				orientation 	0
 				dir        	1
-				origin     	(1607, 827)
-				terminus   	(1527, 741))
+				origin     	(1590, 792)
+				terminus   	(1510, 706))
 			    (object LinkView "" @3408
 				stereotype 	TRUE
 				line_color 	3342489
@@ -82562,7 +82449,7 @@
 				supplier   	@3352
 				line_style 	0)
 			    (object MessView "" @3409
-				location   	(1414, 1220)
+				location   	(1314, 1204)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -82575,7 +82462,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @3410
 				    Parent_View 	@3409
-				    location   	(1412, 918)
+				    location   	(1314, 902)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82596,7 +82483,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3411
 				    Parent_View 	@3409
-				    location   	(1412, 1004)
+				    location   	(1314, 988)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82617,7 +82504,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3412
 				    Parent_View 	@3409
-				    location   	(1412, 1047)
+				    location   	(1314, 1031)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82638,7 +82525,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3413
 				    Parent_View 	@3409
-				    location   	(1412, 1090)
+				    location   	(1314, 1074)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82659,7 +82546,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3414
 				    Parent_View 	@3409
-				    location   	(1412, 961)
+				    location   	(1314, 945)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82680,7 +82567,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3415
 				    Parent_View 	@3409
-				    location   	(1412, 1133)
+				    location   	(1314, 1117)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82701,7 +82588,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3416
 				    Parent_View 	@3409
-				    location   	(1412, 1176)
+				    location   	(1314, 1160)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82721,14 +82608,14 @@
 				    height     	45
 				    orientation 	0)
 				object_arc 	@3408
-				pctDist    	0.441621
-				height     	49
+				pctDist    	0.314295
+				height     	56
 				orientation 	0
 				dir        	1
-				origin     	(1354, 1224)
-				terminus   	(1474, 1216))
+				origin     	(1254, 1206)
+				terminus   	(1374, 1202))
 			    (object MessView "" @3417
-				location   	(1496, 1335)
+				location   	(1509, 1321)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -82741,7 +82628,7 @@
 				line_color 	3342489
 				label      	(object SegLabel @3418
 				    Parent_View 	@3417
-				    location   	(1500, 1380)
+				    location   	(1511, 1366)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82762,7 +82649,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3419
 				    Parent_View 	@3417
-				    location   	(1500, 1423)
+				    location   	(1511, 1409)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82783,7 +82670,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3420
 				    Parent_View 	@3417
-				    location   	(1500, 1466)
+				    location   	(1511, 1452)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82804,7 +82691,7 @@
 				    orientation 	0)
 				label      	(object SegLabel @3421
 				    Parent_View 	@3417
-				    location   	(1500, 1509)
+				    location   	(1511, 1495)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -82828,8 +82715,8 @@
 				height     	72
 				orientation 	1
 				dir        	-1
-				origin     	(1555, 1330)
-				terminus   	(1437, 1340))))
+				origin     	(1568, 1318)
+				terminus   	(1450, 1324))))
 		    (object InteractionDiagram "CU 53: Consultar Proveedor"
 			mechanism_ref 	@53
 			quid       	"4C1E8EB301F8"
@@ -82838,7 +82725,7 @@
 			max_height 	28350
 			max_width  	21600
 			origin_x   	0
-			origin_y   	13112
+			origin_y   	13111
 			items      	(list diagram_item_list
 			    (object InterObjView "$UNNAMED$605" @3422
 				location   	(450, 225)
@@ -83782,7 +83669,7 @@
 				    quidu      	"4C1E8E2C039D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	498
+				    max_width  	488
 				    justify    	0
 				    label      	"opcionConsultarProveedor()"
 				    pctDist    	0.500000
@@ -83822,7 +83709,7 @@
 				    quidu      	"4C1E8E2C03AB"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	373
+				    max_width  	363
 				    justify    	0
 				    label      	"consultarProveedor()"
 				    pctDist    	0.500000
@@ -84702,7 +84589,7 @@
 				    quidu      	"4C1E8E2C039F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	291
+				    max_width  	284
 				    justify    	0
 				    label      	"opcionImprimir()"
 				    pctDist    	0.500000
@@ -84742,7 +84629,7 @@
 				    quidu      	"4C1E8E2C03AF"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	176
+				    max_width  	169
 				    justify    	0
 				    label      	"imprimir()"
 				    pctDist    	0.500000
@@ -84942,7 +84829,7 @@
 				    quidu      	"4C1E8ECB03D8"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	451
+				    max_width  	441
 				    justify    	0
 				    label      	"mostrarDatosProveedor()"
 				    pctDist    	0.500000
@@ -84982,7 +84869,7 @@
 				    quidu      	"4C1E8F130310"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	297
+				    max_width  	294
 				    justify    	0
 				    label      	"generarInforme()"
 				    pctDist    	0.500000
@@ -85062,7 +84949,7 @@
 				    quidu      	"4C1E8FA30158"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	373
+				    max_width  	372
 				    justify    	0
 				    label      	"criterioDeBusqueda()"
 				    pctDist    	0.500000
@@ -85542,7 +85429,7 @@
 				    location   	(192, 1185)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	471
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -85571,7 +85458,7 @@
 				    location   	(1011, 1184)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	705
+				    max_width  	726
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -85602,7 +85489,7 @@
 				    location   	(2131, 1184)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	811
+				    max_width  	497
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -85722,7 +85609,7 @@
 				    location   	(2927, 1078)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1219
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -86009,7 +85896,7 @@
 				    quidu      	"4C1E9321007D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	416
+				    max_width  	422
 				    justify    	0
 				    label      	"mostrarProveedores()"
 				    pctDist    	0.500000
@@ -86116,7 +86003,7 @@
 				    location   	(289, 1335)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -86176,7 +86063,7 @@
 				    location   	(2257, 1328)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	526
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -89334,7 +89221,7 @@
 				    location   	(223, 1343)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -89394,7 +89281,7 @@
 				    location   	(2157, 1344)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	502
+				    max_width  	506
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -89443,7 +89330,7 @@
 				    quidu      	"4C1E993E0061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	413
+				    max_width  	423
 				    justify    	0
 				    label      	"buscarMateriaPrima()"
 				    pctDist    	0.500000
@@ -89750,7 +89637,7 @@
 				    quidu      	"4C1E9814025F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	563
+				    max_width  	573
 				    justify    	0
 				    label      	"opcionModificarMateriaPrima()"
 				    pctDist    	0.500000
@@ -89881,7 +89768,7 @@
 				    quidu      	"4C1E982300F7"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	453
+				    max_width  	463
 				    justify    	0
 				    label      	"modificarMateriaPrima()"
 				    pctDist    	0.500000
@@ -90005,7 +89892,7 @@
 				    quidu      	"4C1E9958036D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	472
+				    max_width  	482
 				    justify    	0
 				    label      	"mostrarMateriasPrimas()"
 				    pctDist    	0.500000
@@ -91103,7 +90990,7 @@
 				    quidu      	"4C1E9814025F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	519
+				    max_width  	10
 				    justify    	0
 				    label      	"opcionModificarMateriaPrima()"
 				    pctDist    	0.500000
@@ -91143,7 +91030,7 @@
 				    quidu      	"4C1E982300F7"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	409
+				    max_width  	10
 				    justify    	0
 				    label      	"modificarMateriaPrima()"
 				    pctDist    	0.500000
@@ -91183,7 +91070,7 @@
 				    quidu      	"4C1E993E0061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	369
+				    max_width  	10
 				    justify    	0
 				    label      	"buscarMateriaPrima()"
 				    pctDist    	0.500000
@@ -91263,7 +91150,7 @@
 				    quidu      	"4C1E9958036D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	428
+				    max_width  	10
 				    justify    	0
 				    label      	"mostrarMateriasPrimas()"
 				    pctDist    	0.500000
@@ -92263,7 +92150,7 @@
 				    location   	(229, 1342)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	487
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -92292,7 +92179,7 @@
 				    location   	(2902, 1080)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1039
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -92322,7 +92209,7 @@
 				    location   	(2719, 1846)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1039
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -92352,7 +92239,7 @@
 				    location   	(1866, 1789)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1039
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -92382,7 +92269,7 @@
 				    location   	(3110, 2158)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1039
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -92412,7 +92299,7 @@
 				    location   	(2033, 2161)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1039
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -92468,7 +92355,7 @@
 				    location   	(861, 1341)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -92499,7 +92386,7 @@
 				    location   	(2060, 1342)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	817
+				    max_width  	526
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -92548,7 +92435,7 @@
 				    quidu      	"4C1E9E3C02F1"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	438
+				    max_width  	423
 				    justify    	0
 				    label      	"buscarMateriaPrima()"
 				    pctDist    	0.500000
@@ -92661,7 +92548,7 @@
 				    location   	(1318, 802)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -92752,7 +92639,7 @@
 				    quidu      	"4C1E9DD40061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	347
+				    max_width  	357
 				    justify    	0
 				    label      	"opcionImprimir()"
 				    pctDist    	0.500000
@@ -92961,7 +92848,7 @@
 				    quidu      	"4C1E9DD4006D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	453
+				    max_width  	463
 				    justify    	0
 				    label      	"consultarMateriaPrima()"
 				    pctDist    	0.500000
@@ -94049,7 +93936,7 @@
 				    quidu      	"4C1E9DD4005F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	544
+				    max_width  	10
 				    justify    	0
 				    label      	"opcionConsultarMateriaPrima()"
 				    pctDist    	0.500000
@@ -94089,7 +93976,7 @@
 				    quidu      	"4C1E9DD4006D"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	419
+				    max_width  	10
 				    justify    	0
 				    label      	"consultarMateriaPrima()"
 				    pctDist    	0.500000
@@ -94169,7 +94056,7 @@
 				    quidu      	"4C1E9DD4006E"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	435
+				    max_width  	10
 				    justify    	0
 				    label      	"mostrarMateriasPrimas()"
 				    pctDist    	0.500000
@@ -94729,7 +94616,7 @@
 				    quidu      	"4C1E9DD40061"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	291
+				    max_width  	10
 				    justify    	0
 				    label      	"opcionImprimir()"
 				    pctDist    	0.500000
@@ -94769,7 +94656,7 @@
 				    quidu      	"4C1E9DD40071"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	176
+				    max_width  	10
 				    justify    	0
 				    label      	"imprimir()"
 				    pctDist    	0.500000
@@ -94809,7 +94696,7 @@
 				    quidu      	"4C1E9E3C02F1"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	375
+				    max_width  	10
 				    justify    	0
 				    label      	"buscarMateriaPrima()"
 				    pctDist    	0.500000
@@ -95129,7 +95016,7 @@
 				    location   	(252, 1266)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	531
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -95158,7 +95045,7 @@
 				    location   	(1030, 1262)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	723
+				    max_width  	711
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -95189,7 +95076,7 @@
 				    location   	(2320, 1272)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	601
+				    max_width  	552
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -95351,7 +95238,7 @@
 				    location   	(3114, 750)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -95381,7 +95268,7 @@
 				    location   	(3111, 1456)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -95411,7 +95298,7 @@
 				    location   	(2261, 1850)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -95897,7 +95784,7 @@
 				    quidu      	"4C1EC72403B8"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	416
+				    max_width  	422
 				    justify    	0
 				    label      	"mostrarProveedores()"
 				    pctDist    	0.500000
@@ -95965,7 +95852,7 @@
 				    quidu      	"4C1EC75702F9"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	434
+				    max_width  	438
 				    justify    	0
 				    label      	"mostrarRazonSocial()"
 				    pctDist    	0.500000
@@ -96004,7 +95891,7 @@
 				    location   	(259, 1319)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -96033,7 +95920,7 @@
 				    location   	(1236, 1318)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -96064,7 +95951,7 @@
 				    location   	(2189, 1319)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	622
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -98611,7 +98498,7 @@
 				    location   	(261, 1334)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	531
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -98640,7 +98527,7 @@
 				    location   	(958, 1334)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	723
+				    max_width  	697
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -98671,7 +98558,7 @@
 				    location   	(2197, 1344)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	601
+				    max_width  	628
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -98726,7 +98613,7 @@
 				    location   	(2967, 1002)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -98880,7 +98767,7 @@
 				    location   	(2906, 1752)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -98910,7 +98797,7 @@
 				    location   	(2137, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	1190
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -99566,7 +99453,7 @@
 				    location   	(261, 1334)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	381
+				    max_width  	362
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -99595,7 +99482,7 @@
 				    location   	(2967, 1002)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	486
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -99625,7 +99512,7 @@
 				    location   	(2937, 1790)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	486
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -99655,7 +99542,7 @@
 				    location   	(2137, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	486
+				    max_width  	465
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -99711,7 +99598,7 @@
 				    location   	(983, 1334)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -99742,7 +99629,7 @@
 				    location   	(2250, 1325)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	581
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -99791,7 +99678,7 @@
 				    quidu      	"4C1ED3D700F6"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	500
+				    max_width  	488
 				    justify    	0
 				    label      	"buscarEtapaProduccion()"
 				    pctDist    	0.500000
@@ -99904,7 +99791,7 @@
 				    location   	(1624, 759)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	690
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -101180,7 +101067,7 @@
 				    quidu      	"4C1ED30D0120"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	591
+				    max_width  	10
 				    justify    	0
 				    label      	"opcionModificarEtapaProduccion()"
 				    pctDist    	0.500000
@@ -101220,7 +101107,7 @@
 				    quidu      	"4C1ED30D012E"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	482
+				    max_width  	10
 				    justify    	0
 				    label      	"modificarEtapaProduccion()"
 				    pctDist    	0.500000
@@ -101300,7 +101187,7 @@
 				    quidu      	"4C1ED30D012F"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	478
+				    max_width  	10
 				    justify    	0
 				    label      	"mostrarEtapasProduccion()"
 				    pctDist    	0.500000
@@ -101780,7 +101667,7 @@
 				    quidu      	"4C1ED3D700F6"
 				    anchor_loc 	1
 				    nlines     	1
-				    max_width  	441
+				    max_width  	10
 				    justify    	0
 				    label      	"buscarEtapaProduccion()"
 				    pctDist    	0.500000
@@ -105120,7 +105007,7 @@
 				    location   	(248, 1353)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -105149,7 +105036,7 @@
 				    location   	(1233, 1353)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -105180,7 +105067,7 @@
 				    location   	(2262, 1360)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -105426,7 +105313,7 @@
 				    location   	(2531, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105456,7 +105343,7 @@
 				    location   	(3116, 1687)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105486,7 +105373,7 @@
 				    location   	(2878, 2130)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105516,7 +105403,7 @@
 				    location   	(2237, 2384)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105546,7 +105433,7 @@
 				    location   	(3244, 1290)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105576,7 +105463,7 @@
 				    location   	(3376, 768)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105606,7 +105493,7 @@
 				    location   	(3794, 897)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105636,7 +105523,7 @@
 				    location   	(3788, 1446)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105666,7 +105553,7 @@
 				    location   	(1994, 2078)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -105696,7 +105583,7 @@
 				    location   	(1502, 537)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -105755,7 +105642,7 @@
 				    location   	(2991, 703)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	483
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -106908,7 +106795,7 @@
 				    location   	(236, 1300)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -106937,7 +106824,7 @@
 				    location   	(1230, 1306)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -106968,7 +106855,7 @@
 				    location   	(2260, 1325)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -106998,7 +106885,7 @@
 				    location   	(2531, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107028,7 +106915,7 @@
 				    location   	(3128, 1577)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107058,7 +106945,7 @@
 				    location   	(2878, 2130)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107088,7 +106975,7 @@
 				    location   	(2237, 2384)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107118,7 +107005,7 @@
 				    location   	(2975, 1184)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107148,7 +107035,7 @@
 				    location   	(3441, 916)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107178,7 +107065,7 @@
 				    location   	(3905, 916)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107208,7 +107095,7 @@
 				    location   	(3788, 1446)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107238,7 +107125,7 @@
 				    location   	(1502, 537)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -107534,7 +107421,7 @@
 				    location   	(1800, 2053)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -107564,7 +107451,7 @@
 				    location   	(3140, 578)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111631,7 +111518,7 @@
 				    location   	(1093, 1306)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	701
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -111662,7 +111549,7 @@
 				    location   	(2260, 1325)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	479
+				    max_width  	482
 				    justify    	0
 				    label      	"")
 				icon       	"control"
@@ -111692,7 +111579,7 @@
 				    location   	(2531, 1884)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111722,7 +111609,7 @@
 				    location   	(3128, 1577)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	624
+				    max_width  	627
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111752,7 +111639,7 @@
 				    location   	(2878, 2130)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111782,7 +111669,7 @@
 				    location   	(2237, 2384)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	608
+				    max_width  	611
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111812,7 +111699,7 @@
 				    location   	(2975, 1184)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111842,7 +111729,7 @@
 				    location   	(3441, 916)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111872,7 +111759,7 @@
 				    location   	(3905, 916)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	608
+				    max_width  	611
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111902,7 +111789,7 @@
 				    location   	(3788, 1446)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	608
+				    max_width  	611
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -111932,7 +111819,7 @@
 				    location   	(1502, 537)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	697
+				    max_width  	708
 				    justify    	0
 				    label      	"")
 				icon       	"boundary"
@@ -112207,7 +112094,7 @@
 				    location   	(292, 1313)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	395
+				    max_width  	399
 				    justify    	0
 				    label      	"")
 				icon       	"Actor"
@@ -112236,7 +112123,7 @@
 				    location   	(1916, 2022)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -112266,7 +112153,7 @@
 				    location   	(3147, 534)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	636
+				    max_width  	638
 				    justify    	0
 				    label      	"")
 				icon       	"entity"
@@ -113626,7 +113513,7 @@
 				    location   	(1110, 248)
 				    anchor_loc 	1
 				    nlines     	2
-				    max_width  	471
+				    max_width  	584
 				    justify    	0
 				    label      	"")
 				icon       	"control"
