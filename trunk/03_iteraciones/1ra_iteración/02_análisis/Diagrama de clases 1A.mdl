@@ -1366,7 +1366,7 @@
 		roles      	(list role_list
 		    (object Role "$UNNAMED$106"
 			quid       	"4BE5EEEF00C7"
-			supplier   	"Logical View::metalsoft::sistema::mantmaquinarias::EmpresaMetalurgica"
+			supplier   	"Logical View::metalsoft::sistema::trabajostercerizados::EmpresaMetalurgica"
 			quidu      	"4BBE69320281"
 			client_cardinality 	(value cardinality "1")
 			is_navigable 	TRUE)
@@ -2888,7 +2888,7 @@
 				is_navigable 	TRUE)
 			    (object Role "$UNNAMED$452"
 				quid       	"4BBE695103A9"
-				supplier   	"Logical View::metalsoft::sistema::mantmaquinarias::EmpresaMetalurgica"
+				supplier   	"Logical View::metalsoft::sistema::trabajostercerizados::EmpresaMetalurgica"
 				quidu      	"4BBE69320281")))
 		    (object Association "$UNNAMED$453"
 			quid       	"4BBE6D20029F"
@@ -2912,7 +2912,7 @@
 				is_navigable 	TRUE)
 			    (object Role "$UNNAMED$458"
 				quid       	"4BBE6D230191"
-				supplier   	"Logical View::metalsoft::sistema::mantmaquinarias::EmpresaMetalurgica"
+				supplier   	"Logical View::metalsoft::sistema::trabajostercerizados::EmpresaMetalurgica"
 				quidu      	"4BBE69320281")))
 		    (object Association "$UNNAMED$459"
 			quid       	"4BBE6D240180"
@@ -10336,7 +10336,28 @@
 					    (object ClassAttribute "nombre"
 						quid       	"4C1FE2140235")
 					    (object ClassAttribute "descripcion"
-						quid       	"4C1FE216005E"))))
+						quid       	"4C1FE216005E")))
+				    (object Class "EmpresaMetalurgica"
+					quid       	"4BBE69320281"
+					superclasses 	(list inheritance_relationship_list
+					    (object Inheritance_Relationship
+						quid       	"4BBE6D490126"
+						supplier   	"Logical View::metalsoft::sistema::compras::PersonaJuridica"
+						quidu      	"4BBE6A08030F"))
+					operations 	(list Operations
+					    (object Operation "crear"
+						quid       	"4BC24E4400CD"
+						concurrency 	"Sequential"
+						opExportControl 	"Public"
+						uid        	0)
+					    (object Operation "conocerReaclamo"
+						quid       	"4BC24E46025F"
+						concurrency 	"Sequential"
+						opExportControl 	"Public"
+						uid        	0))
+					class_attributes 	(list class_attribute_list
+					    (object ClassAttribute "nroEmpresaMetalugica"
+						quid       	"4BC23C4902CE"))))
 				logical_presentations 	(list unit_reference_list))
 			    (object Class_Category "informes"
 				quid       	"4C112F950247"
@@ -10685,27 +10706,6 @@
 						quid       	"4BE6214A03A1")
 					    (object ClassAttribute "descripcion"
 						quid       	"4BE6214E035C")))
-				    (object Class "EmpresaMetalurgica"
-					quid       	"4BBE69320281"
-					superclasses 	(list inheritance_relationship_list
-					    (object Inheritance_Relationship
-						quid       	"4BBE6D490126"
-						supplier   	"Logical View::metalsoft::sistema::compras::PersonaJuridica"
-						quidu      	"4BBE6A08030F"))
-					operations 	(list Operations
-					    (object Operation "crear"
-						quid       	"4BC24E4400CD"
-						concurrency 	"Sequential"
-						opExportControl 	"Public"
-						uid        	0)
-					    (object Operation "conocerReaclamo"
-						quid       	"4BC24E46025F"
-						concurrency 	"Sequential"
-						opExportControl 	"Public"
-						uid        	0))
-					class_attributes 	(list class_attribute_list
-					    (object ClassAttribute "nroEmpresaMetalugica"
-						quid       	"4BC23C4902CE")))
 				    (object Class "DetalleMantenimientoPreventivo"
 					quid       	"4BBE77D703C2"
 					operations 	(list Operations
@@ -28438,7 +28438,7 @@
 			height     	314
 			annotation 	8
 			autoResize 	TRUE)
-		    (object ClassView "Class" "Logical View::metalsoft::sistema::mantmaquinarias::EmpresaMetalurgica" @682
+		    (object ClassView "Class" "Logical View::metalsoft::sistema::trabajostercerizados::EmpresaMetalurgica" @682
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
@@ -28464,6 +28464,24 @@
 			line_color 	10485760
 			fill_color 	16777162
 			quidu      	"4BBE69320281"
+			compartment 	(object Compartment
+			    Parent_View 	@682
+			    location   	(9996, 314)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	4
+			    max_width  	0
+			    justify    	1)
 			width      	480
 			height     	314
 			annotation 	8
