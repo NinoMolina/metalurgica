@@ -1300,7 +1300,7 @@
 		roles      	(list role_list
 		    (object Role "$UNNAMED$91"
 			quid       	"4BE5E42E03E2"
-			supplier   	"Logical View::metalsoft::sistema::compras::TipoMaterial"
+			supplier   	"Logical View::metalsoft::sistema::produccion::TipoMaterial"
 			quidu      	"4BE5E42601AE"
 			client_cardinality 	(value cardinality "1")
 			is_navigable 	TRUE)
@@ -2114,7 +2114,7 @@
 		roles      	(list role_list
 		    (object Role "$UNNAMED$277"
 			quid       	"4C1691B6023C"
-			supplier   	"Logical View::metalsoft::sistema::compras::TipoMaterial"
+			supplier   	"Logical View::metalsoft::sistema::produccion::TipoMaterial"
 			quidu      	"4BE5E42601AE"
 			is_navigable 	TRUE)
 		    (object Role "$UNNAMED$278"
@@ -2126,7 +2126,7 @@
 		roles      	(list role_list
 		    (object Role "$UNNAMED$280"
 			quid       	"4C1691BB01D7"
-			supplier   	"Logical View::metalsoft::sistema::compras::TipoMaterial"
+			supplier   	"Logical View::metalsoft::sistema::produccion::TipoMaterial"
 			quidu      	"4BE5E42601AE"
 			is_navigable 	TRUE)
 		    (object Role "$UNNAMED$281"
@@ -3759,7 +3759,25 @@
 					    (object ClassAttribute "imagen"
 						quid       	"4BE631BE0119")
 					    (object ClassAttribute "descripcion"
-						quid       	"4C18062F00B5"))))
+						quid       	"4C18062F00B5")))
+				    (object Class "PedidoMatriz"
+					quid       	"4C2013DD0380"
+					class_attributes 	(list class_attribute_list
+					    (object ClassAttribute "nroPedidoMatriz"
+						quid       	"4C2013EB01F3")))
+				    (object Class "TipoMaterial"
+					quid       	"4BE5E42601AE"
+					operations 	(list Operations
+					    (object Operation "crear"
+						quid       	"4C0EC5980356"
+						concurrency 	"Sequential"
+						opExportControl 	"Public"
+						uid        	0))
+					class_attributes 	(list class_attribute_list
+					    (object ClassAttribute "nombre"
+						quid       	"4BE5E43D0070")
+					    (object ClassAttribute "descripcion"
+						quid       	"4BE5E4450312"))))
 				logical_presentations 	(list unit_reference_list))
 			    (object Class_Category "ventas"
 				quid       	"4C112FC7015B"
@@ -9804,19 +9822,6 @@
 				quid       	"4C112FC10155"
 				exportControl 	"Public"
 				logical_models 	(list unit_reference_list
-				    (object Class "TipoMaterial"
-					quid       	"4BE5E42601AE"
-					operations 	(list Operations
-					    (object Operation "crear"
-						quid       	"4C0EC5980356"
-						concurrency 	"Sequential"
-						opExportControl 	"Public"
-						uid        	0))
-					class_attributes 	(list class_attribute_list
-					    (object ClassAttribute "nombre"
-						quid       	"4BE5E43D0070")
-					    (object ClassAttribute "descripcion"
-						quid       	"4BE5E4450312")))
 				    (object Class "PersonaJuridica"
 					quid       	"4BBE6A08030F"
 					operations 	(list Operations
@@ -10091,11 +10096,6 @@
 						quid       	"4C1FE17C007A")
 					    (object ClassAttribute "descripcion"
 						quid       	"4C1FE17E00A5")))
-				    (object Class "PedidoMatriz"
-					quid       	"4C2013DD0380"
-					class_attributes 	(list class_attribute_list
-					    (object ClassAttribute "nroPedidoMatriz"
-						quid       	"4C2013EB01F3")))
 				    (object Class "DetalleReclamo"
 					quid       	"4BC246130298"
 					operations 	(list Operations
@@ -32017,7 +32017,7 @@
 				    (6628, 5941)
 				    (7552, 6226))
 				line_style 	0)))
-		    (object ClassView "Class" "Logical View::metalsoft::sistema::compras::TipoMaterial" @879
+		    (object ClassView "Class" "Logical View::metalsoft::sistema::produccion::TipoMaterial" @879
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
@@ -32043,6 +32043,24 @@
 			line_color 	10485760
 			fill_color 	16777162
 			quidu      	"4BE5E42601AE"
+			compartment 	(object Compartment
+			    Parent_View 	@879
+			    location   	(5884, 896)
+			    font       	(object Font
+				size       	9
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	4
+			    max_width  	0
+			    justify    	1)
 			width      	276
 			height     	316
 			annotation 	8
