@@ -10,17 +10,48 @@
  */
 
 package metalsoft.presentacion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import metalsoft.negocio.gestores.*;
+import metalsoft.negocio.produccion.TipoMaterial;
+import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
+import metalsoft.presentacion.lookandfeel.Temas;
 /**
  *
  * @author Nino
  */
 public class ABMTipoMaterial extends javax.swing.JFrame {
-
+    private TipoMaterial tipoMaterial;
     /** Creates new form ABMTipoMaterial */
     public ABMTipoMaterial() {
         initComponents();
+    }
+
+    public JTextArea getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public void setTxtDescripcion(JTextArea txtDescripcion) {
+        this.txtDescripcion = txtDescripcion;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public void setTxtNombre(JTextField txtNombre) {
+        this.txtNombre = txtNombre;
+    }
+
+    public TipoMaterial getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public void setTipoMaterial(TipoMaterial tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
     }
 
     /** This method is called from within the constructor to
@@ -39,9 +70,9 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextArea();
         jButton10 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,11 +94,26 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Modificar");
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Nuevo");
 
@@ -92,12 +138,12 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
                             .addComponent(jButton9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5))
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnModificar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,13 +160,13 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(jButton8))
+                        .addComponent(btnModificar)
+                        .addComponent(btnBuscar))
                     .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
-                    .addComponent(jButton7)
+                    .addComponent(btnEliminar)
                     .addComponent(jButton10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -131,9 +177,38 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         GestorTipoMaterial gestor=new GestorTipoMaterial();
         int id=gestor.guardarTipoMaterial(txtNombre.getText(),txtDescripcion.getText());
-        if(id>-1)JOptionPane.showMessageDialog(this, "TipoMaterial: "+txtNombre.getText()+", ID: "+id);
+        if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó el siguiente TipoMaterial: "+txtNombre.getText());
         else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ABMTipoMaterial_Buscar buscar=null;
+        try {
+            buscar=(ABMTipoMaterial_Buscar) JFrameManager.crearVentana(ABMTipoMaterial_Buscar.class.getName());
+            buscar.setVentanaTipoMaterial(this);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        GestorTipoMaterial gestor=new GestorTipoMaterial();
+        boolean ok=gestor.modificarTipoMaterial(tipoMaterial, txtNombre.getText(),txtDescripcion.getText());
+        if(ok)JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+        else JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        GestorTipoMaterial gestor=new GestorTipoMaterial();
+        boolean ok=gestor.eliminarTipoMaterial(tipoMaterial);
+        if(ok)JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+        else JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -141,17 +216,26 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ABMTipoMaterial().setVisible(true);
+                try {
+                    LookAndFeelManager.setLookAndFeel(Temas.WINDOWS);
+                    JFrameManager.crearVentana(ABMTipoMaterial.class.getName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
