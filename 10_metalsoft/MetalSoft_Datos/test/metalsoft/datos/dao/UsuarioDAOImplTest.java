@@ -5,9 +5,9 @@
 
 package metalsoft.datos.dao;
 
-import metalsoft.datos.PostgreSQLManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Usuario;
 import metalsoft.datos.dbobject.UsuarioPK;
 import org.junit.After;
@@ -48,14 +48,16 @@ public class UsuarioDAOImplTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        UsuarioPK usuariopk = null;
-        Connection con = null;
+        UsuarioPK usuariopk = new UsuarioPK();
+        usuariopk.setIdusuario(6);
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection con = pg.concectGetCn();
         UsuarioDAOImpl instance = new UsuarioDAOImpl();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.delete(usuariopk, con);
+        con.close();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -81,14 +83,17 @@ public class UsuarioDAOImplTest {
     @Test
     public void testInsert() throws Exception {
         System.out.println("insert");
-        Usuario usuario = null;
-        Connection con = null;
+        Usuario usuario = new Usuario();
+        usuario.setClave("test");
+        usuario.setUsuario("test");
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection con = pg.concectGetCn();
         UsuarioDAOImpl instance = new UsuarioDAOImpl();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.insert(usuario, con);
+        con.close();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -209,20 +214,15 @@ public class UsuarioDAOImplTest {
     @Test
     public void testFindExecutingUserWhere() throws Exception {
         System.out.println("findExecutingUserWhere");
-        String user="admin";
-        String pass="admin";
-        String whereClause = "usuario=? AND clave=?";
-        Object[] sqlParams = new Object[2];
-        sqlParams[0]="admin";
-        sqlParams[1]="admin";
-        Connection con = new PostgreSQLManager().concectGetCn();
+        String whereClause = "";
+        Object[] sqlParams = null;
+        Connection con = null;
         UsuarioDAOImpl instance = new UsuarioDAOImpl();
         Usuario[] expResult = null;
         Usuario[] result = instance.findExecutingUserWhere(whereClause, sqlParams, con);
-        assertNotNull(result);
-
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-
+        fail("The test case is a prototype.");
     }
 
     /**
