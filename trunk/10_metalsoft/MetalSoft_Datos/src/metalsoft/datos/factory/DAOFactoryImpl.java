@@ -100,11 +100,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return detalleejecucionplanificacioncalidaddaoimpl;
 	}
 
-	private static final DetallefacturaDAOImpl  detallefacturadaoimpl = new DetallefacturaDAOImpl();
-	public DetallefacturaDAO createDetallefacturaDAO()
-	{
-		return detallefacturadaoimpl;
-	}
+	
 
 	private static final DetallemantenimientocorrectivoDAOImpl  detallemantenimientocorrectivodaoimpl = new DetallemantenimientocorrectivoDAOImpl();
 	public DetallemantenimientocorrectivoDAO createDetallemantenimientocorrectivoDAO()
@@ -142,11 +138,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return detalleplanprocesoscalidaddaoimpl;
 	}
 
-	private static final DetallepresupuestoDAOImpl  detallepresupuestodaoimpl = new DetallepresupuestoDAOImpl();
-	public DetallepresupuestoDAO createDetallepresupuestoDAO()
-	{
-		return detallepresupuestodaoimpl;
-	}
+	
 
 	private static final DetalleproductoDAOImpl  detalleproductodaoimpl = new DetalleproductoDAOImpl();
 	public DetalleproductoDAO createDetalleproductoDAO()
@@ -154,11 +146,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return detalleproductodaoimpl;
 	}
 
-	private static final DetalleproductorealDAOImpl  detalleproductorealdaoimpl = new DetalleproductorealDAOImpl();
-	public DetalleproductorealDAO createDetalleproductorealDAO()
-	{
-		return detalleproductorealdaoimpl;
-	}
+	
 
 	private static final DetallereclamoclienteDAOImpl  detallereclamoclientedaoimpl = new DetallereclamoclienteDAOImpl();
 	public DetallereclamoclienteDAO createDetallereclamoclienteDAO()
@@ -316,18 +304,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return estadopiezarealdaoimpl;
 	}
 
-	private static final EstadoproductorealDAOImpl  estadoproductorealdaoimpl = new EstadoproductorealDAOImpl();
-	public EstadoproductorealDAO createEstadoproductorealDAO()
-	{
-		return estadoproductorealdaoimpl;
-	}
-
-	private static final EstadoremitoDAOImpl  estadoremitodaoimpl = new EstadoremitoDAOImpl();
-	public EstadoremitoDAO createEstadoremitoDAO()
-	{
-		return estadoremitodaoimpl;
-	}
-
+	
 	private static final EstadotrabajotercerizadoDAOImpl  estadotrabajotercerizadodaoimpl = new EstadotrabajotercerizadoDAOImpl();
 	public EstadotrabajotercerizadoDAO createEstadotrabajotercerizadoDAO()
 	{
@@ -502,11 +479,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return productodaoimpl;
 	}
 
-	private static final ProductorealDAOImpl  productorealdaoimpl = new ProductorealDAOImpl();
-	public ProductorealDAO createProductorealDAO()
-	{
-		return productorealdaoimpl;
-	}
+	
 
 	private static final ProveedorDAOImpl  proveedordaoimpl = new ProveedorDAOImpl();
 	public ProveedorDAO createProveedorDAO()
@@ -532,11 +505,7 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return provinciadaoimpl;
 	}
 
-	private static final PruebaDAOImpl  pruebadaoimpl = new PruebaDAOImpl();
-	public PruebaDAO createPruebaDAO()
-	{
-		return pruebadaoimpl;
-	}
+	
 
 	private static final ReclamoclienteDAOImpl  reclamoclientedaoimpl = new ReclamoclienteDAOImpl();
 	public ReclamoclienteDAO createReclamoclienteDAO()
@@ -651,5 +620,6 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 	{
 		return usuarioxroldaoimpl;
 	}
+
 
 }
