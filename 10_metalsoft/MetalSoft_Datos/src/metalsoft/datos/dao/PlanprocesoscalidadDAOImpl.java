@@ -12,7 +12,8 @@ package metalsoft.datos.dao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -59,7 +60,8 @@ public class PlanprocesoscalidadDAOImpl implements PlanprocesoscalidadDAO
 */
 
 	public int update(PlanprocesoscalidadPK planprocesoscalidadpk, Planprocesoscalidad planprocesoscalidad, Connection con)throws PlanprocesoscalidadException{
-	}
+	    throw new PlanprocesoscalidadException("el metodo no esta implementado!!!!");
+        }
 
 /**
 * This method inserts data in table PLANPROCESOSCALIDAD
