@@ -11,7 +11,8 @@ package metalsoft.datos.idao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetalletrabajotercerizadoDAO

@@ -12,7 +12,8 @@ package metalsoft.datos.dao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -60,6 +61,7 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 */
 
 	public int update(EmpleadoxturnoPK empleadoxturnopk, Empleadoxturno empleadoxturno, Connection con)throws EmpleadoxturnoException{
+            throw new EmpleadoxturnoException("el metodo update no esta implementado!");
 	}
 
 /**
