@@ -44,7 +44,7 @@ public interface DAOFactory
 
 	public DetalleejecucionplanificacioncalidadDAO createDetalleejecucionplanificacioncalidadDAO();
 
-	public DetallefacturaDAO createDetallefacturaDAO();
+	//public DetallefacturaDAO createDetallefacturaDAO();
 
 	public DetallemantenimientocorrectivoDAO createDetallemantenimientocorrectivoDAO();
 
@@ -58,11 +58,11 @@ public interface DAOFactory
 
 	public DetalleplanprocesoscalidadDAO createDetalleplanprocesoscalidadDAO();
 
-	public DetallepresupuestoDAO createDetallepresupuestoDAO();
+	//public DetallepresupuestoDAO createDetallepresupuestoDAO();
 
 	public DetalleproductoDAO createDetalleproductoDAO();
 
-	public DetalleproductorealDAO createDetalleproductorealDAO();
+	//public DetalleproductorealDAO createDetalleproductorealDAO();
 
 	public DetallereclamoclienteDAO createDetallereclamoclienteDAO();
 
@@ -116,9 +116,9 @@ public interface DAOFactory
 
 	public EstadopiezarealDAO createEstadopiezarealDAO();
 
-	public EstadoproductorealDAO createEstadoproductorealDAO();
+	//public EstadoproductorealDAO createEstadoproductorealDAO();
 
-	public EstadoremitoDAO createEstadoremitoDAO();
+	//public EstadoremitoDAO createEstadoremitoDAO();
 
 	public EstadotrabajotercerizadoDAO createEstadotrabajotercerizadoDAO();
 
@@ -178,7 +178,7 @@ public interface DAOFactory
 
 	public ProductoDAO createProductoDAO();
 
-	public ProductorealDAO createProductorealDAO();
+	//public ProductorealDAO createProductorealDAO();
 
 	public ProveedorDAO createProveedorDAO();
 
@@ -188,7 +188,7 @@ public interface DAOFactory
 
 	public ProvinciaDAO createProvinciaDAO();
 
-	public PruebaDAO createPruebaDAO();
+	//public PruebaDAO createPruebaDAO();
 
 	public ReclamoclienteDAO createReclamoclienteDAO();
 
