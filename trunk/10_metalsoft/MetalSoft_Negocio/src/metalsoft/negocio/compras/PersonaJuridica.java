@@ -3,24 +3,25 @@
 package metalsoft.negocio.compras;
 
 import java.util.Date;
+import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.CondicionIva;
 
 public class PersonaJuridica 
 {
    private String razonSocial;
-   //private Responsable responsable;
+   private Responsable responsable;
    private String telefono;
    private String celular;
    private String mail;
-   //private Domicilio domicilio;
+   private Domicilio domicilio;
    private Date fechaAlta;
    private Date fechaBaja;
    private String CUIL;
    private CondicionIva iva;
    private String CUIT;
-   //public Domicilio theDomicilio;
-   //public Responsable theResponsable;
-   //public CondicionIva theCondicionIva;
+   public Domicilio theDomicilio;
+   public Responsable theResponsable;
+   public CondicionIva theCondicionIva;
    
    /**
     * @roseuid 4C205CD40125
@@ -29,6 +30,46 @@ public class PersonaJuridica
    {
     
    }
+
+    public Responsable getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
+    }
+
+    public CondicionIva getTheCondicionIva() {
+        return theCondicionIva;
+    }
+
+    public void setTheCondicionIva(CondicionIva theCondicionIva) {
+        this.theCondicionIva = theCondicionIva;
+    }
+
+    public Domicilio getTheDomicilio() {
+        return theDomicilio;
+    }
+
+    public void setTheDomicilio(Domicilio theDomicilio) {
+        this.theDomicilio = theDomicilio;
+    }
+
+    public Responsable getTheResponsable() {
+        return theResponsable;
+    }
+
+    public void setTheResponsable(Responsable theResponsable) {
+        this.theResponsable = theResponsable;
+    }
+
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
    
    /**
     * @roseuid 4BC24F0802EE
