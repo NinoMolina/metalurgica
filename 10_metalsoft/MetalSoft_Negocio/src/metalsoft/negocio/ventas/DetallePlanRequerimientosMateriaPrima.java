@@ -1,8 +1,8 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\ventas\\DetallePlanRequerimientosMateriaPrima.java
 
-package metalsoft.sistema.ventas;
+package metalsoft.negocio.ventas;
 
-import metalsoft.sistema.almacenamiento.MateriaPrima;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 
 public class DetallePlanRequerimientosMateriaPrima 
 {

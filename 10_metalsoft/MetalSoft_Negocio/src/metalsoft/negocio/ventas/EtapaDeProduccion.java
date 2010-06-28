@@ -1,10 +1,10 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\ventas\\EtapaDeProduccion.java
 
-package metalsoft.sistema.ventas;
+package metalsoft.negocio.ventas;
 
-import metalsoft.sistema.produccion.EjecucionEtapaDeProduccion;
-import metalsoft.sistema.mantmaquinarias.Maquina;
-import metalsoft.sistema.rrhh.Empleado;
+import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
+import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.rrhh.Empleado;
 
 public class EtapaDeProduccion 
 {
@@ -16,7 +16,7 @@ public class EtapaDeProduccion
    private int duracionEstimadaXUnidMed;
    private int fechaCreacion;
    private int unidadDeMedida;
-   private EjecucionEtapaProduccion ejecucionEtapa;
+   private EjecucionEtapaDeProduccion ejecucionEtapa;
    public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion;
    public Maquina theMaquina;
    public Empleado theEmpleado;
