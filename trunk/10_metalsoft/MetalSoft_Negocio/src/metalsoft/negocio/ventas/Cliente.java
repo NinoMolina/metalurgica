@@ -2,24 +2,22 @@
 
 package metalsoft.negocio.ventas;
 
-import metalsoft.negocio.compras.PersonaJuridica;
-
 
 public class Cliente extends PersonaJuridica 
 {
-   //private EstadoCliente estado;
+   private EstadoCliente estado;
    private int nroCliente;
    private Pedido pedido;
-   //private Prioridad priodidad;
-   //private Reclamo reclamo;
-   //private Usuario usuario;
-   //public ComprobantePago theComprobantePago[];
-   //public Usuario theUsuario;
-   //public Domicilio theDomicilio;
-   //public TipoDocumento theTipoDocumento;
+   private Prioridad priodidad;
+   private Reclamo reclamo;
+   private Usuario usuario;
+   public ComprobantePago theComprobantePago[];
+   public Usuario theUsuario;
+   public Domicilio theDomicilio;
+   public TipoDocumento theTipoDocumento;
    public Pedido thePedido[];
-   //public EstadoCliente theEstadoCliente;
-   //public Reclamo theReclamo[];
+   public EstadoCliente theEstadoCliente;
+   public Reclamo theReclamo[];
    public PersonaJuridica thePersonaJuridica;
    
    /**
