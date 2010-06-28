@@ -1,10 +1,10 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\trabajostercerizados\\DetalleReclamoEmpresaMetalurgica.java
 
-package metalsoft.sistema.trabajostercerizados;
+package metalsoft.negocio.trabajostercerizados;
 
-import metalsoft.sistema.compras.DetalleReclamo;
-import metalsoft.sistema.produccion.PiezaReal;
-import metalsoft.sistema.ventas.Pieza;
+import metalsoft.negocio.compras.DetalleReclamo;
+import metalsoft.negocio.produccion.PiezaReal;
+import metalsoft.negocio.ventas.Pieza;
 
 public class DetalleReclamoEmpresaMetalurgica extends DetalleReclamo 
 {

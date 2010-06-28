@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\trabajostercerizados\\DetalleTrabajoTercerizado.java
 
-package metalsoft.sistema.trabajostercerizados;
+package metalsoft.negocio.trabajostercerizados;
 
-import metalsoft.sistema.ventas.Pieza;
-import metalsoft.sistema.ventas.EtapaDeProduccion;
+import metalsoft.negocio.ventas.Pieza;
+import metalsoft.negocio.ventas.EtapaDeProduccion;
 
 public class DetalleTrabajoTercerizado 
 {
