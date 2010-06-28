@@ -2,24 +2,31 @@
 
 package metalsoft.negocio.ventas;
 
+import metalsoft.datos.dbobject.Matriz;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
+import metalsoft.negocio.produccion.PiezaReal;
 import metalsoft.negocio.produccion.TipoMaterial;
 
 
 public class Pieza 
 {
    private String nombre;
-   //private PiezaReal item;
+   private PiezaReal item;
    private TipoMaterial tipo;
    private String dimensiones;
-   //private MateriaPrima materia;
-   //private Matriz matriz;
-   //public Matriz theMatriz;
-   //public PiezaReal thePiezaReal[];
-   //public TipoMaterial theTipoMaterial;
-   //public EtapaDeProduccion theEtapaDeProduccion[];
-   //public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion[];
-   //public MateriaPrima theMateriaPrima;
-   
+   private MateriaPrima materia;
+   private Matriz matriz;
+
+
+   public Matriz theMatriz;
+   public PiezaReal thePiezaReal[];
+   public TipoMaterial theTipoMaterial;
+   public EtapaDeProduccion theEtapaDeProduccion[];
+   public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion[];
+   public MateriaPrima theMateriaPrima;
+
+
    /**
     * @roseuid 4C27E32B00CA
     */
@@ -113,4 +120,76 @@ public class Pieza
    {
     
    }
+   public PiezaReal getItem() {
+        return item;
+    }
+
+    public void setItem(PiezaReal item) {
+        this.item = item;
+    }
+
+    public MateriaPrima getMateria() {
+        return materia;
+    }
+
+    public void setMateria(MateriaPrima materia) {
+        this.materia = materia;
+    }
+
+    public Matriz getMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(Matriz matriz) {
+        this.matriz = matriz;
+    }
+
+    public EjecucionEtapaDeProduccion[] getTheEjecucionEtapaDeProduccion() {
+        return theEjecucionEtapaDeProduccion;
+    }
+
+    public void setTheEjecucionEtapaDeProduccion(EjecucionEtapaDeProduccion[] theEjecucionEtapaDeProduccion) {
+        this.theEjecucionEtapaDeProduccion = theEjecucionEtapaDeProduccion;
+    }
+
+    public EtapaDeProduccion[] getTheEtapaDeProduccion() {
+        return theEtapaDeProduccion;
+    }
+
+    public void setTheEtapaDeProduccion(EtapaDeProduccion[] theEtapaDeProduccion) {
+        this.theEtapaDeProduccion = theEtapaDeProduccion;
+    }
+
+    public MateriaPrima getTheMateriaPrima() {
+        return theMateriaPrima;
+    }
+
+    public void setTheMateriaPrima(MateriaPrima theMateriaPrima) {
+        this.theMateriaPrima = theMateriaPrima;
+    }
+
+    public Matriz getTheMatriz() {
+        return theMatriz;
+    }
+
+    public void setTheMatriz(Matriz theMatriz) {
+        this.theMatriz = theMatriz;
+    }
+
+    public PiezaReal[] getThePiezaReal() {
+        return thePiezaReal;
+    }
+
+    public void setThePiezaReal(PiezaReal[] thePiezaReal) {
+        this.thePiezaReal = thePiezaReal;
+    }
+
+    public TipoMaterial getTheTipoMaterial() {
+        return theTipoMaterial;
+    }
+
+    public void setTheTipoMaterial(TipoMaterial theTipoMaterial) {
+        this.theTipoMaterial = theTipoMaterial;
+    }
+   
 }
