@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\Matriz.java
 
-package metalsoft.sistema.produccion;
+package metalsoft.negocio.produccion;
 
-import metalsoft.sistema.almacenamiento.MateriaPrima;
-import metalsoft.sistema.ventas.Plano;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.ventas.Plano;
 
 public class Matriz 
 {

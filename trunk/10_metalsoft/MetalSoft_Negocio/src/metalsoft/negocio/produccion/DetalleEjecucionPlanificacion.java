@@ -1,8 +1,8 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\DetalleEjecucionPlanificacion.java
 
-package metalsoft.sistema.produccion;
+package metalsoft.negocio.produccion;
 
-import metalsoft.sistema.trabajostercerizados.DetalleTrabajoTercerizado;
+import metalsoft.negocio.trabajostercerizados.DetalleTrabajoTercerizado;
 
 public class DetalleEjecucionPlanificacion 
 {

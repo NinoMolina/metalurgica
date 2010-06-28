@@ -1,6 +1,6 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\PlanificacionProduccion.java
 
-package metalsoft.sistema.produccion;
+package metalsoft.negocio.produccion;
 
 
 public class PlanificacionProduccion extends Planificacion 
