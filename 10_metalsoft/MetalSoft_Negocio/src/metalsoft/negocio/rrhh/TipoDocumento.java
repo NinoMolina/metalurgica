@@ -1,6 +1,6 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\rrhh\\TipoDocumento.java
 
-package metalsoft.sistema.rrhh;
+package metalsoft.negocio.rrhh;
 
 
 public class TipoDocumento 
