@@ -1,8 +1,8 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\calidad\\ProcesoCalidad.java
 
-package metalsoft.sistema.calidad;
+package metalsoft.negocio.calidad;
 
-import metalsoft.sistema.mantmaquinarias.Maquina;
+import metalsoft.negocio.mantmaquinarias.Maquina;
 
 public class ProcesoCalidad 
 {
