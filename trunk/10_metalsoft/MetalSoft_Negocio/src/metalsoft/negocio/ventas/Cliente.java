@@ -2,11 +2,17 @@
 
 package metalsoft.negocio.ventas;
 
+import metalsoft.negocio.adminusuarios.Usuario;
+import metalsoft.negocio.compras.PersonaJuridica;
+import metalsoft.negocio.compras.Reclamo;
+import metalsoft.negocio.rrhh.Domicilio;
+import metalsoft.negocio.rrhh.TipoDocumento;
+
 
 public class Cliente extends PersonaJuridica 
 {
    private EstadoCliente estado;
-   private int nroCliente;
+   private long nroCliente;
    private Pedido pedido;
    private Prioridad priodidad;
    private Reclamo reclamo;

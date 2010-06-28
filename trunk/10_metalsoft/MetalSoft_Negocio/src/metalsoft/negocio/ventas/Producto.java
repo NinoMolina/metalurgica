@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\ventas\\Producto.java
 
-package metalsoft.sistema.ventas;
+package metalsoft.negocio.ventas;
 
-import metalsoft.sistema.produccion.CodigoDeBarra;
-import metalsoft.sistema.produccion.ProductoReal;
+import metalsoft.negocio.produccion.CodigoDeBarra;
+import metalsoft.negocio.produccion.ProductoReal;
 
 public class Producto 
 {
