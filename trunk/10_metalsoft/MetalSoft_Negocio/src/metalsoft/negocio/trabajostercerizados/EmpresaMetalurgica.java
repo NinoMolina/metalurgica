@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\trabajostercerizados\\EmpresaMetalurgica.java
 
-package metalsoft.sistema.trabajostercerizados;
+package metalsoft.negocio.trabajostercerizados;
 
-import metalsoft.sistema.compras.PersonaJuridica;
-import metalsoft.sistema.compras.Reclamo;
+import metalsoft.negocio.compras.PersonaJuridica;
+import metalsoft.negocio.compras.Reclamo;
 
 public class EmpresaMetalurgica extends PersonaJuridica 
 {
