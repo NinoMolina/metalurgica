@@ -1,8 +1,8 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\calidad\\DetalleEjecucionPlanificacionCalidad.java
 
-package metalsoft.sistema.calidad;
+package metalsoft.negocio.calidad;
 
-import metalsoft.sistema.produccion.PiezaReal;
+import metalsoft.negocio.produccion.PiezaReal;
 
 public class DetalleEjecucionPlanificacionCalidad 
 {

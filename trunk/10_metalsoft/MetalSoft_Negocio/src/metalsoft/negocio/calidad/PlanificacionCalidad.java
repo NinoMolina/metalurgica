@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\calidad\\PlanificacionCalidad.java
 
-package metalsoft.sistema.calidad;
+package metalsoft.negocio.calidad;
 
-import metalsoft.sistema.produccion.Planificacion;
-import metalsoft.sistema.ventas.Pedido;
+import metalsoft.negocio.produccion.Planificacion;
+import metalsoft.negocio.ventas.Pedido;
 
 public class PlanificacionCalidad extends Planificacion 
 {
