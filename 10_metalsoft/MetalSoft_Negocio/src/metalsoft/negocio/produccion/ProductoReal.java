@@ -1,13 +1,13 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\ProductoReal.java
 
-package metalsoft.sistema.produccion;
+package metalsoft.negocio.produccion;
 
-import metalsoft.sistema.ventas.Pedido;
+import metalsoft.negocio.ventas.Pedido;
 
 public class ProductoReal 
 {
    private int nroProductoReal;
-   private int fechaTerminación;
+   private int fechaTerminacion;
    private int fechaInicioProduccion;
    private PiezaReal pieza;
    private Pedido pedido;

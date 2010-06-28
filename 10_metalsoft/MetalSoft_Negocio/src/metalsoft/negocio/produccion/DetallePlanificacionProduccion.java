@@ -1,10 +1,10 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\DetallePlanificacionProduccion.java
 
-package metalsoft.sistema.produccion;
+package metalsoft.negocio.produccion;
 
-import metalsoft.sistema.ventas.EtapaDeProduccion;
-import metalsoft.sistema.ventas.Pieza;
-import metalsoft.sistema.rrhh.Empleado;
+import metalsoft.negocio.ventas.EtapaDeProduccion;
+import metalsoft.negocio.ventas.Pieza;
+import metalsoft.negocio.rrhh.Empleado;
 
 public class DetallePlanificacionProduccion 
 {
