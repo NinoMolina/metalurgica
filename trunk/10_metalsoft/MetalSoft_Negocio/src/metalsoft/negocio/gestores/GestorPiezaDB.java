@@ -10,16 +10,24 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.Materiaprima;
+import metalsoft.datos.dbobject.MateriaprimaPK;
 import metalsoft.datos.dbobject.Pieza;
-import metalsoft.datos.dbobject.TipomaterialPK;
-import metalsoft.datos.exception.TipomaterialException;
+import metalsoft.datos.dbobject.PiezaPK;
+import metalsoft.datos.exception.PiezaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 //import metalsoft.datos.idao.PiezaDAO;
 import metalsoft.datos.idao.PiezaDAO;
+
+
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.Tipomaterial;
+import metalsoft.datos.exception.MateriaprimaException;
 import metalsoft.datos.idao.TipomaterialDAO;
-import metalsoft.negocio.gestores.Parser;
+import metalsoft.negocio.produccion.Matriz;
+import metalsoft.datos.idao.MatrizDAO;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.datos.idao.MateriaprimaDAO;
 //import metalsoft.negocio.ventas.Cliente;
 /**
  *
@@ -77,8 +85,13 @@ public class GestorPiezaDB {
         } catch (Exception ex) {
             Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        metalsoft.negocio.ventas.Pieza[] pnegocio=parseToPieza(p);
+        for(int i=0;i<pnegocio.length;i++)
+        {
+            pnegocio[i].setTipo(buscarTipoMaterialPorID(p[i].getTipomaterial()));
+            pnegocio[i].setMateria(buscarMateriaPrimaPorID(p[i].getMateriaprima()));
+        }
 
-        return parseToPieza(p);
     }
 
     private metalsoft.negocio.ventas.Pieza[] parseToPieza(Pieza[] tm) {
@@ -103,7 +116,7 @@ public class GestorPiezaDB {
 
 
 
-    public boolean modificarPieza(TipoMaterial tipoMaterial, String nombre, String descripcion) {
+    public boolean modificarPieza(metalsoft.negocio.ventas.Pieza pieza, String nombre, String descripcion) {
         TipomaterialDAO dao=new DAOFactoryImpl().createTipomaterialDAO();
         Connection cn=null;
         metalsoft.datos.dbobject.Tipomaterial[] tm=null;
@@ -132,8 +145,8 @@ public class GestorPiezaDB {
         modificado.setIdtipomaterial(id);
         int result=-1;
         try {
-            result = dao.update(new TipomaterialPK(id), modificado, cn);
-        } catch (TipomaterialException ex) {
+            result = dao.update(new MateriaprimaPK(id), modificado, cn);
+        } catch (MateriaprimaException ex) {
             Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
@@ -215,6 +228,9 @@ public class GestorPiezaDB {
         }
         return idTM;
     }
+
+
+
     private TipoMaterial buscarTipoMaterialPorID(long id)
     {
         TipomaterialDAO daoTM=new DAOFactoryImpl().createTipomaterialDAO();
@@ -244,6 +260,63 @@ public class GestorPiezaDB {
         TipoMaterial x=new TipoMaterial();
         x.setNombre(tm.getNombre());
         x.setDescripcion(tm.getDescripcion());
+
+        return x;
+    }
+
+    //// PARA REFERENCIAR A MATERIAPRIMA
+
+    private long buscarMateriaPrima(MateriaPrima materiaprima)
+    {
+        MateriaprimaDAO daoTM=new DAOFactoryImpl().createMateriaprimaDAO();
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long idMP=-1;
+        Object[] sqlParams=new Object[1];
+        sqlParams[0]=materiaprima.getNombre();
+        
+        try {
+            metalsoft.datos.dbobject.Materiaprima[] tm = daoTM.findExecutingUserWhere("nombre = ? ", sqlParams, cn);
+            if(tm.length>0) idMP=tm[0].getIdmateriaprima();
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idMP;
+    }
+    private MateriaPrima buscarMateriaPrimaPorID(long id)
+    {
+        MateriaprimaDAO daoTM=new DAOFactoryImpl().createMateriaprimaDAO();
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        MateriaPrima materiaprima=null;
+        Object[] sqlParams=new Object[1];
+        sqlParams[0]=id;
+
+        try {
+            Materiaprima[] tm = daoTM.findExecutingUserWhere("idmateriaprima = ?", sqlParams, cn);
+            if(tm.length>0) materiaprima=parseToMateriaPrima(tm[0]);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return materiaprima;
+    }
+    private MateriaPrima parseToMateriaPrima(Materiaprima tm) {
+        if(tm==null)return null;
+
+        MateriaPrima x=new MateriaPrima();
+        x.setNombre(tm.getNombre());
+        
 
         return x;
     }
