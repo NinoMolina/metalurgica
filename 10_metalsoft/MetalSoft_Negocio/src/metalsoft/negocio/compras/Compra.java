@@ -1,6 +1,6 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\compras\\Compra.java
 
-package metalsoft.sistema.compras;
+package metalsoft.negocio.compras;
 
 
 public class Compra 
@@ -13,7 +13,7 @@ public class Compra
    private int precioTotal;
    private EstadoCompra estado;
    private int motivoCancelacion;
-   private DetallaCompra detalle;
+   private DetalleCompra detalle;
    private Proveedor proveedor;
    private Reclamo reclamo;
    private int cancelacion;
