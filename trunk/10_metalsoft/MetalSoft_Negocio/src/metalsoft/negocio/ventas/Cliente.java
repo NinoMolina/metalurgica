@@ -33,6 +33,118 @@ public class Cliente extends PersonaJuridica
    {
     
    }
+
+    public EstadoCliente getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoCliente estado) {
+        this.estado = estado;
+    }
+
+    public long getNroCliente() {
+        return nroCliente;
+    }
+
+    public void setNroCliente(long nroCliente) {
+        this.nroCliente = nroCliente;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Prioridad getPriodidad() {
+        return priodidad;
+    }
+
+    public void setPriodidad(Prioridad priodidad) {
+        this.priodidad = priodidad;
+    }
+
+    public Reclamo getReclamo() {
+        return reclamo;
+    }
+
+    public void setReclamo(Reclamo reclamo) {
+        this.reclamo = reclamo;
+    }
+
+    public ComprobantePago[] getTheComprobantePago() {
+        return theComprobantePago;
+    }
+
+    public void setTheComprobantePago(ComprobantePago[] theComprobantePago) {
+        this.theComprobantePago = theComprobantePago;
+    }
+
+    public Domicilio getTheDomicilio() {
+        return theDomicilio;
+    }
+
+    public void setTheDomicilio(Domicilio theDomicilio) {
+        this.theDomicilio = theDomicilio;
+    }
+
+    public EstadoCliente getTheEstadoCliente() {
+        return theEstadoCliente;
+    }
+
+    public void setTheEstadoCliente(EstadoCliente theEstadoCliente) {
+        this.theEstadoCliente = theEstadoCliente;
+    }
+
+    public Pedido[] getThePedido() {
+        return thePedido;
+    }
+
+    public void setThePedido(Pedido[] thePedido) {
+        this.thePedido = thePedido;
+    }
+
+    public PersonaJuridica getThePersonaJuridica() {
+        return thePersonaJuridica;
+    }
+
+    public void setThePersonaJuridica(PersonaJuridica thePersonaJuridica) {
+        this.thePersonaJuridica = thePersonaJuridica;
+    }
+
+    public Reclamo[] getTheReclamo() {
+        return theReclamo;
+    }
+
+    public void setTheReclamo(Reclamo[] theReclamo) {
+        this.theReclamo = theReclamo;
+    }
+
+    public TipoDocumento getTheTipoDocumento() {
+        return theTipoDocumento;
+    }
+
+    public void setTheTipoDocumento(TipoDocumento theTipoDocumento) {
+        this.theTipoDocumento = theTipoDocumento;
+    }
+
+    public Usuario getTheUsuario() {
+        return theUsuario;
+    }
+
+    public void setTheUsuario(Usuario theUsuario) {
+        this.theUsuario = theUsuario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
    
    /**
     * @roseuid 4C17F151005A
