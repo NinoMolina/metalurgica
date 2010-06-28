@@ -1,8 +1,8 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\rrhh\\Empleado.java
 
-package metalsoft.sistema.rrhh;
+package metalsoft.negocio.rrhh;
 
-import metalsoft.sistema.adminusuarios.Usuario;
+import metalsoft.negocio.adminusuarios.Usuario;
 
 public class Empleado extends Persona 
 {
