@@ -77,6 +77,7 @@ public class GestorPiezaDB {
         } catch (Exception ex) {
             Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return parseToPieza(p);
     }
 
@@ -90,6 +91,7 @@ public class GestorPiezaDB {
             x.setNombre(tm[i].getNombre());
             x.setDimensiones(tm[i].getDimensiones());
             x.setTipo(buscarTipoMaterialPorID(tm[i].getTipomaterial()));
+
             c[i]=x;
         }
         return c;
