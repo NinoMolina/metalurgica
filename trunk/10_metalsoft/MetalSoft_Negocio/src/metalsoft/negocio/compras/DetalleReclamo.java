@@ -1,9 +1,9 @@
 //Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\compras\\DetalleReclamo.java
 
-package metalsoft.sistema.compras;
+package metalsoft.negocio.compras;
 
-import metalsoft.sistema.ventas.Producto;
-import metalsoft.sistema.almacenamiento.MateriaPrima;
+import metalsoft.negocio.ventas.Producto;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 
 public class DetalleReclamo 
 {
