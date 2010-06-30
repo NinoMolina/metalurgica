@@ -116,6 +116,11 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         });
 
         jButton6.setText("Nuevo");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,6 +214,10 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         if(ok)JOptionPane.showMessageDialog(this, "Eliminación Realizada");
         else JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
     * @param args the command line arguments
