@@ -65,11 +65,20 @@ public class PiezaDAOImpl implements PiezaDAO
 		{
 			ps = con.prepareStatement("update PIEZA set NOMBRE = ? , TIPOMATERIAL = ? , DIMENSIONES = ? , MATERIAPRIMA = ? , MATRIZ = ?  where idpieza = ?");
 				ps.setString(1,pieza.getNombre());
-				ps.setLong(2,pieza.getTipomaterial());
+
+                long idtm=pieza.getTipomaterial();
+				if(idtm>0)ps.setLong(2,idtm);
+                else ps.setNull(2, java.sql.Types.NULL);
+
 				ps.setString(3,pieza.getDimensiones());
-				ps.setLong(4,pieza.getMateriaprima());
-				ps.setLong(5,pieza.getMatriz());
-				ps.setLong(6,piezapk.getIdpieza());
+
+                long idMp=pieza.getMateriaprima();
+				if(idMp>0)ps.setLong(4,idMp);
+                else ps.setNull(4, java.sql.Types.NULL);
+
+                long idM=pieza.getMatriz();
+				if(idM>0)ps.setLong(5,idM);
+                else ps.setNull(5, java.sql.Types.NULL);
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezaException(sqle);}
