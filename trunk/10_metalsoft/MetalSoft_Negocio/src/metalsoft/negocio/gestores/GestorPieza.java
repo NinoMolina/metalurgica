@@ -216,11 +216,25 @@ public class GestorPieza
     
    }
 
-   public int guardar(String nombre, String dimensiones, TipoMaterial tipomaterial, MateriaPrima materiaPrima, Matriz matriz) {
+   public int guardar(String nombre, String dimensiones, String indexTM, String indexMP, String indexMa) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         Pieza p=new Pieza();
         p.setNombre(nombre);
         p.setDimensiones(dimensiones);
+        long idTM=-1;
+        long idMP=-1;
+        long idMa=-1;
+
+        int iTM=Integer.parseInt(indexTM);
+        idTM=tipoMaterial[iTM].getIdtipomaterial();
+        int iMP=Integer.parseInt(indexMP);
+        idMP=materiaPrima[iMP].getIdmateriaprima();
+        int iMa=Integer.parseInt(indexMa);
+        idMa=matriz[iMa].getIdmatriz();
+        
+        if(idTM!=-1) p.setTipomaterial(idTM);
+        if(idMP!=-1) p.setMateriaprima(idMP);
+        if(idMa!=-1) p.setMatriz(idMa);
 
         int id=-1;
         
@@ -230,17 +244,8 @@ public class GestorPieza
         } catch (Exception ex) {
             Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
         }
-        long idTM=-1;
-        long idMP=-1;
-        long idMa=-1;
+        
 
-        idTM=buscarTipoMaterial(tipomaterial);
-        idMP=buscarMateriaPrima(materiaPrima);
-        idMa=buscarMatriz(matriz);
-
-        if(idTM!=-1) p.setTipomaterial(idTM);
-        if(idMP!=-1) p.setMateriaprima(idMP);
-        if(idMa!=-1) p.setMatriz(idMa);
         try {
             id=dao.insert(p, cn);
         } catch (Exception ex) {
@@ -372,7 +377,7 @@ public class GestorPieza
 
     //// PARA REFERENCIAR A TIPOMATERIAL
 
-    private long buscarTipoMaterial(TipoMaterial tipomaterial)
+    public long buscarTipoMaterial(TipoMaterial tipomaterial)
     {
         TipomaterialDAO daoTM=new DAOFactoryImpl().createTipomaterialDAO();
         Connection cn=null;
@@ -386,7 +391,7 @@ public class GestorPieza
         sqlParams[0]=tipomaterial.getNombre();
         sqlParams[1]=tipomaterial.getDescripcion();
         try {
-            Tipomaterial[] tm = daoTM.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
+            Tipomaterial[] tm= daoTM.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
             if(tm.length>0) idTM=tm[0].getIdtipomaterial();
 
         } catch (Exception ex) {
@@ -395,7 +400,7 @@ public class GestorPieza
         return idTM;
     }
 
-    private TipoMaterial buscarTipoMaterialPorID(long id)
+    public TipoMaterial buscarTipoMaterialPorID(long id)
     {
         TipomaterialDAO daoTM=new DAOFactoryImpl().createTipomaterialDAO();
         Connection cn=null;
@@ -421,7 +426,7 @@ public class GestorPieza
   
     //// PARA REFERENCIAR A MATERIAPRIMA
 
-    private long buscarMateriaPrima(MateriaPrima materiaprima)
+    public long buscarMateriaPrima(MateriaPrima materiaprima)
     {
         MateriaprimaDAO daoTM=new DAOFactoryImpl().createMateriaprimaDAO();
         Connection cn=null;
@@ -443,7 +448,7 @@ public class GestorPieza
         }
         return idMP;
     }
-    private MateriaPrima buscarMateriaPrimaPorID(long id)
+    public MateriaPrima buscarMateriaPrimaPorID(long id)
     {
         MateriaprimaDAO daoTM=new DAOFactoryImpl().createMateriaprimaDAO();
         Connection cn=null;
@@ -469,7 +474,7 @@ public class GestorPieza
 
     //// PARA REFERENCIAR A MATRIZ
 
-    private long buscarMatriz(Matriz matriz)
+    public long buscarMatriz(Matriz matriz)
     {
         MatrizDAO daoMP=new DAOFactoryImpl().createMatrizDAO();
         Connection cn=null;
@@ -492,7 +497,7 @@ public class GestorPieza
         }
         return idMP;
     }
-    private Matriz buscarMatrizPorID(long id)
+    public Matriz buscarMatrizPorID(long id)
     {
         MatrizDAO daoM=new DAOFactoryImpl().createMatrizDAO();
         Connection cn=null;
@@ -604,7 +609,7 @@ public class GestorPieza
         try {
             tipoMaterial = dao.findAll(pg.concectGetCn());
             ItemCombo item=null;
-            combo.addItem("--Seleccionar--");
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
             for(int i=0;i<tipoMaterial.length;i++)
             {
                 item=new ItemCombo();
@@ -633,7 +638,7 @@ public class GestorPieza
         try {
             materiaPrima = dao.findAll(pg.concectGetCn());
             ItemCombo item=null;
-            combo.addItem("--Seleccionar--");
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
             for(int i=0;i<materiaPrima.length;i++)
             {
                 item=new ItemCombo();
@@ -661,7 +666,7 @@ public class GestorPieza
         try {
             matriz = dao.findAll(pg.concectGetCn());
             ItemCombo item=null;
-            combo.addItem("--Seleccionar--");
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
             for(int i=0;i<matriz.length;i++)
             {
                 item=new ItemCombo();
