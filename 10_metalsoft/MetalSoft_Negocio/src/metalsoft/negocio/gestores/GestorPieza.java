@@ -216,21 +216,31 @@ public class GestorPieza
     
    }
 
-   public int guardar(String nombre, String dimensiones, TipoMaterial tipomaterial) {
+   public int guardar(String nombre, String dimensiones, TipoMaterial tipomaterial, MateriaPrima materiaPrima, Matriz matriz) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         Pieza p=new Pieza();
         p.setNombre(nombre);
         p.setDimensiones(dimensiones);
+
         int id=-1;
-        long idTM=-1;
+        
         Connection cn=null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
             Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
         }
+        long idTM=-1;
+        long idMP=-1;
+        long idMa=-1;
+
         idTM=buscarTipoMaterial(tipomaterial);
+        idMP=buscarMateriaPrima(materiaPrima);
+        idMa=buscarMatriz(matriz);
+
         if(idTM!=-1) p.setTipomaterial(idTM);
+        if(idMP!=-1) p.setMateriaprima(idMP);
+        if(idMa!=-1) p.setMatriz(idMa);
         try {
             id=dao.insert(p, cn);
         } catch (Exception ex) {
@@ -455,6 +465,55 @@ public class GestorPieza
         }
 
         return materiaprima;
+    }
+
+    //// PARA REFERENCIAR A MATRIZ
+
+    private long buscarMatriz(Matriz matriz)
+    {
+        MatrizDAO daoMP=new DAOFactoryImpl().createMatrizDAO();
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long idMP=-1;
+        Object[] sqlParams=new Object[2];
+        sqlParams[0]=matriz.getNombre();
+        sqlParams[1]=matriz.getDescripcion();
+
+        try {
+            metalsoft.datos.dbobject.Matriz[] tm = daoMP.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
+            if(tm.length>0) idMP=tm[0].getIdmatriz();
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idMP;
+    }
+    private Matriz buscarMatrizPorID(long id)
+    {
+        MatrizDAO daoM=new DAOFactoryImpl().createMatrizDAO();
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Matriz mat=null;
+        Object[] sqlParams=new Object[1];
+        sqlParams[0]=id;
+
+        try {
+            metalsoft.datos.dbobject.Matriz[] tm = daoM.findExecutingUserWhere("idmateriaprima = ?", sqlParams, cn);
+            if(tm.length>0) mat=parseToMatriz(tm[0]);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return mat;
     }
 
 
