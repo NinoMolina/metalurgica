@@ -3,9 +3,36 @@
 package metalsoft.negocio.gestores;
 
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.Barrio;
+import metalsoft.datos.dbobject.Condicioniva;
+import metalsoft.datos.dbobject.Estadocliente;
+import metalsoft.datos.dbobject.Localidad;
+import metalsoft.datos.dbobject.Prioridad;
+import metalsoft.datos.dbobject.Provincia;
+import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.CondicionivaDAO;
+import metalsoft.datos.idao.EstadoclienteDAO;
+import metalsoft.datos.idao.LocalidadDAO;
+import metalsoft.datos.idao.PrioridadDAO;
+import metalsoft.datos.idao.ProvinciaDAO;
+import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.ventas.CondicionIva;
+
+
 public class GestorCliente 
 {
-   
+   private Condicioniva[] ci=null;
+   private CondicionIva[] cinegocio=null;
+   private Prioridad[] pr=null;
+   private Estadocliente[] estados=null;
+   private Provincia[] provincias=null;
+   private Localidad[] localidades=null;
+   private Barrio[] barrios=null;
    /**
     * @roseuid 4C280D160306
     */
@@ -33,10 +60,172 @@ public class GestorCliente
    /**
     * @roseuid 4C1FF60D010F
     */
-   public void buscarCondicionIva() 
+   public CondicionIva[] buscarCondicionIva()
    {
-    
+        CondicionivaDAO dao=new DAOFactoryImpl().createCondicionivaDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+
+        try {
+            ci = dao.findAll(pg.concectGetCn());
+            cinegocio=Parser.parseToCondIva(ci);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cinegocio;
    }
+
+   public void buscarCondicionIva(JComboBox combo)
+   {
+        CondicionivaDAO dao=new DAOFactoryImpl().createCondicionivaDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+
+        try {
+            ci = dao.findAll(pg.concectGetCn());
+            ItemCombo item=null;
+            combo.addItem("--Seleccionar--");
+            for(int i=0;i<ci.length;i++)
+            {
+                item=new ItemCombo();
+                item.setId(String.valueOf(i));
+                item.setMostrar(ci[i].getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+   }
+
+   public void obtenerPrioridades(JComboBox combo) {
+        PrioridadDAO dao=new DAOFactoryImpl().createPrioridadDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+        combo.removeAllItems();
+        try {
+            pr = dao.findAll(pg.concectGetCn());
+            ItemCombo item=null;
+            combo.addItem("--Seleccionar--");
+            for(int i=0;i<pr.length;i++)
+            {
+                item=new ItemCombo();
+                item.setId(String.valueOf(i));
+                item.setMostrar(pr[i].getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+   public void obtenerEstados(JComboBox combo) {
+        EstadoclienteDAO dao=new DAOFactoryImpl().createEstadoclienteDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+
+        try {
+            estados = dao.findAll(pg.concectGetCn());
+            ItemCombo item=null;
+            combo.addItem("--Seleccionar--");
+            for(int i=0;i<estados.length;i++)
+            {
+                item=new ItemCombo();
+                item.setId(String.valueOf(i));
+                item.setMostrar(estados[i].getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+   public void obtenerProvincias(JComboBox combo) {
+        ProvinciaDAO dao=new DAOFactoryImpl().createProvinciaDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+
+        try {
+            provincias = dao.findAll(pg.concectGetCn());
+            ItemCombo item=null;
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<provincias.length;i++)
+            {
+                item=new ItemCombo();
+                item.setId(String.valueOf(i));
+                item.setMostrar(provincias[i].getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+   public void buscarLocalidadesDeProvincia(JComboBox combo, int index) {
+        LocalidadDAO dao=new DAOFactoryImpl().createLocalidadDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+        try {
+            localidades = dao.findByProvincia(provincias[index].getIdprovincia(),pg.concectGetCn());
+            ItemCombo item=null;
+            combo.addItem("--Seleccionar--");
+            for(int i=0;i<localidades.length;i++)
+            {
+                item=new ItemCombo();
+                item.setId(String.valueOf(i));
+                item.setMostrar(localidades[i].getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
    
    /**
     * @roseuid 4C1FF60D0110
@@ -237,4 +426,6 @@ public class GestorCliente
    {
     
    }
+
+
 }
