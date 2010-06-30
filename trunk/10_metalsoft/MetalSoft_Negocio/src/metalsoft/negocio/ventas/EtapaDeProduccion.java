@@ -9,7 +9,7 @@ import metalsoft.negocio.rrhh.Empleado;
 
 public class EtapaDeProduccion 
 {
-   private int numeroEtapa;
+   private Long numeroEtapa;
    private String nombre;
    private Date horasMaquina;
    private Date horasHombre;
