@@ -10,6 +10,46 @@ public class PiezaReal
    private CodigoDeBarra codigoBarra;
    public EstadoPiezaReal theEstadoPiezaReal;
    public CodigoDeBarra theCodigoDeBarra;
+
+    public CodigoDeBarra getCodigoBarra() {
+        return codigoBarra;
+    }
+
+    public void setCodigoBarra(CodigoDeBarra codigoBarra) {
+        this.codigoBarra = codigoBarra;
+    }
+
+    public EstadoPiezaReal getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPiezaReal estado) {
+        this.estado = estado;
+    }
+
+    public long getNroPieza() {
+        return nroPieza;
+    }
+
+    public void setNroPieza(long nroPieza) {
+        this.nroPieza = nroPieza;
+    }
+
+    public CodigoDeBarra getTheCodigoDeBarra() {
+        return theCodigoDeBarra;
+    }
+
+    public void setTheCodigoDeBarra(CodigoDeBarra theCodigoDeBarra) {
+        this.theCodigoDeBarra = theCodigoDeBarra;
+    }
+
+    public EstadoPiezaReal getTheEstadoPiezaReal() {
+        return theEstadoPiezaReal;
+    }
+
+    public void setTheEstadoPiezaReal(EstadoPiezaReal theEstadoPiezaReal) {
+        this.theEstadoPiezaReal = theEstadoPiezaReal;
+    }
    
    /**
     * @roseuid 4C27ED280012
