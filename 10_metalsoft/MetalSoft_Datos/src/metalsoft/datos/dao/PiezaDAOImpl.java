@@ -99,11 +99,11 @@ public class PiezaDAOImpl implements PiezaDAO
 				ps.setString(3,pieza.getDimensiones());
 
                 long idMp=pieza.getMateriaprima();
-				if(idtm>0)ps.setLong(4,idMp);
+				if(idMp>0)ps.setLong(4,idMp);
                 else ps.setNull(4, java.sql.Types.NULL);
 
                 long idM=pieza.getMatriz();
-				if(idtm>0)ps.setLong(5,idM);
+				if(idM>0)ps.setLong(5,idM);
                 else ps.setNull(5, java.sql.Types.NULL);
 				
 
