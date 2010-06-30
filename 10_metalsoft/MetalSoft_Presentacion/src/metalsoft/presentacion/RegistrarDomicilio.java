@@ -11,15 +11,32 @@
 
 package metalsoft.presentacion;
 
+import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.gestores.GestorCliente;
+
 /**
  *
  * @author Nino
  */
 public class RegistrarDomicilio extends javax.swing.JFrame {
+    private GestorCliente gestor=null;
 
     /** Creates new form RegistrarDomicilio */
     public RegistrarDomicilio() {
         initComponents();
+    }
+
+    public GestorCliente getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorCliente gestor) {
+        this.gestor = gestor;
+    }
+
+    public void cargarComboProvincia()
+    {
+        gestor.obtenerProvincias(cmbProvincia);
     }
 
     /** This method is called from within the constructor to
@@ -162,11 +179,17 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
-        // TODO add your handling code here:
+        cmbLocalidad.removeAllItems();
+        if(cmbProvincia.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarLocalidadesDeProvincia(cmbLocalidad, index);
+        }
 }//GEN-LAST:event_cmbProvinciaActionPerformed
 
     private void cmbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadActionPerformed
-        // TODO add your handling code here:
+        
 }//GEN-LAST:event_cmbLocalidadActionPerformed
 
     private void cmbBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarrioActionPerformed

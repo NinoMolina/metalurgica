@@ -11,15 +11,25 @@
 
 package metalsoft.presentacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.ventas.CondicionIva;
+
 /**
  *
  * @author Vicky
  */
 public class ABMCliente extends javax.swing.JFrame {
-
+    private GestorCliente gestor;
     /** Creates new form ABMCliente */
     public ABMCliente() {
         initComponents();
+        gestor=new GestorCliente();
+        cargarComboCondIva();
+        cargarComboPrioridad();
+        cargarComboEstado();
     }
 
     /** This method is called from within the constructor to
@@ -105,6 +115,11 @@ public class ABMCliente extends javax.swing.JFrame {
         lbl.setText("Domicilio:");
 
         btnDomicilio.setText("Registrar");
+        btnDomicilio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDomicilioActionPerformed(evt);
+            }
+        });
 
         lblDomicilio.setText(":");
 
@@ -300,6 +315,21 @@ public class ABMCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_txtMailActionPerformed
 
+    private void btnDomicilioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomicilioActionPerformed
+        RegistrarDomicilio frmRegDomicilio=null;
+        try {
+            frmRegDomicilio=(RegistrarDomicilio) JFrameManager.crearVentana(RegistrarDomicilio.class.getName());
+            frmRegDomicilio.setGestor(gestor);
+            frmRegDomicilio.cargarComboProvincia();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDomicilioActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -348,5 +378,17 @@ public class ABMCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarComboCondIva() {
+        gestor.buscarCondicionIva(cmbCondicionIVA);
+    }
+
+    private void cargarComboPrioridad() {
+        gestor.obtenerPrioridades(cmbPrioridad);
+    }
+
+    private void cargarComboEstado() {
+        gestor.obtenerEstados(cmbEstado);
+    }
 
 }
