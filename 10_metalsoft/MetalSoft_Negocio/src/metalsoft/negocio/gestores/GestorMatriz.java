@@ -14,7 +14,9 @@ import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Materiaprima;
 import metalsoft.datos.dbobject.Matriz;
+import metalsoft.datos.dbobject.MatrizPK;
 import metalsoft.datos.dbobject.Tipomaterial;
+import metalsoft.datos.exception.MatrizException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.MateriaprimaDAO;
 import metalsoft.datos.idao.MatrizDAO;
@@ -70,6 +72,18 @@ public class GestorMatriz {
          return -1;
     }
 
+    public int getIndexTipoMaterial(long id) {
+        for(int i=0;i<tipoMateriales.length;i++)
+         {
+             if(tipoMateriales[i].getIdtipomaterial()==id)
+             {
+                 //mas 1 porque en [0] esta --seleccionar--
+                 return i+1;
+             }
+         }
+         return -1;
+    }
+
      public int guardarMatriz(long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) throws SQLException {
         MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
         Matriz m = new Matriz();
@@ -105,7 +119,7 @@ public class GestorMatriz {
         try {
             tipoMateriales = dao.findAll(pg.concectGetCn());
             ItemCombo item=null;
-            combo.addItem("--Seleccionar--");
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
             for(int i=0;i<tipoMateriales.length;i++)
             {
                 item=new ItemCombo();
@@ -134,7 +148,7 @@ public class GestorMatriz {
         try {
             materiaPrima = dao.findAll(pg.concectGetCn());
             ItemCombo item=null;
-            combo.addItem("--Seleccionar--");
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
             for(int i=0;i<materiaPrima.length;i++)
             {
                 item=new ItemCombo();
@@ -189,6 +203,47 @@ public class GestorMatriz {
             mat[i]=x;
         }
         return mat;
+    }
+      public boolean modificarMatriz(Matriz matriz, long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) {
+        MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
+        Connection cn=null;
+        metalsoft.datos.dbobject.Matriz[] m=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Object[] sqlParams=new Object[0];
+        Object[] sqlParams=new Object[2];
+        sqlParams[0]=matriz.getNombre();
+        sqlParams[1]=matriz.getDescripcion();
+        try {
+            m = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long id=-1;
+        if(m.length>0)id=m[0].getIdmatriz();
+        else return false;
+        //realizo la modificación
+        Matriz modificada =new Matriz();
+        modificada.setDescripcion(descripcion);
+        modificada.setNombre(nombre);
+        modificada.setIdmatriz(id);
+        int result=-1;
+        try {
+            result = dao.update(new MatrizPK(id), modificada, cn);
+        } catch (MatrizException ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result>0)return true;
+        else return false;
     }
 
 
