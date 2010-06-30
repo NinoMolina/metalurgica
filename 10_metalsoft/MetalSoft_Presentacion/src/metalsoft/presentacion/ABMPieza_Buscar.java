@@ -10,18 +10,103 @@
  */
 
 package metalsoft.presentacion;
-
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.ventas.Pieza;
 /**
  *
  * @author Vicky
  */
 public class ABMPieza_Buscar extends javax.swing.JFrame {
 
+    private GestorPieza gestor=null;
+    private static Timer timer;
+    private HiloBuscarTipoMaterial hiloBuscarTipomaterial;
+    private Pieza[] tm;
+    private ABMPieza ventana;
+
+    public JButton getBtnSeleccionar() {
+        return btnSeleccionar;
+    }
+
+    public void setBtnSeleccionar(JButton btnSeleccionar) {
+        this.btnSeleccionar = btnSeleccionar;
+    }
+
+    public HiloBuscarTipoMaterial getHiloBuscarTipomaterial() {
+        return hiloBuscarTipomaterial;
+    }
+
+    public void setHiloBuscarTipomaterial(HiloBuscarTipoMaterial hiloBuscarTipomaterial) {
+        this.hiloBuscarTipomaterial = hiloBuscarTipomaterial;
+    }
+
+    public JRadioButton getJRadioButton1() {
+        return jRadioButton1;
+    }
+
+    public void setJRadioButton1(JRadioButton jRadioButton1) {
+        this.jRadioButton1 = jRadioButton1;
+    }
+
+    public JScrollPane getJScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setJScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JList getLstPieza() {
+        return lstPieza;
+    }
+
+    public void setLstPieza(JList lstPieza) {
+        this.lstPieza = lstPieza;
+    }
+
+    public static Timer getTimer() {
+        return timer;
+    }
+
+    public static void setTimer(Timer timer) {
+        ABMPieza_Buscar.timer = timer;
+    }
+
+    public Pieza[] getTm() {
+        return tm;
+    }
+
+    public void setTm(Pieza[] tm) {
+        this.tm = tm;
+    }
+
+    public ABMPieza getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(ABMPieza ventana) {
+        this.ventana = ventana;
+    }
+
     /** Creates new form ABMPieza_Buscar */
     public ABMPieza_Buscar() {
         initComponents();
     }
+     public void setGestor(GestorPieza gestor) {
+        this.gestor = gestor;
+    }
 
+     public GestorPieza getGestor() {
+        return gestor;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -31,21 +116,105 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
+        txtValor = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstPieza = new javax.swing.JList();
+        btnSeleccionar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jRadioButton1.setText("Nombre");
+
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorKeyReleased(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(lstPieza);
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSeleccionar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 238, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSeleccionar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
+        if(txtValor.getText().compareTo("")!=0) {
+            final ABMPieza_Buscar abm=this;
+            timer=new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    hiloBuscarTipomaterial=new HiloBuscarTipoMaterial();
+                    hiloBuscarTipomaterial.setVentana(abm);
+                    hiloBuscarTipomaterial.setValor(txtValor.getText());
+                    hiloBuscarTipomaterial.start();
+                }
+            }, 1500);
+        }
+    }
+
+    public JList getLstTipoMaterial() {
+        return lstPieza;
+    }
+
+    public void setLstTipoMaterial(JList lstTipoMaterial) {
+        this.lstPieza = lstTipoMaterial;
+    }
+
+    public JTextField getTxtValor() {
+        return txtValor;
+    }
+
+    public void setTxtValor(JTextField txtValor) {
+        this.txtValor = txtValor;
+}//GEN-LAST:event_txtValorKeyReleased
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        TipoMaterial x=tm[lstPieza.getSelectedIndex()];
+        ventana.setTipoMaterial(x);
+        ventana.getTxtNombre().setText(x.getNombre());
+        ventana.getTxtDescripcion().setText(x.getDescripcion());
+        this.dispose();
+}//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -59,6 +228,11 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList lstPieza;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
 }
