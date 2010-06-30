@@ -13,6 +13,7 @@ import java.math.*;
 import java.sql.*;
 import java.net.URL;
 import java.util.*;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -87,17 +88,22 @@ public class DomicilioDAOImpl implements DomicilioDAO
 	public int insert(Domicilio domicilio ,Connection con)throws DomicilioException {
 
 		PreparedStatement ps = null;
+                //resultset para obtener el id
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DOMICILIO( CALLE, NUMEROCALLE, PISO, DEPTO, TORRE, BARRIO) values (?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DOMICILIO( CALLE, NUMEROCALLE, PISO, DEPTO, TORRE, BARRIO) values (?, ?, ?, ?, ?, ?) RETURNING iddomicilio");
 				ps.setString(1,domicilio.getCalle());
 				ps.setInt(2,domicilio.getNumerocalle());
 				ps.setInt(3,domicilio.getPiso());
 				ps.setString(4,domicilio.getDepto());
 				ps.setString(5,domicilio.getTorre());
 				ps.setLong(6,domicilio.getBarrio());
-
-				return(ps.executeUpdate());
+                                //executequery para que devuelva un resultset y poder obtener el id que devuelve returning
+                                rs=ps.executeQuery();
+                                rs.next();
+                                int id=rs.getInt(1);
+				return(id);
 		}catch(SQLException sqle){throw new DomicilioException(sqle);}
 		catch(Exception e){throw new DomicilioException(e);}
 	}
