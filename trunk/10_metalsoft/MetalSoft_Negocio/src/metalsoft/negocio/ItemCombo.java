@@ -14,6 +14,14 @@ public class ItemCombo {
     private String mostrar;
     private String id;
 
+    public ItemCombo(){}
+
+    public ItemCombo(String id, String mostrar)
+    {
+        this.id=id;
+        this.mostrar=mostrar;
+    }
+
     public String getId() {
         return id;
     }

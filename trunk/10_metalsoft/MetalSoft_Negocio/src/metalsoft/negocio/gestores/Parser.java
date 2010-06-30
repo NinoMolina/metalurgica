@@ -5,16 +5,18 @@
 
 package metalsoft.negocio.gestores;
 
+import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.Pieza;
+import metalsoft.negocio.ventas.CondicionIva;
 /**
  *
  * @author Vicky
  */
 public class Parser {
 
-    private static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
+    public static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
         if(tm==null)return null;
 
         TipoMaterial[] c=new TipoMaterial[tm.length];
@@ -27,7 +29,7 @@ public class Parser {
         }
         return c;
     }
-    private static metalsoft.negocio.ventas.Pieza[] parseToPieza(Pieza[] tm) {
+    public static metalsoft.negocio.ventas.Pieza[] parseToPieza(Pieza[] tm) {
         if(tm==null)return null;
 
         metalsoft.negocio.ventas.Pieza[] c=new metalsoft.negocio.ventas.Pieza[tm.length];
@@ -41,6 +43,20 @@ public class Parser {
             c[i]=x;
         }
         return c;
+    }
+
+    public static CondicionIva[] parseToCondIva(Condicioniva[] ci) {
+        if(ci==null) return null;
+        CondicionIva[] x=new CondicionIva[ci.length];
+        CondicionIva object=null;
+        for(int i=0;i<ci.length;i++)
+        {
+            object=new CondicionIva();
+            object.setNombre(ci[i].getNombre());
+            object.setDescripcion(ci[i].getDescripcion());
+            x[i]=object;
+        }
+        return x;
     }
 
 }
