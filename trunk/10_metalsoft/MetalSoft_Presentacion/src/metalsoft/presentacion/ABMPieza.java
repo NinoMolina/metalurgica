@@ -11,9 +11,11 @@
 
 package metalsoft.presentacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
-import metalsoft.negocio.produccion.TipoMaterial;
+import metalsoft.negocio.ventas.Pieza;
 
 /**
  *
@@ -21,6 +23,15 @@ import metalsoft.negocio.produccion.TipoMaterial;
  */
 public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
+    private Pieza pieza;
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
     /** Creates new form ABMPieza */
     public ABMPieza() {
         initComponents();
@@ -159,6 +170,11 @@ public class ABMPieza extends javax.swing.JFrame {
         btnEliminar.setText("Eliminar");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +247,22 @@ public class ABMPieza extends javax.swing.JFrame {
     private void cmbMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMatrizActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbMatrizActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            // TODO add your handling code here:
+            ABMPieza_Buscar frmBuscarPieza = null;
+            frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
+            frmBuscarPieza.setGestor(gestorPieza);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
     * @param args the command line arguments
