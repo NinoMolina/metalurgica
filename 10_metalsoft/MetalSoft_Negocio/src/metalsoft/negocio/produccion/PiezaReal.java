@@ -31,7 +31,7 @@ public class PiezaReal
         return nroPieza;
     }
 
-    public void setNroPieza(long nroPieza) {
+    public void setNroPieza(int nroPieza) {
         this.nroPieza = nroPieza;
     }
 
