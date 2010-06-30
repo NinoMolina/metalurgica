@@ -13,9 +13,11 @@ package metalsoft.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
-import metalsoft.negocio.ventas.Pieza;
+
 
 /**
  *
@@ -23,13 +25,53 @@ import metalsoft.negocio.ventas.Pieza;
  */
 public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
-    private Pieza pieza;
+    private metalsoft.datos.dbobject.Pieza pieza;
 
-    public Pieza getPieza() {
+    public JComboBox getCmbMateriaPrima() {
+        return cmbMateriaPrima;
+    }
+
+    public void setCmbMateriaPrima(JComboBox cmbMateriaPrima) {
+        this.cmbMateriaPrima = cmbMateriaPrima;
+    }
+
+    public JComboBox getCmbMatriz() {
+        return cmbMatriz;
+    }
+
+    public void setCmbMatriz(JComboBox cmbMatriz) {
+        this.cmbMatriz = cmbMatriz;
+    }
+
+    public JComboBox getCmbTipoMaterial() {
+        return cmbTipoMaterial;
+    }
+
+    public void setCmbTipoMaterial(JComboBox cmbTipoMaterial) {
+        this.cmbTipoMaterial = cmbTipoMaterial;
+    }
+
+    public JTextField getTxtDimensiones() {
+        return txtDimensiones;
+    }
+
+    public void setTxtDimensiones(JTextField txtDimensiones) {
+        this.txtDimensiones = txtDimensiones;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public void setTxtNombre(JTextField txtNombre) {
+        this.txtNombre = txtNombre;
+    }
+
+    public metalsoft.datos.dbobject.Pieza getPieza() {
         return pieza;
     }
 
-    public void setPieza(Pieza pieza) {
+    public void setPieza(metalsoft.datos.dbobject.Pieza pieza) {
         this.pieza = pieza;
     }
     /** Creates new form ABMPieza */
@@ -241,6 +283,7 @@ public class ABMPieza extends javax.swing.JFrame {
 
         String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
         String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
+
         gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), indexTipoMaterial, indexMateriaPrima, indexMatriz);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
