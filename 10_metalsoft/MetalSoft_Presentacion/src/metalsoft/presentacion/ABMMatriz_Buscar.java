@@ -161,8 +161,8 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
         return lstMatriz;
     }
 
-    public void setLstTipoMaterial(JList lstTipoMaterial) {
-        this.lstMatriz = lstTipoMaterial;
+    public void setLstMatriz(JList lstMatriz) {
+        this.lstMatriz = lstMatriz;
     }
 
     public JTextField getTxtValor() {
@@ -180,8 +180,10 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
         ventana.getTxtDescripcion().setText(x.getDescripcion());
         ventana.getTxtCodigo().setText(String.valueOf(x.getCodmatriz()));
         //ventana.getcmbMateriaPrima().setSelectedItem(gestor.getItemMateriaPrima(x.getMateriaprima()));
-        int index=gestor.getIndexMateriaPrima(x.getMateriaprima());
-        ventana.getcmbMateriaPrima().setSelectedIndex(index);
+        int indexMateriaPrima=gestor.getIndexMateriaPrima(x.getMateriaprima());
+        ventana.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
+        int indexTipoMaterial=gestor.getIndexTipoMaterial(x.getTipomaterial());
+        ventana.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
