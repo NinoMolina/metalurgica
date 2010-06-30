@@ -91,7 +91,11 @@ public class PiezaDAOImpl implements PiezaDAO
 		{
 			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, DIMENSIONES, MATERIAPRIMA, MATRIZ) values (?, ?, ?, ?, ?)");
 				ps.setString(1,pieza.getNombre());
-				ps.setLong(2,pieza.getTipomaterial());
+
+                long idtm=pieza.getTipomaterial();
+				if(idtm>0)ps.setLong(2,idtm);
+                else ps.setNull(2, java.sql.Types.NULL);
+                
 				ps.setString(3,pieza.getDimensiones());
 				ps.setLong(4,pieza.getMateriaprima());
 				ps.setLong(5,pieza.getMatriz());
