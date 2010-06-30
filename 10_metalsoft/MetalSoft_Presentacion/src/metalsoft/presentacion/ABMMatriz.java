@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import metalsoft.datos.dbobject.Matriz;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
+import metalsoft.negocio.gestores.Parser;
 
 /**
  *
@@ -104,12 +105,12 @@ public class ABMMatriz extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
 
@@ -134,10 +135,10 @@ public class ABMMatriz extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Nuevo");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -155,10 +156,10 @@ public class ABMMatriz extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Guardar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -169,10 +170,10 @@ public class ABMMatriz extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setText("Salir");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -193,8 +194,8 @@ public class ABMMatriz extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton9))
+                                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnGuardar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,7 +216,7 @@ public class ABMMatriz extends javax.swing.JFrame {
                                     .addComponent(txtCodigo))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                         .addGap(81, 81, 81))))
         );
@@ -249,12 +250,12 @@ public class ABMMatriz extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModificar)
                         .addComponent(btnBuscar))
-                    .addComponent(jButton6))
+                    .addComponent(btnNuevo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10)
+                    .addComponent(btnSalir)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton9)
+                        .addComponent(btnGuardar)
                         .addComponent(btnEliminar)))
                 .addContainerGap())
         );
@@ -266,12 +267,16 @@ public class ABMMatriz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jButton6ActionPerformed
+}//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-     
+        String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
+        String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
+        boolean ok=gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(),txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima) ,Integer.parseInt(indexTipoMaterial));
+        if(ok)JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+        else JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
 }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -289,7 +294,7 @@ public class ABMMatriz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
             String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
             String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
@@ -303,17 +308,17 @@ public class ABMMatriz extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
-}//GEN-LAST:event_jButton9ActionPerformed
+}//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       
 }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
 
         dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
     * @param args the command line arguments
@@ -329,13 +334,13 @@ public class ABMMatriz extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbTipoMaterial;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
