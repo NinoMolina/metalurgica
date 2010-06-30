@@ -11,7 +11,9 @@
 
 package metalsoft.presentacion;
 
+import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.produccion.TipoMaterial;
 
 /**
  *
@@ -23,6 +25,21 @@ public class ABMPieza extends javax.swing.JFrame {
     public ABMPieza() {
         initComponents();
         gestorPieza=new GestorPieza();
+        cargarComboMateriaPrima();
+        cargarComboMatriz();
+        cargarComboTipoMaterial();
+    }
+    public void cargarComboMateriaPrima()
+    {
+        gestorPieza.obtenerMateriaPrima(cmbMateriaPrima);
+    }
+    public void cargarComboMatriz()
+    {
+        gestorPieza.obtenerMatriz(cmbMatriz);
+    }
+    public void cargarComboTipoMaterial()
+    {
+        gestorPieza.obtenerTipoMaterial(cmbTipoMaterial);
     }
 
     /** This method is called from within the constructor to
@@ -45,12 +62,12 @@ public class ABMPieza extends javax.swing.JFrame {
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbMateriaPrima = new javax.swing.JComboBox();
         cmbMatriz = new javax.swing.JComboBox();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,11 +83,11 @@ public class ABMPieza extends javax.swing.JFrame {
 
         jLabel11.setText("Matriz:");
 
-        cmbTipoMaterial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbMateriaPrima.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbMatriz.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMatrizActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,17 +147,27 @@ public class ABMPieza extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton6.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Modificar");
+        btnModificar.setText("Modificar");
 
-        jButton7.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
 
-        jButton8.setText("Buscar");
+        btnBuscar.setText("Buscar");
 
-        jButton9.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Salir");
+        btnSalir.setText("Salir");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,17 +178,17 @@ public class ABMPieza extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(btnNuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton5)
+                        .add(btnModificar)
                         .add(5, 5, 5)
-                        .add(jButton7)
+                        .add(btnEliminar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(43, 43, 43)
-                        .add(jButton9)
+                        .add(btnGuardar)
                         .add(9, 9, 9)
-                        .add(jButton10)))
+                        .add(btnSalir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -171,17 +198,39 @@ public class ABMPieza extends javax.swing.JFrame {
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jButton5)
-                    .add(jButton7)
-                    .add(jButton6)
-                    .add(jButton8)
-                    .add(jButton9)
-                    .add(jButton10))
+                    .add(btnModificar)
+                    .add(btnEliminar)
+                    .add(btnNuevo)
+                    .add(btnBuscar)
+                    .add(btnGuardar)
+                    .add(btnSalir))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        cmbMateriaPrima.setSelectedIndex(-1);
+        cmbMatriz.setSelectedIndex(-1);
+        cmbTipoMaterial.setSelectedIndex(-1);
+        txtDimensiones.setText("");
+        txtNombre.setText("");
+}//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
+
+        String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
+        String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
+        gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), indexTipoMaterial, indexMateriaPrima, indexMatriz);
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cmbMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMatrizActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMatrizActionPerformed
 
     /**
     * @param args the command line arguments
@@ -195,15 +244,15 @@ public class ABMPieza extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbMatriz;
     private javax.swing.JComboBox cmbTipoMaterial;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
