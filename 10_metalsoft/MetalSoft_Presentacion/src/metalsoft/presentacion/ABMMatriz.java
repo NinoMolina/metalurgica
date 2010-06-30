@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.Matriz;
+import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
 
 /**
@@ -28,10 +29,14 @@ import metalsoft.negocio.gestores.GestorMatriz;
 public class ABMMatriz extends javax.swing.JFrame {
 
     private Matriz matriz;
+    private GestorMatriz gestor;
     /** Creates new form ABMTipoMaterial */
      /** Creates new form ABMMatriz */
     public ABMMatriz() {
         initComponents();
+        gestor = new GestorMatriz();
+        gestor.buscarTipoMaterial(cmbTipoMaterial);
+        gestor.buscarMateriaPrima(cmbMateriaPrima);
     }
 
 
@@ -120,11 +125,7 @@ public class ABMMatriz extends javax.swing.JFrame {
 
         jLabel3.setText("Materia Prima:");
 
-        cmbMateriaPrima.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acero 10", "Acero 12", "Aluminio", "Policarbonato" }));
-
         jLabel4.setText("Tipo Material:");
-
-        cmbTipoMaterial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "tipo 1", "tipo 2", "tipo 3", "tipo 4" }));
 
         jButton1.setText("Ingresar Plano");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +170,11 @@ public class ABMMatriz extends javax.swing.JFrame {
         });
 
         jButton10.setText("Salir");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Código:");
 
@@ -210,13 +216,13 @@ public class ABMMatriz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                         .addGap(81, 81, 81))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,10 +252,11 @@ public class ABMMatriz extends javax.swing.JFrame {
                     .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton9)
-                        .addComponent(btnEliminar))
-                    .addComponent(jButton10)))
+                        .addComponent(btnEliminar)))
+                .addContainerGap())
         );
 
         pack();
@@ -273,8 +280,10 @@ public class ABMMatriz extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
-            GestorMatriz gestor = new GestorMatriz();
-            int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), this.cmbMateriaPrima.getSelectedIndex(), this.cmbTipoMaterial.getSelectedIndex());
+            String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
+            String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
+
+            int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima) ,Integer.parseInt(indexTipoMaterial));
             if (id > -1) {
                 JOptionPane.showMessageDialog(this, "Se Guardó el siguiente TipoMaterial: " + txtNombre.getText());
             } else {
@@ -288,6 +297,12 @@ public class ABMMatriz extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       
 }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+
+        dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
     * @param args the command line arguments
