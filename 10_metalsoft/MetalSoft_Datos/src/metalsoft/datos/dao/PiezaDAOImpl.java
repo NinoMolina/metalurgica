@@ -97,8 +97,15 @@ public class PiezaDAOImpl implements PiezaDAO
                 else ps.setNull(2, java.sql.Types.NULL);
                 
 				ps.setString(3,pieza.getDimensiones());
-				ps.setLong(4,pieza.getMateriaprima());
-				ps.setLong(5,pieza.getMatriz());
+
+                long idMp=pieza.getMateriaprima();
+				if(idtm>0)ps.setLong(4,idMp);
+                else ps.setNull(4, java.sql.Types.NULL);
+
+                long idM=pieza.getMatriz();
+				if(idtm>0)ps.setLong(5,idM);
+                else ps.setNull(5, java.sql.Types.NULL);
+				
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezaException(sqle);}
