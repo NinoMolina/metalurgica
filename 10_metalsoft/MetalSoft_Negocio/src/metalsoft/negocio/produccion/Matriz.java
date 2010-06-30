@@ -1,52 +1,65 @@
-//Source file: D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\rational\\metalsoft\\sistema\\produccion\\Matriz.java
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package metalsoft.negocio.produccion;
 
-import metalsoft.negocio.almacenamiento.MateriaPrima;
-import metalsoft.negocio.ventas.Plano;
+import java.math.*;
+import java.sql.Date;
+/**
+ *
+ * @author Mariana
+ */
+public class Matriz {
+    private long codmatriz;
+	private String nombre;
+	private String descripcion;
+	private String observaciones;
+	private Date fechacreacion;
+	private long materiaprima;
+	private long tipomaterial;
 
-public class Matriz 
-{
-   private int codMatriz;
-   private int nombre;
-   private int descripcion;
-   private int fechaCreacion;
-   private MateriaPrima materiaPrima;
-   private TipoMaterial tipo;
-   private Plano plano;
-   public MateriaPrima theMateriaPrima;
-   public TipoMaterial theTipoMaterial;
-   public Plano thePlano;
-   
-   /**
-    * @roseuid 4C27ED250188
-    */
-   public Matriz() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C0EC5A100E7
-    */
-   public void crear() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C17F2A70373
-    */
-   public void conocerMateriaPrima() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C17F2BB005A
-    */
-   public void conocerTipoMaterial() 
-   {
-    
-   }
+    public Matriz(){}
+
+    public long getCodmatriz(){
+		 return(codmatriz);
+	}
+	public void setNombre(String nombre ){
+		 this.nombre =nombre;
+	}
+	public String getNombre(){
+		 return(nombre);
+	}
+	public void setDescripcion(String descripcion ){
+		 this.descripcion =descripcion;
+	}
+	public String getDescripcion(){
+		 return(descripcion);
+	}
+	public void setObservaciones(String observaciones ){
+		 this.observaciones =observaciones;
+	}
+	public String getObservaciones(){
+		 return(observaciones);
+	}
+	public void setFechacreacion(Date fechacreacion ){
+		 this.fechacreacion =fechacreacion;
+	}
+	public Date getFechacreacion(){
+		 return(fechacreacion);
+	}
+	public void setMateriaprima(long materiaprima ){
+		 this.materiaprima =materiaprima;
+	}
+	public long getMateriaprima(){
+		 return(materiaprima);
+	}
+	public void setTipomaterial(long tipomaterial ){
+		 this.tipomaterial =tipomaterial;
+	}
+	public long getTipomaterial(){
+		 return(tipomaterial);
+	}
+
 }
