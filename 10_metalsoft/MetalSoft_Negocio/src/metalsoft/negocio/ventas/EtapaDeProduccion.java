@@ -9,7 +9,7 @@ import metalsoft.negocio.rrhh.Empleado;
 
 public class EtapaDeProduccion 
 {
-   private Long numeroEtapa;
+   private long numeroEtapa;
    private String nombre;
    private Date horasMaquina;
    private Date horasHombre;
@@ -77,11 +77,11 @@ public class EtapaDeProduccion
         this.nombre = nombre;
     }
 
-    public int getNumeroEtapa() {
+    public long getNumeroEtapa() {
         return numeroEtapa;
     }
 
-    public void setNumeroEtapa(int numeroEtapa) {
+    public void setNumeroEtapa(long numeroEtapa) {
         this.numeroEtapa = numeroEtapa;
     }
 
