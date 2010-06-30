@@ -4,10 +4,12 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLData;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.lang.model.type.NullType;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Etapadeproduccion;
@@ -226,15 +228,15 @@ public class GestorPieza
         long idMa=-1;
 
         int iTM=Integer.parseInt(indexTM);
-        idTM=tipoMaterial[iTM].getIdtipomaterial();
+        if(iTM!=-1) idTM=tipoMaterial[iTM].getIdtipomaterial();
         int iMP=Integer.parseInt(indexMP);
-        idMP=materiaPrima[iMP].getIdmateriaprima();
+        if(iMP!=-1) materiaPrima[iMP].getIdmateriaprima();
         int iMa=Integer.parseInt(indexMa);
-        idMa=matriz[iMa].getIdmatriz();
+        if(iMa!=-1) idMa=matriz[iMa].getIdmatriz();
         
-        if(idTM!=-1) p.setTipomaterial(idTM);
-        if(idMP!=-1) p.setMateriaprima(idMP);
-        if(idMa!=-1) p.setMatriz(idMa);
+        p.setTipomaterial(idTM);
+        p.setMateriaprima(idMP);
+        p.setMatriz(idMa);
 
         int id=-1;
         
