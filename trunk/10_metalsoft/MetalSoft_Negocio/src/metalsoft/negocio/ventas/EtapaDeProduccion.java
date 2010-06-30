@@ -2,6 +2,7 @@
 
 package metalsoft.negocio.ventas;
 
+import java.util.Date;
 import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
 import metalsoft.negocio.mantmaquinarias.Maquina;
 import metalsoft.negocio.rrhh.Empleado;
@@ -9,31 +10,22 @@ import metalsoft.negocio.rrhh.Empleado;
 public class EtapaDeProduccion 
 {
    private int numeroEtapa;
-   private int nombre;
-   private int horasMaquina;
-   private int horasHombre;
+   private String nombre;
+   private Date horasMaquina;
+   private Date horasHombre;
    private Maquina maquina;
-   private int duracionEstimadaXUnidMed;
-   private int fechaCreacion;
-   private int unidadDeMedida;
+   private Date duracionEstimadaXUnidMed;
+   private Date fechaCreacion;
    private EjecucionEtapaDeProduccion ejecucionEtapa;
    public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion;
    public Maquina theMaquina;
    public Empleado theEmpleado;
 
-
-   /**
-    * @roseuid 4C27ED2402FC
-    */
-   public EtapaDeProduccion() 
-   {
-    
-   }
-   public int getDuracionEstimadaXUnidMed() {
+    public Date getDuracionEstimadaXUnidMed() {
         return duracionEstimadaXUnidMed;
     }
 
-    public void setDuracionEstimadaXUnidMed(int duracionEstimadaXUnidMed) {
+    public void setDuracionEstimadaXUnidMed(Date duracionEstimadaXUnidMed) {
         this.duracionEstimadaXUnidMed = duracionEstimadaXUnidMed;
     }
 
@@ -45,27 +37,27 @@ public class EtapaDeProduccion
         this.ejecucionEtapa = ejecucionEtapa;
     }
 
-    public int getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(int fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public int getHorasHombre() {
+    public Date getHorasHombre() {
         return horasHombre;
     }
 
-    public void setHorasHombre(int horasHombre) {
+    public void setHorasHombre(Date horasHombre) {
         this.horasHombre = horasHombre;
     }
 
-    public int getHorasMaquina() {
+    public Date getHorasMaquina() {
         return horasMaquina;
     }
 
-    public void setHorasMaquina(int horasMaquina) {
+    public void setHorasMaquina(Date horasMaquina) {
         this.horasMaquina = horasMaquina;
     }
 
@@ -77,11 +69,11 @@ public class EtapaDeProduccion
         this.maquina = maquina;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -117,14 +109,14 @@ public class EtapaDeProduccion
         this.theMaquina = theMaquina;
     }
 
-    public int getUnidadDeMedida() {
-        return unidadDeMedida;
-    }
-
-    public void setUnidadDeMedida(int unidadDeMedida) {
-        this.unidadDeMedida = unidadDeMedida;
-    }
-
+   /**
+    * @roseuid 4C27ED2402FC
+    */
+   public EtapaDeProduccion() 
+   {
+    
+   }
+   
    /**
     * @roseuid 4BC24F6801B8
     */
