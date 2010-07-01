@@ -11,8 +11,13 @@
 
 package metalsoft.presentacion;
 
+import javax.swing.JOptionPane;
+import metalsoft.datos.dbobject.Provincia;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.rrhh.Barrio;
+import metalsoft.negocio.rrhh.Domicilio;
+import metalsoft.negocio.rrhh.Localidad;
 
 /**
  *
@@ -20,7 +25,7 @@ import metalsoft.negocio.gestores.GestorCliente;
  */
 public class RegistrarDomicilio extends javax.swing.JFrame {
     private GestorCliente gestor=null;
-
+    private IDomiciliable ventana=null;
     /** Creates new form RegistrarDomicilio */
     public RegistrarDomicilio() {
         initComponents();
@@ -32,6 +37,14 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
 
     public void setGestor(GestorCliente gestor) {
         this.gestor = gestor;
+    }
+
+    public IDomiciliable getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(IDomiciliable ventana) {
+        this.ventana = ventana;
     }
 
     public void cargarComboProvincia()
@@ -49,7 +62,7 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel10 = new javax.swing.JLabel();
-        txtDomicilio = new javax.swing.JTextField();
+        txtCalle = new javax.swing.JTextField();
         cmbProvincia = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         cmbLocalidad = new javax.swing.JComboBox();
@@ -62,10 +75,18 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        txtNumero = new javax.swing.JTextField();
+        txtDepto = new javax.swing.JTextField();
+        txtTorre = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        sldPiso = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel10.setText("Domicilio:");
+        jLabel10.setText("Calle:");
 
         cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +119,11 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         btnAgregarBarrio.setText("Agregar");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +132,14 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Número:");
+
+        jLabel12.setText("Piso:");
+
+        jLabel13.setText("Departamento:");
+
+        jLabel14.setText("Torre:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,31 +147,41 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel17)
                                 .addGap(18, 18, 18)
                                 .addComponent(cmbBarrio, 0, 197, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbLocalidad, 0, 195, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(txtDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(txtTorre, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(sldPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregarProvincia)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnAgregarBarrio)
                                 .addComponent(btnAgregarLocalidad))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -164,15 +208,31 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(sldPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTorre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnGuardar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,6 +240,7 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
 
     private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
         cmbLocalidad.removeAllItems();
+        cmbBarrio.removeAllItems();
         if(cmbProvincia.getSelectedIndex()>0)
         {
             String indexString=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
@@ -189,7 +250,14 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
 }//GEN-LAST:event_cmbProvinciaActionPerformed
 
     private void cmbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadActionPerformed
-        
+
+        cmbBarrio.removeAllItems();
+        if(cmbLocalidad.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarBarriosDeLocalidad(cmbBarrio, index);
+        }
 }//GEN-LAST:event_cmbLocalidadActionPerformed
 
     private void cmbBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarrioActionPerformed
@@ -200,16 +268,41 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrarDomicilio().setVisible(true);
-            }
-        });
-    }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String indexBarrio=((ItemCombo)cmbBarrio.getSelectedItem()).getId();
+        String indexLocalidad=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
+        String indexProvincia=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
+        String calle=txtCalle.getText();
+        int numero=Integer.parseInt(txtNumero.getText());
+        int piso=Integer.parseInt(String.valueOf(sldPiso.getValue()));
+        String depto=txtDepto.getText();
+        String torre=txtTorre.getText();
+        int result=-1;
+        Domicilio domicilioNegocio=new Domicilio();
+        domicilioNegocio.setCalle(calle);
+        domicilioNegocio.setDepto(depto);
+        domicilioNegocio.setNumeroCalle(numero);
+        domicilioNegocio.setPiso(piso);
+        domicilioNegocio.setTorre(torre);
+        metalsoft.negocio.rrhh.Provincia prov=new metalsoft.negocio.rrhh.Provincia(((ItemCombo)cmbProvincia.getSelectedItem()).getMostrar());
+        metalsoft.negocio.rrhh.Localidad loc=new Localidad(((ItemCombo)cmbProvincia.getSelectedItem()).getMostrar(), -1, prov);
+        metalsoft.negocio.rrhh.Barrio barrio=new Barrio(((ItemCombo)cmbBarrio.getSelectedItem()).getMostrar(),loc);
+        domicilioNegocio.setBarrio(barrio);
+
+        if(calle.compareTo("")!=0 && numero!=0 && indexBarrio.compareTo("-1")!=0 && indexLocalidad.compareTo("-1")!=0 && indexProvincia.compareTo("-1")!=0)
+        {
+            result=gestor.registrarDomicilio(calle,numero,piso,depto,torre,indexBarrio);
+            ventana.setDomicilio(domicilioNegocio, result);
+            ventana.mostrarDatosDomicilio();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Algunos campos no han sido Seleccionados o Completados.");
+        }
+        if(result>0)JOptionPane.showMessageDialog(this, "El domicilio se guardó correctamente");
+        else JOptionPane.showMessageDialog(this, "No se pudo guardar el Domicilio");
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarBarrio;
@@ -221,11 +314,19 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbLocalidad;
     private javax.swing.JComboBox cmbProvincia;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField txtDomicilio;
+    private javax.swing.JSpinner sldPiso;
+    private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtDepto;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtTorre;
     // End of variables declaration//GEN-END:variables
 
 }
