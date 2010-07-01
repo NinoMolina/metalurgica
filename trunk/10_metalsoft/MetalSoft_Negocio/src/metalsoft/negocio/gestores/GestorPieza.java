@@ -265,7 +265,7 @@ public class GestorPieza
         return id;
     }
 
-    public metalsoft.negocio.ventas.Pieza[] buscarConLIKE(String valor) {
+    public Pieza[] buscarConLIKE(String valor) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         Connection cn=null;
 
@@ -283,95 +283,112 @@ public class GestorPieza
         } catch (Exception ex) {
             Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
         }
-        metalsoft.negocio.ventas.Pieza[] pnegocio=parseToPieza(piezas);
+        //metalsoft.negocio.ventas.Pieza[] pnegocio=parseToPieza(piezas);
 
-        return pnegocio;
+        return piezas;
 
     }
 
-//    public boolean modificarPieza(metalsoft.negocio.ventas.Pieza pieza, String nombre, String descripcion) {
-//        PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
-//        Connection cn=null;
-//        metalsoft.datos.dbobject.Pieza[] tm=null;
-//        try {
-//            cn = new PostgreSQLManager().concectGetCn();
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        //Object[] sqlParams=new Object[0];
-//        Object[] sqlParams=new Object[2];
-//        sqlParams[0]=tipoMaterial.getNombre();
-//        sqlParams[1]=tipoMaterial.getDescripcion();
-//        try {
-//            tm = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
-//
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        long id=-1;
-//        if(tm.length>0)id=tm[0].getIdtipomaterial();
-//        else return false;
-//        //realizo la modificación
-//        Tipomaterial modificado=new Tipomaterial();
-//        modificado.setDescripcion(descripcion);
-//        modificado.setNombre(nombre);
-//        modificado.setIdtipomaterial(id);
-//        int result=-1;
-//        try {
-//            result = dao.update(new MateriaprimaPK(id), modificado, cn);
-//        } catch (MateriaprimaException ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try {
-//            cn.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        if(result>0)return true;
-//        else return false;
-//    }
-//
-//    boolean eliminarTipoMaterial(TipoMaterial tipoMaterial) {
-//        TipomaterialDAO dao=new DAOFactoryImpl().createTipomaterialDAO();
-//        Connection cn=null;
-//        metalsoft.datos.dbobject.Tipomaterial[] tm=null;
-//        try {
-//            cn = new PostgreSQLManager().concectGetCn();
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        //Object[] sqlParams=new Object[0];
-//        Object[] sqlParams=new Object[2];
-//        sqlParams[0]=tipoMaterial.getNombre();
-//        sqlParams[1]=tipoMaterial.getDescripcion();
-//        try {
-//            tm = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
-//
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        long id=-1;
-//        if(tm.length>0)id=tm[0].getIdtipomaterial();
-//        else return false;
-//
-//        //realizo la eliminación
-//
-//        int result=-1;
-//        try {
-//            result = dao.delete(new TipomaterialPK(id), cn);
-//        } catch (TipomaterialException ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try {
-//            cn.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        if(result>0)return true;
-//        else return false;
-//    }
+    public boolean modificarPieza(long idpieza, String nombre, String dimensiones, long idTM, long idMP, long idMa) {
+        PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
+        Connection cn=null;
+        
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Object[] sqlParams=new Object[0];
+        Object[] sqlParams=new Object[1];
+        sqlParams[0]=idpieza;
+        
+        //realizo la modificación
+        Pieza modificado=new Pieza();
+        modificado.setDimensiones(dimensiones);
+        modificado.setNombre(nombre);
+        modificado.setTipomaterial(idTM);
+        modificado.setMateriaprima(idMP);
+        modificado.setMatriz(idMa);
+        int result=-1;
+        try {
+            result = dao.update(new PiezaPK(idpieza), modificado, cn);
+        } catch (PiezaException ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result>0)return true;
+        else return false;
+    }
+
+    public boolean eliminarPieza(long idpieza) {
+        PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
+        Connection cn=null;
+        
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+
+        //realizo la eliminación
+
+        int result=-1;
+        try {
+            result = dao.delete(new PiezaPK(idpieza), cn);
+        } catch (PiezaException ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result>0)return true;
+        else return false;
+    }
 
 
+    public int devolverposicionTipoMaterial(long id)
+    {
+        if(id==-1) return -1;
+            for(int i=0;i<tipoMaterial.length;i++)
+            {
+                if(tipoMaterial[i].getIdtipomaterial()==id)
+                {
+                    return i+1;
+                }
+            }
+            return -1;
+    }
+     public int devolverposicionMateriaPrima(long id)
+     {
+         if(id==-1) return 0;
+            for(int i=0;i<materiaPrima.length;i++)
+            {
+                if(materiaPrima[i].getIdmateriaprima()==id)
+                {
+                    return i+1;
+                }
+            }
+            return 0;
+     }
+     public int devolverposicionMatriz(long id)
+     {
+         if(id==-1) return 0;
+            for(int i=0;i<matriz.length;i++)
+            {
+                if(matriz[i].getIdmatriz()==id)
+                {
+                    return i+1;
+                }
+            }
+        return 0;
+    }
 
 
 
