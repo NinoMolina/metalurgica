@@ -5,15 +5,13 @@ package metalsoft.negocio.rrhh;
 
 public class Persona 
 {
-   private int nombre;
-   private int apellido;
-   private int telefono;
-   private int email;
+   private String nombre;
+   private String apellido;
+   private String telefono;
+   private String email;
    private Domicilio domicilio;
    private int nroDocumento;
    private TipoDocumento tipoDocumento;
-   public TipoDocumento theTipoDocumento;
-   public Domicilio theDomicilio;
    
    /**
     * @roseuid 4C27ED0E03C1
@@ -22,6 +20,62 @@ public class Persona
    {
     
    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getNroDocumento() {
+        return nroDocumento;
+    }
+
+    public void setNroDocumento(int nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
    
    /**
     * @roseuid 4C0ECE29037F

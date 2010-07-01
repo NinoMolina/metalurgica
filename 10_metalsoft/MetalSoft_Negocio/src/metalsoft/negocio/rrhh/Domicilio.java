@@ -5,13 +5,13 @@ package metalsoft.negocio.rrhh;
 
 public class Domicilio 
 {
-   private int calle;
+   private String calle;
    private int numeroCalle;
    private int piso;
-   private int depto;
+   private String depto;
    private Barrio barrio;
-   private int torre;
-   public Barrio theBarrio;
+   private String torre;
+
    
    /**
     * @roseuid 4C27ED0E02C7
@@ -28,6 +28,54 @@ public class Domicilio
    {
     
    }
+
+    public Barrio getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(Barrio barrio) {
+        this.barrio = barrio;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getDepto() {
+        return depto;
+    }
+
+    public void setDepto(String depto) {
+        this.depto = depto;
+    }
+
+    public int getNumeroCalle() {
+        return numeroCalle;
+    }
+
+    public void setNumeroCalle(int numeroCalle) {
+        this.numeroCalle = numeroCalle;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public void setPiso(int piso) {
+        this.piso = piso;
+    }
+
+    public String getTorre() {
+        return torre;
+    }
+
+    public void setTorre(String torre) {
+        this.torre = torre;
+    }
    
    /**
     * @roseuid 4C17FD5B0282
