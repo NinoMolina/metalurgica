@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
@@ -26,6 +27,14 @@ import metalsoft.negocio.gestores.GestorPieza;
 public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
     private metalsoft.datos.dbobject.Pieza pieza;
+
+    public JLabel getIdpieza() {
+        return idpieza;
+    }
+
+    public void setIdpieza(JLabel idpieza) {
+        this.idpieza = idpieza;
+    }
 
     public JComboBox getCmbMateriaPrima() {
         return cmbMateriaPrima;
@@ -81,6 +90,7 @@ public class ABMPieza extends javax.swing.JFrame {
         cargarComboMateriaPrima();
         cargarComboMatriz();
         cargarComboTipoMaterial();
+        idpieza.setVisible(false);
     }
     public void cargarComboMateriaPrima()
     {
@@ -121,6 +131,7 @@ public class ABMPieza extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        idpieza = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -227,6 +238,8 @@ public class ABMPieza extends javax.swing.JFrame {
 
         btnSalir.setText("Salir");
 
+        idpieza.setText("jLabel2");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,13 +259,15 @@ public class ABMPieza extends javax.swing.JFrame {
                         .add(43, 43, 43)
                         .add(btnGuardar)
                         .add(9, 9, 9)
-                        .add(btnSalir)))
+                        .add(btnSalir))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, idpieza))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
+                .add(idpieza)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -297,6 +312,10 @@ public class ABMPieza extends javax.swing.JFrame {
             ABMPieza_Buscar frmBuscarPieza = null;
             frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
             frmBuscarPieza.setGestor(gestorPieza);
+            frmBuscarPieza.setVentana(this);
+
+
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -328,6 +347,7 @@ public class ABMPieza extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbMatriz;
     private javax.swing.JComboBox cmbTipoMaterial;
+    private javax.swing.JLabel idpieza;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
