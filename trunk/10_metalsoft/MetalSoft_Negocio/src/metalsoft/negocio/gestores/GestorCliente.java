@@ -45,8 +45,10 @@ public class GestorCliente
    private Localidad[] localidades=null;
    private Barrio[] barrios=null;
    private Domicilio domicilioClienteDB=null;
+   private Domicilio domicilioResponsableDB=null;
    private Tipodocumento[] tiposDoc=null;
     private metalsoft.negocio.rrhh.Domicilio domicilioCliente;
+    private Cliente cliente;
     private long idDomicilioCliente;
     private metalsoft.datos.dbobject.Responsable responsableDB;
     private long idResponsable;
@@ -76,7 +78,44 @@ public class GestorCliente
    {
     
    }
-   
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Domicilio getDomicilioResponsableDB() {
+        return domicilioResponsableDB;
+    }
+
+    public void setDomicilioResponsableDB(Domicilio domicilioResponsableDB) {
+        this.domicilioResponsableDB = domicilioResponsableDB;
+    }
+   public void tomarDomicilioResponsable(metalsoft.datos.dbobject.Domicilio domDB)
+   {
+       setDomicilioResponsableDB(domDB);
+   }
+
+    public metalsoft.datos.dbobject.Responsable getResponsableDB() {
+        return responsableDB;
+    }
+
+    public void setResponsableDB(metalsoft.datos.dbobject.Responsable responsableDB) {
+        this.responsableDB = responsableDB;
+    }
+
+    public Domicilio getDomicilioClienteDB() {
+        return domicilioClienteDB;
+    }
+
+    public void setDomicilioClienteDB(Domicilio domicilioClienteDB) {
+        this.domicilioClienteDB = domicilioClienteDB;
+    }
+
+
    /**
     * @roseuid 4C1FF60D010F
     */
@@ -131,6 +170,30 @@ public class GestorCliente
             }
         }
    }
+
+   public ItemCombo[] buscarClientes(String valor)
+    {
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        Connection cn=null;
+        metalsoft.datos.dbobject.Cliente[] clientes=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Object[] sqlParams=new Object[0];
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
+        try {
+            clientes = dao.findExecutingUserWhere("razonsocial ILIKE '"+valor+"%'", sqlParams, cn);
+            cn.close();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Parser.parseToItemCombo(clientes);
+    }
+
+
 
    public void obtenerPrioridades(JComboBox combo) {
         PrioridadDAO dao=new DAOFactoryImpl().createPrioridadDAO();
@@ -306,14 +369,37 @@ public class GestorCliente
         }
     }
 
+    public long obtenerIdBarrio(int index)
+    {
+        return barrios[index].getIdbarrio();
+    }
 
-    public int registrarDomicilio(String calle, int numero, int piso, String depto, String torre, String indexBarrio) {
+    public long obtenerIdPrioridad(int index)
+    {
+        return pr[index].getIdprioridad();
+    }
+
+    public long obtenerIdTipoDoc(int index)
+    {
+        return tiposDoc[index].getIdtipodocumento();
+    }
+    public long obtenerIdCondIva(int index)
+    {
+        return ci[index].getIdcondicioniva();
+    }
+
+    public long obtenerIdEstado(int index)
+    {
+        return estados[index].getIdestado();
+    }
+
+    public int registrarDomicilio(String calle, int numero, int piso, String depto, String torre, int indexBarrio) {
         int result=-1;
         DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
         domicilioClienteDB=new Domicilio();
-        long idBarrio=barrios[Integer.parseInt(indexBarrio)].getIdbarrio();
+        long idBarrio=barrios[indexBarrio].getIdbarrio();
         //long idLocalidad=localidades[Integer.parseInt(indexLocalidad)].getIdlocalidad();
         //long idProvincia=provincias[Integer.parseInt(indexProvincia)].getIdprovincia();
         try {
@@ -398,6 +484,74 @@ public class GestorCliente
             clienteDB.setIdcliente(result);
         } catch (Exception ex) {
             Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public long registrarCliente(Cliente cliente,int indexEstado, int indexCondIva, int indexPrioridad) {
+        long result=-1;
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        DomicilioDAO daoDom=new DAOFactoryImpl().createDomicilioDAO();
+        ResponsableDAO daoResp=new DAOFactoryImpl().createResponsableDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            clienteDB.setCelular(cliente.getCelular());
+            clienteDB.setCondicioniva(ci[indexCondIva].getIdcondicioniva());
+            clienteDB.setCuit(cliente.getCUIT());
+
+            int idDom=daoDom.insert(domicilioClienteDB, cn);
+            clienteDB.setDomicilio(idDom);
+
+            clienteDB.setEstado(estados[indexEstado].getIdestado());
+
+            if(cliente.getFechaAlta()!=null)
+                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+            else
+                clienteDB.setFechaalta(null);
+
+            if(cliente.getFechaBaja()!=null)
+                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+            else
+                clienteDB.setFechabaja(null);
+
+            clienteDB.setMail(cliente.getMail());
+            clienteDB.setNrocliente(cliente.getNroCliente());
+            clienteDB.setPrioridad(pr[indexPrioridad].getIdprioridad());
+            clienteDB.setRazonsocial(cliente.getRazonSocial());
+
+            int idDomResp=daoDom.insert(domicilioResponsableDB, cn);
+            responsableDB.setDomicilio(idDomResp);
+            int idResp=daoResp.insert(responsableDB, cn);
+            clienteDB.setResponsable(idResp);
+
+            clienteDB.setTelefono(cliente.getTelefono());
+            //deberia autogenerar un usario y contraseña
+            clienteDB.setUsuario(1);
+
+            result=dao.insert(clienteDB, cn);
+            cn.commit();
+            clienteDB.setIdcliente(result);
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return result;
     }
@@ -606,9 +760,22 @@ public class GestorCliente
         idDomicilioCliente=id;
     }
 
+    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+        domicilioCliente=dom;
+        domicilioClienteDB=domDB;
+    }
+
     public void tomarResponsableCliente(Responsable respNegocio, long idResponsable) {
         responsable=respNegocio;
         this.idResponsable=idResponsable;
+    }
+
+    public void tomarResponsableClienteDB(metalsoft.datos.dbobject.Responsable respDB) {
+        setResponsableDB(respDB);
+    }
+
+    public void tomarDomicilioClienteDB(Domicilio domDB) {
+        setDomicilioClienteDB(domDB);
     }
 
 
