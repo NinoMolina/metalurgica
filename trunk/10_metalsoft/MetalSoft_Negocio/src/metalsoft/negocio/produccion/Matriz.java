@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author Mariana
  */
 public class Matriz {
-    private long codmatriz;
+        private long codmatriz;
 	private String nombre;
 	private String descripcion;
 	private String observaciones;
@@ -22,9 +22,13 @@ public class Matriz {
 
     public Matriz(){}
 
-    public long getCodmatriz(){
+        public long getCodmatriz(){
 		 return(codmatriz);
 	}
+
+        public void setCodmatriz(long codmatriz) {
+            this.codmatriz = codmatriz;
+        }
 	public void setNombre(String nombre ){
 		 this.nombre =nombre;
 	}
