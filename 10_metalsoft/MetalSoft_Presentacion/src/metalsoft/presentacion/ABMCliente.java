@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
@@ -283,6 +284,11 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         btnEliminar.setText("Eliminar");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -345,6 +351,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         try {
             frmRegDomicilio=(RegistrarDomicilio) JFrameManager.crearVentana(RegistrarDomicilio.class.getName());
             frmRegDomicilio.setGestor(gestor);
+            frmRegDomicilio.setDevolverObjeto(true);
             frmRegDomicilio.setVentana((IDomiciliable) this);
             frmRegDomicilio.cargarComboProvincia();
         } catch (ClassNotFoundException ex) {
@@ -366,6 +373,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
             frmABMResponsable=(ABMResponsable) JFrameManager.crearVentana(ABMResponsable.class.getName());
             frmABMResponsable.setGestor(gestor);
             frmABMResponsable.setVentana(this);
+            frmABMResponsable.setDevolverObjeto(true);
             frmABMResponsable.cargarComboTipoDoc();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -400,8 +408,26 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cliente.setRazonSocial(txtRazonSocial.getText());
         cliente.setTelefono(txtTelefono.getText());
 
-        idCliente=gestor.registrarCliente(cliente,idResponsable,idDomicilio,indexEstado,indexCondIva,indexPrioridad);
+        idCliente=gestor.registrarCliente(cliente, indexEstado, indexCondIva, indexPrioridad);
+
+        if(idCliente>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+        else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ABMCliente_Buscar buscar=null;
+        try {
+            buscar=(ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
+            buscar.setVentanaCliente(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cargarComboCondIva() {
         gestor.buscarCondicionIva(cmbCondicionIVA);
@@ -478,6 +504,11 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.tomarDomicilioCliente(dom, id);
     }
 
+    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+        domicilio=dom;
+        gestor.tomarDomicilioClienteDB(domDB);
+    }
+
     public void mostrarDatosDomicilio() {
         String prov=domicilio.getBarrio().getLocalidad().getProvincia().getNombre();
         String barrio=domicilio.getBarrio().getNombre();
@@ -493,12 +524,15 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.tomarResponsableCliente(respNegocio, idResponsable);
     }
 
+    public void setResponsable(Responsable respNegocio, metalsoft.datos.dbobject.Responsable respDB) {
+        responsable=respNegocio;
+        gestor.tomarResponsableClienteDB(respDB);
+    }
+
     public void mostrarDatosResponsable() {
         String nombre=responsable.getNombre();
         String apellido=responsable.getApellido();
         lblResponsable.setText(apellido+", "+nombre);
     }
-
-    
 
 }
