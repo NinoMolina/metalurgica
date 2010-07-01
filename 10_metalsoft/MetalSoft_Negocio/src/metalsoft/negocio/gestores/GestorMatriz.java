@@ -240,7 +240,7 @@ public class GestorMatriz {
             m = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
         long id=-1;
         if(m.length>0)id=m[0].getIdmatriz();
