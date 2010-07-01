@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
@@ -21,6 +22,7 @@ import metalsoft.negocio.ventas.Cliente;
 public class HiloBuscarCliente extends Thread {
     private Timer timer;
     private ABMPedidoCotizacion ventana;
+    private ABMCliente_Buscar ventanaBuscar;
     private String valor;
 
     @Override
@@ -30,6 +32,14 @@ public class HiloBuscarCliente extends Thread {
 
     public ABMPedidoCotizacion getVentana() {
         return ventana;
+    }
+
+    public ABMCliente_Buscar getVentanaBuscar() {
+        return ventanaBuscar;
+    }
+
+    public void setVentanaBuscar(ABMCliente_Buscar ventanaBuscar) {
+        this.ventanaBuscar = ventanaBuscar;
     }
 
     public void setVentana(ABMPedidoCotizacion ventana) {
@@ -46,16 +56,14 @@ public class HiloBuscarCliente extends Thread {
 
     private void buscarClientes()
     {
-        GestorPedidoCotizacion gestor=new GestorPedidoCotizacion();
-        Cliente[] clientes=gestor.buscarClientes(getValor());
-        JComboBox combo=ventana.getCmbResultadoBusqueda();
-        combo.removeAllItems();
-        ventana.setClientes(clientes);
-        cargarCombo(combo,clientes);
-        ventana.getLblCondIva().setText(clientes[0].getIva().getNombre());
-        ventana.getLblCuit().setText(clientes[0].getCUIT());
-        ventana.getBsyBuscar().setBusy(false);
-        ventana.getBsyBuscar().setVisible(false);
+        ItemCombo[] items=ventanaBuscar.getGestor().buscarClientes(getValor());
+        JList combo=ventanaBuscar.getLstLista();
+        combo.removeAll();
+        cargarCombo(combo,items);
+//        ventana.getLblCondIva().setText(clientes[0].getIva().getNombre());
+//        ventana.getLblCuit().setText(clientes[0].getCUIT());
+//        ventana.getBsyBuscar().setBusy(false);
+//        ventana.getBsyBuscar().setVisible(false);
     }
 
     public void iniciarTimer() {
@@ -75,6 +83,8 @@ public class HiloBuscarCliente extends Thread {
         
     }
 
-
+    private void cargarCombo(JList combo, ItemCombo[] items) {
+        combo.setListData(items);
+    }
 
 }

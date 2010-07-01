@@ -14,5 +14,6 @@ import metalsoft.negocio.rrhh.Domicilio;
 public interface IDomiciliable {
 
     public void setDomicilio(Domicilio dom,long id);
+    public void setDomicilio(Domicilio dom,metalsoft.datos.dbobject.Domicilio domDB);
     public void mostrarDatosDomicilio();
 }

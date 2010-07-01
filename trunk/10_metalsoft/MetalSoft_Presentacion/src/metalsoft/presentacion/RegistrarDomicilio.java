@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import metalsoft.datos.dbobject.Provincia;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Barrio;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Localidad;
@@ -26,9 +27,18 @@ import metalsoft.negocio.rrhh.Localidad;
 public class RegistrarDomicilio extends javax.swing.JFrame {
     private GestorCliente gestor=null;
     private IDomiciliable ventana=null;
+    private boolean devolverObjeto=false;
     /** Creates new form RegistrarDomicilio */
     public RegistrarDomicilio() {
         initComponents();
+    }
+
+    public boolean isDevolverObjeto() {
+        return devolverObjeto;
+    }
+
+    public void setDevolverObjeto(boolean devolverObjeto) {
+        this.devolverObjeto = devolverObjeto;
     }
 
     public GestorCliente getGestor() {
@@ -269,9 +279,9 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String indexBarrio=((ItemCombo)cmbBarrio.getSelectedItem()).getId();
-        String indexLocalidad=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
-        String indexProvincia=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
+        int indexBarrio=Integer.parseInt(((ItemCombo)cmbBarrio.getSelectedItem()).getId());
+        int indexLocalidad=Integer.parseInt(((ItemCombo)cmbLocalidad.getSelectedItem()).getId());
+        int indexProvincia=Integer.parseInt(((ItemCombo)cmbProvincia.getSelectedItem()).getId());
         String calle=txtCalle.getText();
         int numero=Integer.parseInt(txtNumero.getText());
         int piso=Integer.parseInt(String.valueOf(sldPiso.getValue()));
@@ -279,6 +289,7 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         String torre=txtTorre.getText();
         int result=-1;
         Domicilio domicilioNegocio=new Domicilio();
+        metalsoft.datos.dbobject.Domicilio domicilioDB=new metalsoft.datos.dbobject.Domicilio();
         domicilioNegocio.setCalle(calle);
         domicilioNegocio.setDepto(depto);
         domicilioNegocio.setNumeroCalle(numero);
@@ -289,18 +300,29 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         metalsoft.negocio.rrhh.Barrio barrio=new Barrio(((ItemCombo)cmbBarrio.getSelectedItem()).getMostrar(),loc);
         domicilioNegocio.setBarrio(barrio);
 
-        if(calle.compareTo("")!=0 && numero!=0 && indexBarrio.compareTo("-1")!=0 && indexLocalidad.compareTo("-1")!=0 && indexProvincia.compareTo("-1")!=0)
+        domicilioDB=Parser.parseToDomicilioDB(domicilioNegocio);
+        domicilioDB.setBarrio(gestor.obtenerIdBarrio(indexBarrio));
+        
+        if(calle.compareTo("")!=0 && numero!=0 && indexBarrio>-1 && indexLocalidad>-1 && indexProvincia>-1)
         {
-            result=gestor.registrarDomicilio(calle,numero,piso,depto,torre,indexBarrio);
-            ventana.setDomicilio(domicilioNegocio, result);
-            ventana.mostrarDatosDomicilio();
+            if(devolverObjeto)
+            {
+                ventana.setDomicilio(domicilioNegocio,domicilioDB);
+                ventana.mostrarDatosDomicilio();
+                this.dispose();
+            }
+            else
+            {
+                result=gestor.registrarDomicilio(calle,numero,piso,depto,torre,indexBarrio);
+                if(result>0)JOptionPane.showMessageDialog(this, "El domicilio se guardó correctamente");
+                else JOptionPane.showMessageDialog(this, "No se pudo guardar el Domicilio");
+            }
         }
         else
         {
             JOptionPane.showMessageDialog(this, "Algunos campos no han sido Seleccionados o Completados.");
         }
-        if(result>0)JOptionPane.showMessageDialog(this, "El domicilio se guardó correctamente");
-        else JOptionPane.showMessageDialog(this, "No se pudo guardar el Domicilio");
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
