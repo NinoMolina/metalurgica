@@ -28,8 +28,8 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
 
     private GestorPieza gestor=null;
     private static Timer timer;
-    private HiloBuscarTipoMaterial hiloBuscarTipomaterial;
-    private Pieza[] tm;
+    private HiloBuscarPieza hiloBuscarPieza;
+    private metalsoft.datos.dbobject.Pieza[] tm;
     private ABMPieza ventana;
 
     public JButton getBtnSeleccionar() {
@@ -40,12 +40,12 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
         this.btnSeleccionar = btnSeleccionar;
     }
 
-    public HiloBuscarTipoMaterial getHiloBuscarTipomaterial() {
-        return hiloBuscarTipomaterial;
+    public HiloBuscarPieza getHiloBuscarTipomaterial() {
+        return hiloBuscarPieza;
     }
 
-    public void setHiloBuscarTipomaterial(HiloBuscarTipoMaterial hiloBuscarTipomaterial) {
-        this.hiloBuscarTipomaterial = hiloBuscarTipomaterial;
+    public void setHiloBuscarTipomaterial(HiloBuscarPieza hiloBuscarTipomaterial) {
+        this.hiloBuscarPieza = hiloBuscarTipomaterial;
     }
 
     public JRadioButton getJRadioButton1() {
@@ -80,11 +80,11 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
         ABMPieza_Buscar.timer = timer;
     }
 
-    public Pieza[] getTm() {
+    public metalsoft.datos.dbobject.Pieza[] getTm() {
         return tm;
     }
 
-    public void setTm(Pieza[] tm) {
+    public void setTm(metalsoft.datos.dbobject.Pieza[] tm) {
         this.tm = tm;
     }
 
@@ -183,10 +183,10 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    hiloBuscarTipomaterial=new HiloBuscarTipoMaterial();
-                    hiloBuscarTipomaterial.setVentana(abm);
-                    hiloBuscarTipomaterial.setValor(txtValor.getText());
-                    hiloBuscarTipomaterial.start();
+                    hiloBuscarPieza=new HiloBuscarPieza();
+                    hiloBuscarPieza.setVentana(abm);
+                    hiloBuscarPieza.setValor(txtValor.getText());
+                    hiloBuscarPieza.start();
                 }
             }, 1500);
         }
@@ -209,10 +209,19 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        TipoMaterial x=tm[lstPieza.getSelectedIndex()];
-        ventana.setTipoMaterial(x);
+        metalsoft.datos.dbobject.Pieza x=tm[lstPieza.getSelectedIndex()];
+       // ventana.setPieza(x);
         ventana.getTxtNombre().setText(x.getNombre());
-        ventana.getTxtDescripcion().setText(x.getDescripcion());
+        ventana.getTxtDimensiones().setText(x.getDimensiones());
+        ventana.getIdpieza().setText(String.valueOf(x.getIdpieza()));
+        int posicionTM=gestor.devolverposicionTipoMaterial(x.getTipomaterial());
+        int posicionMP=gestor.devolverposicionMateriaPrima(x.getMateriaprima());
+        int posicionMa=gestor.devolverposicionMatriz(x.getMatriz());
+
+        ventana.getCmbTipoMaterial().setSelectedIndex(posicionTM);
+        ventana.getCmbMateriaPrima().setSelectedIndex(posicionMP);
+        ventana.getCmbMatriz().setSelectedIndex(posicionMa);
+
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
