@@ -5,8 +5,8 @@ package metalsoft.negocio.rrhh;
 
 public class Barrio 
 {
-   private int nombre;
-   public Localidad theLocalidad;
+   private String nombre;
+   private Localidad localidad;
    
    /**
     * @roseuid 4C27ED0E0001
@@ -15,6 +15,27 @@ public class Barrio
    {
     
    }
+
+    public Barrio(String nombre, Localidad localidad)
+    {
+        this.nombre=nombre;
+        this.localidad=localidad;
+    }
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
    
    /**
     * @roseuid 4C0EC5AE0371

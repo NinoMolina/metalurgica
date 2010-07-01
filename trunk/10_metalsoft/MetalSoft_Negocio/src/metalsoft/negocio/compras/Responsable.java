@@ -6,7 +6,7 @@ import metalsoft.negocio.rrhh.Persona;
 
 public class Responsable extends Persona 
 {
-   private int fax;
+   private String fax;
    
    /**
     * @roseuid 4C27ED0D030D
@@ -15,12 +15,14 @@ public class Responsable extends Persona
    {
     
    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
    
-   /**
-    * @roseuid 4C0EC5A8010B
-    */
-   public void crear() 
-   {
-    
-   }
+
 }
