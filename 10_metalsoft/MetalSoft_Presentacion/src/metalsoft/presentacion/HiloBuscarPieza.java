@@ -34,6 +34,7 @@ public class HiloBuscarPieza extends Thread {
         this.ventana = ventana;
     }
 
+    @Override
     public void run() {
         buscarPieza();
     }
@@ -41,7 +42,7 @@ public class HiloBuscarPieza extends Thread {
     private void buscarPieza()
     {
         GestorPieza gestor=new GestorPieza();
-        Pieza[] tm=gestor.buscarConLIKE(valor);
+        metalsoft.datos.dbobject.Pieza[] tm=gestor.buscarConLIKE(valor);
         JList list=ventana.getLstTipoMaterial();
         list.removeAll();
         ventana.setTm(tm);
@@ -50,7 +51,7 @@ public class HiloBuscarPieza extends Thread {
         //ventana.getBsyBuscar().setBusy(false);
         //ventana.getBsyBuscar().setVisible(false);
     }
-    private void cargarLista(JList list, Pieza[] pieza) {
+    private void cargarLista(JList list, metalsoft.datos.dbobject.Pieza[] pieza) {
 
         ItemCombo item[]=new ItemCombo[pieza.length];
         for(int i=0;i<pieza.length;i++)
