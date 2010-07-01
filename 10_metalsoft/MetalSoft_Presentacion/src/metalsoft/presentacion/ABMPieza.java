@@ -297,13 +297,17 @@ public class ABMPieza extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        limpiar();
+}//GEN-LAST:event_btnNuevoActionPerformed
+    public void limpiar()
+    {
         cmbMateriaPrima.setSelectedIndex(-1);
         cmbMatriz.setSelectedIndex(-1);
         cmbTipoMaterial.setSelectedIndex(-1);
         txtDimensiones.setText("");
         txtNombre.setText("");
-}//GEN-LAST:event_btnNuevoActionPerformed
-
+        idpieza.setText("");
+    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
@@ -312,6 +316,9 @@ public class ABMPieza extends javax.swing.JFrame {
         String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
 
         gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), indexTipoMaterial, indexMateriaPrima, indexMatriz);
+
+        JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
+        limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cmbMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMatrizActionPerformed
@@ -350,6 +357,7 @@ public class ABMPieza extends javax.swing.JFrame {
             else JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
         }
         else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+        limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -361,6 +369,7 @@ public class ABMPieza extends javax.swing.JFrame {
             else JOptionPane.showMessageDialog(rootPane, "La pieza NO ha podido ser eliminada");
         }
         else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+        limpiar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
