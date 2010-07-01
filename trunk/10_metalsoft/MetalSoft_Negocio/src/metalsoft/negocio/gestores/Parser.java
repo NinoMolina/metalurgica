@@ -9,6 +9,10 @@ import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.Pieza;
+import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.compras.Responsable;
+import metalsoft.negocio.rrhh.Domicilio;
+import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
 /**
  *
@@ -59,4 +63,63 @@ public class Parser {
         return x;
     }
 
+    public static metalsoft.datos.dbobject.Domicilio parseToDomicilioDB(Domicilio x)
+    {
+        metalsoft.datos.dbobject.Domicilio db=new metalsoft.datos.dbobject.Domicilio();
+        db.setCalle(x.getCalle());
+        db.setDepto(x.getDepto());
+        db.setNumerocalle(x.getNumeroCalle());
+        db.setPiso(x.getPiso());
+        db.setTorre(x.getTorre());
+        return db;
+    }
+
+    public static Domicilio parseToDomicilio(metalsoft.datos.dbobject.Domicilio x)
+    {
+        Domicilio neg=new Domicilio();
+        neg.setCalle(x.getCalle());
+        neg.setDepto(x.getDepto());
+        neg.setNumeroCalle(x.getNumerocalle());
+        neg.setPiso(x.getPiso());
+        neg.setTorre(x.getTorre());
+        return neg;
+    }
+
+    public static metalsoft.datos.dbobject.Responsable parseToResponsableDB(Responsable x)
+    {
+        metalsoft.datos.dbobject.Responsable db=new metalsoft.datos.dbobject.Responsable();
+        db.setApellido(x.getApellido());
+        db.setEmail(x.getEmail());
+        db.setFax(x.getFax());
+        db.setNombre(x.getNombre());
+        db.setNrodocumento(x.getNroDocumento());
+        db.setTelefono(x.getTelefono());
+        return db;
+    }
+
+    public static Responsable parseToResponsable(metalsoft.datos.dbobject.Responsable x)
+    {
+        Responsable neg=new Responsable();
+        neg.setApellido(x.getApellido());
+        neg.setEmail(x.getEmail());
+        neg.setFax(x.getFax());
+        neg.setNombre(x.getNombre());
+        neg.setNroDocumento(x.getNrodocumento());
+        neg.setTelefono(x.getTelefono());
+        return neg;
+    }
+
+    public static ItemCombo[] parseToItemCombo(metalsoft.datos.dbobject.Cliente[] x)
+    {
+        ItemCombo[] items=new ItemCombo[x.length];
+        int index=0;
+        for(metalsoft.datos.dbobject.Cliente c:x)
+        {
+            items[index]=new ItemCombo(String.valueOf(index), c.getRazonsocial());
+            index++;
+        }
+        return items;
+    }
+
+    
 }
