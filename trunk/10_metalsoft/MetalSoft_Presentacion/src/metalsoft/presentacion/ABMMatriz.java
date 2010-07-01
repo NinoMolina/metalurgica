@@ -18,10 +18,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import metalsoft.datos.dbobject.Matriz;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
-import metalsoft.negocio.gestores.Parser;
+import metalsoft.negocio.produccion.Matriz;
 
 /**
  *
@@ -115,6 +114,7 @@ public class ABMMatriz extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Matriz");
 
         jLabel1.setText("Nombre:");
 
@@ -301,7 +301,7 @@ public class ABMMatriz extends javax.swing.JFrame {
 
             int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima) ,Integer.parseInt(indexTipoMaterial));
             if (id > -1) {
-                JOptionPane.showMessageDialog(this, "Se Guardó el siguiente TipoMaterial: " + txtNombre.getText());
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
             }
@@ -311,7 +311,10 @@ public class ABMMatriz extends javax.swing.JFrame {
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-      
+
+        boolean ok=gestor.eliminarMatriz(matriz);
+        if(ok)JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+        else JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
 }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
