@@ -14,5 +14,6 @@ import metalsoft.negocio.compras.Responsable;
 public interface IResponsable {
 
     public void setResponsable(Responsable respNegocio, long idResponsable);
+    public void setResponsable(Responsable respNegocio, metalsoft.datos.dbobject.Responsable respDB);
     public void mostrarDatosResponsable();
 }
