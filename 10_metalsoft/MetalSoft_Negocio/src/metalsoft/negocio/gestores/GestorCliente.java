@@ -179,7 +179,7 @@ public class GestorCliente
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object[] sqlParams=new Object[0];
         //Object[] sqlParams=new Object[1];
@@ -188,7 +188,7 @@ public class GestorCliente
             clientes = dao.findExecutingUserWhere("razonsocial ILIKE '"+valor+"%'", sqlParams, cn);
             cn.close();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Parser.parseToItemCombo(clientes);
     }
