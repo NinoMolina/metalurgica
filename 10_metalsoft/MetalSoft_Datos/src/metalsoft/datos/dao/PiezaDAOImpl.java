@@ -80,6 +80,8 @@ public class PiezaDAOImpl implements PiezaDAO
 				if(idM>0)ps.setLong(5,idM);
                 else ps.setNull(5, java.sql.Types.NULL);
 
+                ps.setLong(6,piezapk.getIdpieza());
+
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezaException(sqle);}
 		catch(Exception e){throw new PiezaException(e);}
