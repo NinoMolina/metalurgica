@@ -89,9 +89,11 @@ public class ResponsableDAOImpl implements ResponsableDAO
 	public int insert(Responsable responsable ,Connection con)throws ResponsableException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
+                int result=-1;
 		try
 		{
-			ps = con.prepareStatement("insert into RESPONSABLE( NOMBRE, APELLIDO, TELEFONO, EMAIL, DOMICILIO, NRODOCUMENTO, TIPODOCUMENTO, FAX) values (?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into RESPONSABLE( NOMBRE, APELLIDO, TELEFONO, EMAIL, DOMICILIO, NRODOCUMENTO, TIPODOCUMENTO, FAX) values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING idresponsable");
 				ps.setString(1,responsable.getNombre());
 				ps.setString(2,responsable.getApellido());
 				ps.setString(3,responsable.getTelefono());
@@ -100,8 +102,10 @@ public class ResponsableDAOImpl implements ResponsableDAO
 				ps.setInt(6,responsable.getNrodocumento());
 				ps.setLong(7,responsable.getTipodocumento());
 				ps.setString(8,responsable.getFax());
-
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+                                result=rs.getInt(1);
+				return result;
 		}catch(SQLException sqle){throw new ResponsableException(sqle);}
 		catch(Exception e){throw new ResponsableException(e);}
 	}
