@@ -15,8 +15,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import metalsoft.datos.dbobject.Matriz;
 import metalsoft.negocio.gestores.GestorMatriz;
+import metalsoft.negocio.produccion.Matriz;
 
 /**
  *
@@ -174,7 +174,7 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-     Matriz x=m[lstMatriz.getSelectedIndex()];
+        Matriz x=m[lstMatriz.getSelectedIndex()];
         ventana.setMatriz(x);
         ventana.getTxtNombre().setText(x.getNombre());
         ventana.getTxtDescripcion().setText(x.getDescripcion());
