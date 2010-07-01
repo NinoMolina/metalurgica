@@ -13,9 +13,11 @@ package metalsoft.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.TipoDocumento;
 import metalsoft.negocio.ventas.CondicionIva;
@@ -27,10 +29,12 @@ import metalsoft.negocio.ventas.CondicionIva;
 public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     private GestorCliente gestor;
     private Responsable responsable;
-    private ABMCliente ventana;
+    private metalsoft.datos.dbobject.Responsable responsableDB;
+    private IResponsable ventana;
     private Domicilio domicilio;
     private long idDomicilio;
     private long idResponsable;
+    private boolean devolverObjeto=false;
     /** Creates new form ABMResponable */
     public ABMResponsable() {
         initComponents();
@@ -52,9 +56,10 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         int nroDoc=Integer.parseInt(txtNroDoc.getText());
         String telefono=txtTelefono.getText();
         ItemCombo item=(ItemCombo)cmbTipoDoc.getSelectedItem();
+        int indexTipoDoc=Integer.parseInt(item.getId());
         metalsoft.negocio.rrhh.TipoDocumento tipoDoc=new TipoDocumento();
         tipoDoc.setTipo(item.getMostrar());
-        int indexTipoDoc=Integer.parseInt(item.getId());
+
         responsable=new Responsable();
         responsable.setFax(fax);
         responsable.setApellido(apellido);
@@ -64,14 +69,38 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         responsable.setNroDocumento(nroDoc);
         responsable.setTelefono(telefono);
         responsable.setTipoDocumento(tipoDoc);
-        idResponsable=gestor.registrarResponsable(responsable,indexTipoDoc,idDomicilio);
+
+        responsableDB=new metalsoft.datos.dbobject.Responsable();
+        if(devolverObjeto)
+        {
+            responsableDB=Parser.parseToResponsableDB(responsable);
+            responsableDB.setTipodocumento(gestor.obtenerIdTipoDoc(indexTipoDoc));
+            ventana.setResponsable(responsable, responsableDB);
+            ventana.mostrarDatosResponsable();
+            this.dispose();
+        }
+        else
+        {
+            idResponsable=gestor.registrarResponsable(responsable,indexTipoDoc,idDomicilio);
+            if(idResponsable>0)JOptionPane.showMessageDialog(this, "El responsable se guardó correctamente");
+            else JOptionPane.showMessageDialog(this, "No se pudo guardar el responsable");
+        }        
     }
 
-    public ABMCliente getVentana() {
+    public boolean isDevolverObjeto() {
+        return devolverObjeto;
+    }
+
+    public void setDevolverObjeto(boolean devolverObjeto) {
+        this.devolverObjeto = devolverObjeto;
+    }
+
+
+    public IResponsable getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMCliente ventana) {
+    public void setVentana(IResponsable ventana) {
         this.ventana = ventana;
     }
 
@@ -90,6 +119,12 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     public void setResponsable(Responsable responsable) {
         this.responsable = responsable;
     }
+
+    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+        domicilio=dom;
+        gestor.tomarDomicilioResponsable(domDB);
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -249,6 +284,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         try {
             frmRegDomicilio=(RegistrarDomicilio) JFrameManager.crearVentana(RegistrarDomicilio.class.getName());
             frmRegDomicilio.setGestor(gestor);
+            frmRegDomicilio.setDevolverObjeto(true);
             frmRegDomicilio.setVentana(this);
             frmRegDomicilio.cargarComboProvincia();
         } catch (ClassNotFoundException ex) {
@@ -309,8 +345,6 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         String numero=String.valueOf(domicilio.getNumeroCalle());
         lblDomicilio.setText(prov+","+localidad+","+barrio+","+calle+","+numero);
     }
-
-    
 
 
 }
