@@ -6,9 +6,9 @@
 package metalsoft.presentacion;
 
 import javax.swing.JList;
-import metalsoft.datos.dbobject.Matriz;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
+import metalsoft.negocio.produccion.Matriz;
 
 /**
  *
