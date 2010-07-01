@@ -13,16 +13,26 @@ package metalsoft.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.rrhh.Domicilio;
+import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
 
 /**
  *
  * @author Vicky
  */
-public class ABMCliente extends javax.swing.JFrame {
+public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IResponsable{
     private GestorCliente gestor;
+    private Domicilio domicilio;
+    private long idDomicilio;
+    private long idResponsable;
+    private Responsable responsable;
+    private Cliente cliente;
+    private long idCliente;
     /** Creates new form ABMCliente */
     public ABMCliente() {
         initComponents();
@@ -70,12 +80,12 @@ public class ABMCliente extends javax.swing.JFrame {
         lblDomicilio = new javax.swing.JLabel();
         btnResponsable = new javax.swing.JButton();
         lblResponsable = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrar Clientes");
@@ -124,6 +134,11 @@ public class ABMCliente extends javax.swing.JFrame {
         lblDomicilio.setText(":");
 
         btnResponsable.setText("Registrar");
+        btnResponsable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResponsableActionPerformed(evt);
+            }
+        });
 
         lblResponsable.setText(":");
 
@@ -256,17 +271,27 @@ public class ABMCliente extends javax.swing.JFrame {
                     .addComponent(lblDomicilio)))
         );
 
-        jButton5.setText("Modificar");
+        btnModificar.setText("Modificar");
 
-        jButton6.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
 
-        jButton8.setText("Buscar");
+        btnBuscar.setText("Buscar");
 
-        jButton9.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Salir");
+        btnSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,17 +302,17 @@ public class ABMCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9)
+                        .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
+                        .addComponent(btnModificar)
                         .addGap(5, 5, 5)
-                        .addComponent(jButton7)
+                        .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -298,13 +323,13 @@ public class ABMCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton6)
-                        .addComponent(jButton9))
-                    .addComponent(jButton5)
-                    .addComponent(jButton7)
+                        .addComponent(btnNuevo)
+                        .addComponent(btnGuardar))
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton8)
-                        .addComponent(jButton10)))
+                        .addComponent(btnBuscar)
+                        .addComponent(btnSalir)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,6 +345,7 @@ public class ABMCliente extends javax.swing.JFrame {
         try {
             frmRegDomicilio=(RegistrarDomicilio) JFrameManager.crearVentana(RegistrarDomicilio.class.getName());
             frmRegDomicilio.setGestor(gestor);
+            frmRegDomicilio.setVentana((IDomiciliable) this);
             frmRegDomicilio.cargarComboProvincia();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,6 +355,73 @@ public class ABMCliente extends javax.swing.JFrame {
             Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDomicilioActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        txtFechaAlta.setText(Fecha.fechaActual());
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResponsableActionPerformed
+        ABMResponsable frmABMResponsable=null;
+        try {
+            frmABMResponsable=(ABMResponsable) JFrameManager.crearVentana(ABMResponsable.class.getName());
+            frmABMResponsable.setGestor(gestor);
+            frmABMResponsable.setVentana(this);
+            frmABMResponsable.cargarComboTipoDoc();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnResponsableActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        int indexEstado=Integer.parseInt(((ItemCombo)cmbEstado.getSelectedItem()).getId());
+        int indexCondIva=Integer.parseInt(((ItemCombo)cmbCondicionIVA.getSelectedItem()).getId());
+        int indexPrioridad=Integer.parseInt(((ItemCombo)cmbPrioridad.getSelectedItem()).getId());
+        cliente=new Cliente();
+        cliente.setCUIT(txtCUIT.getText());
+        cliente.setCelular(txtCelular.getText());
+        
+        if(txtFechaAlta.getText().compareTo("")!=0)
+            cliente.setFechaAlta(Fecha.parseToDate(txtFechaAlta.getText()));
+        else
+            cliente.setFechaAlta(null);
+
+        if(txtFechaBaja.getText().compareTo("")!=0)
+            cliente.setFechaBaja(Fecha.parseToDate(txtFechaBaja.getText()));
+        else
+            cliente.setFechaBaja(null);
+
+        cliente.setMail(txtMail.getText());
+        cliente.setNroCliente(Integer.parseInt(txtNroCliente.getText()));
+        cliente.setRazonSocial(txtRazonSocial.getText());
+        cliente.setTelefono(txtTelefono.getText());
+
+        idCliente=gestor.registrarCliente(cliente,idResponsable,idDomicilio,indexEstado,indexCondIva,indexPrioridad);
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cargarComboCondIva() {
+        gestor.buscarCondicionIva(cmbCondicionIVA);
+    }
+
+    private void cargarComboPrioridad() {
+        gestor.obtenerPrioridades(cmbPrioridad);
+    }
+
+    private void cargarComboEstado() {
+        gestor.obtenerEstados(cmbEstado);
+    }
+
+    public JLabel getLblDomicilio() {
+        return lblDomicilio;
+    }
+
+    public void setLblDomicilio(JLabel lblDomicilio) {
+        this.lblDomicilio = lblDomicilio;
+    }
 
     /**
     * @param args the command line arguments
@@ -342,17 +435,17 @@ public class ABMCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDomicilio;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnResponsable;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cmbCondicionIVA;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbPrioridad;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -379,16 +472,33 @@ public class ABMCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarComboCondIva() {
-        gestor.buscarCondicionIva(cmbCondicionIVA);
+    public void setDomicilio(Domicilio dom, long id) {
+        domicilio=dom;
+        this.idDomicilio=id;
+        gestor.tomarDomicilioCliente(dom, id);
     }
 
-    private void cargarComboPrioridad() {
-        gestor.obtenerPrioridades(cmbPrioridad);
+    public void mostrarDatosDomicilio() {
+        String prov=domicilio.getBarrio().getLocalidad().getProvincia().getNombre();
+        String barrio=domicilio.getBarrio().getNombre();
+        String localidad=domicilio.getBarrio().getLocalidad().getNombre();
+        String calle=domicilio.getCalle();
+        String numero=String.valueOf(domicilio.getNumeroCalle());
+        lblDomicilio.setText(prov+","+localidad+","+barrio+","+calle+","+numero);
     }
 
-    private void cargarComboEstado() {
-        gestor.obtenerEstados(cmbEstado);
+    public void setResponsable(Responsable respNegocio, long idResponsable) {
+        responsable=respNegocio;
+        this.idResponsable=idResponsable;
+        gestor.tomarResponsableCliente(respNegocio, idResponsable);
     }
+
+    public void mostrarDatosResponsable() {
+        String nombre=responsable.getNombre();
+        String apellido=responsable.getApellido();
+        lblResponsable.setText(apellido+", "+nombre);
+    }
+
+    
 
 }
