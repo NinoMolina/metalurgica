@@ -98,9 +98,11 @@ public class ClienteDAOImpl implements ClienteDAO
 	public int insert(Cliente cliente ,Connection con)throws ClienteException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
+                long id=-1;
 		try
 		{
-			ps = con.prepareStatement("insert into CLIENTE( NROCLIENTE, PRIORIDAD, ESTADO, ESMOROSO, USUARIO, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICIONIVA, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into CLIENTE( NROCLIENTE, PRIORIDAD, ESTADO, ESMOROSO, USUARIO, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICIONIVA, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING idcliente");
 				ps.setLong(1,cliente.getNrocliente());
 				ps.setLong(2,cliente.getPrioridad());
 				ps.setLong(3,cliente.getEstado());
@@ -117,8 +119,10 @@ public class ClienteDAOImpl implements ClienteDAO
 				ps.setString(14,cliente.getCuil());
 				ps.setLong(15,cliente.getCondicioniva());
 				ps.setString(16,cliente.getCuit());
-
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+                                id=rs.getLong(1);
+				return (int) id;
 		}catch(SQLException sqle){throw new ClienteException(sqle);}
 		catch(Exception e){throw new ClienteException(e);}
 	}
