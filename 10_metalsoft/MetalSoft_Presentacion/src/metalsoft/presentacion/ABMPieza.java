@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
@@ -91,6 +92,7 @@ public class ABMPieza extends javax.swing.JFrame {
         cargarComboMatriz();
         cargarComboTipoMaterial();
         idpieza.setVisible(false);
+        idpieza.setText("");
     }
     public void cargarComboMateriaPrima()
     {
@@ -219,8 +221,18 @@ public class ABMPieza extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -325,6 +337,31 @@ public class ABMPieza extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if(idpieza.getText().compareTo("")!=0)
+        {
+            String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
+            String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
+            String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
+            boolean result=gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), txtDimensiones.getText(), Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
+            if(result==true) JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
+            else JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
+        }
+        else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if(idpieza.getText().compareTo("")!=0)
+        {
+            boolean result=gestorPieza.eliminarPieza(Long.parseLong(idpieza.getText()));
+            if(result==true) JOptionPane.showMessageDialog(rootPane, "Se ha eliminado la pieza");
+            else JOptionPane.showMessageDialog(rootPane, "La pieza NO ha podido ser eliminada");
+        }
+        else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
     * @param args the command line arguments
