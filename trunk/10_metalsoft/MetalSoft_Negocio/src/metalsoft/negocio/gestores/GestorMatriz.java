@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.negocio.produccion.Matriz;
 import metalsoft.datos.dbobject.Materiaprima;
-import metalsoft.datos.dbobject.Matriz;
 import metalsoft.datos.dbobject.MatrizPK;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.exception.MatrizException;
@@ -22,6 +22,7 @@ import metalsoft.datos.idao.MateriaprimaDAO;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.datos.idao.TipomaterialDAO;
 import metalsoft.negocio.ItemCombo;
+
 
 /**
  *
@@ -86,12 +87,26 @@ public class GestorMatriz {
 
      public int guardarMatriz(long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) throws SQLException {
         MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
-        Matriz m = new Matriz();
+        metalsoft.datos.dbobject.Matriz m = new metalsoft.datos.dbobject.Matriz();
         m.setCodmatriz(codigo);
         m.setNombre(nombre);
         m.setDescripcion(descripcion);
-        m.setMateriaprima(this.materiaPrima[materiaPrima].getIdmateriaprima());
-        m.setTipomaterial(this.tipoMateriales[tipoMaterial].getIdtipomaterial());
+
+        long idTM=-1;
+        long idMP=-1;
+
+        int iTM= tipoMaterial;
+        if(iTM!=-1) idTM=tipoMateriales[iTM].getIdtipomaterial();
+        int iMP= materiaPrima;
+        if(iMP!=-1) idMP=this.materiaPrima[iMP].getIdmateriaprima();
+
+
+        m.setTipomaterial(idTM);
+        m.setMateriaprima(idMP);
+
+//        m.setMateriaprima(this.materiaPrima[materiaPrima].getIdmateriaprima());
+//        m.setTipomaterial(this.tipoMateriales[tipoMaterial].getIdtipomaterial());
+
         Connection cn=null;
         int id=-1;
         try {
@@ -189,7 +204,7 @@ public class GestorMatriz {
         }
         return parseToMatriz(m);
     }
-      private Matriz[] parseToMatriz(Matriz[] m) {
+      private Matriz[] parseToMatriz(metalsoft.datos.dbobject.Matriz[] m) {
         if(m==null)return null;
 
         Matriz[] mat=new Matriz[m.length];
@@ -200,11 +215,12 @@ public class GestorMatriz {
             x.setCodmatriz(m[i].getCodmatriz());
             x.setDescripcion(m[i].getDescripcion());
             x.setMateriaprima(m[i].getMateriaprima());
+            x.setTipomaterial(m[i].getTipomaterial());
             mat[i]=x;
         }
         return mat;
     }
-      public boolean modificarMatriz(Matriz matriz, long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) {
+      public boolean modificarMatriz(metalsoft.negocio.produccion.Matriz matriz, long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) {
         MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
         Connection cn=null;
         metalsoft.datos.dbobject.Matriz[] m=null;
@@ -215,8 +231,11 @@ public class GestorMatriz {
         }
         //Object[] sqlParams=new Object[0];
         Object[] sqlParams=new Object[2];
+//        sqlParams[0]=matriz.getCodmatriz();
         sqlParams[0]=matriz.getNombre();
         sqlParams[1]=matriz.getDescripcion();
+//        sqlParams[5]=matriz.getMateriaprima();
+//        sqlParams[6]=matriz.getTipomaterial();
         try {
             m = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
 
@@ -227,9 +246,22 @@ public class GestorMatriz {
         if(m.length>0)id=m[0].getIdmatriz();
         else return false;
         //realizo la modificación
-        Matriz modificada =new Matriz();
-        modificada.setDescripcion(descripcion);
-        modificada.setNombre(nombre);
+        metalsoft.datos.dbobject.Matriz modificada =new metalsoft.datos.dbobject.Matriz();
+         modificada.setCodmatriz(codigo);
+         modificada.setNombre(nombre);
+         modificada.setDescripcion(descripcion);
+
+        long idTM=-1;
+        long idMP=-1;
+
+        int iTM= tipoMaterial;
+        if(iTM!=-1) idTM=tipoMateriales[iTM].getIdtipomaterial();
+        int iMP= materiaPrima;
+        if(iMP!=-1) idMP=this.materiaPrima[iMP].getIdmateriaprima();
+
+
+        modificada.setTipomaterial(idTM);
+        modificada.setMateriaprima(idMP);
         modificada.setIdmatriz(id);
         int result=-1;
         try {
@@ -245,6 +277,47 @@ public class GestorMatriz {
         if(result>0)return true;
         else return false;
     }
+       public boolean eliminarMatriz(Matriz matriz) {
+        MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
+        Connection cn=null;
+        metalsoft.datos.dbobject.Matriz[] m=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Object[] sqlParams=new Object[0];
+        Object[] sqlParams=new Object[2];
+        sqlParams[0]=matriz.getNombre();
+        sqlParams[1]=matriz.getDescripcion();
+        try {
+//            deberia buscar por todos los parametros.
+            m = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long id=-1;
+        if(m.length>0)id=m[0].getIdmatriz();
+        else return false;
+
+        //realizo la eliminación
+
+        int result=-1;
+        try {
+            result = dao.delete(new MatrizPK(id), cn);
+        } catch (MatrizException ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result>0)return true;
+        else return false;
+    }
+
 
 
 }
