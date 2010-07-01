@@ -56,7 +56,7 @@ public class GestorTipoMaterialDB {
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object[] sqlParams=new Object[0];
         //Object[] sqlParams=new Object[1];
@@ -65,7 +65,7 @@ public class GestorTipoMaterialDB {
             tm = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
             cn.close();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return parseToTipomaterial(tm);
     }
@@ -91,7 +91,7 @@ public class GestorTipoMaterialDB {
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Object[] sqlParams=new Object[0];
         Object[] sqlParams=new Object[2];
@@ -101,7 +101,7 @@ public class GestorTipoMaterialDB {
             tm = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         long id=-1;
         if(tm.length>0)id=tm[0].getIdtipomaterial();
@@ -133,7 +133,7 @@ public class GestorTipoMaterialDB {
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Object[] sqlParams=new Object[0];
         Object[] sqlParams=new Object[2];
@@ -143,7 +143,7 @@ public class GestorTipoMaterialDB {
             tm = dao.findExecutingUserWhere("nombre = ? AND descripcion = ?", sqlParams, cn);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacionDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorTipoMaterialDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         long id=-1;
         if(tm.length>0)id=tm[0].getIdtipomaterial();
