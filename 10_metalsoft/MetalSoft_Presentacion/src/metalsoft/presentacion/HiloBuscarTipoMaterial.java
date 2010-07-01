@@ -43,7 +43,7 @@ public class HiloBuscarTipoMaterial extends Thread {
     private void buscarTipoMaterial()
     {
         GestorTipoMaterial gestor=new GestorTipoMaterial();
-        TipoMaterial[] tm=gestor.buscarTipoMaterial(valor);
+        TipoMaterial[] tm=gestor.buscarConLIKE(valor);
         JList list=ventana.getLstTipoMaterial();
         list.removeAll();
         ventana.setTm(tm);
