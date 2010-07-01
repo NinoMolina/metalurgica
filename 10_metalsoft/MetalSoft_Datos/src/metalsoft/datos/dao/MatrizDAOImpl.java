@@ -69,8 +69,14 @@ public class MatrizDAOImpl implements MatrizDAO
 				ps.setString(3,matriz.getDescripcion());
 				ps.setString(4,matriz.getObservaciones());
 				ps.setDate(5,matriz.getFechacreacion());
-				ps.setLong(6,matriz.getMateriaprima());
-				ps.setLong(7,matriz.getTipomaterial());
+				long idMp=matriz.getMateriaprima();
+				if(idMp>0)ps.setLong(6,idMp);
+                                else ps.setNull(6, java.sql.Types.NULL);
+
+                                long idtm=matriz.getTipomaterial();
+				if(idtm>0)ps.setLong(7,idtm);
+                                else ps.setNull(7, java.sql.Types.NULL);
+
 				ps.setLong(8,matrizpk.getIdmatriz());
 
 				return(ps.executeUpdate());
@@ -97,8 +103,14 @@ public class MatrizDAOImpl implements MatrizDAO
 				ps.setString(3,matriz.getDescripcion());
 				ps.setString(4,matriz.getObservaciones());
 				ps.setDate(5,matriz.getFechacreacion());
-				ps.setLong(6,matriz.getMateriaprima());
-				ps.setLong(7,matriz.getTipomaterial());
+
+                                long idMp=matriz.getMateriaprima();
+				if(idMp>0)ps.setLong(6,idMp);
+                                else ps.setNull(6, java.sql.Types.NULL);
+
+                                long idtm=matriz.getTipomaterial();
+				if(idtm>0)ps.setLong(7,idtm);
+                                else ps.setNull(7, java.sql.Types.NULL);
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MatrizException(sqle);}
