@@ -44,6 +44,7 @@ public class GestorCliente
    private Provincia[] provincias=null;
    private Localidad[] localidades=null;
    private Barrio[] barrios=null;
+   private metalsoft.datos.dbobject.Cliente[] clientes=null;
    private Domicilio domicilioClienteDB=null;
    private Domicilio domicilioResponsableDB=null;
    private Tipodocumento[] tiposDoc=null;
@@ -175,7 +176,7 @@ public class GestorCliente
     {
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         Connection cn=null;
-        metalsoft.datos.dbobject.Cliente[] clientes=null;
+        
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
@@ -776,6 +777,11 @@ public class GestorCliente
 
     public void tomarDomicilioClienteDB(Domicilio domDB) {
         setDomicilioClienteDB(domDB);
+    }
+
+    public metalsoft.datos.dbobject.Cliente obtenerClienteSeleccionado(int index) {
+        clienteDB=clientes[index];
+        return clienteDB;
     }
 
 
