@@ -2,9 +2,17 @@
 
 package metalsoft.negocio.ventas;
 
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.DomicilioDAO;
+import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.negocio.adminusuarios.Usuario;
 import metalsoft.negocio.compras.PersonaJuridica;
 import metalsoft.negocio.compras.Reclamo;
+import metalsoft.negocio.compras.Responsable;
+import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.TipoDocumento;
 
@@ -186,20 +194,43 @@ public class Cliente extends PersonaJuridica
     
    }
    
-   /**
-    * @roseuid 4BC25E6F026D
-    */
-   public void crear() 
-   {
-    
-   }
+
    
    /**
     * @roseuid 4C1FA6FF0147
     */
-   public void crearDomicilio() 
+   public int crearDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long idBarrio, Connection cn)
    {
-    
+        int result=-1;
+        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
+        metalsoft.datos.dbobject.Domicilio domDB;
+        try {
+            domDB=Parser.parseToDomicilioDB(dom);
+            domDB.setBarrio(idBarrio);
+            result=dao.insert(domDB, cn);
+            domDB.setIddomicilio(result);
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+   }
+
+   public int crearResponsable(Responsable responsable,long idBarrioResp, long idTipoDocResp, Connection cn)
+   {
+       int result=-1;
+        ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
+        metalsoft.datos.dbobject.Responsable responsableDB;
+        try {
+            responsableDB=Parser.parseToResponsableDB(responsable);
+            int idDomResp=responsable.crearDomicilio(responsable.getDomicilio(), idBarrioResp, cn);
+            responsableDB.setDomicilio(idDomResp);
+            responsableDB.setTipodocumento(idTipoDocResp);
+            result=dao.insert(responsableDB, cn);
+            responsableDB.setIdresponsable(result);
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
    }
    
    /**
