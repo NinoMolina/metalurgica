@@ -63,7 +63,7 @@ public class ABMCliente_Buscar extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,8 +165,9 @@ public class ABMCliente_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        int indexCliente=Integer.parseInt(((ItemCombo)lstLista.getSelectedValue()).getId());
-        metalsoft.datos.dbobject.Cliente clienteDB=gestor.obtenerClienteSeleccionado(indexCliente);
+        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
+        ventana.setIdCliente(id);
+        ventana.clienteSeleccionado();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
