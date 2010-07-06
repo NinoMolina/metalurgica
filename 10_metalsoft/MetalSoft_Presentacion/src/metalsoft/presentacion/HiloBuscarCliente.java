@@ -5,12 +5,14 @@
 
 package metalsoft.presentacion;
 
+import com.lowagie.text.markup.Parser;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import metalsoft.negocio.ItemCombo;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.ventas.Cliente;
@@ -56,31 +58,24 @@ public class HiloBuscarCliente extends Thread {
 
     private void buscarClientes()
     {
-        ItemCombo[] items=ventanaBuscar.getGestor().buscarClientes(getValor());
+        metalsoft.datos.dbobject.Cliente[] clientes=ventanaBuscar.getGestor().buscarClientes(getValor());
         JList combo=ventanaBuscar.getLstLista();
         combo.removeAll();
-        cargarCombo(combo,items);
-//        ventana.getLblCondIva().setText(clientes[0].getIva().getNombre());
-//        ventana.getLblCuit().setText(clientes[0].getCUIT());
-//        ventana.getBsyBuscar().setBusy(false);
-//        ventana.getBsyBuscar().setVisible(false);
+        cargarCombo(combo,clientes);
     }
 
     public void iniciarTimer() {
         timer=new Timer(true);
     }
 
-    private void cargarCombo(JComboBox combo, Cliente[] clientes) {
-        ItemCombo item=null;
+    private void cargarCombo(JList combo, metalsoft.datos.dbobject.Cliente[] clientes) {
+        ItemCombo item=null,items[]=new ItemCombo[clientes.length];
         for(int i=0;i<clientes.length;i++)
         {
-            item=new ItemCombo();
-            item.setMostrar(clientes[i].getRazonSocial());
-            item.setId(clientes[i].getCUIT());
-            combo.addItem(item);
-            combo.setSelectedIndex(0);
+            item=new ItemCombo(String.valueOf(clientes[i].getIdcliente()), clientes[i].getRazonsocial());
+            items[i]=item;
         }
-        
+        combo.setListData(items);
     }
 
     private void cargarCombo(JList combo, ItemCombo[] items) {
