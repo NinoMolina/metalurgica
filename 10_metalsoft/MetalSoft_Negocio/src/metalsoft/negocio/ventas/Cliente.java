@@ -5,6 +5,9 @@ package metalsoft.negocio.ventas;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.datos.dbobject.DomicilioPK;
+import metalsoft.datos.dbobject.ResponsablePK;
+import metalsoft.datos.exception.DomicilioException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DomicilioDAO;
 import metalsoft.datos.idao.ResponsableDAO;
@@ -232,6 +235,37 @@ public class Cliente extends PersonaJuridica
         }
         return result;
    }
+   public int modificarResponsable(Responsable responsable, long idResp, long idDom, long idBarrio, long idTipoDoc, Connection cn) {
+        int result=-1;
+        ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
+        metalsoft.datos.dbobject.Responsable responsableDB;
+        ResponsablePK pk=new ResponsablePK(idResp);
+        try {
+            responsableDB=Parser.parseToResponsableDB(responsable);
+            int id=responsable.modificarDomicilio(responsable.getDomicilio(),idDom, idBarrio, cn);
+            responsableDB.setDomicilio(idDom);
+            responsableDB.setTipodocumento(idTipoDoc);
+            result=dao.update(pk, responsableDB, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+   }
+
+   public int modificarDomicilio(Domicilio dom, long idDom, long idBarrio, Connection cn) {
+        int result=-1;
+        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
+        metalsoft.datos.dbobject.Domicilio domDB;
+        DomicilioPK pk=new DomicilioPK(idDom);
+        try {
+            domDB=Parser.parseToDomicilioDB(dom);
+            domDB.setBarrio(idBarrio);
+            result=dao.update(pk,domDB, cn);
+        } catch (DomicilioException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
    
    /**
     * @roseuid 4C1FA6F801FD

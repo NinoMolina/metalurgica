@@ -5,9 +5,12 @@ package metalsoft.negocio.compras;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.datos.dbobject.DomicilioPK;
+import metalsoft.datos.exception.DomicilioException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DomicilioDAO;
 import metalsoft.negocio.gestores.Parser;
+import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Persona;
 
 public class Responsable extends Persona 
@@ -45,6 +48,21 @@ public class Responsable extends Persona
         }
         return result;
    }
+
+    public int modificarDomicilio(Domicilio dom, long idDom, long idBarrio, Connection cn) {
+        int result=-1;
+        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
+        metalsoft.datos.dbobject.Domicilio domDB;
+        DomicilioPK pk=new DomicilioPK(idDom);
+        try {
+            domDB=Parser.parseToDomicilioDB(dom);
+            domDB.setBarrio(idBarrio);
+            result=dao.update(pk,domDB, cn);
+        } catch (DomicilioException ex) {
+            Logger.getLogger(Responsable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
    
 
 }
