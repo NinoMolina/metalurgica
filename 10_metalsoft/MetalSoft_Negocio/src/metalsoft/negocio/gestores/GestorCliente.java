@@ -1226,5 +1226,46 @@ public class GestorCliente
         return localidadDB;
     }
 
+    public int bajaCliente(metalsoft.datos.dbobject.Cliente clienteDB) {
+        int result=-1;
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+
+        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
+        ClientePK pk=new ClientePK(idCliente);
+        try {
+            cn = pg.concectGetCn();
+            clienteDB.setEstado(idEstadoCliente);
+            long idEstadoBaja=buscarIdEstadoBaja(cn);
+            clienteDB.setEstado(idEstadoBaja);
+            result=dao.update(pk,clienteDB, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public long buscarIdEstadoBaja(Connection cn) {
+        EstadoclienteDAO dao=new DAOFactoryImpl().createEstadoclienteDAO();
+        long id=-1;
+        try {
+            id = dao.findByNombre("Baja",cn)[0].getIdestado();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+
     
 }
