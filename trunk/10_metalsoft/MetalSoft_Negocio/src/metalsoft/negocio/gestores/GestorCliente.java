@@ -13,10 +13,12 @@ import metalsoft.datos.dbobject.Barrio;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.Domicilio;
 import metalsoft.datos.dbobject.Estadocliente;
-import metalsoft.datos.dbobject.Localidad;
+
 import metalsoft.datos.dbobject.Prioridad;
 import metalsoft.datos.dbobject.Provincia;
 import metalsoft.datos.dbobject.Tipodocumento;
+import metalsoft.datos.exception.BarrioException;
+import metalsoft.datos.exception.LocalidadException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.BarrioDAO;
 import metalsoft.datos.idao.ClienteDAO;
@@ -42,7 +44,7 @@ public class GestorCliente
    private Prioridad[] prioridades=null;
    private Estadocliente[] estados=null;
    private Provincia[] provincias=null;
-   private Localidad[] localidades=null;
+   private metalsoft.datos.dbobject.Localidad[] localidades=null;
    private Barrio[] barrios=null;
    private metalsoft.datos.dbobject.Cliente[] clientes=null;
    private Domicilio domicilioClienteDB=null;
@@ -60,6 +62,8 @@ public class GestorCliente
     private metalsoft.negocio.compras.Responsable responsable;
     private long idCliente;
     private metalsoft.datos.dbobject.Cliente clienteDB;
+    private metalsoft.datos.dbobject.Barrio barrioDB;
+    private metalsoft.datos.dbobject.Localidad localidadDB;
    /**
     * @roseuid 4C280D160306
     */
@@ -1153,5 +1157,28 @@ public class GestorCliente
             }
         }
         return domicilioResponsableDB;
+    }
+
+    public metalsoft.datos.dbobject.Localidad buscarLocalidadDeBarrio(long id) {
+        LocalidadDAO daoLocalidad=new DAOFactoryImpl().createLocalidadDAO();
+        BarrioDAO daoBarrio=new DAOFactoryImpl().createBarrioDAO();
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        localidadDB=null;
+        try {
+            cn = pg.concectGetCn();
+            barrioDB = daoBarrio.findByIdbarrio(id, cn)[0];
+            localidadDB=daoLocalidad.findByIdlocalidad(barrioDB.getLocalidad(), cn)[0];
+        }
+        catch (BarrioException ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (LocalidadException ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex) {
+            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return localidadDB;
     }
 }
