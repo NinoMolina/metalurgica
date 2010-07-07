@@ -19,7 +19,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LookAndFeelManager.setLookAndFeel(Temas.WINDOWS);
+        LookAndFeelManager.setLookAndFeel(Temas.SYNTHETICA);
         AbrirSesion p=new AbrirSesion();
         p.setVisible(true);
         p.setLocationRelativeTo(null);
