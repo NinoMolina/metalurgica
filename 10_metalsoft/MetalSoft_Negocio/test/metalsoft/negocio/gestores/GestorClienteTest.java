@@ -47,29 +47,6 @@ public class GestorClienteTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of razonSocial method, of class GestorCliente.
-     */
-    @Test
-    public void testRazonSocial() {
-        System.out.println("razonSocial");
-        GestorCliente instance = new GestorCliente();
-        instance.razonSocial();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of numeroDeCuit method, of class GestorCliente.
-     */
-    @Test
-    public void testNumeroDeCuit() {
-        System.out.println("numeroDeCuit");
-        GestorCliente instance = new GestorCliente();
-        instance.numeroDeCuit();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of buscarCondicionIva method, of class GestorCliente.
