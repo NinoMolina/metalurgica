@@ -52,8 +52,42 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cargarTipoDocumento();
         addListenerCmbProvincia();
         addListenerCmbLocalidad();
+        setEnableComponents(false);
     }
 
+    private void setEnableComponents(boolean b)
+    {
+        txtCUIT.setEnabled(b);
+        txtCelular.setEnabled(b);
+        txtFechaAlta.setEnabled(b);
+        txtFechaBaja.setEnabled(b);
+        txtMail.setEnabled(b);
+        txtNroCliente.setEnabled(b);
+        txtRazonSocial.setEnabled(b);
+        txtTelefono.setEnabled(b);
+        cmbCondicionIVA.setEnabled(b);
+        cmbEstado.setEnabled(b);
+        cmbPrioridad.setEnabled(b);
+        beanDomicilioCliente.setEnabled(b);
+        beanResponsable.setEnabled(b);
+    }
+
+    private void limpiarCampos()
+    {
+        txtCUIT.setText("");
+        txtCelular.setText("");
+        txtFechaAlta.setText("");
+        txtFechaBaja.setText("");
+        txtMail.setText("");
+        txtNroCliente.setText("");
+        txtRazonSocial.setText("");
+        txtTelefono.setText("");
+        cmbCondicionIVA.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        cmbPrioridad.setSelectedIndex(0);
+        beanDomicilioCliente.limpiarCampos();
+        beanResponsable.limpiarCampos();
+    }
     public long getIdCliente() {
         return idCliente;
     }
@@ -171,8 +205,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cmbPrioridad = new javax.swing.JComboBox();
         cmbEstado = new javax.swing.JComboBox();
         cmbCondicionIVA = new javax.swing.JComboBox();
-        beanDomicilioCliente = new metalsoft.jbcomp.Domicilio();
-        beanResponsable = new metalsoft.jbcomp.Responsable();
+        beanDomicilioCliente = new metalsoft.beans.Domicilio();
+        beanResponsable = new metalsoft.beans.Responsable();
         btnModificar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -390,6 +424,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 }//GEN-LAST:event_txtMailActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        setEnableComponents(true);
+        limpiarCampos();
         txtFechaAlta.setText(Fecha.fechaActual());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -496,52 +532,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.obtenerEstados(cmbEstado);
     }
 
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMCliente().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.jbcomp.Domicilio beanDomicilioCliente;
-    private metalsoft.jbcomp.Responsable beanResponsable;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox cmbCondicionIVA;
-    private javax.swing.JComboBox cmbEstado;
-    private javax.swing.JComboBox cmbPrioridad;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCUIT;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtFechaAlta;
-    private javax.swing.JTextField txtFechaBaja;
-    private javax.swing.JTextField txtMail;
-    private javax.swing.JTextField txtNroCliente;
-    private javax.swing.JTextField txtRazonSocial;
-    private javax.swing.JTextField txtTelefono;
-    // End of variables declaration//GEN-END:variables
-
     public void setDomicilio(Domicilio dom, long id) {
         domicilioCliente=dom;
         this.idDomicilio=id;
@@ -634,6 +624,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         responsableDB=gestor.mostrarDatosResponsableCliente(clienteDB.getResponsable());
         domicilioResponsableDB=gestor.mostrarDatosDomicilioResponsable(responsableDB.getDomicilio());
         mostrarDatosCliente();
+        setEnableComponents(false);
     }
 
     private void mostrarDatosCliente() {
@@ -664,62 +655,101 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         txtRazonSocial.setText(clienteDB.getRazonsocial());
         txtTelefono.setText(clienteDB.getTelefono());
 
-        setCondicionIvaSeleccionado(clienteDB.getCondicioniva());
-        setEstadoSeleccionado(clienteDB.getEstado());
-        setPrioridadSeleccionado(clienteDB.getPrioridad());
-        setDatosDomicilioCliente(domicilioClienteDB);
+        setItemComboSeleccionado(cmbCondicionIVA,clienteDB.getCondicioniva());
+        setItemComboSeleccionado(cmbEstado,clienteDB.getEstado());
+        setItemComboSeleccionado(cmbPrioridad,clienteDB.getPrioridad());
+
+        setDatosDomicilio(beanDomicilioCliente,domicilioClienteDB);
+
+        setDatosResponsable(responsableDB,domicilioResponsableDB);
     }
 
-    private void setCondicionIvaSeleccionado(long id) {
-        int lenght=cmbCondicionIVA.getItemCount();
+    private void setDatosDomicilio(metalsoft.beans.Domicilio beanDom,metalsoft.datos.dbobject.Domicilio domDB) {
+        beanDom.getTxtCalle().setText(domDB.getCalle());
+        beanDom.getTxtDepto().setText(domDB.getDepto());
+        beanDom.getTxtNumero().setText(String.valueOf(domDB.getNumerocalle()));
+        beanDom.getTxtTorre().setText(domDB.getTorre());
+
+        JComboBox cmbBarrio=beanDom.getCmbBarrio();
+        JComboBox cmbLocalidad=beanDom.getCmbLocalidad();
+        JComboBox cmbProvincia=beanDom.getCmbProvincia();
+
+        metalsoft.datos.dbobject.Localidad locDB=gestor.buscarLocalidadDeBarrio(domDB.getBarrio());
+        setItemComboSeleccionado(cmbProvincia,locDB.getProvincia());
+
+        setItemComboSeleccionado(cmbLocalidad,locDB.getIdlocalidad());
+        setItemComboSeleccionado(cmbBarrio,domDB.getBarrio());
+    }
+
+    private void setItemComboSeleccionado(JComboBox cmb, long id) {
+        int length=cmb.getItemCount();
         ItemCombo item=null;
-        for(int i=0;i<lenght;i++)
+        for(int i=0;i<length;i++)
         {
-            item=(ItemCombo)cmbCondicionIVA.getItemAt(i);
+            item=(ItemCombo)cmb.getItemAt(i);
             if(Long.parseLong(item.getId())==id)
             {
-                cmbCondicionIVA.setSelectedIndex(i);
+                cmb.setSelectedIndex(i);
                 break;
             }
         }
     }
 
-    private void setEstadoSeleccionado(long id) {
-        int lenght=cmbEstado.getItemCount();
-        ItemCombo item=null;
-        for(int i=0;i<lenght;i++)
-        {
-            item=(ItemCombo)cmbEstado.getItemAt(i);
-            if(Long.parseLong(item.getId())==id)
-            {
-                cmbEstado.setSelectedIndex(i);
-                break;
+    private void setDatosResponsable(metalsoft.datos.dbobject.Responsable respDB, metalsoft.datos.dbobject.Domicilio domRespDB) {
+        beanResponsable.getTxtApellido().setText(respDB.getApellido());
+        beanResponsable.getTxtEmail().setText(respDB.getEmail());
+        beanResponsable.getTxtFax().setText(respDB.getFax());
+        beanResponsable.getTxtNombre().setText(respDB.getNombre());
+        beanResponsable.getTxtNroDoc().setText(String.valueOf(respDB.getNrodocumento()));
+        beanResponsable.getTxtTelefono().setText(respDB.getTelefono());
+
+        setItemComboSeleccionado(beanResponsable.getCmbTipoDoc(), respDB.getTipodocumento());
+
+        metalsoft.beans.Domicilio beanDom=beanResponsable.getDomicilioResponsable();
+        setDatosDomicilio(beanDom, domRespDB);
+    }
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ABMCliente().setVisible(true);
             }
-        }
+        });
     }
 
-    private void setPrioridadSeleccionado(long id) {
-        int lenght=cmbPrioridad.getItemCount();
-        ItemCombo item=null;
-        for(int i=0;i<lenght;i++)
-        {
-            item=(ItemCombo)cmbPrioridad.getItemAt(i);
-            if(Long.parseLong(item.getId())==id)
-            {
-                cmbPrioridad.setSelectedIndex(i);
-                break;
-            }
-        }
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private metalsoft.beans.Domicilio beanDomicilioCliente;
+    private metalsoft.beans.Responsable beanResponsable;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox cmbCondicionIVA;
+    private javax.swing.JComboBox cmbEstado;
+    private javax.swing.JComboBox cmbPrioridad;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCUIT;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtFechaAlta;
+    private javax.swing.JTextField txtFechaBaja;
+    private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtNroCliente;
+    private javax.swing.JTextField txtRazonSocial;
+    private javax.swing.JTextField txtTelefono;
+    // End of variables declaration//GEN-END:variables
 
-    private void setDatosDomicilioCliente(metalsoft.datos.dbobject.Domicilio domDB) {
-        beanDomicilioCliente.getTxtCalle().setText(domDB.getCalle());
-        beanDomicilioCliente.getTxtDepto().setText(domDB.getDepto());
-        beanDomicilioCliente.getTxtNumero().setText(String.valueOf(domDB.getNumerocalle()));
-        beanDomicilioCliente.getTxtTorre().setText(domDB.getTorre());
-    }
-
-
-
-
+    
 }
