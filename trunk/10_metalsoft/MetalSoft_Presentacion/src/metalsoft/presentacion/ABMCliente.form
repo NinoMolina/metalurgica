@@ -298,7 +298,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="metalsoft.jbcomp.Domicilio" name="beanDomicilioCliente">
+        <Component class="metalsoft.beans.Domicilio" name="beanDomicilioCliente">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -307,7 +307,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="metalsoft.jbcomp.Responsable" name="beanResponsable">
+        <Component class="metalsoft.beans.Responsable" name="beanResponsable">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
