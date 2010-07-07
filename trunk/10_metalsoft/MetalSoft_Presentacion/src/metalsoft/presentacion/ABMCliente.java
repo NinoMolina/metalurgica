@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -540,6 +541,13 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int result=-1;
+        java.sql.Date fechaBaja=new Date(Fecha.parseToDate(Fecha.fechaActual(),"dd/MM/yyyy").getTime());
+        clienteDB.setFechabaja(fechaBaja);
+        gestor.setIdCliente(idCliente);
+        result=gestor.bajaCliente(clienteDB);
+        if(result>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+        else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         opcion=EnumOpcionesABM.ELIMINAR;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
