@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.adminusuarios.Rol;
@@ -69,6 +71,7 @@ public class Principal extends javax.swing.JFrame {
         mnuInicio = new javax.swing.JMenu();
         mnuCompras = new javax.swing.JMenu();
         mnuVentas = new javax.swing.JMenu();
+        mniCliente = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
         mnuCalidad = new javax.swing.JMenu();
         mnuFinanzas = new javax.swing.JMenu();
@@ -85,6 +88,15 @@ public class Principal extends javax.swing.JFrame {
         mbrMenu.add(mnuCompras);
 
         mnuVentas.setText("Ventas");
+
+        mniCliente.setText("Cliente");
+        mniCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniClienteActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniCliente);
+
         mbrMenu.add(mnuVentas);
 
         mnuProduccion.setText("Producción");
@@ -174,6 +186,18 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_mniListadoClientesActionPerformed
 
+    private void mniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMCliente.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniClienteActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -181,6 +205,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbrMenu;
+    private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniListadoClientes;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;

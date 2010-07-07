@@ -19,7 +19,6 @@ public class JFrameManager {
     }
     public static JFrame crearVentana(String clase) throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        //JOptionPane.showMessageDialog(null, Principal.class.getName());
         JFrame v=(JFrame) Class.forName(clase).newInstance();
         mostrarVentana(v);
         centrarVentana(v);
