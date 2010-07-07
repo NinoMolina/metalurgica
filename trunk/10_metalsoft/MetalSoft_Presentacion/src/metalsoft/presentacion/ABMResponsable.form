@@ -125,7 +125,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="metalsoft.jbcomp.ABM_Botones" name="botones">
+    <Component class="metalsoft.beans.ABM_Botones" name="botones">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
