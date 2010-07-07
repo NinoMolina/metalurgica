@@ -38,6 +38,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private metalsoft.datos.dbobject.Cliente clienteDB;
     private metalsoft.datos.dbobject.Responsable responsableDB;
     private metalsoft.datos.dbobject.Domicilio domicilioClienteDB,domicilioResponsableDB;
+    private EnumOpcionesABM opcion;
 
     private long idCliente;
     /** Creates new form ABMCliente */
@@ -350,6 +351,11 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         );
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -359,6 +365,11 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -424,13 +435,13 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 }//GEN-LAST:event_txtMailActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        opcion=EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
         txtFechaAlta.setText(Fecha.fechaActual());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
         long idEstado=Long.parseLong(((ItemCombo)cmbEstado.getSelectedItem()).getId());
         long idCondIva=Long.parseLong(((ItemCombo)cmbCondicionIVA.getSelectedItem()).getId());
         long idPrioridad=Long.parseLong(((ItemCombo)cmbPrioridad.getSelectedItem()).getId());
@@ -485,14 +496,30 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.setIdEstadoCliente(idEstado);
         gestor.setIdPrioridadCliente(idPrioridad);
         gestor.setIdTipoDocResponsable(idTipoDocResponsable);
-        
-        idCliente=gestor.registrarCliente(cliente);
+
+        idCliente=-1;
+
+        switch(opcion)
+        {
+            case GUARDAR:   idCliente=gestor.registrarCliente(cliente);
+                            break;
+            case MODIFICAR: gestor.setIdDomicilioCliente(domicilioClienteDB.getIddomicilio());
+                            gestor.setIdDomicilioResponsable(domicilioResponsableDB.getIddomicilio());
+                            gestor.setIdResponsable(responsableDB.getIdresponsable());
+                            gestor.setIdCliente(clienteDB.getIdcliente());
+                            idCliente=gestor.modificarCliente(cliente);
+                            break;
+            default:        break;
+        }
+        opcion=EnumOpcionesABM.GUARDAR;
 
         if(idCliente>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
         else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        opcion=EnumOpcionesABM.BUSCAR;
         ABMCliente_Buscar buscar=null;
         try {
             buscar=(ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
@@ -506,6 +533,15 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        opcion=EnumOpcionesABM.MODIFICAR;
+        setEnableComponents(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        opcion=EnumOpcionesABM.ELIMINAR;
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private Domicilio crearDomicilio(String calle,String depto,String nroCalle,String piso,String torre)
     {
@@ -619,10 +655,10 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     }
 
     public void clienteSeleccionado() {
-        clienteDB=gestor.mostrarDatosCliente(idCliente);
-        domicilioClienteDB=gestor.mostrarDatosDomicilioCliente(clienteDB.getDomicilio());
-        responsableDB=gestor.mostrarDatosResponsableCliente(clienteDB.getResponsable());
-        domicilioResponsableDB=gestor.mostrarDatosDomicilioResponsable(responsableDB.getDomicilio());
+        clienteDB=gestor.buscarClienteDB(idCliente);
+        domicilioClienteDB=gestor.buscarDomicilioClienteDB(clienteDB.getDomicilio());
+        responsableDB=gestor.buscarResponsableClienteDB(clienteDB.getResponsable());
+        domicilioResponsableDB=gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
         mostrarDatosCliente();
         setEnableComponents(false);
     }
@@ -750,6 +786,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+
 
     
 }
