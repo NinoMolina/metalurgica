@@ -33,7 +33,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="metalsoft.jbcomp.IniciarSesion" name="iniciarSesion">
+    <Component class="metalsoft.beans.IniciarSesion" name="iniciarSesion">
     </Component>
   </SubComponents>
 </Form>

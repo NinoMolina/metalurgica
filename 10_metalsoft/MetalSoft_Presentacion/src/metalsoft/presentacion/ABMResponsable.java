@@ -135,7 +135,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botones = new metalsoft.jbcomp.ABM_Botones();
+        botones = new metalsoft.beans.ABM_Botones();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -311,7 +311,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.jbcomp.ABM_Botones botones;
+    private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JButton btnRegistrarDomicilio;
     private javax.swing.JComboBox cmbTipoDoc;
     private javax.swing.JLabel jLabel1;

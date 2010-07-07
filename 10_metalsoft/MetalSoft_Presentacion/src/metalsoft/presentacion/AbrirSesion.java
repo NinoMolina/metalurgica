@@ -94,7 +94,7 @@ public class AbrirSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        iniciarSesion = new metalsoft.jbcomp.IniciarSesion();
+        iniciarSesion = new metalsoft.beans.IniciarSesion();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iniciar Sesión");
@@ -119,7 +119,7 @@ public class AbrirSesion extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.jbcomp.IniciarSesion iniciarSesion;
+    private metalsoft.beans.IniciarSesion iniciarSesion;
     // End of variables declaration//GEN-END:variables
 
     
