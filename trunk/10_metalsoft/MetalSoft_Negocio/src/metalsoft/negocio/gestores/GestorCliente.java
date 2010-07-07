@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Barrio;
+import metalsoft.datos.dbobject.ClientePK;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.Domicilio;
 import metalsoft.datos.dbobject.Estadocliente;
@@ -52,7 +53,7 @@ public class GestorCliente
    private Tipodocumento[] tiposDoc=null;
     private metalsoft.negocio.rrhh.Domicilio domicilioCliente;
     private Cliente cliente;
-    private long idDomicilioCliente;
+    private long idDomicilioCliente,idDomicilioResponsable;
     private long idBarrioCliente,idLocalidadCliente,idProvinciaCliente;
     private long idBarrioResponsable,idLocalidadResponsable,idProvinciaResponsable;
     private long idPrioridadCliente,idEstadoCliente,idCondicionIva;
@@ -72,21 +73,13 @@ public class GestorCliente
     
    }
    
-   /**
-    * @roseuid 4C1FF60D010D
-    */
-   public void razonSocial() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C1FF60D010E
-    */
-   public void numeroDeCuit() 
-   {
-    
-   }
+    public long getIdDomicilioResponsable() {
+        return idDomicilioResponsable;
+    }
+
+    public void setIdDomicilioResponsable(long idDomicilioResponsable) {
+        this.idDomicilioResponsable = idDomicilioResponsable;
+    }
 
     public long getIdTipoDocResponsable() {
         return idTipoDocResponsable;
@@ -821,6 +814,73 @@ public class GestorCliente
         }
         return result;
     }
+
+    public long modificarCliente(Cliente cliente) {
+        long result=-1;
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
+        ClientePK pk=new ClientePK(idCliente);
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            clienteDB.setCelular(cliente.getCelular());
+            clienteDB.setCondicioniva(idCondicionIva);
+            clienteDB.setCuit(cliente.getCUIT());
+
+            int idDom=cliente.modificarDomicilio(cliente.getDomicilio(),idDomicilioCliente, idBarrioCliente, cn);
+            clienteDB.setDomicilio(idDomicilioCliente);
+
+            clienteDB.setEstado(idEstadoCliente);
+
+            if(cliente.getFechaAlta()!=null)
+                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+            else
+                clienteDB.setFechaalta(null);
+
+            if(cliente.getFechaBaja()!=null)
+                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+            else
+                clienteDB.setFechabaja(null);
+
+            clienteDB.setMail(cliente.getMail());
+            clienteDB.setNrocliente(cliente.getNroCliente());
+            clienteDB.setPrioridad(idPrioridadCliente);
+            clienteDB.setRazonsocial(cliente.getRazonSocial());
+
+
+            int idResp=cliente.modificarResponsable(cliente.getResponsable(),idResponsable,idDomicilioResponsable,idBarrioResponsable,idTipoDocResponsable,cn);
+            clienteDB.setResponsable(idResponsable);
+
+            clienteDB.setTelefono(cliente.getTelefono());
+            //deberia autogenerar un usario y contraseña
+            clienteDB.setUsuario(1);
+
+            result=dao.update(pk,clienteDB, cn);
+            clienteDB.setIdcliente(idCliente);
+            cn.commit();
+            
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
    /**
     * @roseuid 4C1FF60D0110
     */
@@ -1050,7 +1110,7 @@ public class GestorCliente
         return null;
     }
 
-    public metalsoft.datos.dbobject.Cliente mostrarDatosCliente(long id) {
+    public metalsoft.datos.dbobject.Cliente buscarClienteDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         Connection cn=null;
@@ -1078,11 +1138,22 @@ public class GestorCliente
         return clienteDB;
     }
 
-    public Domicilio mostrarDatosDomicilioCliente(long id) {
+    public Domicilio buscarDomicilioClienteDB(long id) {
+        domicilioClienteDB=buscarDomicilioDB(id);
+        return domicilioClienteDB;
+    }
+    
+    public Domicilio buscarDomicilioResponsableDB(long id) {
+        domicilioResponsableDB=buscarDomicilioDB(id);
+        return domicilioResponsableDB;
+    }
+
+    public metalsoft.datos.dbobject.Domicilio buscarDomicilioDB(long id)
+    {
         PostgreSQLManager pg=new PostgreSQLManager();
         DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
         Connection cn=null;
-
+        metalsoft.datos.dbobject.Domicilio dom=null;
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
@@ -1090,7 +1161,7 @@ public class GestorCliente
         }
 
         try {
-            domicilioClienteDB = dao.findByIddomicilio(id, cn)[0];
+            dom = dao.findByIddomicilio(id, cn)[0];
         } catch (Exception ex) {
             Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1102,10 +1173,10 @@ public class GestorCliente
                 Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return domicilioClienteDB;
+        return dom;
     }
 
-    public metalsoft.datos.dbobject.Responsable mostrarDatosResponsableCliente(long id) {
+    public metalsoft.datos.dbobject.Responsable buscarResponsableClienteDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
         ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
         Connection cn=null;
@@ -1132,33 +1203,6 @@ public class GestorCliente
         return responsableDB;
     }
 
-    public Domicilio mostrarDatosDomicilioResponsable(long id) {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
-        Connection cn=null;
-
-        try {
-            cn = pg.concectGetCn();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            domicilioResponsableDB = dao.findByIddomicilio(id, cn)[0];
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return domicilioResponsableDB;
-    }
-
     public metalsoft.datos.dbobject.Localidad buscarLocalidadDeBarrio(long id) {
         LocalidadDAO daoLocalidad=new DAOFactoryImpl().createLocalidadDAO();
         BarrioDAO daoBarrio=new DAOFactoryImpl().createBarrioDAO();
@@ -1181,4 +1225,6 @@ public class GestorCliente
         }
         return localidadDB;
     }
+
+    
 }
