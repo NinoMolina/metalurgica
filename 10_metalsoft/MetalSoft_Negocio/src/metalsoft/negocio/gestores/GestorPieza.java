@@ -32,7 +32,7 @@ import metalsoft.negocio.produccion.Matriz;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.idao.MateriaprimaDAO;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.produccion.PiezaReal;
 
 

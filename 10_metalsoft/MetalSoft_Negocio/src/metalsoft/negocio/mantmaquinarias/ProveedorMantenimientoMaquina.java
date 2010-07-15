@@ -23,4 +23,5 @@ public class ProveedorMantenimientoMaquina extends PersonaJuridica
    {
     
    }
+
 }

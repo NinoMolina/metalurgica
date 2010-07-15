@@ -21,7 +21,7 @@ import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.MateriaprimaDAO;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.datos.idao.TipomaterialDAO;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 
 
 /**

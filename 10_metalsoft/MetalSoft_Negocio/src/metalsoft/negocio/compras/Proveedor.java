@@ -40,4 +40,5 @@ public class Proveedor extends PersonaJuridica
    {
     
    }
+
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.CondicionIva;
 
-public class PersonaJuridica 
+public class PersonaJuridica
 {
    private String razonSocial;
    private Responsable responsable;
