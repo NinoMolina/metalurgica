@@ -58,7 +58,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return   int
 */
 
-	public int update(ResponsablePK responsablepk, Responsable responsable, Connection con)throws ResponsableException{
+	public int update(ResponsablePK responsablepk, ResponsableDB responsable, Connection con)throws ResponsableException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -86,7 +86,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  ResponsablePK
 */
 
-	public int insert(Responsable responsable ,Connection con)throws ResponsableException {
+	public int insert(ResponsableDB responsable ,Connection con)throws ResponsableException {
 
 		PreparedStatement ps = null;
                 ResultSet rs=null;
@@ -116,7 +116,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * 
 */
 
-	public Responsable findByPrimaryKey(long idresponsable, Connection con) throws ResponsableException{
+	public ResponsableDB findByPrimaryKey(long idresponsable, Connection con) throws ResponsableException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -142,7 +142,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable
 */
 
-	public Responsable findByPrimaryKey(ResponsablePK responsablepk, Connection con) throws ResponsableException{
+	public ResponsableDB findByPrimaryKey(ResponsablePK responsablepk, Connection con) throws ResponsableException{
 		return findByPrimaryKey(responsablepk.getIdresponsable(), con);
 	}
 
@@ -155,7 +155,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByIdresponsable(long idresponsable, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByIdresponsable(long idresponsable, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where idresponsable = ? order by idresponsable";
@@ -182,7 +182,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByNombre(String nombre, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByNombre(String nombre, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where nombre = ? order by nombre";
@@ -209,7 +209,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByApellido(String apellido, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByApellido(String apellido, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where apellido = ? order by apellido";
@@ -236,7 +236,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByTelefono(String telefono, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByTelefono(String telefono, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where telefono = ? order by telefono";
@@ -263,7 +263,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByEmail(String email, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByEmail(String email, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where email = ? order by email";
@@ -290,7 +290,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByDomicilio(long domicilio, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByDomicilio(long domicilio, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where domicilio = ? order by domicilio";
@@ -317,7 +317,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByNrodocumento(int nrodocumento, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByNrodocumento(int nrodocumento, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where nrodocumento = ? order by nrodocumento";
@@ -344,7 +344,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByTipodocumento(long tipodocumento, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByTipodocumento(long tipodocumento, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where tipodocumento = ? order by tipodocumento";
@@ -371,7 +371,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public Responsable[] findByFax(String fax, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByFax(String fax, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where fax = ? order by fax";
@@ -397,7 +397,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 *
 */
 
-	public Responsable[] findAll( Connection con) throws ResponsableException{
+	public ResponsableDB[] findAll( Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable";
@@ -425,7 +425,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 *
 */
 
-	public Responsable[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ResponsableException{
+	public ResponsableDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -456,7 +456,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 *
 */
 
-	public Responsable[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ResponsableException{
+	public ResponsableDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable";
@@ -486,10 +486,10 @@ public class ResponsableDAOImpl implements ResponsableDAO
 *
 */
 
-	protected Responsable fetchSingleResult(ResultSet rs) throws SQLException
+	protected ResponsableDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Responsable dto = new Responsable();
+					ResponsableDB dto = new ResponsableDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -506,7 +506,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  void
 */
 
-	protected void populateVO(Responsable dto, ResultSet rs) throws SQLException
+	protected void populateVO(ResponsableDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdresponsable(rs.getLong("idresponsable"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -527,15 +527,15 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	protected Responsable[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected ResponsableDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Responsable dto = new Responsable();
+			ResponsableDB dto = new ResponsableDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Responsable ret[] = new Responsable[ resultList.size() ];
+		ResponsableDB ret[] = new ResponsableDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

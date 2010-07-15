@@ -16,20 +16,20 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface ResponsableDAO
 {
-	public int insert(Responsable responsable, Connection con ) throws ResponsableException;
-	public int update(ResponsablePK responsablepk, Responsable responsable, Connection con) throws ResponsableException;
+	public int insert(ResponsableDB responsable, Connection con ) throws ResponsableException;
+	public int update(ResponsablePK responsablepk, ResponsableDB responsable, Connection con) throws ResponsableException;
 	public int delete(ResponsablePK responsablepk, Connection con) throws ResponsableException;
-	public Responsable findByPrimaryKey(ResponsablePK responsablepk , Connection con) throws ResponsableException;
-	public Responsable[] findAll(Connection con) throws ResponsableException;
-	public Responsable[] findByIdresponsable(long idresponsable,Connection con) throws ResponsableException;
-	public Responsable[] findByNombre(String nombre,Connection con) throws ResponsableException;
-	public Responsable[] findByApellido(String apellido,Connection con) throws ResponsableException;
-	public Responsable[] findByTelefono(String telefono,Connection con) throws ResponsableException;
-	public Responsable[] findByEmail(String email,Connection con) throws ResponsableException;
-	public Responsable[] findByDomicilio(long domicilio,Connection con) throws ResponsableException;
-	public Responsable[] findByNrodocumento(int nrodocumento,Connection con) throws ResponsableException;
-	public Responsable[] findByTipodocumento(long tipodocumento,Connection con) throws ResponsableException;
-	public Responsable[] findByFax(String fax,Connection con) throws ResponsableException;
-	public Responsable[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ResponsableException;
-	public Responsable[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ResponsableException;
+	public ResponsableDB findByPrimaryKey(ResponsablePK responsablepk , Connection con) throws ResponsableException;
+	public ResponsableDB[] findAll(Connection con) throws ResponsableException;
+	public ResponsableDB[] findByIdresponsable(long idresponsable,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByNombre(String nombre,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByApellido(String apellido,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByTelefono(String telefono,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByEmail(String email,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByDomicilio(long domicilio,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByNrodocumento(int nrodocumento,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByTipodocumento(long tipodocumento,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByFax(String fax,Connection con) throws ResponsableException;
+	public ResponsableDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ResponsableException;
+	public ResponsableDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ResponsableException;
 }

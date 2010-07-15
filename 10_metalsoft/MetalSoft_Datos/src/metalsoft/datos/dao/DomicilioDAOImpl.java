@@ -59,7 +59,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return   int
 */
 
-	public int update(DomicilioPK domiciliopk, Domicilio domicilio, Connection con)throws DomicilioException{
+	public int update(DomicilioPK domiciliopk, DomicilioDB domicilio, Connection con)throws DomicilioException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -85,7 +85,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  DomicilioPK
 */
 
-	public int insert(Domicilio domicilio ,Connection con)throws DomicilioException {
+	public int insert(DomicilioDB domicilio ,Connection con)throws DomicilioException {
 
 		PreparedStatement ps = null;
                 //resultset para obtener el id
@@ -114,7 +114,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * 
 */
 
-	public Domicilio findByPrimaryKey(long iddomicilio, Connection con) throws DomicilioException{
+	public DomicilioDB findByPrimaryKey(long iddomicilio, Connection con) throws DomicilioException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -140,7 +140,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio
 */
 
-	public Domicilio findByPrimaryKey(DomicilioPK domiciliopk, Connection con) throws DomicilioException{
+	public DomicilioDB findByPrimaryKey(DomicilioPK domiciliopk, Connection con) throws DomicilioException{
 		return findByPrimaryKey(domiciliopk.getIddomicilio(), con);
 	}
 
@@ -153,7 +153,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByIddomicilio(long iddomicilio, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByIddomicilio(long iddomicilio, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where iddomicilio = ? order by iddomicilio";
@@ -180,7 +180,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByCalle(String calle, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByCalle(String calle, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where calle = ? order by calle";
@@ -207,7 +207,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByNumerocalle(int numerocalle, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByNumerocalle(int numerocalle, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where numerocalle = ? order by numerocalle";
@@ -234,7 +234,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByPiso(int piso, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByPiso(int piso, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where piso = ? order by piso";
@@ -261,7 +261,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByDepto(String depto, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByDepto(String depto, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where depto = ? order by depto";
@@ -288,7 +288,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByTorre(String torre, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByTorre(String torre, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where torre = ? order by torre";
@@ -315,7 +315,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	public Domicilio[] findByBarrio(long barrio, Connection con) throws DomicilioException{
+	public DomicilioDB[] findByBarrio(long barrio, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio where barrio = ? order by barrio";
@@ -341,7 +341,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 *
 */
 
-	public Domicilio[] findAll( Connection con) throws DomicilioException{
+	public DomicilioDB[] findAll( Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio";
@@ -369,7 +369,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 *
 */
 
-	public Domicilio[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DomicilioException{
+	public DomicilioDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -400,7 +400,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 *
 */
 
-	public Domicilio[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DomicilioException{
+	public DomicilioDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DomicilioException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select iddomicilio, calle, numerocalle, piso, depto, torre, barrio from domicilio";
@@ -430,10 +430,10 @@ public class DomicilioDAOImpl implements DomicilioDAO
 *
 */
 
-	protected Domicilio fetchSingleResult(ResultSet rs) throws SQLException
+	protected DomicilioDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Domicilio dto = new Domicilio();
+					DomicilioDB dto = new DomicilioDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -450,7 +450,7 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  void
 */
 
-	protected void populateVO(Domicilio dto, ResultSet rs) throws SQLException
+	protected void populateVO(DomicilioDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIddomicilio(rs.getLong("iddomicilio"));
 		 dto.setCalle(rs.getString("calle"));
@@ -469,15 +469,15 @@ public class DomicilioDAOImpl implements DomicilioDAO
 * @return  Domicilio[]
 */
 
-	protected Domicilio[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected DomicilioDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Domicilio dto = new Domicilio();
+			DomicilioDB dto = new DomicilioDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Domicilio ret[] = new Domicilio[ resultList.size() ];
+		DomicilioDB ret[] = new DomicilioDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

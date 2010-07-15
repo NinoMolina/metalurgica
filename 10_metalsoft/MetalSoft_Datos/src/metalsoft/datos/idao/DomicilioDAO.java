@@ -16,18 +16,18 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DomicilioDAO
 {
-	public int insert(Domicilio domicilio, Connection con ) throws DomicilioException;
-	public int update(DomicilioPK domiciliopk, Domicilio domicilio, Connection con) throws DomicilioException;
+	public int insert(DomicilioDB domicilio, Connection con ) throws DomicilioException;
+	public int update(DomicilioPK domiciliopk, DomicilioDB domicilio, Connection con) throws DomicilioException;
 	public int delete(DomicilioPK domiciliopk, Connection con) throws DomicilioException;
-	public Domicilio findByPrimaryKey(DomicilioPK domiciliopk , Connection con) throws DomicilioException;
-	public Domicilio[] findAll(Connection con) throws DomicilioException;
-	public Domicilio[] findByIddomicilio(long iddomicilio,Connection con) throws DomicilioException;
-	public Domicilio[] findByCalle(String calle,Connection con) throws DomicilioException;
-	public Domicilio[] findByNumerocalle(int numerocalle,Connection con) throws DomicilioException;
-	public Domicilio[] findByPiso(int piso,Connection con) throws DomicilioException;
-	public Domicilio[] findByDepto(String depto,Connection con) throws DomicilioException;
-	public Domicilio[] findByTorre(String torre,Connection con) throws DomicilioException;
-	public Domicilio[] findByBarrio(long barrio,Connection con) throws DomicilioException;
-	public Domicilio[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DomicilioException;
-	public Domicilio[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DomicilioException;
+	public DomicilioDB findByPrimaryKey(DomicilioPK domiciliopk , Connection con) throws DomicilioException;
+	public DomicilioDB[] findAll(Connection con) throws DomicilioException;
+	public DomicilioDB[] findByIddomicilio(long iddomicilio,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByCalle(String calle,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByNumerocalle(int numerocalle,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByPiso(int piso,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByDepto(String depto,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByTorre(String torre,Connection con) throws DomicilioException;
+	public DomicilioDB[] findByBarrio(long barrio,Connection con) throws DomicilioException;
+	public DomicilioDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DomicilioException;
+	public DomicilioDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DomicilioException;
 }
