@@ -14,7 +14,7 @@ package metalsoft.presentacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.gestores.Parser;
@@ -29,7 +29,7 @@ import metalsoft.negocio.ventas.CondicionIva;
 public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     private GestorCliente gestor;
     private Responsable responsable;
-    private metalsoft.datos.dbobject.Responsable responsableDB;
+    private metalsoft.datos.dbobject.ResponsableDB responsableDB;
     private IResponsable ventana;
     private Domicilio domicilio;
     private long idDomicilio;
@@ -70,7 +70,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         responsable.setTelefono(telefono);
         responsable.setTipoDocumento(tipoDoc);
 
-        responsableDB=new metalsoft.datos.dbobject.Responsable();
+        responsableDB=new metalsoft.datos.dbobject.ResponsableDB();
         if(devolverObjeto)
         {
             responsableDB=Parser.parseToResponsableDB(responsable);
@@ -120,7 +120,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
         this.responsable = responsable;
     }
 
-    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
         domicilio=dom;
         gestor.tomarDomicilioResponsable(domDB);
     }
