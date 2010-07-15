@@ -59,7 +59,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return   int
 */
 
-	public int update(ClientePK clientepk, Cliente cliente, Connection con)throws ClienteException{
+	public int update(ClientePK clientepk, ClienteDB cliente, Connection con)throws ClienteException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -95,7 +95,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  ClientePK
 */
 
-	public int insert(Cliente cliente ,Connection con)throws ClienteException {
+	public int insert(ClienteDB cliente ,Connection con)throws ClienteException {
 
 		PreparedStatement ps = null;
                 ResultSet rs=null;
@@ -133,7 +133,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * 
 */
 
-	public Cliente findByPrimaryKey(long idcliente, Connection con) throws ClienteException{
+	public ClienteDB findByPrimaryKey(long idcliente, Connection con) throws ClienteException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -159,7 +159,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente
 */
 
-	public Cliente findByPrimaryKey(ClientePK clientepk, Connection con) throws ClienteException{
+	public ClienteDB findByPrimaryKey(ClientePK clientepk, Connection con) throws ClienteException{
 		return findByPrimaryKey(clientepk.getIdcliente(), con);
 	}
 
@@ -172,7 +172,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByNrocliente(long nrocliente, Connection con) throws ClienteException{
+	public ClienteDB[] findByNrocliente(long nrocliente, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where nrocliente = ? order by nrocliente";
@@ -199,7 +199,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByIdcliente(long idcliente, Connection con) throws ClienteException{
+	public ClienteDB[] findByIdcliente(long idcliente, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where idcliente = ? order by idcliente";
@@ -226,7 +226,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByPrioridad(long prioridad, Connection con) throws ClienteException{
+	public ClienteDB[] findByPrioridad(long prioridad, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where prioridad = ? order by prioridad";
@@ -253,7 +253,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByEstado(long estado, Connection con) throws ClienteException{
+	public ClienteDB[] findByEstado(long estado, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where estado = ? order by estado";
@@ -280,7 +280,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByEsmoroso(boolean esmoroso, Connection con) throws ClienteException{
+	public ClienteDB[] findByEsmoroso(boolean esmoroso, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where esmoroso = ? order by esmoroso";
@@ -307,7 +307,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByUsuario(long usuario, Connection con) throws ClienteException{
+	public ClienteDB[] findByUsuario(long usuario, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where usuario = ? order by usuario";
@@ -334,7 +334,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByRazonsocial(String razonsocial, Connection con) throws ClienteException{
+	public ClienteDB[] findByRazonsocial(String razonsocial, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where razonsocial = ? order by razonsocial";
@@ -361,7 +361,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByResponsable(long responsable, Connection con) throws ClienteException{
+	public ClienteDB[] findByResponsable(long responsable, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where responsable = ? order by responsable";
@@ -388,7 +388,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByTelefono(String telefono, Connection con) throws ClienteException{
+	public ClienteDB[] findByTelefono(String telefono, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where telefono = ? order by telefono";
@@ -415,7 +415,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByCelular(String celular, Connection con) throws ClienteException{
+	public ClienteDB[] findByCelular(String celular, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where celular = ? order by celular";
@@ -442,7 +442,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByMail(String mail, Connection con) throws ClienteException{
+	public ClienteDB[] findByMail(String mail, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where mail = ? order by mail";
@@ -469,7 +469,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByDomicilio(long domicilio, Connection con) throws ClienteException{
+	public ClienteDB[] findByDomicilio(long domicilio, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where domicilio = ? order by domicilio";
@@ -496,7 +496,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByFechaalta(Date fechaalta, Connection con) throws ClienteException{
+	public ClienteDB[] findByFechaalta(Date fechaalta, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where fechaalta = ? order by fechaalta";
@@ -523,7 +523,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByFechabaja(Date fechabaja, Connection con) throws ClienteException{
+	public ClienteDB[] findByFechabaja(Date fechabaja, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where fechabaja = ? order by fechabaja";
@@ -550,7 +550,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByCuil(String cuil, Connection con) throws ClienteException{
+	public ClienteDB[] findByCuil(String cuil, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where CUIL = ? order by CUIL";
@@ -577,7 +577,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByCondicioniva(long condicioniva, Connection con) throws ClienteException{
+	public ClienteDB[] findByCondicioniva(long condicioniva, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where condicioniva = ? order by condicioniva";
@@ -604,7 +604,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	public Cliente[] findByCuit(String cuit, Connection con) throws ClienteException{
+	public ClienteDB[] findByCuit(String cuit, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente where cuit = ? order by cuit";
@@ -630,7 +630,7 @@ public class ClienteDAOImpl implements ClienteDAO
 *
 */
 
-	public Cliente[] findAll( Connection con) throws ClienteException{
+	public ClienteDB[] findAll( Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente";
@@ -658,7 +658,7 @@ public class ClienteDAOImpl implements ClienteDAO
 *
 */
 
-	public Cliente[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ClienteException{
+	public ClienteDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -689,7 +689,7 @@ public class ClienteDAOImpl implements ClienteDAO
 *
 */
 
-	public Cliente[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ClienteException{
+	public ClienteDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ClienteException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select nrocliente, idcliente, prioridad, estado, esmoroso, usuario, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, CUIL, condicioniva, cuit from cliente";
@@ -719,10 +719,10 @@ public class ClienteDAOImpl implements ClienteDAO
 *
 */
 
-	protected Cliente fetchSingleResult(ResultSet rs) throws SQLException
+	protected ClienteDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Cliente dto = new Cliente();
+					ClienteDB dto = new ClienteDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -739,7 +739,7 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  void
 */
 
-	protected void populateVO(Cliente dto, ResultSet rs) throws SQLException
+	protected void populateVO(ClienteDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setNrocliente(rs.getLong("nrocliente"));
 		 dto.setIdcliente(rs.getLong("idcliente"));
@@ -768,15 +768,15 @@ public class ClienteDAOImpl implements ClienteDAO
 * @return  Cliente[]
 */
 
-	protected Cliente[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected ClienteDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Cliente dto = new Cliente();
+			ClienteDB dto = new ClienteDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Cliente ret[] = new Cliente[ resultList.size() ];
+		ClienteDB ret[] = new ClienteDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

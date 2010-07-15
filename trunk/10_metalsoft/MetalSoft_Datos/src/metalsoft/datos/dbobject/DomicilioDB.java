@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Domicilio implements Serializable
+public class DomicilioDB implements Serializable
 {
 	private long iddomicilio;
 	private String calle;
@@ -30,8 +30,8 @@ public class Domicilio implements Serializable
 	private long barrio;
 
 
-	public Domicilio(){}
-	public Domicilio(long iddomicilio ,String calle ,int numerocalle ,int piso ,String depto ,String torre ,long barrio){
+	public DomicilioDB(){}
+	public DomicilioDB(long iddomicilio ,String calle ,int numerocalle ,int piso ,String depto ,String torre ,long barrio){
 		this.iddomicilio = iddomicilio;
 		this.calle = calle;
 		this.numerocalle = numerocalle;
