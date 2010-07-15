@@ -9,6 +9,7 @@ import metalsoft.datos.dbobject.DomicilioPK;
 import metalsoft.datos.exception.DomicilioException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DomicilioDAO;
+import metalsoft.negocio.access.AccessDomicilio;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Persona;
@@ -33,26 +34,17 @@ public class Responsable extends Persona
         this.fax = fax;
     }
 
-    public int crearDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long idBarrio, Connection cn)
+    public long crearDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long idBarrio, Connection cn)
    {
-        int result=-1;
-        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
-        metalsoft.datos.dbobject.Domicilio domDB;
-        try {
-            domDB=Parser.parseToDomicilioDB(dom);
-            domDB.setBarrio(idBarrio);
-            result=dao.insert(domDB, cn);
-            domDB.setIddomicilio(result);
-        } catch (Exception ex) {
-            Logger.getLogger(Responsable.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        long result=-1;
+        result=AccessDomicilio.registrarDomicilio(dom, idBarrio, cn);
         return result;
    }
 
     public int modificarDomicilio(Domicilio dom, long idDom, long idBarrio, Connection cn) {
         int result=-1;
         DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
-        metalsoft.datos.dbobject.Domicilio domDB;
+        metalsoft.datos.dbobject.DomicilioDB domDB;
         DomicilioPK pk=new DomicilioPK(idDom);
         try {
             domDB=Parser.parseToDomicilioDB(dom);

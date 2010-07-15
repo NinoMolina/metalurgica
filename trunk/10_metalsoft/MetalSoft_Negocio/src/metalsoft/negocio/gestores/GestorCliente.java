@@ -12,7 +12,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Barrio;
 import metalsoft.datos.dbobject.ClientePK;
 import metalsoft.datos.dbobject.Condicioniva;
-import metalsoft.datos.dbobject.Domicilio;
+import metalsoft.datos.dbobject.DomicilioDB;
 import metalsoft.datos.dbobject.Estadocliente;
 
 import metalsoft.datos.dbobject.Prioridad;
@@ -31,7 +31,8 @@ import metalsoft.datos.idao.PrioridadDAO;
 import metalsoft.datos.idao.ProvinciaDAO;
 import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.negocio.access.AccessCliente;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.TipoDocumento;
 import metalsoft.negocio.ventas.Cliente;
@@ -47,9 +48,9 @@ public class GestorCliente
    private Provincia[] provincias=null;
    private metalsoft.datos.dbobject.Localidad[] localidades=null;
    private Barrio[] barrios=null;
-   private metalsoft.datos.dbobject.Cliente[] clientes=null;
-   private Domicilio domicilioClienteDB=null;
-   private Domicilio domicilioResponsableDB=null;
+   private metalsoft.datos.dbobject.ClienteDB[] clientes=null;
+   private DomicilioDB domicilioClienteDB=null;
+   private DomicilioDB domicilioResponsableDB=null;
    private Tipodocumento[] tiposDoc=null;
     private metalsoft.negocio.rrhh.Domicilio domicilioCliente;
     private Cliente cliente;
@@ -58,11 +59,11 @@ public class GestorCliente
     private long idBarrioResponsable,idLocalidadResponsable,idProvinciaResponsable;
     private long idPrioridadCliente,idEstadoCliente,idCondicionIva;
     private long idTipoDocResponsable;
-    private metalsoft.datos.dbobject.Responsable responsableDB;
+    private metalsoft.datos.dbobject.ResponsableDB responsableDB;
     private long idResponsable;
     private metalsoft.negocio.compras.Responsable responsable;
     private long idCliente;
-    private metalsoft.datos.dbobject.Cliente clienteDB;
+    private metalsoft.datos.dbobject.ClienteDB clienteDB;
     private metalsoft.datos.dbobject.Barrio barrioDB;
     private metalsoft.datos.dbobject.Localidad localidadDB;
    /**
@@ -193,31 +194,31 @@ public class GestorCliente
         this.cliente = cliente;
     }
 
-    public Domicilio getDomicilioResponsableDB() {
+    public DomicilioDB getDomicilioResponsableDB() {
         return domicilioResponsableDB;
     }
 
-    public void setDomicilioResponsableDB(Domicilio domicilioResponsableDB) {
+    public void setDomicilioResponsableDB(DomicilioDB domicilioResponsableDB) {
         this.domicilioResponsableDB = domicilioResponsableDB;
     }
-   public void tomarDomicilioResponsable(metalsoft.datos.dbobject.Domicilio domDB)
+   public void tomarDomicilioResponsable(metalsoft.datos.dbobject.DomicilioDB domDB)
    {
        setDomicilioResponsableDB(domDB);
    }
 
-    public metalsoft.datos.dbobject.Responsable getResponsableDB() {
+    public metalsoft.datos.dbobject.ResponsableDB getResponsableDB() {
         return responsableDB;
     }
 
-    public void setResponsableDB(metalsoft.datos.dbobject.Responsable responsableDB) {
+    public void setResponsableDB(metalsoft.datos.dbobject.ResponsableDB responsableDB) {
         this.responsableDB = responsableDB;
     }
 
-    public Domicilio getDomicilioClienteDB() {
+    public DomicilioDB getDomicilioClienteDB() {
         return domicilioClienteDB;
     }
 
-    public void setDomicilioClienteDB(Domicilio domicilioClienteDB) {
+    public void setDomicilioClienteDB(DomicilioDB domicilioClienteDB) {
         this.domicilioClienteDB = domicilioClienteDB;
     }
 
@@ -277,7 +278,7 @@ public class GestorCliente
         }
    }
 
-   public metalsoft.datos.dbobject.Cliente[] buscarClientes(String valor)
+   public metalsoft.datos.dbobject.ClienteDB[] buscarClientes(String valor)
     {
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         Connection cn=null;
@@ -562,7 +563,7 @@ public class GestorCliente
         DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        domicilioClienteDB=new Domicilio();
+        domicilioClienteDB=new DomicilioDB();
         long idBarrio=barrios[indexBarrio].getIdbarrio();
         //long idLocalidad=localidades[Integer.parseInt(indexLocalidad)].getIdlocalidad();
         //long idProvincia=provincias[Integer.parseInt(indexProvincia)].getIdprovincia();
@@ -617,7 +618,7 @@ public class GestorCliente
         ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        responsableDB=new metalsoft.datos.dbobject.Responsable();
+        responsableDB=new metalsoft.datos.dbobject.ResponsableDB();
         long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
         //long idLocalidad=localidades[Integer.parseInt(indexLocalidad)].getIdlocalidad();
         //long idProvincia=provincias[Integer.parseInt(indexProvincia)].getIdprovincia();
@@ -644,7 +645,7 @@ public class GestorCliente
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
@@ -688,7 +689,7 @@ public class GestorCliente
         ResponsableDAO daoResp=new DAOFactoryImpl().createResponsableDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
@@ -751,51 +752,23 @@ public class GestorCliente
 
     public long registrarCliente(Cliente cliente) {
         long result=-1;
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
+
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            clienteDB.setCelular(cliente.getCelular());
-            clienteDB.setCondicioniva(idCondicionIva);
-            clienteDB.setCuit(cliente.getCUIT());
 
-            int idDom=cliente.crearDomicilio(cliente.getDomicilio(),idBarrioCliente, cn);
-            clienteDB.setDomicilio(idDom);
-
-            clienteDB.setEstado(idEstadoCliente);
-
-            if(cliente.getFechaAlta()!=null)
-                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
-            else
-                clienteDB.setFechaalta(null);
-
-            if(cliente.getFechaBaja()!=null)
-                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
-            else
-                clienteDB.setFechabaja(null);
-
-            clienteDB.setMail(cliente.getMail());
-            clienteDB.setNrocliente(cliente.getNroCliente());
-            clienteDB.setPrioridad(idPrioridadCliente);
-            clienteDB.setRazonsocial(cliente.getRazonSocial());
-
-            
-            int idResp=cliente.crearResponsable(cliente.getResponsable(),idBarrioResponsable,idTipoDocResponsable,cn);
-            clienteDB.setResponsable(idResp);
-
-            clienteDB.setTelefono(cliente.getTelefono());
-            //deberia autogenerar un usario y contraseña
-            clienteDB.setUsuario(1);
-
-            result=dao.insert(clienteDB, cn);
+            long idDom=cliente.crearDomicilio(cliente.getDomicilio(),idBarrioCliente, cn);
+            long idResp=cliente.crearResponsable(cliente.getResponsable(),idBarrioResponsable,idTipoDocResponsable,cn);
+            result=AccessCliente.registrarCliente(cliente, idResp, idDom, idEstadoCliente, idCondicionIva, idPrioridadCliente, cn);
             cn.commit();
-            clienteDB.setIdcliente(result);
+            idCliente=result;
+
         } catch (Exception ex) {
             try {
                 Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -821,7 +794,7 @@ public class GestorCliente
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.Cliente();
+        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
         ClientePK pk=new ClientePK(idCliente);
         try {
@@ -1078,7 +1051,7 @@ public class GestorCliente
         idDomicilioCliente=id;
     }
 
-    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
         domicilioCliente=dom;
         domicilioClienteDB=domDB;
     }
@@ -1088,33 +1061,33 @@ public class GestorCliente
         this.idResponsable=idResponsable;
     }
 
-    public void tomarResponsableClienteDB(metalsoft.datos.dbobject.Responsable respDB) {
+    public void tomarResponsableClienteDB(metalsoft.datos.dbobject.ResponsableDB respDB) {
         setResponsableDB(respDB);
     }
 
-    public void tomarDomicilioClienteDB(Domicilio domDB) {
+    public void tomarDomicilioClienteDB(DomicilioDB domDB) {
         setDomicilioClienteDB(domDB);
     }
 
-    public metalsoft.datos.dbobject.Cliente obtenerClienteSeleccionado(long id) {
+    public metalsoft.datos.dbobject.ClienteDB obtenerClienteSeleccionado(long id) {
         clienteDB=buscarClienteEnArray(id);
         return clienteDB;
     }
 
-    public metalsoft.datos.dbobject.Cliente buscarClienteEnArray(long id)
+    public metalsoft.datos.dbobject.ClienteDB buscarClienteEnArray(long id)
     {
-        for(metalsoft.datos.dbobject.Cliente c:clientes)
+        for(metalsoft.datos.dbobject.ClienteDB c:clientes)
         {
             if(c.getIdcliente()==id)return c;
         }
         return null;
     }
 
-    public metalsoft.datos.dbobject.Cliente buscarClienteDB(long id) {
+    public metalsoft.datos.dbobject.ClienteDB buscarClienteDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         Connection cn=null;
-        metalsoft.datos.dbobject.Cliente[] array;
+        metalsoft.datos.dbobject.ClienteDB[] array;
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
@@ -1138,22 +1111,22 @@ public class GestorCliente
         return clienteDB;
     }
 
-    public Domicilio buscarDomicilioClienteDB(long id) {
+    public DomicilioDB buscarDomicilioClienteDB(long id) {
         domicilioClienteDB=buscarDomicilioDB(id);
         return domicilioClienteDB;
     }
     
-    public Domicilio buscarDomicilioResponsableDB(long id) {
+    public DomicilioDB buscarDomicilioResponsableDB(long id) {
         domicilioResponsableDB=buscarDomicilioDB(id);
         return domicilioResponsableDB;
     }
 
-    public metalsoft.datos.dbobject.Domicilio buscarDomicilioDB(long id)
+    public metalsoft.datos.dbobject.DomicilioDB buscarDomicilioDB(long id)
     {
         PostgreSQLManager pg=new PostgreSQLManager();
         DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
         Connection cn=null;
-        metalsoft.datos.dbobject.Domicilio dom=null;
+        metalsoft.datos.dbobject.DomicilioDB dom=null;
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
@@ -1176,7 +1149,7 @@ public class GestorCliente
         return dom;
     }
 
-    public metalsoft.datos.dbobject.Responsable buscarResponsableClienteDB(long id) {
+    public metalsoft.datos.dbobject.ResponsableDB buscarResponsableClienteDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
         ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
         Connection cn=null;
@@ -1226,7 +1199,7 @@ public class GestorCliente
         return localidadDB;
     }
 
-    public int bajaCliente(metalsoft.datos.dbobject.Cliente clienteDB) {
+    public int bajaCliente(metalsoft.datos.dbobject.ClienteDB clienteDB) {
         int result=-1;
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
 

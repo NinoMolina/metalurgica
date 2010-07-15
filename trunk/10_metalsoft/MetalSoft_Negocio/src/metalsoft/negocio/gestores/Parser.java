@@ -5,15 +5,17 @@
 
 package metalsoft.negocio.gestores;
 
+import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.Pieza;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
+import metalsoft.util.ItemCombo;
 /**
  *
  * @author Vicky
@@ -63,9 +65,9 @@ public class Parser {
         return x;
     }
 
-    public static metalsoft.datos.dbobject.Domicilio parseToDomicilioDB(Domicilio x)
+    public static metalsoft.datos.dbobject.DomicilioDB parseToDomicilioDB(Domicilio x)
     {
-        metalsoft.datos.dbobject.Domicilio db=new metalsoft.datos.dbobject.Domicilio();
+        metalsoft.datos.dbobject.DomicilioDB db=new metalsoft.datos.dbobject.DomicilioDB();
         db.setCalle(x.getCalle());
         db.setDepto(x.getDepto());
         db.setNumerocalle(x.getNumeroCalle());
@@ -74,7 +76,7 @@ public class Parser {
         return db;
     }
 
-    public static Domicilio parseToDomicilio(metalsoft.datos.dbobject.Domicilio x)
+    public static Domicilio parseToDomicilio(metalsoft.datos.dbobject.DomicilioDB x)
     {
         Domicilio neg=new Domicilio();
         neg.setCalle(x.getCalle());
@@ -85,9 +87,9 @@ public class Parser {
         return neg;
     }
 
-    public static metalsoft.datos.dbobject.Responsable parseToResponsableDB(Responsable x)
+    public static metalsoft.datos.dbobject.ResponsableDB parseToResponsableDB(Responsable x)
     {
-        metalsoft.datos.dbobject.Responsable db=new metalsoft.datos.dbobject.Responsable();
+        metalsoft.datos.dbobject.ResponsableDB db=new metalsoft.datos.dbobject.ResponsableDB();
         db.setApellido(x.getApellido());
         db.setEmail(x.getEmail());
         db.setFax(x.getFax());
@@ -97,7 +99,7 @@ public class Parser {
         return db;
     }
 
-    public static Responsable parseToResponsable(metalsoft.datos.dbobject.Responsable x)
+    public static Responsable parseToResponsable(metalsoft.datos.dbobject.ResponsableDB x)
     {
         Responsable neg=new Responsable();
         neg.setApellido(x.getApellido());
@@ -109,11 +111,11 @@ public class Parser {
         return neg;
     }
 
-    public static ItemCombo[] parseToItemCombo(metalsoft.datos.dbobject.Cliente[] x)
+    public static ItemCombo[] parseToItemCombo(metalsoft.datos.dbobject.ClienteDB[] x)
     {
         ItemCombo[] items=new ItemCombo[x.length];
         int index=0;
-        for(metalsoft.datos.dbobject.Cliente c:x)
+        for(metalsoft.datos.dbobject.ClienteDB c:x)
         {
             items[index]=new ItemCombo(String.valueOf(index), c.getRazonsocial());
             index++;
@@ -121,5 +123,49 @@ public class Parser {
         return items;
     }
 
-    
+    public static ClienteDB parseToClienteDB(Cliente x)
+    {
+        ClienteDB clienteDB=new ClienteDB();
+        clienteDB.setCelular(x.getCelular());
+        clienteDB.setCuit(x.getCUIT());
+        if(x.getFechaAlta()!=null)
+            clienteDB.setFechaalta(new java.sql.Date(x.getFechaAlta().getTime()));
+        else
+            clienteDB.setFechaalta(null);
+
+        if(x.getFechaBaja()!=null)
+            clienteDB.setFechabaja(new java.sql.Date(x.getFechaBaja().getTime()));
+        else
+            clienteDB.setFechabaja(null);
+
+        clienteDB.setMail(x.getMail());
+        clienteDB.setNrocliente(x.getNroCliente());
+        clienteDB.setRazonsocial(x.getRazonSocial());
+        clienteDB.setTelefono(x.getTelefono());
+
+        return clienteDB;
+    }
+
+    public static Cliente parseToCliente(ClienteDB x)
+    {
+        Cliente cliente=new Cliente();
+        cliente.setCelular(x.getCelular());
+        cliente.setCUIT(x.getCuit());
+        if(x.getFechaalta()!=null)
+            cliente.setFechaAlta(new java.util.Date(x.getFechaalta().getTime()));
+        else
+            cliente.setFechaAlta(null);
+
+        if(x.getFechabaja()!=null)
+            cliente.setFechaBaja(new java.sql.Date(x.getFechabaja().getTime()));
+        else
+            cliente.setFechaBaja(null);
+
+        cliente.setMail(x.getMail());
+        cliente.setNroCliente(x.getNrocliente());
+        cliente.setRazonSocial(x.getRazonsocial());
+        cliente.setTelefono(x.getTelefono());
+
+        return cliente;
+    }
 }

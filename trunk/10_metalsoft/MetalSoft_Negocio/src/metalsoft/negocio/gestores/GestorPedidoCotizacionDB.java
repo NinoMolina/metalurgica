@@ -29,7 +29,7 @@ public class GestorPedidoCotizacionDB {
     {
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         Connection cn=null;
-        metalsoft.datos.dbobject.Cliente[] clientes=null;
+        metalsoft.datos.dbobject.ClienteDB[] clientes=null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
@@ -47,7 +47,7 @@ public class GestorPedidoCotizacionDB {
         return parseToCliente(clientes);
     }
 
-    private Cliente[] parseToCliente(metalsoft.datos.dbobject.Cliente[] clientes)
+    private Cliente[] parseToCliente(metalsoft.datos.dbobject.ClienteDB[] clientes)
     {
         if(clientes==null)return null;
         Connection cn=null;
