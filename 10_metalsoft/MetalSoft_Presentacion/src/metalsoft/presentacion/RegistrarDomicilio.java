@@ -13,7 +13,7 @@ package metalsoft.presentacion;
 
 import javax.swing.JOptionPane;
 import metalsoft.datos.dbobject.Provincia;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Barrio;
@@ -289,7 +289,7 @@ public class RegistrarDomicilio extends javax.swing.JFrame {
         String torre=txtTorre.getText();
         int result=-1;
         Domicilio domicilioNegocio=new Domicilio();
-        metalsoft.datos.dbobject.Domicilio domicilioDB=new metalsoft.datos.dbobject.Domicilio();
+        metalsoft.datos.dbobject.DomicilioDB domicilioDB=new metalsoft.datos.dbobject.DomicilioDB();
         domicilioNegocio.setCalle(calle);
         domicilioNegocio.setDepto(depto);
         domicilioNegocio.setNumeroCalle(numero);

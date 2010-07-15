@@ -13,7 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.ventas.Cliente;
 
@@ -58,7 +58,7 @@ public class HiloBuscarCliente extends Thread {
 
     private void buscarClientes()
     {
-        metalsoft.datos.dbobject.Cliente[] clientes=ventanaBuscar.getGestor().buscarClientes(getValor());
+        metalsoft.datos.dbobject.ClienteDB[] clientes=ventanaBuscar.getGestor().buscarClientes(getValor());
         JList combo=ventanaBuscar.getLstLista();
         combo.removeAll();
         cargarCombo(combo,clientes);
@@ -68,7 +68,7 @@ public class HiloBuscarCliente extends Thread {
         timer=new Timer(true);
     }
 
-    private void cargarCombo(JList combo, metalsoft.datos.dbobject.Cliente[] clientes) {
+    private void cargarCombo(JList combo, metalsoft.datos.dbobject.ClienteDB[] clientes) {
         ItemCombo item=null,items[]=new ItemCombo[clientes.length];
         for(int i=0;i<clientes.length;i++)
         {

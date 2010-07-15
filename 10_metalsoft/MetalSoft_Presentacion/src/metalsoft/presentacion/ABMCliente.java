@@ -11,13 +11,15 @@
 
 package metalsoft.presentacion;
 
+import metalsoft.util.Fecha;
+import metalsoft.util.EnumOpcionesABM;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import metalsoft.negocio.ItemCombo;
+import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.rrhh.Domicilio;
@@ -36,9 +38,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private long idResponsable;
     private Responsable responsable;
     private Cliente cliente;
-    private metalsoft.datos.dbobject.Cliente clienteDB;
-    private metalsoft.datos.dbobject.Responsable responsableDB;
-    private metalsoft.datos.dbobject.Domicilio domicilioClienteDB,domicilioResponsableDB;
+    private metalsoft.datos.dbobject.ClienteDB clienteDB;
+    private metalsoft.datos.dbobject.ResponsableDB responsableDB;
+    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB,domicilioResponsableDB;
     private EnumOpcionesABM opcion;
 
     private long idCliente;
@@ -593,7 +595,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.tomarDomicilioCliente(dom, id);
     }
 
-    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.Domicilio domDB) {
+    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
         domicilioCliente=dom;
         gestor.tomarDomicilioClienteDB(domDB);
     }
@@ -620,7 +622,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         gestor.tomarResponsableCliente(respNegocio, idResponsable);
     }
 
-    public void setResponsable(Responsable respNegocio, metalsoft.datos.dbobject.Responsable respDB) {
+    public void setResponsable(Responsable respNegocio, metalsoft.datos.dbobject.ResponsableDB respDB) {
         responsable=respNegocio;
         gestor.tomarResponsableClienteDB(respDB);
     }
@@ -719,7 +721,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         setDatosResponsable(responsableDB,domicilioResponsableDB);
     }
 
-    private void setDatosDomicilio(metalsoft.beans.Domicilio beanDom,metalsoft.datos.dbobject.Domicilio domDB) {
+    private void setDatosDomicilio(metalsoft.beans.Domicilio beanDom,metalsoft.datos.dbobject.DomicilioDB domDB) {
         beanDom.getTxtCalle().setText(domDB.getCalle());
         beanDom.getTxtDepto().setText(domDB.getDepto());
         beanDom.getTxtNumero().setText(String.valueOf(domDB.getNumerocalle()));
@@ -750,7 +752,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         }
     }
 
-    private void setDatosResponsable(metalsoft.datos.dbobject.Responsable respDB, metalsoft.datos.dbobject.Domicilio domRespDB) {
+    private void setDatosResponsable(metalsoft.datos.dbobject.ResponsableDB respDB, metalsoft.datos.dbobject.DomicilioDB domRespDB) {
         beanResponsable.getTxtApellido().setText(respDB.getApellido());
         beanResponsable.getTxtEmail().setText(respDB.getEmail());
         beanResponsable.getTxtFax().setText(respDB.getFax());
