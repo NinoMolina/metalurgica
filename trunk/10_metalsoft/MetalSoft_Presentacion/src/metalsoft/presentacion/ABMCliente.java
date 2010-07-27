@@ -511,7 +511,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         switch(opcion)
         {
-            case GUARDAR:   idCliente=gestor.registrarCliente(cliente);
+            case NUEVO:   idCliente=gestor.registrarCliente(cliente);
                             break;
             case MODIFICAR: gestor.setIdDomicilioCliente(domicilioClienteDB.getIddomicilio());
                             gestor.setIdDomicilioResponsable(domicilioResponsableDB.getIddomicilio());
@@ -634,6 +634,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
     public void cargarComboProvincia(JComboBox cmb)
     {
+        cmb.removeAllItems();
         gestor.obtenerProvincias(cmb);
     }
 
@@ -672,6 +673,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     }
 
     private void cargarTipoDocumento() {
+        beanResponsable.getCmbTipoDoc().removeAllItems();
         gestor.obtenerTipoDocumentos(beanResponsable.getCmbTipoDoc());
     }
 
