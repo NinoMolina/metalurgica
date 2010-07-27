@@ -137,8 +137,8 @@ public class Domicilio extends javax.swing.JPanel implements java.beans.Customiz
         txtDepto.setText("");
         txtNumero.setText("");
         txtTorre.setText("");
-        cmbBarrio.setSelectedIndex(0);
-        cmbLocalidad.setSelectedIndex(0);
+        cmbBarrio.setSelectedIndex(-1);
+        cmbLocalidad.setSelectedIndex(-1);
         cmbProvincia.setSelectedIndex(0);
         sldPiso.setValue(0);
     }
