@@ -11,11 +11,28 @@
 
 package metalsoft.presentacion;
 
+import com.lowagie.text.Anchor;
+import metalsoft.negocio.gestores.IBuscador;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
+import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.gestores.GestorProducto;
+import metalsoft.negocio.ventas.Pieza;
+import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -23,14 +40,20 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ABMProducto extends javax.swing.JFrame {
 
+    private GestorProducto gestor;
+    
+    //lista enlazada que contiene las filas de la tabla
+    private LinkedList<Object[]> filas=new LinkedList<Object[]>();
     /** Creates new form Producto */
     public ABMProducto() {
+
         initComponents();
         addListenerBtnNuevo();
         addListenerBtnGuardar();
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        gestor=new GestorProducto();
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         tblDetalleProducto.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleProducto.updateUI();
@@ -61,10 +84,31 @@ public class ABMProducto extends javax.swing.JFrame {
         String nombre=txtNombre.getText();
         String numero=txtNumero.getText();
         String precioUnitario=txtPrecioUnitario.getText();
-
-
+        gestor.setDescripcionProducto(descripcion);
+        gestor.setNombreProducto(nombre);
+        gestor.setNumeroProducto(numero);
+        gestor.setPrecioUnitarioProducto(precioUnitario);
+        tomarListaDetalleGestor();
+        gestor.registrarProducto();
     }
 
+    private void tomarListaDetalleGestor()
+    {
+        ArrayList arlIds,arlDatos;
+        arlDatos=new ArrayList(filas.size());
+        arlIds=new ArrayList(filas.size());
+        Iterator<Object[]> iter=filas.iterator();
+        Object[] datoFila=null;
+        while(iter.hasNext())
+        {
+            datoFila=iter.next();
+            int cant=Integer.parseInt(String.valueOf(datoFila[2]));
+            String desc=String.valueOf(datoFila[1]);
+            arlDatos.add(new Object[]{cant, desc});
+            arlIds.add(datoFila[5]);
+        }
+        gestor.setListaDetalle(arlDatos,arlIds);
+    }
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,12 +168,12 @@ public class ABMProducto extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lstResultadoBusqueda = new javax.swing.JTextArea();
         btnAgregarPieza = new javax.swing.JButton();
         btnNuevaPieza = new javax.swing.JButton();
         txtValorBusqueda = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstResultadoBusqueda = new javax.swing.JList();
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,7 +189,7 @@ public class ABMProducto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,15 +224,15 @@ public class ABMProducto extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                        .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))))
+                            .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))))
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,10 +264,6 @@ public class ABMProducto extends javax.swing.JFrame {
 
         jRadioButton1.setText("Nombre");
 
-        lstResultadoBusqueda.setColumns(20);
-        lstResultadoBusqueda.setRows(5);
-        jScrollPane3.setViewportView(lstResultadoBusqueda);
-
         btnAgregarPieza.setText("Agregar");
         btnAgregarPieza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +273,15 @@ public class ABMProducto extends javax.swing.JFrame {
 
         btnNuevaPieza.setText("Nueva Pieza");
 
+        txtValorBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorBusquedaKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Valor de Búsqueda:");
+
+        jScrollPane3.setViewportView(lstResultadoBusqueda);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -243,17 +291,17 @@ public class ABMProducto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jRadioButton1)
                 .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtValorBusqueda))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregarPieza, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                     .addComponent(btnNuevaPieza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(39, 39, 39))
+                .addGap(92, 92, 92))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,13 +312,14 @@ public class ABMProducto extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnAgregarPieza)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNuevaPieza)))))
+                                .addComponent(btnNuevaPieza))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)))
                 .addContainerGap())
         );
 
@@ -283,23 +332,25 @@ public class ABMProducto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -308,8 +359,47 @@ public class ABMProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
-        
+        ItemCombo item=(ItemCombo) lstResultadoBusqueda.getSelectedValue();
+        long id=Long.parseLong(item.getId());
+        Pieza p=gestor.buscarPiezaParaDetalleProducto(id);
+        JTextField txtCant=new JTextField("1");
+        JTextArea txtDesc=new JTextArea("");
+        JScrollPane scroll=new JScrollPane(txtDesc);
+        Object[] obj={"Cantidad",txtCant,"Descripcion",scroll};
+//        JOptionPane optionPane=new JOptionPane(obj, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+//        JDialog dialog = optionPane.createDialog(this, "Ingresar Cantidad y Descripción");
+//        dialog.setVisible(true);
+        int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad y Descripción", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String cant = txtCant.getText();
+            String desc = txtDesc.getText();
+            agregarFila( p.getNombre(), desc, cant, p.getDimensiones(), p.getTipoMaterial().getNombre(),String.valueOf(id));
+            tblDetalleProducto.updateUI();
+        }
+
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
+
+    private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
+        if(txtValorBusqueda.getText().compareTo("")!=0)
+        {
+            gestor.setListaPiezas(lstResultadoBusqueda);
+            gestor.buscarPiezas(txtValorBusqueda.getText());
+        }
+    }//GEN-LAST:event_txtValorBusquedaKeyReleased
+
+    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String id)
+    {
+        //vector de tipo Object que contiene los datos de una fila
+        Object[] datosFila = new Object[6];
+        datosFila[0]=pieza;
+        datosFila[1]=desc;
+        datosFila[2]=cant;
+        datosFila[3]=dim;
+        datosFila[4]=mat;
+        datosFila[5]=id;
+        filas.addLast(datosFila);
+    }
 
     /**
     * @param args the command line arguments
@@ -338,7 +428,7 @@ public class ABMProducto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea lstResultadoBusqueda;
+    private javax.swing.JList lstResultadoBusqueda;
     private javax.swing.JTable tblDetalleProducto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
@@ -347,31 +437,30 @@ public class ABMProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    private class DetalleProductoTableModel extends AbstractTableModel{
+
+    public class DetalleProductoTableModel extends AbstractTableModel{
       String[] columnNames = {"Pieza",
                         "Descripcion",
                         "Cantidad",
                         "Dimensiones",
                         "Material"};
-      LinkedList<Object[]> filas=new LinkedList<Object[]>();
-      Object[] datosFilas = new Object[columnNames.length];
-
+    
     public Object getValueAt(int rowIndex, int columnIndex)
     {
 
-      Object[] datoFila=filas.get(rowIndex);
+      Object[] df=filas.get(rowIndex);
       switch(columnIndex)
       {
         case 0:
-          return datoFila[columnIndex];
+          return df[columnIndex];
         case 1:
-          return datoFila[columnIndex];
+          return df[columnIndex];
         case 2:
-          return datoFila[columnIndex];
+          return df[columnIndex];
         case 3:
-          return datoFila[columnIndex];
+          return df[columnIndex];
         case 4:
-          return datoFila[columnIndex];
+          return df[columnIndex];
         default:
           return null;
       }
