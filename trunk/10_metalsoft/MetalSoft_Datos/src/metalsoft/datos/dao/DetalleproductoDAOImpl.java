@@ -59,7 +59,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return   int
 */
 
-	public int update(DetalleproductoPK detalleproductopk, Detalleproducto detalleproducto, Connection con)throws DetalleproductoException{
+	public int update(DetalleproductoPK detalleproductopk, DetalleproductoDB detalleproducto, Connection con)throws DetalleproductoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -83,7 +83,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  DetalleproductoPK
 */
 
-	public int insert(Detalleproducto detalleproducto ,Connection con)throws DetalleproductoException {
+	public int insert(DetalleproductoDB detalleproducto ,Connection con)throws DetalleproductoException {
 
 		PreparedStatement ps = null;
 		try
@@ -105,7 +105,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * 
 */
 
-	public Detalleproducto findByPrimaryKey(long iddetalle, long idproducto, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB findByPrimaryKey(long iddetalle, long idproducto, Connection con) throws DetalleproductoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -132,7 +132,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto
 */
 
-	public Detalleproducto findByPrimaryKey(DetalleproductoPK detalleproductopk, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB findByPrimaryKey(DetalleproductoPK detalleproductopk, Connection con) throws DetalleproductoException{
 		return findByPrimaryKey(detalleproductopk.getIddetalle(), detalleproductopk.getIdproducto(), con);
 	}
 
@@ -145,7 +145,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	public Detalleproducto[] findByIddetalle(long iddetalle, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findByIddetalle(long iddetalle, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto where iddetalle = ? order by iddetalle";
@@ -172,7 +172,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	public Detalleproducto[] findByIdproducto(long idproducto, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findByIdproducto(long idproducto, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto where idproducto = ? order by idproducto";
@@ -199,7 +199,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	public Detalleproducto[] findByCantidadpiezas(int cantidadpiezas, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findByCantidadpiezas(int cantidadpiezas, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto where cantidadpiezas = ? order by cantidadpiezas";
@@ -226,7 +226,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	public Detalleproducto[] findByDescripcion(String descripcion, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findByDescripcion(String descripcion, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto where descripcion = ? order by descripcion";
@@ -253,7 +253,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	public Detalleproducto[] findByPieza(long pieza, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findByPieza(long pieza, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto where pieza = ? order by pieza";
@@ -279,7 +279,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 *
 */
 
-	public Detalleproducto[] findAll( Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findAll( Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto";
@@ -307,7 +307,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 *
 */
 
-	public Detalleproducto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -338,7 +338,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 *
 */
 
-	public Detalleproducto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductoException{
+	public DetalleproductoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select iddetalle, idproducto, cantidadpiezas, descripcion, pieza from detalleproducto";
@@ -368,10 +368,10 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 *
 */
 
-	protected Detalleproducto fetchSingleResult(ResultSet rs) throws SQLException
+	protected DetalleproductoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Detalleproducto dto = new Detalleproducto();
+					DetalleproductoDB dto = new DetalleproductoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -388,7 +388,7 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  void
 */
 
-	protected void populateVO(Detalleproducto dto, ResultSet rs) throws SQLException
+	protected void populateVO(DetalleproductoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIddetalle(rs.getLong("iddetalle"));
 		 dto.setIdproducto(rs.getLong("idproducto"));
@@ -405,15 +405,15 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 * @return  Detalleproducto[]
 */
 
-	protected Detalleproducto[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected DetalleproductoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Detalleproducto dto = new Detalleproducto();
+			DetalleproductoDB dto = new DetalleproductoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Detalleproducto ret[] = new Detalleproducto[ resultList.size() ];
+		DetalleproductoDB ret[] = new DetalleproductoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

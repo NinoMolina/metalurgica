@@ -59,7 +59,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return   int
 */
 
-	public int update(PiezaPK piezapk, Pieza pieza, Connection con)throws PiezaException{
+	public int update(PiezaPK piezapk, PiezaDB pieza, Connection con)throws PiezaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -95,7 +95,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  PiezaPK
 */
 
-	public int insert(Pieza pieza ,Connection con)throws PiezaException {
+	public int insert(PiezaDB pieza ,Connection con)throws PiezaException {
 
 		PreparedStatement ps = null;
 		try
@@ -129,7 +129,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * 
 */
 
-	public Pieza findByPrimaryKey(long idpieza, Connection con) throws PiezaException{
+	public PiezaDB findByPrimaryKey(long idpieza, Connection con) throws PiezaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -155,7 +155,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza
 */
 
-	public Pieza findByPrimaryKey(PiezaPK piezapk, Connection con) throws PiezaException{
+	public PiezaDB findByPrimaryKey(PiezaPK piezapk, Connection con) throws PiezaException{
 		return findByPrimaryKey(piezapk.getIdpieza(), con);
 	}
 
@@ -168,7 +168,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByIdpieza(long idpieza, Connection con) throws PiezaException{
+	public PiezaDB[] findByIdpieza(long idpieza, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where idpieza = ? order by idpieza";
@@ -195,7 +195,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByNombre(String nombre, Connection con) throws PiezaException{
+	public PiezaDB[] findByNombre(String nombre, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where nombre = ? order by nombre";
@@ -222,7 +222,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByTipomaterial(long tipomaterial, Connection con) throws PiezaException{
+	public PiezaDB[] findByTipomaterial(long tipomaterial, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where tipomaterial = ? order by tipomaterial";
@@ -249,7 +249,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByDimensiones(String dimensiones, Connection con) throws PiezaException{
+	public PiezaDB[] findByDimensiones(String dimensiones, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where dimensiones = ? order by dimensiones";
@@ -276,7 +276,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByMateriaprima(long materiaprima, Connection con) throws PiezaException{
+	public PiezaDB[] findByMateriaprima(long materiaprima, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where materiaprima = ? order by materiaprima";
@@ -303,7 +303,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public Pieza[] findByMatriz(long matriz, Connection con) throws PiezaException{
+	public PiezaDB[] findByMatriz(long matriz, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where matriz = ? order by matriz";
@@ -329,7 +329,7 @@ public class PiezaDAOImpl implements PiezaDAO
 *
 */
 
-	public Pieza[] findAll( Connection con) throws PiezaException{
+	public PiezaDB[] findAll( Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza";
@@ -357,7 +357,7 @@ public class PiezaDAOImpl implements PiezaDAO
 *
 */
 
-	public Pieza[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaException{
+	public PiezaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -388,7 +388,7 @@ public class PiezaDAOImpl implements PiezaDAO
 *
 */
 
-	public Pieza[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaException{
+	public PiezaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza";
@@ -418,10 +418,10 @@ public class PiezaDAOImpl implements PiezaDAO
 *
 */
 
-	protected Pieza fetchSingleResult(ResultSet rs) throws SQLException
+	protected PiezaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Pieza dto = new Pieza();
+					PiezaDB dto = new PiezaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -438,7 +438,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  void
 */
 
-	protected void populateVO(Pieza dto, ResultSet rs) throws SQLException
+	protected void populateVO(PiezaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdpieza(rs.getLong("idpieza"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -456,15 +456,15 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	protected Pieza[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected PiezaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Pieza dto = new Pieza();
+			PiezaDB dto = new PiezaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Pieza ret[] = new Pieza[ resultList.size() ];
+		PiezaDB ret[] = new PiezaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

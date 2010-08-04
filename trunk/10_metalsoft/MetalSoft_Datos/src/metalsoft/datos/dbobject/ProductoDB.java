@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Producto implements Serializable
+public class ProductoDB implements Serializable
 {
 	private long idproducto;
 	private long nroproducto;
@@ -30,8 +30,8 @@ public class Producto implements Serializable
 	private long codbarra;
 
 
-	public Producto(){}
-	public Producto(long idproducto ,long nroproducto ,String nombre ,int stock ,double preciounitario ,String descripcion ,long codbarra){
+	public ProductoDB(){}
+	public ProductoDB(long idproducto ,long nroproducto ,String nombre ,int stock ,double preciounitario ,String descripcion ,long codbarra){
 		this.idproducto = idproducto;
 		this.nroproducto = nroproducto;
 		this.nombre = nombre;
