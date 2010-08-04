@@ -6,9 +6,8 @@ package metalsoft.negocio.ventas;
 public class DetalleProducto 
 {
    private int cantidadPiezas;
-   private int descripcion;
+   private String descripcion;
    private Pieza pieza;
-   public Pieza thePieza;
    
    /**
     * @roseuid 4C27ED2301F4
@@ -25,20 +24,30 @@ public class DetalleProducto
    {
     
    }
+
+    public int getCantidadPiezas() {
+        return cantidadPiezas;
+    }
+
+    public void setCantidadPiezas(int cantidadPiezas) {
+        this.cantidadPiezas = cantidadPiezas;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
    
-   /**
-    * @roseuid 4BC24D0F001E
-    */
-   public void conocerPieza() 
-   {
-    
-   }
    
-   /**
-    * @roseuid 4C1FA2EB0240
-    */
-   public void mostrarPiezas() 
-   {
-    
-   }
 }

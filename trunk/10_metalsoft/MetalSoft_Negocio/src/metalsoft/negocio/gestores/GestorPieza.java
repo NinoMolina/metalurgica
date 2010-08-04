@@ -15,7 +15,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Etapadeproduccion;
 import metalsoft.datos.dbobject.Materiaprima;
 import metalsoft.datos.dbobject.MateriaprimaPK;
-import metalsoft.datos.dbobject.Pieza;
+import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.PiezaPK;
 import metalsoft.datos.dbobject.Piezareal;
 import metalsoft.datos.exception.PiezaException;
@@ -38,7 +38,7 @@ import metalsoft.negocio.produccion.PiezaReal;
 
 public class GestorPieza 
 {
-   private Pieza[] piezas;
+   private PiezaDB[] piezas;
    private Tipomaterial[] tipoMaterial;
    private Materiaprima[] materiaPrima;
    private Etapadeproduccion[] etapaDeProduccion;
@@ -220,7 +220,7 @@ public class GestorPieza
 
    public int guardar(String nombre, String dimensiones, String indexTM, String indexMP, String indexMa) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
-        Pieza p=new Pieza();
+        PiezaDB p=new PiezaDB();
         p.setNombre(nombre);
         p.setDimensiones(dimensiones);
         long idTM=-1;
@@ -265,7 +265,7 @@ public class GestorPieza
         return id;
     }
 
-    public Pieza[] buscarConLIKE(String valor) {
+    public PiezaDB[] buscarConLIKE(String valor) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         Connection cn=null;
 
@@ -303,7 +303,7 @@ public class GestorPieza
         sqlParams[0]=idpieza;
         
         //realizo la modificación
-        Pieza modificado=new Pieza();
+        PiezaDB modificado=new PiezaDB();
         modificado.setDimensiones(dimensiones);
         modificado.setNombre(nombre);
         modificado.setTipomaterial(idTM);
@@ -545,7 +545,7 @@ public class GestorPieza
     ///////////////////////TODOS LOS PARSES QUE SE USAN
 
     //PIEZA
-    private metalsoft.negocio.ventas.Pieza[] parseToPieza(Pieza[] tm) {
+    private metalsoft.negocio.ventas.Pieza[] parseToPieza(PiezaDB[] tm) {
         if(tm==null)return null;
 
         metalsoft.negocio.ventas.Pieza[] c=new metalsoft.negocio.ventas.Pieza[tm.length];
@@ -554,7 +554,7 @@ public class GestorPieza
             metalsoft.negocio.ventas.Pieza x=new metalsoft.negocio.ventas.Pieza();
             x.setNombre(tm[i].getNombre());
             x.setDimensiones(tm[i].getDimensiones());
-            x.setTipo(buscarTipoMaterialPorID(tm[i].getTipomaterial()));
+            x.setTipoMaterial(buscarTipoMaterialPorID(tm[i].getTipomaterial()));
             x.setMateria(buscarMateriaPrimaPorID(tm[i].getMateriaprima()));
             c[i]=x;
         }

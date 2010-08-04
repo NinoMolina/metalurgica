@@ -13,7 +13,7 @@ public class Pieza
 {
    private String nombre;
    private PiezaReal item;
-   private TipoMaterial tipo;
+   private TipoMaterial tipoMaterial;
    private String dimensiones;
    private MateriaPrima materia;
    private Matriz matriz;
@@ -42,12 +42,12 @@ public class Pieza
         this.dimensiones = dimensiones;
     }
 
-    public TipoMaterial getTipo() {
-        return tipo;
+    public TipoMaterial getTipoMaterial() {
+        return tipoMaterial;
     }
 
-    public void setTipo(TipoMaterial tipo) {
-        this.tipo = tipo;
+    public void setTipoMaterial(TipoMaterial tipo) {
+        this.tipoMaterial = tipo;
     }
     public String getNombre() {
         return nombre;
