@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Pieza implements Serializable
+public class PiezaDB implements Serializable
 {
 	private long idpieza;
 	private String nombre;
@@ -29,8 +29,8 @@ public class Pieza implements Serializable
 	private long matriz;
 
 
-	public Pieza(){}
-	public Pieza(long idpieza ,String nombre ,long tipomaterial ,String dimensiones ,long materiaprima ,long matriz){
+	public PiezaDB(){}
+	public PiezaDB(long idpieza ,String nombre ,long tipomaterial ,String dimensiones ,long materiaprima ,long matriz){
 		this.idpieza = idpieza;
 		this.nombre = nombre;
 		this.tipomaterial = tipomaterial;

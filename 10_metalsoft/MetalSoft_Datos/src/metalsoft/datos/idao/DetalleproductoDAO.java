@@ -16,16 +16,16 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetalleproductoDAO
 {
-	public int insert(Detalleproducto detalleproducto, Connection con ) throws DetalleproductoException;
-	public int update(DetalleproductoPK detalleproductopk, Detalleproducto detalleproducto, Connection con) throws DetalleproductoException;
+	public int insert(DetalleproductoDB detalleproducto, Connection con ) throws DetalleproductoException;
+	public int update(DetalleproductoPK detalleproductopk, DetalleproductoDB detalleproducto, Connection con) throws DetalleproductoException;
 	public int delete(DetalleproductoPK detalleproductopk, Connection con) throws DetalleproductoException;
-	public Detalleproducto findByPrimaryKey(DetalleproductoPK detalleproductopk , Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findAll(Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findByIddetalle(long iddetalle,Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findByIdproducto(long idproducto,Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findByCantidadpiezas(int cantidadpiezas,Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findByDescripcion(String descripcion,Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findByPieza(long pieza,Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleproductoException;
-	public Detalleproducto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductoException;
+	public DetalleproductoDB findByPrimaryKey(DetalleproductoPK detalleproductopk , Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findAll(Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findByIddetalle(long iddetalle,Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findByIdproducto(long idproducto,Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findByCantidadpiezas(int cantidadpiezas,Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findByDescripcion(String descripcion,Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findByPieza(long pieza,Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleproductoException;
+	public DetalleproductoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductoException;
 }

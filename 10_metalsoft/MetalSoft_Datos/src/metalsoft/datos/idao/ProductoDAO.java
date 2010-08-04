@@ -16,18 +16,18 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface ProductoDAO
 {
-	public int insert(Producto producto, Connection con ) throws ProductoException;
-	public int update(ProductoPK productopk, Producto producto, Connection con) throws ProductoException;
+	public int insert(ProductoDB producto, Connection con ) throws ProductoException;
+	public int update(ProductoPK productopk, ProductoDB producto, Connection con) throws ProductoException;
 	public int delete(ProductoPK productopk, Connection con) throws ProductoException;
-	public Producto findByPrimaryKey(ProductoPK productopk , Connection con) throws ProductoException;
-	public Producto[] findAll(Connection con) throws ProductoException;
-	public Producto[] findByIdproducto(long idproducto,Connection con) throws ProductoException;
-	public Producto[] findByNroproducto(long nroproducto,Connection con) throws ProductoException;
-	public Producto[] findByNombre(String nombre,Connection con) throws ProductoException;
-	public Producto[] findByStock(int stock,Connection con) throws ProductoException;
-	public Producto[] findByPreciounitario(double preciounitario,Connection con) throws ProductoException;
-	public Producto[] findByDescripcion(String descripcion,Connection con) throws ProductoException;
-	public Producto[] findByCodbarra(long codbarra,Connection con) throws ProductoException;
-	public Producto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProductoException;
-	public Producto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProductoException;
+	public ProductoDB findByPrimaryKey(ProductoPK productopk , Connection con) throws ProductoException;
+	public ProductoDB[] findAll(Connection con) throws ProductoException;
+	public ProductoDB[] findByIdproducto(long idproducto,Connection con) throws ProductoException;
+	public ProductoDB[] findByNroproducto(long nroproducto,Connection con) throws ProductoException;
+	public ProductoDB[] findByNombre(String nombre,Connection con) throws ProductoException;
+	public ProductoDB[] findByStock(int stock,Connection con) throws ProductoException;
+	public ProductoDB[] findByPreciounitario(double preciounitario,Connection con) throws ProductoException;
+	public ProductoDB[] findByDescripcion(String descripcion,Connection con) throws ProductoException;
+	public ProductoDB[] findByCodbarra(long codbarra,Connection con) throws ProductoException;
+	public ProductoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProductoException;
+	public ProductoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProductoException;
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Detalleproducto implements Serializable
+public class DetalleproductoDB implements Serializable
 {
 	private long iddetalle;
 	private long idproducto;
@@ -28,8 +28,8 @@ public class Detalleproducto implements Serializable
 	private long pieza;
 
 
-	public Detalleproducto(){}
-	public Detalleproducto(long iddetalle ,long idproducto ,int cantidadpiezas ,String descripcion ,long pieza){
+	public DetalleproductoDB(){}
+	public DetalleproductoDB(long iddetalle ,long idproducto ,int cantidadpiezas ,String descripcion ,long pieza){
 		this.iddetalle = iddetalle;
 		this.idproducto = idproducto;
 		this.cantidadpiezas = cantidadpiezas;

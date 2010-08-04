@@ -17,17 +17,17 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface PiezaDAO
 {
-	public int insert(Pieza pieza, Connection con ) throws PiezaException;
-	public int update(PiezaPK piezapk, Pieza pieza, Connection con) throws PiezaException;
+	public int insert(PiezaDB pieza, Connection con ) throws PiezaException;
+	public int update(PiezaPK piezapk, PiezaDB pieza, Connection con) throws PiezaException;
 	public int delete(PiezaPK piezapk, Connection con) throws PiezaException;
-	public Pieza findByPrimaryKey(PiezaPK piezapk , Connection con) throws PiezaException;
-	public Pieza[] findAll(Connection con) throws PiezaException;
-	public Pieza[] findByIdpieza(long idpieza,Connection con) throws PiezaException;
-	public Pieza[] findByNombre(String nombre,Connection con) throws PiezaException;
-	public Pieza[] findByTipomaterial(long tipomaterial,Connection con) throws PiezaException;
-	public Pieza[] findByDimensiones(String dimensiones,Connection con) throws PiezaException;
-	public Pieza[] findByMateriaprima(long materiaprima,Connection con) throws PiezaException;
-	public Pieza[] findByMatriz(long matriz,Connection con) throws PiezaException;
-	public Pieza[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaException;
-	public Pieza[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaException;
+	public PiezaDB findByPrimaryKey(PiezaPK piezapk , Connection con) throws PiezaException;
+	public PiezaDB[] findAll(Connection con) throws PiezaException;
+	public PiezaDB[] findByIdpieza(long idpieza,Connection con) throws PiezaException;
+	public PiezaDB[] findByNombre(String nombre,Connection con) throws PiezaException;
+	public PiezaDB[] findByTipomaterial(long tipomaterial,Connection con) throws PiezaException;
+	public PiezaDB[] findByDimensiones(String dimensiones,Connection con) throws PiezaException;
+	public PiezaDB[] findByMateriaprima(long materiaprima,Connection con) throws PiezaException;
+	public PiezaDB[] findByMatriz(long matriz,Connection con) throws PiezaException;
+	public PiezaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaException;
+	public PiezaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaException;
 }
