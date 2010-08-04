@@ -7,14 +7,17 @@ package metalsoft.negocio.gestores;
 
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
+import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
-import metalsoft.datos.dbobject.Pieza;
+import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.negocio.ventas.DetalleProducto;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
+import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.ItemCombo;
 /**
  *
@@ -35,7 +38,15 @@ public class Parser {
         }
         return c;
     }
-    public static metalsoft.negocio.ventas.Pieza[] parseToPieza(Pieza[] tm) {
+
+    public static TipoMaterial parseToTipoMaterial(Tipomaterial x)
+    {
+        TipoMaterial tm=new TipoMaterial();
+        tm.setDescripcion(x.getDescripcion());
+        tm.setNombre(x.getNombre());
+        return tm;
+    }
+    public static metalsoft.negocio.ventas.Pieza[] parseToPieza(PiezaDB[] tm) {
         if(tm==null)return null;
 
         metalsoft.negocio.ventas.Pieza[] c=new metalsoft.negocio.ventas.Pieza[tm.length];
@@ -48,6 +59,15 @@ public class Parser {
             //x.setTipo(tm[i].getTipomaterial());
             c[i]=x;
         }
+        return c;
+    }
+
+    public static Pieza parseToPieza(PiezaDB x)
+    {
+        if(x==null)return null;
+        Pieza c=new Pieza();
+        c.setNombre(x.getNombre());
+        c.setDimensiones(x.getDimensiones());
         return c;
     }
 
@@ -167,5 +187,12 @@ public class Parser {
         cliente.setTelefono(x.getTelefono());
 
         return cliente;
+    }
+
+    public static DetalleproductoDB parseToDetalleProductoDB(DetalleProducto x) {
+        DetalleproductoDB db=new DetalleproductoDB();
+        db.setCantidadpiezas(x.getCantidadPiezas());
+        db.setDescripcion(x.getDescripcion());
+        return db;
     }
 }
