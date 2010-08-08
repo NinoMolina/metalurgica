@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.datos.exception.ProductoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.ProductoDAO;
 import metalsoft.negocio.gestores.Parser;
@@ -33,6 +34,17 @@ public class AccessProducto {
             Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    public static ProductoDB[] findByNombre(String valor, Connection cn) {
+        ProductoDB[] x=null;
+        ProductoDAO dao=new DAOFactoryImpl().createProductoDAO();
+        try {
+            x = dao.findByNombre(valor, cn);
+        } catch (ProductoException ex) {
+            Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return x;
     }
 
 }
