@@ -88,11 +88,11 @@ public class ABMProducto extends javax.swing.JFrame {
         gestor.setNombreProducto(nombre);
         gestor.setNumeroProducto(numero);
         gestor.setPrecioUnitarioProducto(precioUnitario);
-        tomarListaDetalleGestor();
-        gestor.registrarProducto();
+        setListaDetalleGestor();
+        long result=gestor.registrarProducto();
     }
 
-    private void tomarListaDetalleGestor()
+    private void setListaDetalleGestor()
     {
         ArrayList arlIds,arlDatos;
         arlDatos=new ArrayList(filas.size());
@@ -176,7 +176,7 @@ public class ABMProducto extends javax.swing.JFrame {
         lstResultadoBusqueda = new javax.swing.JList();
         botones = new metalsoft.beans.ABM_Botones();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Producto"));
 
