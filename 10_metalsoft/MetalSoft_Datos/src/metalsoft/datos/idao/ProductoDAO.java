@@ -24,10 +24,8 @@ public interface ProductoDAO
 	public ProductoDB[] findByIdproducto(long idproducto,Connection con) throws ProductoException;
 	public ProductoDB[] findByNroproducto(long nroproducto,Connection con) throws ProductoException;
 	public ProductoDB[] findByNombre(String nombre,Connection con) throws ProductoException;
-	public ProductoDB[] findByStock(int stock,Connection con) throws ProductoException;
 	public ProductoDB[] findByPreciounitario(double preciounitario,Connection con) throws ProductoException;
 	public ProductoDB[] findByDescripcion(String descripcion,Connection con) throws ProductoException;
-	public ProductoDB[] findByCodbarra(long codbarra,Connection con) throws ProductoException;
 	public ProductoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProductoException;
 	public ProductoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProductoException;
 }

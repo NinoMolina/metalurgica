@@ -62,14 +62,14 @@ public class ProductoDAOImpl implements ProductoDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update PRODUCTO set NROPRODUCTO = ? , NOMBRE = ? , STOCK = ? , PRECIOUNITARIO = ? , DESCRIPCION = ? , CODBARRA = ?  where idproducto = ?");
+			ps = con.prepareStatement("update PRODUCTO set NROPRODUCTO = ? , NOMBRE = ?, PRECIOUNITARIO = ? , DESCRIPCION = ?  where idproducto = ?");
 				ps.setLong(1,producto.getNroproducto());
 				ps.setString(2,producto.getNombre());
-				ps.setInt(3,producto.getStock());
-				ps.setDouble(4,producto.getPreciounitario());
-				ps.setString(5,producto.getDescripcion());
-				ps.setLong(6,producto.getCodbarra());
-				ps.setLong(7,productopk.getIdproducto());
+
+				ps.setDouble(3,producto.getPreciounitario());
+				ps.setString(4,producto.getDescripcion());
+
+				ps.setLong(5,productopk.getIdproducto());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new ProductoException(sqle);}
@@ -87,17 +87,19 @@ public class ProductoDAOImpl implements ProductoDAO
 	public int insert(ProductoDB producto ,Connection con)throws ProductoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
+                long id=-1;
 		try
 		{
-			ps = con.prepareStatement("insert into PRODUCTO( NROPRODUCTO, NOMBRE, STOCK, PRECIOUNITARIO, DESCRIPCION, CODBARRA) values (?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into PRODUCTO( NROPRODUCTO, NOMBRE, PRECIOUNITARIO, DESCRIPCION) values (?, ?, ?, ?) RETURNING idproducto");
 				ps.setLong(1,producto.getNroproducto());
 				ps.setString(2,producto.getNombre());
-				ps.setInt(3,producto.getStock());
-				ps.setDouble(4,producto.getPreciounitario());
-				ps.setString(5,producto.getDescripcion());
-				ps.setLong(6,producto.getCodbarra());
-
-				return(ps.executeUpdate());
+				ps.setDouble(3,producto.getPreciounitario());
+				ps.setString(4,producto.getDescripcion());
+				rs=ps.executeQuery();
+                                rs.next();
+                                id=rs.getLong(1);
+				return (int) id;
 		}catch(SQLException sqle){throw new ProductoException(sqle);}
 		catch(Exception e){throw new ProductoException(e);}
 	}
@@ -112,7 +114,7 @@ public class ProductoDAOImpl implements ProductoDAO
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where idproducto = ?";
+	  		final String SQLSTATEMENT = "Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where idproducto = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, idproducto);
 	  		rs = stmt.executeQuery();
@@ -150,7 +152,7 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findByIdproducto(long idproducto, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where idproducto = ? order by idproducto";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where idproducto = ? order by idproducto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idproducto );
@@ -177,7 +179,7 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findByNroproducto(long nroproducto, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where nroproducto = ? order by nroproducto";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where nroproducto = ? order by nroproducto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, nroproducto );
@@ -204,37 +206,10 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findByNombre(String nombre, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where nombre = ? order by nombre";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where nombre = ? order by nombre";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, nombre );
-					rs = stmt.executeQuery();
-					return fetchMultiResults(rs);
-			}catch(SQLException sqle){
-					throw new ProductoException(sqle);
-			}
-			catch(Exception e){
-					throw new ProductoException(e);
-			}
-			finally{}
-	}
-
-/**
-*
-* Returns all rows from producto table where STOCK= stock
-*
-* @param   int  stock
-* @param   Connection con
-* @return  Producto[]
-*/
-
-	public ProductoDB[] findByStock(int stock, Connection con) throws ProductoException{
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where stock = ? order by stock";
-			try {
-					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setInt( 1, stock );
 					rs = stmt.executeQuery();
 					return fetchMultiResults(rs);
 			}catch(SQLException sqle){
@@ -258,7 +233,7 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findByPreciounitario(double preciounitario, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where preciounitario = ? order by preciounitario";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where preciounitario = ? order by preciounitario";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDouble( 1, preciounitario );
@@ -285,37 +260,10 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findByDescripcion(String descripcion, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where descripcion = ? order by descripcion";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto where descripcion = ? order by descripcion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, descripcion );
-					rs = stmt.executeQuery();
-					return fetchMultiResults(rs);
-			}catch(SQLException sqle){
-					throw new ProductoException(sqle);
-			}
-			catch(Exception e){
-					throw new ProductoException(e);
-			}
-			finally{}
-	}
-
-/**
-*
-* Returns all rows from producto table where CODBARRA= codbarra
-*
-* @param   long  codbarra
-* @param   Connection con
-* @return  Producto[]
-*/
-
-	public ProductoDB[] findByCodbarra(long codbarra, Connection con) throws ProductoException{
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto where codbarra = ? order by codbarra";
-			try {
-					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setLong( 1, codbarra );
 					rs = stmt.executeQuery();
 					return fetchMultiResults(rs);
 			}catch(SQLException sqle){
@@ -338,7 +286,7 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findAll( Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto";
+			String SQL_STATEMENT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -397,7 +345,7 @@ public class ProductoDAOImpl implements ProductoDAO
 	public ProductoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProductoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select idproducto, nroproducto, nombre, stock, preciounitario, descripcion, codbarra from producto";
+			String SQL_SELECT ="Select idproducto, nroproducto, nombre, preciounitario, descripcion from producto";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -449,10 +397,8 @@ public class ProductoDAOImpl implements ProductoDAO
 		 dto.setIdproducto(rs.getLong("idproducto"));
 		 dto.setNroproducto(rs.getLong("nroproducto"));
 		 dto.setNombre(rs.getString("nombre"));
-		 dto.setStock(rs.getInt("stock"));
 		 dto.setPreciounitario(rs.getDouble("preciounitario"));
 		 dto.setDescripcion(rs.getString("descripcion"));
-		 dto.setCodbarra(rs.getLong("codbarra"));
 	}
 
 /**
