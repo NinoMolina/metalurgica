@@ -135,7 +135,7 @@ public class ABMPieza extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         idpieza = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Pieza"));
 
@@ -249,6 +249,11 @@ public class ABMPieza extends javax.swing.JFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         idpieza.setText("jLabel2");
 
@@ -371,6 +376,10 @@ public class ABMPieza extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
         limpiar();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
     * @param args the command line arguments
