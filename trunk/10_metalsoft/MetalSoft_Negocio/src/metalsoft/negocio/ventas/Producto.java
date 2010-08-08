@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import metalsoft.negocio.access.AccessDetalleProducto;
+import metalsoft.negocio.access.AccessProducto;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.negocio.produccion.ProductoReal;
 
@@ -83,17 +84,24 @@ public class Producto
         return dp;
     }
 
-    public void guardar(Producto p,ArrayList arlIdsPiezasDetalleProducto, Connection cn) {
+    public long guardar(Producto p,ArrayList arlIdsPiezasDetalleProducto, Connection cn) {
+        //coleccion de detalles del producto
         ArrayList arlDetalle=p.getDetalle();
+        //iterador que recorre la coleccion de detalle
         Iterator iter=arlDetalle.iterator();
+        //iterador que recorre los ids de las piezas que forman parte del detalle
         Iterator iterIds=arlIdsPiezasDetalleProducto.iterator();
+        long idProd=-1;
+        //inserto el producto
+        idProd=AccessProducto.insert(p,cn);
         DetalleProducto x=null;
+        //recorro los detalles del producto y los guardo
         while(iter.hasNext())
         {
             x = (DetalleProducto) iter.next();
             long idPieza=Long.parseLong(String.valueOf(iterIds.next()));
-            AccessDetalleProducto.insert(x,idPieza,cn);
+            AccessDetalleProducto.insert(x,idProd,idPieza,cn);
         }
-
+        return idProd;
     }
 }
