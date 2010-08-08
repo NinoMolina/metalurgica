@@ -86,15 +86,20 @@ public class DetalleproductoDAOImpl implements DetalleproductoDAO
 	public int insert(DetalleproductoDB detalleproducto ,Connection con)throws DetalleproductoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
+                long id=-1;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEPRODUCTO( IDPRODUCTO, CANTIDADPIEZAS, DESCRIPCION, PIEZA) values (?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEPRODUCTO( IDPRODUCTO, CANTIDADPIEZAS, DESCRIPCION, PIEZA) values (?, ?, ?, ?) RETURNING iddetalle");
 				ps.setLong(1,detalleproducto.getIdproducto());
 				ps.setInt(2,detalleproducto.getCantidadpiezas());
 				ps.setString(3,detalleproducto.getDescripcion());
 				ps.setLong(4,detalleproducto.getPieza());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                                rs.next();
+                                id=rs.getLong(1);
+				return (int) id;
 		}catch(SQLException sqle){throw new DetalleproductoException(sqle);}
 		catch(Exception e){throw new DetalleproductoException(e);}
 	}

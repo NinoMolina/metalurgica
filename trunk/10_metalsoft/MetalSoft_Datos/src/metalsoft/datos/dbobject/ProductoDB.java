@@ -24,21 +24,19 @@ public class ProductoDB implements Serializable
 	private long idproducto;
 	private long nroproducto;
 	private String nombre;
-	private int stock;
 	private double preciounitario;
 	private String descripcion;
-	private long codbarra;
 
 
 	public ProductoDB(){}
-	public ProductoDB(long idproducto ,long nroproducto ,String nombre ,int stock ,double preciounitario ,String descripcion ,long codbarra){
+	public ProductoDB(long idproducto ,long nroproducto ,String nombre ,double preciounitario ,String descripcion){
 		this.idproducto = idproducto;
 		this.nroproducto = nroproducto;
 		this.nombre = nombre;
-		this.stock = stock;
+
 		this.preciounitario = preciounitario;
 		this.descripcion = descripcion;
-		this.codbarra = codbarra;
+
 	}
 
 	public void setIdproducto(long idproducto ){
@@ -59,12 +57,7 @@ public class ProductoDB implements Serializable
 	public String getNombre(){
 		 return(nombre);
 	}
-	public void setStock(int stock ){
-		 this.stock =stock;
-	}
-	public int getStock(){
-		 return(stock);
-	}
+
 	public void setPreciounitario(double preciounitario ){
 		 this.preciounitario =preciounitario;
 	}
@@ -77,22 +70,15 @@ public class ProductoDB implements Serializable
 	public String getDescripcion(){
 		 return(descripcion);
 	}
-	public void setCodbarra(long codbarra ){
-		 this.codbarra =codbarra;
-	}
-	public long getCodbarra(){
-		 return(codbarra);
-	}
+
 	public String toString(){
 		StringBuffer ret = new StringBuffer();
 		ret.append("metalsoft.datos.dbobject.Producto :");
 		ret.append("idproducto='"+idproducto+"'");
 		ret.append(", nroproducto='"+nroproducto+"'");
 		ret.append(", nombre='"+nombre+"'");
-		ret.append(", stock='"+stock+"'");
 		ret.append(", preciounitario='"+preciounitario+"'");
 		ret.append(", descripcion='"+descripcion+"'");
-		ret.append(", codbarra='"+codbarra+"'");
 		return ret.toString();
 	}
 }
