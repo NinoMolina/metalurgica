@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -32,6 +34,7 @@ import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.negocio.gestores.GestorProducto;
 import metalsoft.negocio.ventas.Pieza;
+import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -41,9 +44,10 @@ import metalsoft.util.ItemCombo;
 public class ABMProducto extends javax.swing.JFrame {
 
     private GestorProducto gestor;
-    
+    private long idProducto;
     //lista enlazada que contiene las filas de la tabla
     private LinkedList<Object[]> filas=new LinkedList<Object[]>();
+    private EnumOpcionesABM opcion;
     /** Creates new form Producto */
     public ABMProducto() {
 
@@ -130,7 +134,19 @@ public class ABMProducto extends javax.swing.JFrame {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        opcion=EnumOpcionesABM.BUSCAR;
+        ABMProducto_Buscar buscar=null;
+        try {
+            buscar=(ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
+            buscar.setVentana(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addListenerBtnSalir() {
@@ -272,6 +288,11 @@ public class ABMProducto extends javax.swing.JFrame {
         });
 
         btnNuevaPieza.setText("Nueva Pieza");
+        btnNuevaPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaPiezaActionPerformed(evt);
+            }
+        });
 
         txtValorBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -388,6 +409,18 @@ public class ABMProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtValorBusquedaKeyReleased
 
+    private void btnNuevaPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPiezaActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMPieza.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNuevaPiezaActionPerformed
+
     public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String id)
     {
         //vector de tipo Object que contiene los datos de una fila
@@ -401,6 +434,12 @@ public class ABMProducto extends javax.swing.JFrame {
         filas.addLast(datosFila);
     }
 
+    public void setIdProducto(long id) {
+        idProducto=id;
+    }
+    public void productoSeleccionado() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     /**
     * @param args the command line arguments
     */
@@ -436,6 +475,12 @@ public class ABMProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
+
+
+    // End of variables declaration
+
+
+    // End of variables declaration
 
 
     public class DetalleProductoTableModel extends AbstractTableModel{
