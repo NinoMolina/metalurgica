@@ -8,10 +8,12 @@ package metalsoft.negocio.gestores;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetalleproductoDB;
+import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetalleProducto;
+import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.Domicilio;
@@ -193,6 +195,15 @@ public class Parser {
         DetalleproductoDB db=new DetalleproductoDB();
         db.setCantidadpiezas(x.getCantidadPiezas());
         db.setDescripcion(x.getDescripcion());
+        return db;
+    }
+
+    public static ProductoDB parseToProductoDB(Producto x) {
+        ProductoDB db=new ProductoDB();
+        db.setDescripcion(x.getDescripcion());
+        db.setNombre(x.getNombre());
+        db.setNroproducto(x.getNroProducto());
+        db.setPreciounitario(x.getPrecioUnitario());
         return db;
     }
 }
