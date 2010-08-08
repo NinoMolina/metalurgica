@@ -27,7 +27,7 @@ import metalsoft.negocio.gestores.GestorPieza;
  */
 public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
-    private metalsoft.datos.dbobject.Pieza pieza;
+    private metalsoft.datos.dbobject.PiezaDB pieza;
 
     public JLabel getIdpieza() {
         return idpieza;
@@ -77,11 +77,11 @@ public class ABMPieza extends javax.swing.JFrame {
         this.txtNombre = txtNombre;
     }
 
-    public metalsoft.datos.dbobject.Pieza getPieza() {
+    public metalsoft.datos.dbobject.PiezaDB getPieza() {
         return pieza;
     }
 
-    public void setPieza(metalsoft.datos.dbobject.Pieza pieza) {
+    public void setPieza(metalsoft.datos.dbobject.PiezaDB pieza) {
         this.pieza = pieza;
     }
     /** Creates new form ABMPieza */
