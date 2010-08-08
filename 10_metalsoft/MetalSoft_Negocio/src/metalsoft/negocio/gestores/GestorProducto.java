@@ -19,6 +19,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
+import metalsoft.negocio.access.AccessProducto;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.negocio.ventas.Pieza;
@@ -172,6 +173,16 @@ public class GestorProducto implements IBuscador{
         }
         if(!arlDetalle.isEmpty())return arlDetalle;
         else return null;
+    }
+
+    public ProductoDB[] buscarProductos(String valor) {
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return AccessProducto.findByNombre(valor,cn);
     }
 
 }
