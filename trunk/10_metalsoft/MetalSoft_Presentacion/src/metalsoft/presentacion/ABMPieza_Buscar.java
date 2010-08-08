@@ -10,6 +10,8 @@
  */
 
 package metalsoft.presentacion;
+import metalsoft.negocio.gestores.HiloBuscarPieza;
+import metalsoft.negocio.gestores.IBuscador;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JButton;
@@ -24,12 +26,12 @@ import metalsoft.negocio.ventas.Pieza;
  *
  * @author Vicky
  */
-public class ABMPieza_Buscar extends javax.swing.JFrame {
+public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
 
     private GestorPieza gestor=null;
     private static Timer timer;
     private HiloBuscarPieza hiloBuscarPieza;
-    private metalsoft.datos.dbobject.Pieza[] tm;
+    private metalsoft.datos.dbobject.PiezaDB[] piezasDB;
     private ABMPieza ventana;
 
     public JButton getBtnSeleccionar() {
@@ -80,12 +82,12 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
         ABMPieza_Buscar.timer = timer;
     }
 
-    public metalsoft.datos.dbobject.Pieza[] getTm() {
-        return tm;
+    public metalsoft.datos.dbobject.PiezaDB[] getTm() {
+        return piezasDB;
     }
 
-    public void setTm(metalsoft.datos.dbobject.Pieza[] tm) {
-        this.tm = tm;
+    public void setTm(metalsoft.datos.dbobject.PiezaDB[] tm) {
+        this.piezasDB = tm;
     }
 
     public ABMPieza getVentana() {
@@ -126,6 +128,11 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
 
         jRadioButton1.setText("Nombre");
 
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtValorKeyReleased(evt);
@@ -145,7 +152,6 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +166,6 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jRadioButton1)
@@ -209,7 +214,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        metalsoft.datos.dbobject.Pieza x=tm[lstPieza.getSelectedIndex()];
+        metalsoft.datos.dbobject.PiezaDB x=piezasDB[lstPieza.getSelectedIndex()];
        // ventana.setPieza(x);
         ventana.getTxtNombre().setText(x.getNombre());
         ventana.getTxtDimensiones().setText(x.getDimensiones());
@@ -224,6 +229,10 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
 
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorActionPerformed
 
     /**
     * @param args the command line arguments
@@ -243,5 +252,13 @@ public class ABMPieza_Buscar extends javax.swing.JFrame {
     private javax.swing.JList lstPieza;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    public JList getList() {
+        return lstPieza;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        piezasDB=(metalsoft.datos.dbobject.PiezaDB[]) obj;
+    }
 
 }
