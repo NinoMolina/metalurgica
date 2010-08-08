@@ -65,6 +65,7 @@ public class Principal extends javax.swing.JFrame {
         mnuCompras = new javax.swing.JMenu();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
+        mniProducto = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
         mnuCalidad = new javax.swing.JMenu();
         mnuFinanzas = new javax.swing.JMenu();
@@ -89,6 +90,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuVentas.add(mniCliente);
+
+        mniProducto.setText("Producto");
+        mniProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProductoActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniProducto);
 
         mbrMenu.add(mnuVentas);
 
@@ -149,6 +158,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniClienteActionPerformed
 
+    private void mniProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProductoActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMProducto.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniProductoActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -158,6 +179,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniListadoClientes;
+    private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
     private javax.swing.JMenu mnuCompras;
