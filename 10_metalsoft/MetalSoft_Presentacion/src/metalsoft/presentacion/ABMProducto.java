@@ -31,8 +31,10 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
 import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.negocio.gestores.GestorProducto;
+import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
@@ -44,6 +46,9 @@ import metalsoft.util.ItemCombo;
 public class ABMProducto extends javax.swing.JFrame {
 
     private GestorProducto gestor;
+    private ProductoDB productoDB;
+    private ArrayList detalleProductoDB;
+    private ArrayList<ViewDetalleProducto> view;
     private long idProducto;
     //lista enlazada que contiene las filas de la tabla
     private LinkedList<Object[]> filas=new LinkedList<Object[]>();
@@ -421,7 +426,7 @@ public class ABMProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNuevaPiezaActionPerformed
 
-    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String id)
+    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String idPieza)
     {
         //vector de tipo Object que contiene los datos de una fila
         Object[] datosFila = new Object[6];
@@ -430,7 +435,7 @@ public class ABMProducto extends javax.swing.JFrame {
         datosFila[2]=cant;
         datosFila[3]=dim;
         datosFila[4]=mat;
-        datosFila[5]=id;
+        datosFila[5]=idPieza;
         filas.addLast(datosFila);
     }
 
@@ -438,8 +443,30 @@ public class ABMProducto extends javax.swing.JFrame {
         idProducto=id;
     }
     public void productoSeleccionado() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        productoDB=gestor.buscarProductoDB(idProducto);
+        view=gestor.viewDetalleProducto(idProducto);
+        mostrarDatosProducto();
+        
     }
+    private void mostrarDatosProducto()
+    {
+        //seteo los datos del producto
+        txtDescripcion.setText(productoDB.getDescripcion());
+        txtNombre.setText(productoDB.getNombre());
+        txtNumero.setText(String.valueOf(productoDB.getNroproducto()));
+        txtPrecioUnitario.setText(String.valueOf(productoDB.getPreciounitario()));
+        //seteo los datos del detalle del producto (la tabla)
+        filas.clear();
+        Iterator i=view.iterator();
+        ViewDetalleProducto v=null;
+        while(i.hasNext())
+        {
+            v=(ViewDetalleProducto) i.next();
+            agregarFila(v.getNombrePieza(), v.getDescripcion(), String.valueOf(v.getCantidad()), v.getDimensiones(), v.getNombreTipoMaterial(), String.valueOf(v.getIdPieza()));
+        }
+        tblDetalleProducto.updateUI();
+    }
+
     /**
     * @param args the command line arguments
     */

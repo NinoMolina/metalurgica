@@ -42,10 +42,10 @@ public class HiloBuscarProducto extends Thread{
 
     private void buscarProductos()
     {
-        ProductoDB[] clientesDB=ventana.getGestor().buscarProductos(getValor());
+        ProductoDB[] productosDB=ventana.getGestor().buscarProductos(getValor());
         JList combo=ventana.getLstLista();
         combo.removeAll();
-        cargarCombo(combo,clientesDB);
+        cargarCombo(combo,productosDB);
     }
 
     private void cargarCombo(JList combo, metalsoft.datos.dbobject.ProductoDB[] dbs) {
