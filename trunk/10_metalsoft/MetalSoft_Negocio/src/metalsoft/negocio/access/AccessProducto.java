@@ -6,13 +6,19 @@
 package metalsoft.negocio.access;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.exception.ProductoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.ProductoDAO;
 import metalsoft.negocio.gestores.Parser;
+import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.ventas.Producto;
 
 /**
@@ -36,15 +42,66 @@ public class AccessProducto {
         return result;
     }
 
-    public static ProductoDB[] findByNombre(String valor, Connection cn) {
+    public static ProductoDB[] findByNombreILIKE(String valor, Connection cn) {
         ProductoDB[] x=null;
         ProductoDAO dao=new DAOFactoryImpl().createProductoDAO();
+        Object[] sqlParams=new Object[0];
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
         try {
-            x = dao.findByNombre(valor, cn);
-        } catch (ProductoException ex) {
+            x = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
+        } catch (Exception ex) {
             Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return x;
+    }
+
+    public static ProductoDB findById(long idProducto, Connection cn) {
+        ProductoDB[] vDB=null;
+        ProductoDB db=null;
+        ProductoDAO dao=new DAOFactoryImpl().createProductoDAO();
+        try {
+            vDB = dao.findByIdproducto(idProducto, cn);
+            db=vDB[0];
+        } catch (ProductoException ex) {
+            Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
+
+    public static ArrayList<ViewDetalleProducto> viewDetalleProducto(long id, Connection cn)
+    {
+        ArrayList<ViewDetalleProducto> arl=null;
+        ViewDetalleProducto view=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+
+        String consulta="SELECT nombrepieza,descripcion,cantidadpiezas,dimensiones,nombretipomaterial,idpieza,iddetalle,idproducto"+
+                        " FROM viewDetalleProducto"+
+                        " WHERE idproducto=?";
+        try {
+            pstmt=cn.prepareStatement(consulta);
+            pstmt.setLong(1, id);
+            rs=pstmt.executeQuery();
+            arl=new ArrayList<ViewDetalleProducto>();
+            while(rs.next())
+            {
+                view=new ViewDetalleProducto();
+                view.setNombrePieza(rs.getString("nombrepieza"));
+                view.setDescripcion(rs.getString("descripcion"));
+                view.setCantidad(rs.getInt("cantidadpiezas"));
+                view.setDimensiones(rs.getString("dimensiones"));
+                view.setNombreTipoMaterial(rs.getString("nombretipomaterial"));
+                view.setIdPieza(rs.getLong("idpieza"));
+                view.setIdDetalle(rs.getLong("iddetalle"));
+                view.setIdProducto(rs.getLong("idproducto"));
+
+                arl.add(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arl;
     }
 
 }
