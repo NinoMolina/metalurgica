@@ -5,8 +5,10 @@ package metalsoft.negocio.ventas;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import metalsoft.negocio.access.AccessDetalleProducto;
 import metalsoft.negocio.access.AccessProducto;
+import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.negocio.produccion.ProductoReal;
 
@@ -17,7 +19,7 @@ public class Producto
    private float precioUnitario;
    private String descripcion;
    private ArrayList detalle;
-   private ProductoReal item;
+   private ArrayList<ProductoReal> itemReal;
    
    
    /**
@@ -27,6 +29,14 @@ public class Producto
    {
     
    }
+
+    public ArrayList<ProductoReal> getItemReal() {
+        return itemReal;
+    }
+
+    public void setItemReal(ArrayList<ProductoReal> itemReal) {
+        this.itemReal = itemReal;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -42,14 +52,6 @@ public class Producto
 
     public void setDetalle(ArrayList detalle) {
         this.detalle = detalle;
-    }
-
-    public ProductoReal getItem() {
-        return item;
-    }
-
-    public void setItem(ProductoReal item) {
-        this.item = item;
     }
 
     public String getNombre() {
@@ -101,6 +103,30 @@ public class Producto
             x = (DetalleProducto) iter.next();
             long idPieza=Long.parseLong(String.valueOf(iterIds.next()));
             AccessDetalleProducto.insert(x,idProd,idPieza,cn);
+        }
+        return idProd;
+    }
+
+    public long modificar(long idProd,Producto p, LinkedList<ViewDetalleProducto> filas, Connection cn) {
+        //coleccion de detalles del producto
+        ArrayList arlDetalle=p.getDetalle();
+        //iterador que recorre la coleccion de detalle
+        Iterator<ViewDetalleProducto> iter=filas.iterator();
+        //actualizo el producto
+        long resultUpdateProd=-1;
+        resultUpdateProd=AccessProducto.update(idProd,p,cn);
+        ViewDetalleProducto x=null;
+        DetalleProducto dp=null;
+        //recorro los detalles del producto y los guardo
+        while(iter.hasNext())
+        {
+            x = (ViewDetalleProducto) iter.next();
+            dp=new DetalleProducto();
+            dp.setCantidadPiezas(x.getCantidad());
+            dp.setDescripcion(x.getDescripcion());
+            long idPieza=x.getIdPieza();
+            long idDet=x.getIdDetalle();
+            AccessDetalleProducto.update(dp,idProd,idDet,idPieza,cn);
         }
         return idProd;
     }

@@ -2,9 +2,14 @@
 
 package metalsoft.negocio.ventas;
 
+import java.sql.Connection;
+import metalsoft.negocio.access.AccessDetalleProducto;
+
 
 public class DetalleProducto 
 {
+
+
    private int cantidadPiezas;
    private String descripcion;
    private Pieza pieza;
@@ -16,14 +21,10 @@ public class DetalleProducto
    {
     
    }
-   
-   /**
-    * @roseuid 4BC24D0903B0
-    */
-   public void crear() 
-   {
-    
-   }
+
+   public static int eliminar(long idDetalle, Connection cn) {
+        return AccessDetalleProducto.delete(idDetalle,cn);
+    }
 
     public int getCantidadPiezas() {
         return cantidadPiezas;

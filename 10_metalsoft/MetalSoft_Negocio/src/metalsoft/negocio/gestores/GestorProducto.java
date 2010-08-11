@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProductoDB;
@@ -22,6 +23,7 @@ import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.access.AccessProducto;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
+import metalsoft.negocio.ventas.DetalleProducto;
 import metalsoft.negocio.ventas.Pieza;
 import metalsoft.negocio.ventas.Producto;
 
@@ -40,6 +42,8 @@ public class GestorProducto implements IBuscador{
     private ArrayList<Object[]> arlDatosDetalleProducto;
     private ArrayList arlIdsPiezasDetalleProducto;
     private long idProducto;
+    private ArrayList<ViewDetalleProducto> arlDetalleAEliminar;
+    private LinkedList<ViewDetalleProducto> filasDetalle;
     public GestorProducto(){}
 
     public void buscarPiezas(final String valor)
@@ -134,7 +138,10 @@ public class GestorProducto implements IBuscador{
 
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-
+            //arlIdsPiezasDetalleProducto se crea y llena en el metodo crearDetalleProducto(prod)
+            //Acá podria pasar como parametros a prod, filasDetalle y cn en vez de arlIdsPiezasDetalleProducto
+            //y no usar el metodo crearDetalleProducto, el metodo prod.guardar() debería crear los detalles
+            //y guardarlos
             long idProd=prod.guardar(prod,arlIdsPiezasDetalleProducto, cn);
             result=idProd;
             cn.commit();
@@ -158,17 +165,72 @@ public class GestorProducto implements IBuscador{
         }
         return result;
     }
+    public long modificarProducto() {
+        Producto prod=new Producto();
+        prod.setDescripcion(descripcionProducto);
+        prod.setNombre(nombreProducto);
+        prod.setNroProducto(Integer.parseInt(numeroProducto));
+        prod.setPrecioUnitario(Float.parseFloat(precioUnitarioProducto));
+        prod.setDetalle(crearDetalleProducto(prod));
+
+        long result=-1;
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        try {
+
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            eliminarDetalleProducto(arlDetalleAEliminar, cn);
+            result=prod.modificar(idProducto,prod,filasDetalle, cn);
+
+            cn.commit();
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+//    private ArrayList crearDetalleProducto(Producto prod)
+//    {
+//        ArrayList arlDetalle=new ArrayList();
+//        Iterator<Object[]> iter=arlDatosDetalleProducto.iterator();
+//        Object[] datos=null;
+//        while(iter.hasNext())
+//        {
+//            datos=iter.next();
+//            int cant=Integer.parseInt(String.valueOf(datos[0]));
+//            String desc=String.valueOf(datos[1]);
+//            arlDetalle.add(prod.crearDetalleProducto(cant, desc));
+//        }
+//        if(!arlDetalle.isEmpty())return arlDetalle;
+//        else return null;
+//    }
 
     private ArrayList crearDetalleProducto(Producto prod)
     {
         ArrayList arlDetalle=new ArrayList();
-        Iterator<Object[]> iter=arlDatosDetalleProducto.iterator();
-        Object[] datos=null;
+        Iterator<ViewDetalleProducto> iter=filasDetalle.iterator();
+        arlIdsPiezasDetalleProducto=new ArrayList(filasDetalle.size());
+        ViewDetalleProducto datos=null;
         while(iter.hasNext())
         {
             datos=iter.next();
-            int cant=Integer.parseInt(String.valueOf(datos[0]));
-            String desc=String.valueOf(datos[1]);
+            arlIdsPiezasDetalleProducto.add(datos.getIdPieza());
+            int cant=datos.getCantidad();
+            String desc=datos.getDescripcion();
             arlDetalle.add(prod.crearDetalleProducto(cant, desc));
         }
         if(!arlDetalle.isEmpty())return arlDetalle;
@@ -208,5 +270,43 @@ public class GestorProducto implements IBuscador{
         }
         return arl;
     }
+
+    public void setDetalleAEliminar(ArrayList<ViewDetalleProducto> arlDetProdAEliminar) {
+        this.arlDetalleAEliminar=arlDetProdAEliminar;
+    }
+
+    private void eliminarDetalleProducto(ArrayList<ViewDetalleProducto> arl, Connection cn) {
+        String error="Error al eliminar el detalle de producto: ";
+        boolean flag=false;
+        if(!arl.isEmpty())
+        {
+            Iterator i=arl.iterator();
+            ViewDetalleProducto view=null;
+            int result=-1;
+            while(i.hasNext())
+            {
+                view=(ViewDetalleProducto) i.next();
+                result=DetalleProducto.eliminar(view.getIdDetalle(), cn);
+                //si el resultado es menor o igual a cero entonces no se elimino el detalle.
+                //se agrega a la cadena error el id del detalle y el nombre de la pieza
+                if(result<=0)
+                {
+                    error+="\n id detalle: "+view.getIdDetalle()+", pieza: "+view.getNombrePieza();
+                    flag=true;
+                }
+            }
+        }
+        if(flag)JOptionPane.showMessageDialog(null, error, "Error al eliminar Detalle Producto", JOptionPane.INFORMATION_MESSAGE, null);
+    }
+
+    public void setIdProducto(long idProducto) {
+        this.idProducto=idProducto;
+    }
+
+    public void setListaDetalle(LinkedList<ViewDetalleProducto> filas) {
+        filasDetalle=filas;
+    }
+
+
 
 }

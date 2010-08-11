@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.datos.dbobject.ProductoPK;
 import metalsoft.datos.exception.ProductoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.ProductoDAO;
@@ -102,6 +103,28 @@ public class AccessProducto {
             Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arl;
+    }
+
+    /**
+     * @param id el id del producto
+     * @param x el objeto producto de negocio
+     * @param cn objeto Connection
+     * @return la cantidad de elementos actualizados
+     * @exception
+     */
+    public static long update(long id,Producto x, Connection cn) {
+        long result=-1;
+        ProductoDAO dao=new DAOFactoryImpl().createProductoDAO();
+        ProductoDB db = null;
+
+        try {
+            db=Parser.parseToProductoDB(x);
+            db.setIdproducto(id);
+            result=dao.update(new ProductoPK(id),db, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
 }
