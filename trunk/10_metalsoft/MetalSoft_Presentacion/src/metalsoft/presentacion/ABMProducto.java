@@ -48,10 +48,12 @@ public class ABMProducto extends javax.swing.JFrame {
     private GestorProducto gestor;
     private ProductoDB productoDB;
     private ArrayList detalleProductoDB;
+    private ArrayList<ViewDetalleProducto> arlDetProdAEliminar;
     private ArrayList<ViewDetalleProducto> view;
-    private long idProducto;
+    private long idProducto=-1;
     //lista enlazada que contiene las filas de la tabla
-    private LinkedList<Object[]> filas=new LinkedList<Object[]>();
+//    private LinkedList<Object[]> filas=new LinkedList<Object[]>();
+    private LinkedList<ViewDetalleProducto> filas=new LinkedList<ViewDetalleProducto>();
     private EnumOpcionesABM opcion;
     /** Creates new form Producto */
     public ABMProducto() {
@@ -62,6 +64,7 @@ public class ABMProducto extends javax.swing.JFrame {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        setEnableComponents(false);
         gestor=new GestorProducto();
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         tblDetalleProducto.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -77,7 +80,8 @@ public class ABMProducto extends javax.swing.JFrame {
     }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        opcion=EnumOpcionesABM.NUEVO;
+        setEnableComponents(true);
     }
 
     private void addListenerBtnGuardar() {
@@ -97,26 +101,42 @@ public class ABMProducto extends javax.swing.JFrame {
         gestor.setNombreProducto(nombre);
         gestor.setNumeroProducto(numero);
         gestor.setPrecioUnitarioProducto(precioUnitario);
-        setListaDetalleGestor();
-        long result=gestor.registrarProducto();
+        gestor.setListaDetalle(filas);
+        long result=-1;
+        if(opcion==EnumOpcionesABM.NUEVO)
+        {
+            result=gestor.registrarProducto();
+        }
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+            gestor.setDetalleAEliminar(arlDetProdAEliminar);
+            gestor.setIdProducto(idProducto);
+            result=gestor.modificarProducto();
+        }
     }
+
+//    private void setListaDetalleGestor()
+//    {
+//        ArrayList arlIds,arlDatos;
+//        arlDatos=new ArrayList(filas.size());
+//        arlIds=new ArrayList(filas.size());
+////        Iterator<Object[]> iter=filas.iterator();
+//        Iterator<ViewDetalleProducto> iter=filas.iterator();
+//        ViewDetalleProducto datoFila=null;
+//        while(iter.hasNext())
+//        {
+//            datoFila=iter.next();
+//            int cant=Integer.parseInt(String.valueOf(datoFila.getCantidad()));
+//            String desc=String.valueOf(datoFila.getDescripcion());
+//            arlDatos.add(new Object[]{cant, desc});
+//            arlIds.add(datoFila.getIdPieza());
+//        }
+//        gestor.setListaDetalle(arlDatos,arlIds);
+//    }
 
     private void setListaDetalleGestor()
     {
-        ArrayList arlIds,arlDatos;
-        arlDatos=new ArrayList(filas.size());
-        arlIds=new ArrayList(filas.size());
-        Iterator<Object[]> iter=filas.iterator();
-        Object[] datoFila=null;
-        while(iter.hasNext())
-        {
-            datoFila=iter.next();
-            int cant=Integer.parseInt(String.valueOf(datoFila[2]));
-            String desc=String.valueOf(datoFila[1]);
-            arlDatos.add(new Object[]{cant, desc});
-            arlIds.add(datoFila[5]);
-        }
-        gestor.setListaDetalle(arlDatos,arlIds);
+        gestor.setListaDetalle(filas);
     }
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +147,10 @@ public class ABMProducto extends javax.swing.JFrame {
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        opcion=EnumOpcionesABM.MODIFICAR;
+        arlDetProdAEliminar=new ArrayList<ViewDetalleProducto>();
+        botones.getBtnModificar().setEnabled(false);
+        setEnableComponents(true);
     }
 
     private void addListenerBtnBuscar() {
@@ -177,6 +200,7 @@ public class ABMProducto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetalleProducto = new javax.swing.JTable();
+        btnQuitar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtNumero = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -204,21 +228,30 @@ public class ABMProducto extends javax.swing.JFrame {
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         jScrollPane2.setViewportView(tblDetalleProducto);
 
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                    .addComponent(btnQuitar))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnQuitar))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Producto"));
@@ -354,18 +387,18 @@ public class ABMProducto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -375,8 +408,8 @@ public class ABMProducto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -386,8 +419,8 @@ public class ABMProducto extends javax.swing.JFrame {
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
         ItemCombo item=(ItemCombo) lstResultadoBusqueda.getSelectedValue();
-        long id=Long.parseLong(item.getId());
-        Pieza p=gestor.buscarPiezaParaDetalleProducto(id);
+        long idPieza=Long.parseLong(item.getId());
+        Pieza p=gestor.buscarPiezaParaDetalleProducto(idPieza);
         JTextField txtCant=new JTextField("1");
         JTextArea txtDesc=new JTextArea("");
         JScrollPane scroll=new JScrollPane(txtDesc);
@@ -400,7 +433,7 @@ public class ABMProducto extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             String cant = txtCant.getText();
             String desc = txtDesc.getText();
-            agregarFila( p.getNombre(), desc, cant, p.getDimensiones(), p.getTipoMaterial().getNombre(),String.valueOf(id));
+            agregarFila( p.getNombre(), desc, Integer.parseInt(cant), p.getDimensiones(), p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
             tblDetalleProducto.updateUI();
         }
 
@@ -426,19 +459,49 @@ public class ABMProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNuevaPiezaActionPerformed
 
-    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String idPieza)
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        int selectedRow=tblDetalleProducto.getSelectedRow();
+        filas.remove(selectedRow);
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+            arlDetProdAEliminar.add(view.get(selectedRow));
+        }
+        tblDetalleProducto.updateUI();
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+//    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String idPieza)
+//    {
+//        //vector de tipo Object que contiene los datos de una fila
+//        Object[] datosFila = new Object[6];
+//        datosFila[0]=pieza;
+//        datosFila[1]=desc;
+//        datosFila[2]=cant;
+//        datosFila[3]=dim;
+//        datosFila[4]=mat;
+//        datosFila[5]=idPieza;
+//        filas.addLast(datosFila);
+//
+//    }
+
+    public void agregarFila(String pieza,String desc,int cant,String dim,String mat, long idPieza, long idDet, long idProd)
     {
         //vector de tipo Object que contiene los datos de una fila
-        Object[] datosFila = new Object[6];
-        datosFila[0]=pieza;
-        datosFila[1]=desc;
-        datosFila[2]=cant;
-        datosFila[3]=dim;
-        datosFila[4]=mat;
-        datosFila[5]=idPieza;
+        ViewDetalleProducto datosFila = new ViewDetalleProducto();
+        datosFila.setCantidad(cant);
+        datosFila.setDescripcion(desc);
+        datosFila.setDimensiones(dim);
+        datosFila.setIdDetalle(idDet);
+        datosFila.setIdPieza(idPieza);
+        datosFila.setIdProducto(idProd);
+        datosFila.setNombrePieza(pieza);
+        datosFila.setNombreTipoMaterial(mat);
         filas.addLast(datosFila);
     }
 
+    public void agregarFila(ViewDetalleProducto v)
+    {
+        filas.addLast(v);
+    }
     public void setIdProducto(long id) {
         idProducto=id;
     }
@@ -446,7 +509,7 @@ public class ABMProducto extends javax.swing.JFrame {
         productoDB=gestor.buscarProductoDB(idProducto);
         view=gestor.viewDetalleProducto(idProducto);
         mostrarDatosProducto();
-        
+        setEnableComponents(false);
     }
     private void mostrarDatosProducto()
     {
@@ -462,11 +525,23 @@ public class ABMProducto extends javax.swing.JFrame {
         while(i.hasNext())
         {
             v=(ViewDetalleProducto) i.next();
-            agregarFila(v.getNombrePieza(), v.getDescripcion(), String.valueOf(v.getCantidad()), v.getDimensiones(), v.getNombreTipoMaterial(), String.valueOf(v.getIdPieza()));
+            agregarFila(v);
         }
         tblDetalleProducto.updateUI();
     }
-
+    private void setEnableComponents(boolean b)
+    {
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
+        txtNumero.setEnabled(b);
+        txtPrecioUnitario.setEnabled(b);
+        txtValorBusqueda.setEnabled(b);
+        lstResultadoBusqueda.setEnabled(b);
+        tblDetalleProducto.setEnabled(b);
+        btnAgregarPieza.setEnabled(b);
+        btnNuevaPieza.setEnabled(b);
+        btnQuitar.setEnabled(b);
+    }
     /**
     * @param args the command line arguments
     */
@@ -482,6 +557,7 @@ public class ABMProducto extends javax.swing.JFrame {
     private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JButton btnAgregarPieza;
     private javax.swing.JButton btnNuevaPieza;
+    private javax.swing.JButton btnQuitar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -520,22 +596,23 @@ public class ABMProducto extends javax.swing.JFrame {
     public Object getValueAt(int rowIndex, int columnIndex)
     {
 
-      Object[] df=filas.get(rowIndex);
-      switch(columnIndex)
-      {
+        ViewDetalleProducto view=filas.get(rowIndex);
+//      Object[] df=filas.get(rowIndex);
+        switch(columnIndex)
+        {
         case 0:
-          return df[columnIndex];
+          return view.getNombrePieza();
         case 1:
-          return df[columnIndex];
+          return view.getDescripcion();
         case 2:
-          return df[columnIndex];
+          return String.valueOf(view.getCantidad());
         case 3:
-          return df[columnIndex];
+          return view.getDimensiones();
         case 4:
-          return df[columnIndex];
+          return view.getNombreTipoMaterial();
         default:
           return null;
-      }
+        }
 
     }
 
