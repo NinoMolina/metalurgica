@@ -72,6 +72,13 @@ public class Parser {
         c.setDimensiones(x.getDimensiones());
         return c;
     }
+    public static PiezaDB parseToPiezaDB(Pieza x)
+    {
+        PiezaDB piezaDB=new PiezaDB();
+        piezaDB.setDimensiones(x.getDimensiones());
+        piezaDB.setNombre(x.getNombre());
+        return piezaDB;
+    }
 
     public static CondicionIva[] parseToCondIva(Condicioniva[] ci) {
         if(ci==null) return null;
