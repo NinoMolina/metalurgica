@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
@@ -305,6 +306,10 @@ public class GestorProducto implements IBuscador{
 
     public void setListaDetalle(LinkedList<ViewDetalleProducto> filas) {
         filasDetalle=filas;
+    }
+
+    public JComboBox getCombo() {
+        return null;
     }
 
 
