@@ -98,9 +98,10 @@ public class PiezaDAOImpl implements PiezaDAO
 	public int insert(PiezaDB pieza ,Connection con)throws PiezaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, DIMENSIONES, MATERIAPRIMA, MATRIZ) values (?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, DIMENSIONES, MATERIAPRIMA, MATRIZ) values (?, ?, ?, ?, ?)RETURNING idpieza");
 				ps.setString(1,pieza.getNombre());
 
                 long idtm=pieza.getTipomaterial();
@@ -117,8 +118,9 @@ public class PiezaDAOImpl implements PiezaDAO
 				if(idM>0)ps.setLong(5,idM);
                 else ps.setNull(5, java.sql.Types.NULL);
 				
-
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+                return (int)rs.getLong(1);
 		}catch(SQLException sqle){throw new PiezaException(sqle);}
 		catch(Exception e){throw new PiezaException(e);}
 	}
