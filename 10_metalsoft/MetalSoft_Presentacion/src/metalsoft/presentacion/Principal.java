@@ -65,6 +65,7 @@ public class Principal extends javax.swing.JFrame {
         mnuCompras = new javax.swing.JMenu();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
+        mniPieza = new javax.swing.JMenuItem();
         mniProducto = new javax.swing.JMenuItem();
         mniPresupuesto = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
@@ -96,6 +97,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuVentas.add(mniCliente);
+
+        mniPieza.setText("Pieza");
+        mniPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPiezaActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniPieza);
 
         mniProducto.setText("Producto");
         mniProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +209,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniPresupuestoActionPerformed
 
+    private void mniPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniPiezaActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMPieza.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniPiezaActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -209,6 +230,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniListadoClientes;
+    private javax.swing.JMenuItem mniPieza;
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenu mnuAyuda;
