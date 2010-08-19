@@ -11,7 +11,6 @@
 
 package metalsoft.presentacion;
 
-import com.lowagie.text.Anchor;
 import metalsoft.negocio.gestores.IBuscador;
 import java.util.ArrayList;
 import java.util.Iterator;
