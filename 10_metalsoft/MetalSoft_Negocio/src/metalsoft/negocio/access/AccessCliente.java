@@ -91,4 +91,18 @@ public class AccessCliente {
         }
         return result;
     }
+
+    public static ClienteDB[] findByRazonsocialILIKE(String valor, Connection cn) {
+        ClienteDB[] x=null;
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        Object[] sqlParams=new Object[0];
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
+        try {
+            x = dao.findExecutingUserWhere("razonsocial ILIKE '"+valor+"%'", sqlParams, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return x;
+    }
 }
