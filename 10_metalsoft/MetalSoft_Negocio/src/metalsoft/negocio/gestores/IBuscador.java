@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import javax.swing.JComboBox;
 import javax.swing.JList;
 
 /**
@@ -13,5 +14,6 @@ import javax.swing.JList;
  */
 public interface IBuscador {
     public JList getList();
+    public JComboBox getCombo();
     public void setBusqueda(Object[] obj);
 }
