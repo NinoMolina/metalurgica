@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import javax.swing.JList;
 import metalsoft.util.Fecha;
 import java.sql.Time;
 import java.util.Timer;
@@ -19,6 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import metalsoft.negocio.gestores.GestorPedidoCotizacion;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.ventas.Cliente;
 import org.jdesktop.swingx.JXBusyLabel;
 
@@ -26,10 +29,11 @@ import org.jdesktop.swingx.JXBusyLabel;
  *
  * @author Vicky
  */
-public class ABMPedidoCotizacion extends javax.swing.JFrame {
+public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador{
 
     private static Timer timer;
     private HiloBuscarCliente hiloBuscarCliente;
+    private GestorPedidoCotizacion gestor;
     private static Cliente[] clientes;
     /** Creates new form ABMPedidoCotizacion */
     public ABMPedidoCotizacion() {
@@ -105,8 +109,9 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar Pedidos de Cotización");
+        setMinimumSize(new java.awt.Dimension(640, 580));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Pedido Cotización"));
@@ -447,11 +452,11 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField13ActionPerformed
 
     private void cmbResultadoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResultadoBusquedaActionPerformed
-        if(cmbResultadoBusqueda.getSelectedIndex()>=0)
-        {
-            lblCondIva.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getIva().getNombre());
-            lblCuit.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getCUIT());
-        }
+//        if(cmbResultadoBusqueda.getSelectedIndex()>=0)
+//        {
+//            lblCondIva.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getIva().getNombre());
+//            lblCuit.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getCUIT());
+//        }
     }//GEN-LAST:event_cmbResultadoBusquedaActionPerformed
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
@@ -590,5 +595,21 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaPedidoCotizacion;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
+
+    public GestorPedidoCotizacion getGestor()
+    {
+        return gestor;
+    }
+    public JList getList() {
+        return null;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        
+    }
+
+    public JComboBox getCombo() {
+        return cmbResultadoBusqueda;
+    }
 
 }
