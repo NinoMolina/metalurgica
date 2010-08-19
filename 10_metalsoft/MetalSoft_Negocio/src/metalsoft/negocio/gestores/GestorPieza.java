@@ -289,6 +289,31 @@ public class GestorPieza
         return piezas;
 
     }
+    public metalsoft.datos.dbobject.PiezaDB buscarPieza(long id)
+    {
+        PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
+        Connection cn=null;
+        metalsoft.datos.dbobject.PiezaDB pie=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PiezaPK pk=new PiezaPK(id);
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
+        try {
+            pie = dao.findByPrimaryKey(pk, cn);
+            cn.close();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //metalsoft.negocio.ventas.Pieza[] pnegocio=parseToPieza(piezas);
+
+        return pie;
+
+    }
 
     public boolean modificarPieza(long idpieza, String nombre, String dimensiones, long idTM, long idMP, long idMa) {
         
@@ -354,42 +379,6 @@ public class GestorPieza
     }
 
 
-    public int devolverposicionTipoMaterial(long id)
-    {
-        if(id==-1) return -1;
-            for(int i=0;i<tipoMaterial.length;i++)
-            {
-                if(tipoMaterial[i].getIdtipomaterial()==id)
-                {
-                    return i+1;
-                }
-            }
-            return -1;
-    }
-     public int devolverposicionMateriaPrima(long id)
-     {
-         if(id==-1) return 0;
-            for(int i=0;i<materiaPrima.length;i++)
-            {
-                if(materiaPrima[i].getIdmateriaprima()==id)
-                {
-                    return i+1;
-                }
-            }
-            return 0;
-     }
-     public int devolverposicionMatriz(long id)
-     {
-         if(id==-1) return 0;
-            for(int i=0;i<matriz.length;i++)
-            {
-                if(matriz[i].getIdmatriz()==id)
-                {
-                    return i+1;
-                }
-            }
-        return 0;
-    }
 
 
 
