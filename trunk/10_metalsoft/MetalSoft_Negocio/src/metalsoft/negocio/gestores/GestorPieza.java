@@ -32,6 +32,7 @@ import metalsoft.negocio.produccion.Matriz;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.idao.MateriaprimaDAO;
+import metalsoft.negocio.access.AccessPieza;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.produccion.PiezaReal;
 
@@ -304,24 +305,24 @@ public class GestorPieza
         
         //realizo la modificación
         PiezaDB modificado=new PiezaDB();
+        modificado.setIdpieza(idpieza);
         modificado.setDimensiones(dimensiones);
         modificado.setNombre(nombre);
         modificado.setTipomaterial(idTM);
         modificado.setMateriaprima(idMP);
         modificado.setMatriz(idMa);
-        int result=-1;
-        try {
-            result = dao.update(new PiezaPK(idpieza), modificado, cn);
-        } catch (PiezaException ex) {
-            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PiezaPK pie=new PiezaPK(idpieza);
+
+        long cantidadFilas=AccessPieza.modificarPieza(modificado, pie, cn);
+        
         try {
             cn.close();
         } catch (SQLException ex) {
             Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(result>0)return true;
+        if(cantidadFilas>0) return true;
         else return false;
+        
     }
 
     public boolean eliminarPieza(long idpieza) {
