@@ -13,16 +13,18 @@ package metalsoft.presentacion;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.gestores.IBuscador;
 
 /**
  *
  * @author Nino
  */
-public class ABMCliente_Buscar extends javax.swing.JFrame {
+public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
 
     private GestorCliente gestor=null;
     private ABMCliente ventana=null;
@@ -140,7 +142,7 @@ public class ABMCliente_Buscar extends javax.swing.JFrame {
                 @Override
                 public void run() {
                     hiloBuscarCliente=new HiloBuscarCliente();
-                    hiloBuscarCliente.setVentanaBuscar(abm);
+                    hiloBuscarCliente.setVentana(abm);
                     hiloBuscarCliente.setValor(txtValor.getText());
                     hiloBuscarCliente.start();
                 }
@@ -195,6 +197,18 @@ public class ABMCliente_Buscar extends javax.swing.JFrame {
 
     void setVentanaCliente(ABMCliente abm) {
         ventana=abm;
+    }
+
+    public JList getList() {
+        return lstLista;
+    }
+
+    public JComboBox getCombo() {
+        return null;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
