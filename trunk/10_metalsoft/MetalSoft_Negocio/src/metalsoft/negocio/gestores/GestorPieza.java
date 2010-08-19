@@ -291,7 +291,7 @@ public class GestorPieza
     }
 
     public boolean modificarPieza(long idpieza, String nombre, String dimensiones, long idTM, long idMP, long idMa) {
-        PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
+        
         Connection cn=null;
         
         try {
