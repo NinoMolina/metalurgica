@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.util.Combo;
 
 
 /**
@@ -329,12 +330,11 @@ public class ABMPieza extends javax.swing.JFrame {
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
+        long idTipoMaterial=Long.parseLong(((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId());
+        long idMateriaPrima=Long.parseLong(((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId());
+        long idMatriz=Long.parseLong(((ItemCombo)cmbMatriz.getSelectedItem()).getId());
 
-        String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
-        String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
-
-        gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), indexTipoMaterial, indexMateriaPrima, indexMatriz);
+        gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), idTipoMaterial, idMateriaPrima, idMatriz);
 
         JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
         limpiar();
@@ -432,9 +432,10 @@ public class ABMPieza extends javax.swing.JFrame {
         txtDimensiones.setText(piezaDB.getDimensiones());
         idpieza.setText(String.valueOf(piezaDB.getIdpieza()));
 
-        cmbTipoMaterial.setSelectedIndex((int)(piezaDB.getTipomaterial()));
-        cmbMateriaPrima.setSelectedIndex((int)(piezaDB.getMateriaprima()));
-        cmbMatriz.setSelectedIndex((int)(piezaDB.getMatriz()));
+        Combo.setItemComboSeleccionado(cmbTipoMaterial, piezaDB.getTipomaterial());
+        Combo.setItemComboSeleccionado(cmbMateriaPrima, piezaDB.getMateriaprima());
+        Combo.setItemComboSeleccionado(cmbMatriz, piezaDB.getMatriz());
+        
     }
 
 }
