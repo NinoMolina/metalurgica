@@ -219,22 +219,11 @@ public class GestorPieza
     
    }
 
-   public int guardar(String nombre, String dimensiones, String indexTM, String indexMP, String indexMa) {
+   public int guardar(String nombre, String dimensiones, long idTM, long idMP, long idMa) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         PiezaDB p=new PiezaDB();
         p.setNombre(nombre);
         p.setDimensiones(dimensiones);
-        long idTM=-1;
-        long idMP=-1;
-        long idMa=-1;
-
-        int iTM=Integer.parseInt(indexTM);
-        if(iTM!=-1) idTM=tipoMaterial[iTM].getIdtipomaterial();
-        int iMP=Integer.parseInt(indexMP);
-        if(iMP!=-1) materiaPrima[iMP].getIdmateriaprima();
-        int iMa=Integer.parseInt(indexMa);
-        if(iMa!=-1) idMa=matriz[iMa].getIdmatriz();
-        
         p.setTipomaterial(idTM);
         p.setMateriaprima(idMP);
         p.setMatriz(idMa);
