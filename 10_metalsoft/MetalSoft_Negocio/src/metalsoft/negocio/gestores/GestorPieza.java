@@ -622,7 +622,7 @@ public class GestorPieza
             for(int i=0;i<tipoMaterial.length;i++)
             {
                 item=new ItemCombo();
-                item.setId(String.valueOf(i));
+                item.setId(String.valueOf(tipoMaterial[i].getIdtipomaterial()));
                 item.setMostrar(tipoMaterial[i].getNombre());
                 combo.addItem(item);
             }
@@ -651,7 +651,7 @@ public class GestorPieza
             for(int i=0;i<materiaPrima.length;i++)
             {
                 item=new ItemCombo();
-                item.setId(String.valueOf(i));
+                item.setId(String.valueOf(materiaPrima[i].getIdmateriaprima()));
                 item.setMostrar(materiaPrima[i].getNombre());
                 combo.addItem(item);
             }
@@ -679,7 +679,7 @@ public class GestorPieza
             for(int i=0;i<matriz.length;i++)
             {
                 item=new ItemCombo();
-                item.setId(String.valueOf(i));
+                item.setId(String.valueOf(matriz[i].getIdmatriz()));
                 item.setMostrar(matriz[i].getNombre());
                 combo.addItem(item);
             }
