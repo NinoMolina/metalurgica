@@ -10,6 +10,7 @@
  */
 
 package metalsoft.presentacion;
+import javax.swing.JComboBox;
 import metalsoft.negocio.gestores.HiloBuscarPieza;
 import metalsoft.negocio.gestores.IBuscador;
 import java.util.Timer;
@@ -250,6 +251,10 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
 
     public void setBusqueda(Object[] obj) {
         piezasDB=(metalsoft.datos.dbobject.PiezaDB[]) obj;
+    }
+
+    public JComboBox getCombo() {
+        return null;
     }
 
 }
