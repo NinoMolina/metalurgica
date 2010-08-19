@@ -214,19 +214,10 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        metalsoft.datos.dbobject.PiezaDB x=piezasDB[lstPieza.getSelectedIndex()];
-       // ventana.setPieza(x);
-        ventana.getTxtNombre().setText(x.getNombre());
-        ventana.getTxtDimensiones().setText(x.getDimensiones());
-        ventana.getIdpieza().setText(String.valueOf(x.getIdpieza()));
-        int posicionTM=gestor.devolverposicionTipoMaterial(x.getTipomaterial());
-        int posicionMP=gestor.devolverposicionMateriaPrima(x.getMateriaprima());
-        int posicionMa=gestor.devolverposicionMatriz(x.getMatriz());
-
-        ventana.getCmbTipoMaterial().setSelectedIndex(posicionTM);
-        ventana.getCmbMateriaPrima().setSelectedIndex(posicionMP);
-        ventana.getCmbMatriz().setSelectedIndex(posicionMa);
-
+        long idPieza=Long.parseLong(((ItemCombo)lstPieza.getSelectedValue()).getId());
+        ventana.setIdPieza(idPieza);
+        ventana.piezaSeleccionada();
+        
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
