@@ -27,7 +27,16 @@ import metalsoft.negocio.gestores.GestorPieza;
  */
 public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
-    private metalsoft.datos.dbobject.PiezaDB pieza;
+    private metalsoft.datos.dbobject.PiezaDB piezaDB;
+    private long idPieza=-1;
+
+    public long getIdPieza() {
+        return idPieza;
+    }
+
+    public void setIdPieza(long idPieza) {
+        this.idPieza = idPieza;
+    }
 
     public JLabel getIdpieza() {
         return idpieza;
@@ -78,11 +87,11 @@ public class ABMPieza extends javax.swing.JFrame {
     }
 
     public metalsoft.datos.dbobject.PiezaDB getPieza() {
-        return pieza;
+        return piezaDB;
     }
 
     public void setPieza(metalsoft.datos.dbobject.PiezaDB pieza) {
-        this.pieza = pieza;
+        this.piezaDB = pieza;
     }
     /** Creates new form ABMPieza */
     public ABMPieza() {
@@ -106,7 +115,12 @@ public class ABMPieza extends javax.swing.JFrame {
     {
         gestorPieza.obtenerTipoMaterial(cmbTipoMaterial);
     }
-
+    public void piezaSeleccionada()
+    {
+        piezaDB=gestorPieza.buscarPieza(idPieza);
+        mostrarDatosProducto();
+        
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -412,5 +426,15 @@ public class ABMPieza extends javax.swing.JFrame {
     private javax.swing.JTextField txtDimensiones;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarDatosProducto() {
+        txtNombre.setText(piezaDB.getNombre());
+        txtDimensiones.setText(piezaDB.getDimensiones());
+        idpieza.setText(String.valueOf(piezaDB.getIdpieza()));
+
+        cmbTipoMaterial.setSelectedIndex((int)(piezaDB.getTipomaterial()));
+        cmbMateriaPrima.setSelectedIndex((int)(piezaDB.getMateriaprima()));
+        cmbMatriz.setSelectedIndex((int)(piezaDB.getMatriz()));
+    }
 
 }
