@@ -6,6 +6,7 @@
 package metalsoft.presentacion;
 
 
+import java.sql.Connection;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,8 +14,11 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.negocio.access.AccessCliente;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.ventas.Cliente;
 
 /**
@@ -23,8 +27,7 @@ import metalsoft.negocio.ventas.Cliente;
  */
 public class HiloBuscarCliente extends Thread {
     private Timer timer;
-    private ABMPedidoCotizacion ventana;
-    private ABMCliente_Buscar ventanaBuscar;
+    private IBuscador client;
     private String valor;
 
     @Override
@@ -32,20 +35,12 @@ public class HiloBuscarCliente extends Thread {
         buscarClientes();
     }
 
-    public ABMPedidoCotizacion getVentana() {
-        return ventana;
+    public IBuscador getVentana() {
+        return client;
     }
 
-    public ABMCliente_Buscar getVentanaBuscar() {
-        return ventanaBuscar;
-    }
-
-    public void setVentanaBuscar(ABMCliente_Buscar ventanaBuscar) {
-        this.ventanaBuscar = ventanaBuscar;
-    }
-
-    public void setVentana(ABMPedidoCotizacion ventana) {
-        this.ventana = ventana;
+    public void setVentana(IBuscador ventana) {
+        this.client = ventana;
     }
 
     public String getValor() {
@@ -58,27 +53,51 @@ public class HiloBuscarCliente extends Thread {
 
     private void buscarClientes()
     {
-        metalsoft.datos.dbobject.ClienteDB[] clientes=ventanaBuscar.getGestor().buscarClientes(getValor());
-        JList combo=ventanaBuscar.getLstLista();
-        combo.removeAll();
-        cargarCombo(combo,clientes);
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(HiloBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        metalsoft.datos.dbobject.ClienteDB[] clientes=AccessCliente.findByRazonsocialILIKE(valor,cn);
+        JList list=client.getList();
+        JComboBox combo=client.getCombo();
+        if(list!=null)
+        {
+            list.removeAll();
+            cargarLista(list,clientes);
+        }
+        if(combo!=null)
+        {
+            combo.removeAllItems();
+            cargarCombo(combo, clientes);
+        }
+
     }
 
     public void iniciarTimer() {
         timer=new Timer(true);
     }
 
-    private void cargarCombo(JList combo, metalsoft.datos.dbobject.ClienteDB[] clientes) {
+    private void cargarLista(JList list, metalsoft.datos.dbobject.ClienteDB[] clientes) {
         ItemCombo item=null,items[]=new ItemCombo[clientes.length];
         for(int i=0;i<clientes.length;i++)
         {
             item=new ItemCombo(String.valueOf(clientes[i].getIdcliente()), clientes[i].getRazonsocial());
             items[i]=item;
         }
-        combo.setListData(items);
+        list.setListData(items);
+    }
+    private void cargarCombo(JComboBox combo, metalsoft.datos.dbobject.ClienteDB[] clientes) {
+        ItemCombo item=null;
+        for(int i=0;i<clientes.length;i++)
+        {
+            item=new ItemCombo(String.valueOf(clientes[i].getIdcliente()), clientes[i].getRazonsocial());
+            combo.addItem(item);
+        }
     }
 
-    private void cargarCombo(JList combo, ItemCombo[] items) {
+    private void cargarLista(JList combo, ItemCombo[] items) {
         combo.setListData(items);
     }
 
