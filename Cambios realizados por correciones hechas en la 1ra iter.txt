@@ -1,0 +1,10 @@
+Cambios realizados en base a las correciones hechas por Mairen:
+
+se agregó la clase unidad de medida (mat prima) y afecta a la ejecución del CU 55(reg mat Prima) y 64( regist etapa producc) xq se debe mostrar un combo y no una caja de texto.
+se agrego un paquete: Gestion de Cobros, incluye CU: 28, 34-42.
+Se cambió el nombre del paquete Gestión de Ventas por Gestión de Pedidos y Cotizaciones.
+Se cambió el actor del sist Responsable Web por Cliente Web.
+Los Planes para generar el presupuesto cambiaron en el nombre la palabra Registrar por generar.( hay q explicar a Mairen lo q hacen porq da la sensacion de q no entendio q hacen )
+A las mquinas 
+Hay que imprimir prototipos de interfaz
+Se eliminó el CU 59: modifiacr precio de materia prima porq hacia lo mismo ql el CU:50. Registrar lista de Precios de materias Primas
