@@ -8,6 +8,7 @@ package metalsoft.negocio.gestores;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetalleproductoDB;
+import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
@@ -212,5 +213,32 @@ public class Parser {
         db.setNroproducto(x.getNroProducto());
         db.setPreciounitario(x.getPrecioUnitario());
         return db;
+    }
+    public static EtapadeproduccionDB parseToEtapaDeProduccionDB(metalsoft.negocio.ventas.EtapaDeProduccion x)
+    {
+        EtapadeproduccionDB db=new EtapadeproduccionDB();
+        if(x.getDuracionEstimadaXUnidMed()!=null)
+            db.setDuracionestimada(new java.sql.Time(x.getDuracionEstimadaXUnidMed().getTime()));
+        else
+            db.setDuracionestimada(null);
+        if(x.getFechaCreacion()!=null)
+            db.setFechacreacion(new java.sql.Date(x.getFechaCreacion().getTime()));
+        else
+            db.setFechacreacion(null);
+        if(x.getHorasHombre()!=null)
+            db.setHorashombre(new java.sql.Time(x.getHorasHombre().getTime()));
+        else
+            db.setHorashombre(null);
+        if(x.getHorasMaquina()!=null)
+            db.setHorasmaquina(new java.sql.Time(x.getHorasMaquina().getTime()));
+        else
+            db.setHorasmaquina(null);
+        //db.setIdetapaproduccion(x.getNumeroEtapa());
+        //db.setMaquina(x.getMaquina());
+        db.setNombre(x.getNombre());
+        db.setNroetapaproduccion(x.getNumeroEtapa());
+
+        return db;
+
     }
 }
