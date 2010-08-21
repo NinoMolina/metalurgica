@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.lang.model.type.NullType;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.dbobject.Etapadeproduccion;
+import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.Materiaprima;
 import metalsoft.datos.dbobject.MateriaprimaPK;
 import metalsoft.datos.dbobject.PiezaDB;
@@ -42,7 +42,7 @@ public class GestorPieza
    private PiezaDB[] piezas;
    private Tipomaterial[] tipoMaterial;
    private Materiaprima[] materiaPrima;
-   private Etapadeproduccion[] etapaDeProduccion;
+   private EtapadeproduccionDB[] etapaDeProduccion;
    private metalsoft.datos.dbobject.Matriz[] matriz;
    private metalsoft.datos.dbobject.Piezareal[] piezaReal;
 
@@ -354,6 +354,7 @@ public class GestorPieza
 
         int result=-1;
         try {
+
             result = dao.delete(new PiezaPK(idpieza), cn);
         } catch (PiezaException ex) {
             Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
@@ -559,7 +560,7 @@ public class GestorPieza
         return x;
     }
     //ETAPA DE PRODUCCION
-     private metalsoft.negocio.ventas.EtapaDeProduccion parseToEtapaDeProduccion(Etapadeproduccion ep) {
+     private metalsoft.negocio.ventas.EtapaDeProduccion parseToEtapaDeProduccion(EtapadeproduccionDB ep) {
         if(ep==null)return null;
 
         metalsoft.negocio.ventas.EtapaDeProduccion x=new metalsoft.negocio.ventas.EtapaDeProduccion();
