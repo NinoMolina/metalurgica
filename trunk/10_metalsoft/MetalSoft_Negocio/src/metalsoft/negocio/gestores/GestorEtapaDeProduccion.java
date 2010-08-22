@@ -36,12 +36,28 @@ public class GestorEtapaDeProduccion {
 
     public EtapadeproduccionDB[] buscarConILIKE(String valor) {
         Connection cn=null;
+        PostgreSQLManager pg=null;
+        EtapadeproduccionDB[] db=null;
         try {
-            cn = new PostgreSQLManager().concectGetCn();
+            pg=new PostgreSQLManager();
+            cn = pg.concectGetCn();
+            db=AccessEtapaDeProduccion.findByNombreILIKE(valor,cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return AccessEtapaDeProduccion.findByNombreILIKE(valor,cn);
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return db;
+    }
+
+    public EtapadeproduccionDB buscarEtapaDeProduccionId(long idEtapaDeProduccion) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
      public boolean eliminarEtapaDeProduccion(long id) {
