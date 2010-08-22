@@ -18,8 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
 import metalsoft.util.Combo;
+import metalsoft.negocio.ventas.EtapaDeProduccion;
+import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -27,13 +31,30 @@ import metalsoft.util.Combo;
  */
 public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 
-    private GestorPieza gestorPieza;
-    private metalsoft.datos.dbobject.PiezaDB piezaDB;
-    private long idPieza=-1;
+    private GestorEtapaDeProduccion gestor;
+    private EtapadeproduccionDB etapaDeProduccionDB;
+    private long idEtapaDeProduccion=-1;
+    private EnumOpcionesABM opcion;
     /** Creates new form ABMEtapaDeProduccion */
     public ABMEtapaDeProduccion() {
         initComponents();
+        gestor=new GestorEtapaDeProduccion();
+        cargarComboMaquina();
 
+    }
+
+    public void etapaSeleccionada() {
+        etapaDeProduccionDB=gestor.buscarEtapaDeProduccionId(idEtapaDeProduccion);
+        mostrarDatosEtapaDeProduccion();
+    }
+
+    public void setIdEtapa(long id) {
+        idEtapaDeProduccion=id;
+    }
+
+    private void cargarComboMaquina() {
+        cmbmaquinas.removeAllItems();
+        gestor.obtenerMaquinas(cmbmaquinas);
     }
 
     /** This method is called from within the constructor to
@@ -58,13 +79,15 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         txtduracion = new javax.swing.JTextField();
         txtunidadmedida = new javax.swing.JTextField();
         txtFechaCreacion = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnnuevo = new javax.swing.JButton();
+        btnguardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbmaquinas = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        txtNroEtapa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,17 +111,17 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Nuevo");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnnuevo.setText("Nuevo");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnnuevoActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Guardar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnguardarActionPerformed(evt);
             }
         });
 
@@ -116,7 +139,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setText("Salir");
+        btnSalir.setText("Salir");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +148,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel8.setText("Numero Etapa:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,6 +157,18 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(btnnuevo)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnModificar)
+                        .add(8, 8, 8)
+                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnEliminar)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                        .add(btnguardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnSalir))
                     .add(layout.createSequentialGroup()
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -154,23 +189,15 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                         .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txtFechaCreacion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jButton6)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnModificar)
-                        .add(8, 8, 8)
-                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnEliminar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
-                        .add(jButton9)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton10))
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                            .add(jLabel8)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(txtNroEtapa))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                             .add(jLabel2)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(cmbmaquinas, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                             .add(jLabel1)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -179,15 +206,19 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(25, 25, 25)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8)
+                    .add(txtNroEtapa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(txtnombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(cmbmaquinas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
@@ -208,11 +239,11 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(txtFechaCreacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton10)
-                    .add(jButton9)
-                    .add(jButton6)
+                    .add(btnSalir)
+                    .add(btnguardar)
+                    .add(btnnuevo)
                     .add(btnModificar)
                     .add(btnBuscar)
                     .add(btnEliminar))
@@ -226,16 +257,31 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtunidadmedidaActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jButton6ActionPerformed
+}//GEN-LAST:event_btnnuevoActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        GestorTipoMaterial gestor=new GestorTipoMaterial();
-        int id=gestor.guardarTipoMaterial(txtNombre.getText(),txtDescripcion.getText());
-        if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó el siguiente TipoMaterial: "+txtNombre.getText());
-        else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
-}//GEN-LAST:event_jButton9ActionPerformed
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        EtapaDeProduccion ep=new EtapaDeProduccion();
+        ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
+        ep.setFechaCreacion(Fecha.parseToDate(txtFechaCreacion.getText()));
+        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
+        ep.setHorasMaquina(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
+        ep.setNombre(txtnombre.getText());
+        ep.setNumeroEtapa(Long.parseLong(txtNroEtapa.getText()));
+        long id;
+        if(opcion==EnumOpcionesABM.NUEVO)
+        {   
+            id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId());
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+        }
+
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+            id=gestor.modificarEtapaDeProduccion(ep,, idMaquina)
+        }
+}//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         GestorTipoMaterial gestor=new GestorTipoMaterial();
@@ -245,23 +291,20 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        GestorTipoMaterial gestor=new GestorTipoMaterial();
-        boolean ok=gestor.modificarTipoMaterial(tipoMaterial, txtNombre.getText(),txtDescripcion.getText());
-        if(ok)JOptionPane.showMessageDialog(this, "Modificación Realizada!");
-        else JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
+
 }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        ABMTipoMaterial_Buscar buscar=null;
+        ABMEtapaDeProduccion_Buscar buscar=null;
         try {
-            buscar=(ABMTipoMaterial_Buscar) JFrameManager.crearVentana(ABMTipoMaterial_Buscar.class.getName());
-            buscar.setVentanaTipoMaterial(this);
+            buscar=(ABMEtapaDeProduccion_Buscar) JFrameManager.crearVentana(ABMEtapaDeProduccion_Buscar.class.getName());
+            buscar.setVentana(this);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -280,10 +323,10 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnnuevo;
+    private javax.swing.JComboBox cmbmaquinas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -291,7 +334,9 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtFechaCreacion;
+    private javax.swing.JTextField txtNroEtapa;
     private javax.swing.JTextField txtduracion;
     private javax.swing.JTextField txthorashombre;
     private javax.swing.JTextField txthorasmaquina;
