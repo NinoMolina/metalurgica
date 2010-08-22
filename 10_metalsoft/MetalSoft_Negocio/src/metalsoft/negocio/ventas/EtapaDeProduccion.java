@@ -27,7 +27,14 @@ public class EtapaDeProduccion
    public long guardarEtapaDeProduccion(EtapaDeProduccion et,long idMaquina,Connection cn)
    {
        long result=-1;
-       result=AccessEtapaDeProduccion.registrarPieza(et, idMaquina, cn);
+       result=AccessEtapaDeProduccion.insert(et, idMaquina, cn);
+
+       return result;
+   }
+   public long modificarEtapaDeProduccion(EtapaDeProduccion et,long idEtapaDeProduccion,long idMaquina,Connection cn)
+   {
+       long result=-1;
+       result=AccessEtapaDeProduccion.update(et, idEtapaDeProduccion, idMaquina, cn);
 
        return result;
    }
