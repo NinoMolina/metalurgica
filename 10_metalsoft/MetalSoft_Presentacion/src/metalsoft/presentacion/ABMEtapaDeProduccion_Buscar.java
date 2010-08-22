@@ -146,7 +146,8 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
                 }
             }, 1500);
         }
-    }
+}//GEN-LAST:event_txtValorKeyReleased
+
 
     public JList getLstLista() {
         return lstLista;
@@ -162,8 +163,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
 
     public void setTxtValor(JTextField txtValor) {
         this.txtValor = txtValor;
-}//GEN-LAST:event_txtValorKeyReleased
-
+    }
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
         ventana.setIdEtapa(id);
