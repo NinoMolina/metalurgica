@@ -17,19 +17,19 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface EtapadeproduccionDAO
 {
-	public int insert(Etapadeproduccion etapadeproduccion, Connection con ) throws EtapadeproduccionException;
-	public int update(EtapadeproduccionPK etapadeproduccionpk, Etapadeproduccion etapadeproduccion, Connection con) throws EtapadeproduccionException;
+	public int insert(EtapadeproduccionDB etapadeproduccion, Connection con ) throws EtapadeproduccionException;
+	public int update(EtapadeproduccionPK etapadeproduccionpk, EtapadeproduccionDB etapadeproduccion, Connection con) throws EtapadeproduccionException;
 	public int delete(EtapadeproduccionPK etapadeproduccionpk, Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion findByPrimaryKey(EtapadeproduccionPK etapadeproduccionpk , Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findAll(Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByIdetapaproduccion(long idetapaproduccion,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByNroetapaproduccion(long nroetapaproduccion,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByNombre(String nombre,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByHorasmaquina(Time horasmaquina,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByHorashombre(Time horashombre,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByMaquina(long maquina,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByDuracionestimada(Time duracionestimada,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findByFechacreacion(Date fechacreacion,Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EtapadeproduccionException;
-	public Etapadeproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB findByPrimaryKey(EtapadeproduccionPK etapadeproduccionpk , Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findAll(Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByIdetapaproduccion(long idetapaproduccion,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByNroetapaproduccion(long nroetapaproduccion,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByNombre(String nombre,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByHorasmaquina(Time horasmaquina,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByHorashombre(Time horashombre,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByMaquina(long maquina,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByDuracionestimada(Time duracionestimada,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByFechacreacion(Date fechacreacion,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EtapadeproduccionException;
 }
