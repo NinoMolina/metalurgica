@@ -22,7 +22,21 @@ import metalsoft.negocio.ventas.EtapaDeProduccion;
  * @author Vicky
  */
 public class AccessEtapaDeProduccion {
-    public static long registrarPieza(EtapaDeProduccion etapaDeProduccion,long idmaquina, Connection cn) {
+
+    public static EtapadeproduccionDB[] findByNombreILIKE(String valor, Connection cn) {
+        EtapadeproduccionDB[] x=null;
+        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
+        Object[] sqlParams=new Object[0];
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
+        try {
+            x = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return x;
+    }
+    public static long insert(EtapaDeProduccion etapaDeProduccion,long idmaquina, Connection cn) {
         long result=-1;
         EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
         metalsoft.datos.dbobject.EtapadeproduccionDB etapaDeProduccionDB = null;
@@ -39,7 +53,7 @@ public class AccessEtapaDeProduccion {
         return result;
     }
 
-    public static long modificarPieza(EtapaDeProduccion etapaDeProduccion,long idEtapaDeProduccion,long idmaquina, Connection cn) {
+    public static long update(EtapaDeProduccion etapaDeProduccion,long idEtapaDeProduccion,long idmaquina, Connection cn) {
         long result=-1;
         EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
 
@@ -53,28 +67,6 @@ public class AccessEtapaDeProduccion {
             result=dao.update(pk,etapaDeProduccionDB, cn);
         } catch (EtapadeproduccionException ex) {
             Logger.getLogger(AccessEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
-    public static long registrarPieza(EtapadeproduccionDB etapaDeProduccionDB, Connection cn) {
-        long result=-1;
-        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
-
-        try {
-            result=dao.insert(etapaDeProduccionDB, cn);
-        } catch (EtapadeproduccionException ex) {
-            Logger.getLogger(AccessPieza.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
-
-    public static long modificarPieza(EtapadeproduccionDB etapaDeProduccionDB, EtapadeproduccionPK pk, Connection cn) {
-        long result=-1;
-        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
-        try {
-            result=dao.update(pk,etapaDeProduccionDB, cn);
-        } catch (EtapadeproduccionException ex) {
-            Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
