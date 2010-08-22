@@ -70,5 +70,18 @@ public class AccessEtapaDeProduccion {
         }
         return result;
     }
+    public static long delete(long id, Connection cn)
+    {
+        long result=-1;
+        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
+
+        EtapadeproduccionPK pk=new EtapadeproduccionPK(id);
+        try {
+            result=dao.delete(pk, cn);
+        } catch (EtapadeproduccionException ex) {
+            Logger.getLogger(AccessEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
 }
