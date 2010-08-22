@@ -17,7 +17,9 @@ import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MaquinaDB;
+import metalsoft.datos.exception.EtapadeproduccionException;
 import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.EtapadeproduccionDAO;
 import metalsoft.datos.idao.MaquinaDAO;
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.negocio.access.AccessMaquina;
@@ -42,6 +44,29 @@ public class GestorEtapaDeProduccion {
         return AccessEtapaDeProduccion.findByNombreILIKE(valor,cn);
     }
 
+     public boolean eliminarEtapaDeProduccion(long id) {
+        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
+        Connection cn=null;
+
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        //realizo la eliminación
+
+        long result=-1;
+            result = AccessEtapaDeProduccion.delete(id, cn);
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result>0)return true;
+        else return false;
+    }
 
     public long guardarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion,String idMaquina)
     {
