@@ -68,7 +68,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 				ps.setString(2,etapadeproduccion.getNombre());
 				ps.setTime(3,etapadeproduccion.getHorasmaquina());
 				ps.setTime(4,etapadeproduccion.getHorashombre());
-				ps.setLong(5,etapadeproduccion.getMaquina());
+                long idmaq=etapadeproduccion.getMaquina();
+                if(idmaq>0) ps.setLong(5,etapadeproduccion.getMaquina());
+                else ps.setNull(5,java.sql.Types.NULL);
+				
 				ps.setTime(6,etapadeproduccion.getDuracionestimada());
 				ps.setDate(7,etapadeproduccion.getFechacreacion());
 				ps.setLong(8,etapadeproduccionpk.getIdetapaproduccion());
