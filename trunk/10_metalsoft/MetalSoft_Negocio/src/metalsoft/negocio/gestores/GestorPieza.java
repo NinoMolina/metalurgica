@@ -559,21 +559,7 @@ public class GestorPieza
 
         return x;
     }
-    //ETAPA DE PRODUCCION
-     private metalsoft.negocio.ventas.EtapaDeProduccion parseToEtapaDeProduccion(EtapadeproduccionDB ep) {
-        if(ep==null)return null;
-
-        metalsoft.negocio.ventas.EtapaDeProduccion x=new metalsoft.negocio.ventas.EtapaDeProduccion();
-        x.setNombre(ep.getNombre());
-        x.setNumeroEtapa(ep.getNroetapaproduccion());
-        x.setHorasMaquina(new Date(ep.getHorasmaquina().getTime()));
-        x.setHorasHombre(new Date(ep.getHorashombre().getTime()));
-        x.setDuracionEstimadaXUnidMed(new Date(ep.getDuracionestimada().getTime()));
-        x.setFechaCreacion(ep.getFechacreacion());
-        //java.sql.Time t=new Time(new Date().getTime());
-
-        return x;
-    }
+    
     //PIEZA REAL
      private PiezaReal parseToPiezaReal(Piezareal pr) {
         if(pr==null)return null;
