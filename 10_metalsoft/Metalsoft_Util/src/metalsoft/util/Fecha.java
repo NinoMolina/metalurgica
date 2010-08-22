@@ -94,6 +94,14 @@ public class Fecha {
 
         return f;
     }
+    public static java.sql.Date parseToDateSQL(Date date)
+    {
+        return new java.sql.Date(date.getTime());
+    }
+    public static java.sql.Time parseToTimeSQL(Date date)
+    {
+        return new java.sql.Time(date.getTime());
+    }
 
     public static Date parseToHourMinuteSecond(String fecha)
     {
