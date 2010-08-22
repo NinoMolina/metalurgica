@@ -2,7 +2,19 @@
 
 package metalsoft.negocio.gestores;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.PrioridadDB;
+import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.PrioridadDAO;
+import metalsoft.negocio.access.AccessPrioridad;
 import metalsoft.negocio.ventas.Cliente;
+import metalsoft.util.Combo;
+import metalsoft.util.ItemCombo;
 
 
 public class GestorPedidoCotizacion 
@@ -243,5 +255,34 @@ public class GestorPedidoCotizacion
     public Cliente[] buscarClientes(String valor) {
         GestorPedidoCotizacionDB gestordb=new GestorPedidoCotizacionDB();
         return gestordb.buscarClientes(valor);
+    }
+
+    public void obtenerPrioridades(JComboBox combo) {
+        PrioridadDB[] prioridades=null;
+        Connection cn=null;
+        PostgreSQLManager pg=null;
+        combo.removeAllItems();
+        try {
+            pg=new PostgreSQLManager();
+            cn=pg.concectGetCn();
+            prioridades = AccessPrioridad.findAll(cn);
+
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<prioridades.length;i++)
+            {
+                Combo.cargarCombo(combo, String.valueOf(prioridades[i].getIdprioridad()), prioridades[i].getNombre());
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorGenerarPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
