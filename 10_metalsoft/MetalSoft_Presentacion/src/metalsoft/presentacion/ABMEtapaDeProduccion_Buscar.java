@@ -25,6 +25,14 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame {
     private ABMEtapaDeProduccion ventana;
     private Timer timer;
     private GestorEtapaDeProduccion gestor;
+
+    public GestorEtapaDeProduccion getGestor() {
+        return gestor;
+    }
+
+    public ABMEtapaDeProduccion getVentana() {
+        return ventana;
+    }
     /** Creates new form ABMEtapaDeProduccion_Buscar */
     public ABMEtapaDeProduccion_Buscar() {
         initComponents();
