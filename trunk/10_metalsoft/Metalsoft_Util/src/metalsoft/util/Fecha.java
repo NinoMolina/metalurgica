@@ -38,6 +38,14 @@ public class Fecha {
         return formato.format(fecha);
     }
 
+    /*
+     * @param -fecha: la fecha a convertir a String
+     * @param -formatoFecha: el formato en String a utilizar
+     * para convertir la fecha, por ejemplo: "dd/MM/yyyy", para usar sólo la fecha.
+     * "hh:mm:ss", para obtener sólo la hora minuto y segundo. También se puede hacer cualquier
+     * convinación de estos, por ejemplo: "'La fecha es 'dd/MM/yyyy' y la hora es 'hh:mm:ss".
+     * @return la fecha convertida a String segun el formato indicado
+     */
     public static String parseToString(Date fecha, String formatoFecha)
     {
         SimpleDateFormat formato = new SimpleDateFormat(formatoFecha);
@@ -111,5 +119,6 @@ public class Fecha {
         
         String s=parseToHourMinuteSecond(new Date());
         System.out.println(s);
+        
     }
 }
