@@ -64,6 +64,15 @@ public class GestorEtapaDeProduccion {
         } catch (SQLException ex) {
             Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            try {
+                cn.close();
+                cn=null;
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         if(result>0)return true;
         else return false;
     }
