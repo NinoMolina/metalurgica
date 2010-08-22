@@ -21,6 +21,7 @@ import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
 import metalsoft.negocio.ventas.Pieza;
+import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 /**
  *
@@ -218,7 +219,7 @@ public class Parser {
     {
         EtapadeproduccionDB db=new EtapadeproduccionDB();
         if(x.getDuracionEstimadaXUnidMed()!=null)
-            db.setDuracionestimada(new java.sql.Time(x.getDuracionEstimadaXUnidMed().getTime()));
+            db.setDuracionestimada(Fecha.parseToTimeSQL(x.getDuracionEstimadaXUnidMed()));
         else
             db.setDuracionestimada(null);
         if(x.getFechaCreacion()!=null)
