@@ -42,6 +42,10 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
         initComponents();
     }
 
+    void setVentana(ABMEtapaDeProduccion ventana) {
+        this.ventana=ventana;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -4,10 +4,15 @@
  */
 
 package metalsoft.presentacion;
+import java.sql.Connection;
 import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JList;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 
+import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.util.ItemCombo;
 /**
  *
@@ -38,9 +43,18 @@ public class HiloBuscarEtapaDeProduccion extends Thread {
         this.valor = valor;
     }
 
+
     private void buscarEtapaDeProduccion()
     {
-        EtapadeproduccionDB[] etapaDeProduccionDB=ventana.getGestor().buscarConILIKE(getValor());
+        Connection cn=null;
+        PostgreSQLManager pg=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        EtapadeproduccionDB[] etapaDeProduccionDB=AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
         JList combo=ventana.getLstLista();
         combo.removeAll();
         cargarCombo(combo,etapaDeProduccionDB);
