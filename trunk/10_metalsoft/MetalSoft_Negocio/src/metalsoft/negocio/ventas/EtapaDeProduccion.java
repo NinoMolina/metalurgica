@@ -2,8 +2,10 @@
 
 package metalsoft.negocio.ventas;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.Timer;
+import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
 import metalsoft.negocio.mantmaquinarias.Maquina;
 import metalsoft.negocio.rrhh.Empleado;
@@ -21,6 +23,14 @@ public class EtapaDeProduccion
    public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion;
    public Maquina theMaquina;
    public Empleado theEmpleado;
+
+   public long guardarEtapaDeProduccion(EtapaDeProduccion et,long idMaquina,Connection cn)
+   {
+       long result=-1;
+       result=AccessEtapaDeProduccion.registrarPieza(et, idMaquina, cn);
+
+       return result;
+   }
 
     public Date getDuracionEstimadaXUnidMed() {
         return duracionEstimadaXUnidMed;
