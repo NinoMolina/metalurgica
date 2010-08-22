@@ -19,6 +19,11 @@ public class Combo {
         for(int i=0;i<items.length;i++)
             combo.addItem(items[i]);
     }
+    public static void cargarCombo(JComboBox combo, String id, String mostrar)
+    {
+        ItemCombo item=new ItemCombo(id,mostrar);
+        combo.addItem(item);
+    }
     public static void setItemComboSeleccionado(JComboBox cmb, long id) {
         int length=cmb.getItemCount();
         ItemCombo item=null;
