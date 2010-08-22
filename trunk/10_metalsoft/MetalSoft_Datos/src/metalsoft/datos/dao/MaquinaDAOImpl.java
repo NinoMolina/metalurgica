@@ -53,12 +53,12 @@ public class MaquinaDAOImpl implements MaquinaDAO
 /**
 * This method updates a record in table MAQUINA
 * @param MaquinaPK
-* @param Maquina
+* @param MaquinaDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(MaquinaPK maquinapk, Maquina maquina, Connection con)throws MaquinaException{
+	public int update(MaquinaPK maquinapk, MaquinaDB maquina, Connection con)throws MaquinaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -78,12 +78,12 @@ public class MaquinaDAOImpl implements MaquinaDAO
 /**
 * This method inserts data in table MAQUINA
 *
-* @param Maquina maquina
+* @param MaquinaDB maquina
 * @param   Connection con
 * @return  MaquinaPK
 */
 
-	public int insert(Maquina maquina ,Connection con)throws MaquinaException {
+	public int insert(MaquinaDB maquina ,Connection con)throws MaquinaException {
 
 		PreparedStatement ps = null;
 		try
@@ -106,7 +106,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * 
 */
 
-	public Maquina findByPrimaryKey(long idmaquina, Connection con) throws MaquinaException{
+	public MaquinaDB findByPrimaryKey(long idmaquina, Connection con) throws MaquinaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -129,10 +129,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * 
 * @param  MaquinaPK maquinapk
 * @param Connection con
-* @return  Maquina
+* @return  MaquinaDB
 */
 
-	public Maquina findByPrimaryKey(MaquinaPK maquinapk, Connection con) throws MaquinaException{
+	public MaquinaDB findByPrimaryKey(MaquinaPK maquinapk, Connection con) throws MaquinaException{
 		return findByPrimaryKey(maquinapk.getIdmaquina(), con);
 	}
 
@@ -142,10 +142,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   long  idmaquina
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByIdmaquina(long idmaquina, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByIdmaquina(long idmaquina, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where idmaquina = ? order by idmaquina";
@@ -169,10 +169,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByNombre(String nombre, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByNombre(String nombre, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where nombre = ? order by nombre";
@@ -196,10 +196,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   long  marca
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByMarca(long marca, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByMarca(long marca, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where marca = ? order by marca";
@@ -223,10 +223,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   String  descripcion
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByDescripcion(String descripcion, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByDescripcion(String descripcion, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where descripcion = ? order by descripcion";
@@ -250,10 +250,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   long  estado
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByEstado(long estado, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByEstado(long estado, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where estado = ? order by estado";
@@ -277,10 +277,10 @@ public class MaquinaDAOImpl implements MaquinaDAO
 *
 * @param   long  tipomaquina
 * @param   Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	public Maquina[] findByTipomaquina(long tipomaquina, Connection con) throws MaquinaException{
+	public MaquinaDB[] findByTipomaquina(long tipomaquina, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where tipomaquina = ? order by tipomaquina";
@@ -302,11 +302,11 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * Returns all rows from maquina table 
 *
 * @param Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 *
 */
 
-	public Maquina[] findAll( Connection con) throws MaquinaException{
+	public MaquinaDB[] findAll( Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina";
@@ -330,11 +330,11 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 *
 */
 
-	public Maquina[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MaquinaException{
+	public MaquinaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -361,11 +361,11 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Maquina[]
+* @return  MaquinaDB[]
 *
 */
 
-	public Maquina[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MaquinaException{
+	public MaquinaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina";
@@ -391,14 +391,14 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Maquina
+* @return  MaquinaDB
 *
 */
 
-	protected Maquina fetchSingleResult(ResultSet rs) throws SQLException
+	protected MaquinaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Maquina dto = new Maquina();
+					MaquinaDB dto = new MaquinaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -410,12 +410,12 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Maquina dto
+* @param MaquinaDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Maquina dto, ResultSet rs) throws SQLException
+	protected void populateVO(MaquinaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdmaquina(rs.getLong("idmaquina"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -430,18 +430,18 @@ public class MaquinaDAOImpl implements MaquinaDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Maquina[]
+* @return  MaquinaDB[]
 */
 
-	protected Maquina[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected MaquinaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Maquina dto = new Maquina();
+			MaquinaDB dto = new MaquinaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Maquina ret[] = new Maquina[ resultList.size() ];
+		MaquinaDB ret[] = new MaquinaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
