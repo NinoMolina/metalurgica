@@ -32,15 +32,18 @@ import org.jdesktop.swingx.JXBusyLabel;
 public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador{
 
     private static Timer timer;
-    private HiloBuscarCliente hiloBuscarCliente;
     private GestorPedidoCotizacion gestor;
+    private HiloBuscarCliente hiloBuscarCliente;
+
     private static Cliente[] clientes;
     /** Creates new form ABMPedidoCotizacion */
     public ABMPedidoCotizacion() {
         initComponents();
+        gestor=new GestorPedidoCotizacion();
         timer=new Timer();
         bsyBuscar.setVisible(false);
         txtFechaPedidoCotizacion.setText(Fecha.fechaActual());
+        cargarComboPrioridad();
     }
 
     /** This method is called from within the constructor to
@@ -82,7 +85,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbPrioridad = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         cmbResultadoBusqueda = new javax.swing.JComboBox();
         txtRazonSocial = new javax.swing.JTextField();
@@ -154,8 +157,6 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Selección de Cliente"));
 
         cmbResultadoBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +179,11 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         jLabel15.setText("Cliente:");
 
         jButton2.setText("Agregar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setText("Cond. Iva:");
 
@@ -271,7 +277,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(cmbPrioridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +327,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cmbPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(52, 52, 52)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -530,6 +536,10 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         }
     }//GEN-LAST:event_txtRazonSocialKeyReleased
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -543,6 +553,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar;
+    private javax.swing.JComboBox cmbPrioridad;
     private javax.swing.JComboBox cmbResultadoBusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -553,7 +564,6 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -605,11 +615,17 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
 
     public void setBusqueda(Object[] obj) {
-        
+        bsyBuscar.setBusy(false);
+        bsyBuscar.setVisible(false);
     }
 
     public JComboBox getCombo() {
         return cmbResultadoBusqueda;
+    }
+
+    private void cargarComboPrioridad() {
+        cmbPrioridad.removeAllItems();
+        gestor.obtenerPrioridades(cmbPrioridad);
     }
 
 }
