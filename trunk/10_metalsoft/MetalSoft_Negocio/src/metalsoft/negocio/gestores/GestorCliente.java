@@ -15,7 +15,7 @@ import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DomicilioDB;
 import metalsoft.datos.dbobject.Estadocliente;
 
-import metalsoft.datos.dbobject.Prioridad;
+import metalsoft.datos.dbobject.PrioridadDB;
 import metalsoft.datos.dbobject.Provincia;
 import metalsoft.datos.dbobject.Tipodocumento;
 import metalsoft.datos.exception.BarrioException;
@@ -43,7 +43,7 @@ public class GestorCliente
 {
    private Condicioniva[] condicionesIva=null;
    private CondicionIva[] cinegocio=null;
-   private Prioridad[] prioridades=null;
+   private PrioridadDB[] prioridades=null;
    private Estadocliente[] estados=null;
    private Provincia[] provincias=null;
    private metalsoft.datos.dbobject.Localidad[] localidades=null;
