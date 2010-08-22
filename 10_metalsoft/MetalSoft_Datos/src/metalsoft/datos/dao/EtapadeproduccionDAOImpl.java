@@ -54,12 +54,12 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 /**
 * This method updates a record in table ETAPADEPRODUCCION
 * @param EtapadeproduccionPK
-* @param Etapadeproduccion
+* @param EtapadeproduccionDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(EtapadeproduccionPK etapadeproduccionpk, Etapadeproduccion etapadeproduccion, Connection con)throws EtapadeproduccionException{
+	public int update(EtapadeproduccionPK etapadeproduccionpk, EtapadeproduccionDB etapadeproduccion, Connection con)throws EtapadeproduccionException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -81,17 +81,18 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 /**
 * This method inserts data in table ETAPADEPRODUCCION
 *
-* @param Etapadeproduccion etapadeproduccion
+* @param EtapadeproduccionDB etapadeproduccion
 * @param   Connection con
 * @return  EtapadeproduccionPK
 */
 
-	public int insert(Etapadeproduccion etapadeproduccion ,Connection con)throws EtapadeproduccionException {
+	public int insert(EtapadeproduccionDB etapadeproduccion ,Connection con)throws EtapadeproduccionException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into ETAPADEPRODUCCION( NROETAPAPRODUCCION, NOMBRE, HORASMAQUINA, HORASHOMBRE, MAQUINA, DURACIONESTIMADA, FECHACREACION) values (?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into ETAPADEPRODUCCION( NROETAPAPRODUCCION, NOMBRE, HORASMAQUINA, HORASHOMBRE, MAQUINA, DURACIONESTIMADA, FECHACREACION) values (?, ?, ?, ?, ?, ?, ?)RETURNING idetapaproduccion");
 				ps.setLong(1,etapadeproduccion.getNroetapaproduccion());
 				ps.setString(2,etapadeproduccion.getNombre());
 				ps.setTime(3,etapadeproduccion.getHorasmaquina());
@@ -100,7 +101,9 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 				ps.setTime(6,etapadeproduccion.getDuracionestimada());
 				ps.setDate(7,etapadeproduccion.getFechacreacion());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+                return (int)rs.getLong("idetapaproduccion");
 		}catch(SQLException sqle){throw new EtapadeproduccionException(sqle);}
 		catch(Exception e){throw new EtapadeproduccionException(e);}
 	}
@@ -111,7 +114,7 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * 
 */
 
-	public Etapadeproduccion findByPrimaryKey(long idetapaproduccion, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB findByPrimaryKey(long idetapaproduccion, Connection con) throws EtapadeproduccionException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -134,10 +137,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * 
 * @param  EtapadeproduccionPK etapadeproduccionpk
 * @param Connection con
-* @return  Etapadeproduccion
+* @return  EtapadeproduccionDB
 */
 
-	public Etapadeproduccion findByPrimaryKey(EtapadeproduccionPK etapadeproduccionpk, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB findByPrimaryKey(EtapadeproduccionPK etapadeproduccionpk, Connection con) throws EtapadeproduccionException{
 		return findByPrimaryKey(etapadeproduccionpk.getIdetapaproduccion(), con);
 	}
 
@@ -147,10 +150,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   long  idetapaproduccion
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByIdetapaproduccion(long idetapaproduccion, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByIdetapaproduccion(long idetapaproduccion, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where idetapaproduccion = ? order by idetapaproduccion";
@@ -174,10 +177,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   long  nroetapaproduccion
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByNroetapaproduccion(long nroetapaproduccion, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByNroetapaproduccion(long nroetapaproduccion, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where nroetapaproduccion = ? order by nroetapaproduccion";
@@ -201,10 +204,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByNombre(String nombre, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByNombre(String nombre, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where nombre = ? order by nombre";
@@ -228,10 +231,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   Time  horasmaquina
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByHorasmaquina(Time horasmaquina, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByHorasmaquina(Time horasmaquina, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where horasmaquina = ? order by horasmaquina";
@@ -255,10 +258,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   Time  horashombre
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByHorashombre(Time horashombre, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByHorashombre(Time horashombre, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where horashombre = ? order by horashombre";
@@ -282,10 +285,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   long  maquina
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByMaquina(long maquina, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByMaquina(long maquina, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where maquina = ? order by maquina";
@@ -309,10 +312,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   Time  duracionestimada
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByDuracionestimada(Time duracionestimada, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByDuracionestimada(Time duracionestimada, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where duracionestimada = ? order by duracionestimada";
@@ -336,10 +339,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 *
 * @param   Date  fechacreacion
 * @param   Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	public Etapadeproduccion[] findByFechacreacion(Date fechacreacion, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findByFechacreacion(Date fechacreacion, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion where fechacreacion = ? order by fechacreacion";
@@ -361,11 +364,11 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * Returns all rows from etapadeproduccion table 
 *
 * @param Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 *
 */
 
-	public Etapadeproduccion[] findAll( Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findAll( Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion";
@@ -389,11 +392,11 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 *
 */
 
-	public Etapadeproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -420,11 +423,11 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 *
 */
 
-	public Etapadeproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EtapadeproduccionException{
+	public EtapadeproduccionDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EtapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idetapaproduccion, nroetapaproduccion, nombre, horasmaquina, horashombre, maquina, duracionestimada, fechacreacion from etapadeproduccion";
@@ -450,14 +453,14 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Etapadeproduccion
+* @return  EtapadeproduccionDB
 *
 */
 
-	protected Etapadeproduccion fetchSingleResult(ResultSet rs) throws SQLException
+	protected EtapadeproduccionDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Etapadeproduccion dto = new Etapadeproduccion();
+					EtapadeproduccionDB dto = new EtapadeproduccionDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -469,12 +472,12 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Etapadeproduccion dto
+* @param EtapadeproduccionDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Etapadeproduccion dto, ResultSet rs) throws SQLException
+	protected void populateVO(EtapadeproduccionDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdetapaproduccion(rs.getLong("idetapaproduccion"));
 		 dto.setNroetapaproduccion(rs.getLong("nroetapaproduccion"));
@@ -491,18 +494,18 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Etapadeproduccion[]
+* @return  EtapadeproduccionDB[]
 */
 
-	protected Etapadeproduccion[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected EtapadeproduccionDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Etapadeproduccion dto = new Etapadeproduccion();
+			EtapadeproduccionDB dto = new EtapadeproduccionDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Etapadeproduccion ret[] = new Etapadeproduccion[ resultList.size() ];
+		EtapadeproduccionDB ret[] = new EtapadeproduccionDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
