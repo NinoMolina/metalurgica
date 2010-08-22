@@ -32,6 +32,16 @@ import metalsoft.util.ItemCombo;
  */
 public class GestorEtapaDeProduccion {
 
+    public EtapadeproduccionDB[] buscarConILIKE(String valor) {
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return AccessEtapaDeProduccion.findByNombreILIKE(valor,cn);
+    }
+
 
     public long guardarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion,String idMaquina)
     {
