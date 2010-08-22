@@ -12,19 +12,23 @@
 package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.util.ItemCombo;
 /**
  *
  * @author Vicky
  */
-public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame {
+public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements IBuscador{
 
     private ABMEtapaDeProduccion ventana;
     private Timer timer;
-    private GestorEtapaDeProduccion gestor;
+    private GestorEtapaDeProduccion gestor=null;
+    private EtapadeproduccionDB[] etapasDB;
 
     public GestorEtapaDeProduccion getGestor() {
         return gestor;
@@ -162,20 +166,11 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdProducto(id);
-        ventana.productoSeleccionado();
+        ventana.setIdEtapa(id);
+        ventana.etapaSeleccionada();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMEtapaDeProduccion_Buscar().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
@@ -184,5 +179,18 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame {
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    public JList getList() {
+        return lstLista;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        etapasDB=(EtapadeproduccionDB[]) obj;
+    }
+
+    public JComboBox getCombo() {
+        return null;
+    }
+
 
 }
