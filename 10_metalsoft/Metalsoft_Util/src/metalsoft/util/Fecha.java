@@ -5,6 +5,7 @@
 
 package metalsoft.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +22,13 @@ public class Fecha {
     {
         Date fecha=new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(fecha);
+    }
+
+    public static String fechaHoraMinutoSegundoActual()
+    {
+        Date fecha=new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         return formato.format(fecha);
     }
 
@@ -74,6 +82,34 @@ public class Fecha {
         } catch (ParseException ex) {
             Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
         return f;
+    }
+
+    public static Date parseToHourMinuteSecond(String fecha)
+    {
+        Date f=null;
+        SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
+        try {
+            f = formato.parse(fecha);
+        } catch (ParseException ex) {
+            Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return f;
+    }
+
+    public static String parseToHourMinuteSecond(Date fecha)
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
+        return formato.format(fecha);
+    }
+
+
+    public static void main(String args[])
+    {
+        
+        String s=parseToHourMinuteSecond(new Date());
+        System.out.println(s);
     }
 }
