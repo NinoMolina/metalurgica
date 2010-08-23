@@ -62,6 +62,7 @@ public class HiloBuscarCliente extends Thread {
         metalsoft.datos.dbobject.ClienteDB[] clientes=AccessCliente.findByRazonsocialILIKE(valor,cn);
         JList list=client.getList();
         JComboBox combo=client.getCombo();
+        client.setBusqueda(clientes);
         if(list!=null)
         {
             list.removeAll();
