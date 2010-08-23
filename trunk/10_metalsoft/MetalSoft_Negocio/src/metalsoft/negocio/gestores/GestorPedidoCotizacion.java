@@ -4,6 +4,8 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import metalsoft.negocio.access.AccessPrioridad;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.EstadoPedido;
+import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
@@ -25,6 +28,20 @@ import metalsoft.util.ItemCombo;
 
 public class GestorPedidoCotizacion 
 {
+    private int nroPedidoCliente;
+    private int nroFactura;
+    private String motivoCancelacion;
+    private Date fechaCancelacion;
+    private Date fechaConfirmacionPedido;
+    private Date fechaEntregaReal;
+    private Date fechaEntregaEstipulada;
+    private Date fechaRequeridaCotizacion;
+    private Date fechaPedidoCotizacion;
+    private long idEstado;
+    private long idPrioridad;
+    private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
+    private int nroPedido;
+    private long idPedido;
    
    /**
     * @roseuid 4C2036120340
@@ -109,9 +126,54 @@ public class GestorPedidoCotizacion
    /**
     * @roseuid 4C1FF60D01D7
     */
-   public void registrarPedidoCotizacion() 
+   public long registrarPedidoCotizacion()
    {
-    
+        Pedido p=new Pedido();
+        p.setEsPedidoWeb(false);
+        p.setFechaCancelacion(fechaCancelacion);
+        p.setFechaConfirmacionPedido(fechaConfirmacionPedido);
+        p.setFechaEntregaEstipulada(fechaEntregaEstipulada);
+        p.setFechaEntregaReal(fechaEntregaReal);
+        p.setFechaPedidoCotizacion(fechaPedidoCotizacion);
+        p.setFechaRegistroPedidoCotizacion(fechaPedidoCotizacion);
+        p.setFechaRequeridaCotizacion(fechaRequeridaCotizacion);
+        p.setMotivoCancelacion(motivoCancelacion);
+        p.setNroPedCotizCliente(nroPedidoCliente);
+        p.setNroPedido(nroPedido);
+
+        long result=-1;
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        try {
+
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            //arlIdsPiezasDetalleProducto se crea y llena en el metodo crearDetalleProducto(prod)
+            //Acá podria pasar como parametros a prod, filasDetalle y cn en vez de arlIdsPiezasDetalleProducto
+            //y no usar el metodo crearDetalleProducto, el metodo prod.guardar() debería crear los detalles
+            //y guardarlos
+            long id=p.guardar(p,idEstado,idPrioridad,filasDetallePedido, cn);
+            result=id;
+            cn.commit();
+            idPedido=result;
+
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
    }
    
    /**
@@ -359,6 +421,58 @@ public class GestorPedidoCotizacion
             }
         }
         return view;
+    }
+
+    public void setNroPedidoCliente(int nroPedidoCliente) {
+        this.nroPedidoCliente=nroPedidoCliente;
+    }
+
+    public void setNroFactura(int nroFactura) {
+        this.nroFactura=nroFactura;
+    }
+
+    public void setMotivoCancelacion(String motivoCancelacion) {
+        this.motivoCancelacion=motivoCancelacion;
+    }
+
+    public void setFechaCancelacion(Date fechaCancelacion) {
+        this.fechaCancelacion=fechaCancelacion;
+    }
+
+    public void setConfirmacionPedido(Date fechaConfirmacionPedido) {
+        this.fechaConfirmacionPedido=fechaConfirmacionPedido;
+    }
+
+    public void setFechaEntregaReal(Date fechaEntregaReal) {
+        this.fechaEntregaReal=fechaEntregaReal;
+    }
+
+    public void setFechaEntregaEstipulada(Date fechaEntregaEstipulada) {
+        this.fechaEntregaEstipulada=fechaEntregaEstipulada;
+    }
+
+    public void setFechaRequeridaCotizacion(Date fechaRequeridaCotizacion) {
+        this.fechaRequeridaCotizacion=fechaRequeridaCotizacion;
+    }
+
+    public void setFechaPedidoCotizacion(Date fechaPedidoCotizacion) {
+        this.fechaPedidoCotizacion=fechaPedidoCotizacion;
+    }
+
+    public void setIdEstado(long idEstado) {
+        this.idEstado=idEstado;
+    }
+
+    public void setIdPrioridad(long idPrioridad) {
+        this.idPrioridad=idPrioridad;
+    }
+
+    public void setListaDetalle(LinkedList<ViewDetallePedidoCotizacion> filas) {
+        this.filasDetallePedido=filas;
+    }
+
+    public void setNroPedido(int nroPedido) {
+        this.nroPedido=nroPedido;
     }
 
 
