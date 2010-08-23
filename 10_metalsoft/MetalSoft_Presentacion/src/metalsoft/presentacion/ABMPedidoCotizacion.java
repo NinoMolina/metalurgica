@@ -103,8 +103,9 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        String nroPedidoCliente=txtNroPedidoCliente.getText();
-        String nroFactura=txtNroFactura.getText();
+        int nroPedidoCliente=Integer.parseInt(txtNroPedidoCliente.getText());
+        int nroPedido=Integer.parseInt(lblNroPedido.getText());
+        int nroFactura=Integer.parseInt(txtNroFactura.getText());
         String motivoCancelacion=txtMotivoCancelacion.getText();
         Date fechaCancelacion=dccCancelacion.getSelectedDate().getTime();
         Date fechaConfirmacionPedido=dccConfirmacionPedido.getSelectedDate().getTime();
@@ -112,24 +113,35 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         Date fechaEntregaEstipulada=dccEtregaEstipulada.getSelectedDate().getTime();
         Date fechaRequeridaCotizacion=dccFechaReqCotizacion.getSelectedDate().getTime();
         Date fechaPedidoCotizacion=dccPedidoCotizacion.getSelectedDate().getTime();
-        String idEstado=((ItemCombo)cmbEstado.getSelectedItem()).getId();
-        String idPrioridad=((ItemCombo)cmbPrioridad.getSelectedItem()).getId();
-//        gestor.setDescripcionProducto(descripcion);
-//        gestor.setNombreProducto(nombre);
-//        gestor.setNumeroProducto(numero);
-//        gestor.setPrecioUnitarioProducto(precioUnitario);
-//        gestor.setListaDetalle(filas);
-//        long result=-1;
-//        if(opcion==EnumOpcionesABM.NUEVO)
-//        {
-//            result=gestor.registrarProducto();
-//        }
-//        if(opcion==EnumOpcionesABM.MODIFICAR)
-//        {
-//            gestor.setDetalleAEliminar(arlDetProdAEliminar);
+        long idEstado=Long.parseLong(((ItemCombo)cmbEstado.getSelectedItem()).getId());
+        long idPrioridad=Long.parseLong(((ItemCombo)cmbPrioridad.getSelectedItem()).getId());
+
+        gestor.setNroPedidoCliente(nroPedidoCliente);
+        gestor.setNroPedido(nroPedido);
+        gestor.setNroFactura(nroFactura);
+        gestor.setMotivoCancelacion(motivoCancelacion);
+        gestor.setFechaCancelacion(fechaCancelacion);
+        gestor.setConfirmacionPedido(fechaConfirmacionPedido);
+        gestor.setFechaEntregaReal(fechaEntregaReal);
+        gestor.setFechaEntregaEstipulada(fechaEntregaEstipulada);
+        gestor.setFechaRequeridaCotizacion(fechaRequeridaCotizacion);
+        gestor.setFechaPedidoCotizacion(fechaPedidoCotizacion);
+        gestor.setIdEstado(idEstado);
+        gestor.setIdPrioridad(idPrioridad);
+
+        gestor.setListaDetalle(filas);
+
+        long result=-1;
+        if(opcion==EnumOpcionesABM.NUEVO)
+        {
+            result=gestor.registrarPedidoCotizacion();
+        }
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+//            gestor.setDetalleAEliminar(arlDetallePedCotAEliminar);
 //            gestor.setIdProducto(idProducto);
 //            result=gestor.modificarProducto();
-//        }
+        }
     }
 
 //    private void setListaDetalleGestor()
