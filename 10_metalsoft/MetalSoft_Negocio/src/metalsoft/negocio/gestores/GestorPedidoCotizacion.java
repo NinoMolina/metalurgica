@@ -8,11 +8,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.EstadopedidoDB;
 import metalsoft.datos.dbobject.PrioridadDB;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PrioridadDAO;
+import metalsoft.negocio.access.AccessEstadoPedido;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPrioridad;
+import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.ventas.Cliente;
+import metalsoft.negocio.ventas.EstadoPedido;
+import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
 
@@ -111,9 +117,27 @@ public class GestorPedidoCotizacion
    /**
     * @roseuid 4C1FF60D01D8
     */
-   public void generarNumeroPedido() 
+   public int generarNumeroPedido()
    {
-    
+       int result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroPedido(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
    }
    
    /**
@@ -285,4 +309,57 @@ public class GestorPedidoCotizacion
             }
         }
     }
+
+    public void obtenerEstados(JComboBox combo) {
+        EstadopedidoDB[] vDB=null;
+        Connection cn=null;
+        PostgreSQLManager pg=null;
+        combo.removeAllItems();
+        try {
+            pg=new PostgreSQLManager();
+            cn=pg.concectGetCn();
+            vDB = AccessEstadoPedido.findAll(cn);
+
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<vDB.length;i++)
+            {
+                Combo.cargarCombo(combo, String.valueOf(vDB[i].getIdestado()), vDB[i].getNombre());
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorGenerarPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public ViewDetallePedidoCotizacion buscarProductoParaDetallePedidoCotizacion(long idProducto) {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        ViewDetallePedidoCotizacion view=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            view=AccessViews.detallePedidoCotizacion(idProducto, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return view;
+    }
+
+
 }
