@@ -5,9 +5,15 @@
 
 package metalsoft.presentacion;
 
+import java.sql.Connection;
 import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JList;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.negocio.access.AccessProducto;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -16,7 +22,7 @@ import metalsoft.util.ItemCombo;
  */
 public class HiloBuscarProducto extends Thread{
 
-    private ABMProducto_Buscar ventana;
+    private IBuscador ventana;
     private String valor;
 
     @Override
@@ -24,11 +30,11 @@ public class HiloBuscarProducto extends Thread{
         buscarProductos();
     }
 
-    public ABMProducto_Buscar getVentana() {
+    public IBuscador getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMProducto_Buscar ventana) {
+    public void setVentana(IBuscador ventana) {
         this.ventana = ventana;
     }
 
@@ -42,8 +48,16 @@ public class HiloBuscarProducto extends Thread{
 
     private void buscarProductos()
     {
-        ProductoDB[] productosDB=ventana.getGestor().buscarProductos(getValor());
-        JList combo=ventana.getLstLista();
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(HiloBuscarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ProductoDB[] productosDB=AccessProducto.findByNombreILIKE(getValor(),cn);
+        JList combo=ventana.getList();
         combo.removeAll();
         cargarCombo(combo,productosDB);
     }
