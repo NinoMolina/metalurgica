@@ -13,16 +13,18 @@ package metalsoft.presentacion;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.gestores.GestorProducto;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.util.ItemCombo;
 
 /**
  *
  * @author Nino
  */
-public class ABMProducto_Buscar extends javax.swing.JFrame {
+public class ABMProducto_Buscar extends javax.swing.JFrame implements IBuscador{
 
     /** Creates new form AMBProducto_Buscar */
     private ABMProducto ventana;
@@ -136,11 +138,7 @@ public class ABMProducto_Buscar extends javax.swing.JFrame {
         }
     }
 
-    public JList getLstLista() {
-        return lstLista;
-    }
-
-    public void setLstLista(JList lstLista) {
+    public void setLista(JList lstLista) {
         this.lstLista = lstLista;
     }
 
@@ -189,7 +187,16 @@ public class ABMProducto_Buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
+    public JList getList() {
+        return lstLista;
+    }
 
+    public JComboBox getCombo() {
+        return null;
+    }
 
-
+    public void setBusqueda(Object[] obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }
