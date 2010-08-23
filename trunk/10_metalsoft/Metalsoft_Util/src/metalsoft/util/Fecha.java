@@ -8,7 +8,9 @@ package metalsoft.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +27,12 @@ public class Fecha {
         return formato.format(fecha);
     }
 
+    public static Calendar fechaActualCalendar()
+    {
+        return Calendar.getInstance();
+    }
+
+
     public static String fechaHoraMinutoSegundoActual()
     {
         Date fecha=new Date();
@@ -36,6 +44,21 @@ public class Fecha {
     {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(fecha);
+    }
+
+    public static Calendar parseToCalendar(Date fecha)
+    {
+        Calendar c=new GregorianCalendar();
+        c.setTime(fecha);
+        return c;
+    }
+
+    public static Calendar parseToCalendar(String fecha)
+    {
+        Date d=parseToDate(fecha);
+        Calendar c=new GregorianCalendar();
+        c.setTime(d);
+        return c;
     }
 
     /*
