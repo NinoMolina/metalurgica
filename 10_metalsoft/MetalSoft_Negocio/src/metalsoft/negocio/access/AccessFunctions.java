@@ -20,7 +20,7 @@ public class AccessFunctions {
 
     public static int nvoNroPedido(Connection cn)
     {
-        String query="{ ? = call nvonropedido()";
+        String query="{ ? = call nvonropedido()}";
         int result=-1;
         try {
             CallableStatement cs = cn.prepareCall(query);
