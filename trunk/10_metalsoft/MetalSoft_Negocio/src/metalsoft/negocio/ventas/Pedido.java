@@ -2,46 +2,36 @@
 
 package metalsoft.negocio.ventas;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
+import metalsoft.negocio.trabajostercerizados.TrabajoTercerizado;
+
 
 public class Pedido 
 {
    private int nroPedido;
-   private int fechaConfirmacionPedido;
-   //private Planificacion planCalidad;
-   private int fechaEntregaEstipulada;
-   private int fechaPedidoCotizacion;
-   //private Planificacion planificacionProduccion;
-   private int fechaCancelacion;
-   //private TrabajoTercerizado trabajoTercerizado;
-   //private Remito remito;
-   private int fechaEntregaReal;
-   private int prioridad;
-   //private EstadoPedido estado;
-   //private Factura factura;
-   //private DetallePedido detalle;
-   //private Presupuesto presupuesto;
-   private int fechaRequeridaCotizacion;
+   private Date fechaConfirmacionPedido;
+   private Date fechaEntregaEstipulada;
+   private Date fechaPedidoCotizacion;
+   private Date fechaCancelacion;
+   private TrabajoTercerizado trabajoTercerizado;
+   private Remito remito;
+   private Date fechaEntregaReal;
+   private Prioridad prioridad;
+   private EstadoPedido estado;
+   private Factura factura;
+   private ArrayList<DetallePedido> detalle;
+   private Presupuesto presupuesto;
+   private Date fechaRequeridaCotizacion;
    //private Plano plano;
-   private int motivoCancelacion;
+   private String motivoCancelacion;
    private Boolean esPedidoWeb;
    private int nroPedCotizCliente;
-   private int fechaRegistroPedidoCotiz;
-   //private Planificacion planificacionCalidad;
-   //private PlanProcedimientos planProcedimientos;
-   //private PlanRequerimientosMatPrima planRequerimientosMatPrima;
-   //private PlanProcesosCalidad planProcesosCalidad;
-   //public Factura theFactura;
-   //public Plano thePlano[];
-   //public EstadoPedido theEstadoPedido;
-   //public Remito theRemito[];
-   //public TrabajoTercerizado theTrabajoTercerizado[];
-   //public Planificacion thePlanificacion[];
-   //public PlanProcedimientos thePlanProcedimientos;
-   //public PlanRequerimientosMateriaPrima thePlanRequerimientosMateriaPrima;
-   //public PlanProcesosCalidad thePlanProcesosCalidad;
-   //public DetallePedido theDetallePedido[];
-   //public Presupuesto thePresupuesto;
-   //public PlanificacionProduccion thePlanificacionProduccion;
+   private Date fechaRegistroPedidoCotizacion;
+
    
    /**
     * @roseuid 4C20555303BD
@@ -50,6 +40,150 @@ public class Pedido
    {
     
    }
+
+    public ArrayList<DetallePedido> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(ArrayList<DetallePedido> detalle) {
+        this.detalle = detalle;
+    }
+
+    public Boolean getEsPedidoWeb() {
+        return esPedidoWeb;
+    }
+
+    public void setEsPedidoWeb(Boolean esPedidoWeb) {
+        this.esPedidoWeb = esPedidoWeb;
+    }
+
+    public EstadoPedido getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public Date getFechaCancelacion() {
+        return fechaCancelacion;
+    }
+
+    public void setFechaCancelacion(Date fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
+    }
+
+    public Date getFechaConfirmacionPedido() {
+        return fechaConfirmacionPedido;
+    }
+
+    public void setFechaConfirmacionPedido(Date fechaConfirmacionPedido) {
+        this.fechaConfirmacionPedido = fechaConfirmacionPedido;
+    }
+
+    public Date getFechaEntregaEstipulada() {
+        return fechaEntregaEstipulada;
+    }
+
+    public void setFechaEntregaEstipulada(Date fechaEntregaEstipulada) {
+        this.fechaEntregaEstipulada = fechaEntregaEstipulada;
+    }
+
+    public Date getFechaEntregaReal() {
+        return fechaEntregaReal;
+    }
+
+    public void setFechaEntregaReal(Date fechaEntregaReal) {
+        this.fechaEntregaReal = fechaEntregaReal;
+    }
+
+    public Date getFechaPedidoCotizacion() {
+        return fechaPedidoCotizacion;
+    }
+
+    public void setFechaPedidoCotizacion(Date fechaPedidoCotizacion) {
+        this.fechaPedidoCotizacion = fechaPedidoCotizacion;
+    }
+
+    public Date getFechaRegistroPedidoCotizacion() {
+        return fechaRegistroPedidoCotizacion;
+    }
+
+    public void setFechaRegistroPedidoCotizacion(Date fechaRegistroPedidoCotizacion) {
+        this.fechaRegistroPedidoCotizacion = fechaRegistroPedidoCotizacion;
+    }
+
+    public Date getFechaRequeridaCotizacion() {
+        return fechaRequeridaCotizacion;
+    }
+
+    public void setFechaRequeridaCotizacion(Date fechaRequeridaCotizacion) {
+        this.fechaRequeridaCotizacion = fechaRequeridaCotizacion;
+    }
+
+    public String getMotivoCancelacion() {
+        return motivoCancelacion;
+    }
+
+    public void setMotivoCancelacion(String motivoCancelacion) {
+        this.motivoCancelacion = motivoCancelacion;
+    }
+
+    public int getNroPedCotizCliente() {
+        return nroPedCotizCliente;
+    }
+
+    public void setNroPedCotizCliente(int nroPedCotizCliente) {
+        this.nroPedCotizCliente = nroPedCotizCliente;
+    }
+
+    public int getNroPedido() {
+        return nroPedido;
+    }
+
+    public void setNroPedido(int nroPedido) {
+        this.nroPedido = nroPedido;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public Prioridad getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(Prioridad prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public Remito getRemito() {
+        return remito;
+    }
+
+    public void setRemito(Remito remito) {
+        this.remito = remito;
+    }
+
+    public TrabajoTercerizado getTrabajoTercerizado() {
+        return trabajoTercerizado;
+    }
+
+    public void setTrabajoTercerizado(TrabajoTercerizado trabajoTercerizado) {
+        this.trabajoTercerizado = trabajoTercerizado;
+    }
    
    /**
     * @roseuid 4BC2618C0292
@@ -242,4 +376,8 @@ public class Pedido
    {
     
    }
+
+    public long guardar(Pedido p, long idEstado, long idPrioridad, LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido, Connection cn) {
+        AccessPedido.insert(p,idEstado,idPrioridad,filas);
+    }
 }
