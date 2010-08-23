@@ -58,7 +58,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return   int
 */
 
-	public int update(EstadopedidoPK estadopedidopk, Estadopedido estadopedido, Connection con)throws EstadopedidoException{
+	public int update(EstadopedidoPK estadopedidopk, EstadopedidoDB estadopedido, Connection con)throws EstadopedidoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -80,7 +80,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  EstadopedidoPK
 */
 
-	public int insert(Estadopedido estadopedido ,Connection con)throws EstadopedidoException {
+	public int insert(EstadopedidoDB estadopedido ,Connection con)throws EstadopedidoException {
 
 		PreparedStatement ps = null;
 		try
@@ -100,7 +100,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * 
 */
 
-	public Estadopedido findByPrimaryKey(long idestado, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB findByPrimaryKey(long idestado, Connection con) throws EstadopedidoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -126,7 +126,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  Estadopedido
 */
 
-	public Estadopedido findByPrimaryKey(EstadopedidoPK estadopedidopk, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB findByPrimaryKey(EstadopedidoPK estadopedidopk, Connection con) throws EstadopedidoException{
 		return findByPrimaryKey(estadopedidopk.getIdestado(), con);
 	}
 
@@ -139,7 +139,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  Estadopedido[]
 */
 
-	public Estadopedido[] findByIdestado(long idestado, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findByIdestado(long idestado, Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idestado, nombre, descripcion from estadopedido where idestado = ? order by idestado";
@@ -166,7 +166,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  Estadopedido[]
 */
 
-	public Estadopedido[] findByNombre(String nombre, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findByNombre(String nombre, Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idestado, nombre, descripcion from estadopedido where nombre = ? order by nombre";
@@ -193,7 +193,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  Estadopedido[]
 */
 
-	public Estadopedido[] findByDescripcion(String descripcion, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findByDescripcion(String descripcion, Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idestado, nombre, descripcion from estadopedido where descripcion = ? order by descripcion";
@@ -219,10 +219,11 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 *
 */
 
-	public Estadopedido[] findAll( Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findAll( Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idestado, nombre, descripcion from estadopedido";
+			String SQL_STATEMENT ="Select idestado, nombre, descripcion from estadopedido"+
+                                              " ORDER BY nombre";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -247,7 +248,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 *
 */
 
-	public Estadopedido[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -278,7 +279,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 *
 */
 
-	public Estadopedido[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EstadopedidoException{
+	public EstadopedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EstadopedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idestado, nombre, descripcion from estadopedido";
@@ -308,10 +309,10 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 *
 */
 
-	protected Estadopedido fetchSingleResult(ResultSet rs) throws SQLException
+	protected EstadopedidoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Estadopedido dto = new Estadopedido();
+					EstadopedidoDB dto = new EstadopedidoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -328,7 +329,7 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  void
 */
 
-	protected void populateVO(Estadopedido dto, ResultSet rs) throws SQLException
+	protected void populateVO(EstadopedidoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdestado(rs.getLong("idestado"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -343,15 +344,15 @@ public class EstadopedidoDAOImpl implements EstadopedidoDAO
 * @return  Estadopedido[]
 */
 
-	protected Estadopedido[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected EstadopedidoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Estadopedido dto = new Estadopedido();
+			EstadopedidoDB dto = new EstadopedidoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Estadopedido ret[] = new Estadopedido[ resultList.size() ];
+		EstadopedidoDB ret[] = new EstadopedidoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
