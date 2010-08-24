@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +37,7 @@ import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.ventas.Cliente;
+import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
@@ -55,6 +57,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     private ArrayList<ViewDetallePedidoCotizacion> view;
     private EnumOpcionesABM opcion;
     private ArrayList<ViewDetallePedidoCotizacion> arlDetallePedCotAEliminar;
+    private ArrayList arlIdsProductoDetallePedido;
     /** Creates new form ABMPedidoCotizacion */
     public ABMPedidoCotizacion() {
         initComponents();
@@ -143,6 +146,23 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
 //            result=gestor.modificarProducto();
         }
     }
+//    private ArrayList crearDetallePedido(Pedido p)
+//    {
+//        ArrayList arlDetalle=new ArrayList();
+//        Iterator<ViewDetallePedidoCotizacion> iter=filas.iterator();
+//        arlIdsProductoDetallePedido=new ArrayList(filas.size());
+//        ViewDetallePedidoCotizacion datos=null;
+//        while(iter.hasNext())
+//        {
+//            datos=iter.next();
+//            arlIdsProductoDetallePedido.add(datos.getIdProducto());
+//            int cant=datos.getCantidad();
+//            double precio=datos.getPrecio();
+//            arlDetalle.add(p.crearDetallePedido(cant, precio));
+//        }
+//        if(!arlDetalle.isEmpty())return arlDetalle;
+//        else return null;
+//    }
 
 //    private void setListaDetalleGestor()
 //    {
@@ -173,7 +193,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
     {
-//        opcion=EnumOpcionesABM.MODIFICAR;
+        opcion=EnumOpcionesABM.MODIFICAR;
 //        arlDetProdAEliminar=new ArrayList<ViewDetalleProducto>();
 //        botones.getBtnModificar().setEnabled(false);
 //        setEnableComponents(true);
@@ -354,7 +374,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)))
-                .addGap(45, 45, 45))
+                .addGap(55, 55, 55))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,12 +424,8 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -418,8 +434,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
                             .addComponent(cmbPrioridad, 0, 136, Short.MAX_VALUE)
                             .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNroFactura)
-                            .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                             .addComponent(jLabel11)
@@ -471,6 +486,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
 
         jLabel6.setText("Fecha de Entrega Real:");
 
+        dccConfirmacionPedido.setFormat(2);
         try {
             dccConfirmacionPedido.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
@@ -643,7 +659,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         .addGroup(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addComponent(btnQuitar))
             .addContainerGap())
     );
@@ -701,7 +717,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(btnAgregarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addComponent(btnNuevoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-            .addGap(36, 36, 36))
+            .addGap(46, 46, 46))
     );
     jPanel4Layout.setVerticalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1028,7 +1044,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             case 2:
               return view.getDescripcion();
             case 3:
-              return String.valueOf(view.getCantidadPiezas());
+              return String.valueOf(view.getCantidad());
             default:
               return null;
             }
