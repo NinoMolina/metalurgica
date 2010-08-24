@@ -172,6 +172,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
         ventana.setIdEtapa(id);
         ventana.etapaSeleccionada();
+        dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
