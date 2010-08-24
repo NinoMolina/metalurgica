@@ -43,7 +43,7 @@ public class GestorEtapaDeProduccion {
             cn = pg.concectGetCn();
             db=AccessEtapaDeProduccion.findByNombreILIKE(valor,cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -56,8 +56,26 @@ public class GestorEtapaDeProduccion {
         return db;
     }
 
-    public EtapadeproduccionDB buscarEtapaDeProduccionId(long idEtapaDeProduccion) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public EtapadeproduccionDB buscarEtapaDeProduccionId(long valor) {
+        Connection cn=null;
+        PostgreSQLManager pg=null;
+        EtapadeproduccionDB db=null;
+        try {
+            pg=new PostgreSQLManager();
+            cn = pg.concectGetCn();
+            db=AccessEtapaDeProduccion.findById(valor,cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return db;
     }
 
      public boolean eliminarEtapaDeProduccion(long id) {
@@ -67,7 +85,7 @@ public class GestorEtapaDeProduccion {
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
