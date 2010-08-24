@@ -16,16 +16,16 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetallepedidoDAO
 {
-	public int insert(Detallepedido detallepedido, Connection con ) throws DetallepedidoException;
-	public int update(DetallepedidoPK detallepedidopk, Detallepedido detallepedido, Connection con) throws DetallepedidoException;
+	public int insert(DetallepedidoDB detallepedido, Connection con ) throws DetallepedidoException;
+	public int update(DetallepedidoPK detallepedidopk, DetallepedidoDB detallepedido, Connection con) throws DetallepedidoException;
 	public int delete(DetallepedidoPK detallepedidopk, Connection con) throws DetallepedidoException;
-	public Detallepedido findByPrimaryKey(DetallepedidoPK detallepedidopk , Connection con) throws DetallepedidoException;
-	public Detallepedido[] findAll(Connection con) throws DetallepedidoException;
-	public Detallepedido[] findByIddetalle(long iddetalle,Connection con) throws DetallepedidoException;
-	public Detallepedido[] findByIdpedido(long idpedido,Connection con) throws DetallepedidoException;
-	public Detallepedido[] findByPrecio(double precio,Connection con) throws DetallepedidoException;
-	public Detallepedido[] findByCantidad(int cantidad,Connection con) throws DetallepedidoException;
-	public Detallepedido[] findByProducto(long producto,Connection con) throws DetallepedidoException;
-	public Detallepedido[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepedidoException;
-	public Detallepedido[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepedidoException;
+	public DetallepedidoDB findByPrimaryKey(DetallepedidoPK detallepedidopk , Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findAll(Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findByIddetalle(long iddetalle,Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findByIdpedido(long idpedido,Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findByPrecio(double precio,Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findByCantidad(int cantidad,Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findByProducto(long producto,Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepedidoException;
+	public DetallepedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepedidoException;
 }

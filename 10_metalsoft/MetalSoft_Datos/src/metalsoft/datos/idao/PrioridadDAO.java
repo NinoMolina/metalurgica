@@ -16,14 +16,14 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface PrioridadDAO
 {
-	public int insert(Prioridad prioridad, Connection con ) throws PrioridadException;
-	public int update(PrioridadPK prioridadpk, Prioridad prioridad, Connection con) throws PrioridadException;
+	public int insert(PrioridadDB prioridad, Connection con ) throws PrioridadException;
+	public int update(PrioridadPK prioridadpk, PrioridadDB prioridad, Connection con) throws PrioridadException;
 	public int delete(PrioridadPK prioridadpk, Connection con) throws PrioridadException;
-	public Prioridad findByPrimaryKey(PrioridadPK prioridadpk , Connection con) throws PrioridadException;
-	public Prioridad[] findAll(Connection con) throws PrioridadException;
-	public Prioridad[] findByIdprioridad(long idprioridad,Connection con) throws PrioridadException;
-	public Prioridad[] findByNombre(String nombre,Connection con) throws PrioridadException;
-	public Prioridad[] findByDescripcion(String descripcion,Connection con) throws PrioridadException;
-	public Prioridad[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PrioridadException;
-	public Prioridad[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PrioridadException;
+	public PrioridadDB findByPrimaryKey(PrioridadPK prioridadpk , Connection con) throws PrioridadException;
+	public PrioridadDB[] findAll(Connection con) throws PrioridadException;
+	public PrioridadDB[] findByIdprioridad(long idprioridad,Connection con) throws PrioridadException;
+	public PrioridadDB[] findByNombre(String nombre,Connection con) throws PrioridadException;
+	public PrioridadDB[] findByDescripcion(String descripcion,Connection con) throws PrioridadException;
+	public PrioridadDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PrioridadException;
+	public PrioridadDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PrioridadException;
 }

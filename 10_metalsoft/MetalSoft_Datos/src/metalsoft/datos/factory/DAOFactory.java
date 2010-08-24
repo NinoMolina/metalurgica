@@ -224,6 +224,8 @@ public interface DAOFactory
 
 	public TurnoDAO createTurnoDAO();
 
+	public UnidadmedidaDAO createUnidadmedidaDAO();
+
 	public UsuarioDAO createUsuarioDAO();
 
 	public UsuarioxrolDAO createUsuarioxrolDAO();
