@@ -12,7 +12,8 @@ package metalsoft.datos.dao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -59,7 +60,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return   int
 */
 
-	public int update(DetallepedidoPK detallepedidopk, Detallepedido detallepedido, Connection con)throws DetallepedidoException{
+	public int update(DetallepedidoPK detallepedidopk, DetallepedidoDB detallepedido, Connection con)throws DetallepedidoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -83,18 +84,21 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  DetallepedidoPK
 */
 
-	public int insert(Detallepedido detallepedido ,Connection con)throws DetallepedidoException {
+	public int insert(DetallepedidoDB detallepedido ,Connection con)throws DetallepedidoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEPEDIDO( IDPEDIDO, PRECIO, CANTIDAD, PRODUCTO) values (?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEPEDIDO( IDPEDIDO, PRECIO, CANTIDAD, PRODUCTO) values (?, ?, ?, ?)RETURNING iddetalle");
 				ps.setLong(1,detallepedido.getIdpedido());
 				ps.setDouble(2,detallepedido.getPrecio());
 				ps.setInt(3,detallepedido.getCantidad());
 				ps.setLong(4,detallepedido.getProducto());
 
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+				return (int)rs.getLong(1);
 		}catch(SQLException sqle){throw new DetallepedidoException(sqle);}
 		catch(Exception e){throw new DetallepedidoException(e);}
 	}
@@ -105,7 +109,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * 
 */
 
-	public Detallepedido findByPrimaryKey(long iddetalle, long idpedido, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB findByPrimaryKey(long iddetalle, long idpedido, Connection con) throws DetallepedidoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -132,7 +136,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido
 */
 
-	public Detallepedido findByPrimaryKey(DetallepedidoPK detallepedidopk, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB findByPrimaryKey(DetallepedidoPK detallepedidopk, Connection con) throws DetallepedidoException{
 		return findByPrimaryKey(detallepedidopk.getIddetalle(), detallepedidopk.getIdpedido(), con);
 	}
 
@@ -145,7 +149,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	public Detallepedido[] findByIddetalle(long iddetalle, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findByIddetalle(long iddetalle, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido where iddetalle = ? order by iddetalle";
@@ -172,7 +176,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	public Detallepedido[] findByIdpedido(long idpedido, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findByIdpedido(long idpedido, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido where idpedido = ? order by idpedido";
@@ -199,7 +203,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	public Detallepedido[] findByPrecio(double precio, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findByPrecio(double precio, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido where precio = ? order by precio";
@@ -226,7 +230,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	public Detallepedido[] findByCantidad(int cantidad, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findByCantidad(int cantidad, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido where cantidad = ? order by cantidad";
@@ -253,7 +257,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	public Detallepedido[] findByProducto(long producto, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findByProducto(long producto, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido where producto = ? order by producto";
@@ -279,7 +283,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 *
 */
 
-	public Detallepedido[] findAll( Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findAll( Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido";
@@ -307,7 +311,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 *
 */
 
-	public Detallepedido[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -338,7 +342,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 *
 */
 
-	public Detallepedido[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepedidoException{
+	public DetallepedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select iddetalle, idpedido, precio, cantidad, producto from detallepedido";
@@ -368,10 +372,10 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 *
 */
 
-	protected Detallepedido fetchSingleResult(ResultSet rs) throws SQLException
+	protected DetallepedidoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Detallepedido dto = new Detallepedido();
+					DetallepedidoDB dto = new DetallepedidoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -388,7 +392,7 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  void
 */
 
-	protected void populateVO(Detallepedido dto, ResultSet rs) throws SQLException
+	protected void populateVO(DetallepedidoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIddetalle(rs.getLong("iddetalle"));
 		 dto.setIdpedido(rs.getLong("idpedido"));
@@ -405,15 +409,15 @@ public class DetallepedidoDAOImpl implements DetallepedidoDAO
 * @return  Detallepedido[]
 */
 
-	protected Detallepedido[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected DetallepedidoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Detallepedido dto = new Detallepedido();
+			DetallepedidoDB dto = new DetallepedidoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Detallepedido ret[] = new Detallepedido[ resultList.size() ];
+		DetallepedidoDB ret[] = new DetallepedidoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
