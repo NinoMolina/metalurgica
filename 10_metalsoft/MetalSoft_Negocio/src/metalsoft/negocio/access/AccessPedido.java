@@ -6,6 +6,8 @@
 package metalsoft.negocio.access;
 
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PedidoDAO;
@@ -26,11 +28,13 @@ public class AccessPedido {
         try {
             db=Parser.parseToPedidoDB(x);
             db.setEstado(idEstado);
+            db.setPrioridad(idPrioridad);
             result=dao.insert(db, cn);
-            db.setIdproducto(result);
+            db.setIdpedido(result);
         } catch (Exception ex) {
-            Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
+
 }
