@@ -1,7 +1,5 @@
 Cosas que faltan :
 
-
-
 Preguntar como hacer el CU 138.
 Imprimir prototipos de interfaz.
 
@@ -12,3 +10,28 @@ corregir PRueba
 Agregar vistas parciales del Diag de clases de Analisis (completar atributos en Gestores e interfaces)
 Diagramas de Secuencias con patrones
 
+Diag Caso de Uso:
+cambios:
+*sacar extend 62 a 64
+*sacar extend 62 a 10
+*sacar extend CU 152
+*sacar include del 48 al 47
+
+copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
+
+DTE:
+*Modificar pedido (Estados a agregar: PedidoConDetalleProcedimiento, PedidoConRequermientoMateriaPrima, PedidoConDetalleProcesoCalidad, PedidoPresupuestado)
+*Compra
+*DetalleCompra
+*PiezaReal
+*ProductoReal
+*EjecucionEtapaProduccion
+*EjecucionPlanificacionProduccion
+*EjecucionProcesoCalidad
+*EjecucionPlanificacionDeCalidad
+
+Secuencia: 
+*hablar con chicos
+
+Prueba:
+*3 casos
