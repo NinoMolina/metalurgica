@@ -13,19 +13,28 @@ public class ViewDetallePedidoCotizacion {
 
     private String nombreProducto;
     private String descripcion;
-    private int cantidadPiezas;
+    private int cantidad;
     private int numeroProducto;
-    private long idProducto,idDetalle;
+    private double precio;
+    private long idProducto,idDetalle,idPedido;
 
     public ViewDetallePedidoCotizacion() {
     }
 
-    public int getCantidadPiezas() {
-        return cantidadPiezas;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setCantidadPiezas(int cantidadPiezas) {
-        this.cantidadPiezas = cantidadPiezas;
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getDescripcion() {
@@ -66,6 +75,14 @@ public class ViewDetallePedidoCotizacion {
 
     public void setNumeroProducto(int numeroProducto) {
         this.numeroProducto = numeroProducto;
+    }
+
+    public long getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(long idPedido) {
+        this.idPedido = idPedido;
     }
 
     
