@@ -7,6 +7,7 @@ package metalsoft.negocio.gestores;
 
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
+import metalsoft.datos.dbobject.DetallepedidoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.PedidoDB;
@@ -14,6 +15,7 @@ import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.negocio.ventas.DetallePedido;
 import metalsoft.negocio.ventas.DetalleProducto;
 import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Producto;
@@ -260,5 +262,12 @@ public class Parser {
         db.setNropedido(x.getNroPedido());
         return db;
 
+    }
+
+    public static DetallepedidoDB parseToDetallePedidoDB(DetallePedido x) {
+        DetallepedidoDB db=new DetallepedidoDB();
+        db.setCantidad(x.getCantidad());
+        db.setPrecio(x.getPrecio());
+        return db;
     }
 }
