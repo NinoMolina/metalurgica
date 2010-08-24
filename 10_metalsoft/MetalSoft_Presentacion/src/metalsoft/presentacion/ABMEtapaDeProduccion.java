@@ -244,14 +244,17 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mostrarDatosEtapaDeProduccion(EtapadeproduccionDB ep) {
-        txtFechaCreacion.setText(String.valueOf(ep.getFechacreacion()));
+        long fecha=ep.getFechacreacion().getTime();
+        String fechaCreacion=Fecha.parseToString(fecha);
+        txtFechaCreacion.setText(String.valueOf(fechaCreacion));
         txtNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
         txtduracion.setText(String.valueOf(ep.getDuracionestimada()));
         txthorashombre.setText(String.valueOf(ep.getHorashombre()));
         txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
         txtnombre.setText(String.valueOf(ep.getNombre()));
-        txtunidadmedida.setText(String.valueOf(ep.getDuracionestimada()));
-        Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
+        txtunidadmedida.setText("todavia no lo hice");
+        if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
+        else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
     }
 
     private void txtunidadmedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtunidadmedidaActionPerformed
@@ -279,7 +282,7 @@ public void limpiarCampos()
         ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
         ep.setFechaCreacion(Fecha.parseToDate(txtFechaCreacion.getText()));
         ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
-        ep.setHorasMaquina(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
+        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
         ep.setNombre(txtnombre.getText());
         ep.setNumeroEtapa(Long.parseLong(txtNroEtapa.getText()));
         long id;
