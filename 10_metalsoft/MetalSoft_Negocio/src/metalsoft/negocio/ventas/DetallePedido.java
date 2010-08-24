@@ -5,14 +5,11 @@ package metalsoft.negocio.ventas;
 
 public class DetallePedido 
 {
-   private int precio;
-   private int cantiddad;
+   private float precio;
+   private int cantidad;
    private Producto producto;
    private DetallePresupuesto detallePresupuesto;
    private DetalleFactura detalleFactura;
-   public DetalleFactura theDetalleFactura[];
-   public DetallePresupuesto theDetallePresupuesto[];
-   public Producto theProducto;
    
    /**
     * @roseuid 4C27ED1601B6
@@ -21,6 +18,46 @@ public class DetallePedido
    {
     
    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantiddad) {
+        this.cantidad = cantiddad;
+    }
+
+    public DetalleFactura getDetalleFactura() {
+        return detalleFactura;
+    }
+
+    public void setDetalleFactura(DetalleFactura detalleFactura) {
+        this.detalleFactura = detalleFactura;
+    }
+
+    public DetallePresupuesto getDetallePresupuesto() {
+        return detallePresupuesto;
+    }
+
+    public void setDetallePresupuesto(DetallePresupuesto detallePresupuesto) {
+        this.detallePresupuesto = detallePresupuesto;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
    
    /**
     * @roseuid 4BC25E8700FF
