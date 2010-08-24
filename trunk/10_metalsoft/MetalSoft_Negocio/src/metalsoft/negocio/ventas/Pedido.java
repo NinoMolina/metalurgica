@@ -5,7 +5,12 @@ package metalsoft.negocio.ventas;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
+import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.negocio.access.AccessDetallePedido;
+import metalsoft.negocio.access.AccessDetalleProducto;
+import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.trabajostercerizados.TrabajoTercerizado;
 
@@ -364,9 +369,12 @@ public class Pedido
    /**
     * @roseuid 4C1FBED30232
     */
-   public void crearDetallePedido() 
+   public DetallePedido crearDetallePedido(int cantidad,float precio)
    {
-    
+        DetallePedido dp=new DetallePedido();
+        dp.setCantidad(cantidad);
+        dp.setPrecio(precio);
+        return dp;
    }
    
    /**
@@ -378,6 +386,28 @@ public class Pedido
    }
 
     public long guardar(Pedido p, long idEstado, long idPrioridad, LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido, Connection cn) {
-        AccessPedido.insert(p,idEstado,idPrioridad,filas);
+        //coleccion de detalles del producto
+        //ArrayList arlDetalle=p.getDetalle();
+        //iterador que recorre la coleccion de detalle
+        Iterator<ViewDetallePedidoCotizacion> iter=filasDetallePedido.iterator();
+        ViewDetallePedidoCotizacion view=null;
+        //iterador que recorre los ids de las piezas que forman parte del detalle
+        //Iterator iterIds=arlIdsPiezasDetalleProducto.iterator();
+        long idPed=-1;
+        //inserto el producto
+        idPed=AccessPedido.insert(p,idEstado,idPrioridad,cn);
+        DetallePedido x=null;
+        //recorro los detalles del producto y los guardo
+        while(iter.hasNext())
+        {
+            view=iter.next();
+
+            x = new DetallePedido();
+            x.setCantidad(view.getCantidad());
+            x.setPrecio(view.getPrecio());
+            long idProd=Long.parseLong(String.valueOf(view.getIdProducto()));
+            AccessDetallePedido.insert(x,idPed,idProd,cn);
+        }
+        return idPed;
     }
 }
