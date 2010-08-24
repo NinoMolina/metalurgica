@@ -9,11 +9,13 @@ import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetalleProducto;
+import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
@@ -239,6 +241,23 @@ public class Parser {
         db.setNombre(x.getNombre());
         db.setNroetapaproduccion(x.getNumeroEtapa());
 
+        return db;
+
+    }
+
+    public static PedidoDB parseToPedidoDB(Pedido x) {
+        PedidoDB db=new PedidoDB();
+        db.setEspedidoweb(x.getEsPedidoWeb());
+        db.setFechacancelacion(Fecha.parseToDateSQL(x.getFechaCancelacion()));
+        db.setFechaconfirmacionpedido(Fecha.parseToDateSQL(x.getFechaConfirmacionPedido()));
+        db.setFechaentregaestipulada(Fecha.parseToDateSQL(x.getFechaEntregaEstipulada()));
+        db.setFechaentregareal(Fecha.parseToDateSQL(x.getFechaEntregaReal()));
+        db.setFechapedidocotizacion(Fecha.parseToDateSQL(x.getFechaPedidoCotizacion()));
+        db.setFecharegpedcotiz(Fecha.parseToDateSQL(x.getFechaRegistroPedidoCotizacion()));
+        db.setFecharequeridacotizacion(Fecha.parseToDateSQL(x.getFechaRequeridaCotizacion()));
+        db.setMotivocancelacion(x.getMotivoCancelacion());
+        db.setNropedidocotizacioncliente(x.getNroPedCotizCliente());
+        db.setNropedido(x.getNroPedido());
         return db;
 
     }
