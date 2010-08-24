@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.DocFlavor.STRING;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 
     public void etapaSeleccionada() {
         etapaDeProduccionDB=gestor.buscarEtapaDeProduccionId(idEtapaDeProduccion);
-        mostrarDatosEtapaDeProduccion();
+        mostrarDatosEtapaDeProduccion(etapaDeProduccionDB);
     }
 
     public void setIdEtapa(long id) {
@@ -81,7 +82,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         txtFechaCreacion = new javax.swing.JTextField();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
@@ -125,13 +125,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,9 +156,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                         .add(btnModificar)
                         .add(8, 8, 8)
                         .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnEliminar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 100, Short.MAX_VALUE)
                         .add(btnguardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnSalir))
@@ -245,13 +236,23 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                     .add(btnguardar)
                     .add(btnnuevo)
                     .add(btnModificar)
-                    .add(btnBuscar)
-                    .add(btnEliminar))
+                    .add(btnBuscar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mostrarDatosEtapaDeProduccion(EtapadeproduccionDB ep) {
+        txtFechaCreacion.setText(String.valueOf(ep.getFechacreacion()));
+        txtNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
+        txtduracion.setText(String.valueOf(ep.getDuracionestimada()));
+        txthorashombre.setText(String.valueOf(ep.getHorashombre()));
+        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
+        txtnombre.setText(String.valueOf(ep.getNombre()));
+        txtunidadmedida.setText(String.valueOf(ep.getDuracionestimada()));
+        Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
+    }
 
     private void txtunidadmedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtunidadmedidaActionPerformed
         // TODO add your handling code here:
@@ -259,8 +260,20 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
+        opcion=EnumOpcionesABM.NUEVO;
+        limpiarCampos();
 }//GEN-LAST:event_btnnuevoActionPerformed
-
+public void limpiarCampos()
+{
+    txtFechaCreacion.setText("");
+    txtNroEtapa.setText("");
+    txtduracion.setText("");
+    txthorashombre.setText("");
+    txthorasmaquina.setText("");
+    txtnombre.setText("");
+    txtunidadmedida.setText("");
+    cmbmaquinas.setSelectedIndex(-1);
+}
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         EtapaDeProduccion ep=new EtapaDeProduccion();
         ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
@@ -279,19 +292,15 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificarEtapaDeProduccion(ep,, idMaquina)
+            id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId());
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
+        limpiarCampos();
 }//GEN-LAST:event_btnguardarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        GestorTipoMaterial gestor=new GestorTipoMaterial();
-        boolean ok=gestor.eliminarTipoMaterial(tipoMaterial);
-        if(ok)JOptionPane.showMessageDialog(this, "Eliminación Realizada");
-        else JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
-}//GEN-LAST:event_btnEliminarActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
+    opcion=EnumOpcionesABM.MODIFICAR;
 }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -321,7 +330,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnguardar;
