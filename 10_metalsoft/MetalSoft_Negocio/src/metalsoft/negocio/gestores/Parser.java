@@ -219,7 +219,7 @@ public class Parser {
     {
         EtapadeproduccionDB db=new EtapadeproduccionDB();
         if(x.getDuracionEstimadaXUnidMed()!=null)
-            db.setDuracionestimada(Fecha.parseToTimeSQL(x.getDuracionEstimadaXUnidMed()));
+            db.setDuracionestimada(new java.sql.Time(x.getDuracionEstimadaXUnidMed().getTime()));//Fecha.parseToTimeSQL
         else
             db.setDuracionestimada(null);
         if(x.getFechaCreacion()!=null)
