@@ -92,6 +92,31 @@ public class Fecha {
         return f;
     }
 
+    public static String parseToString(long fecha)
+    {
+        String s="";
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            s=formato.format(new Date(fecha));
+        } catch (Exception ex) {
+            Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
+    }
+
+//    public static Date parseToDate(long fecha)
+//    {
+//        Date f=new Date(fecha);
+//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//            String s=formato.format(f);
+//            f=formato.parse(s);
+//        } catch (Exception ex) {
+//            Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return f;
+//    }
+
     public static Date parseToDate(String fecha, String formatoFecha)
     {
         Date f=null;
@@ -148,8 +173,13 @@ public class Fecha {
     public static void main(String args[])
     {
         
-        String s=parseToHourMinuteSecond(new Date());
-        System.out.println(s);
+        String s=fechaActual();
+        Date d=parseToDate(s);
+        java.sql.Date dsql=parseToDateSQL(d);
+        System.out.println(dsql);
+        Date d2=new Date(dsql.getTime());
+
+        System.out.println(d);
         
     }
 }
