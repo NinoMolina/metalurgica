@@ -1,0 +1,14 @@
+Cosas que faltan :
+
+
+
+Preguntar como hacer el CU 138.
+Imprimir prototipos de interfaz.
+
+Der completo (vista de todas las tablas)
+Asociar CU con metodos en los DTE
+corregir Modelo Despliegue
+corregir PRueba
+Agregar vistas parciales del Diag de clases de Analisis (completar atributos en Gestores e interfaces)
+Diagramas de Secuencias con patrones
+
