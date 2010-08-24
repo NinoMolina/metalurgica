@@ -22,7 +22,7 @@ public class AccessViews {
     public static ViewDetallePedidoCotizacion detallePedidoCotizacion(long id, Connection cn)
     {
         ViewDetallePedidoCotizacion view=null;
-        String query="SELECT nroproducto,nombre,descripcion,cantpiezas,idproducto"+
+        String query="SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido"+
                      " FROM viewdetallepedidocotizacion"+
                      " WHERE idproducto=?";
         PreparedStatement ps=null;
@@ -34,9 +34,11 @@ public class AccessViews {
             if(rs.next())
             {
                 view=new ViewDetallePedidoCotizacion();
-                view.setCantidadPiezas(rs.getInt("cantpiezas"));
+                view.setCantidad(rs.getInt("cantidad"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setIdProducto(rs.getLong("idproducto"));
+                view.setIdDetalle(rs.getLong("iddetalle"));
+                view.setIdPedido(rs.getLong("idpedido"));
                 view.setNombreProducto(rs.getString("nombre"));
                 view.setNumeroProducto(rs.getInt("nroproducto"));
             }
