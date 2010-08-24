@@ -19,15 +19,15 @@ import java.io.Serializable;
 *
 */
 
-public class Prioridad implements Serializable
+public class PrioridadDB implements Serializable
 {
 	private long idprioridad;
 	private String nombre;
 	private String descripcion;
 
 
-	public Prioridad(){}
-	public Prioridad(long idprioridad ,String nombre ,String descripcion){
+	public PrioridadDB(){}
+	public PrioridadDB(long idprioridad ,String nombre ,String descripcion){
 		this.idprioridad = idprioridad;
 		this.nombre = nombre;
 		this.descripcion = descripcion;

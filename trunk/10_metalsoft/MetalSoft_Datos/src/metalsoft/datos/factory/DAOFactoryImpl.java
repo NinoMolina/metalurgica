@@ -609,6 +609,12 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return turnodaoimpl;
 	}
 
+		private static final UnidadmedidaDAOImpl  unidadmedidadaoimpl = new UnidadmedidaDAOImpl();
+	public UnidadmedidaDAO createUnidadmedidaDAO()
+	{
+		return unidadmedidadaoimpl;
+	}
+
 	private static final UsuarioDAOImpl  usuariodaoimpl = new UsuarioDAOImpl();
 	public UsuarioDAO createUsuarioDAO()
 	{

@@ -58,7 +58,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return   int
 */
 
-	public int update(PrioridadPK prioridadpk, Prioridad prioridad, Connection con)throws PrioridadException{
+	public int update(PrioridadPK prioridadpk, PrioridadDB prioridad, Connection con)throws PrioridadException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -80,7 +80,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  PrioridadPK
 */
 
-	public int insert(Prioridad prioridad ,Connection con)throws PrioridadException {
+	public int insert(PrioridadDB prioridad ,Connection con)throws PrioridadException {
 
 		PreparedStatement ps = null;
 		try
@@ -100,7 +100,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * 
 */
 
-	public Prioridad findByPrimaryKey(long idprioridad, Connection con) throws PrioridadException{
+	public PrioridadDB findByPrimaryKey(long idprioridad, Connection con) throws PrioridadException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -126,7 +126,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  Prioridad
 */
 
-	public Prioridad findByPrimaryKey(PrioridadPK prioridadpk, Connection con) throws PrioridadException{
+	public PrioridadDB findByPrimaryKey(PrioridadPK prioridadpk, Connection con) throws PrioridadException{
 		return findByPrimaryKey(prioridadpk.getIdprioridad(), con);
 	}
 
@@ -139,7 +139,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  Prioridad[]
 */
 
-	public Prioridad[] findByIdprioridad(long idprioridad, Connection con) throws PrioridadException{
+	public PrioridadDB[] findByIdprioridad(long idprioridad, Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprioridad, nombre, descripcion from prioridad where idprioridad = ? order by idprioridad";
@@ -166,7 +166,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  Prioridad[]
 */
 
-	public Prioridad[] findByNombre(String nombre, Connection con) throws PrioridadException{
+	public PrioridadDB[] findByNombre(String nombre, Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprioridad, nombre, descripcion from prioridad where nombre = ? order by nombre";
@@ -193,7 +193,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  Prioridad[]
 */
 
-	public Prioridad[] findByDescripcion(String descripcion, Connection con) throws PrioridadException{
+	public PrioridadDB[] findByDescripcion(String descripcion, Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprioridad, nombre, descripcion from prioridad where descripcion = ? order by descripcion";
@@ -219,7 +219,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 *
 */
 
-	public Prioridad[] findAll( Connection con) throws PrioridadException{
+	public PrioridadDB[] findAll( Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprioridad, nombre, descripcion from prioridad";
@@ -247,7 +247,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 *
 */
 
-	public Prioridad[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PrioridadException{
+	public PrioridadDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -278,7 +278,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 *
 */
 
-	public Prioridad[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PrioridadException{
+	public PrioridadDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PrioridadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idprioridad, nombre, descripcion from prioridad";
@@ -308,10 +308,10 @@ public class PrioridadDAOImpl implements PrioridadDAO
 *
 */
 
-	protected Prioridad fetchSingleResult(ResultSet rs) throws SQLException
+	protected PrioridadDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Prioridad dto = new Prioridad();
+					PrioridadDB dto = new PrioridadDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -328,7 +328,7 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  void
 */
 
-	protected void populateVO(Prioridad dto, ResultSet rs) throws SQLException
+	protected void populateVO(PrioridadDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdprioridad(rs.getLong("idprioridad"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -343,15 +343,15 @@ public class PrioridadDAOImpl implements PrioridadDAO
 * @return  Prioridad[]
 */
 
-	protected Prioridad[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected PrioridadDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Prioridad dto = new Prioridad();
+			PrioridadDB dto = new PrioridadDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Prioridad ret[] = new Prioridad[ resultList.size() ];
+		PrioridadDB ret[] = new PrioridadDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

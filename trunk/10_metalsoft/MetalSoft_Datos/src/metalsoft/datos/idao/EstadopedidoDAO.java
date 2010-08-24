@@ -16,14 +16,14 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface EstadopedidoDAO
 {
-	public int insert(Estadopedido estadopedido, Connection con ) throws EstadopedidoException;
-	public int update(EstadopedidoPK estadopedidopk, Estadopedido estadopedido, Connection con) throws EstadopedidoException;
+	public int insert(EstadopedidoDB estadopedido, Connection con ) throws EstadopedidoException;
+	public int update(EstadopedidoPK estadopedidopk, EstadopedidoDB estadopedido, Connection con) throws EstadopedidoException;
 	public int delete(EstadopedidoPK estadopedidopk, Connection con) throws EstadopedidoException;
-	public Estadopedido findByPrimaryKey(EstadopedidoPK estadopedidopk , Connection con) throws EstadopedidoException;
-	public Estadopedido[] findAll(Connection con) throws EstadopedidoException;
-	public Estadopedido[] findByIdestado(long idestado,Connection con) throws EstadopedidoException;
-	public Estadopedido[] findByNombre(String nombre,Connection con) throws EstadopedidoException;
-	public Estadopedido[] findByDescripcion(String descripcion,Connection con) throws EstadopedidoException;
-	public Estadopedido[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EstadopedidoException;
-	public Estadopedido[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EstadopedidoException;
+	public EstadopedidoDB findByPrimaryKey(EstadopedidoPK estadopedidopk , Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findAll(Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findByIdestado(long idestado,Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findByNombre(String nombre,Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findByDescripcion(String descripcion,Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EstadopedidoException;
+	public EstadopedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EstadopedidoException;
 }
