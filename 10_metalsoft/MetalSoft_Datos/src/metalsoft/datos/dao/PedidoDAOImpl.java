@@ -107,24 +107,80 @@ public class PedidoDAOImpl implements PedidoDAO
 		{
 			ps = con.prepareStatement("insert into PEDIDO( NROPEDIDO, FECHACONFIRMACIONPEDIDO, FECHAENTREGAESTIPULADA, FECHAPEDIDOCOTIZACION, FECHACANCELACION, FECHAENTREGAREAL, ESTADO, FACTURA, PRESUPUESTO, FECHAREQUERIDACOTIZACION, PLANO, MOTIVOCANCELACION, ESPEDIDOWEB, NROPEDIDOCOTIZACIONCLIENTE, FECHAREGPEDCOTIZ, CLIENTE, PLANPROCEDIMIENTOS, PLANREQUERIMIENTOSMATERIAPRIMA, PLANPROCESOSCALIDAD, PRIORIDAD) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)RETURNING idpedido");
 				ps.setLong(1,pedido.getNropedido());
-				ps.setDate(2,pedido.getFechaconfirmacionpedido());
-				ps.setDate(3,pedido.getFechaentregaestipulada());
-				ps.setDate(4,pedido.getFechapedidocotizacion());
-				ps.setDate(5,pedido.getFechacancelacion());
-				ps.setDate(6,pedido.getFechaentregareal());
+                                
+                                if(pedido.getFechaconfirmacionpedido()!=null)
+                                    ps.setDate(2,pedido.getFechaconfirmacionpedido());
+                                else
+                                    ps.setNull(2,Types.NULL);
+
+                                if(pedido.getFechaentregaestipulada()!=null)
+                                    ps.setDate(3,pedido.getFechaentregaestipulada());
+                                else
+                                    ps.setNull(3,Types.NULL);
+
+                                if(pedido.getFechapedidocotizacion()!=null)
+                                    ps.setDate(4,pedido.getFechapedidocotizacion());
+                                else
+                                    ps.setNull(4,Types.NULL);
+
+				if(pedido.getFechacancelacion()!=null)
+                                    ps.setDate(5,pedido.getFechacancelacion());
+                                else
+                                    ps.setNull(5,Types.NULL);
+
+				if(pedido.getFechaentregareal()!=null)
+                                    ps.setDate(6,pedido.getFechaentregareal());
+                                else
+                                    ps.setNull(6,Types.NULL);
+			
 				ps.setLong(7,pedido.getEstado());
-				ps.setLong(8,pedido.getFactura());
-				ps.setLong(9,pedido.getPresupuesto());
-				ps.setDate(10,pedido.getFecharequeridacotizacion());
-				ps.setLong(11,pedido.getPlano());
+
+                                if(pedido.getFactura()>0)
+                                    ps.setLong(8,pedido.getFactura());
+                                else
+                                    ps.setNull(8,Types.NULL);
+
+                                if(pedido.getPresupuesto()>0)
+                                    ps.setLong(9,pedido.getPresupuesto());
+                                else
+                                    ps.setNull(9,Types.NULL);
+
+                                if(pedido.getFecharequeridacotizacion()!=null)
+                                    ps.setDate(10,pedido.getFecharequeridacotizacion());
+                                else
+                                    ps.setNull(10,Types.NULL);
+
+                                if(pedido.getPlano()>0)
+                                    ps.setLong(11,pedido.getPlano());
+                                else
+                                    ps.setNull(11,Types.NULL);
+
 				ps.setString(12,pedido.getMotivocancelacion());
 				ps.setBoolean(13,pedido.getEspedidoweb());
 				ps.setInt(14,pedido.getNropedidocotizacioncliente());
-				ps.setDate(15,pedido.getFecharegpedcotiz());
+
+                                if(pedido.getFecharegpedcotiz()!=null)
+                                    ps.setDate(15,pedido.getFecharegpedcotiz());
+                                else
+                                    ps.setNull(15,Types.NULL);
+
 				ps.setLong(16,pedido.getCliente());
-				ps.setLong(17,pedido.getPlanprocedimientos());
-				ps.setLong(18,pedido.getPlanrequerimientosmateriaprima());
-				ps.setLong(19,pedido.getPlanprocesoscalidad());
+
+                                if(pedido.getPlanprocedimientos()>0)
+                                    ps.setLong(17,pedido.getPlanprocedimientos());
+                                else
+                                    ps.setNull(17,Types.NULL);
+
+				if(pedido.getPlanrequerimientosmateriaprima()>0)
+                                    ps.setLong(18,pedido.getPlanrequerimientosmateriaprima());
+                                else
+                                    ps.setNull(18,Types.NULL);
+
+				if(pedido.getPlanprocesoscalidad()>0)
+                                    ps.setLong(19,pedido.getPlanprocesoscalidad());
+                                else
+                                    ps.setNull(19,Types.NULL);
+				
 				ps.setLong(20,pedido.getPrioridad());
 
                                 rs=ps.executeQuery();
