@@ -318,7 +318,11 @@ public class GestorProducto implements IBuscador{
         filasDetalle=filas;
     }
 
-    public JComboBox getCombo() {
+    public JComboBox getCombo(String className) {
+        return null;
+    }
+
+    public JList getList(String className) {
         return null;
     }
 
