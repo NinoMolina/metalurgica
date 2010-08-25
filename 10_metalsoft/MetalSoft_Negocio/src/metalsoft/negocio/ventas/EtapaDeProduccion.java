@@ -8,6 +8,7 @@ import java.util.Timer;
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
 import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.produccion.UnidadMedida;
 import metalsoft.negocio.rrhh.Empleado;
 
 public class EtapaDeProduccion 
@@ -17,6 +18,7 @@ public class EtapaDeProduccion
    private Date horasMaquina;
    private Date horasHombre;
    private Maquina maquina;
+   private UnidadMedida unidadMedida;
    private Date duracionEstimadaXUnidMed;
    private Date fechaCreacion;
    private EjecucionEtapaDeProduccion ejecucionEtapa;
@@ -24,20 +26,28 @@ public class EtapaDeProduccion
    public Maquina theMaquina;
    public Empleado theEmpleado;
 
-   public long guardarEtapaDeProduccion(EtapaDeProduccion et,long idMaquina,Connection cn)
+   public long guardarEtapaDeProduccion(EtapaDeProduccion et,long idMaquina,long idunidadmedida, Connection cn)
    {
        long result=-1;
-       result=AccessEtapaDeProduccion.insert(et, idMaquina, cn);
+       result=AccessEtapaDeProduccion.insert(et, idMaquina, idunidadmedida, cn);
 
        return result;
    }
-   public long modificarEtapaDeProduccion(EtapaDeProduccion et,long idEtapaDeProduccion,long idMaquina,Connection cn)
+   public long modificarEtapaDeProduccion(EtapaDeProduccion et,long idEtapaDeProduccion,long idMaquina, long idUnidadMedida,Connection cn)
    {
        long result=-1;
-       result=AccessEtapaDeProduccion.update(et, idEtapaDeProduccion, idMaquina, cn);
+       result=AccessEtapaDeProduccion.update(et, idEtapaDeProduccion, idMaquina, idUnidadMedida, cn);
 
        return result;
    }
+
+    public UnidadMedida getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(UnidadMedida unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
 
     public Date getDuracionEstimadaXUnidMed() {
         return duracionEstimadaXUnidMed;
