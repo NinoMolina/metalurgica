@@ -245,7 +245,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
-    public JList getList() {
+    public JList getList(String className) {
         return lstPieza;
     }
 
@@ -253,7 +253,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
         piezasDB=(metalsoft.datos.dbobject.PiezaDB[]) obj;
     }
 
-    public JComboBox getCombo() {
+    public JComboBox getCombo(String className) {
         return null;
     }
 
