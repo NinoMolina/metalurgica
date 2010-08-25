@@ -29,7 +29,7 @@ public class AccessUnidadDeMedida {
         try {
             db = dao.findAll(cn);
         } catch (UnidadmedidaException ex) {
-            Logger.getLogger(.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccessUnidadDeMedida.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return db;
