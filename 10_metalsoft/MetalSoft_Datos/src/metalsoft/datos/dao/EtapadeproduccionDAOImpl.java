@@ -74,9 +74,11 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 				
 				ps.setTime(6,etapadeproduccion.getDuracionestimada());
 				ps.setDate(7,etapadeproduccion.getFechacreacion());
+
                 long idum=etapadeproduccion.getUnidadmedida();
                 if(idum>0) ps.setLong(8,etapadeproduccion.getUnidadmedida());
                 else ps.setNull(8,java.sql.Types.NULL);
+                
 				ps.setLong(9,etapadeproduccionpk.getIdetapaproduccion());
 
 				return(ps.executeUpdate());
