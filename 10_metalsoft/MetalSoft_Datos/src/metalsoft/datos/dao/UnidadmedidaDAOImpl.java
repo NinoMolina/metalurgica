@@ -12,7 +12,8 @@ package metalsoft.datos.dao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -58,7 +59,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return   int
 */
 
-	public int update(UnidadmedidaPK unidadmedidapk, Unidadmedida unidadmedida, Connection con)throws UnidadmedidaException{
+	public int update(UnidadmedidaPK unidadmedidapk, UnidadmedidaDB unidadmedida, Connection con)throws UnidadmedidaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -80,7 +81,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  UnidadmedidaPK
 */
 
-	public int insert(Unidadmedida unidadmedida ,Connection con)throws UnidadmedidaException {
+	public int insert(UnidadmedidaDB unidadmedida ,Connection con)throws UnidadmedidaException {
 
 		PreparedStatement ps = null;
 		try
@@ -100,7 +101,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * 
 */
 
-	public Unidadmedida findByPrimaryKey(int idunidadmedida, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB findByPrimaryKey(int idunidadmedida, Connection con) throws UnidadmedidaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -126,7 +127,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  Unidadmedida
 */
 
-	public Unidadmedida findByPrimaryKey(UnidadmedidaPK unidadmedidapk, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB findByPrimaryKey(UnidadmedidaPK unidadmedidapk, Connection con) throws UnidadmedidaException{
 		return findByPrimaryKey(unidadmedidapk.getIdunidadmedida(), con);
 	}
 
@@ -139,7 +140,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  Unidadmedida[]
 */
 
-	public Unidadmedida[] findByIdunidadmedida(int idunidadmedida, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findByIdunidadmedida(int idunidadmedida, Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idunidadmedida, nombre, descripcion from unidadmedida where idunidadmedida = ? order by idunidadmedida";
@@ -166,7 +167,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  Unidadmedida[]
 */
 
-	public Unidadmedida[] findByNombre(String nombre, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findByNombre(String nombre, Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idunidadmedida, nombre, descripcion from unidadmedida where nombre = ? order by nombre";
@@ -193,7 +194,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  Unidadmedida[]
 */
 
-	public Unidadmedida[] findByDescripcion(String descripcion, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findByDescripcion(String descripcion, Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idunidadmedida, nombre, descripcion from unidadmedida where descripcion = ? order by descripcion";
@@ -219,7 +220,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 *
 */
 
-	public Unidadmedida[] findAll( Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findAll( Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idunidadmedida, nombre, descripcion from unidadmedida";
@@ -247,7 +248,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 *
 */
 
-	public Unidadmedida[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -278,7 +279,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 *
 */
 
-	public Unidadmedida[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws UnidadmedidaException{
+	public UnidadmedidaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws UnidadmedidaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idunidadmedida, nombre, descripcion from unidadmedida";
@@ -308,10 +309,10 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 *
 */
 
-	protected Unidadmedida fetchSingleResult(ResultSet rs) throws SQLException
+	protected UnidadmedidaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Unidadmedida dto = new Unidadmedida();
+					UnidadmedidaDB dto = new UnidadmedidaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -328,7 +329,7 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  void
 */
 
-	protected void populateVO(Unidadmedida dto, ResultSet rs) throws SQLException
+	protected void populateVO(UnidadmedidaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdunidadmedida(rs.getInt("idunidadmedida"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -343,15 +344,15 @@ public class UnidadmedidaDAOImpl implements UnidadmedidaDAO
 * @return  Unidadmedida[]
 */
 
-	protected Unidadmedida[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected UnidadmedidaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Unidadmedida dto = new Unidadmedida();
+			UnidadmedidaDB dto = new UnidadmedidaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Unidadmedida ret[] = new Unidadmedida[ resultList.size() ];
+		UnidadmedidaDB ret[] = new UnidadmedidaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

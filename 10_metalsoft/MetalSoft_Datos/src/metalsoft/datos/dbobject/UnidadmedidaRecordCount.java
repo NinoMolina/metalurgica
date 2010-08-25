@@ -11,7 +11,8 @@ package metalsoft.datos.dbobject;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import java.io.Serializable;
 /**
 * 
