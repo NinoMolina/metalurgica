@@ -39,6 +39,7 @@ import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Producto;
+import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
 import org.jdesktop.swingx.JXBusyLabel;
@@ -72,6 +73,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         cargarComboPrioridad();
         cargarComboEstado();
         tblDetallePedidoCotizacion.updateUI();
+        setEnableComponents(false);
     }
 
     private void addListenerBtnNuevo() {
@@ -87,9 +89,12 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         int nro=obtenerNuevoNroPedidoCotizacion();
         if(nro>0)
         {
+            limpiarCampos();
+            Combo.setItemComboSeleccionado(cmbEstado, 1);
+            Combo.setItemComboSeleccionado(cmbPrioridad, 3);
             lblNroPedido.setText(String.valueOf(nro));
             dccPedidoCotizacion.setSelectedDate(Fecha.fechaActualCalendar());
-            //setEnableComponents(true);
+            setEnableComponents(true);
         }
         else
         {
@@ -162,10 +167,13 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
 //            gestor.setDetalleAEliminar(arlDetallePedCotAEliminar);
 //            gestor.setIdProducto(idProducto);
 //            result=gestor.modificarProducto();
+            setEnableComponents(false);
         }
         if(result>0)
         {
             JOptionPane.showMessageDialog(this, "El Pedido Nro: "+nroPedido+" se guardó correctamente.");
+            setEnableComponents(false);
+            limpiarCampos();
         }
         else
         {
@@ -222,7 +230,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         opcion=EnumOpcionesABM.MODIFICAR;
 //        arlDetProdAEliminar=new ArrayList<ViewDetalleProducto>();
 //        botones.getBtnModificar().setEnabled(false);
-//        setEnableComponents(true);
+        setEnableComponents(true);
     }
 
     private void addListenerBtnBuscar() {
@@ -258,7 +266,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        dispose();
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -1066,11 +1074,55 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
 
     private void setEnableComponents(boolean b) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        txtMotivoCancelacion.setEnabled(b);
+        txtNroFactura.setEnabled(b);
+        txtNroPedidoCliente.setEnabled(b);
+        txtRazonSocial.setEnabled(b);
+        txtValorBusqueda.setEnabled(b);
+        btnAgregarProducto.setEnabled(b);
+        btnNuevoCliente.setEnabled(b);
+        btnNuevoProducto.setEnabled(b);
+        btnQuitar.setEnabled(b);
+        tblDetallePedidoCotizacion.setEnabled(b);
+        cmbEstado.setEnabled(b);
+        cmbPrioridad.setEnabled(b);
+        cmbResultadoBusqueda.setEnabled(b);
+        dccCancelacion.setEnabled(b);
+        dccConfirmacionPedido.setEnabled(b);
+        dccEntregaEstipulada.setEnabled(b);
+        dccEntregaReal.setEnabled(b);
+        dccFechaReqCotizacion.setEnabled(b);
+        dccPedidoCotizacion.setEnabled(b);
     }
 
     private int obtenerNuevoNroPedidoCotizacion() {
         return gestor.generarNumeroPedido();
+    }
+
+    private void limpiarCampos() {
+        txtMotivoCancelacion.setText("");
+        txtNroFactura.setText("");
+        txtNroPedidoCliente.setText("");
+        txtRazonSocial.setText("");
+        txtValorBusqueda.setText("");
+
+        filas.clear();
+        tblDetallePedidoCotizacion.updateUI();
+
+        cmbEstado.setSelectedIndex(-1);
+        cmbPrioridad.setSelectedIndex(-1);
+        cmbResultadoBusqueda.setSelectedIndex(-1);
+
+        dccCancelacion.setSelectedDate(null);
+        dccConfirmacionPedido.setSelectedDate(null);
+        dccEntregaEstipulada.setSelectedDate(null);
+        dccEntregaReal.setSelectedDate(null);
+        dccFechaReqCotizacion.setSelectedDate(null);
+        dccPedidoCotizacion.setSelectedDate(null);
+
+        lblCondIva.setText("");
+        lblCuit.setText("");
+        lblNroPedido.setText("");
     }
 
 
