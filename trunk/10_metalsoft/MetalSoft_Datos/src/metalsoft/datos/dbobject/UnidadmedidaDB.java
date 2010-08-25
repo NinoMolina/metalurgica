@@ -19,15 +19,15 @@ import java.io.Serializable;
 *
 */
 
-public class Unidadmedida implements Serializable
+public class UnidadmedidaDB implements Serializable
 {
 	private int idunidadmedida;
 	private String nombre;
 	private String descripcion;
 
 
-	public Unidadmedida(){}
-	public Unidadmedida(int idunidadmedida ,String nombre ,String descripcion){
+	public UnidadmedidaDB(){}
+	public UnidadmedidaDB(int idunidadmedida ,String nombre ,String descripcion){
 		this.idunidadmedida = idunidadmedida;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
