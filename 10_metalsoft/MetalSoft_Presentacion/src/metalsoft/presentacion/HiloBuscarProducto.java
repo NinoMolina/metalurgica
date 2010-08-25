@@ -57,7 +57,7 @@ public class HiloBuscarProducto extends Thread{
             Logger.getLogger(HiloBuscarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         ProductoDB[] productosDB=AccessProducto.findByNombreILIKE(getValor(),cn);
-        JList combo=ventana.getList();
+        JList combo=ventana.getList(HiloBuscarProducto.class.getName());
         combo.removeAll();
         cargarCombo(combo,productosDB);
     }
