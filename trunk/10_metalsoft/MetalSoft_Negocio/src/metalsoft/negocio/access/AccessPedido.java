@@ -20,7 +20,7 @@ import metalsoft.negocio.ventas.Pedido;
  */
 public class AccessPedido {
 
-    public static long insert(Pedido x,long idEstado,long idPrioridad, Connection cn) {
+    public static long insert(Pedido x,long idCliente,long idEstado,long idPrioridad, Connection cn) {
         long result=-1;
         PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
         PedidoDB db = null;
@@ -29,6 +29,7 @@ public class AccessPedido {
             db=Parser.parseToPedidoDB(x);
             db.setEstado(idEstado);
             db.setPrioridad(idPrioridad);
+            db.setCliente(idCliente);
             result=dao.insert(db, cn);
             db.setIdpedido(result);
         } catch (Exception ex) {
