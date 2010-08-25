@@ -13,7 +13,7 @@ import javax.swing.JList;
  * @author Nino
  */
 public interface IBuscador {
-    public JList getList();
-    public JComboBox getCombo();
+    public JList getList(String className);
+    public JComboBox getCombo(String className);
     public void setBusqueda(Object[] obj);
 }
