@@ -27,12 +27,13 @@ public class EtapadeproduccionDB implements Serializable
 	private Time horasmaquina;
 	private Time horashombre;
 	private long maquina;
-	private Time duracionestimada;
+    private long unidadmedida;
+    private Time duracionestimada;
 	private Date fechacreacion;
 
 
 	public EtapadeproduccionDB(){}
-	public EtapadeproduccionDB(long idetapaproduccion ,long nroetapaproduccion ,String nombre ,Time horasmaquina ,Time horashombre ,long maquina ,Time duracionestimada ,Date fechacreacion){
+	public EtapadeproduccionDB(long idetapaproduccion ,long nroetapaproduccion ,String nombre ,Time horasmaquina ,Time horashombre ,long maquina, long unidadmedida ,Time duracionestimada ,Date fechacreacion){
 		this.idetapaproduccion = idetapaproduccion;
 		this.nroetapaproduccion = nroetapaproduccion;
 		this.nombre = nombre;
@@ -41,7 +42,16 @@ public class EtapadeproduccionDB implements Serializable
 		this.maquina = maquina;
 		this.duracionestimada = duracionestimada;
 		this.fechacreacion = fechacreacion;
+        this.unidadmedida=unidadmedida;
 	}
+
+    public long getUnidadmedida() {
+        return unidadmedida;
+    }
+
+    public void setUnidadmedida(long unidadmedida) {
+        this.unidadmedida = unidadmedida;
+    }
 
 	public void setIdetapaproduccion(long idetapaproduccion ){
 		 this.idetapaproduccion =idetapaproduccion;
@@ -102,6 +112,7 @@ public class EtapadeproduccionDB implements Serializable
 		ret.append(", maquina='"+maquina+"'");
 		ret.append(", duracionestimada='"+duracionestimada+"'");
 		ret.append(", fechacreacion='"+fechacreacion+"'");
+        ret.append(", unidadmedida='"+unidadmedida+"'");
 		return ret.toString();
 	}
 }
