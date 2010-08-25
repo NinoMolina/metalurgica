@@ -199,11 +199,11 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
         ventana=abm;
     }
 
-    public JList getList() {
+    public JList getList(String className) {
         return lstLista;
     }
 
-    public JComboBox getCombo() {
+    public JComboBox getCombo(String className) {
         return null;
     }
 
