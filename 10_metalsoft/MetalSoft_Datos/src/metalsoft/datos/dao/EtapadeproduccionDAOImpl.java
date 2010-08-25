@@ -63,7 +63,7 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update ETAPADEPRODUCCION set NROETAPAPRODUCCION = ? , NOMBRE = ? , HORASMAQUINA = ? , HORASHOMBRE = ? , MAQUINA = ? , DURACIONESTIMADA = ? , FECHACREACION = ?  where idetapaproduccion = ?");
+			ps = con.prepareStatement("update ETAPADEPRODUCCION set NROETAPAPRODUCCION = ? , NOMBRE = ? , HORASMAQUINA = ? , HORASHOMBRE = ? , MAQUINA = ? , DURACIONESTIMADA = ? , FECHACREACION = ? , UNIDADDEMEDIDA = ?  where idetapaproduccion = ?");
 				ps.setLong(1,etapadeproduccion.getNroetapaproduccion());
 				ps.setString(2,etapadeproduccion.getNombre());
 				ps.setTime(3,etapadeproduccion.getHorasmaquina());
@@ -74,7 +74,10 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
 				
 				ps.setTime(6,etapadeproduccion.getDuracionestimada());
 				ps.setDate(7,etapadeproduccion.getFechacreacion());
-				ps.setLong(8,etapadeproduccionpk.getIdetapaproduccion());
+                long idum=etapadeproduccion.getUnidadmedida();
+                if(idum>0) ps.setLong(8,etapadeproduccion.getUnidadmedida());
+                else ps.setNull(8,java.sql.Types.NULL);
+				ps.setLong(9,etapadeproduccionpk.getIdetapaproduccion());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new EtapadeproduccionException(sqle);}
