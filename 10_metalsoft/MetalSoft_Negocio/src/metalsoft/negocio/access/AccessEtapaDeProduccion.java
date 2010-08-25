@@ -47,7 +47,7 @@ public class AccessEtapaDeProduccion {
         }
         return x;
     }
-    public static long insert(EtapaDeProduccion etapaDeProduccion,long idmaquina, Connection cn) {
+    public static long insert(EtapaDeProduccion etapaDeProduccion,long idmaquina, long idunidadmedida, Connection cn) {
         long result=-1;
         EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
         metalsoft.datos.dbobject.EtapadeproduccionDB etapaDeProduccionDB = null;
@@ -55,6 +55,8 @@ public class AccessEtapaDeProduccion {
         try {
             etapaDeProduccionDB=Parser.parseToEtapaDeProduccionDB(etapaDeProduccion);
             etapaDeProduccionDB.setMaquina(idmaquina);
+            etapaDeProduccionDB.setUnidadmedida(idunidadmedida);
+
             
             result=dao.insert(etapaDeProduccionDB, cn);
             etapaDeProduccionDB.setIdetapaproduccion(result);
@@ -64,7 +66,7 @@ public class AccessEtapaDeProduccion {
         return result;
     }
 
-    public static long update(EtapaDeProduccion etapaDeProduccion,long idEtapaDeProduccion,long idmaquina, Connection cn) {
+    public static long update(EtapaDeProduccion etapaDeProduccion,long idEtapaDeProduccion,long idmaquina, long idUnidadMedida, Connection cn) {
         long result=-1;
         EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
 
@@ -74,6 +76,7 @@ public class AccessEtapaDeProduccion {
         try {
             etapaDeProduccionDB=Parser.parseToEtapaDeProduccionDB(etapaDeProduccion);
             etapaDeProduccionDB.setMaquina(idmaquina);
+            etapaDeProduccionDB.setUnidadmedida(idUnidadMedida);
 
             result=dao.update(pk,etapaDeProduccionDB, cn);
         } catch (EtapadeproduccionException ex) {
