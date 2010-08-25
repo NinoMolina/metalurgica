@@ -250,13 +250,22 @@ public class Parser {
     public static PedidoDB parseToPedidoDB(Pedido x) {
         PedidoDB db=new PedidoDB();
         db.setEspedidoweb(x.getEsPedidoWeb());
-        db.setFechacancelacion(Fecha.parseToDateSQL(x.getFechaCancelacion()));
-        db.setFechaconfirmacionpedido(Fecha.parseToDateSQL(x.getFechaConfirmacionPedido()));
-        db.setFechaentregaestipulada(Fecha.parseToDateSQL(x.getFechaEntregaEstipulada()));
-        db.setFechaentregareal(Fecha.parseToDateSQL(x.getFechaEntregaReal()));
-        db.setFechapedidocotizacion(Fecha.parseToDateSQL(x.getFechaPedidoCotizacion()));
-        db.setFecharegpedcotiz(Fecha.parseToDateSQL(x.getFechaRegistroPedidoCotizacion()));
-        db.setFecharequeridacotizacion(Fecha.parseToDateSQL(x.getFechaRequeridaCotizacion()));
+
+        if(x.getFechaCancelacion()!=null)
+            db.setFechacancelacion(Fecha.parseToDateSQL(x.getFechaCancelacion()));
+        if(x.getFechaConfirmacionPedido()!=null)
+            db.setFechaconfirmacionpedido(Fecha.parseToDateSQL(x.getFechaConfirmacionPedido()));
+        if(x.getFechaEntregaEstipulada()!=null)
+            db.setFechaentregaestipulada(Fecha.parseToDateSQL(x.getFechaEntregaEstipulada()));
+        if(x.getFechaEntregaReal()!=null)
+            db.setFechaentregareal(Fecha.parseToDateSQL(x.getFechaEntregaReal()));
+        if(x.getFechaPedidoCotizacion()!=null)
+            db.setFechapedidocotizacion(Fecha.parseToDateSQL(x.getFechaPedidoCotizacion()));
+        if(x.getFechaRegistroPedidoCotizacion()!=null)
+            db.setFecharegpedcotiz(Fecha.parseToDateSQL(x.getFechaRegistroPedidoCotizacion()));
+        if(x.getFechaRequeridaCotizacion()!=null)
+            db.setFecharequeridacotizacion(Fecha.parseToDateSQL(x.getFechaRequeridaCotizacion()));
+        
         db.setMotivocancelacion(x.getMotivoCancelacion());
         db.setNropedidocotizacioncliente(x.getNroPedCotizCliente());
         db.setNropedido(x.getNroPedido());
