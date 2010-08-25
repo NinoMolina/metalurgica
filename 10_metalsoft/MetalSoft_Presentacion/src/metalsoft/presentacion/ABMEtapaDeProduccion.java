@@ -41,6 +41,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         initComponents();
         gestor=new GestorEtapaDeProduccion();
         cargarComboMaquina();
+        cargarComboUnidadMedida();
 
     }
 
@@ -255,6 +256,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         
         if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
         else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
+        if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getMaquina());
     }
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
@@ -284,14 +287,14 @@ public void limpiarCampos()
         long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {   
-            id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId());
+            id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
             if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId());
+            id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
             if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
