@@ -250,12 +250,22 @@ public class GestorProducto implements IBuscador{
 
     public ProductoDB buscarProductoDB(long idProducto) {
         ProductoDB db=null;
+        PostgreSQLManager pg=null;
         Connection cn=null;
         try {
-            cn = new PostgreSQLManager().concectGetCn();
+            pg=new PostgreSQLManager();
+            cn = pg.concectGetCn();
             db=AccessProducto.findById(idProducto,cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return db;
     }
