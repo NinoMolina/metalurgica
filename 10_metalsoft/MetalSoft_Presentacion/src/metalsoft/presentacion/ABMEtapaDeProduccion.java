@@ -78,7 +78,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         txthorasmaquina = new javax.swing.JTextField();
         txthorashombre = new javax.swing.JTextField();
         txtduracion = new javax.swing.JTextField();
-        txtunidadmedida = new javax.swing.JTextField();
         txtFechaCreacion = new javax.swing.JTextField();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
@@ -104,12 +103,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         jLabel6.setText("Fecha de Creación:");
 
         jLabel7.setText("Unidad de Medida:");
-
-        txtunidadmedida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtunidadmedidaActionPerformed(evt);
-            }
-        });
 
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -172,10 +165,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                         .add(jLabel5)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txtduracion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtunidadmedida, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
+                    .add(jLabel7)
                     .add(layout.createSequentialGroup()
                         .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -198,7 +188,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
                     .add(txtNroEtapa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -223,9 +213,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                     .add(jLabel5)
                     .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel7)
-                    .add(txtunidadmedida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -256,10 +244,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
         else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
     }
-
-    private void txtunidadmedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtunidadmedidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtunidadmedidaActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
@@ -352,7 +336,6 @@ public void limpiarCampos()
     private javax.swing.JTextField txthorashombre;
     private javax.swing.JTextField txthorasmaquina;
     private javax.swing.JTextField txtnombre;
-    private javax.swing.JTextField txtunidadmedida;
     // End of variables declaration//GEN-END:variables
 
 }
