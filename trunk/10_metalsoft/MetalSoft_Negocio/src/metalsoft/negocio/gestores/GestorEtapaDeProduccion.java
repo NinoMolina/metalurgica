@@ -113,7 +113,7 @@ public class GestorEtapaDeProduccion {
         else return false;
     }
 
-    public long guardarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion,String idMaquina)
+    public long guardarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion,String idMaquina, String idUnidadmedida)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -123,7 +123,7 @@ public class GestorEtapaDeProduccion {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=etapaDeProduccion.guardarEtapaDeProduccion(etapaDeProduccion,Long.parseLong(idMaquina), cn);
+            result=etapaDeProduccion.guardarEtapaDeProduccion(etapaDeProduccion,Long.parseLong(idMaquina),Long.parseLong(idUnidadmedida), cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +143,7 @@ public class GestorEtapaDeProduccion {
         }
         return result;
     }
-    public long modificarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion, long idEtapaDeProduccion,String idMaquina)
+    public long modificarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion, long idEtapaDeProduccion,String idMaquina, String idUnidadMedida)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -153,7 +153,7 @@ public class GestorEtapaDeProduccion {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=etapaDeProduccion.modificarEtapaDeProduccion(etapaDeProduccion, idEtapaDeProduccion,Long.parseLong(idMaquina), cn);
+            result=etapaDeProduccion.modificarEtapaDeProduccion(etapaDeProduccion, idEtapaDeProduccion,Long.parseLong(idMaquina), Long.parseLong(idUnidadMedida), cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
