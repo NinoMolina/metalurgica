@@ -185,7 +185,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
-    public JList getList() {
+    public JList getList(String className) {
         return lstLista;
     }
 
@@ -193,7 +193,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
         etapasDB=(EtapadeproduccionDB[]) obj;
     }
 
-    public JComboBox getCombo() {
+    public JComboBox getCombo(String className) {
         return null;
     }
 
