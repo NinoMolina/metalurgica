@@ -100,7 +100,7 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
         ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into ETAPADEPRODUCCION( NROETAPAPRODUCCION, NOMBRE, HORASMAQUINA, HORASHOMBRE, MAQUINA, DURACIONESTIMADA, FECHACREACION) values (?, ?, ?, ?, ?, ?, ?)RETURNING idetapaproduccion");
+			ps = con.prepareStatement("insert into ETAPADEPRODUCCION( NROETAPAPRODUCCION, NOMBRE, HORASMAQUINA, HORASHOMBRE, MAQUINA, DURACIONESTIMADA, FECHACREACION, UNIDADDEMEDIDA) values (?, ?, ?, ?, ?, ?, ?, ?)RETURNING idetapaproduccion");
 				ps.setLong(1,etapadeproduccion.getNroetapaproduccion());
 				ps.setString(2,etapadeproduccion.getNombre());
 				ps.setTime(3,etapadeproduccion.getHorasmaquina());
@@ -110,6 +110,9 @@ public class EtapadeproduccionDAOImpl implements EtapadeproduccionDAO
                 else ps.setNull(5,java.sql.Types.NULL);
 				ps.setTime(6,etapadeproduccion.getDuracionestimada());
 				ps.setDate(7,etapadeproduccion.getFechacreacion());
+                long idum=etapadeproduccion.getUnidadmedida();
+                if(idum>0) ps.setLong(8,etapadeproduccion.getUnidadmedida());
+                else ps.setNull(8,java.sql.Types.NULL);
 
 				rs=ps.executeQuery();
                 rs.next();
