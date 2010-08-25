@@ -385,7 +385,7 @@ public class Pedido
     
    }
 
-    public long guardar(Pedido p, long idEstado, long idPrioridad, LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido, Connection cn) {
+    public long guardar(Pedido p,long idCliente, long idEstado, long idPrioridad, LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido, Connection cn) {
         //coleccion de detalles del producto
         //ArrayList arlDetalle=p.getDetalle();
         //iterador que recorre la coleccion de detalle
@@ -395,7 +395,7 @@ public class Pedido
         //Iterator iterIds=arlIdsPiezasDetalleProducto.iterator();
         long idPed=-1;
         //inserto el producto
-        idPed=AccessPedido.insert(p,idEstado,idPrioridad,cn);
+        idPed=AccessPedido.insert(p,idCliente,idEstado,idPrioridad,cn);
         DetallePedido x=null;
         //recorro los detalles del producto y los guardo
         while(iter.hasNext())
