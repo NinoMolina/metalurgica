@@ -106,19 +106,35 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
+        //tomo los datos de la ventana
+        long idCli=Long.parseLong(((ItemCombo)cmbResultadoBusqueda.getSelectedItem()).getId());
         int nroPedidoCliente=Integer.parseInt(txtNroPedidoCliente.getText());
         int nroPedido=Integer.parseInt(lblNroPedido.getText());
-        int nroFactura=Integer.parseInt(txtNroFactura.getText());
+        int nroFactura=-1;
+
+        if(txtNroFactura.getText().compareTo("")!=0)
+            nroFactura=Integer.parseInt(txtNroFactura.getText());
+        
         String motivoCancelacion=txtMotivoCancelacion.getText();
-        Date fechaCancelacion=dccCancelacion.getSelectedDate().getTime();
-        Date fechaConfirmacionPedido=dccConfirmacionPedido.getSelectedDate().getTime();
-        Date fechaEntregaReal=dccEntregaReal.getSelectedDate().getTime();
-        Date fechaEntregaEstipulada=dccEtregaEstipulada.getSelectedDate().getTime();
+
+        Date fechaCancelacion=null;
+        if(dccCancelacion.getSelectedDate()!=null)
+            fechaCancelacion=dccCancelacion.getSelectedDate().getTime();
+        Date fechaConfirmacionPedido=null;
+        if(dccConfirmacionPedido.getSelectedDate()!=null)
+            fechaConfirmacionPedido=dccConfirmacionPedido.getSelectedDate().getTime();
+        Date fechaEntregaReal=null;
+        if(dccEntregaReal.getSelectedDate()!=null)
+            fechaEntregaReal=dccEntregaReal.getSelectedDate().getTime();
+        Date fechaEntregaEstipulada=null;
+        if(dccEntregaEstipulada.getSelectedDate()!=null)
+            fechaEntregaReal=dccEntregaEstipulada.getSelectedDate().getTime();
+        
         Date fechaRequeridaCotizacion=dccFechaReqCotizacion.getSelectedDate().getTime();
         Date fechaPedidoCotizacion=dccPedidoCotizacion.getSelectedDate().getTime();
         long idEstado=Long.parseLong(((ItemCombo)cmbEstado.getSelectedItem()).getId());
         long idPrioridad=Long.parseLong(((ItemCombo)cmbPrioridad.getSelectedItem()).getId());
-
+        //seteo los valores necesarios en el gestor para guardar el pedido
         gestor.setNroPedidoCliente(nroPedidoCliente);
         gestor.setNroPedido(nroPedido);
         gestor.setNroFactura(nroFactura);
@@ -131,7 +147,9 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         gestor.setFechaPedidoCotizacion(fechaPedidoCotizacion);
         gestor.setIdEstado(idEstado);
         gestor.setIdPrioridad(idPrioridad);
-
+        gestor.setIdCliente(idCli);
+        //paso la coleccion de ViewDetallePedidoCotizacion que representan
+        //el detalle del pedido
         gestor.setListaDetalle(filas);
 
         long result=-1;
@@ -144,6 +162,14 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
 //            gestor.setDetalleAEliminar(arlDetallePedCotAEliminar);
 //            gestor.setIdProducto(idProducto);
 //            result=gestor.modificarProducto();
+        }
+        if(result>0)
+        {
+            JOptionPane.showMessageDialog(this, "El Pedido Nro: "+nroPedido+" se guardó correctamente.");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "El Pedido Nro: "+nroPedido+" no se pudo guardar.");
         }
     }
 //    private ArrayList crearDetallePedido(Pedido p)
@@ -280,7 +306,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         dccConfirmacionPedido = new datechooser.beans.DateChooserCombo();
-        dccEtregaEstipulada = new datechooser.beans.DateChooserCombo();
+        dccEntregaEstipulada = new datechooser.beans.DateChooserCombo();
         dccCancelacion = new datechooser.beans.DateChooserCombo();
         dccEntregaReal = new datechooser.beans.DateChooserCombo();
         dccPedidoCotizacion = new datechooser.beans.DateChooserCombo();
@@ -494,7 +520,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         }
 
         try {
-            dccEtregaEstipulada.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+            dccEntregaEstipulada.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
@@ -575,7 +601,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
                 .addComponent(dccEntregaReal, 0, 0, Short.MAX_VALUE)
                 .addComponent(dccCancelacion, 0, 0, Short.MAX_VALUE)
                 .addComponent(dccPedidoCotizacion, 0, 0, Short.MAX_VALUE)
-                .addComponent(dccEtregaEstipulada, 0, 0, Short.MAX_VALUE)
+                .addComponent(dccEntregaEstipulada, 0, 0, Short.MAX_VALUE)
                 .addComponent(dccConfirmacionPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
             .addContainerGap())
     );
@@ -589,7 +615,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jLabel4)
-                .addComponent(dccEtregaEstipulada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dccEntregaEstipulada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jLabel2)
@@ -880,9 +906,30 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         ItemCombo item=(ItemCombo) lstResultadoBusqueda.getSelectedValue();
         long idProducto=Long.parseLong(item.getId());
-        ViewDetallePedidoCotizacion view=gestor.buscarProductoParaDetallePedidoCotizacion(idProducto);
-        agregarFila(view);
-        tblDetallePedidoCotizacion.updateUI();
+        ViewDetallePedidoCotizacion v=new ViewDetallePedidoCotizacion();
+
+        JTextField txtCant=new JTextField("1");
+        Object[] obj={"Cantidad",txtCant};
+        int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (result == JOptionPane.OK_OPTION) {
+
+            ProductoDB db=gestor.buscarProductoDB(idProducto);
+            v.setIdProducto(idProducto);
+            v.setNombreProducto(db.getNombre());
+            v.setPrecio(db.getPreciounitario());
+            v.setDescripcion(db.getDescripcion());
+            v.setNumeroProducto((int) db.getNroproducto());
+
+            int cantPiezas=gestor.obtenerCantidadPiezasXProducto(idProducto);
+            v.setCantidadPiezas(cantPiezas);
+            String cant = txtCant.getText();
+            v.setCantidad(Integer.parseInt(cant));
+            agregarFila(v);
+            tblDetallePedidoCotizacion.updateUI();
+        }
+        
+        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     public void agregarFila(ViewDetallePedidoCotizacion v)
@@ -934,8 +981,8 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     private javax.swing.JComboBox cmbResultadoBusqueda;
     private datechooser.beans.DateChooserCombo dccCancelacion;
     private datechooser.beans.DateChooserCombo dccConfirmacionPedido;
+    private datechooser.beans.DateChooserCombo dccEntregaEstipulada;
     private datechooser.beans.DateChooserCombo dccEntregaReal;
-    private datechooser.beans.DateChooserCombo dccEtregaEstipulada;
     private datechooser.beans.DateChooserCombo dccFechaReqCotizacion;
     private datechooser.beans.DateChooserCombo dccPedidoCotizacion;
     private javax.swing.JLabel jLabel1;
@@ -983,8 +1030,10 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     {
         return gestor;
     }
-    public JList getList() {
-        return lstResultadoBusqueda;
+    public JList getList(String className) {
+        if(className.compareTo(HiloBuscarProducto.class.getName())==0)
+            return lstResultadoBusqueda;
+        return null;
     }
 
     public void setBusqueda(Object[] obj) {
@@ -1000,8 +1049,10 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
         bsyBuscar.setVisible(false);
     }
 
-    public JComboBox getCombo() {
-        return cmbResultadoBusqueda;
+    public JComboBox getCombo(String className) {
+        if(className.compareTo(HiloBuscarCliente.class.getName())==0)
+            return cmbResultadoBusqueda;
+        return null;
     }
 
     private void cargarComboPrioridad() {
@@ -1026,6 +1077,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
     class DetallePedidoCotizacionTableModel extends AbstractTableModel
     {
         String[] columnNames = {"Nro",
+                        "Cantidad",
                         "Producto",
                         "Descripción",
                         "Cant. Piezas"};
@@ -1040,11 +1092,13 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             case 0:
               return view.getNumeroProducto();
             case 1:
-              return view.getNombreProducto();
+              return view.getCantidad();
             case 2:
-              return view.getDescripcion();
+              return view.getNombreProducto();
             case 3:
-              return String.valueOf(view.getCantidad());
+              return view.getDescripcion();
+            case 4:
+              return view.getCantidadPiezas();
             default:
               return null;
             }
