@@ -16,6 +16,7 @@ cambios:
 *sacar extend 62 a 10
 *sacar extend CU 152
 *sacar include del 48 al 47
+*sacar include del 93 al 110
 
 copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
 
