@@ -57,6 +57,11 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         cmbmaquinas.removeAllItems();
         gestor.obtenerMaquinas(cmbmaquinas);
     }
+    private void cargarComboUnidadMedida()
+    {
+        cmbUnidadMedida.removeAllItems();
+        gestor.obternerUnidadMedida(cmbUnidadMedida);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -87,6 +92,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         cmbmaquinas = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         txtNroEtapa = new javax.swing.JTextField();
+        cmbUnidadMedida = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,11 +168,6 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txthorashombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtduracion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
-                    .add(jLabel7)
-                    .add(layout.createSequentialGroup()
                         .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txtFechaCreacion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
@@ -182,13 +183,22 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                         .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                             .add(jLabel1)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(txtnombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(txtnombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                .add(jLabel7)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(cmbUnidadMedida, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel5))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtduracion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
                     .add(txtNroEtapa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -213,7 +223,9 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
                     .add(jLabel5)
                     .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel7)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(cmbUnidadMedida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -240,7 +252,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         txthorashombre.setText(String.valueOf(ep.getHorashombre()));
         txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
         txtnombre.setText(String.valueOf(ep.getNombre()));
-        txtunidadmedida.setText("todavia no lo hice");
+        
         if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
         else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
     }
@@ -258,7 +270,7 @@ public void limpiarCampos()
     txthorashombre.setText("");
     txthorasmaquina.setText("");
     txtnombre.setText("");
-    txtunidadmedida.setText("");
+    cmbUnidadMedida.setSelectedIndex(-1);
     cmbmaquinas.setSelectedIndex(-1);
 }
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -321,6 +333,7 @@ public void limpiarCampos()
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JComboBox cmbUnidadMedida;
     private javax.swing.JComboBox cmbmaquinas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
