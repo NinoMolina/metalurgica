@@ -44,6 +44,7 @@ public class GestorPedidoCotizacion
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private int nroPedido;
     private long idPedido;
+    private long idCliente;
    
    /**
     * @roseuid 4C2036120340
@@ -154,7 +155,7 @@ public class GestorPedidoCotizacion
             //Acá podria pasar como parametros a prod, filasDetalle y cn en vez de arlIdsPiezasDetalleProducto
             //y no usar el metodo crearDetalleProducto, el metodo prod.guardar() debería crear los detalles
             //y guardarlos
-            long id=p.guardar(p,idEstado,idPrioridad,filasDetallePedido, cn);
+            long id=p.guardar(p,idCliente,idEstado,idPrioridad,filasDetallePedido, cn);
             result=id;
             cn.commit();
             idPedido=result;
@@ -519,6 +520,10 @@ public class GestorPedidoCotizacion
 
     public void setNroPedido(int nroPedido) {
         this.nroPedido=nroPedido;
+    }
+
+    public void setIdCliente(long idCli) {
+        idCliente=idCli;
     }
 
 
