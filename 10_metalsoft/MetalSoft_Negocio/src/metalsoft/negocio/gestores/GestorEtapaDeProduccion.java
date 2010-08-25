@@ -17,13 +17,14 @@ import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MaquinaDB;
-import metalsoft.datos.dbobject.Unidadmedida;
+import metalsoft.datos.dbobject.UnidadmedidaDB;
 import metalsoft.datos.exception.EtapadeproduccionException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.EtapadeproduccionDAO;
 import metalsoft.datos.idao.MaquinaDAO;
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.negocio.access.AccessMaquina;
+import metalsoft.negocio.access.AccessUnidadDeMedida;
 import metalsoft.negocio.ventas.EtapaDeProduccion;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
@@ -204,17 +205,17 @@ public class GestorEtapaDeProduccion {
     public void obternerUnidadMedida(JComboBox combo) {
         PostgreSQLManager pg=null;
         Connection cn=null;
-        Unidadmedida[] maquinas=null;
+        UnidadmedidaDB[] datos=null;
         try {
             pg=new PostgreSQLManager();
             cn=pg.concectGetCn();
 
-            maquinas=Access.findAll(cn);
+            datos=AccessUnidadDeMedida.findAll(cn);
 
             combo.addItem(new ItemCombo("-1","--Seleccionar--"));
-            for(int i=0;i<maquinas.length;i++)
+            for(int i=0;i<datos.length;i++)
             {
-                Combo.cargarCombo(combo,String.valueOf(maquinas[i].getIdmaquina()),maquinas[i].getNombre());
+                Combo.cargarCombo(combo,String.valueOf(datos[i].getIdunidadmedida()),datos[i].getNombre());
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
