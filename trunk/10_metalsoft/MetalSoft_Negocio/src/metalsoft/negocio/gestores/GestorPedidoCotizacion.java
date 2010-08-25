@@ -12,11 +12,13 @@ import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EstadopedidoDB;
 import metalsoft.datos.dbobject.PrioridadDB;
+import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PrioridadDAO;
 import metalsoft.negocio.access.AccessEstadoPedido;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPrioridad;
+import metalsoft.negocio.access.AccessProducto;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.EstadoPedido;
@@ -401,14 +403,36 @@ public class GestorPedidoCotizacion
         }
     }
 
-    public ViewDetallePedidoCotizacion buscarProductoParaDetallePedidoCotizacion(long idProducto) {
+//    public ViewDetallePedidoCotizacion buscarProductoParaDetallePedidoCotizacion(long idProducto) {
+//        PostgreSQLManager pg=null;
+//        Connection cn=null;
+//        ViewDetallePedidoCotizacion view=null;
+//        pg=new PostgreSQLManager();
+//        try {
+//            cn = pg.concectGetCn();
+//            view=AccessViews.detallePedidoCotizacion(idProducto, cn);
+//        } catch (Exception ex) {
+//            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        finally
+//        {
+//            try {
+//                pg.disconnect();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return view;
+//    }
+
+    public ProductoDB buscarProductoDB(long idProducto) {
         PostgreSQLManager pg=null;
         Connection cn=null;
-        ViewDetallePedidoCotizacion view=null;
+        ProductoDB db=null;
         pg=new PostgreSQLManager();
         try {
             cn = pg.concectGetCn();
-            view=AccessViews.detallePedidoCotizacion(idProducto, cn);
+            db=AccessProducto.findById(idProducto,cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -420,7 +444,29 @@ public class GestorPedidoCotizacion
                 Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return view;
+        return db;
+    }
+
+    public int obtenerCantidadPiezasXProducto(long idProducto) {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        int result=-1;
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.cantPiezasXProducto(idProducto, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 
     public void setNroPedidoCliente(int nroPedidoCliente) {
@@ -474,6 +520,8 @@ public class GestorPedidoCotizacion
     public void setNroPedido(int nroPedido) {
         this.nroPedido=nroPedido;
     }
+
+
 
 
 }
