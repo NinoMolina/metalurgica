@@ -187,11 +187,11 @@ public class ABMProducto_Buscar extends javax.swing.JFrame implements IBuscador{
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
-    public JList getList() {
+    public JList getList(String className) {
         return lstLista;
     }
 
-    public JComboBox getCombo() {
+    public JComboBox getCombo(String className) {
         return null;
     }
 
