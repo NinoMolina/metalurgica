@@ -48,7 +48,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniPresupuesto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Presupuesto"/>
+                <Property name="text" type="java.lang.String" value="Pedido"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniPresupuestoActionPerformed"/>

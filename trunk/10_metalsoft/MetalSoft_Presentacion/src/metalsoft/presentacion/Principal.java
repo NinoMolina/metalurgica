@@ -114,7 +114,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniProducto);
 
-        mniPresupuesto.setText("Presupuesto");
+        mniPresupuesto.setText("Pedido");
         mniPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniPresupuestoActionPerformed(evt);
