@@ -13,12 +13,20 @@ public class ViewDetallePedidoCotizacion {
 
     private String nombreProducto;
     private String descripcion;
-    private int cantidad;
+    private int cantidad, cantidadPiezas;
     private int numeroProducto;
     private double precio;
     private long idProducto,idDetalle,idPedido;
 
     public ViewDetallePedidoCotizacion() {
+    }
+
+    public int getCantidadPiezas() {
+        return cantidadPiezas;
+    }
+
+    public void setCantidadPiezas(int cantidadPiezas) {
+        this.cantidadPiezas = cantidadPiezas;
     }
 
     public double getPrecio() {
