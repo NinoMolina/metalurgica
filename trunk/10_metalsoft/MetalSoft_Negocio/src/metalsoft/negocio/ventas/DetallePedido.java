@@ -5,7 +5,7 @@ package metalsoft.negocio.ventas;
 
 public class DetallePedido 
 {
-   private float precio;
+   private double precio;
    private int cantidad;
    private Producto producto;
    private DetallePresupuesto detallePresupuesto;
@@ -43,11 +43,11 @@ public class DetallePedido
         this.detallePresupuesto = detallePresupuesto;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
