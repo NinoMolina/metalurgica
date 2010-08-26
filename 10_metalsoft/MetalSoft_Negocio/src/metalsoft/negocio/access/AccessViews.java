@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
+import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 
@@ -159,5 +160,54 @@ public class AccessViews {
         }
         if(ll.isEmpty())return null;
         else return ll;
+    }
+
+    public static LinkedList<ViewEtapaDeProduccion> allEtapasDeProduccion(Connection cn) {
+        ViewEtapaDeProduccion view=null;
+        LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
+        String query="SELECT numero,nombre,idetapa"+
+                     " FROM viewetapadeproduccion";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewEtapaDeProduccion();
+                view.setIdetapa(rs.getLong("idetapa"));
+                view.setNombre(rs.getString("nombre"));
+                view.setNumero(rs.getInt("numero"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewEtapaDeProduccion> etapasDeProduccionILIKE(String valor,Connection cn) {
+        ViewEtapaDeProduccion view=null;
+        LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
+        String query="SELECT numero,nombre,idetapa"+
+                     " FROM viewetapadeproduccion"+
+                     " WHERE nombre ILIKE '"+valor+"%'";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewEtapaDeProduccion();
+                view.setIdetapa(rs.getLong("idetapa"));
+                view.setNombre(rs.getString("nombre"));
+                view.setNumero(rs.getInt("numero"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
     }
 }
