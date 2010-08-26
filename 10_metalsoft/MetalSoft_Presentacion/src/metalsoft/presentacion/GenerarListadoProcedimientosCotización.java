@@ -12,11 +12,16 @@
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
+import metalsoft.negocio.gestores.IBuscadorView;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
+import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 
@@ -24,21 +29,24 @@ import metalsoft.util.Fecha;
  *
  * @author Vicky
  */
-public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame {
+public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame implements IBuscadorView{
 
     /** Creates new form GenerarListadoProcedimientosCotización */
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
-    private LinkedList<ViewEtapaProduccion> filasEtapaProduccion;
-    private LinkedList<ViewEtapaProduccion> filasEtapaProduccionSeleccionada;
+    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccion;
+    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccionSeleccionada;
     private GestorDetalleProcedimientos gestor;
+    private Timer timer;
     public GenerarListadoProcedimientosCotización() {
         initComponents();
         gestor=new GestorDetalleProcedimientos();
         buscarPedidosGenerados();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
+        tblEtapa.updateUI();
+        tblEtapaSeleccionada.updateUI();
     }
 
     private void buscarPedidosGenerados()
@@ -76,13 +84,13 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         lblPiezaSeleccionada = new javax.swing.JLabel();
         txtEtapaProduccion = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEtapa = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         agregarQuitar1 = new metalsoft.beans.AgregarQuitar();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblEtapaSeleccionada = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton3.setText("Salir");
 
@@ -169,6 +177,11 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         jScrollPane3.setViewportView(tblDetalleProducto);
 
         btnSeleccionarPieza.setText("Seleccionar");
+        btnSeleccionarPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPiezaActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -195,33 +208,19 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
 
         lblPiezaSeleccionada.setText("....");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        txtEtapaProduccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEtapaProduccionKeyReleased(evt);
             }
-        ));
-        jScrollPane4.setViewportView(jTable1);
+        });
+
+        tblEtapa.setModel(new EtapaTableModel());
+        jScrollPane4.setViewportView(tblEtapa);
 
         jLabel3.setText("Nombre Etapa Producción:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable2);
+        tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
+        jScrollPane5.setViewportView(tblEtapaSeleccionada);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -322,6 +321,31 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         tblDetalleProducto.updateUI();
     }//GEN-LAST:event_btnSeleccionarProductoActionPerformed
 
+    private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
+        String pieza=((ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow())).getNombrePieza();
+        lblPiezaSeleccionada.setText(pieza);
+        filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
+        tblEtapa.updateUI();
+    }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
+
+    private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
+        if(txtEtapaProduccion.getText().compareTo("")!=0)
+        {
+            final GenerarListadoProcedimientosCotización abm=this;
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                private HiloViewEtapaDeProduccion hilo;
+                @Override
+                public void run() {
+                    hilo=new HiloViewEtapaDeProduccion();
+                    hilo.setClient(abm);
+                    hilo.setValor(txtEtapaProduccion.getText());
+                    hilo.start();
+                }
+            }, 1500);
+        }
+    }//GEN-LAST:event_txtEtapaProduccionKeyReleased
+
     /**
     * @param args the command line arguments
     */
@@ -352,15 +376,32 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPiezaSeleccionada;
     private javax.swing.JTable tblDetallePedido;
     private javax.swing.JTable tblDetalleProducto;
+    private javax.swing.JTable tblEtapa;
+    private javax.swing.JTable tblEtapaSeleccionada;
     private javax.swing.JTable tblPedidos;
     private javax.swing.JTextField txtEtapaProduccion;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getTable(String className) {
+        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
+        {
+            return tblEtapa;
+        }
+        return null;
+    }
+
+    public LinkedList getFilas(String className) {
+        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
+        {
+            return filasEtapaProduccion;
+        }
+        return null;
+    }
+    // End of variables declaration
 
     class PedidoTableModel extends AbstractTableModel
     {
@@ -556,28 +597,21 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
 
   }
 
-    class EtapaProduccionTableModel extends AbstractTableModel{
+    class EtapaTableModel extends AbstractTableModel{
           String[] columnNames = {"Nro",
-                            "Nombre",
-                            "Máquina"};
+                            "Nombre"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaProduccion view=filasEtapaProduccion.get(rowIndex);
+            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNombrePieza();
+              return view.getNumero();
             case 1:
-              return view.getDescripcion();
-            case 2:
-              return String.valueOf(view.getCantidad());
-            case 3:
-              return view.getDimensiones();
-            case 4:
-              return view.getNombreTipoMaterial();
+              return view.getNombre();
             default:
               return null;
             }
@@ -614,32 +648,24 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         }
     }
 
-    class EtapaProduccionSeleccionadaTableModel extends AbstractTableModel{
+    class EtapaSeleccionadaTableModel extends AbstractTableModel{
           String[] columnNames = {"Nro",
-                            "Nombre",
-                            "Máquina"};
+                            "Nombre"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
+            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNombrePieza();
+              return view.getNumero();
             case 1:
-              return view.getDescripcion();
-            case 2:
-              return String.valueOf(view.getCantidad());
-            case 3:
-              return view.getDimensiones();
-            case 4:
-              return view.getNombreTipoMaterial();
+              return view.getNombre();
             default:
               return null;
             }
-
         }
 
         /**
