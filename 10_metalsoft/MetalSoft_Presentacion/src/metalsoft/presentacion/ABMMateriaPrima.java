@@ -11,6 +11,32 @@
 
 package metalsoft.presentacion;
 
+import metalsoft.negocio.gestores.IBuscador;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
+import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.gestores.GestorProducto;
+import metalsoft.negocio.gestores.ViewDetalleProducto;
+import metalsoft.negocio.ventas.Pieza;
+import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.ItemCombo;
 /**
  *
  * @author Vicky
@@ -20,6 +46,70 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     /** Creates new form ABMMateriaPrima */
     public ABMMateriaPrima() {
         initComponents();
+        addListenerBtnNuevo();
+        addListenerBtnGuardar();
+        addListenerBtnModificar();
+        addListenerBtnBuscar();
+        addListenerBtnSalir();
+    }
+
+    private void addListenerBtnNuevo() {
+        botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+    }
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
+
+    private void addListenerBtnGuardar() {
+        botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
+    private void addListenerBtnModificar() {
+        botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
+
+    private void addListenerBtnBuscar() {
+        botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
+    }
+
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
+    {
+
     }
 
     /** This method is called from within the constructor to
@@ -52,7 +142,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbUnidadMedida = new javax.swing.JComboBox();
-        aBM_Botones1 = new metalsoft.beans.ABM_Botones();
+        botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,7 +227,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                 .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(136, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(aBM_Botones1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,7 +269,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(aBM_Botones1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -198,7 +288,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.beans.ABM_Botones aBM_Botones1;
+    private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JComboBox cmbTipoMaterial;
     private javax.swing.JComboBox cmbUnidadMedida;
     private datechooser.beans.DateChooserCombo dccFechaAlta;

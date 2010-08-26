@@ -82,7 +82,7 @@
               <EmptySpace pref="136" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <Component id="aBM_Botones1" min="-2" pref="456" max="-2" attributes="0"/>
+              <Component id="botones" min="-2" pref="456" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -133,7 +133,7 @@
                   <Component id="jScrollPane1" min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
-              <Component id="aBM_Botones1" min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="botones" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -243,7 +243,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="metalsoft.beans.ABM_Botones" name="aBM_Botones1">
+    <Component class="metalsoft.beans.ABM_Botones" name="botones">
     </Component>
   </SubComponents>
 </Form>
