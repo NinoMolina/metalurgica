@@ -94,4 +94,26 @@ public class GestorDetalleProcedimientos {
         }
         return list;
     }
+
+    public LinkedList<ViewEtapaDeProduccion> obtenerEtapasDeProduccion()
+    {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        LinkedList<ViewEtapaDeProduccion> list=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            list=AccessViews.allEtapasDeProduccion(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
 }
