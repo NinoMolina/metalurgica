@@ -9,9 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
+import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -46,5 +51,48 @@ public class AccessViews {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
         return view;
+    }
+
+    public static LinkedList<ViewPedidoEnListadoProcedimientos> pedidoEnListadoProcedimientos(Connection cn)
+    {
+        ViewPedidoEnListadoProcedimientos view=null;
+        LinkedList<ViewPedidoEnListadoProcedimientos> ll=new LinkedList<ViewPedidoEnListadoProcedimientos>();
+        String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
+                     "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado"+
+                     " FROM viewpedidoenlistadoprocedimientos"+
+                     " WHERE idestado=1";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewPedidoEnListadoProcedimientos();
+                view.setCliente(rs.getString("cliente"));
+                view.setEspedidoweb(rs.getBoolean("espedidoweb"));
+                view.setEstado(rs.getString("estado"));
+                
+//                String f=Fecha.parseToString(rs.getDate("fechaentregaestipulada").getTime());
+//                view.setFechaentregaestipulada(Fecha.parseToDate(f));
+//                f=Fecha.parseToString(rs.getDate("fechapedidocotizacion").getTime());
+//                view.setFechapedidocotizacion(Fecha.parseToDate(f));
+//                f=Fecha.parseToString(rs.getDate("fecharequeridacotizacion").getTime());
+//                view.setFecharequeridacotizacion(Fecha.parseToDate(f));
+                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setFechapedidocotizacion(rs.getDate("fechapedidocotizacion"));
+                view.setFecharequeridacotizacion(rs.getDate("fecharequeridacotizacion"));
+                view.setIdestado(rs.getLong("idestado"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setNropedido(rs.getInt("nropedido"));
+                view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
+                view.setPrioridad(rs.getString("prioridad"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(ll.isEmpty())return null;
+        else return ll;
     }
 }
