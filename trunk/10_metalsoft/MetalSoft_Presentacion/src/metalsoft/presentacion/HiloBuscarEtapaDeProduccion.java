@@ -5,6 +5,7 @@
 
 package metalsoft.presentacion;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,15 +50,24 @@ public class HiloBuscarEtapaDeProduccion extends Thread {
         Connection cn=null;
         PostgreSQLManager pg=null;
         pg=new PostgreSQLManager();
+        EtapadeproduccionDB[] etapaDeProduccionDB=null;
         try {
             cn = pg.concectGetCn();
+            etapaDeProduccionDB=AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
+            JList combo=ventana.getLstLista();
+            combo.removeAll();
+            cargarCombo(combo,etapaDeProduccionDB);
         } catch (Exception ex) {
             Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        EtapadeproduccionDB[] etapaDeProduccionDB=AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
-        JList combo=ventana.getLstLista();
-        combo.removeAll();
-        cargarCombo(combo,etapaDeProduccionDB);
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private void cargarCombo(JList combo, EtapadeproduccionDB[] dbs) {
