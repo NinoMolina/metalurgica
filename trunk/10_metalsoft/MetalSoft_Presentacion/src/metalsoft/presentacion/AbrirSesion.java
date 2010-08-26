@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorIniciarSesion;
 
 /**
@@ -64,17 +65,13 @@ public class AbrirSesion extends javax.swing.JFrame {
         if(idUsuario>0)
         {
             try {
-                Principal p=(Principal) JFrameManager.crearVentana(Principal.class.getName());
-                p.setIdUsuario(idUsuario);
-                p.obtenerRolUsuario(idUsuario);
+                Principal p=new Principal(idUsuario);
                 this.dispose();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
+                p.setVisible(true);
+                p.setLocationRelativeTo(null);
             } catch (Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error al iniciar sesion", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else

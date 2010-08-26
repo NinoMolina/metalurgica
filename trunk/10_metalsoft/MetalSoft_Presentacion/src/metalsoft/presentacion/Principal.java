@@ -68,7 +68,11 @@ public class Principal extends javax.swing.JFrame {
         mniPieza = new javax.swing.JMenuItem();
         mniProducto = new javax.swing.JMenuItem();
         mniPresupuesto = new javax.swing.JMenuItem();
+        mniEtapaDeProduccion = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
+        mniTipoMaterial = new javax.swing.JMenuItem();
+        mniMatriz = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mnuFinanzas = new javax.swing.JMenu();
         mnuRRHH = new javax.swing.JMenu();
@@ -122,9 +126,42 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniPresupuesto);
 
+        mniEtapaDeProduccion.setText("Etapa de Producción");
+        mniEtapaDeProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEtapaDeProduccionActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniEtapaDeProduccion);
+
         mbrMenu.add(mnuVentas);
 
         mnuProduccion.setText("Producción");
+
+        mniTipoMaterial.setText("Tipo Material");
+        mniTipoMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniTipoMaterialActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniTipoMaterial);
+
+        mniMatriz.setText("Matriz");
+        mniMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMatrizActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniMatriz);
+
+        jMenuItem1.setText("Generar Listado Procedimientos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(jMenuItem1);
+
         mbrMenu.add(mnuProduccion);
 
         mnuCalidad.setText("Calidad");
@@ -221,18 +258,70 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniPiezaActionPerformed
 
+    private void mniEtapaDeProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEtapaDeProduccionActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMEtapaDeProduccion.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniEtapaDeProduccionActionPerformed
+
+    private void mniTipoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTipoMaterialActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMTipoMaterial.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniTipoMaterialActionPerformed
+
+    private void mniMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMatrizActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMMatriz.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniMatrizActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            JFrameManager.crearVentana(GenerarListadoProcedimientosCotización.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
     * @param args the command line arguments
     */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
+    private javax.swing.JMenuItem mniEtapaDeProduccion;
     private javax.swing.JMenuItem mniListadoClientes;
+    private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniPieza;
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
+    private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
     private javax.swing.JMenu mnuCompras;
@@ -245,7 +334,7 @@ public class Principal extends javax.swing.JFrame {
 
     public void obtenerRolUsuario(long idUsuario) {
         roles=Usuario.obtenerRoles(idUsuario);
-        this.setTitle("METALSOFT - INICIO [Rol: "+roles[0].getRol()+"]");
+        setTitle("METALSOFT - INICIO [Rol: "+roles[0].getRol()+"]");
     }
 
 }
