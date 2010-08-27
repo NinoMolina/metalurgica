@@ -146,7 +146,9 @@ public class MateriaprimaDB implements Serializable
 		ret.append(", fechaalta='"+fechaalta+"'");
 		ret.append(", fechabaja='"+fechabaja+"'");
 		ret.append(", codbarra='"+codbarra+"'");
-		ret.append(", dimensiones='"+dimensiones+"'");
+		ret.append(", alto='"+alto+"'");
+        ret.append(", ancho='"+ancho+"'");
+        ret.append(", largo='"+largo+"'");
 		ret.append(", stock='"+stock+"'");
 		ret.append(", unidaddemedida='"+unidaddemedida+"'");
 		ret.append(", descripcion='"+descripcion+"'");
