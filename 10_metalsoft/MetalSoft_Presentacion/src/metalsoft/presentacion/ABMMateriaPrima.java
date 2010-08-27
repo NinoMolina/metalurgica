@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 
 import metalsoft.negocio.gestores.IBuscador;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,6 +95,12 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
         MateriaPrima ep=new MateriaPrima();
+        Date fechaAlta=null;
+        if(dccFechaAlta.getSelectedDate()!=null)
+            fechaAlta=dccFechaAlta.getSelectedDate().getTime();
+        Date fechaBaja=null;
+        if(dccFechaBaja.getSelectedDate()!=null)
+            fechaBaja=dccFechaBaja.getSelectedDate().getTime();
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         ep.setAlto(Float.parseFloat(dimensiones1.getTxtAlto().getText()));
