@@ -29,12 +29,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
-import metalsoft.datos.dbobject.PiezaDB;
-import metalsoft.datos.dbobject.ProductoDB;
-import metalsoft.negocio.gestores.GestorPieza;
-import metalsoft.negocio.gestores.GestorProducto;
-import metalsoft.negocio.gestores.ViewDetalleProducto;
-import metalsoft.negocio.ventas.Pieza;
+import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.negocio.gestores.GestorMateriaPrima;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
 /**
@@ -42,7 +39,10 @@ import metalsoft.util.ItemCombo;
  * @author Vicky
  */
 public class ABMMateriaPrima extends javax.swing.JFrame {
-
+    private GestorMateriaPrima gestor;
+    private MateriaprimaDB materiaPrimaDB;
+    private long idMateriaPrima=-1;
+    private EnumOpcionesABM opcion;
     /** Creates new form ABMMateriaPrima */
     public ABMMateriaPrima() {
         initComponents();
@@ -51,6 +51,24 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+    }
+    public void etapaSeleccionada() {
+        materiaPrimaDB=gestor.buscarPorId(idMateriaPrima);
+        mostrarDatosMateriaPrima(materiaPrimaDB);
+    }
+
+    public void setIdEtapa(long id) {
+        idMateriaPrima=id;
+    }
+
+    private void cargarComboMaquina() {
+        cmbTipoMaterial.removeAllItems();
+        gestor.obtenerTipoMateriales(cmbTipoMaterial);
+    }
+    private void cargarComboUnidadMedida()
+    {
+        cmbUnidadMedida.removeAllItems();
+        gestor.obternerUnidadMedida(cmbUnidadMedida);
     }
 
     private void addListenerBtnNuevo() {
@@ -311,5 +329,21 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarDatosMateriaPrima(MateriaprimaDB materiaPrimaDB) {
+        long fecha=materiaPrimaDB.getFechacreacion().getTime();
+        String fechaCreacion=Fecha.parseToString(fecha);
+        txtFechaCreacion.setText(String.valueOf(fechaCreacion));
+        txtNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
+        txtduracion.setText(String.valueOf(ep.getDuracionestimada()));
+        txthorashombre.setText(String.valueOf(ep.getHorashombre()));
+        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
+        txtnombre.setText(String.valueOf(ep.getNombre()));
+
+        if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
+        else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
+        if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getMaquina());
+    }
 
 }
