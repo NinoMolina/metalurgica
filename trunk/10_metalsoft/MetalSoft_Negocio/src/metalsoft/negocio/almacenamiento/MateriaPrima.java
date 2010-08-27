@@ -2,7 +2,9 @@
 
 package metalsoft.negocio.almacenamiento;
 
+import java.sql.Connection;
 import java.util.Date;
+import metalsoft.negocio.access.AccessMateriaPrima;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.negocio.compras.Proveedor;
@@ -17,7 +19,9 @@ public class MateriaPrima
    private Date fechaBaja;
    private CodigoDeBarra codBarra;
    private TipoMaterial tipo;
-   private String dimensiones;
+   private float largo;
+   private float ancho;
+   private float alto;
    private String descripcion;
    private int stock;
    private String unidadDeMedida;
@@ -74,6 +78,20 @@ public class MateriaPrima
    {
     
    }
+
+    public long guardarMateriaPrima(MateriaPrima materiaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+        long result=-1;
+       result=AccessMateriaPrima.insert(materiaPrima, idTipoMaterial, idUnidadMedida, cn);
+
+       return result;
+    }
+
+    public long modificar(MateriaPrima materiaPrima, long idMateriaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+        long result=-1;
+       result=AccessMateriaPrima.update(materiaPrima, idMateriaPrima, idTipoMaterial, idUnidadMedida, cn);
+
+       return result;
+    }
    
    /**
     * @roseuid 4C1F8DA6013C
@@ -90,6 +108,30 @@ public class MateriaPrima
    {
     
    }
+
+    public float getAlto() {
+        return alto;
+    }
+
+    public void setAlto(float alto) {
+        this.alto = alto;
+    }
+
+    public float getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(float ancho) {
+        this.ancho = ancho;
+    }
+
+    public float getLargo() {
+        return largo;
+    }
+
+    public void setLargo(float largo) {
+        this.largo = largo;
+    }
     public CodigoDeBarra getCodBarra() {
         return codBarra;
     }
@@ -112,14 +154,6 @@ public class MateriaPrima
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public String getDimensiones() {
-        return dimensiones;
-    }
-
-    public void setDimensiones(String dimensiones) {
-        this.dimensiones = dimensiones;
     }
 
     public Date getFechaAlta() {
