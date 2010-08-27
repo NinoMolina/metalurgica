@@ -43,12 +43,48 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         initComponents();
         gestor=new GestorDetalleProcedimientos();
         buscarPedidosGenerados();
+        addListenerBtnAgregar();
+        addListenerBtnQuitar();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblEtapa.updateUI();
+        filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
         tblEtapaSeleccionada.updateUI();
     }
-
+    private void addListenerBtnAgregar()
+    {
+        beanAgregarQuitar.getBtnAgregar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBeanAgregarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
+        filasEtapaProduccionSeleccionada.add(v);
+        tblEtapa.updateUI();
+        tblEtapaSeleccionada.updateUI();
+        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+    }
+    private void addListenerBtnQuitar()
+    {
+        beanAgregarQuitar.getBtnQuitar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBeanQuitarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
+        filasEtapaProduccion.add(v);
+        tblEtapa.updateUI();
+        tblEtapaSeleccionada.updateUI();
+        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
+    }
     private void buscarPedidosGenerados()
     {
         filasPedidos=gestor.buscarPedidosGenerados();
@@ -86,7 +122,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         jScrollPane4 = new javax.swing.JScrollPane();
         tblEtapa = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        agregarQuitar1 = new metalsoft.beans.AgregarQuitar();
+        beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblEtapaSeleccionada = new javax.swing.JTable();
 
@@ -241,7 +277,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                                 .add(txtEtapaProduccion))
                             .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(18, 18, 18)
-                        .add(agregarQuitar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(211, Short.MAX_VALUE))
@@ -252,7 +288,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(88, 88, 88)
-                        .add(agregarQuitar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel2)
@@ -358,7 +394,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.beans.AgregarQuitar agregarQuitar1;
+    private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private javax.swing.JButton btnSeleccionarPedido;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
@@ -655,7 +691,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
+            ViewEtapaDeProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
