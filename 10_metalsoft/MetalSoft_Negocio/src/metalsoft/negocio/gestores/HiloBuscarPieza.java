@@ -44,7 +44,7 @@ public class HiloBuscarPieza extends Thread {
     {
         GestorPieza gestor=new GestorPieza();
         metalsoft.datos.dbobject.PiezaDB[] tm=gestor.buscarConLIKE(valor);
-        JList list=cliente.getList();
+        JList list=cliente.getList(HiloBuscarPieza.class.getName());
         list.removeAll();
         cliente.setBusqueda(tm);
         cargarLista(list,tm);
