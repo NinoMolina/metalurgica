@@ -80,7 +80,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        opcion=EnumOpcionesABM.NUEVO;
+        limpiarCampos();
     }
 
     private void addListenerBtnGuardar() {
@@ -92,7 +93,28 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        EtapaDeProduccion ep=new EtapaDeProduccion();
+        ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
+        ep.setFechaCreacion(Fecha.parseToDate(txtFechaCreacion.getText()));
+        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
+        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
+        ep.setNombre(txtnombre.getText());
+        ep.setNumeroEtapa(Long.parseLong(txtNroEtapa.getText()));
+        long id;
+        if(opcion==EnumOpcionesABM.NUEVO)
+        {
+            id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+        }
+
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+            id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
+        }
+        limpiarCampos();
     }
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +125,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        opcion=EnumOpcionesABM.MODIFICAR;
     }
 
     private void addListenerBtnBuscar() {
@@ -115,7 +137,17 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        ABMEtapaDeProduccion_Buscar buscar=null;
+        try {
+            buscar=(ABMEtapaDeProduccion_Buscar) JFrameManager.crearVentana(ABMEtapaDeProduccion_Buscar.class.getName());
+            buscar.setVentana(this);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addListenerBtnSalir() {
@@ -345,5 +377,16 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
         else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getMaquina());
     }
+    public void limpiarCampos()
+{
+    txtFechaCreacion.setText("");
+    txtNroEtapa.setText("");
+    txtduracion.setText("");
+    txthorashombre.setText("");
+    txthorasmaquina.setText("");
+    txtnombre.setText("");
+    cmbUnidadMedida.setSelectedIndex(-1);
+    cmbmaquinas.setSelectedIndex(-1);
+}
 
 }
