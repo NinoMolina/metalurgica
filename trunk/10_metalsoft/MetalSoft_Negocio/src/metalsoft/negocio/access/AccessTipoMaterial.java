@@ -37,4 +37,16 @@ public class AccessTipoMaterial {
         return null;
     }
 
+    public static Tipomaterial[] findAll(Connection cn) {
+        Tipomaterial[] db=null;
+        TipomaterialDAO dao=new DAOFactoryImpl().createTipomaterialDAO();
+        try {
+            db = dao.findAll(cn);
+        } catch (TipomaterialException ex) {
+            Logger.getLogger(AccessTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return db;
+    }
+
 }
