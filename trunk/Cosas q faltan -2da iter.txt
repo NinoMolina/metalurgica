@@ -17,6 +17,7 @@ cambios:
 *sacar extend CU 152
 *sacar include del 48 al 47
 *sacar include del 93 al 110
+cambiar nombre del cu 98: es egreso de pieza para trabajo
 Que hacemos con los extends e include del CU 64(reg etapa Produccion)???
 
 copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
