@@ -10,9 +10,11 @@ import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetallepedidoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetallePedido;
@@ -27,11 +29,34 @@ import metalsoft.negocio.ventas.CondicionIva;
 import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.datos.dbobject.MateriaprimaDB;
 /**
  *
  * @author Vicky
  */
 public class Parser {
+
+    public static MateriaprimaDB parseToMateriaPrimaDB(MateriaPrima materiaPrima) {
+        MateriaprimaDB mp=new MateriaprimaDB();
+        mp.setAlto(materiaPrima.getAlto());
+        mp.setAncho(materiaPrima.getAncho());
+        mp.setCodproducto(materiaPrima.getCodProducto());
+        mp.setDescripcion(materiaPrima.getDescripcion());
+        if(materiaPrima.getFechaAlta()!=null)
+            mp.setFechaalta(new java.sql.Date(materiaPrima.getFechaAlta().getTime()));
+        else
+            mp.setFechaalta(null);
+        if(materiaPrima.getFechaBaja()!=null)
+            mp.setFechabaja(new java.sql.Date(materiaPrima.getFechaBaja().getTime()));
+        else
+            mp.setFechabaja(null);
+        mp.setLargo(materiaPrima.getLargo());
+        mp.setNombre(materiaPrima.getNombre());
+        mp.setStock(materiaPrima.getStock());
+
+        return mp;
+    }
 
     public static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
         if(tm==null)return null;
