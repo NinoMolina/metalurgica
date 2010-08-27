@@ -93,13 +93,19 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        EtapaDeProduccion ep=new EtapaDeProduccion();
-        ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
-        ep.setFechaCreacion(Fecha.parseToDate(txtFechaCreacion.getText()));
-        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
-        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
-        ep.setNombre(txtnombre.getText());
-        ep.setNumeroEtapa(Long.parseLong(txtNroEtapa.getText()));
+        MateriaPrima ep=new MateriaPrima();
+        //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
+        //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
+        ep.setAlto(Float.parseFloat(dimensiones1.getTxtAlto().getText()));
+        ep.setAncho(Float.parseFloat(dimensiones1.getTxtAncho().getText()));
+        ep.setLargo(Float.parseFloat(dimensiones1.getTxtLargo().getText()));
+        //ep.setCodBarra(txt);
+        ep.setCodProducto(Integer.parseInt(txtNroProducto.getText()));
+        ep.setDescripcion(txtDescripcion.getText());
+        ep.setNombre(txtNombre.getText());
+        ep.setPrecio(Double.parseDouble(txtPrecio.getText()));
+        ep.setStock(Integer.parseInt(txtStock.getText()));
+        
         long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {
