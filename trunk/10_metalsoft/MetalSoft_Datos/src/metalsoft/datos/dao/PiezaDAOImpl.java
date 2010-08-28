@@ -63,14 +63,14 @@ public class PiezaDAOImpl implements PiezaDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update PIEZA set NOMBRE = ? , TIPOMATERIAL = ? , DIMENSIONES = ? , MATERIAPRIMA = ? , MATRIZ = ?  where idpieza = ?");
+			ps = con.prepareStatement("update PIEZA set NOMBRE = ? , TIPOMATERIAL = ? , ALTO = ? , MATERIAPRIMA = ? , MATRIZ = ? , ANCHO = ? , LARGO = ?  where idpieza = ?");
 				ps.setString(1,pieza.getNombre());
 
                 long idtm=pieza.getTipomaterial();
 				if(idtm>0)ps.setLong(2,idtm);
                 else ps.setNull(2, java.sql.Types.NULL);
 
-				ps.setString(3,pieza.getDimensiones());
+				ps.setDouble(3,pieza.getAlto());
 
                 long idMp=pieza.getMateriaprima();
 				if(idMp>=0)ps.setLong(4,idMp);
@@ -80,7 +80,10 @@ public class PiezaDAOImpl implements PiezaDAO
 				if(idM>0)ps.setLong(5,idM);
                 else ps.setNull(5, java.sql.Types.NULL);
 
-                ps.setLong(6,piezapk.getIdpieza());
+                ps.setDouble(6,pieza.getAncho());
+                ps.setDouble(7,pieza.getLargo());
+
+                ps.setLong(8,piezapk.getIdpieza());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezaException(sqle);}
@@ -101,14 +104,14 @@ public class PiezaDAOImpl implements PiezaDAO
         ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, DIMENSIONES, MATERIAPRIMA, MATRIZ) values (?, ?, ?, ?, ?)RETURNING idpieza");
+			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, ALTO, MATERIAPRIMA, MATRIZ, ANCHO, LARGO) values (?, ?, ?, ?, ?)RETURNING idpieza");
 				ps.setString(1,pieza.getNombre());
 
                 long idtm=pieza.getTipomaterial();
 				if(idtm>0)ps.setLong(2,idtm);
                 else ps.setNull(2, java.sql.Types.NULL);
                 
-				ps.setString(3,pieza.getDimensiones());
+				ps.setDouble(3,pieza.getAlto());
 
                 long idMp=pieza.getMateriaprima();
 				if(idMp>0)ps.setLong(4,idMp);
@@ -117,7 +120,10 @@ public class PiezaDAOImpl implements PiezaDAO
                 long idM=pieza.getMatriz();
 				if(idM>0)ps.setLong(5,idM);
                 else ps.setNull(5, java.sql.Types.NULL);
-				
+
+                ps.setDouble(6,pieza.getAncho());
+                ps.setDouble(7,pieza.getLargo());
+
 				rs=ps.executeQuery();
                 rs.next();
                 return (int)rs.getLong(1);
@@ -135,7 +141,7 @@ public class PiezaDAOImpl implements PiezaDAO
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where idpieza = ?";
+	  		final String SQLSTATEMENT = "Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where idpieza = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, idpieza);
 	  		rs = stmt.executeQuery();
@@ -173,7 +179,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findByIdpieza(long idpieza, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where idpieza = ? order by idpieza";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where idpieza = ? order by idpieza";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idpieza );
@@ -200,7 +206,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findByNombre(String nombre, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where nombre = ? order by nombre";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where nombre = ? order by nombre";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, nombre );
@@ -227,7 +233,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findByTipomaterial(long tipomaterial, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where tipomaterial = ? order by tipomaterial";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where tipomaterial = ? order by tipomaterial";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, tipomaterial );
@@ -251,24 +257,7 @@ public class PiezaDAOImpl implements PiezaDAO
 * @return  Pieza[]
 */
 
-	public PiezaDB[] findByDimensiones(String dimensiones, Connection con) throws PiezaException{
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where dimensiones = ? order by dimensiones";
-			try {
-					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setString( 1, dimensiones );
-					rs = stmt.executeQuery();
-					return fetchMultiResults(rs);
-			}catch(SQLException sqle){
-					throw new PiezaException(sqle);
-			}
-			catch(Exception e){
-					throw new PiezaException(e);
-			}
-			finally{}
-	}
-
+	
 /**
 *
 * Returns all rows from pieza table where MATERIAPRIMA= materiaprima
@@ -281,7 +270,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findByMateriaprima(long materiaprima, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where materiaprima = ? order by materiaprima";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where materiaprima = ? order by materiaprima";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, materiaprima );
@@ -308,7 +297,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findByMatriz(long matriz, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza where matriz = ? order by matriz";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza where matriz = ? order by matriz";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, matriz );
@@ -334,7 +323,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findAll( Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza";
+			String SQL_STATEMENT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -393,7 +382,7 @@ public class PiezaDAOImpl implements PiezaDAO
 	public PiezaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select idpieza, nombre, tipomaterial, dimensiones, materiaprima, matriz from pieza";
+			String SQL_SELECT ="Select idpieza, nombre, tipomaterial, alto, ancho, largo, materiaprima, matriz from pieza";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -445,7 +434,9 @@ public class PiezaDAOImpl implements PiezaDAO
 		 dto.setIdpieza(rs.getLong("idpieza"));
 		 dto.setNombre(rs.getString("nombre"));
 		 dto.setTipomaterial(rs.getLong("tipomaterial"));
-		 dto.setDimensiones(rs.getString("dimensiones"));
+		 dto.setAlto(rs.getDouble("alto"));
+         dto.setAncho(rs.getDouble("ancho"));
+         dto.setLargo(rs.getDouble("largo"));
 		 dto.setMateriaprima(rs.getLong("materiaprima"));
 		 dto.setMatriz(rs.getLong("matriz"));
 	}
