@@ -19,9 +19,9 @@ public class MateriaPrima
    private Date fechaBaja;
    private CodigoDeBarra codBarra;
    private TipoMaterial tipo;
-   private float largo;
-   private float ancho;
-   private float alto;
+   private Double largo;
+   private Double ancho;
+   private Double alto;
    private String descripcion;
    private int stock;
    private String unidadDeMedida;
@@ -109,27 +109,27 @@ public class MateriaPrima
     
    }
 
-    public float getAlto() {
+    public Double getAlto() {
         return alto;
     }
 
-    public void setAlto(float alto) {
+    public void setAlto(Double alto) {
         this.alto = alto;
     }
 
-    public float getAncho() {
+    public Double getAncho() {
         return ancho;
     }
 
-    public void setAncho(float ancho) {
+    public void setAncho(Double ancho) {
         this.ancho = ancho;
     }
 
-    public float getLargo() {
+    public Double getLargo() {
         return largo;
     }
 
-    public void setLargo(float largo) {
+    public void setLargo(Double largo) {
         this.largo = largo;
     }
     public CodigoDeBarra getCodBarra() {
