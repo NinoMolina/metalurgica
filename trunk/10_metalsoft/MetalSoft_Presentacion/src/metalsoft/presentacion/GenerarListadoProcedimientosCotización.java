@@ -48,13 +48,35 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
         gestor=new GestorDetalleProcedimientos();
         buscarPedidosGenerados();
-        addListenerBtnAgregar();
-        addListenerBtnQuitar();
+        addListeners();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblEtapa.updateUI();
         filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
         tblEtapaSeleccionada.updateUI();
+    }
+    private void addListeners()
+    {
+        addListenerBtnAgregar();
+        addListenerBtnQuitar();
+        addListenerBtnSeleccionarPedido();
+    }
+
+    private void addListenerBtnSeleccionarPedido()
+    {
+        beanTblPedidos.getBtnSeleccionarPedido().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPedidoBeanActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        ViewPedidoEnListadoProcedimientos v=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed=v.getIdpedido();
+        filasDetallePedido=gestor.buscarDetallePedido(idPed);
+        tblDetallePedido.updateUI();
     }
     private void addListenerBtnAgregar()
     {
@@ -93,7 +115,8 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private void buscarPedidosGenerados()
     {
         filasPedidos=gestor.buscarPedidosGenerados();
-        tblPedidos.updateUI();
+        beanTblPedidos.setFilasPedidos(filasPedidos);
+        beanTblPedidos.updateTblPedidos();
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -107,11 +130,9 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        btnSeleccionarPedido = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblPedidos = new javax.swing.JTable();
+        beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetallePedido = new javax.swing.JTable();
@@ -139,18 +160,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Generados No Cotizados"));
 
-        btnSeleccionarPedido.setText("Seleccionar");
-        btnSeleccionarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarPedidoActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Nro. de Pedido de Cotización:");
-
-        tblPedidos.setModel(new PedidoTableModel());
-        tblPedidos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane2.setViewportView(tblPedidos);
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -162,10 +172,11 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnSeleccionarPedido))
-                .addContainerGap())
+                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(562, 562, 562))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -174,11 +185,9 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(9, 9, 9)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnSeleccionarPedido)
-                .add(5, 5, 5))
+                .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(8, 8, 8))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Pedido"));
@@ -348,14 +357,6 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPedidoActionPerformed
-        ViewPedidoEnListadoProcedimientos v=filasPedidos.get(tblPedidos.getSelectedRow());
-        long idPed=v.getIdpedido();
-        filasDetallePedido=gestor.buscarDetallePedido(idPed);
-        tcrTblDetallePedido.setRowNoSeleccionable(buscarProductosSinAlgunaEtapa());
-        tblDetallePedido.updateUI();
-    }//GEN-LAST:event_btnSeleccionarPedidoActionPerformed
-
     private void btnSeleccionarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProductoActionPerformed
         ViewDetallePedidoCotizacion v=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
         long idPro=v.getIdProducto();
@@ -401,7 +402,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
-    private javax.swing.JButton btnSeleccionarPedido;
+    private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
     private javax.swing.JButton jButton3;
@@ -414,7 +415,6 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -424,7 +424,6 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private javax.swing.JTable tblDetalleProducto;
     private javax.swing.JTable tblEtapa;
     private javax.swing.JTable tblEtapaSeleccionada;
-    private javax.swing.JTable tblPedidos;
     private javax.swing.JTextField txtEtapaProduccion;
     // End of variables declaration//GEN-END:variables
 
