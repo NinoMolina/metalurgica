@@ -53,12 +53,12 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 /**
 * This method updates a record in table CODIGODEBARRA
 * @param CodigodebarraPK
-* @param Codigodebarra
+* @param CodigodebarraDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(CodigodebarraPK codigodebarrapk, Codigodebarra codigodebarra, Connection con)throws CodigodebarraException{
+	public int update(CodigodebarraPK codigodebarrapk, CodigodebarraDB codigodebarra, Connection con)throws CodigodebarraException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -75,12 +75,12 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 /**
 * This method inserts data in table CODIGODEBARRA
 *
-* @param Codigodebarra codigodebarra
+* @param CodigodebarraDB codigodebarra
 * @param   Connection con
 * @return  CodigodebarraPK
 */
 
-	public int insert(Codigodebarra codigodebarra ,Connection con)throws CodigodebarraException {
+	public int insert(CodigodebarraDB codigodebarra ,Connection con)throws CodigodebarraException {
 
 		PreparedStatement ps = null;
 		try
@@ -100,7 +100,7 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * 
 */
 
-	public Codigodebarra findByPrimaryKey(long idcodigo, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB findByPrimaryKey(long idcodigo, Connection con) throws CodigodebarraException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -123,10 +123,10 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * 
 * @param  CodigodebarraPK codigodebarrapk
 * @param Connection con
-* @return  Codigodebarra
+* @return  CodigodebarraDB
 */
 
-	public Codigodebarra findByPrimaryKey(CodigodebarraPK codigodebarrapk, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB findByPrimaryKey(CodigodebarraPK codigodebarrapk, Connection con) throws CodigodebarraException{
 		return findByPrimaryKey(codigodebarrapk.getIdcodigo(), con);
 	}
 
@@ -136,10 +136,10 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 *
 * @param   long  idcodigo
 * @param   Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 */
 
-	public Codigodebarra[] findByIdcodigo(long idcodigo, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findByIdcodigo(long idcodigo, Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idcodigo, descripcion, codigo from codigodebarra where idcodigo = ? order by idcodigo";
@@ -163,10 +163,10 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 *
 * @param   String  descripcion
 * @param   Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 */
 
-	public Codigodebarra[] findByDescripcion(String descripcion, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findByDescripcion(String descripcion, Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idcodigo, descripcion, codigo from codigodebarra where descripcion = ? order by descripcion";
@@ -190,10 +190,10 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 *
 * @param   String  codigo
 * @param   Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 */
 
-	public Codigodebarra[] findByCodigo(String codigo, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findByCodigo(String codigo, Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idcodigo, descripcion, codigo from codigodebarra where codigo = ? order by codigo";
@@ -215,11 +215,11 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * Returns all rows from codigodebarra table 
 *
 * @param Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 *
 */
 
-	public Codigodebarra[] findAll( Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findAll( Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idcodigo, descripcion, codigo from codigodebarra";
@@ -243,11 +243,11 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 *
 */
 
-	public Codigodebarra[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -274,11 +274,11 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 *
 */
 
-	public Codigodebarra[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws CodigodebarraException{
+	public CodigodebarraDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws CodigodebarraException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idcodigo, descripcion, codigo from codigodebarra";
@@ -304,14 +304,14 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Codigodebarra
+* @return  CodigodebarraDB
 *
 */
 
-	protected Codigodebarra fetchSingleResult(ResultSet rs) throws SQLException
+	protected CodigodebarraDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Codigodebarra dto = new Codigodebarra();
+					CodigodebarraDB dto = new CodigodebarraDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -323,12 +323,12 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Codigodebarra dto
+* @param CodigodebarraDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Codigodebarra dto, ResultSet rs) throws SQLException
+	protected void populateVO(CodigodebarraDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdcodigo(rs.getLong("idcodigo"));
 		 dto.setDescripcion(rs.getString("descripcion"));
@@ -340,18 +340,18 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Codigodebarra[]
+* @return  CodigodebarraDB[]
 */
 
-	protected Codigodebarra[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected CodigodebarraDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Codigodebarra dto = new Codigodebarra();
+			CodigodebarraDB dto = new CodigodebarraDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Codigodebarra ret[] = new Codigodebarra[ resultList.size() ];
+		CodigodebarraDB ret[] = new CodigodebarraDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
