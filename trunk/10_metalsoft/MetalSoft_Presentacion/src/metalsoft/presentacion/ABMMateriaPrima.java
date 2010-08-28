@@ -110,6 +110,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             fechaBaja=dccFechaBaja.getSelectedDate().getTime();
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
+        ep.setFechaAlta(fechaAlta);
+        ep.setFechaBaja(fechaBaja);
         ep.setAlto(Double.parseDouble(dimensiones1.getTxtAlto().getText()));
         ep.setAncho(Double.parseDouble(dimensiones1.getTxtAncho().getText()));
         ep.setLargo(Double.parseDouble(dimensiones1.getTxtLargo().getText()));
@@ -382,13 +384,23 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtNroProducto.setText(String.valueOf(mp.getCodproducto()));
         //txtPrecio.setText(String.valueOf(mp.g)
         txtStock.setText(String.valueOf(mp.getStock()));
-        //GregorianCalendar gc=new GregorianCalendar();
-        //gc.setTime(mp.getFechaalta());
-        dccFechaAlta.setSelectedDate(Fecha.parseToCalendar(mp.getFechaalta()));
-
-        //gc.setTime(mp.getFechabaja());
-        dccFechaBaja.setSelectedDate(Fecha.parseToCalendar(mp.getFechabaja()));
-
+        
+        if(mp.getFechaalta()==null)
+            dccFechaAlta.setSelectedDate(null);
+        else{
+            GregorianCalendar gc=new GregorianCalendar();
+            gc.setTime(mp.getFechaalta());
+            dccFechaAlta.setSelectedDate(gc);
+        }
+        
+        if(mp.getFechabaja()==null)
+            dccFechaBaja.setSelectedDate(null);
+        else
+        {
+            GregorianCalendar gcb=new GregorianCalendar();
+            gcb.setTime(mp.getFechabaja());
+            dccFechaBaja.setSelectedDate(gcb);
+        }
         dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
         dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
         dimensiones1.getTxtLargo().setText(String.valueOf(mp.getLargo()));
