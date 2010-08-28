@@ -13,7 +13,9 @@ package metalsoft.presentacion;
 
 import metalsoft.negocio.gestores.IBuscador;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +35,7 @@ import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
 /**
@@ -107,6 +110,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         ep.setAncho(Float.parseFloat(dimensiones1.getTxtAncho().getText()));
         ep.setLargo(Float.parseFloat(dimensiones1.getTxtLargo().getText()));
         //ep.setCodBarra(txt);
+        String idCodBarra=txtCodBarra.getText();
         ep.setCodProducto(Integer.parseInt(txtNroProducto.getText()));
         ep.setDescripcion(txtDescripcion.getText());
         ep.setNombre(txtNombre.getText());
@@ -116,15 +120,15 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {
-            id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
+            id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
+            id=gestor.modificarEtapaDeProduccion(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
         limpiarCampos();
@@ -150,9 +154,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        ABMEtapaDeProduccion_Buscar buscar=null;
+        ABMMateriaPrima_Buscar buscar=null;
         try {
-            buscar=(ABMEtapaDeProduccion_Buscar) JFrameManager.crearVentana(ABMEtapaDeProduccion_Buscar.class.getName());
+            buscar=(ABMMateriaPrima_Buscar) JFrameManager.crearVentana(ABMMateriaPrima_Buscar.class.getName());
             buscar.setVentana(this);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,7 +190,6 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         dimensiones1 = new metalsoft.beans.Dimensiones();
@@ -196,24 +199,22 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtNroProducto = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         dccFechaBaja = new datechooser.beans.DateChooserCombo();
         dccFechaAlta = new datechooser.beans.DateChooserCombo();
-        jLabel10 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbUnidadMedida = new javax.swing.JComboBox();
         botones = new metalsoft.beans.ABM_Botones();
+        jLabel11 = new javax.swing.JLabel();
+        txtCodBarra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Nro. Producto:");
 
         jLabel2.setText("Nombre:");
-
-        jLabel3.setText("Precio:");
 
         jLabel4.setText("Descripcion:");
 
@@ -235,7 +236,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
 
         dccFechaAlta.setFormat(2);
 
-        jLabel10.setText("$");
+        jLabel11.setText("Cod. Barra:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,26 +245,22 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNombre))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(txtNroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))
+                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -304,13 +301,12 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel11)
+                    .addComponent(txtCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -358,9 +354,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private datechooser.beans.DateChooserCombo dccFechaBaja;
     private metalsoft.beans.Dimensiones dimensiones1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -368,38 +363,55 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtCodBarra;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNroProducto;
-    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarDatosMateriaPrima(MateriaprimaDB materiaPrimaDB) {
-        long fecha=materiaPrimaDB.getFechacreacion().getTime();
-        String fechaCreacion=Fecha.parseToString(fecha);
-        txtFechaCreacion.setText(String.valueOf(fechaCreacion));
-        txtNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
-        txtduracion.setText(String.valueOf(ep.getDuracionestimada()));
-        txthorashombre.setText(String.valueOf(ep.getHorashombre()));
-        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
-        txtnombre.setText(String.valueOf(ep.getNombre()));
+    private void mostrarDatosMateriaPrima(MateriaprimaDB mp) {
 
-        if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
-        else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
-        if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
-        else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getMaquina());
+        txtCodBarra.setText(String.valueOf(mp.getCodbarra()));
+        txtDescripcion.setText(mp.getDescripcion());
+        txtNombre.setText(mp.getNombre());
+        txtNroProducto.setText(String.valueOf(mp.getCodproducto()));
+        //txtPrecio.setText(String.valueOf(mp.g)
+        txtStock.setText(String.valueOf(mp.getStock()));
+        GregorianCalendar gc=new GregorianCalendar();
+        gc.setTime(mp.getFechaalta());
+        dccFechaAlta.setSelectedDate(gc);
+
+        gc.setTime(mp.getFechabaja());
+        dccFechaBaja.setSelectedDate(gc);
+
+        dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
+        dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
+        dimensiones1.getTxtLargo().setText(String.valueOf(mp.getLargo()));
+
+        if(mp.getTipomaterial()<1) Combo.setItemComboSeleccionado(cmbTipoMaterial, -1);
+        else Combo.setItemComboSeleccionado(cmbTipoMaterial, mp.getTipomaterial());
+        if(mp.getUnidaddemedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        else Combo.setItemComboSeleccionado(cmbUnidadMedida, mp.getUnidaddemedida());
     }
     public void limpiarCampos()
-{
-    txtFechaCreacion.setText("");
-    txtNroEtapa.setText("");
-    txtduracion.setText("");
-    txthorashombre.setText("");
-    txthorasmaquina.setText("");
-    txtnombre.setText("");
-    cmbUnidadMedida.setSelectedIndex(-1);
-    cmbmaquinas.setSelectedIndex(-1);
-}
+    {
+        txtCodBarra.setText("");
+        txtDescripcion.setText("");
+        txtNombre.setText("");
+        txtNroProducto.setText("");
+        //txtPrecio.setText(String.valueOf(mp.g)
+        txtStock.setText("");
+
+        dccFechaAlta.setSelectedDate(null);
+        dccFechaBaja.setSelectedDate(null);
+
+        dimensiones1.getTxtAlto().setText("");
+        dimensiones1.getTxtAncho().setText("");
+        dimensiones1.getTxtLargo().setText("");
+
+        cmbUnidadMedida.setSelectedIndex(-1);
+        cmbTipoMaterial.setSelectedIndex(-1);
+    }
 
 }
