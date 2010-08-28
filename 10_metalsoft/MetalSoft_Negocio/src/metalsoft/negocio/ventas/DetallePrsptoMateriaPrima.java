@@ -17,28 +17,23 @@ public class DetallePrsptoMateriaPrima
    {
     
    }
-   
-   /**
-    * @roseuid 4C185E0C03BC
-    */
-   public void crear() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C185E0F00B3
-    */
-   public void conocerDetallePlanRequerimientosMateriaPrima() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C1F97C2032E
-    */
-   public void mostrarDetallePlan() 
-   {
-    
-   }
+
+    public int getCantMateriaPrimaPorPieza() {
+        return cantMateriaPrimaPorPieza;
+    }
+
+    public void setCantMateriaPrimaPorPieza(int cantMateriaPrimaPorPieza) {
+        this.cantMateriaPrimaPorPieza = cantMateriaPrimaPorPieza;
+    }
+
+    public MateriaPrima getMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public void setMateriaPrima(MateriaPrima materiaPrima) {
+        this.materiaPrima = materiaPrima;
+    }
+
+
+
 }
