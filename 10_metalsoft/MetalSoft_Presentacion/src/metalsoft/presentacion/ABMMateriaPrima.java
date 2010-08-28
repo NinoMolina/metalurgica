@@ -109,9 +109,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             fechaBaja=dccFechaBaja.getSelectedDate().getTime();
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
-        ep.setAlto(Float.parseFloat(dimensiones1.getTxtAlto().getText()));
-        ep.setAncho(Float.parseFloat(dimensiones1.getTxtAncho().getText()));
-        ep.setLargo(Float.parseFloat(dimensiones1.getTxtLargo().getText()));
+        ep.setAlto(Double.parseDouble(dimensiones1.getTxtAlto().getText()));
+        ep.setAncho(Double.parseDouble(dimensiones1.getTxtAncho().getText()));
+        ep.setLargo(Double.parseDouble(dimensiones1.getTxtLargo().getText()));
         //ep.setCodBarra(txt);
         String idCodBarra=txtCodBarra.getText();
         ep.setCodProducto(Integer.parseInt(txtNroProducto.getText()));
