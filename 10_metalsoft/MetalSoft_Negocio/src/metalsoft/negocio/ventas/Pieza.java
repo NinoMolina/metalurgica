@@ -14,10 +14,11 @@ public class Pieza
    private String nombre;
    private PiezaReal item;
    private TipoMaterial tipoMaterial;
-   private String dimensiones;
+   private Double alto;
+   private Double ancho;
+   private Double largo;
    private MateriaPrima materia;
    private Matriz matriz;
-
 
    public Matriz theMatriz;
    public PiezaReal thePiezaReal[];
@@ -34,12 +35,29 @@ public class Pieza
    {
     
    }
-   public String getDimensiones() {
-        return dimensiones;
+
+    public Double getAlto() {
+        return alto;
     }
 
-    public void setDimensiones(String dimensiones) {
-        this.dimensiones = dimensiones;
+    public void setAlto(Double alto) {
+        this.alto = alto;
+    }
+
+    public Double getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(Double ancho) {
+        this.ancho = ancho;
+    }
+
+    public Double getLargo() {
+        return largo;
+    }
+
+    public void setLargo(Double largo) {
+        this.largo = largo;
     }
 
     public TipoMaterial getTipoMaterial() {
@@ -142,54 +160,5 @@ public class Pieza
 
     public void setMatriz(Matriz matriz) {
         this.matriz = matriz;
-    }
-
-    public EjecucionEtapaDeProduccion[] getTheEjecucionEtapaDeProduccion() {
-        return theEjecucionEtapaDeProduccion;
-    }
-
-    public void setTheEjecucionEtapaDeProduccion(EjecucionEtapaDeProduccion[] theEjecucionEtapaDeProduccion) {
-        this.theEjecucionEtapaDeProduccion = theEjecucionEtapaDeProduccion;
-    }
-
-    public EtapaDeProduccion[] getTheEtapaDeProduccion() {
-        return theEtapaDeProduccion;
-    }
-
-    public void setTheEtapaDeProduccion(EtapaDeProduccion[] theEtapaDeProduccion) {
-        this.theEtapaDeProduccion = theEtapaDeProduccion;
-    }
-
-    public MateriaPrima getTheMateriaPrima() {
-        return theMateriaPrima;
-    }
-
-    public void setTheMateriaPrima(MateriaPrima theMateriaPrima) {
-        this.theMateriaPrima = theMateriaPrima;
-    }
-
-    public Matriz getTheMatriz() {
-        return theMatriz;
-    }
-
-    public void setTheMatriz(Matriz theMatriz) {
-        this.theMatriz = theMatriz;
-    }
-
-    public PiezaReal[] getThePiezaReal() {
-        return thePiezaReal;
-    }
-
-    public void setThePiezaReal(PiezaReal[] thePiezaReal) {
-        this.thePiezaReal = thePiezaReal;
-    }
-
-    public TipoMaterial getTheTipoMaterial() {
-        return theTipoMaterial;
-    }
-
-    public void setTheTipoMaterial(TipoMaterial theTipoMaterial) {
-        this.theTipoMaterial = theTipoMaterial;
-    }
-   
+    }   
 }
