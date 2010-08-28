@@ -11,15 +11,44 @@
 
 package metalsoft.presentacion;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.negocio.gestores.GestorMateriaPrima;
+import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
  */
 public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
 
+
+    private ABMMateriaPrima ventana;
+    private Timer timer;
+    private GestorMateriaPrima gestor=null;
+    private MateriaprimaDB[] materiasPrimasDB;
+
     /** Creates new form ABMMateriaPrima_Buscar */
     public ABMMateriaPrima_Buscar() {
         initComponents();
+    }
+
+
+    public GestorMateriaPrima getGestor() {
+        return gestor;
+    }
+
+    public ABMMateriaPrima getVentana() {
+        return ventana;
+    }
+    /** Creates new form ABMEtapaDeProduccion_Buscar */
+    
+    void setVentana(ABMMateriaPrima ventana) {
+        this.ventana=ventana;
     }
 
     /** This method is called from within the constructor to
@@ -113,21 +142,35 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
         if(txtValor.getText().compareTo("")!=0) {
-            final ABMEtapaDeProduccion_Buscar abm=this;
+            final ABMMateriaPrima_Buscar abm=this;
             timer=new Timer();
             timer.schedule(new TimerTask() {
-                private HiloBuscarEtapaDeProduccion hiloBuscarEtapaDeProduccion;
+                private HiloBuscarMateriaPrima hiloBuscar;
                 @Override
                 public void run() {
-                    hiloBuscarEtapaDeProduccion=new HiloBuscarEtapaDeProduccion();
-                    hiloBuscarEtapaDeProduccion.setVentana(abm);
-                    hiloBuscarEtapaDeProduccion.setValor(txtValor.getText());
-                    hiloBuscarEtapaDeProduccion.start();
+                    hiloBuscar=new HiloBuscarMateriaPrima();
+                    hiloBuscar.setVentana(abm);
+                    hiloBuscar.setValor(txtValor.getText());
+                    hiloBuscar.start();
                 }
             }, 1500);
         }
 }//GEN-LAST:event_txtValorKeyReleased
+    public JList getLstLista() {
+        return lstLista;
+    }
 
+    public void setLstLista(JList lstLista) {
+        this.lstLista = lstLista;
+    }
+
+    public JTextField getTxtValor() {
+        return txtValor;
+    }
+
+    public void setTxtValor(JTextField txtValor) {
+        this.txtValor = txtValor;
+    }
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
         ventana.setIdEtapa(id);
@@ -135,16 +178,21 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    public JList getList(String className) {
+        return lstLista;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        materiasPrimasDB=(MateriaprimaDB[]) obj;
+    }
+
+    public JComboBox getCombo(String className) {
+        return null;
+    }
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMMateriaPrima_Buscar().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
