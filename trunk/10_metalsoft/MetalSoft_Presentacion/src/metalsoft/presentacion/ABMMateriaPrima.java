@@ -50,6 +50,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     /** Creates new form ABMMateriaPrima */
     public ABMMateriaPrima() {
         initComponents();
+        gestor=new GestorMateriaPrima();
         addListenerBtnNuevo();
         addListenerBtnGuardar();
         addListenerBtnModificar();
