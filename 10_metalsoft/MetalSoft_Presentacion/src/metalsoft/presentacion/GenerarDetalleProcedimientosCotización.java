@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
@@ -411,10 +412,32 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
 
         ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
+        PiezaxetapadeproduccionDB[] pxeDB=gestor.buscarEtapasDePieza(v.getIdPieza());
+        separarEtapasDeProduccion(pxeDB);
         tblEtapa.updateUI();
+        tblEtapaSeleccionada.updateUI();
         idPiezaSeleccionada=v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
     }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
+
+    private void separarEtapasDeProduccion(PiezaxetapadeproduccionDB[] pxeDB)
+    {
+        ViewEtapaDeProduccion v=null;
+        PiezaxetapadeproduccionDB db=null;
+        for(int i=0;i<filasEtapaProduccion.size();i++)
+        {
+            v=filasEtapaProduccion.get(i);
+            for(int j=0;j<pxeDB.length;i++)
+            {
+                db=pxeDB[j];
+                if(v.getIdetapa()==db.getIdpieza())
+                {
+                    filasEtapaProduccionSeleccionada.add(filasEtapaProduccion.remove(i));
+                }
+            }
+
+        }
+    }
 
     private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
         if(txtEtapaProduccion.getText().compareTo("")!=0)
