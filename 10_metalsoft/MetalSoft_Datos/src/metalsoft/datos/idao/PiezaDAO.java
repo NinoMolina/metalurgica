@@ -25,7 +25,7 @@ public interface PiezaDAO
 	public PiezaDB[] findByIdpieza(long idpieza,Connection con) throws PiezaException;
 	public PiezaDB[] findByNombre(String nombre,Connection con) throws PiezaException;
 	public PiezaDB[] findByTipomaterial(long tipomaterial,Connection con) throws PiezaException;
-	public PiezaDB[] findByDimensiones(String dimensiones,Connection con) throws PiezaException;
+	
 	public PiezaDB[] findByMateriaprima(long materiaprima,Connection con) throws PiezaException;
 	public PiezaDB[] findByMatriz(long matriz,Connection con) throws PiezaException;
 	public PiezaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaException;
