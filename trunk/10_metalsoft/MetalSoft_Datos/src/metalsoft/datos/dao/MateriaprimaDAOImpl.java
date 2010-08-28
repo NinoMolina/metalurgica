@@ -68,14 +68,23 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 				ps.setString(2,materiaprima.getNombre());
 				ps.setDate(3,materiaprima.getFechaalta());
 				ps.setDate(4,materiaprima.getFechabaja());
-				ps.setLong(5,materiaprima.getCodbarra());
-				ps.setFloat(6,materiaprima.getAlto());
+                long id5=materiaprima.getCodbarra();
+                if(id5>0) ps.setLong(5,materiaprima.getCodbarra());
+                else ps.setNull(5,java.sql.Types.NULL);
+				
+				ps.setDouble(6,materiaprima.getAlto());
 				ps.setLong(7,materiaprima.getStock());
-				ps.setLong(8,materiaprima.getUnidaddemedida());
+                long id8=materiaprima.getUnidaddemedida();
+                if(id8>0) ps.setLong(8,materiaprima.getUnidaddemedida());
+                else ps.setNull(8,java.sql.Types.NULL);
+				
 				ps.setString(9,materiaprima.getDescripcion());
-				ps.setLong(10,materiaprima.getTipomaterial());
-                ps.setFloat(11,materiaprima.getLargo());
-                ps.setFloat(12,materiaprima.getAncho());
+                long id10=materiaprima.getTipomaterial();
+                if(id10>0) ps.setLong(10,materiaprima.getTipomaterial());
+                else ps.setNull(10,java.sql.Types.NULL);
+				
+                ps.setDouble(11,materiaprima.getLargo());
+                ps.setDouble(12,materiaprima.getAncho());
 				ps.setLong(13,materiaprimapk.getIdmateriaprima());
 
 
@@ -97,19 +106,33 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, ALTO, STOCK, UNIDADDEMEDIDA, DESCRIPCION, TIPOMATERIAL, LARGO, ANCHO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, ALTO, STOCK, UNIDADMEDIDA, DESCRIPCION, TIPOMATERIAL, LARGO, ANCHO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				ps.setLong(1,materiaprima.getCodproducto());
 				ps.setString(2,materiaprima.getNombre());
 				ps.setDate(3,materiaprima.getFechaalta());
 				ps.setDate(4,materiaprima.getFechabaja());
-				ps.setLong(5,materiaprima.getCodbarra());
-				ps.setFloat(6,materiaprima.getAlto());
+				//ps.setLong(5,materiaprima.getCodbarra());
+                long id5=materiaprima.getCodbarra();
+                if(id5>0) ps.setLong(5,materiaprima.getCodbarra());
+                else ps.setNull(5,java.sql.Types.NULL);
+
+				ps.setDouble(6,materiaprima.getAlto());
 				ps.setLong(7,materiaprima.getStock());
-				ps.setLong(8,materiaprima.getUnidaddemedida());
+                long id8=materiaprima.getUnidaddemedida();
+                if(id8>0) ps.setLong(8,materiaprima.getUnidaddemedida());
+                else ps.setNull(8,java.sql.Types.NULL);
+
 				ps.setString(9,materiaprima.getDescripcion());
-				ps.setLong(10,materiaprima.getTipomaterial());
-                ps.setFloat(11,materiaprima.getLargo());
-                ps.setFloat(12,materiaprima.getAncho());
+                long id10=materiaprima.getTipomaterial();
+                if(id10>0) ps.setLong(10,materiaprima.getTipomaterial());
+                else ps.setNull(10,java.sql.Types.NULL);
+				//ps.setDouble(6,materiaprima.getAlto());
+				//ps.setLong(7,materiaprima.getStock());
+				//ps.setLong(8,materiaprima.getUnidaddemedida());
+				//ps.setString(9,materiaprima.getDescripcion());
+				//ps.setLong(10,materiaprima.getTipomaterial());
+                ps.setDouble(11,materiaprima.getLargo());
+                ps.setDouble(12,materiaprima.getAncho());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MateriaprimaException(sqle);}
@@ -558,9 +581,9 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 		 dto.setFechaalta(rs.getDate("fechaalta"));
 		 dto.setFechabaja(rs.getDate("fechabaja"));
 		 dto.setCodbarra(rs.getLong("codbarra"));
-		 dto.setAlto(rs.getFloat("alto"));
-         dto.setAncho(rs.getFloat("ancho"));
-         dto.setLargo(rs.getFloat("largo"));
+		 dto.setAlto(rs.getDouble("alto"));
+         dto.setAncho(rs.getDouble("ancho"));
+         dto.setLargo(rs.getDouble("largo"));
 		 dto.setStock(rs.getLong("stock"));
 		 dto.setUnidaddemedida(rs.getLong("unidaddemedida"));
 		 dto.setDescripcion(rs.getString("descripcion"));
