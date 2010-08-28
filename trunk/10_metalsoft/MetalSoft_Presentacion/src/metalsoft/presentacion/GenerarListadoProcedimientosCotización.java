@@ -42,6 +42,8 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private GestorDetalleProcedimientos gestor;
     private Timer timer;
     private TableCellRender tcrTblDetallePedido;
+    private long idPedidoSeleccionado,idProductoSeleccionado,idPiezaSeleccionada;
+
     public GenerarListadoProcedimientosCotización() {
         initComponents();
         tcrTblDetallePedido=new TableCellRender();
@@ -77,6 +79,8 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         long idPed=v.getIdpedido();
         filasDetallePedido=gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
+        idPedidoSeleccionado=idPed;
+        lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
     }
     private void addListenerBtnAgregar()
     {
@@ -127,8 +131,8 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -151,12 +155,22 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblEtapaSeleccionada = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        lblProductoSeleccionado = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblPedidoSeleccionado = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton3.setText("Salir");
+        btnSalir.setText("Salir");
 
-        jButton4.setText("Guardar Listado");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Generados No Cotizados"));
 
@@ -256,6 +270,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
 
         jLabel2.setText("Pieza:");
 
+        lblPiezaSeleccionada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblPiezaSeleccionada.setText("....");
 
         txtEtapaProduccion.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -272,6 +287,16 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
         jScrollPane5.setViewportView(tblEtapaSeleccionada);
 
+        jLabel4.setText("Producto:");
+
+        lblProductoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblProductoSeleccionado.setText("....");
+
+        jLabel5.setText("Nro. Pedido:");
+
+        lblPedidoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblPedidoSeleccionado.setText("....");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -279,10 +304,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(lblPiezaSeleccionada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
@@ -290,24 +312,43 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(txtEtapaProduccion))
                             .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(18, 18, 18)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(211, Short.MAX_VALUE))
+                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel5)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblPedidoSeleccionado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblProductoSeleccionado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblPiezaSeleccionada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(lblPedidoSeleccionado)
+                    .add(jLabel2)
+                    .add(lblPiezaSeleccionada)
+                    .add(jLabel4)
+                    .add(lblProductoSeleccionado))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(88, 88, 88)
+                        .add(72, 72, 72)
                         .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel2)
-                            .add(lblPiezaSeleccionada))
-                        .add(18, 18, 18)
+                        .add(16, 16, 16)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(txtEtapaProduccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel3))
@@ -315,7 +356,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -332,9 +373,9 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                         .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(jButton4)
+                        .add(btnGuardar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton3)))
+                        .add(btnSalir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -349,8 +390,8 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton4)
-                    .add(jButton3))
+                    .add(btnGuardar)
+                    .add(btnSalir))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -362,13 +403,17 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         long idPro=v.getIdProducto();
         filasDetalleProducto=gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
+        idProductoSeleccionado=idPro;
+        lblProductoSeleccionado.setText(v.getNombreProducto());
     }//GEN-LAST:event_btnSeleccionarProductoActionPerformed
 
     private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
-        String pieza=((ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow())).getNombrePieza();
-        lblPiezaSeleccionada.setText(pieza);
+
+        ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
         tblEtapa.updateUI();
+        idPiezaSeleccionada=v.getIdPieza();
+        lblPiezaSeleccionada.setText(v.getNombrePieza());
     }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
 
     private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
@@ -389,6 +434,10 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         }
     }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -403,13 +452,15 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -418,8 +469,11 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblPedidoSeleccionado;
     private javax.swing.JLabel lblPiezaSeleccionada;
+    private javax.swing.JLabel lblProductoSeleccionado;
     private javax.swing.JTable tblDetallePedido;
     private javax.swing.JTable tblDetalleProducto;
     private javax.swing.JTable tblEtapa;
