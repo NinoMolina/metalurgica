@@ -23,14 +23,16 @@ import metalsoft.negocio.ventas.Pieza;
  */
 public class AccessPieza {
 
-    public static long registrarPieza(Pieza pieza, String nombre, long idTipoMaterial, String dimensiones, long idmateriaPrima, long idMatriz, Connection cn) {
+    public static long registrarPieza(Pieza pieza, String nombre, long idTipoMaterial, Double alto, Double ancho, Double largo, long idmateriaPrima, long idMatriz, Connection cn) {
         long result=-1;
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         PiezaDB piezaDB = null;
 
         try {
             piezaDB=Parser.parseToPiezaDB(pieza);
-            piezaDB.setDimensiones(dimensiones);
+            piezaDB.setAlto(alto);
+            piezaDB.setAncho(ancho);
+            piezaDB.setLargo(largo);
             piezaDB.setMateriaprima(idmateriaPrima);
             piezaDB.setMatriz(idMatriz);
             piezaDB.setNombre(nombre);
@@ -45,7 +47,7 @@ public class AccessPieza {
         return result;
     }
 
-    public static long modificarPieza(Pieza pieza,long idPieza, String nombre, long idTipoMaterial, String dimensiones, long idmateriaPrima, long idMatriz, Connection cn) {
+    public static long modificarPieza(Pieza pieza,long idPieza, String nombre, long idTipoMaterial, Double alto, Double ancho, Double largo, long idmateriaPrima, long idMatriz, Connection cn) {
         long result=-1;
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
 
@@ -55,7 +57,9 @@ public class AccessPieza {
         try {
             piezaDB=Parser.parseToPiezaDB(pieza);
             piezaDB.setNombre(nombre);
-            piezaDB.setDimensiones(dimensiones);
+            piezaDB.setAlto(alto);
+            piezaDB.setAncho(ancho);
+            piezaDB.setLargo(largo);
             piezaDB.setMateriaprima(idmateriaPrima);
             piezaDB.setMatriz(idMatriz);
             piezaDB.setTipomaterial(idTipoMaterial);
