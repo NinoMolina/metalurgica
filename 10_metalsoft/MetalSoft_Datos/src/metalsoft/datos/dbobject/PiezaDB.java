@@ -24,21 +24,48 @@ public class PiezaDB implements Serializable
 	private long idpieza;
 	private String nombre;
 	private long tipomaterial;
-	private String dimensiones;
+	private Double alto;
+    private Double ancho;
+    private Double largo;
 	private long materiaprima;
 	private long matriz;
 
 
 	public PiezaDB(){}
-	public PiezaDB(long idpieza ,String nombre ,long tipomaterial ,String dimensiones ,long materiaprima ,long matriz){
+	public PiezaDB(long idpieza ,String nombre ,long tipomaterial ,Double alto, Double ancho, Double largo ,long materiaprima ,long matriz){
 		this.idpieza = idpieza;
 		this.nombre = nombre;
 		this.tipomaterial = tipomaterial;
-		this.dimensiones = dimensiones;
+		this.alto = alto;
+        this.ancho=ancho;
+        this.largo=largo;
 		this.materiaprima = materiaprima;
 		this.matriz = matriz;
 	}
 
+    public Double getAlto() {
+        return alto;
+    }
+
+    public void setAlto(Double alto) {
+        this.alto = alto;
+    }
+
+    public Double getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(Double ancho) {
+        this.ancho = ancho;
+    }
+
+    public Double getLargo() {
+        return largo;
+    }
+
+    public void setLargo(Double largo) {
+        this.largo = largo;
+    }
 	public void setIdpieza(long idpieza ){
 		 this.idpieza =idpieza;
 	}
@@ -57,12 +84,7 @@ public class PiezaDB implements Serializable
 	public long getTipomaterial(){
 		 return(tipomaterial);
 	}
-	public void setDimensiones(String dimensiones ){
-		 this.dimensiones =dimensiones;
-	}
-	public String getDimensiones(){
-		 return(dimensiones);
-	}
+	
 	public void setMateriaprima(long materiaprima ){
 		 this.materiaprima =materiaprima;
 	}
@@ -81,7 +103,9 @@ public class PiezaDB implements Serializable
 		ret.append("idpieza='"+idpieza+"'");
 		ret.append(", nombre='"+nombre+"'");
 		ret.append(", tipomaterial='"+tipomaterial+"'");
-		ret.append(", dimensiones='"+dimensiones+"'");
+		ret.append(", alto='"+alto+"'");
+        ret.append(", ancho='"+ancho+"'");
+        ret.append(", largo='"+largo+"'");
 		ret.append(", materiaprima='"+materiaprima+"'");
 		ret.append(", matriz='"+matriz+"'");
 		return ret.toString();
