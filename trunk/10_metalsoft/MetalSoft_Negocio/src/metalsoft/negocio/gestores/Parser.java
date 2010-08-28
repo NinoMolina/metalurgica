@@ -87,7 +87,9 @@ public class Parser {
         {
             metalsoft.negocio.ventas.Pieza x=new metalsoft.negocio.ventas.Pieza();
             x.setNombre(tm[i].getNombre());
-            x.setDimensiones(tm[i].getDimensiones());
+            x.setAlto(tm[i].getAlto());
+            x.setAncho(tm[i].getAncho());
+            x.setLargo(tm[i].getLargo());
 
             //x.setTipo(tm[i].getTipomaterial());
             c[i]=x;
@@ -100,13 +102,17 @@ public class Parser {
         if(x==null)return null;
         Pieza c=new Pieza();
         c.setNombre(x.getNombre());
-        c.setDimensiones(x.getDimensiones());
+        c.setAncho(x.getAncho());
+        c.setLargo(x.getLargo());
+        c.setNombre(x.getNombre());
         return c;
     }
     public static PiezaDB parseToPiezaDB(Pieza x)
     {
         PiezaDB piezaDB=new PiezaDB();
-        piezaDB.setDimensiones(x.getDimensiones());
+        piezaDB.setAlto(x.getAlto());
+        piezaDB.setAncho(x.getAncho());
+        piezaDB.setLargo(x.getLargo());
         piezaDB.setNombre(x.getNombre());
         return piezaDB;
     }
