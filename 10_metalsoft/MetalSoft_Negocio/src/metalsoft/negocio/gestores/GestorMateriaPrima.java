@@ -109,7 +109,7 @@ public class GestorMateriaPrima {
         else return false;
     }
 
-    public long guardar(MateriaPrima materiaPrima,String idTipoMaterial, String idUnidadmedida)
+    public long guardar(MateriaPrima materiaPrima,String idTipoMaterial, String idUnidadmedida, String idCodBarra)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -119,7 +119,7 @@ public class GestorMateriaPrima {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=materiaPrima.guardarMateriaPrima(materiaPrima,Long.parseLong(idTipoMaterial),Long.parseLong(idUnidadmedida), cn);
+            result=materiaPrima.guardarMateriaPrima(materiaPrima,Long.parseLong(idTipoMaterial),Long.parseLong(idUnidadmedida),Long.parseLong(idCodBarra), cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,7 +139,7 @@ public class GestorMateriaPrima {
         }
         return result;
     }
-    public long modificarEtapaDeProduccion(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida)
+    public long modificarEtapaDeProduccion(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida, String idCodBarra)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -149,7 +149,7 @@ public class GestorMateriaPrima {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=materiaPrima.modificar(materiaPrima, idMateriaPrima,Long.parseLong(idTipoMaterial), Long.parseLong(idUnidadMedida), cn);
+            result=materiaPrima.modificar(materiaPrima, idMateriaPrima,Long.parseLong(idTipoMaterial), Long.parseLong(idUnidadMedida),Long.parseLong(idCodBarra), cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
