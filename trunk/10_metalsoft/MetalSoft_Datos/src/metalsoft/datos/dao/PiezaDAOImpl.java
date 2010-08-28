@@ -104,7 +104,7 @@ public class PiezaDAOImpl implements PiezaDAO
         ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, ALTO, MATERIAPRIMA, MATRIZ, ANCHO, LARGO) values (?, ?, ?, ?, ?)RETURNING idpieza");
+			ps = con.prepareStatement("insert into PIEZA( NOMBRE, TIPOMATERIAL, ALTO, MATERIAPRIMA, MATRIZ, ANCHO, LARGO) values (?, ?, ?, ?, ?, ?, ?)RETURNING idpieza");
 				ps.setString(1,pieza.getNombre());
 
                 long idtm=pieza.getTipomaterial();
