@@ -412,6 +412,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
 
         ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
+        filasEtapaProduccionSeleccionada.clear();
         PiezaxetapadeproduccionDB[] pxeDB=gestor.buscarEtapasDePieza(v.getIdPieza());
         separarEtapasDeProduccion(pxeDB);
         tblEtapa.updateUI();
@@ -427,10 +428,10 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         for(int i=0;i<filasEtapaProduccion.size();i++)
         {
             v=filasEtapaProduccion.get(i);
-            for(int j=0;j<pxeDB.length;i++)
+            for(int j=0;j<pxeDB.length;j++)
             {
                 db=pxeDB[j];
-                if(v.getIdetapa()==db.getIdpieza())
+                if(v.getIdetapa()==db.getIdetapaproduccion())
                 {
                     filasEtapaProduccionSeleccionada.add(filasEtapaProduccion.remove(i));
                 }
