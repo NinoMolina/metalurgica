@@ -11,6 +11,8 @@
 
 package metalsoft.presentacion;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,8 +41,11 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
     private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccionSeleccionada;
     private GestorDetalleProcedimientos gestor;
     private Timer timer;
+    private TableCellRender tcrTblDetallePedido;
     public GenerarListadoProcedimientosCotización() {
         initComponents();
+        tcrTblDetallePedido=new TableCellRender();
+        tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
         gestor=new GestorDetalleProcedimientos();
         buscarPedidosGenerados();
         addListenerBtnAgregar();
@@ -347,6 +352,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         ViewPedidoEnListadoProcedimientos v=filasPedidos.get(tblPedidos.getSelectedRow());
         long idPed=v.getIdpedido();
         filasDetallePedido=gestor.buscarDetallePedido(idPed);
+        tcrTblDetallePedido.setRowNoSeleccionable(buscarProductosSinAlgunaEtapa());
         tblDetallePedido.updateUI();
     }//GEN-LAST:event_btnSeleccionarPedidoActionPerformed
 
@@ -437,6 +443,22 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         }
         return null;
     }
+
+    private ArrayList<Integer> buscarProductosSinAlgunaEtapa() {
+        Iterator<ViewDetallePedidoCotizacion> i=filasDetallePedido.iterator();
+        ViewDetallePedidoCotizacion v=null;
+        ArrayList<Integer> rows=new ArrayList<Integer>();
+        int contador=0;
+        while(i.hasNext())
+        {
+            v=i.next();
+            long idProd=v.getIdProducto();
+            boolean es=gestor.esProductoSinAlgunaEtapa(idProd);
+            if(es)rows.add(contador);
+            contador++;
+        }
+        return rows;
+    }
     // End of variables declaration
 
     class PedidoTableModel extends AbstractTableModel
@@ -523,6 +545,7 @@ public class GenerarListadoProcedimientosCotización extends javax.swing.JFrame 
         {
 
             ViewDetallePedidoCotizacion view=filasDetallePedido.get(rowIndex);
+
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
