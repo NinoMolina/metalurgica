@@ -117,6 +117,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         ep.setLargo(Double.parseDouble(dimensiones1.getTxtLargo().getText()));
         //ep.setCodBarra(txt);
         String idCodBarra=txtCodBarra.getText();
+        //long idcdoB=gestor.guardarCodigoBarra(idCodBarra);
         ep.setCodProducto(Integer.parseInt(txtNroProducto.getText()));
         ep.setDescripcion(txtDescripcion.getText());
         ep.setNombre(txtNombre.getText());
