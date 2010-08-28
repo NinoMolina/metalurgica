@@ -2,17 +2,23 @@
 
 package metalsoft.negocio.ventas;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public class Presupuesto 
 {
    private int nroPresupuesto;
-   private int fechaPresupuesto;
-   private int montoTotal;
+   private Date fechaPresupuesto;
+   private float montoTotal;
    private DetallePresupuesto detalle;
-   private int fechaVencimiento;
-   public Producto theProducto;
-   public DetallePresupuesto theDetallePresupuesto;
-   public Cliente theCliente;
+   private Date fechaVencimiento;
+   public Producto producto;
+   public  ArrayList<DetallePresupuesto> detallePresupuesto;
+   public ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima;
+   public ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos;
+   public ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad;
+
    
    /**
     * @roseuid 4C27ED140181

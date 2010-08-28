@@ -287,30 +287,6 @@ public class Pedido
    }
    
    /**
-    * @roseuid 4C180C5A0337
-    */
-   public void conocerPlanProcedimientos() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C180C910318
-    */
-   public void conocerPlanProcesosCalidad() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C180C9B03C6
-    */
-   public void conocerPlanRequerimientosMatPrima() 
-   {
-    
-   }
-   
-   /**
     * @roseuid 4C1F961D036E
     */
    public void esPedidoGeneradoYNoPresupuestado() 
