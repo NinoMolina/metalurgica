@@ -71,14 +71,6 @@ public class ABMPieza extends javax.swing.JFrame {
         this.cmbTipoMaterial = cmbTipoMaterial;
     }
 
-    public JTextField getTxtDimensiones() {
-        return txtDimensiones;
-    }
-
-    public void setTxtDimensiones(JTextField txtDimensiones) {
-        this.txtDimensiones = txtDimensiones;
-    }
-
     public JTextField getTxtNombre() {
         return txtNombre;
     }
@@ -135,20 +127,20 @@ public class ABMPieza extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        txtDimensiones = new javax.swing.JTextField();
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbMateriaPrima = new javax.swing.JComboBox();
         cmbMatriz = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        dimensiones1 = new metalsoft.beans.Dimensiones();
+        idpieza = new javax.swing.JLabel();
         btnNuevo = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        idpieza = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -160,8 +152,6 @@ public class ABMPieza extends javax.swing.JFrame {
 
         jLabel8.setText("Materia Prima:");
 
-        jLabel9.setText("Dimensiones:");
-
         jLabel11.setText("Matriz:");
 
         cmbMatriz.addActionListener(new java.awt.event.ActionListener() {
@@ -170,33 +160,51 @@ public class ABMPieza extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dimensiones"));
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .add(dimensiones1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(48, 48, 48))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(dimensiones1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        );
+
+        idpieza.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        idpieza.setText("jLabel2");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                        .add(jLabel11)
-                        .add(8, 8, 8)
-                        .add(cmbMatriz, 0, 402, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                        .add(jLabel9)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtDimensiones, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
+                    .add(idpieza)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel7)
                             .add(jLabel8))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(cmbMateriaPrima, 0, 359, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cmbTipoMaterial, 0, 359, Short.MAX_VALUE)))
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(cmbMateriaPrima, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(cmbTipoMaterial, 0, 314, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtNombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)))
+                        .add(txtNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 364, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
+                        .add(jLabel11)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cmbMatriz, 0, 371, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -218,13 +226,13 @@ public class ABMPieza extends javax.swing.JFrame {
                             .add(jLabel8)
                             .add(cmbMateriaPrima, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtDimensiones, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel9))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel11)
                     .add(cmbMatriz, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(idpieza)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,8 +278,6 @@ public class ABMPieza extends javax.swing.JFrame {
             }
         });
 
-        idpieza.setText("jLabel2");
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -279,7 +285,7 @@ public class ABMPieza extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
                         .add(btnNuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -288,19 +294,16 @@ public class ABMPieza extends javax.swing.JFrame {
                         .add(btnEliminar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(43, 43, 43)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnGuardar)
                         .add(9, 9, 9)
-                        .add(btnSalir))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, idpieza))
-                .addContainerGap())
+                        .add(btnSalir)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(idpieza)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnModificar)
@@ -324,7 +327,9 @@ public class ABMPieza extends javax.swing.JFrame {
         cmbMateriaPrima.setSelectedIndex(-1);
         cmbMatriz.setSelectedIndex(-1);
         cmbTipoMaterial.setSelectedIndex(-1);
-        txtDimensiones.setText("");
+        dimensiones1.getTxtAlto().setText("");
+        dimensiones1.getTxtAncho().setText("");
+        dimensiones1.getTxtLargo().setText("");
         txtNombre.setText("");
         idpieza.setText("");
     }
@@ -333,8 +338,10 @@ public class ABMPieza extends javax.swing.JFrame {
         long idTipoMaterial=Long.parseLong(((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId());
         long idMateriaPrima=Long.parseLong(((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId());
         long idMatriz=Long.parseLong(((ItemCombo)cmbMatriz.getSelectedItem()).getId());
-
-        gestorPieza.guardar(txtNombre.getText(), txtDimensiones.getText(), idTipoMaterial, idMateriaPrima, idMatriz);
+        Double alto=Double.parseDouble(dimensiones1.getTxtAlto().getText());
+        Double ancho=Double.parseDouble(dimensiones1.getTxtAncho().getText());
+        Double largo=Double.parseDouble(dimensiones1.getTxtLargo().getText());
+        gestorPieza.guardar(txtNombre.getText(),alto,ancho,largo, idTipoMaterial, idMateriaPrima, idMatriz);
 
         JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
         limpiar();
@@ -371,7 +378,10 @@ public class ABMPieza extends javax.swing.JFrame {
             String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
             String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
             String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
-            boolean result=gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), txtDimensiones.getText(), Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
+            Double alto=Double.parseDouble(dimensiones1.getTxtAlto().getText());
+            Double ancho=Double.parseDouble(dimensiones1.getTxtAncho().getText());
+            Double largo=Double.parseDouble(dimensiones1.getTxtLargo().getText());
+            boolean result=gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
             if(result==true) JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
             else JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
         }
@@ -416,20 +426,22 @@ public class ABMPieza extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbMatriz;
     private javax.swing.JComboBox cmbTipoMaterial;
+    private metalsoft.beans.Dimensiones dimensiones1;
     private javax.swing.JLabel idpieza;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtDimensiones;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarDatosProducto() {
         txtNombre.setText(piezaDB.getNombre());
-        txtDimensiones.setText(piezaDB.getDimensiones());
+        dimensiones1.getTxtAlto().setText(String.valueOf(piezaDB.getAlto()));
+        dimensiones1.getTxtAncho().setText(String.valueOf(piezaDB.getAncho()));
+        dimensiones1.getTxtLargo().setText(String.valueOf(piezaDB.getLargo()));
         idpieza.setText(String.valueOf(piezaDB.getIdpieza()));
 
         Combo.setItemComboSeleccionado(cmbTipoMaterial, piezaDB.getTipomaterial());
