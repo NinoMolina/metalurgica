@@ -37,6 +37,7 @@ import metalsoft.negocio.gestores.GestorMateriaPrima;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 /**
  *
@@ -134,7 +135,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
-        limpiarCampos();
+        //limpiarCampos();
     }
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
@@ -381,12 +382,12 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtNroProducto.setText(String.valueOf(mp.getCodproducto()));
         //txtPrecio.setText(String.valueOf(mp.g)
         txtStock.setText(String.valueOf(mp.getStock()));
-        GregorianCalendar gc=new GregorianCalendar();
-        gc.setTime(mp.getFechaalta());
-        dccFechaAlta.setSelectedDate(gc);
+        //GregorianCalendar gc=new GregorianCalendar();
+        //gc.setTime(mp.getFechaalta());
+        dccFechaAlta.setSelectedDate(Fecha.parseToCalendar(mp.getFechaalta()));
 
-        gc.setTime(mp.getFechabaja());
-        dccFechaBaja.setSelectedDate(gc);
+        //gc.setTime(mp.getFechabaja());
+        dccFechaBaja.setSelectedDate(Fecha.parseToCalendar(mp.getFechabaja()));
 
         dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
         dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
@@ -405,8 +406,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtNroProducto.setText("");
         //txtPrecio.setText(String.valueOf(mp.g)
         txtStock.setText("");
-
-        dccFechaAlta.setSelectedDate(null);
+        
+        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
         dccFechaBaja.setSelectedDate(null);
 
         dimensiones1.getTxtAlto().setText("");
