@@ -125,7 +125,7 @@ public class AccessViews {
         LinkedList<ViewPedidoEnListadoProcedimientos> ll=new LinkedList<ViewPedidoEnListadoProcedimientos>();
         String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
                      "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado"+
-                     " FROM viewpedidoenlistadoprocedimientos"+
+                     " FROM viewpedidoendetalleprocedimientos"+
                      " WHERE idestado=1";
         PreparedStatement ps=null;
         ResultSet rs=null;
