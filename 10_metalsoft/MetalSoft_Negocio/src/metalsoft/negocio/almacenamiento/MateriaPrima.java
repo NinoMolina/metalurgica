@@ -79,16 +79,16 @@ public class MateriaPrima
     
    }
 
-    public long guardarMateriaPrima(MateriaPrima materiaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+    public long guardarMateriaPrima(MateriaPrima materiaPrima, long idTipoMaterial, long idUnidadMedida, long idCodBarra, Connection cn) {
         long result=-1;
-       result=AccessMateriaPrima.insert(materiaPrima, idTipoMaterial, idUnidadMedida, cn);
+       result=AccessMateriaPrima.insert(materiaPrima, idTipoMaterial, idUnidadMedida, idCodBarra, cn);
 
        return result;
     }
 
-    public long modificar(MateriaPrima materiaPrima, long idMateriaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+    public long modificar(MateriaPrima materiaPrima, long idMateriaPrima, long idTipoMaterial, long idUnidadMedida, long idCodBarra, Connection cn) {
         long result=-1;
-       result=AccessMateriaPrima.update(materiaPrima, idMateriaPrima, idTipoMaterial, idUnidadMedida, cn);
+       result=AccessMateriaPrima.update(materiaPrima, idMateriaPrima, idTipoMaterial, idUnidadMedida, idCodBarra, cn);
 
        return result;
     }
