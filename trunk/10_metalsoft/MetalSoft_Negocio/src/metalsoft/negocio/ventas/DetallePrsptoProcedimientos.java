@@ -2,12 +2,15 @@
 
 package metalsoft.negocio.ventas;
 
+import java.util.Date;
+
 
 public class DetallePrsptoProcedimientos
 {
    private int cantidadEtapasProduccion;
-   private EtapaDeProduccion etapaPorPieza;
-   private int duracionEstimadaPorEtapa;
+   private EtapaDeProduccion etapa;
+   //private Pieza pieza;
+   private Date duracionEstimadaPorEtapa;
    
    /**
     * @roseuid 4C27ED190048
@@ -16,20 +19,31 @@ public class DetallePrsptoProcedimientos
    {
     
    }
+
+    public int getCantidadEtapasProduccion() {
+        return cantidadEtapasProduccion;
+    }
+
+    public void setCantidadEtapasProduccion(int cantidadEtapasProduccion) {
+        this.cantidadEtapasProduccion = cantidadEtapasProduccion;
+    }
+
+    public Date getDuracionEstimadaPorEtapa() {
+        return duracionEstimadaPorEtapa;
+    }
+
+    public void setDuracionEstimadaPorEtapa(Date duracionEstimadaPorEtapa) {
+        this.duracionEstimadaPorEtapa = duracionEstimadaPorEtapa;
+    }
+
+    public EtapaDeProduccion getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(EtapaDeProduccion etapa) {
+        this.etapa = etapa;
+    }
+
    
-   /**
-    * @roseuid 4C185B87029C
-    */
-   public void crear() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C185B8B003F
-    */
-   public void conocerDetallePlanProcedimientos() 
-   {
-    
-   }
+
 }

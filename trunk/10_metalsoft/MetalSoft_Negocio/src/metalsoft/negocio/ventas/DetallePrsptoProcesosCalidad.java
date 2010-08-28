@@ -18,20 +18,29 @@ public class DetallePrsptoProcesosCalidad
    {
     
    }
+
+    public int getCantidadProcesosCalidad() {
+        return cantidadProcesosCalidad;
+    }
+
+    public void setCantidadProcesosCalidad(int cantidadProcesosCalidad) {
+        this.cantidadProcesosCalidad = cantidadProcesosCalidad;
+    }
+
+    public int getDuracionEstimadaPorProceso() {
+        return duracionEstimadaPorProceso;
+    }
+
+    public void setDuracionEstimadaPorProceso(int duracionEstimadaPorProceso) {
+        this.duracionEstimadaPorProceso = duracionEstimadaPorProceso;
+    }
+
+    public ProcesoCalidad getProcesoPorPieza() {
+        return procesoPorPieza;
+    }
+
+    public void setProcesoPorPieza(ProcesoCalidad procesoPorPieza) {
+        this.procesoPorPieza = procesoPorPieza;
+    }
    
-   /**
-    * @roseuid 4C185FC30092
-    */
-   public void crear() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C185FC5033E
-    */
-   public void conocerDetallePlanProcedimientos() 
-   {
-    
-   }
 }
