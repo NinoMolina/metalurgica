@@ -139,6 +139,8 @@ public class GestorMateriaPrima {
         }
         return result;
     }
+
+    
     public long modificarEtapaDeProduccion(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida, String idCodBarra)
     {
         PostgreSQLManager pg=null;
