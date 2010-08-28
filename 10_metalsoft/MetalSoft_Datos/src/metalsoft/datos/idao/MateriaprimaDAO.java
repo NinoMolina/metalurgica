@@ -17,22 +17,21 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface MateriaprimaDAO
 {
-	public int insert(Materiaprima materiaprima, Connection con ) throws MateriaprimaException;
-	public int update(MateriaprimaPK materiaprimapk, Materiaprima materiaprima, Connection con) throws MateriaprimaException;
+	public int insert(MateriaprimaDB materiaprima, Connection con ) throws MateriaprimaException;
+	public int update(MateriaprimaPK materiaprimapk, MateriaprimaDB materiaprima, Connection con) throws MateriaprimaException;
 	public int delete(MateriaprimaPK materiaprimapk, Connection con) throws MateriaprimaException;
-	public Materiaprima findByPrimaryKey(MateriaprimaPK materiaprimapk , Connection con) throws MateriaprimaException;
-	public Materiaprima[] findAll(Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByIdmateriaprima(long idmateriaprima,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByCodproducto(long codproducto,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByNombre(String nombre,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByFechaalta(Date fechaalta,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByFechabaja(Date fechabaja,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByCodbarra(long codbarra,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByDimensiones(String dimensiones,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByStock(long stock,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByUnidaddemedida(String unidaddemedida,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByDescripcion(String descripcion,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findByTipomaterial(long tipomaterial,Connection con) throws MateriaprimaException;
-	public Materiaprima[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MateriaprimaException;
-	public Materiaprima[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MateriaprimaException;
+	public MateriaprimaDB findByPrimaryKey(MateriaprimaPK materiaprimapk , Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findAll(Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByIdmateriaprima(long idmateriaprima,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByCodproducto(long codproducto,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByNombre(String nombre,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByFechaalta(Date fechaalta,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByFechabaja(Date fechabaja,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByCodbarra(long codbarra,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByStock(long stock,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByUnidaddemedida(String unidaddemedida,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByDescripcion(String descripcion,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByTipomaterial(long tipomaterial,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MateriaprimaException;
 }
