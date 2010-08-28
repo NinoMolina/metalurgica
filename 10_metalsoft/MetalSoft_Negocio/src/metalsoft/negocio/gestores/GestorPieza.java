@@ -219,11 +219,13 @@ public class GestorPieza
     
    }
 
-   public int guardar(String nombre, String dimensiones, long idTM, long idMP, long idMa) {
+   public int guardar(String nombre, Double alto, Double ancho, Double largo, long idTM, long idMP, long idMa) {
         PiezaDAO dao=new DAOFactoryImpl().createPiezaDAO();
         PiezaDB p=new PiezaDB();
         p.setNombre(nombre);
-        p.setDimensiones(dimensiones);
+        p.setAlto(alto);
+        p.setAncho(ancho);
+        p.setLargo(largo);
         p.setTipomaterial(idTM);
         p.setMateriaprima(idMP);
         p.setMatriz(idMa);
@@ -304,7 +306,7 @@ public class GestorPieza
 
     }
 
-    public boolean modificarPieza(long idpieza, String nombre, String dimensiones, long idTM, long idMP, long idMa) {
+    public boolean modificarPieza(long idpieza, String nombre, Double alto, Double ancho, Double largo, long idTM, long idMP, long idMa) {
         
         Connection cn=null;
         
@@ -320,7 +322,9 @@ public class GestorPieza
         //realizo la modificación
         PiezaDB modificado=new PiezaDB();
         modificado.setIdpieza(idpieza);
-        modificado.setDimensiones(dimensiones);
+        modificado.setAlto(alto);
+        modificado.setAncho(ancho);
+        modificado.setLargo(largo);
         modificado.setNombre(nombre);
         modificado.setTipomaterial(idTM);
         modificado.setMateriaprima(idMP);
@@ -533,7 +537,9 @@ public class GestorPieza
         {
             metalsoft.negocio.ventas.Pieza x=new metalsoft.negocio.ventas.Pieza();
             x.setNombre(tm[i].getNombre());
-            x.setDimensiones(tm[i].getDimensiones());
+            x.setAlto(tm[i].getAlto());
+            x.setAncho(tm[i].getAncho());
+            x.setLargo(tm[i].getLargo());
             x.setTipoMaterial(buscarTipoMaterialPorID(tm[i].getTipomaterial()));
             x.setMateria(buscarMateriaPrimaPorID(tm[i].getMateriaprima()));
             c[i]=x;
