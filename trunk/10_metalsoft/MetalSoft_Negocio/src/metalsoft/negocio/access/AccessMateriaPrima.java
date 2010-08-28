@@ -67,7 +67,7 @@ public class AccessMateriaPrima {
         return x;
     }
 
-    public static long insert(MateriaPrima materiaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+    public static long insert(MateriaPrima materiaPrima, long idTipoMaterial, long idUnidadMedida,long idCodBarra, Connection cn) {
         long result=-1;
         MateriaprimaDAO dao=new DAOFactoryImpl().createMateriaprimaDAO();
         MateriaprimaDB materiaPrimaDB = null;
@@ -76,7 +76,7 @@ public class AccessMateriaPrima {
             materiaPrimaDB=Parser.parseToMateriaPrimaDB(materiaPrima);
             materiaPrimaDB.setTipomaterial(idTipoMaterial);
             materiaPrimaDB.setUnidaddemedida(idUnidadMedida);
-
+            materiaPrimaDB.setCodbarra(idCodBarra);
 
             result=dao.insert(materiaPrimaDB, cn);
             materiaPrimaDB.setIdmateriaprima(result);
@@ -86,7 +86,7 @@ public class AccessMateriaPrima {
         return result;
     }
 
-    public static long update(MateriaPrima materiaPrima, long idMateriaPrima, long idTipoMaterial, long idUnidadMedida, Connection cn) {
+    public static long update(MateriaPrima materiaPrima, long idMateriaPrima, long idTipoMaterial, long idUnidadMedida, long idCodBarra, Connection cn) {
         long result=-1;
         MateriaprimaDAO dao=new DAOFactoryImpl().createMateriaprimaDAO();
 
@@ -97,6 +97,7 @@ public class AccessMateriaPrima {
             materiaPrimaDB=Parser.parseToMateriaPrimaDB(materiaPrima);
             materiaPrimaDB.setTipomaterial(idTipoMaterial);
             materiaPrimaDB.setUnidaddemedida(idUnidadMedida);
+            materiaPrimaDB.setCodbarra(idCodBarra);
 
             result=dao.update(pk,materiaPrimaDB, cn);
         } catch (MateriaprimaException ex) {
