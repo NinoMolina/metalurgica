@@ -54,27 +54,30 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 /**
 * This method updates a record in table MATERIAPRIMA
 * @param MateriaprimaPK
-* @param Materiaprima
+* @param MateriaprimaDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(MateriaprimaPK materiaprimapk, Materiaprima materiaprima, Connection con)throws MateriaprimaException{
+	public int update(MateriaprimaPK materiaprimapk, MateriaprimaDB materiaprima, Connection con)throws MateriaprimaException{
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update MATERIAPRIMA set CODPRODUCTO = ? , NOMBRE = ? , FECHAALTA = ? , FECHABAJA = ? , CODBARRA = ? , DIMENSIONES = ? , STOCK = ? , UNIDADDEMEDIDA = ? , DESCRIPCION = ? , TIPOMATERIAL = ?  where idmateriaprima = ?");
+			ps = con.prepareStatement("update MATERIAPRIMA set CODPRODUCTO = ? , NOMBRE = ? , FECHAALTA = ? , FECHABAJA = ? , CODBARRA = ? , ALTO = ? , STOCK = ? , UNIDADDEMEDIDA = ? , DESCRIPCION = ? , TIPOMATERIAL = ?, LARGO = ?, ANCHO = ?  where idmateriaprima = ?");
 				ps.setLong(1,materiaprima.getCodproducto());
 				ps.setString(2,materiaprima.getNombre());
 				ps.setDate(3,materiaprima.getFechaalta());
 				ps.setDate(4,materiaprima.getFechabaja());
 				ps.setLong(5,materiaprima.getCodbarra());
-				ps.setString(6,materiaprima.getDimensiones());
+				ps.setFloat(6,materiaprima.getAlto());
 				ps.setLong(7,materiaprima.getStock());
-				ps.setString(8,materiaprima.getUnidaddemedida());
+				ps.setLong(8,materiaprima.getUnidaddemedida());
 				ps.setString(9,materiaprima.getDescripcion());
 				ps.setLong(10,materiaprima.getTipomaterial());
-				ps.setLong(11,materiaprimapk.getIdmateriaprima());
+                ps.setFloat(11,materiaprima.getLargo());
+                ps.setFloat(12,materiaprima.getAncho());
+				ps.setLong(13,materiaprimapk.getIdmateriaprima());
+
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MateriaprimaException(sqle);}
@@ -84,27 +87,29 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 /**
 * This method inserts data in table MATERIAPRIMA
 *
-* @param Materiaprima materiaprima
+* @param MateriaprimaDB materiaprima
 * @param   Connection con
 * @return  MateriaprimaPK
 */
 
-	public int insert(Materiaprima materiaprima ,Connection con)throws MateriaprimaException {
+	public int insert(MateriaprimaDB materiaprima ,Connection con)throws MateriaprimaException {
 
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, DIMENSIONES, STOCK, UNIDADDEMEDIDA, DESCRIPCION, TIPOMATERIAL) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, ALTO, STOCK, UNIDADDEMEDIDA, DESCRIPCION, TIPOMATERIAL, LARGO, ANCHO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				ps.setLong(1,materiaprima.getCodproducto());
 				ps.setString(2,materiaprima.getNombre());
 				ps.setDate(3,materiaprima.getFechaalta());
 				ps.setDate(4,materiaprima.getFechabaja());
 				ps.setLong(5,materiaprima.getCodbarra());
-				ps.setString(6,materiaprima.getDimensiones());
+				ps.setFloat(6,materiaprima.getAlto());
 				ps.setLong(7,materiaprima.getStock());
-				ps.setString(8,materiaprima.getUnidaddemedida());
+				ps.setLong(8,materiaprima.getUnidaddemedida());
 				ps.setString(9,materiaprima.getDescripcion());
 				ps.setLong(10,materiaprima.getTipomaterial());
+                ps.setFloat(11,materiaprima.getLargo());
+                ps.setFloat(12,materiaprima.getAncho());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MateriaprimaException(sqle);}
@@ -117,7 +122,7 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * 
 */
 
-	public Materiaprima findByPrimaryKey(long idmateriaprima, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB findByPrimaryKey(long idmateriaprima, Connection con) throws MateriaprimaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -140,10 +145,10 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * 
 * @param  MateriaprimaPK materiaprimapk
 * @param Connection con
-* @return  Materiaprima
+* @return  MateriaprimaDB
 */
 
-	public Materiaprima findByPrimaryKey(MateriaprimaPK materiaprimapk, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB findByPrimaryKey(MateriaprimaPK materiaprimapk, Connection con) throws MateriaprimaException{
 		return findByPrimaryKey(materiaprimapk.getIdmateriaprima(), con);
 	}
 
@@ -153,10 +158,10 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   long  idmateriaprima
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByIdmateriaprima(long idmateriaprima, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByIdmateriaprima(long idmateriaprima, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where idmateriaprima = ? order by idmateriaprima";
@@ -180,10 +185,10 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   long  codproducto
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByCodproducto(long codproducto, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByCodproducto(long codproducto, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where codproducto = ? order by codproducto";
@@ -207,13 +212,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByNombre(String nombre, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByNombre(String nombre, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where nombre = ? order by nombre";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where nombre = ? order by nombre";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, nombre );
@@ -234,13 +239,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   Date  fechaalta
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByFechaalta(Date fechaalta, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByFechaalta(Date fechaalta, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where fechaalta = ? order by fechaalta";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where fechaalta = ? order by fechaalta";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechaalta );
@@ -261,13 +266,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   Date  fechabaja
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByFechabaja(Date fechabaja, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByFechabaja(Date fechabaja, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where fechabaja = ? order by fechabaja";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where fechabaja = ? order by fechabaja";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechabaja );
@@ -288,13 +293,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   long  codbarra
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByCodbarra(long codbarra, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByCodbarra(long codbarra, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where codbarra = ? order by codbarra";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where codbarra = ? order by codbarra";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, codbarra );
@@ -315,26 +320,10 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   String  dimensiones
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByDimensiones(String dimensiones, Connection con) throws MateriaprimaException{
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where dimensiones = ? order by dimensiones";
-			try {
-					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setString( 1, dimensiones );
-					rs = stmt.executeQuery();
-					return fetchMultiResults(rs);
-			}catch(SQLException sqle){
-					throw new MateriaprimaException(sqle);
-			}
-			catch(Exception e){
-					throw new MateriaprimaException(e);
-			}
-			finally{}
-	}
+	
 
 /**
 *
@@ -342,13 +331,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   long  stock
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByStock(long stock, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByStock(long stock, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where stock = ? order by stock";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where stock = ? order by stock";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, stock );
@@ -369,16 +358,16 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   String  unidaddemedida
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByUnidaddemedida(String unidaddemedida, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByUnidaddemedida(long unidaddemedida, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where unidaddemedida = ? order by unidaddemedida";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where unidaddemedida = ? order by unidaddemedida";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setString( 1, unidaddemedida );
+					stmt.setLong( 1, unidaddemedida );
 					rs = stmt.executeQuery();
 					return fetchMultiResults(rs);
 			}catch(SQLException sqle){
@@ -396,13 +385,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   String  descripcion
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByDescripcion(String descripcion, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByDescripcion(String descripcion, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where descripcion = ? order by descripcion";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where descripcion = ? order by descripcion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, descripcion );
@@ -423,13 +412,13 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 *
 * @param   long  tipomaterial
 * @param   Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	public Materiaprima[] findByTipomaterial(long tipomaterial, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findByTipomaterial(long tipomaterial, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where tipomaterial = ? order by tipomaterial";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima where tipomaterial = ? order by tipomaterial";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, tipomaterial );
@@ -448,14 +437,14 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * Returns all rows from materiaprima table 
 *
 * @param Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 *
 */
 
-	public Materiaprima[] findAll( Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findAll( Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima";
+			String SQL_STATEMENT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -476,11 +465,11 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 *
 */
 
-	public Materiaprima[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -507,14 +496,14 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 *
 */
 
-	public Materiaprima[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MateriaprimaException{
+	public MateriaprimaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MateriaprimaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, dimensiones, stock, unidaddemedida, descripcion, tipomaterial from materiaprima";
+			String SQL_SELECT ="Select idmateriaprima, codproducto, nombre, fechaalta, fechabaja, codbarra, alto, ancho, largo, stock, unidaddemedida, descripcion, tipomaterial from materiaprima";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -537,14 +526,14 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Materiaprima
+* @return  MateriaprimaDB
 *
 */
 
-	protected Materiaprima fetchSingleResult(ResultSet rs) throws SQLException
+	protected MateriaprimaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Materiaprima dto = new Materiaprima();
+					MateriaprimaDB dto = new MateriaprimaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -556,12 +545,12 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Materiaprima dto
+* @param MateriaprimaDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Materiaprima dto, ResultSet rs) throws SQLException
+	protected void populateVO(MateriaprimaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdmateriaprima(rs.getLong("idmateriaprima"));
 		 dto.setCodproducto(rs.getLong("codproducto"));
@@ -569,9 +558,11 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 		 dto.setFechaalta(rs.getDate("fechaalta"));
 		 dto.setFechabaja(rs.getDate("fechabaja"));
 		 dto.setCodbarra(rs.getLong("codbarra"));
-		 dto.setDimensiones(rs.getString("dimensiones"));
+		 dto.setAlto(rs.getFloat("alto"));
+         dto.setAncho(rs.getFloat("ancho"));
+         dto.setLargo(rs.getFloat("largo"));
 		 dto.setStock(rs.getLong("stock"));
-		 dto.setUnidaddemedida(rs.getString("unidaddemedida"));
+		 dto.setUnidaddemedida(rs.getLong("unidaddemedida"));
 		 dto.setDescripcion(rs.getString("descripcion"));
 		 dto.setTipomaterial(rs.getLong("tipomaterial"));
 	}
@@ -581,18 +572,18 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Materiaprima[]
+* @return  MateriaprimaDB[]
 */
 
-	protected Materiaprima[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected MateriaprimaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Materiaprima dto = new Materiaprima();
+			MateriaprimaDB dto = new MateriaprimaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Materiaprima ret[] = new Materiaprima[ resultList.size() ];
+		MateriaprimaDB ret[] = new MateriaprimaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
