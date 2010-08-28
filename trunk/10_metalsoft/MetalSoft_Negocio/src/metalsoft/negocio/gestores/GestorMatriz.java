@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.produccion.Matriz;
-import metalsoft.datos.dbobject.Materiaprima;
+import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.MatrizPK;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.exception.MatrizException;
@@ -30,7 +30,7 @@ import metalsoft.util.ItemCombo;
  */
 public class GestorMatriz {
     private Tipomaterial[] tipoMateriales;
-    private Materiaprima[] materiaPrima;
+    private MateriaprimaDB[] materiaPrima;
     private Matriz matriz;
 
      public GestorMatriz()

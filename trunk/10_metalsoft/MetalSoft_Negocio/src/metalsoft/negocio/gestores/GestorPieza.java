@@ -13,7 +13,7 @@ import javax.lang.model.type.NullType;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
-import metalsoft.datos.dbobject.Materiaprima;
+import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.MateriaprimaPK;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.PiezaPK;
@@ -41,7 +41,7 @@ public class GestorPieza
 {
    private PiezaDB[] piezas;
    private Tipomaterial[] tipoMaterial;
-   private Materiaprima[] materiaPrima;
+   private MateriaprimaDB[] materiaPrima;
    private EtapadeproduccionDB[] etapaDeProduccion;
    private metalsoft.datos.dbobject.Matriz[] matriz;
    private metalsoft.datos.dbobject.Piezareal[] piezaReal;
@@ -439,7 +439,7 @@ public class GestorPieza
         sqlParams[0]=materiaprima.getNombre();
 
         try {
-            metalsoft.datos.dbobject.Materiaprima[] tm = daoTM.findExecutingUserWhere("nombre = ? ", sqlParams, cn);
+            metalsoft.datos.dbobject.MateriaprimaDB[] tm = daoTM.findExecutingUserWhere("nombre = ? ", sqlParams, cn);
             if(tm.length>0) idMP=tm[0].getIdmateriaprima();
 
         } catch (Exception ex) {
@@ -461,7 +461,7 @@ public class GestorPieza
         sqlParams[0]=id;
 
         try {
-            Materiaprima[] tm = daoTM.findExecutingUserWhere("idmateriaprima = ?", sqlParams, cn);
+            MateriaprimaDB[] tm = daoTM.findExecutingUserWhere("idmateriaprima = ?", sqlParams, cn);
             if(tm.length>0) materiaprima=parseToMateriaPrima(tm[0]);
 
         } catch (Exception ex) {
@@ -551,7 +551,7 @@ public class GestorPieza
         return x;
     }
      //MATERIA PRIMA
-     private MateriaPrima parseToMateriaPrima(Materiaprima tm) {
+     private MateriaPrima parseToMateriaPrima(MateriaprimaDB tm) {
         if(tm==null)return null;
 
         MateriaPrima x=new MateriaPrima();
