@@ -47,4 +47,19 @@ public class AccessFunctions {
         }
         return result;
     }
+
+    public static boolean esProductoSinAlgunaEtapa(long idProd, Connection cn) {
+        String query="{ ? = call esproductosinalgunaetapa(?)}";
+        boolean result = false;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BOOLEAN);
+            cs.setLong(2, idProd);
+            cs.execute();
+            result=cs.getBoolean(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }
