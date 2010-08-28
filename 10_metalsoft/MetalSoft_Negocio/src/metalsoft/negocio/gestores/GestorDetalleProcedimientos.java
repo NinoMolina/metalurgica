@@ -13,7 +13,9 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.access.AccessPiezaXEtapaDeProduccion;
 import metalsoft.negocio.access.AccessViews;
 
 /**
@@ -125,6 +127,27 @@ public class GestorDetalleProcedimientos {
         try {
             cn = pg.concectGetCn();
             result=AccessFunctions.esProductoSinAlgunaEtapa(idProd,cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public PiezaxetapadeproduccionDB[] buscarEtapasDePieza(long idPieza) {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        PiezaxetapadeproduccionDB[] result=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            result=AccessPiezaXEtapaDeProduccion.findByIdpieza(idPieza, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
         }
