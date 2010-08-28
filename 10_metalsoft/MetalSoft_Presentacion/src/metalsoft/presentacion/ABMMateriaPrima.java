@@ -55,6 +55,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        cargarComboTipoMaterial();
+        cargarComboUnidadMedida();
     }
     public void etapaSeleccionada() {
         materiaPrimaDB=gestor.buscarPorId(idMateriaPrima);
@@ -65,7 +67,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         idMateriaPrima=id;
     }
 
-    private void cargarComboMaquina() {
+    private void cargarComboTipoMaterial() {
         cmbTipoMaterial.removeAllItems();
         gestor.obtenerTipoMateriales(cmbTipoMaterial);
     }
