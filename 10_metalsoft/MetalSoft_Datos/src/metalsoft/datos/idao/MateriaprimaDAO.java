@@ -29,7 +29,7 @@ public interface MateriaprimaDAO
 	public MateriaprimaDB[] findByFechabaja(Date fechabaja,Connection con) throws MateriaprimaException;
 	public MateriaprimaDB[] findByCodbarra(long codbarra,Connection con) throws MateriaprimaException;
 	public MateriaprimaDB[] findByStock(long stock,Connection con) throws MateriaprimaException;
-	public MateriaprimaDB[] findByUnidaddemedida(String unidaddemedida,Connection con) throws MateriaprimaException;
+	public MateriaprimaDB[] findByUnidaddemedida(long unidaddemedida,Connection con) throws MateriaprimaException;
 	public MateriaprimaDB[] findByDescripcion(String descripcion,Connection con) throws MateriaprimaException;
 	public MateriaprimaDB[] findByTipomaterial(long tipomaterial,Connection con) throws MateriaprimaException;
 	public MateriaprimaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MateriaprimaException;
