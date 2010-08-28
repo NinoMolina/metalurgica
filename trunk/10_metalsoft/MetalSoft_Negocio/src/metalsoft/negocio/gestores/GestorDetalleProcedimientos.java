@@ -7,6 +7,7 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -116,4 +117,26 @@ public class GestorDetalleProcedimientos {
         }
         return list;
     }
+
+    public boolean esProductoSinAlgunaEtapa(long idProd) {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        boolean result=false;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.esProductoSinAlgunaEtapa(idProd,cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
 }
