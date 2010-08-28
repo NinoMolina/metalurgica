@@ -257,7 +257,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
         else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
         if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
-        else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getMaquina());
+        else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getUnidadmedida());
     }
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
