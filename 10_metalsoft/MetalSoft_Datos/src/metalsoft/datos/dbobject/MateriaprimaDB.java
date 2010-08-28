@@ -27,9 +27,9 @@ public class MateriaprimaDB implements Serializable
 	private Date fechaalta;
 	private Date fechabaja;
 	private long codbarra;
-	private float largo;
-    private float ancho;
-    private float alto;
+	private Double largo;
+    private Double ancho;
+    private Double alto;
 	private long stock;
 	private long unidaddemedida;
 	private String descripcion;
@@ -37,7 +37,7 @@ public class MateriaprimaDB implements Serializable
 
 
 	public MateriaprimaDB(){}
-	public MateriaprimaDB(long idmateriaprima ,long codproducto ,String nombre ,Date fechaalta ,Date fechabaja ,long codbarra ,float alto,float ancho,float largo ,long stock ,long unidaddemedida ,String descripcion ,long tipomaterial){
+	public MateriaprimaDB(long idmateriaprima ,long codproducto ,String nombre ,Date fechaalta ,Date fechabaja ,long codbarra ,Double alto,Double ancho,Double largo ,long stock ,long unidaddemedida ,String descripcion ,long tipomaterial){
 		this.idmateriaprima = idmateriaprima;
 		this.codproducto = codproducto;
 		this.nombre = nombre;
@@ -53,27 +53,27 @@ public class MateriaprimaDB implements Serializable
 		this.tipomaterial = tipomaterial;
 	}
 
-    public float getAlto() {
+    public Double getAlto() {
         return alto;
     }
 
-    public void setAlto(float alto) {
+    public void setAlto(Double alto) {
         this.alto = alto;
     }
 
-    public float getAncho() {
+    public Double getAncho() {
         return ancho;
     }
 
-    public void setAncho(float ancho) {
+    public void setAncho(Double ancho) {
         this.ancho = ancho;
     }
 
-    public float getLargo() {
+    public Double getLargo() {
         return largo;
     }
 
-    public void setLargo(float largo) {
+    public void setLargo(Double largo) {
         this.largo = largo;
     }
 	public void setIdmateriaprima(long idmateriaprima ){
