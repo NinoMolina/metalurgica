@@ -59,7 +59,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return   int
 */
 
-	public int update(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, Piezaxetapadeproduccion piezaxetapadeproduccion, Connection con)throws PiezaxetapadeproduccionException{
+	public int update(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, PiezaxetapadeproduccionDB piezaxetapadeproduccion, Connection con)throws PiezaxetapadeproduccionException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -82,7 +82,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  PiezaxetapadeproduccionPK
 */
 
-	public int insert(Piezaxetapadeproduccion piezaxetapadeproduccion ,Connection con)throws PiezaxetapadeproduccionException {
+	public int insert(PiezaxetapadeproduccionDB piezaxetapadeproduccion ,Connection con)throws PiezaxetapadeproduccionException {
 
 		PreparedStatement ps = null;
 		try
@@ -104,7 +104,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * 
 */
 
-	public Piezaxetapadeproduccion findByPrimaryKey(long idpieza, long idetapaproduccion, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB findByPrimaryKey(long idpieza, long idetapaproduccion, Connection con) throws PiezaxetapadeproduccionException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -131,7 +131,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion
 */
 
-	public Piezaxetapadeproduccion findByPrimaryKey(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB findByPrimaryKey(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, Connection con) throws PiezaxetapadeproduccionException{
 		return findByPrimaryKey(piezaxetapadeproduccionpk.getIdpieza(), piezaxetapadeproduccionpk.getIdetapaproduccion(), con);
 	}
 
@@ -144,10 +144,10 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion[]
 */
 
-	public Piezaxetapadeproduccion[] findByIdpieza(long idpieza, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findByIdpieza(long idpieza, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion where idpieza = ? order by idpieza";
+			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion where idpieza = ? order by idetapaproduccion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idpieza );
@@ -171,7 +171,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion[]
 */
 
-	public Piezaxetapadeproduccion[] findByIdetapaproduccion(long idetapaproduccion, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findByIdetapaproduccion(long idetapaproduccion, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion where idetapaproduccion = ? order by idetapaproduccion";
@@ -198,7 +198,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion[]
 */
 
-	public Piezaxetapadeproduccion[] findByDuracion(Time duracion, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findByDuracion(Time duracion, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion where duracion = ? order by duracion";
@@ -225,7 +225,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion[]
 */
 
-	public Piezaxetapadeproduccion[] findByDescripcion(String descripcion, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findByDescripcion(String descripcion, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion where descripcion = ? order by descripcion";
@@ -251,7 +251,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 *
 */
 
-	public Piezaxetapadeproduccion[] findAll( Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findAll( Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion";
@@ -279,7 +279,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 *
 */
 
-	public Piezaxetapadeproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -310,7 +310,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 *
 */
 
-	public Piezaxetapadeproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException{
+	public PiezaxetapadeproduccionDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idpieza, idetapaproduccion, duracion, descripcion from piezaxetapadeproduccion";
@@ -340,10 +340,10 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 *
 */
 
-	protected Piezaxetapadeproduccion fetchSingleResult(ResultSet rs) throws SQLException
+	protected PiezaxetapadeproduccionDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Piezaxetapadeproduccion dto = new Piezaxetapadeproduccion();
+					PiezaxetapadeproduccionDB dto = new PiezaxetapadeproduccionDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -360,7 +360,7 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  void
 */
 
-	protected void populateVO(Piezaxetapadeproduccion dto, ResultSet rs) throws SQLException
+	protected void populateVO(PiezaxetapadeproduccionDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdpieza(rs.getLong("idpieza"));
 		 dto.setIdetapaproduccion(rs.getLong("idetapaproduccion"));
@@ -376,15 +376,15 @@ public class PiezaxetapadeproduccionDAOImpl implements PiezaxetapadeproduccionDA
 * @return  Piezaxetapadeproduccion[]
 */
 
-	protected Piezaxetapadeproduccion[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected PiezaxetapadeproduccionDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Piezaxetapadeproduccion dto = new Piezaxetapadeproduccion();
+			PiezaxetapadeproduccionDB dto = new PiezaxetapadeproduccionDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Piezaxetapadeproduccion ret[] = new Piezaxetapadeproduccion[ resultList.size() ];
+		PiezaxetapadeproduccionDB ret[] = new PiezaxetapadeproduccionDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
