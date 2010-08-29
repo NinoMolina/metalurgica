@@ -90,7 +90,7 @@ public class AccessViews {
     {
         ViewDetalleProducto view=null;
         LinkedList<ViewDetalleProducto> ll=new LinkedList<ViewDetalleProducto>();
-        String query="SELECT nombrepieza,descripcion,cantidadpiezas,dimensiones,nombretipomaterial,"+
+        String query="SELECT nombrepieza,descripcion,cantidadpiezas,alto,ancho,largo,nombretipomaterial,"+
                      "idpieza,iddetalle,idproducto"+
                      " FROM viewdetalleproducto"+
                      " WHERE idproducto=?";
