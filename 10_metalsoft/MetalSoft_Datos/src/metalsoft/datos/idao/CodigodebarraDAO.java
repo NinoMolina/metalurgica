@@ -11,19 +11,20 @@ package metalsoft.datos.idao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface CodigodebarraDAO
 {
-	public int insert(Codigodebarra codigodebarra, Connection con ) throws CodigodebarraException;
-	public int update(CodigodebarraPK codigodebarrapk, Codigodebarra codigodebarra, Connection con) throws CodigodebarraException;
+	public int insert(CodigodebarraDB codigodebarra, Connection con ) throws CodigodebarraException;
+	public int update(CodigodebarraPK codigodebarrapk, CodigodebarraDB codigodebarra, Connection con) throws CodigodebarraException;
 	public int delete(CodigodebarraPK codigodebarrapk, Connection con) throws CodigodebarraException;
-	public Codigodebarra findByPrimaryKey(CodigodebarraPK codigodebarrapk , Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findAll(Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findByIdcodigo(long idcodigo,Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findByDescripcion(String descripcion,Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findByCodigo(String codigo,Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws CodigodebarraException;
-	public Codigodebarra[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws CodigodebarraException;
+	public CodigodebarraDB findByPrimaryKey(CodigodebarraPK codigodebarrapk , Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findAll(Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findByIdcodigo(long idcodigo,Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findByDescripcion(String descripcion,Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findByCodigo(String codigo,Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws CodigodebarraException;
+	public CodigodebarraDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws CodigodebarraException;
 }
