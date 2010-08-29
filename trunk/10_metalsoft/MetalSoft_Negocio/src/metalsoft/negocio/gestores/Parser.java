@@ -12,9 +12,11 @@ import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.ProcesocalidadDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetallePedido;
@@ -56,6 +58,28 @@ public class Parser {
         mp.setStock(materiaPrima.getStock());
 
         return mp;
+    }
+
+    public static ProcesocalidadDB parseToProcesoCalidadDB(ProcesoCalidad pc) {
+        ProcesocalidadDB db=new ProcesocalidadDB();
+        db.setDescripcion(pc.getDescripcion());
+
+        if(pc.getDuracionEstimada()!=null)
+            db.setDuracionestimada(new java.sql.Time(pc.getDuracionEstimada().getTime()));//Fecha.parseToTimeSQL
+        else
+            db.setDuracionestimada(null);
+        if(pc.getFechaCreacion()!=null)
+            db.setFechacreacion(new java.sql.Date(pc.getFechaCreacion().getTime()));
+        else
+            db.setFechacreacion(null);
+        db.setEspecificacion(pc.getEspecificacion());
+        db.setHerramienta(pc.getHerramienta());
+        db.setNombre(pc.getNombre());
+        db.setNroproceso(pc.getNroProceso());
+        db.setTolerancia(pc.getTolerancia());
+
+        return db;
+
     }
 
     public static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
