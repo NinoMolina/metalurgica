@@ -16,15 +16,15 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface PiezaxetapadeproduccionDAO
 {
-	public int insert(Piezaxetapadeproduccion piezaxetapadeproduccion, Connection con ) throws PiezaxetapadeproduccionException;
-	public int update(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, Piezaxetapadeproduccion piezaxetapadeproduccion, Connection con) throws PiezaxetapadeproduccionException;
+	public int insert(PiezaxetapadeproduccionDB piezaxetapadeproduccion, Connection con ) throws PiezaxetapadeproduccionException;
+	public int update(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, PiezaxetapadeproduccionDB piezaxetapadeproduccion, Connection con) throws PiezaxetapadeproduccionException;
 	public int delete(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk, Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion findByPrimaryKey(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk , Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findAll(Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findByIdpieza(long idpieza,Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findByIdetapaproduccion(long idetapaproduccion,Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findByDuracion(Time duracion,Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findByDescripcion(String descripcion,Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException;
-	public Piezaxetapadeproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB findByPrimaryKey(PiezaxetapadeproduccionPK piezaxetapadeproduccionpk , Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findAll(Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findByIdpieza(long idpieza,Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findByIdetapaproduccion(long idetapaproduccion,Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findByDuracion(Time duracion,Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findByDescripcion(String descripcion,Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException;
+	public PiezaxetapadeproduccionDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezaxetapadeproduccionException;
 }
