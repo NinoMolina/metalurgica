@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
@@ -26,6 +27,9 @@ import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.ventas.DetallePresupuesto;
+import metalsoft.negocio.ventas.Pedido;
+import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.util.Fecha;
 
 /**
@@ -459,7 +463,9 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
     }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        Presupuesto pre=Pedido.crearPresupuesto();
+        DetallePresupuesto dpre=pre.crearDetallePresupuesto();
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
