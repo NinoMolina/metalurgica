@@ -77,7 +77,7 @@ public class AccessProducto {
         PreparedStatement pstmt=null;
         ResultSet rs=null;
 
-        String consulta="SELECT nombrepieza,descripcion,cantidadpiezas,dimensiones,nombretipomaterial,idpieza,iddetalle,idproducto"+
+        String consulta="SELECT nombrepieza,descripcion,cantidadpiezas,alto,ancho,largo,nombretipomaterial,idpieza,iddetalle,idproducto"+
                         " FROM viewDetalleProducto"+
                         " WHERE idproducto=?";
         try {
@@ -91,7 +91,9 @@ public class AccessProducto {
                 view.setNombrePieza(rs.getString("nombrepieza"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setCantidad(rs.getInt("cantidadpiezas"));
-                view.setDimensiones(rs.getString("dimensiones"));
+                view.setAlto(rs.getDouble("alto"));
+                view.setAncho(rs.getDouble("ancho"));
+                view.setLargo(rs.getDouble("largo"));
                 view.setNombreTipoMaterial(rs.getString("nombretipomaterial"));
                 view.setIdPieza(rs.getLong("idpieza"));
                 view.setIdDetalle(rs.getLong("iddetalle"));
