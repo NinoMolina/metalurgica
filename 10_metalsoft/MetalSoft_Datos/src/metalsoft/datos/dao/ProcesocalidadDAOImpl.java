@@ -54,12 +54,12 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 /**
 * This method updates a record in table PROCESOCALIDAD
 * @param ProcesocalidadPK
-* @param Procesocalidad
+* @param ProcesocalidadDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(ProcesocalidadPK procesocalidadpk, Procesocalidad procesocalidad, Connection con)throws ProcesocalidadException{
+	public int update(ProcesocalidadPK procesocalidadpk, ProcesocalidadDB procesocalidad, Connection con)throws ProcesocalidadException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -83,12 +83,12 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 /**
 * This method inserts data in table PROCESOCALIDAD
 *
-* @param Procesocalidad procesocalidad
+* @param ProcesocalidadDB procesocalidad
 * @param   Connection con
 * @return  ProcesocalidadPK
 */
 
-	public int insert(Procesocalidad procesocalidad ,Connection con)throws ProcesocalidadException {
+	public int insert(ProcesocalidadDB procesocalidad ,Connection con)throws ProcesocalidadException {
 
 		PreparedStatement ps = null;
 		try
@@ -115,7 +115,7 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * 
 */
 
-	public Procesocalidad findByPrimaryKey(long idprocesocalidad, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB findByPrimaryKey(long idprocesocalidad, Connection con) throws ProcesocalidadException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -138,10 +138,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * 
 * @param  ProcesocalidadPK procesocalidadpk
 * @param Connection con
-* @return  Procesocalidad
+* @return  ProcesocalidadDB
 */
 
-	public Procesocalidad findByPrimaryKey(ProcesocalidadPK procesocalidadpk, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB findByPrimaryKey(ProcesocalidadPK procesocalidadpk, Connection con) throws ProcesocalidadException{
 		return findByPrimaryKey(procesocalidadpk.getIdprocesocalidad(), con);
 	}
 
@@ -151,10 +151,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   long  idprocesocalidad
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByIdprocesocalidad(long idprocesocalidad, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByIdprocesocalidad(long idprocesocalidad, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where idprocesocalidad = ? order by idprocesocalidad";
@@ -178,10 +178,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByNombre(String nombre, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByNombre(String nombre, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where nombre = ? order by nombre";
@@ -205,10 +205,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   long  nroproceso
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByNroproceso(long nroproceso, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByNroproceso(long nroproceso, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where nroproceso = ? order by nroproceso";
@@ -232,10 +232,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   String  especificacion
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByEspecificacion(String especificacion, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByEspecificacion(String especificacion, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where especificacion = ? order by especificacion";
@@ -259,10 +259,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   String  tolerancia
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByTolerancia(String tolerancia, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByTolerancia(String tolerancia, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where tolerancia = ? order by tolerancia";
@@ -286,10 +286,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   String  descripcion
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByDescripcion(String descripcion, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByDescripcion(String descripcion, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where descripcion = ? order by descripcion";
@@ -313,10 +313,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   Time  duracionestimada
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByDuracionestimada(Time duracionestimada, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByDuracionestimada(Time duracionestimada, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where duracionestimada = ? order by duracionestimada";
@@ -340,10 +340,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   Date  fechacreacion
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByFechacreacion(Date fechacreacion, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByFechacreacion(Date fechacreacion, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where fechacreacion = ? order by fechacreacion";
@@ -367,10 +367,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   String  herramienta
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByHerramienta(String herramienta, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByHerramienta(String herramienta, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where herramienta = ? order by herramienta";
@@ -394,10 +394,10 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 *
 * @param   long  accioncalidad
 * @param   Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	public Procesocalidad[] findByAccioncalidad(long accioncalidad, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findByAccioncalidad(long accioncalidad, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad where accioncalidad = ? order by accioncalidad";
@@ -419,11 +419,11 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * Returns all rows from procesocalidad table 
 *
 * @param Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 *
 */
 
-	public Procesocalidad[] findAll( Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findAll( Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad";
@@ -447,11 +447,11 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 *
 */
 
-	public Procesocalidad[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -478,11 +478,11 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 *
 */
 
-	public Procesocalidad[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProcesocalidadException{
+	public ProcesocalidadDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProcesocalidadException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idprocesocalidad, nombre, nroproceso, especificacion, tolerancia, descripcion, duracionestimada, fechacreacion, herramienta, accioncalidad from procesocalidad";
@@ -508,14 +508,14 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Procesocalidad
+* @return  ProcesocalidadDB
 *
 */
 
-	protected Procesocalidad fetchSingleResult(ResultSet rs) throws SQLException
+	protected ProcesocalidadDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Procesocalidad dto = new Procesocalidad();
+					ProcesocalidadDB dto = new ProcesocalidadDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -527,12 +527,12 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Procesocalidad dto
+* @param ProcesocalidadDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Procesocalidad dto, ResultSet rs) throws SQLException
+	protected void populateVO(ProcesocalidadDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdprocesocalidad(rs.getLong("idprocesocalidad"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -551,18 +551,18 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Procesocalidad[]
+* @return  ProcesocalidadDB[]
 */
 
-	protected Procesocalidad[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected ProcesocalidadDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Procesocalidad dto = new Procesocalidad();
+			ProcesocalidadDB dto = new ProcesocalidadDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Procesocalidad ret[] = new Procesocalidad[ resultList.size() ];
+		ProcesocalidadDB ret[] = new ProcesocalidadDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
