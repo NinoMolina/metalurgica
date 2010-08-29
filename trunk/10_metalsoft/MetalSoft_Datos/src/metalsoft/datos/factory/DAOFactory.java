@@ -60,6 +60,8 @@ public interface DAOFactory
 
 	//public DetallepresupuestoDAO createDetallepresupuestoDAO();
 
+public DetalleproductopresupuestoDAO createDetalleproductopresupuestoDAO();
+
 	public DetalleproductoDAO createDetalleproductoDAO();
 
 	//public DetalleproductorealDAO createDetalleproductorealDAO();
