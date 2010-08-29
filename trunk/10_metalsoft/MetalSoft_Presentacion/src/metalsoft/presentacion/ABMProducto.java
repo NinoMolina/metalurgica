@@ -432,7 +432,10 @@ public class ABMProducto extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             String cant = txtCant.getText();
             String desc = txtDesc.getText();
-            agregarFila( p.getNombre(), desc, Integer.parseInt(cant), p.getDimensiones(), p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
+            String alto=String.valueOf(p.getAlto());
+            String ancho=String.valueOf(p.getAncho());
+            String largo=String.valueOf(p.getLargo());
+            agregarFila( p.getNombre(), desc, Integer.parseInt(cant),"Alto: "+alto+"\nAncho: "+ancho+"\nLargo: "+largo , p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
             tblDetalleProducto.updateUI();
         }
 
