@@ -133,7 +133,7 @@ public class ABMPedidoCotizacion extends javax.swing.JFrame implements IBuscador
             fechaEntregaReal=dccEntregaReal.getSelectedDate().getTime();
         Date fechaEntregaEstipulada=null;
         if(dccEntregaEstipulada.getSelectedDate()!=null)
-            fechaEntregaReal=dccEntregaEstipulada.getSelectedDate().getTime();
+            fechaEntregaEstipulada=dccEntregaEstipulada.getSelectedDate().getTime();
         
         Date fechaRequeridaCotizacion=dccFechaReqCotizacion.getSelectedDate().getTime();
         Date fechaPedidoCotizacion=dccPedidoCotizacion.getSelectedDate().getTime();
