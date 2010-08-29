@@ -677,7 +677,7 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
         case 2:
           return String.valueOf(view.getCantidad());
         case 3:
-          return view.getDimensiones();
+          return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:
           return view.getNombreTipoMaterial();
         default:
