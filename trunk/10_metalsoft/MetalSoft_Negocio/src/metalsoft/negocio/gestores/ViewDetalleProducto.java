@@ -14,7 +14,7 @@ public class ViewDetalleProducto {
     private String nombrePieza;
     private String descripcion;
     private int cantidad;
-    private String dimensiones;
+    private double alto,ancho,largo;
     private String nombreTipoMaterial;
     private long idProducto,idPieza,idDetalle;
 
@@ -53,12 +53,28 @@ public class ViewDetalleProducto {
         this.descripcion = descripcion;
     }
 
-    public String getDimensiones() {
-        return dimensiones;
+    public double getAlto() {
+        return alto;
     }
 
-    public void setDimensiones(String dimensiones) {
-        this.dimensiones = dimensiones;
+    public void setAlto(double alto) {
+        this.alto = alto;
+    }
+
+    public double getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(double ancho) {
+        this.ancho = ancho;
+    }
+
+    public double getLargo() {
+        return largo;
+    }
+
+    public void setLargo(double largo) {
+        this.largo = largo;
     }
 
     public long getIdProducto() {
