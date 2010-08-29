@@ -11,11 +11,11 @@ package metalsoft.negocio.gestores;
  */
 public class EstadoPedido {
 
-    public int GENERADO = 1;
-    public int PEDIDOCONDETALLEDEPROCEDIMIENTOS = 16;
-    public int PEDIDOCONDETALLEDEMATERIAPRIMA = 17;
-    public int PEDIDOCONDETALLEDEPROCESOSDECALIDAD = 18;
-    public int PRESUPUESTADO = 2;
+    public static final int GENERADO = 1;
+    public static final int PEDIDOCONDETALLEDEPROCEDIMIENTOS = 16;
+    public static final int PEDIDOCONDETALLEDEMATERIAPRIMA = 17;
+    public static final int PEDIDOCONDETALLEDEPROCESOSDECALIDAD = 18;
+    public static final int PRESUPUESTADO = 2;
 
 
 }
