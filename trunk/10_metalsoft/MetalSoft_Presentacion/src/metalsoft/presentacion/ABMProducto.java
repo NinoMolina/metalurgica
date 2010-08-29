@@ -432,10 +432,7 @@ public class ABMProducto extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             String cant = txtCant.getText();
             String desc = txtDesc.getText();
-            String alto=String.valueOf(p.getAlto());
-            String ancho=String.valueOf(p.getAncho());
-            String largo=String.valueOf(p.getLargo());
-            agregarFila( p.getNombre(), desc, Integer.parseInt(cant),"Alto: "+alto+"\nAncho: "+ancho+"\nLargo: "+largo , p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
+            agregarFila( p.getNombre(), desc, Integer.parseInt(cant),p.getAlto(),p.getAncho(),p.getLargo(), p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
             tblDetalleProducto.updateUI();
         }
 
@@ -485,13 +482,15 @@ public class ABMProducto extends javax.swing.JFrame {
 //
 //    }
 
-    public void agregarFila(String pieza,String desc,int cant,String dim,String mat, long idPieza, long idDet, long idProd)
+    public void agregarFila(String pieza,String desc,int cant,double alto,double ancho,double largo,String mat, long idPieza, long idDet, long idProd)
     {
         //vector de tipo Object que contiene los datos de una fila
         ViewDetalleProducto datosFila = new ViewDetalleProducto();
         datosFila.setCantidad(cant);
         datosFila.setDescripcion(desc);
-        datosFila.setDimensiones(dim);
+        datosFila.setAlto(alto);
+        datosFila.setAncho(ancho);
+        datosFila.setLargo(largo);
         datosFila.setIdDetalle(idDet);
         datosFila.setIdPieza(idPieza);
         datosFila.setIdProducto(idProd);
@@ -609,7 +608,7 @@ public class ABMProducto extends javax.swing.JFrame {
         case 2:
           return String.valueOf(view.getCantidad());
         case 3:
-          return view.getDimensiones();
+          return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:
           return view.getNombreTipoMaterial();
         default:
