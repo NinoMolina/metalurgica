@@ -264,6 +264,11 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
         lblPiezaSeleccionada.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPiezaSeleccionada.setText("....");
 
+        txtEtapaProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEtapaProduccionActionPerformed(evt);
+            }
+        });
         txtEtapaProduccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEtapaProduccionKeyReleased(evt);
@@ -273,7 +278,7 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
         tblEtapa.setModel(new EtapaTableModel());
         jScrollPane4.setViewportView(tblEtapa);
 
-        jLabel3.setText("Nombre Etapa Producción:");
+        jLabel3.setText("Nombre Proceso de Calidad:");
 
         tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
         jScrollPane5.setViewportView(tblEtapaSeleccionada);
@@ -439,6 +444,10 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
 
 }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void txtEtapaProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEtapaProduccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEtapaProduccionActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -483,11 +492,332 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
     // End of variables declaration//GEN-END:variables
 
     public JTable getTable(String className) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
+        {
+            return tblEtapa;
+        }
+        return null;
     }
 
     public LinkedList getFilas(String className) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
+        {
+            return filasEtapaProduccion;
+        }
+        return null;
+    }
+
+    private ArrayList<Integer> buscarProductosSinAlgunaEtapa() {
+        Iterator<ViewDetallePedidoCotizacion> i=filasDetallePedido.iterator();
+        ViewDetallePedidoCotizacion v=null;
+        ArrayList<Integer> rows=new ArrayList<Integer>();
+        int contador=0;
+        while(i.hasNext())
+        {
+            v=i.next();
+            long idProd=v.getIdProducto();
+            boolean es=gestor.esProductoSinAlgunaEtapa(idProd);
+            if(es)rows.add(contador);
+            contador++;
+        }
+        return rows;
+    }
+    // End of variables declaration
+
+    class PedidoTableModel extends AbstractTableModel
+    {
+        String[] columnNames = {"Nro",
+                        "Nro Ped Cliente",
+                        "Prioridad",
+                        "Cliente",
+                        "Ped Cotizacion",
+                        "Cot Req Para",
+                        "Entrega Estipulada",
+                        "Estado"};
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewPedidoEnListadoProcedimientos view=filasPedidos.get(rowIndex);
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNropedido();
+            case 1:
+              return view.getNropedidocotizacioncliente();
+            case 2:
+              return view.getPrioridad();
+            case 3:
+              return view.getCliente();
+            case 4:
+              return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+            case 5:
+              return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+            case 6:
+              return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+            case 7:
+              return view.getEstado();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasPedidos!=null)
+            return filasPedidos.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+
+
+    }
+
+    class DetallePedidoCotizacionTableModel extends AbstractTableModel
+    {
+        String[] columnNames = {"Nro",
+                        "Cantidad",
+                        "Producto",
+                        "Descripción",
+                        "Cant. Piezas"};
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewDetallePedidoCotizacion view=filasDetallePedido.get(rowIndex);
+
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNumeroProducto();
+            case 1:
+              return view.getCantidad();
+            case 2:
+              return view.getNombreProducto();
+            case 3:
+              return view.getDescripcion();
+            case 4:
+              return view.getCantidadPiezas();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasDetallePedido!=null)
+            return filasDetallePedido.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+    }
+
+    class DetalleProductoTableModel extends AbstractTableModel{
+      String[] columnNames = {"Pieza",
+                        "Descripcion",
+                        "Cantidad",
+                        "Dimensiones",
+                        "Material"};
+
+    public Object getValueAt(int rowIndex, int columnIndex)
+    {
+
+        ViewDetalleProducto view=filasDetalleProducto.get(rowIndex);
+//      Object[] df=filas.get(rowIndex);
+        switch(columnIndex)
+        {
+        case 0:
+          return view.getNombrePieza();
+        case 1:
+          return view.getDescripcion();
+        case 2:
+          return String.valueOf(view.getCantidad());
+        case 3:
+          return view.getDimensiones();
+        case 4:
+          return view.getNombreTipoMaterial();
+        default:
+          return null;
+        }
+
+    }
+
+    /**
+     * Retorna la cantidad de columnas que tiene la tabla
+     * @return Numero de filas que contendra la tabla
+     */
+    public int getColumnCount()
+    {
+      return columnNames.length;
+    }
+
+    public int getRowCount()
+    {
+      if(filasDetalleProducto!=null)
+        return filasDetalleProducto.size();
+      return 0;
+    }
+
+    /**
+     * Devuelve el nombre de las columnas para mostrar en el encabezado
+     * @param column Numero de la columna cuyo nombre se quiere
+     * @return Nombre de la columna
+     */
+
+    @Override
+    public String getColumnName(int column)
+    {
+      return columnNames[column];
+
+    }
+
+  }
+
+    class EtapaTableModel extends AbstractTableModel{
+          String[] columnNames = {"Nro",
+                            "Nombre"};
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNumero();
+            case 1:
+              return view.getNombre();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasEtapaProduccion!=null)
+            return filasEtapaProduccion.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+    }
+
+    class EtapaSeleccionadaTableModel extends AbstractTableModel{
+          String[] columnNames = {"Nro",
+                            "Nombre"};
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewEtapaDeProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNumero();
+            case 1:
+              return view.getNombre();
+            default:
+              return null;
+            }
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasEtapaProduccionSeleccionada!=null)
+            return filasEtapaProduccionSeleccionada.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
     }
 
 }
