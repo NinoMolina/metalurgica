@@ -53,11 +53,11 @@ public class TableCellRender extends DefaultTableCellRenderer{
             this.setOpaque(true);
             this.setBackground(Color.red);
         }
-        else
-        {
-            this.setOpaque(true);
-            this.setBackground(Color.green);
-        }
+//        else
+//        {
+//            this.setOpaque(true);
+//            this.setBackground(Color.green);
+//        }
     //          if (isSelected)
     //          {
     //             this.setOpaque(true);
