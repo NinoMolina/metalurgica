@@ -2,19 +2,20 @@
 
 package metalsoft.negocio.calidad;
 
+import java.util.Date;
 import metalsoft.negocio.mantmaquinarias.Maquina;
 
 public class ProcesoCalidad 
 {
-   private int nombre;
-   private int nroProceso;
-   private int especificacion;
-   private int tolerancia;
-   private int descripcion;
-   private int duracionEstimada;
-   private int fechaCreacion;
+   private String nombre;
+   private long nroProceso;
+   private String especificacion;
+   private String tolerancia;
+   private String descripcion;
+   private Date duracionEstimada;
+   private Date fechaCreacion;
    private Maquina maquina;
-   private int herramienta;
+   private String herramienta;
    private AccionCalidad accion;
    public EjecucionProcesoCalidad theEjecucionProcesoCalidad[];
    public Maquina theMaquina[];
