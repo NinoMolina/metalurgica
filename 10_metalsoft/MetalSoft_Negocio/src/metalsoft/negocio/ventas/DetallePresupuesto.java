@@ -8,7 +8,6 @@ public class DetallePresupuesto
    private int precio;
    private int cantidad;
    private Producto producto;
-   public Producto theProducto;
    
    /**
     * @roseuid 4C2800880009
@@ -17,7 +16,32 @@ public class DetallePresupuesto
    {
     
    }
-   
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+
    /**
     * @roseuid 4BC25FF30030
     */

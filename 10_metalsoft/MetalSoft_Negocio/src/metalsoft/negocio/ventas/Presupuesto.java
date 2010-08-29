@@ -13,11 +13,10 @@ public class Presupuesto
    private float montoTotal;
    private DetallePresupuesto detalle;
    private Date fechaVencimiento;
-   public Producto producto;
-   public  ArrayList<DetallePresupuesto> detallePresupuesto;
-   public ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima;
-   public ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos;
-   public ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad;
+   private ArrayList<DetallePresupuesto> detallePresupuesto;
+   private ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima;
+   private ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos;
+   private ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad;
 
    
    /**
@@ -27,7 +26,80 @@ public class Presupuesto
    {
     
    }
-   
+
+    public DetallePresupuesto getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetallePresupuesto detalle) {
+        this.detalle = detalle;
+    }
+
+    public ArrayList<DetallePrsptoMateriaPrima> getDetalleMateriaPrima() {
+        return detalleMateriaPrima;
+    }
+
+    public void setDetalleMateriaPrima(ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima) {
+        this.detalleMateriaPrima = detalleMateriaPrima;
+    }
+
+    public ArrayList<DetallePresupuesto> getDetallePresupuesto() {
+        return detallePresupuesto;
+    }
+
+    public void setDetallePresupuesto(ArrayList<DetallePresupuesto> detallePresupuesto) {
+        this.detallePresupuesto = detallePresupuesto;
+    }
+
+    public ArrayList<DetallePrsptoProcedimientos> getDetalleProcedimientos() {
+        return detalleProcedimientos;
+    }
+
+    public void setDetalleProcedimientos(ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos) {
+        this.detalleProcedimientos = detalleProcedimientos;
+    }
+
+    public ArrayList<DetallePrsptoProcesosCalidad> getDetalleProcesosCalidad() {
+        return detalleProcesosCalidad;
+    }
+
+    public void setDetalleProcesosCalidad(ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad) {
+        this.detalleProcesosCalidad = detalleProcesosCalidad;
+    }
+
+    public Date getFechaPresupuesto() {
+        return fechaPresupuesto;
+    }
+
+    public void setFechaPresupuesto(Date fechaPresupuesto) {
+        this.fechaPresupuesto = fechaPresupuesto;
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public float getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public int getNroPresupuesto() {
+        return nroPresupuesto;
+    }
+
+    public void setNroPresupuesto(int nroPresupuesto) {
+        this.nroPresupuesto = nroPresupuesto;
+    }
+
+
    /**
     * @roseuid 4BC262090257
     */
@@ -51,4 +123,9 @@ public class Presupuesto
    {
     
    }
+
+    public DetallePresupuesto crearDetallePresupuesto() {
+        DetallePresupuesto dp=new DetallePresupuesto();
+        return dp;
+    }
 }
