@@ -306,7 +306,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            JFrameManager.crearVentana(GenerarListadoProcedimientosCotización.class.getName());
+            JFrameManager.crearVentana(GenerarDetalleProcedimientosCotización.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
