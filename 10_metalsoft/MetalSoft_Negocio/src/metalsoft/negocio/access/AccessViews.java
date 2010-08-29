@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
@@ -119,14 +120,14 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewPedidoEnListadoProcedimientos> pedidoEnListadoProcedimientos(Connection cn)
+    public static LinkedList<ViewPedidoEnListadoProcedimientos> pedidosSegunEstado(long estado, Connection cn)
     {
         ViewPedidoEnListadoProcedimientos view=null;
         LinkedList<ViewPedidoEnListadoProcedimientos> ll=new LinkedList<ViewPedidoEnListadoProcedimientos>();
         String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
                      "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado"+
                      " FROM viewpedidoendetalleprocedimientos"+
-                     " WHERE idestado=1";
+                     " WHERE idestado="+estado;
         PreparedStatement ps=null;
         ResultSet rs=null;
         try {
