@@ -33,7 +33,7 @@ public class GestorDetalleProcedimientos {
         Connection cn=null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.pedidoEnListadoProcedimientos(cn);
+            list=AccessViews.pedidosSegunEstado(IdsEstadoPedido.GENERADO,cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
         }
