@@ -356,9 +356,9 @@ public class Pedido
    /**
     * @roseuid 4C1FC0320126
     */
-   public void crearPresupuesto() 
+   public static Presupuesto crearPresupuesto()
    {
-    
+        return new Presupuesto();
    }
 
     public long guardar(Pedido p,long idCliente, long idEstado, long idPrioridad, LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido, Connection cn) {
