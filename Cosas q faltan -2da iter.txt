@@ -3,6 +3,7 @@ Cosas que faltan :
 Preguntar como hacer el CU 138.
 Imprimir prototipos de interfaz.
 
+aCTUALIZAR iNDICES
 
 Asociar CU con metodos en los DTE
 corregir Modelo Despliegue
@@ -23,10 +24,7 @@ cambiar nombre cu 11 12 13 58
 
 copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
 
-DTE:
-
-*ProductoReal
-*EjecucionEtapaProduccion
+DTE:LISTOOOOOO!!!
 
 *EjecucionProcesoCalidad - Estas es de la 3ra iter
 
