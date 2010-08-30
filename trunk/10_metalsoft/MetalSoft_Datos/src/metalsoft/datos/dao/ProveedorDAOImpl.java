@@ -54,12 +54,12 @@ public class ProveedorDAOImpl implements ProveedorDAO
 /**
 * This method updates a record in table PROVEEDOR
 * @param ProveedorPK
-* @param Proveedor
+* @param ProveedorDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(ProveedorPK proveedorpk, Proveedor proveedor, Connection con)throws ProveedorException{
+	public int update(ProveedorPK proveedorpk, ProveedorDB proveedor, Connection con)throws ProveedorException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -86,12 +86,12 @@ public class ProveedorDAOImpl implements ProveedorDAO
 /**
 * This method inserts data in table PROVEEDOR
 *
-* @param Proveedor proveedor
+* @param ProveedorDB proveedor
 * @param   Connection con
 * @return  ProveedorPK
 */
 
-	public int insert(Proveedor proveedor ,Connection con)throws ProveedorException {
+	public int insert(ProveedorDB proveedor ,Connection con)throws ProveedorException {
 
 		PreparedStatement ps = null;
 		try
@@ -121,7 +121,7 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * 
 */
 
-	public Proveedor findByPrimaryKey(long idproveedor, Connection con) throws ProveedorException{
+	public ProveedorDB findByPrimaryKey(long idproveedor, Connection con) throws ProveedorException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -144,10 +144,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * 
 * @param  ProveedorPK proveedorpk
 * @param Connection con
-* @return  Proveedor
+* @return  ProveedorDB
 */
 
-	public Proveedor findByPrimaryKey(ProveedorPK proveedorpk, Connection con) throws ProveedorException{
+	public ProveedorDB findByPrimaryKey(ProveedorPK proveedorpk, Connection con) throws ProveedorException{
 		return findByPrimaryKey(proveedorpk.getIdproveedor(), con);
 	}
 
@@ -157,10 +157,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   long  idproveedor
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByIdproveedor(long idproveedor, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByIdproveedor(long idproveedor, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where idproveedor = ? order by idproveedor";
@@ -184,10 +184,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   long  nroproveedor
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByNroproveedor(long nroproveedor, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByNroproveedor(long nroproveedor, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where nroproveedor = ? order by nroproveedor";
@@ -211,10 +211,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  razonsocial
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByRazonsocial(String razonsocial, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByRazonsocial(String razonsocial, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where razonsocial = ? order by razonsocial";
@@ -238,10 +238,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   long  responsable
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByResponsable(long responsable, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByResponsable(long responsable, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where responsable = ? order by responsable";
@@ -265,10 +265,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  telefono
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByTelefono(String telefono, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByTelefono(String telefono, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where telefono = ? order by telefono";
@@ -292,10 +292,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  celular
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByCelular(String celular, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByCelular(String celular, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where celular = ? order by celular";
@@ -319,10 +319,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  mail
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByMail(String mail, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByMail(String mail, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where mail = ? order by mail";
@@ -346,10 +346,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   long  domicilio
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByDomicilio(long domicilio, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByDomicilio(long domicilio, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where domicilio = ? order by domicilio";
@@ -373,10 +373,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   Date  fechaalta
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByFechaalta(Date fechaalta, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByFechaalta(Date fechaalta, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where fechaalta = ? order by fechaalta";
@@ -400,10 +400,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   Date  fechabaja
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByFechabaja(Date fechabaja, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByFechabaja(Date fechabaja, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where fechabaja = ? order by fechabaja";
@@ -427,10 +427,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  cuil
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByCuil(String cuil, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByCuil(String cuil, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where cuil = ? order by cuil";
@@ -454,10 +454,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   long  condicion
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByCondicion(long condicion, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByCondicion(long condicion, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where condicion = ? order by condicion";
@@ -481,10 +481,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 *
 * @param   String  cuit
 * @param   Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	public Proveedor[] findByCuit(String cuit, Connection con) throws ProveedorException{
+	public ProveedorDB[] findByCuit(String cuit, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor where cuit = ? order by cuit";
@@ -506,11 +506,11 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * Returns all rows from proveedor table 
 *
 * @param Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 *
 */
 
-	public Proveedor[] findAll( Connection con) throws ProveedorException{
+	public ProveedorDB[] findAll( Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor";
@@ -534,11 +534,11 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 *
 */
 
-	public Proveedor[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProveedorException{
+	public ProveedorDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -565,11 +565,11 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 *
 */
 
-	public Proveedor[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProveedorException{
+	public ProveedorDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProveedorException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idproveedor, nroproveedor, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicion, cuit from proveedor";
@@ -595,14 +595,14 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Proveedor
+* @return  ProveedorDB
 *
 */
 
-	protected Proveedor fetchSingleResult(ResultSet rs) throws SQLException
+	protected ProveedorDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Proveedor dto = new Proveedor();
+					ProveedorDB dto = new ProveedorDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -614,12 +614,12 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Proveedor dto
+* @param ProveedorDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Proveedor dto, ResultSet rs) throws SQLException
+	protected void populateVO(ProveedorDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdproveedor(rs.getLong("idproveedor"));
 		 dto.setNroproveedor(rs.getLong("nroproveedor"));
@@ -641,18 +641,18 @@ public class ProveedorDAOImpl implements ProveedorDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Proveedor[]
+* @return  ProveedorDB[]
 */
 
-	protected Proveedor[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected ProveedorDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Proveedor dto = new Proveedor();
+			ProveedorDB dto = new ProveedorDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Proveedor ret[] = new Proveedor[ resultList.size() ];
+		ProveedorDB ret[] = new ProveedorDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
