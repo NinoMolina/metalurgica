@@ -544,7 +544,7 @@ public class ABMProveedor extends javax.swing.JFrame {
         opcion=EnumOpcionesABM.BUSCAR;
         ABMProveedor_Buscar buscar=null;
         try {
-            buscar=(ABMProveedor_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
+            buscar=(ABMProveedor_Buscar) JFrameManager.crearVentana(ABMProveedor_Buscar.class.getName());
             buscar.setVentanaProveedor(this);
             buscar.setGestor(gestor);
         } catch (ClassNotFoundException ex) {
@@ -640,7 +640,7 @@ public class ABMProveedor extends javax.swing.JFrame {
         resp.setEmail(email);
         resp.setFax(fax);
         resp.setNombre(nombre);
-        resp.setNroDocumento(Integer.parseInt(nroDoc));
+        resp.setNroDocumento(Long.parseLong(nroDoc));
         resp.setTelefono(telefono);
         return resp;
     }
