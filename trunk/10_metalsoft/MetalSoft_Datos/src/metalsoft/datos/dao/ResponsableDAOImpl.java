@@ -68,7 +68,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 				ps.setString(3,responsable.getTelefono());
 				ps.setString(4,responsable.getEmail());
 				ps.setLong(5,responsable.getDomicilio());
-				ps.setInt(6,responsable.getNrodocumento());
+				ps.setLong(6,responsable.getNrodocumento());
 				ps.setLong(7,responsable.getTipodocumento());
 				ps.setString(8,responsable.getFax());
 				ps.setLong(9,responsablepk.getIdresponsable());
@@ -99,7 +99,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 				ps.setString(3,responsable.getTelefono());
 				ps.setString(4,responsable.getEmail());
 				ps.setLong(5,responsable.getDomicilio());
-				ps.setInt(6,responsable.getNrodocumento());
+				ps.setLong(6,responsable.getNrodocumento());
 				ps.setLong(7,responsable.getTipodocumento());
 				ps.setString(8,responsable.getFax());
                                 rs=ps.executeQuery();
@@ -317,13 +317,13 @@ public class ResponsableDAOImpl implements ResponsableDAO
 * @return  Responsable[]
 */
 
-	public ResponsableDB[] findByNrodocumento(int nrodocumento, Connection con) throws ResponsableException{
+	public ResponsableDB[] findByNrodocumento(long nrodocumento, Connection con) throws ResponsableException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idresponsable, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, fax from responsable where nrodocumento = ? order by nrodocumento";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
-					stmt.setInt( 1, nrodocumento );
+					stmt.setLong( 1, nrodocumento );
 					rs = stmt.executeQuery();
 					return fetchMultiResults(rs);
 			}catch(SQLException sqle){
@@ -514,7 +514,7 @@ public class ResponsableDAOImpl implements ResponsableDAO
 		 dto.setTelefono(rs.getString("telefono"));
 		 dto.setEmail(rs.getString("email"));
 		 dto.setDomicilio(rs.getLong("domicilio"));
-		 dto.setNrodocumento(rs.getInt("nrodocumento"));
+		 dto.setNrodocumento(rs.getLong("nrodocumento"));
 		 dto.setTipodocumento(rs.getLong("tipodocumento"));
 		 dto.setFax(rs.getString("fax"));
 	}
