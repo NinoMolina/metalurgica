@@ -166,7 +166,7 @@ public class AccessViews {
     public static LinkedList<ViewEtapaDeProduccion> allEtapasDeProduccion(Connection cn) {
         ViewEtapaDeProduccion view=null;
         LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
-        String query="SELECT numero,nombre,idetapa"+
+        String query="SELECT numero,nombre,horashombre,horasmaquina,duracionestimada,idetapa"+
                      " FROM viewetapadeproduccion";
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -179,6 +179,9 @@ public class AccessViews {
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
+                view.setHorasHombre(rs.getDate("horashombre"));
+                view.setHorasMaquina(rs.getDate("horasmaquina"));
+                view.setDuracionEstimada(rs.getDate("duracionestimada"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {

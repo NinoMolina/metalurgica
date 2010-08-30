@@ -5,6 +5,8 @@
 
 package metalsoft.negocio.gestores;
 
+import java.util.Date;
+
 /**
  *
  * @author Nino
@@ -13,9 +15,34 @@ public class ViewEtapaDeProduccion {
 
     private int numero;
     private String nombre;
+    private Date horasMaquina,horasHombre,duracionEstimada;
     private long idetapa;
 
     public ViewEtapaDeProduccion() {
+    }
+
+    public Date getDuracionEstimada() {
+        return duracionEstimada;
+    }
+
+    public void setDuracionEstimada(Date duracionEstimada) {
+        this.duracionEstimada = duracionEstimada;
+    }
+
+    public Date getHorasHombre() {
+        return horasHombre;
+    }
+
+    public void setHorasHombre(Date horasHombre) {
+        this.horasHombre = horasHombre;
+    }
+
+    public Date getHorasMaquina() {
+        return horasMaquina;
+    }
+
+    public void setHorasMaquina(Date horasMaquina) {
+        this.horasMaquina = horasMaquina;
     }
 
     public int getNumero() {

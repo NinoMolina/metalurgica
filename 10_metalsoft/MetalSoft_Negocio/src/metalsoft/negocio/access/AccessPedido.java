@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.PedidoPK;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PedidoDAO;
 import metalsoft.negocio.gestores.Parser;
@@ -38,4 +39,32 @@ public class AccessPedido {
         return result;
     }
 
+    public static int update(long idPed, long idPres, Connection cn) {
+        int result=-1;
+        PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
+        PedidoDB db = null;
+        PedidoPK pk=new PedidoPK(idPed);
+        try {
+            db=findByIdPedido(idPed, cn);
+            db.setPresupuesto(idPres);
+            result=dao.update(pk,db, cn);
+            db.setIdpedido(result);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static PedidoDB findByIdPedido(long id,Connection cn)
+    {
+        PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
+        PedidoDB db = null;
+
+        try {
+            db=dao.findByIdpedido(id, cn)[0];
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
 }

@@ -14,9 +14,9 @@ public class Presupuesto
    private DetallePresupuesto detalle;
    private Date fechaVencimiento;
    private ArrayList<DetallePresupuesto> detallePresupuesto;
-   private ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima;
-   private ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos;
-   private ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad;
+//   private ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima;
+//   private ArrayList<DetalleProductoPresupuesto> detalleProcedimientos;
+//   private ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad;
 
    
    /**
@@ -35,13 +35,13 @@ public class Presupuesto
         this.detalle = detalle;
     }
 
-    public ArrayList<DetallePrsptoMateriaPrima> getDetalleMateriaPrima() {
-        return detalleMateriaPrima;
-    }
-
-    public void setDetalleMateriaPrima(ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima) {
-        this.detalleMateriaPrima = detalleMateriaPrima;
-    }
+//    public ArrayList<DetallePrsptoMateriaPrima> getDetalleMateriaPrima() {
+//        return detalleMateriaPrima;
+//    }
+//
+//    public void setDetalleMateriaPrima(ArrayList<DetallePrsptoMateriaPrima> detalleMateriaPrima) {
+//        this.detalleMateriaPrima = detalleMateriaPrima;
+//    }
 
     public ArrayList<DetallePresupuesto> getDetallePresupuesto() {
         return detallePresupuesto;
@@ -51,21 +51,21 @@ public class Presupuesto
         this.detallePresupuesto = detallePresupuesto;
     }
 
-    public ArrayList<DetallePrsptoProcedimientos> getDetalleProcedimientos() {
-        return detalleProcedimientos;
-    }
-
-    public void setDetalleProcedimientos(ArrayList<DetallePrsptoProcedimientos> detalleProcedimientos) {
-        this.detalleProcedimientos = detalleProcedimientos;
-    }
-
-    public ArrayList<DetallePrsptoProcesosCalidad> getDetalleProcesosCalidad() {
-        return detalleProcesosCalidad;
-    }
-
-    public void setDetalleProcesosCalidad(ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad) {
-        this.detalleProcesosCalidad = detalleProcesosCalidad;
-    }
+//    public ArrayList<DetalleProductoPresupuesto> getDetalleProcedimientos() {
+//        return detalleProcedimientos;
+//    }
+//
+//    public void setDetalleProcedimientos(ArrayList<DetalleProductoPresupuesto> detalleProcedimientos) {
+//        this.detalleProcedimientos = detalleProcedimientos;
+//    }
+//
+//    public ArrayList<DetallePrsptoProcesosCalidad> getDetalleProcesosCalidad() {
+//        return detalleProcesosCalidad;
+//    }
+//
+//    public void setDetalleProcesosCalidad(ArrayList<DetallePrsptoProcesosCalidad> detalleProcesosCalidad) {
+//        this.detalleProcesosCalidad = detalleProcesosCalidad;
+//    }
 
     public Date getFechaPresupuesto() {
         return fechaPresupuesto;
