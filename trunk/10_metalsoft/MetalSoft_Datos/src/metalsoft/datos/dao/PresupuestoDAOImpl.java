@@ -59,7 +59,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return   int
 */
 
-	public int update(PresupuestoPK presupuestopk, Presupuesto presupuesto, Connection con)throws PresupuestoException{
+	public int update(PresupuestoPK presupuestopk, PresupuestoDB presupuesto, Connection con)throws PresupuestoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -82,7 +82,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  PresupuestoPK
 */
 
-	public int insert(Presupuesto presupuesto ,Connection con)throws PresupuestoException {
+	public int insert(PresupuestoDB presupuesto ,Connection con)throws PresupuestoException {
 
 		PreparedStatement ps = null;
 		try
@@ -103,7 +103,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * 
 */
 
-	public Presupuesto findByPrimaryKey(long idpresupuesto, Connection con) throws PresupuestoException{
+	public PresupuestoDB findByPrimaryKey(long idpresupuesto, Connection con) throws PresupuestoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -129,7 +129,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto
 */
 
-	public Presupuesto findByPrimaryKey(PresupuestoPK presupuestopk, Connection con) throws PresupuestoException{
+	public PresupuestoDB findByPrimaryKey(PresupuestoPK presupuestopk, Connection con) throws PresupuestoException{
 		return findByPrimaryKey(presupuestopk.getIdpresupuesto(), con);
 	}
 
@@ -142,7 +142,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto[]
 */
 
-	public Presupuesto[] findByIdpresupuesto(long idpresupuesto, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findByIdpresupuesto(long idpresupuesto, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where idpresupuesto = ? order by idpresupuesto";
@@ -169,7 +169,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto[]
 */
 
-	public Presupuesto[] findByFechapresupuesto(Date fechapresupuesto, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findByFechapresupuesto(Date fechapresupuesto, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where fechapresupuesto = ? order by fechapresupuesto";
@@ -196,7 +196,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto[]
 */
 
-	public Presupuesto[] findByMontototal(double montototal, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findByMontototal(double montototal, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where montototal = ? order by montototal";
@@ -223,7 +223,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto[]
 */
 
-	public Presupuesto[] findByFechavencimiento(Date fechavencimiento, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findByFechavencimiento(Date fechavencimiento, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where fechavencimiento = ? order by fechavencimiento";
@@ -249,7 +249,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 *
 */
 
-	public Presupuesto[] findAll( Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findAll( Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto";
@@ -277,7 +277,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 *
 */
 
-	public Presupuesto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -308,7 +308,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 *
 */
 
-	public Presupuesto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PresupuestoException{
+	public PresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto";
@@ -338,10 +338,10 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 *
 */
 
-	protected Presupuesto fetchSingleResult(ResultSet rs) throws SQLException
+	protected PresupuestoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Presupuesto dto = new Presupuesto();
+					PresupuestoDB dto = new PresupuestoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -358,7 +358,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  void
 */
 
-	protected void populateVO(Presupuesto dto, ResultSet rs) throws SQLException
+	protected void populateVO(PresupuestoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdpresupuesto(rs.getLong("idpresupuesto"));
 		 dto.setFechapresupuesto(rs.getDate("fechapresupuesto"));
@@ -374,15 +374,15 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 * @return  Presupuesto[]
 */
 
-	protected Presupuesto[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected PresupuestoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Presupuesto dto = new Presupuesto();
+			PresupuestoDB dto = new PresupuestoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Presupuesto ret[] = new Presupuesto[ resultList.size() ];
+		PresupuestoDB ret[] = new PresupuestoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}

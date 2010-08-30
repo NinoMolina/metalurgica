@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Presupuesto implements Serializable
+public class PresupuestoDB implements Serializable
 {
 	private long idpresupuesto;
 	private Date fechapresupuesto;
@@ -27,8 +27,8 @@ public class Presupuesto implements Serializable
 	private Date fechavencimiento;
 
 
-	public Presupuesto(){}
-	public Presupuesto(long idpresupuesto ,Date fechapresupuesto ,double montototal ,Date fechavencimiento){
+	public PresupuestoDB(){}
+	public PresupuestoDB(long idpresupuesto ,Date fechapresupuesto ,double montototal ,Date fechavencimiento){
 		this.idpresupuesto = idpresupuesto;
 		this.fechapresupuesto = fechapresupuesto;
 		this.montototal = montototal;

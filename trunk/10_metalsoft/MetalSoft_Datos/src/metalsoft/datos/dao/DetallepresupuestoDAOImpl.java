@@ -87,16 +87,18 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 	public int insert(Detallepresupuesto detallepresupuesto ,Connection con)throws DetallepresupuestoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEPRESUPUESTO( IDPRESUPUESTO, IDDETALLEPEDIDO, IDPRODUCTO, CANTIDAD, PRECIO) values (?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEPRESUPUESTO( IDPRESUPUESTO, IDDETALLEPEDIDO, IDPRODUCTO, CANTIDAD, PRECIO) values (?, ?, ?, ?, ?) RETURNING iddetalle");
 				ps.setLong(1,detallepresupuesto.getIdpresupuesto());
 				ps.setLong(2,detallepresupuesto.getIddetallepedido());
 				ps.setLong(3,detallepresupuesto.getIdproducto());
 				ps.setInt(4,detallepresupuesto.getCantidad());
 				ps.setDouble(5,detallepresupuesto.getPrecio());
-
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+				return (int)rs.getLong(1);
 		}catch(SQLException sqle){throw new DetallepresupuestoException(sqle);}
 		catch(Exception e){throw new DetallepresupuestoException(e);}
 	}
