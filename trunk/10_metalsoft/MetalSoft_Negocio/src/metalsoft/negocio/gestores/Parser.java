@@ -99,7 +99,7 @@ public class Parser {
             db.setFechabaja(null);
 
         db.setMail(x.getMail());
-        //db.setNroproveedor(x.get());
+        db.setNroproveedor(x.getNroProveedor());
         db.setRazonsocial(x.getRazonSocial());
         db.setTelefono(x.getTelefono());
 
