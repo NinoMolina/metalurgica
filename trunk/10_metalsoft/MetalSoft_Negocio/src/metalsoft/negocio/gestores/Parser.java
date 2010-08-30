@@ -14,9 +14,11 @@ import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.ProcesocalidadDB;
 import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.calidad.ProcesoCalidad;
+import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetallePedido;
@@ -80,6 +82,28 @@ public class Parser {
 
         return db;
 
+    }
+
+    public static ProveedorDB parseToProveedorDB(Proveedor x) {
+        ProveedorDB db=new ProveedorDB();
+        db.setCelular(x.getCelular());
+        db.setCuit(x.getCUIT());
+        if(x.getFechaAlta()!=null)
+            db.setFechaalta(new java.sql.Date(x.getFechaAlta().getTime()));
+        else
+            db.setFechaalta(null);
+
+        if(x.getFechaBaja()!=null)
+            db.setFechabaja(new java.sql.Date(x.getFechaBaja().getTime()));
+        else
+            db.setFechabaja(null);
+
+        db.setMail(x.getMail());
+        //db.setNroproveedor(x.get());
+        db.setRazonsocial(x.getRazonSocial());
+        db.setTelefono(x.getTelefono());
+
+        return db;
     }
 
     public static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
