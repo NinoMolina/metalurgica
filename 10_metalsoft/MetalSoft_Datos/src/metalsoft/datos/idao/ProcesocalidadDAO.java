@@ -17,21 +17,21 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface ProcesocalidadDAO
 {
-	public int insert(Procesocalidad procesocalidad, Connection con ) throws ProcesocalidadException;
-	public int update(ProcesocalidadPK procesocalidadpk, Procesocalidad procesocalidad, Connection con) throws ProcesocalidadException;
+	public int insert(ProcesocalidadDB procesocalidad, Connection con ) throws ProcesocalidadException;
+	public int update(ProcesocalidadPK procesocalidadpk, ProcesocalidadDB procesocalidad, Connection con) throws ProcesocalidadException;
 	public int delete(ProcesocalidadPK procesocalidadpk, Connection con) throws ProcesocalidadException;
-	public Procesocalidad findByPrimaryKey(ProcesocalidadPK procesocalidadpk , Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findAll(Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByIdprocesocalidad(long idprocesocalidad,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByNombre(String nombre,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByNroproceso(long nroproceso,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByEspecificacion(String especificacion,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByTolerancia(String tolerancia,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByDescripcion(String descripcion,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByDuracionestimada(Time duracionestimada,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByFechacreacion(Date fechacreacion,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByHerramienta(String herramienta,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findByAccioncalidad(long accioncalidad,Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProcesocalidadException;
-	public Procesocalidad[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB findByPrimaryKey(ProcesocalidadPK procesocalidadpk , Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findAll(Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByIdprocesocalidad(long idprocesocalidad,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByNombre(String nombre,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByNroproceso(long nroproceso,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByEspecificacion(String especificacion,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByTolerancia(String tolerancia,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByDescripcion(String descripcion,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByDuracionestimada(Time duracionestimada,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByFechacreacion(Date fechacreacion,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByHerramienta(String herramienta,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findByAccioncalidad(long accioncalidad,Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ProcesocalidadException;
+	public ProcesocalidadDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws ProcesocalidadException;
 }
