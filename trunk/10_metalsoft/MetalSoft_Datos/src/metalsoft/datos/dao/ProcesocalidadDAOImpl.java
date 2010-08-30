@@ -566,4 +566,5 @@ public class ProcesocalidadDAOImpl implements ProcesocalidadDAO
 		resultList.toArray( ret );
 		return ret;
 	}
+
 }
