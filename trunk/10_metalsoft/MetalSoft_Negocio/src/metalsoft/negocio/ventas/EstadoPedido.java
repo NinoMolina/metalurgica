@@ -3,26 +3,18 @@
 package metalsoft.negocio.ventas;
 
 
-public class EstadoPedido 
+public abstract class EstadoPedido
 {
    private int nombre;
    private int descripcion;
    
-   /**
-    * @roseuid 4C27ED130220
-    */
-   public EstadoPedido() 
+
+   public EstadoPedido getFirstEstado()
    {
-    
+       return new EstadoPedidoGenerado();
    }
-   
-   /**
-    * @roseuid 4C0EC57B020E
-    */
-   public void crear() 
-   {
-    
-   }
+
+   public abstract EstadoPedido goNext();
    
    /**
     * @roseuid 4C1FA5C500AD

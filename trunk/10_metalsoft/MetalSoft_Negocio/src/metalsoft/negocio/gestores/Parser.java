@@ -12,6 +12,7 @@ import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.datos.dbobject.ProcesocalidadDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.ProveedorDB;
@@ -24,6 +25,7 @@ import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetallePedido;
 import metalsoft.negocio.ventas.DetalleProducto;
 import metalsoft.negocio.ventas.Pedido;
+import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
@@ -356,6 +358,14 @@ public class Parser {
         DetallepedidoDB db=new DetallepedidoDB();
         db.setCantidad(x.getCantidad());
         db.setPrecio(x.getPrecio());
+        return db;
+    }
+
+    public static PresupuestoDB parseToPresupuestoDB(Presupuesto p) {
+        PresupuestoDB db=new PresupuestoDB();
+        db.setFechapresupuesto(Fecha.parseToDateSQL(p.getFechaPresupuesto()));
+        db.setFechavencimiento(Fecha.parseToDateSQL(p.getFechaVencimiento()));
+        db.setMontototal(p.getMontoTotal());
         return db;
     }
 }

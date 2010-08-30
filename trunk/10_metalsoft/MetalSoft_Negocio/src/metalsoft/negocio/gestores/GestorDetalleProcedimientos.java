@@ -10,13 +10,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
+import metalsoft.negocio.access.AccessDetallePresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPiezaXEtapaDeProduccion;
+import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
+import metalsoft.negocio.ventas.DetallePresupuesto;
+import metalsoft.negocio.ventas.Presupuesto;
 
 /**
  *
@@ -24,7 +31,9 @@ import metalsoft.negocio.access.AccessViews;
  */
 public class GestorDetalleProcedimientos {
 
+    private ArrayList<PiezaXEtapas> arlPiezaXEtapas;
     public GestorDetalleProcedimientos() {
+        arlPiezaXEtapas=null;
     }
 
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosGenerados() {
@@ -160,6 +169,66 @@ public class GestorDetalleProcedimientos {
             }
         }
         return result;
+    }
+
+    public boolean addPiezaXEtapas(PiezaXEtapas pxe) {
+        if(arlPiezaXEtapas==null)arlPiezaXEtapas=new ArrayList<PiezaXEtapas>();
+        return arlPiezaXEtapas.add(pxe);
+    }
+
+    public boolean guardarEtapasPiezaPresupuesto() {
+        if(arlPiezaXEtapas.isEmpty())return false;
+
+        long idPed=arlPiezaXEtapas.get(0).getIdPedido();
+        long idPro=arlPiezaXEtapas.get(0).getIdProducto();
+        long idPi=arlPiezaXEtapas.get(0).getIdPieza();
+        double precioProd=arlPiezaXEtapas.get(0).getPrecioProducto();
+
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        long idPres=-1;
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+
+            Presupuesto pres=new Presupuesto();
+            idPres=AccessPresupuesto.insert(pres, cn);
+
+            AccessPedido.update(idPed,idPres,cn);
+            DetallePresupuesto dpres=new DetallePresupuesto();
+            dpres.setPrecio(precioProd);
+            dpres.setCantidad(cantidad)
+            AccessDetallePresupuesto.insert(dpres,idPres,cn);
+            cn.commit();
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        }
+
+        DetallePiezaPresupuesto detPiPre=null;
+        Iterator<PiezaXEtapas> iter=arlPiezaXEtapas.iterator();
+        PiezaXEtapas pxe=null;
+
+        while(iter.hasNext())
+        {
+
+            detPiPre=new DetallePiezaPresupuesto();
+            pxe=iter.next();
+            LinkedList<ViewEtapaDeProduccion> ll=pxe.getEtapas();
+            Iterator<ViewEtapaDeProduccion> i=ll.iterator();
+            ViewEtapaDeProduccion v=null;
+            while(i.hasNext())
+            {
+                v=i.next();
+
+            }
+            detPiPre.setDuracionEtapaXPieza(detPiPre.calcularDuracion(pxe));
+        }
     }
 
 }

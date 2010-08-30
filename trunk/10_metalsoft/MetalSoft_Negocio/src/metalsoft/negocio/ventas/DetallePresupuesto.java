@@ -2,12 +2,15 @@
 
 package metalsoft.negocio.ventas;
 
+import java.util.ArrayList;
+
 
 public class DetallePresupuesto 
 {
-   private int precio;
+   private double precio;
    private int cantidad;
    private Producto producto;
+   private ArrayList<DetalleProductoPresupuesto> detalleProductoPresupuesto;
    
    /**
     * @roseuid 4C2800880009
@@ -25,11 +28,11 @@ public class DetallePresupuesto
         this.cantidad = cantidad;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -41,20 +44,15 @@ public class DetallePresupuesto
         this.producto = producto;
     }
 
+    public ArrayList<DetalleProductoPresupuesto> getDetalleProductoPresupuesto() {
+        return detalleProductoPresupuesto;
+    }
 
-   /**
-    * @roseuid 4BC25FF30030
-    */
-   public void crear() 
-   {
+    public void setDetalleProductoPresupuesto(ArrayList<DetalleProductoPresupuesto> detalleProductoPresupuesto) {
+        this.detalleProductoPresupuesto = detalleProductoPresupuesto;
+    }
     
-   }
-   
-   /**
-    * @roseuid 4BC25FF601E0
-    */
-   public void conocerProducto() 
-   {
-    
-   }
+    public DetalleProductoPresupuesto crearDetalleProductoPresupuesto() {
+        return new DetalleProductoPresupuesto();
+    }
 }
