@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorProveedor;
 import metalsoft.negocio.gestores.IBuscador;
@@ -27,6 +28,15 @@ public class ABMProveedor_Buscar extends javax.swing.JFrame  implements IBuscado
     private GestorProveedor gestor=null;
     private ABMProveedor ventana=null;
     private Timer timer;
+    private ProveedorDB[] proveedorDB;
+
+    public ProveedorDB[] getProveedorDB() {
+        return proveedorDB;
+    }
+
+    public void setProveedorDB(ProveedorDB[] proveedorDB) {
+        this.proveedorDB = proveedorDB;
+    }
     /** Creates new form ABMProveedor_Buscar */
     public ABMProveedor_Buscar() {
         initComponents();
@@ -205,6 +215,6 @@ public class ABMProveedor_Buscar extends javax.swing.JFrame  implements IBuscado
     }
 
     public void setBusqueda(Object[] obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        proveedorDB =(ProveedorDB[]) obj;
     }
 }
