@@ -19,17 +19,16 @@ cambios:
 *sacar include del 93 al 110
 cambiar nombre del cu 98: es egreso de pieza para trabajo
 Que hacemos con los extends e include del CU 64(reg etapa Produccion)???
+cambiar nombre cu 11 12 13 58
 
 copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
 
 DTE:
 
-*PiezaReal
 *ProductoReal
 *EjecucionEtapaProduccion
-*EjecucionPlanificacionProduccion
-*EjecucionProcesoCalidad
-*EjecucionPlanificacionDeCalidad
+
+*EjecucionProcesoCalidad - Estas es de la 3ra iter
 
 
 Secuencia: 
