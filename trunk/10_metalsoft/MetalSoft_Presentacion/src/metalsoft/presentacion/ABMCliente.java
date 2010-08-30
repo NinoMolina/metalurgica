@@ -644,7 +644,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         resp.setEmail(email);
         resp.setFax(fax);
         resp.setNombre(nombre);
-        resp.setNroDocumento(Integer.parseInt(nroDoc));
+        resp.setNroDocumento(Long.parseLong(nroDoc));
         resp.setTelefono(telefono);
         return resp;
     }
