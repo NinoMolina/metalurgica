@@ -10,7 +10,7 @@ public class Persona
    private String telefono;
    private String email;
    private Domicilio domicilio;
-   private int nroDocumento;
+   private long nroDocumento;
    private TipoDocumento tipoDocumento;
    
    /**
@@ -53,11 +53,11 @@ public class Persona
         this.nombre = nombre;
     }
 
-    public int getNroDocumento() {
+    public long getNroDocumento() {
         return nroDocumento;
     }
 
-    public void setNroDocumento(int nroDocumento) {
+    public void setNroDocumento(long nroDocumento) {
         this.nroDocumento = nroDocumento;
     }
 
