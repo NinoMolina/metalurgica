@@ -27,7 +27,7 @@ public interface ResponsableDAO
 	public ResponsableDB[] findByTelefono(String telefono,Connection con) throws ResponsableException;
 	public ResponsableDB[] findByEmail(String email,Connection con) throws ResponsableException;
 	public ResponsableDB[] findByDomicilio(long domicilio,Connection con) throws ResponsableException;
-	public ResponsableDB[] findByNrodocumento(int nrodocumento,Connection con) throws ResponsableException;
+	public ResponsableDB[] findByNrodocumento(long nrodocumento,Connection con) throws ResponsableException;
 	public ResponsableDB[] findByTipodocumento(long tipodocumento,Connection con) throws ResponsableException;
 	public ResponsableDB[] findByFax(String fax,Connection con) throws ResponsableException;
 	public ResponsableDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws ResponsableException;
