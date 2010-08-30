@@ -117,11 +117,11 @@ public class GestorProveedor {
         this.idBarrioResponsable = idBarrioResponsable;
     }
 
-    public long getIdCliente() {
+    public long getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdCliente(long idCliente) {
+    public void setIdProveedor(long idCliente) {
         this.idProveedor = idCliente;
     }
 
