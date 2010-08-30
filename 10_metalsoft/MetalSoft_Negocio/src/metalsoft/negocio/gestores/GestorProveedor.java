@@ -25,6 +25,7 @@ import metalsoft.datos.idao.ProveedorDAO;
 import metalsoft.datos.idao.CondicionivaDAO;
 import metalsoft.datos.idao.DomicilioDAO;
 import metalsoft.datos.idao.LocalidadDAO;
+import metalsoft.datos.idao.PrioridadDAO;
 import metalsoft.datos.idao.ProvinciaDAO;
 import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
@@ -92,15 +93,6 @@ public class GestorProveedor {
     public void setIdCondicionIva(long idCondicionIva) {
         this.idCondicionIva = idCondicionIva;
     }
-
-    public long getIdEstadoCliente() {
-        return idEstadoCliente;
-    }
-
-    public void setIdEstadoCliente(long idEstadoCliente) {
-        this.idEstadoCliente = idEstadoCliente;
-    }
-
     public long getIdPrioridadCliente() {
         return idPrioridadProveedor;
     }
@@ -181,12 +173,12 @@ public class GestorProveedor {
         this.idResponsable = idResponsable;
     }
 
-    public Cliente getCliente() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.proveedor = cliente;
+    public void setProveedor(Proveedor p) {
+        this.proveedor = p;
     }
 
     public DomicilioDB getDomicilioResponsableDB() {
@@ -230,14 +222,14 @@ public class GestorProveedor {
             condicionesIva = dao.findAll(pg.concectGetCn());
             cinegocio=Parser.parseToCondIva(condicionesIva);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return cinegocio;
@@ -261,27 +253,27 @@ public class GestorProveedor {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
    }
 
-   public metalsoft.datos.dbobject.ClienteDB[] buscarClientes(String valor)
+   public metalsoft.datos.dbobject.ProveedorDB[] buscarProveedores(String valor)
     {
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
         Connection cn=null;
 
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object[] sqlParams=new Object[0];
         //Object[] sqlParams=new Object[1];
@@ -290,70 +282,9 @@ public class GestorProveedor {
             proveedores = dao.findExecutingUserWhere("razonsocial ILIKE '"+valor+"%'", sqlParams, cn);
             cn.close();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return proveedores;
-    }
-
-
-
-   public void obtenerPrioridades(JComboBox combo) {
-
-        PrioridadDAO dao=new DAOFactoryImpl().createPrioridadDAO();
-        PostgreSQLManager pg=new PostgreSQLManager();
-        combo.removeAllItems();
-        try {
-            prioridades = dao.findAll(pg.concectGetCn());
-            ItemCombo item=null;
-            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
-            for(int i=0;i<prioridades.length;i++)
-            {
-                item=new ItemCombo();
-                item.setId(String.valueOf(prioridades[i].getIdprioridad()));
-                item.setMostrar(prioridades[i].getNombre());
-                combo.addItem(item);
-            }
-            combo.setSelectedIndex(0);
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-   public void obtenerEstados(JComboBox combo) {
-        EstadoclienteDAO dao=new DAOFactoryImpl().createEstadoclienteDAO();
-        PostgreSQLManager pg=new PostgreSQLManager();
-
-        try {
-            estados = dao.findAll(pg.concectGetCn());
-            ItemCombo item=null;
-            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
-            for(int i=0;i<estados.length;i++)
-            {
-                item=new ItemCombo();
-                item.setId(String.valueOf(estados[i].getIdestado()));
-                item.setMostrar(estados[i].getNombre());
-                combo.addItem(item);
-            }
-            combo.setSelectedIndex(0);
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
 
@@ -374,14 +305,14 @@ public class GestorProveedor {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -405,14 +336,14 @@ public class GestorProveedor {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -433,7 +364,7 @@ public class GestorProveedor {
 //            }
 //            combo.setSelectedIndex(0);
 //        } catch (Exception ex) {
-//            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        finally
 //        {
@@ -489,14 +420,14 @@ public class GestorProveedor {
 //            }
 //            combo.setSelectedIndex(0);
 //        } catch (Exception ex) {
-//            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        finally
 //        {
 //            try {
 //                pg.disconnect();
 //            } catch (SQLException ex) {
-//                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
 //            }
 //        }
 //    }
@@ -517,14 +448,14 @@ public class GestorProveedor {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -534,10 +465,6 @@ public class GestorProveedor {
         return barrios[index].getIdbarrio();
     }
 
-    public long obtenerIdPrioridad(int index)
-    {
-        return prioridades[index].getIdprioridad();
-    }
 
     public long obtenerIdTipoDoc(int index)
     {
@@ -546,11 +473,6 @@ public class GestorProveedor {
     public long obtenerIdCondIva(int index)
     {
         return condicionesIva[index].getIdcondicioniva();
-    }
-
-    public long obtenerIdEstado(int index)
-    {
-        return estados[index].getIdestado();
     }
 
     public int registrarDomicilio(String calle, int numero, int piso, String depto, String torre, int indexBarrio) {
@@ -573,7 +495,7 @@ public class GestorProveedor {
             result=dao.insert(domicilioProveedorDB, cn);
             domicilioProveedorDB.setIddomicilio(result);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -588,7 +510,7 @@ public class GestorProveedor {
             result=dao.insert(domicilioProveedorDB, cn);
             domicilioProveedorDB.setIddomicilio(result);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -604,7 +526,7 @@ public class GestorProveedor {
             result=dao.insert(responsableDB, cn);
             responsableDB.setIdresponsable(result);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
@@ -630,108 +552,105 @@ public class GestorProveedor {
             result=dao.insert(responsableDB, cn);
             responsableDB.setIdresponsable(result);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
 
-    public long registrarCliente(Cliente cliente, long idResponsable, long idDomicilio, int indexEstado, int indexCondIva, int indexPrioridad) {
+    public long registrarProveedor(Proveedor proveedor, long idResponsable, long idDomicilio, int indexEstado, int indexCondIva, int indexPrioridad) {
         long result=-1;
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        proveedorDB=new metalsoft.datos.dbobject.ClienteDB();
+        proveedorDB=new metalsoft.datos.dbobject.ProveedorDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
             cn = pg.concectGetCn();
-            proveedorDB.setCelular(cliente.getCelular());
-            proveedorDB.setCondicioniva(condicionesIva[indexCondIva].getIdcondicioniva());
-            proveedorDB.setCuit(cliente.getCUIT());
+            proveedorDB.setCelular(proveedor.getCelular());
+            proveedorDB.setCondicion(condicionesIva[indexCondIva].getIdcondicioniva());
+            proveedorDB.setCuit(proveedor.getCUIT());
             proveedorDB.setDomicilio(idDomicilio);
-            proveedorDB.setEstado(estados[indexEstado].getIdestado());
+            //proveedorDB.setEstado(estados[indexEstado].getIdestado());
 
-            if(cliente.getFechaAlta()!=null)
-                proveedorDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+            if(proveedor.getFechaAlta()!=null)
+                proveedorDB.setFechaalta(new java.sql.Date(proveedor.getFechaAlta().getTime()));
             else
                 proveedorDB.setFechaalta(null);
 
-            if(cliente.getFechaBaja()!=null)
-                proveedorDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+            if(proveedor.getFechaBaja()!=null)
+                proveedorDB.setFechabaja(new java.sql.Date(proveedor.getFechaBaja().getTime()));
             else
                 proveedorDB.setFechabaja(null);
 
-            proveedorDB.setMail(cliente.getMail());
-            proveedorDB.setNrocliente(cliente.getNroCliente());
-            proveedorDB.setPrioridad(prioridades[indexPrioridad].getIdprioridad());
-            proveedorDB.setRazonsocial(cliente.getRazonSocial());
+            proveedorDB.setMail(proveedor.getMail());
+            proveedorDB.setNroproveedor(proveedor.getNroProveedor());
+            //proveedorDB.setPrioridad(prioridades[indexPrioridad].getIdprioridad());
+            proveedorDB.setRazonsocial(proveedor.getRazonSocial());
             proveedorDB.setResponsable(idResponsable);
-            proveedorDB.setTelefono(cliente.getTelefono());
-            proveedorDB.setUsuario(1);
+            proveedorDB.setTelefono(proveedor.getTelefono());
+            
 
             result=dao.insert(proveedorDB, cn);
-            proveedorDB.setIdcliente(result);
+            proveedorDB.setIdproveedor(result);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
 
-    public long registrarCliente(Cliente cliente,int indexEstado, int indexCondIva, int indexPrioridad) {
+    public long registrarProveedor(Proveedor proveedor,int indexEstado, int indexCondIva, int indexPrioridad) {
         long result=-1;
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
         DomicilioDAO daoDom=new DAOFactoryImpl().createDomicilioDAO();
         ResponsableDAO daoResp=new DAOFactoryImpl().createResponsableDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        proveedorDB=new metalsoft.datos.dbobject.ClienteDB();
+        proveedorDB=new metalsoft.datos.dbobject.ProveedorDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            proveedorDB.setCelular(cliente.getCelular());
-            proveedorDB.setCondicioniva(condicionesIva[indexCondIva].getIdcondicioniva());
-            proveedorDB.setCuit(cliente.getCUIT());
+            proveedorDB.setCelular(proveedor.getCelular());
+            proveedorDB.setCondicion(condicionesIva[indexCondIva].getIdcondicioniva());
+            proveedorDB.setCuit(proveedor.getCUIT());
 
             int idDom=daoDom.insert(domicilioProveedorDB, cn);
             proveedorDB.setDomicilio(idDom);
 
-            proveedorDB.setEstado(estados[indexEstado].getIdestado());
-
-            if(cliente.getFechaAlta()!=null)
-                proveedorDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+            if(proveedor.getFechaAlta()!=null)
+                proveedorDB.setFechaalta(new java.sql.Date(proveedor.getFechaAlta().getTime()));
             else
                 proveedorDB.setFechaalta(null);
 
-            if(cliente.getFechaBaja()!=null)
-                proveedorDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+            if(proveedor.getFechaBaja()!=null)
+                proveedorDB.setFechabaja(new java.sql.Date(proveedor.getFechaBaja().getTime()));
             else
                 proveedorDB.setFechabaja(null);
 
-            proveedorDB.setMail(cliente.getMail());
-            proveedorDB.setNrocliente(cliente.getNroCliente());
-            proveedorDB.setPrioridad(prioridades[indexPrioridad].getIdprioridad());
-            proveedorDB.setRazonsocial(cliente.getRazonSocial());
+            proveedorDB.setMail(proveedor.getMail());
+            proveedorDB.setNroproveedor(proveedor.getNroProveedor());
+            //proveedorDB.setPrioridad(prioridades[indexPrioridad].getIdprioridad());
+            proveedorDB.setRazonsocial(proveedor.getRazonSocial());
 
             int idDomResp=daoDom.insert(domicilioResponsableDB, cn);
             responsableDB.setDomicilio(idDomResp);
             int idResp=daoResp.insert(responsableDB, cn);
             proveedorDB.setResponsable(idResp);
 
-            proveedorDB.setTelefono(cliente.getTelefono());
-            //deberia autogenerar un usario y contraseña
-            proveedorDB.setUsuario(1);
+            proveedorDB.setTelefono(proveedor.getTelefono());
+            
 
             result=dao.insert(proveedorDB, cn);
             cn.commit();
-            proveedorDB.setIdcliente(result);
+            proveedorDB.setIdproveedor(result);
         } catch (Exception ex) {
             try {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 cn.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         finally
@@ -739,18 +658,18 @@ public class GestorProveedor {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
     }
 
-    public long registrarCliente(Cliente cliente) {
+    public long registrarProveedor(Proveedor proveedor) {
         long result=-1;
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        proveedorDB=new metalsoft.datos.dbobject.ClienteDB();
+        proveedorDB=new metalsoft.datos.dbobject.ProveedorDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
@@ -758,18 +677,18 @@ public class GestorProveedor {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
 
-            long idDom=cliente.crearDomicilio(cliente.getDomicilio(),idBarrioProveedor, cn);
-            long idResp=cliente.crearResponsable(cliente.getResponsable(),idBarrioResponsable,idTipoDocResponsable,cn);
-            result=AccessCliente.registrarCliente(cliente, idResp, idDom, idEstadoCliente, idCondicionIva, idPrioridadProveedor, cn);
+            long idDom=proveedor.crearDomicilio(proveedor.getDomicilio(),idBarrioProveedor, cn);
+            long idResp=proveedor.crearResponsable(proveedor.getResponsable(),idBarrioResponsable,idTipoDocResponsable,cn);
+            result=AccessProveedor.registrarProveedor(proveedor, idResp, idDom, idCondicionIva, cn);
             cn.commit();
             idProveedor=result;
 
         } catch (Exception ex) {
             try {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 cn.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         finally
@@ -783,60 +702,56 @@ public class GestorProveedor {
         return result;
     }
 
-    public long modificarCliente(Cliente cliente) {
+    public long modificarProveedor(Proveedor proveedor) {
         long result=-1;
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        proveedorDB=new metalsoft.datos.dbobject.ClienteDB();
+        proveedorDB=new metalsoft.datos.dbobject.ProveedorDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        ClientePK pk=new ClientePK(idProveedor);
+        ProveedorPK pk=new ProveedorPK(idProveedor);
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            proveedorDB.setCelular(cliente.getCelular());
-            proveedorDB.setCondicioniva(idCondicionIva);
-            proveedorDB.setCuit(cliente.getCUIT());
+            proveedorDB.setCelular(proveedor.getCelular());
+            proveedorDB.setCondicion(idCondicionIva);
+            proveedorDB.setCuit(proveedor.getCUIT());
 
-            int idDom=cliente.modificarDomicilio(cliente.getDomicilio(),idDomicilioProveedor, idBarrioProveedor, cn);
+            int idDom=proveedor.modificarDomicilio(proveedor.getDomicilio(),idDomicilioProveedor, idBarrioProveedor, cn);
             proveedorDB.setDomicilio(idDomicilioProveedor);
 
-            proveedorDB.setEstado(idEstadoCliente);
-
-            if(cliente.getFechaAlta()!=null)
-                proveedorDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+            if(proveedor.getFechaAlta()!=null)
+                proveedorDB.setFechaalta(new java.sql.Date(proveedor.getFechaAlta().getTime()));
             else
                 proveedorDB.setFechaalta(null);
 
-            if(cliente.getFechaBaja()!=null)
-                proveedorDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+            if(proveedor.getFechaBaja()!=null)
+                proveedorDB.setFechabaja(new java.sql.Date(proveedor.getFechaBaja().getTime()));
             else
                 proveedorDB.setFechabaja(null);
 
-            proveedorDB.setMail(cliente.getMail());
-            proveedorDB.setNrocliente(cliente.getNroCliente());
-            proveedorDB.setPrioridad(idPrioridadProveedor);
-            proveedorDB.setRazonsocial(cliente.getRazonSocial());
+            proveedorDB.setMail(proveedor.getMail());
+            proveedorDB.setNroproveedor(proveedor.getNroProveedor());
+            //proveedorDB.setPrioridad(idPrioridadProveedor);
+            proveedorDB.setRazonsocial(proveedor.getRazonSocial());
 
 
-            int idResp=cliente.modificarResponsable(cliente.getResponsable(),idResponsable,idDomicilioResponsable,idBarrioResponsable,idTipoDocResponsable,cn);
+            int idResp=proveedor.modificarResponsable(proveedor.getResponsable(),idResponsable,idDomicilioResponsable,idBarrioResponsable,idTipoDocResponsable,cn);
             proveedorDB.setResponsable(idResponsable);
 
-            proveedorDB.setTelefono(cliente.getTelefono());
-            //deberia autogenerar un usario y contraseña
-            proveedorDB.setUsuario(1);
-
+            proveedorDB.setTelefono(proveedor.getTelefono());
+            
             result=dao.update(pk,proveedorDB, cn);
-            proveedorDB.setIdcliente(idProveedor);
+            proveedorDB.setIdproveedor(idProveedor);
             cn.commit();
 
         } catch (Exception ex) {
             try {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 cn.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         finally
@@ -844,7 +759,7 @@ public class GestorProveedor {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
@@ -1041,72 +956,72 @@ public class GestorProveedor {
 
    }
 
-    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, long id) {
+    public void tomarDomicilioProveedor(metalsoft.negocio.rrhh.Domicilio dom, long id) {
         domicilioProveedor=dom;
         idDomicilioProveedor=id;
     }
 
-    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
+    public void tomarDomicilioProveedor(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
         domicilioProveedor=dom;
         domicilioProveedorDB=domDB;
     }
 
-    public void tomarResponsableCliente(Responsable respNegocio, long idResponsable) {
+    public void tomarResponsableProveedor(Responsable respNegocio, long idResponsable) {
         responsable=respNegocio;
         this.idResponsable=idResponsable;
     }
 
-    public void tomarResponsableClienteDB(metalsoft.datos.dbobject.ResponsableDB respDB) {
+    public void tomarResponsableProveedorDB(metalsoft.datos.dbobject.ResponsableDB respDB) {
         setResponsableDB(respDB);
     }
 
-    public void tomarDomicilioClienteDB(DomicilioDB domDB) {
+    public void tomarDomicilioProveedorDB(DomicilioDB domDB) {
         setDomicilioClienteDB(domDB);
     }
 
-    public metalsoft.datos.dbobject.ClienteDB obtenerClienteSeleccionado(long id) {
-        proveedorDB=buscarClienteEnArray(id);
+    public metalsoft.datos.dbobject.ProveedorDB obtenerProveedorSeleccionado(long id) {
+        proveedorDB=buscarProveedorEnArray(id);
         return proveedorDB;
     }
 
-    public metalsoft.datos.dbobject.ClienteDB buscarClienteEnArray(long id)
+    public metalsoft.datos.dbobject.ProveedorDB buscarProveedorEnArray(long id)
     {
-        for(metalsoft.datos.dbobject.ClienteDB c:proveedores)
+        for(metalsoft.datos.dbobject.ProveedorDB c:proveedores)
         {
-            if(c.getIdcliente()==id)return c;
+            if(c.getIdproveedor()==id)return c;
         }
         return null;
     }
 
-    public metalsoft.datos.dbobject.ClienteDB buscarClienteDB(long id) {
+    public metalsoft.datos.dbobject.ProveedorDB buscarProveedorDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
         Connection cn=null;
-        metalsoft.datos.dbobject.ClienteDB[] array;
+        metalsoft.datos.dbobject.ProveedorDB[] array;
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
-            array = dao.findByIdcliente(id, cn);
+            array = dao.findByIdproveedor(id, cn);
             proveedorDB=array[0];
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return proveedorDB;
     }
 
-    public DomicilioDB buscarDomicilioClienteDB(long id) {
+    public DomicilioDB buscarDomicilioProveedorDB(long id) {
         domicilioProveedorDB=buscarDomicilioDB(id);
         return domicilioProveedorDB;
     }
@@ -1125,26 +1040,26 @@ public class GestorProveedor {
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
             dom = dao.findByIddomicilio(id, cn)[0];
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return dom;
     }
 
-    public metalsoft.datos.dbobject.ResponsableDB buscarResponsableClienteDB(long id) {
+    public metalsoft.datos.dbobject.ResponsableDB buscarResponsableProveedorDB(long id) {
         PostgreSQLManager pg=new PostgreSQLManager();
         ResponsableDAO dao=new DAOFactoryImpl().createResponsableDAO();
         Connection cn=null;
@@ -1152,20 +1067,20 @@ public class GestorProveedor {
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
             responsableDB = dao.findByIdresponsable(id, cn)[0];
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return responsableDB;
@@ -1183,55 +1098,55 @@ public class GestorProveedor {
             localidadDB=daoLocalidad.findByIdlocalidad(barrioDB.getLocalidad(), cn)[0];
         }
         catch (BarrioException ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (LocalidadException ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return localidadDB;
     }
 
-    public int bajaCliente(metalsoft.datos.dbobject.ClienteDB clienteDB) {
+    public int bajaProveedor(metalsoft.datos.dbobject.ProveedorDB proveedorDB) {
         int result=-1;
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ProveedorDAO dao=new DAOFactoryImpl().createProveedorDAO();
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
 
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        ClientePK pk=new ClientePK(idProveedor);
+        ProveedorPK pk=new ProveedorPK(idProveedor);
         try {
             cn = pg.concectGetCn();
-            clienteDB.setEstado(idEstadoCliente);
-            long idEstadoBaja=buscarIdEstadoBaja(cn);
-            clienteDB.setEstado(idEstadoBaja);
-            result=dao.update(pk,clienteDB, cn);
+            //proveedorDB.setEstado(idEstadoCliente);
+            //long idEstadoBaja=buscarIdEstadoBaja(cn);
+            //proveedorDB.setEstado(idEstadoBaja);
+            result=dao.update(pk,proveedorDB, cn);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
     }
 
-    public long buscarIdEstadoBaja(Connection cn) {
-        EstadoclienteDAO dao=new DAOFactoryImpl().createEstadoclienteDAO();
-        long id=-1;
-        try {
-            id = dao.findByNombre("Baja",cn)[0].getIdestado();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
-    }
+//    public long buscarIdEstadoBaja(Connection cn) {
+//        EstadoclienteDAO dao=new DAOFactoryImpl().createEstadoclienteDAO();
+//        long id=-1;
+//        try {
+//            id = dao.findByNombre("Baja",cn)[0].getIdestado();
+//        } catch (Exception ex) {
+//            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return id;
+//    }
 }
