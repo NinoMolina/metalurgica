@@ -17,15 +17,15 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface PresupuestoDAO
 {
-	public int insert(Presupuesto presupuesto, Connection con ) throws PresupuestoException;
-	public int update(PresupuestoPK presupuestopk, Presupuesto presupuesto, Connection con) throws PresupuestoException;
+	public int insert(PresupuestoDB presupuesto, Connection con ) throws PresupuestoException;
+	public int update(PresupuestoPK presupuestopk, PresupuestoDB presupuesto, Connection con) throws PresupuestoException;
 	public int delete(PresupuestoPK presupuestopk, Connection con) throws PresupuestoException;
-	public Presupuesto findByPrimaryKey(PresupuestoPK presupuestopk , Connection con) throws PresupuestoException;
-	public Presupuesto[] findAll(Connection con) throws PresupuestoException;
-	public Presupuesto[] findByIdpresupuesto(long idpresupuesto,Connection con) throws PresupuestoException;
-	public Presupuesto[] findByFechapresupuesto(Date fechapresupuesto,Connection con) throws PresupuestoException;
-	public Presupuesto[] findByMontototal(double montototal,Connection con) throws PresupuestoException;
-	public Presupuesto[] findByFechavencimiento(Date fechavencimiento,Connection con) throws PresupuestoException;
-	public Presupuesto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PresupuestoException;
-	public Presupuesto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PresupuestoException;
+	public PresupuestoDB findByPrimaryKey(PresupuestoPK presupuestopk , Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findAll(Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findByIdpresupuesto(long idpresupuesto,Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findByFechapresupuesto(Date fechapresupuesto,Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findByMontototal(double montototal,Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findByFechavencimiento(Date fechavencimiento,Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PresupuestoException;
+	public PresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PresupuestoException;
 }

@@ -84,13 +84,15 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public int insert(Detalleproductopresupuesto detalleproductopresupuesto ,Connection con)throws DetalleproductopresupuestoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEPRODUCTOPRESUPUESTO( IDDETALLEPRESUPUESTO, IDPIEZA) values (?, ?)");
+			ps = con.prepareStatement("insert into DETALLEPRODUCTOPRESUPUESTO( IDDETALLEPRESUPUESTO, IDPIEZA) values (?, ?) RETURNING iddetalle");
 				ps.setLong(1,detalleproductopresupuesto.getIddetallepresupuesto());
 				ps.setLong(2,detalleproductopresupuesto.getIdpieza());
-
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+				return (int)rs.getLong(1);
 		}catch(SQLException sqle){throw new DetalleproductopresupuestoException(sqle);}
 		catch(Exception e){throw new DetalleproductopresupuestoException(e);}
 	}
