@@ -59,7 +59,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return   int
 */
 
-	public int update(DetallepresupuestoPK detallepresupuestopk, Detallepresupuesto detallepresupuesto, Connection con)throws DetallepresupuestoException{
+	public int update(DetallepresupuestoPK detallepresupuestopk, DetallepresupuestoDB detallepresupuesto, Connection con)throws DetallepresupuestoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -84,7 +84,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  DetallepresupuestoPK
 */
 
-	public int insert(Detallepresupuesto detallepresupuesto ,Connection con)throws DetallepresupuestoException {
+	public int insert(DetallepresupuestoDB detallepresupuesto ,Connection con)throws DetallepresupuestoException {
 
 		PreparedStatement ps = null;
                 ResultSet rs=null;
@@ -109,7 +109,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * 
 */
 
-	public Detallepresupuesto findByPrimaryKey(long iddetalle, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB findByPrimaryKey(long iddetalle, Connection con) throws DetallepresupuestoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -135,7 +135,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto
 */
 
-	public Detallepresupuesto findByPrimaryKey(DetallepresupuestoPK detallepresupuestopk, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB findByPrimaryKey(DetallepresupuestoPK detallepresupuestopk, Connection con) throws DetallepresupuestoException{
 		return findByPrimaryKey(detallepresupuestopk.getIddetalle(), con);
 	}
 
@@ -148,7 +148,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByIddetalle(long iddetalle, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByIddetalle(long iddetalle, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where iddetalle = ? order by iddetalle";
@@ -175,7 +175,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByIdpresupuesto(long idpresupuesto, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByIdpresupuesto(long idpresupuesto, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where idpresupuesto = ? order by idpresupuesto";
@@ -202,7 +202,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByIddetallepedido(long iddetallepedido, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByIddetallepedido(long iddetallepedido, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where iddetallepedido = ? order by iddetallepedido";
@@ -229,7 +229,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByIdproducto(long idproducto, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByIdproducto(long idproducto, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where idproducto = ? order by idproducto";
@@ -256,7 +256,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByCantidad(int cantidad, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByCantidad(int cantidad, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where cantidad = ? order by cantidad";
@@ -283,7 +283,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	public Detallepresupuesto[] findByPrecio(double precio, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findByPrecio(double precio, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto where precio = ? order by precio";
@@ -309,7 +309,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 *
 */
 
-	public Detallepresupuesto[] findAll( Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findAll( Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto";
@@ -337,7 +337,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 *
 */
 
-	public Detallepresupuesto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -368,7 +368,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 *
 */
 
-	public Detallepresupuesto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepresupuestoException{
+	public DetallepresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select iddetalle, idpresupuesto, iddetallepedido, idproducto, cantidad, precio from detallepresupuesto";
@@ -398,10 +398,10 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 *
 */
 
-	protected Detallepresupuesto fetchSingleResult(ResultSet rs) throws SQLException
+	protected DetallepresupuestoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Detallepresupuesto dto = new Detallepresupuesto();
+					DetallepresupuestoDB dto = new DetallepresupuestoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -418,7 +418,7 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  void
 */
 
-	protected void populateVO(Detallepresupuesto dto, ResultSet rs) throws SQLException
+	protected void populateVO(DetallepresupuestoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIddetalle(rs.getLong("iddetalle"));
 		 dto.setIdpresupuesto(rs.getLong("idpresupuesto"));
@@ -436,15 +436,15 @@ public class DetallepresupuestoDAOImpl implements DetallepresupuestoDAO
 * @return  Detallepresupuesto[]
 */
 
-	protected Detallepresupuesto[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected DetallepresupuestoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Detallepresupuesto dto = new Detallepresupuesto();
+			DetallepresupuestoDB dto = new DetallepresupuestoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Detallepresupuesto ret[] = new Detallepresupuesto[ resultList.size() ];
+		DetallepresupuestoDB ret[] = new DetallepresupuestoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
