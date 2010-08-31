@@ -20,6 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.negocio.gestores.GestorDetalleMateriaPrima;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
@@ -41,7 +42,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
     private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccion;
     private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccionSeleccionada;
-    private GestorDetalleProcedimientos gestor;
+    private GestorDetalleMateriaPrima gestor;
     private Timer timer;
     private TableCellRender tcrTblDetallePedido;
     private long idPedidoSeleccionado,idProductoSeleccionado,idPiezaSeleccionada;
@@ -50,14 +51,14 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         initComponents();
         tcrTblDetallePedido=new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
-        gestor=new GestorDetalleProcedimientos();
-        buscarPedidosGenerados();
+        gestor=new GestorDetalleMateriaPrima();
+        buscarPedidosCDetalleProcedimientos();
         addListeners();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
-        tblEtapa.updateUI();
+        tblMateriaPrima.updateUI();
         filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
-        tblEtapaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
     }
     private void addListeners()
     {
@@ -95,10 +96,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
     {
         if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
+        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblMateriaPrima.getSelectedRow());
         filasEtapaProduccionSeleccionada.add(v);
-        tblEtapa.updateUI();
-        tblEtapaSeleccionada.updateUI();
+        tblMateriaPrima.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
         if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
     }
     private void addListenerBtnQuitar()
@@ -112,15 +113,15 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt)
     {
         if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
+        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblMateriaPrimaSeleccionada.getSelectedRow());
         filasEtapaProduccion.add(v);
-        tblEtapa.updateUI();
-        tblEtapaSeleccionada.updateUI();
+        tblMateriaPrima.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
         if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
     }
-    private void buscarPedidosGenerados()
+    private void buscarPedidosCDetalleProcedimientos()
     {
-        filasPedidos=gestor.buscarPedidosGenerados();
+        filasPedidos=gestor.buscarPedidosCDetalleProcedimientos();
         beanTblPedidos.setFilasPedidos(filasPedidos);
         beanTblPedidos.updateTblPedidos();
     }
@@ -151,11 +152,11 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         lblPiezaSeleccionada = new javax.swing.JLabel();
         txtEtapaProduccion = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblEtapa = new javax.swing.JTable();
+        tblMateriaPrima = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblEtapaSeleccionada = new javax.swing.JTable();
+        tblMateriaPrimaSeleccionada = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         lblProductoSeleccionado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -164,7 +165,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Generados No Cotizados"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos C/Detalle Procedimientos"));
 
         jLabel1.setText("Nro. de Pedido de Cotización:");
 
@@ -271,13 +272,13 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             }
         });
 
-        tblEtapa.setModel(new EtapaTableModel());
-        jScrollPane4.setViewportView(tblEtapa);
+        tblMateriaPrima.setModel(new EtapaTableModel());
+        jScrollPane4.setViewportView(tblMateriaPrima);
 
-        jLabel3.setText("Nombre Etapa Producción:");
+        jLabel3.setText("Nombre Materia Prima:");
 
-        tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
-        jScrollPane5.setViewportView(tblEtapaSeleccionada);
+        tblMateriaPrimaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
+        jScrollPane5.setViewportView(tblMateriaPrimaSeleccionada);
 
         jLabel4.setText("Producto:");
 
@@ -399,8 +400,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
 
         ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
-        filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
-        tblEtapa.updateUI();
+        filasEtapaProduccion=gestor.obtenerAllMateriaPrima();
+        tblMateriaPrima.updateUI();
         idPiezaSeleccionada=v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
 }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
@@ -458,14 +459,14 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private javax.swing.JLabel lblProductoSeleccionado;
     private javax.swing.JTable tblDetallePedido;
     private javax.swing.JTable tblDetalleProducto;
-    private javax.swing.JTable tblEtapa;
-    private javax.swing.JTable tblEtapaSeleccionada;
+    private javax.swing.JTable tblMateriaPrima;
+    private javax.swing.JTable tblMateriaPrimaSeleccionada;
     private javax.swing.JTextField txtEtapaProduccion;
     // End of variables declaration//GEN-END:variables
     public JTable getTable(String className) {
         if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
         {
-            return tblEtapa;
+            return tblMateriaPrima;
         }
         return null;
     }
@@ -650,7 +651,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         case 2:
           return String.valueOf(view.getCantidad());
         case 3:
-          return view.getDimensiones();
+          return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:
           return view.getNombreTipoMaterial();
         default:

@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         this.idUsuario=idUsuario;
         initComponents();
         obtenerRolUsuario(idUsuario);
+        //this.getContentPane().setBackground();
     }
     public Principal() {
         initComponents();
@@ -60,6 +62,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblImagen = new javax.swing.JLabel();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mnuCompras = new javax.swing.JMenu();
@@ -83,6 +86,9 @@ public class Principal extends javax.swing.JFrame {
         mnuAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setForeground(new java.awt.Color(240, 240, 240));
+
+        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/background.jpg"))); // NOI18N
 
         mnuInicio.setText("Inicio");
         mbrMenu.add(mnuInicio);
@@ -220,11 +226,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -378,6 +384,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel lblImagen;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
