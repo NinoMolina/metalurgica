@@ -16,14 +16,14 @@ import java.io.Serializable;
 /**
 * 
 * Instance of this class stores the number of
-* records in detalleproductopresupuesto table
+* records in detallepiezapresupuesto table
 * 
 */
 
-public class DetalleproductopresupuestoRecordCount implements Serializable
+public class DetallepiezapresupuestoRecordCount implements Serializable
 {
 	private int count;
-	public  DetalleproductopresupuestoRecordCount(){
+	public  DetallepiezapresupuestoRecordCount(){
 	}
 	public int getCount()
 	{
@@ -35,7 +35,7 @@ public class DetalleproductopresupuestoRecordCount implements Serializable
 	}
 	public String toString(){
 		StringBuffer ret = new StringBuffer();
-		ret.append("metalsoft.datos.dbobject.DetalleproductopresupuestoRecordCount :");
+		ret.append("metalsoft.datos.dbobject.DetallepiezapresupuestoRecordCount :");
 		ret.append("count ='"+ count +"'");
 		return ret.toString();
 	}
