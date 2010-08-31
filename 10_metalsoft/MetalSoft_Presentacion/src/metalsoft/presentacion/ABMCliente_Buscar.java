@@ -208,7 +208,7 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
     }
 
     public void setBusqueda(Object[] obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
 }
