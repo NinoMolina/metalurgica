@@ -12,6 +12,7 @@
 package metalsoft.presentacion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -23,11 +24,14 @@ import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.PiezaXEtapas;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
 import metalsoft.negocio.ventas.DetallePresupuesto;
+import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
 import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.util.Fecha;
@@ -165,6 +169,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         jLabel5 = new javax.swing.JLabel();
         lblPedidoSeleccionado = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -302,6 +307,13 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         lblPedidoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPedidoSeleccionado.setText("....");
 
+        btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -320,7 +332,9 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnAsignar))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jLabel5)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -348,10 +362,12 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(72, 72, 72)
-                        .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(btnAsignar))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(16, 16, 16)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -463,10 +479,38 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
     }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Presupuesto pre=Pedido.crearPresupuesto();
-        DetallePresupuesto dpre=pre.crearDetallePresupuesto();
-
+        boolean result=gestor.guardarEtapasPiezaPresupuesto();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        PiezaXEtapas pxe=new PiezaXEtapas();
+
+        ViewDetalleProducto viewDetPro=filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetallePedidoCotizacion viewDetPed=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPi=viewDetPro.getIdPieza();
+        double ancho=viewDetPro.getAncho();
+        double alto=viewDetPro.getAlto();
+        double largo=viewDetPro.getLargo();
+        long idProd=viewDetPro.getIdProducto();
+        double precioProd=viewDetPed.getPrecio();
+        int cantProd=viewDetPed.getCantidad();
+        long idDetPedido=viewDetPed.getIdDetalle();
+        ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed=viewPed.getIdpedido();
+
+        pxe.setAlto(alto);
+        pxe.setAncho(ancho);
+        pxe.setLargo(largo);
+        pxe.setPrecioProducto(precioProd);
+        pxe.setCantProductos(cantProd);
+        pxe.setIdPieza(idPi);
+        pxe.setIdProducto(idProd);
+        pxe.setIdDetallePedido(idDetPedido);
+        pxe.setIdPedido(idPed);
+        pxe.setEtapas(filasEtapaProduccionSeleccionada);
+
+        boolean result=gestor.addPiezaXEtapas(pxe);
+    }//GEN-LAST:event_btnAsignarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -482,6 +526,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
+    private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionarPieza;
