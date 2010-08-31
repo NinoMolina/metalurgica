@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class DetalleProductoPresupuesto
 {
-   private int cantidadEtapasProduccion;
+
    private ArrayList<DetallePiezaPresupuesto> detallePiezaPresupuesto;
    private Pieza pieza;
    
@@ -26,13 +26,6 @@ public class DetalleProductoPresupuesto
        return detallePiezaPresupuesto.add(dpp);
    }
 
-    public int getCantidadEtapasProduccion() {
-        return cantidadEtapasProduccion;
-    }
-
-    public void setCantidadEtapasProduccion(int cantidadEtapasProduccion) {
-        this.cantidadEtapasProduccion = cantidadEtapasProduccion;
-    }
 
     public ArrayList<DetallePiezaPresupuesto> getDetallePiezaPresupuesto() {
         return detallePiezaPresupuesto;

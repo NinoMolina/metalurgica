@@ -37,11 +37,24 @@ public class DetallePiezaPresupuesto {
         this.etapa = etapa;
     }
 
-    public Date calcularDuracion(PiezaXEtapas pxe)
+    public Date calcularDuracion(Date duracionEstimada,double alto,double ancho,double largo)
     {
-        double alto=pxe.getAlto();
-        double ancho=pxe.getAncho();
-        double largo=pxe.getLargo();
+        double volumen=alto*ancho*largo;
+
+        int horas=duracionEstimada.getHours();
+        int minutos=duracionEstimada.getMinutes();
+        int segundos=duracionEstimada.getSeconds();
+
+        horas=(int) (horas * volumen);
+        minutos=(int) (minutos * volumen);
+        segundos=(int) (segundos * volumen);
+
+        Date duracion=(Date) duracionEstimada.clone();
+        duracion.setHours(horas);
+        duracion.setMinutes(minutos);
+        duracion.setSeconds(segundos);
+
+        return duracion;
     }
 
 

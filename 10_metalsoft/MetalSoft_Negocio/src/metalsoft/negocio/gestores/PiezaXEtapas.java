@@ -13,12 +13,29 @@ import java.util.LinkedList;
  */
 public class PiezaXEtapas implements Comparable{
 
-    private long idPedido,idProducto,idPieza;
+    private long idPedido,idProducto,idPieza,idDetallePedido;
     private double ancho,alto,largo;
     private double precioProducto;
+    private int cantProductos;
     private LinkedList<ViewEtapaDeProduccion> etapas;
 
     public PiezaXEtapas() {
+    }
+
+    public long getIdDetallePedido() {
+        return idDetallePedido;
+    }
+
+    public void setIdDetallePedido(long idDetallePedido) {
+        this.idDetallePedido = idDetallePedido;
+    }
+
+    public int getCantProductos() {
+        return cantProductos;
+    }
+
+    public void setCantProductos(int cantProductos) {
+        this.cantProductos = cantProductos;
     }
 
     public double getPrecioProducto() {

@@ -12,6 +12,7 @@ import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PedidoPK;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PedidoDAO;
+import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.ventas.Pedido;
 
@@ -39,7 +40,7 @@ public class AccessPedido {
         return result;
     }
 
-    public static int update(long idPed, long idPres, Connection cn) {
+    public static int update(long idPed, long idPres,long idEstado, Connection cn) {
         int result=-1;
         PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
         PedidoDB db = null;
@@ -47,6 +48,7 @@ public class AccessPedido {
         try {
             db=findByIdPedido(idPed, cn);
             db.setPresupuesto(idPres);
+            db.setEstado(idEstado);
             result=dao.update(pk,db, cn);
             db.setIdpedido(result);
         } catch (Exception ex) {
