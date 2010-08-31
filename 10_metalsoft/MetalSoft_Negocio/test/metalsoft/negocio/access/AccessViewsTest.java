@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import org.junit.After;
@@ -71,7 +72,7 @@ public class AccessViewsTest {
         try {
             cn = pg.concectGetCn();
             LinkedList expResult = null;
-            LinkedList result = AccessViews.pedidoEnListadoProcedimientos(cn);
+            LinkedList result = AccessViews.pedidosSegunEstado(IdsEstadoPedido.GENERADO,cn);
             ViewPedidoEnListadoProcedimientos view=(ViewPedidoEnListadoProcedimientos)result.getFirst();
             System.out.println(view.getFechapedidocotizacion());
             assertNotNull(result);
