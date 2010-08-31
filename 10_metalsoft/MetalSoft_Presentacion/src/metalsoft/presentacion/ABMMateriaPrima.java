@@ -218,6 +218,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtCodBarra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Administrar Materia Prima");
 
         jLabel1.setText("Nro. Producto:");
 
