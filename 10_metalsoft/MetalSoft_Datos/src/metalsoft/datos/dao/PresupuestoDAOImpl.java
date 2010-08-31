@@ -85,14 +85,16 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public int insert(PresupuestoDB presupuesto ,Connection con)throws PresupuestoException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PRESUPUESTO( FECHAPRESUPUESTO, MONTOTOTAL, FECHAVENCIMIENTO) values (?, ?, ?)");
+			ps = con.prepareStatement("insert into PRESUPUESTO( FECHAPRESUPUESTO, MONTOTOTAL, FECHAVENCIMIENTO) values (?, ?, ?) RETURNING idpresupuesto");
 				ps.setDate(1,presupuesto.getFechapresupuesto());
 				ps.setDouble(2,presupuesto.getMontototal());
 				ps.setDate(3,presupuesto.getFechavencimiento());
-
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+				return (int)rs.getLong(1);
 		}catch(SQLException sqle){throw new PresupuestoException(sqle);}
 		catch(Exception e){throw new PresupuestoException(e);}
 	}
