@@ -71,18 +71,21 @@ public class PedidoDAOImpl implements PedidoDAO
 				ps.setDate(5,pedido.getFechacancelacion());
 				ps.setDate(6,pedido.getFechaentregareal());
 				ps.setLong(7,pedido.getEstado());
-				ps.setLong(8,pedido.getFactura());
-				ps.setLong(9,pedido.getPresupuesto());
+                                if(pedido.getFactura()==0)ps.setNull(8, java.sql.Types.NULL);
+                                else ps.setLong(8,pedido.getFactura());
+                                if(pedido.getPresupuesto()==0)ps.setNull(9, java.sql.Types.NULL);
+                                else ps.setLong(9,pedido.getPresupuesto());
 				ps.setDate(10,pedido.getFecharequeridacotizacion());
-				ps.setLong(11,pedido.getPlano());
+                                if(pedido.getPlano()==0)ps.setNull(11, java.sql.Types.NULL);
+                                else ps.setLong(11,pedido.getPlano());
 				ps.setString(12,pedido.getMotivocancelacion());
 				ps.setBoolean(13,pedido.getEspedidoweb());
 				ps.setInt(14,pedido.getNropedidocotizacioncliente());
 				ps.setDate(15,pedido.getFecharegpedcotiz());
 				ps.setLong(16,pedido.getCliente());
-				ps.setLong(17,pedido.getPlanprocedimientos());
-				ps.setLong(18,pedido.getPlanrequerimientosmateriaprima());
-				ps.setLong(19,pedido.getPlanprocesoscalidad());
+				ps.setNull(17, java.sql.Types.NULL);
+				ps.setNull(18, java.sql.Types.NULL);
+				ps.setNull(19, java.sql.Types.NULL);
 				ps.setLong(20,pedido.getPrioridad());
 				ps.setLong(21,pedidopk.getIdpedido());
 
