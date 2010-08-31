@@ -1,21 +1,20 @@
 Cosas que faltan :
 
-
-
-
-corregir Modelo Despliegue
-
 Agregar vistas parciales del Diag de clases de Analisis (completar atributos en Gestores e interfaces)
-
-
-
-
-copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
-
-
-
 
 Secuencia: 
 *hablar con chicos
+
+
+Cosas para la 3ra iter:
+
+caso uso 183: Registrar Finalización Reclamo
+
+Preguntar CU 138 como hacer con los actores
+
+DTE:
+*EjecucionProcesoCalidad - Estas es de la 3ra iter
+
+Actualizar DER vistas parciales
 
 
