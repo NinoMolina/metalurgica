@@ -7,6 +7,7 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
+import metalsoft.negocio.access.AccessDetallePiezaPresupuesto;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
 import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
@@ -200,6 +202,8 @@ public class GestorDetalleProcedimientos {
     public boolean guardarEtapasPiezaPresupuesto() {
         if(arlPiezaXEtapas.isEmpty())return false;
 
+        boolean flag=false;
+
         long idPed=-1;
         long idPro=-1;
         long idPi=-1;
@@ -213,18 +217,21 @@ public class GestorDetalleProcedimientos {
         Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
         PiezaXEtapas pxe=null;
         //para cada conjunto de etapas de una pieza
-        while(i.hasNext())
+
+        try
         {
-            pxe=i.next();
-            idPed=pxe.getIdPedido();
-            idPro=pxe.getIdProducto();
-            idPi=pxe.getIdPieza();
-            idDetPedido=pxe.getIdDetallePedido();
-            precioProd=pxe.getPrecioProducto();
-            cantProd=pxe.getCantProductos();
-            try {
-                cn = pg.concectGetCn();
-                cn.setAutoCommit(false);
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            while(i.hasNext())
+            {
+                pxe=i.next();
+                idPed=pxe.getIdPedido();
+                idPro=pxe.getIdProducto();
+                idPi=pxe.getIdPieza();
+                idDetPedido=pxe.getIdDetallePedido();
+                precioProd=pxe.getPrecioProducto();
+                cantProd=pxe.getCantProductos();
+            
 
                 Presupuesto pres=new Presupuesto();
                 idPres=AccessPresupuesto.insert(pres, cn);
@@ -245,23 +252,40 @@ public class GestorDetalleProcedimientos {
                 DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
                 Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
                 ViewEtapaDeProduccion v=null;
+                long idDetPiPres=-1;
                 while(iEtapas.hasNext())
                 {
                     v=iEtapas.next();
                     Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
-                }
+                    dpipre.setDuracionEtapaXPieza(duracion);
+                    idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
+                }  
+            }
+            cn.commit();
+            flag=true;
+        }
+        catch (Exception ex)
+        {
+            try {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+                flag=false;
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
+                flag=false;
+            }
 
-                cn.commit();
-            } catch (Exception ex) {
-                try {
-                    Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
-                    cn.rollback();
-                } catch (SQLException ex1) {
-                    Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return flag;
 
     }
 
