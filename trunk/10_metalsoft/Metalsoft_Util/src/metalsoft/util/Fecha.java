@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.util.BuddhistCalendar;
 
 /**
  *
@@ -193,6 +194,43 @@ public class Fecha {
         double dias = Math.floor(diferencia / MILISEGUNDOS_POR_DIA);
         return ( (int) dias);
     }
+    
+    public static Date diferenciaEnMinutos(Date fechaInicio, Date fechaFin)
+    {
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.setTime(fechaFin);
+        calendar.add(Calendar.MINUTE, -fechaInicio.getMinutes());
+        
+        return calendar.getTime();
+    }
+
+    public static Date diferenciaEnHoras(Date fechaInicio, Date fechaFin)
+    {
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.setTime(fechaFin);
+        calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
+
+        return calendar.getTime();
+    }
+
+    public static Date diferenciaEnSegundos(Date fechaInicio, Date fechaFin)
+    {
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.setTime(fechaFin);
+        calendar.add(Calendar.SECOND, -fechaInicio.getSeconds());
+
+        return calendar.getTime();
+    }
+
+    public static Date diferenciaEnSegundosMinutosHoras(Date fechaInicio, Date fechaFin)
+    {
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.setTime(fechaFin);
+        calendar.add(Calendar.SECOND, -fechaInicio.getSeconds());
+        calendar.add(Calendar.MINUTE, -fechaInicio.getMinutes());
+        calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
+        return calendar.getTime();
+    }
 
 //    public static int diferenciaEnMinutos(Date fechaInicial, Date fechaFinal) {
 //
@@ -261,6 +299,9 @@ public class Fecha {
         Date d2=new Date(dsql.getTime());
 
         System.out.println(d);
-        
+        Date d3=new Date(2010, 8, 30, 15, 30, 30);
+        Date d4=new Date();
+        Date d5=diferenciaEnHoras(d3, d4);
+        System.out.println(d5);
     }
 }
