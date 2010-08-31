@@ -8445,7 +8445,7 @@
 			    zoom       	100
 			    max_height 	28350
 			    max_width  	21600
-			    origin_x   	168
+			    origin_x   	169
 			    origin_y   	1620
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @290
@@ -9094,7 +9094,7 @@
 					height     	45
 					orientation 	0)
 				    stereotype 	TRUE
-				    line_color 	3342489
+				    line_color 	10485760
 				    quidu      	"4C7C735E02AD"
 				    client     	@304
 				    supplier   	@302
@@ -9136,7 +9136,7 @@
 					height     	50
 					orientation 	0)
 				    stereotype 	TRUE
-				    line_color 	3342489
+				    line_color 	10485760
 				    quidu      	"4C7C737901A6"
 				    client     	@302
 				    supplier   	@302
@@ -9175,7 +9175,7 @@
 					height     	45
 					orientation 	0)
 				    stereotype 	TRUE
-				    line_color 	3342489
+				    line_color 	10485760
 				    quidu      	"4C7C74AC022A"
 				    client     	@297
 				    supplier   	@298
