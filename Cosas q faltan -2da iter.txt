@@ -1,36 +1,21 @@
 Cosas que faltan :
 
-Preguntar como hacer el CU 138.
-Imprimir prototipos de interfaz.
 
-aCTUALIZAR iNDICES
 
-Asociar CU con metodos en los DTE
+
 corregir Modelo Despliegue
-corregir PRueba
-Agregar vistas parciales del Diag de clases de Analisis (completar atributos en Gestores e interfaces)
-Diagramas de Secuencias con patrones
 
-Diag Caso de Uso:
-cambios:
-*sacar extend 62 a 64
-*sacar extend 62 a 10
-*sacar extend CU 152
-*sacar include del 48 al 47
-*sacar include del 93 al 110
-cambiar nombre del cu 98: es egreso de pieza para trabajo
-Que hacemos con los extends e include del CU 64(reg etapa Produccion)???
-cambiar nombre cu 11 12 13 58
+Agregar vistas parciales del Diag de clases de Analisis (completar atributos en Gestores e interfaces)
+
+
+
 
 copiar Diag analisis a requerimientos y sacarle la dependencia a localidad y barrio.
 
-DTE:LISTOOOOOO!!!
 
-*EjecucionProcesoCalidad - Estas es de la 3ra iter
 
 
 Secuencia: 
 *hablar con chicos
 
-Prueba:
-*3 casos
+
