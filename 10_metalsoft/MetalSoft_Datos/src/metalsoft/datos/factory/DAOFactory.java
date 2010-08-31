@@ -52,13 +52,16 @@ public interface DAOFactory
 
 	public DetallepedidoDAO createDetallepedidoDAO();
 
+	public DetallepiezapresupuestoDAO createDetallepiezapresupuestoDAO();
+
+
 	public DetalleplanificacioncalidadDAO createDetalleplanificacioncalidadDAO();
 
 	public DetalleplanprocedimientosDAO createDetalleplanprocedimientosDAO();
 
 	public DetalleplanprocesoscalidadDAO createDetalleplanprocesoscalidadDAO();
 
-	//public DetallepresupuestoDAO createDetallepresupuestoDAO();
+	public DetallepresupuestoDAO createDetallepresupuestoDAO();
 
 public DetalleproductopresupuestoDAO createDetalleproductopresupuestoDAO();
 

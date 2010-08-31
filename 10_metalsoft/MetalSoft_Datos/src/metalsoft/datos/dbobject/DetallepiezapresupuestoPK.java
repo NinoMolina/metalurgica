@@ -15,17 +15,17 @@ import java.io.Serializable;
 
 /**
 *
-* This class represents the primary key of the detallepresupuesto table
+* This class represents the primary key of the detallepiezapresupuesto table
 *
 */
 
-public class DetallepresupuestoPK implements Serializable
+public class DetallepiezapresupuestoPK implements Serializable
 {
 	private long iddetalle;
 
 
-	public DetallepresupuestoPK(){}
-	public DetallepresupuestoPK(long iddetalle){
+	public DetallepiezapresupuestoPK(){}
+	public DetallepiezapresupuestoPK(long iddetalle){
 		this.iddetalle = iddetalle;
 	}
 
@@ -37,7 +37,7 @@ public class DetallepresupuestoPK implements Serializable
 	}
 	public String toString(){
 		StringBuffer ret = new StringBuffer();
-		ret.append("metalsoft.datos.dbobject.DetallepresupuestoPK :");
+		ret.append("metalsoft.datos.dbobject.DetallepiezapresupuestoPK :");
 		ret.append("iddetalle='"+iddetalle+"'");
 		return ret.toString();
 	}
