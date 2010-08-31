@@ -194,6 +194,7 @@ public class GestorDetalleProcedimientos {
         int contador=0;
         while(i.hasNext())
         {
+            x=i.next();
             if(x.compareTo(pxe)==0)return contador;
             contador++;
         }
