@@ -95,7 +95,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         txtNroEtapa = new javax.swing.JTextField();
         cmbUnidadMedida = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administrar Etapa de Producción");
 
         jLabel1.setText("Nombre Etapa:");
 
