@@ -1201,7 +1201,7 @@
 			    supplier_quidu 	"4C2050F4029F"
 			    client     	"Logical View::Analysis Model::State/Activity Model::Confirmado"
 			    client_quidu 	"4C20505303D8"
-			    Event      	(object Event "registrarCancelacionPedidoTrabajo()"
+			    Event      	(object Event "registrarCancelacionPedido()"
 				quid       	"4C2051C500AC")
 			    sendEvent  	(object sendEvent
 				quid       	"4C2051C500AE"))
@@ -1476,7 +1476,7 @@
 			    supplier_quidu 	"4C2050850203"
 			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoTotal"
 			    client_quidu 	"4C205AC700CB"
-			    Event      	(object Event "RegistrarLanzamientoControlCalidad()"
+			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C205C8D009D")
 			    sendEvent  	(object sendEvent
 				quid       	"4C205C8D009F"))
@@ -2838,7 +2838,155 @@
 			    Event      	(object Event "registrarArmadoPedido()"
 				quid       	"4C7BE389010D")
 			    sendEvent  	(object sendEvent
-				quid       	"4C7BE389010F")))
+				quid       	"4C7BE389010F"))
+			(object State_Transition
+			    quid       	"4C7C6F2B00DD"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier_quidu 	"4C205106034B"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client_quidu 	"4C205106034B"
+			    Event      	(object Event "registrarReclamoEmpresaMetalurgica"
+				quid       	"4C7C6F2B00DE")
+			    condition  	"x3"
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C6F2B00E0"))
+			(object State_Transition
+			    quid       	"4C7C735E02AD"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier_quidu 	"4C205106034B"
+			    client     	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    client_quidu 	"4C205B3101B5"
+			    Event      	(object Event "registrarReclamoAProveedor()"
+				quid       	"4C7C735E02AE")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C735E02B0"))
+			(object State_Transition
+			    quid       	"4C7C737901A6"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier_quidu 	"4C205106034B"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client_quidu 	"4C205106034B"
+			    Event      	(object Event "registrarReclamoAproveedor"
+				quid       	"4C7C737901A7")
+			    condition  	"x3"
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C737901A9"))
+			(object State_Transition
+			    quid       	"4C7C73AD0337"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier_quidu 	"4C205106034B"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client_quidu 	"4C205106034B"
+			    Event      	(object Event "registrarReclamoAEmpresaMetalúrgica"
+				quid       	"4C7C73AD0338")
+			    condition  	"x3"
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C73AD033A"))
+			(object State_Transition
+			    quid       	"4C7C74AC022A"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier_quidu 	"4C205AF7001F"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client_quidu 	"4C205AEF007D"
+			    Event      	(object Event "registrarFinOrdenCompra()"
+				quid       	"4C7C74AC022B")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C74AC022D"))
+			(object State_Transition
+			    quid       	"4C7C76EF0138"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier_quidu 	"4C7A6F820010"
+			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client_quidu 	"4C2050710213"
+			    Event      	(object Event "registrarIngresoDePiezaDePRoduccion()"
+				quid       	"4C7C76EF0139")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C76EF013B"))
+			(object State_Transition
+			    quid       	"4C7C77B5016D"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier_quidu 	"4C79E88400FA"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client_quidu 	"4C79E88400FA"
+			    Event      	(object Event "registrarReclamoAEmpresaMetalurgica"
+				quid       	"4C7C77B5016E")
+			    condition  	"x3"
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C77B50170"))
+			(object State_Transition
+			    quid       	"4C7C7B7F0392"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier_quidu 	"4C205106034B"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client_quidu 	"4C205106034B"
+			    Event      	(object Event "registrarReclamoAEmpresaMetalurgica"
+				quid       	"4C7C7B7F0393")
+			    condition  	"x3"
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7B7F0395"))
+			(object State_Transition
+			    quid       	"4C7C7F01008D"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier_quidu 	"4C7AFC4A03B1"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    client_quidu 	"4C7AFC770106"
+			    Event      	(object Event "registrarLanzamientoControlCalidad()"
+				quid       	"4C7C7F01008E")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7F010090"))
+			(object State_Transition
+			    quid       	"4C7C7F270205"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    supplier_quidu 	"4C7AFC770106"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client_quidu 	"4C7AFC700239"
+			    Event      	(object Event "modificarPlanificacionControlCalidad()"
+				quid       	"4C7C7F270206")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7F270208"))
+			(object State_Transition
+			    quid       	"4C7C7F46031B"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier_quidu 	"4C79E987011F"
+			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client_quidu 	"4C7AFC700239"
+			    Event      	(object Event "registrarReanudacionControlCalidad()"
+				quid       	"4C7C7F46031C")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7F46031E"))
+			(object State_Transition
+			    quid       	"4C7C7F5B033C"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier_quidu 	"4C79E987011F"
+			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client_quidu 	"4C7AFC4A03B1"
+			    Event      	(object Event "registrarEjecucionProcesoCalidad()"
+				quid       	"4C7C7F5B033D")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7F5B033F"))
+			(object State_Transition
+			    quid       	"4C7C7FF10340"
+			    label      	""
+			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier_quidu 	"4C7AFC4A03B1"
+			    client     	"$UNNAMED$3"
+			    client_quidu 	"4C204FF5004E"
+			    Event      	(object Event "registrarLanzamintoProduccion()"
+				quid       	"4C7C7FF10341")
+			    sendEvent  	(object sendEvent
+				quid       	"4C7C7FF10343")))
 		    objectflows 	(list objectflow_list)
 		    statediagrams 	(list StateDiagrams
 			(object State_Diagram "Clase Pedido"
@@ -2848,7 +2996,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	7388
+			    origin_y   	0
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @27
 				    location   	(1872, 448)
@@ -3495,9 +3643,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	637
+					max_width  	504
 					justify    	0
-					label      	"registrarCancelacionPedidoTrabajo()"
+					label      	"registrarCancelacionPedido()"
 					pctDist    	0.500000
 					height     	29
 					orientation 	0)
@@ -4352,7 +4500,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @98
 					Parent_View 	@97
-					location   	(1851, 2989)
+					location   	(1821, 2989)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -4368,7 +4516,7 @@
 					justify    	0
 					label      	"RegistrarEntregaMateriaPrimaAProduccion()||RegistrarAsigancionDeScrapAProduccion()"
 					pctDist    	0.500000
-					height     	21
+					height     	51
 					orientation 	1)
 				    stereotype 	TRUE
 				    line_color 	10485760
@@ -4822,7 +4970,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	4118
+			    origin_y   	4202
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @121
 				    location   	(1024, 80)
@@ -5153,7 +5301,7 @@
 					nlines     	1
 					max_width  	635
 					justify    	0
-					label      	"registrarCancelacionPedidoTrabajo()"
+					label      	"registrarCancelacionPedido()"
 					pctDist    	0.518234
 					height     	29
 					orientation 	1)
@@ -5553,7 +5701,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @156
 					Parent_View 	@155
-					location   	(618, 1858)
+					location   	(554, 1839)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -5568,8 +5716,8 @@
 					max_width  	635
 					justify    	0
 					label      	"registrarCancelacionPedidoTrabajo()"
-					pctDist    	0.500000
-					height     	45
+					pctDist    	0.620802
+					height     	25
 					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
@@ -5793,9 +5941,9 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	664
+					max_width  	659
 					justify    	0
-					label      	"RegistrarLanzamientoControlCalidad()"
+					label      	"registrarLanzamientoControlCalidad()"
 					pctDist    	0.500000
 					height     	45
 					orientation 	0)
@@ -5955,8 +6103,7 @@
 				    quidu      	"4C205106034B"
 				    height     	134
 				    autoResize 	TRUE)
-				(object SelfTransView "" @175
-				    location   	(2064, 2663)
+				(object TransView "" @175
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -5968,45 +6115,6 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @176
 					Parent_View 	@175
-					location   	(2414, 2732)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	722
-					justify    	0
-					label      	"registrarReclamoACliente( x3 )"
-					pctDist    	3.587719
-					height     	82
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C2051F000AB"
-				    client     	@174
-				    supplier   	@174
-				    vertices   	(list Points
-					(2007, 2813)
-					(2121, 2813))
-				    line_style 	4)
-				(object TransView "" @177
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @178
-					Parent_View 	@177
 					location   	(1836, 2617)
 					font       	(object Font
 					    size       	9
@@ -6036,7 +6144,7 @@
 					(2009, 2812))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @179
+				(object TransView "" @177
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205F66005D"
@@ -6047,7 +6155,7 @@
 					(1066, 3371))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @180
+				(object TransView "" @178
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -6057,8 +6165,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @181
-					Parent_View 	@180
+				    label      	(object SegLabel @179
+					Parent_View 	@178
 					location   	(2429, 1741)
 					font       	(object Font
 					    size       	9
@@ -6089,7 +6197,47 @@
 					(1294, 1712)
 					(1174, 1754))
 				    line_style 	0
-				    x_offset   	FALSE)))
+				    x_offset   	FALSE)
+				(object SelfTransView "" @180
+				    location   	(2064, 2663)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @181
+					Parent_View 	@180
+					location   	(2096, 2764)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	777
+					justify    	0
+					label      	"registrarReclamoAEmpresaMetalúrgica[ x3 ]"
+					pctDist    	0.780702
+					height     	49
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	10485760
+				    quidu      	"4C7C73AD0337"
+				    client     	@174
+				    supplier   	@174
+				    vertices   	(list Points
+					(2007, 2813)
+					(2121, 2813))
+				    line_style 	4)))
 			(object State_Diagram "Compra"
 			    quid       	"4C79E0F80376"
 			    title      	"Compra"
@@ -6097,7 +6245,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	2208
+			    origin_y   	113
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @182
 				    location   	(1088, 112)
@@ -8297,8 +8445,8 @@
 			    zoom       	100
 			    max_height 	28350
 			    max_width  	21600
-			    origin_x   	294
-			    origin_y   	1676
+			    origin_x   	168
+			    origin_y   	1620
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @290
 				    location   	(1232, 64)
@@ -8490,47 +8638,7 @@
 				    quidu      	"4C205AF7001F"
 				    height     	134
 				    autoResize 	TRUE)
-				(object TransView "" @299
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @300
-					Parent_View 	@299
-					location   	(1244, 1617)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	450
-					justify    	0
-					label      	"registrarFinTrabajo()"
-					pctDist    	0.503185
-					height     	12
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C205CEB00FA"
-				    client     	@297
-				    supplier   	@298
-				    vertices   	(list Points
-					(1232, 1459)
-					(1232, 1773))
-				    line_style 	0
-				    x_offset   	FALSE)
-				(object StateView "Normal" "EnCalidad" @301
+				(object StateView "Normal" "EnCalidad" @299
 				    location   	(1232, 1040)
 				    font       	(object Font
 					size       	9
@@ -8542,7 +8650,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@301
+					Parent_View 	@299
 					location   	(1232, 1026)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -8556,7 +8664,7 @@
 				    quidu      	"4C2050850203"
 				    height     	134
 				    autoResize 	TRUE)
-				(object TransView "" @302
+				(object TransView "" @300
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8566,8 +8674,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @303
-					Parent_View 	@302
+				    label      	(object SegLabel @301
+					Parent_View 	@300
 					location   	(1277, 1216)
 					font       	(object Font
 					    size       	9
@@ -8589,14 +8697,14 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205CB502FD"
-				    client     	@301
+				    client     	@299
 				    supplier   	@297
 				    vertices   	(list Points
 					(1232, 1107)
 					(1232, 1325))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object StateView "Normal" "Reclamado" @304
+				(object StateView "Normal" "Reclamado" @302
 				    location   	(2288, 1488)
 				    font       	(object Font
 					size       	9
@@ -8608,7 +8716,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@304
+					Parent_View 	@302
 					location   	(2288, 1474)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -8622,47 +8730,7 @@
 				    quidu      	"4C205106034B"
 				    height     	134
 				    autoResize 	TRUE)
-				(object SelfTransView "" @305
-				    location   	(2288, 1271)
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @306
-					Parent_View 	@305
-					location   	(2573, 1290)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	718
-					justify    	0
-					label      	"registrarReclamoACliente( x3 )"
-					pctDist    	3.009925
-					height     	129
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C2051F000AB"
-				    client     	@304
-				    supplier   	@304
-				    vertices   	(list Points
-					(2231, 1421)
-					(2345, 1420))
-				    line_style 	4)
-				(object StateView "Normal" "Rechazado" @307
+				(object StateView "Normal" "Rechazado" @303
 				    location   	(2288, 1840)
 				    font       	(object Font
 					size       	9
@@ -8674,7 +8742,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@307
+					Parent_View 	@303
 					location   	(2288, 1826)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -8688,7 +8756,7 @@
 				    quidu      	"4C2050CA0138"
 				    height     	134
 				    autoResize 	TRUE)
-				(object StateView "Normal" "EnSolicitudReclamo" @308
+				(object StateView "Normal" "EnSolicitudReclamo" @304
 				    location   	(2288, 1024)
 				    font       	(object Font
 					size       	9
@@ -8700,7 +8768,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@308
+					Parent_View 	@304
 					location   	(2288, 1010)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -8714,7 +8782,7 @@
 				    quidu      	"4C205B3101B5"
 				    height     	134
 				    autoResize 	TRUE)
-				(object TransView "" @309
+				(object TransView "" @305
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8724,8 +8792,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @310
-					Parent_View 	@309
+				    label      	(object SegLabel @306
+					Parent_View 	@305
 					location   	(1760, 988)
 					font       	(object Font
 					    size       	9
@@ -8747,14 +8815,14 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205E460203"
-				    client     	@301
-				    supplier   	@308
+				    client     	@299
+				    supplier   	@304
 				    vertices   	(list Points
 					(1382, 1037)
 					(2138, 1026))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @311
+				(object TransView "" @307
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8764,8 +8832,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @312
-					Parent_View 	@311
+				    label      	(object SegLabel @308
+					Parent_View 	@307
 					location   	(1760, 988)
 					font       	(object Font
 					    size       	9
@@ -8787,14 +8855,14 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C79E817035A"
-				    client     	@301
-				    supplier   	@308
+				    client     	@299
+				    supplier   	@304
 				    vertices   	(list Points
 					(1382, 1037)
 					(2138, 1026))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @313
+				(object TransView "" @309
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8804,8 +8872,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @314
-					Parent_View 	@313
+				    label      	(object SegLabel @310
+					Parent_View 	@309
 					location   	(1277, 856)
 					font       	(object Font
 					    size       	9
@@ -8828,13 +8896,13 @@
 				    line_color 	10485760
 				    quidu      	"4C79F1F7038F"
 				    client     	@294
-				    supplier   	@301
+				    supplier   	@299
 				    vertices   	(list Points
 					(1232, 771)
 					(1232, 973))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @315
+				(object TransView "" @311
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8844,8 +8912,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @316
-					Parent_View 	@315
+				    label      	(object SegLabel @312
+					Parent_View 	@311
 					location   	(1702, 760)
 					font       	(object Font
 					    size       	9
@@ -8868,13 +8936,13 @@
 				    line_color 	10485760
 				    quidu      	"4C79F21A01AE"
 				    client     	@294
-				    supplier   	@308
+				    supplier   	@304
 				    vertices   	(list Points
 					(1382, 749)
 					(2138, 978))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @317
+				(object TransView "" @313
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8884,8 +8952,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @318
-					Parent_View 	@317
+				    label      	(object SegLabel @314
+					Parent_View 	@313
 					location   	(1786, 1404)
 					font       	(object Font
 					    size       	9
@@ -8907,72 +8975,31 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C79F245019A"
-				    client     	@301
-				    supplier   	@307
+				    client     	@299
+				    supplier   	@303
 				    vertices   	(list Points
 					(1320, 1106)
 					(2199, 1773))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @319
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @320
-					Parent_View 	@319
-					location   	(2215, 1168)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	685
-					justify    	0
-					label      	"registrarReclamoEmpresaMetalurgica()"
-					pctDist    	0.185083
-					height     	30
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C205F0C0109"
-				    client     	@308
-				    supplier   	@304
-				    vertices   	(list Points
-					(2236, 1090)
-					(2122, 1241)
-					(2242, 1421))
-				    line_style 	0
-				    x_offset   	FALSE)
-				(object StateView "EndState" "$UNNAMED$4" @321
+				(object StateView "EndState" "$UNNAMED$4" @315
 				    location   	(1232, 2240)
 				    icon_style 	"Icon"
 				    line_color 	10485760
 				    quidu      	"4C205167033C"
 				    autoResize 	TRUE)
-				(object TransView "" @322
+				(object TransView "" @316
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205CFD036B"
 				    client     	@298
-				    supplier   	@321
+				    supplier   	@315
 				    vertices   	(list Points
 					(1232, 1907)
 					(1232, 2198))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @323
+				(object TransView "" @317
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -8982,8 +9009,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @324
-					Parent_View 	@323
+				    label      	(object SegLabel @318
+					Parent_View 	@317
 					location   	(2333, 1664)
 					font       	(object Font
 					    size       	9
@@ -9005,19 +9032,19 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C79F27A034C"
-				    client     	@304
-				    supplier   	@307
+				    client     	@302
+				    supplier   	@303
 				    vertices   	(list Points
 					(2288, 1555)
 					(2288, 1773))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @325
+				(object TransView "" @319
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205F66005D"
-				    client     	@304
-				    supplier   	@321
+				    client     	@302
+				    supplier   	@315
 				    vertices   	(list Points
 					(2438, 1489)
 					(2620, 1492)
@@ -9025,15 +9052,136 @@
 					(1274, 2235))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @326
+				(object TransView "" @320
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C79F2C90202"
-				    client     	@307
-				    supplier   	@321
+				    client     	@303
+				    supplier   	@315
 				    vertices   	(list Points
 					(2138, 1896)
 					(1274, 2224))
+				    line_style 	0
+				    x_offset   	FALSE)
+				(object TransView "" @321
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @322
+					Parent_View 	@321
+					location   	(2127, 1220)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	530
+					justify    	0
+					label      	"registrarReclamoAProveedor()"
+					pctDist    	0.500000
+					height     	45
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"4C7C735E02AD"
+				    client     	@304
+				    supplier   	@302
+				    vertices   	(list Points
+					(2220, 1091)
+					(2079, 1232)
+					(2233, 1420))
+				    line_style 	0
+				    x_offset   	FALSE)
+				(object SelfTransView "" @323
+				    location   	(2288, 1271)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @324
+					Parent_View 	@323
+					location   	(2384, 1370)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	603
+					justify    	0
+					label      	"registrarReclamoAproveedor[ x3 ]"
+					pctDist    	1.345926
+					height     	50
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"4C7C737901A6"
+				    client     	@302
+				    supplier   	@302
+				    vertices   	(list Points
+					(2231, 1421)
+					(2345, 1420))
+				    line_style 	4)
+				(object TransView "" @325
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @326
+					Parent_View 	@325
+					location   	(1277, 1616)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	483
+					justify    	0
+					label      	"registrarFinOrdenCompra()"
+					pctDist    	0.500000
+					height     	45
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"4C7C74AC022A"
+				    client     	@297
+				    supplier   	@298
+				    vertices   	(list Points
+					(1232, 1459)
+					(1232, 1773))
 				    line_style 	0
 				    x_offset   	FALSE)))
 			(object State_Diagram "Detalle Trabajo Tercerizado"
@@ -9043,7 +9191,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	388
-			    origin_y   	2019
+			    origin_y   	13
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @327
 				    location   	(1248, 64)
@@ -9341,47 +9489,7 @@
 				    quidu      	"4C205106034B"
 				    height     	134
 				    autoResize 	TRUE)
-				(object SelfTransView "" @342
-				    location   	(2240, 1463)
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @343
-					Parent_View 	@342
-					location   	(2511, 1502)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	718
-					justify    	0
-					label      	"registrarReclamoACliente( x3 )"
-					pctDist    	2.894360
-					height     	109
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C2051F000AB"
-				    client     	@341
-				    supplier   	@341
-				    vertices   	(list Points
-					(2183, 1613)
-					(2297, 1612))
-				    line_style 	4)
-				(object StateView "Normal" "EnSolicitudReclamo" @344
+				(object StateView "Normal" "EnSolicitudReclamo" @342
 				    location   	(2240, 976)
 				    font       	(object Font
 					size       	9
@@ -9393,7 +9501,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@344
+					Parent_View 	@342
 					location   	(2240, 962)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -9407,7 +9515,7 @@
 				    quidu      	"4C205B3101B5"
 				    height     	134
 				    autoResize 	TRUE)
-				(object TransView "" @345
+				(object TransView "" @343
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9417,8 +9525,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @346
-					Parent_View 	@345
+				    label      	(object SegLabel @344
+					Parent_View 	@343
 					location   	(2259, 1285)
 					font       	(object Font
 					    size       	9
@@ -9440,14 +9548,14 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205F0C0109"
-				    client     	@344
+				    client     	@342
 				    supplier   	@341
 				    vertices   	(list Points
 					(2240, 1043)
 					(2240, 1613))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @347
+				(object TransView "" @345
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9457,8 +9565,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @348
-					Parent_View 	@347
+				    label      	(object SegLabel @346
+					Parent_View 	@345
 					location   	(1744, 932)
 					font       	(object Font
 					    size       	9
@@ -9481,13 +9589,13 @@
 				    line_color 	10485760
 				    quidu      	"4C79F21A01AE"
 				    client     	@336
-				    supplier   	@344
+				    supplier   	@342
 				    vertices   	(list Points
 					(1398, 976)
 					(2090, 976))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @349
+				(object TransView "" @347
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9497,8 +9605,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @350
-					Parent_View 	@349
+				    label      	(object SegLabel @348
+					Parent_View 	@347
 					location   	(1293, 488)
 					font       	(object Font
 					    size       	9
@@ -9527,7 +9635,7 @@
 					(1248, 573))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @351
+				(object TransView "" @349
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9537,8 +9645,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @352
-					Parent_View 	@351
+				    label      	(object SegLabel @350
+					Parent_View 	@349
 					location   	(1293, 808)
 					font       	(object Font
 					    size       	9
@@ -9567,7 +9675,7 @@
 					(1248, 909))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @353
+				(object TransView "" @351
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9577,8 +9685,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @354
-					Parent_View 	@353
+				    label      	(object SegLabel @352
+					Parent_View 	@351
 					location   	(1293, 1576)
 					font       	(object Font
 					    size       	9
@@ -9607,7 +9715,7 @@
 					(1248, 1709))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @355
+				(object TransView "" @353
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9617,8 +9725,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @356
-					Parent_View 	@355
+				    label      	(object SegLabel @354
+					Parent_View 	@353
 					location   	(1768, 1651)
 					font       	(object Font
 					    size       	9
@@ -9647,7 +9755,7 @@
 					(2133, 1932))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @357
+				(object TransView "" @355
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9657,8 +9765,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @358
-					Parent_View 	@357
+				    label      	(object SegLabel @356
+					Parent_View 	@355
 					location   	(1808, 1134)
 					font       	(object Font
 					    size       	9
@@ -9681,13 +9789,13 @@
 				    line_color 	10485760
 				    quidu      	"4C205E460203"
 				    client     	@331
-				    supplier   	@344
+				    supplier   	@342
 				    vertices   	(list Points
 					(1398, 1315)
 					(2090, 1036))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @359
+				(object TransView "" @357
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9701,13 +9809,13 @@
 				    line_color 	10485760
 				    quidu      	"4C79E817035A"
 				    client     	@331
-				    supplier   	@344
+				    supplier   	@342
 				    vertices   	(list Points
 					(1398, 1315)
 					(2090, 1036))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @360
+				(object TransView "" @358
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9717,8 +9825,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @361
-					Parent_View 	@360
+				    label      	(object SegLabel @359
+					Parent_View 	@358
 					location   	(2053, 605)
 					font       	(object Font
 					    size       	9
@@ -9749,7 +9857,7 @@
 					(1398, 640))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @362
+				(object TransView "" @360
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -9759,8 +9867,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @363
-					Parent_View 	@362
+				    label      	(object SegLabel @361
+					Parent_View 	@360
 					location   	(2285, 1840)
 					font       	(object Font
 					    size       	9
@@ -9789,7 +9897,7 @@
 					(2240, 1933))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @364
+				(object TransView "" @362
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C205F66005D"
@@ -9801,7 +9909,47 @@
 					(2623, 2181)
 					(1290, 2269))
 				    line_style 	0
-				    x_offset   	FALSE)))
+				    x_offset   	FALSE)
+				(object SelfTransView "" @363
+				    location   	(2240, 1463)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @364
+					Parent_View 	@363
+					location   	(2304, 1481)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	765
+					justify    	0
+					label      	"registrarReclamoEmpresaMetalurgica[ x3 ]"
+					pctDist    	1.071478
+					height     	131
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"4C7C6F2B00DD"
+				    client     	@341
+				    supplier   	@341
+				    vertices   	(list Points
+					(2183, 1613)
+					(2297, 1612))
+				    line_style 	4)))
 			(object State_Diagram "Pieza Real"
 			    quid       	"4C79EC3B03CD"
 			    title      	"Pieza Real"
@@ -9809,7 +9957,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	353
+			    origin_y   	0
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @365
 				    location   	(2000, 336)
@@ -10560,7 +10708,8 @@
 					(2000, 2154))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @401
+				(object StateView "Normal" "Reclamada" @401
+				    location   	(1440, 2464)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -10570,36 +10719,30 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @402
+				    label      	(object ItemLabel
 					Parent_View 	@401
-					location   	(1703, 1204)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
+					location   	(1440, 2451)
+					fill_color 	13434879
 					anchor_loc 	1
-					nlines     	1
-					max_width  	691
+					nlines     	2
+					max_width  	204
 					justify    	0
-					label      	"registrarIngresoDeProducto()"
-					pctDist    	0.472622
-					height     	42
-					orientation 	0)
+					label      	"Reclamada")
+				    icon_style 	"Icon"
+				    line_color 	10485760
+				    fill_color 	16777175
+				    quidu      	"4C79E88400FA"
+				    height     	134
+				    autoResize 	TRUE)
+				(object TransView "" @402
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C7ADFB70384"
-				    client     	@368
-				    supplier   	@373
+				    quidu      	"4C79EA04022B"
+				    client     	@401
+				    supplier   	@366
 				    vertices   	(list Points
-					(1828, 1071)
-					(1661, 1103)
-					(1661, 1313)
-					(1850, 1357))
+					(1541, 2530)
+					(1958, 2804))
 				    line_style 	0
 				    x_offset   	FALSE)
 				(object TransView "" @403
@@ -10643,8 +10786,7 @@
 					(2862, 781))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object StateView "Normal" "Reclamada" @405
-				    location   	(1440, 2464)
+				(object TransView "" @405
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -10654,35 +10796,9 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object ItemLabel
+				    label      	(object SegLabel @406
 					Parent_View 	@405
-					location   	(1440, 2451)
-					fill_color 	13434879
-					anchor_loc 	1
-					nlines     	2
-					max_width  	204
-					justify    	0
-					label      	"Reclamada")
-				    icon_style 	"Icon"
-				    line_color 	10485760
-				    fill_color 	16777175
-				    quidu      	"4C79E88400FA"
-				    height     	134
-				    autoResize 	TRUE)
-				(object SelfTransView "" @406
-				    location   	(1440, 2247)
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @407
-					Parent_View 	@406
-					location   	(1437, 2283)
+					location   	(1721, 1225)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -10694,32 +10810,64 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	588
+					max_width  	717
 					justify    	0
-					label      	"registrarReclamoAProveedor[ X3 ]"
-					pctDist    	0.464877
-					height     	114
+					label      	"registrarIngresoDePiezaDePRoduccion()"
+					pctDist    	0.500000
+					height     	45
 					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C79E8B3022A"
-				    client     	@405
-				    supplier   	@405
+				    quidu      	"4C7C76EF0138"
+				    client     	@368
+				    supplier   	@373
+				    vertices   	(list Points
+					(1828, 1073)
+					(1676, 1103)
+					(1676, 1327)
+					(1850, 1361))
+				    line_style 	0
+				    x_offset   	FALSE)
+				(object SelfTransView "" @407
+				    location   	(1440, 2247)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @408
+					Parent_View 	@407
+					location   	(1360, 2297)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	754
+					justify    	0
+					label      	"registrarReclamoAEmpresaMetalurgica[ x3 ]"
+					pctDist    	-0.209356
+					height     	99
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	10485760
+				    quidu      	"4C7C77B5016D"
+				    client     	@401
+				    supplier   	@401
 				    vertices   	(list Points
 					(1383, 2396)
 					(1497, 2397))
 				    line_style 	4)
-				(object TransView "" @408
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C79EA04022B"
-				    client     	@405
-				    supplier   	@366
-				    vertices   	(list Points
-					(1541, 2530)
-					(1958, 2804))
-				    line_style 	0
-				    x_offset   	FALSE)
 				(object TransView "" @409
 				    font       	(object Font
 					size       	9
@@ -10773,7 +10921,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @412
 					Parent_View 	@411
-					location   	(1099, 2091)
+					location   	(1099, 2085)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -10795,12 +10943,12 @@
 				    line_color 	10485760
 				    quidu      	"4C7AE7D101EE"
 				    client     	@370
-				    supplier   	@405
+				    supplier   	@401
 				    vertices   	(list Points
 					(1203, 1919)
 					(1055, 1919)
-					(1055, 2463)
-					(1290, 2463))
+					(1055, 2448)
+					(1290, 2457))
 				    line_style 	0
 				    x_offset   	FALSE)))
 			(object State_Diagram "Producto Real"
@@ -10810,7 +10958,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	538
-			    origin_y   	613
+			    origin_y   	3201
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @413
 				    location   	(2000, 336)
@@ -11548,47 +11696,7 @@
 					(2172, 1050))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object SelfTransView "" @448
-				    location   	(1440, 2247)
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @449
-					Parent_View 	@448
-					location   	(1437, 2283)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	588
-					justify    	0
-					label      	"registrarReclamoAProveedor[ X3 ]"
-					pctDist    	0.464877
-					height     	114
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C7AE9DD0261"
-				    client     	@424
-				    supplier   	@424
-				    vertices   	(list Points
-					(1383, 2396)
-					(1497, 2397))
-				    line_style 	4)
-				(object TransView "" @450
+				(object TransView "" @448
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C7AE9DE023C"
@@ -11599,7 +11707,7 @@
 					(1942, 2862))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @451
+				(object TransView "" @449
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -11609,8 +11717,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @452
-					Parent_View 	@451
+				    label      	(object SegLabel @450
+					Parent_View 	@449
 					location   	(1099, 2091)
 					font       	(object Font
 					    size       	9
@@ -11641,7 +11749,7 @@
 					(1290, 2463))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object StateView "Normal" "EnArmado" @453
+				(object StateView "Normal" "EnArmado" @451
 				    location   	(2800, 2272)
 				    font       	(object Font
 					size       	9
@@ -11653,7 +11761,7 @@
 					color      	0
 					default_color 	TRUE)
 				    label      	(object ItemLabel
-					Parent_View 	@453
+					Parent_View 	@451
 					location   	(2800, 2258)
 					fill_color 	13434879
 					anchor_loc 	1
@@ -11667,7 +11775,7 @@
 				    quidu      	"4C20509903A9"
 				    height     	134
 				    autoResize 	TRUE)
-				(object TransView "" @454
+				(object TransView "" @452
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -11677,8 +11785,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @455
-					Parent_View 	@454
+				    label      	(object SegLabel @453
+					Parent_View 	@452
 					location   	(2780, 2018)
 					font       	(object Font
 					    size       	9
@@ -11701,13 +11809,13 @@
 				    line_color 	10485760
 				    quidu      	"4C7B2ED70236"
 				    client     	@417
-				    supplier   	@453
+				    supplier   	@451
 				    vertices   	(list Points
 					(2800, 1939)
 					(2800, 2205))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @456
+				(object TransView "" @454
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -11717,8 +11825,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @457
-					Parent_View 	@456
+				    label      	(object SegLabel @455
+					Parent_View 	@454
 					location   	(3042, 1393)
 					font       	(object Font
 					    size       	9
@@ -11749,7 +11857,7 @@
 					(3014, 848))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @458
+				(object TransView "" @456
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -11759,8 +11867,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @459
-					Parent_View 	@458
+				    label      	(object SegLabel @457
+					Parent_View 	@456
 					location   	(2845, 1602)
 					font       	(object Font
 					    size       	9
@@ -11789,7 +11897,7 @@
 					(2786, 1410))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @460
+				(object TransView "" @458
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -11799,8 +11907,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @461
-					Parent_View 	@460
+				    label      	(object SegLabel @459
+					Parent_View 	@458
 					location   	(2442, 2181)
 					font       	(object Font
 					    size       	9
@@ -11822,13 +11930,53 @@
 				    stereotype 	TRUE
 				    line_color 	10485760
 				    quidu      	"4C7B2EF60126"
-				    client     	@453
+				    client     	@451
 				    supplier   	@419
 				    vertices   	(list Points
 					(2650, 2272)
 					(2187, 2272))
 				    line_style 	0
-				    x_offset   	FALSE)))
+				    x_offset   	FALSE)
+				(object SelfTransView "" @460
+				    location   	(1440, 2247)
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @461
+					Parent_View 	@460
+					location   	(1299, 2299)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	777
+					justify    	0
+					label      	"registrarReclamoAEmpresaMetalurgica[ x3 ]"
+					pctDist    	-0.744249
+					height     	96
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	10485760
+				    quidu      	"4C7C7B7F0392"
+				    client     	@424
+				    supplier   	@424
+				    vertices   	(list Points
+					(1383, 2396)
+					(1497, 2397))
+				    line_style 	4)))
 			(object State_Diagram "Reclamo"
 			    quid       	"4C79EC6702C4"
 			    title      	"Reclamo"
@@ -11836,7 +11984,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	1288
-			    origin_y   	0
+			    origin_y   	937
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @462
 				    location   	(1760, 432)
@@ -12777,7 +12925,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	1488
+			    origin_y   	1582
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @507
 				    location   	(1232, 80)
@@ -13342,7 +13490,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	0
+			    origin_y   	106
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @535
 				    location   	(1152, 80)
@@ -13484,46 +13632,6 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @543
 					Parent_View 	@542
-					location   	(1197, 206)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	654
-					justify    	0
-					label      	"registrarLanzamientoControlCalidad()"
-					pctDist    	0.500000
-					height     	45
-					orientation 	0)
-				    stereotype 	TRUE
-				    line_color 	10485760
-				    quidu      	"4C7AFE1B0355"
-				    client     	@535
-				    supplier   	@537
-				    vertices   	(list Points
-					(1152, 110)
-					(1152, 303))
-				    line_style 	0
-				    x_offset   	FALSE)
-				(object TransView "" @544
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @545
-					Parent_View 	@544
 					location   	(926, 695)
 					font       	(object Font
 					    size       	9
@@ -13552,7 +13660,7 @@
 					(1152, 1133))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @546
+				(object TransView "" @544
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -13562,8 +13670,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @547
-					Parent_View 	@546
+				    label      	(object SegLabel @545
+					Parent_View 	@544
 					location   	(1500, 495)
 					font       	(object Font
 					    size       	9
@@ -13592,7 +13700,7 @@
 					(1626, 602))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @548
+				(object TransView "" @546
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -13602,8 +13710,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @549
-					Parent_View 	@548
+				    label      	(object SegLabel @547
+					Parent_View 	@546
 					location   	(1527, 869)
 					font       	(object Font
 					    size       	9
@@ -13632,7 +13740,7 @@
 					(1231, 1132))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @550
+				(object TransView "" @548
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -13642,8 +13750,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @551
-					Parent_View 	@550
+				    label      	(object SegLabel @549
+					Parent_View 	@548
 					location   	(1757, 989)
 					font       	(object Font
 					    size       	9
@@ -13673,7 +13781,7 @@
 					(1826, 1068))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @552
+				(object TransView "" @550
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -13683,8 +13791,8 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @553
-					Parent_View 	@552
+				    label      	(object SegLabel @551
+					Parent_View 	@550
 					location   	(1890, 364)
 					font       	(object Font
 					    size       	9
@@ -13714,6 +13822,46 @@
 					(2125, 381)
 					(1336, 383))
 				    line_style 	0
+				    x_offset   	FALSE)
+				(object TransView "" @552
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @553
+					Parent_View 	@552
+					location   	(1197, 206)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	563
+					justify    	0
+					label      	"registrarLanzamintoProduccion()"
+					pctDist    	0.500000
+					height     	45
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	10485760
+				    quidu      	"4C7C7FF10340"
+				    client     	@535
+				    supplier   	@537
+				    vertices   	(list Points
+					(1152, 110)
+					(1152, 303))
+				    line_style 	0
 				    x_offset   	FALSE)))
 			(object State_Diagram "Ejecución Proceso Calidad"
 			    quid       	"4C79EF2101D0"
@@ -13731,7 +13879,7 @@
 			    max_height 	28350
 			    max_width  	21600
 			    origin_x   	0
-			    origin_y   	0
+			    origin_y   	38
 			    items      	(list diagram_item_list
 				(object StateView "StartState" "$UNNAMED$3" @554
 				    location   	(1152, 80)
@@ -13902,7 +14050,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @563
 					Parent_View 	@562
-					location   	(1500, 495)
+					location   	(1501, 545)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -13917,8 +14065,8 @@
 					max_width  	600
 					justify    	0
 					label      	"registrarParadaMáquina()"
-					pctDist    	0.500000
-					height     	45
+					pctDist    	0.569962
+					height     	1
 					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
@@ -13931,47 +14079,17 @@
 				    line_style 	0
 				    x_offset   	FALSE)
 				(object TransView "" @564
-				    font       	(object Font
-					size       	9
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    label      	(object SegLabel @565
-					Parent_View 	@564
-					location   	(1758, 990)
-					font       	(object Font
-					    size       	9
-					    face       	"Arial"
-					    bold       	FALSE
-					    italics    	FALSE
-					    underline  	FALSE
-					    strike     	FALSE
-					    color      	0
-					    default_color 	TRUE)
-					anchor_loc 	1
-					nlines     	1
-					max_width  	661
-					justify    	0
-					label      	"modificarPlanificacionProduccion()"
-					pctDist    	0.839714
-					height     	88
-					orientation 	1)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C7AFFBC02BF"
-				    client     	@557
-				    supplier   	@558
+				    quidu      	"4C79E9A402F9"
+				    client     	@559
+				    supplier   	@555
 				    vertices   	(list Points
-					(1818, 739)
-					(1888, 847)
-					(1826, 1068))
+					(1152, 1267)
+					(1152, 1478))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @566
+				(object TransView "" @565
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -13981,9 +14099,9 @@
 					strike     	FALSE
 					color      	0
 					default_color 	TRUE)
-				    label      	(object SegLabel @567
-					Parent_View 	@566
-					location   	(1891, 365)
+				    label      	(object SegLabel @566
+					Parent_View 	@565
+					location   	(2036, 460)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -13997,31 +14115,61 @@
 					nlines     	1
 					max_width  	659
 					justify    	0
-					label      	"registrarLanzamientoProduccion()"
-					pctDist    	0.675808
-					height     	18
-					orientation 	1)
+					label      	"registrarLanzamientoControlCalidad()"
+					pctDist    	0.500000
+					height     	45
+					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C7AFFE6036D"
+				    quidu      	"4C7C7F01008D"
 				    client     	@558
 				    supplier   	@556
 				    vertices   	(list Points
-					(1958, 1135)
-					(2125, 1134)
-					(2125, 381)
-					(1336, 383))
+					(1958, 1140)
+					(2094, 1144)
+					(2078, 378)
+					(1336, 382))
 				    line_style 	0
 				    x_offset   	FALSE)
-				(object TransView "" @568
+				(object TransView "" @567
+				    font       	(object Font
+					size       	9
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @568
+					Parent_View 	@567
+					location   	(1947, 998)
+					font       	(object Font
+					    size       	9
+					    face       	"Arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor_loc 	1
+					nlines     	1
+					max_width  	661
+					justify    	0
+					label      	"modificarPlanificacionControlCalidad()"
+					pctDist    	0.710891
+					height     	37
+					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C79E9A402F9"
-				    client     	@559
-				    supplier   	@555
+				    quidu      	"4C7C7F270205"
+				    client     	@557
+				    supplier   	@558
 				    vertices   	(list Points
-					(1152, 1267)
-					(1152, 1478))
+					(1813, 738)
+					(1933, 953)
+					(1853, 1069))
 				    line_style 	0
 				    x_offset   	FALSE)
 				(object TransView "" @569
@@ -14036,7 +14184,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @570
 					Parent_View 	@569
-					location   	(926, 695)
+					location   	(1493, 919)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -14048,20 +14196,20 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	685
+					max_width  	661
 					justify    	0
-					label      	"registrarFinEjecuciónEtapaProduccion()"
-					pctDist    	0.344371
-					height     	227
-					orientation 	1)
+					label      	"registrarReanudacionControlCalidad()"
+					pctDist    	0.446101
+					height     	6
+					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C7AFE3C01FE"
-				    client     	@556
+				    quidu      	"4C7C7F46031B"
+				    client     	@557
 				    supplier   	@559
 				    vertices   	(list Points
-					(1152, 465)
-					(1152, 1133))
+					(1696, 738)
+					(1231, 1132))
 				    line_style 	0
 				    x_offset   	FALSE)
 				(object TransView "" @571
@@ -14076,7 +14224,7 @@
 					default_color 	TRUE)
 				    label      	(object SegLabel @572
 					Parent_View 	@571
-					location   	(1527, 869)
+					location   	(1146, 767)
 					font       	(object Font
 					    size       	9
 					    face       	"Arial"
@@ -14088,20 +14236,20 @@
 					    default_color 	TRUE)
 					anchor_loc 	1
 					nlines     	1
-					max_width  	661
+					max_width  	630
 					justify    	0
-					label      	"registrarReanudacionProduccion()"
-					pctDist    	0.350897
-					height     	11
-					orientation 	1)
+					label      	"registrarEjecucionProcesoCalidad()"
+					pctDist    	0.452096
+					height     	6
+					orientation 	0)
 				    stereotype 	TRUE
 				    line_color 	10485760
-				    quidu      	"4C7AFF9A03D2"
-				    client     	@557
+				    quidu      	"4C7C7F5B033C"
+				    client     	@556
 				    supplier   	@559
 				    vertices   	(list Points
-					(1696, 738)
-					(1231, 1132))
+					(1152, 465)
+					(1152, 1133))
 				    line_style 	0
 				    x_offset   	FALSE)))))
 		logical_presentations 	(list unit_reference_list))
