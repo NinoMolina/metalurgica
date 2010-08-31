@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
+import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -88,6 +89,31 @@ public class AccessViewsTest {
             }
         }
         
+    }
+    @Test
+    public void testListDetalleProducto()
+    {
+        System.out.println("pedidoEnListadoProcedimientos");
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            LinkedList expResult = null;
+            LinkedList result = AccessViews.listDetalleProducto(5,cn);
+            ViewDetalleProducto view=(ViewDetalleProducto)result.getFirst();
+            System.out.println(view.getAlto()+" "+view.getAncho()+" "+view.getLargo());
+            assertNotNull(result);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessViewsTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessViewsTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }
