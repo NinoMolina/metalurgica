@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.PedidoDB;
@@ -480,6 +481,8 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         boolean result=gestor.guardarEtapasPiezaPresupuesto();
+        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
@@ -510,6 +513,8 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         pxe.setEtapas(filasEtapaProduccionSeleccionada);
 
         boolean result=gestor.addPiezaXEtapas(pxe);
+        if(result)JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
+        else JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     /**
