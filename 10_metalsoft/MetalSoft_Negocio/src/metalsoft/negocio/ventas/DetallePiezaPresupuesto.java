@@ -7,6 +7,7 @@ package metalsoft.negocio.ventas;
 
 import java.util.Date;
 import metalsoft.negocio.gestores.PiezaXEtapas;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -54,6 +55,8 @@ public class DetallePiezaPresupuesto {
         duracion.setMinutes(minutos);
         duracion.setSeconds(segundos);
 
+        duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
+        
         return duracion;
     }
 

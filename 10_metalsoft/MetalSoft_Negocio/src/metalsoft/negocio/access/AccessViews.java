@@ -43,6 +43,7 @@ public class AccessViews {
             {
                 view=new ViewDetallePedidoCotizacion();
                 view.setCantidad(rs.getInt("cantidad"));
+                view.setPrecio(rs.getDouble("precio"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setIdProducto(rs.getLong("idproducto"));
                 view.setIdDetalle(rs.getLong("iddetalle"));
@@ -74,6 +75,7 @@ public class AccessViews {
                 view=new ViewDetallePedidoCotizacion();
                 view.setCantidad(rs.getInt("cantidad"));
                 view.setDescripcion(rs.getString("descripcion"));
+                view.setPrecio(rs.getDouble("precio"));
                 view.setIdProducto(rs.getLong("idproducto"));
                 view.setIdDetalle(rs.getLong("iddetalle"));
                 view.setIdPedido(rs.getLong("idpedido"));
@@ -106,6 +108,9 @@ public class AccessViews {
                 view=new ViewDetalleProducto();
                 view.setCantidad(rs.getInt("cantidadpiezas"));
                 view.setDescripcion(rs.getString("descripcion"));
+                view.setAlto(rs.getDouble("alto"));
+                view.setAncho(rs.getDouble("ancho"));
+                view.setLargo(rs.getDouble("largo"));
                 view.setIdProducto(rs.getLong("idproducto"));
                 view.setIdDetalle(rs.getLong("iddetalle"));
                 view.setIdPieza(rs.getLong("idpieza"));
@@ -179,9 +184,9 @@ public class AccessViews {
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
-                view.setHorasHombre(rs.getDate("horashombre"));
-                view.setHorasMaquina(rs.getDate("horasmaquina"));
-                view.setDuracionEstimada(rs.getDate("duracionestimada"));
+                view.setHorasHombre(Fecha.parseToDate(rs.getDate("horashombre").getTime()));
+                view.setHorasMaquina(Fecha.parseToDate(rs.getDate("horasmaquina").getTime()));
+                view.setDuracionEstimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
