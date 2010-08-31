@@ -6,6 +6,13 @@
 package metalsoft.negocio.access;
 
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import metalsoft.datos.dbobject.DetallepresupuestoDB;
+import metalsoft.datos.exception.DetallepresupuestoException;
+import metalsoft.datos.factory.DAOFactoryCreater;
+import metalsoft.datos.idao.DetallepresupuestoDAO;
+import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.ventas.DetallePresupuesto;
 
 /**
@@ -14,15 +21,18 @@ import metalsoft.negocio.ventas.DetallePresupuesto;
  */
 public class AccessDetallePresupuesto {
 
-    public static long insert(DetallePresupuesto dp,long idPresupuesto,Connection cn)
+    public static long insert(DetallePresupuesto dp,long idPresupuesto,long idDetallePedido,long idProducto,Connection cn)
     {
-        PresupuestoDAO dao=new DAOFactoryCreater().getFactry().createPresupuestoDAO();
-        PresupuestoDB db=null;
+        DetallepresupuestoDAO dao=new DAOFactoryCreater().getFactry().createDetallepresupuestoDAO();
+        DetallepresupuestoDB db=null;
         long result=-1;
         try {
-            db=Parser.parseToPresupuestoDB(p);
+            db=Parser.parseToDetallepresupuestoDB(dp);
+            db.setIdpresupuesto(idPresupuesto);
+            db.setIddetallepedido(idDetallePedido);
+            db.setIdproducto(idProducto);
             result=dao.insert(db, cn);
-        } catch (PresupuestoException ex) {
+        } catch (DetallepresupuestoException ex) {
             Logger.getLogger(AccessPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;

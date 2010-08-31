@@ -8,7 +8,9 @@ package metalsoft.negocio.gestores;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
+import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
@@ -23,7 +25,9 @@ import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.ventas.DetallePedido;
+import metalsoft.negocio.ventas.DetallePresupuesto;
 import metalsoft.negocio.ventas.DetalleProducto;
+import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
 import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.negocio.ventas.Producto;
@@ -366,6 +370,19 @@ public class Parser {
         db.setFechapresupuesto(Fecha.parseToDateSQL(p.getFechaPresupuesto()));
         db.setFechavencimiento(Fecha.parseToDateSQL(p.getFechaVencimiento()));
         db.setMontototal(p.getMontoTotal());
+        return db;
+    }
+
+    public static DetallepresupuestoDB parseToDetallepresupuestoDB(DetallePresupuesto dp) {
+        DetallepresupuestoDB db=new DetallepresupuestoDB();
+        db.setCantidad(dp.getCantidad());
+        db.setPrecio(dp.getPrecio());
+        return db;
+    }
+
+    public static DetalleproductopresupuestoDB parseToDetalleproductopresupuestoDB(DetalleProductoPresupuesto x) {
+        DetalleproductopresupuestoDB db=new DetalleproductopresupuestoDB();
+
         return db;
     }
 }

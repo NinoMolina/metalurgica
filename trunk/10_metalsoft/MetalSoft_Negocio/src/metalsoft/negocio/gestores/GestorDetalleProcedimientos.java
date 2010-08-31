@@ -8,6 +8,7 @@ package metalsoft.negocio.gestores;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.TreeSet;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
+import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPiezaXEtapaDeProduccion;
@@ -23,6 +25,7 @@ import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
 import metalsoft.negocio.ventas.DetallePresupuesto;
+import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
 import metalsoft.negocio.ventas.Presupuesto;
 
 /**
@@ -173,62 +176,93 @@ public class GestorDetalleProcedimientos {
 
     public boolean addPiezaXEtapas(PiezaXEtapas pxe) {
         if(arlPiezaXEtapas==null)arlPiezaXEtapas=new ArrayList<PiezaXEtapas>();
+        int index=containPXE(pxe);
+        if(index>-1)
+        {
+            arlPiezaXEtapas.add(index, pxe);
+            return true;
+        }
         return arlPiezaXEtapas.add(pxe);
     }
 
+    private int containPXE(PiezaXEtapas pxe)
+    {
+        Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
+        PiezaXEtapas x=null;
+        int contador=0;
+        while(i.hasNext())
+        {
+            if(x.compareTo(pxe)==0)return contador;
+            contador++;
+        }
+        return -1;
+    }
     public boolean guardarEtapasPiezaPresupuesto() {
         if(arlPiezaXEtapas.isEmpty())return false;
 
-        long idPed=arlPiezaXEtapas.get(0).getIdPedido();
-        long idPro=arlPiezaXEtapas.get(0).getIdProducto();
-        long idPi=arlPiezaXEtapas.get(0).getIdPieza();
-        double precioProd=arlPiezaXEtapas.get(0).getPrecioProducto();
-
+        long idPed=-1;
+        long idPro=-1;
+        long idPi=-1;
+        long idDetPedido=-1;
+        double precioProd=-1;
+        int cantProd=-1;
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
         long idPres=-1;
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
 
-            Presupuesto pres=new Presupuesto();
-            idPres=AccessPresupuesto.insert(pres, cn);
-
-            AccessPedido.update(idPed,idPres,cn);
-            DetallePresupuesto dpres=new DetallePresupuesto();
-            dpres.setPrecio(precioProd);
-            dpres.setCantidad(cantidad)
-            AccessDetallePresupuesto.insert(dpres,idPres,cn);
-            cn.commit();
-        } catch (Exception ex) {
-            try {
-                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-
-        }
-
-        DetallePiezaPresupuesto detPiPre=null;
-        Iterator<PiezaXEtapas> iter=arlPiezaXEtapas.iterator();
+        Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
         PiezaXEtapas pxe=null;
-
-        while(iter.hasNext())
+        //para cada conjunto de etapas de una pieza
+        while(i.hasNext())
         {
+            pxe=i.next();
+            idPed=pxe.getIdPedido();
+            idPro=pxe.getIdProducto();
+            idPi=pxe.getIdPieza();
+            idDetPedido=pxe.getIdDetallePedido();
+            precioProd=pxe.getPrecioProducto();
+            cantProd=pxe.getCantProductos();
+            try {
+                cn = pg.concectGetCn();
+                cn.setAutoCommit(false);
 
-            detPiPre=new DetallePiezaPresupuesto();
-            pxe=iter.next();
-            LinkedList<ViewEtapaDeProduccion> ll=pxe.getEtapas();
-            Iterator<ViewEtapaDeProduccion> i=ll.iterator();
-            ViewEtapaDeProduccion v=null;
-            while(i.hasNext())
-            {
-                v=i.next();
+                Presupuesto pres=new Presupuesto();
+                idPres=AccessPresupuesto.insert(pres, cn);
+
+                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
+
+                DetallePresupuesto dpres=new DetallePresupuesto();
+                dpres.setPrecio(precioProd);
+                dpres.setCantidad(cantProd);
+                long idDetPres=AccessDetallePresupuesto.insert(dpres,idPres,idDetPedido,idPro,cn);
+
+                DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
+                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
+
+                //tengo que recorrer todas las etapas seleccionadas para la pieza
+                //y guardar un DetallePiezaPresupuesto por cada combinacion de
+                //la pieza con cada etapa
+                DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
+                Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
+                ViewEtapaDeProduccion v=null;
+                while(iEtapas.hasNext())
+                {
+                    v=iEtapas.next();
+                    Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
+                }
+
+                cn.commit();
+            } catch (Exception ex) {
+                try {
+                    Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+                    cn.rollback();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
+                }
 
             }
-            detPiPre.setDuracionEtapaXPieza(detPiPre.calcularDuracion(pxe));
         }
+
     }
 
 }
