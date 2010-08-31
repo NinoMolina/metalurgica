@@ -20,6 +20,11 @@ import java.util.logging.Logger;
  */
 public class Fecha {
 
+    public static final long MILISEGUNDOS_POR_DIA = 86400000;
+    public static final long MILISEGUNDOS_POR_HORA = 3600000;
+    public static final long MILISEGUNDOS_POR_MINUTO = 60000;
+    public static final long MILISEGUNDOS_POR_SEGUNDO = 1000;
+    
     public static String fechaActual()
     {
         Date fecha=new Date();
@@ -37,6 +42,7 @@ public class Fecha {
     {
         Date fecha=new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        
         return formato.format(fecha);
     }
 
@@ -169,6 +175,81 @@ public class Fecha {
         return formato.format(fecha);
     }
 
+    public static int diferenciaEnDias(Date fechaInicial, Date fechaFinal) {
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String fechaInicioString = df.format(fechaInicial);
+        String fechaFinalString = df.format(fechaFinal);
+        try {
+            fechaInicial = df.parse(fechaInicioString);
+            fechaFinal = df.parse(fechaFinalString);
+        }
+        catch (ParseException ex) {
+        }
+
+        long fechaInicialMs = fechaInicial.getTime();
+        long fechaFinalMs = fechaFinal.getTime();
+        long diferencia = fechaFinalMs - fechaInicialMs;
+        double dias = Math.floor(diferencia / MILISEGUNDOS_POR_DIA);
+        return ( (int) dias);
+    }
+
+//    public static int diferenciaEnMinutos(Date fechaInicial, Date fechaFinal) {
+//
+//        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
+//        String fechaInicioString = df.format(fechaInicial);
+//        String fechaFinalString = df.format(fechaFinal);
+//        try {
+//            fechaInicial = df.parse(fechaInicioString);
+//            fechaFinal = df.parse(fechaFinalString);
+//        }
+//        catch (ParseException ex) {
+//        }
+//
+//        long fechaInicialMs = fechaInicial.getTime();
+//        long fechaFinalMs = fechaFinal.getTime();
+//        long diferencia = fechaFinalMs - fechaInicialMs;
+//        double dias = Math.floor(diferencia / MILISEGUNDOS_POR_MINUTO);
+//        return ( (int) dias);
+//    }
+//
+//    public static int diferenciaEnHoras(Date fechaInicial, Date fechaFinal) {
+//
+//        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
+//        String fechaInicioString = df.format(fechaInicial);
+//        String fechaFinalString = df.format(fechaFinal);
+//        try {
+//            fechaInicial = df.parse(fechaInicioString);
+//            fechaFinal = df.parse(fechaFinalString);
+//        }
+//        catch (ParseException ex) {
+//        }
+//
+//        long fechaInicialMs = fechaInicial.getTime();
+//        long fechaFinalMs = fechaFinal.getTime();
+//        long diferencia = fechaFinalMs - fechaInicialMs;
+//        double dias = Math.floor(diferencia / MILISEGUNDOS_POR_HORA);
+//        return ( (int) dias);
+//    }
+//
+//    public static int diferenciaEnSegundos(Date fechaInicial, Date fechaFinal) {
+//
+//        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
+//        String fechaInicioString = df.format(fechaInicial);
+//        String fechaFinalString = df.format(fechaFinal);
+//        try {
+//            fechaInicial = df.parse(fechaInicioString);
+//            fechaFinal = df.parse(fechaFinalString);
+//        }
+//        catch (ParseException ex) {
+//        }
+//
+//        long fechaInicialMs = fechaInicial.getTime();
+//        long fechaFinalMs = fechaFinal.getTime();
+//        long diferencia = fechaFinalMs - fechaInicialMs;
+//        double dias = Math.floor(diferencia / MILISEGUNDOS_POR_SEGUNDO);
+//        return ( (int) dias);
+//    }
 
     public static void main(String args[])
     {
