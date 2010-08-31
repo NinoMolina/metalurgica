@@ -8,6 +8,7 @@ package metalsoft.negocio.gestores;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.datos.dbobject.DetallepiezapresupuestoDB;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
@@ -41,6 +42,7 @@ import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
 /**
  *
  * @author Vicky
@@ -367,8 +369,10 @@ public class Parser {
 
     public static PresupuestoDB parseToPresupuestoDB(Presupuesto p) {
         PresupuestoDB db=new PresupuestoDB();
-        db.setFechapresupuesto(Fecha.parseToDateSQL(p.getFechaPresupuesto()));
-        db.setFechavencimiento(Fecha.parseToDateSQL(p.getFechaVencimiento()));
+        if(p.getFechaPresupuesto()==null)db.setFechapresupuesto(null);
+        else db.setFechapresupuesto(Fecha.parseToDateSQL(p.getFechaPresupuesto()));
+        if(p.getFechaVencimiento()==null)db.setFechavencimiento(null);
+        else db.setFechavencimiento(Fecha.parseToDateSQL(p.getFechaVencimiento()));
         db.setMontototal(p.getMontoTotal());
         return db;
     }
@@ -382,7 +386,12 @@ public class Parser {
 
     public static DetalleproductopresupuestoDB parseToDetalleproductopresupuestoDB(DetalleProductoPresupuesto x) {
         DetalleproductopresupuestoDB db=new DetalleproductopresupuestoDB();
+        return db;
+    }
 
+    public static DetallepiezapresupuestoDB parseToDetallepiezapresupuestoDB(DetallePiezaPresupuesto x) {
+        DetallepiezapresupuestoDB db=new DetallepiezapresupuestoDB();
+        db.setDuracionpiezaxetapa(Fecha.parseToTimeSQL(x.getDuracionEtapaXPieza()));
         return db;
     }
 }
