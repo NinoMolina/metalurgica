@@ -59,7 +59,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return   int
 */
 
-	public int update(DetallepiezapresupuestoPK detallepiezapresupuestopk, Detallepiezapresupuesto detallepiezapresupuesto, Connection con)throws DetallepiezapresupuestoException{
+	public int update(DetallepiezapresupuestoPK detallepiezapresupuestopk, DetallepiezapresupuestoDB detallepiezapresupuesto, Connection con)throws DetallepiezapresupuestoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -82,7 +82,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  DetallepiezapresupuestoPK
 */
 
-	public int insert(Detallepiezapresupuesto detallepiezapresupuesto ,Connection con)throws DetallepiezapresupuestoException {
+	public int insert(DetallepiezapresupuestoDB detallepiezapresupuesto ,Connection con)throws DetallepiezapresupuestoException {
 
 		PreparedStatement ps = null;
                 ResultSet rs=null;
@@ -105,7 +105,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * 
 */
 
-	public Detallepiezapresupuesto findByPrimaryKey(long iddetalle, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB findByPrimaryKey(long iddetalle, Connection con) throws DetallepiezapresupuestoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -131,7 +131,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto
 */
 
-	public Detallepiezapresupuesto findByPrimaryKey(DetallepiezapresupuestoPK detallepiezapresupuestopk, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB findByPrimaryKey(DetallepiezapresupuestoPK detallepiezapresupuestopk, Connection con) throws DetallepiezapresupuestoException{
 		return findByPrimaryKey(detallepiezapresupuestopk.getIddetalle(), con);
 	}
 
@@ -144,7 +144,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto[]
 */
 
-	public Detallepiezapresupuesto[] findByDuracionpiezaxetapa(Time duracionpiezaxetapa, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findByDuracionpiezaxetapa(Time duracionpiezaxetapa, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto where duracionpiezaxetapa = ? order by duracionpiezaxetapa";
@@ -171,7 +171,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto[]
 */
 
-	public Detallepiezapresupuesto[] findByIddetalle(long iddetalle, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findByIddetalle(long iddetalle, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto where iddetalle = ? order by iddetalle";
@@ -198,7 +198,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto[]
 */
 
-	public Detallepiezapresupuesto[] findByIdetapa(long idetapa, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findByIdetapa(long idetapa, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto where idetapa = ? order by idetapa";
@@ -225,7 +225,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto[]
 */
 
-	public Detallepiezapresupuesto[] findByIddetalleproductopresupuesto(long iddetalleproductopresupuesto, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findByIddetalleproductopresupuesto(long iddetalleproductopresupuesto, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto where iddetalleproductopresupuesto = ? order by iddetalleproductopresupuesto";
@@ -251,7 +251,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 *
 */
 
-	public Detallepiezapresupuesto[] findAll( Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findAll( Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto";
@@ -279,7 +279,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 *
 */
 
-	public Detallepiezapresupuesto[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -310,7 +310,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 *
 */
 
-	public Detallepiezapresupuesto[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepiezapresupuestoException{
+	public DetallepiezapresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallepiezapresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select duracionpiezaxetapa, iddetalle, idetapa, iddetalleproductopresupuesto from detallepiezapresupuesto";
@@ -340,10 +340,10 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 *
 */
 
-	protected Detallepiezapresupuesto fetchSingleResult(ResultSet rs) throws SQLException
+	protected DetallepiezapresupuestoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Detallepiezapresupuesto dto = new Detallepiezapresupuesto();
+					DetallepiezapresupuestoDB dto = new DetallepiezapresupuestoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -360,7 +360,7 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  void
 */
 
-	protected void populateVO(Detallepiezapresupuesto dto, ResultSet rs) throws SQLException
+	protected void populateVO(DetallepiezapresupuestoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setDuracionpiezaxetapa(rs.getTime("duracionpiezaxetapa"));
 		 dto.setIddetalle(rs.getLong("iddetalle"));
@@ -376,15 +376,15 @@ public class DetallepiezapresupuestoDAOImpl implements DetallepiezapresupuestoDA
 * @return  Detallepiezapresupuesto[]
 */
 
-	protected Detallepiezapresupuesto[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected DetallepiezapresupuestoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Detallepiezapresupuesto dto = new Detallepiezapresupuesto();
+			DetallepiezapresupuestoDB dto = new DetallepiezapresupuestoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Detallepiezapresupuesto ret[] = new Detallepiezapresupuesto[ resultList.size() ];
+		DetallepiezapresupuestoDB ret[] = new DetallepiezapresupuestoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
