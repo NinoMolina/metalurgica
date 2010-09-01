@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Detallepiezapresupuesto implements Serializable
+public class DetallepiezapresupuestoDB implements Serializable
 {
 	private Time duracionpiezaxetapa;
 	private long iddetalle;
@@ -27,8 +27,8 @@ public class Detallepiezapresupuesto implements Serializable
 	private long iddetalleproductopresupuesto;
 
 
-	public Detallepiezapresupuesto(){}
-	public Detallepiezapresupuesto(Time duracionpiezaxetapa ,long iddetalle ,long idetapa ,long iddetalleproductopresupuesto){
+	public DetallepiezapresupuestoDB(){}
+	public DetallepiezapresupuestoDB(Time duracionpiezaxetapa ,long iddetalle ,long idetapa ,long iddetalleproductopresupuesto){
 		this.duracionpiezaxetapa = duracionpiezaxetapa;
 		this.iddetalle = iddetalle;
 		this.idetapa = idetapa;
