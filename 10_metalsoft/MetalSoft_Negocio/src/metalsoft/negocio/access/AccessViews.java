@@ -18,6 +18,7 @@ import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
+import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 
@@ -187,6 +188,35 @@ public class AccessViews {
                 view.setHorasHombre(Fecha.parseToDate(rs.getDate("horashombre").getTime()));
                 view.setHorasMaquina(Fecha.parseToDate(rs.getDate("horasmaquina").getTime()));
                 view.setDuracionEstimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewMateriaPrima> allMateriaPrima(Connection cn) {
+        ViewMateriaPrima view=null;
+        LinkedList<ViewMateriaPrima> ll=new LinkedList<ViewMateriaPrima>();
+        String query="SELECT nombremateriaprima,descripcion,alto,ancho,largo,unidadmedida,tipomaterial,idmateriaprima"+
+                     " FROM viewmateriaprima";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewMateriaPrima();
+                view.setAlto(rs.getDouble("alto"));
+                view.setAncho(rs.getDouble("ancho"));
+                view.setDescripcion(rs.getString("descripcion"));
+                view.setIdmateriaprima(rs.getLong("idmateriaprima"));
+                view.setLargo(rs.getDouble("largo"));
+                view.setNombreMateriaPrima(rs.getString("nombremateriaprima"));
+                view.setTipomaterial(rs.getString("tipomaterial"));
+                view.setUnidadmedida(rs.getString("unidadmedida"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
