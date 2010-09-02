@@ -12,8 +12,11 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMateriaPrima;
+import metalsoft.negocio.access.AccessPieza;
 import metalsoft.negocio.access.AccessViews;
 
 /**
@@ -99,7 +102,7 @@ public class GestorDetalleMateriaPrima {
         Connection cn=null;
         try {
             cn = pg.concectGetCn();
-            //list=AccessViews.allMateriaPrima(cn);
+            list=AccessViews.allMateriaPrima(cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,6 +115,36 @@ public class GestorDetalleMateriaPrima {
             }
         }
         return list;
+    }
+
+    public MateriaprimaDB buscarMateriaPrimaDePieza(long idPieza) {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        MateriaprimaDB matprimaDB=null;
+        PiezaDB piezaDB=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            piezaDB=AccessPieza.findByIdpieza(idPieza,cn);
+            matprimaDB=AccessMateriaPrima.findById(piezaDB.getMateriaprima(), cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorDetalleMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorDetalleMateriaPrima.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return matprimaDB;
     }
 
 }
