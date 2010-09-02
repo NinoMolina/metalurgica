@@ -331,7 +331,7 @@ public class GestorPieza
         modificado.setMatriz(idMa);
         PiezaPK pie=new PiezaPK(idpieza);
 
-        long cantidadFilas=AccessPieza.modificarPieza(modificado, pie, cn);
+        long cantidadFilas=AccessPieza.update(modificado, pie, cn);
         
         try {
             cn.close();
