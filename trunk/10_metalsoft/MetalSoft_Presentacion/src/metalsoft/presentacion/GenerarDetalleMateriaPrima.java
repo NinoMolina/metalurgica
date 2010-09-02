@@ -20,6 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.gestores.GestorDetalleMateriaPrima;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
@@ -27,6 +28,7 @@ import metalsoft.negocio.gestores.IBuscadorView;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
+import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 
@@ -40,8 +42,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
-    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccion;
-    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccionSeleccionada;
+    private LinkedList<ViewMateriaPrima> filasMateriaPrima;
+    private LinkedList<ViewMateriaPrima> filasMateriaPrimaSeleccionada;
     private GestorDetalleMateriaPrima gestor;
     private Timer timer;
     private TableCellRender tcrTblDetallePedido;
@@ -57,7 +59,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblMateriaPrima.updateUI();
-        filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
+        filasMateriaPrimaSeleccionada=new LinkedList<ViewMateriaPrima>();
         tblMateriaPrimaSeleccionada.updateUI();
     }
     private void addListeners()
@@ -95,12 +97,12 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblMateriaPrima.getSelectedRow());
-        filasEtapaProduccionSeleccionada.add(v);
+        if(filasMateriaPrimaSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        ViewMateriaPrima v=filasMateriaPrima.remove(tblMateriaPrima.getSelectedRow());
+        filasMateriaPrimaSeleccionada.add(v);
         tblMateriaPrima.updateUI();
         tblMateriaPrimaSeleccionada.updateUI();
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+        if(filasMateriaPrima.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
     }
     private void addListenerBtnQuitar()
     {
@@ -112,12 +114,12 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
     private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblMateriaPrimaSeleccionada.getSelectedRow());
-        filasEtapaProduccion.add(v);
+        if(filasMateriaPrima.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        ViewMateriaPrima v=filasMateriaPrimaSeleccionada.remove(tblMateriaPrimaSeleccionada.getSelectedRow());
+        filasMateriaPrima.add(v);
         tblMateriaPrima.updateUI();
         tblMateriaPrimaSeleccionada.updateUI();
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
+        if(filasMateriaPrimaSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
     }
     private void buscarPedidosCDetalleProcedimientos()
     {
@@ -162,6 +164,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         jLabel5 = new javax.swing.JLabel();
         lblPedidoSeleccionado = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -272,12 +275,12 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             }
         });
 
-        tblMateriaPrima.setModel(new EtapaTableModel());
+        tblMateriaPrima.setModel(new MateriaPrimaTableModel());
         jScrollPane4.setViewportView(tblMateriaPrima);
 
         jLabel3.setText("Nombre Materia Prima:");
 
-        tblMateriaPrimaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
+        tblMateriaPrimaSeleccionada.setModel(new MateriaPrimaSeleccionadaTableModel());
         jScrollPane5.setViewportView(tblMateriaPrimaSeleccionada);
 
         jLabel4.setText("Producto:");
@@ -290,6 +293,13 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         lblPedidoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPedidoSeleccionado.setText("....");
 
+        btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -299,16 +309,23 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEtapaProduccion))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAsignar))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -335,21 +352,19 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                     .addComponent(lblProductoSeleccionado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAsignar))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -371,7 +386,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 591, Short.MAX_VALUE)
+            .addGap(0, 594, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -400,12 +415,34 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
 
         ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
-        filasEtapaProduccion=gestor.obtenerAllMateriaPrima();
+        filasMateriaPrima=gestor.obtenerAllMateriaPrima();
+
+        filasMateriaPrimaSeleccionada.clear();
+
+        MateriaprimaDB db=gestor.buscarMateriaPrimaDePieza(v.getIdPieza());
+        separarEtapasDeProduccion(db);
+        tblMateriaPrima.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
         tblMateriaPrima.updateUI();
         idPiezaSeleccionada=v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
+        beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        beanAgregarQuitar.getBtnQuitar().setEnabled(true);
 }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
 
+    private void separarEtapasDeProduccion(MateriaprimaDB materiaPrimaDB)
+    {
+        ViewMateriaPrima v=null;
+        for(int i=0;i<filasMateriaPrima.size();i++)
+        {
+            v=filasMateriaPrima.get(i);
+            if(v.getIdmateriaprima()==materiaPrimaDB.getIdmateriaprima())
+            {
+                filasMateriaPrimaSeleccionada.add(filasMateriaPrima.remove(i));
+                break;
+            }
+        }
+    }
     private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
         if(txtEtapaProduccion.getText().compareTo("")!=0) {
             final GenerarDetalleMateriaPrima abm=this;
@@ -423,6 +460,38 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         }
 }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        PiezaXEtapas pxe=new PiezaXEtapas();
+
+        ViewDetalleProducto viewDetPro=filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetallePedidoCotizacion viewDetPed=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPi=viewDetPro.getIdPieza();
+        double ancho=viewDetPro.getAncho();
+        double alto=viewDetPro.getAlto();
+        double largo=viewDetPro.getLargo();
+        long idProd=viewDetPro.getIdProducto();
+        double precioProd=viewDetPed.getPrecio();
+        int cantProd=viewDetPed.getCantidad();
+        long idDetPedido=viewDetPed.getIdDetalle();
+        ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed=viewPed.getIdpedido();
+
+        pxe.setAlto(alto);
+        pxe.setAncho(ancho);
+        pxe.setLargo(largo);
+        pxe.setPrecioProducto(precioProd);
+        pxe.setCantProductos(cantProd);
+        pxe.setIdPieza(idPi);
+        pxe.setIdProducto(idProd);
+        pxe.setIdDetallePedido(idDetPedido);
+        pxe.setIdPedido(idPed);
+        pxe.setEtapas(filasEtapaProduccionSeleccionada);
+
+        boolean result=gestor.addPiezaXEtapas(pxe);
+        if(result)JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
+        else JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
+}//GEN-LAST:event_btnAsignarActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -437,6 +506,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
+    private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
     private javax.swing.JLabel jLabel1;
@@ -474,25 +544,9 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     public LinkedList getFilas(String className) {
         if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
         {
-            return filasEtapaProduccion;
+            return filasMateriaPrima;
         }
         return null;
-    }
-
-    private ArrayList<Integer> buscarProductosSinAlgunaEtapa() {
-        Iterator<ViewDetallePedidoCotizacion> i=filasDetallePedido.iterator();
-        ViewDetallePedidoCotizacion v=null;
-        ArrayList<Integer> rows=new ArrayList<Integer>();
-        int contador=0;
-        while(i.hasNext())
-        {
-            v=i.next();
-            long idProd=v.getIdProducto();
-            boolean es=gestor.esProductoSinAlgunaEtapa(idProd);
-            if(es)rows.add(contador);
-            contador++;
-        }
-        return rows;
     }
     // End of variables declaration
 
@@ -691,21 +745,30 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
   }
 
-    class EtapaTableModel extends AbstractTableModel{
-          String[] columnNames = {"Nro",
-                            "Nombre"};
+    class MateriaPrimaTableModel extends AbstractTableModel{
+          String[] columnNames = {"Nombre",
+                            "Descripcion",
+                            "Dimensiones",
+                            "Unidad",
+                            "Material"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
+            ViewMateriaPrima view=filasMateriaPrima.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return view.getNombreMateriaPrima();
             case 1:
-              return view.getNombre();
+              return view.getDescripcion();
+            case 2:
+              return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
+            case 3:
+              return view.getUnidadmedida();
+            case 4:
+              return view.getTipomaterial();
             default:
               return null;
             }
@@ -723,8 +786,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
         public int getRowCount()
         {
-          if(filasEtapaProduccion!=null)
-            return filasEtapaProduccion.size();
+          if(filasMateriaPrima!=null)
+            return filasMateriaPrima.size();
           return 0;
         }
 
@@ -742,21 +805,30 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         }
     }
 
-    class EtapaSeleccionadaTableModel extends AbstractTableModel{
-          String[] columnNames = {"Nro",
-                            "Nombre"};
+    class MateriaPrimaSeleccionadaTableModel extends AbstractTableModel{
+          String[] columnNames = {"Nombre",
+                            "Descripcion",
+                            "Dimensiones",
+                            "Unidad",
+                            "Material"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaDeProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
+            ViewMateriaPrima view=filasMateriaPrimaSeleccionada.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return view.getNombreMateriaPrima();
             case 1:
-              return view.getNombre();
+              return view.getDescripcion();
+            case 2:
+              return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
+            case 3:
+              return view.getUnidadmedida();
+            case 4:
+              return view.getTipomaterial();
             default:
               return null;
             }
@@ -773,8 +845,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
         public int getRowCount()
         {
-          if(filasEtapaProduccionSeleccionada!=null)
-            return filasEtapaProduccionSeleccionada.size();
+          if(filasMateriaPrimaSeleccionada!=null)
+            return filasMateriaPrimaSeleccionada.size();
           return 0;
         }
 
