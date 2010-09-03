@@ -5,6 +5,8 @@
 
 package metalsoft.util.sort;
 
+import java.util.Collection;
+
 /**
  *
  * @author Nino
@@ -52,6 +54,29 @@ public class Sorts {
                      }
                 }
           }
+    }
+
+    /**
+     *  Ordenamiento de Selección
+     */
+    public static Object[] seleccion (Collection c)
+    {
+          Object[] v=c.toArray();
+          int n = v.length;
+          for (int i = 0; i < n - 1; i++)
+          {
+                for (int j = i + 1; j < n; j++)
+                {
+                     if ( ((Comparable)v[i]).compareTo((Comparable)v[j])>0 )
+                     {
+
+                        Comparable aux = (Comparable)v[i];
+                        v[i] = v[j];
+                        v[j] = aux;
+                     }
+                }
+          }
+          return v;
     }
 
     /**
