@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
+import metalsoft.datos.dbobject.DetalleproductopresupuestoPK;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DetalleproductopresupuestoDAO;
 import metalsoft.negocio.gestores.Parser;
@@ -34,6 +35,31 @@ public class AccessDetalleProductoPresupuesto {
             db.setIddetalle(result);
         } catch (Exception ex) {
             Logger.getLogger(AccessDetalleProductoPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static DetalleproductopresupuestoDB[] findByIdDetallePresupuesto(long idDetPres, Connection cn) {
+        DetalleproductopresupuestoDAO dao=new DAOFactoryImpl().createDetalleproductopresupuestoDAO();
+        DetalleproductopresupuestoDB[] db = null;
+
+        try {
+            db=dao.findByIddetallepresupuesto(idDetPres, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessDetalleProductoPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
+
+    public static int update(DetalleproductopresupuestoDB db,Connection cn)
+    {
+        int result=-1;
+        DetalleproductopresupuestoDAO dao=new DAOFactoryImpl().createDetalleproductopresupuestoDAO();
+        DetalleproductopresupuestoPK pk=new DetalleproductopresupuestoPK(db.getIddetalle());
+        try {
+            result=dao.update(pk,db, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

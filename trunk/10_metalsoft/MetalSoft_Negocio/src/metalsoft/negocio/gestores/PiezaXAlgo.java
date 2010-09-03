@@ -61,7 +61,7 @@ public abstract class PiezaXAlgo implements Comparable{
         {
             return 0;
         }
-        if(idPed>=this.getIdPedido())return -1;
+        if(this.getIdPedido()<idPed)return -1;
         else return 1;
     }
 
