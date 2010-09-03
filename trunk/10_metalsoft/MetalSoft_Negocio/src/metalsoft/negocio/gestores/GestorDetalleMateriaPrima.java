@@ -7,16 +7,24 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.datos.dbobject.PresupuestoDB;
+import metalsoft.datos.idao.DetallepresupuestoDAO;
+import metalsoft.negocio.access.AccessDetallePresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMateriaPrima;
+import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPieza;
+import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
 
 /**
@@ -24,6 +32,12 @@ import metalsoft.negocio.access.AccessViews;
  * @author Nino
  */
 public class GestorDetalleMateriaPrima {
+    private ArrayList<PiezaXMateriaPrima> arlPiezasXMateriaPrima;
+
+    public GestorDetalleMateriaPrima() {
+        arlPiezasXMateriaPrima=null;
+    }
+
 
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosCDetalleProcedimientos() {
         PostgreSQLManager pg=new PostgreSQLManager();
@@ -145,6 +159,130 @@ public class GestorDetalleMateriaPrima {
             }
         }
         return matprimaDB;
+    }
+
+    /*
+     * 0: no se pudo agregar
+     * -1: se agrego correctamente
+     * 1: se modifico correctamente
+     */
+    public int addPiezaXMateriaPrima(PiezaXMateriaPrima pxmp) {
+        if(arlPiezasXMateriaPrima==null)arlPiezasXMateriaPrima=new ArrayList<PiezaXMateriaPrima>();
+        int index=pxmp.contain(pxmp,arlPiezasXMateriaPrima);
+        int result=-1;
+        try
+        {
+            //si obtuve un indice mayor a -1 entonces
+            //voy a modificar el objeto
+            if(index>-1)
+            {
+                arlPiezasXMateriaPrima.add(index, pxmp);
+                result = 1;
+            }
+            //si no obtuve un indice mayor a -1 entonces
+            //voy a insertar un nuevo objeto
+            else
+            {
+                boolean b=arlPiezasXMateriaPrima.add(pxmp);
+                if(b)result = -1;
+                else result = 0;
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            result=0;
+        }
+        return result;
+    }
+
+    public boolean guardarMateriaPrimaPiezaPresupuesto() {
+        if(arlPiezasXMateriaPrima.isEmpty())return false;
+
+        boolean flag=false;
+
+        long idPed=-1;
+        long idPro=-1;
+        long idPi=-1;
+        long idDetPedido=-1;
+
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        long idPres=-1;
+
+        Iterator<PiezaXMateriaPrima> i=arlPiezasXMateriaPrima.iterator();
+        PiezaXMateriaPrima pxmp=null;
+        //para cada conjunto de etapas de una pieza
+
+        try
+        {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            while(i.hasNext())
+            {
+                pxmp=i.next();
+                idPed=pxmp.getIdPedido();
+                idPro=pxmp.getIdProducto();
+                idPi=pxmp.getIdPieza();
+                idDetPedido=pxmp.getIdDetallePedido();
+
+                //busco el pedido para obtener el id de presupuesto
+                PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
+                idPres=pedDB.getPresupuesto();
+
+                //obtengo el presupuesto y busco sus detalles
+                PresupuestoDB presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
+                DetallepresupuestoDB[] detPresDB=AccessDetallePresupuesto.findByIdPresupuesto(idPres,cn);
+
+                
+
+                //actualizo el pedido con estado PEDIDOCONDETALLEDEMATERIAPRIMA
+                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
+
+                DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
+                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
+
+                //tengo que recorrer todas las etapas seleccionadas para la pieza
+                //y guardar un DetallePiezaPresupuesto por cada combinacion de
+                //la pieza con cada etapa
+                DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
+                Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
+                ViewEtapaDeProduccion v=null;
+                long idDetPiPres=-1;
+                while(iEtapas.hasNext())
+                {
+                    v=iEtapas.next();
+                    Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
+                    dpipre.setDuracionEtapaXPieza(duracion);
+                    idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
+                }
+            }
+            cn.commit();
+            flag=true;
+        }
+        catch (Exception ex)
+        {
+            try {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+                flag=false;
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex1);
+                flag=false;
+            }
+
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorDetalleProcedimientos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return flag;
+
     }
 
 }

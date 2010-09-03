@@ -37,4 +37,15 @@ public class AccessPresupuesto {
         }
         return result;
     }
+
+    public static PresupuestoDB findByIdPresupuesto(long idPres, Connection cn) {
+        PresupuestoDAO dao=new DAOFactoryCreater().getFactry().createPresupuestoDAO();
+        PresupuestoDB db=null;
+        try {
+            db=dao.findByIdpresupuesto(idPres, cn)[0];
+        } catch (PresupuestoException ex) {
+            Logger.getLogger(AccessPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
 }
