@@ -6,6 +6,7 @@
 package metalsoft.util.sort;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  *
@@ -69,7 +70,6 @@ public class Sorts {
                 {
                      if ( ((Comparable)v[i]).compareTo((Comparable)v[j])>0 )
                      {
-
                         Comparable aux = (Comparable)v[i];
                         v[i] = v[j];
                         v[j] = aux;
