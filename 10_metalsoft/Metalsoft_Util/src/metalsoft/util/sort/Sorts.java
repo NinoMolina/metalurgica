@@ -14,7 +14,7 @@ public class Sorts {
     /**
      *  Ordenamiento de Intercambio (Burbuja)
      */
-    public static void intercambio (int[] v)
+    public static void bubbleSort (int[] v)
     {
       boolean ordenado = false;
       int i,j, aux, n = v.length;
