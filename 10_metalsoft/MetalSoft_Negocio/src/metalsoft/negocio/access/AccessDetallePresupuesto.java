@@ -48,4 +48,19 @@ public class AccessDetallePresupuesto {
         }
         return db;
     }
+
+    public static DetallepresupuestoDB[] findByIdPresupuestoORDERBYIdProducto(long idPres, Connection cn) {
+        DetallepresupuestoDAO dao=new DAOFactoryCreater().getFactry().createDetallepresupuestoDAO();
+        DetallepresupuestoDB[] db=null;
+        String query="idpresupuesto=?"+
+                     " ORDER BY idproducto";
+        Object[] param=new Object[1];
+        param[0]=idPres;
+        try {
+            db=dao.findExecutingUserWhere(query, param, cn);
+        } catch (DetallepresupuestoException ex) {
+            Logger.getLogger(AccessPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
 }

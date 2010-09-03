@@ -13,19 +13,24 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.DetallepiezapresupuestoDB;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
+import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.datos.idao.DetallepresupuestoDAO;
+import metalsoft.negocio.access.AccessDetallePiezaPresupuesto;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
+import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMateriaPrima;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPieza;
 import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.util.sort.Sorts;
 
 /**
  *
@@ -210,17 +215,24 @@ public class GestorDetalleMateriaPrima {
         Connection cn=null;
         long idPres=-1;
 
-        Iterator<PiezaXMateriaPrima> i=arlPiezasXMateriaPrima.iterator();
+        Object[] obj=Sorts.seleccion(arlPiezasXMateriaPrima);
+        arlPiezasXMateriaPrima.clear();
+        for(int r=0;r<obj.length;r++)
+        {
+            arlPiezasXMateriaPrima.add((PiezaXMateriaPrima) obj[r]);
+            //System.out.println(arlPiezasXMateriaPrima.get(r).getIdPedido()+" "+arlPiezasXMateriaPrima.get(r).getIdDetallePedido()+" "+arlPiezasXMateriaPrima.get(r).getIdProducto()+" "+arlPiezasXMateriaPrima.get(r).getIdPieza());
+        }
+
+        Iterator<PiezaXMateriaPrima> iter=arlPiezasXMateriaPrima.iterator();
         PiezaXMateriaPrima pxmp=null;
         //para cada conjunto de etapas de una pieza
-
         try
         {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            while(i.hasNext())
+            while(iter.hasNext())
             {
-                pxmp=i.next();
+                pxmp=iter.next();
                 idPed=pxmp.getIdPedido();
                 idPro=pxmp.getIdProducto();
                 idPi=pxmp.getIdPieza();
@@ -232,12 +244,50 @@ public class GestorDetalleMateriaPrima {
 
                 //obtengo el presupuesto y busco sus detalles
                 PresupuestoDB presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
-                DetallepresupuestoDB[] detPresDB=AccessDetallePresupuesto.findByIdPresupuesto(idPres,cn);
+                DetallepresupuestoDB[] vDetPresDB=AccessDetallePresupuesto.findByIdPresupuestoORDERBYIdProducto(idPres,cn);
 
-                
+                //para cada detalle de presupuesto que estan ordenados segun el numero de producto voy buscando
+                //los detalles de producto presupuesto para actualizar en cada uno la materia prima
+                long idDetPres=-1;
+                DetalleproductopresupuestoDB[] vDetProdPresDB=null;
+                DetallepresupuestoDB detPresDB=null;
+                for(int i=0;i<vDetPresDB.length;i++)
+                {
+                    detPresDB=vDetPresDB[i];
+                    idDetPres=detPresDB.getIddetalle();
+                    vDetProdPresDB=AccessDetalleProductoPresupuesto.findByIdDetallePresupuesto(idDetPres,cn);
+                    DetalleproductopresupuestoDB detProdPresDB=null;
+                    //para cada detalle producto presupuesto busco las PiezaXMateriaPrima que tengan el idproducto
+                    //igual al del detallepresupuesto y el idpieza para cada detalleproductopresupuesto
+                    PiezaXMateriaPrima aux=null;
+                    for(int j=0;j<vDetProdPresDB.length;j++)
+                    {
+                        detProdPresDB=vDetProdPresDB[j];
+                        aux=buscarEnArlPiezaXMateriaPrima(idPed,detPresDB.getIddetallepedido(),detPresDB.getIdproducto(),detProdPresDB.getIdpieza());
+                        detProdPresDB.
+                        AccessDetalleProductoPresupuesto.update();
+                    }
 
+                }
                 //actualizo el pedido con estado PEDIDOCONDETALLEDEMATERIAPRIMA
                 AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
                 long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
@@ -282,6 +332,19 @@ public class GestorDetalleMateriaPrima {
         }
 
         return flag;
+
+    }
+
+    private PiezaXMateriaPrima buscarEnArlPiezaXMateriaPrima(long idPed, long iddetallepedido, long idproducto, long idpieza) {
+        Iterator<PiezaXMateriaPrima> iter=arlPiezasXMateriaPrima.iterator();
+        PiezaXMateriaPrima x=null;
+        while(iter.hasNext())
+        {
+            x=iter.next();
+            if(idPed==x.getIdPedido() && iddetallepedido==x.getIdDetallePedido() && idpieza==x.getIdPieza() && idproducto==x.getIdProducto())
+                return x;
+        }
+        return x;
 
     }
 
