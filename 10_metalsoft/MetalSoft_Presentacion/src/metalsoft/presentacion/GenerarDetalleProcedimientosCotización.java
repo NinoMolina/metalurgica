@@ -517,11 +517,33 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         pxe.setIdPedido(idPed);
         pxe.setEtapas(filasEtapaProduccionSeleccionada);
 
-        boolean result=gestor.addPiezaXEtapas(pxe);
-        if(result)JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
-        else JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
+        int result=gestor.addPiezaXEtapas(pxe);
+        mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
     }//GEN-LAST:event_btnAsignarActionPerformed
 
+     /*
+     * 0: no se pudo agregar
+     * -1: se agrego correctamente
+     * 1: se modifico correctamente
+     */
+    private void mostrarMensajeAsignar(int result,String nombrePieza)
+    {
+        switch(result)
+        {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Se modificó la pre-asignación de etapas para la pieza '"+nombrePieza+"'");
+                break;
+            case 0:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+nombrePieza+"'");
+                break;
+            case -1:
+                JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+nombrePieza+"'");
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+nombrePieza+"'");
+
+        }
+    }
     /**
     * @param args the command line arguments
     */

@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.MateriaprimaDB;
@@ -25,6 +26,7 @@ import metalsoft.negocio.gestores.GestorDetalleMateriaPrima;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.PiezaXMateriaPrima;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
@@ -98,6 +100,11 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
     {
         if(filasMateriaPrimaSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        else
+        {
+            JOptionPane.showMessageDialog(this, "La pieza sólo puede tener una Materia Prima.");
+            return;
+        }
         ViewMateriaPrima v=filasMateriaPrima.remove(tblMateriaPrima.getSelectedRow());
         filasMateriaPrimaSeleccionada.add(v);
         tblMateriaPrima.updateUI();
@@ -165,6 +172,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         lblPedidoSeleccionado = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnAsignar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -367,11 +376,25 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        btnSalir.setText("Salir");
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 774, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -386,7 +409,12 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(593, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnSalir))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -397,7 +425,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(44, Short.MAX_VALUE)))
         );
 
         pack();
@@ -461,37 +489,73 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        PiezaXEtapas pxe=new PiezaXEtapas();
+        PiezaXMateriaPrima pxmp=new PiezaXMateriaPrima();
 
         ViewDetalleProducto viewDetPro=filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         ViewDetallePedidoCotizacion viewDetPed=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
         long idPi=viewDetPro.getIdPieza();
-        double ancho=viewDetPro.getAncho();
-        double alto=viewDetPro.getAlto();
-        double largo=viewDetPro.getLargo();
+        double anchoPieza=viewDetPro.getAncho();
+        double altoPieza=viewDetPro.getAlto();
+        double largoPieza=viewDetPro.getLargo();
         long idProd=viewDetPro.getIdProducto();
         double precioProd=viewDetPed.getPrecio();
         int cantProd=viewDetPed.getCantidad();
         long idDetPedido=viewDetPed.getIdDetalle();
+
         ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed=viewPed.getIdpedido();
 
-        pxe.setAlto(alto);
-        pxe.setAncho(ancho);
-        pxe.setLargo(largo);
-        pxe.setPrecioProducto(precioProd);
-        pxe.setCantProductos(cantProd);
-        pxe.setIdPieza(idPi);
-        pxe.setIdProducto(idProd);
-        pxe.setIdDetallePedido(idDetPedido);
-        pxe.setIdPedido(idPed);
-        pxe.setEtapas(filasEtapaProduccionSeleccionada);
+        ViewMateriaPrima viewMatPrima=filasMateriaPrimaSeleccionada.get(tblMateriaPrimaSeleccionada.getSelectedRow());
+        double altoMatPrima=viewMatPrima.getAlto();
+        double anchoMatPrima=viewMatPrima.getAncho();
+        double largoMatPrima=viewMatPrima.getLargo();
+        long idMatPrima=viewMatPrima.getIdmateriaprima();
 
-        boolean result=gestor.addPiezaXEtapas(pxe);
-        if(result)JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
-        else JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+viewDetPro.getNombrePieza()+"'");
+        pxmp.setAltoMatPrima(altoMatPrima);
+        pxmp.setAnchoMatPrima(anchoMatPrima);
+        pxmp.setLargoMatPrima(largoMatPrima);
+        pxmp.setAltoPieza(altoPieza);
+        pxmp.setAnchoPieza(anchoPieza);
+        pxmp.setLargoPieza(largoPieza);
+        pxmp.setIdMateriaPrima(idMatPrima);
+        pxmp.setIdPieza(idPi);
+        pxmp.setIdProducto(idProd);
+        pxmp.setIdDetallePedido(idDetPedido);
+        pxmp.setIdPedido(idPed);
+
+        int result=gestor.addPiezaXMateriaPrima(pxmp);
+        mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
 }//GEN-LAST:event_btnAsignarActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        boolean result=gestor.guardarMateriaPrimaPiezaPresupuesto();
+        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
+}//GEN-LAST:event_btnGuardarActionPerformed
+
+    /*
+     * 0: no se pudo agregar
+     * -1: se agrego correctamente
+     * 1: se modifico correctamente
+     */
+    private void mostrarMensajeAsignar(int result,String nombrePieza)
+    {
+        switch(result)
+        {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Se modificó la pre-asignación de materia prima para la pieza '"+nombrePieza+"'");
+                break;
+            case 0:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar materia prima para la pieza '"+nombrePieza+"'");
+                break;
+            case -1:
+                JOptionPane.showMessageDialog(this, "Se pre-asignó materia prima para la pieza '"+nombrePieza+"'");
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar materia prima para la pieza '"+nombrePieza+"'");
+
+        }
+    }
     /**
     * @param args the command line arguments
     */
@@ -507,6 +571,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
     private javax.swing.JLabel jLabel1;
