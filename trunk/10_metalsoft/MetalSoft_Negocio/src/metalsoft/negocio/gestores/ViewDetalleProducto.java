@@ -37,11 +37,11 @@ public class ViewDetalleProducto {
         this.idPieza = idPieza;
     }
 
-    public int getCantidad() {
+    public int getCantidadPieza() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidadPieza(int cantidad) {
         this.cantidad = cantidad;
     }
 
