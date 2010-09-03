@@ -176,30 +176,54 @@ public class GestorDetalleProcedimientos {
         return result;
     }
 
-    public boolean addPiezaXEtapas(PiezaXEtapas pxe) {
+    /*
+     * 0: no se pudo agregar
+     * -1: se agrego correctamente
+     * 1: se modifico correctamente
+     */
+    public int addPiezaXEtapas(PiezaXEtapas pxe) {
         if(arlPiezaXEtapas==null)arlPiezaXEtapas=new ArrayList<PiezaXEtapas>();
-        int index=containPXE(pxe);
-        if(index>-1)
+        int index=pxe.contain(pxe,arlPiezaXEtapas);
+        int result=-1;
+        try
         {
-            arlPiezaXEtapas.add(index, pxe);
-            return true;
+            //si obtuve un indice mayor a -1 entonces
+            //voy a modificar el objeto
+            if(index>-1)
+            {
+                arlPiezaXEtapas.add(index, pxe);
+                result = 1;
+            }
+            //si no obtuve un indice mayor a -1 entonces
+            //voy a insertar un nuevo objeto
+            else
+            {
+                boolean b=arlPiezaXEtapas.add(pxe);
+                if(b)result = -1;
+                else result = 0;
+            }
         }
-        return arlPiezaXEtapas.add(pxe);
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            result=0;
+        }
+        return result;
     }
 
-    private int containPXE(PiezaXEtapas pxe)
-    {
-        Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
-        PiezaXEtapas x=null;
-        int contador=0;
-        while(i.hasNext())
-        {
-            x=i.next();
-            if(x.compareTo(pxe)==0)return contador;
-            contador++;
-        }
-        return -1;
-    }
+//    private int containPXE(PiezaXEtapas pxe)
+//    {
+//        Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
+//        PiezaXEtapas x=null;
+//        int contador=0;
+//        while(i.hasNext())
+//        {
+//            x=i.next();
+//            if(x.compareTo(pxe)==0)return contador;
+//            contador++;
+//        }
+//        return -1;
+//    }
     public boolean guardarEtapasPiezaPresupuesto() {
         if(arlPiezaXEtapas.isEmpty())return false;
 
