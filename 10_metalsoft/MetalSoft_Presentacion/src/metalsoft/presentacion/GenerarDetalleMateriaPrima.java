@@ -501,7 +501,9 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         double precioProd=viewDetPed.getPrecio();
         int cantProd=viewDetPed.getCantidad();
         long idDetPedido=viewDetPed.getIdDetalle();
-
+        int cantPieza=viewDetPro.getCantidadPieza();
+        String nombrePieza=viewDetPro.getNombrePieza();
+        String nombreProducto=viewDetPed.getNombreProducto();
         ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed=viewPed.getIdpedido();
 
@@ -522,6 +524,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         pxmp.setIdProducto(idProd);
         pxmp.setIdDetallePedido(idDetPedido);
         pxmp.setIdPedido(idPed);
+        pxmp.setCantidadPieza(cantPieza);
+        pxmp.setCantidadProducto(cantProd);
+        pxmp.setNombrePieza(nombrePieza);
+        pxmp.setNombreProducto(nombreProducto);
 
         int result=gestor.addPiezaXMateriaPrima(pxmp);
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
@@ -769,7 +775,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         case 1:
           return view.getDescripcion();
         case 2:
-          return String.valueOf(view.getCantidad());
+          return String.valueOf(view.getCantidadPieza());
         case 3:
           return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:
