@@ -235,6 +235,29 @@ public class GestorDetalleMateriaPrima {
             while(iter.hasNext())
             {
                 pxmp=iter.next();
+
+                if(idPed!=pxmp.getIdPedido())
+                {
+                    idPed=pxmp.getIdPedido();
+
+                    PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
+                    idPres=pedDB.getPresupuesto();
+
+                    //obtengo el presupuesto y busco sus detalles
+                    PresupuestoDB presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
+
+                }
+                //si el id producto anterior es distinto al nuevo
+                //creo un nuevo detalle de presupuesto
+                if(idPro!=pxmp.getIdProducto())
+                {
+                    idPro=pxmp.getIdProducto();
+                    idDetPedido=pxmp.getIdDetallePedido();
+
+                    DetallepresupuestoDB detPresDB=AccessDetallePresupuesto.findByIdPresupuestoANDIdProducto(idPres,idPro,cn);
+
+                }
+
                 idPed=pxmp.getIdPedido();
                 idPro=pxmp.getIdProducto();
                 idPi=pxmp.getIdPieza();
