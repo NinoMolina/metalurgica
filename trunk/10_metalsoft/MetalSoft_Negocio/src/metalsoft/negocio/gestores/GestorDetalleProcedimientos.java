@@ -235,6 +235,9 @@ public class GestorDetalleProcedimientos {
         long idPi=-1;
         long idDetPedido=-1;
         double precioProd=-1;
+        long idDetProPre=-1;
+        long idDetPres=-1;
+        long idDetPiPres=-1;
         int cantProd=-1;
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
@@ -279,36 +282,42 @@ public class GestorDetalleProcedimientos {
             while(i.hasNext())
             {
                 pxe=i.next();
+                //si el id pedido anterior es distinto al nuevo entonces
+                //creo un nuevo presupuesto para dicho pedido
                 if(idPed!=pxe.getIdPedido())
                 {
                     idPed=pxe.getIdPedido();
-                    idPro=pxe.getIdProducto();
-                    idPi=pxe.getIdPieza();
-                    idDetPedido=pxe.getIdDetallePedido();
-                    precioProd=pxe.getPrecioProducto();
-                    cantProd=pxe.getCantProductos();
-
 
                     Presupuesto pres=new Presupuesto();
                     idPres=AccessPresupuesto.insert(pres, cn);
 
                     AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
                 }
-                DetallePresupuesto dpres=new DetallePresupuesto();
-                dpres.setPrecio(precioProd);
-                dpres.setCantidad(cantProd);
-                long idDetPres=AccessDetallePresupuesto.insert(dpres,idPres,idDetPedido,idPro,cn);
+                //si el id producto anterior es distinto al nuevo
+                //creo un nuevo detalle de presupuesto
+                if(idPro!=pxe.getIdProducto())
+                {
+                    idPro=pxe.getIdProducto();
+                    idDetPedido=pxe.getIdDetallePedido();
+                    precioProd=pxe.getPrecioProducto();
+                    cantProd=pxe.getCantProductos();
 
+                    DetallePresupuesto dpres=new DetallePresupuesto();
+                    dpres.setPrecio(precioProd);
+                    dpres.setCantidad(cantProd);
+                    idDetPres=AccessDetallePresupuesto.insert(dpres,idPres,idDetPedido,idPro,cn);
+                }
+
+                idPi=pxe.getIdPieza();
                 DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
-                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
-
+                idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
                 //tengo que recorrer todas las etapas seleccionadas para la pieza
                 //y guardar un DetallePiezaPresupuesto por cada combinacion de
                 //la pieza con cada etapa
                 DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
                 Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
                 ViewEtapaDeProduccion v=null;
-                long idDetPiPres=-1;
+                
                 while(iEtapas.hasNext())
                 {
                     v=iEtapas.next();
