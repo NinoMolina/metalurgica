@@ -774,7 +774,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         case 1:
           return view.getDescripcion();
         case 2:
-          return String.valueOf(view.getCantidad());
+          return String.valueOf(view.getCantidadPieza());
         case 3:
           return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:

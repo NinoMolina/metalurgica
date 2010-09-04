@@ -486,7 +486,7 @@ public class ABMProducto extends javax.swing.JFrame {
     {
         //vector de tipo Object que contiene los datos de una fila
         ViewDetalleProducto datosFila = new ViewDetalleProducto();
-        datosFila.setCantidad(cant);
+        datosFila.setCantidadPieza(cant);
         datosFila.setDescripcion(desc);
         datosFila.setAlto(alto);
         datosFila.setAncho(ancho);
@@ -606,7 +606,7 @@ public class ABMProducto extends javax.swing.JFrame {
         case 1:
           return view.getDescripcion();
         case 2:
-          return String.valueOf(view.getCantidad());
+          return String.valueOf(view.getCantidadPieza());
         case 3:
           return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
         case 4:
