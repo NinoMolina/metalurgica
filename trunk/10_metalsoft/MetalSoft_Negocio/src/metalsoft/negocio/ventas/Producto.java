@@ -122,7 +122,7 @@ public class Producto
         {
             x = (ViewDetalleProducto) iter.next();
             dp=new DetalleProducto();
-            dp.setCantidadPiezas(x.getCantidad());
+            dp.setCantidadPiezas(x.getCantidadPieza());
             dp.setDescripcion(x.getDescripcion());
             long idPieza=x.getIdPieza();
             long idDet=x.getIdDetalle();

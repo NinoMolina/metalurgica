@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.DetallepiezapresupuestoDB;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
@@ -30,6 +31,7 @@ import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPieza;
 import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.util.Calculos;
 import metalsoft.util.sort.Sorts;
 
 /**
@@ -220,7 +222,7 @@ public class GestorDetalleMateriaPrima {
         for(int r=0;r<obj.length;r++)
         {
             arlPiezasXMateriaPrima.add((PiezaXMateriaPrima) obj[r]);
-            //System.out.println(arlPiezasXMateriaPrima.get(r).getIdPedido()+" "+arlPiezasXMateriaPrima.get(r).getIdDetallePedido()+" "+arlPiezasXMateriaPrima.get(r).getIdProducto()+" "+arlPiezasXMateriaPrima.get(r).getIdPieza());
+            System.out.println(arlPiezasXMateriaPrima.get(r).getIdPedido()+" "+arlPiezasXMateriaPrima.get(r).getIdDetallePedido()+" "+arlPiezasXMateriaPrima.get(r).getIdProducto()+" "+arlPiezasXMateriaPrima.get(r).getIdPieza());
         }
 
         Iterator<PiezaXMateriaPrima> iter=arlPiezasXMateriaPrima.iterator();
@@ -264,51 +266,36 @@ public class GestorDetalleMateriaPrima {
                     {
                         detProdPresDB=vDetProdPresDB[j];
                         aux=buscarEnArlPiezaXMateriaPrima(idPed,detPresDB.getIddetallepedido(),detPresDB.getIdproducto(),detProdPresDB.getIdpieza());
-                        detProdPresDB.
-                        AccessDetalleProductoPresupuesto.update();
+                        detProdPresDB.setIdmateriaprima(aux.getIdMateriaPrima());
+
+                        int capacidadMatPrima=calcularCapacidadMateriaPrima(aux.getAltoMatPrima(),aux.getAnchoMatPrima(),aux.getLargoMatPrima(),aux.getAltoPieza(),aux.getAnchoPieza(),aux.getLargoPieza(),aux.getNombrePieza(),aux.getMateriaPrima().getNombreMateriaPrima());
+                        AccessDetalleProductoPresupuesto.update(detProdPresDB,cn);
                     }
 
                 }
                 //actualizo el pedido con estado PEDIDOCONDETALLEDEMATERIAPRIMA
-                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
-                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
-
-                //tengo que recorrer todas las etapas seleccionadas para la pieza
-                //y guardar un DetallePiezaPresupuesto por cada combinacion de
-                //la pieza con cada etapa
-                DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
-                Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
-                ViewEtapaDeProduccion v=null;
-                long idDetPiPres=-1;
-                while(iEtapas.hasNext())
-                {
-                    v=iEtapas.next();
-                    Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
-                    dpipre.setDuracionEtapaXPieza(duracion);
-                    idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
-                }
+//                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
+//
+//                DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
+//                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
+//
+//                //tengo que recorrer todas las etapas seleccionadas para la pieza
+//                //y guardar un DetallePiezaPresupuesto por cada combinacion de
+//                //la pieza con cada etapa
+//                DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
+//                Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
+//                ViewEtapaDeProduccion v=null;
+//                long idDetPiPres=-1;
+//                while(iEtapas.hasNext())
+//                {
+//                    v=iEtapas.next();
+//                    Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
+//                    dpipre.setDuracionEtapaXPieza(duracion);
+//                    idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
+//                }
             }
-            cn.commit();
-            flag=true;
+//            cn.commit();
+//            flag=true;
         }
         catch (Exception ex)
         {
@@ -347,5 +334,36 @@ public class GestorDetalleMateriaPrima {
         return x;
 
     }
+
+    //-1: cancelar
+    private int calcularCapacidadMateriaPrima(double altoMatPrima, double anchoMatPrima, double largoMatPrima, double altoPieza, double anchoPieza, double largoPieza,String nombrePieza,String nombreMatPrima) {
+        double volumenPieza=altoPieza*anchoPieza*largoPieza;
+        double volumenMatPrima=altoMatPrima*anchoMatPrima*largoMatPrima;
+        int respuesta=-1;
+        if(volumenPieza>volumenMatPrima)respuesta=JOptionPane.showConfirmDialog(null, "El volumen de la Pieza '"+nombrePieza+"' es mayor que el volumen de la materia prima '"+nombreMatPrima+"' seleccionada, desea continuar?","ATENCIÓN",JOptionPane.OK_CANCEL_OPTION);
+        if(respuesta==JOptionPane.CANCEL_OPTION)return -1;
+
+        //calculo los valores max med y min de la pieza y materia prima, donde los valores de la pieza
+        //tienen que ser iguales o menores a los respectivos valores de la materia prima.
+        double maxMatPrima=Calculos.mayor(altoMatPrima, anchoMatPrima, largoMatPrima);
+        double minMatPrima=Calculos.menor(altoMatPrima, anchoMatPrima, largoMatPrima);
+        double medMatPrima=Calculos.medio(altoMatPrima, anchoMatPrima, largoMatPrima);
+        double maxPieza=Calculos.mayor(altoPieza, anchoPieza, largoPieza);
+        double minPieza=Calculos.menor(altoPieza, anchoPieza, largoPieza);
+        double medPieza=Calculos.medio(altoPieza, anchoPieza, largoPieza);
+
+        if(maxPieza>maxMatPrima || medPieza>medMatPrima || minPieza>minMatPrima)respuesta=JOptionPane.showConfirmDialog(null, "Las dimensiones de la Pieza '"+nombrePieza+"' son mayores que la materia prima '"+nombreMatPrima+"' seleccionada, desea continuar?","ATENCIÓN",JOptionPane.OK_CANCEL_OPTION);
+        if(respuesta==JOptionPane.CANCEL_OPTION)return -1;
+
+        int entranEnMax=(int) (maxMatPrima / maxPieza);
+        int entranEnMed=(int) (medMatPrima / medPieza);
+        int entranEnMin=(int) (minMatPrima / minPieza);
+
+        int entranTotal=entranEnMax*entranEnMed*entranEnMin;
+
+        return entranTotal;
+    }
+
+
 
 }

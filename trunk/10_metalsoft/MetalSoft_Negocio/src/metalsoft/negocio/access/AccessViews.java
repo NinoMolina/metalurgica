@@ -107,7 +107,7 @@ public class AccessViews {
             while(rs.next())
             {
                 view=new ViewDetalleProducto();
-                view.setCantidad(rs.getInt("cantidadpiezas"));
+                view.setCantidadPieza(rs.getInt("cantidadpiezas"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setAlto(rs.getDouble("alto"));
                 view.setAncho(rs.getDouble("ancho"));
