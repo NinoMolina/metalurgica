@@ -29,6 +29,7 @@ import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
 import metalsoft.negocio.ventas.DetallePresupuesto;
 import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
 import metalsoft.negocio.ventas.Presupuesto;
+import metalsoft.util.sort.Sorts;
 
 /**
  *
@@ -239,10 +240,38 @@ public class GestorDetalleProcedimientos {
         Connection cn=null;
         long idPres=-1;
 
+        //lo ordeno para ir actualizando cada pedido en orden
+        Object[] obj=Sorts.seleccion(arlPiezaXEtapas);
+        arlPiezaXEtapas.clear();
+        for(int r=0;r<obj.length;r++)
+        {
+            arlPiezaXEtapas.add((PiezaXEtapas) obj[r]);
+            //System.out.println(arlPiezaXEtapas.get(r).getIdPedido()+" "+arlPiezaXEtapas.get(r).getIdDetallePedido()+" "+arlPiezaXEtapas.get(r).getIdProducto()+" "+arlPiezaXEtapas.get(r).getIdPieza());
+        }
+
         Iterator<PiezaXEtapas> i=arlPiezaXEtapas.iterator();
         PiezaXEtapas pxe=null;
-        //para cada conjunto de etapas de una pieza
 
+
+        //para cada conjunto de etapas de una pieza
+        //al estar ordenadas aparecen como muestra el sig ejemplo
+        //pedido|detPed|producto|pieza
+//        1 1 5 6
+//        1 1 5 8
+//        1 1 5 9
+//        1 2 6 6
+//        1 2 6 8
+//        2 3 4 6
+//        2 3 4 8
+//        2 5 5 6
+//        2 5 5 8
+//        2 5 5 9
+//        3 6 5 6
+//        3 6 5 6
+//        3 6 5 8
+//        3 6 5 8
+//        3 6 5 9
+//        6 11 4 6
         try
         {
             cn = pg.concectGetCn();
@@ -250,19 +279,21 @@ public class GestorDetalleProcedimientos {
             while(i.hasNext())
             {
                 pxe=i.next();
-                idPed=pxe.getIdPedido();
-                idPro=pxe.getIdProducto();
-                idPi=pxe.getIdPieza();
-                idDetPedido=pxe.getIdDetallePedido();
-                precioProd=pxe.getPrecioProducto();
-                cantProd=pxe.getCantProductos();
-            
+                if(idPed!=pxe.getIdPedido())
+                {
+                    idPed=pxe.getIdPedido();
+                    idPro=pxe.getIdProducto();
+                    idPi=pxe.getIdPieza();
+                    idDetPedido=pxe.getIdDetallePedido();
+                    precioProd=pxe.getPrecioProducto();
+                    cantProd=pxe.getCantProductos();
 
-                Presupuesto pres=new Presupuesto();
-                idPres=AccessPresupuesto.insert(pres, cn);
 
-                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
+                    Presupuesto pres=new Presupuesto();
+                    idPres=AccessPresupuesto.insert(pres, cn);
 
+                    AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
+                }
                 DetallePresupuesto dpres=new DetallePresupuesto();
                 dpres.setPrecio(precioProd);
                 dpres.setCantidad(cantProd);

@@ -13,11 +13,29 @@ public class PiezaXMateriaPrima extends PiezaXAlgo{
 
     private long idMateriaPrima;
     private double anchoPieza,altoPieza,largoPieza;
+    private int cantidadPieza,cantidadProducto;
     private double anchoMatPrima,altoMatPrima,largoMatPrima;
     private ViewMateriaPrima materiaPrima;
 
     public PiezaXMateriaPrima() {
     }
+
+    public int getCantidadPieza() {
+        return cantidadPieza;
+    }
+
+    public void setCantidadPieza(int cantidadPieza) {
+        this.cantidadPieza = cantidadPieza;
+    }
+
+    public int getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(int cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
 
     public long getIdMateriaPrima() {
         return idMateriaPrima;

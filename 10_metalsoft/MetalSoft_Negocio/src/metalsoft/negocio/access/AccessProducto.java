@@ -90,7 +90,7 @@ public class AccessProducto {
                 view=new ViewDetalleProducto();
                 view.setNombrePieza(rs.getString("nombrepieza"));
                 view.setDescripcion(rs.getString("descripcion"));
-                view.setCantidad(rs.getInt("cantidadpiezas"));
+                view.setCantidadPieza(rs.getInt("cantidadpiezas"));
                 view.setAlto(rs.getDouble("alto"));
                 view.setAncho(rs.getDouble("ancho"));
                 view.setLargo(rs.getDouble("largo"));

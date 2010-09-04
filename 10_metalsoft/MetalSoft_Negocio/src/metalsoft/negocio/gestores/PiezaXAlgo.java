@@ -16,7 +16,25 @@ import java.util.Iterator;
 public abstract class PiezaXAlgo implements Comparable{
 
     private long idPedido,idProducto,idPieza,idDetallePedido;
+    private String nombrePieza,nombreProducto;
 
+    public String getNombrePieza() {
+        return nombrePieza;
+    }
+
+    public void setNombrePieza(String nombrePieza) {
+        this.nombrePieza = nombrePieza;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    
     public long getIdDetallePedido() {
         return idDetallePedido;
     }
@@ -56,13 +74,51 @@ public abstract class PiezaXAlgo implements Comparable{
         long idPed=x.getIdPedido();
         long idPi=x.getIdPieza();
         long idPro=x.getIdProducto();
-
-        if(idPed==this.getIdPedido() && idPi==this.getIdPieza() && idPro==this.getIdProducto())
+        long idDetPed=x.getIdDetallePedido();
+//        if(idPed==this.getIdPedido() && idPi==this.getIdPieza() && idPro==this.getIdProducto() && idDetPed==this.getIdDetallePedido())
+//        {
+//            return 0;
+//        }
+        if(idPed==this.getIdPedido())
         {
-            return 0;
+            if(idDetPed==this.getIdDetallePedido())
+            {
+                if(idPro==this.getIdProducto())
+                {
+                    if(idPi==this.getIdPieza())
+                    {
+                        //son iguales
+                        return 0;
+                    }
+                    else
+                    {
+                        //diferencia por pieza
+                        if(this.getIdPieza()<idPi)return -1;
+                        else return 1;
+                    }
+                }
+                else
+                {
+                    //diferencia por producto
+                    if(this.getIdProducto()<idPro)return -1;
+                    else return 1;
+                }
+            }
+            else
+            {
+                //diferencia por detalle pedido
+                if(this.getIdDetallePedido()<idDetPed)return -1;
+                else return 1;
+            }
         }
-        if(this.getIdPedido()<idPed)return -1;
-        else return 1;
+        else
+        {
+            //diferencia por pedido
+            if(this.getIdPedido()<idPed)return -1;
+            else return 1;
+        }
+
+
     }
 
     /*

@@ -230,7 +230,7 @@ public class GestorProducto implements IBuscador{
         {
             datos=iter.next();
             arlIdsPiezasDetalleProducto.add(datos.getIdPieza());
-            int cant=datos.getCantidad();
+            int cant=datos.getCantidadPieza();
             String desc=datos.getDescripcion();
             arlDetalle.add(prod.crearDetalleProducto(cant, desc));
         }
