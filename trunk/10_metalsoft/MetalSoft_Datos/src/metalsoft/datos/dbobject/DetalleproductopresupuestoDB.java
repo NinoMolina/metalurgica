@@ -25,17 +25,26 @@ public class DetalleproductopresupuestoDB implements Serializable
 	private long iddetallepresupuesto;
 	private long idpieza;
 	private long idmateriaprima;
-	private int cantmateriaprima;
+	private int cantmateriaprima,cantpiezas;
 
 
 	public DetalleproductopresupuestoDB(){}
-	public DetalleproductopresupuestoDB(long iddetalle ,long iddetallepresupuesto ,long idpieza ,long idmateriaprima ,int cantmateriaprima){
+	public DetalleproductopresupuestoDB(long iddetalle ,long iddetallepresupuesto ,long idpieza ,long idmateriaprima ,int cantmateriaprima,int cantpiezas){
 		this.iddetalle = iddetalle;
 		this.iddetallepresupuesto = iddetallepresupuesto;
 		this.idpieza = idpieza;
 		this.idmateriaprima = idmateriaprima;
 		this.cantmateriaprima = cantmateriaprima;
+                this.cantpiezas = cantpiezas;
 	}
+
+    public int getCantpiezas() {
+        return cantpiezas;
+    }
+
+    public void setCantpiezas(int cantpiezas) {
+        this.cantpiezas = cantpiezas;
+    }
 
 	public void setIddetalle(long iddetalle ){
 		 this.iddetalle =iddetalle;
