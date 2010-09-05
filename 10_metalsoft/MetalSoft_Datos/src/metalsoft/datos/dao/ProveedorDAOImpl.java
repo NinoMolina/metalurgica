@@ -106,9 +106,10 @@ public class ProveedorDAOImpl implements ProveedorDAO
 	public int insert(ProveedorDB proveedor ,Connection con)throws ProveedorException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PROVEEDOR( NROPROVEEDOR, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICION, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into PROVEEDOR( NROPROVEEDOR, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICION, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING IDPROVEEDOR");
 				ps.setLong(1,proveedor.getNroproveedor());
 				ps.setString(2,proveedor.getRazonsocial());
                 if(proveedor.getResponsable()>0)
@@ -134,7 +135,9 @@ public class ProveedorDAOImpl implements ProveedorDAO
                     ps.setNull(11,java.sql.Types.NULL);
 				ps.setString(12,proveedor.getCuit());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new ProveedorException(sqle);}
 		catch(Exception e){throw new ProveedorException(e);}
 	}
