@@ -6,6 +6,11 @@ Clases de Entidad a modificar en Diagrama de Clases Completo:
 *Empleado: mostrarNombre()
 *Proveedor: tomarMateriaPrima(), mostrarRazonSocial()
 *MateriaPrima: mostrarNombre()
+*Cliente: mostrarRazonSocial(), mostrarNumeroCuit(), mostrarCondicionIVA()
+*Condicion IVA: mostrarNombre()
+*Producto: mostrarNombre()
+*Pedido: mostrarNumero()
+
 
 Nuevos Gestores:
 
