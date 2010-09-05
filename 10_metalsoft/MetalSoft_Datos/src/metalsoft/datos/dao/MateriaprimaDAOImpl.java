@@ -104,9 +104,10 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 	public int insert(MateriaprimaDB materiaprima ,Connection con)throws MateriaprimaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, ALTO, STOCK, UNIDADMEDIDA, DESCRIPCION, TIPOMATERIAL, LARGO, ANCHO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into MATERIAPRIMA( CODPRODUCTO, NOMBRE, FECHAALTA, FECHABAJA, CODBARRA, ALTO, STOCK, UNIDADMEDIDA, DESCRIPCION, TIPOMATERIAL, LARGO, ANCHO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING IDMATERIAPRIMA");
 				ps.setLong(1,materiaprima.getCodproducto());
 				ps.setString(2,materiaprima.getNombre());
 				ps.setDate(3,materiaprima.getFechaalta());
@@ -133,8 +134,9 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 				//ps.setLong(10,materiaprima.getTipomaterial());
                 ps.setDouble(11,materiaprima.getLargo());
                 ps.setDouble(12,materiaprima.getAncho());
-
-				return(ps.executeUpdate());
+                rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new MateriaprimaException(sqle);}
 		catch(Exception e){throw new MateriaprimaException(e);}
 	}
