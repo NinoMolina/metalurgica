@@ -49,6 +49,7 @@ public class ABMProveedor extends javax.swing.JFrame {
     public ABMProveedor() {
         initComponents();
         gestor=new GestorProveedor();
+        dccFechaBaja.setSelectedDate(null);
         cargarComboCondIva();
 //        cargarComboPrioridad();
 //        cargarComboEstado();
