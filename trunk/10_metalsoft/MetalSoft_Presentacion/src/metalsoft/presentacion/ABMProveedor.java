@@ -10,9 +10,9 @@
  */
 
 package metalsoft.presentacion;
+import java.util.Date;
 import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
-import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -485,10 +485,10 @@ public class ABMProveedor extends javax.swing.JFrame {
         String celCli=txtCelular.getText();
         Date fecAltaCli=null;
         if(dccFechaAlta.getSelectedDate()!=null)
-            fecAltaCli=(Date) dccFechaAlta.getSelectedDate().getTime();
+            fecAltaCli=dccFechaAlta.getSelectedDate().getTime();
         Date fecBajaCli=null;
         if(dccFechaBaja.getSelectedDate()!=null)
-            fecBajaCli=(Date) dccFechaBaja.getSelectedDate().getTime();
+            fecBajaCli=dccFechaBaja.getSelectedDate().getTime();
         
         String mailCli=txtMail.getText();
         String nroCli=txtNroCliente.getText();
@@ -682,11 +682,11 @@ public class ABMProveedor extends javax.swing.JFrame {
         domicilioClienteDB=gestor.buscarDomicilioProveedorDB(proveedorDB.getDomicilio());
         responsableDB=gestor.buscarResponsableProveedorDB(proveedorDB.getResponsable());
         domicilioResponsableDB=gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
-        mostrarDatosCliente();
+        mostrarDatosProveedor();
         setEnableComponents(false);
     }
 
-    private void mostrarDatosCliente() {
+    private void mostrarDatosProveedor() {
         cargarComboCondIva();
 //        cargarComboEstado();
 //        cargarComboPrioridad();
@@ -711,11 +711,11 @@ public class ABMProveedor extends javax.swing.JFrame {
             dccFechaAlta.setSelectedDate(gc);
         }
         if(proveedorDB.getFechabaja()==null)
-            dccFechaAlta.setSelectedDate(null);
+            dccFechaBaja.setSelectedDate(null);
         else{
             GregorianCalendar gc=new GregorianCalendar();
             gc.setTime(proveedorDB.getFechabaja());
-            dccFechaAlta.setSelectedDate(gc);
+            dccFechaBaja.setSelectedDate(gc);
         }
         
         txtMail.setText(proveedorDB.getMail());
