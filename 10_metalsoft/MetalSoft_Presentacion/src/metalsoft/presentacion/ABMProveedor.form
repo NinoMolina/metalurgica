@@ -76,7 +76,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Administrar Cliente"/>
+            <TitledBorder title="Administrar Proveedor"/>
           </Border>
         </Property>
       </Properties>
@@ -297,7 +297,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Domicilio Cliente"/>
+                <TitledBorder title="Domicilio Proveedor"/>
               </Border>
             </Property>
           </Properties>
