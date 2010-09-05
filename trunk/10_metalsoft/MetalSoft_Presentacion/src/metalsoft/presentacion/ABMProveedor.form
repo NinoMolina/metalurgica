@@ -306,6 +306,9 @@
         <Component class="datechooser.beans.DateChooserCombo" name="dccFechaAlta">
         </Component>
         <Component class="datechooser.beans.DateChooserCombo" name="dccFechaBaja">
+          <Properties>
+            <Property name="dch_combo_dateFormat" type="int" value="2"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
