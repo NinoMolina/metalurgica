@@ -67,6 +67,7 @@ public class Principal extends javax.swing.JFrame {
         mnuInicio = new javax.swing.JMenu();
         mnuCompras = new javax.swing.JMenu();
         mniMateriaPrima = new javax.swing.JMenuItem();
+        mniProveedor = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
         mniPieza = new javax.swing.JMenuItem();
@@ -102,6 +103,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCompras.add(mniMateriaPrima);
+
+        mniProveedor.setText("Proveedor");
+        mniProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProveedorActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(mniProveedor);
 
         mbrMenu.add(mnuCompras);
 
@@ -377,6 +386,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniGenerarDetalleMateriaPrimaActionPerformed
 
+    private void mniProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProveedorActionPerformed
+         try {
+            JFrameManager.crearVentana(ABMProveedor.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniProveedorActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -396,6 +417,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniPieza;
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
+    private javax.swing.JMenuItem mniProveedor;
     private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
