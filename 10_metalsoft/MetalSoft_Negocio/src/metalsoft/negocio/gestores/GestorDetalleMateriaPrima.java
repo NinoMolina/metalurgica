@@ -212,7 +212,7 @@ public class GestorDetalleMateriaPrima {
         long idPro=-1;
         long idPi=-1;
         long idDetPedido=-1;
-
+        long idDetPres=-1;
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
         long idPres=-1;
@@ -227,6 +227,7 @@ public class GestorDetalleMateriaPrima {
 
         Iterator<PiezaXMateriaPrima> iter=arlPiezasXMateriaPrima.iterator();
         PiezaXMateriaPrima pxmp=null;
+
         //para cada conjunto de etapas de una pieza
         try
         {
@@ -235,7 +236,7 @@ public class GestorDetalleMateriaPrima {
             while(iter.hasNext())
             {
                 pxmp=iter.next();
-
+                PresupuestoDB presDB=null;
                 if(idPed!=pxmp.getIdPedido())
                 {
                     idPed=pxmp.getIdPedido();
@@ -243,10 +244,13 @@ public class GestorDetalleMateriaPrima {
                     PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
                     idPres=pedDB.getPresupuesto();
 
-                    //obtengo el presupuesto y busco sus detalles
-                    PresupuestoDB presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
+                    //obtengo el presupuesto (para que?)
+                    presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
 
                 }
+                
+                DetallepresupuestoDB detPresDB=null;
+                DetalleproductopresupuestoDB detProdPresDB=null;
                 //si el id producto anterior es distinto al nuevo
                 //creo un nuevo detalle de presupuesto
                 if(idPro!=pxmp.getIdProducto())
@@ -254,71 +258,25 @@ public class GestorDetalleMateriaPrima {
                     idPro=pxmp.getIdProducto();
                     idDetPedido=pxmp.getIdDetallePedido();
 
-                    DetallepresupuestoDB detPresDB=AccessDetallePresupuesto.findByIdPresupuestoANDIdProducto(idPres,idPro,cn);
-
-                }
-
-                idPed=pxmp.getIdPedido();
-                idPro=pxmp.getIdProducto();
-                idPi=pxmp.getIdPieza();
-                idDetPedido=pxmp.getIdDetallePedido();
-
-                //busco el pedido para obtener el id de presupuesto
-                PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
-                idPres=pedDB.getPresupuesto();
-
-                //obtengo el presupuesto y busco sus detalles
-                PresupuestoDB presDB=AccessPresupuesto.findByIdPresupuesto(idPres,cn);
-                DetallepresupuestoDB[] vDetPresDB=AccessDetallePresupuesto.findByIdPresupuestoORDERBYIdProducto(idPres,cn);
-
-                //para cada detalle de presupuesto que estan ordenados segun el numero de producto voy buscando
-                //los detalles de producto presupuesto para actualizar en cada uno la materia prima
-                long idDetPres=-1;
-                DetalleproductopresupuestoDB[] vDetProdPresDB=null;
-                DetallepresupuestoDB detPresDB=null;
-                for(int i=0;i<vDetPresDB.length;i++)
-                {
-                    detPresDB=vDetPresDB[i];
+                    detPresDB=AccessDetallePresupuesto.findByIdPresupuestoANDIdProducto(idPres,idPro,cn);
                     idDetPres=detPresDB.getIddetalle();
-                    vDetProdPresDB=AccessDetalleProductoPresupuesto.findByIdDetallePresupuesto(idDetPres,cn);
-                    DetalleproductopresupuestoDB detProdPresDB=null;
-                    //para cada detalle producto presupuesto busco las PiezaXMateriaPrima que tengan el idproducto
-                    //igual al del detallepresupuesto y el idpieza para cada detalleproductopresupuesto
-                    PiezaXMateriaPrima aux=null;
-                    for(int j=0;j<vDetProdPresDB.length;j++)
-                    {
-                        detProdPresDB=vDetProdPresDB[j];
-                        aux=buscarEnArlPiezaXMateriaPrima(idPed,detPresDB.getIddetallepedido(),detPresDB.getIdproducto(),detProdPresDB.getIdpieza());
-                        detProdPresDB.setIdmateriaprima(aux.getIdMateriaPrima());
 
-                        int capacidadMatPrima=calcularCapacidadMateriaPrima(aux.getAltoMatPrima(),aux.getAnchoMatPrima(),aux.getLargoMatPrima(),aux.getAltoPieza(),aux.getAnchoPieza(),aux.getLargoPieza(),aux.getNombrePieza(),aux.getMateriaPrima().getNombreMateriaPrima());
-                        AccessDetalleProductoPresupuesto.update(detProdPresDB,cn);
-                    }
-
+                    
                 }
-                //actualizo el pedido con estado PEDIDOCONDETALLEDEMATERIAPRIMA
-//                AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
-//
-//                DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
-//                long idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
-//
-//                //tengo que recorrer todas las etapas seleccionadas para la pieza
-//                //y guardar un DetallePiezaPresupuesto por cada combinacion de
-//                //la pieza con cada etapa
-//                DetallePiezaPresupuesto dpipre=new DetallePiezaPresupuesto();
-//                Iterator<ViewEtapaDeProduccion> iEtapas=pxe.getEtapas().iterator();
-//                ViewEtapaDeProduccion v=null;
-//                long idDetPiPres=-1;
-//                while(iEtapas.hasNext())
-//                {
-//                    v=iEtapas.next();
-//                    Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
-//                    dpipre.setDuracionEtapaXPieza(duracion);
-//                    idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
-//                }
+
+                idPi=pxmp.getIdPieza();
+                detProdPresDB=AccessDetalleProductoPresupuesto.findByIdDetallePresupuestoANDIdPieza(idDetPres,idPi,cn);
+                detProdPresDB.setIdmateriaprima(pxmp.getIdMateriaPrima());
+                int capacidadMatPrima=calcularCapacidadMateriaPrima(pxmp.getAltoMatPrima(),pxmp.getAnchoMatPrima(),pxmp.getLargoMatPrima(),pxmp.getAltoPieza(),pxmp.getAnchoPieza(),pxmp.getLargoPieza(),pxmp.getNombrePieza(),pxmp.getMateriaPrima().getNombreMateriaPrima());
+                int cantPiezas=pxmp.getCantidadPieza();
+                int cantMateriaPrima=Calculos.calcularCantidadMateriaPrima(capacidadMatPrima,cantPiezas);
+                detProdPresDB.setCantmateriaprima(cantMateriaPrima);
+
+                AccessDetalleProductoPresupuesto.update(detProdPresDB,cn);
+                
             }
-//            cn.commit();
-//            flag=true;
+            cn.commit();
+            flag=true;
         }
         catch (Exception ex)
         {
