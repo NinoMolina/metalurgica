@@ -26,6 +26,7 @@ public interface DetalleproductopresupuestoDAO
 	public DetalleproductopresupuestoDB[] findByIdpieza(long idpieza,Connection con) throws DetalleproductopresupuestoException;
 	public DetalleproductopresupuestoDB[] findByIdmateriaprima(long idmateriaprima,Connection con) throws DetalleproductopresupuestoException;
 	public DetalleproductopresupuestoDB[] findByCantmateriaprima(int cantmateriaprima,Connection con) throws DetalleproductopresupuestoException;
+        public DetalleproductopresupuestoDB[] findByCantpiezas(int cantpiezas,Connection con) throws DetalleproductopresupuestoException;
 	public DetalleproductopresupuestoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleproductopresupuestoException;
 	public DetalleproductopresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductopresupuestoException;
 }
