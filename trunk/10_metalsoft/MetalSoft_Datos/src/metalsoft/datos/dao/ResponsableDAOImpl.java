@@ -67,9 +67,16 @@ public class ResponsableDAOImpl implements ResponsableDAO
 				ps.setString(2,responsable.getApellido());
 				ps.setString(3,responsable.getTelefono());
 				ps.setString(4,responsable.getEmail());
-				ps.setLong(5,responsable.getDomicilio());
+                if(responsable.getDomicilio()>0)
+                    ps.setLong(5,responsable.getDomicilio());
+                else
+                    ps.setNull(5,java.sql.Types.NULL);
 				ps.setLong(6,responsable.getNrodocumento());
-				ps.setLong(7,responsable.getTipodocumento());
+                if(responsable.getTipodocumento()>0)
+                    ps.setLong(7,responsable.getTipodocumento());
+                else
+                    ps.setNull(7,java.sql.Types.NULL);
+
 				ps.setString(8,responsable.getFax());
 				ps.setLong(9,responsablepk.getIdresponsable());
 
