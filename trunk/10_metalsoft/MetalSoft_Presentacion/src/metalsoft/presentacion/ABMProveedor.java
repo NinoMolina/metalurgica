@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
 import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -62,8 +63,8 @@ public class ABMProveedor extends javax.swing.JFrame {
     {
         txtCUIT.setEnabled(b);
         txtCelular.setEnabled(b);
-        txtFechaAlta.setEnabled(b);
-        txtFechaBaja.setEnabled(b);
+        dccFechaAlta.setEnabled(b);
+        dccFechaBaja.setEnabled(b);
         txtMail.setEnabled(b);
         txtNroCliente.setEnabled(b);
         txtRazonSocial.setEnabled(b);
@@ -79,8 +80,8 @@ public class ABMProveedor extends javax.swing.JFrame {
     {
         txtCUIT.setText("");
         txtCelular.setText("");
-        txtFechaAlta.setText("");
-        txtFechaBaja.setText("");
+        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
+        dccFechaBaja.setSelectedDate(null);
         txtMail.setText("");
         txtNroCliente.setText("");
         txtRazonSocial.setText("");
@@ -197,14 +198,14 @@ public class ABMProveedor extends javax.swing.JFrame {
         txtNroCliente = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
         txtCUIT = new javax.swing.JTextField();
-        txtFechaBaja = new javax.swing.JTextField();
-        txtFechaAlta = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtCelular = new javax.swing.JTextField();
         txtMail = new javax.swing.JTextField();
         cmbCondicionIVA = new javax.swing.JComboBox();
         beanDomicilioCliente = new metalsoft.beans.Domicilio();
         beanResponsable = new metalsoft.beans.Responsable();
+        dccFechaAlta = new datechooser.beans.DateChooserCombo();
+        dccFechaBaja = new datechooser.beans.DateChooserCombo();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -253,59 +254,57 @@ public class ABMProveedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtTelefono))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtMail))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCelular)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefono))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMail))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCelular))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(dccFechaAlta, 0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
-                                .addGap(9, 9, 9)
-                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel13))
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cmbCondicionIVA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbCondicionIVA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtNroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
@@ -321,16 +320,16 @@ public class ABMProveedor extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel12)
                                     .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
-                                    .addComponent(txtFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel3)
-                                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel6)
@@ -340,14 +339,14 @@ public class ABMProveedor extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel2)
                                             .addComponent(cmbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(44, 44, 44)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13)
-                                    .addComponent(txtFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(14, 14, 14)
-                        .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-                    .addComponent(beanResponsable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                    .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         btnNuevo.setText("Nuevo");
@@ -445,7 +444,8 @@ public class ABMProveedor extends javax.swing.JFrame {
         opcion=EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
-        txtFechaAlta.setText(Fecha.fechaActual());
+        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
+        dccFechaBaja.setSelectedDate(null);
 }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -483,8 +483,13 @@ public class ABMProveedor extends javax.swing.JFrame {
 
         String cuitCli=txtCUIT.getText();
         String celCli=txtCelular.getText();
-        String fecAltaCli=txtFechaAlta.getText();
-        String fecBajaCli=txtFechaBaja.getText();
+        Date fecAltaCli=null;
+        if(dccFechaAlta.getSelectedDate()!=null)
+            fecAltaCli=(Date) dccFechaAlta.getSelectedDate().getTime();
+        Date fecBajaCli=null;
+        if(dccFechaBaja.getSelectedDate()!=null)
+            fecBajaCli=(Date) dccFechaBaja.getSelectedDate().getTime();
+        
         String mailCli=txtMail.getText();
         String nroCli=txtNroCliente.getText();
         String razonCli=txtRazonSocial.getText();
@@ -644,18 +649,18 @@ public class ABMProveedor extends javax.swing.JFrame {
         return resp;
     }
 
-    private Proveedor crearProveedor(String cuit,String cel,String fechaAlta,String fechaBaja,String mail,String nroProv, String razon, String tel) {
+    private Proveedor crearProveedor(String cuit,String cel,Date fechaAlta,Date fechaBaja,String mail,String nroProv, String razon, String tel) {
         Proveedor x=new Proveedor();
         x.setCUIT(cuit);
         x.setCelular(cel);
 
-        if(fechaAlta.compareTo("")!=0)
-            x.setFechaAlta(Fecha.parseToDate(fechaAlta));
+        if(fechaAlta!=null)
+            x.setFechaAlta(fechaAlta);
         else
             x.setFechaAlta(null);
 
-        if(fechaBaja.compareTo("")!=0)
-            x.setFechaBaja(Fecha.parseToDate(fechaBaja));
+        if(fechaBaja!=null)
+            x.setFechaBaja(fechaBaja);
         else
             x.setFechaBaja(null);
 
@@ -698,12 +703,21 @@ public class ABMProveedor extends javax.swing.JFrame {
     private void setDatosProveedor() {
         txtCUIT.setText(proveedorDB.getCuit());
         txtCelular.setText(proveedorDB.getCelular());
-        txtFechaAlta.setText(Fecha.parseToString(proveedorDB.getFechaalta(),"dd/MM/yyyy"));
-        java.sql.Date fechaBaja=proveedorDB.getFechabaja();
-        if(fechaBaja!=null)
-            txtFechaBaja.setText(Fecha.parseToString(proveedorDB.getFechabaja(),"dd/MM/yyyy"));
-        else
-            txtFechaBaja.setText("");
+        if(proveedorDB.getFechaalta()==null)
+            dccFechaAlta.setSelectedDate(null);
+        else{
+            GregorianCalendar gc=new GregorianCalendar();
+            gc.setTime(proveedorDB.getFechaalta());
+            dccFechaAlta.setSelectedDate(gc);
+        }
+        if(proveedorDB.getFechabaja()==null)
+            dccFechaAlta.setSelectedDate(null);
+        else{
+            GregorianCalendar gc=new GregorianCalendar();
+            gc.setTime(proveedorDB.getFechabaja());
+            dccFechaAlta.setSelectedDate(gc);
+        }
+        
         txtMail.setText(proveedorDB.getMail());
         txtNroCliente.setText(String.valueOf(proveedorDB.getNroproveedor()));
         txtRazonSocial.setText(proveedorDB.getRazonsocial());
@@ -784,6 +798,8 @@ public class ABMProveedor extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cmbCondicionIVA;
+    private datechooser.beans.DateChooserCombo dccFechaAlta;
+    private datechooser.beans.DateChooserCombo dccFechaBaja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -796,8 +812,6 @@ public class ABMProveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCUIT;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtFechaAlta;
-    private javax.swing.JTextField txtFechaBaja;
     private javax.swing.JTextField txtMail;
     private javax.swing.JTextField txtNroCliente;
     private javax.swing.JTextField txtRazonSocial;
