@@ -1,0 +1,24 @@
+Clases de Entidad a modificar en Diagrama de Clases Completo:
+
+*Usuario: mostrarUsuario(), mostrarRol(),
+*Rol: mostrarPrivilegio(),crear(), mostrarRol()
+*Privilegio: mostrarPrivilegio()
+*Empleado: mostrarNombre()
+*Proveedor: tomarMateriaPrima(), mostrarRazonSocial()
+*MateriaPrima: mostrarNombre()
+
+Nuevos Gestores:
+
+*GestorMateriaPrimaAProveedor
+
+
+Nuevas Interfaces:
+
+*InterfazMateriaPrimaAProveedor
+
+
+
+
+
+
+
