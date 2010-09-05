@@ -66,15 +66,27 @@ public class ProveedorDAOImpl implements ProveedorDAO
 			ps = con.prepareStatement("update PROVEEDOR set NROPROVEEDOR = ? , RAZONSOCIAL = ? , RESPONSABLE = ? , TELEFONO = ? , CELULAR = ? , MAIL = ? , DOMICILIO = ? , FECHAALTA = ? , FECHABAJA = ? , CUIL = ? , CONDICION = ? , CUIT = ?  where idproveedor = ?");
 				ps.setLong(1,proveedor.getNroproveedor());
 				ps.setString(2,proveedor.getRazonsocial());
-				ps.setLong(3,proveedor.getResponsable());
+                if(proveedor.getResponsable()>0)
+                    ps.setLong(3,proveedor.getResponsable());
+                else
+                    ps.setNull(3,java.sql.Types.NULL);
+
 				ps.setString(4,proveedor.getTelefono());
 				ps.setString(5,proveedor.getCelular());
 				ps.setString(6,proveedor.getMail());
-				ps.setLong(7,proveedor.getDomicilio());
+                if(proveedor.getDomicilio()>0)
+                    ps.setLong(7,proveedor.getDomicilio());
+                else
+                    ps.setNull(7,java.sql.Types.NULL);
+
 				ps.setDate(8,proveedor.getFechaalta());
 				ps.setDate(9,proveedor.getFechabaja());
 				ps.setString(10,proveedor.getCuil());
-				ps.setLong(11,proveedor.getCondicion());
+
+                if(proveedor.getCondicion()>0)
+                    ps.setLong(11,proveedor.getCondicion());
+                else
+                    ps.setNull(11,java.sql.Types.NULL);
 				ps.setString(12,proveedor.getCuit());
 				ps.setLong(13,proveedorpk.getIdproveedor());
 
@@ -99,15 +111,27 @@ public class ProveedorDAOImpl implements ProveedorDAO
 			ps = con.prepareStatement("insert into PROVEEDOR( NROPROVEEDOR, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICION, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				ps.setLong(1,proveedor.getNroproveedor());
 				ps.setString(2,proveedor.getRazonsocial());
-				ps.setLong(3,proveedor.getResponsable());
+                if(proveedor.getResponsable()>0)
+                    ps.setLong(3,proveedor.getResponsable());
+                else
+                    ps.setNull(3,java.sql.Types.NULL);
+
 				ps.setString(4,proveedor.getTelefono());
 				ps.setString(5,proveedor.getCelular());
 				ps.setString(6,proveedor.getMail());
-				ps.setLong(7,proveedor.getDomicilio());
+                if(proveedor.getDomicilio()>0)
+                    ps.setLong(7,proveedor.getDomicilio());
+                else
+                    ps.setNull(7,java.sql.Types.NULL);
+
 				ps.setDate(8,proveedor.getFechaalta());
 				ps.setDate(9,proveedor.getFechabaja());
 				ps.setString(10,proveedor.getCuil());
-				ps.setLong(11,proveedor.getCondicion());
+
+                if(proveedor.getCondicion()>0)
+                    ps.setLong(11,proveedor.getCondicion());
+                else
+                    ps.setNull(11,java.sql.Types.NULL);
 				ps.setString(12,proveedor.getCuit());
 
 				return(ps.executeUpdate());
