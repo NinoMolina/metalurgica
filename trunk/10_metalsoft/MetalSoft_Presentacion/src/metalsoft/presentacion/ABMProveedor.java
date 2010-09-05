@@ -215,7 +215,7 @@ public class ABMProveedor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrar Proveedor");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Cliente"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Proveedor"));
 
         jLabel1.setText("Nro. Proveedor:");
 
@@ -241,7 +241,7 @@ public class ABMProveedor extends javax.swing.JFrame {
             }
         });
 
-        beanDomicilioCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio Cliente"));
+        beanDomicilioCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio Proveedor"));
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Responsable"));
 
@@ -334,14 +334,13 @@ public class ABMProveedor extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel6)
-                                            .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(52, 52, 52))
+                                            .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(52, 52, 52)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel2)
                                             .addComponent(cmbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
+                                .addGap(44, 44, 44)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel13)
                                     .addComponent(txtFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
