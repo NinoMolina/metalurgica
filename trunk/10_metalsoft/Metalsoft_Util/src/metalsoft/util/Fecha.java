@@ -25,6 +25,8 @@ public class Fecha {
     public static final long MILISEGUNDOS_POR_HORA = 3600000;
     public static final long MILISEGUNDOS_POR_MINUTO = 60000;
     public static final long MILISEGUNDOS_POR_SEGUNDO = 1000;
+    public static final String HORA_MINUTO_SEGUNDO = "hh:mm:ss";
+    public static final String DD_MM_YYYY = "dd/MM/yyyy";
     
     public static String fechaActual()
     {
@@ -115,6 +117,19 @@ public class Fecha {
     {
         Date f=new Date(fecha);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            String s=formato.format(f);
+            f=formato.parse(s);
+        } catch (Exception ex) {
+            Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return f;
+    }
+
+    public static Date parseToDate(long fecha,String format)
+    {
+        Date f=new Date(fecha);
+        SimpleDateFormat formato = new SimpleDateFormat(format);
         try {
             String s=formato.format(f);
             f=formato.parse(s);
