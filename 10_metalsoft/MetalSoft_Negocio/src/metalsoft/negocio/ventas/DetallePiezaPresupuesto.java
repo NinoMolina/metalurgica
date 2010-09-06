@@ -7,6 +7,7 @@ package metalsoft.negocio.ventas;
 
 import java.util.Date;
 import metalsoft.negocio.gestores.PiezaXEtapas;
+import metalsoft.util.Calculos;
 import metalsoft.util.Fecha;
 
 /**
@@ -40,24 +41,7 @@ public class DetallePiezaPresupuesto {
 
     public Date calcularDuracion(Date duracionEstimada,double alto,double ancho,double largo)
     {
-        double volumen=alto*ancho*largo;
-
-        int horas=duracionEstimada.getHours();
-        int minutos=duracionEstimada.getMinutes();
-        int segundos=duracionEstimada.getSeconds();
-
-        horas=(int) (horas * volumen);
-        minutos=(int) (minutos * volumen);
-        segundos=(int) (segundos * volumen);
-
-        Date duracion=(Date) duracionEstimada.clone();
-        duracion.setHours(horas);
-        duracion.setMinutes(minutos);
-        duracion.setSeconds(segundos);
-
-        duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
-        
-        return duracion;
+        return Calculos.calcularDuracion(duracionEstimada,alto,ancho,largo);
     }
 
 
