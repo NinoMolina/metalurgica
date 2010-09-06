@@ -310,6 +310,7 @@ public class GestorDetalleProcedimientos {
 
                 idPi=pxe.getIdPieza();
                 DetalleProductoPresupuesto dpropre=new DetalleProductoPresupuesto();
+                dpropre.setCantidadPieza(pxe.getCantPiezas());
                 idDetProPre=AccessDetalleProductoPresupuesto.insert(dpropre,idDetPres,idPi,cn);
                 //tengo que recorrer todas las etapas seleccionadas para la pieza
                 //y guardar un DetallePiezaPresupuesto por cada combinacion de
