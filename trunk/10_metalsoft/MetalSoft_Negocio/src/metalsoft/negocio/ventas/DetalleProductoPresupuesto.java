@@ -4,6 +4,7 @@ package metalsoft.negocio.ventas;
 
 import java.util.ArrayList;
 import java.util.Date;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 
 
 public class DetalleProductoPresupuesto
@@ -11,7 +12,8 @@ public class DetalleProductoPresupuesto
 
    private ArrayList<DetallePiezaPresupuesto> detallePiezaPresupuesto;
    private Pieza pieza;
-   
+   private MateriaPrima materiaPrima;
+   int cantidadPieza,cantidadMateriaPrima;
    /**
     * @roseuid 4C27ED190048
     */
@@ -19,6 +21,31 @@ public class DetalleProductoPresupuesto
    {
     
    }
+
+    public int getCantidadMateriaPrima() {
+        return cantidadMateriaPrima;
+    }
+
+    public void setCantidadMateriaPrima(int cantidadMateriaPrima) {
+        this.cantidadMateriaPrima = cantidadMateriaPrima;
+    }
+
+    public int getCantidadPieza() {
+        return cantidadPieza;
+    }
+
+    public void setCantidadPieza(int cantidadPieza) {
+        this.cantidadPieza = cantidadPieza;
+    }
+
+    public MateriaPrima getMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public void setMateriaPrima(MateriaPrima materiaPrima) {
+        this.materiaPrima = materiaPrima;
+    }
+   
 
    public boolean agregarDetallePiezaPresupuesto(DetallePiezaPresupuesto dpp)
    {

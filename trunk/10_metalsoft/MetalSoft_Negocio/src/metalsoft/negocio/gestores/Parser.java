@@ -386,6 +386,8 @@ public class Parser {
 
     public static DetalleproductopresupuestoDB parseToDetalleproductopresupuestoDB(DetalleProductoPresupuesto x) {
         DetalleproductopresupuestoDB db=new DetalleproductopresupuestoDB();
+        db.setCantpiezas(x.getCantidadPieza());
+        db.setCantmateriaprima(x.getCantidadMateriaPrima());
         return db;
     }
 
