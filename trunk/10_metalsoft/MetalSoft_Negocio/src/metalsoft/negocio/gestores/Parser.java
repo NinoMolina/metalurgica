@@ -8,6 +8,7 @@ package metalsoft.negocio.gestores;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.datos.dbobject.Detallepiezacalidadpresupuesto;
 import metalsoft.datos.dbobject.DetallepiezapresupuestoDB;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
@@ -21,6 +22,7 @@ import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.calidad.DetallePiezaCalidadPresupuesto;
 import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.produccion.TipoMaterial;
@@ -394,6 +396,13 @@ public class Parser {
     public static DetallepiezapresupuestoDB parseToDetallepiezapresupuestoDB(DetallePiezaPresupuesto x) {
         DetallepiezapresupuestoDB db=new DetallepiezapresupuestoDB();
         db.setDuracionpiezaxetapa(Fecha.parseToTimeSQL(x.getDuracionEtapaXPieza()));
+        return db;
+    }
+
+    public static Detallepiezacalidadpresupuesto parseToDetallepiezacalidadpresupuestoDB(DetallePiezaCalidadPresupuesto dpcp) {
+        Detallepiezacalidadpresupuesto db=new Detallepiezacalidadpresupuesto();
+        db.setCantprocesocalidad(dpcp.getCantidadProcesoCalidad());
+        db.setDuracionxpieza(Fecha.parseToTimeSQL(dpcp.getDuracionXPieza()));
         return db;
     }
 }

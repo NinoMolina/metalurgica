@@ -267,9 +267,7 @@ public class GestorDetalleMateriaPrima {
                     idDetPedido=pxmp.getIdDetallePedido();
 
                     detPresDB=AccessDetallePresupuesto.findByIdPresupuestoANDIdProducto(idPres,idPro,cn);
-                    idDetPres=detPresDB.getIddetalle();
-
-                    
+                    idDetPres=detPresDB.getIddetalle();                    
                 }
 
                 idPi=pxmp.getIdPieza();

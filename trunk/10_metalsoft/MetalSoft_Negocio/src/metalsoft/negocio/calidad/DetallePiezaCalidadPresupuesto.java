@@ -6,6 +6,7 @@
 package metalsoft.negocio.calidad;
 
 import java.util.Date;
+import metalsoft.util.Calculos;
 
 /**
  *
@@ -42,6 +43,10 @@ public class DetallePiezaCalidadPresupuesto {
 
     public void setProcesoCalidad(ProcesoCalidad procesoCalidad) {
         this.procesoCalidad = procesoCalidad;
+    }
+
+    public Date calcularDuracionXPieza(Date duracionestimada) {
+        return Calculos.calcularDuracionPiezaXProcesoCalidad(duracionestimada);
     }
 
 
