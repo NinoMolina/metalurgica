@@ -30,7 +30,7 @@ import metalsoft.util.Fecha;
  *
  * @author Vicky
  */
-public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame implements IBuscadorView{
+public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements IBuscadorView{
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
@@ -42,7 +42,7 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
     private long idPedidoSeleccionado,idProductoSeleccionado,idPiezaSeleccionada;
 
     /** Creates new form GenerarListadoProcedimientosCalidad */
-    public GenerarListadoProcedimientosCalidad() {
+    public GenerarDetalleProcesosCalidad() {
         initComponents();
         tcrTblDetallePedido=new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
@@ -427,7 +427,7 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
 
     private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
         if(txtEtapaProduccion.getText().compareTo("")!=0) {
-            final GenerarListadoProcedimientosCalidad abm=this;
+            final GenerarDetalleProcesosCalidad abm=this;
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 private HiloViewEtapaDeProduccion hilo;
@@ -456,7 +456,7 @@ public class GenerarListadoProcedimientosCalidad extends javax.swing.JFrame impl
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GenerarListadoProcedimientosCalidad().setVisible(true);
+                new GenerarDetalleProcesosCalidad().setVisible(true);
             }
         });
     }
