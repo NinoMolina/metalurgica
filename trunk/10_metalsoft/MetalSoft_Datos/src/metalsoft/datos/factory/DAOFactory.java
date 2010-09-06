@@ -52,6 +52,8 @@ public interface DAOFactory
 
 	public DetallepedidoDAO createDetallepedidoDAO();
 
+public DetallepiezacalidadpresupuestoDAO createDetallepiezacalidadpresupuestoDAO();
+
 	public DetallepiezapresupuestoDAO createDetallepiezapresupuestoDAO();
 
 
