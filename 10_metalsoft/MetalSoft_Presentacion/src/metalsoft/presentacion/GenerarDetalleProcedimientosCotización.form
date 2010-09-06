@@ -266,12 +266,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator1" alignment="0" pref="866" max="32767" attributes="0"/>
+                      <Component id="jSeparator1" alignment="0" pref="876" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtEtapaProduccion" pref="285" max="32767" attributes="0"/>
-                          <EmptySpace pref="450" max="32767" attributes="0"/>
+                          <Component id="txtEtapaProduccion" pref="290" max="32767" attributes="0"/>
+                          <EmptySpace pref="455" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jScrollPane4" min="-2" pref="383" max="-2" attributes="0"/>
@@ -284,7 +284,7 @@
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane5" pref="394" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" pref="404" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
