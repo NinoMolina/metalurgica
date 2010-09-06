@@ -1,0 +1,17 @@
+
+
+Cosas para la 3ra iter:
+
+caso uso 183: Registrar Finalización Reclamo
+
+Preguntar CU 138 como hacer con los actores
+
+DTE:
+*EjecucionProcesoCalidad - Estas es de la 3ra iter
+
+Actualizar DER vistas parciales
+
+Secuencia: Aplicacion Patrones
+
+Analisis: Imprimir Vistas PArciales Diagrama Clases
+
