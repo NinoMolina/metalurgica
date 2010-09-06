@@ -123,4 +123,8 @@ public class Calculos{
 
         return duracion;
     }
+
+    public static Date calcularDuracionPiezaXProcesoCalidad(Date duracionestimada) {
+        return duracionestimada;
+    }
 }
