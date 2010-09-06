@@ -254,7 +254,7 @@ public class AccessViews {
     public static LinkedList<ViewProcesoCalidad> allProcesosCalidad(Connection cn) {
         ViewProcesoCalidad view=null;
         LinkedList<ViewProcesoCalidad> ll=new LinkedList<ViewProcesoCalidad>();
-        String query="SELECT nroproceso,nombreproceso,duracionestimada,herramienta,nombreaccioncalidad"+
+        String query="SELECT nroproceso,nombreproceso,duracionestimada,herramienta,nombreaccioncalidad,idprocesocalidad"+
                      " FROM viewprocesocalidad";
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -269,6 +269,7 @@ public class AccessViews {
                 view.setNombreaccioncalidad(rs.getString("nombreaccioncalidad"));
                 view.setHerramienta(rs.getString("herramienta"));
                 view.setDuracionestimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
+                view.setIdprocesocalidad(rs.getLong("idprocesocalidad"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
