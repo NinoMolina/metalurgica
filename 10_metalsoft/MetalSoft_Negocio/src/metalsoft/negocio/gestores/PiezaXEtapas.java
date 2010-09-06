@@ -15,10 +15,18 @@ public class PiezaXEtapas extends PiezaXAlgo{
 
     private double ancho,alto,largo;
     private double precioProducto;
-    private int cantProductos;
+    private int cantProductos,cantPiezas;
     private LinkedList<ViewEtapaDeProduccion> etapas;
 
     public PiezaXEtapas() {
+    }
+
+    public int getCantPiezas() {
+        return cantPiezas;
+    }
+
+    public void setCantPiezas(int cantPiezas) {
+        this.cantPiezas = cantPiezas;
     }
 
 
