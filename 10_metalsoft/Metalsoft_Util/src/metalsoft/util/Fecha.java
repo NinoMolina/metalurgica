@@ -187,7 +187,8 @@ public class Fecha {
 
     public static String parseToHourMinuteSecond(Date fecha)
     {
-        SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
+        //SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
+        DateFormat formato=DateFormat.getTimeInstance(DateFormat.MEDIUM);
         return formato.format(fecha);
     }
 
@@ -318,5 +319,7 @@ public class Fecha {
         Date d4=new Date();
         Date d5=diferenciaEnHoras(d3, d4);
         System.out.println(d5);
+        
+        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
     }
 }
