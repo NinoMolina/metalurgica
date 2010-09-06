@@ -9,7 +9,14 @@ Clases de Entidad a modificar en Diagrama de Clases Completo:
 *Cliente: mostrarRazonSocial(), mostrarNumeroCuit(), mostrarCondicionIVA()
 *Condicion IVA: mostrarNombre()
 *Producto: mostrarNombre()
-*Pedido: mostrarNumero()
+*Pedido: mostrarNumero(), mostrarDetalleProcedimientos(), mostrarDetalleProcesosCalidad(), mostrarDetalleRequerimientosMateriaPrima
+*Presupuesto: mostrarNumero()
+*Materia Prima: mostrarPrecio()
+*DetalleProcedimientos: mostrarEtapasProduccion(), mostrarCantidad(),mostrarDuracionEstimada()
+*Etapa Produccion: mostrarNombre()
+*DetalleProcesosCalidad: mostrarProcesosCalidad(), mostrarCantidad(),mostrarDuracionEstimada()
+*ProcesosCalidad: mostrarNombre()
+*DetalleRequerimientosMateriaPrima: mostrarMateriaPrima(), mostrarCantidad()
 
 
 Nuevos Gestores:
