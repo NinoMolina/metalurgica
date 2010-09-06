@@ -268,7 +268,7 @@ public class AccessViews {
                 view.setNombreproceso(rs.getString("nombreproceso"));
                 view.setNombreaccioncalidad(rs.getString("nombreaccioncalidad"));
                 view.setHerramienta(rs.getString("herramienta"));
-                view.setDuracionestimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
+                view.setDuracionestimada(rs.getTime("duracionestimada"));
                 view.setIdprocesocalidad(rs.getLong("idprocesocalidad"));
                 ll.addLast(view);
             }
