@@ -120,6 +120,13 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return detallepedidodaoimpl;
 	}
 
+private static final DetallepiezacalidadpresupuestoDAOImpl  detallepiezacalidadpresupuestodaoimpl = new DetallepiezacalidadpresupuestoDAOImpl();
+	public DetallepiezacalidadpresupuestoDAO createDetallepiezacalidadpresupuestoDAO()
+	{
+		return detallepiezacalidadpresupuestodaoimpl;
+	}
+
+
 	private static final DetallepiezapresupuestoDAOImpl  detallepiezapresupuestodaoimpl = new DetallepiezapresupuestoDAOImpl();
 	public DetallepiezapresupuestoDAO createDetallepiezapresupuestoDAO()
 	{
