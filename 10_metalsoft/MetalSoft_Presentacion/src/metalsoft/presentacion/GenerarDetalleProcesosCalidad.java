@@ -15,15 +15,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
+import metalsoft.negocio.gestores.GestorDetalleProcesosCalidad;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.PiezaXProcesosCalidad;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.util.Fecha;
 
 /**
@@ -34,9 +39,9 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
-    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccion;
-    private LinkedList<ViewEtapaDeProduccion> filasEtapaProduccionSeleccionada;
-    private GestorDetalleProcedimientos gestor;
+    private LinkedList<ViewProcesoCalidad> filasProcesoCalidad;
+    private LinkedList<ViewProcesoCalidad> filasProcesoCalidadSeleccionado;
+    private GestorDetalleProcesosCalidad gestor;
     private Timer timer;
     private TableCellRender tcrTblDetallePedido;
     private long idPedidoSeleccionado,idProductoSeleccionado,idPiezaSeleccionada;
@@ -46,14 +51,14 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         initComponents();
         tcrTblDetallePedido=new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
-        gestor=new GestorDetalleProcedimientos();
-        buscarPedidosGenerados();
+        gestor=new GestorDetalleProcesosCalidad();
+        buscarPedidosConDetalleMateriaPrima();
         addListeners();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
-        tblEtapa.updateUI();
-        filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
-        tblEtapaSeleccionada.updateUI();
+        tblProcesoCalidad.updateUI();
+        filasProcesoCalidadSeleccionado=new LinkedList<ViewProcesoCalidad>();
+        tblProcesoCalidadSeleccionado.updateUI();
     }
 
     private void addListeners()
@@ -91,12 +96,21 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
-        filasEtapaProduccionSeleccionada.add(v);
-        tblEtapa.updateUI();
-        tblEtapaSeleccionada.updateUI();
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+        int cantProcesos=-1;
+        JTextField txtCant=new JTextField("1");
+        Object[] obj={"Cantidad",txtCant};
+        int result = JOptionPane.showConfirmDialog(this, obj, "Ingresar Cantidad de Procesos de Calidad", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            cantProcesos = Integer.parseInt(txtCant.getText());
+            if(filasProcesoCalidadSeleccionado.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+            ViewProcesoCalidad v=filasProcesoCalidad.remove(tblProcesoCalidad.getSelectedRow());
+            v.setCantProcesos(cantProcesos);
+            filasProcesoCalidadSeleccionado.add(v);
+            tblProcesoCalidad.updateUI();
+            tblProcesoCalidadSeleccionado.updateUI();
+            if(filasProcesoCalidad.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+        }
+        
     }
     private void addListenerBtnQuitar()
     {
@@ -108,16 +122,16 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
     private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
-        filasEtapaProduccion.add(v);
-        tblEtapa.updateUI();
-        tblEtapaSeleccionada.updateUI();
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
+        if(filasProcesoCalidad.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        ViewProcesoCalidad v=filasProcesoCalidadSeleccionado.remove(tblProcesoCalidadSeleccionado.getSelectedRow());
+        filasProcesoCalidad.add(v);
+        tblProcesoCalidad.updateUI();
+        tblProcesoCalidadSeleccionado.updateUI();
+        if(filasProcesoCalidadSeleccionado.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
     }
-    private void buscarPedidosGenerados()
+    private void buscarPedidosConDetalleMateriaPrima()
     {
-        filasPedidos=gestor.buscarPedidosGenerados();
+        filasPedidos=gestor.buscarPedidosConDetalleMateriaPrima();
         beanTblPedidos.setFilasPedidos(filasPedidos);
         beanTblPedidos.updateTblPedidos();
     }
@@ -132,8 +146,6 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -146,17 +158,19 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblPiezaSeleccionada = new javax.swing.JLabel();
-        txtEtapaProduccion = new javax.swing.JTextField();
+        txtProcesoCalidad = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblEtapa = new javax.swing.JTable();
+        tblProcesoCalidad = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblEtapaSeleccionada = new javax.swing.JTable();
+        tblProcesoCalidadSeleccionado = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         lblProductoSeleccionado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblPedidoSeleccionado = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
+        btnAsignar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -165,34 +179,21 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Generados No Cotizados"));
 
-        jLabel1.setText("Nro. de Pedido de Cotización:");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(562, 562, 562))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                        .addContainerGap())))
+                .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(beanTblPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Pedido"));
@@ -245,7 +246,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                     .addComponent(btnSeleccionarPieza, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -264,24 +265,24 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         lblPiezaSeleccionada.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPiezaSeleccionada.setText("....");
 
-        txtEtapaProduccion.addActionListener(new java.awt.event.ActionListener() {
+        txtProcesoCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEtapaProduccionActionPerformed(evt);
+                txtProcesoCalidadActionPerformed(evt);
             }
         });
-        txtEtapaProduccion.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtProcesoCalidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtEtapaProduccionKeyReleased(evt);
+                txtProcesoCalidadKeyReleased(evt);
             }
         });
 
-        tblEtapa.setModel(new EtapaTableModel());
-        jScrollPane4.setViewportView(tblEtapa);
+        tblProcesoCalidad.setModel(new ProcesoCalidadTableModel());
+        jScrollPane4.setViewportView(tblProcesoCalidad);
 
         jLabel3.setText("Nombre Proceso de Calidad:");
 
-        tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
-        jScrollPane5.setViewportView(tblEtapaSeleccionada);
+        tblProcesoCalidadSeleccionado.setModel(new ProcesoCalidadSeleccionadoTableModel());
+        jScrollPane5.setViewportView(tblProcesoCalidadSeleccionado);
 
         jLabel4.setText("Producto:");
 
@@ -293,6 +294,35 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         lblPedidoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPedidoSeleccionado.setText("....");
 
+        btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAsignar)))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(btnAsignar))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -300,30 +330,36 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPedidoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEtapaProduccion))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPedidoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPiezaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtProcesoCalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(lblPiezaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -336,23 +372,24 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
                     .addComponent(lblPiezaSeleccionada)
                     .addComponent(jLabel4)
                     .addComponent(lblProductoSeleccionado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtProcesoCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))))
         );
 
         btnGuardar.setText("Guardar");
@@ -363,28 +400,30 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalir))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 778, Short.MAX_VALUE)
+                        .addComponent(btnSalir))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -392,16 +431,16 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -419,14 +458,18 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
 
         ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
-        filasEtapaProduccion=gestor.obtenerEtapasDeProduccion();
-        tblEtapa.updateUI();
+        filasProcesoCalidad=gestor.obtenerProcesosCalidad();
+        filasProcesoCalidadSeleccionado.clear();
+        tblProcesoCalidad.updateUI();
+        tblProcesoCalidadSeleccionado.updateUI();
         idPiezaSeleccionada=v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
+        beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        beanAgregarQuitar.getBtnQuitar().setEnabled(true);
 }//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
 
-    private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
-        if(txtEtapaProduccion.getText().compareTo("")!=0) {
+    private void txtProcesoCalidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcesoCalidadKeyReleased
+        if(txtProcesoCalidad.getText().compareTo("")!=0) {
             final GenerarDetalleProcesosCalidad abm=this;
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -435,21 +478,85 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
                 public void run() {
                     hilo=new HiloViewEtapaDeProduccion();
                     hilo.setClient(abm);
-                    hilo.setValor(txtEtapaProduccion.getText());
+                    hilo.setValor(txtProcesoCalidad.getText());
                     hilo.start();
                 }
             }, 1500);
         }
-}//GEN-LAST:event_txtEtapaProduccionKeyReleased
+}//GEN-LAST:event_txtProcesoCalidadKeyReleased
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
+        boolean result=gestor.guardarPiezaXProcesoCalidad();
+        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
 }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void txtEtapaProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEtapaProduccionActionPerformed
+    private void txtProcesoCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcesoCalidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEtapaProduccionActionPerformed
+    }//GEN-LAST:event_txtProcesoCalidadActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+}//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        ViewDetalleProducto viewDetPro=filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetallePedidoCotizacion viewDetPed=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPi=viewDetPro.getIdPieza();
+//        double ancho=viewDetPro.getAncho();
+//        double alto=viewDetPro.getAlto();
+//        double largo=viewDetPro.getLargo();
+        long idProd=viewDetPro.getIdProducto();
+//        double precioProd=viewDetPed.getPrecio();
+//        int cantProd=viewDetPed.getCantidad();
+//        int cantPiezas=viewDetPro.getCantidadPieza();
+        long idDetPedido=viewDetPed.getIdDetalle();
+        ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed=viewPed.getIdpedido();
+
+        Iterator<ViewProcesoCalidad> iter=filasProcesoCalidadSeleccionado.iterator();
+        ViewProcesoCalidad view=null;
+        PiezaXProcesosCalidad pxpc=null;
+        int result=-1;
+        while(iter.hasNext())
+        {
+            pxpc=new PiezaXProcesosCalidad();
+            view=iter.next();
+            pxpc.setIdPieza(idPi);
+            pxpc.setIdProducto(idProd);
+            pxpc.setIdDetallePedido(idDetPedido);
+            pxpc.setIdPedido(idPed);
+            pxpc.setCantProcesoCalidad(view.getCantProcesos());
+            pxpc.setProcesoCalidad(view);
+            result=gestor.addPiezaXProcesoCalidad(pxpc);
+        }
+        mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
+}//GEN-LAST:event_btnAsignarActionPerformed
+
+    /*
+     * 0: no se pudo agregar
+     * -1: se agrego correctamente
+     * 1: se modifico correctamente
+     */
+    private void mostrarMensajeAsignar(int result,String nombrePieza)
+    {
+        switch(result)
+        {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Se modificó la pre-asignación de Procesos de Calidad para la pieza '"+nombrePieza+"'");
+                break;
+            case 0:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar Procesos de Calidad para la pieza '"+nombrePieza+"'");
+                break;
+            case -1:
+                JOptionPane.showMessageDialog(this, "Se pre-asignaron Procesos de Calidad para la pieza '"+nombrePieza+"'");
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar Procesos de Calidad para la pieza '"+nombrePieza+"'");
+
+        }
+    }
+    
     /**
     * @param args the command line arguments
     */
@@ -464,17 +571,18 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
+    private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionarPieza;
     private javax.swing.JButton btnSeleccionarProducto;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -482,21 +590,20 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPedidoSeleccionado;
     private javax.swing.JLabel lblPiezaSeleccionada;
     private javax.swing.JLabel lblProductoSeleccionado;
     private javax.swing.JTable tblDetallePedido;
     private javax.swing.JTable tblDetalleProducto;
-    private javax.swing.JTable tblEtapa;
-    private javax.swing.JTable tblEtapaSeleccionada;
-    private javax.swing.JTextField txtEtapaProduccion;
+    private javax.swing.JTable tblProcesoCalidad;
+    private javax.swing.JTable tblProcesoCalidadSeleccionado;
+    private javax.swing.JTextField txtProcesoCalidad;
     // End of variables declaration//GEN-END:variables
 
     public JTable getTable(String className) {
         if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
         {
-            return tblEtapa;
+            return tblProcesoCalidad;
         }
         return null;
     }
@@ -504,26 +611,11 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     public LinkedList getFilas(String className) {
         if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
         {
-            return filasEtapaProduccion;
+            return filasProcesoCalidad;
         }
         return null;
     }
 
-    private ArrayList<Integer> buscarProductosSinAlgunaEtapa() {
-        Iterator<ViewDetallePedidoCotizacion> i=filasDetallePedido.iterator();
-        ViewDetallePedidoCotizacion v=null;
-        ArrayList<Integer> rows=new ArrayList<Integer>();
-        int contador=0;
-        while(i.hasNext())
-        {
-            v=i.next();
-            long idProd=v.getIdProducto();
-            boolean es=gestor.esProductoSinAlgunaEtapa(idProd);
-            if(es)rows.add(contador);
-            contador++;
-        }
-        return rows;
-    }
     // End of variables declaration
 
     class PedidoTableModel extends AbstractTableModel
@@ -721,25 +813,33 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
 
   }
 
-    class EtapaTableModel extends AbstractTableModel{
+    class ProcesoCalidadTableModel extends AbstractTableModel{
           String[] columnNames = {"Nro",
-                            "Nombre"};
+                            "Nombre",
+                            "Acción",
+                            "Duración",
+                            "Herramientas"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
+            ViewProcesoCalidad view=filasProcesoCalidad.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return view.getNroproceso();
             case 1:
-              return view.getNombre();
+              return view.getNombreaccioncalidad();
+            case 2:
+              return view.getNombreaccioncalidad();
+            case 3:
+              return view.getDuracionestimada();
+            case 4:
+              return view.getHerramienta();
             default:
               return null;
             }
-
         }
 
         /**
@@ -753,8 +853,8 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
 
         public int getRowCount()
         {
-          if(filasEtapaProduccion!=null)
-            return filasEtapaProduccion.size();
+          if(filasProcesoCalidad!=null)
+            return filasProcesoCalidad.size();
           return 0;
         }
 
@@ -772,21 +872,33 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         }
     }
 
-    class EtapaSeleccionadaTableModel extends AbstractTableModel{
+    class ProcesoCalidadSeleccionadoTableModel extends AbstractTableModel{
           String[] columnNames = {"Nro",
-                            "Nombre"};
+                            "Nombre",
+                            "Acción",
+                            "Duración",
+                            "Herramientas",
+                            "Cantidad"};
 
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapaDeProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
+            ViewProcesoCalidad view=filasProcesoCalidadSeleccionado.get(rowIndex);
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return view.getNroproceso();
             case 1:
-              return view.getNombre();
+              return view.getNombreaccioncalidad();
+            case 2:
+              return view.getNombreaccioncalidad();
+            case 3:
+              return view.getDuracionestimada();
+            case 4:
+              return view.getHerramienta();
+            case 5:
+              return view.getCantProcesos();
             default:
               return null;
             }
@@ -803,8 +915,8 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
 
         public int getRowCount()
         {
-          if(filasEtapaProduccionSeleccionada!=null)
-            return filasEtapaProduccionSeleccionada.size();
+          if(filasProcesoCalidadSeleccionado!=null)
+            return filasProcesoCalidadSeleccionado.size();
           return 0;
         }
 
