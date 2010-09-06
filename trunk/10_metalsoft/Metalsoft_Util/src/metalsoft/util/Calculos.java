@@ -67,6 +67,7 @@ public class Calculos{
     }
 
     public static int calcularCantidadMateriaPrima(int capacidadMatPrima, int cantPiezas) {
+        if(capacidadMatPrima==0)return -1;
         double resto=cantPiezas%capacidadMatPrima;
         if(resto==0)return cantPiezas/capacidadMatPrima;
         else return (cantPiezas/capacidadMatPrima)+1;
