@@ -5,6 +5,7 @@
 
 package metalsoft.util;
 
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,5 +101,26 @@ public class Calculos{
         int entranTotal=entranEnMax*entranEnMed*entranEnMin;
 
         return entranTotal;
+    }
+
+    public static Date calcularDuracion(Date duracionEstimada, double alto, double ancho, double largo) {
+        double volumen=alto*ancho*largo;
+
+        int horas=duracionEstimada.getHours();
+        int minutos=duracionEstimada.getMinutes();
+        int segundos=duracionEstimada.getSeconds();
+
+        horas=(int) (horas * volumen);
+        minutos=(int) (minutos * volumen);
+        segundos=(int) (segundos * volumen);
+
+        Date duracion=(Date) duracionEstimada.clone();
+        duracion.setHours(horas);
+        duracion.setMinutes(minutos);
+        duracion.setSeconds(segundos);
+
+        duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
+
+        return duracion;
     }
 }
