@@ -5,10 +5,12 @@ package metalsoft.negocio.ventas;
 import java.util.ArrayList;
 import java.util.Date;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.util.Calculos;
 
 
 public class DetalleProductoPresupuesto
 {
+
 
    private ArrayList<DetallePiezaPresupuesto> detallePiezaPresupuesto;
    private Pieza pieza;
@@ -73,6 +75,14 @@ public class DetalleProductoPresupuesto
     public DetallePiezaPresupuesto crearDetallePiezaPresupuesto() {
         return new DetallePiezaPresupuesto();
     }
-   
+
+
+    public static int calcularCapacidadMateriaPrima(double altoMatPrima, double anchoMatPrima, double largoMatPrima, double altoPieza, double anchoPieza, double largoPieza, String nombrePieza, String nombreMateriaPrima) {
+        return Calculos.calcularCapacidadMateriaPrima(altoMatPrima,anchoMatPrima,largoMatPrima,altoPieza,anchoPieza,largoPieza,nombrePieza,nombreMateriaPrima);
+    }
+
+    public static int calcularCantidadMateriaPrima(int capacidadMatPrima, int cantPiezas) {
+        return Calculos.calcularCantidadMateriaPrima(capacidadMatPrima,cantPiezas);
+    }
     
 }

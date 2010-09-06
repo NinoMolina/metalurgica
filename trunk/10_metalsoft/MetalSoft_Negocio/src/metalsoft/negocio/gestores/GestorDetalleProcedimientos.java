@@ -279,6 +279,7 @@ public class GestorDetalleProcedimientos {
         {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
+            int cantPiezasDePedido=-1;
             while(i.hasNext())
             {
                 pxe=i.next();
@@ -286,13 +287,17 @@ public class GestorDetalleProcedimientos {
                 //creo un nuevo presupuesto para dicho pedido
                 if(idPed!=pxe.getIdPedido())
                 {
+                    if(cantPiezasDePedido==0)
+                    {
+                        AccessPedido.update(idPed, idPres, IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
+                    }
                     idPed=pxe.getIdPedido();
+                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido(idPed, cn);
 
                     Presupuesto pres=new Presupuesto();
                     idPres=AccessPresupuesto.insert(pres, cn);
-
-                    AccessPedido.update(idPed,idPres,IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
                 }
+
                 //si el id producto anterior es distinto al nuevo
                 //creo un nuevo detalle de presupuesto
                 if(idPro!=pxe.getIdProducto())
@@ -325,7 +330,12 @@ public class GestorDetalleProcedimientos {
                     Date duracion=dpipre.calcularDuracion(v.getDuracionEstimada(),pxe.getAlto(),pxe.getAncho(),pxe.getLargo());
                     dpipre.setDuracionEtapaXPieza(duracion);
                     idDetPiPres=AccessDetallePiezaPresupuesto.insert(dpipre,idDetProPre,v.getIdetapa(),cn);
-                }  
+                }
+                cantPiezasDePedido--;
+                if(cantPiezasDePedido==0 && !i.hasNext())
+                {
+                    AccessPedido.update(idPed, idPres, IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
+                }
             }
             cn.commit();
             flag=true;

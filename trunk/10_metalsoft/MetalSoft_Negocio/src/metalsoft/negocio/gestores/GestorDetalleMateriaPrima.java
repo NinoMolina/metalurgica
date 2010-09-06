@@ -31,6 +31,7 @@ import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPieza;
 import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
 import metalsoft.util.Calculos;
 import metalsoft.util.sort.Sorts;
 
@@ -274,9 +275,9 @@ public class GestorDetalleMateriaPrima {
                 idPi=pxmp.getIdPieza();
                 detProdPresDB=AccessDetalleProductoPresupuesto.findByIdDetallePresupuestoANDIdPieza(idDetPres,idPi,cn);
                 detProdPresDB.setIdmateriaprima(pxmp.getIdMateriaPrima());
-                int capacidadMatPrima=Calculos.calcularCapacidadMateriaPrima(pxmp.getAltoMatPrima(),pxmp.getAnchoMatPrima(),pxmp.getLargoMatPrima(),pxmp.getAltoPieza(),pxmp.getAnchoPieza(),pxmp.getLargoPieza(),pxmp.getNombrePieza(),pxmp.getMateriaPrima().getNombreMateriaPrima());
+                int capacidadMatPrima=DetalleProductoPresupuesto.calcularCapacidadMateriaPrima(pxmp.getAltoMatPrima(),pxmp.getAnchoMatPrima(),pxmp.getLargoMatPrima(),pxmp.getAltoPieza(),pxmp.getAnchoPieza(),pxmp.getLargoPieza(),pxmp.getNombrePieza(),pxmp.getMateriaPrima().getNombreMateriaPrima());
                 int cantPiezas=pxmp.getCantidadPieza();
-                int cantMateriaPrima=Calculos.calcularCantidadMateriaPrima(capacidadMatPrima,cantPiezas);
+                int cantMateriaPrima=DetalleProductoPresupuesto.calcularCantidadMateriaPrima(capacidadMatPrima,cantPiezas);
                 detProdPresDB.setCantmateriaprima(cantMateriaPrima);
                 
                 //actualizo el detalle producto presupuesto agregando la materia prima
