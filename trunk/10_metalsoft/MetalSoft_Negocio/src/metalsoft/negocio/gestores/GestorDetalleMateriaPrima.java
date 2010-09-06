@@ -283,6 +283,10 @@ public class GestorDetalleMateriaPrima {
                 //y la cantidad necesaria.
                 AccessDetalleProductoPresupuesto.update(detProdPresDB,cn);
                 cantPiezasDePedido--;
+                if(cantPiezasDePedido==0 && !iter.hasNext())
+                {
+                    AccessPedido.update(idPed, idPres, IdsEstadoPedido.PEDIDOCONDETALLEDEMATERIAPRIMA, cn);
+                }
             }
             cn.commit();
             flag=true;
