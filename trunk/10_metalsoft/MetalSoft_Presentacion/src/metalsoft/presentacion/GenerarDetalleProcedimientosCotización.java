@@ -502,6 +502,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         long idProd=viewDetPro.getIdProducto();
         double precioProd=viewDetPed.getPrecio();
         int cantProd=viewDetPed.getCantidad();
+        int cantPiezas=viewDetPro.getCantidadPieza();
         long idDetPedido=viewDetPed.getIdDetalle();
         ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed=viewPed.getIdpedido();
@@ -511,6 +512,7 @@ public class GenerarDetalleProcedimientosCotización extends javax.swing.JFrame 
         pxe.setLargo(largo);
         pxe.setPrecioProducto(precioProd);
         pxe.setCantProductos(cantProd);
+        pxe.setCantPiezas(cantPiezas);
         pxe.setIdPieza(idPi);
         pxe.setIdProducto(idProd);
         pxe.setIdDetallePedido(idDetPedido);

@@ -528,6 +528,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         pxmp.setCantidadProducto(cantProd);
         pxmp.setNombrePieza(nombrePieza);
         pxmp.setNombreProducto(nombreProducto);
+        pxmp.setMateriaPrima(viewMatPrima);
 
         int result=gestor.addPiezaXMateriaPrima(pxmp);
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
