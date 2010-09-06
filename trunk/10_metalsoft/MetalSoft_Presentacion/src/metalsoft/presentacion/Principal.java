@@ -364,7 +364,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mniGenerarDetalleProcedimientosCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGenerarDetalleProcedimientosCalidadActionPerformed
         try {
-            JFrameManager.crearVentana(GenerarListadoProcedimientosCalidad.class.getName());
+            JFrameManager.crearVentana(GenerarDetalleProcesosCalidad.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
