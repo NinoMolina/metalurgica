@@ -20,6 +20,7 @@ import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.util.Fecha;
 
 /**
@@ -242,6 +243,32 @@ public class AccessViews {
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewProcesoCalidad> allProcesosCalidad(Connection cn) {
+        ViewProcesoCalidad view=null;
+        LinkedList<ViewProcesoCalidad> ll=new LinkedList<ViewProcesoCalidad>();
+        String query="SELECT nroproceso,nombreproceso,duracionestimada,herramienta,nombreaccioncalidad"+
+                     " FROM viewprocesocalidad";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewProcesoCalidad();
+                view.setNroproceso(rs.getLong("nroproceso"));
+                view.setNombreproceso(rs.getString("nombreproceso"));
+                view.setNombreaccioncalidad(rs.getString("nombreaccioncalidad"));
+                view.setHerramienta(rs.getString("herramienta"));
+                view.setDuracionestimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
