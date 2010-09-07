@@ -103,7 +103,7 @@ public class Calculos{
         return entranTotal;
     }
 
-    public static Date calcularDuracion(Date duracionEstimada, double alto, double ancho, double largo) {
+    public static Date calcularDuracionPiezaXEtapa(Date duracionEstimada, double alto, double ancho, double largo) {
         double volumen=alto*ancho*largo;
 
         int horas=duracionEstimada.getHours();
@@ -119,7 +119,7 @@ public class Calculos{
         duracion.setMinutes(minutos);
         duracion.setSeconds(segundos);
 
-        duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
+        //duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
 
         return duracion;
     }
