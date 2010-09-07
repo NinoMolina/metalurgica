@@ -5,6 +5,7 @@
 
 package metalsoft.util;
 
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -97,6 +98,20 @@ public class CalculosTest {
         int result = Calculos.calcularCantidadMateriaPrima(capacidadMatPrima, cantPiezas);
         System.out.println(result);
         assertTrue(result>0);
+    }
+
+    @Test
+    public void testCalcularDuracionPiezaXEtapa() {
+        System.out.println("calcularDuracionPiezaXEtapa");
+        int capacidadMatPrima = 2;
+        int cantPiezas = 2;
+        Date duracionEstimada=new Date();
+        duracionEstimada.setHours(00);
+        duracionEstimada.setMinutes(0);
+        duracionEstimada.setSeconds(30);
+        Date result = Calculos.calcularDuracionPiezaXEtapa(duracionEstimada, 10, 5, 5);
+        System.out.println(Fecha.parseToHourMinuteSecond(result));
+        assertTrue(result!=null);
     }
 
 }
