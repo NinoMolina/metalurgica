@@ -32,6 +32,20 @@ public class AccessFunctions {
         }
         return result;
     }
+    public static String nvoNroProducto(Connection cn)
+    {
+        String query="{ ? = call nvonroproducto()}";
+        String result="-1";
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+            cs.execute();
+            result=cs.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
     public static int cantPiezasXProducto(long id,Connection cn)
     {
         String query="{ ? = call cantpiezasxproducto(?)}";
