@@ -323,7 +323,7 @@ public class GestorProducto implements IBuscador{
     }
 
     public JList getList(String className) {
-        return null;
+        return lstPiezas;
     }
 
 
