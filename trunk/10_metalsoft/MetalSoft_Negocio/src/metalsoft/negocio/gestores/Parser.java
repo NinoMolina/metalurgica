@@ -160,6 +160,7 @@ public class Parser {
         if(x==null)return null;
         Pieza c=new Pieza();
         c.setNombre(x.getNombre());
+        c.setAlto(x.getAlto());
         c.setAncho(x.getAncho());
         c.setLargo(x.getLargo());
         c.setNombre(x.getNombre());
