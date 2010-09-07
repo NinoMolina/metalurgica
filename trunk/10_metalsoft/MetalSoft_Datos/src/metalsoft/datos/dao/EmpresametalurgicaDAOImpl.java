@@ -94,9 +94,10 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 	public int insert(Empresametalurgica empresametalurgica ,Connection con)throws EmpresametalurgicaException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into EMPRESAMETALURGICA( NROEMPRESAMETALURGICA, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICIONIVA, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into EMPRESAMETALURGICA( NROEMPRESAMETALURGICA, RAZONSOCIAL, RESPONSABLE, TELEFONO, CELULAR, MAIL, DOMICILIO, FECHAALTA, FECHABAJA, CUIL, CONDICIONIVA, CUIT) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)RETURNING idempresametalurgica");
 				ps.setLong(1,empresametalurgica.getNroempresametalurgica());
 				ps.setString(2,empresametalurgica.getRazonsocial());
 				ps.setLong(3,empresametalurgica.getResponsable());
@@ -105,12 +106,18 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 				ps.setString(6,empresametalurgica.getMail());
 				ps.setLong(7,empresametalurgica.getDomicilio());
 				ps.setDate(8,empresametalurgica.getFechaalta());
-				ps.setDate(9,empresametalurgica.getFechabaja());
+
+                                if (empresametalurgica.getFechabaja()== null)
+                                    ps.setNull(9,java.sql.Types.NULL);
+                                else
+                                    ps.setDate(9,empresametalurgica.getFechabaja());
+                                
 				ps.setString(10,empresametalurgica.getCuil());
 				ps.setLong(11,empresametalurgica.getCondicioniva());
 				ps.setString(12,empresametalurgica.getCuit());
-
-				return(ps.executeUpdate());
+                                rs= ps.executeQuery();
+                                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new EmpresametalurgicaException(sqle);}
 		catch(Exception e){throw new EmpresametalurgicaException(e);}
 	}
