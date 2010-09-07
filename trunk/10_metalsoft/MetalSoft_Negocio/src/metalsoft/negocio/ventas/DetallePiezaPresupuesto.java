@@ -41,7 +41,7 @@ public class DetallePiezaPresupuesto {
 
     public Date calcularDuracion(Date duracionEstimada,double alto,double ancho,double largo)
     {
-        return Calculos.calcularDuracion(duracionEstimada,alto,ancho,largo);
+        return Calculos.calcularDuracionPiezaXEtapa(duracionEstimada,alto,ancho,largo);
     }
 
 
