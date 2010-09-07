@@ -21,6 +21,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Tipomaterial;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessProducto;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.produccion.TipoMaterial;
@@ -324,6 +325,29 @@ public class GestorProducto implements IBuscador{
 
     public JList getList(String className) {
         return lstPiezas;
+    }
+
+    public String generarNuevoNumeroProducto() {
+
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        String nro="-1";
+        try {
+            pg=new PostgreSQLManager();
+            cn = pg.concectGetCn();
+            nro=AccessFunctions.nvoNroProducto(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return nro;
     }
 
 
