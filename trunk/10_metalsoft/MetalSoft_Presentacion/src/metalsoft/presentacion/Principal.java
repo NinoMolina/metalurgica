@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.adminusuarios.Rol;
@@ -38,6 +40,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal(long idUsuario) {
         this.idUsuario=idUsuario;
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
+        
         obtenerRolUsuario(idUsuario);
         //this.getContentPane().setBackground();
     }
@@ -89,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(new java.awt.Color(240, 240, 240));
 
-        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/background.jpg"))); // NOI18N
+        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background.jpg"))); // NOI18N
 
         mnuInicio.setText("Inicio");
         mbrMenu.add(mnuInicio);
