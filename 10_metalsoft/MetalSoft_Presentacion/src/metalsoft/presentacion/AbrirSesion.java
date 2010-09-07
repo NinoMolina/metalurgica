@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorIniciarSesion;
 
@@ -30,6 +31,7 @@ public class AbrirSesion extends javax.swing.JFrame {
     /** Creates new form AbrirSesion */
     public AbrirSesion() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
         addListenerBtnIniciar();
         iniciarSesion.getTxtUsuario().setText("admin");
         iniciarSesion.getTxtClave().setText("admin");

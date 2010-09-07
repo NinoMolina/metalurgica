@@ -202,7 +202,7 @@
     <Component class="javax.swing.JLabel" name="lblImagen">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/metalsoft/presentacion/background.jpg"/>
+          <Image iconType="3" name="/img/background.jpg"/>
         </Property>
       </Properties>
     </Component>
