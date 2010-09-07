@@ -186,9 +186,9 @@ public class AccessViews {
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
-                view.setHorasHombre(Fecha.parseToDate(rs.getDate("horashombre").getTime()));
-                view.setHorasMaquina(Fecha.parseToDate(rs.getDate("horasmaquina").getTime()));
-                view.setDuracionEstimada(Fecha.parseToDate(rs.getDate("duracionestimada").getTime()));
+                view.setHorasHombre(rs.getTime("horashombre"));
+                view.setHorasMaquina(rs.getTime("horasmaquina"));
+                view.setDuracionEstimada(rs.getTime("duracionestimada"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
