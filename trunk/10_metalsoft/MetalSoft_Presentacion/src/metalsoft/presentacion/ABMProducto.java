@@ -97,6 +97,8 @@ public class ABMProducto extends javax.swing.JFrame {
         String descripcion=txtDescripcion.getText();
         String nombre=txtNombre.getText();
         String numero=txtNumero.getText();
+        String[] vNum=numero.split("-");
+        numero=vNum[1];
         String precioUnitario=txtPrecioUnitario.getText();
         gestor.setDescripcionProducto(descripcion);
         gestor.setNombreProducto(nombre);
@@ -522,7 +524,7 @@ public class ABMProducto extends javax.swing.JFrame {
         //seteo los datos del producto
         txtDescripcion.setText(productoDB.getDescripcion());
         txtNombre.setText(productoDB.getNombre());
-        txtNumero.setText(String.valueOf(productoDB.getNroproducto()));
+        txtNumero.setText("PROD-"+String.valueOf(productoDB.getNroproducto()));
         txtPrecioUnitario.setText(String.valueOf(productoDB.getPreciounitario()));
         //seteo los datos del detalle del producto (la tabla)
         filas.clear();
