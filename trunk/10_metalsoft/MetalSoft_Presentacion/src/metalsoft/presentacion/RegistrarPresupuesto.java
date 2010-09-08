@@ -70,7 +70,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Presupuesto");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Presupuestar"));
@@ -374,6 +374,11 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         btnGuardar.setText("Guardar");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnImprimir.setText("Imprimir");
 
@@ -407,6 +412,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
     * @param args the command line arguments
