@@ -33,6 +33,7 @@ import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.negocio.gestores.GestorProducto;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.EnumOpcionesABM;
@@ -524,7 +525,7 @@ public class ABMProducto extends javax.swing.JFrame {
         //seteo los datos del producto
         txtDescripcion.setText(productoDB.getDescripcion());
         txtNombre.setText(productoDB.getNombre());
-        txtNumero.setText("PROD-"+String.valueOf(productoDB.getNroproducto()));
+        txtNumero.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, productoDB.getNroproducto()));
         txtPrecioUnitario.setText(String.valueOf(productoDB.getPreciounitario()));
         //seteo los datos del detalle del producto (la tabla)
         filas.clear();
