@@ -72,6 +72,7 @@ public class Principal extends javax.swing.JFrame {
         mnuCompras = new javax.swing.JMenu();
         mniMateriaPrima = new javax.swing.JMenuItem();
         mniProveedor = new javax.swing.JMenuItem();
+        mniRegistrarPresupuesto = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
         mniPieza = new javax.swing.JMenuItem();
@@ -115,6 +116,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCompras.add(mniProveedor);
+
+        mniRegistrarPresupuesto.setText("Presupuestar");
+        mniRegistrarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarPresupuestoActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(mniRegistrarPresupuesto);
 
         mbrMenu.add(mnuCompras);
 
@@ -239,11 +248,13 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -402,6 +413,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniProveedorActionPerformed
 
+    private void mniRegistrarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarPresupuestoActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarPresupuesto.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniRegistrarPresupuestoActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -422,6 +445,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
