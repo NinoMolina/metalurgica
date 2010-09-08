@@ -13,7 +13,7 @@ package metalsoft.presentacion;
 
 /**
  *
- * @author Vicky
+ * @author Vicky and Nino
  */
 public class RegistrarPresupuesto extends javax.swing.JFrame {
 
