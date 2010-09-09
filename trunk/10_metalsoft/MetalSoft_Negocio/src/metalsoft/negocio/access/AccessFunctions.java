@@ -91,4 +91,19 @@ public class AccessFunctions {
         }
         return result;
     }
+
+    public static int cantPiezasDePedido2(long idPed, Connection cn) {
+        String query="{ ? = call cantpiezasdepedido2(?)}";
+        int result = -1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.setLong(2, idPed);
+            cs.execute();
+            result=cs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }
