@@ -248,7 +248,7 @@ public class GestorDetalleMateriaPrima {
                     }
                     //noFirst=true;
                     idPed=pxmp.getIdPedido();
-                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido(idPed, cn);
+                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido2(idPed, cn);
                     PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
                     idPres=pedDB.getPresupuesto();
 
