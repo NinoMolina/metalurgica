@@ -11,17 +11,33 @@
 
 package metalsoft.presentacion;
 
+import java.util.LinkedList;
+import javax.swing.table.AbstractTableModel;
+import metalsoft.negocio.gestores.GestorPresupuesto;
+import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.util.Fecha;
+
 /**
  *
  * @author Vicky and Nino
  */
 public class RegistrarPresupuesto extends javax.swing.JFrame {
 
+    private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
+    private GestorPresupuesto gestor;
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
         initComponents();
+        filasPedidos=null;
+        gestor=new GestorPresupuesto();
+        buscarPedidosConDetalleProcesoCalidad();
     }
 
+    private void buscarPedidosConDetalleProcesoCalidad()
+    {
+        filasPedidos=gestor.buscarPedidosConDetalleProcesoCalidad();
+        tblPedidos.updateUI();
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -34,7 +50,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPedidos = new javax.swing.JTable();
         btnSeleccionar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -77,20 +93,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos A Presupuestar"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable1);
+        tblPedidos.setModel(new PedidoTableModel());
+        jScrollPane3.setViewportView(tblPedidos);
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -417,6 +428,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -457,7 +472,6 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
@@ -467,6 +481,78 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel lblDuracionProcesosProduccion;
     private javax.swing.JLabel lblDuracionTotal;
     private javax.swing.JLabel lblNroPresupuesto;
+    private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
 
+    class PedidoTableModel extends AbstractTableModel
+    {
+        String[] columnNames = {"Nro",
+                        "Nro Ped Cliente",
+                        "Prioridad",
+                        "Cliente",
+                        "Ped Cotizacion",
+                        "Cot Req Para",
+                        "Entrega Estipulada",
+                        "Estado"};
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewPedidoEnListadoProcedimientos view=filasPedidos.get(rowIndex);
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNropedido();
+            case 1:
+              return view.getNropedidocotizacioncliente();
+            case 2:
+              return view.getPrioridad();
+            case 3:
+              return view.getCliente();
+            case 4:
+              return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+            case 5:
+              return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+            case 6:
+              return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+            case 7:
+              return view.getEstado();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasPedidos!=null)
+            return filasPedidos.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+
+
+    }
 }
