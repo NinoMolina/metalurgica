@@ -207,7 +207,7 @@ public class GestorDetalleProcesosCalidad {
                         AccessPedido.update(idPed, idPres, IdsEstadoPedido.PEDIDOCONDETALLEDEPROCESOSDECALIDAD, cn);
                     }
                     idPed=pxpc.getIdPedido();
-                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido(idPed, cn);
+                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido2(idPed, cn);
                     PedidoDB pedDB=AccessPedido.findByIdPedido(idPed, cn);
                     idPres=pedDB.getPresupuesto();
 
