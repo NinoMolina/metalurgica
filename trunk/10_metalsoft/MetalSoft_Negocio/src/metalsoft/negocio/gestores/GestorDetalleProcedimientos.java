@@ -292,9 +292,11 @@ public class GestorDetalleProcedimientos {
                         AccessPedido.update(idPed, idPres, IdsEstadoPedido.PEDIDOCONDETALLEDEPROCEDIMIENTOS, cn);
                     }
                     idPed=pxe.getIdPedido();
-                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido(idPed, cn);
+                    cantPiezasDePedido=AccessFunctions.cantPiezasDePedido2(idPed, cn);
 
                     Presupuesto pres=new Presupuesto();
+                    long nroPresupuesto=AccessFunctions.nvoNroPresupuesto(cn);
+                    pres.setNroPresupuesto(nroPresupuesto);
                     idPres=AccessPresupuesto.insert(pres, cn);
                 }
 

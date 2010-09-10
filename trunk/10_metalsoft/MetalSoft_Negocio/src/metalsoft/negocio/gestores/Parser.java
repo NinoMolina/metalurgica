@@ -377,6 +377,7 @@ public class Parser {
         if(p.getFechaVencimiento()==null)db.setFechavencimiento(null);
         else db.setFechavencimiento(Fecha.parseToDateSQL(p.getFechaVencimiento()));
         db.setMontototal(p.getMontoTotal());
+        db.setNropresupuesto(p.getNroPresupuesto());
         return db;
     }
 

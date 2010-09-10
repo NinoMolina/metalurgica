@@ -18,6 +18,7 @@ import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
+import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
@@ -119,6 +120,49 @@ public class AccessViews {
                 view.setIdProducto(rs.getLong("idproducto"));
                 view.setNombrePieza(rs.getString("nombrepieza"));
                 view.setNombreTipoMaterial(rs.getString("nombretipomaterial"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewEtapasXPiezaPresupuesto> listEtapasXPiezaPresupuesto(long idPresupuesto, Connection cn)
+    {
+        ViewEtapasXPiezaPresupuesto view=null;
+        LinkedList<ViewEtapasXPiezaPresupuesto> ll=new LinkedList<ViewEtapasXPiezaPresupuesto>();
+        String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
+                     "nroetapaproduccion,nombreetapaproduccion,duracionetapaxpieza,duraciontotal, "+
+                     "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto,iddetallepiezapresupuesto, "+
+                     "idproducto,idpieza,idetapaproduccion"+
+                     " FROM viewetapasxpiezapresupuesto"+
+                     " WHERE idpresupuesto=?";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            ps.setLong(1, idPresupuesto);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewEtapasXPiezaPresupuesto();
+                view.setCantpieza(rs.getInt("cantpieza"));
+                view.setCantproducto(rs.getInt("cantproducto"));
+                view.setDuracionetapaxpieza(rs.getTime("duracionetapaxpieza"));
+                view.setDuraciontotal(rs.getTime("duraciontotal"));
+                view.setIddetallepiezapresupuesto(rs.getLong("iddetallepiezapresupuesto"));
+                view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
+                view.setIddetalleproductopresupuesto(rs.getLong("iddetalleproductopresupuesto"));
+                view.setIdetapaproduccion(rs.getLong("idetapaproduccion"));
+                view.setIdpieza(rs.getLong("idpieza"));
+                view.setIdpresupuesto(rs.getLong("idpresupuesto"));
+                view.setIdproducto(rs.getLong("idproducto"));
+                view.setNombreetapaproduccion(rs.getString("nombreetapaproduccion"));
+                view.setNombrepieza(rs.getString("nombrepieza"));
+                view.setNombreproducto(rs.getString("nombreproducto"));
+                view.setNroetapaproduccion(rs.getLong("nroetapaproduccion"));
+                view.setNroproducto(rs.getLong("nroproducto"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {

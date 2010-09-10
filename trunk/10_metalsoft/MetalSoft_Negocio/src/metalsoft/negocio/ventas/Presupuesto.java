@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Presupuesto 
 {
-   private int nroPresupuesto;
+   private long nroPresupuesto;
    private Date fechaPresupuesto;
    private float montoTotal;
    private DetallePresupuesto detalle;
@@ -91,11 +91,11 @@ public class Presupuesto
         this.montoTotal = montoTotal;
     }
 
-    public int getNroPresupuesto() {
+    public long getNroPresupuesto() {
         return nroPresupuesto;
     }
 
-    public void setNroPresupuesto(int nroPresupuesto) {
+    public void setNroPresupuesto(long nroPresupuesto) {
         this.nroPresupuesto = nroPresupuesto;
     }
 
