@@ -22,6 +22,7 @@ import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 
@@ -34,6 +35,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewEtapasXPiezaPresupuesto> filasEtapasXPiezaPresupuesto;
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;
+    private LinkedList<ViewProcesoCalidadXPiezaPresupuesto> filasProcesoCalidadXPiezaPresupuesto;
     private GestorPresupuesto gestor;
 
     /** Creates new form RegistrarCotización */
@@ -71,7 +73,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblCostoMateriaPrima = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblProCalidadXPieza = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         lblDuracionProcesosCalidad = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -171,18 +173,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Procesos Calidad"));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable3);
+        tblProCalidadXPieza.setModel(new ProcesoCalidadXPiezaPresupuestoTableModel());
+        jScrollPane2.setViewportView(tblProCalidadXPieza);
 
         jLabel15.setText("Duración de Procesos de Calidad:");
 
@@ -446,6 +438,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         tblEtapasXPieza.updateUI();
         filasMateriaPrimaXPiezaPresupuesto=gestor.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
+        filasProcesoCalidadXPiezaPresupuesto=gestor.buscarProCalidadXPiezaPresupuesto();
+        tblProCalidadXPieza.updateUI();
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
         
     }//GEN-LAST:event_btnSeleccionarActionPerformed
@@ -490,7 +484,6 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCostoMateriaPrima;
     private javax.swing.JLabel lblCostoTotal;
     private javax.swing.JLabel lblDuracionProcesosCalidad;
@@ -500,6 +493,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTable tblEtapasXPieza;
     private javax.swing.JTable tblMatPrimaXPieza;
     private javax.swing.JTable tblPedidos;
+    private javax.swing.JTable tblProCalidadXPieza;
     // End of variables declaration//GEN-END:variables
 
     class PedidoTableModel extends AbstractTableModel
@@ -699,6 +693,91 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
               return view.getCantmateriaprima();
             case 7:
               return view.getCanttotal();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasPedidos!=null)
+            return filasPedidos.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+    }
+
+    class ProcesoCalidadXPiezaPresupuestoTableModel extends AbstractTableModel
+    {
+        private String[] columnNames = {"Nro Prod",
+                                "Nombre",
+                                "Cant Prod",
+                                "Nombre Pieza",
+                                "Cant Pieza",
+                                "Nro Pro Cal",
+                                "Pro Calidad",
+                                "Cant PC",
+                                "Duración",
+                                "Dur Total",};
+
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewProcesoCalidadXPiezaPresupuesto view=null;
+            try
+            {
+                view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
+            }
+            catch(Exception ex)
+            {
+                return "";
+            }
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNroproducto();
+            case 1:
+              return view.getNombreproducto();
+            case 2:
+              return view.getCantproducto();
+            case 3:
+              return view.getNombrepieza();
+            case 4:
+              return view.getCantpieza();
+            case 5:
+              return view.getNroprocesocalidad();
+            case 6:
+              return view.getNombreprocesocalidad();
+            case 7:
+              return view.getCantprocesocalidad();
+            case 8:
+              return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza());
+            case 9:
+              return Fecha.parseToHourMinuteSecond(view.getDuraciontotal());
             default:
               return null;
             }
