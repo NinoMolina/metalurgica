@@ -166,5 +166,26 @@ public class GestorPresupuesto {
         return list;
     }
 
+    public LinkedList<ViewProcesoCalidadXPiezaPresupuesto> buscarProCalidadXPiezaPresupuesto() {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        LinkedList<ViewProcesoCalidadXPiezaPresupuesto> list=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            list=AccessViews.listProCalidadXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
 
 }
