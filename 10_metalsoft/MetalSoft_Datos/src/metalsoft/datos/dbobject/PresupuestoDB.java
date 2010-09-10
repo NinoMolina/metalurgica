@@ -25,6 +25,7 @@ public class PresupuestoDB implements Serializable
 	private Date fechapresupuesto;
 	private double montototal;
 	private Date fechavencimiento;
+        private long nropresupuesto;
 
 
 	public PresupuestoDB(){}
@@ -34,6 +35,10 @@ public class PresupuestoDB implements Serializable
 		this.montototal = montototal;
 		this.fechavencimiento = fechavencimiento;
 	}
+
+    public void setNropresupuesto(long nropresupuesto) {
+        this.nropresupuesto = nropresupuesto;
+    }
 
 	public void setIdpresupuesto(long idpresupuesto ){
 		 this.idpresupuesto =idpresupuesto;
@@ -68,4 +73,8 @@ public class PresupuestoDB implements Serializable
 		ret.append(", fechavencimiento='"+fechavencimiento+"'");
 		return ret.toString();
 	}
+
+    public long getNropresupuesto() {
+        return nropresupuesto;
+    }
 }
