@@ -20,6 +20,7 @@ import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
+import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -32,6 +33,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewEtapasXPiezaPresupuesto> filasEtapasXPiezaPresupuesto;
+    private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;
     private GestorPresupuesto gestor;
 
     /** Creates new form RegistrarCotización */
@@ -64,7 +66,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tblMatPrimaXPieza = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         lblCostoMateriaPrima = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -87,7 +89,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
+        dccFechaEstimadaFinProduccion = new datechooser.beans.DateChooserCombo();
         lblDuracionTotal = new javax.swing.JLabel();
         lblCostoTotal = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -135,18 +137,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Materia Prima"));
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable5);
+        tblMatPrimaXPieza.setModel(new MateriaPrimaXPiezaPresupuestoTableModel());
+        jScrollPane5.setViewportView(tblMatPrimaXPieza);
 
         jLabel14.setText("Costos de Por Materias Primas: $");
 
@@ -277,11 +269,23 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel16.setText("COSTO TOTAL:");
 
+        try {
+            dccFechaVencimiento.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+
         jLabel19.setText("Fecha vencimiento presupuesto:");
+
+        try {
+            dccFechaPresupuesto.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
 
         jLabel18.setText("Fecha presupuesto:");
 
-        lblNroPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroPresupuesto.setText("...");
 
         jLabel11.setText("Nro. Presupuesto:");
@@ -289,6 +293,12 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         jLabel20.setText("DURACIÓN TOTAL:");
 
         jLabel1.setText("Fecha Estimada Fin Producción:");
+
+        try {
+            dccFechaEstimadaFinProduccion.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
 
         lblDuracionTotal.setText("...");
 
@@ -317,7 +327,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
                                 .add(jLabel1)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(dateChooserCombo1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                                .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel20)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -346,7 +356,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel1)
-                    .add(dateChooserCombo1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -434,6 +444,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         long nroPresupuesto=gestor.buscarNroPresupuesto(idPed);
         filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
         tblEtapasXPieza.updateUI();
+        filasMateriaPrimaXPiezaPresupuesto=gestor.buscarMatPrimaXPiezaPresupuesto();
+        tblMatPrimaXPieza.updateUI();
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
         
     }//GEN-LAST:event_btnSeleccionarActionPerformed
@@ -454,7 +466,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
+    private datechooser.beans.DateChooserCombo dccFechaEstimadaFinProduccion;
     private datechooser.beans.DateChooserCombo dccFechaPresupuesto;
     private datechooser.beans.DateChooserCombo dccFechaVencimiento;
     private javax.swing.JLabel jLabel1;
@@ -479,7 +491,6 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable5;
     private javax.swing.JLabel lblCostoMateriaPrima;
     private javax.swing.JLabel lblCostoTotal;
     private javax.swing.JLabel lblDuracionProcesosCalidad;
@@ -487,6 +498,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel lblDuracionTotal;
     private javax.swing.JLabel lblNroPresupuesto;
     private javax.swing.JTable tblEtapasXPieza;
+    private javax.swing.JTable tblMatPrimaXPieza;
     private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
 
@@ -608,6 +620,85 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
               return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
             case 8:
               return Fecha.parseToHourMinuteSecond(view.getDuraciontotal());
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasPedidos!=null)
+            return filasPedidos.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+    }
+
+    class MateriaPrimaXPiezaPresupuestoTableModel extends AbstractTableModel
+    {
+        private String[] columnNames = {"Nro Prod",
+                                "Nombre",
+                                "Cant Prod",
+                                "Nombre Pieza",
+                                "Cant Pieza",
+                                "Mat Prima",
+                                "Cant MP",
+                                "Cant Total",};
+
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewMateriaPrimaXPiezaPresupuesto view=null;
+            try
+            {
+                view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+            }
+            catch(Exception ex)
+            {
+                return "";
+            }
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNroproducto();
+            case 1:
+              return view.getNombreproducto();
+            case 2:
+              return view.getCantproducto();
+            case 3:
+              return view.getNombrepieza();
+            case 4:
+              return view.getCantpieza();
+            case 5:
+              return view.getNombremateriaprima();
+            case 6:
+              return view.getCantmateriaprima();
+            case 7:
+              return view.getCanttotal();
             default:
               return null;
             }
