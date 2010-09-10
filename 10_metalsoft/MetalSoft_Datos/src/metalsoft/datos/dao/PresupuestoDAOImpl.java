@@ -63,11 +63,12 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update PRESUPUESTO set FECHAPRESUPUESTO = ? , MONTOTOTAL = ? , FECHAVENCIMIENTO = ?  where idpresupuesto = ?");
+			ps = con.prepareStatement("update PRESUPUESTO set FECHAPRESUPUESTO = ? , MONTOTOTAL = ? , FECHAVENCIMIENTO = ? , NROPRESUPUESTO = ?  where idpresupuesto = ?");
 				ps.setDate(1,presupuesto.getFechapresupuesto());
 				ps.setDouble(2,presupuesto.getMontototal());
 				ps.setDate(3,presupuesto.getFechavencimiento());
-				ps.setLong(4,presupuestopk.getIdpresupuesto());
+                                ps.setLong(4, presupuesto.getNropresupuesto());
+				ps.setLong(5,presupuestopk.getIdpresupuesto());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PresupuestoException(sqle);}
@@ -88,10 +89,11 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
                 ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PRESUPUESTO( FECHAPRESUPUESTO, MONTOTOTAL, FECHAVENCIMIENTO) values (?, ?, ?) RETURNING idpresupuesto");
+			ps = con.prepareStatement("insert into PRESUPUESTO( FECHAPRESUPUESTO, MONTOTOTAL, FECHAVENCIMIENTO, NROPRESUPUESTO) values (?, ?, ?, ?) RETURNING idpresupuesto");
 				ps.setDate(1,presupuesto.getFechapresupuesto());
 				ps.setDouble(2,presupuesto.getMontototal());
 				ps.setDate(3,presupuesto.getFechavencimiento());
+                                ps.setLong(4, presupuesto.getNropresupuesto());
                                 rs=ps.executeQuery();
                                 rs.next();
 				return (int)rs.getLong(1);
@@ -109,7 +111,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where idpresupuesto = ?";
+	  		final String SQLSTATEMENT = "Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto where idpresupuesto = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, idpresupuesto);
 	  		rs = stmt.executeQuery();
@@ -147,7 +149,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findByIdpresupuesto(long idpresupuesto, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where idpresupuesto = ? order by idpresupuesto";
+			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto where idpresupuesto = ? order by idpresupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idpresupuesto );
@@ -174,7 +176,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findByFechapresupuesto(Date fechapresupuesto, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where fechapresupuesto = ? order by fechapresupuesto";
+			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto where fechapresupuesto = ? order by fechapresupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechapresupuesto );
@@ -201,7 +203,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findByMontototal(double montototal, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where montototal = ? order by montototal";
+			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto where montototal = ? order by montototal";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDouble( 1, montototal );
@@ -228,7 +230,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findByFechavencimiento(Date fechavencimiento, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto where fechavencimiento = ? order by fechavencimiento";
+			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto where fechavencimiento = ? order by fechavencimiento";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechavencimiento );
@@ -254,7 +256,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findAll( Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto";
+			String SQL_STATEMENT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -313,7 +315,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 	public PresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento from presupuesto";
+			String SQL_SELECT ="Select idpresupuesto, fechapresupuesto, montototal, fechavencimiento, nropresupuesto from presupuesto";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -366,6 +368,7 @@ public class PresupuestoDAOImpl implements PresupuestoDAO
 		 dto.setFechapresupuesto(rs.getDate("fechapresupuesto"));
 		 dto.setMontototal(rs.getDouble("montototal"));
 		 dto.setFechavencimiento(rs.getDate("fechavencimiento"));
+                 dto.setNropresupuesto(rs.getLong("nropresupuesto"));
 	}
 
 /**
