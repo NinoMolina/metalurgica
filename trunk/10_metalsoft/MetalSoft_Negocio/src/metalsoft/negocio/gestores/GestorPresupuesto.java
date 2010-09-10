@@ -145,5 +145,26 @@ public class GestorPresupuesto {
         return list;
     }
 
+    public LinkedList<ViewMateriaPrimaXPiezaPresupuesto> buscarMatPrimaXPiezaPresupuesto() {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        LinkedList<ViewMateriaPrimaXPiezaPresupuesto> list=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            list=AccessViews.listMateriaPrimaXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
 
 }
