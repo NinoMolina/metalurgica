@@ -38,9 +38,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     public RegistrarPresupuesto() {
         initComponents();
         filasPedidos=null;
-        //filasEtapasXPiezaPresupuesto=new LinkedList<ViewEtapasXPiezaPresupuesto>();
         gestor=new GestorPresupuesto();
-        //tblEtapasXPieza.updateUI();
         buscarPedidosConDetalleProcesoCalidad();
     }
 
@@ -580,7 +578,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         public Object getValueAt(int rowIndex, int columnIndex)
         {
 
-            ViewEtapasXPiezaPresupuesto view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+            ViewEtapasXPiezaPresupuesto view=null;
+            try
+            {
+                view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+            }
+            catch(Exception ex)
+            {
+                return "";
+            }
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
