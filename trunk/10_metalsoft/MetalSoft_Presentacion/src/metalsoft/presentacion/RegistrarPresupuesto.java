@@ -11,11 +11,18 @@
 
 package metalsoft.presentacion;
 
+import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.PresupuestoDB;
+import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.gestores.GestorPresupuesto;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
+import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -24,12 +31,16 @@ import metalsoft.util.Fecha;
 public class RegistrarPresupuesto extends javax.swing.JFrame {
 
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
+    private LinkedList<ViewEtapasXPiezaPresupuesto> filasEtapasXPiezaPresupuesto;
     private GestorPresupuesto gestor;
+
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
         initComponents();
         filasPedidos=null;
+        //filasEtapasXPiezaPresupuesto=new LinkedList<ViewEtapasXPiezaPresupuesto>();
         gestor=new GestorPresupuesto();
+        //tblEtapasXPieza.updateUI();
         buscarPedidosConDetalleProcesoCalidad();
     }
 
@@ -65,7 +76,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblDuracionProcesosCalidad = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblEtapasXPieza = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         lblDuracionProcesosProduccion = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -214,18 +225,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Procedimientos Producción"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable2);
+        tblEtapasXPieza.setModel(new EtapasXPiezaPresupuestoTableModel());
+        jScrollPane1.setViewportView(tblEtapasXPieza);
 
         jLabel17.setText("Duración de Procesos de Producción:");
 
@@ -282,6 +283,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel18.setText("Fecha presupuesto:");
 
+        lblNroPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroPresupuesto.setText("...");
 
         jLabel11.setText("Nro. Presupuesto:");
@@ -429,6 +431,12 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        ViewPedidoEnListadoProcedimientos viewPedido=filasPedidos.get(tblPedidos.getSelectedRow());
+        long idPed=viewPedido.getIdpedido();
+        long nroPresupuesto=gestor.buscarNroPresupuesto(idPed);
+        filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
+        tblEtapasXPieza.updateUI();
+        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
         
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -472,7 +480,6 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
     private javax.swing.JLabel lblCostoMateriaPrima;
@@ -481,12 +488,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel lblDuracionProcesosProduccion;
     private javax.swing.JLabel lblDuracionTotal;
     private javax.swing.JLabel lblNroPresupuesto;
+    private javax.swing.JTable tblEtapasXPieza;
     private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
 
     class PedidoTableModel extends AbstractTableModel
     {
-        String[] columnNames = {"Nro",
+        private String[] columnNames = {"Nro",
                         "Nro Ped Cliente",
                         "Prioridad",
                         "Cliente",
@@ -554,5 +562,79 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         }
 
 
+    }
+
+    class EtapasXPiezaPresupuestoTableModel extends AbstractTableModel
+    {
+        private String[] columnNames = {"Nro Prod",
+                                "Nombre",
+                                "Cant Prod",
+                                "Nombre Pieza",
+                                "Cant Pieza",
+                                "Nro Et Prod",
+                                "Etapa",
+                                "Duración",
+                                "Dur Total",};
+
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewEtapasXPiezaPresupuesto view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+    //      Object[] df=filas.get(rowIndex);
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getNroproducto();
+            case 1:
+              return view.getNombreproducto();
+            case 2:
+              return view.getCantproducto();
+            case 3:
+              return view.getNombrepieza();
+            case 4:
+              return view.getCantpieza();
+            case 5:
+              return view.getNroetapaproduccion();
+            case 6:
+              return view.getNombreetapaproduccion();
+            case 7:
+              return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
+            case 8:
+              return Fecha.parseToHourMinuteSecond(view.getDuraciontotal());
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasPedidos!=null)
+            return filasPedidos.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
     }
 }
