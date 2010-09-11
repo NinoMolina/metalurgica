@@ -1,0 +1,71 @@
+Usuario:
+mostrarUsuario
+mostrarRol
+tomarContraseña
+
+Rol:
+mostrarNombre
+mostrarRol
+
+Empleado:
+mostrarNombre
+
+Pedido:
+mostrarNumeroPedido
+crearDetallePedido
+mostrarDetalleProcedimientos
+Modificar todos los planes por detalle (conocer y atributos)
+
+Estado Pedido:
+mostrarNombre
+
+Etapa de produccion:
+mostrarNombre
+
+DetalleProcedimientos:
+mostrarEtapaProduccion
+mostarCantidad
+mostrarDuracionEstimada
+
+Materia Prima:
+mostrarNombre
+mostrarPrecio
+
+Proveedor:
+mostrarNombre
+
+Presupuesto:
+mostrarFechaVencimiento
+mostrarMonto
+mostrarNumero
+mostrarFechaPresupuesto
+
+Cliente:
+mostrarNumero
+tomarUsuarioYContraseña
+mostrarRazonSocial
+mostrarCuit
+mostrarTelefono
+mostrarCelular
+mostrarCondicionIva
+mistrarMail
+mostrarDomicilio
+
+CondicionIva / Localidad / Barrio/ Provincia:
+mostrarNombre
+
+Responsable:
+mostrrarNombre
+mostrarApellido
+
+Factura:
+mostrarNumero
+Agragados:
+InterfazDisponibilidadHoraria
+ImpresorDisponibilidadHoraria
+gestorPedido
+interfazPedido
+
+
+Cu 24, 26, 28, 34, 36, 38, 40, 42 de la 3 iteracion
+CU 30: soporte, no tiene diag de colaboracion.
