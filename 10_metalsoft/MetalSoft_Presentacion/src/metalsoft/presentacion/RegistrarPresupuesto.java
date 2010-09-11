@@ -12,6 +12,7 @@
 package metalsoft.presentacion;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.PedidoDB;
@@ -142,7 +143,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         tblMatPrimaXPieza.setModel(new MateriaPrimaXPiezaPresupuestoTableModel());
         jScrollPane5.setViewportView(tblMatPrimaXPieza);
 
-        jLabel14.setText("Costos de Por Materias Primas: $");
+        jLabel14.setText("Costos Por Materias Primas: $");
 
         lblCostoMateriaPrima.setText("...");
 
@@ -435,15 +436,94 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         long idPed=viewPedido.getIdpedido();
         long nroPresupuesto=gestor.buscarNroPresupuesto(idPed);
         filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
+        System.out.println(filasEtapasXPiezaPresupuesto.get(0).getDuraciontotal());
         tblEtapasXPieza.updateUI();
         filasMateriaPrimaXPiezaPresupuesto=gestor.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
         filasProcesoCalidadXPiezaPresupuesto=gestor.buscarProCalidadXPiezaPresupuesto();
         tblProCalidadXPieza.updateUI();
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
+
+        calcularTotales();
         
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    private void calcularTotales()
+    {
+        calcularDuracionEtapaXPiezaTotal();
+        calcularDuracionProCalidadXPiezaTotal();
+        calcularCantMateriaPrimaXPiezaTotal();
+    }
+
+    private void calcularDuracionEtapaXPiezaTotal()
+    {
+        Iterator<ViewEtapasXPiezaPresupuesto> iter=filasEtapasXPiezaPresupuesto.iterator();
+        ViewEtapasXPiezaPresupuesto view=null;
+        String durTotal="";
+        String durParcial="";
+        String[] hms=null;
+        int hora=0,minuto=0,segundo=0;
+        while(iter.hasNext())
+        {
+            view=iter.next();
+            durParcial=view.getDuraciontotal();
+            hms=durParcial.split(":");
+            hora+=Integer.parseInt(hms[0]);
+            minuto+=Integer.parseInt(hms[1]);
+            segundo+=Integer.parseInt(hms[2]);
+        }
+        int sumarMinutos=segundo/60;
+        segundo=segundo-(60*sumarMinutos);
+        minuto+=sumarMinutos;
+        int sumarHoras=minuto/60;
+        minuto=minuto-(60*sumarHoras);
+        hora+=sumarHoras;
+        durTotal=hora+":"+minuto+":"+segundo;
+        lblDuracionProcesosProduccion.setText(durTotal);
+    }
+
+    private void calcularDuracionProCalidadXPiezaTotal()
+    {
+        Iterator<ViewProcesoCalidadXPiezaPresupuesto> iter=filasProcesoCalidadXPiezaPresupuesto.iterator();
+        ViewProcesoCalidadXPiezaPresupuesto view=null;
+        String durTotal="";
+        String durParcial="";
+        String[] hms=null;
+        int hora=0,minuto=0,segundo=0;
+        while(iter.hasNext())
+        {
+            view=iter.next();
+            durParcial=view.getDuraciontotal();
+            hms=durParcial.split(":");
+            hora+=Integer.parseInt(hms[0]);
+            minuto+=Integer.parseInt(hms[1]);
+            segundo+=Integer.parseInt(hms[2]);
+        }
+        int sumarMinutos=segundo/60;
+        segundo=segundo-(60*sumarMinutos);
+        minuto+=sumarMinutos;
+        int sumarHoras=minuto/60;
+        minuto=minuto-(60*sumarHoras);
+        hora+=sumarHoras;
+        durTotal=hora+":"+minuto+":"+segundo;
+        lblDuracionProcesosProduccion.setText(durTotal);
+    }
+
+    private void calcularCantMateriaPrimaXPiezaTotal()
+    {
+        Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter=filasMateriaPrimaXPiezaPresupuesto.iterator();
+        ViewMateriaPrimaXPiezaPresupuesto view=null;
+        int cantTotal=0;
+        int cantParcial=0;
+
+        while(iter.hasNext())
+        {
+            view=iter.next();
+            cantParcial=view.getCanttotal();
+            cantTotal+=cantParcial;
+        }
+        lblCostoMateriaPrima.setText(String.valueOf(cantTotal));
+    }
     /**
     * @param args the command line arguments
     */
@@ -613,7 +693,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             case 7:
               return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
             case 8:
-              return Fecha.parseToHourMinuteSecond(view.getDuraciontotal());
+              return view.getDuraciontotal();
             default:
               return null;
             }
