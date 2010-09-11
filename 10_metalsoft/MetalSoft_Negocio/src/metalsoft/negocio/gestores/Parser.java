@@ -68,6 +68,7 @@ public class Parser {
         mp.setLargo(materiaPrima.getLargo());
         mp.setNombre(materiaPrima.getNombre());
         mp.setStock(materiaPrima.getStock());
+        mp.setPrecio(materiaPrima.getPrecio());
 
         return mp;
     }
@@ -392,6 +393,7 @@ public class Parser {
         DetalleproductopresupuestoDB db=new DetalleproductopresupuestoDB();
         db.setCantpiezas(x.getCantidadPieza());
         db.setCantmateriaprima(x.getCantidadMateriaPrima());
+        db.setPreciomateriaprima(x.getPreciomateriaprima());
         return db;
     }
 

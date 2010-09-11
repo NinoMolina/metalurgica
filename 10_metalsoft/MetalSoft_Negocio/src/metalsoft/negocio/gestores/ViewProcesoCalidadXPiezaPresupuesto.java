@@ -22,7 +22,7 @@ public class ViewProcesoCalidadXPiezaPresupuesto {
     private String nombreprocesocalidad;
     private int cantprocesocalidad;
     private Date duracionprocalidadxpieza;
-    private Date duraciontotal;
+    private String duraciontotal;
     private long idpresupuesto;
     private long iddetallepresupuesto;
     private long iddetalleproductopresupuesto;
@@ -66,11 +66,11 @@ public class ViewProcesoCalidadXPiezaPresupuesto {
         this.duracionprocalidadxpieza = duracionprocalidadxpieza;
     }
 
-    public Date getDuraciontotal() {
+    public String getDuraciontotal() {
         return duraciontotal;
     }
 
-    public void setDuraciontotal(Date duraciontotal) {
+    public void setDuraciontotal(String duraciontotal) {
         this.duraciontotal = duraciontotal;
     }
 

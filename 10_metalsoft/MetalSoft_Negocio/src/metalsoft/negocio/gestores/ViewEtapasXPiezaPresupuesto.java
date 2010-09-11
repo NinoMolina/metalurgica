@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -21,7 +22,7 @@ public class ViewEtapasXPiezaPresupuesto {
     private long nroetapaproduccion;
     private String nombreetapaproduccion;
     private Date duracionetapaxpieza;
-    private Date duraciontotal;
+    private String duraciontotal;
     private long idpresupuesto;
     private long iddetallepresupuesto;
     private long iddetalleproductopresupuesto;
@@ -57,11 +58,11 @@ public class ViewEtapasXPiezaPresupuesto {
         this.duracionetapaxpieza = duracionetapaxpieza;
     }
 
-    public Date getDuraciontotal() {
+    public String getDuraciontotal() {
         return duraciontotal;
     }
 
-    public void setDuraciontotal(Date duraciontotal) {
+    public void setDuraciontotal(String duraciontotal) {
         this.duraciontotal = duraciontotal;
     }
 

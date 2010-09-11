@@ -15,6 +15,7 @@ public class DetalleProductoPresupuesto
    private ArrayList<DetallePiezaPresupuesto> detallePiezaPresupuesto;
    private Pieza pieza;
    private MateriaPrima materiaPrima;
+   private double preciomateriaprima;
    int cantidadPieza,cantidadMateriaPrima;
    /**
     * @roseuid 4C27ED190048
@@ -23,6 +24,14 @@ public class DetalleProductoPresupuesto
    {
     
    }
+
+    public double getPreciomateriaprima() {
+        return preciomateriaprima;
+    }
+
+    public void setPreciomateriaprima(double preciomateriaprima) {
+        this.preciomateriaprima = preciomateriaprima;
+    }
 
     public int getCantidadMateriaPrima() {
         return cantidadMateriaPrima;

@@ -152,7 +152,7 @@ public class AccessViews {
                 view.setCantpieza(rs.getInt("cantpieza"));
                 view.setCantproducto(rs.getInt("cantproducto"));
                 view.setDuracionetapaxpieza(rs.getTime("duracionetapaxpieza"));
-                view.setDuraciontotal(rs.getTime("duraciontotal"));
+                view.setDuraciontotal(rs.getString("duraciontotal"));
                 view.setIddetallepiezapresupuesto(rs.getLong("iddetallepiezapresupuesto"));
                 view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
                 view.setIddetalleproductopresupuesto(rs.getLong("iddetalleproductopresupuesto"));
@@ -237,7 +237,7 @@ public class AccessViews {
                 view.setCantprocesocalidad(rs.getInt("cantprocesocalidad"));
                 view.setCantproducto(rs.getInt("cantproducto"));
                 view.setDuracionprocalidadxpieza(rs.getTime("duracionprocalidadxpieza"));
-                view.setDuraciontotal(rs.getTime("duraciontotal"));
+                view.setDuraciontotal(rs.getString("duraciontotal"));
                 view.setIddetallepiezacalidadpresupuesto(rs.getLong("iddetallepiezacalidadpresupuesto"));
                 view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
                 view.setIddetalleproductopresupuesto(rs.getLong("iddetalleproductopresupuesto"));
