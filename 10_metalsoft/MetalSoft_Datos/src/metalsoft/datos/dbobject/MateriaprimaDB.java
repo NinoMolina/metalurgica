@@ -34,7 +34,7 @@ public class MateriaprimaDB implements Serializable
 	private long unidaddemedida;
 	private String descripcion;
 	private long tipomaterial;
-
+        private double precio;
 
 	public MateriaprimaDB(){}
 	public MateriaprimaDB(long idmateriaprima ,long codproducto ,String nombre ,Date fechaalta ,Date fechabaja ,long codbarra ,Double alto,Double ancho,Double largo ,long stock ,long unidaddemedida ,String descripcion ,long tipomaterial){
@@ -52,6 +52,14 @@ public class MateriaprimaDB implements Serializable
 		this.descripcion = descripcion;
 		this.tipomaterial = tipomaterial;
 	}
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public Double getAlto() {
         return alto;

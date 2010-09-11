@@ -63,13 +63,14 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update DETALLEPRODUCTOPRESUPUESTO set IDDETALLEPRESUPUESTO = ? , IDPIEZA = ? , IDMATERIAPRIMA = ? , CANTMATERIAPRIMA = ? , CANTPIEZAS = ?  where iddetalle = ?");
+			ps = con.prepareStatement("update DETALLEPRODUCTOPRESUPUESTO set IDDETALLEPRESUPUESTO = ? , IDPIEZA = ? , IDMATERIAPRIMA = ? , CANTMATERIAPRIMA = ? , CANTPIEZAS = ? , PRECIOMATERIAPRIMA = ? where iddetalle = ?");
 				ps.setLong(1,detalleproductopresupuesto.getIddetallepresupuesto());
 				ps.setLong(2,detalleproductopresupuesto.getIdpieza());
 				ps.setLong(3,detalleproductopresupuesto.getIdmateriaprima());
 				ps.setInt(4,detalleproductopresupuesto.getCantmateriaprima());
                                 ps.setInt(5,detalleproductopresupuesto.getCantpiezas());
-				ps.setLong(6,detalleproductopresupuestopk.getIddetalle());
+                                ps.setDouble(6, detalleproductopresupuesto.getPreciomateriaprima());
+				ps.setLong(7,detalleproductopresupuestopk.getIddetalle());
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new DetalleproductopresupuestoException(sqle);}
 		catch(Exception e){throw new DetalleproductopresupuestoException(e);}
@@ -89,7 +90,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
                 ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEPRODUCTOPRESUPUESTO( IDDETALLEPRESUPUESTO, IDPIEZA, IDMATERIAPRIMA, CANTMATERIAPRIMA,CANTPIEZAS) values (?, ?, ?, ?, ?) RETURNING iddetalle");
+			ps = con.prepareStatement("insert into DETALLEPRODUCTOPRESUPUESTO( IDDETALLEPRESUPUESTO, IDPIEZA, IDMATERIAPRIMA, CANTMATERIAPRIMA,CANTPIEZAS,PRECIOMATERIAPRIMA) values (?, ?, ?, ?, ?, ?) RETURNING iddetalle");
 				ps.setLong(1,detalleproductopresupuesto.getIddetallepresupuesto());
 				ps.setLong(2,detalleproductopresupuesto.getIdpieza());
 
@@ -100,6 +101,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
                                 
 				ps.setInt(4,detalleproductopresupuesto.getCantmateriaprima());
                                 ps.setInt(5,detalleproductopresupuesto.getCantpiezas());
+                                ps.setDouble(6, detalleproductopresupuesto.getPreciomateriaprima());
                                 rs=ps.executeQuery();
                                 rs.next();
 				return(int)rs.getLong(1);
@@ -117,7 +119,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where iddetalle = ?";
+	  		final String SQLSTATEMENT = "Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where iddetalle = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, iddetalle);
 	  		rs = stmt.executeQuery();
@@ -155,7 +157,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findByIddetalle(long iddetalle, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where iddetalle = ? order by iddetalle";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where iddetalle = ? order by iddetalle";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, iddetalle );
@@ -182,7 +184,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findByIddetallepresupuesto(long iddetallepresupuesto, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where iddetallepresupuesto = ? order by iddetallepresupuesto";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where iddetallepresupuesto = ? order by iddetallepresupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, iddetallepresupuesto );
@@ -209,7 +211,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findByIdpieza(long idpieza, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where idpieza = ? order by idpieza";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where idpieza = ? order by idpieza";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idpieza );
@@ -236,7 +238,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findByIdmateriaprima(long idmateriaprima, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where idmateriaprima = ? order by idmateriaprima";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where idmateriaprima = ? order by idmateriaprima";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idmateriaprima );
@@ -263,7 +265,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findByCantmateriaprima(int cantmateriaprima, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where cantmateriaprima = ? order by cantmateriaprima";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where cantmateriaprima = ? order by cantmateriaprima";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setInt( 1, cantmateriaprima );
@@ -281,7 +283,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
         public DetalleproductopresupuestoDB[] findByCantpiezas(int cantpiezas, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto where cantpiezas = ? order by cantpiezas";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto where cantpiezas = ? order by cantpiezas";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setInt( 1, cantpiezas );
@@ -307,7 +309,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findAll( Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto";
+			String SQL_STATEMENT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -366,7 +368,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 	public DetalleproductopresupuestoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleproductopresupuestoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas from detalleproductopresupuesto";
+			String SQL_SELECT ="Select iddetalle, iddetallepresupuesto, idpieza, idmateriaprima, cantmateriaprima, cantpiezas, preciomateriaprima from detalleproductopresupuesto";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -421,6 +423,7 @@ public class DetalleproductopresupuestoDAOImpl implements Detalleproductopresupu
 		 dto.setIdmateriaprima(rs.getLong("idmateriaprima"));
 		 dto.setCantmateriaprima(rs.getInt("cantmateriaprima"));
                  dto.setCantpiezas(rs.getInt("cantpiezas"));
+                 dto.setPreciomateriaprima(rs.getDouble("preciomateriaprima"));
 	}
 
 /**
