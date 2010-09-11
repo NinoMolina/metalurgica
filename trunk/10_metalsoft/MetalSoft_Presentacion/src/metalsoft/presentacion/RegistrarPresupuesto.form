@@ -243,7 +243,7 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Costos de Por Materias Primas: $"/>
+                    <Property name="text" type="java.lang.String" value="Costos Por Materias Primas: $"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCostoMateriaPrima">
