@@ -59,7 +59,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return   int
 */
 
-	public int update(EmpresametalurgicaPK empresametalurgicapk, Empresametalurgica empresametalurgica, Connection con)throws EmpresametalurgicaException{
+	public int update(EmpresametalurgicaPK empresametalurgicapk, EmpresametalurgicaDB empresametalurgica, Connection con)throws EmpresametalurgicaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -91,7 +91,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  EmpresametalurgicaPK
 */
 
-	public int insert(Empresametalurgica empresametalurgica ,Connection con)throws EmpresametalurgicaException {
+	public int insert(EmpresametalurgicaDB empresametalurgica ,Connection con)throws EmpresametalurgicaException {
 
 		PreparedStatement ps = null;
                 ResultSet rs=null;
@@ -128,7 +128,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * 
 */
 
-	public Empresametalurgica findByPrimaryKey(long idempresametalurgica, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB findByPrimaryKey(long idempresametalurgica, Connection con) throws EmpresametalurgicaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -154,7 +154,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica
 */
 
-	public Empresametalurgica findByPrimaryKey(EmpresametalurgicaPK empresametalurgicapk, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB findByPrimaryKey(EmpresametalurgicaPK empresametalurgicapk, Connection con) throws EmpresametalurgicaException{
 		return findByPrimaryKey(empresametalurgicapk.getIdempresametalurgica(), con);
 	}
 
@@ -167,7 +167,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByIdempresametalurgica(long idempresametalurgica, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByIdempresametalurgica(long idempresametalurgica, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where idempresametalurgica = ? order by idempresametalurgica";
@@ -194,7 +194,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByNroempresametalurgica(long nroempresametalurgica, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByNroempresametalurgica(long nroempresametalurgica, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where nroempresametalurgica = ? order by nroempresametalurgica";
@@ -221,7 +221,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByRazonsocial(String razonsocial, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByRazonsocial(String razonsocial, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where razonsocial = ? order by razonsocial";
@@ -248,7 +248,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByResponsable(long responsable, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByResponsable(long responsable, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where responsable = ? order by responsable";
@@ -275,7 +275,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByTelefono(String telefono, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByTelefono(String telefono, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where telefono = ? order by telefono";
@@ -302,7 +302,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByCelular(String celular, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByCelular(String celular, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where celular = ? order by celular";
@@ -329,7 +329,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByMail(String mail, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByMail(String mail, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where mail = ? order by mail";
@@ -356,7 +356,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByDomicilio(long domicilio, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByDomicilio(long domicilio, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where domicilio = ? order by domicilio";
@@ -383,7 +383,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByFechaalta(Date fechaalta, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByFechaalta(Date fechaalta, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where fechaalta = ? order by fechaalta";
@@ -410,7 +410,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByFechabaja(Date fechabaja, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByFechabaja(Date fechabaja, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where fechabaja = ? order by fechabaja";
@@ -437,7 +437,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByCuil(String cuil, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByCuil(String cuil, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where cuil = ? order by cuil";
@@ -464,7 +464,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByCondicioniva(long condicioniva, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByCondicioniva(long condicioniva, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where condicioniva = ? order by condicioniva";
@@ -491,7 +491,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	public Empresametalurgica[] findByCuit(String cuit, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findByCuit(String cuit, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica where cuit = ? order by cuit";
@@ -517,7 +517,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 *
 */
 
-	public Empresametalurgica[] findAll( Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findAll( Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica";
@@ -545,7 +545,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 *
 */
 
-	public Empresametalurgica[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -576,7 +576,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 *
 */
 
-	public Empresametalurgica[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpresametalurgicaException{
+	public EmpresametalurgicaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpresametalurgicaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idempresametalurgica, nroempresametalurgica, razonsocial, responsable, telefono, celular, mail, domicilio, fechaalta, fechabaja, cuil, condicioniva, cuit from empresametalurgica";
@@ -606,10 +606,10 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 *
 */
 
-	protected Empresametalurgica fetchSingleResult(ResultSet rs) throws SQLException
+	protected EmpresametalurgicaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Empresametalurgica dto = new Empresametalurgica();
+					EmpresametalurgicaDB dto = new EmpresametalurgicaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -626,7 +626,7 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  void
 */
 
-	protected void populateVO(Empresametalurgica dto, ResultSet rs) throws SQLException
+	protected void populateVO(EmpresametalurgicaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdempresametalurgica(rs.getLong("idempresametalurgica"));
 		 dto.setNroempresametalurgica(rs.getLong("nroempresametalurgica"));
@@ -651,15 +651,15 @@ public class EmpresametalurgicaDAOImpl implements EmpresametalurgicaDAO
 * @return  Empresametalurgica[]
 */
 
-	protected Empresametalurgica[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected EmpresametalurgicaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Empresametalurgica dto = new Empresametalurgica();
+			EmpresametalurgicaDB dto = new EmpresametalurgicaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Empresametalurgica ret[] = new Empresametalurgica[ resultList.size() ];
+		EmpresametalurgicaDB ret[] = new EmpresametalurgicaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
