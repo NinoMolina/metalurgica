@@ -42,14 +42,14 @@ import metalsoft.negocio.ventas.CondicionIva;
  */
 public class GestorProveedor {
     private Condicioniva[] condicionesIva=null;
-   private CondicionIva[] cinegocio=null;
-   private Provincia[] provincias=null;
-   private metalsoft.datos.dbobject.Localidad[] localidades=null;
-   private Barrio[] barrios=null;
-   private metalsoft.datos.dbobject.ProveedorDB[] proveedores=null;
-   private DomicilioDB domicilioProveedorDB=null;
-   private DomicilioDB domicilioResponsableDB=null;
-   private Tipodocumento[] tiposDoc=null;
+    private CondicionIva[] cinegocio=null;
+    private Provincia[] provincias=null;
+    private metalsoft.datos.dbobject.Localidad[] localidades=null;
+    private Barrio[] barrios=null;
+    private metalsoft.datos.dbobject.ProveedorDB[] proveedores=null;
+    private DomicilioDB domicilioProveedorDB=null;
+    private DomicilioDB domicilioResponsableDB=null;
+    private Tipodocumento[] tiposDoc=null;
     private metalsoft.negocio.rrhh.Domicilio domicilioProveedor;
     private Proveedor proveedor;
     private long idDomicilioProveedor,idDomicilioResponsable;
