@@ -33,7 +33,7 @@
               <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnBuscar" min="-2" pref="70" max="-2" attributes="0"/>
-              <EmptySpace pref="319" max="32767" attributes="0"/>
+              <EmptySpace pref="334" max="32767" attributes="0"/>
               <Component id="btnSalir" min="-2" pref="63" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
@@ -83,9 +83,6 @@
           </Border>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Administrar Empresa Metal&#xfa;rgica"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -298,9 +295,6 @@
               </Border>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Domicilio Empresa Metal&#xfa;rgica"/>
-          </AccessibilityProperties>
         </Component>
         <Component class="metalsoft.beans.Responsable" name="beanResponsable">
           <Properties>

@@ -57,7 +57,7 @@ public class HiloBuscarEmpresaMetalurgica extends Thread {
         } catch (Exception ex) {
             Logger.getLogger(HiloBuscarEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        metalsoft.datos.dbobject.EmpresaMetalurgicaDB[] empresasMetalurgicas=AccessEmpresaMetalurgica.findByRazonsocialILIKE(valor,cn);
+        metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas=AccessEmpresaMetalurgica.findByRazonsocialILIKE(valor,cn);
         JList list=prov.getList(HiloBuscarEmpresaMetalurgica.class.getName());
         JComboBox combo=prov.getCombo(HiloBuscarEmpresaMetalurgica.class.getName());
         prov.setBusqueda(empresasMetalurgicas);
@@ -78,20 +78,20 @@ public class HiloBuscarEmpresaMetalurgica extends Thread {
         timer=new Timer(true);
     }
 
-    private void cargarLista(JList list, metalsoft.datos.dbobject.EmpresaMetalurgicaDB[] empresasMetalurgicas) {
+    private void cargarLista(JList list, metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas) {
         ItemCombo item=null,items[]=new ItemCombo[empresasMetalurgicas.length];
         for(int i=0;i<empresasMetalurgicas.length;i++)
         {
-            item=new ItemCombo(String.valueOf(empresasMetalurgicas[i].getIdempresaMetalurgica()), empresasMetalurgicas[i].getRazonsocial());
+            item=new ItemCombo(String.valueOf(empresasMetalurgicas[i].getIdempresametalurgica()), empresasMetalurgicas[i].getRazonsocial());
             items[i]=item;
         }
         list.setListData(items);
     }
-    private void cargarCombo(JComboBox combo, metalsoft.datos.dbobject.EmpresaMetalurgicaDB[] empresasMetalurgicas) {
+    private void cargarCombo(JComboBox combo, metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas) {
         ItemCombo item=null;
         for(int i=0;i<empresasMetalurgicas.length;i++)
         {
-            item=new ItemCombo(String.valueOf(empresasMetalurgicas[i].getIdempresaMetalurgica()), empresasMetalurgicas[i].getRazonsocial());
+            item=new ItemCombo(String.valueOf(empresasMetalurgicas[i].getIdempresametalurgica()), empresasMetalurgicas[i].getRazonsocial());
             combo.addItem(item);
         }
     }
