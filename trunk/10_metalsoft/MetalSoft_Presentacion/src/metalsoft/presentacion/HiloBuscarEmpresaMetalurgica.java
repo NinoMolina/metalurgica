@@ -57,7 +57,7 @@ public class HiloBuscarEmpresaMetalurgica extends Thread {
         } catch (Exception ex) {
             Logger.getLogger(HiloBuscarEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas=AccessEmpresaMetalurgica.findByRazonsocialILIKE(valor,cn);
+        metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas= AccessEmpresaMetalurgica.findByRazonsocialILIKE(valor,cn);
         JList list=prov.getList(HiloBuscarEmpresaMetalurgica.class.getName());
         JComboBox combo=prov.getCombo(HiloBuscarEmpresaMetalurgica.class.getName());
         prov.setBusqueda(empresasMetalurgicas);
