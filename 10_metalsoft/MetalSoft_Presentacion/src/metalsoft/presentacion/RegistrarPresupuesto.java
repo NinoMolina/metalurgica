@@ -11,7 +11,12 @@
 
 package metalsoft.presentacion;
 
+import datechooser.beans.DateChooserCombo;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
@@ -38,6 +43,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;
     private LinkedList<ViewProcesoCalidadXPiezaPresupuesto> filasProcesoCalidadXPiezaPresupuesto;
     private GestorPresupuesto gestor;
+    private int horas,minutos,segundos,dias;
+    private double costoTotal;
+    private double ganancia;
+    private double netoTotalACobrar;
 
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
@@ -96,6 +105,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblDuracionTotal = new javax.swing.JLabel();
         lblCostoTotal = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        spnProcentaje = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lblGanancia = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        lblTotalACobrar = new javax.swing.JLabel();
+        btnRecalcular = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -145,6 +163,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel14.setText("Costos Por Materias Primas: $");
 
+        lblCostoMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCostoMateriaPrima.setText("...");
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
@@ -179,6 +198,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel15.setText("Duración de Procesos de Calidad:");
 
+        lblDuracionProcesosCalidad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracionProcesosCalidad.setText("...");
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
@@ -213,6 +233,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel17.setText("Duración de Procesos de Producción:");
 
+        lblDuracionProcesosProduccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracionProcesosProduccion.setText("...");
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
@@ -260,7 +281,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Presupuesto"));
 
-        jLabel16.setText("COSTO TOTAL:");
+        jLabel16.setText("COSTO TOTAL:    $");
 
         try {
             dccFechaVencimiento.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
@@ -293,9 +314,36 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             e1.printStackTrace();
         }
 
+        lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracionTotal.setText("...");
 
+        lblCostoTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCostoTotal.setText("...");
+
+        jLabel2.setText("Porcentaje  Ganancia:");
+
+        spnProcentaje.setName(""); // NOI18N
+        spnProcentaje.setOpaque(false);
+        spnProcentaje.setValue(30);
+
+        jLabel3.setText("%");
+
+        jLabel21.setText("GANANCIA:         $");
+
+        lblGanancia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblGanancia.setText("...");
+
+        jLabel22.setText("NETO TOTAL A COBRAR: $");
+
+        lblTotalACobrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTotalACobrar.setText("...");
+
+        btnRecalcular.setText("Recalcular");
+        btnRecalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecalcularActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -304,32 +352,56 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
-                    .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(jLabel11)
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel19)
-                                    .add(jLabel18))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(dccFechaPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .add(dccFechaVencimiento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .add(lblNroPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                .add(jLabel1)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                     .add(jPanel7Layout.createSequentialGroup()
-                        .add(jLabel20)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(lblDuracionTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 117, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(41, 41, 41)
-                        .add(jLabel16)
-                        .add(18, 18, 18)
-                        .add(lblCostoTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 117, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                            .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(jLabel11)
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
+                                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabel19)
+                                            .add(jLabel18))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(dccFechaPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                            .add(dccFechaVencimiento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                            .add(lblNroPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
+                                        .add(jLabel1)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel20)
+                                    .add(jLabel16))
+                                .add(18, 18, 18)
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblGanancia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 258, Short.MAX_VALUE)))
+                        .add(10, 10, 10))
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jLabel22)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblTotalACobrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(349, Short.MAX_VALUE))
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jLabel2)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(spnProcentaje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(4, 4, 4)
+                                .add(jLabel3)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(btnRecalcular))
+                            .add(jLabel21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(376, 376, 376))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -355,10 +427,28 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel20)
+                    .add(lblDuracionTotal))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel16)
-                    .add(lblDuracionTotal)
                     .add(lblCostoTotal))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(spnProcentaje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3)
+                    .add(btnRecalcular))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel21)
+                    .add(lblGanancia))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 66, Short.MAX_VALUE)
+                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel22)
+                    .add(lblTotalACobrar))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -368,8 +458,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
@@ -380,7 +470,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -401,13 +491,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
                         .add(btnGuardar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(btnImprimir)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1072, Short.MAX_VALUE)
                         .add(btnSalir))
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -435,24 +525,109 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         ViewPedidoEnListadoProcedimientos viewPedido=filasPedidos.get(tblPedidos.getSelectedRow());
         long idPed=viewPedido.getIdpedido();
         long nroPresupuesto=gestor.buscarNroPresupuesto(idPed);
+        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
+        setFechas();
+        cargarTablas();
+        calcularTotales();
+        
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnRecalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecalcularActionPerformed
+
+    }//GEN-LAST:event_btnRecalcularActionPerformed
+
+    private void cargarTablas()
+    {
         filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
-        System.out.println(filasEtapasXPiezaPresupuesto.get(0).getDuraciontotal());
+        //System.out.println(filasEtapasXPiezaPresupuesto.get(0).getDuraciontotal());
         tblEtapasXPieza.updateUI();
         filasMateriaPrimaXPiezaPresupuesto=gestor.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
         filasProcesoCalidadXPiezaPresupuesto=gestor.buscarProCalidadXPiezaPresupuesto();
         tblProCalidadXPieza.updateUI();
-        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
-
-        calcularTotales();
         
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
-
+    }
+    private void setFechas()
+    {
+        dccFechaPresupuesto.setFormat(DateFormat.MEDIUM);
+        dccFechaPresupuesto.setSelectedDate(Fecha.fechaActualCalendar());
+        Calendar c=(GregorianCalendar) Fecha.fechaActualCalendar();
+        c=Fecha.addDias(c, 7);
+        dccFechaVencimiento.setFormat(DateFormat.MEDIUM);
+        dccFechaVencimiento.setSelectedDate(c);
+    }
     private void calcularTotales()
     {
         calcularDuracionEtapaXPiezaTotal();
         calcularDuracionProCalidadXPiezaTotal();
         calcularCantMateriaPrimaXPiezaTotal();
+        calcularDuracionTotal();
+        calcularCostoTotal();
+        calcularGanancia();
+        calcularNetoTotalACobrar();
+        calcularFechaFinProduccion();
+    }
+
+    private void calcularNetoTotalACobrar()
+    {
+        netoTotalACobrar=costoTotal+ganancia;
+        DecimalFormat df=new DecimalFormat("0.00");
+        lblTotalACobrar.setText(df.format(netoTotalACobrar));
+    }
+
+    private void calcularGanancia()
+    {
+        float porcentaje=Float.parseFloat(String.valueOf(spnProcentaje.getValue()));
+        ganancia=costoTotal*(porcentaje/100);
+        DecimalFormat df=new DecimalFormat("0.00");
+        lblGanancia.setText(df.format(ganancia));
+    }
+    private void calcularFechaFinProduccion()
+    {
+        Calendar c=dccFechaPresupuesto.getSelectedDate();
+        c.add(Calendar.SECOND, segundos);
+        c.add(Calendar.MINUTE, minutos);
+        c.add(Calendar.HOUR_OF_DAY, horas);
+        c.add(Calendar.DAY_OF_YEAR, dias);
+        dccFechaEstimadaFinProduccion.setSelectedDate(c);
+    }
+    private void calcularCostoTotal()
+    {
+        double costoMP=Double.parseDouble(lblCostoMateriaPrima.getText());
+        costoTotal=costoMP;
+        lblCostoTotal.setText(String.valueOf(costoTotal));
+    }
+
+    private void calcularDuracionTotal()
+    {
+        horas=0;minutos=0;segundos=0;dias=0;
+        String duracionEtapas=lblDuracionProcesosProduccion.getText();
+        String[] hmsEtapas=duracionEtapas.split(":");
+        int hE=Integer.parseInt(hmsEtapas[0]);
+        int mE=Integer.parseInt(hmsEtapas[1]);
+        int sE=Integer.parseInt(hmsEtapas[2]);
+        String duracionProCalidad=lblDuracionProcesosCalidad.getText();
+        String[] hmsProCalidad=duracionProCalidad.split(":");
+        int hC=Integer.parseInt(hmsProCalidad[0]);
+        int mC=Integer.parseInt(hmsProCalidad[1]);
+        int sC=Integer.parseInt(hmsProCalidad[2]);
+
+        segundos=sC+sE;
+        minutos=mC+mE;
+        horas=hC+hE;
+
+        int sumarMinutos=segundos/60;
+        segundos=segundos-(60*sumarMinutos);
+        minutos+=sumarMinutos;
+        int sumarHoras=minutos/60;
+        minutos=minutos-(60*sumarHoras);
+        horas+=sumarHoras;
+        int sumarDias=horas/24;
+        horas=horas-(24*sumarDias);
+        dias=sumarDias;
+        
+        String durTotal=dias+" dias, "+horas+" horas, "+minutos+" minutos, "+segundos+" segundos";
+        lblDuracionTotal.setText(durTotal);
     }
 
     private void calcularDuracionEtapaXPiezaTotal()
@@ -506,23 +681,23 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         minuto=minuto-(60*sumarHoras);
         hora+=sumarHoras;
         durTotal=hora+":"+minuto+":"+segundo;
-        lblDuracionProcesosProduccion.setText(durTotal);
+        lblDuracionProcesosCalidad.setText(durTotal);
     }
 
     private void calcularCantMateriaPrimaXPiezaTotal()
     {
         Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter=filasMateriaPrimaXPiezaPresupuesto.iterator();
         ViewMateriaPrimaXPiezaPresupuesto view=null;
-        int cantTotal=0;
-        int cantParcial=0;
+        double precioTotal=0;
+        double precioParcial=0;
 
         while(iter.hasNext())
         {
             view=iter.next();
-            cantParcial=view.getCanttotal();
-            cantTotal+=cantParcial;
+            precioParcial=view.getPreciototal();
+            precioTotal+=precioParcial;
         }
-        lblCostoMateriaPrima.setText(String.valueOf(cantTotal));
+        lblCostoMateriaPrima.setText(String.valueOf(precioTotal));
     }
     /**
     * @param args the command line arguments
@@ -538,6 +713,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnRecalcular;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
     private datechooser.beans.DateChooserCombo dccFechaEstimadaFinProduccion;
@@ -551,7 +727,11 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -564,12 +744,16 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblCostoMateriaPrima;
     private javax.swing.JLabel lblCostoTotal;
     private javax.swing.JLabel lblDuracionProcesosCalidad;
     private javax.swing.JLabel lblDuracionProcesosProduccion;
     private javax.swing.JLabel lblDuracionTotal;
+    private javax.swing.JLabel lblGanancia;
     private javax.swing.JLabel lblNroPresupuesto;
+    private javax.swing.JLabel lblTotalACobrar;
+    private javax.swing.JSpinner spnProcentaje;
     private javax.swing.JTable tblEtapasXPieza;
     private javax.swing.JTable tblMatPrimaXPieza;
     private javax.swing.JTable tblPedidos;
@@ -738,8 +922,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                                 "Nombre Pieza",
                                 "Cant Pieza",
                                 "Mat Prima",
+                                "Precio",
                                 "Cant MP",
-                                "Cant Total",};
+                                "Cant Total",
+                                "Precio Total"};
 
 
         public Object getValueAt(int rowIndex, int columnIndex)
@@ -770,9 +956,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             case 5:
               return view.getNombremateriaprima();
             case 6:
-              return view.getCantmateriaprima();
+              return view.getPreciomateriaprima();
             case 7:
+              return view.getCantmateriaprima();
+            case 8:
               return view.getCanttotal();
+            case 9:
+              return view.getPreciototal();
             default:
               return null;
             }
