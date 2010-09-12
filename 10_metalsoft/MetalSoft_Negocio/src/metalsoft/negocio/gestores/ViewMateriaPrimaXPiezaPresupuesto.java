@@ -18,7 +18,9 @@ public class ViewMateriaPrimaXPiezaPresupuesto {
     private int cantpieza;
     private String nombremateriaprima;
     private int cantmateriaprima;
+    private double preciomateriaprima;
     private int canttotal;
+    private double preciototal;
     private long idpresupuesto;
     private long iddetallepresupuesto;
     private long iddetalleproductopresupuesto;
@@ -27,6 +29,22 @@ public class ViewMateriaPrimaXPiezaPresupuesto {
     private long idmateriaprima;
 
     public ViewMateriaPrimaXPiezaPresupuesto() {
+    }
+
+    public double getPreciomateriaprima() {
+        return preciomateriaprima;
+    }
+
+    public void setPreciomateriaprima(double preciomateriaprima) {
+        this.preciomateriaprima = preciomateriaprima;
+    }
+
+    public double getPreciototal() {
+        return preciototal;
+    }
+
+    public void setPreciototal(double preciototal) {
+        this.preciototal = preciototal;
     }
 
     public int getCantmateriaprima() {

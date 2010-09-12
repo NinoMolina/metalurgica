@@ -178,7 +178,7 @@ public class AccessViews {
         ViewMateriaPrimaXPiezaPresupuesto view=null;
         LinkedList<ViewMateriaPrimaXPiezaPresupuesto> ll=new LinkedList<ViewMateriaPrimaXPiezaPresupuesto>();
         String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
-                     "nombremateriaprima,cantmateriaprima,canttotal, "+
+                     "nombremateriaprima,preciomateriaprima,cantmateriaprima,canttotal,preciototal, "+
                      "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto, "+
                      "idproducto,idpieza,idmateriaprima"+
                      " FROM viewmpxpiezapresupuesto"+
@@ -206,6 +206,8 @@ public class AccessViews {
                 view.setNombrepieza(rs.getString("nombrepieza"));
                 view.setNombreproducto(rs.getString("nombreproducto"));
                 view.setNroproducto(rs.getLong("nroproducto"));
+                view.setPreciomateriaprima(rs.getDouble("preciomateriaprima"));
+                view.setPreciototal(rs.getDouble("preciototal"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
