@@ -40,7 +40,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     private long idResponsable;
     private Responsable responsable;
     private EmpresaMetalurgica empresaMetalurgica;
-    private metalsoft.datos.dbobject.EmpresaMetalurgicaDB empresaMetalurgicaDB;
+    private metalsoft.datos.dbobject.EmpresametalurgicaDB empresaMetalurgicaDB;
     private metalsoft.datos.dbobject.ResponsableDB responsableDB;
     private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB,domicilioResponsableDB;
     private EnumOpcionesABM opcion;
