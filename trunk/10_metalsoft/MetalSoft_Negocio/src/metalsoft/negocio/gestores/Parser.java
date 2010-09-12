@@ -20,6 +20,7 @@ import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.datos.dbobject.ProcesocalidadDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.ProveedorDB;
+import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.calidad.DetallePiezaCalidadPresupuesto;
@@ -45,6 +46,7 @@ import metalsoft.util.ItemCombo;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
+import metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica;
 /**
  *
  * @author Vicky
@@ -116,6 +118,29 @@ public class Parser {
 
         return db;
     }
+
+     public static EmpresametalurgicaDB parseToEmpresametalurgicaDB(EmpresaMetalurgica x) {
+        EmpresametalurgicaDB db=new EmpresametalurgicaDB();
+        db.setCelular(x.getCelular());
+        db.setCuit(x.getCUIT());
+        if(x.getFechaAlta()!=null)
+            db.setFechaalta(new java.sql.Date(x.getFechaAlta().getTime()));
+        else
+            db.setFechaalta(null);
+
+        if(x.getFechaBaja()!=null)
+            db.setFechabaja(new java.sql.Date(x.getFechaBaja().getTime()));
+        else
+            db.setFechabaja(null);
+
+        db.setMail(x.getMail());
+        db.setNroempresametalurgica(x.getNroEmpresaMetalurgica());
+        db.setRazonsocial(x.getRazonSocial());
+        db.setTelefono(x.getTelefono());
+
+        return db;
+    }
+
 
     public static TipoMaterial[] parseToTipomaterial(Tipomaterial[] tm) {
         if(tm==null)return null;
