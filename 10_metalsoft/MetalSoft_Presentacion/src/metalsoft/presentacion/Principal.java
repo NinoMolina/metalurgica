@@ -66,6 +66,12 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         lblImagen = new javax.swing.JLabel();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
@@ -89,7 +95,21 @@ public class Principal extends javax.swing.JFrame {
         mnuFinanzas = new javax.swing.JMenu();
         mnuRRHH = new javax.swing.JMenu();
         mniListadoClientes = new javax.swing.JMenuItem();
+        mnuTrabajosTercerizados = new javax.swing.JMenu();
+        mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("File");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(new java.awt.Color(240, 240, 240));
@@ -238,6 +258,18 @@ public class Principal extends javax.swing.JFrame {
         mnuRRHH.add(mniListadoClientes);
 
         mbrMenu.add(mnuRRHH);
+
+        mnuTrabajosTercerizados.setText("Trabajos Tercerizados");
+
+        mniEmpresaMetalurgica.setText("Empresa Metalúrgica");
+        mniEmpresaMetalurgica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEmpresaMetalurgicaActionPerformed(evt);
+            }
+        });
+        mnuTrabajosTercerizados.add(mniEmpresaMetalurgica);
+
+        mbrMenu.add(mnuTrabajosTercerizados);
 
         mnuAyuda.setText("Ayuda");
         mbrMenu.add(mnuAyuda);
@@ -423,16 +455,35 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniRegistrarPresupuestoActionPerformed
 
+    private void mniEmpresaMetalurgicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMetalurgicaActionPerformed
+          try {
+            JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniEmpresaMetalurgicaActionPerformed
+
     /**
     * @param args the command line arguments
     */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
+    private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
@@ -452,6 +503,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mnuInicio;
     private javax.swing.JMenu mnuProduccion;
     private javax.swing.JMenu mnuRRHH;
+    private javax.swing.JMenu mnuTrabajosTercerizados;
     private javax.swing.JMenu mnuVentas;
     // End of variables declaration//GEN-END:variables
 
