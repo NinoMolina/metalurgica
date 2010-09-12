@@ -229,6 +229,11 @@ public class Fecha {
         return calendar.getTime();
     }
 
+    public static Calendar addDias(Calendar fecha,int dias)
+    {
+        fecha.add(Calendar.DAY_OF_YEAR, dias);
+        return fecha;
+    }
     public static Date diferenciaEnSegundos(Date fechaInicio, Date fechaFin)
     {
         GregorianCalendar calendar=new GregorianCalendar();
