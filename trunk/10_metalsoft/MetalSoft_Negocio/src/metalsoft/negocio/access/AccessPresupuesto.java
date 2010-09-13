@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.dbobject.PresupuestoDB;
+import metalsoft.datos.dbobject.PresupuestoPK;
 import metalsoft.datos.exception.PresupuestoException;
 import metalsoft.datos.factory.DAOFactory;
 import metalsoft.datos.factory.DAOFactoryCreater;
@@ -47,5 +48,18 @@ public class AccessPresupuesto {
             Logger.getLogger(AccessPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return db;
+    }
+
+    public static int update(PresupuestoDB db,Connection cn)
+    {
+        int result=-1;
+        PresupuestoDAO dao=new DAOFactoryCreater().getFactry().createPresupuestoDAO();
+        PresupuestoPK pk=new PresupuestoPK(db.getIdpresupuesto());
+        try {
+            result=dao.update(pk, db, cn);
+        } catch (PresupuestoException ex) {
+            Logger.getLogger(AccessPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 }

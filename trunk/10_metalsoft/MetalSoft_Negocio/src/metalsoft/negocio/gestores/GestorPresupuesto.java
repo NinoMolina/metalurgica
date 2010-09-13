@@ -6,9 +6,14 @@
 package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
@@ -19,6 +24,18 @@ import metalsoft.negocio.access.AccessDetallePresupuesto;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.ventas.Pedido;
+import metalsoft.negocio.ventas.Presupuesto;
+import metalsoft.util.Decimales;
+import metalsoft.util.Fecha;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,9 +45,31 @@ public class GestorPresupuesto {
     private PedidoDB pedidoSeleccionadoDB;
     private PresupuestoDB presupuestoPedSelecDB;
     private DetallepresupuestoDB[] vDetallePresupuestoDB;
+    private Date fechaPresupuesto;
+    private Date fechaVencimientoPresupuesto;
+    private Date fechaEstimadaFinProduccion;
+    private double montoTotal;
 
     public GestorPresupuesto() {
     }
+
+
+    public Date getFechaEstimadaFinProduccion() {
+        return fechaEstimadaFinProduccion;
+    }
+
+    public Date getFechaPresupuesto() {
+        return fechaPresupuesto;
+    }
+
+    public Date getFechaVencimientoPresupuesto() {
+        return fechaVencimientoPresupuesto;
+    }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
 
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosConDetalleProcesoCalidad() {
         PostgreSQLManager pg=new PostgreSQLManager();
@@ -186,6 +225,110 @@ public class GestorPresupuesto {
         }
         return list;
     }
+
+    public void setFechaPresupuesto(Calendar c) {
+        fechaPresupuesto=c.getTime();
+    }
+
+    public void setFechaVencimientoPresupuesto(Calendar c) {
+        fechaVencimientoPresupuesto=c.getTime();
+    }
+
+    public void setFechaEstimadaFinProduccion(Calendar c) {
+        fechaEstimadaFinProduccion=c.getTime();
+    }
+
+    public void setMontoTotal(String text) {
+        montoTotal=Decimales.parseToDouble(text);
+    }
+
+    public int guardarPresupuesto() {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        int result=-1;
+        presupuestoPedSelecDB.setFechapresupuesto(Fecha.parseToDateSQL(fechaPresupuesto));
+        presupuestoPedSelecDB.setFechavencimiento(Fecha.parseToDateSQL(fechaVencimientoPresupuesto));
+        presupuestoPedSelecDB.setMontototal(montoTotal);
+        pedidoSeleccionadoDB.setFechaentregaestipulada(Fecha.parseToDateSQL(fechaEstimadaFinProduccion));
+        pedidoSeleccionadoDB.setEstado(IdsEstadoPedido.PRESUPUESTADO);
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=AccessPresupuesto.update(presupuestoPedSelecDB, cn);
+            result+=AccessPedido.update(pedidoSeleccionadoDB, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //tiene que devolver 1 cuando se guarda correctamente
+        //como son 2 actualizaciones entonces la suma de las filas acutalizadas
+        //dividido 2 tiene que ser 1
+        return result/2;
+        
+    }
+
+    public void imprimirPresupuesto() {
+        
+        String sourceFile="G:\\RptPresupuesto.jasper";
+        PostgreSQLManager pg=new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint=null;
+        Connection cn=null;
+        Map param=new HashMap();
+        JasperReport masterReport = null;
+//        PreparedStatement ps=null;
+//        ResultSet rs=null;
+//        String query="SELECT ped.idpedido,dpre.cantidad, pro.nombre," +
+//                "dpre.precio,cli.razonsocial,pre.fechapresupuesto," +
+//                "pre.fechavencimiento,pre.nropresupuesto" +
+//                " FROM pedido ped,presupuesto pre,detallepresupuesto dpre," +
+//                "producto pro, cliente cli"+
+//                " WHERE   ped.presupuesto = pre.idpresupuesto" +
+//                " AND ped.idpedido = "+pedidoSeleccionadoDB.getIdpedido()+
+//                " AND dpre.idpresupuesto = pre.idpresupuesto"+
+//                " AND pro.idproducto = dpre.idproducto"+
+//                " AND cli.idcliente = ped.cliente";
+        try {
+            cn = pg.concectGetCn();
+//            ps=cn.prepareStatement(query);
+//            rs=ps.executeQuery();
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            param.put("ID_PEDIDO", String.valueOf(pedidoSeleccionadoDB.getIdpedido()));
+//            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(rs);
+            jasperPrint = JasperFillManager.fillReport(masterReport, param,cn);
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("Presupuesto");
+            jviewer.setVisible(true);
+            //Se exporta a PDF
+            //JasperExportManager.exportReportToPdfFile(jasperPrint,"D:\\RptPresupuesto.pdf");
+            // Visualizar el reporte en el Jasperviwer
+            //JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 
 
 }
