@@ -12,14 +12,21 @@
 package metalsoft.presentacion;
 
 import datechooser.beans.DateChooserCombo;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.negocio.access.AccessPresupuesto;
@@ -29,8 +36,13 @@ import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
+import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
+import metalsoft.util.Jornada;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -47,6 +59,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private double costoTotal;
     private double ganancia;
     private double netoTotalACobrar;
+    private long idPedido;
+    private double subTotal;
 
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
@@ -114,6 +128,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblTotalACobrar = new javax.swing.JLabel();
         btnRecalcular = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        lblIVA = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblBrutoTotal = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblHoraJornada = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -345,6 +366,21 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("IVA:");
+
+        lblIVA.setText("21");
+
+        jLabel6.setText("%");
+
+        jLabel23.setText("SUBTOTAL A COBRAR: $");
+
+        lblBrutoTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblBrutoTotal.setText("...");
+
+        jLabel5.setText("(Joranda laboral de");
+
+        lblHoraJornada.setText("...");
+
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -354,7 +390,6 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                             .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                 .add(jLabel11)
                                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -376,20 +411,25 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                                     .add(jLabel20)
                                     .add(jLabel16))
                                 .add(18, 18, 18)
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblGanancia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 258, Short.MAX_VALUE)))
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblGanancia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                    .add(lblBrutoTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 206, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jLabel5)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblHoraJornada)
+                                .add(185, 185, 185))
+                            .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jSeparator2)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)))
                         .add(10, 10, 10))
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel22)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(lblTotalACobrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(349, Short.MAX_VALUE))
-                    .add(jPanel7Layout.createSequentialGroup()
-                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addContainerGap(287, Short.MAX_VALUE))
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel7Layout.createSequentialGroup()
@@ -401,7 +441,19 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(btnRecalcular))
                             .add(jLabel21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(376, 376, 376))))
+                        .add(376, 376, 376))
+                    .add(jLabel23)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(111, 111, 111)
+                                .add(lblIVA)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jLabel6))
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jLabel4)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(455, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -427,7 +479,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel20)
-                    .add(lblDuracionTotal))
+                    .add(lblDuracionTotal)
+                    .add(jLabel5)
+                    .add(lblHoraJornada))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel16)
@@ -442,7 +496,16 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel21)
                     .add(lblGanancia))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 66, Short.MAX_VALUE)
+                .add(11, 11, 11)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel23)
+                    .add(lblBrutoTotal))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(lblIVA)
+                    .add(jLabel6))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -456,10 +519,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 617, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
@@ -468,6 +534,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -476,6 +543,11 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         );
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -485,6 +557,11 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         });
 
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -497,7 +574,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                         .add(btnGuardar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(btnImprimir)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1072, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1010, Short.MAX_VALUE)
                         .add(btnSalir))
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -523,9 +600,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         ViewPedidoEnListadoProcedimientos viewPedido=filasPedidos.get(tblPedidos.getSelectedRow());
-        long idPed=viewPedido.getIdpedido();
-        long nroPresupuesto=gestor.buscarNroPresupuesto(idPed);
+        idPedido=viewPedido.getIdpedido();
+        long nroPresupuesto=gestor.buscarNroPresupuesto(idPedido);
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
+        lblHoraJornada.setText(Jornada.HORAS_JORNADA+" horas)");
         setFechas();
         cargarTablas();
         calcularTotales();
@@ -533,9 +611,40 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnRecalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecalcularActionPerformed
-
+        calcularGanancia();
+        calcularNetoTotalACobrar();
     }//GEN-LAST:event_btnRecalcularActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        gestor.setFechaPresupuesto(dccFechaPresupuesto.getSelectedDate());
+        gestor.setFechaVencimientoPresupuesto(dccFechaVencimiento.getSelectedDate());
+        gestor.setFechaEstimadaFinProduccion(dccFechaEstimadaFinProduccion.getSelectedDate());
+        gestor.setMontoTotal(lblTotalACobrar.getText());
+        int result=-1;
+        result=gestor.guardarPresupuesto();
+        int ok=-1;
+        if(result>0)
+        {
+            ok=JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
+            if(ok==JOptionPane.OK_OPTION)
+            {
+                imprimirPresupuesto();
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void imprimirPresupuesto()
+    {
+        gestor.imprimirPresupuesto();
+    }
     private void cargarTablas()
     {
         filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
@@ -564,23 +673,30 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         calcularDuracionTotal();
         calcularCostoTotal();
         calcularGanancia();
+        calcularSubTotal();
         calcularNetoTotalACobrar();
         calcularFechaFinProduccion();
     }
 
+    private void calcularSubTotal()
+    {
+        subTotal=costoTotal+ganancia;
+        lblBrutoTotal.setText(Decimales.con2Decimales(subTotal));
+    }
+
     private void calcularNetoTotalACobrar()
     {
-        netoTotalACobrar=costoTotal+ganancia;
-        DecimalFormat df=new DecimalFormat("0.00");
-        lblTotalACobrar.setText(df.format(netoTotalACobrar));
+        float iva=Float.valueOf(lblIVA.getText());
+        float sumarIva=(float) (subTotal * (iva / 100));
+        netoTotalACobrar=subTotal+sumarIva;
+        lblTotalACobrar.setText(Decimales.con2Decimales(netoTotalACobrar));
     }
 
     private void calcularGanancia()
     {
         float porcentaje=Float.parseFloat(String.valueOf(spnProcentaje.getValue()));
         ganancia=costoTotal*(porcentaje/100);
-        DecimalFormat df=new DecimalFormat("0.00");
-        lblGanancia.setText(df.format(ganancia));
+        lblGanancia.setText(Decimales.con2Decimales(ganancia));
     }
     private void calcularFechaFinProduccion()
     {
@@ -595,7 +711,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     {
         double costoMP=Double.parseDouble(lblCostoMateriaPrima.getText());
         costoTotal=costoMP;
-        lblCostoTotal.setText(String.valueOf(costoTotal));
+        lblCostoTotal.setText(Decimales.con2Decimales(costoTotal));
     }
 
     private void calcularDuracionTotal()
@@ -625,7 +741,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         int sumarDias=horas/24;
         horas=horas-(24*sumarDias);
         dias=sumarDias;
-        
+        dias=(dias*24)/Jornada.HORAS_JORNADA;
         String durTotal=dias+" dias, "+horas+" horas, "+minutos+" minutos, "+segundos+" segundos";
         lblDuracionTotal.setText(durTotal);
     }
@@ -731,7 +847,11 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -745,12 +865,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblBrutoTotal;
     private javax.swing.JLabel lblCostoMateriaPrima;
     private javax.swing.JLabel lblCostoTotal;
     private javax.swing.JLabel lblDuracionProcesosCalidad;
     private javax.swing.JLabel lblDuracionProcesosProduccion;
     private javax.swing.JLabel lblDuracionTotal;
     private javax.swing.JLabel lblGanancia;
+    private javax.swing.JLabel lblHoraJornada;
+    private javax.swing.JLabel lblIVA;
     private javax.swing.JLabel lblNroPresupuesto;
     private javax.swing.JLabel lblTotalACobrar;
     private javax.swing.JSpinner spnProcentaje;
@@ -849,14 +972,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         {
 
             ViewEtapasXPiezaPresupuesto view=null;
-            try
-            {
-                view=filasEtapasXPiezaPresupuesto.get(rowIndex);
-            }
-            catch(Exception ex)
-            {
-                return "";
-            }
+            view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+//            try
+//            {
+//                view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+//            }
+//            catch(Exception ex)
+//            {
+//                return "";
+//            }
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
@@ -895,8 +1019,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         public int getRowCount()
         {
-          if(filasPedidos!=null)
-            return filasPedidos.size();
+          if(filasEtapasXPiezaPresupuesto!=null)
+            return filasEtapasXPiezaPresupuesto.size();
           return 0;
         }
 
@@ -932,14 +1056,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         {
 
             ViewMateriaPrimaXPiezaPresupuesto view=null;
-            try
-            {
-                view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
-            }
-            catch(Exception ex)
-            {
-                return "";
-            }
+            view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+//            try
+//            {
+//                view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+//            }
+//            catch(Exception ex)
+//            {
+//                return "";
+//            }
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
@@ -980,8 +1105,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         public int getRowCount()
         {
-          if(filasPedidos!=null)
-            return filasPedidos.size();
+          if(filasMateriaPrimaXPiezaPresupuesto!=null)
+            return filasMateriaPrimaXPiezaPresupuesto.size();
           return 0;
         }
 
@@ -1017,14 +1142,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         {
 
             ViewProcesoCalidadXPiezaPresupuesto view=null;
-            try
-            {
-                view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
-            }
-            catch(Exception ex)
-            {
-                return "";
-            }
+            view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
+//            try
+//            {
+//                view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
+//            }
+//            catch(Exception ex)
+//            {
+//                return "";
+//            }
     //      Object[] df=filas.get(rowIndex);
             switch(columnIndex)
             {
@@ -1047,7 +1173,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             case 8:
               return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza());
             case 9:
-              return Fecha.parseToHourMinuteSecond(view.getDuraciontotal());
+              return view.getDuraciontotal();
             default:
               return null;
             }
@@ -1065,8 +1191,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         public int getRowCount()
         {
-          if(filasPedidos!=null)
-            return filasPedidos.size();
+          if(filasProcesoCalidadXPiezaPresupuesto!=null)
+            return filasProcesoCalidadXPiezaPresupuesto.size();
           return 0;
         }
 
