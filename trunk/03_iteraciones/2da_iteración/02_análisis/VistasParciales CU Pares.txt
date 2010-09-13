@@ -15,6 +15,16 @@ mostrarNumeroPedido
 crearDetallePedido
 mostrarDetalleProcedimientos
 Modificar todos los planes por detalle (conocer y atributos)
+esPedidoPendientePlanificacion
+poseeListadoMateriaPrima
+mostrarListadoMateriaPrima
+
+ListadoMateriaPrimaAComprar
+mostrarMateriaPrima
+mostrarCantidad
+
+Compra
+mostrarNumero
 
 Estado Pedido:
 mostrarNombre
@@ -33,6 +43,14 @@ mostrarPrecio
 
 Proveedor:
 mostrarNombre
+mostrarRazonSocial
+mostrarNumero
+mostrarcuit
+mostrarTelefono
+mostrarCelular
+mostrarMail
+mostarDomicilio
+tomarCambios
 
 Presupuesto:
 mostrarFechaVencimiento
@@ -60,11 +78,14 @@ mostrarApellido
 
 Factura:
 mostrarNumero
+
 Agragados:
 InterfazDisponibilidadHoraria
 ImpresorDisponibilidadHoraria
 gestorPedido
 interfazPedido
+gestorOrdenDeCompra
+InterfazOrdenDeCompra
 
 
 Cu 24, 26, 28, 34, 36, 38, 40, 42 de la 3 iteracion
