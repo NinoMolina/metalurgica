@@ -363,6 +363,31 @@ public class Parser {
 
     }
 
+        public static Pedido parseToPedido(PedidoDB x) {
+        Pedido db=new Pedido();
+        db.setEsPedidoWeb(x.getEspedidoweb());
+
+        if(x.getFechacancelacion()!=null)
+            db.setFechaCancelacion(x.getFechacancelacion());
+        if(x.getFechaconfirmacionpedido()!=null)
+            db.setFechaConfirmacionPedido(x.getFechaconfirmacionpedido());
+        if(x.getFechaentregaestipulada()!=null)
+            db.setFechaEntregaEstipulada(x.getFechaentregaestipulada());
+        if(x.getFechaentregareal()!=null)
+            db.setFechaEntregaReal(x.getFechaentregareal());
+        if(x.getFechapedidocotizacion()!=null)
+            db.setFechaPedidoCotizacion(x.getFechapedidocotizacion());
+        if(x.getFecharegpedcotiz()!=null)
+            db.setFechaRegistroPedidoCotizacion(x.getFecharegpedcotiz());
+        if(x.getFecharequeridacotizacion()!=null)
+            db.setFechaRequeridaCotizacion(x.getFecharequeridacotizacion());
+
+        db.setMotivoCancelacion(x.getMotivocancelacion());
+        db.setNroPedCotizCliente(x.getNropedidocotizacioncliente());
+        db.setNroPedido((int) x.getNropedido());
+        return db;
+
+    }
     public static PedidoDB parseToPedidoDB(Pedido x) {
         PedidoDB db=new PedidoDB();
         db.setEspedidoweb(x.getEsPedidoWeb());
@@ -395,7 +420,16 @@ public class Parser {
         db.setPrecio(x.getPrecio());
         return db;
     }
-
+    public static Presupuesto parseToPresupuesto(PresupuestoDB p) {
+        Presupuesto obj=new Presupuesto();
+        if(p.getFechapresupuesto()==null)obj.setFechaPresupuesto(null);
+        else obj.setFechaPresupuesto(p.getFechapresupuesto());
+        if(p.getFechavencimiento()==null)obj.setFechaVencimiento(null);
+        else obj.setFechaVencimiento(p.getFechavencimiento());
+        obj.setMontoTotal((float) p.getMontototal());
+        obj.setNroPresupuesto(p.getNropresupuesto());
+        return obj;
+    }
     public static PresupuestoDB parseToPresupuestoDB(Presupuesto p) {
         PresupuestoDB db=new PresupuestoDB();
         if(p.getFechaPresupuesto()==null)db.setFechapresupuesto(null);
