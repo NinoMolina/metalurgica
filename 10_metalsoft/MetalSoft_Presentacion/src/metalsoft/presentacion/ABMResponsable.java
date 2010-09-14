@@ -39,6 +39,7 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
     public ABMResponsable() {
         initComponents();
         addListenerBtnGuardar();
+        addListenerBtnSalir();
     }
 
     private void addListenerBtnGuardar() {
@@ -47,6 +48,16 @@ public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
                 btnGuardarActionPerformed(evt);
             }
         });
+    }
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         String apellido=txtApellido.getText();

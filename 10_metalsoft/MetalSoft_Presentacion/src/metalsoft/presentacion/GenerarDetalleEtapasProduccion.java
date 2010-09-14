@@ -175,6 +175,11 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -395,7 +400,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(btnGuardar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 774, Short.MAX_VALUE)
                         .add(btnSalir)))
                 .addContainerGap())
         );
@@ -518,6 +523,10 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         int result=gestor.addPiezaXEtapas(pxe);
         mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
     }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
      /*
      * 0: no se pudo agregar
