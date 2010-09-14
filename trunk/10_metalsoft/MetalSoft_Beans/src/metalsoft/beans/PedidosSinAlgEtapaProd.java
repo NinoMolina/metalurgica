@@ -141,7 +141,8 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
             case 5:
               return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
             case 6:
-              return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+              if(view.getFechaentregaestipulada()==null)return "";
+              else return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
             case 7:
               return view.getEstado();
             default:
