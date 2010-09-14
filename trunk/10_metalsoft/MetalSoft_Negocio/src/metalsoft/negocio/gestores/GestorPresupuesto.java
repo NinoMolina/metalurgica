@@ -12,15 +12,18 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
+import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
+import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPresupuesto;
@@ -50,6 +53,8 @@ public class GestorPresupuesto {
     private Date fechaVencimientoPresupuesto;
     private Date fechaEstimadaFinProduccion;
     private double montoTotal;
+    private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> llProveedorXMateriaPrima;
+
 
     public GestorPresupuesto() {
     }
@@ -257,6 +262,18 @@ public class GestorPresupuesto {
             cn.setAutoCommit(false);
             result=AccessPresupuesto.update(presupuestoPedSelecDB, cn);
             result+=AccessPedido.update(pedidoSeleccionadoDB, cn);
+
+            DetalleproductopresupuestoDB db=null;
+            Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter=llProveedorXMateriaPrima.iterator();
+            ViewMateriaPrimaXPiezaPresupuesto view=null;
+            while(iter.hasNext())
+            {
+                view=iter.next();
+                db=AccessDetalleProductoPresupuesto.findByIdDetalle(view.getIddetalleproductopresupuesto(), cn)[0];
+                db.setIdproveedor(view.getIdproveedor());
+                db.setPreciomateriaprima(view.getPreciomateriaprima());
+                AccessDetalleProductoPresupuesto.update(db, cn);
+            }
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,6 +371,10 @@ public class GestorPresupuesto {
             }
         }
         return result;
+    }
+
+    public void setProveedoresXMateriaPrima(LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto) {
+        llProveedorXMateriaPrima=filasMateriaPrimaXPiezaPresupuesto;
     }
 
 

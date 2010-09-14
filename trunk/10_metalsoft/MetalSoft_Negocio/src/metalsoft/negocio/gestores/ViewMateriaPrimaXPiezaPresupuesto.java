@@ -26,9 +26,17 @@ public class ViewMateriaPrimaXPiezaPresupuesto {
     private long iddetalleproductopresupuesto;
     private long idproducto;
     private long idpieza;
-    private long idmateriaprima;
+    private long idmateriaprima,idproveedor;
 
     public ViewMateriaPrimaXPiezaPresupuesto() {
+    }
+
+    public long getIdproveedor() {
+        return idproveedor;
+    }
+
+    public void setIdproveedor(long idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
     public double getPreciomateriaprima() {

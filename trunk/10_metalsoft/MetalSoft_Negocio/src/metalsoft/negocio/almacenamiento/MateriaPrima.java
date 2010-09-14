@@ -12,9 +12,10 @@ import metalsoft.negocio.compras.Proveedor;
 public class MateriaPrima 
 {
    private int codProducto;
+   private long nroMateriaPrima;
    private String nombre;
-   private Double precio;
    private Proveedor proveedor;
+   private double precio;
    private Date fechaAlta;
    private Date fechaBaja;
    private CodigoDeBarra codBarra;
@@ -38,6 +39,22 @@ public class MateriaPrima
    {
     
    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public long getNroMateriaPrima() {
+        return nroMateriaPrima;
+    }
+
+    public void setNroMateriaPrima(long nroMateriaPrima) {
+        this.nroMateriaPrima = nroMateriaPrima;
+    }
    
    /**
     * @roseuid 4BC24DD1004D
@@ -178,14 +195,6 @@ public class MateriaPrima
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
     }
 
     public Proveedor getProveedor() {

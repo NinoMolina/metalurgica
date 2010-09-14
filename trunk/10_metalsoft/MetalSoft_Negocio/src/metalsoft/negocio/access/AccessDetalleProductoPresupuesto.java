@@ -51,6 +51,17 @@ public class AccessDetalleProductoPresupuesto {
         return db;
     }
 
+    public static DetalleproductopresupuestoDB[] findByIdDetalle(long idDet, Connection cn) {
+        DetalleproductopresupuestoDAO dao=new DAOFactoryImpl().createDetalleproductopresupuestoDAO();
+        DetalleproductopresupuestoDB[] db = null;
+        try {
+            db=dao.findByIddetalle(idDet, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessDetalleProductoPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
+
     public static int update(DetalleproductopresupuestoDB db,Connection cn)
     {
         int result=-1;

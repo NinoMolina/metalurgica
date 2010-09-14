@@ -24,6 +24,7 @@ import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
+import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.util.Fecha;
 
 /**
@@ -180,7 +181,7 @@ public class AccessViews {
         String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
                      "nombremateriaprima,preciomateriaprima,cantmateriaprima,canttotal,preciototal, "+
                      "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto, "+
-                     "idproducto,idpieza,idmateriaprima"+
+                     "idproducto,idpieza,idmateriaprima,idproveedor"+
                      " FROM viewmpxpiezapresupuesto"+
                      " WHERE idpresupuesto=?";
         PreparedStatement ps=null;
@@ -202,6 +203,7 @@ public class AccessViews {
                 view.setIdpieza(rs.getLong("idpieza"));
                 view.setIdpresupuesto(rs.getLong("idpresupuesto"));
                 view.setIdproducto(rs.getLong("idproducto"));
+                view.setIdproveedor(rs.getLong("idproveedor"));
                 view.setNombremateriaprima(rs.getString("nombremateriaprima"));
                 view.setNombrepieza(rs.getString("nombrepieza"));
                 view.setNombreproducto(rs.getString("nombreproducto"));
@@ -403,6 +405,39 @@ public class AccessViews {
                 view.setHerramienta(rs.getString("herramienta"));
                 view.setDuracionestimada(rs.getTime("duracionestimada"));
                 view.setIdprocesocalidad(rs.getLong("idprocesocalidad"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewProveedorXMateriaPrima> listProveedorXMateriaPrima(long idMatPrima,Connection cn) {
+        ViewProveedorXMateriaPrima view=null;
+        LinkedList<ViewProveedorXMateriaPrima> ll=new LinkedList<ViewProveedorXMateriaPrima>();
+        String query="SELECT nroproveedor,razonsocial,condicioniva,provincia,telefono,mail,responsable,precio,idproveedor,idresponsable,idmateriaprima"+
+                     " FROM viewproveedorxmateriaprima" +
+                     " WHERE idmateriaprima="+idMatPrima;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewProveedorXMateriaPrima();
+                view.setCondicioniva(rs.getString("condicioniva"));
+                view.setIdmateriaprima(rs.getLong("idmateriaprima"));
+                view.setIdproveedor(rs.getLong("idproveedor"));
+                view.setIdresponsable(rs.getLong("idresponsable"));
+                view.setMail(rs.getString("mail"));
+                view.setNroproveedor(rs.getLong("nroproveedor"));
+                view.setPrecio(rs.getDouble("precio"));
+                view.setProvincia(rs.getString("provincia"));
+                view.setRazonsocial(rs.getString("razonsocial"));
+                view.setResponsable(rs.getString("responsable"));
+                view.setTelefono(rs.getString("telefono"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {

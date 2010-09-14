@@ -70,8 +70,7 @@ public class Parser {
         mp.setLargo(materiaPrima.getLargo());
         mp.setNombre(materiaPrima.getNombre());
         mp.setStock(materiaPrima.getStock());
-        mp.setPrecio(materiaPrima.getPrecio());
-
+        mp.setNromateriaprima(materiaPrima.getNroMateriaPrima());
         return mp;
     }
 
