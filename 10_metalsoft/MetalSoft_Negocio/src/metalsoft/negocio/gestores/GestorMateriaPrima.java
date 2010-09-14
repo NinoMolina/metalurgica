@@ -21,6 +21,7 @@ import metalsoft.datos.exception.MateriaprimaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.MateriaprimaDAO;
 import metalsoft.datos.idao.TipomaterialDAO;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMateriaPrima;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.access.AccessUnidadDeMedida;
@@ -227,5 +228,27 @@ public class GestorMateriaPrima {
                 Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public long generarNvoNroMateriaPrima() {
+        long result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroMateriaPrima(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 }
