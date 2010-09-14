@@ -33,6 +33,7 @@ public class AbrirSesion extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
         addListenerBtnIniciar();
+        addListenerBtnSalir();
         iniciarSesion.getTxtUsuario().setText("admin");
         iniciarSesion.getTxtClave().setText("admin");
     }
@@ -57,6 +58,16 @@ public class AbrirSesion extends javax.swing.JFrame {
                 btnIniciarActionPerformed(evt);
             }
         });
+    }
+    private void addListenerBtnSalir() {
+        iniciarSesion.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
     }
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {
         GestorIniciarSesion g=new GestorIniciarSesion();

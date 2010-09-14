@@ -125,7 +125,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
         lstPieza = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jRadioButton1.setText("Nombre");
 

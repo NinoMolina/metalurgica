@@ -525,8 +525,8 @@ public class ABMProveedor extends javax.swing.JFrame {
         }
         opcion=EnumOpcionesABM.GUARDAR;
 
-        if(idProveedor>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
-        else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
+        if(idProveedor>0)JOptionPane.showMessageDialog(this, "El Proveedor se guardó correctamente");
+        else JOptionPane.showMessageDialog(this, "No se pudo guardar el Proveedor");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

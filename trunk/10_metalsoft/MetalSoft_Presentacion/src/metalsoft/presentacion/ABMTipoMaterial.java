@@ -87,6 +87,11 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtDescripcion);
 
         jButton10.setText("Salir");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Guardar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +224,10 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
     * @param args the command line arguments

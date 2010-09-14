@@ -198,7 +198,7 @@ public class ABMProducto extends javax.swing.JFrame {
     }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        this.dispose();
     }
     /** This method is called from within the constructor to
      * initialize the form.

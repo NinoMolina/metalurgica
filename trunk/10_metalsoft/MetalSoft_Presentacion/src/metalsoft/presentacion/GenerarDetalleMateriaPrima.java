@@ -377,6 +377,11 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         );
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -539,6 +544,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
         else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /*
      * 0: no se pudo agregar
