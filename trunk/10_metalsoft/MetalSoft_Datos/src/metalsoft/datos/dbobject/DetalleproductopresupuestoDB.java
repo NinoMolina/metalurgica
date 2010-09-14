@@ -27,9 +27,18 @@ public class DetalleproductopresupuestoDB implements Serializable
 	private long idmateriaprima;
 	private int cantmateriaprima,cantpiezas;
         private double preciomateriaprima;
+        private long idproveedor;
 
 
 	public DetalleproductopresupuestoDB(){}
+
+    public long getIdproveedor() {
+        return idproveedor;
+    }
+
+    public void setIdproveedor(long idproveedor) {
+        this.idproveedor = idproveedor;
+    }
 
 
     public double getPreciomateriaprima() {
