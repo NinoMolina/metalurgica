@@ -32,6 +32,7 @@ import metalsoft.datos.idao.ProvinciaDAO;
 import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
 import metalsoft.negocio.access.AccessCliente;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.TipoDocumento;
@@ -1238,6 +1239,28 @@ public class GestorCliente
             Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
+    }
+
+    public long generarNvoNroCliente() {
+        long result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroCliente(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 
     

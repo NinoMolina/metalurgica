@@ -21,6 +21,7 @@ import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.access.AccessViews;
@@ -306,14 +307,19 @@ public class GestorPresupuesto {
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
-            param.put("ID_PEDIDO", String.valueOf(pedidoSeleccionadoDB.getIdpedido()));
-//            JRResultSetDataSource rsDataSource = new JRResultSetDataSource(rs);
+            long id=pedidoSeleccionadoDB.getIdpedido();
+            param.put("ID_PEDIDO", new Long(id));
+//            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
             jasperPrint = JasperFillManager.fillReport(masterReport, param,cn);
+
+            
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setTitle("Presupuesto");
             jviewer.setVisible(true);
+            
+            String nroPre=NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
             //Se exporta a PDF
-            //JasperExportManager.exportReportToPdfFile(jasperPrint,"D:\\RptPresupuesto.pdf");
+            //JasperExportManager.exportReportToPdfFile(jasperPrint,"G:\\"+nroPre+"-"+Fecha.fechaActual(Fecha.YYYY_MM_DD_GUION)+".pdf");
             // Visualizar el reporte en el Jasperviwer
             //JasperViewer.viewReport(jasperPrint, false);
         } catch (Exception ex) {
@@ -327,6 +333,27 @@ public class GestorPresupuesto {
                 Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public double calcularIngresoTotal() {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        double result=-1;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.ingresoXPedido(pedidoSeleccionadoDB.getIdpedido(),cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 
 

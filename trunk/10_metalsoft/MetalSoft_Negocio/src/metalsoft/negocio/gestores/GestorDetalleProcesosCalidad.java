@@ -230,17 +230,24 @@ public class GestorDetalleProcesosCalidad {
                 idPi=pxpc.getIdPieza();
                 detProdPresDB=AccessDetalleProductoPresupuesto.findByIdDetallePresupuestoANDIdPieza(idDetPres,idPi,cn);
 
-                DetallePiezaCalidadPresupuesto detPiCalPres=new DetallePiezaCalidadPresupuesto();
-                detPiCalPres.setCantidadProcesoCalidad(pxpc.getCantProcesoCalidad());
-                Date duracionXPieza=detPiCalPres.calcularDuracionXPieza(pxpc.getProcesoCalidad().getDuracionestimada());
-                detPiCalPres.setDuracionXPieza(duracionXPieza);
-
-                idDetProPre=detProdPresDB.getIddetalle();
-                idProCalidad=pxpc.getProcesoCalidad().getIdprocesocalidad();
-                //creo un nuevo DetallePiezaCalidadPresupuestoDB
-                //con los datos necesarios y le paso el id del
-                //detalle producto presupuesto al que hace referencia
-                AccessDetallePiezaCalidadPresupuesto.insert(detPiCalPres,idDetProPre,idProCalidad,cn);
+                Iterator<ViewProcesoCalidad> i=pxpc.getProcesoCalidad().iterator();
+                ViewProcesoCalidad view=null;
+                DetallePiezaCalidadPresupuesto detPiCalPres=null;
+                while(i.hasNext())
+                {
+                    view=i.next();
+                    detPiCalPres=new DetallePiezaCalidadPresupuesto();
+                    detPiCalPres.setCantidadProcesoCalidad(view.getCantProcesos());
+                    Date duracionXPieza=detPiCalPres.calcularDuracionXPieza(view.getDuracionestimada());
+                    detPiCalPres.setDuracionXPieza(duracionXPieza);
+                    idDetProPre=detProdPresDB.getIddetalle();
+                    idProCalidad=view.getIdprocesocalidad();
+                    //creo un nuevo DetallePiezaCalidadPresupuestoDB
+                    //con los datos necesarios y le paso el id del
+                    //detalle producto presupuesto al que hace referencia
+                    AccessDetallePiezaCalidadPresupuesto.insert(detPiCalPres,idDetProPre,idProCalidad,cn);
+                }
+                
                 cantPiezasDePedido--;
                 if(cantPiezasDePedido==0 && !iter.hasNext())
                 {

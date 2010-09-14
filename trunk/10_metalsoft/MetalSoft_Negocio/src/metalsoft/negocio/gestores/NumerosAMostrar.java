@@ -14,6 +14,7 @@ public class NumerosAMostrar {
     public static final int NRO_PRODUCTO=1;
     public static final int NRO_PEDIDO=2;
     public static final int NRO_PRESUPUESTO=3;
+    public static final int NRO_CLIENTE=4;
 
     public static String getNumeroString(int tiponro,long nro)
     {
@@ -25,6 +26,8 @@ public class NumerosAMostrar {
                     return "PEDI-"+String.valueOf(nro);
             case NRO_PRESUPUESTO:
                     return "PRES-"+String.valueOf(nro);
+            case NRO_CLIENTE:
+                    return "CLIE-"+String.valueOf(nro);
             default:
                     return null;
         }
@@ -34,5 +37,11 @@ public class NumerosAMostrar {
     {
         String[] v=nro.split("-");
         return Long.parseLong(v[1]);
+    }
+
+    public static int getNumeroInt(String nro)
+    {
+        String[] v=nro.split("-");
+        return Integer.parseInt(v[1]);
     }
 }
