@@ -50,7 +50,6 @@ public class AccessPedido {
             db.setPresupuesto(idPres);
             db.setEstado(idEstado);
             result=dao.update(pk,db, cn);
-            db.setIdpedido(result);
         } catch (Exception ex) {
             Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,7 +62,6 @@ public class AccessPedido {
         PedidoPK pk=new PedidoPK(db.getIdpedido());
         try {
             result=dao.update(pk,db, cn);
-            db.setIdpedido(result);
         } catch (Exception ex) {
             Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
         }

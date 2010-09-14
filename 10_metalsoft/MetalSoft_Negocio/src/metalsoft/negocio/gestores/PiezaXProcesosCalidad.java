@@ -5,32 +5,26 @@
 
 package metalsoft.negocio.gestores;
 
+import java.util.LinkedList;
+
 
 /**
  *
  * @author Nino
  */
 public class PiezaXProcesosCalidad extends PiezaXAlgo{
-
-    private int cantProcesoCalidad;
-    private ViewProcesoCalidad procesosCalidad;
+    
+    private LinkedList<ViewProcesoCalidad> procesosCalidad;
 
     public PiezaXProcesosCalidad() {
     }
 
-    public int getCantProcesoCalidad() {
-        return cantProcesoCalidad;
-    }
 
-    public void setCantProcesoCalidad(int cantProcesoCalidad) {
-        this.cantProcesoCalidad = cantProcesoCalidad;
-    }
-
-    public ViewProcesoCalidad getProcesoCalidad() {
+    public LinkedList<ViewProcesoCalidad> getProcesoCalidad() {
         return procesosCalidad;
     }
 
-    public void setProcesoCalidad(ViewProcesoCalidad procesosCalidad) {
+    public void setProcesoCalidad(LinkedList<ViewProcesoCalidad> procesosCalidad) {
         this.procesosCalidad = procesosCalidad;
     }
 
