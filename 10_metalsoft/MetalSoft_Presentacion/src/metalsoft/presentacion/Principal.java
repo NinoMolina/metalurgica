@@ -214,7 +214,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniMatriz);
 
-        jMenuItem1.setText("Generar Listado Procedimientos");
+        jMenuItem1.setText("Generar Detalle Etapas Producción");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
