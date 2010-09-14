@@ -42,7 +42,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         gestor=new GestorEtapaDeProduccion();
         cargarComboMaquina();
         cargarComboUnidadMedida();
-
+        setComponentes(false);
     }
 
     public void etapaSeleccionada() {
@@ -270,9 +270,25 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
+        setComponentes(true);
+        Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         Combo.setItemComboSeleccionado(cmbmaquinas, -1);
 }//GEN-LAST:event_btnnuevoActionPerformed
-public void limpiarCampos()
+
+    private void setComponentes(boolean b)
+    {
+        txtFechaCreacion.setEnabled(b);
+        txtNroEtapa.setEnabled(b);
+        txtduracion.setEnabled(b);
+        txthorashombre.setEnabled(b);
+        txthorasmaquina.setEnabled(b);
+        txtnombre.setEnabled(b);
+        cmbUnidadMedida.setEnabled(b);
+        cmbmaquinas.setEnabled(b);
+    }
+
+
+    public void limpiarCampos()
 {
     txtFechaCreacion.setText("");
     txtNroEtapa.setText("");
@@ -295,14 +311,24 @@ public void limpiarCampos()
         if(opcion==EnumOpcionesABM.NUEVO)
         {   
             id=gestor.guardarEtapaDeProduccion(ep,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
+            if(id>-1)
+            {
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
+                setComponentes(false);
+                limpiarCampos();
+            }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
             id=gestor.modificarEtapaDeProduccion(ep,idEtapaDeProduccion,((ItemCombo)cmbmaquinas.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId());
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
+            if(id>-1)
+            {
+                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Etapa de Produccion: "+txtnombre.getText());
+                setComponentes(false);
+                limpiarCampos();
+            }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
         limpiarCampos();
