@@ -265,6 +265,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
+        Combo.setItemComboSeleccionado(cmbmaquinas, -1);
 }//GEN-LAST:event_btnnuevoActionPerformed
 public void limpiarCampos()
 {
