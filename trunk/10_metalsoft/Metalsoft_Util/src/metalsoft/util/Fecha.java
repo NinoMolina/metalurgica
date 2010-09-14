@@ -27,11 +27,20 @@ public class Fecha {
     public static final long MILISEGUNDOS_POR_SEGUNDO = 1000;
     public static final String HORA_MINUTO_SEGUNDO = "hh:mm:ss";
     public static final String DD_MM_YYYY = "dd/MM/yyyy";
+    public static final String DD_MM_YYYY_GUION = "dd-MM-yyyy";
+    public static final String YYYY_MM_DD_GUION = "yyyy-MM-dd";
     
     public static String fechaActual()
     {
         Date fecha=new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(fecha);
+    }
+
+    public static String fechaActual(String style)
+    {
+        Date fecha=new Date();
+        SimpleDateFormat formato = new SimpleDateFormat(style);
         return formato.format(fecha);
     }
 
