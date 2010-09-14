@@ -22,9 +22,11 @@ import javax.swing.JOptionPane;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.negocio.ventas.CondicionIva;
+import metalsoft.util.Combo;
 
 /**
  *
@@ -66,7 +68,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         txtFechaAlta.setEnabled(b);
         txtFechaBaja.setEnabled(b);
         txtMail.setEnabled(b);
-        txtNroCliente.setEnabled(b);
         txtRazonSocial.setEnabled(b);
         txtTelefono.setEnabled(b);
         cmbCondicionIVA.setEnabled(b);
@@ -83,7 +84,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         txtFechaAlta.setText("");
         txtFechaBaja.setText("");
         txtMail.setText("");
-        txtNroCliente.setText("");
+        lblNroCliente.setText("");
         txtRazonSocial.setText("");
         txtTelefono.setText("");
         cmbCondicionIVA.setSelectedIndex(0);
@@ -198,7 +199,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtNroCliente = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
         txtCUIT = new javax.swing.JTextField();
         txtFechaBaja = new javax.swing.JTextField();
@@ -211,6 +211,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cmbCondicionIVA = new javax.swing.JComboBox();
         beanDomicilioCliente = new metalsoft.beans.Domicilio();
         beanResponsable = new metalsoft.beans.Responsable();
+        lblNroCliente = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -255,6 +256,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Responsable"));
 
+        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroCliente.setText("...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,11 +267,11 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblNroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
@@ -315,10 +319,10 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNroCliente))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -448,6 +452,10 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         opcion=EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
+        long nroCli=gestor.generarNvoNroCliente();
+        Combo.setItemComboSeleccionado(cmbEstado, 1);
+        Combo.setItemComboSeleccionado(cmbPrioridad, 3);
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroCli));
         txtFechaAlta.setText(Fecha.fechaActual());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -489,7 +497,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         String fecAltaCli=txtFechaAlta.getText();
         String fecBajaCli=txtFechaBaja.getText();
         String mailCli=txtMail.getText();
-        String nroCli=txtNroCliente.getText();
+        long nro=NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
+        String nroCli=String.valueOf(nro);
         String razonCli=txtRazonSocial.getText();
         String telCli=txtTelefono.getText();
         cliente=crearCliente(cuitCli,celCli,fecAltaCli,fecBajaCli,mailCli,nroCli,razonCli,telCli);
@@ -710,7 +719,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         else
             txtFechaBaja.setText("");
         txtMail.setText(clienteDB.getMail());
-        txtNroCliente.setText(String.valueOf(clienteDB.getNrocliente()));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE,clienteDB.getNrocliente()));
         txtRazonSocial.setText(clienteDB.getRazonsocial());
         txtTelefono.setText(clienteDB.getTelefono());
 
@@ -800,12 +809,12 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblNroCliente;
     private javax.swing.JTextField txtCUIT;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtFechaAlta;
     private javax.swing.JTextField txtFechaBaja;
     private javax.swing.JTextField txtMail;
-    private javax.swing.JTextField txtNroCliente;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
