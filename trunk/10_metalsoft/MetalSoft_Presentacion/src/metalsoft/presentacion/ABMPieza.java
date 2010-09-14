@@ -323,6 +323,7 @@ public class ABMPieza extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         limpiar();
+        Combo.setItemComboSeleccionado(cmbMatriz, -1);
 }//GEN-LAST:event_btnNuevoActionPerformed
     public void limpiar()
     {

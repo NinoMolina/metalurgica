@@ -75,7 +75,7 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tipo Material");
 
         jLabel1.setText("Nombre:");
