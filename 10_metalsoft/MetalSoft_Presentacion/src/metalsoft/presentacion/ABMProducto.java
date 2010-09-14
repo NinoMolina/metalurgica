@@ -117,6 +117,14 @@ public class ABMProducto extends javax.swing.JFrame {
             gestor.setIdProducto(idProducto);
             result=gestor.modificarProducto();
         }
+        if(result>0)
+        {
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!","Guardar",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 //    private void setListaDetalleGestor()
