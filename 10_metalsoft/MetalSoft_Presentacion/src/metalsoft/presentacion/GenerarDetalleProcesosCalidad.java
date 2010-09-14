@@ -514,22 +514,17 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed=viewPed.getIdpedido();
 
-        Iterator<ViewProcesoCalidad> iter=filasProcesoCalidadSeleccionado.iterator();
-        ViewProcesoCalidad view=null;
         PiezaXProcesosCalidad pxpc=null;
         int result=-1;
-        while(iter.hasNext())
-        {
-            pxpc=new PiezaXProcesosCalidad();
-            view=iter.next();
-            pxpc.setIdPieza(idPi);
-            pxpc.setIdProducto(idProd);
-            pxpc.setIdDetallePedido(idDetPedido);
-            pxpc.setIdPedido(idPed);
-            pxpc.setCantProcesoCalidad(view.getCantProcesos());
-            pxpc.setProcesoCalidad(view);
-            result=gestor.addPiezaXProcesoCalidad(pxpc);
-        }
+
+        pxpc=new PiezaXProcesosCalidad();
+        pxpc.setIdPieza(idPi);
+        pxpc.setIdProducto(idProd);
+        pxpc.setIdDetallePedido(idDetPedido);
+        pxpc.setIdPedido(idPed);
+        pxpc.setProcesoCalidad(filasProcesoCalidadSeleccionado);
+        result=gestor.addPiezaXProcesoCalidad(pxpc);
+        
         mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
 }//GEN-LAST:event_btnAsignarActionPerformed
 
