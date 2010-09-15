@@ -36,6 +36,7 @@ import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
+import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
@@ -56,6 +57,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;
     private LinkedList<ViewProcesoCalidadXPiezaPresupuesto> filasProcesoCalidadXPiezaPresupuesto;
     private LinkedList<ViewProveedorXMateriaPrima> filasProveedorXMateriaPrima;
+    private LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
     private ViewProveedorXMateriaPrima currentViewProXMP;
     private GestorPresupuesto gestor;
     private int horas,minutos,segundos,dias;
@@ -165,6 +167,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblBrutoTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblHoraJornada = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblProdPresupuesto = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
@@ -213,7 +217,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel14.setText("Costo Por Materias Primas: $");
 
-        lblCostoMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCostoMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCostoMateriaPrima.setText("0");
 
         btnSeleccionarProveedor.setText("Seleccionar Proveedor");
@@ -376,7 +380,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblDuracionTotal.setText("...");
 
-        lblCostoTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCostoTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCostoTotal.setText("0");
 
         jLabel21.setText("GANANCIA:         $");
@@ -403,6 +407,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         lblHoraJornada.setText("...");
 
+        tblProdPresupuesto.setModel(new ProductoPresupuestoTableModel());
+        jScrollPane4.setViewportView(tblProdPresupuesto);
+
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -427,50 +434,55 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                     .add(jPanel7Layout.createSequentialGroup()
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel20)
-                            .add(jLabel16))
-                        .add(18, 18, 18)
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel7Layout.createSequentialGroup()
-                                .add(lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                .add(101, 101, 101))
-                            .add(jPanel7Layout.createSequentialGroup()
-                                .add(lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                        .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblHoraJornada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel22)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(lblTotalACobrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(287, Short.MAX_VALUE))
-                    .add(jPanel7Layout.createSequentialGroup()
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel7Layout.createSequentialGroup()
-                                .add(jLabel23)
-                                .add(18, 18, 18)
-                                .add(lblBrutoTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                        .add(jLabel4)
-                                        .add(18, 18, 18)
-                                        .add(lblIVA, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                        .add(111, 111, 111)
-                                        .add(lblGanancia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                        .add(jLabel21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(188, 188, 188)))
-                                .add(25, 25, 25)))
-                        .add(287, 287, 287))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
                         .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                             .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel20)
+                                    .add(jLabel16))
+                                .add(18, 18, 18)
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel7Layout.createSequentialGroup()
+                                        .add(lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                        .add(101, 101, 101))
+                                    .add(jPanel7Layout.createSequentialGroup()
+                                        .add(lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))))
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel7Layout.createSequentialGroup()
+                                        .add(jLabel23)
+                                        .add(18, 18, 18)
+                                        .add(lblBrutoTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
+                                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
+                                                .add(jLabel4)
+                                                .add(18, 18, 18)
+                                                .add(lblIVA, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
+                                                .add(111, 111, 111)
+                                                .add(lblGanancia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
+                                                .add(jLabel21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(188, 188, 188)))
+                                        .add(25, 25, 25)))
+                                .add(86, 86, 86)))
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(jPanel7Layout.createSequentialGroup()
+                                .add(jLabel5)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblHoraJornada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jScrollPane4, 0, 0, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel7Layout.setVerticalGroup(
@@ -501,22 +513,25 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                     .add(lblHoraJornada)
                     .add(jLabel5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel16)
-                    .add(lblCostoTotal))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel21)
-                    .add(lblGanancia))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel23)
-                    .add(lblBrutoTotal))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(lblIVA))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 48, Short.MAX_VALUE)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel16)
+                            .add(lblCostoTotal))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel21)
+                            .add(lblGanancia))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel23)
+                            .add(lblBrutoTotal))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel4)
+                            .add(lblIVA)))
+                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                .add(18, 18, 18)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -651,7 +666,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         tblMatPrimaXPieza.updateUI();
         filasProcesoCalidadXPiezaPresupuesto=gestor.buscarProCalidadXPiezaPresupuesto();
         tblProCalidadXPieza.updateUI();
-        
+        filasProductoPresupuesto=gestor.buscarProductosPresupuesto(idPedido);
+        tblProdPresupuesto.updateUI();
     }
     private void setFechas()
     {
@@ -875,6 +891,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -893,6 +910,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTable tblMatPrimaXPieza;
     private javax.swing.JTable tblPedidos;
     private javax.swing.JTable tblProCalidadXPieza;
+    private javax.swing.JTable tblProdPresupuesto;
     // End of variables declaration//GEN-END:variables
 
     class PedidoTableModel extends AbstractTableModel
@@ -1206,6 +1224,65 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         {
           if(filasProcesoCalidadXPiezaPresupuesto!=null)
             return filasProcesoCalidadXPiezaPresupuesto.size();
+          return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+
+        @Override
+        public String getColumnName(int column)
+        {
+          return columnNames[column];
+
+        }
+    }
+        class ProductoPresupuestoTableModel extends AbstractTableModel
+    {
+        private String[] columnNames = {"Cantidad",
+                                        "Producto",
+                                        "Pre. Unit.",
+                                        "Importe"};
+
+
+        public Object getValueAt(int rowIndex, int columnIndex)
+        {
+
+            ViewProductoPresupuesto view=null;
+            view=filasProductoPresupuesto.get(rowIndex);
+
+            switch(columnIndex)
+            {
+            case 0:
+              return view.getCantidadproducto();
+            case 1:
+              return view.getNombreproducto();
+            case 2:
+              return view.getPreciounitario();
+            case 3:
+              return view.getImporte();
+            default:
+              return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount()
+        {
+          return columnNames.length;
+        }
+
+        public int getRowCount()
+        {
+          if(filasProductoPresupuesto!=null)
+            return filasProductoPresupuesto.size();
           return 0;
         }
 
