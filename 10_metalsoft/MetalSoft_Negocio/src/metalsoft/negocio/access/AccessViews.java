@@ -24,6 +24,7 @@ import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
+import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.util.Fecha;
 
@@ -438,6 +439,37 @@ public class AccessViews {
                 view.setRazonsocial(rs.getString("razonsocial"));
                 view.setResponsable(rs.getString("responsable"));
                 view.setTelefono(rs.getString("telefono"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewProductoPresupuesto> listProductoPresupuesto(long idPedido, Connection cn) {
+        ViewProductoPresupuesto view=null;
+        LinkedList<ViewProductoPresupuesto> ll=new LinkedList<ViewProductoPresupuesto>();
+        String query="SELECT cantidadproducto,nombreproducto,preciounitario,importe,idpedido,idpresupuesto,iddetallepresupuesto,idproducto"+
+                     " FROM viewproductopresupuesto" +
+                     " WHERE idpedido="+idPedido;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewProductoPresupuesto();
+                view.setCantidadproducto(rs.getInt("cantidadproducto"));
+                view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdpresupuesto(rs.getLong("idpresupuesto"));
+                view.setIdproducto(rs.getLong("idproducto"));
+                view.setImporte(rs.getDouble("importe"));
+                view.setNombreproducto(rs.getString("nombreproducto"));
+                view.setPreciounitario(rs.getDouble("preciounitario"));
+
                 ll.addLast(view);
             }
         } catch (SQLException ex) {

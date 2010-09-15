@@ -377,6 +377,27 @@ public class GestorPresupuesto {
         llProveedorXMateriaPrima=filasMateriaPrimaXPiezaPresupuesto;
     }
 
+    public LinkedList<ViewProductoPresupuesto> buscarProductosPresupuesto(long idPedido) {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        LinkedList<ViewProductoPresupuesto> list=null;
+        Connection cn=null;
+        try {
+            cn = pg.concectGetCn();
+            list=AccessViews.listProductoPresupuesto(idPedido, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
 
 
 }
