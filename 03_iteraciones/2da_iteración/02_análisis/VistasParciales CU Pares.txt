@@ -79,6 +79,18 @@ mostrarApellido
 Factura:
 mostrarNumero
 
+DetalleRequerimientomateriaPrima:
+mostrarCantidad
+mostrarMateriaPrima
+
+ProcesoCalidad: 
+mostrarNombre
+
+DetalleProcesoCalidad:
+mostrarProcesosCalidad
+mostarrCantidad
+mostrarDuracionEstimada
+
 Agragados:
 InterfazDisponibilidadHoraria
 ImpresorDisponibilidadHoraria
