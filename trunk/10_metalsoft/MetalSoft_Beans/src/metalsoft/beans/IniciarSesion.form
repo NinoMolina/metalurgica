@@ -76,12 +76,21 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsuario">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingresar el usuario"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtClave">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingresar la contrase&#xf1;a"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIniciar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Iniciar"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor predeterminado"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/>

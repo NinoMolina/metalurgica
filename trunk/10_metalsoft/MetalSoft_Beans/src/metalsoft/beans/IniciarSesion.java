@@ -49,7 +49,12 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
 
         jLabel2.setText("Contraseña");
 
+        txtUsuario.setToolTipText("Ingresar el usuario");
+
+        txtClave.setToolTipText("Ingresar la contraseña");
+
         btnIniciar.setText("Iniciar");
+        btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
