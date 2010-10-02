@@ -3,7 +3,7 @@ CU 3ra Iteracion:
 21: Registrar Baja Cliente
 23: Registrar Entrega Pedido
 24: Registrar Reclamo Cliente
-25
+25: Registrar Consulta Web
 26
 27
 28
