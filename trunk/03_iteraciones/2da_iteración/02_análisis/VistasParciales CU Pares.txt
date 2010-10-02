@@ -155,3 +155,6 @@ gestorPlanificacionProduccion
 
 Cu 24, 26, 28, 34, 36, 38, 40, 42 de la 3 iteracion
 CU 30, 44: soporte, no tiene diag de colaboracion.
+
+
+Vistas parciales hasta CU 62
