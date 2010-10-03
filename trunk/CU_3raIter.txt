@@ -8,8 +8,8 @@ CU 3ra Iteracion:
 27: Generar Remito
 28: Registrar Cobro de Pedido.
 31: Registrar Reclamo a Cliente
-34: 
-35
+34: Generar Listado de Cobros
+35: Registrar Forma de Pago
 
 36
 37
