@@ -4,9 +4,9 @@ CU 3ra Iteracion:
 23: Registrar Entrega Pedido
 24: Registrar Reclamo Cliente
 25: Registrar Consulta Web
-26
-27
-28
+26: Generar Factura
+27: Generar Remito
+28: Registrar Cobro de Pedido.
 31
 34
 35
