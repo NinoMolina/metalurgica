@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,6 +47,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Nino
  */
 public class GestorPresupuesto {
+
     private PedidoDB pedidoSeleccionadoDB;
     private PresupuestoDB presupuestoPedSelecDB;
     private DetallepresupuestoDB[] vDetallePresupuestoDB;
@@ -55,10 +57,8 @@ public class GestorPresupuesto {
     private double montoTotal;
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> llProveedorXMateriaPrima;
 
-
     public GestorPresupuesto() {
     }
-
 
     public Date getFechaEstimadaFinProduccion() {
         return fechaEstimadaFinProduccion;
@@ -76,19 +76,16 @@ public class GestorPresupuesto {
         return montoTotal;
     }
 
-
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosConDetalleProcesoCalidad() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        LinkedList<ViewPedidoEnListadoProcedimientos> list=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewPedidoEnListadoProcedimientos> list = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.pedidosSegunEstado(IdsEstadoPedido.PEDIDOCONDETALLEDEPROCESOSDECALIDAD,cn);
+            list = AccessViews.pedidosSegunEstado(IdsEstadoPedido.PEDIDOCONDETALLEDEPROCESOSDECALIDAD, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -99,17 +96,15 @@ public class GestorPresupuesto {
     }
 
     public PedidoDB buscarPedidoSeleccionado(long idPed) {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        PedidoDB db=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        PedidoDB db = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            db=AccessPedido.findByIdPedido(idPed, cn);
+            db = AccessPedido.findByIdPedido(idPed, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -120,17 +115,15 @@ public class GestorPresupuesto {
     }
 
     public PresupuestoDB buscarPresupuestoDePedido(long idPresupuesto) {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        PresupuestoDB db=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        PresupuestoDB db = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            db=AccessPresupuesto.findByIdPresupuesto(idPresupuesto, cn);
+            db = AccessPresupuesto.findByIdPresupuesto(idPresupuesto, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -141,46 +134,42 @@ public class GestorPresupuesto {
     }
 
     public long buscarNroPresupuesto(long idPed) {
-        pedidoSeleccionadoDB=buscarPedidoSeleccionado(idPed);
-        presupuestoPedSelecDB=buscarPresupuestoDePedido(pedidoSeleccionadoDB.getPresupuesto());
+        pedidoSeleccionadoDB = buscarPedidoSeleccionado(idPed);
+        presupuestoPedSelecDB = buscarPresupuestoDePedido(pedidoSeleccionadoDB.getPresupuesto());
         return presupuestoPedSelecDB.getNropresupuesto();
     }
 
     public void calcularTotales() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        PresupuestoDB db=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        PresupuestoDB db = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            vDetallePresupuestoDB=AccessDetallePresupuesto.findByIdPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+            vDetallePresupuestoDB = AccessDetallePresupuesto.findByIdPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
             //vDetalleProductoPresupuestoDB=buscarDetallesProdPresupuesto(vDetallePresupuestoDB)
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
                 Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return ;
+        return;
 
     }
 
     public LinkedList<ViewEtapasXPiezaPresupuesto> buscarEtapasXPiezaPresupuesto() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        LinkedList<ViewEtapasXPiezaPresupuesto> list=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewEtapasXPiezaPresupuesto> list = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.listEtapasXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+            list = AccessViews.listEtapasXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -191,17 +180,15 @@ public class GestorPresupuesto {
     }
 
     public LinkedList<ViewMateriaPrimaXPiezaPresupuesto> buscarMatPrimaXPiezaPresupuesto() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        LinkedList<ViewMateriaPrimaXPiezaPresupuesto> list=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewMateriaPrimaXPiezaPresupuesto> list = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.listMateriaPrimaXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+            list = AccessViews.listMateriaPrimaXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -212,17 +199,15 @@ public class GestorPresupuesto {
     }
 
     public LinkedList<ViewProcesoCalidadXPiezaPresupuesto> buscarProCalidadXPiezaPresupuesto() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        LinkedList<ViewProcesoCalidadXPiezaPresupuesto> list=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewProcesoCalidadXPiezaPresupuesto> list = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.listProCalidadXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
+            list = AccessViews.listProCalidadXPiezaPresupuesto(presupuestoPedSelecDB.getIdpresupuesto(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -233,25 +218,25 @@ public class GestorPresupuesto {
     }
 
     public void setFechaPresupuesto(Calendar c) {
-        fechaPresupuesto=c.getTime();
+        fechaPresupuesto = c.getTime();
     }
 
     public void setFechaVencimientoPresupuesto(Calendar c) {
-        fechaVencimientoPresupuesto=c.getTime();
+        fechaVencimientoPresupuesto = c.getTime();
     }
 
     public void setFechaEstimadaFinProduccion(Calendar c) {
-        fechaEstimadaFinProduccion=c.getTime();
+        fechaEstimadaFinProduccion = c.getTime();
     }
 
     public void setMontoTotal(String text) {
-        montoTotal=Decimales.parseToDouble(text);
+        montoTotal = Decimales.parseToDouble(text);
     }
 
     public int guardarPresupuesto() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        Connection cn=null;
-        int result=-1;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        Connection cn = null;
+        int result = -1;
         presupuestoPedSelecDB.setFechapresupuesto(Fecha.parseToDateSQL(fechaPresupuesto));
         presupuestoPedSelecDB.setFechavencimiento(Fecha.parseToDateSQL(fechaVencimientoPresupuesto));
         presupuestoPedSelecDB.setMontototal(montoTotal);
@@ -260,16 +245,15 @@ public class GestorPresupuesto {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=AccessPresupuesto.update(presupuestoPedSelecDB, cn);
-            result+=AccessPedido.update(pedidoSeleccionadoDB, cn);
+            result = AccessPresupuesto.update(presupuestoPedSelecDB, cn);
+            result += AccessPedido.update(pedidoSeleccionadoDB, cn);
 
-            DetalleproductopresupuestoDB db=null;
-            Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter=llProveedorXMateriaPrima.iterator();
-            ViewMateriaPrimaXPiezaPresupuesto view=null;
-            while(iter.hasNext())
-            {
-                view=iter.next();
-                db=AccessDetalleProductoPresupuesto.findByIdDetalle(view.getIddetalleproductopresupuesto(), cn)[0];
+            DetalleproductopresupuestoDB db = null;
+            Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter = llProveedorXMateriaPrima.iterator();
+            ViewMateriaPrimaXPiezaPresupuesto view = null;
+            while (iter.hasNext()) {
+                view = iter.next();
+                db = AccessDetalleProductoPresupuesto.findByIdDetalle(view.getIddetalleproductopresupuesto(), cn)[0];
                 db.setIdproveedor(view.getIdproveedor());
                 db.setPreciomateriaprima(view.getPreciomateriaprima());
                 AccessDetalleProductoPresupuesto.update(db, cn);
@@ -282,9 +266,7 @@ public class GestorPresupuesto {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -294,18 +276,23 @@ public class GestorPresupuesto {
         //tiene que devolver 1 cuando se guarda correctamente
         //como son 2 actualizaciones entonces la suma de las filas acutalizadas
         //dividido 2 tiene que ser 1
-        return result/2;
-        
+        return result / 2;
+
     }
 
     public void imprimirPresupuesto() {
-        
-        String sourceFile="G:\\RptPresupuesto.jasper";
-        PostgreSQLManager pg=new PostgreSQLManager();
+        URL sourceFile = null;
+        try {
+            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+        PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
-        JasperPrint jasperPrint=null;
-        Connection cn=null;
-        Map param=new HashMap();
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
         JasperReport masterReport = null;
 //        PreparedStatement ps=null;
 //        ResultSet rs=null;
@@ -324,26 +311,24 @@ public class GestorPresupuesto {
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
-            long id=pedidoSeleccionadoDB.getIdpedido();
+            long id = pedidoSeleccionadoDB.getIdpedido();
             param.put("ID_PEDIDO", new Long(id));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
-            jasperPrint = JasperFillManager.fillReport(masterReport, param,cn);
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
-            
-            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setTitle("Presupuesto");
             jviewer.setVisible(true);
-            
-            String nroPre=NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
+
+            String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
             //Se exporta a PDF
             //JasperExportManager.exportReportToPdfFile(jasperPrint,"G:\\"+nroPre+"-"+Fecha.fechaActual(Fecha.YYYY_MM_DD_GUION)+".pdf");
             // Visualizar el reporte en el Jasperviwer
             //JasperViewer.viewReport(jasperPrint, false);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -353,17 +338,15 @@ public class GestorPresupuesto {
     }
 
     public double calcularIngresoTotal() {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        double result=-1;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        double result = -1;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            result=AccessFunctions.ingresoXPedido(pedidoSeleccionadoDB.getIdpedido(),cn);
+            result = AccessFunctions.ingresoXPedido(pedidoSeleccionadoDB.getIdpedido(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -374,21 +357,19 @@ public class GestorPresupuesto {
     }
 
     public void setProveedoresXMateriaPrima(LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto) {
-        llProveedorXMateriaPrima=filasMateriaPrimaXPiezaPresupuesto;
+        llProveedorXMateriaPrima = filasMateriaPrimaXPiezaPresupuesto;
     }
 
     public LinkedList<ViewProductoPresupuesto> buscarProductosPresupuesto(long idPedido) {
-        PostgreSQLManager pg=new PostgreSQLManager();
-        LinkedList<ViewProductoPresupuesto> list=null;
-        Connection cn=null;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewProductoPresupuesto> list = null;
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list=AccessViews.listProductoPresupuesto(idPedido, cn);
+            list = AccessViews.listProductoPresupuesto(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -397,7 +378,4 @@ public class GestorPresupuesto {
         }
         return list;
     }
-
-
-
 }
