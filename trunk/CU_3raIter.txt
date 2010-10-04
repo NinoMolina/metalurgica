@@ -20,7 +20,7 @@ CU 3ra Iteracion:
 42: Eliminar Condición IVA
 43: Consultar Factura
 45: Consultar Remito
-59
+59: Registrar Vencimiento Factura
 
 103
 112
