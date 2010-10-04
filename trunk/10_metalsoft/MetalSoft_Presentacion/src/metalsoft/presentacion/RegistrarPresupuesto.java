@@ -8,28 +8,15 @@
  *
  * Created on May 11, 2010, 3:26:26 AM
  */
-
 package metalsoft.presentacion;
 
-import datechooser.beans.DateChooserCombo;
-import java.sql.Connection;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.dbobject.PedidoDB;
-import metalsoft.datos.dbobject.PresupuestoDB;
-import metalsoft.negocio.access.AccessPresupuesto;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
@@ -40,11 +27,7 @@ import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
-import metalsoft.util.ItemCombo;
 import metalsoft.util.Jornada;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 
 /**
  *
@@ -60,57 +43,57 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
     private ViewProveedorXMateriaPrima currentViewProXMP;
     private GestorPresupuesto gestor;
-    private int horas,minutos,segundos,dias;
+    private int horas, minutos, segundos, dias;
     private double costoTotal;
     private double ganancia;
     private double netoTotalACobrar;
     private long idPedido;
-    private double subTotal,iva;
+    private double subTotal, iva;
 
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
         initComponents();
-        filasPedidos=null;
-        gestor=new GestorPresupuesto();
+        filasPedidos = null;
+        gestor = new GestorPresupuesto();
         buscarPedidosConDetalleProcesoCalidad();
     }
 
-    public void addProveedorXMateriaPrima(ViewProveedorXMateriaPrima view)
-    {
-        if(filasProveedorXMateriaPrima==null)filasProveedorXMateriaPrima=new LinkedList<ViewProveedorXMateriaPrima>();
-        int contiene=ViewProveedorXMateriaPrima.contain(view, filasProveedorXMateriaPrima);
-        int opcion=-1;
-        currentViewProXMP=view;
-        if(contiene>0)
-        {
+    public void addProveedorXMateriaPrima(ViewProveedorXMateriaPrima view) {
+        if (filasProveedorXMateriaPrima == null) {
+            filasProveedorXMateriaPrima = new LinkedList<ViewProveedorXMateriaPrima>();
+        }
+        int contiene = ViewProveedorXMateriaPrima.contain(view, filasProveedorXMateriaPrima);
+        int opcion = -1;
+        currentViewProXMP = view;
+        if (contiene > 0) {
             filasProveedorXMateriaPrima.set(contiene, view);
-            opcion=1;
+            opcion = 1;
+        } else {
+            boolean r = filasProveedorXMateriaPrima.add(view);
+            if (r) {
+                opcion = 0;
+            } else {
+                opcion = -1;
+            }
         }
-        else
-        {
-            boolean r=filasProveedorXMateriaPrima.add(view);
-            if(r)opcion=0;
-            else opcion=-1;
-        }
-        if(opcion==0)
-        {
-            JOptionPane.showMessageDialog(this, "Se seleccionó un proveedor para la materia prima"+filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
+        if (opcion == 0) {
+            JOptionPane.showMessageDialog(this, "Se seleccionó un proveedor para la materia prima" + filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
             calcularCostoTotal();
         }
-        if(opcion==1)
-        {
-            JOptionPane.showMessageDialog(this, "Se MODIFICÓ la seleccion de proveedor para la materia prima"+filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
+        if (opcion == 1) {
+            JOptionPane.showMessageDialog(this, "Se MODIFICÓ la seleccion de proveedor para la materia prima" + filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
             calcularCostoTotal();
         }
-        if(opcion==-1)
-            JOptionPane.showMessageDialog(this, "No se pudo seleccionar proveedor para la materia prima"+filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
+        if (opcion == -1) {
+            JOptionPane.showMessageDialog(this, "No se pudo seleccionar proveedor para la materia prima" + filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow()).getNombremateriaprima());
+        }
     }
 
-    private void buscarPedidosConDetalleProcesoCalidad()
-    {
-        filasPedidos=gestor.buscarPedidosConDetalleProcesoCalidad();
+    private void buscarPedidosConDetalleProcesoCalidad() {
+        filasPedidos = gestor.buscarPedidosConDetalleProcesoCalidad();
         tblPedidos.updateUI();
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -611,15 +594,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        ViewPedidoEnListadoProcedimientos viewPedido=filasPedidos.get(tblPedidos.getSelectedRow());
-        idPedido=viewPedido.getIdpedido();
-        long nroPresupuesto=gestor.buscarNroPresupuesto(idPedido);
+        ViewPedidoEnListadoProcedimientos viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        idPedido = viewPedido.getIdpedido();
+        long nroPresupuesto = gestor.buscarNroPresupuesto(idPedido);
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
-        lblHoraJornada.setText(Jornada.HORAS_JORNADA+" horas)");
+        lblHoraJornada.setText(Jornada.HORAS_JORNADA + " horas)");
         setFechas();
         cargarTablas();
         calcularTotales();
-        
+
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -628,58 +611,53 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         gestor.setFechaEstimadaFinProduccion(dccFechaEstimadaFinProduccion.getSelectedDate());
         gestor.setMontoTotal(lblTotalACobrar.getText());
         gestor.setProveedoresXMateriaPrima(filasMateriaPrimaXPiezaPresupuesto);
-        int result=-1;
-        result=gestor.guardarPresupuesto();
-        int ok=-1;
-        if(result>0)
-        {
-            ok=JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
-            if(ok==JOptionPane.OK_OPTION)
-            {
+        int result = -1;
+        result = gestor.guardarPresupuesto();
+        int ok = -1;
+        if (result > 0) {
+            ok = JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
+            if (ok == JOptionPane.OK_OPTION) {
                 imprimirPresupuesto();
             }
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
-        ViewMateriaPrimaXPiezaPresupuesto view=filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
-        long idMatPrima=view.getIdmateriaprima();
-        SeleccionarProveedor p=new SeleccionarProveedor(idMatPrima,this);
+        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        long idMatPrima = view.getIdmateriaprima();
+        SeleccionarProveedor p = new SeleccionarProveedor(idMatPrima, this);
         p.setVisible(true);
         p.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
-    private void imprimirPresupuesto()
-    {
+    private void imprimirPresupuesto() {
         gestor.imprimirPresupuesto();
     }
-    private void cargarTablas()
-    {
-        filasEtapasXPiezaPresupuesto=gestor.buscarEtapasXPiezaPresupuesto();
+
+    private void cargarTablas() {
+        filasEtapasXPiezaPresupuesto = gestor.buscarEtapasXPiezaPresupuesto();
         //System.out.println(filasEtapasXPiezaPresupuesto.get(0).getDuraciontotal());
         tblEtapasXPieza.updateUI();
-        filasMateriaPrimaXPiezaPresupuesto=gestor.buscarMatPrimaXPiezaPresupuesto();
+        filasMateriaPrimaXPiezaPresupuesto = gestor.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
-        filasProcesoCalidadXPiezaPresupuesto=gestor.buscarProCalidadXPiezaPresupuesto();
+        filasProcesoCalidadXPiezaPresupuesto = gestor.buscarProCalidadXPiezaPresupuesto();
         tblProCalidadXPieza.updateUI();
-        filasProductoPresupuesto=gestor.buscarProductosPresupuesto(idPedido);
+        filasProductoPresupuesto = gestor.buscarProductosPresupuesto(idPedido);
         tblProdPresupuesto.updateUI();
     }
-    private void setFechas()
-    {
+
+    private void setFechas() {
         dccFechaPresupuesto.setFormat(DateFormat.MEDIUM);
         dccFechaPresupuesto.setSelectedDate(Fecha.fechaActualCalendar());
-        Calendar c=(GregorianCalendar) Fecha.fechaActualCalendar();
-        c=Fecha.addDias(c, 7);
+        Calendar c = (GregorianCalendar) Fecha.fechaActualCalendar();
+        c = Fecha.addDias(c, 7);
         dccFechaVencimiento.setFormat(DateFormat.MEDIUM);
         dccFechaVencimiento.setSelectedDate(c);
     }
-    private void calcularTotales()
-    {
+
+    private void calcularTotales() {
         calcularDuracionEtapaXPiezaTotal();
         calcularDuracionProCalidadXPiezaTotal();
         //calcularPrecioMateriaPrimaXPiezaTotal();
@@ -692,173 +670,162 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         calcularFechaFinProduccion();
     }
 
-    private void calcularIVA()
-    {
-        iva=subTotal*0.21;
+    private void calcularIVA() {
+        iva = subTotal * 0.21;
         lblIVA.setText(Decimales.con2Decimales(iva));
     }
 
-    private void calcularSubTotal()
-    {
-        subTotal=gestor.calcularIngresoTotal();
+    private void calcularSubTotal() {
+        subTotal = gestor.calcularIngresoTotal();
         lblBrutoTotal.setText(Decimales.con2Decimales(subTotal));
     }
 
-    private void calcularNetoTotalACobrar()
-    {
-        netoTotalACobrar=subTotal+iva;
+    private void calcularNetoTotalACobrar() {
+        netoTotalACobrar = subTotal + iva;
         lblTotalACobrar.setText(Decimales.con2Decimales(netoTotalACobrar));
     }
 
-    private void calcularGanancia()
-    {
-        ganancia=subTotal-costoTotal;
+    private void calcularGanancia() {
+        ganancia = subTotal - costoTotal;
         lblGanancia.setText(Decimales.con2Decimales(ganancia));
     }
-    private void calcularFechaFinProduccion()
-    {
-        Calendar c=dccFechaPresupuesto.getSelectedDate();
+
+    private void calcularFechaFinProduccion() {
+        Calendar c = dccFechaPresupuesto.getSelectedDate();
         c.add(Calendar.SECOND, segundos);
         c.add(Calendar.MINUTE, minutos);
         c.add(Calendar.HOUR_OF_DAY, horas);
         c.add(Calendar.DAY_OF_YEAR, dias);
         dccFechaEstimadaFinProduccion.setSelectedDate(c);
     }
-    private void calcularCostoTotal()
-    {
-        ViewMateriaPrimaXPiezaPresupuesto viewMP=filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
-        double precio=currentViewProXMP.getPrecio();
+
+    private void calcularCostoTotal() {
+        ViewMateriaPrimaXPiezaPresupuesto viewMP = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        double precio = currentViewProXMP.getPrecio();
         viewMP.setPreciomateriaprima(precio);
-        viewMP.setPreciototal(precio*viewMP.getCanttotal());
+        viewMP.setPreciototal(precio * viewMP.getCanttotal());
         viewMP.setIdproveedor(currentViewProXMP.getIdproveedor());
         calcularPrecioMateriaPrimaXPiezaTotal();
-        
-        double costoMP=Double.parseDouble(lblCostoMateriaPrima.getText());
-        costoTotal=costoMP;
+
+        double costoMP = Double.parseDouble(lblCostoMateriaPrima.getText());
+        costoTotal = costoMP;
         lblCostoTotal.setText(Decimales.con2Decimales(costoTotal));
         calcularGanancia();
     }
 
-    private void calcularDuracionTotal()
-    {
-        horas=0;minutos=0;segundos=0;dias=0;
-        String duracionEtapas=lblDuracionProcesosProduccion.getText();
-        String[] hmsEtapas=duracionEtapas.split(":");
-        int hE=Integer.parseInt(hmsEtapas[0]);
-        int mE=Integer.parseInt(hmsEtapas[1]);
-        int sE=Integer.parseInt(hmsEtapas[2]);
-        String duracionProCalidad=lblDuracionProcesosCalidad.getText();
-        String[] hmsProCalidad=duracionProCalidad.split(":");
-        int hC=Integer.parseInt(hmsProCalidad[0]);
-        int mC=Integer.parseInt(hmsProCalidad[1]);
-        int sC=Integer.parseInt(hmsProCalidad[2]);
+    private void calcularDuracionTotal() {
+        horas = 0;
+        minutos = 0;
+        segundos = 0;
+        dias = 0;
+        String duracionEtapas = lblDuracionProcesosProduccion.getText();
+        String[] hmsEtapas = duracionEtapas.split(":");
+        int hE = Integer.parseInt(hmsEtapas[0]);
+        int mE = Integer.parseInt(hmsEtapas[1]);
+        int sE = Integer.parseInt(hmsEtapas[2]);
+        String duracionProCalidad = lblDuracionProcesosCalidad.getText();
+        String[] hmsProCalidad = duracionProCalidad.split(":");
+        int hC = Integer.parseInt(hmsProCalidad[0]);
+        int mC = Integer.parseInt(hmsProCalidad[1]);
+        int sC = Integer.parseInt(hmsProCalidad[2]);
 
-        segundos=sC+sE;
-        minutos=mC+mE;
-        horas=hC+hE;
+        segundos = sC + sE;
+        minutos = mC + mE;
+        horas = hC + hE;
 
-        int sumarMinutos=segundos/60;
-        segundos=segundos-(60*sumarMinutos);
-        minutos+=sumarMinutos;
-        int sumarHoras=minutos/60;
-        minutos=minutos-(60*sumarHoras);
-        horas+=sumarHoras;
-        int sumarDias=horas/24;
-        horas=horas-(24*sumarDias);
-        dias=sumarDias;
-        dias=(dias*24)/Jornada.HORAS_JORNADA;
-        String durTotal=dias+" dias, "+horas+" horas, "+minutos+" minutos, "+segundos+" segundos";
+        int sumarMinutos = segundos / 60;
+        segundos = segundos - (60 * sumarMinutos);
+        minutos += sumarMinutos;
+        int sumarHoras = minutos / 60;
+        minutos = minutos - (60 * sumarHoras);
+        horas += sumarHoras;
+        int sumarDias = horas / 24;
+        horas = horas - (24 * sumarDias);
+        dias = sumarDias;
+        dias = (dias * 24) / Jornada.HORAS_JORNADA;
+        String durTotal = dias + " dias, " + horas + " horas, " + minutos + " minutos, " + segundos + " segundos";
         lblDuracionTotal.setText(durTotal);
     }
 
-    private void calcularDuracionEtapaXPiezaTotal()
-    {
-        Iterator<ViewEtapasXPiezaPresupuesto> iter=filasEtapasXPiezaPresupuesto.iterator();
-        ViewEtapasXPiezaPresupuesto view=null;
-        String durTotal="";
-        String durParcial="";
-        String[] hms=null;
-        int hora=0,minuto=0,segundo=0;
-        while(iter.hasNext())
-        {
-            view=iter.next();
-            durParcial=view.getDuraciontotal();
-            hms=durParcial.split(":");
-            hora+=Integer.parseInt(hms[0]);
-            minuto+=Integer.parseInt(hms[1]);
-            segundo+=Integer.parseInt(hms[2]);
+    private void calcularDuracionEtapaXPiezaTotal() {
+        Iterator<ViewEtapasXPiezaPresupuesto> iter = filasEtapasXPiezaPresupuesto.iterator();
+        ViewEtapasXPiezaPresupuesto view = null;
+        String durTotal = "";
+        String durParcial = "";
+        String[] hms = null;
+        int hora = 0, minuto = 0, segundo = 0;
+        while (iter.hasNext()) {
+            view = iter.next();
+            durParcial = view.getDuraciontotal();
+            hms = durParcial.split(":");
+            hora += Integer.parseInt(hms[0]);
+            minuto += Integer.parseInt(hms[1]);
+            segundo += Integer.parseInt(hms[2]);
         }
-        int sumarMinutos=segundo/60;
-        segundo=segundo-(60*sumarMinutos);
-        minuto+=sumarMinutos;
-        int sumarHoras=minuto/60;
-        minuto=minuto-(60*sumarHoras);
-        hora+=sumarHoras;
-        durTotal=hora+":"+minuto+":"+segundo;
+        int sumarMinutos = segundo / 60;
+        segundo = segundo - (60 * sumarMinutos);
+        minuto += sumarMinutos;
+        int sumarHoras = minuto / 60;
+        minuto = minuto - (60 * sumarHoras);
+        hora += sumarHoras;
+        durTotal = hora + ":" + minuto + ":" + segundo;
         lblDuracionProcesosProduccion.setText(durTotal);
     }
 
-    private void calcularDuracionProCalidadXPiezaTotal()
-    {
-        Iterator<ViewProcesoCalidadXPiezaPresupuesto> iter=filasProcesoCalidadXPiezaPresupuesto.iterator();
-        ViewProcesoCalidadXPiezaPresupuesto view=null;
-        String durTotal="";
-        String durParcial="";
-        String[] hms=null;
-        int hora=0,minuto=0,segundo=0;
-        while(iter.hasNext())
-        {
-            view=iter.next();
-            durParcial=view.getDuraciontotal();
-            hms=durParcial.split(":");
-            hora+=Integer.parseInt(hms[0]);
-            minuto+=Integer.parseInt(hms[1]);
-            segundo+=Integer.parseInt(hms[2]);
+    private void calcularDuracionProCalidadXPiezaTotal() {
+        Iterator<ViewProcesoCalidadXPiezaPresupuesto> iter = filasProcesoCalidadXPiezaPresupuesto.iterator();
+        ViewProcesoCalidadXPiezaPresupuesto view = null;
+        String durTotal = "";
+        String durParcial = "";
+        String[] hms = null;
+        int hora = 0, minuto = 0, segundo = 0;
+        while (iter.hasNext()) {
+            view = iter.next();
+            durParcial = view.getDuraciontotal();
+            hms = durParcial.split(":");
+            hora += Integer.parseInt(hms[0]);
+            minuto += Integer.parseInt(hms[1]);
+            segundo += Integer.parseInt(hms[2]);
         }
-        int sumarMinutos=segundo/60;
-        segundo=segundo-(60*sumarMinutos);
-        minuto+=sumarMinutos;
-        int sumarHoras=minuto/60;
-        minuto=minuto-(60*sumarHoras);
-        hora+=sumarHoras;
-        durTotal=hora+":"+minuto+":"+segundo;
+        int sumarMinutos = segundo / 60;
+        segundo = segundo - (60 * sumarMinutos);
+        minuto += sumarMinutos;
+        int sumarHoras = minuto / 60;
+        minuto = minuto - (60 * sumarHoras);
+        hora += sumarHoras;
+        durTotal = hora + ":" + minuto + ":" + segundo;
         lblDuracionProcesosCalidad.setText(durTotal);
     }
 
-    private void calcularPrecioMateriaPrimaXPiezaTotal()
-    {
-        Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter=filasMateriaPrimaXPiezaPresupuesto.iterator();
-        ViewMateriaPrimaXPiezaPresupuesto view=null;
-        double precioTotal=0;
-        double precioParcial=0;
+    private void calcularPrecioMateriaPrimaXPiezaTotal() {
+        Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter = filasMateriaPrimaXPiezaPresupuesto.iterator();
+        ViewMateriaPrimaXPiezaPresupuesto view = null;
+        double precioTotal = 0;
+        double precioParcial = 0;
 
-        while(iter.hasNext())
-        {
-            view=iter.next();
-            try
-            {
-                precioParcial=view.getPreciototal();
-                precioTotal+=precioParcial;
+        while (iter.hasNext()) {
+            view = iter.next();
+            try {
+                precioParcial = view.getPreciototal();
+                precioTotal += precioParcial;
+            } catch (Exception ex) {
             }
-            catch(Exception ex)
-            {
-                
-            }
-            
+
         }
         lblCostoMateriaPrima.setText(String.valueOf(precioTotal));
     }
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new RegistrarPresupuesto().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
@@ -913,43 +880,44 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTable tblProdPresupuesto;
     // End of variables declaration//GEN-END:variables
 
-    class PedidoTableModel extends AbstractTableModel
-    {
+    class PedidoTableModel extends AbstractTableModel {
+
         private String[] columnNames = {"Nro",
-                        "Nro Ped Cliente",
-                        "Prioridad",
-                        "Cliente",
-                        "Ped Cotizacion",
-                        "Cot Req Para",
-                        "Entrega Estipulada",
-                        "Estado"};
+            "Nro Ped Cliente",
+            "Prioridad",
+            "Cliente",
+            "Ped Cotizacion",
+            "Cot Req Para",
+            "Entrega Estipulada",
+            "Estado"};
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewPedidoEnListadoProcedimientos view=filasPedidos.get(rowIndex);
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getNropedido();
-            case 1:
-              return view.getNropedidocotizacioncliente();
-            case 2:
-              return view.getPrioridad();
-            case 3:
-              return view.getCliente();
-            case 4:
-              return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
-            case 5:
-              return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
-            case 6:
-              if(view.getFechaentregaestipulada()==null)return "";
-              else return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
-            case 7:
-              return view.getEstado();
-            default:
-              return null;
+            ViewPedidoEnListadoProcedimientos view = filasPedidos.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNropedido();
+                case 1:
+                    return view.getNropedidocotizacioncliente();
+                case 2:
+                    return view.getPrioridad();
+                case 3:
+                    return view.getCliente();
+                case 4:
+                    return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+                case 5:
+                    return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+                case 6:
+                    if (view.getFechaentregaestipulada() == null) {
+                        return "";
+                    } else {
+                        return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                    }
+                case 7:
+                    return view.getEstado();
+                default:
+                    return null;
             }
 
         }
@@ -958,16 +926,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasPedidos!=null)
-            return filasPedidos.size();
-          return 0;
+        public int getRowCount() {
+            if (filasPedidos != null) {
+                return filasPedidos.size();
+            }
+            return 0;
         }
 
         /**
@@ -975,35 +942,29 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
-
-
     }
 
-    class EtapasXPiezaPresupuestoTableModel extends AbstractTableModel
-    {
+    class EtapasXPiezaPresupuestoTableModel extends AbstractTableModel {
+
         private String[] columnNames = {"Nro Prod",
-                                "Nombre",
-                                "Cant Prod",
-                                "Nombre Pieza",
-                                "Cant Pieza",
-                                "Nro Et Prod",
-                                "Etapa",
-                                "Duración",
-                                "Dur Total",};
+            "Nombre",
+            "Cant Prod",
+            "Nombre Pieza",
+            "Cant Pieza",
+            "Nro Et Prod",
+            "Etapa",
+            "Duración",
+            "Dur Total",};
 
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
-
-            ViewEtapasXPiezaPresupuesto view=null;
-            view=filasEtapasXPiezaPresupuesto.get(rowIndex);
+            ViewEtapasXPiezaPresupuesto view = null;
+            view = filasEtapasXPiezaPresupuesto.get(rowIndex);
 //            try
 //            {
 //                view=filasEtapasXPiezaPresupuesto.get(rowIndex);
@@ -1012,29 +973,28 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 //            {
 //                return "";
 //            }
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getNroproducto();
-            case 1:
-              return view.getNombreproducto();
-            case 2:
-              return view.getCantproducto();
-            case 3:
-              return view.getNombrepieza();
-            case 4:
-              return view.getCantpieza();
-            case 5:
-              return view.getNroetapaproduccion();
-            case 6:
-              return view.getNombreetapaproduccion();
-            case 7:
-              return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
-            case 8:
-              return view.getDuraciontotal();
-            default:
-              return null;
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNroproducto();
+                case 1:
+                    return view.getNombreproducto();
+                case 2:
+                    return view.getCantproducto();
+                case 3:
+                    return view.getNombrepieza();
+                case 4:
+                    return view.getCantpieza();
+                case 5:
+                    return view.getNroetapaproduccion();
+                case 6:
+                    return view.getNombreetapaproduccion();
+                case 7:
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
+                case 8:
+                    return view.getDuraciontotal();
+                default:
+                    return null;
             }
 
         }
@@ -1043,16 +1003,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasEtapasXPiezaPresupuesto!=null)
-            return filasEtapasXPiezaPresupuesto.size();
-          return 0;
+        public int getRowCount() {
+            if (filasEtapasXPiezaPresupuesto != null) {
+                return filasEtapasXPiezaPresupuesto.size();
+            }
+            return 0;
         }
 
         /**
@@ -1060,34 +1019,30 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
 
-    class MateriaPrimaXPiezaPresupuestoTableModel extends AbstractTableModel
-    {
+    class MateriaPrimaXPiezaPresupuestoTableModel extends AbstractTableModel {
+
         private String[] columnNames = {"Nro Prod",
-                                "Nombre",
-                                "Cant Prod",
-                                "Nombre Pieza",
-                                "Cant Pieza",
-                                "Mat Prima",
-                                "Precio",
-                                "Cant MP",
-                                "Cant Total",
-                                "Precio Total"};
+            "Nombre",
+            "Cant Prod",
+            "Nombre Pieza",
+            "Cant Pieza",
+            "Mat Prima",
+            "Precio",
+            "Cant MP",
+            "Cant Total",
+            "Precio Total"};
 
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
-
-            ViewMateriaPrimaXPiezaPresupuesto view=null;
-            view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+            ViewMateriaPrimaXPiezaPresupuesto view = null;
+            view = filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
 //            try
 //            {
 //                view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
@@ -1096,31 +1051,30 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 //            {
 //                return "";
 //            }
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getNroproducto();
-            case 1:
-              return view.getNombreproducto();
-            case 2:
-              return view.getCantproducto();
-            case 3:
-              return view.getNombrepieza();
-            case 4:
-              return view.getCantpieza();
-            case 5:
-              return view.getNombremateriaprima();
-            case 6:
-              return view.getPreciomateriaprima();
-            case 7:
-              return view.getCantmateriaprima();
-            case 8:
-              return view.getCanttotal();
-            case 9:
-              return view.getPreciototal();
-            default:
-              return null;
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNroproducto();
+                case 1:
+                    return view.getNombreproducto();
+                case 2:
+                    return view.getCantproducto();
+                case 3:
+                    return view.getNombrepieza();
+                case 4:
+                    return view.getCantpieza();
+                case 5:
+                    return view.getNombremateriaprima();
+                case 6:
+                    return view.getPreciomateriaprima();
+                case 7:
+                    return view.getCantmateriaprima();
+                case 8:
+                    return view.getCanttotal();
+                case 9:
+                    return view.getPreciototal();
+                default:
+                    return null;
             }
 
         }
@@ -1129,16 +1083,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasMateriaPrimaXPiezaPresupuesto!=null)
-            return filasMateriaPrimaXPiezaPresupuesto.size();
-          return 0;
+        public int getRowCount() {
+            if (filasMateriaPrimaXPiezaPresupuesto != null) {
+                return filasMateriaPrimaXPiezaPresupuesto.size();
+            }
+            return 0;
         }
 
         /**
@@ -1146,34 +1099,30 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
 
-    class ProcesoCalidadXPiezaPresupuestoTableModel extends AbstractTableModel
-    {
+    class ProcesoCalidadXPiezaPresupuestoTableModel extends AbstractTableModel {
+
         private String[] columnNames = {"Nro Prod",
-                                "Nombre",
-                                "Cant Prod",
-                                "Nombre Pieza",
-                                "Cant Pieza",
-                                "Nro Pro Cal",
-                                "Pro Calidad",
-                                "Cant PC",
-                                "Duración",
-                                "Dur Total",};
+            "Nombre",
+            "Cant Prod",
+            "Nombre Pieza",
+            "Cant Pieza",
+            "Nro Pro Cal",
+            "Pro Calidad",
+            "Cant PC",
+            "Duración",
+            "Dur Total",};
 
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
-
-            ViewProcesoCalidadXPiezaPresupuesto view=null;
-            view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
+            ViewProcesoCalidadXPiezaPresupuesto view = null;
+            view = filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
 //            try
 //            {
 //                view=filasProcesoCalidadXPiezaPresupuesto.get(rowIndex);
@@ -1182,31 +1131,30 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 //            {
 //                return "";
 //            }
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getNroproducto();
-            case 1:
-              return view.getNombreproducto();
-            case 2:
-              return view.getCantproducto();
-            case 3:
-              return view.getNombrepieza();
-            case 4:
-              return view.getCantpieza();
-            case 5:
-              return view.getNroprocesocalidad();
-            case 6:
-              return view.getNombreprocesocalidad();
-            case 7:
-              return view.getCantprocesocalidad();
-            case 8:
-              return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza());
-            case 9:
-              return view.getDuraciontotal();
-            default:
-              return null;
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNroproducto();
+                case 1:
+                    return view.getNombreproducto();
+                case 2:
+                    return view.getCantproducto();
+                case 3:
+                    return view.getNombrepieza();
+                case 4:
+                    return view.getCantpieza();
+                case 5:
+                    return view.getNroprocesocalidad();
+                case 6:
+                    return view.getNombreprocesocalidad();
+                case 7:
+                    return view.getCantprocesocalidad();
+                case 8:
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza());
+                case 9:
+                    return view.getDuraciontotal();
+                default:
+                    return null;
             }
 
         }
@@ -1215,16 +1163,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasProcesoCalidadXPiezaPresupuesto!=null)
-            return filasProcesoCalidadXPiezaPresupuesto.size();
-          return 0;
+        public int getRowCount() {
+            if (filasProcesoCalidadXPiezaPresupuesto != null) {
+                return filasProcesoCalidadXPiezaPresupuesto.size();
+            }
+            return 0;
         }
 
         /**
@@ -1232,40 +1179,36 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
-        class ProductoPresupuestoTableModel extends AbstractTableModel
-    {
+
+    class ProductoPresupuestoTableModel extends AbstractTableModel {
+
         private String[] columnNames = {"Cantidad",
-                                        "Producto",
-                                        "Pre. Unit.",
-                                        "Importe"};
+            "Producto",
+            "Pre. Unit.",
+            "Importe"};
 
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+            ViewProductoPresupuesto view = null;
+            view = filasProductoPresupuesto.get(rowIndex);
 
-            ViewProductoPresupuesto view=null;
-            view=filasProductoPresupuesto.get(rowIndex);
-
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getCantidadproducto();
-            case 1:
-              return view.getNombreproducto();
-            case 2:
-              return view.getPreciounitario();
-            case 3:
-              return view.getImporte();
-            default:
-              return null;
+            switch (columnIndex) {
+                case 0:
+                    return view.getCantidadproducto();
+                case 1:
+                    return view.getNombreproducto();
+                case 2:
+                    return view.getPreciounitario();
+                case 3:
+                    return view.getImporte();
+                default:
+                    return null;
             }
 
         }
@@ -1274,16 +1217,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasProductoPresupuesto!=null)
-            return filasProductoPresupuesto.size();
-          return 0;
+        public int getRowCount() {
+            if (filasProductoPresupuesto != null) {
+                return filasProductoPresupuesto.size();
+            }
+            return 0;
         }
 
         /**
@@ -1291,11 +1233,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
