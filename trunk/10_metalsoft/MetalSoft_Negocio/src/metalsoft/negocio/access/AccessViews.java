@@ -306,6 +306,7 @@ public class AccessViews {
         else return ll;
     }
 
+
     public static LinkedList<ViewEtapaDeProduccion> allEtapasDeProduccion(Connection cn) {
         ViewEtapaDeProduccion view=null;
         LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
