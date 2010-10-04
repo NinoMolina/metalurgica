@@ -11,16 +11,17 @@ CU 3ra Iteracion:
 34: Generar Listado de Cobros
 35: Registrar Forma de Pago
 
-36
-37
-38
-39
-40
-41
-42
-43
-45
+36: Modificar Forma de Pago
+37: Consultar Forma de Pago
+38: Eliminar Forma de Pago
+39: Registrar Condición IVA
+40: Modificar Condición IVA
+41: Consultar Condición IVA
+42: Eliminar Condición IVA
+43: Consultar Factura
+45: Consultar Remito
 59
+
 103
 112
 113
