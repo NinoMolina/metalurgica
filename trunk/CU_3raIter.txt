@@ -22,14 +22,14 @@ CU 3ra Iteracion:
 45: Consultar Remito
 59: Registrar Vencimiento Factura
 
-103
+103: Registrar Armado del Pedido
 112
 113
 114
 116
 117
-121
-128
+121: Eliminar Proceso de Calidad
+128: Registrar Baja Empresa Metalurgica
 132: Modificar Empleado
 134: Registrar Baja Empleado
 
@@ -43,6 +43,7 @@ CU 3ra Iteracion:
 154
 156
 158
+
 160
 161
 162
@@ -53,6 +54,7 @@ CU 3ra Iteracion:
 167
 168
 169
+
 170
 171
 172
@@ -64,5 +66,4 @@ CU 3ra Iteracion:
 180
 181
 182
-183
 
