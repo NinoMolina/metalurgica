@@ -30,8 +30,9 @@ CU 3ra Iteracion:
 117
 121
 128
-132
-134
+132: Modificar Empleado
+134: Registrar Baja Empleado
+
 143
 144
 145
