@@ -34,6 +34,12 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return barriodaoimpl;
 	}
 
+	private static final CalendarioDAOImpl  calendariodaoimpl = new CalendarioDAOImpl();
+	public CalendarioDAO createCalendarioDAO()
+	{
+		return calendariodaoimpl;
+	}
+
 	private static final CargoDAOImpl  cargodaoimpl = new CargoDAOImpl();
 	public CargoDAO createCargoDAO()
 	{
