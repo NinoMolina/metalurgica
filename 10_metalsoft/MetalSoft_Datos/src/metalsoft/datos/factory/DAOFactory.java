@@ -22,6 +22,8 @@ public interface DAOFactory
 
 	public BarrioDAO createBarrioDAO();
 
+	public CalendarioDAO createCalendarioDAO();
+
 	public CargoDAO createCargoDAO();
 
 	public CategoriaDAO createCategoriaDAO();
