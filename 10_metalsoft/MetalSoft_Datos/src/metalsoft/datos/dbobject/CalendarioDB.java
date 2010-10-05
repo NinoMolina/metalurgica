@@ -19,7 +19,7 @@ import java.io.Serializable;
 *
 */
 
-public class Calendario implements Serializable
+public class CalendarioDB implements Serializable
 {
 	private int dia;
 	private int mes;
@@ -28,8 +28,8 @@ public class Calendario implements Serializable
 	private Date fecha;
 
 
-	public Calendario(){}
-	public Calendario(int dia ,int mes ,int anio ,long id ,Date fecha){
+	public CalendarioDB(){}
+	public CalendarioDB(int dia ,int mes ,int anio ,long id ,Date fecha){
 		this.dia = dia;
 		this.mes = mes;
 		this.anio = anio;
