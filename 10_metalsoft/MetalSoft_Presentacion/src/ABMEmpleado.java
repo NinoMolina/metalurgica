@@ -14,12 +14,147 @@
  * @author Vicky
  */
 public class ABMEmpleado extends javax.swing.JFrame {
-
+    private GestorEmpleado gestor;
+    private Domicilio domicilioCliente;
+    private Domicilio domicilioResponsable;
+    private long idDomicilio;
+    private long idResponsable;
+    private Responsable responsable;
+    private Empleado cliente;
+    private metalsoft.datos.dbobject.Empleado clienteDB;
+    private metalsoft.datos.dbobject.ResponsableDB responsableDB;
+    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB,domicilioResponsableDB;
+    private EnumOpcionesABM opcion;
     /** Creates new form ABMEmpleado */
     public ABMEmpleado() {
         initComponents();
+        gestor=new GestorCliente();
+        cargarComboCondIva();
+        cargarComboPrioridad();
+        cargarComboEstado();
+        cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
+        cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
+        cargarTipoDocumento();
+        addListenerCmbProvincia();
+        addListenerCmbLocalidad();
+        setEnableComponents(false);
+    }
+    private void setEnableComponents(boolean b)
+    {
+        txtCUIT.setEnabled(b);
+        txtCelular.setEnabled(b);
+        txtFechaAlta.setEnabled(b);
+        txtFechaBaja.setEnabled(b);
+        txtMail.setEnabled(b);
+        txtRazonSocial.setEnabled(b);
+        txtTelefono.setEnabled(b);
+        cmbCondicionIVA.setEnabled(b);
+        cmbEstado.setEnabled(b);
+        cmbPrioridad.setEnabled(b);
+        beanDomicilioCliente.setEnabled(b);
+        beanResponsable.setEnabled(b);
     }
 
+    private void limpiarCampos()
+    {
+        txtCUIT.setText("");
+        txtCelular.setText("");
+        txtFechaAlta.setText("");
+        txtFechaBaja.setText("");
+        txtMail.setText("");
+        lblNroCliente.setText("");
+        txtRazonSocial.setText("");
+        txtTelefono.setText("");
+        cmbCondicionIVA.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        cmbPrioridad.setSelectedIndex(0);
+        beanDomicilioCliente.limpiarCampos();
+        beanResponsable.limpiarCampos();
+    }
+    public long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(long idCliente) {
+        this.idCliente = idCliente;
+    }
+
+
+    private void addListenerCmbProvincia() {
+        beanDomicilioCliente.getCmbProvincia().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProvinciaActionPerformed(evt);
+            }
+        });
+        beanResponsable.getDomicilioResponsable().getCmbProvincia().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProvinciaDomResponsableActionPerformed(evt);
+            }
+        });
+    }
+    private void addListenerCmbLocalidad() {
+        beanDomicilioCliente.getCmbLocalidad().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbLocalidadActionPerformed(evt);
+            }
+        });
+        beanResponsable.getDomicilioResponsable().getCmbLocalidad().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbLocalidadDomResponsableActionPerformed(evt);
+            }
+        });
+    }
+
+    private void cmbProvinciaDomResponsableActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        JComboBox cmbProvincia=beanResponsable.getDomicilioResponsable().getCmbProvincia();
+        JComboBox cmbLocalidad=beanResponsable.getDomicilioResponsable().getCmbLocalidad();
+        JComboBox cmbBarrio=beanResponsable.getDomicilioResponsable().getCmbBarrio();
+        cmbLocalidad.removeAllItems();
+        cmbBarrio.removeAllItems();
+        if(cmbProvincia.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarLocalidadesDeProvincia(cmbLocalidad, index);
+        }
+    }
+    private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        JComboBox cmbProvincia=beanDomicilioCliente.getCmbProvincia();
+        JComboBox cmbLocalidad=beanDomicilioCliente.getCmbLocalidad();
+        JComboBox cmbBarrio=beanDomicilioCliente.getCmbBarrio();
+        cmbLocalidad.removeAllItems();
+        cmbBarrio.removeAllItems();
+        if(cmbProvincia.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarLocalidadesDeProvincia(cmbLocalidad, index);
+        }
+    }
+    private void cmbLocalidadDomResponsableActionPerformed(java.awt.event.ActionEvent evt) {
+        JComboBox cmbLocalidad=beanResponsable.getDomicilioResponsable().getCmbLocalidad();
+        JComboBox cmbBarrio=beanResponsable.getDomicilioResponsable().getCmbBarrio();
+        cmbBarrio.removeAllItems();
+        if(cmbLocalidad.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarBarriosDeLocalidad(cmbBarrio, index);
+        }
+    }
+    private void cmbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {
+        JComboBox cmbLocalidad=beanDomicilioCliente.getCmbLocalidad();
+        JComboBox cmbBarrio=beanDomicilioCliente.getCmbBarrio();
+        cmbBarrio.removeAllItems();
+        if(cmbLocalidad.getSelectedIndex()>0)
+        {
+            String indexString=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
+            int index=Integer.parseInt(indexString);
+            gestor.buscarBarriosDeLocalidad(cmbBarrio, index);
+        }
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
