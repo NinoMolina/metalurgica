@@ -89,9 +89,10 @@ public class CalendarioDAOImpl implements CalendarioDAO
 	public int insert(CalendarioDB calendario ,Connection con)throws CalendarioException {
 
 		PreparedStatement ps = null;
+                ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into CALENDARIO( DIA, MES, ANIO, FECHA, TODOELDIA, HORADESDE, HORAHASTA) values (?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into CALENDARIO( DIA, MES, ANIO, FECHA, TODOELDIA, HORADESDE, HORAHASTA) values (?, ?, ?, ?, ?, ?, ?) RETURNING id");
 				ps.setInt(1,calendario.getDia());
 				ps.setInt(2,calendario.getMes());
 				ps.setInt(3,calendario.getAnio());
@@ -100,7 +101,10 @@ public class CalendarioDAOImpl implements CalendarioDAO
 				ps.setTime(6,calendario.getHoradesde());
 				ps.setTime(7,calendario.getHorahasta());
 
-				return(ps.executeUpdate());
+                                rs=ps.executeQuery();
+                                rs.next();
+
+                                return (int) rs.getLong("id");
 		}catch(SQLException sqle){throw new CalendarioException(sqle);}
 		catch(Exception e){throw new CalendarioException(e);}
 	}
