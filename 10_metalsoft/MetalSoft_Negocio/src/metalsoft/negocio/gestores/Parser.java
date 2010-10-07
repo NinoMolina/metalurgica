@@ -45,6 +45,7 @@ import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
 import metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica;
 /**
@@ -117,6 +118,7 @@ public class Parser {
 
         return db;
     }
+
 
      public static EmpresametalurgicaDB parseToEmpresametalurgicaDB(EmpresaMetalurgica x) {
         EmpresametalurgicaDB db=new EmpresametalurgicaDB();
@@ -246,6 +248,25 @@ public class Parser {
         db.setNombre(x.getNombre());
         db.setNrodocumento(x.getNroDocumento());
         db.setTelefono(x.getTelefono());
+        return db;
+    }
+    public static metalsoft.datos.dbobject.EmpleadoDB parseToEmpleadoDB(Empleado x)
+    {
+        metalsoft.datos.dbobject.EmpleadoDB db=new metalsoft.datos.dbobject.EmpleadoDB();
+        db.setApellido(x.getApellido());
+        db.setEmail(x.getEmail());
+        db.setNombre(x.getNombre());
+        db.setNrodocumento(x.getNroDocumento());
+        db.setTelefono(x.getTelefono());
+        if(x.getFechaEgreso()!=null)
+            db.setFechaegreso(new java.sql.Date(x.getFechaEgreso().getTime()));
+        else
+            db.setFechaegreso(null);
+        if(x.getFechaIngreso()!=null)
+            db.setFechaingreso(new java.sql.Date(x.getFechaIngreso().getTime()));
+        else
+            db.setFechaingreso(null);
+        db.setMotivoegreso(x.getMotivoEgreso());
         return db;
     }
 
