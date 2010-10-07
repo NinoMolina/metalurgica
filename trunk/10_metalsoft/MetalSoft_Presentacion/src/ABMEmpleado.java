@@ -33,9 +33,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private long idDomicilio;
     private long idResponsable;
     private Empleado empleado;
-    private metalsoft.datos.dbobject.Empleado empleadoDB;
+    private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private metalsoft.datos.dbobject.DomicilioDB domicilioResponsableDB;
     private EnumOpcionesABM opcion;
+    private long idEmpleado;
     /** Creates new form ABMEmpleado */
     public ABMEmpleado() {
         initComponents();
@@ -43,7 +44,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         cargarComboTurno();
         cargarComboCategoria();
         cargarComboCargo();
-        cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
         cargarTipoDocumento();
         addListenerCmbProvincia();
@@ -52,51 +52,44 @@ public class ABMEmpleado extends javax.swing.JFrame {
     }
     private void setEnableComponents(boolean b)
     {
-        txtCUIT.setEnabled(b);
-        txtCelular.setEnabled(b);
-        txtFechaAlta.setEnabled(b);
-        txtFechaBaja.setEnabled(b);
-        txtMail.setEnabled(b);
-        txtRazonSocial.setEnabled(b);
-        txtTelefono.setEnabled(b);
-        cmbCondicionIVA.setEnabled(b);
-        cmbCategoria.setEnabled(b);
+        txtMotivoEgreso.setEnabled(b);
+        txtUsuario.setEnabled(b);
+        dccFechaEgreso.setEnabled(b);
+        dccFechaIngreso.setEnabled(b);
         cmbTurno.setEnabled(b);
-        beanDomicilioCliente.setEnabled(b);
+        cmbCargo.setEnabled(b);
+        cmbCategoria.setEnabled(b);
         beanResponsable.setEnabled(b);
     }
 
     private void limpiarCampos()
     {
-        txtCUIT.setText("");
-        txtCelular.setText("");
-        txtFechaAlta.setText("");
-        txtFechaBaja.setText("");
-        txtMail.setText("");
+        txtMotivoEgreso.setText("");
+        txtUsuario.setText("");
+        ///hacer lo de las fechas
+        dccFechaEgreso.setSelectedDate(null);
+        dccFechaIngreso.setSelectedDate(null);
+//        else{
+//            GregorianCalendar gc=new GregorianCalendar();
+//            gc.setTime(proveedorDB.getFechaalta());
+//            dccFechaAlta.setSelectedDate(gc);
+//        }
         lblNroCliente.setText("");
-        txtRazonSocial.setText("");
-        txtTelefono.setText("");
-        cmbCondicionIVA.setSelectedIndex(0);
+        cmbCargo.setSelectedIndex(0);
         cmbCategoria.setSelectedIndex(0);
         cmbTurno.setSelectedIndex(0);
-        beanDomicilioCliente.limpiarCampos();
         beanResponsable.limpiarCampos();
     }
     public long getIdCliente() {
-        return idCliente;
+        return idEmpleado;
     }
 
-    public void setIdCliente(long idCliente) {
-        this.idCliente = idCliente;
+    public void setIdCliente(long id) {
+        this.idEmpleado = id;
     }
 
 
     private void addListenerCmbProvincia() {
-        beanDomicilioCliente.getCmbProvincia().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvinciaActionPerformed(evt);
-            }
-        });
         beanResponsable.getDomicilioResponsable().getCmbProvincia().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbProvinciaDomResponsableActionPerformed(evt);
@@ -104,11 +97,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         });
     }
     private void addListenerCmbLocalidad() {
-        beanDomicilioCliente.getCmbLocalidad().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLocalidadActionPerformed(evt);
-            }
-        });
         beanResponsable.getDomicilioResponsable().getCmbLocalidad().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbLocalidadDomResponsableActionPerformed(evt);
@@ -130,20 +118,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
             gestor.buscarLocalidadesDeProvincia(cmbLocalidad, index);
         }
     }
-    private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        JComboBox cmbProvincia=beanDomicilioCliente.getCmbProvincia();
-        JComboBox cmbLocalidad=beanDomicilioCliente.getCmbLocalidad();
-        JComboBox cmbBarrio=beanDomicilioCliente.getCmbBarrio();
-        cmbLocalidad.removeAllItems();
-        cmbBarrio.removeAllItems();
-        if(cmbProvincia.getSelectedIndex()>0)
-        {
-            String indexString=((ItemCombo)cmbProvincia.getSelectedItem()).getId();
-            int index=Integer.parseInt(indexString);
-            gestor.buscarLocalidadesDeProvincia(cmbLocalidad, index);
-        }
-    }
+    
     private void cmbLocalidadDomResponsableActionPerformed(java.awt.event.ActionEvent evt) {
         JComboBox cmbLocalidad=beanResponsable.getDomicilioResponsable().getCmbLocalidad();
         JComboBox cmbBarrio=beanResponsable.getDomicilioResponsable().getCmbBarrio();
@@ -155,17 +130,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
             gestor.buscarBarriosDeLocalidad(cmbBarrio, index);
         }
     }
-    private void cmbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {
-        JComboBox cmbLocalidad=beanDomicilioCliente.getCmbLocalidad();
-        JComboBox cmbBarrio=beanDomicilioCliente.getCmbBarrio();
-        cmbBarrio.removeAllItems();
-        if(cmbLocalidad.getSelectedIndex()>0)
-        {
-            String indexString=((ItemCombo)cmbLocalidad.getSelectedItem()).getId();
-            int index=Integer.parseInt(indexString);
-            gestor.buscarBarriosDeLocalidad(cmbBarrio, index);
-        }
-    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -420,10 +385,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
         opcion=EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
-        long nroCli=gestor.generarNvoNroCliente();
+        long nroEmp=gestor.generarNvoNroEmpleado();
         Combo.setItemComboSeleccionado(cmbCategoria, 1);
         Combo.setItemComboSeleccionado(cmbTurno, 3);
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroCli));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroEmp));
         txtFechaAlta.setText(Fecha.fechaActual());
 }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -484,22 +449,22 @@ public class ABMEmpleado extends javax.swing.JFrame {
         gestor.setIdPrioridadCliente(idPrioridad);
         gestor.setIdTipoDocResponsable(idTipoDocResponsable);
 
-        idCliente=-1;
+        idEmpleado=-1;
 
         switch(opcion) {
-            case NUEVO:   idCliente=gestor.registrarCliente(empleado);
+            case NUEVO:   idEmpleado=gestor.registrarCliente(empleado);
             break;
             case MODIFICAR: gestor.setIdDomicilioCliente(domicilioClienteDB.getIddomicilio());
             gestor.setIdDomicilioResponsable(domicilioResponsableDB.getIddomicilio());
             gestor.setIdResponsable(responsableDB.getIdresponsable());
             gestor.setIdCliente(empleadoDB.getIdcliente());
-            idCliente=gestor.modificarCliente(empleado);
+            idEmpleado=gestor.modificarCliente(empleado);
             break;
             default:        break;
         }
         opcion=EnumOpcionesABM.GUARDAR;
 
-        if(idCliente>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+        if(idEmpleado>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
         else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -512,7 +477,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         int result=-1;
         java.sql.Date fechaBaja=new Date(Fecha.parseToDate(Fecha.fechaActual(),"dd/MM/yyyy").getTime());
         empleadoDB.setFechabaja(fechaBaja);
-        gestor.setIdCliente(idCliente);
+        gestor.setIdCliente(idEmpleado);
         result=gestor.bajaCliente(empleadoDB);
         if(result>0)JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
         else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
@@ -564,64 +529,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
         gestor.obtenerCargos(cmbCargo);
     }
 
-    public void setDomicilio(Domicilio dom, long id) {
-        domicilioCliente=dom;
-        this.idDomicilio=id;
-        gestor.tomarDomicilioCliente(dom, id);
-    }
-
-    public void setDomicilio(Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
-        domicilioCliente=dom;
-        gestor.tomarDomicilioClienteDB(domDB);
-    }
-
-    public void mostrarDatosDomicilio() {
-
-        String prov=domicilioCliente.getBarrio().getLocalidad().getProvincia().getNombre();
-        String barrio=domicilioCliente.getBarrio().getNombre();
-        String localidad=domicilioCliente.getBarrio().getLocalidad().getNombre();
-        String calle=domicilioCliente.getCalle();
-        int nro=domicilioCliente.getNumeroCalle();
-        int piso=domicilioCliente.getPiso();
-        String torre=domicilioCliente.getTorre();
-        String numero=String.valueOf(domicilioCliente.getNumeroCalle());
-        beanDomicilioCliente.getTxtCalle().setText(calle);
-        beanDomicilioCliente.getTxtNumero().setText(String.valueOf(nro));
-        beanDomicilioCliente.getTxtTorre().setText(torre);
-        beanDomicilioCliente.getSldPiso().setValue(piso);
-    }
-
-    public void setResponsable(Responsable respNegocio, long idResponsable) {
-        responsable=respNegocio;
-        this.idResponsable=idResponsable;
-        gestor.tomarResponsableCliente(respNegocio, idResponsable);
-    }
-
-    public void setResponsable(Responsable respNegocio, metalsoft.datos.dbobject.ResponsableDB respDB) {
-        responsable=respNegocio;
-        gestor.tomarResponsableClienteDB(respDB);
-    }
-
-    public void mostrarDatosResponsable() {
-        String nombre=responsable.getNombre();
-        String apellido=responsable.getApellido();
-    }
-
-    public void cargarComboProvincia(JComboBox cmb)
+   public void cargarComboProvincia(JComboBox cmb)
     {
         cmb.removeAllItems();
         gestor.obtenerProvincias(cmb);
-    }
-
-    private Responsable crearResponsable(String apellido,String email,String fax,String nombre,String nroDoc,String telefono) {
-        Responsable resp=new Responsable();
-        resp.setApellido(apellido);
-        resp.setEmail(email);
-        resp.setFax(fax);
-        resp.setNombre(nombre);
-        resp.setNroDocumento(Long.parseLong(nroDoc));
-        resp.setTelefono(telefono);
-        return resp;
     }
 
     private Cliente crearCliente(String cuit,String cel,String fechaAlta,String fechaBaja,String mail,String nroCli, String razon, String tel) {
@@ -653,7 +564,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     }
 
     public void clienteSeleccionado() {
-        clienteDB=gestor.buscarClienteDB(idCliente);
+        clienteDB=gestor.buscarClienteDB(idEmpleado);
         domicilioClienteDB=gestor.buscarDomicilioClienteDB(clienteDB.getDomicilio());
         responsableDB=gestor.buscarResponsableClienteDB(clienteDB.getResponsable());
         domicilioResponsableDB=gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
