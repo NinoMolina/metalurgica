@@ -95,6 +95,7 @@ public class Principal extends javax.swing.JFrame {
         mnuFinanzas = new javax.swing.JMenu();
         mnuRRHH = new javax.swing.JMenu();
         mniListadoClientes = new javax.swing.JMenuItem();
+        mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
@@ -256,6 +257,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuRRHH.add(mniListadoClientes);
+
+        mniRegistrarDiaNoLaboral.setText("Registrar Día no Laboral");
+        mniRegistrarDiaNoLaboral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarDiaNoLaboralActionPerformed(evt);
+            }
+        });
+        mnuRRHH.add(mniRegistrarDiaNoLaboral);
 
         mbrMenu.add(mnuRRHH);
 
@@ -467,6 +476,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniEmpresaMetalurgicaActionPerformed
 
+    private void mniRegistrarDiaNoLaboralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarDiaNoLaboralActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarDiaNoLaboral.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniRegistrarDiaNoLaboralActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -494,6 +515,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAyuda;
