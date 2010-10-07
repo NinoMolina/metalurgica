@@ -76,6 +76,20 @@ public class AccessFunctions {
         }
         return result;
     }
+     public static long nvoNroEmpleado(Connection cn)
+    {
+        String query="{ ? = call nvonroempleado()}";
+        long result=-1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result=cs.getLong(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
     public static long nvoNroMateriaPrima(Connection cn)
     {
