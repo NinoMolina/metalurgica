@@ -13,12 +13,8 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Barrio;
 import metalsoft.datos.dbobject.Cargo;
 import metalsoft.datos.dbobject.Categoria;
-import metalsoft.datos.dbobject.ClientePK;
-import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DomicilioDB;
-import metalsoft.datos.dbobject.Estadocliente;
 
-import metalsoft.datos.dbobject.PrioridadDB;
 import metalsoft.datos.dbobject.Provincia;
 import metalsoft.datos.dbobject.Tipodocumento;
 import metalsoft.datos.dbobject.Turno;
@@ -29,29 +25,21 @@ import metalsoft.datos.idao.BarrioDAO;
 import metalsoft.datos.idao.CargoDAO;
 import metalsoft.datos.idao.CategoriaDAO;
 import metalsoft.datos.idao.ClienteDAO;
-import metalsoft.datos.idao.CondicionivaDAO;
 import metalsoft.datos.idao.DomicilioDAO;
-import metalsoft.datos.idao.EstadoclienteDAO;
+import metalsoft.datos.idao.EmpleadoDAO;
 import metalsoft.datos.idao.LocalidadDAO;
-import metalsoft.datos.idao.PrioridadDAO;
 import metalsoft.datos.idao.ProvinciaDAO;
-import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
 import metalsoft.datos.idao.TurnoDAO;
-import metalsoft.negocio.access.AccessCliente;
-import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.compras.Responsable;
 import metalsoft.negocio.rrhh.TipoDocumento;
-import metalsoft.negocio.ventas.Cliente;
-import metalsoft.negocio.ventas.CondicionIva;
 /**
  *
  * @author Vicky
  */
 public class GestorEmpleado {
-    private Turno[] turnos=null;
-   private CondicionIva[] cinegocio=null;
+   private Turno[] turnos=null;
    private Categoria[] categorias=null;
    private Cargo[] cargos=null;
    private Provincia[] provincias=null;
@@ -62,23 +50,18 @@ public class GestorEmpleado {
    private DomicilioDB domicilioResponsableDB=null;
    private Tipodocumento[] tiposDoc=null;
     private metalsoft.negocio.rrhh.Domicilio domicilioCliente;
-    private Cliente cliente;
-    private long idDomicilioCliente,idDomicilioResponsable;
-    private long idBarrioCliente,idLocalidadCliente,idProvinciaCliente;
+    private Empleado empleado;
+    private long idDomicilioResponsable;
     private long idBarrioResponsable,idLocalidadResponsable,idProvinciaResponsable;
-    private long idPrioridadCliente,idEstadoCliente,idCondicionIva;
     private long idTipoDocResponsable;
-    private metalsoft.datos.dbobject.ResponsableDB responsableDB;
-    private long idResponsable;
-    private metalsoft.negocio.compras.Responsable responsable;
-    private long idCliente;
-    private metalsoft.datos.dbobject.ClienteDB clienteDB;
+    private long idEmpleado;
+    private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private metalsoft.datos.dbobject.Barrio barrioDB;
     private metalsoft.datos.dbobject.Localidad localidadDB;
 
-    public metalsoft.datos.dbobject.ClienteDB[] buscarClientes(String valor)
+    public metalsoft.datos.dbobject.EmpleadoDB[] buscarEmpleados(String valor)
     {
-        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        EmpleadoDAO dao=new DAOFactoryImpl().createEmpleadoDAO();
         Connection cn=null;
 
         try {
@@ -392,37 +375,37 @@ public class GestorEmpleado {
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
+        empleadoDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
             cn = pg.concectGetCn();
-            clienteDB.setCelular(cliente.getCelular());
-            clienteDB.setCondicioniva(turnos[indexCondIva].getIdcondicioniva());
-            clienteDB.setCuit(cliente.getCUIT());
-            clienteDB.setDomicilio(idDomicilio);
-            clienteDB.setEstado(cargos[indexEstado].getIdestado());
+            empleadoDB.setCelular(cliente.getCelular());
+            empleadoDB.setCondicioniva(turnos[indexCondIva].getIdcondicioniva());
+            empleadoDB.setCuit(cliente.getCUIT());
+            empleadoDB.setDomicilio(idDomicilio);
+            empleadoDB.setEstado(cargos[indexEstado].getIdestado());
 
             if(cliente.getFechaAlta()!=null)
-                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+                empleadoDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
             else
-                clienteDB.setFechaalta(null);
+                empleadoDB.setFechaalta(null);
 
             if(cliente.getFechaBaja()!=null)
-                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+                empleadoDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
             else
-                clienteDB.setFechabaja(null);
+                empleadoDB.setFechabaja(null);
 
-            clienteDB.setMail(cliente.getMail());
-            clienteDB.setNrocliente(cliente.getNroCliente());
-            clienteDB.setPrioridad(categorias[indexPrioridad].getIdprioridad());
-            clienteDB.setRazonsocial(cliente.getRazonSocial());
-            clienteDB.setResponsable(idResponsable);
-            clienteDB.setTelefono(cliente.getTelefono());
-            clienteDB.setUsuario(1);
+            empleadoDB.setMail(cliente.getMail());
+            empleadoDB.setNrocliente(cliente.getNroCliente());
+            empleadoDB.setPrioridad(categorias[indexPrioridad].getIdprioridad());
+            empleadoDB.setRazonsocial(cliente.getRazonSocial());
+            empleadoDB.setResponsable(idResponsable);
+            empleadoDB.setTelefono(cliente.getTelefono());
+            empleadoDB.setUsuario(1);
 
-            result=dao.insert(clienteDB, cn);
-            clienteDB.setIdcliente(result);
+            result=dao.insert(empleadoDB, cn);
+            empleadoDB.setIdcliente(result);
         } catch (Exception ex) {
             Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -436,48 +419,48 @@ public class GestorEmpleado {
         ResponsableDAO daoResp=new DAOFactoryImpl().createResponsableDAO();
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
+        empleadoDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            clienteDB.setCelular(cliente.getCelular());
-            clienteDB.setCondicioniva(turnos[indexCondIva].getIdcondicioniva());
-            clienteDB.setCuit(cliente.getCUIT());
+            empleadoDB.setCelular(cliente.getCelular());
+            empleadoDB.setCondicioniva(turnos[indexCondIva].getIdcondicioniva());
+            empleadoDB.setCuit(cliente.getCUIT());
 
             int idDom=daoDom.insert(domicilioClienteDB, cn);
-            clienteDB.setDomicilio(idDom);
+            empleadoDB.setDomicilio(idDom);
 
-            clienteDB.setEstado(cargos[indexEstado].getIdestado());
+            empleadoDB.setEstado(cargos[indexEstado].getIdestado());
 
             if(cliente.getFechaAlta()!=null)
-                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+                empleadoDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
             else
-                clienteDB.setFechaalta(null);
+                empleadoDB.setFechaalta(null);
 
             if(cliente.getFechaBaja()!=null)
-                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+                empleadoDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
             else
-                clienteDB.setFechabaja(null);
+                empleadoDB.setFechabaja(null);
 
-            clienteDB.setMail(cliente.getMail());
-            clienteDB.setNrocliente(cliente.getNroCliente());
-            clienteDB.setPrioridad(categorias[indexPrioridad].getIdprioridad());
-            clienteDB.setRazonsocial(cliente.getRazonSocial());
+            empleadoDB.setMail(cliente.getMail());
+            empleadoDB.setNrocliente(cliente.getNroCliente());
+            empleadoDB.setPrioridad(categorias[indexPrioridad].getIdprioridad());
+            empleadoDB.setRazonsocial(cliente.getRazonSocial());
 
             int idDomResp=daoDom.insert(domicilioResponsableDB, cn);
             responsableDB.setDomicilio(idDomResp);
             int idResp=daoResp.insert(responsableDB, cn);
-            clienteDB.setResponsable(idResp);
+            empleadoDB.setResponsable(idResp);
 
-            clienteDB.setTelefono(cliente.getTelefono());
+            empleadoDB.setTelefono(cliente.getTelefono());
             //deberia autogenerar un usario y contraseña
-            clienteDB.setUsuario(1);
+            empleadoDB.setUsuario(1);
 
-            result=dao.insert(clienteDB, cn);
+            result=dao.insert(empleadoDB, cn);
             cn.commit();
-            clienteDB.setIdcliente(result);
+            empleadoDB.setIdcliente(result);
         } catch (Exception ex) {
             try {
                 Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -502,7 +485,7 @@ public class GestorEmpleado {
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
+        empleadoDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
 
         try {
@@ -514,7 +497,7 @@ public class GestorEmpleado {
             long idResp=cliente.crearResponsable(cliente.getResponsable(),idBarrioResponsable,idTipoDocResponsable,cn);
             result=AccessCliente.registrarCliente(cliente, idResp, idDom, idEstadoCliente, idCondicionIva, idPrioridadCliente, cn);
             cn.commit();
-            idCliente=result;
+            idEmpleado=result;
 
         } catch (Exception ex) {
             try {
@@ -541,46 +524,46 @@ public class GestorEmpleado {
 
         PostgreSQLManager pg=new PostgreSQLManager();
         Connection cn=null;
-        clienteDB=new metalsoft.datos.dbobject.ClienteDB();
+        empleadoDB=new metalsoft.datos.dbobject.ClienteDB();
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        ClientePK pk=new ClientePK(idCliente);
+        ClientePK pk=new ClientePK(idEmpleado);
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            clienteDB.setCelular(cliente.getCelular());
-            clienteDB.setCondicioniva(idCondicionIva);
-            clienteDB.setCuit(cliente.getCUIT());
+            empleadoDB.setCelular(cliente.getCelular());
+            empleadoDB.setCondicioniva(idCondicionIva);
+            empleadoDB.setCuit(cliente.getCUIT());
 
             int idDom=cliente.modificarDomicilio(cliente.getDomicilio(),idDomicilioCliente, idBarrioCliente, cn);
-            clienteDB.setDomicilio(idDomicilioCliente);
+            empleadoDB.setDomicilio(idDomicilioCliente);
 
-            clienteDB.setEstado(idEstadoCliente);
+            empleadoDB.setEstado(idEstadoCliente);
 
             if(cliente.getFechaAlta()!=null)
-                clienteDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
+                empleadoDB.setFechaalta(new java.sql.Date(cliente.getFechaAlta().getTime()));
             else
-                clienteDB.setFechaalta(null);
+                empleadoDB.setFechaalta(null);
 
             if(cliente.getFechaBaja()!=null)
-                clienteDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
+                empleadoDB.setFechabaja(new java.sql.Date(cliente.getFechaBaja().getTime()));
             else
-                clienteDB.setFechabaja(null);
+                empleadoDB.setFechabaja(null);
 
-            clienteDB.setMail(cliente.getMail());
-            clienteDB.setNrocliente(cliente.getNroCliente());
-            clienteDB.setPrioridad(idPrioridadCliente);
-            clienteDB.setRazonsocial(cliente.getRazonSocial());
+            empleadoDB.setMail(cliente.getMail());
+            empleadoDB.setNrocliente(cliente.getNroCliente());
+            empleadoDB.setPrioridad(idPrioridadCliente);
+            empleadoDB.setRazonsocial(cliente.getRazonSocial());
 
 
             int idResp=cliente.modificarResponsable(cliente.getResponsable(),idResponsable,idDomicilioResponsable,idBarrioResponsable,idTipoDocResponsable,cn);
-            clienteDB.setResponsable(idResponsable);
+            empleadoDB.setResponsable(idResponsable);
 
-            clienteDB.setTelefono(cliente.getTelefono());
+            empleadoDB.setTelefono(cliente.getTelefono());
             //deberia autogenerar un usario y contraseña
-            clienteDB.setUsuario(1);
+            empleadoDB.setUsuario(1);
 
-            result=dao.update(pk,clienteDB, cn);
-            clienteDB.setIdcliente(idCliente);
+            result=dao.update(pk,empleadoDB, cn);
+            empleadoDB.setIdcliente(idEmpleado);
             cn.commit();
 
         } catch (Exception ex) {
@@ -619,8 +602,8 @@ public class GestorEmpleado {
     
 
     public metalsoft.datos.dbobject.ClienteDB obtenerClienteSeleccionado(long id) {
-        clienteDB=buscarClienteEnArray(id);
-        return clienteDB;
+        empleadoDB=buscarClienteEnArray(id);
+        return empleadoDB;
     }
 
     public metalsoft.datos.dbobject.ClienteDB buscarClienteEnArray(long id)
@@ -645,7 +628,7 @@ public class GestorEmpleado {
 
         try {
             array = dao.findByIdcliente(id, cn);
-            clienteDB=array[0];
+            empleadoDB=array[0];
         } catch (Exception ex) {
             Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -657,7 +640,7 @@ public class GestorEmpleado {
                 Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return clienteDB;
+        return empleadoDB;
     }
 
     public DomicilioDB buscarDomicilioClienteDB(long id) {
@@ -756,7 +739,7 @@ public class GestorEmpleado {
         Connection cn=null;
 
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        ClientePK pk=new ClientePK(idCliente);
+        ClientePK pk=new ClientePK(idEmpleado);
         try {
             cn = pg.concectGetCn();
             clienteDB.setEstado(idEstadoCliente);
@@ -789,7 +772,7 @@ public class GestorEmpleado {
         return id;
     }
 
-    public long generarNvoNroCliente() {
+    public long generarNvoNroEmpleado() {
         long result=-1;
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -798,14 +781,14 @@ public class GestorEmpleado {
             cn = pg.concectGetCn();
             result=AccessFunctions.nvoNroCliente(cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
