@@ -106,7 +106,7 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 				ps.setString(5,empleado.getTelefono());
 				ps.setString(6,empleado.getEmail());
 				ps.setLong(7,empleado.getDomicilio());
-				ps.setInt(8,empleado.getNrodocumento());
+				ps.setLong(8,empleado.getNrodocumento());
 				ps.setLong(9,empleado.getTipodocumento());
 				ps.setLong(10,empleado.getCategoria());
 				ps.setLong(11,empleado.getUsuario());
