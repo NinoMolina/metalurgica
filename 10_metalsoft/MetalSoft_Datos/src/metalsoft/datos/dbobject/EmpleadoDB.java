@@ -29,7 +29,7 @@ public class EmpleadoDB implements Serializable
 	private String telefono;
 	private String email;
 	private long domicilio;
-	private int nrodocumento;
+	private long nrodocumento;
 	private long tipodocumento;
 	private long categoria;
 	private long usuario;
@@ -105,10 +105,10 @@ public class EmpleadoDB implements Serializable
 	public long getDomicilio(){
 		 return(domicilio);
 	}
-	public void setNrodocumento(int nrodocumento ){
+	public void setNrodocumento(long nrodocumento ){
 		 this.nrodocumento =nrodocumento;
 	}
-	public int getNrodocumento(){
+	public long getNrodocumento(){
 		 return(nrodocumento);
 	}
 	public void setTipodocumento(long tipodocumento ){
