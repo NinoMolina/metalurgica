@@ -2,18 +2,19 @@
 
 package metalsoft.negocio.rrhh;
 
+import java.util.Date;
 import metalsoft.negocio.adminusuarios.Usuario;
 
 public class Empleado extends Persona 
 {
-   private int legajo;
-   private int fechaIngreso;
+   private long legajo;
+   private Date fechaIngreso;
    private Turno turno;
    private Categoria categoria;
    private Asistencia asistencia;
    private Usuario usuario;
-   private int fechaEgreso;
-   private int motivoEgreso;
+   private Date fechaEgreso;
+   private String motivoEgreso;
    private Cargo cargo;
    public Usuario theUsuario;
    public TipoDocumento theTipoDocumento;
