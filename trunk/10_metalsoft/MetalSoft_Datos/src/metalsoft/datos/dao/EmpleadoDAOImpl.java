@@ -54,12 +54,12 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 /**
 * This method updates a record in table EMPLEADO
 * @param EmpleadoPK
-* @param Empleado
+* @param EmpleadoDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(EmpleadoPK empleadopk, Empleado empleado, Connection con)throws EmpleadoException{
+	public int update(EmpleadoPK empleadopk, EmpleadoDB empleado, Connection con)throws EmpleadoException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -71,7 +71,7 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 				ps.setString(5,empleado.getTelefono());
 				ps.setString(6,empleado.getEmail());
 				ps.setLong(7,empleado.getDomicilio());
-				ps.setInt(8,empleado.getNrodocumento());
+				ps.setLong(8,empleado.getNrodocumento());
 				ps.setLong(9,empleado.getTipodocumento());
 				ps.setLong(10,empleado.getCategoria());
 				ps.setLong(11,empleado.getUsuario());
@@ -88,12 +88,12 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 /**
 * This method inserts data in table EMPLEADO
 *
-* @param Empleado empleado
+* @param EmpleadoDB empleado
 * @param   Connection con
 * @return  EmpleadoPK
 */
 
-	public int insert(Empleado empleado ,Connection con)throws EmpleadoException {
+	public int insert(EmpleadoDB empleado ,Connection con)throws EmpleadoException {
 
 		PreparedStatement ps = null;
 		try
@@ -125,7 +125,7 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * 
 */
 
-	public Empleado findByPrimaryKey(long idempleado, Connection con) throws EmpleadoException{
+	public EmpleadoDB findByPrimaryKey(long idempleado, Connection con) throws EmpleadoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -148,10 +148,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * 
 * @param  EmpleadoPK empleadopk
 * @param Connection con
-* @return  Empleado
+* @return  EmpleadoDB
 */
 
-	public Empleado findByPrimaryKey(EmpleadoPK empleadopk, Connection con) throws EmpleadoException{
+	public EmpleadoDB findByPrimaryKey(EmpleadoPK empleadopk, Connection con) throws EmpleadoException{
 		return findByPrimaryKey(empleadopk.getIdempleado(), con);
 	}
 
@@ -161,10 +161,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  idempleado
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByIdempleado(long idempleado, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByIdempleado(long idempleado, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where idempleado = ? order by idempleado";
@@ -188,10 +188,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  legajo
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByLegajo(long legajo, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByLegajo(long legajo, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where legajo = ? order by legajo";
@@ -215,10 +215,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   Date  fechaingreso
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByFechaingreso(Date fechaingreso, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByFechaingreso(Date fechaingreso, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where fechaingreso = ? order by fechaingreso";
@@ -242,10 +242,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByNombre(String nombre, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByNombre(String nombre, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where nombre = ? order by nombre";
@@ -269,10 +269,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   String  apellido
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByApellido(String apellido, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByApellido(String apellido, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where apellido = ? order by apellido";
@@ -296,10 +296,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   String  telefono
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByTelefono(String telefono, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByTelefono(String telefono, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where telefono = ? order by telefono";
@@ -323,10 +323,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   String  email
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByEmail(String email, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByEmail(String email, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where email = ? order by email";
@@ -350,10 +350,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  domicilio
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByDomicilio(long domicilio, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByDomicilio(long domicilio, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where domicilio = ? order by domicilio";
@@ -377,10 +377,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   int  nrodocumento
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByNrodocumento(int nrodocumento, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByNrodocumento(int nrodocumento, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where nrodocumento = ? order by nrodocumento";
@@ -404,10 +404,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  tipodocumento
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByTipodocumento(long tipodocumento, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByTipodocumento(long tipodocumento, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where tipodocumento = ? order by tipodocumento";
@@ -431,10 +431,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  categoria
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByCategoria(long categoria, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByCategoria(long categoria, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where categoria = ? order by categoria";
@@ -458,10 +458,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  usuario
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByUsuario(long usuario, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByUsuario(long usuario, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where usuario = ? order by usuario";
@@ -485,10 +485,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   Date  fechaegreso
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByFechaegreso(Date fechaegreso, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByFechaegreso(Date fechaegreso, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where fechaegreso = ? order by fechaegreso";
@@ -512,10 +512,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   String  motivoegreso
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByMotivoegreso(String motivoegreso, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByMotivoegreso(String motivoegreso, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where motivoegreso = ? order by motivoegreso";
@@ -539,10 +539,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 *
 * @param   long  cargo
 * @param   Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	public Empleado[] findByCargo(long cargo, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findByCargo(long cargo, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado where cargo = ? order by cargo";
@@ -564,11 +564,11 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * Returns all rows from empleado table 
 *
 * @param Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 *
 */
 
-	public Empleado[] findAll( Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findAll( Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado";
@@ -592,11 +592,11 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 *
 */
 
-	public Empleado[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -623,11 +623,11 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 *
 */
 
-	public Empleado[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoException{
+	public EmpleadoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idempleado, legajo, fechaingreso, nombre, apellido, telefono, email, domicilio, nrodocumento, tipodocumento, categoria, usuario, fechaegreso, motivoegreso, cargo from empleado";
@@ -653,14 +653,14 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Empleado
+* @return  EmpleadoDB
 *
 */
 
-	protected Empleado fetchSingleResult(ResultSet rs) throws SQLException
+	protected EmpleadoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Empleado dto = new Empleado();
+					EmpleadoDB dto = new EmpleadoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -672,12 +672,12 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Empleado dto
+* @param EmpleadoDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Empleado dto, ResultSet rs) throws SQLException
+	protected void populateVO(EmpleadoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdempleado(rs.getLong("idempleado"));
 		 dto.setLegajo(rs.getLong("legajo"));
@@ -701,18 +701,18 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Empleado[]
+* @return  EmpleadoDB[]
 */
 
-	protected Empleado[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected EmpleadoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Empleado dto = new Empleado();
+			EmpleadoDB dto = new EmpleadoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Empleado ret[] = new Empleado[ resultList.size() ];
+		EmpleadoDB ret[] = new EmpleadoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
