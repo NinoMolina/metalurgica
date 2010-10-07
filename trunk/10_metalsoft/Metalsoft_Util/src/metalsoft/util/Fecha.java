@@ -175,10 +175,12 @@ public class Fecha {
     }
     public static java.sql.Date parseToDateSQL(Date date)
     {
+        if(date==null)return null;
         return new java.sql.Date(date.getTime());
     }
     public static java.sql.Time parseToTimeSQL(Date date)
     {
+        if(date==null)return null;
         return new java.sql.Time(date.getTime());
     }
 
