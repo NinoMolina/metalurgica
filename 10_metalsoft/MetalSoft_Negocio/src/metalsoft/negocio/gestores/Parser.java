@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import metalsoft.datos.dbobject.CalendarioDB;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Condicioniva;
 import metalsoft.datos.dbobject.DetallepedidoDB;
@@ -28,6 +29,7 @@ import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
+import metalsoft.negocio.rrhh.Calendario;
 import metalsoft.negocio.ventas.DetallePedido;
 import metalsoft.negocio.ventas.DetallePresupuesto;
 import metalsoft.negocio.ventas.DetalleProducto;
@@ -486,6 +488,19 @@ public class Parser {
         Detallepiezacalidadpresupuesto db=new Detallepiezacalidadpresupuesto();
         db.setCantprocesocalidad(dpcp.getCantidadProcesoCalidad());
         db.setDuracionxpieza(Fecha.parseToTimeSQL(dpcp.getDuracionXPieza()));
+        return db;
+    }
+
+    public static CalendarioDB parseToCalendarioDB(Calendario cal) {
+        CalendarioDB db=new CalendarioDB();
+        db.setAnio(cal.getAnio());
+        db.setDia(cal.getDia());
+        db.setFecha(Fecha.parseToDateSQL(cal.getFecha()));
+        db.setHoradesde(Fecha.parseToTimeSQL(cal.getHoraDesde()));
+        db.setHorahasta(Fecha.parseToTimeSQL(cal.getHoraHasta()));
+        db.setMes(cal.getMes());
+        db.setTodoeldia(cal.isTodoElDia());
+
         return db;
     }
 }
