@@ -23,6 +23,78 @@ public class Empleado extends Persona
    public Categoria theCategoria;
    public Turno theTurno[];
    public Asistencia theAsistencia[];
+
+    public Asistencia getAsistencia() {
+        return asistencia;
+    }
+
+    public void setAsistencia(Asistencia asistencia) {
+        this.asistencia = asistencia;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Date getFechaEgreso() {
+        return fechaEgreso;
+    }
+
+    public void setFechaEgreso(Date fechaEgreso) {
+        this.fechaEgreso = fechaEgreso;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public long getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(long legajo) {
+        this.legajo = legajo;
+    }
+
+    public String getMotivoEgreso() {
+        return motivoEgreso;
+    }
+
+    public void setMotivoEgreso(String motivoEgreso) {
+        this.motivoEgreso = motivoEgreso;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
    
    /**
     * @roseuid 4C27F4650106
