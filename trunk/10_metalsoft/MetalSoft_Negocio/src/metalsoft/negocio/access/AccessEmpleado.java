@@ -11,10 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EmpleadoDB;
+import metalsoft.datos.dbobject.EmpleadoxturnoDB;
+import metalsoft.datos.dbobject.EmpleadoxturnoPK;
 import metalsoft.datos.dbobject.EmpleadoPK;
 import metalsoft.datos.exception.EmpleadoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.EmpleadoDAO;
+import metalsoft.datos.idao.EmpleadoxturnoDAO;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Empleado;
 /**
@@ -47,19 +50,31 @@ public class AccessEmpleado {
         }
         return x;
     }
-    public static long insert(Empleado empleado,long idturno, long idcategoria, long idusuario, long idcargo, Connection cn) {
+    public static long insert(Empleado empleado,long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, Connection cn) {
         long result=-1;
         EmpleadoDAO dao=new DAOFactoryImpl().createEmpleadoDAO();
         metalsoft.datos.dbobject.EmpleadoDB empleadoDB = null;
 
         try {
             empleadoDB=Parser.parseToEmpleadoDB(empleado);
-            empleadoDB.setMaquina(idmaquina);
-            empleadoDB.setUnidadmedida(idunidadmedida);
+            empleadoDB.setCategoria(idcategoria);
+            empleadoDB.setUsuario(idusuario);
+            empleadoDB.setDomicilio(iddomicilio);
+            empleadoDB.setCargo(idcargo);
+
 
 
             result=dao.insert(empleadoDB, cn);
-            empleadoDB.setIdetapaproduccion(result);
+            empleadoDB.setIdempleado(result);
+
+            EmpleadoxturnoDAO daoturnos=new DAOFactoryImpl().createEmpleadoxturnoDAO();
+            for(int i=0; i<idturno.length;i++)
+            {
+                EmpleadoxturnoDB ext=new EmpleadoxturnoDB();
+                ext.setIdempleado(empleadoDB.getIdempleado());
+                ext.setIdturno(idturno[i]);
+                result=dao.insert(empleadoDB, cn);
+            }
         } catch (Exception ex) {
             Logger.getLogger(AccessEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
