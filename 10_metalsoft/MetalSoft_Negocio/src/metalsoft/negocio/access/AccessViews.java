@@ -22,6 +22,7 @@ import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
@@ -407,6 +408,39 @@ public class AccessViews {
                 view.setHerramienta(rs.getString("herramienta"));
                 view.setDuracionestimada(rs.getTime("duracionestimada"));
                 view.setIdprocesocalidad(rs.getLong("idprocesocalidad"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewPedidoNoConfirmado> allPedidosNoConfirmados(Connection cn) {
+        ViewPedidoNoConfirmado view=null;
+        LinkedList<ViewPedidoNoConfirmado> ll=new LinkedList<ViewPedidoNoConfirmado>();
+        String query="SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,vencimientopresupuesto,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
+                     " FROM viewpedidosnoconfirmados";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewPedidoNoConfirmado();
+                view.setEstado(rs.getString("estado"));
+                view.setFechapedido(rs.getDate("fechapedido"));
+                view.setIdcliente(rs.getLong("idcliente"));
+                view.setIdestado(rs.getLong("idestado"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdpresupuesto(rs.getLong("idpresupuesto"));
+                view.setMontototal(rs.getDouble("montototal"));
+                view.setNropedcotcli(rs.getLong("nropedcotcli"));
+                view.setNropedido(rs.getLong("nropedido"));
+                view.setNropresupuesto(rs.getLong("nropresupuesto"));
+                view.setRazonsocial(rs.getString("razonsocial"));
+                view.setVencimientopresupuesto(rs.getDate("vencimientopresupuesto"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
