@@ -35,6 +35,7 @@ import metalsoft.datos.idao.TipodocumentoDAO;
 import metalsoft.datos.idao.TurnoDAO;
 import metalsoft.negocio.access.AccessEmpleado;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.rrhh.TipoDocumento;
@@ -393,33 +394,6 @@ public class GestorEmpleado {
         return result;
     }
 
-    public long registrarEmpleado(Empleado empleado, long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
-        PostgreSQLManager pg = null;
-        Connection cn = null;
-        pg = new PostgreSQLManager();
-        long result = -1;
-
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result = AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, iddomicilio, idtipodoc, cn);
-            cn.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return result;
-    }
 
     public long registrarEmpleado(Empleado empleado) {
         PostgreSQLManager pg = null;
@@ -434,8 +408,7 @@ public class GestorEmpleado {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
 
-            long idDom = empleado.crearDomicilio(empleado.getDomicilio(), idBarrio, cn);
-            result =  AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, idDom, idtipodoc, cn);
+            result =  AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, empleado.getDomicilio(), idtipodoc, cn);
 
             cn.commit();
             idEmpleado = result;
@@ -738,7 +711,7 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEmpleado(Empleado empleado,  long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
+    public long guardarEmpleado(Empleado empleado,  long[] idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
