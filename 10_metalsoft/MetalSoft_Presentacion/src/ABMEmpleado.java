@@ -403,21 +403,29 @@ public class ABMEmpleado extends javax.swing.JFrame {
         long idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
         long idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
         long idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
-        long idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
-        
+        long idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.get.getSelectedItem()).getId()));
 
+	private long legajo;
+	private Date fechaingreso;
+	private long domicilio;
+	private long tipodocumento;
+	//private long categoria;
+	private long usuario;
+	private Date fechaegreso;
+	private String motivoegreso;
+	//private long cargo;
+        String motivoEgreso=txtMotivoEgreso.getText()
         String apeResp = beanResponsable.getTxtApellido().getText();
         String emaResp = beanResponsable.getTxtEmail().getText();
         String faxResp = beanResponsable.getTxtFax().getText();
         String nomResp = beanResponsable.getTxtNombre().getText();
-        String nrdResp = beanResponsable.getTxtNroDoc().getText();
+        long nrdResp = beanResponsable.getTxtNroDoc().getText();
         String telResp = beanResponsable.getTxtTelefono().getText();
-        responsable = crearResponsable(apeResp, emaResp, faxResp, nomResp, nrdResp, telResp);
-        calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
-        depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
-        nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
-        piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
-        torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
+        String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
+        String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
+        int nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
+        int piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
+        String torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
         responsable.setDomicilio(domicilioResponsable);
 
