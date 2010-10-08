@@ -96,9 +96,10 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 	public int insert(EmpleadoDB empleado ,Connection con)throws EmpleadoException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into EMPLEADO( LEGAJO, FECHAINGRESO, NOMBRE, APELLIDO, TELEFONO, EMAIL, DOMICILIO, NRODOCUMENTO, TIPODOCUMENTO, CATEGORIA, USUARIO, FECHAEGRESO, MOTIVOEGRESO, CARGO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into EMPLEADO( LEGAJO, FECHAINGRESO, NOMBRE, APELLIDO, TELEFONO, EMAIL, DOMICILIO, NRODOCUMENTO, TIPODOCUMENTO, CATEGORIA, USUARIO, FECHAEGRESO, MOTIVOEGRESO, CARGO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)RETURNING idempleado");
 				ps.setLong(1,empleado.getLegajo());
 				ps.setDate(2,empleado.getFechaingreso());
 				ps.setString(3,empleado.getNombre());
@@ -114,7 +115,9 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 				ps.setString(13,empleado.getMotivoegreso());
 				ps.setLong(14,empleado.getCargo());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+                return (int)rs.getLong("idempleado");
 		}catch(SQLException sqle){throw new EmpleadoException(sqle);}
 		catch(Exception e){throw new EmpleadoException(e);}
 	}
