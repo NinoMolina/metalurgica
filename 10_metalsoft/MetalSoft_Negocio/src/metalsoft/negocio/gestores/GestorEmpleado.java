@@ -51,7 +51,7 @@ public class GestorEmpleado {
     private Provincia[] provincias = null;
     private metalsoft.datos.dbobject.Localidad[] localidades = null;
     private Barrio[] barrios = null;
-    private metalsoft.datos.dbobject.ClienteDB[] clientes = null;
+    private metalsoft.datos.dbobject.EmpleadoDB[] empleados = null;
     private DomicilioDB domicilioDB = null;
     private DomicilioDB domicilioResponsableDB = null;
     private Tipodocumento[] tiposDoc = null;
@@ -525,24 +525,24 @@ public class GestorEmpleado {
     }
 
     public metalsoft.datos.dbobject.EmpleadoDB obtenerEmpleadoSeleccionado(long id) {
-        empleadoDB = buscarClienteEnArray(id);
+        empleadoDB = buscarEmpleadoEnArray(id);
         return empleadoDB;
     }
 
-    public metalsoft.datos.dbobject.ClienteDB buscarClienteEnArray(long id) {
-        for (metalsoft.datos.dbobject.ClienteDB c : clientes) {
-            if (c.getIdcliente() == id) {
+    public metalsoft.datos.dbobject.EmpleadoDB buscarEmpleadoEnArray(long id) {
+        for (metalsoft.datos.dbobject.EmpleadoDB c : empleados) {
+            if (c.getIdempleado() == id) {
                 return c;
             }
         }
         return null;
     }
 
-    public metalsoft.datos.dbobject.ClienteDB buscarClienteDB(long id) {
+    public metalsoft.datos.dbobject.EmpleadoDB buscarEmpleadoDB(long id) {
         PostgreSQLManager pg = new PostgreSQLManager();
-        ClienteDAO dao = new DAOFactoryImpl().createClienteDAO();
+        EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
         Connection cn = null;
-        metalsoft.datos.dbobject.ClienteDB[] array;
+        metalsoft.datos.dbobject.EmpleadoDB[] array;
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
@@ -550,21 +550,21 @@ public class GestorEmpleado {
         }
 
         try {
-            array = dao.findByIdcliente(id, cn);
+            array = dao.findByIdempleado(id, cn);
             empleadoDB = array[0];
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return empleadoDB;
     }
 
-    public DomicilioDB buscarDomicilioClienteDB(long id) {
+    public DomicilioDB buscarDomicilioEmpleadoDB(long id) {
         domicilioDB = buscarDomicilioDB(id);
         return domicilioDB;
     }
@@ -588,40 +588,15 @@ public class GestorEmpleado {
         try {
             dom = dao.findByIddomicilio(id, cn)[0];
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return dom;
-    }
-
-    public metalsoft.datos.dbobject.ResponsableDB buscarResponsableClienteDB(long id) {
-        PostgreSQLManager pg = new PostgreSQLManager();
-        ResponsableDAO dao = new DAOFactoryImpl().createResponsableDAO();
-        Connection cn = null;
-
-        try {
-            cn = pg.concectGetCn();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            responsableDB = dao.findByIdresponsable(id, cn)[0];
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return responsableDB;
     }
 
     public metalsoft.datos.dbobject.Localidad buscarLocalidadDeBarrio(long id) {
@@ -635,52 +610,39 @@ public class GestorEmpleado {
             barrioDB = daoBarrio.findByIdbarrio(id, cn)[0];
             localidadDB = daoLocalidad.findByIdlocalidad(barrioDB.getLocalidad(), cn)[0];
         } catch (BarrioException ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } catch (LocalidadException ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         return localidadDB;
     }
 
-    public int bajaCliente(metalsoft.datos.dbobject.ClienteDB clienteDB) {
+    public int bajaEmpleado(metalsoft.datos.dbobject.EmpleadoDB empleadoDB) {
         int result = -1;
-        ClienteDAO dao = new DAOFactoryImpl().createClienteDAO();
+        EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
 
         PostgreSQLManager pg = new PostgreSQLManager();
         Connection cn = null;
 
         //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        ClientePK pk = new ClientePK(idEmpleado);
+        EmpleadoPK pk = new EmpleadoPK(idEmpleado);
         try {
             cn = pg.concectGetCn();
-            clienteDB.setEstado(idEstadoCliente);
-            long idEstadoBaja = buscarIdEstadoBaja(cn);
-            clienteDB.setEstado(idEstadoBaja);
-            result = dao.update(pk, clienteDB, cn);
+            
+            result = dao.update(pk, empleadoDB, cn);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
-    }
-
-    public long buscarIdEstadoBaja(Connection cn) {
-        EstadoclienteDAO dao = new DAOFactoryImpl().createEstadoclienteDAO();
-        long id = -1;
-        try {
-            id = dao.findByNombre("Baja", cn)[0].getIdestado();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
     }
 
     public long generarNvoNroEmpleado() {
@@ -706,68 +668,67 @@ public class GestorEmpleado {
     public EmpleadoDB[] buscarConILIKE(String valor) {
         Connection cn = null;
         PostgreSQLManager pg = null;
-        EtapadeproduccionDB[] db = null;
+        EmpleadoDB[] db = null;
         try {
             pg = new PostgreSQLManager();
             cn = pg.concectGetCn();
-            db = AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
+            db = AccessEmpleado.findByNombreILIKE(valor, cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return db;
     }
 
-    public EtapadeproduccionDB buscarEtapaDeProduccionId(long valor) {
+    public EmpleadoDB buscarEmpleadoId(long valor) {
         Connection cn = null;
         PostgreSQLManager pg = null;
-        EtapadeproduccionDB db = null;
+        EmpleadoDB db = null;
         try {
             pg = new PostgreSQLManager();
             cn = pg.concectGetCn();
-            db = AccessEtapaDeProduccion.findById(valor, cn);
+            db = AccessEmpleado.findById(valor, cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return db;
     }
 
-    public boolean eliminarEtapaDeProduccion(long id) {
-        EtapadeproduccionDAO dao = new DAOFactoryImpl().createEtapadeproduccionDAO();
+    public boolean eliminarEmpleado(long id) {;
         Connection cn = null;
 
         try {
             cn = new PostgreSQLManager().concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
         //realizo la eliminación
 
         long result = -1;
-        result = AccessEtapaDeProduccion.delete(id, cn);
+        result = AccessEmpleado.delete(id, cn);
         try {
             cn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 cn.close();
                 cn = null;
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (result > 0) {
@@ -777,7 +738,7 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion, String idMaquina, String idUnidadmedida) {
+    public long guardarEmpleado(Empleado empleado,  long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
@@ -786,26 +747,26 @@ public class GestorEmpleado {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result = etapaDeProduccion.guardarEtapaDeProduccion(etapaDeProduccion, Long.parseLong(idMaquina), Long.parseLong(idUnidadmedida), cn);
+            result = AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, iddomicilio, idtipodoc, cn);
             cn.commit();
         } catch (Exception ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             try {
                 cn.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
             }
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
     }
 
-    public long modificarEtapaDeProduccion(EtapaDeProduccion etapaDeProduccion, long idEtapaDeProduccion, String idMaquina, String idUnidadMedida) {
+    public long modificarEmpleado(Empleado empleado, long idEmpleado, long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
@@ -814,20 +775,20 @@ public class GestorEmpleado {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result = etapaDeProduccion.modificarEtapaDeProduccion(etapaDeProduccion, idEtapaDeProduccion, Long.parseLong(idMaquina), Long.parseLong(idUnidadMedida), cn);
+            result = AccessEmpleado.update(empleado, idturno, idEmpleado, idcategoria, idusuario, idcargo, iddomicilio, idtipodoc, cn);
             cn.commit();
         } catch (Exception ex) {
-            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             try {
                 cn.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
             }
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
