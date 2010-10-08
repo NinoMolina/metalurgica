@@ -1,7 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package metalsoft.presentacion;
+
 
 /*
  * ABMEmpleado.java
@@ -10,7 +8,7 @@
  */
 import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
-import java.sql.Date;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +34,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private long idResponsable;
     private Empleado empleado;
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
+    private long[] turnos;
     private metalsoft.datos.dbobject.DomicilioDB domicilioResponsableDB;
     private EnumOpcionesABM opcion;
     private long idEmpleado;
@@ -44,7 +43,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
     public ABMEmpleado() {
         initComponents();
         gestor = new GestorEmpleado();
-        cargarComboTurno();
         cargarComboCategoria();
         cargarComboCargo();
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
@@ -59,7 +57,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         txtUsuario.setEnabled(b);
         dccFechaEgreso.setEnabled(b);
         dccFechaIngreso.setEnabled(b);
-        cmbTurno.setEnabled(b);
+        jpTurnos.setEnabled(b);
         cmbCargo.setEnabled(b);
         cmbCategoria.setEnabled(b);
         beanResponsable.setEnabled(b);
@@ -79,7 +77,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         lblNroCliente.setText("");
         cmbCargo.setSelectedIndex(0);
         cmbCategoria.setSelectedIndex(0);
-        cmbTurno.setSelectedIndex(0);
+        chkMañana.setSelected(false);
+        chkNoche.setSelected(false);
+        chkTarde.setSelected(false);
         beanResponsable.limpiarCampos();
     }
 
@@ -145,10 +145,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        cmbTurno = new javax.swing.JComboBox();
         cmbCategoria = new javax.swing.JComboBox();
         beanResponsable = new metalsoft.beans.Responsable();
         lblNroCliente = new javax.swing.JLabel();
@@ -167,6 +165,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jpTurnos = new javax.swing.JPanel();
+        chkMañana = new javax.swing.JCheckBox();
+        chkTarde = new javax.swing.JCheckBox();
+        chkNoche = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,15 +178,13 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
         jLabel5.setText("Fecha Ingreso:");
 
-        jLabel7.setText("Turno:");
-
         jLabel8.setText("Categoria:");
 
         jLabel13.setText("Fecha Egreso:");
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
 
-        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroCliente.setText("...");
 
         jLabel2.setText("Motivo de Egreso:");
@@ -245,6 +245,42 @@ public class ABMEmpleado extends javax.swing.JFrame {
             }
         });
 
+        jpTurnos.setBorder(javax.swing.BorderFactory.createTitledBorder("Turnos"));
+
+        chkMañana.setText("Mañana");
+
+        chkTarde.setText("Tarde");
+        chkTarde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkTardeActionPerformed(evt);
+            }
+        });
+
+        chkNoche.setText("Noche");
+
+        javax.swing.GroupLayout jpTurnosLayout = new javax.swing.GroupLayout(jpTurnos);
+        jpTurnos.setLayout(jpTurnosLayout);
+        jpTurnosLayout.setHorizontalGroup(
+            jpTurnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpTurnosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chkMañana)
+                .addGap(18, 18, 18)
+                .addComponent(chkTarde)
+                .addGap(18, 18, 18)
+                .addComponent(chkNoche)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+        jpTurnosLayout.setVerticalGroup(
+            jpTurnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpTurnosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpTurnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkMañana)
+                    .addComponent(chkTarde)
+                    .addComponent(chkNoche)))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -254,25 +290,22 @@ public class ABMEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lblNroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel8))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cmbTurno, javax.swing.GroupLayout.Alignment.LEADING, 0, 148, Short.MAX_VALUE)
-                                        .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))))
+                            .addComponent(jpTurnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(22, 22, 22)
-                                .addComponent(cmbCargo, 0, 227, Short.MAX_VALUE))
+                                .addComponent(cmbCargo, 0, 239, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,7 +315,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dccFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -295,7 +328,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -303,22 +336,15 @@ public class ABMEmpleado extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(lblNroCliente))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(cmbTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblNroCliente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -328,6 +354,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jpTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(dccFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,14 +363,12 @@ public class ABMEmpleado extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dccFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNuevo)
@@ -359,7 +385,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+            .addGap(0, 704, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -368,11 +394,11 @@ public class ABMEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGap(0, 471, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -389,7 +415,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         limpiarCampos();
         long nroEmp = gestor.generarNvoNroEmpleado();
         Combo.setItemComboSeleccionado(cmbCategoria, 1);
-        Combo.setItemComboSeleccionado(cmbTurno, 3);
+        chkMañana.setSelected(false);
+        chkNoche.setSelected(false);
+        chkTarde.setSelected(false);
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroEmp));
 
 }//GEN-LAST:event_btnNuevoActionPerformed
@@ -397,61 +425,61 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
         long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
-
-        long idPrioridad = Long.parseLong(((ItemCombo) cmbTurno.getSelectedItem()).getId());
+        long[] turnos=null;
+        int i=0;
+        if(chkMañana.isSelected()==true){
+            turnos[i]=1;
+            i++;
+        }
+        if(chkTarde.isSelected()==true){
+            turnos[i]=2;
+            i++;
+        }
+        if(chkNoche.isSelected()==true){
+            turnos[i]=3;
+            i++;
+        }
 
         long idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
         long idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
         long idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
-        long idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.get.getSelectedItem()).getId()));
+        long idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
 
-	private long legajo;
-	private Date fechaingreso;
-	private long domicilio;
-	private long tipodocumento;
-	//private long categoria;
-	private long usuario;
-	private Date fechaegreso;
-	private String motivoegreso;
 	//private long cargo;
-        String motivoEgreso=txtMotivoEgreso.getText()
+        String motivoEgreso=txtMotivoEgreso.getText();
         String apeResp = beanResponsable.getTxtApellido().getText();
         String emaResp = beanResponsable.getTxtEmail().getText();
         String faxResp = beanResponsable.getTxtFax().getText();
         String nomResp = beanResponsable.getTxtNombre().getText();
-        long nrdResp = beanResponsable.getTxtNroDoc().getText();
         String telResp = beanResponsable.getTxtTelefono().getText();
         String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
         String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
-        int nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
-        int piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
+        String nroCalle =beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
+        String piso =String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
         String torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
+
+
+        Date fechaIngreso=null;
+        if(dccFechaIngreso.getSelectedDate()!=null)
+            fechaIngreso=dccFechaIngreso.getSelectedDate().getTime();
+        Date fechaEgreso=null;
+        if(dccFechaEgreso.getSelectedDate()!=null)
+            fechaEgreso=dccFechaEgreso.getSelectedDate().getTime();
+        empleado.setFechaIngreso(fechaIngreso);
+        empleado.setFechaEgreso(fechaEgreso);
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
-        responsable.setDomicilio(domicilioResponsable);
+        empleado.setDomicilio(domicilioResponsable);
 
-        String cuitCli = txtCUIT.getText();
-        String celCli = txtCelular.getText();
-        String fecAltaCli = txtFechaAlta.getText();
-        String fecBajaCli = txtFechaBaja.getText();
-        String mailCli = txtMail.getText();
         long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
-        String nroCli = String.valueOf(nro);
-        String razonCli = txtRazonSocial.getText();
-        String telCli = txtTelefono.getText();
-        empleado = crearCliente(cuitCli, celCli, fecAltaCli, fecBajaCli, mailCli, nroCli, razonCli, telCli);
-        empleado.setDomicilio(domicilioCliente);
-        empleado.setResponsable(responsable);
+        String nroEmp = String.valueOf(nro);
 
-        gestor.setIdBarrioCliente(idBarrio);
-        gestor.setIdBarrioResponsable(idBarrio);
-        gestor.setIdLocalidadCliente(idLocalidad);
-        gestor.setIdLocalidadResponsable(idLocalidad);
-        gestor.setIdProvinciaCliente(idProvincia);
-        gestor.setIdProvinciaResponsable(idProvincia);
-        gestor.setIdCondicionIva(idcargo);
-        gestor.setIdEstadoCliente(idCategoria);
-        gestor.setIdPrioridadCliente(idPrioridad);
-        gestor.setIdTipoDocResponsable(idTipoDoc);
+        gestor.setIdBarrio(idBarrio);
+        gestor.setIdLocalidad(idLocalidad);
+        gestor.setIdProvincia(idProvincia);
+        gestor.setIdcargo(idcargo);
+        gestor.setIdcategoria(idCategoria);
+        gestor.setIdturno(turnos);
+        gestor.setIdTipoDoc(idTipoDoc);
 
         idEmpleado = -1;
 
@@ -460,10 +488,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
                 idEmpleado = gestor.registrarEmpleado(empleado);
                 break;
             case MODIFICAR:
-                gestor.setIdDomicilioCliente(domicilioClienteDB.getIddomicilio());
-                gestor.setIdDomicilioResponsable(domicilioResponsableDB.getIddomicilio());
-                gestor.setIdResponsable(responsableDB.getIdresponsable());
-                gestor.setIdCliente(empleadoDB.getIdcliente());
+                gestor.setIdDomicilio(domicilioResponsableDB.getIddomicilio());
+                
                 idEmpleado = gestor.modificarCliente(empleado);
                 break;
             default:
@@ -485,37 +511,41 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int result = -1;
-        java.sql.Date fechaBaja = new Date(Fecha.parseToDate(Fecha.fechaActual(), "dd/MM/yyyy").getTime());
-        empleadoDB.setFechabaja(fechaBaja);
-        gestor.setIdCliente(idEmpleado);
-        result = gestor.bajaCliente(empleadoDB);
+        java.sql.Date fechaBaja = new java.sql.Date(Fecha.parseToDate(Fecha.fechaActual(), "dd/MM/yyyy").getTime());
+        empleadoDB.setFechaegreso(fechaBaja);
+        gestor.setIdEmpleado(idEmpleado);
+        result = gestor.bajaEmpleado(empleadoDB);
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+            JOptionPane.showMessageDialog(this, "El empleado se eliminó correctamente");
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el empleado");
         }
         opcion = EnumOpcionesABM.ELIMINAR;
 }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        opcion = EnumOpcionesABM.BUSCAR;
-        ABMCliente_Buscar buscar = null;
-        try {
-            buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
-            buscar.setVentanaCliente(this);
-            buscar.setGestor(gestor);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        opcion = EnumOpcionesABM.BUSCAR;
+//        ABMCliente_Buscar buscar = null;
+//        try {
+//            buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
+//            buscar.setVentanaCliente(this);
+//            buscar.setGestor(gestor);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void chkTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTardeActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_chkTardeActionPerformed
 
     private Domicilio crearDomicilio(String calle, String depto, String nroCalle, String piso, String torre) {
         Domicilio dom = new Domicilio();
@@ -525,11 +555,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         dom.setPiso(Integer.parseInt(piso));
         dom.setTorre(torre);
         return dom;
-    }
-
-    private void cargarComboTurno() {
-        cmbTurno.removeAllItems();
-        gestor.buscarTurno(cmbTurno);
     }
 
     private void cargarComboCategoria() {
@@ -547,81 +572,66 @@ public class ABMEmpleado extends javax.swing.JFrame {
         gestor.obtenerProvincias(cmb);
     }
 
-    private Cliente crearCliente(String cuit, String cel, String fechaAlta, String fechaBaja, String mail, String nroCli, String razon, String tel) {
-        Cliente x = new Cliente();
-        x.setCUIT(cuit);
-        x.setCelular(cel);
-
-        if (fechaAlta.compareTo("") != 0) {
-            x.setFechaAlta(Fecha.parseToDate(fechaAlta));
-        } else {
-            x.setFechaAlta(null);
-        }
-
-        if (fechaBaja.compareTo("") != 0) {
-            x.setFechaBaja(Fecha.parseToDate(fechaBaja));
-        } else {
-            x.setFechaBaja(null);
-        }
-
-        x.setMail(mail);
-        x.setNroCliente(Integer.parseInt(nroCli));
-        x.setRazonSocial(razon);
-        x.setTelefono(tel);
-
-        return x;
-    }
-
     private void cargarTipoDocumento() {
         beanResponsable.getCmbTipoDoc().removeAllItems();
         gestor.obtenerTipoDocumentos(beanResponsable.getCmbTipoDoc());
     }
 
     public void clienteSeleccionado() {
-        clienteDB = gestor.buscarEmpleadoDB(idEmpleado);
-        domicilioClienteDB = gestor.buscarDomicilioEmpleadoDB(clienteDB.getDomicilio());
-        responsableDB = gestor.buscarResponsableClienteDB(clienteDB.getResponsable());
-        domicilioResponsableDB = gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
-        mostrarDatosCliente();
+        empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
+        domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
+        mostrarDatosEmpleado();
         setEnableComponents(false);
     }
 
-    private void mostrarDatosCliente() {
-        cargarComboTurno();
+    private void mostrarDatosEmpleado() {
         cargarComboCargo();
         cargarComboCategoria();
-        cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
-//        cargarComboLocalidad(beanDomicilioCliente.getCmbLocalidad());
-//        cargarComboLocalidad(beanResponsable.getDomicilioResponsable().getCmbLocalidad());
-//        cargarComboBarrio(beanDomicilioCliente.getCmbBarrio());
-//        cargarComboBarrio(beanResponsable.getDomicilioResponsable().getCmbBarrio());
         cargarTipoDocumento();
-        setDatosCliente();
+        setDatosEmpleado();
     }
 
-    private void setDatosCliente() {
-        txtCUIT.setText(clienteDB.getCuit());
-        txtCelular.setText(clienteDB.getCelular());
-        txtFechaAlta.setText(Fecha.parseToString(clienteDB.getFechaalta(), "dd/MM/yyyy"));
-        java.sql.Date fechaBaja = clienteDB.getFechabaja();
-        if (fechaBaja != null) {
-            txtFechaBaja.setText(Fecha.parseToString(clienteDB.getFechabaja(), "dd/MM/yyyy"));
-        } else {
-            txtFechaBaja.setText("");
+    private void setDatosEmpleado() {
+
+        if(empleadoDB.getFechaingreso()==null)
+            dccFechaIngreso.setSelectedDate(null);
+        else{
+            GregorianCalendar gc=new GregorianCalendar();
+            gc.setTime(empleadoDB.getFechaingreso());
+            dccFechaIngreso.setSelectedDate(gc);
         }
-        txtMail.setText(clienteDB.getMail());
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, clienteDB.getNrocliente()));
-        txtRazonSocial.setText(clienteDB.getRazonsocial());
-        txtTelefono.setText(clienteDB.getTelefono());
 
-        setItemComboSeleccionado(cmbCondicionIVA, clienteDB.getCondicioniva());
-        setItemComboSeleccionado(cmbEstado, clienteDB.getEstado());
-        setItemComboSeleccionado(cmbPrioridad, clienteDB.getPrioridad());
+        if(empleadoDB.getFechaegreso()==null)
+            dccFechaEgreso.setSelectedDate(null);
+        else
+        {
+            GregorianCalendar gcb=new GregorianCalendar();
+            gcb.setTime(empleadoDB.getFechaegreso());
+            dccFechaEgreso.setSelectedDate(gcb);
+        }
+        
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, empleadoDB.getLegajo()));
+        txtMotivoEgreso.setText(empleadoDB.getMotivoegreso());
+        txtUsuario.setText(empleado.getUsuario().getUser());
+        if(empleadoDB.getCargo()<1) Combo.setItemComboSeleccionado(cmbCargo, -1);
+        else Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo());
+        if(empleadoDB.getCategoria()<1) Combo.setItemComboSeleccionado(cmbCategoria, -1);
+        else Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
 
-        setDatosDomicilio(beanDomicilioCliente, domicilioClienteDB);
+        for(int i=0;i<turnos.length;i++)
+        {
+            switch (i){
+                case 1:chkMañana.setSelected(true);
+                        break;
+                case 2:chkTarde.setSelected(true);
+                        break;
+                case 3:chkNoche.setSelected(true);
+                        break;
+            }
+        }
 
-        setDatosResponsable(responsableDB, domicilioResponsableDB);
+        setDatosResponsable(empleadoDB, domicilioResponsableDB);
     }
 
     private void setDatosDomicilio(metalsoft.beans.Domicilio beanDom, metalsoft.datos.dbobject.DomicilioDB domDB) {
@@ -653,10 +663,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
     }
 
-    private void setDatosResponsable(metalsoft.datos.dbobject.ResponsableDB respDB, metalsoft.datos.dbobject.DomicilioDB domRespDB) {
+    private void setDatosResponsable(metalsoft.datos.dbobject.EmpleadoDB respDB, metalsoft.datos.dbobject.DomicilioDB domRespDB) {
         beanResponsable.getTxtApellido().setText(respDB.getApellido());
         beanResponsable.getTxtEmail().setText(respDB.getEmail());
-        beanResponsable.getTxtFax().setText(respDB.getFax());
         beanResponsable.getTxtNombre().setText(respDB.getNombre());
         beanResponsable.getTxtNroDoc().setText(String.valueOf(respDB.getNrodocumento()));
         beanResponsable.getTxtTelefono().setText(respDB.getTelefono());
@@ -672,7 +681,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new ABMEmpleado().setVisible(true);
             }
@@ -687,9 +695,11 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JCheckBox chkMañana;
+    private javax.swing.JCheckBox chkNoche;
+    private javax.swing.JCheckBox chkTarde;
     private javax.swing.JComboBox cmbCargo;
     private javax.swing.JComboBox cmbCategoria;
-    private javax.swing.JComboBox cmbTurno;
     private datechooser.beans.DateChooserCombo dccFechaEgreso;
     private datechooser.beans.DateChooserCombo dccFechaIngreso;
     private javax.swing.JLabel jLabel1;
@@ -698,10 +708,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jpTurnos;
     private javax.swing.JLabel lblNroCliente;
     private javax.swing.JTextArea txtMotivoEgreso;
     private javax.swing.JTextField txtUsuario;
