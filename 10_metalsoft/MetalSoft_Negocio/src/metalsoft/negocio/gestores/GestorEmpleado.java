@@ -55,7 +55,7 @@ public class GestorEmpleado {
     private DomicilioDB domicilioDB = null;
     private DomicilioDB domicilioResponsableDB = null;
     private Tipodocumento[] tiposDoc = null;
-    private metalsoft.negocio.rrhh.Domicilio domicilioCliente;
+    private metalsoft.negocio.rrhh.Domicilio domicilio;
     private Empleado empleado;
     private long idDomicilio;
     private long idBarrio,  idLocalidad,  idProvincia;
@@ -458,6 +458,7 @@ public class GestorEmpleado {
     }
 
     public long modificarCliente(Empleado empleado) {
+    //Setear todos los camposss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         long result = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
 
@@ -486,20 +487,14 @@ public class GestorEmpleado {
                 empleadoDB.setFechaegreso(null);
             }
 
-            empleadoDB.(empleado.getMail());
             empleadoDB.setLegajo(empleado.getLegajo());
-            
-
-
-            int idResp = empleado.modificarResponsable(empleado.getResponsable(), idResponsable, idDomicilio, idBarrio, idTipoDoc, cn);
-            empleadoDB.setResponsable(idResponsable);
 
             empleadoDB.setTelefono(empleado.getTelefono());
             //deberia autogenerar un usario y contraseña
             empleadoDB.setUsuario(1);
 
             result = dao.update(pk, empleadoDB, cn);
-            empleadoDB.setIdcliente(idEmpleado);
+            empleadoDB.setIdempleado(idEmpleado);
             cn.commit();
 
         } catch (Exception ex) {
@@ -519,22 +514,17 @@ public class GestorEmpleado {
         return result;
     }
 
-    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, long id) {
-        domicilioCliente = dom;
-        idDomicilioCliente = id;
+    public void tomarDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long id) {
+        domicilio = dom;
+        idDomicilio = id;
     }
 
-    public void tomarDomicilioCliente(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
-        domicilioCliente = dom;
+    public void tomarDomicilio(metalsoft.negocio.rrhh.Domicilio dom, metalsoft.datos.dbobject.DomicilioDB domDB) {
+        domicilio = dom;
         domicilioDB = domDB;
     }
 
-    public void tomarResponsableCliente(Responsable respNegocio, long idResponsable) {
-        responsable = respNegocio;
-        this.idResponsable = idResponsable;
-    }
-
-    public metalsoft.datos.dbobject.ClienteDB obtenerClienteSeleccionado(long id) {
+    public metalsoft.datos.dbobject.EmpleadoDB obtenerEmpleadoSeleccionado(long id) {
         empleadoDB = buscarClienteEnArray(id);
         return empleadoDB;
     }
