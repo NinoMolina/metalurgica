@@ -70,14 +70,27 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 				ps.setString(4,empleado.getApellido());
 				ps.setString(5,empleado.getTelefono());
 				ps.setString(6,empleado.getEmail());
-				ps.setLong(7,empleado.getDomicilio());
+                long idem=empleado.getDomicilio();
+                if(idem>0) ps.setLong(7,empleado.getDomicilio());
+                else ps.setNull(7,java.sql.Types.NULL);
+				
 				ps.setLong(8,empleado.getNrodocumento());
-				ps.setLong(9,empleado.getTipodocumento());
-				ps.setLong(10,empleado.getCategoria());
-				ps.setLong(11,empleado.getUsuario());
+                long idtd=empleado.getTipodocumento();
+                if(idtd>0) ps.setLong(9,empleado.getTipodocumento());
+                else ps.setNull(9,java.sql.Types.NULL);
+				long idc=empleado.getCategoria();
+                if(idc>0) ps.setLong(10,empleado.getCategoria());
+                else ps.setNull(10,java.sql.Types.NULL);
+				long idu=empleado.getUsuario();
+                if(idu>0) ps.setLong(11,empleado.getUsuario());
+                else ps.setNull(11,java.sql.Types.NULL);
+				
 				ps.setDate(12,empleado.getFechaegreso());
 				ps.setString(13,empleado.getMotivoegreso());
-				ps.setLong(14,empleado.getCargo());
+                long idcar=empleado.getUsuario();
+                if(idcar>0) ps.setLong(14,empleado.getCargo());
+                else ps.setNull(14,java.sql.Types.NULL);
+				
 				ps.setLong(15,empleadopk.getIdempleado());
 
 				return(ps.executeUpdate());
@@ -108,12 +121,21 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 				ps.setString(6,empleado.getEmail());
 				ps.setLong(7,empleado.getDomicilio());
 				ps.setLong(8,empleado.getNrodocumento());
-				ps.setLong(9,empleado.getTipodocumento());
-				ps.setLong(10,empleado.getCategoria());
-				ps.setLong(11,empleado.getUsuario());
+				long idtd=empleado.getTipodocumento();
+                if(idtd>0) ps.setLong(9,empleado.getTipodocumento());
+                else ps.setNull(9,java.sql.Types.NULL);
+				long idc=empleado.getCategoria();
+                if(idc>0) ps.setLong(10,empleado.getCategoria());
+                else ps.setNull(10,java.sql.Types.NULL);
+				long idu=empleado.getUsuario();
+                if(idu>0) ps.setLong(11,empleado.getUsuario());
+                else ps.setNull(11,java.sql.Types.NULL);
+
 				ps.setDate(12,empleado.getFechaegreso());
 				ps.setString(13,empleado.getMotivoegreso());
-				ps.setLong(14,empleado.getCargo());
+                long idcar=empleado.getUsuario();
+                if(idcar>0) ps.setLong(14,empleado.getCargo());
+                else ps.setNull(14,java.sql.Types.NULL);
 
 				rs=ps.executeQuery();
                 rs.next();
