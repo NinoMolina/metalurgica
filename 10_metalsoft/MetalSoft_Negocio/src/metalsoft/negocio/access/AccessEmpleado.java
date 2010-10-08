@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.DomicilioDB;
 import metalsoft.datos.dbobject.EmpleadoDB;
 import metalsoft.datos.dbobject.EmpleadoxturnoDB;
 import metalsoft.datos.dbobject.EmpleadoxturnoPK;
@@ -16,9 +17,11 @@ import metalsoft.datos.dbobject.EmpleadoPK;
 import metalsoft.datos.exception.EmpleadoException;
 import metalsoft.datos.exception.EmpleadoxturnoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.DomicilioDAO;
 import metalsoft.datos.idao.EmpleadoDAO;
 import metalsoft.datos.idao.EmpleadoxturnoDAO;
 import metalsoft.negocio.gestores.Parser;
+import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 
 /**
@@ -52,21 +55,27 @@ public class AccessEmpleado {
         return x;
     }
 
-    public static long insert(Empleado empleado, long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc, Connection cn) {
+    public static long insert(Empleado empleado, long[] idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc, Connection cn) {
         long result = -1;
+        long resultdom = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
+        DomicilioDAO daodom=new DAOFactoryImpl().createDomicilioDAO();
         metalsoft.datos.dbobject.EmpleadoDB empleadoDB = null;
+        DomicilioDB dom=null;
 
         try {
+            dom=Parser.parseToDomicilioDB(iddomicilio);
+            resultdom=daodom.insert(dom, cn);
             empleadoDB = Parser.parseToEmpleadoDB(empleado);
             empleadoDB.setCategoria(idcategoria);
             empleadoDB.setUsuario(idusuario);
-            empleadoDB.setDomicilio(iddomicilio);
             empleadoDB.setCargo(idcargo);
             empleadoDB.setTipodocumento(idtipodoc);
+            empleadoDB.setDomicilio(resultdom);
 
             result = dao.insert(empleadoDB, cn);
             empleadoDB.setIdempleado(result);
+
 
             EmpleadoxturnoDAO daoturnos = new DAOFactoryImpl().createEmpleadoxturnoDAO();
             for (int i = 0; i < idturno.length; i++) {
