@@ -2,7 +2,9 @@
 
 package metalsoft.negocio.rrhh;
 
+import java.sql.Connection;
 import java.util.Date;
+import metalsoft.negocio.access.AccessDomicilio;
 import metalsoft.negocio.adminusuarios.Usuario;
 
 public class Empleado extends Persona 
@@ -24,6 +26,12 @@ public class Empleado extends Persona
    public Turno theTurno[];
    public Asistencia theAsistencia[];
 
+   public long crearDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long idBarrio, Connection cn)
+   {
+        long result=-1;
+        result=AccessDomicilio.registrarDomicilio(dom, idBarrio, cn);
+        return result;
+   }
     public Asistencia getAsistencia() {
         return asistencia;
     }
