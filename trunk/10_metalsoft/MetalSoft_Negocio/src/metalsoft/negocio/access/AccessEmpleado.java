@@ -103,7 +103,7 @@ public class AccessEmpleado {
                 EmpleadoxturnoDB empleadoxturnoDB = null;
                 EmpleadoxturnoDB[] ext = daoturnos.findByIdempleado(idempleado, cn);
                 for (int i = 0; i < ext.length; i++) {
-
+                    ///ARREGLAR BIEN EL TEMA DE MODIFICAR EL TURNO
                     empleadoxturnoDB.setIdturno(ext[i].getIdturno());
                     EmpleadoxturnoPK pkext = new EmpleadoxturnoPK(ext[i].getIdempleado(),ext[i].getIdturno());
 
