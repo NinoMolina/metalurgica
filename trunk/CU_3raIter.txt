@@ -23,11 +23,11 @@ CU 3ra Iteracion:
 59: Registrar Vencimiento Factura
 
 103: Registrar Armado del Pedido
-112
-113
-114
-116
-117
+112: Registrar Planificación Control de Calidad de Materia Prima
+113: Registrar Planificación Control de Calidad de Producción
+114: Registrar Planificación Control de Calidad de Trabajo
+116: Registrar Lanzamiento Control de Calidad
+117: MOdificar Planificación Control de Calidad
 121: Eliminar Proceso de Calidad
 128: Registrar Baja Empresa Metalurgica
 132: Modificar Empleado
