@@ -56,6 +56,21 @@ public class AccessPedido {
         return result;
     }
 
+    public static int update(long idpedido, long idestado, Connection cn) {
+        int result=-1;
+        PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
+        PedidoDB db = null;
+        PedidoPK pk=new PedidoPK(idpedido);
+        try {
+            db=findByIdPedido(idpedido, cn);
+            db.setEstado(idestado);
+            result=dao.update(pk,db, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     public static int update(PedidoDB db, Connection cn) {
         int result=-1;
         PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
@@ -80,4 +95,5 @@ public class AccessPedido {
         }
         return db;
     }
+
 }
