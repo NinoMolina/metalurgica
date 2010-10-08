@@ -16,13 +16,13 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface EmpleadoxturnoDAO
 {
-	public int insert(Empleadoxturno empleadoxturno, Connection con ) throws EmpleadoxturnoException;
-	public int update(EmpleadoxturnoPK empleadoxturnopk, Empleadoxturno empleadoxturno, Connection con) throws EmpleadoxturnoException;
+	public int insert(EmpleadoxturnoDB empleadoxturno, Connection con ) throws EmpleadoxturnoException;
+	public int update(EmpleadoxturnoPK empleadoxturnopk, EmpleadoxturnoDB empleadoxturno, Connection con) throws EmpleadoxturnoException;
 	public int delete(EmpleadoxturnoPK empleadoxturnopk, Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno findByPrimaryKey(EmpleadoxturnoPK empleadoxturnopk , Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno[] findAll(Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno[] findByIdempleado(long idempleado,Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno[] findByIdturno(long idturno,Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoxturnoException;
-	public Empleadoxturno[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB findByPrimaryKey(EmpleadoxturnoPK empleadoxturnopk , Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB[] findAll(Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB[] findByIdempleado(long idempleado,Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB[] findByIdturno(long idturno,Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoxturnoException;
+	public EmpleadoxturnoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoxturnoException;
 }
