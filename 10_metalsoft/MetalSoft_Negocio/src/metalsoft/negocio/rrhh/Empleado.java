@@ -4,8 +4,15 @@ package metalsoft.negocio.rrhh;
 
 import java.sql.Connection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import metalsoft.datos.dbobject.DomicilioPK;
+import metalsoft.datos.exception.DomicilioException;
+import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.DomicilioDAO;
 import metalsoft.negocio.access.AccessDomicilio;
 import metalsoft.negocio.adminusuarios.Usuario;
+import metalsoft.negocio.gestores.Parser;
 
 public class Empleado extends Persona 
 {
@@ -32,6 +39,20 @@ public class Empleado extends Persona
         result=AccessDomicilio.registrarDomicilio(dom, idBarrio, cn);
         return result;
    }
+   public int modificarDomicilio(Domicilio dom, long idDom, long idBarrio, Connection cn) throws DomicilioException {
+        int result=-1;
+        DomicilioDAO dao=new DAOFactoryImpl().createDomicilioDAO();
+        metalsoft.datos.dbobject.DomicilioDB domDB;
+        DomicilioPK pk=new DomicilioPK(idDom);
+        try {
+            domDB=Parser.parseToDomicilioDB(dom);
+            domDB.setBarrio(idBarrio);
+            result=dao.update(pk,domDB, cn);
+        } catch (DomicilioException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
     public Asistencia getAsistencia() {
         return asistencia;
     }
