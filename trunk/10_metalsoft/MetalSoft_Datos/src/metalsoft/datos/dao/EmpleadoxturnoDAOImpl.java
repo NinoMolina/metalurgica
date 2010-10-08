@@ -55,24 +55,24 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 /**
 * This method updates a record in table EMPLEADOXTURNO
 * @param EmpleadoxturnoPK
-* @param Empleadoxturno
+* @param EmpleadoxturnoDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(EmpleadoxturnoPK empleadoxturnopk, Empleadoxturno empleadoxturno, Connection con)throws EmpleadoxturnoException{
+	public int update(EmpleadoxturnoPK empleadoxturnopk, EmpleadoxturnoDB empleadoxturno, Connection con)throws EmpleadoxturnoException{
             throw new EmpleadoxturnoException("el metodo update no esta implementado!");
 	}
 
 /**
 * This method inserts data in table EMPLEADOXTURNO
 *
-* @param Empleadoxturno empleadoxturno
+* @param EmpleadoxturnoDB empleadoxturno
 * @param   Connection con
 * @return  EmpleadoxturnoPK
 */
 
-	public int insert(Empleadoxturno empleadoxturno ,Connection con)throws EmpleadoxturnoException {
+	public int insert(EmpleadoxturnoDB empleadoxturno ,Connection con)throws EmpleadoxturnoException {
 
 		PreparedStatement ps = null;
 		try
@@ -92,7 +92,7 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * 
 */
 
-	public Empleadoxturno findByPrimaryKey(long idempleado, long idturno, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB findByPrimaryKey(long idempleado, long idturno, Connection con) throws EmpleadoxturnoException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -116,10 +116,10 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * 
 * @param  EmpleadoxturnoPK empleadoxturnopk
 * @param Connection con
-* @return  Empleadoxturno
+* @return  EmpleadoxturnoDB
 */
 
-	public Empleadoxturno findByPrimaryKey(EmpleadoxturnoPK empleadoxturnopk, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB findByPrimaryKey(EmpleadoxturnoPK empleadoxturnopk, Connection con) throws EmpleadoxturnoException{
 		return findByPrimaryKey(empleadoxturnopk.getIdempleado(), empleadoxturnopk.getIdturno(), con);
 	}
 
@@ -129,10 +129,10 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 *
 * @param   long  idempleado
 * @param   Connection con
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 */
 
-	public Empleadoxturno[] findByIdempleado(long idempleado, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB[] findByIdempleado(long idempleado, Connection con) throws EmpleadoxturnoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, idturno from empleadoxturno where idempleado = ? order by idempleado";
@@ -156,10 +156,10 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 *
 * @param   long  idturno
 * @param   Connection con
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 */
 
-	public Empleadoxturno[] findByIdturno(long idturno, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB[] findByIdturno(long idturno, Connection con) throws EmpleadoxturnoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, idturno from empleadoxturno where idturno = ? order by idturno";
@@ -181,11 +181,11 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * Returns all rows from empleadoxturno table 
 *
 * @param Connection con
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 *
 */
 
-	public Empleadoxturno[] findAll( Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB[] findAll( Connection con) throws EmpleadoxturnoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idempleado, idturno from empleadoxturno";
@@ -209,11 +209,11 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 *
 */
 
-	public Empleadoxturno[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EmpleadoxturnoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -240,11 +240,11 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 *
 */
 
-	public Empleadoxturno[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoxturnoException{
+	public EmpleadoxturnoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws EmpleadoxturnoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idempleado, idturno from empleadoxturno";
@@ -270,14 +270,14 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Empleadoxturno
+* @return  EmpleadoxturnoDB
 *
 */
 
-	protected Empleadoxturno fetchSingleResult(ResultSet rs) throws SQLException
+	protected EmpleadoxturnoDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Empleadoxturno dto = new Empleadoxturno();
+					EmpleadoxturnoDB dto = new EmpleadoxturnoDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -289,12 +289,12 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Empleadoxturno dto
+* @param EmpleadoxturnoDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Empleadoxturno dto, ResultSet rs) throws SQLException
+	protected void populateVO(EmpleadoxturnoDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdempleado(rs.getLong("idempleado"));
 		 dto.setIdturno(rs.getLong("idturno"));
@@ -305,18 +305,18 @@ public class EmpleadoxturnoDAOImpl implements EmpleadoxturnoDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Empleadoxturno[]
+* @return  EmpleadoxturnoDB[]
 */
 
-	protected Empleadoxturno[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected EmpleadoxturnoDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Empleadoxturno dto = new Empleadoxturno();
+			EmpleadoxturnoDB dto = new EmpleadoxturnoDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Empleadoxturno ret[] = new Empleadoxturno[ resultList.size() ];
+		EmpleadoxturnoDB ret[] = new EmpleadoxturnoDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
