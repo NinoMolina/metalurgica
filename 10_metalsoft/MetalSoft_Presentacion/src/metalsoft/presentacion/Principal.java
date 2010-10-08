@@ -85,6 +85,7 @@ public class Principal extends javax.swing.JFrame {
         mniProducto = new javax.swing.JMenuItem();
         mniPresupuesto = new javax.swing.JMenuItem();
         mniEtapaDeProduccion = new javax.swing.JMenuItem();
+        mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
         mniTipoMaterial = new javax.swing.JMenuItem();
         mniMatriz = new javax.swing.JMenuItem();
@@ -194,6 +195,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuVentas.add(mniEtapaDeProduccion);
+
+        mniRegistrarConfirmacionPedido.setText("Confirmar Pedido");
+        mniRegistrarConfirmacionPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarConfirmacionPedidoActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniRegistrarConfirmacionPedido);
 
         mbrMenu.add(mnuVentas);
 
@@ -488,6 +497,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniRegistrarDiaNoLaboralActionPerformed
 
+    private void mniRegistrarConfirmacionPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarConfirmacionPedidoActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarConfirmacionPedido.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniRegistrarConfirmacionPedidoActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -515,6 +536,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniTipoMaterial;
