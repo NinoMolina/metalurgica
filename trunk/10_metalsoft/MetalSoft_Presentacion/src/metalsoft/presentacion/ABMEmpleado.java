@@ -460,12 +460,21 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
 
         //private long cargo;
+        int nroDoc=Integer.parseInt(beanResponsable.getTxtNroDoc().getText());
+        empleado.setNroDocumento(nroDoc);
         String motivoEgreso = txtMotivoEgreso.getText();
+        empleado.setMotivoEgreso(motivoEgreso);
         String apeResp = beanResponsable.getTxtApellido().getText();
+        empleado.setApellido(apeResp);
         String emaResp = beanResponsable.getTxtEmail().getText();
-        String faxResp = beanResponsable.getTxtFax().getText();
+        empleado.setEmail(emaResp);
+        //String faxResp = beanResponsable.getTxtFax().getText();
+
         String nomResp = beanResponsable.getTxtNombre().getText();
+        empleado.setNombre(nomResp);
         String telResp = beanResponsable.getTxtTelefono().getText();
+        empleado.setTelefono(telResp);
+
         String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
         String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
         String nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
