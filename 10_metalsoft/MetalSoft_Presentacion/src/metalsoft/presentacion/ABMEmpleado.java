@@ -9,6 +9,7 @@ package metalsoft.presentacion;
 import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -45,7 +46,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     public ABMEmpleado() {
         initComponents();
         gestor = new GestorEmpleado();
-        turnos=new LinkedList();
+        turnos = new LinkedList();
         cargarComboCategoria();
         cargarComboCargo();
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
@@ -416,6 +417,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
+        empleado=new Empleado();
         long nroEmp = gestor.generarNvoNroEmpleado();
         Combo.setItemComboSeleccionado(cmbCategoria, 1);
         chkMañana.setSelected(false);
@@ -428,15 +430,15 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
         long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
-        
+
         if (chkMañana.isSelected() == true) {
-            turnos.add((int)1);
+            turnos.add((int) 1);
         }
         if (chkTarde.isSelected() == true) {
-            turnos.add((int)2);
+            turnos.add((int) 2);
         }
         if (chkNoche.isSelected() == true) {
-            turnos.add((int)3);
+            turnos.add((int) 3);
         }
         long idBarrio = -1;
         if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()) != null) {
@@ -473,16 +475,14 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
         Date fechaIngreso = null;
         if (dccFechaIngreso.getSelectedDate() != null) {
-            fechaIngreso = (Date) dccFechaIngreso.getSelectedDate().getTime();
-            empleado.setFechaIngreso(fechaIngreso);
+            fechaIngreso = dccFechaIngreso.getSelectedDate().getTime();
         }
         Date fechaEgreso = null;
         if (dccFechaEgreso.getSelectedDate() != null) {
             fechaEgreso = dccFechaEgreso.getSelectedDate().getTime();
-            empleado.setFechaEgreso(fechaEgreso);
         }
-
-
+        empleado.setFechaIngreso(fechaIngreso);
+        empleado.setFechaEgreso(fechaEgreso);
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
         empleado.setDomicilio(domicilioResponsable);
 
@@ -643,8 +643,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
         } else {
             Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
         }
-        Iterator it=turnos.iterator();
-        while(it.hasNext()){
+        Iterator it = turnos.iterator();
+        while (it.hasNext()) {
             switch (Integer.parseInt(String.valueOf(it.next()))) {
                 case 1:
                     chkMañana.setSelected(true);
