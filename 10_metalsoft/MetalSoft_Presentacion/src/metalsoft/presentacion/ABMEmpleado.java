@@ -549,19 +549,19 @@ public class ABMEmpleado extends javax.swing.JFrame {
 }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-//        opcion = EnumOpcionesABM.BUSCAR;
-//        ABMCliente_Buscar buscar = null;
-//        try {
-//            buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
-//            buscar.setVentanaCliente(this);
-//            buscar.setGestor(gestor);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        opcion = EnumOpcionesABM.BUSCAR;
+        ABMEmpleado_Buscar buscar = null;
+        try {
+            buscar = (ABMEmpleado_Buscar) JFrameManager.crearVentana(ABMEmpleado_Buscar.class.getName());
+            buscar.setVentana(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
