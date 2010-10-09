@@ -31,6 +31,10 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
      private ABMEmpleado ventana;
     private Timer timer;
     private GestorEmpleado gestor=null;
+
+    public void setGestor(GestorEmpleado gestor) {
+        this.gestor = gestor;
+    }
     private EmpleadoDB[] empleadoDB;
 
     /** Creates new form ABMMateriaPrima_Buscar */
