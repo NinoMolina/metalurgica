@@ -39,7 +39,7 @@ import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.rrhh.TipoDocumento;
-
+import java.util.LinkedList;
 /**
  *
  * @author Vicky
@@ -63,7 +63,7 @@ public class GestorEmpleado {
     private long idTipoDoc;
     private long idEmpleado;
     private long idcategoria, idusuario, idcargo, idtipodoc;
-    private long[] idturno;
+    private LinkedList idturnos;
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private metalsoft.datos.dbobject.Barrio barrioDB;
     private metalsoft.datos.dbobject.Localidad localidadDB;
@@ -76,6 +76,13 @@ public class GestorEmpleado {
         this.empleado = empleado;
     }
 
+    public LinkedList getIdturnos() {
+        return idturnos;
+    }
+
+    public void setIdturnos(LinkedList idturnos) {
+        this.idturnos = idturnos;
+    }
     public long getIdBarrio() {
         return idBarrio;
     }
@@ -146,14 +153,6 @@ public class GestorEmpleado {
 
     public void setIdtipodoc(long idtipodoc) {
         this.idtipodoc = idtipodoc;
-    }
-
-    public long[] getIdturno() {
-        return idturno;
-    }
-
-    public void setIdturno(long[] idturno) {
-        this.idturno = idturno;
     }
 
     public long getIdusuario() {
@@ -408,7 +407,7 @@ public class GestorEmpleado {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
 
-            result =  AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, empleado.getDomicilio(), idtipodoc, cn);
+            result =  AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, empleado.getDomicilio(), idtipodoc, cn);
 
             cn.commit();
             idEmpleado = result;
@@ -711,7 +710,7 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEmpleado(Empleado empleado,  long[] idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc) {
+    public long guardarEmpleado(Empleado empleado,  LinkedList idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
