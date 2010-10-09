@@ -10,6 +10,7 @@ import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -642,9 +643,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         } else {
             Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
         }
-
-        for (int i = 0; i < turnos.length; i++) {
-            switch (i) {
+        Iterator it=turnos.iterator();
+        while(it.hasNext()){
+            switch (Integer.parseInt(String.valueOf(it.next()))) {
                 case 1:
                     chkMañana.setSelected(true);
                     break;
