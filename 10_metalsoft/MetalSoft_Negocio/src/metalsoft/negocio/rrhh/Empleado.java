@@ -18,6 +18,22 @@ public class Empleado extends Persona
 {
    private long legajo;
    private Date fechaIngreso;
+
+    public Date getFechaEgreso() {
+        return fechaEgreso;
+    }
+
+    public void setFechaEgreso(Date fechaEgreso) {
+        this.fechaEgreso = fechaEgreso;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
    private Turno turno;
    private Categoria categoria;
    private Asistencia asistencia;
@@ -77,21 +93,7 @@ public class Empleado extends Persona
         this.categoria = categoria;
     }
 
-    public Date getFechaEgreso() {
-        return fechaEgreso;
-    }
-
-    public void setFechaEgreso(Date fechaEgreso) {
-        this.fechaEgreso = fechaEgreso;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
+    
 
     public long getLegajo() {
         return legajo;
