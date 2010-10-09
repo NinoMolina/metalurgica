@@ -24,6 +24,7 @@ import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.Combo;
 import java.util.LinkedList;
+import metalsoft.datos.dbobject.EmpleadoxturnoDB;
 
 /**
  *
@@ -39,6 +40,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private LinkedList turnos;
     private metalsoft.datos.dbobject.DomicilioDB domicilioResponsableDB;
+    private metalsoft.datos.dbobject.Usuario usuarioDB;
     private EnumOpcionesABM opcion;
     private long idEmpleado;
 
@@ -416,7 +418,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
-        empleado=new Empleado();
+        empleado = new Empleado();
         long nroEmp = gestor.generarNvoNroEmpleado();
         Combo.setItemComboSeleccionado(cmbCategoria, 1);
         chkMañana.setSelected(false);
@@ -459,7 +461,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
 
         //private long cargo;
-        int nroDoc=Integer.parseInt(beanResponsable.getTxtNroDoc().getText());
+        int nroDoc = Integer.parseInt(beanResponsable.getTxtNroDoc().getText());
         empleado.setNroDocumento(nroDoc);
         String motivoEgreso = txtMotivoEgreso.getText();
         empleado.setMotivoEgreso(motivoEgreso);
@@ -608,6 +610,12 @@ public class ABMEmpleado extends javax.swing.JFrame {
     public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
         domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
+        usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
+        turnos.clear();
+        EmpleadoxturnoDB[] ext = gestor.buscarTurnosDB(idEmpleado);
+        for (int i = 0; i < ext.length; i++) {
+            turnos.add(ext[i]);
+        }
         mostrarDatosEmpleado();
         setEnableComponents(false);
     }
@@ -640,7 +648,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, empleadoDB.getLegajo()));
         txtMotivoEgreso.setText(empleadoDB.getMotivoegreso());
-        txtUsuario.setText(empleado.getUsuario().getUser());
+        txtUsuario.setText(usuarioDB.getUsuario());
         if (empleadoDB.getCargo() < 1) {
             Combo.setItemComboSeleccionado(cmbCargo, -1);
         } else {
@@ -653,7 +661,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
         Iterator it = turnos.iterator();
         while (it.hasNext()) {
-            switch (Integer.parseInt(String.valueOf(it.next()))) {
+            switch ((int)((EmpleadoxturnoDB)it.next()).getIdturno()) {
                 case 1:
                     chkMañana.setSelected(true);
                     break;
