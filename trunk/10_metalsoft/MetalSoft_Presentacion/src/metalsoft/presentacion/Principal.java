@@ -97,6 +97,7 @@ public class Principal extends javax.swing.JFrame {
         mnuRRHH = new javax.swing.JMenu();
         mniListadoClientes = new javax.swing.JMenuItem();
         mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
+        registrarEmpleado = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
@@ -274,6 +275,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuRRHH.add(mniRegistrarDiaNoLaboral);
+
+        registrarEmpleado.setText("Registrar Empleado");
+        registrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarEmpleadoActionPerformed(evt);
+            }
+        });
+        mnuRRHH.add(registrarEmpleado);
 
         mbrMenu.add(mnuRRHH);
 
@@ -509,6 +518,18 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniRegistrarConfirmacionPedidoActionPerformed
 
+    private void registrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEmpleadoActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMEmpleado.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_registrarEmpleadoActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -549,6 +570,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mnuRRHH;
     private javax.swing.JMenu mnuTrabajosTercerizados;
     private javax.swing.JMenu mnuVentas;
+    private javax.swing.JMenuItem registrarEmpleado;
     // End of variables declaration//GEN-END:variables
 
     public void obtenerRolUsuario(long idUsuario) {
