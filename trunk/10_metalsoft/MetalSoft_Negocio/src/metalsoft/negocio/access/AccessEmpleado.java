@@ -23,7 +23,8 @@ import metalsoft.datos.idao.EmpleadoxturnoDAO;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
-
+import java.util.LinkedList;
+import java.util.Iterator;
 /**
  *
  * @author Vicky
@@ -55,7 +56,7 @@ public class AccessEmpleado {
         return x;
     }
 
-    public static long insert(Empleado empleado, long[] idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc, Connection cn) {
+    public static long insert(Empleado empleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc, Connection cn) {
         long result = -1;
         long resultdom = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
@@ -78,10 +79,11 @@ public class AccessEmpleado {
 
 
             EmpleadoxturnoDAO daoturnos = new DAOFactoryImpl().createEmpleadoxturnoDAO();
-            for (int i = 0; i < idturno.length; i++) {
+            Iterator it=idturno.iterator();
+            while(it.hasNext()){
                 EmpleadoxturnoDB ext = new EmpleadoxturnoDB();
                 ext.setIdempleado(empleadoDB.getIdempleado());
-                ext.setIdturno(idturno[i]);
+                ext.setIdturno(Integer.parseInt(String.valueOf(it.next())));
                 result = daoturnos.insert(ext, cn);
             }
         } catch (Exception ex) {
