@@ -406,8 +406,8 @@ public class GestorEmpleado {
 
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-
-            result =  AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, empleado.getDomicilio(), idtipodoc, cn);
+            long idDom=empleado.crearDomicilio(empleado.getDomicilio(),idBarrio, cn);
+            result =  AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, idDom, idtipodoc, cn);
 
             cn.commit();
             idEmpleado = result;
@@ -710,7 +710,7 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEmpleado(Empleado empleado,  LinkedList idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc) {
+    public long guardarEmpleado(Empleado empleado,  LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
@@ -738,7 +738,7 @@ public class GestorEmpleado {
         return result;
     }
 
-    public long modificarEmpleado(Empleado empleado, long idEmpleado, long[] idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
+    public long modificarEmpleado(Empleado empleado, long idEmpleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
