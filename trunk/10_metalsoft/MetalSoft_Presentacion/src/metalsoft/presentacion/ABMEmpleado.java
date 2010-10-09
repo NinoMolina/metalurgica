@@ -606,7 +606,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         gestor.obtenerTipoDocumentos(beanResponsable.getCmbTipoDoc());
     }
 
-    public void clienteSeleccionado() {
+    public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
         domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
         mostrarDatosEmpleado();
