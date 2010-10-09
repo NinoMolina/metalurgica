@@ -189,7 +189,7 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     }
 
     public void setBusqueda(Object[] obj) {
-        empleadoDB=(MateriaprimaDB[]) obj;
+        empleadoDB=(EmpleadoDB[]) obj;
     }
 
     public JComboBox getCombo(String className) {
