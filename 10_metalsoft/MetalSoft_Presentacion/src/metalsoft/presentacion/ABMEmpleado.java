@@ -423,7 +423,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         chkMañana.setSelected(false);
         chkNoche.setSelected(false);
         chkTarde.setSelected(false);
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroEmp));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, nroEmp));
 
 }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -639,7 +639,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
             dccFechaEgreso.setSelectedDate(gcb);
         }
 
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, empleadoDB.getLegajo()));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, empleadoDB.getLegajo()));
         txtMotivoEgreso.setText(empleadoDB.getMotivoegreso());
         txtUsuario.setText(empleado.getUsuario().getUser());
         if (empleadoDB.getCargo() < 1) {
