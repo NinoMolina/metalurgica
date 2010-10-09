@@ -22,14 +22,14 @@ import java.io.Serializable;
 public class AsistenciaDB implements Serializable
 {
 	private long empleado;
-	private long fechaingreso;
+	private Date fechaingreso;
 	private Time horaingreso;
 	private Time horaegreso;
 	private String observaciones;
 
 
 	public AsistenciaDB(){}
-	public AsistenciaDB(long empleado ,long fechaingreso ,Time horaingreso ,Time horaegreso ,String observaciones){
+	public AsistenciaDB(long empleado ,Date fechaingreso ,Time horaingreso ,Time horaegreso ,String observaciones){
 		this.empleado = empleado;
 		this.fechaingreso = fechaingreso;
 		this.horaingreso = horaingreso;
@@ -43,10 +43,10 @@ public class AsistenciaDB implements Serializable
 	public long getEmpleado(){
 		 return(empleado);
 	}
-	public void setFechaingreso(long fechaingreso ){
+	public void setFechaingreso(Date fechaingreso ){
 		 this.fechaingreso =fechaingreso;
 	}
-	public long getFechaingreso(){
+	public Date getFechaingreso(){
 		 return(fechaingreso);
 	}
 	public void setHoraingreso(Time horaingreso ){
