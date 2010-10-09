@@ -21,6 +21,7 @@ import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.Combo;
+import java.util.LinkedList;
 
 /**
  *
@@ -34,7 +35,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private long idResponsable;
     private Empleado empleado;
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
-    private long[] turnos;
+    private LinkedList turnos;
     private metalsoft.datos.dbobject.DomicilioDB domicilioResponsableDB;
     private EnumOpcionesABM opcion;
     private long idEmpleado;
@@ -43,6 +44,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     public ABMEmpleado() {
         initComponents();
         gestor = new GestorEmpleado();
+        turnos=new LinkedList();
         cargarComboCategoria();
         cargarComboCargo();
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
@@ -425,28 +427,37 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
         long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
-        long[] turnos=null;
-        int i=0;
-        if(chkMañana.isSelected()==true){
-            turnos[i]=1;
-            i++;
+        
+        if (chkMañana.isSelected() == true) {
+            turnos.add((int)1);
         }
-        if(chkTarde.isSelected()==true){
-            turnos[i]=2;
-            i++;
+        if (chkTarde.isSelected() == true) {
+            turnos.add((int)2);
         }
-        if(chkNoche.isSelected()==true){
-            turnos[i]=3;
-            i++;
+        if (chkNoche.isSelected() == true) {
+            turnos.add((int)3);
+        }
+        long idBarrio = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()) != null) {
+            idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
+        }
+        long idLocalidad = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()) != null) {
+            idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
         }
 
-        long idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
-        long idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
-        long idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
-        long idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
+        long idProvincia = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()) != null) {
+            idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
+        }
 
-	//private long cargo;
-        String motivoEgreso=txtMotivoEgreso.getText();
+        long idTipoDoc = -1;
+        if (((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()) != null) {
+            idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
+        }
+
+        //private long cargo;
+        String motivoEgreso = txtMotivoEgreso.getText();
         String apeResp = beanResponsable.getTxtApellido().getText();
         String emaResp = beanResponsable.getTxtEmail().getText();
         String faxResp = beanResponsable.getTxtFax().getText();
@@ -454,19 +465,23 @@ public class ABMEmpleado extends javax.swing.JFrame {
         String telResp = beanResponsable.getTxtTelefono().getText();
         String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
         String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
-        String nroCalle =beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
-        String piso =String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
+        String nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
+        String piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
         String torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
 
 
-        Date fechaIngreso=null;
-        if(dccFechaIngreso.getSelectedDate()!=null)
-            fechaIngreso=dccFechaIngreso.getSelectedDate().getTime();
-        Date fechaEgreso=null;
-        if(dccFechaEgreso.getSelectedDate()!=null)
-            fechaEgreso=dccFechaEgreso.getSelectedDate().getTime();
-        empleado.setFechaIngreso(fechaIngreso);
-        empleado.setFechaEgreso(fechaEgreso);
+        Date fechaIngreso = null;
+        if (dccFechaIngreso.getSelectedDate() != null) {
+            fechaIngreso = (Date) dccFechaIngreso.getSelectedDate().getTime();
+            empleado.setFechaIngreso(fechaIngreso);
+        }
+        Date fechaEgreso = null;
+        if (dccFechaEgreso.getSelectedDate() != null) {
+            fechaEgreso = dccFechaEgreso.getSelectedDate().getTime();
+            empleado.setFechaEgreso(fechaEgreso);
+        }
+
+
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
         empleado.setDomicilio(domicilioResponsable);
 
@@ -478,7 +493,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         gestor.setIdProvincia(idProvincia);
         gestor.setIdcargo(idcargo);
         gestor.setIdcategoria(idCategoria);
-        gestor.setIdturno(turnos);
+        gestor.setIdturnos(turnos);
         gestor.setIdTipoDoc(idTipoDoc);
 
         idEmpleado = -1;
@@ -489,7 +504,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
                 break;
             case MODIFICAR:
                 gestor.setIdDomicilio(domicilioResponsableDB.getIddomicilio());
-                
+
                 idEmpleado = gestor.modificarCliente(empleado);
                 break;
             default:
@@ -551,8 +566,12 @@ public class ABMEmpleado extends javax.swing.JFrame {
         Domicilio dom = new Domicilio();
         dom.setCalle(calle);
         dom.setDepto(depto);
-        dom.setNumeroCalle(Integer.parseInt(nroCalle));
-        dom.setPiso(Integer.parseInt(piso));
+        if (nroCalle.compareTo("") != 0) {
+            dom.setNumeroCalle(Integer.parseInt(nroCalle));
+        }
+        if (piso.compareTo("") != 0) {
+            dom.setPiso(Integer.parseInt(piso));
+        }
         dom.setTorre(torre);
         return dom;
     }
@@ -594,40 +613,47 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     private void setDatosEmpleado() {
 
-        if(empleadoDB.getFechaingreso()==null)
+        if (empleadoDB.getFechaingreso() == null) {
             dccFechaIngreso.setSelectedDate(null);
-        else{
-            GregorianCalendar gc=new GregorianCalendar();
+        } else {
+            GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(empleadoDB.getFechaingreso());
             dccFechaIngreso.setSelectedDate(gc);
         }
 
-        if(empleadoDB.getFechaegreso()==null)
+        if (empleadoDB.getFechaegreso() == null) {
             dccFechaEgreso.setSelectedDate(null);
-        else
-        {
-            GregorianCalendar gcb=new GregorianCalendar();
+        } else {
+            GregorianCalendar gcb = new GregorianCalendar();
             gcb.setTime(empleadoDB.getFechaegreso());
             dccFechaEgreso.setSelectedDate(gcb);
         }
-        
+
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, empleadoDB.getLegajo()));
         txtMotivoEgreso.setText(empleadoDB.getMotivoegreso());
         txtUsuario.setText(empleado.getUsuario().getUser());
-        if(empleadoDB.getCargo()<1) Combo.setItemComboSeleccionado(cmbCargo, -1);
-        else Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo());
-        if(empleadoDB.getCategoria()<1) Combo.setItemComboSeleccionado(cmbCategoria, -1);
-        else Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
+        if (empleadoDB.getCargo() < 1) {
+            Combo.setItemComboSeleccionado(cmbCargo, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo());
+        }
+        if (empleadoDB.getCategoria() < 1) {
+            Combo.setItemComboSeleccionado(cmbCategoria, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
+        }
 
-        for(int i=0;i<turnos.length;i++)
-        {
-            switch (i){
-                case 1:chkMañana.setSelected(true);
-                        break;
-                case 2:chkTarde.setSelected(true);
-                        break;
-                case 3:chkNoche.setSelected(true);
-                        break;
+        for (int i = 0; i < turnos.length; i++) {
+            switch (i) {
+                case 1:
+                    chkMañana.setSelected(true);
+                    break;
+                case 2:
+                    chkTarde.setSelected(true);
+                    break;
+                case 3:
+                    chkNoche.setSelected(true);
+                    break;
             }
         }
 
@@ -681,6 +707,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMEmpleado().setVisible(true);
             }
