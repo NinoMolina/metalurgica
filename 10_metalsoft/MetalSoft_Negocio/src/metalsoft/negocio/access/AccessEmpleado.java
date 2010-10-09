@@ -56,7 +56,7 @@ public class AccessEmpleado {
         return x;
     }
 
-    public static long insert(Empleado empleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, Domicilio iddomicilio, long idtipodoc, Connection cn) {
+    public static long insert(Empleado empleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc, Connection cn) {
         long result = -1;
         long resultdom = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
@@ -65,22 +65,22 @@ public class AccessEmpleado {
         DomicilioDB dom=null;
 
         try {
-            dom=Parser.parseToDomicilioDB(iddomicilio);
-            resultdom=daodom.insert(dom, cn);
+
             empleadoDB = Parser.parseToEmpleadoDB(empleado);
             empleadoDB.setCategoria(idcategoria);
             empleadoDB.setUsuario(idusuario);
             empleadoDB.setCargo(idcargo);
             empleadoDB.setTipodocumento(idtipodoc);
-            empleadoDB.setDomicilio(resultdom);
+            empleadoDB.setDomicilio(iddomicilio);
 
             result = dao.insert(empleadoDB, cn);
             empleadoDB.setIdempleado(result);
 
 
-            EmpleadoxturnoDAO daoturnos = new DAOFactoryImpl().createEmpleadoxturnoDAO();
+            
             Iterator it=idturno.iterator();
             while(it.hasNext()){
+                EmpleadoxturnoDAO daoturnos = new DAOFactoryImpl().createEmpleadoxturnoDAO();
                 EmpleadoxturnoDB ext = new EmpleadoxturnoDB();
                 ext.setIdempleado(empleadoDB.getIdempleado());
                 ext.setIdturno(Integer.parseInt(String.valueOf(it.next())));
@@ -92,7 +92,7 @@ public class AccessEmpleado {
         return result;
     }
 
-    public static long update(Empleado empleado, long[] idturno, long idempleado, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc, Connection cn) {
+    public static long update(Empleado empleado, LinkedList idturno, long idempleado, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc, Connection cn) {
         long result = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
 
