@@ -17,6 +17,7 @@ import metalsoft.datos.dbobject.DomicilioDB;
 
 import metalsoft.datos.dbobject.EmpleadoDB;
 import metalsoft.datos.dbobject.EmpleadoPK;
+import metalsoft.datos.dbobject.EmpleadoxturnoDB;
 import metalsoft.datos.dbobject.Provincia;
 import metalsoft.datos.dbobject.Tipodocumento;
 import metalsoft.datos.dbobject.Turno;
@@ -40,6 +41,9 @@ import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.rrhh.TipoDocumento;
 import java.util.LinkedList;
+import metalsoft.datos.idao.EmpleadoxturnoDAO;
+import metalsoft.datos.idao.UsuarioDAO;
+
 /**
  *
  * @author Vicky
@@ -62,7 +66,7 @@ public class GestorEmpleado {
     private long idBarrio,  idLocalidad,  idProvincia;
     private long idTipoDoc;
     private long idEmpleado;
-    private long idcategoria, idusuario, idcargo, idtipodoc;
+    private long idcategoria,  idusuario,  idcargo,  idtipodoc;
     private LinkedList idturnos;
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private metalsoft.datos.dbobject.Barrio barrioDB;
@@ -83,6 +87,7 @@ public class GestorEmpleado {
     public void setIdturnos(LinkedList idturnos) {
         this.idturnos = idturnos;
     }
+
     public long getIdBarrio() {
         return idBarrio;
     }
@@ -393,7 +398,6 @@ public class GestorEmpleado {
         return result;
     }
 
-
     public long registrarEmpleado(Empleado empleado) {
         PostgreSQLManager pg = null;
         Connection cn = null;
@@ -406,8 +410,8 @@ public class GestorEmpleado {
 
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            long idDom=empleado.crearDomicilio(empleado.getDomicilio(),idBarrio, cn);
-            result =  AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, idDom, idtipodoc, cn);
+            long idDom = empleado.crearDomicilio(empleado.getDomicilio(), idBarrio, cn);
+            result = AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, idDom, idtipodoc, cn);
 
             cn.commit();
             idEmpleado = result;
@@ -430,7 +434,7 @@ public class GestorEmpleado {
     }
 
     public long modificarCliente(Empleado empleado) {
-    //Setear todos los camposss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+        //Setear todos los camposss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         long result = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
 
@@ -442,7 +446,7 @@ public class GestorEmpleado {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            
+
 
             int idDom = empleado.modificarDomicilio(empleado.getDomicilio(), idDomicilio, idBarrio, cn);
             empleadoDB.setDomicilio(idDom);
@@ -554,7 +558,7 @@ public class GestorEmpleado {
         try {
             cn = pg.concectGetCn();
         } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
@@ -569,6 +573,57 @@ public class GestorEmpleado {
             }
         }
         return dom;
+    }
+
+    public metalsoft.datos.dbobject.Usuario buscarUsuarioDB(long id) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        UsuarioDAO dao = new DAOFactoryImpl().createUsuarioDAO();
+        Connection cn = null;
+        metalsoft.datos.dbobject.Usuario dom = null;
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            dom = dao.findByIdusuario(id, cn)[0];
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return dom;
+    }
+
+    public EmpleadoxturnoDB[] buscarTurnosDB(long id) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        EmpleadoxturnoDAO dao = new DAOFactoryImpl().createEmpleadoxturnoDAO();
+        Connection cn = null;
+        EmpleadoxturnoDB[] turnosxempleado = null;
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            turnosxempleado = dao.findByIdempleado(id, cn);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return turnosxempleado;
     }
 
     public metalsoft.datos.dbobject.Localidad buscarLocalidadDeBarrio(long id) {
@@ -602,7 +657,7 @@ public class GestorEmpleado {
         EmpleadoPK pk = new EmpleadoPK(idEmpleado);
         try {
             cn = pg.concectGetCn();
-            
+
             result = dao.update(pk, empleadoDB, cn);
 
         } catch (Exception ex) {
@@ -677,7 +732,8 @@ public class GestorEmpleado {
         return db;
     }
 
-    public boolean eliminarEmpleado(long id) {;
+    public boolean eliminarEmpleado(long id) {
+        ;
         Connection cn = null;
 
         try {
@@ -710,7 +766,7 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEmpleado(Empleado empleado,  LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
+    public long guardarEmpleado(Empleado empleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
         PostgreSQLManager pg = null;
         Connection cn = null;
         pg = new PostgreSQLManager();
