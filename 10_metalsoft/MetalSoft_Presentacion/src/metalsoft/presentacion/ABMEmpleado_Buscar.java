@@ -29,6 +29,15 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
         initComponents();
     }
      private ABMEmpleado ventana;
+     private RegistrarAsistencia ventanaAsistencia;
+
+    public RegistrarAsistencia getVentanaAsistencia() {
+        return ventanaAsistencia;
+    }
+
+    public void setVentanaAsistencia(RegistrarAsistencia ventanaAsistencia) {
+        this.ventanaAsistencia = ventanaAsistencia;
+    }
     private Timer timer;
     private GestorEmpleado gestor=null;
 
@@ -101,7 +110,6 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,14 +119,11 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSeleccionar)))
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jRadioButton1)
@@ -163,6 +168,8 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
         ventana.setIdCliente(id);
         ventana.empleadoSeleccionado();
+        ventanaAsistencia.setIdEmpleado(id);
+        ventanaAsistencia.empleadoSeleccionado();
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
     public JList getLstLista() {
