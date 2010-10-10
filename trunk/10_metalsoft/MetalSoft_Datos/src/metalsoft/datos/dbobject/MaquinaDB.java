@@ -27,6 +27,42 @@ public class MaquinaDB implements Serializable
 	private String descripcion;
 	private long estado;
 	private long tipomaquina;
+    private Date fechaAlta;
+    private Date fechaBaja;
+    private long unidadMedida;
+    private Time tiempoCapacidadProduccion;
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public Time getTiempoCapacidadProduccion() {
+        return tiempoCapacidadProduccion;
+    }
+
+    public void setTiempoCapacidadProduccion(Time tiempoCapacidadProduccion) {
+        this.tiempoCapacidadProduccion = tiempoCapacidadProduccion;
+    }
+
+    public long getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(long unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
 
 
 	public MaquinaDB(){}
