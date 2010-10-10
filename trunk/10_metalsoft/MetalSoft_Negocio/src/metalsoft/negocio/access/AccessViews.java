@@ -23,6 +23,7 @@ import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
+import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
@@ -441,6 +442,39 @@ public class AccessViews {
                 view.setNropresupuesto(rs.getLong("nropresupuesto"));
                 view.setRazonsocial(rs.getString("razonsocial"));
                 view.setVencimientopresupuesto(rs.getDate("vencimientopresupuesto"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+
+    public static LinkedList<ViewPedidoNoPlanificado> allPedidosNoPlanificados(Connection cn) {
+        ViewPedidoNoPlanificado view=null;
+        LinkedList<ViewPedidoNoPlanificado> ll=new LinkedList<ViewPedidoNoPlanificado>();
+        String query="SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
+                     " FROM viewpedidosnoplanificados";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewPedidoNoPlanificado();
+                view.setEstado(rs.getString("estado"));
+                view.setFechapedido(rs.getDate("fechapedido"));
+                view.setIdcliente(rs.getLong("idcliente"));
+                view.setIdestado(rs.getLong("idestado"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdpresupuesto(rs.getLong("idpresupuesto"));
+                view.setMontototal(rs.getDouble("montototal"));
+                view.setNropedcotcli(rs.getLong("nropedcotcli"));
+                view.setNropedido(rs.getLong("nropedido"));
+                view.setNropresupuesto(rs.getLong("nropresupuesto"));
+                view.setRazonsocial(rs.getString("razonsocial"));
+                view.setNrocliente(rs.getLong("nrocliente"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
