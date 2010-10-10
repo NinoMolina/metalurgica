@@ -49,6 +49,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         initComponents();
         gestor = new GestorEmpleado();
         turnos = new LinkedList();
+        txtUsuario.setEnabled(false);
+        beanResponsable.getLblFax().setVisible(false);
+        beanResponsable.getTxtFax().setVisible(false);
         cargarComboCategoria();
         cargarComboCargo();
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
@@ -60,7 +63,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     private void setEnableComponents(boolean b) {
         txtMotivoEgreso.setEnabled(b);
-        txtUsuario.setEnabled(b);
         dccFechaEgreso.setEnabled(b);
         dccFechaIngreso.setEnabled(b);
         jpTurnos.setEnabled(b);
@@ -332,8 +334,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -364,8 +366,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                    .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNuevo)
@@ -399,14 +401,14 @@ public class ABMEmpleado extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(426, Short.MAX_VALUE)
+                .addContainerGap(452, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(22, 22, 22))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(23, Short.MAX_VALUE)))
         );
 
         pack();
@@ -471,6 +473,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         empleado.setApellido(apeResp);
         String emaResp = beanResponsable.getTxtEmail().getText();
         empleado.setEmail(emaResp);
+
         //String faxResp = beanResponsable.getTxtFax().getText();
 
         String nomResp = beanResponsable.getTxtNombre().getText();
@@ -498,9 +501,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
         empleado.setDomicilio(domicilioResponsable);
 
-        long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
-        String nroEmp = String.valueOf(nro);
-
+        long nro = gestor.generarNvoNroEmpleado();
+        empleado.setLegajo(nro);
         gestor.setIdBarrio(idBarrio);
         gestor.setIdLocalidad(idLocalidad);
         gestor.setIdProvincia(idProvincia);
@@ -518,7 +520,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
             case MODIFICAR:
                 gestor.setIdDomicilio(domicilioResponsableDB.getIddomicilio());
 
-                idEmpleado = gestor.modificarCliente(empleado);
+                idEmpleado = gestor.modificarEmpleado(empleado);
                 break;
             default:
                 break;
@@ -612,7 +614,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
         domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
-        usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
+        if(empleadoDB.getUsuario()>0)usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
         turnos.clear();
         EmpleadoxturnoDB[] ext = gestor.buscarTurnosDB(idEmpleado);
         for (int i = 0; i < ext.length; i++) {
