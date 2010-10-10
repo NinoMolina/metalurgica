@@ -9,7 +9,7 @@ import metalsoft.negocio.produccion.UnidadMedida;
 
 public class Maquina 
 {
-   private int nroMaquina;
+   private long nroMaquina;
    private String nombre;
    private Marca marca;
    private String descripcion;
@@ -91,11 +91,11 @@ public class Maquina
         this.nombre = nombre;
     }
 
-    public int getNroMaquina() {
+    public long getNroMaquina() {
         return nroMaquina;
     }
 
-    public void setNroMaquina(int nroMaquina) {
+    public void setNroMaquina(long nroMaquina) {
         this.nroMaquina = nroMaquina;
     }
 
