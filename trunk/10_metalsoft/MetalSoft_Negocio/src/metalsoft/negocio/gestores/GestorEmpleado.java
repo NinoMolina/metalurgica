@@ -5,7 +5,9 @@
 package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -41,8 +43,12 @@ import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.rrhh.TipoDocumento;
 import java.util.LinkedList;
+import metalsoft.datos.dbobject.AsistenciaDB;
+import metalsoft.datos.idao.AsistenciaDAO;
 import metalsoft.datos.idao.EmpleadoxturnoDAO;
 import metalsoft.datos.idao.UsuarioDAO;
+import metalsoft.negocio.rrhh.Asistencia;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -624,6 +630,119 @@ public class GestorEmpleado {
             }
         }
         return turnosxempleado;
+    }
+    public AsistenciaDB[] buscarAsistencia(long id, Date fecha) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        AsistenciaDAO dao = new DAOFactoryImpl().createAsistenciaDAO();
+        Connection cn = null;
+        AsistenciaDB[] asistenciaEmpleado = null;
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            asistenciaEmpleado = dao.findByFechaingresoIdEmpleado(fecha, id, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return asistenciaEmpleado;
+    }
+    public AsistenciaDB[] buscarAsistenciaDelDia(Date fecha) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        AsistenciaDAO dao = new DAOFactoryImpl().createAsistenciaDAO();
+        Connection cn = null;
+        AsistenciaDB[] asistenciaEmpleado = null;
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            asistenciaEmpleado = dao.findByFechaingreso(fecha, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return asistenciaEmpleado;
+    }
+
+    public long registrarIngresoAsistencia(AsistenciaDB asistencia)
+    {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        long result=-1;
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=Asistencia.insert(asistencia, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+
+    public long registrarEgreso(AsistenciaDB asistencia)
+    {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        long result=-1;
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=Asistencia.update(asistencia, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 
     public metalsoft.datos.dbobject.Localidad buscarLocalidadDeBarrio(long id) {
