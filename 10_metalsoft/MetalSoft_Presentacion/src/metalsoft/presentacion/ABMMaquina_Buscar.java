@@ -162,7 +162,7 @@ public class ABMMaquina_Buscar extends javax.swing.JFrame {
                 private HiloBuscarMaquina hiloBuscar;
                 @Override
                 public void run() {
-                    hiloBuscar=new HiloBuscarMateriaPrima();
+                    hiloBuscar=new HiloBuscarMaquina();
                     hiloBuscar.setVentana(abm);
                     hiloBuscar.setValor(txtValor.getText());
                     hiloBuscar.start();
