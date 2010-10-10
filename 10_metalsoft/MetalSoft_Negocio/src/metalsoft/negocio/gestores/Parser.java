@@ -255,6 +255,7 @@ public class Parser {
     public static metalsoft.datos.dbobject.EmpleadoDB parseToEmpleadoDB(Empleado x)
     {
         metalsoft.datos.dbobject.EmpleadoDB db=new metalsoft.datos.dbobject.EmpleadoDB();
+        db.setLegajo(x.getLegajo());
         db.setApellido(x.getApellido());
         db.setEmail(x.getEmail());
         db.setNombre(x.getNombre());
