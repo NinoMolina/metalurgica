@@ -22,12 +22,12 @@ import java.io.Serializable;
 public class AsistenciaPK implements Serializable
 {
 	private long empleado;
-	private long fechaingreso;
+	private Date fechaingreso;
 	private Time horaingreso;
 
 
 	public AsistenciaPK(){}
-	public AsistenciaPK(long empleado ,long fechaingreso ,Time horaingreso){
+	public AsistenciaPK(long empleado ,Date fechaingreso ,Time horaingreso){
 		this.empleado = empleado;
 		this.fechaingreso = fechaingreso;
 		this.horaingreso = horaingreso;
@@ -39,10 +39,10 @@ public class AsistenciaPK implements Serializable
 	public long getEmpleado(){
 		 return(empleado);
 	}
-	public void setFechaingreso(long fechaingreso ){
+	public void setFechaingreso(Date fechaingreso ){
 		 this.fechaingreso =fechaingreso;
 	}
-	public long getFechaingreso(){
+	public Date getFechaingreso(){
 		 return(fechaingreso);
 	}
 	public void setHoraingreso(Time horaingreso ){
