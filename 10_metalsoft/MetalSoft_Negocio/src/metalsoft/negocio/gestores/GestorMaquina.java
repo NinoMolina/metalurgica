@@ -22,6 +22,7 @@ import metalsoft.datos.dbobject.Estadomaquina;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.exception.MaquinaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
+import metalsoft.datos.idao.EstadomaquinaDAO;
 import metalsoft.datos.idao.MaquinaDAO;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMaquina;
@@ -262,6 +263,36 @@ public class GestorMaquina {
             }
         }
     }
+    public void obternerEstadoMaquina(JComboBox combo) {
+
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        Estadomaquina[] datos=null;
+        EstadomaquinaDAO dao=new DAOFactoryImpl().createEstadomaquinaDAO();
+        try {
+            pg=new PostgreSQLManager();
+            cn=pg.concectGetCn();
+
+            datos=dao.findAll(cn);
+
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<datos.length;i++)
+            {
+                Combo.cargarCombo(combo,String.valueOf(datos[i].getIdestado()),datos[i].getNombre());
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorMaquina.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     public long generarNvoNroMaquina() {
         long result=-1;
@@ -270,7 +301,7 @@ public class GestorMaquina {
         pg=new PostgreSQLManager();
         try {
             cn = pg.concectGetCn();
-            result=AccessFunctions.nvoNroMateriaPrima(cn);
+            result=AccessFunctions.nvoNroMaquina(cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorMaquina.class.getName()).log(Level.SEVERE, null, ex);
         }
