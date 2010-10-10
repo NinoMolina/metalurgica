@@ -439,7 +439,7 @@ public class GestorEmpleado {
         return result;
     }
 
-    public long modificarCliente(Empleado empleado) {
+    public long modificarEmpleado(Empleado empleado) {
         //Setear todos los camposss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         long result = -1;
         EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
