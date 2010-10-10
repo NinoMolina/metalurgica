@@ -6,6 +6,7 @@
 package metalsoft.beans;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
@@ -45,6 +46,15 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
         cmbTipoDoc.setSelectedIndex(0);
         domicilioResponsable.limpiarCampos();
     }
+
+    public JLabel getLblFax() {
+        return lblFax;
+    }
+
+    public void setLblFax(JLabel lblFax) {
+        this.lblFax = lblFax;
+    }
+
 
     public void setObject(Object bean) {
         this.bean = bean;
@@ -136,9 +146,9 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
         txtFax = new javax.swing.JTextField();
         txtNroDoc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblFax = new javax.swing.JLabel();
 
-        domicilioResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio Responsable"));
+        domicilioResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
         jLabel1.setText("Nombre:");
 
@@ -158,7 +168,7 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
 
         jLabel5.setText("Nro. Documento:");
 
-        jLabel4.setText("Fax:");
+        lblFax.setText("Fax:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -188,7 +198,7 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
                             .add(layout.createSequentialGroup()
                                 .add(txtTelefono, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 93, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jLabel4)
+                                .add(lblFax)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(txtFax, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))))
                     .add(domicilioResponsable, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -214,7 +224,7 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
                     .add(jLabel6)
                     .add(txtTelefono, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(txtFax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel4))
+                    .add(lblFax))
                 .add(11, 11, 11)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
@@ -237,10 +247,10 @@ public class Responsable extends javax.swing.JPanel implements java.beans.Custom
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblFax;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFax;
