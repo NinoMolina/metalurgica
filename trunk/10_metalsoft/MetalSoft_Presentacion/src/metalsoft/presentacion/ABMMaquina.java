@@ -10,16 +10,186 @@
  */
 
 package metalsoft.presentacion;
-
+import java.sql.Time;
+import metalsoft.negocio.gestores.IBuscador;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
+import metalsoft.datos.dbobject.MaquinaDB;
+import metalsoft.negocio.gestores.GestorMaquina;
+import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.util.Combo;
+import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.Fecha;
+import metalsoft.util.ItemCombo;
 /**
  *
  * @author Vicky
  */
 public class ABMMaquina extends javax.swing.JFrame {
 
+    private GestorMaquina gestor;
+    private MaquinaDB maquinaDB;
+    private long idMaquina=-1;
+    private EnumOpcionesABM opcion;
     /** Creates new form ABMMaquina */
     public ABMMaquina() {
         initComponents();
+        gestor=new GestorMaquina();
+        addListenerBtnNuevo();
+        addListenerBtnGuardar();
+        addListenerBtnModificar();
+        addListenerBtnBuscar();
+        addListenerBtnSalir();
+        cargarComboTipoMaquina();
+        cargarComboMarca();
+        cargarComboEstado();
+        cargarComboUnidadMedida();
+    }
+
+    private void cargarComboEstado() {
+        cmbEstado.removeAllItems();
+        gestor.obternerEstadoMaquina(cmbEstado);
+    }
+
+    private void cargarComboMarca() {
+        cmbMarca.removeAllItems();
+        gestor.obtenerMarca(cmbMarca);
+    }
+    public void maquinaSeleccionada() {
+        maquinaDB=gestor.buscarPorId(idMaquina);
+        mostrarDatosMaquina(maquinaDB);
+    }
+
+    public void setIdMaquina(long id) {
+        idMaquina=id;
+    }
+
+    private void addListenerBtnNuevo() {
+        botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+    }
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        opcion=EnumOpcionesABM.NUEVO;
+        limpiarCampos();
+        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
+        Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
+        long nroMaQUINA=gestor.generarNvoNroMaquina();
+        lblnroMaquina.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MAQUINA, nroMaQUINA));
+    }
+
+    private void addListenerBtnGuardar() {
+        botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        Maquina ep=new Maquina();
+        Date fechaAlta=null;
+        if(dccFechaAlta.getSelectedDate()!=null)
+            fechaAlta=dccFechaAlta.getSelectedDate().getTime();
+        Date fechaBaja=null;
+        if(dccFechaBaja.getSelectedDate()!=null)
+            fechaBaja=dccFechaBaja.getSelectedDate().getTime();
+        //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
+        //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
+        ep.setFechaAlta(fechaAlta);
+        ep.setFechaBaja(fechaBaja);
+        
+        ep.setNroMaquina(NumerosAMostrar.getNumeroLong(lblnroMaquina.getText()));
+        ep.setDescripcion(txtDescripcion.getText());
+        ep.setNombre(txtNombre.getText());
+        ep.setTiempoCapacidadProduccion(Fecha.parseToTimeSQL(Fecha.parseToDate(txtTiempoProduccion.getText())));
+        long idTipoMaquina=Long.parseLong(((ItemCombo) cmbTipoMaquina.getSelectedItem()).getId());
+        long idMarca=Long.parseLong(((ItemCombo) cmbMarca.getSelectedItem()).getId());
+        long idUnidadMedida=Long.parseLong(((ItemCombo) cmbUnidadMedida.getSelectedItem()).getId());
+        long idEstado=Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
+        
+
+        long id;
+        if(opcion==EnumOpcionesABM.NUEVO)
+        {
+            id=gestor.guardar(ep, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Maquina: "+txtNombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+        }
+
+        if(opcion==EnumOpcionesABM.MODIFICAR)
+        {
+            id=gestor.modificar(ep, idMaquina, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
+            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Maquina: "+txtNombre.getText());
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
+        }
+        //limpiarCampos();
+    }
+    private void addListenerBtnModificar() {
+        botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        opcion=EnumOpcionesABM.MODIFICAR;
+    }
+
+    private void addListenerBtnBuscar() {
+        botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+//        ABMMateriaPrima_Buscar buscar=null;
+//        try {
+//            buscar=(ABMMateriaPrima_Buscar) JFrameManager.crearVentana(ABMMateriaPrima_Buscar.class.getName());
+//            buscar.setVentana(this);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
+
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        this.dispose();
     }
 
     /** This method is called from within the constructor to
@@ -281,4 +451,52 @@ public class ABMMaquina extends javax.swing.JFrame {
     private javax.swing.JTextField txtTiempoProduccion;
     // End of variables declaration//GEN-END:variables
 
+    private void mostrarDatosMaquina(MaquinaDB mp) {
+
+        txtDescripcion.setText(mp.getDescripcion());
+        txtNombre.setText(mp.getNombre());
+        lblnroMaquina.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, mp.getIdmaquina()));
+        txtTiempoProduccion.setText(String.valueOf(mp.getTiempoCapacidadProduccion()));
+
+        if(mp.getFechaAlta()==null)
+            dccFechaAlta.setSelectedDate(null);
+        else{
+            GregorianCalendar gc=new GregorianCalendar();
+            gc.setTime(mp.getFechaAlta());
+            dccFechaAlta.setSelectedDate(gc);
+        }
+
+        if(mp.getFechaBaja()==null)
+            dccFechaBaja.setSelectedDate(null);
+        else
+        {
+            GregorianCalendar gcb=new GregorianCalendar();
+            gcb.setTime(mp.getFechaBaja());
+            dccFechaBaja.setSelectedDate(gcb);
+        }
+        
+        if(mp.getEstado()<1) Combo.setItemComboSeleccionado(cmbEstado, -1);
+        else Combo.setItemComboSeleccionado(cmbEstado, mp.getEstado());
+        if(mp.getUnidadMedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        else Combo.setItemComboSeleccionado(cmbUnidadMedida, mp.getUnidadMedida());
+        if(mp.getMarca()<1) Combo.setItemComboSeleccionado(cmbMarca, -1);
+        else Combo.setItemComboSeleccionado(cmbMarca, mp.getMarca());
+        if(mp.getTipomaquina()<1) Combo.setItemComboSeleccionado(cmbTipoMaquina, -1);
+        else Combo.setItemComboSeleccionado(cmbTipoMaquina, mp.getTipomaquina());
+    }
+    public void limpiarCampos()
+    {
+        txtDescripcion.setText("");
+        txtNombre.setText("");
+        lblnroMaquina.setText("");;
+        txtTiempoProduccion.setText("");
+
+        dccFechaAlta.setSelectedDate(null);
+        dccFechaBaja.setSelectedDate(null);
+
+        cmbUnidadMedida.setSelectedIndex(-1);
+        cmbEstado.setSelectedIndex(-1);
+        cmbMarca.setSelectedIndex(-1);
+        cmbTipoMaquina.setSelectedIndex(-1);
+    }
 }
