@@ -18,6 +18,7 @@ public class NumerosAMostrar {
     public static final int NRO_MATERIAPRIMA=5;
     public static final int NRO_PROVEEDOR=6;
     public static final int NRO_EMPLEADO=7;
+    public static final int NRO_MAQUINA=8;
 
     public static String getNumeroString(int tiponro,long nro)
     {
@@ -37,6 +38,8 @@ public class NumerosAMostrar {
                     return "PROV-"+String.valueOf(nro);
             case NRO_EMPLEADO:
                     return "EMPL-"+String.valueOf(nro);
+            case NRO_MAQUINA:
+                    return "MAQ-"+String.valueOf(nro);
             default:
                     return null;
         }
