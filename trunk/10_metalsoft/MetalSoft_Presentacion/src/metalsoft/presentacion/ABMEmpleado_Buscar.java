@@ -8,8 +8,8 @@
  *
  * Created on 09/10/2010, 12:28:39
  */
-
 package metalsoft.presentacion;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import metalsoft.datos.dbobject.EmpleadoDB;
 import metalsoft.negocio.gestores.GestorEmpleado;
 import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
@@ -28,8 +29,8 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     public ABMEmpleado_Buscar() {
         initComponents();
     }
-     private ABMEmpleado ventana;
-     private RegistrarAsistencia ventanaAsistencia;
+    private ABMEmpleado ventana;
+    private RegistrarAsistencia ventanaAsistencia;
 
     public RegistrarAsistencia getVentanaAsistencia() {
         return ventanaAsistencia;
@@ -39,7 +40,7 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
         this.ventanaAsistencia = ventanaAsistencia;
     }
     private Timer timer;
-    private GestorEmpleado gestor=null;
+    private GestorEmpleado gestor = null;
 
     public void setGestor(GestorEmpleado gestor) {
         this.gestor = gestor;
@@ -47,8 +48,6 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     private EmpleadoDB[] empleadoDB;
 
     /** Creates new form ABMMateriaPrima_Buscar */
-
-
     public GestorEmpleado getGestor() {
         return gestor;
     }
@@ -56,10 +55,10 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     public ABMEmpleado getVentana() {
         return ventana;
     }
-    /** Creates new form ABMEtapaDeProduccion_Buscar */
 
+    /** Creates new form ABMEtapaDeProduccion_Buscar */
     void setVentana(ABMEmpleado ventana) {
-        this.ventana=ventana;
+        this.ventana = ventana;
     }
 
     /** This method is called from within the constructor to
@@ -148,14 +147,16 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMEmpleado_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMEmpleado_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloBuscarEmpleado hiloBuscar;
+
                 @Override
                 public void run() {
-                    hiloBuscar=new HiloBuscarEmpleado();
+                    hiloBuscar = new HiloBuscarEmpleado();
                     hiloBuscar.setVentana(abm);
                     hiloBuscar.setValor(txtValor.getText());
                     hiloBuscar.start();
@@ -165,11 +166,15 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdCliente(id);
-        ventana.empleadoSeleccionado();
-        ventanaAsistencia.setIdEmpleado(id);
-        ventanaAsistencia.empleadoSeleccionado();
+        long id = Long.parseLong(((ItemCombo) lstLista.getSelectedValue()).getId());
+        if (ventana != null) {
+            ventana.setIdCliente(id);
+            ventana.empleadoSeleccionado();
+        }
+        if (ventanaAsistencia != null) {
+            ventanaAsistencia.setIdEmpleado(id);
+            ventanaAsistencia.empleadoSeleccionado();
+        }
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
     public JList getLstLista() {
@@ -187,16 +192,16 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     public void setTxtValor(JTextField txtValor) {
         this.txtValor = txtValor;
     }
+
     /**
-    * @param args the command line arguments
-    */
-    
+     * @param args the command line arguments
+     */
     public JList getList(String className) {
         return lstLista;
     }
 
     public void setBusqueda(Object[] obj) {
-        empleadoDB=(EmpleadoDB[]) obj;
+        empleadoDB = (EmpleadoDB[]) obj;
     }
 
     public JComboBox getCombo(String className) {
@@ -210,5 +215,4 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
 }
