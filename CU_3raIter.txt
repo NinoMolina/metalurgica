@@ -38,14 +38,13 @@ CU 3ra Iteracion:
 145: Registrar Envío a Mantenimiento Correctivo de Máquina
 148: Registrar Envio preventivo
 149: Modificar Mantenimiento Preventivo
-150
+150: Consultar Mantenimiento Preventivo
 151: Eliminar Mantenimiento Preventivo
 154: Modificar Rotura
 156: Eliminar Rotura.
 158: Modificar Servicio de Máquina.
 
-160
-161
+160: Eliminar Servicio de Máquina
 162
 163
 164
@@ -54,16 +53,16 @@ CU 3ra Iteracion:
 167
 168
 169
-
 170
+
 171
 172
 173
 174
 175
 176
-178
-180
-181
-182
+178: Registrar Empresa de Mantenimiento
+180: Modificar Empresa de Mantenimiento
+181: Registrar baja de Empresa de Mantenimiento
+182: Registrar Ejecución de Procesos de Calidad
 
