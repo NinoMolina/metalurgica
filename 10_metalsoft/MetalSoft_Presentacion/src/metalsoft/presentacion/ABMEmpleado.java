@@ -170,11 +170,11 @@ public class ABMEmpleado extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jpTurnos = new javax.swing.JPanel();
         chkMañana = new javax.swing.JCheckBox();
         chkTarde = new javax.swing.JCheckBox();
         chkNoche = new javax.swing.JCheckBox();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,7 +190,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
 
-        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroCliente.setText("...");
 
         jLabel2.setText("Motivo de Egreso:");
@@ -241,13 +241,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
             }
         });
 
@@ -333,9 +326,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -381,16 +372,24 @@ public class ABMEmpleado extends javax.swing.JFrame {
                         .addComponent(btnGuardar))
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar)
-                        .addComponent(btnSalir))))
+                    .addComponent(btnBuscar)))
         );
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 704, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(631, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -399,7 +398,10 @@ public class ABMEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(426, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(22, 22, 22))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -524,9 +526,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.GUARDAR;
 
         if (idEmpleado > 0) {
-            JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+            JOptionPane.showMessageDialog(this, "El empleado se guardó correctamente");
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el empleado");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
