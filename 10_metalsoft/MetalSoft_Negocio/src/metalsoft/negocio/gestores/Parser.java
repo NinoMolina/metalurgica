@@ -15,6 +15,7 @@ import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.datos.dbobject.MaquinaDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
@@ -27,6 +28,7 @@ import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.calidad.DetallePiezaCalidadPresupuesto;
 import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.compras.Proveedor;
+import metalsoft.negocio.mantmaquinarias.Maquina;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.rrhh.Calendario;
@@ -55,6 +57,22 @@ import metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica;
  * @author Vicky
  */
 public class Parser {
+
+    public static MaquinaDB parseToMaquinaDB(Maquina maquina) {
+        MaquinaDB db=new MaquinaDB();
+        db.setNombre(maquina.getNombre());
+        db.setTiempoCapacidadProduccion(maquina.getTiempoCapacidadProduccion());
+        db.setDescripcion(maquina.getDescripcion());
+        if(maquina.getFechaAlta()!=null)
+            db.setFechaAlta(new java.sql.Date(maquina.getFechaAlta().getTime()));
+        else
+            db.setFechaAlta(null);
+        if(maquina.getFechaBaja()!=null)
+            db.setFechaBaja(new java.sql.Date(maquina.getFechaBaja().getTime()));
+        else
+            db.setFechaBaja(null);
+        return db;
+    }
 
     public static MateriaprimaDB parseToMateriaPrimaDB(MateriaPrima materiaPrima) {
         MateriaprimaDB mp=new MateriaprimaDB();
