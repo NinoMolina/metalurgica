@@ -6360,7 +6360,7 @@
 				roles      	(list role_list
 				    (object Role "$UNNAMED$576"
 					quid       	"4BE590CB02A8"
-					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina"
+					supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío a Mantenimiento Preventivo de Máquina"
 					quidu      	"4BE58A7403B1"
 					is_navigable 	TRUE)
 				    (object Role "$UNNAMED$577"
@@ -18388,7 +18388,7 @@
 						supplier   	@700
 						vertices   	(list Points
 						    (796, 2027)
-						    (562, 1813))
+						    (533, 1785))
 						line_style 	0)
 					    (object DependencyView "" @707
 						font       	(object Font
@@ -18427,7 +18427,7 @@
 						supplier   	@703
 						vertices   	(list Points
 						    (862, 2027)
-						    (887, 1687))
+						    (890, 1659))
 						line_style 	0)
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Almacenamiento::94. Registrar Egreso Materia Prima" @709
 						location   	(2252, 1363)
@@ -18734,7 +18734,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1511, 824)
-							    (1329, 1027))
+							    (1329, 1028))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$402" @723
 							Parent_View 	@720
@@ -18777,7 +18777,7 @@
 							supplier   	@696
 							vertices   	(list Points
 							    (1511, 824)
-							    (1693, 622))
+							    (1697, 620))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$404" @725
 						location   	(1320, 779)
@@ -18826,7 +18826,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1320, 779)
-							    (1281, 1017))
+							    (1281, 1018))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$405" @728
 							Parent_View 	@725
@@ -18869,7 +18869,7 @@
 							supplier   	@697
 							vertices   	(list Points
 							    (1320, 779)
-							    (1359, 541))
+							    (1357, 539))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$407" @730
 						location   	(1930, 1126)
@@ -18918,7 +18918,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1930, 1126)
-							    (1329, 1099))
+							    (1329, 1098))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$408" @733
 							Parent_View 	@730
@@ -19010,7 +19010,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (870, 913)
-							    (1213, 1069))
+							    (1213, 1068))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$411" @738
 							Parent_View 	@735
@@ -19053,7 +19053,7 @@
 							supplier   	@699
 							vertices   	(list Points
 							    (870, 913)
-							    (527, 758))
+							    (676, 824))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$413" @740
 						location   	(760, 1389)
@@ -19102,7 +19102,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (760, 1389)
-							    (1069, 1213))
+							    (1213, 1129))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$414" @743
 							Parent_View 	@740
@@ -19145,7 +19145,7 @@
 							supplier   	@700
 							vertices   	(list Points
 							    (760, 1389)
-							    (451, 1566))
+							    (450, 1565))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$419" @745
 						location   	(874, 774)
@@ -19237,7 +19237,7 @@
 							supplier   	@701
 							vertices   	(list Points
 							    (874, 774)
-							    (536, 500))
+							    (532, 498))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$422" @750
 						location   	(1723, 846)
@@ -19286,7 +19286,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1723, 846)
-							    (1329, 1065))
+							    (1329, 1063))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$423" @753
 							Parent_View 	@750
@@ -19329,7 +19329,7 @@
 							supplier   	@702
 							vertices   	(list Points
 							    (1723, 846)
-							    (2118, 627))
+							    (2011, 686))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$611" @755
 						location   	(1018, 1372)
@@ -19378,7 +19378,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1018, 1372)
-							    (1082, 1305))
+							    (1185, 1193))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$612" @758
 							Parent_View 	@755
@@ -19421,7 +19421,7 @@
 							supplier   	@703
 							vertices   	(list Points
 							    (1018, 1372)
-							    (955, 1440))
+							    (954, 1440))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$617" @760
 						location   	(1034, 1666)
@@ -19470,7 +19470,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1034, 1666)
-							    (1188, 1305))
+							    (1198, 1281))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$618" @763
 							Parent_View 	@760
@@ -19562,7 +19562,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1669, 989)
-							    (1329, 1081))
+							    (1329, 1079))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$621" @768
 							Parent_View 	@765
@@ -19605,7 +19605,7 @@
 							supplier   	@716
 							vertices   	(list Points
 							    (1669, 989)
-							    (2009, 897))
+							    (1986, 902))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$623" @770
 						location   	(1735, 1221)
@@ -19654,7 +19654,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1735, 1221)
-							    (1329, 1111))
+							    (1329, 1112))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$624" @773
 							Parent_View 	@770
@@ -19697,7 +19697,7 @@
 							supplier   	@709
 							vertices   	(list Points
 							    (1735, 1221)
-							    (2141, 1331))
+							    (2140, 1330))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$626" @775
 						location   	(1824, 1615)
@@ -19746,7 +19746,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1824, 1615)
-							    (1474, 1287))
+							    (1329, 1152))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$627" @778
 							Parent_View 	@775
@@ -19838,7 +19838,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (810, 1016)
-							    (1213, 1084))
+							    (1211, 1085))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$630" @783
 							Parent_View 	@780
@@ -19881,7 +19881,7 @@
 							supplier   	@711
 							vertices   	(list Points
 							    (810, 1016)
-							    (408, 949))
+							    (408, 948))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$632" @785
 						location   	(810, 1016)
@@ -19930,7 +19930,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (810, 1016)
-							    (1213, 1084))
+							    (1211, 1085))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$633" @788
 							Parent_View 	@785
@@ -19973,7 +19973,7 @@
 							supplier   	@711
 							vertices   	(list Points
 							    (810, 1016)
-							    (408, 949))
+							    (408, 948))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$635" @790
 						location   	(831, 1146)
@@ -20022,7 +20022,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (831, 1146)
-							    (1213, 1102))
+							    (1211, 1102))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$636" @793
 							Parent_View 	@790
@@ -20114,7 +20114,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1640, 1509)
-							    (1458, 1305))
+							    (1358, 1194))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$639" @798
 							Parent_View 	@795
@@ -20157,7 +20157,7 @@
 							supplier   	@713
 							vertices   	(list Points
 							    (1640, 1509)
-							    (1823, 1714))
+							    (1824, 1713))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$641" @800
 						location   	(1566, 1700)
@@ -20298,7 +20298,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1929, 1467)
-							    (1474, 1210))
+							    (1329, 1127))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$645" @808
 							Parent_View 	@805
@@ -20341,7 +20341,7 @@
 							supplier   	@715
 							vertices   	(list Points
 							    (1929, 1467)
-							    (2385, 1725))
+							    (2382, 1723))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$647" @810
 						location   	(1669, 989)
@@ -20390,7 +20390,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1669, 989)
-							    (1329, 1081))
+							    (1329, 1079))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$648" @813
 							Parent_View 	@810
@@ -20433,7 +20433,7 @@
 							supplier   	@716
 							vertices   	(list Points
 							    (1669, 989)
-							    (2009, 897))
+							    (1986, 902))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$425" @815
 						location   	(1112, 727)
@@ -20482,7 +20482,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1112, 727)
-							    (1236, 1017))
+							    (1235, 1016))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$426" @818
 							Parent_View 	@815
@@ -20525,7 +20525,7 @@
 							supplier   	@717
 							vertices   	(list Points
 							    (1112, 727)
-							    (989, 438))
+							    (988, 436))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$950" @820
 						location   	(1292, 1601)
@@ -20552,7 +20552,7 @@
 							supplier   	@718
 							vertices   	(list Points
 							    (1292, 1601)
-							    (1305, 1897))
+							    (1304, 1897))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$952" @822
 							Parent_View 	@820
@@ -20564,7 +20564,7 @@
 							supplier   	@719
 							vertices   	(list Points
 							    (1292, 1601)
-							    (1279, 1305))
+							    (1276, 1281))
 							line_style 	0)))))))
 			    (object Class_Category "Gestión de Calidad"
 				quid       	"4BE5CC66033E"
@@ -20765,7 +20765,7 @@
 						supplier   	@824
 						vertices   	(list Points
 						    (1652, 1619)
-						    (1856, 897))
+						    (1862, 873))
 						line_style 	0)
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::118. Modificar Proceso de Calidad" @829
 						location   	(1447, 1017)
@@ -20896,7 +20896,7 @@
 						supplier   	@832
 						vertices   	(list Points
 						    (1529, 1634)
-						    (1136, 1485))
+						    (1127, 1482))
 						line_style 	0)
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción" @835
 						location   	(338, 1598)
@@ -21043,7 +21043,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (779, 815)
-							    (904, 884))
+							    (903, 881))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$453" @842
 							Parent_View 	@839
@@ -21086,7 +21086,7 @@
 							supplier   	@823
 							vertices   	(list Points
 							    (779, 815)
-							    (655, 746))
+							    (618, 726))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$455" @844
 						location   	(1301, 842)
@@ -21135,7 +21135,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (1301, 842)
-							    (1021, 902))
+							    (1021, 903))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$456" @847
 							Parent_View 	@844
@@ -21178,7 +21178,7 @@
 							supplier   	@824
 							vertices   	(list Points
 							    (1301, 842)
-							    (1582, 782))
+							    (1591, 778))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$458" @849
 						location   	(1152, 724)
@@ -21227,7 +21227,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (1152, 724)
-							    (1021, 858))
+							    (1021, 856))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$459" @852
 							Parent_View 	@849
@@ -21270,7 +21270,7 @@
 							supplier   	@825
 							vertices   	(list Points
 							    (1152, 724)
-							    (1283, 591))
+							    (1306, 567))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$461" @854
 						location   	(1366, 1371)
@@ -21319,7 +21319,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (1366, 1371)
-							    (1147, 1125))
+							    (1050, 1014))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$462" @857
 							Parent_View 	@854
@@ -21362,7 +21362,7 @@
 							supplier   	@826
 							vertices   	(list Points
 							    (1366, 1371)
-							    (1585, 1617))
+							    (1586, 1619))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$464" @859
 						location   	(1178, 959)
@@ -21411,7 +21411,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (1178, 959)
-							    (1021, 927))
+							    (1021, 926))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$465" @862
 							Parent_View 	@859
@@ -21454,7 +21454,7 @@
 							supplier   	@829
 							vertices   	(list Points
 							    (1178, 959)
-							    (1336, 991))
+							    (1337, 990))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$467" @864
 						location   	(738, 583)
@@ -21503,7 +21503,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (738, 583)
-							    (909, 838))
+							    (907, 836))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$468" @867
 							Parent_View 	@864
@@ -21638,7 +21638,7 @@
 							supplier   	@831
 							vertices   	(list Points
 							    (966, 640)
-							    (968, 445))
+							    (967, 445))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$590" @874
 						location   	(858, 1214)
@@ -21687,7 +21687,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (858, 1214)
-							    (893, 1125))
+							    (900, 1101))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$591" @877
 							Parent_View 	@874
@@ -21779,7 +21779,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (580, 1332)
-							    (774, 1125))
+							    (877, 1012))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$594" @882
 							Parent_View 	@879
@@ -21822,7 +21822,7 @@
 							supplier   	@835
 							vertices   	(list Points
 							    (580, 1332)
-							    (387, 1540))
+							    (384, 1540))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$596" @884
 						location   	(667, 944)
@@ -21871,7 +21871,7 @@
 							supplier   	@838
 							vertices   	(list Points
 							    (667, 944)
-							    (904, 921))
+							    (905, 921))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$597" @887
 							Parent_View 	@884
@@ -21914,7 +21914,7 @@
 							supplier   	@836
 							vertices   	(list Points
 							    (667, 944)
-							    (430, 967))
+							    (430, 964))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$953" @889
 						location   	(1427, 711)
@@ -21941,7 +21941,7 @@
 							supplier   	@837
 							vertices   	(list Points
 							    (1427, 711)
-							    (1833, 533))
+							    (1836, 530))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$955" @891
 							Parent_View 	@889
@@ -23585,7 +23585,7 @@
 						supplier   	@961
 						vertices   	(list Points
 						    (2289, 1117)
-						    (1900, 958))
+						    (1790, 913))
 						line_style 	0)
 					    (object DependencyView "" @964
 						font       	(object Font
@@ -23623,8 +23623,8 @@
 						client     	@950
 						supplier   	@961
 						vertices   	(list Points
-						    (2053, 648)
-						    (1580, 831))
+						    (1846, 726)
+						    (1688, 787))
 						line_style 	0)
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Recursos Humanos::135. Registrar Asistencia Empleado" @966
 						location   	(514, 1418)
@@ -23795,7 +23795,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (990, 592)
-							    (1012, 721))
+							    (1015, 721))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$477" @974
 							Parent_View 	@971
@@ -23887,7 +23887,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (838, 687)
-							    (970, 765))
+							    (972, 767))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$480" @979
 							Parent_View 	@976
@@ -23930,7 +23930,7 @@
 							supplier   	@952
 							vertices   	(list Points
 							    (838, 687)
-							    (716, 614))
+							    (704, 608))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$482" @981
 						location   	(655, 974)
@@ -23979,7 +23979,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (655, 974)
-							    (971, 826))
+							    (825, 897))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$483" @984
 							Parent_View 	@981
@@ -24022,7 +24022,7 @@
 							supplier   	@953
 							vertices   	(list Points
 							    (655, 974)
-							    (486, 1053))
+							    (486, 1052))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$485" @986
 						location   	(658, 795)
@@ -24071,7 +24071,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (658, 795)
-							    (970, 799))
+							    (972, 799))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$486" @989
 							Parent_View 	@986
@@ -24117,14 +24117,14 @@
 							    (344, 792))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$488" @991
-						location   	(933, 1319)
+						location   	(935, 1318)
 						stereotype 	TRUE
 						line_color 	10485760
 						quidu      	"4BCBFD920367"
 						roleview_list 	(list RoleViews
 						    (object RoleView "$UNNAMED$490" @992
 							Parent_View 	@991
-							location   	(-561, -56)
+							location   	(-559, -57)
 							font       	(object Font
 							    size       	9
 							    face       	"Arial"
@@ -24136,7 +24136,7 @@
 							    default_color 	TRUE)
 							label      	(object SegLabel @993
 							    Parent_View 	@992
-							    location   	(938, 1067)
+							    location   	(940, 1066)
 							    font       	(object Font
 								size       	9
 								face       	"Arial"
@@ -24162,12 +24162,12 @@
 							client     	@991
 							supplier   	@970
 							vertices   	(list Points
-							    (933, 1319)
-							    (993, 986))
+							    (935, 1318)
+							    (992, 1010))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$489" @994
 							Parent_View 	@991
-							location   	(-561, -56)
+							location   	(-559, -57)
 							font       	(object Font
 							    size       	9
 							    face       	"Arial"
@@ -24205,8 +24205,8 @@
 							client     	@991
 							supplier   	@955
 							vertices   	(list Points
-							    (933, 1319)
-							    (876, 1627))
+							    (935, 1318)
+							    (878, 1627))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$491" @996
 						location   	(1613, 540)
@@ -24255,7 +24255,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (1613, 540)
-							    (1088, 775))
+							    (1088, 773))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$492" @999
 							Parent_View 	@996
@@ -24298,7 +24298,7 @@
 							supplier   	@956
 							vertices   	(list Points
 							    (1613, 540)
-							    (2028, 353))
+							    (2138, 307))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$494" @1001
 						location   	(1217, 588)
@@ -24347,7 +24347,7 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (1217, 588)
-							    (1088, 735))
+							    (1088, 734))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$495" @1004
 							Parent_View 	@1001
@@ -24390,7 +24390,7 @@
 							supplier   	@960
 							vertices   	(list Points
 							    (1217, 588)
-							    (1344, 442))
+							    (1346, 442))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$497" @1006
 						location   	(1278, 813)
@@ -24482,17 +24482,17 @@
 							supplier   	@961
 							vertices   	(list Points
 							    (1278, 813)
-							    (1468, 821))
+							    (1469, 822))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$500" @1011
-						location   	(705, 1185)
+						location   	(706, 1184)
 						stereotype 	TRUE
 						line_color 	10485760
 						quidu      	"4BCBFD98005E"
 						roleview_list 	(list RoleViews
 						    (object RoleView "$UNNAMED$502" @1012
 							Parent_View 	@1011
-							location   	(-358, -255)
+							location   	(-357, -256)
 							font       	(object Font
 							    size       	9
 							    face       	"Arial"
@@ -24504,7 +24504,7 @@
 							    default_color 	TRUE)
 							label      	(object SegLabel @1013
 							    Parent_View 	@1012
-							    location   	(792, 1021)
+							    location   	(793, 1020)
 							    font       	(object Font
 								size       	9
 								face       	"Arial"
@@ -24530,12 +24530,12 @@
 							client     	@1011
 							supplier   	@970
 							vertices   	(list Points
-							    (705, 1185)
-							    (944, 904))
+							    (706, 1184)
+							    (855, 1010))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$501" @1014
 							Parent_View 	@1011
-							location   	(-358, -255)
+							location   	(-357, -256)
 							font       	(object Font
 							    size       	9
 							    face       	"Arial"
@@ -24547,7 +24547,7 @@
 							    default_color 	TRUE)
 							label      	(object SegLabel @1015
 							    Parent_View 	@1014
-							    location   	(557, 1297)
+							    location   	(556, 1298)
 							    font       	(object Font
 								size       	9
 								face       	"Arial"
@@ -24573,11 +24573,11 @@
 							client     	@1011
 							supplier   	@966
 							vertices   	(list Points
-							    (705, 1185)
+							    (706, 1184)
 							    (557, 1359))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$956" @1016
-						location   	(1467, 1257)
+						location   	(1466, 1256)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -24593,27 +24593,27 @@
 						roleview_list 	(list RoleViews
 						    (object RoleView "$UNNAMED$957" @1017
 							Parent_View 	@1016
-							location   	(436, 454)
+							location   	(435, 453)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4BE5F514008A"
 							client     	@1016
 							supplier   	@967
 							vertices   	(list Points
-							    (1467, 1257)
-							    (1704, 1505))
+							    (1466, 1256)
+							    (1701, 1503))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$958" @1018
 							Parent_View 	@1016
-							location   	(436, 454)
+							location   	(435, 453)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4BE5F514008C"
 							client     	@1016
 							supplier   	@970
 							vertices   	(list Points
-							    (1467, 1257)
-							    (1117, 893))
+							    (1466, 1256)
+							    (1231, 1010))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$959" @1019
 						location   	(1735, 1210)
@@ -24640,7 +24640,7 @@
 							supplier   	@968
 							vertices   	(list Points
 							    (1735, 1210)
-							    (2235, 1500))
+							    (2234, 1499))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$961" @1021
 							Parent_View 	@1019
@@ -24652,10 +24652,10 @@
 							supplier   	@970
 							vertices   	(list Points
 							    (1735, 1210)
-							    (1088, 834))
+							    (1236, 921))
 							line_style 	0)))
 					    (object AssociationViewNew "$UNNAMED$962" @1022
-						location   	(1223, 1369)
+						location   	(1223, 1368)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -24671,27 +24671,27 @@
 						roleview_list 	(list RoleViews
 						    (object RoleView "$UNNAMED$963" @1023
 							Parent_View 	@1022
-							location   	(192, 566)
+							location   	(192, 565)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE20C0203"
 							client     	@1022
 							supplier   	@969
 							vertices   	(list Points
-							    (1223, 1369)
+							    (1223, 1368)
 							    (1346, 1726))
 							line_style 	0)
 						    (object RoleView "$UNNAMED$964" @1024
 							Parent_View 	@1022
-							location   	(192, 566)
+							location   	(192, 565)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE20C0205"
 							client     	@1022
 							supplier   	@970
 							vertices   	(list Points
-							    (1223, 1369)
-							    (1090, 986))
+							    (1223, 1368)
+							    (1100, 1010))
 							line_style 	0)))))))
 			    (object Class_Category "Gestión de informes para la toma de decisiones"
 				quid       	"4BE5CCAF023D"
@@ -26525,7 +26525,12 @@
 						quid       	"4BCC1380039B"
 						stereotype 	"extend"
 						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina"
-						quidu      	"4BCBED6A0260")))
+						quidu      	"4BCBED6A0260")
+					    (object Dependency_Relationship
+						quid       	"4CB122E000E5"
+						stereotype 	"extend"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::148. Registrar Mantenimiento Preventivo"
+						quidu      	"4BCBED5C02F3")))
 				    (object UseCase "151. Eliminar Mantenimiento Preventivo"
 					quid       	"4BE589560184")
 				    (object UseCase "156. Eliminar Rotura"
@@ -26540,12 +26545,18 @@
 					quid       	"4BCC12CE0219")
 				    (object UseCase "145. Registrar Envío a Mantenimiento Correctivo de Máquina"
 					quid       	"4BCBED6A0260")
-				    (object UseCase "144. Registrar Envío de Mantenimiento Preventivo de Máquina"
+				    (object UseCase "144. Registrar Envío a Mantenimiento Preventivo de Máquina"
 					quid       	"4BE58A7403B1")
 				    (object UseCase "161. Registrar Ingreso Máquina de Reparación"
 					quid       	"4BCBED970237")
 				    (object UseCase "148. Registrar Mantenimiento Preventivo"
-					quid       	"4BCBED5C02F3")
+					quid       	"4BCBED5C02F3"
+					visible_modules 	(list dependency_list
+					    (object Dependency_Relationship
+						quid       	"4CB121F9015B"
+						stereotype 	"extend"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Máquina"
+						quidu      	"4BCC12CF0227")))
 				    (object UseCase "152. Registrar Parada De Máquina"
 					quid       	"4BCC0F9403A9")
 				    (object UseCase "153. Registrar Rotura"
@@ -26739,7 +26750,7 @@
 					roles      	(list role_list
 					    (object Role "$UNNAMED$1011"
 						quid       	"4C1FE575032C"
-						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina"
+						supplier   	"Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío a Mantenimiento Preventivo de Máquina"
 						quidu      	"4BE58A7403B1"
 						is_navigable 	TRUE)
 					    (object Role "$UNNAMED$1012"
@@ -26850,7 +26861,7 @@
 					max_height 	28350
 					max_width  	21600
 					origin_x   	0
-					origin_y   	0
+					origin_y   	250
 					items      	(list diagram_item_list
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::147. Consultar Envío de Mantenimiento Correctivo de Máquina" @1114
 						location   	(364, 897)
@@ -26968,7 +26979,7 @@
 						fill_color 	16777175
 						quidu      	"4BCC12CE0219")
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::154. Modificar Rotura" @1119
-						location   	(1696, 1658)
+						location   	(1638, 1663)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -26980,7 +26991,7 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1119
-						    location   	(1696, 1796)
+						    location   	(1638, 1801)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
@@ -27037,7 +27048,7 @@
 						fill_color 	12368969
 						quidu      	"4BCBED4B0021")
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::159. Consultar Servicio de Máquina" @1122
-						location   	(975, 229)
+						location   	(3081, 1517)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27049,7 +27060,7 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1122
-						    location   	(975, 367)
+						    location   	(3081, 1655)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
@@ -27060,7 +27071,7 @@
 						fill_color 	12368969
 						quidu      	"4BCC12CF0227")
 					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::145. Registrar Envío a Mantenimiento Correctivo de Máquina" @1123
-						location   	(1552, 153)
+						location   	(1293, 141)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27072,7 +27083,7 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1123
-						    location   	(1552, 291)
+						    location   	(1293, 279)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
@@ -27082,7 +27093,8 @@
 						line_color 	10485760
 						fill_color 	12368969
 						quidu      	"4BCBED6A0260")
-					    (object DependencyView "" @1124
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::151. Eliminar Mantenimiento Preventivo" @1124
+						location   	(2395, 162)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27092,37 +27104,43 @@
 						    strike     	FALSE
 						    color      	0
 						    default_color 	TRUE)
-						stereotype 	(object SegLabel @1125
+						label      	(object ItemLabel
 						    Parent_View 	@1124
-						    location   	(1203, 124)
-						    font       	(object Font
-							size       	9
-							face       	"Arial"
-							bold       	FALSE
-							italics    	FALSE
-							underline  	FALSE
-							strike     	FALSE
-							color      	0
-							default_color 	TRUE)
-						    anchor     	10
+						    location   	(2395, 300)
 						    anchor_loc 	1
-						    nlines     	1
-						    max_width  	450
+						    nlines     	2
+						    max_width  	630
 						    justify    	0
-						    label      	"<<extend>>"
-						    pctDist    	0.357493
-						    height     	72
-						    orientation 	0)
+						    label      	"151. Eliminar Mantenimiento Preventivo")
+						icon_style 	"Icon"
 						line_color 	10485760
-						quidu      	"4BCC1380039B"
-						client     	@1122
-						supplier   	@1123
-						vertices   	(list Points
-						    (1083, 210)
-						    (1441, 164))
-						line_style 	0)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::151. Eliminar Mantenimiento Preventivo" @1126
-						location   	(1799, 503)
+						fill_color 	16777175
+						quidu      	"4BE589560184")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::156. Eliminar Rotura" @1125
+						location   	(885, 225)
+						font       	(object Font
+						    size       	9
+						    face       	"Arial"
+						    bold       	FALSE
+						    italics    	FALSE
+						    underline  	FALSE
+						    strike     	FALSE
+						    color      	0
+						    default_color 	TRUE)
+						label      	(object ItemLabel
+						    Parent_View 	@1125
+						    location   	(885, 363)
+						    anchor_loc 	1
+						    nlines     	2
+						    max_width  	630
+						    justify    	0
+						    label      	"156. Eliminar Rotura")
+						icon_style 	"Icon"
+						line_color 	10485760
+						fill_color 	16777175
+						quidu      	"4BCBED3A0165")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::153. Registrar Rotura" @1126
+						location   	(1873, 162)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27134,53 +27152,7 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1126
-						    location   	(1799, 641)
-						    anchor_loc 	1
-						    nlines     	2
-						    max_width  	630
-						    justify    	0
-						    label      	"151. Eliminar Mantenimiento Preventivo")
-						icon_style 	"Icon"
-						line_color 	10485760
-						fill_color 	16777175
-						quidu      	"4BE589560184")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::156. Eliminar Rotura" @1127
-						location   	(2452, 643)
-						font       	(object Font
-						    size       	9
-						    face       	"Arial"
-						    bold       	FALSE
-						    italics    	FALSE
-						    underline  	FALSE
-						    strike     	FALSE
-						    color      	0
-						    default_color 	TRUE)
-						label      	(object ItemLabel
-						    Parent_View 	@1127
-						    location   	(2452, 781)
-						    anchor_loc 	1
-						    nlines     	2
-						    max_width  	630
-						    justify    	0
-						    label      	"156. Eliminar Rotura")
-						icon_style 	"Icon"
-						line_color 	10485760
-						fill_color 	16777175
-						quidu      	"4BCBED3A0165")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::153. Registrar Rotura" @1128
-						location   	(2589, 325)
-						font       	(object Font
-						    size       	9
-						    face       	"Arial"
-						    bold       	FALSE
-						    italics    	FALSE
-						    underline  	FALSE
-						    strike     	FALSE
-						    color      	0
-						    default_color 	TRUE)
-						label      	(object ItemLabel
-						    Parent_View 	@1128
-						    location   	(2589, 463)
+						    location   	(1873, 300)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
@@ -27190,7 +27162,7 @@
 						line_color 	10485760
 						fill_color 	12368969
 						quidu      	"4BCBECE000AD")
-					    (object DependencyView "" @1129
+					    (object DependencyView "" @1127
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27200,9 +27172,9 @@
 						    strike     	FALSE
 						    color      	0
 						    default_color 	TRUE)
-						stereotype 	(object SegLabel @1130
-						    Parent_View 	@1129
-						    location   	(2052, 342)
+						stereotype 	(object SegLabel @1128
+						    Parent_View 	@1127
+						    location   	(1594, 106)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -27218,19 +27190,65 @@
 						    max_width  	450
 						    justify    	0
 						    label      	"<<extend>>"
-						    pctDist    	0.500000
-						    height     	108
-						    orientation 	0)
+						    pctDist    	0.469509
+						    height     	44
+						    orientation 	1)
 						line_color 	10485760
 						quidu      	"4BE596AD0236"
-						client     	@1128
+						client     	@1126
 						supplier   	@1123
 						vertices   	(list Points
-						    (2478, 302)
-						    (1660, 168))
+						    (1762, 155)
+						    (1401, 143))
 						line_style 	0)
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina" @1131
-						location   	(2779, 802)
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío a Mantenimiento Preventivo de Máquina" @1129
+						location   	(2489, 439)
+						font       	(object Font
+						    size       	9
+						    face       	"Arial"
+						    bold       	FALSE
+						    italics    	FALSE
+						    underline  	FALSE
+						    strike     	FALSE
+						    color      	0
+						    default_color 	TRUE)
+						label      	(object ItemLabel
+						    Parent_View 	@1129
+						    location   	(2489, 577)
+						    anchor_loc 	1
+						    nlines     	2
+						    max_width  	630
+						    justify    	0
+						    label      	"144. Registrar Envío a Mantenimiento Preventivo de Máquina")
+						icon_style 	"Icon"
+						line_color 	10485760
+						fill_color 	12368969
+						quidu      	"4BE58A7403B1")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Máquina" @1130
+						location   	(2851, 683)
+						font       	(object Font
+						    size       	9
+						    face       	"Arial"
+						    bold       	FALSE
+						    italics    	FALSE
+						    underline  	FALSE
+						    strike     	FALSE
+						    color      	0
+						    default_color 	TRUE)
+						label      	(object ItemLabel
+						    Parent_View 	@1130
+						    location   	(2851, 821)
+						    anchor_loc 	1
+						    nlines     	2
+						    max_width  	630
+						    justify    	0
+						    label      	"160. Eliminar Servicio de Máquina")
+						icon_style 	"Icon"
+						line_color 	10485760
+						fill_color 	16777175
+						quidu      	"4BCC12D00061")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Máquina de Reparación" @1131
+						location   	(2712, 921)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27242,18 +27260,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1131
-						    location   	(2779, 940)
+						    location   	(2712, 1059)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"144. Registrar Envío de Mantenimiento Preventivo de Máquina")
+						    label      	"161. Registrar Ingreso Máquina de Reparación")
 						icon_style 	"Icon"
 						line_color 	10485760
 						fill_color 	12368969
-						quidu      	"4BE58A7403B1")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::160. Eliminar Servicio de Máquina" @1132
-						location   	(2351, 1004)
+						quidu      	"4BCBED970237")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::149. Modificar Mantenimiento Preventivo" @1132
+						location   	(2797, 1187)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27265,18 +27283,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1132
-						    location   	(2351, 1142)
+						    location   	(2797, 1325)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"160. Eliminar Servicio de Máquina")
+						    label      	"149. Modificar Mantenimiento Preventivo")
 						icon_style 	"Icon"
 						line_color 	10485760
 						fill_color 	16777175
-						quidu      	"4BCC12D00061")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::161. Registrar Ingreso Máquina de Reparación" @1133
-						location   	(2712, 1322)
+						quidu      	"4BE5899402C6")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::148. Registrar Mantenimiento Preventivo" @1133
+						location   	(2386, 1525)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27288,18 +27306,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1133
-						    location   	(2712, 1460)
+						    location   	(2386, 1663)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"161. Registrar Ingreso Máquina de Reparación")
+						    label      	"148. Registrar Mantenimiento Preventivo")
 						icon_style 	"Icon"
 						line_color 	10485760
 						fill_color 	12368969
-						quidu      	"4BCBED970237")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::149. Modificar Mantenimiento Preventivo" @1134
-						location   	(2798, 1652)
+						quidu      	"4BCBED5C02F3")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::178. Registrar Empresa de Mantenimiento" @1134
+						location   	(1022, 2012)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27311,18 +27329,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1134
-						    location   	(2798, 1790)
+						    location   	(1022, 2150)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"149. Modificar Mantenimiento Preventivo")
+						    label      	"178. Registrar Empresa de Mantenimiento")
 						icon_style 	"Icon"
 						line_color 	10485760
-						fill_color 	16777175
-						quidu      	"4BE5899402C6")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::148. Registrar Mantenimiento Preventivo" @1135
-						location   	(2316, 1577)
+						fill_color 	12368969
+						quidu      	"4C1F94CD0261")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::179. Consultar Empresa de Mantenimiento" @1135
+						location   	(1409, 1891)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27334,18 +27352,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1135
-						    location   	(2316, 1715)
+						    location   	(1409, 2029)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"148. Registrar Mantenimiento Preventivo")
+						    label      	"179. Consultar Empresa de Mantenimiento")
 						icon_style 	"Icon"
 						line_color 	10485760
-						fill_color 	12368969
-						quidu      	"4BCBED5C02F3")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::178. Registrar Empresa de Mantenimiento" @1136
-						location   	(1077, 1989)
+						fill_color 	16777175
+						quidu      	"4C1F94E801E4")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::180. Modificar Empresa de Mantenimiento" @1136
+						location   	(1967, 2074)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27357,18 +27375,18 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1136
-						    location   	(1077, 2127)
+						    location   	(1967, 2212)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
 						    justify    	0
-						    label      	"178. Registrar Empresa de Mantenimiento")
+						    label      	"180. Modificar Empresa de Mantenimiento")
 						icon_style 	"Icon"
 						line_color 	10485760
-						fill_color 	12368969
-						quidu      	"4C1F94CD0261")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::179. Consultar Empresa de Mantenimiento" @1137
-						location   	(1427, 1889)
+						fill_color 	16777175
+						quidu      	"4C1F950D0399")
+					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::181. Registrar Baja Empresa de Mantenimiento " @1137
+						location   	(2295, 1857)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27380,53 +27398,7 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@1137
-						    location   	(1427, 2027)
-						    anchor_loc 	1
-						    nlines     	2
-						    max_width  	630
-						    justify    	0
-						    label      	"179. Consultar Empresa de Mantenimiento")
-						icon_style 	"Icon"
-						line_color 	10485760
-						fill_color 	16777175
-						quidu      	"4C1F94E801E4")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::180. Modificar Empresa de Mantenimiento" @1138
-						location   	(2037, 2028)
-						font       	(object Font
-						    size       	9
-						    face       	"Arial"
-						    bold       	FALSE
-						    italics    	FALSE
-						    underline  	FALSE
-						    strike     	FALSE
-						    color      	0
-						    default_color 	TRUE)
-						label      	(object ItemLabel
-						    Parent_View 	@1138
-						    location   	(2037, 2166)
-						    anchor_loc 	1
-						    nlines     	2
-						    max_width  	630
-						    justify    	0
-						    label      	"180. Modificar Empresa de Mantenimiento")
-						icon_style 	"Icon"
-						line_color 	10485760
-						fill_color 	16777175
-						quidu      	"4C1F950D0399")
-					    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::181. Registrar Baja Empresa de Mantenimiento " @1139
-						location   	(2431, 1879)
-						font       	(object Font
-						    size       	9
-						    face       	"Arial"
-						    bold       	FALSE
-						    italics    	FALSE
-						    underline  	FALSE
-						    strike     	FALSE
-						    color      	0
-						    default_color 	TRUE)
-						label      	(object ItemLabel
-						    Parent_View 	@1139
-						    location   	(2431, 2017)
+						    location   	(2295, 1995)
 						    anchor_loc 	1
 						    nlines     	2
 						    max_width  	630
@@ -27436,7 +27408,7 @@
 						line_color 	10485760
 						fill_color 	16777175
 						quidu      	"4C1F95280138")
-					    (object ClassView "Class" "Use Case View::Use-Case Model::Actors::Responsable de Mantenimiento" @1140
+					    (object ClassView "Class" "Use Case View::Use-Case Model::Actors::Responsable de Mantenimiento" @1138
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
@@ -27451,7 +27423,7 @@
 						    color      	0
 						    default_color 	TRUE)
 						label      	(object ItemLabel
-						    Parent_View 	@1140
+						    Parent_View 	@1138
 						    location   	(1540, 1137)
 						    anchor_loc 	1
 						    nlines     	2
@@ -27464,7 +27436,7 @@
 						quidu      	"4C1FE3960222"
 						annotation 	8
 						autoResize 	TRUE)
-					    (object AssociationViewNew "$UNNAMED$971" @1141
+					    (object AssociationViewNew "$UNNAMED$971" @1139
 						location   	(975, 935)
 						font       	(object Font
 						    size       	9
@@ -27479,31 +27451,31 @@
 						line_color 	10485760
 						quidu      	"4C1FE5470186"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$972" @1142
-							Parent_View 	@1141
+						    (object RoleView "$UNNAMED$972" @1140
+							Parent_View 	@1139
 							location   	(-565, -42)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5480138"
-							client     	@1141
+							client     	@1139
 							supplier   	@1114
 							vertices   	(list Points
 							    (975, 935)
 							    (472, 901))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$973" @1143
-							Parent_View 	@1141
+						    (object RoleView "$UNNAMED$973" @1141
+							Parent_View 	@1139
 							location   	(-565, -42)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE548013A"
-							client     	@1141
-							supplier   	@1140
+							client     	@1139
+							supplier   	@1138
 							vertices   	(list Points
 							    (975, 935)
-							    (1481, 969))
+							    (1479, 970))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$974" @1144
+					    (object AssociationViewNew "$UNNAMED$974" @1142
 						location   	(1001, 1072)
 						font       	(object Font
 						    size       	9
@@ -27518,32 +27490,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE54A003E"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$975" @1145
-							Parent_View 	@1144
+						    (object RoleView "$UNNAMED$975" @1143
+							Parent_View 	@1142
 							location   	(-539, 95)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE54A03B9"
-							client     	@1144
+							client     	@1142
 							supplier   	@1115
 							vertices   	(list Points
 							    (1001, 1072)
-							    (522, 1158))
+							    (522, 1160))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$976" @1146
-							Parent_View 	@1144
+						    (object RoleView "$UNNAMED$976" @1144
+							Parent_View 	@1142
 							location   	(-539, 95)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE54A03BB"
-							client     	@1144
-							supplier   	@1140
+							client     	@1142
+							supplier   	@1138
 							vertices   	(list Points
 							    (1001, 1072)
-							    (1481, 985))
+							    (1480, 984))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$977" @1147
-						location   	(930, 1248)
+					    (object AssociationViewNew "$UNNAMED$977" @1145
+						location   	(1003, 1214)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27557,32 +27529,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE54D007D"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$978" @1148
-							Parent_View 	@1147
-							location   	(-610, 271)
+						    (object RoleView "$UNNAMED$978" @1146
+							Parent_View 	@1145
+							location   	(-537, 237)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE54E00FA"
-							client     	@1147
+							client     	@1145
 							supplier   	@1116
 							vertices   	(list Points
-							    (930, 1248)
-							    (526, 1425))
+							    (1003, 1214)
+							    (526, 1428))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$979" @1149
-							Parent_View 	@1147
-							location   	(-610, 271)
+						    (object RoleView "$UNNAMED$979" @1147
+							Parent_View 	@1145
+							location   	(-537, 237)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE54E00FC"
-							client     	@1147
-							supplier   	@1140
+							client     	@1145
+							supplier   	@1138
 							vertices   	(list Points
-							    (930, 1248)
-							    (1479, 1000))
+							    (1003, 1214)
+							    (1480, 1000))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$980" @1150
-						location   	(971, 1423)
+					    (object AssociationViewNew "$UNNAMED$980" @1148
+						location   	(997, 1403)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27596,32 +27568,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE551005D"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$981" @1151
-							Parent_View 	@1150
-							location   	(-569, 446)
+						    (object RoleView "$UNNAMED$981" @1149
+							Parent_View 	@1148
+							location   	(-543, 426)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55102AF"
-							client     	@1150
+							client     	@1148
 							supplier   	@1117
 							vertices   	(list Points
-							    (971, 1423)
-							    (605, 1709))
+							    (997, 1403)
+							    (608, 1709))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$982" @1152
-							Parent_View 	@1150
-							location   	(-569, 446)
+						    (object RoleView "$UNNAMED$982" @1150
+							Parent_View 	@1148
+							location   	(-543, 426)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55102BF"
-							client     	@1150
-							supplier   	@1140
+							client     	@1148
+							supplier   	@1138
 							vertices   	(list Points
-							    (971, 1423)
-							    (1480, 1020))
+							    (997, 1403)
+							    (1386, 1097))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$983" @1153
-						location   	(1182, 1412)
+					    (object AssociationViewNew "$UNNAMED$983" @1151
+						location   	(1190, 1402)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27635,32 +27607,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE55302FD"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$984" @1154
-							Parent_View 	@1153
-							location   	(-358, 435)
+						    (object RoleView "$UNNAMED$984" @1152
+							Parent_View 	@1151
+							location   	(-350, 425)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5540157"
-							client     	@1153
+							client     	@1151
 							supplier   	@1118
 							vertices   	(list Points
-							    (1182, 1412)
+							    (1190, 1402)
 							    (995, 1638))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$985" @1155
-							Parent_View 	@1153
-							location   	(-358, 435)
+						    (object RoleView "$UNNAMED$985" @1153
+							Parent_View 	@1151
+							location   	(-350, 425)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5540159"
-							client     	@1153
-							supplier   	@1140
+							client     	@1151
+							supplier   	@1138
 							vertices   	(list Points
-							    (1182, 1412)
-							    (1453, 1082))
+							    (1190, 1402)
+							    (1386, 1167))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$986" @1156
-						location   	(1633, 1393)
+					    (object AssociationViewNew "$UNNAMED$986" @1154
+						location   	(1599, 1410)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27674,32 +27646,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE557006D"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$987" @1157
-							Parent_View 	@1156
-							location   	(93, 416)
+						    (object RoleView "$UNNAMED$987" @1155
+							Parent_View 	@1154
+							location   	(59, 433)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55702CE"
-							client     	@1156
+							client     	@1154
 							supplier   	@1119
 							vertices   	(list Points
-							    (1633, 1393)
-							    (1680, 1599))
+							    (1599, 1410)
+							    (1626, 1605))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$988" @1158
-							Parent_View 	@1156
-							location   	(93, 416)
+						    (object RoleView "$UNNAMED$988" @1156
+							Parent_View 	@1154
+							location   	(59, 433)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55702D0"
-							client     	@1156
-							supplier   	@1140
+							client     	@1154
+							supplier   	@1138
 							vertices   	(list Points
-							    (1633, 1393)
-							    (1579, 1160))
+							    (1599, 1410)
+							    (1572, 1215))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$989" @1159
-						location   	(1057, 832)
+					    (object AssociationViewNew "$UNNAMED$989" @1157
+						location   	(1074, 837)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27713,32 +27685,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE55A00DA"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$990" @1160
-							Parent_View 	@1159
-							location   	(-483, -145)
+						    (object RoleView "$UNNAMED$990" @1158
+							Parent_View 	@1157
+							location   	(-466, -140)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55B01E4"
-							client     	@1159
+							client     	@1157
 							supplier   	@1120
 							vertices   	(list Points
-							    (1057, 832)
-							    (684, 722))
+							    (1074, 837)
+							    (669, 718))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$991" @1161
-							Parent_View 	@1159
-							location   	(-483, -145)
+						    (object RoleView "$UNNAMED$991" @1159
+							Parent_View 	@1157
+							location   	(-466, -140)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55B01E6"
-							client     	@1159
-							supplier   	@1140
+							client     	@1157
+							supplier   	@1138
 							vertices   	(list Points
-							    (1057, 832)
+							    (1074, 837)
 							    (1479, 957))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$992" @1162
-						location   	(1016, 622)
+					    (object AssociationViewNew "$UNNAMED$992" @1160
+						location   	(1031, 632)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27752,32 +27724,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE55E002E"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$993" @1163
-							Parent_View 	@1162
-							location   	(-524, -355)
+						    (object RoleView "$UNNAMED$993" @1161
+							Parent_View 	@1160
+							location   	(-509, -345)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55E0399"
-							client     	@1162
+							client     	@1160
 							supplier   	@1121
 							vertices   	(list Points
-							    (1016, 622)
-							    (624, 357))
+							    (1031, 632)
+							    (583, 330))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$994" @1164
-							Parent_View 	@1162
-							location   	(-524, -355)
+						    (object RoleView "$UNNAMED$994" @1162
+							Parent_View 	@1160
+							location   	(-509, -345)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE55E039B"
-							client     	@1162
-							supplier   	@1140
+							client     	@1160
+							supplier   	@1138
 							vertices   	(list Points
-							    (1016, 622)
-							    (1481, 936))
+							    (1031, 632)
+							    (1479, 935))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$995" @1165
-						location   	(1288, 644)
+					    (object AssociationViewNew "$UNNAMED$995" @1163
+						location   	(2283, 1235)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27791,32 +27763,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE56003B9"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$996" @1166
-							Parent_View 	@1165
-							location   	(-252, -333)
+						    (object RoleView "$UNNAMED$996" @1164
+							Parent_View 	@1163
+							location   	(743, 258)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5610203"
-							client     	@1165
+							client     	@1163
 							supplier   	@1122
 							vertices   	(list Points
-							    (1288, 644)
-							    (1096, 390))
+							    (2283, 1235)
+							    (2969, 1476))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$997" @1167
-							Parent_View 	@1165
-							location   	(-252, -333)
+						    (object RoleView "$UNNAMED$997" @1165
+							Parent_View 	@1163
+							location   	(743, 258)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5610205"
-							client     	@1165
-							supplier   	@1140
+							client     	@1163
+							supplier   	@1138
 							vertices   	(list Points
-							    (1288, 644)
-							    (1480, 899))
+							    (2283, 1235)
+							    (1597, 994))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$998" @1168
-						location   	(1543, 616)
+					    (object AssociationViewNew "$UNNAMED$998" @1166
+						location   	(1430, 612)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27830,32 +27802,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE566004E"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$999" @1169
-							Parent_View 	@1168
-							location   	(3, -361)
+						    (object RoleView "$UNNAMED$999" @1167
+							Parent_View 	@1166
+							location   	(-110, -365)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5660280"
-							client     	@1168
+							client     	@1166
 							supplier   	@1123
 							vertices   	(list Points
-							    (1543, 616)
-							    (1546, 314))
+							    (1430, 612)
+							    (1346, 330))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1000" @1170
-							Parent_View 	@1168
-							location   	(3, -361)
+						    (object RoleView "$UNNAMED$1000" @1168
+							Parent_View 	@1166
+							location   	(-110, -365)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5660282"
-							client     	@1168
-							supplier   	@1140
+							client     	@1166
+							supplier   	@1138
 							vertices   	(list Points
-							    (1543, 616)
-							    (1540, 897))
+							    (1430, 612)
+							    (1514, 895))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1001" @1171
-						location   	(1644, 779)
+					    (object AssociationViewNew "$UNNAMED$1001" @1169
+						location   	(1896, 635)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27869,32 +27841,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE56901B5"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1002" @1172
-							Parent_View 	@1171
-							location   	(104, -198)
+						    (object RoleView "$UNNAMED$1002" @1170
+							Parent_View 	@1169
+							location   	(356, -342)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE56903C8"
-							client     	@1171
-							supplier   	@1126
+							client     	@1169
+							supplier   	@1124
 							vertices   	(list Points
-							    (1644, 779)
-							    (1706, 664))
+							    (1896, 635)
+							    (2196, 351))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1003" @1173
-							Parent_View 	@1171
-							location   	(104, -198)
+						    (object RoleView "$UNNAMED$1003" @1171
+							Parent_View 	@1169
+							location   	(356, -342)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE56903CA"
-							client     	@1171
-							supplier   	@1140
+							client     	@1169
+							supplier   	@1138
 							vertices   	(list Points
-							    (1644, 779)
-							    (1579, 895))
+							    (1896, 635)
+							    (1597, 919))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1004" @1174
-						location   	(1968, 816)
+					    (object AssociationViewNew "$UNNAMED$1004" @1172
+						location   	(1252, 647)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27908,32 +27880,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE56C005D"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1005" @1175
-							Parent_View 	@1174
-							location   	(428, -161)
+						    (object RoleView "$UNNAMED$1005" @1173
+							Parent_View 	@1172
+							location   	(-288, -330)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE56C03A9"
-							client     	@1174
-							supplier   	@1127
+							client     	@1172
+							supplier   	@1125
 							vertices   	(list Points
-							    (1968, 816)
-							    (2131, 755))
+							    (1252, 647)
+							    (1026, 388))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1006" @1176
-							Parent_View 	@1174
-							location   	(428, -161)
+						    (object RoleView "$UNNAMED$1006" @1174
+							Parent_View 	@1172
+							location   	(-288, -330)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE56C03AB"
-							client     	@1174
-							supplier   	@1140
+							client     	@1172
+							supplier   	@1138
 							vertices   	(list Points
-							    (1968, 816)
-							    (1597, 951))
+							    (1252, 647)
+							    (1479, 906))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1007" @1177
-						location   	(2007, 685)
+					    (object AssociationViewNew "$UNNAMED$1007" @1175
+						location   	(1684, 611)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27947,32 +27919,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE5720119"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1008" @1178
-							Parent_View 	@1177
-							location   	(467, -292)
+						    (object RoleView "$UNNAMED$1008" @1176
+							Parent_View 	@1175
+							location   	(144, -366)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE573001F"
-							client     	@1177
-							supplier   	@1128
+							client     	@1175
+							supplier   	@1126
 							vertices   	(list Points
-							    (2007, 685)
-							    (2326, 486))
+							    (1684, 611)
+							    (1800, 325))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1009" @1179
-							Parent_View 	@1177
-							location   	(467, -292)
+						    (object RoleView "$UNNAMED$1009" @1177
+							Parent_View 	@1175
+							location   	(144, -366)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5730021"
-							client     	@1177
-							supplier   	@1140
+							client     	@1175
+							supplier   	@1138
 							vertices   	(list Points
-							    (2007, 685)
-							    (1597, 937))
+							    (1684, 611)
+							    (1569, 897))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1010" @1180
-						location   	(2133, 890)
+					    (object AssociationViewNew "$UNNAMED$1010" @1178
+						location   	(1911, 763)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -27986,32 +27958,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE57403A9"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1011" @1181
-							Parent_View 	@1180
-							location   	(593, -87)
+						    (object RoleView "$UNNAMED$1011" @1179
+							Parent_View 	@1178
+							location   	(371, -214)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE575032C"
-							client     	@1180
-							supplier   	@1131
+							client     	@1178
+							supplier   	@1129
 							vertices   	(list Points
-							    (2133, 890)
-							    (2667, 814))
+							    (1911, 763)
+							    (2225, 587))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1012" @1182
-							Parent_View 	@1180
-							location   	(593, -87)
+						    (object RoleView "$UNNAMED$1012" @1180
+							Parent_View 	@1178
+							location   	(371, -214)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE575032E"
-							client     	@1180
-							supplier   	@1140
+							client     	@1178
+							supplier   	@1138
 							vertices   	(list Points
-							    (2133, 890)
-							    (1597, 967))
+							    (1911, 763)
+							    (1597, 940))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1013" @1183
-						location   	(1918, 987)
+					    (object AssociationViewNew "$UNNAMED$1013" @1181
+						location   	(2075, 853)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28025,32 +27997,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE578009C"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1014" @1184
-							Parent_View 	@1183
-							location   	(378, 10)
+						    (object RoleView "$UNNAMED$1014" @1182
+							Parent_View 	@1181
+							location   	(535, -124)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57901F4"
-							client     	@1183
-							supplier   	@1132
+							client     	@1181
+							supplier   	@1130
 							vertices   	(list Points
-							    (1918, 987)
-							    (2240, 997))
+							    (2075, 853)
+							    (2554, 747))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1015" @1185
-							Parent_View 	@1183
-							location   	(378, 10)
+						    (object RoleView "$UNNAMED$1015" @1183
+							Parent_View 	@1181
+							location   	(535, -124)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57901F6"
-							client     	@1183
-							supplier   	@1140
+							client     	@1181
+							supplier   	@1138
 							vertices   	(list Points
-							    (1918, 987)
-							    (1597, 977))
+							    (2075, 853)
+							    (1597, 960))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1016" @1186
-						location   	(2098, 1138)
+					    (object AssociationViewNew "$UNNAMED$1016" @1184
+						location   	(2098, 947)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28064,32 +28036,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE57B02BF"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1017" @1187
-							Parent_View 	@1186
-							location   	(558, 161)
+						    (object RoleView "$UNNAMED$1017" @1185
+							Parent_View 	@1184
+							location   	(558, -30)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57D000F"
-							client     	@1186
-							supplier   	@1133
+							client     	@1184
+							supplier   	@1131
 							vertices   	(list Points
-							    (2098, 1138)
-							    (2600, 1284))
+							    (2098, 947)
+							    (2600, 923))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1018" @1188
-							Parent_View 	@1186
-							location   	(558, 161)
+						    (object RoleView "$UNNAMED$1018" @1186
+							Parent_View 	@1184
+							location   	(558, -30)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57D0011"
-							client     	@1186
-							supplier   	@1140
+							client     	@1184
+							supplier   	@1138
 							vertices   	(list Points
-							    (2098, 1138)
-							    (1597, 991))
+							    (2098, 947)
+							    (1597, 971))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1019" @1189
-						location   	(2217, 1339)
+					    (object AssociationViewNew "$UNNAMED$1019" @1187
+						location   	(2142, 1075)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28103,32 +28075,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE57F008C"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1020" @1190
-							Parent_View 	@1189
-							location   	(677, 362)
+						    (object RoleView "$UNNAMED$1020" @1188
+							Parent_View 	@1187
+							location   	(602, 98)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57F03A9"
-							client     	@1189
-							supplier   	@1134
+							client     	@1187
+							supplier   	@1132
 							vertices   	(list Points
-							    (2217, 1339)
-							    (2692, 1593))
+							    (2142, 1075)
+							    (2687, 1167))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1021" @1191
-							Parent_View 	@1189
-							location   	(677, 362)
+						    (object RoleView "$UNNAMED$1021" @1189
+							Parent_View 	@1187
+							location   	(602, 98)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE57F03AB"
-							client     	@1189
-							supplier   	@1140
+							client     	@1187
+							supplier   	@1138
 							vertices   	(list Points
-							    (2217, 1339)
-							    (1597, 1005))
+							    (2142, 1075)
+							    (1597, 984))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1022" @1192
-						location   	(1991, 1325)
+					    (object AssociationViewNew "$UNNAMED$1022" @1190
+						location   	(1995, 1271)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28142,32 +28114,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE58203B9"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1023" @1193
-							Parent_View 	@1192
-							location   	(451, 348)
+						    (object RoleView "$UNNAMED$1023" @1191
+							Parent_View 	@1190
+							location   	(455, 294)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE5840148"
-							client     	@1192
-							supplier   	@1135
+							client     	@1190
+							supplier   	@1133
 							vertices   	(list Points
-							    (1991, 1325)
-							    (2239, 1518))
+							    (1995, 1271)
+							    (2298, 1467))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1024" @1194
-							Parent_View 	@1192
-							location   	(451, 348)
+						    (object RoleView "$UNNAMED$1024" @1192
+							Parent_View 	@1190
+							location   	(455, 294)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE584014A"
-							client     	@1192
-							supplier   	@1140
+							client     	@1190
+							supplier   	@1138
 							vertices   	(list Points
-							    (1991, 1325)
-							    (1597, 1021))
+							    (1995, 1271)
+							    (1693, 1076))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1025" @1195
-						location   	(1273, 1557)
+					    (object AssociationViewNew "$UNNAMED$1025" @1193
+						location   	(1242, 1570)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28181,32 +28153,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE65C0109"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1026" @1196
-							Parent_View 	@1195
-							location   	(-267, 580)
+						    (object RoleView "$UNNAMED$1026" @1194
+							Parent_View 	@1193
+							location   	(-298, 593)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE65C03C8"
-							client     	@1195
-							supplier   	@1136
+							client     	@1193
+							supplier   	@1134
 							vertices   	(list Points
-							    (1273, 1557)
-							    (1099, 1931))
+							    (1242, 1570)
+							    (1047, 1953))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1027" @1197
-							Parent_View 	@1195
-							location   	(-267, 580)
+						    (object RoleView "$UNNAMED$1027" @1195
+							Parent_View 	@1193
+							location   	(-298, 593)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE65C03CA"
-							client     	@1195
-							supplier   	@1140
+							client     	@1193
+							supplier   	@1138
 							vertices   	(list Points
-							    (1273, 1557)
-							    (1457, 1160))
+							    (1242, 1570)
+							    (1437, 1187))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1028" @1198
-						location   	(1471, 1508)
+					    (object AssociationViewNew "$UNNAMED$1028" @1196
+						location   	(1458, 1524)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28220,32 +28192,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE65E03A9"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1029" @1199
-							Parent_View 	@1198
-							location   	(-69, 531)
+						    (object RoleView "$UNNAMED$1029" @1197
+							Parent_View 	@1196
+							location   	(-82, 547)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE65F0203"
-							client     	@1198
-							supplier   	@1137
+							client     	@1196
+							supplier   	@1135
 							vertices   	(list Points
-							    (1471, 1508)
-							    (1431, 1831))
+							    (1458, 1524)
+							    (1415, 1833))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1030" @1200
-							Parent_View 	@1198
-							location   	(-69, 531)
+						    (object RoleView "$UNNAMED$1030" @1198
+							Parent_View 	@1196
+							location   	(-82, 547)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE65F0205"
-							client     	@1198
-							supplier   	@1140
+							client     	@1196
+							supplier   	@1138
 							vertices   	(list Points
-							    (1471, 1508)
-							    (1514, 1160))
+							    (1458, 1524)
+							    (1502, 1215))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1031" @1201
-						location   	(1823, 1577)
+					    (object AssociationViewNew "$UNNAMED$1031" @1199
+						location   	(1781, 1601)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28259,32 +28231,32 @@
 						line_color 	10485760
 						quidu      	"4C1FE6610232"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1032" @1202
-							Parent_View 	@1201
-							location   	(283, 600)
+						    (object RoleView "$UNNAMED$1032" @1200
+							Parent_View 	@1199
+							location   	(241, 624)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE6620119"
-							client     	@1201
-							supplier   	@1138
+							client     	@1199
+							supplier   	@1136
 							vertices   	(list Points
-							    (1823, 1577)
-							    (2006, 1968))
+							    (1781, 1601)
+							    (1943, 2015))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1033" @1203
-							Parent_View 	@1201
-							location   	(283, 600)
+						    (object RoleView "$UNNAMED$1033" @1201
+							Parent_View 	@1199
+							location   	(241, 624)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE662011B"
-							client     	@1201
-							supplier   	@1140
+							client     	@1199
+							supplier   	@1138
 							vertices   	(list Points
-							    (1823, 1577)
-							    (1625, 1160))
+							    (1781, 1601)
+							    (1620, 1187))
 							line_style 	0)))
-					    (object AssociationViewNew "$UNNAMED$1034" @1204
-						location   	(2059, 1502)
+					    (object AssociationViewNew "$UNNAMED$1034" @1202
+						location   	(1968, 1477)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -28298,30 +28270,69 @@
 						line_color 	10485760
 						quidu      	"4C1FE66E029F"
 						roleview_list 	(list RoleViews
-						    (object RoleView "$UNNAMED$1035" @1205
-							Parent_View 	@1204
-							location   	(519, 525)
+						    (object RoleView "$UNNAMED$1035" @1203
+							Parent_View 	@1202
+							location   	(428, 500)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE66F01F4"
-							client     	@1204
-							supplier   	@1139
+							client     	@1202
+							supplier   	@1137
 							vertices   	(list Points
-							    (2059, 1502)
-							    (2371, 1820))
+							    (1968, 1477)
+							    (2244, 1798))
 							line_style 	0)
-						    (object RoleView "$UNNAMED$1036" @1206
-							Parent_View 	@1204
-							location   	(519, 525)
+						    (object RoleView "$UNNAMED$1036" @1204
+							Parent_View 	@1202
+							location   	(428, 500)
 							stereotype 	TRUE
 							line_color 	3342489
 							quidu      	"4C1FE66F01F6"
-							client     	@1204
-							supplier   	@1140
+							client     	@1202
+							supplier   	@1138
 							vertices   	(list Points
-							    (2059, 1502)
-							    (1597, 1034))
-							line_style 	0)))))))
+							    (1968, 1477)
+							    (1693, 1156))
+							line_style 	0)))
+					    (object DependencyView "" @1205
+						font       	(object Font
+						    size       	9
+						    face       	"Arial"
+						    bold       	FALSE
+						    italics    	FALSE
+						    underline  	FALSE
+						    strike     	FALSE
+						    color      	0
+						    default_color 	TRUE)
+						stereotype 	(object SegLabel @1206
+						    Parent_View 	@1205
+						    location   	(2728, 1555)
+						    font       	(object Font
+							size       	9
+							face       	"Arial"
+							bold       	FALSE
+							italics    	FALSE
+							underline  	FALSE
+							strike     	FALSE
+							color      	0
+							default_color 	TRUE)
+						    anchor     	10
+						    anchor_loc 	1
+						    nlines     	1
+						    max_width  	450
+						    justify    	0
+						    label      	"<<extend>>"
+						    pctDist    	0.510235
+						    height     	36
+						    orientation 	0)
+						line_color 	10485760
+						quidu      	"4CB122E000E5"
+						client     	@1122
+						supplier   	@1133
+						vertices   	(list Points
+						    (2971, 1516)
+						    (2494, 1521))
+						line_style 	0)))))
 			    (object Class_Category "Gestión de Cobros"
 				quid       	"4C6D954E03AD"
 				exportControl 	"Public"
@@ -38173,7 +38184,7 @@
 					fill_color 	16777175
 					quidu      	"4BE589560184"
 					height     	118)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina" @1759
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío a Mantenimiento Preventivo de Máquina" @1759
 					location   	(3230, 4790)
 					font       	(object Font
 					    size       	9
@@ -38191,7 +38202,7 @@
 					    nlines     	2
 					    max_width  	756
 					    justify    	0
-					    label      	"144. Registrar Envío de Mantenimiento Preventivo de Máquina")
+					    label      	"144. Registrar Envío a Mantenimiento Preventivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	8388608
 					fill_color 	12368969
@@ -46509,7 +46520,7 @@
 					supplier   	@2254
 					vertices   	(list Points
 					    (1415, 334)
-					    (1182, 229))
+					    (1201, 237))
 					line_style 	0)
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::162. Generar Infrome de Reclamos a Proveedor" @2258
 					location   	(1948, 81)
@@ -46794,7 +46805,7 @@
 					client     	@2260
 					supplier   	@2268
 					vertices   	(list Points
-					    (2937, 1724)
+					    (2885, 1690)
 					    (3473, 2088))
 					line_style 	0)
 				    (object DependencyView "" @2271
@@ -46833,7 +46844,7 @@
 					client     	@2268
 					supplier   	@2247
 					vertices   	(list Points
-					    (3316, 2356)
+					    (3373, 2308)
 					    (3043, 2589))
 					line_style 	0)
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Pedidos y Cotizaciones::10. Consultar Dsiponibilidad Horaria" @2273
@@ -47160,7 +47171,7 @@
 						supplier   	@2248
 						vertices   	(list Points
 						    (2484, 870)
-						    (3153, 651))
+						    (3159, 646))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$219" @2288
 					location   	(1192, 976)
@@ -47209,7 +47220,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1192, 976)
-						    (1700, 1097))
+						    (1700, 1095))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$220" @2291
 						Parent_View 	@2288
@@ -47252,7 +47263,7 @@
 						supplier   	@2249
 						vertices   	(list Points
 						    (1192, 976)
-						    (684, 856))
+						    (896, 905))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$260" @2293
 					location   	(1174, 1327)
@@ -47301,7 +47312,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1174, 1327)
-						    (1700, 1132))
+						    (1698, 1132))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$261" @2296
 						Parent_View 	@2293
@@ -47344,7 +47355,7 @@
 						supplier   	@2250
 						vertices   	(list Points
 						    (1174, 1327)
-						    (648, 1522))
+						    (648, 1523))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$263" @2298
 					location   	(2027, 1601)
@@ -47393,7 +47404,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2027, 1601)
-						    (1871, 1320))
+						    (1845, 1272))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$264" @2301
 						Parent_View 	@2298
@@ -47436,7 +47447,7 @@
 						supplier   	@2251
 						vertices   	(list Points
 						    (2027, 1601)
-						    (2183, 1882))
+						    (2183, 1883))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$542" @2303
 					location   	(1265, 831)
@@ -47485,7 +47496,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1265, 831)
-						    (1700, 1077))
+						    (1698, 1077))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$543" @2306
 						Parent_View 	@2303
@@ -47528,7 +47539,7 @@
 						supplier   	@2252
 						vertices   	(list Points
 						    (1265, 831)
-						    (831, 586))
+						    (823, 581))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$614" @2308
 					location   	(1165, 1138)
@@ -47577,7 +47588,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1165, 1138)
-						    (1700, 1114))
+						    (1700, 1113))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$615" @2311
 						Parent_View 	@2308
@@ -47690,7 +47701,7 @@
 						supplier   	@2254
 						vertices   	(list Points
 						    (1389, 684)
-						    (1080, 327))
+						    (1018, 256))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$656" @2317
 					location   	(1661, 814)
@@ -47739,7 +47750,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1661, 814)
-						    (1731, 1033))
+						    (1730, 1033))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$657" @2320
 						Parent_View 	@2317
@@ -47782,7 +47793,7 @@
 						supplier   	@2255
 						vertices   	(list Points
 						    (1661, 814)
-						    (1592, 596))
+						    (1575, 548))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$665" @2322
 					location   	(1836, 674)
@@ -47831,7 +47842,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1836, 674)
-						    (1771, 1033))
+						    (1771, 1032))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$666" @2325
 						Parent_View 	@2322
@@ -47874,7 +47885,7 @@
 						supplier   	@2258
 						vertices   	(list Points
 						    (1836, 674)
-						    (1902, 315))
+						    (1913, 242))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$668" @2327
 					location   	(2207, 696)
@@ -47923,7 +47934,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2207, 696)
-						    (1816, 1056))
+						    (1816, 1057))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$669" @2330
 						Parent_View 	@2327
@@ -47966,7 +47977,7 @@
 						supplier   	@2259
 						vertices   	(list Points
 						    (2207, 696)
-						    (2598, 337))
+						    (2676, 264))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$257" @2332
 					location   	(2247, 1340)
@@ -48015,7 +48026,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2247, 1340)
-						    (1964, 1208))
+						    (1816, 1137))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$258" @2335
 						Parent_View 	@2332
@@ -48058,7 +48069,7 @@
 						supplier   	@2260
 						vertices   	(list Points
 						    (2247, 1340)
-						    (2531, 1473))
+						    (2533, 1474))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$545" @2337
 					location   	(1129, 1540)
@@ -48107,7 +48118,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1129, 1540)
-						    (1553, 1252))
+						    (1699, 1149))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$546" @2340
 						Parent_View 	@2337
@@ -48199,7 +48210,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2374, 1016)
-						    (1816, 1100))
+						    (1816, 1101))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$252" @2345
 						Parent_View 	@2342
@@ -48242,7 +48253,7 @@
 						supplier   	@2262
 						vertices   	(list Points
 						    (2374, 1016)
-						    (2932, 932))
+						    (2932, 933))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$225" @2347
 					location   	(2665, 1351)
@@ -48291,7 +48302,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2665, 1351)
-						    (1816, 1126))
+						    (1816, 1125))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$226" @2350
 						Parent_View 	@2347
@@ -48334,7 +48345,7 @@
 						supplier   	@2263
 						vertices   	(list Points
 						    (2665, 1351)
-						    (3515, 1576))
+						    (3515, 1577))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$248" @2352
 					location   	(2142, 872)
@@ -48383,7 +48394,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2142, 872)
-						    (1816, 1073))
+						    (1816, 1074))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$249" @2355
 						Parent_View 	@2352
@@ -48426,7 +48437,7 @@
 						supplier   	@2266
 						vertices   	(list Points
 						    (2142, 872)
-						    (2468, 672))
+						    (2506, 648))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$254" @2357
 					location   	(1085, 1781)
@@ -48475,7 +48486,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1085, 1781)
-						    (1553, 1318))
+						    (1699, 1168))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$255" @2360
 						Parent_View 	@2357
@@ -48518,7 +48529,7 @@
 						supplier   	@2267
 						vertices   	(list Points
 						    (1085, 1781)
-						    (618, 2245))
+						    (617, 2246))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$213" @2362
 					location   	(2625, 1854)
@@ -48567,7 +48578,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2625, 1854)
-						    (1964, 1288))
+						    (1816, 1160))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$214" @2365
 						Parent_View 	@2362
@@ -48660,7 +48671,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2282, 1712)
-						    (1940, 1320))
+						    (1845, 1212))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$729" @2370
 						Parent_View 	@2367
@@ -48703,7 +48714,7 @@
 						supplier   	@2273
 						vertices   	(list Points
 						    (2282, 1712)
-						    (2625, 2105))
+						    (2627, 2106))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$725" @2372
 					location   	(1535, 1709)
@@ -48752,7 +48763,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1535, 1709)
-						    (1684, 1320))
+						    (1691, 1296))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$726" @2375
 						Parent_View 	@2372
@@ -48795,7 +48806,7 @@
 						supplier   	@2276
 						vertices   	(list Points
 						    (1535, 1709)
-						    (1386, 2099))
+						    (1386, 2098))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$557" @2377
 					location   	(1572, 1958)
@@ -48844,7 +48855,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1572, 1958)
-						    (1711, 1320))
+						    (1716, 1296))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$558" @2380
 						Parent_View 	@2377
@@ -48887,7 +48898,7 @@
 						supplier   	@2277
 						vertices   	(list Points
 						    (1572, 1958)
-						    (1434, 2597))
+						    (1434, 2598))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$560" @2382
 					location   	(2581, 1160)
@@ -48936,7 +48947,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2581, 1160)
-						    (1816, 1115))
+						    (1816, 1114))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$561" @2385
 						Parent_View 	@2382
@@ -49028,7 +49039,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1775, 1845)
-						    (1762, 1320))
+						    (1762, 1296))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$267" @2390
 						Parent_View 	@2387
@@ -49120,7 +49131,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1911, 828)
-						    (1799, 1031))
+						    (1798, 1033))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$552" @2395
 						Parent_View 	@2392
@@ -49163,7 +49174,7 @@
 						supplier   	@2280
 						vertices   	(list Points
 						    (1911, 828)
-						    (2024, 625))
+						    (2046, 577))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$245" @2397
 					location   	(1232, 1971)
@@ -49212,7 +49223,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1232, 1971)
-						    (1633, 1320))
+						    (1672, 1256))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$246" @2400
 						Parent_View 	@2397
@@ -49255,7 +49266,7 @@
 						supplier   	@2281
 						vertices   	(list Points
 						    (1232, 1971)
-						    (832, 2623))
+						    (831, 2624))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$872" @2402
 					location   	(1232, 1971)
@@ -49304,7 +49315,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (1232, 1971)
-						    (1633, 1320))
+						    (1672, 1256))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$873" @2405
 						Parent_View 	@2402
@@ -49347,7 +49358,7 @@
 						supplier   	@2281
 						vertices   	(list Points
 						    (1232, 1971)
-						    (832, 2623))
+						    (831, 2624))
 						line_style 	0)))
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Compras::61. Registrar Reclamo a Proveedor" @2407
 					location   	(2276, 2583)
@@ -49419,7 +49430,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2045, 1932)
-						    (1837, 1340))
+						    (1821, 1296))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$223" @2411
 						Parent_View 	@2408
@@ -49511,7 +49522,7 @@
 						supplier   	@2282
 						vertices   	(list Points
 						    (2045, 1932)
-						    (1837, 1340))
+						    (1821, 1296))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$753" @2416
 						Parent_View 	@2413
@@ -49694,7 +49705,7 @@
 					supplier   	@2419
 					vertices   	(list Points
 					    (1527, 1794)
-					    (1588, 1651))
+					    (1617, 1578))
 					line_style 	0)
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::120. Consultar Proceso de Calidad" @2424
 					location   	(1150, 245)
@@ -49779,7 +49790,7 @@
 					supplier   	@2425
 					vertices   	(list Points
 					    (1431, 1793)
-					    (1147, 1578))
+					    (1112, 1553))
 					line_style 	0)
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::113. Registrar Planificacion de Control de Calidad de Producción" @2428
 					location   	(451, 1583)
@@ -49948,7 +49959,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (820, 825)
-						    (905, 879))
+						    (903, 878))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$453" @2436
 						Parent_View 	@2433
@@ -49991,7 +50002,7 @@
 						supplier   	@2418
 						vertices   	(list Points
 						    (820, 825)
-						    (736, 771))
+						    (694, 746))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$455" @2438
 					location   	(1383, 1208)
@@ -50040,7 +50051,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (1383, 1208)
-						    (1169, 1059))
+						    (1021, 957))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$456" @2441
 						Parent_View 	@2438
@@ -50083,7 +50094,7 @@
 						supplier   	@2419
 						vertices   	(list Points
 						    (1383, 1208)
-						    (1597, 1358))
+						    (1599, 1358))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$458" @2443
 					location   	(1179, 745)
@@ -50132,7 +50143,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (1179, 745)
-						    (1021, 869))
+						    (1021, 868))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$459" @2446
 						Parent_View 	@2443
@@ -50175,7 +50186,7 @@
 						supplier   	@2420
 						vertices   	(list Points
 						    (1179, 745)
-						    (1337, 622))
+						    (1366, 597))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$461" @2448
 					location   	(1279, 1460)
@@ -50224,7 +50235,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (1279, 1460)
-						    (1085, 1126))
+						    (1050, 1068))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$462" @2451
 						Parent_View 	@2448
@@ -50316,7 +50327,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (1037, 645)
-						    (984, 836))
+						    (983, 838))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$471" @2456
 						Parent_View 	@2453
@@ -50359,7 +50370,7 @@
 						supplier   	@2424
 						vertices   	(list Points
 						    (1037, 645)
-						    (1090, 455))
+						    (1100, 406))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$590" @2458
 					location   	(916, 1250)
@@ -50408,7 +50419,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (916, 1250)
-						    (929, 1166))
+						    (936, 1101))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$591" @2461
 						Parent_View 	@2458
@@ -50451,7 +50462,7 @@
 						supplier   	@2425
 						vertices   	(list Points
 						    (916, 1250)
-						    (903, 1334))
+						    (904, 1332))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$593" @2463
 					location   	(653, 1318)
@@ -50500,7 +50511,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (653, 1318)
-						    (815, 1112))
+						    (877, 1031))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$594" @2466
 						Parent_View 	@2463
@@ -50543,7 +50554,7 @@
 						supplier   	@2428
 						vertices   	(list Points
 						    (653, 1318)
-						    (492, 1524))
+						    (491, 1524))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$596" @2468
 					location   	(667, 944)
@@ -50592,7 +50603,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (667, 944)
-						    (904, 921))
+						    (905, 921))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$597" @2471
 						Parent_View 	@2468
@@ -50635,7 +50646,7 @@
 						supplier   	@2429
 						vertices   	(list Points
 						    (667, 944)
-						    (430, 967))
+						    (430, 964))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$710" @2473
 					location   	(1386, 979)
@@ -50727,7 +50738,7 @@
 						supplier   	@2430
 						vertices   	(list Points
 						    (1386, 979)
-						    (1751, 1035))
+						    (1751, 1034))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$698" @2478
 					location   	(1283, 852)
@@ -50819,7 +50830,7 @@
 						supplier   	@2431
 						vertices   	(list Points
 						    (1283, 852)
-						    (1545, 802))
+						    (1614, 787))
 						line_style 	0)))
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Calidad::182. Registrar Ejecucion de Procesos de Calidad" @2483
 					location   	(529, 202)
@@ -50891,7 +50902,7 @@
 						supplier   	@2432
 						vertices   	(list Points
 						    (791, 636)
-						    (913, 837))
+						    (912, 836))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$954" @2487
 						Parent_View 	@2484
@@ -50934,7 +50945,7 @@
 						supplier   	@2483
 						vertices   	(list Points
 						    (791, 636)
-						    (669, 436))
+						    (625, 363))
 						line_style 	0)))))
 			    (object UseCaseDiagram "Diagrama de CU Esenciales - RAlmacenamiento"
 				quid       	"4C1FE931007D"
@@ -53788,7 +53799,7 @@
 					client     	@2634
 					supplier   	@2631
 					vertices   	(list Points
-					    (841, 292)
+					    (888, 302)
 					    (1303, 392))
 					line_style 	0)
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Producción::79. Consultar Pieza" @2637
@@ -54254,7 +54265,7 @@
 						supplier   	@2632
 						vertices   	(list Points
 						    (2026, 663)
-						    (2142, 350))
+						    (2159, 301))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$278" @2658
 					location   	(1120, 931)
@@ -54303,7 +54314,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1120, 931)
-						    (1825, 1046))
+						    (1824, 1044))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$279" @2661
 						Parent_View 	@2658
@@ -54438,7 +54449,7 @@
 						supplier   	@2634
 						vertices   	(list Points
 						    (1328, 708)
-						    (831, 397))
+						    (829, 396))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$284" @2668
 					location   	(1797, 659)
@@ -54487,7 +54498,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1797, 659)
-						    (1864, 977))
+						    (1864, 979))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$285" @2671
 						Parent_View 	@2668
@@ -54530,7 +54541,7 @@
 						supplier   	@2637
 						vertices   	(list Points
 						    (1797, 659)
-						    (1730, 342))
+						    (1719, 293))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$287" @2673
 					location   	(1571, 906)
@@ -54579,7 +54590,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1571, 906)
-						    (1824, 1027))
+						    (1825, 1027))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$288" @2676
 						Parent_View 	@2673
@@ -54622,7 +54633,7 @@
 						supplier   	@2638
 						vertices   	(list Points
 						    (1571, 906)
-						    (1318, 786))
+						    (1438, 841))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$296" @2678
 					location   	(1485, 1433)
@@ -54671,7 +54682,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1485, 1433)
-						    (1678, 1254))
+						    (1825, 1112))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$297" @2681
 						Parent_View 	@2678
@@ -54714,7 +54725,7 @@
 						supplier   	@2639
 						vertices   	(list Points
 						    (1485, 1433)
-						    (1293, 1613))
+						    (1295, 1611))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$299" @2683
 					location   	(1202, 1102)
@@ -54855,7 +54866,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1222, 1367)
-						    (1678, 1155))
+						    (1823, 1084))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$303" @2691
 						Parent_View 	@2688
@@ -54990,7 +55001,7 @@
 						supplier   	@2642
 						vertices   	(list Points
 						    (1898, 809)
-						    (1910, 641))
+						    (1911, 592))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$323" @2698
 					location   	(2545, 1404)
@@ -55039,7 +55050,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (2545, 1404)
-						    (2089, 1166))
+						    (1941, 1087))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$324" @2701
 						Parent_View 	@2698
@@ -55082,7 +55093,7 @@
 						supplier   	@2643
 						vertices   	(list Points
 						    (2545, 1404)
-						    (3002, 1642))
+						    (3001, 1642))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$356" @2703
 					location   	(2258, 890)
@@ -55131,7 +55142,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (2258, 890)
-						    (1941, 1030))
+						    (1941, 1029))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$357" @2706
 						Parent_View 	@2703
@@ -55174,7 +55185,7 @@
 						supplier   	@2644
 						vertices   	(list Points
 						    (2258, 890)
-						    (2576, 751))
+						    (2452, 804))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$473" @2708
 					location   	(2471, 1230)
@@ -55223,7 +55234,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (2471, 1230)
-						    (1941, 1073))
+						    (1941, 1074))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$474" @2711
 						Parent_View 	@2708
@@ -55266,7 +55277,7 @@
 						supplier   	@2645
 						vertices   	(list Points
 						    (2471, 1230)
-						    (3002, 1388))
+						    (3003, 1387))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$563" @2713
 					location   	(1461, 1133)
@@ -55315,7 +55326,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (1461, 1133)
-						    (1824, 1067))
+						    (1825, 1067))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$564" @2716
 						Parent_View 	@2713
@@ -55358,7 +55369,7 @@
 						supplier   	@2646
 						vertices   	(list Points
 						    (1461, 1133)
-						    (1099, 1199))
+						    (1099, 1198))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$581" @2718
 					location   	(1572, 1668)
@@ -55499,7 +55510,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (2321, 1518)
-						    (2081, 1266))
+						    (1970, 1149))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$585" @2726
 						Parent_View 	@2723
@@ -55542,7 +55553,7 @@
 						supplier   	@2648
 						vertices   	(list Points
 						    (2321, 1518)
-						    (2561, 1770))
+						    (2560, 1769))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$587" @2728
 					location   	(1860, 1600)
@@ -55765,7 +55776,7 @@
 						supplier   	@2651
 						vertices   	(list Points
 						    (2332, 1027)
-						    (2723, 1003))
+						    (2724, 1002))
 						line_style 	0)))
 				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de informes para la toma de decisiones::171. Generar Informe de Producción Realizada" @2741
 					location   	(2771, 268)
@@ -55837,7 +55848,7 @@
 						supplier   	@2652
 						vertices   	(list Points
 						    (2237, 741)
-						    (1941, 1004))
+						    (1941, 1002))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$690" @2745
 						Parent_View 	@2742
@@ -55880,7 +55891,7 @@
 						supplier   	@2741
 						vertices   	(list Points
 						    (2237, 741)
-						    (2534, 478))
+						    (2588, 429))
 						line_style 	0)))))
 			    (object UseCaseDiagram "Diagrama de CU Esenciales - AS/U/RWeb"
 				quid       	"4C1FE9BF0177"
@@ -57587,7 +57598,7 @@
 					    (2479, 298)
 					    (2022, 198))
 					line_style 	0)
-				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío de Mantenimiento Preventivo de Máquina" @2833
+				    (object UseCaseView "Use Case View::Use-Case Model::Use Cases::Gestión de Mantenimiento de Maquinarias::144. Registrar Envío a Mantenimiento Preventivo de Máquina" @2833
 					location   	(2600, 805)
 					font       	(object Font
 					    size       	9
@@ -57605,7 +57616,7 @@
 					    nlines     	2
 					    max_width  	748
 					    justify    	0
-					    label      	"144. Registrar Envío de Mantenimiento Preventivo de Máquina")
+					    label      	"144. Registrar Envío a Mantenimiento Preventivo de Máquina")
 					icon_style 	"Icon"
 					line_color 	10485760
 					fill_color 	12368969
