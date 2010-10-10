@@ -62,13 +62,17 @@ public class MaquinaDAOImpl implements MaquinaDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update MAQUINA set NOMBRE = ? , MARCA = ? , DESCRIPCION = ? , ESTADO = ? , TIPOMAQUINA = ?  where idmaquina = ?");
+			ps = con.prepareStatement("update MAQUINA set NOMBRE = ? , MARCA = ? , DESCRIPCION = ? , ESTADO = ? , TIPOMAQUINA = ?, FECHAALTA=?, FECHABAJA=?, TIEMPOCAPACIDADPRODUCCION=?, IDUNIDADMEDIDA=?  where idmaquina = ?");
 				ps.setString(1,maquina.getNombre());
 				ps.setLong(2,maquina.getMarca());
 				ps.setString(3,maquina.getDescripcion());
 				ps.setLong(4,maquina.getEstado());
 				ps.setLong(5,maquina.getTipomaquina());
-				ps.setLong(6,maquinapk.getIdmaquina());
+                ps.setDate(6,maquina.getFechaAlta());
+                ps.setDate(7,maquina.getFechaBaja());
+                ps.setTime(8, maquina.getTiempoCapacidadProduccion());
+                ps.setLong(9, maquina.getUnidadMedida());
+				ps.setLong(10,maquinapk.getIdmaquina());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MaquinaException(sqle);}
@@ -88,12 +92,16 @@ public class MaquinaDAOImpl implements MaquinaDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into MAQUINA( NOMBRE, MARCA, DESCRIPCION, ESTADO, TIPOMAQUINA) values (?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into MAQUINA( NOMBRE, MARCA, DESCRIPCION, ESTADO, TIPOMAQUINA, FECHAALTA, FECHABAJA, TIEMPOCAPACIDADPRODUCCION, IDUNIDADMEDIDA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				ps.setString(1,maquina.getNombre());
 				ps.setLong(2,maquina.getMarca());
 				ps.setString(3,maquina.getDescripcion());
 				ps.setLong(4,maquina.getEstado());
 				ps.setLong(5,maquina.getTipomaquina());
+                ps.setDate(6,maquina.getFechaAlta());
+                ps.setDate(7,maquina.getFechaBaja());
+                ps.setTime(8, maquina.getTiempoCapacidadProduccion());
+                ps.setLong(9, maquina.getUnidadMedida());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MaquinaException(sqle);}
@@ -110,7 +118,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where idmaquina = ?";
+	  		final String SQLSTATEMENT = "Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where idmaquina = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, idmaquina);
 	  		rs = stmt.executeQuery();
@@ -148,7 +156,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByIdmaquina(long idmaquina, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where idmaquina = ? order by idmaquina";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where idmaquina = ? order by idmaquina";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idmaquina );
@@ -175,7 +183,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByNombre(String nombre, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where nombre = ? order by nombre";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where nombre = ? order by nombre";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, nombre );
@@ -202,7 +210,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByMarca(long marca, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where marca = ? order by marca";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where marca = ? order by marca";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, marca );
@@ -229,7 +237,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByDescripcion(String descripcion, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where descripcion = ? order by descripcion";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where descripcion = ? order by descripcion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, descripcion );
@@ -256,7 +264,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByEstado(long estado, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where estado = ? order by estado";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where estado = ? order by estado";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, estado );
@@ -283,7 +291,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findByTipomaquina(long tipomaquina, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina where tipomaquina = ? order by tipomaquina";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina where tipomaquina = ? order by tipomaquina";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, tipomaquina );
@@ -309,7 +317,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findAll( Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina";
+			String SQL_STATEMENT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -368,7 +376,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public MaquinaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina from maquina";
+			String SQL_SELECT ="Select idmaquina, nombre, marca, descripcion, estado, tipomaquina, fechaalta, fechabaja, tiempocapacidadproduccion, idunidadmedida from maquina";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
