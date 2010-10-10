@@ -36,5 +36,83 @@ public class AccessMaquina {
 
         return db;
     }
+    public static long delete(long id, Connection cn) {
+        long result=-1;
+        MaquinaDAO dao=new DAOFactoryImpl().createMaquinaDAO();
+
+        MaquinaPK pk=new MaquinaPK(id);
+        try {
+            result=dao.delete(pk, cn);
+        } catch (MaquinaException ex) {
+            Logger.getLogger(AccessMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static MaquinaDB findById(long valor, Connection cn) {
+        MaquinaDB x=null;
+        MaquinaDAO dao=new DAOFactoryImpl().createMaquinaDAO();
+        try {
+            x = dao.findByIdmaquina(valor, cn)[0];
+        } catch (Exception ex) {
+            Logger.getLogger(AccessMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return x;
+    }
+
+    public static MaquinaDB[] findByNombreILIKE(String valor, Connection cn) {
+        MaquinaDB[] x=null;
+        MaquinaDAO dao=new DAOFactoryImpl().createMaquinaDAO();
+        Object[] sqlParams=new Object[0];
+        //Object[] sqlParams=new Object[1];
+        //sqlParams[0]=valor;
+        try {
+            x = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return x;
+    }
+
+    public static long insert(Maquina maquina, long idTipoMaquina, long idUnidadMedida,long idMarca, long idEstado, Connection cn) {
+        long result=-1;
+        MaquinaDAO dao=new DAOFactoryImpl().createMaquinaDAO();
+        MaquinaDB db = null;
+
+        try {
+            db=Parser.parseToMaquinaDB(maquina);
+            db.setTipomaquina(idTipoMaquina);
+            db.setUnidadMedida(idUnidadMedida);
+            db.setMarca(idMarca);
+            db.setEstado(idEstado);
+
+            result=dao.insert(db, cn);
+            db.setIdmaquina(result);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static long update(Maquina maquina, long idMaquina, long idTipoMaquina, long idUnidadMedida,long idMarca, long idEstado, Connection cn) {
+        long result=-1;
+        MaquinaDAO dao=new DAOFactoryImpl().createMaquinaDAO();
+
+        MaquinaDB db=null;
+
+        MaquinaPK pk=new MaquinaPK(idMaquina);
+        try {
+            db=Parser.parseToMaquinaDB(maquina);
+            db.setTipomaquina(idTipoMaquina);
+            db.setUnidadMedida(idUnidadMedida);
+            db.setMarca(idMarca);
+            db.setEstado(idEstado);
+
+            result=dao.update(pk,db, cn);
+        } catch (MaquinaException ex) {
+            Logger.getLogger(AccessMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
 }
