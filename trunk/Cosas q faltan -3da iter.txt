@@ -1,14 +1,19 @@
+**Analisis: completar el diag con metodos q surgieron en las colaboraciones
+            terminar vistas parciales
 
+**Requerimientos: 
+                 Preguntar CU 138 como hacer con los actores
+                 Copiar diag de cu
 
+**Diseño:
+          DTE: hacer los nuevos y corregir los viejos
+               equivalencias con cu
+               *EjecucionProcesoCalidad - Estas es de la 3ra iter
 
-Preguntar CU 138 como hacer con los actores
+          Actualizar DER vistas parciales
 
-DTE:
-*EjecucionProcesoCalidad - Estas es de la 3ra iter
+          Secuencia: Aplicacion Patrones
 
-Actualizar DER vistas parciales
+**Prueba: hacer 3 casos de prueba
 
-Secuencia: Aplicacion Patrones
-
-Analisis: Imprimir Vistas PArciales Diagrama Clases
-
+**Implementación: terminar con la 2da iter
