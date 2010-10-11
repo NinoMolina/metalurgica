@@ -60,6 +60,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         addListenerBtnSalir();
         cargarComboTipoMaterial();
         cargarComboUnidadMedida();
+        setEnabled(false);
     }
     public void etapaSeleccionada() {
         materiaPrimaDB=gestor.buscarPorId(idMateriaPrima);
@@ -91,6 +92,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     {
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
+        setEnabled(true);
         dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         long nroMatPrima=gestor.generarNvoNroMateriaPrima();
@@ -136,14 +138,20 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         if(opcion==EnumOpcionesABM.NUEVO)
         {
             id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
+            if(id>-1){
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
+                setEnabled(false);
+            }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
             id=gestor.modificarEtapaDeProduccion(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-            if(id>-1)JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
+            if(id>-1){
+                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
+                setEnabled(false);
+            }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
         //limpiarCampos();
@@ -158,6 +166,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
     {
         opcion=EnumOpcionesABM.MODIFICAR;
+        setEnabled(true);
     }
 
     private void addListenerBtnBuscar() {
@@ -180,6 +189,25 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void enableComponents(boolean b)
+    {
+        txtCodBarra.setEnabled(b);
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
+        lblNroMateriaPrima.setEnabled(b);
+        //txtPrecio.setText(String.valueOf(mp.g)
+        txtStock.setEnabled(b);
+
+        dccFechaAlta.setEnabled(b);
+        dccFechaBaja.setEnabled(b);
+
+        dimensiones1.getTxtAlto().setEnabled(b);
+        dimensiones1.getTxtAncho().setEnabled(b);
+        dimensiones1.getTxtLargo().setEnabled(b);
+
+        cmbUnidadMedida.setEnabled(b);
+        cmbTipoMaterial.setEnabled(b);
     }
 
     private void addListenerBtnSalir() {
