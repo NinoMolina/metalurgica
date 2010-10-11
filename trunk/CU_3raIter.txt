@@ -45,12 +45,12 @@ CU 3ra Iteracion:
 158: Modificar Servicio de Máquina.
 
 160: Eliminar Servicio de Máquina
-162
-163
-164
-165
+162: Generar informe de Reclamos a Proveedores
+163: Generar informe de Principales Proveedores
+164: Generar informe de Pedidos
+165: Generar informe de Reclamos de Clientes
 166
-167
+167: Generar informe de clientes
 168
 169
 170
