@@ -60,6 +60,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 
 	public int update(MaquinaPK maquinapk, MaquinaDB maquina, Connection con)throws MaquinaException{
 		PreparedStatement ps = null;
+
 		try
 		{
 			ps = con.prepareStatement("update MAQUINA set NOMBRE = ? , MARCA = ? , DESCRIPCION = ? , ESTADO = ? , TIPOMAQUINA = ?, FECHAALTA=?, FECHABAJA=?, TIEMPOCAPACIDADPRODUCCION=?, IDUNIDADMEDIDA=?  where idmaquina = ?");
@@ -102,6 +103,7 @@ public class MaquinaDAOImpl implements MaquinaDAO
 	public int insert(MaquinaDB maquina ,Connection con)throws MaquinaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
 			ps = con.prepareStatement("insert into MAQUINA( NOMBRE, MARCA, DESCRIPCION, ESTADO, TIPOMAQUINA, FECHAALTA, FECHABAJA, TIEMPOCAPACIDADPRODUCCION, IDUNIDADMEDIDA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)  RETURNING IDMAQUINA");
@@ -128,7 +130,9 @@ public class MaquinaDAOImpl implements MaquinaDAO
                 else ps.setNull(9,java.sql.Types.NULL);
                 
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new MaquinaException(sqle);}
 		catch(Exception e){throw new MaquinaException(e);}
 	}
