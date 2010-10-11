@@ -49,18 +49,18 @@ CU 3ra Iteracion:
 163: Generar informe de Principales Proveedores
 164: Generar informe de Pedidos
 165: Generar informe de Reclamos de Clientes
-166
+166: Generar informe Estadístico de Calidad
 167: Generar informe de clientes
-168
-169
-170
+168: Generar informe de Entrega de Pedidos a Clientes
+169: Generar informe de Ventas Realizadas
+170: Generar informe de Materia Prima 
 
-171
-172
-173
-174
-175
-176
+171: Generar informe de Producción Realizada
+172: Generar informe Estadístico de Producción
+173: Generar informe de Mantenimiento de Máquina
+174: Generar informe de Defectos
+175: Generar informe de Ausentismo
+176: Generar Informe de Trabajos Tercerizados
 178: Registrar Empresa de Mantenimiento
 180: Modificar Empresa de Mantenimiento
 181: Registrar baja de Empresa de Mantenimiento
