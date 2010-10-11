@@ -53,12 +53,12 @@ public class MarcaDAOImpl implements MarcaDAO
 /**
 * This method updates a record in table MARCA
 * @param MarcaPK
-* @param Marca
+* @param MarcaDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(MarcaPK marcapk, Marca marca, Connection con)throws MarcaException{
+	public int update(MarcaPK marcapk, MarcaDB marca, Connection con)throws MarcaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -75,12 +75,12 @@ public class MarcaDAOImpl implements MarcaDAO
 /**
 * This method inserts data in table MARCA
 *
-* @param Marca marca
+* @param MarcaDB marca
 * @param   Connection con
 * @return  MarcaPK
 */
 
-	public int insert(Marca marca ,Connection con)throws MarcaException {
+	public int insert(MarcaDB marca ,Connection con)throws MarcaException {
 
 		PreparedStatement ps = null;
 		try
@@ -100,7 +100,7 @@ public class MarcaDAOImpl implements MarcaDAO
 * 
 */
 
-	public Marca findByPrimaryKey(long idmarca, Connection con) throws MarcaException{
+	public MarcaDB findByPrimaryKey(long idmarca, Connection con) throws MarcaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -123,10 +123,10 @@ public class MarcaDAOImpl implements MarcaDAO
 * 
 * @param  MarcaPK marcapk
 * @param Connection con
-* @return  Marca
+* @return  MarcaDB
 */
 
-	public Marca findByPrimaryKey(MarcaPK marcapk, Connection con) throws MarcaException{
+	public MarcaDB findByPrimaryKey(MarcaPK marcapk, Connection con) throws MarcaException{
 		return findByPrimaryKey(marcapk.getIdmarca(), con);
 	}
 
@@ -136,10 +136,10 @@ public class MarcaDAOImpl implements MarcaDAO
 *
 * @param   long  idmarca
 * @param   Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 */
 
-	public Marca[] findByIdmarca(long idmarca, Connection con) throws MarcaException{
+	public MarcaDB[] findByIdmarca(long idmarca, Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmarca, nombre, descripcion from marca where idmarca = ? order by idmarca";
@@ -163,10 +163,10 @@ public class MarcaDAOImpl implements MarcaDAO
 *
 * @param   String  nombre
 * @param   Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 */
 
-	public Marca[] findByNombre(String nombre, Connection con) throws MarcaException{
+	public MarcaDB[] findByNombre(String nombre, Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmarca, nombre, descripcion from marca where nombre = ? order by nombre";
@@ -190,10 +190,10 @@ public class MarcaDAOImpl implements MarcaDAO
 *
 * @param   String  descripcion
 * @param   Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 */
 
-	public Marca[] findByDescripcion(String descripcion, Connection con) throws MarcaException{
+	public MarcaDB[] findByDescripcion(String descripcion, Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmarca, nombre, descripcion from marca where descripcion = ? order by descripcion";
@@ -215,11 +215,11 @@ public class MarcaDAOImpl implements MarcaDAO
 * Returns all rows from marca table 
 *
 * @param Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 *
 */
 
-	public Marca[] findAll( Connection con) throws MarcaException{
+	public MarcaDB[] findAll( Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idmarca, nombre, descripcion from marca";
@@ -243,11 +243,11 @@ public class MarcaDAOImpl implements MarcaDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 *
 */
 
-	public Marca[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MarcaException{
+	public MarcaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -274,11 +274,11 @@ public class MarcaDAOImpl implements MarcaDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Marca[]
+* @return  MarcaDB[]
 *
 */
 
-	public Marca[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MarcaException{
+	public MarcaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MarcaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idmarca, nombre, descripcion from marca";
@@ -304,14 +304,14 @@ public class MarcaDAOImpl implements MarcaDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Marca
+* @return  MarcaDB
 *
 */
 
-	protected Marca fetchSingleResult(ResultSet rs) throws SQLException
+	protected MarcaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Marca dto = new Marca();
+					MarcaDB dto = new MarcaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -323,12 +323,12 @@ public class MarcaDAOImpl implements MarcaDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Marca dto
+* @param MarcaDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Marca dto, ResultSet rs) throws SQLException
+	protected void populateVO(MarcaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdmarca(rs.getLong("idmarca"));
 		 dto.setNombre(rs.getString("nombre"));
@@ -340,18 +340,18 @@ public class MarcaDAOImpl implements MarcaDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Marca[]
+* @return  MarcaDB[]
 */
 
-	protected Marca[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected MarcaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Marca dto = new Marca();
+			MarcaDB dto = new MarcaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Marca ret[] = new Marca[ resultList.size() ];
+		MarcaDB ret[] = new MarcaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
