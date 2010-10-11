@@ -64,14 +64,26 @@ public class MaquinaDAOImpl implements MaquinaDAO
 		{
 			ps = con.prepareStatement("update MAQUINA set NOMBRE = ? , MARCA = ? , DESCRIPCION = ? , ESTADO = ? , TIPOMAQUINA = ?, FECHAALTA=?, FECHABAJA=?, TIEMPOCAPACIDADPRODUCCION=?, IDUNIDADMEDIDA=?  where idmaquina = ?");
 				ps.setString(1,maquina.getNombre());
-				ps.setLong(2,maquina.getMarca());
+				long id2=maquina.getMarca();
+                if(id2>0) ps.setLong(2,maquina.getMarca());
+                else ps.setNull(2,java.sql.Types.NULL);
+
 				ps.setString(3,maquina.getDescripcion());
-				ps.setLong(4,maquina.getEstado());
-				ps.setLong(5,maquina.getTipomaquina());
+                long id4=maquina.getEstado();
+                if(id4>0) ps.setLong(4,maquina.getEstado());
+                else ps.setNull(4,java.sql.Types.NULL);
+
+                long id5=maquina.getTipomaquina();
+                if(id5>0) ps.setLong(5,maquina.getTipomaquina());
+                else ps.setNull(5,java.sql.Types.NULL);
+
                 ps.setDate(6,maquina.getFechaAlta());
                 ps.setDate(7,maquina.getFechaBaja());
                 ps.setTime(8, maquina.getTiempoCapacidadProduccion());
-                ps.setLong(9, maquina.getUnidadMedida());
+
+                long id9=maquina.getUnidadMedida();
+                if(id9>0) ps.setLong(9, maquina.getUnidadMedida());
+                else ps.setNull(9,java.sql.Types.NULL);
 				ps.setLong(10,maquinapk.getIdmaquina());
 
 				return(ps.executeUpdate());
@@ -92,16 +104,29 @@ public class MaquinaDAOImpl implements MaquinaDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into MAQUINA( NOMBRE, MARCA, DESCRIPCION, ESTADO, TIPOMAQUINA, FECHAALTA, FECHABAJA, TIEMPOCAPACIDADPRODUCCION, IDUNIDADMEDIDA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into MAQUINA( NOMBRE, MARCA, DESCRIPCION, ESTADO, TIPOMAQUINA, FECHAALTA, FECHABAJA, TIEMPOCAPACIDADPRODUCCION, IDUNIDADMEDIDA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)  RETURNING IDMAQUINA");
 				ps.setString(1,maquina.getNombre());
-				ps.setLong(2,maquina.getMarca());
+                long id2=maquina.getMarca();
+                if(id2>0) ps.setLong(2,maquina.getMarca());
+                else ps.setNull(2,java.sql.Types.NULL);
+
 				ps.setString(3,maquina.getDescripcion());
-				ps.setLong(4,maquina.getEstado());
-				ps.setLong(5,maquina.getTipomaquina());
+                long id4=maquina.getEstado();
+                if(id4>0) ps.setLong(4,maquina.getEstado());
+                else ps.setNull(4,java.sql.Types.NULL);
+
+                long id5=maquina.getTipomaquina();
+                if(id5>0) ps.setLong(5,maquina.getTipomaquina());
+                else ps.setNull(5,java.sql.Types.NULL);
+				
                 ps.setDate(6,maquina.getFechaAlta());
                 ps.setDate(7,maquina.getFechaBaja());
                 ps.setTime(8, maquina.getTiempoCapacidadProduccion());
-                ps.setLong(9, maquina.getUnidadMedida());
+
+                long id9=maquina.getUnidadMedida();
+                if(id9>0) ps.setLong(9, maquina.getUnidadMedida());
+                else ps.setNull(9,java.sql.Types.NULL);
+                
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new MaquinaException(sqle);}
