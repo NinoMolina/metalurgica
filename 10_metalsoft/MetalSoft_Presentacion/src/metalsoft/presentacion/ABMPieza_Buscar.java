@@ -8,8 +8,8 @@
  *
  * Created on 27/06/2010, 20:21:43
  */
-
 package metalsoft.presentacion;
+
 import javax.swing.JComboBox;
 import metalsoft.negocio.gestores.HiloBuscarPieza;
 import metalsoft.negocio.gestores.IBuscador;
@@ -23,17 +23,27 @@ import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.negocio.ventas.Pieza;
+
 /**
  *
  * @author Vicky
  */
-public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
+public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador {
 
-    private GestorPieza gestor=null;
+    private GestorPieza gestor = null;
     private static Timer timer;
     private HiloBuscarPieza hiloBuscarPieza;
     private metalsoft.datos.dbobject.PiezaDB[] piezasDB;
     private ABMPieza ventana;
+    private GenerarCodigoBarra ventanaCodigoBarra;
+
+    public GenerarCodigoBarra getVentanaCodigoBarra() {
+        return ventanaCodigoBarra;
+    }
+
+    public void setVentanaCodigoBarra(GenerarCodigoBarra ventanaCodigoBarra) {
+        this.ventanaCodigoBarra = ventanaCodigoBarra;
+    }
 
     public JButton getBtnSeleccionar() {
         return btnSeleccionar;
@@ -103,13 +113,15 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
     public ABMPieza_Buscar() {
         initComponents();
     }
-     public void setGestor(GestorPieza gestor) {
+
+    public void setGestor(GestorPieza gestor) {
         this.gestor = gestor;
     }
 
-     public GestorPieza getGestor() {
+    public GestorPieza getGestor() {
         return gestor;
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -183,13 +195,14 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMPieza_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMPieza_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 @Override
                 public void run() {
-                    hiloBuscarPieza=new HiloBuscarPieza();
+                    hiloBuscarPieza = new HiloBuscarPieza();
                     hiloBuscarPieza.setVentana(abm);
                     hiloBuscarPieza.setValor(txtValor.getText());
                     hiloBuscarPieza.start();
@@ -215,10 +228,16 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long idPieza=Long.parseLong(((ItemCombo)lstPieza.getSelectedValue()).getId());
-        ventana.setIdPieza(idPieza);
-        ventana.piezaSeleccionada();
-        
+        long idPieza = Long.parseLong(((ItemCombo) lstPieza.getSelectedValue()).getId());
+        if (ventana != null) {
+            ventana.setIdPieza(idPieza);
+            ventana.piezaSeleccionada();
+        }
+        if (ventanaCodigoBarra != null) {
+            ventanaCodigoBarra.setIdPiezaReal(idPieza);
+            ventanaCodigoBarra.piezaSeleccionada();
+        }
+
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -227,10 +246,11 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
     }//GEN-LAST:event_txtValorActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMPieza_Buscar().setVisible(true);
             }
@@ -250,11 +270,10 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador{
     }
 
     public void setBusqueda(Object[] obj) {
-        piezasDB=(metalsoft.datos.dbobject.PiezaDB[]) obj;
+        piezasDB = (metalsoft.datos.dbobject.PiezaDB[]) obj;
     }
 
     public JComboBox getCombo(String className) {
         return null;
     }
-
 }
