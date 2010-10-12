@@ -66,6 +66,10 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
     /** Creates new form GenerarCodigoBarra */
     public GenerarCodigoBarra() {
         initComponents();
+        btnBuscar.setEnabled(false);
+        btnGenerarCodigo.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtNro.setEnabled(false);
         gestorMateriaPrima=new GestorMateriaPrima();
         gestorPieza=new GestorPieza();
         gestorProducto=new GestorProducto();
@@ -100,12 +104,27 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
 
         buttonGroup1.add(rbMateriaPrima);
         rbMateriaPrima.setText("Materia Prima");
+        rbMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMateriaPrimaActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbPieza);
         rbPieza.setText("Pieza");
+        rbPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPiezaActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbProducto);
         rbProducto.setText("Producto");
+        rbProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbProductoActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -267,10 +286,26 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void rbMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMateriaPrimaActionPerformed
+        // TODO add your handling code here:
+        btnBuscar.setEnabled(true);
+    }//GEN-LAST:event_rbMateriaPrimaActionPerformed
+
+    private void rbPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPiezaActionPerformed
+        // TODO add your handling code here:
+        btnBuscar.setEnabled(true);
+    }//GEN-LAST:event_rbPiezaActionPerformed
+
+    private void rbProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbProductoActionPerformed
+        // TODO add your handling code here:
+        btnBuscar.setEnabled(true);
+    }//GEN-LAST:event_rbProductoActionPerformed
     public void productoSeleccionado() {
         productoDB=gestorProducto.buscarProductoDB(idProducto);
         txtNombre.setText(productoDB.getNombre());
         txtNro.setText(String.valueOf(productoDB.getNroproducto()));
+        btnGenerarCodigo.setEnabled(true);
         
     }
     public void materiaPrimaSeleccionada(){
@@ -278,11 +313,13 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
         //mostrarDatosMateriaPrima(materiaPrimaDB);
         txtNombre.setText(materiaPrimaDB.getNombre());
         txtNro.setText(String.valueOf(materiaPrimaDB.getNromateriaprima()));
+        btnGenerarCodigo.setEnabled(true);
     }
     public void piezaSeleccionada(){
         piezaDB=gestorPieza.buscarPieza(idPieza);
         txtNombre.setText(piezaDB.getNombre());
         txtNro.setText(String.valueOf(piezaDB.getIdpieza()));
+        btnGenerarCodigo.setEnabled(true);
     }
     /**
     * @param args the command line arguments
