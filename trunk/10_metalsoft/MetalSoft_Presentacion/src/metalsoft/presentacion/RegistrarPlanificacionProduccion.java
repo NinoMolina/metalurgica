@@ -8,16 +8,32 @@
  *
  * Created on 10/10/2010, 16:22:57
  */
-
 package metalsoft.presentacion;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.PresupuestoDB;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
+import org.apache.xml.utils.Hashtree2Node;
+import org.jdesktop.swingx.JXTreeTable;
+import org.jdesktop.swingx.decorator.BorderHighlighter;
+import org.jdesktop.swingx.decorator.ColorHighlighter;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlightPredicate.ColumnHighlightPredicate;
+import org.jdesktop.swingx.decorator.Highlighter;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
+import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
+import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
+import org.jdesktop.swingx.treetable.FileSystemModel;
+import org.jdesktop.swingx.treetable.SimpleFileSystemModel;
+import org.jdesktop.swingx.treetable.TreeTableModel;
 
 /**
  *
@@ -30,14 +46,40 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private GestorRegistrarPlanificacionProduccion gestor;
     public RegistrarPlanificacionProduccion() {
         initComponents();
-        gestor=new GestorRegistrarPlanificacionProduccion();
-        filasPedidosNoPlanificados=new LinkedList<ViewPedidoNoPlanificado>();
+        setearTablaPedidos();
+        gestor = new GestorRegistrarPlanificacionProduccion();
+        filasPedidosNoPlanificados = new LinkedList<ViewPedidoNoPlanificado>();
         buscarPedidosNoPlanificados();
+        setearTreeTable();
         tblPedidos.updateUI();
     }
 
-    private void buscarPedidosNoPlanificados(){
-        filasPedidosNoPlanificados=gestor.buscarPedidosNoPlanificados();
+    private void setearTreeTable() {
+        DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("Hola");
+        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
+        raiz.add(n1);
+        n1.add(new DefaultMutableTreeTableNode("algo"));
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("Detalle");
+        list.add("AAAAAAA");
+        list.add("BBBBBBB");
+        TreeTableModel treeTableModel = new DefaultTreeTableModel(raiz, list);
+        trtDetalleProcProd.setTreeTableModel(treeTableModel);
+    }
+
+    private void setearTablaPedidos() {
+        tblPedidos.setModel(new PedidoNoPlanificadoTableModel());
+        tblPedidos.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidos.setShowHorizontalLines(false);
+        tblPedidos.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblPedidos.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+    }
+
+    private void buscarPedidosNoPlanificados() {
+        filasPedidosNoPlanificados = gestor.buscarPedidosNoPlanificados();
     }
 
     /** This method is called from within the constructor to
@@ -50,40 +92,96 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtValorBusqueda = new javax.swing.JTextField();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        btnSeleccionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPedidos = new javax.swing.JTable();
+        tblPedidos = new org.jdesktop.swingx.JXTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        trtDetalleProcProd = new org.jdesktop.swingx.JXTreeTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Confirmados"));
 
-        tblPedidos.setModel(new PedidoNoPlanificadoTableModel());
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
+
+        jRadioButton3.setText("Nro Pedido");
+
+        jLabel1.setText("Valor de Búsqueda:");
+
+        jRadioButton2.setText("Fecha Pedido");
+
+        jRadioButton1.setText("Cliente");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jRadioButton3)
+                .addComponent(jRadioButton2)
+                .addComponent(jRadioButton1)
+                .addComponent(jLabel1)
+                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        btnSeleccionar.setText("Seleccionar");
+
         jScrollPane1.setViewportView(tblPedidos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSeleccionar))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSeleccionar))
         );
+
+        jScrollPane2.setViewportView(trtDetalleProcProd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,30 +189,41 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new RegistrarPlanificacionProduccion().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblPedidos;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.jdesktop.swingx.JXTable tblPedidos;
+    private org.jdesktop.swingx.JXTreeTable trtDetalleProcProd;
+    private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-        class PedidoNoPlanificadoTableModel extends AbstractTableModel {
+    class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {
             "Nro.Ped",
@@ -143,7 +252,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         public String getColumnName(int column) {
             return columnNames[column];
         }
-
 
         public int getColumnCount() {
             return columnNames.length;
@@ -174,4 +282,41 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             }
         }
     }
+//    class DetalleProduccionTreeTableModel extends AbstractTreeTableModel {
+//
+//        private String[] columnNames = {
+//            "Detalle Produccion",
+//            "Empleado",
+//            "Máquinas"
+//        };
+//
+//        public int getColumnCount() {
+//            return columnNames.length;
+//        }
+//
+//        public Object getValueAt(Object o, int i) {
+//            return null;
+//        }
+//
+//        public Object getChild(Object parent, int index) {
+//            return null;
+//        }
+//
+//        public int getChildCount(Object parent) {
+//            return 0;
+//        }
+//
+//        public int getIndexOfChild(Object parent, Object child) {
+//            return 0;
+//        }
+//
+//        public String[] getColumnNames() {
+//            return columnNames;
+//        }
+//
+//        @Override
+//        public String getColumnName(int column) {
+//            return columnNames[column];
+//        }
+//    }
 }
