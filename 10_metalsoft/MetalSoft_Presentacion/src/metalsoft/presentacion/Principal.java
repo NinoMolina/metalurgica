@@ -8,7 +8,6 @@
  *
  * Created on 12/06/2010, 02:19:22
  */
-
 package metalsoft.presentacion;
 
 import java.awt.Color;
@@ -25,9 +24,6 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
 
-
-
-
 /**
  *
  * @author Nino
@@ -36,15 +32,17 @@ public class Principal extends javax.swing.JFrame {
 
     private long idUsuario;
     private Rol[] roles;
+
     /** Creates new form Principal */
     public Principal(long idUsuario) {
-        this.idUsuario=idUsuario;
+        this.idUsuario = idUsuario;
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
-        
+
         obtenerRolUsuario(idUsuario);
         //this.getContentPane().setBackground();
     }
+
     public Principal() {
         initComponents();
 
@@ -57,6 +55,7 @@ public class Principal extends javax.swing.JFrame {
     public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -91,6 +90,7 @@ public class Principal extends javax.swing.JFrame {
         mniMatriz = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mniGenerarDetalleMateriaPrima = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
@@ -241,6 +241,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniGenerarDetalleMateriaPrima);
 
+        jMenuItem2.setText("Registrar Planificación");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(jMenuItem2);
+
         mbrMenu.add(mnuProduccion);
 
         mnuCalidad.setText("Calidad");
@@ -318,8 +326,6 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoClientesActionPerformed
-
-
     }//GEN-LAST:event_mniListadoClientesActionPerformed
 
     private void mniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteActionPerformed
@@ -459,7 +465,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniGenerarDetalleMateriaPrimaActionPerformed
 
     private void mniProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProveedorActionPerformed
-         try {
+        try {
             JFrameManager.crearVentana(ABMProveedor.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -483,15 +489,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniRegistrarPresupuestoActionPerformed
 
     private void mniEmpresaMetalurgicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMetalurgicaActionPerformed
-          try {
-            JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//          try {
+//            JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_mniEmpresaMetalurgicaActionPerformed
 
     private void mniRegistrarDiaNoLaboralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarDiaNoLaboralActionPerformed
@@ -530,11 +536,20 @@ public class Principal extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarPlanificacionProduccion.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     /**
-    * @param args the command line arguments
-    */
-
-
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -543,6 +558,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniCliente;
@@ -574,8 +590,7 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void obtenerRolUsuario(long idUsuario) {
-        roles=Usuario.obtenerRoles(idUsuario);
-        setTitle("METALSOFT - INICIO [Rol: "+roles[0].getRol()+"]");
+        roles = Usuario.obtenerRoles(idUsuario);
+        setTitle("METALSOFT - INICIO [Rol: " + roles[0].getRol() + "]");
     }
-
 }
