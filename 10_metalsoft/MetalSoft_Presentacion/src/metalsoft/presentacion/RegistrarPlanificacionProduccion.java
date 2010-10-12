@@ -14,7 +14,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +27,9 @@ import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import org.apache.xml.utils.Hashtree2Node;
+import org.hibernate.engine.jdbc.ColumnNameCache;
 import org.jdesktop.swingx.JXTreeTable;
+import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.decorator.BorderHighlighter;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -36,13 +40,22 @@ import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.swingx.renderer.DefaultTreeRenderer;
 import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
+import org.jdesktop.swingx.treetable.AbstractMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.treetable.SimpleFileSystemModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
+import pojos.Detallepiezapresupuesto;
+import pojos.Detallepresupuesto;
+import pojos.Detalleproductopresupuesto;
+import pojos.Empleado;
+import pojos.Etapadeproduccion;
+import pojos.Maquina;
+import pojos.Pieza;
 import pojos.Presupuesto;
+import pojos.Producto;
 
 /**
  *
@@ -54,9 +67,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private LinkedList<ViewPedidoNoPlanificado> filasPedidosNoPlanificados;
     private GestorRegistrarPlanificacionProduccion gestor;
     private Presupuesto presupuesto;
+    private int columnCountTreeTable = 3;
+    private ViewPedidoNoPlanificado viewPedidoSeleccionado;
+    private ArrayList<String> listColumnNamesTreeTable;
+
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
+        listColumnNamesTreeTable=new ArrayList<String>();
+        listColumnNamesTreeTable.add("Detalle");
+        listColumnNamesTreeTable.add("Empleado");
+        listColumnNamesTreeTable.add("Máquinas");
         setearTablaPedidos();
         gestor = new GestorRegistrarPlanificacionProduccion();
         filasPedidosNoPlanificados = new LinkedList<ViewPedidoNoPlanificado>();
@@ -66,34 +87,18 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
 
     private void setearTreeTable() {
-        DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("Hola");
-        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
-        raiz.add(n1);
-        n1.add(new DefaultMutableTreeTableNode("algo"));
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("Detalle");
-        list.add("AAAAAAA");
-        list.add("BBBBBBB");
-        TreeTableModel treeTableModel = new DefaultTreeTableModel(raiz, list);
+        DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("Pedido");
+//        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
+//        raiz.add(n1);
+//        n1.add(new DefaultMutableTreeTableNode("algo"));
+        
+        TreeTableModel treeTableModel = new DefaultTreeTableModel(raiz, listColumnNamesTreeTable);
+//        treeTableModel.setValueAt("changos", raiz, 2);
+//        ProductoNode n1 = new ProductoNode(new Producto(WIDTH, Long.MIN_VALUE, "Producto1", Double.NaN, null, null, null, null, null, null));
+//        raiz.add(n1);
+        trtDetalleProcProd.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
         trtDetalleProcProd.setRootVisible(true);
-
-        System.out.println(n1.getValueAt(n1.getColumnCount()));
-         // <snip> JXTreeTable rendering
-         // StringValue provides node text, used in hierarchical column
-
-         // create and set a tree renderer using the custom Icon-/StringValue
-         StringValue locSize = new StringValue() {
-
-             @Override
-             public String getString(Object value) {
-                 if(value instanceof Presupuesto)
-                    return presupuesto.toString();
-             }
-         };
-         trtDetalleProcProd.setDefaultRenderer(Object.class, new DefaultTableRenderer(locSize, JLabel.CENTER));
-         DefaultTableRenderer r=(DefaultTableRenderer) trtDetalleProcProd.getDefaultRenderer(String.class);
-         System.out.println(r.getString(new String("dsadasd")));
     }
 
     private void setearTablaPedidos() {
@@ -232,9 +237,43 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        presupuesto=gestor.buscarPresupuesto(filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow()).getIdpresupuesto());
-        trtDetalleProcProd.updateUI();
+        viewPedidoSeleccionado=filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
+        presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
+        cargarDatosTreeTable(presupuesto.getDetallepresupuestos());
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void cargarDatosTreeTable(Set<Detallepresupuesto> detallepresupuestos) {
+        DefaultMutableTreeTableNode raiz=new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
+        trtDetalleProcProd.removeAll();
+        trtDetalleProcProd.setTreeTableModel(new DefaultTreeTableModel(raiz,listColumnNamesTreeTable));
+        Iterator<Detallepresupuesto> it=detallepresupuestos.iterator();
+        Detallepresupuesto dp=null;
+        ProductoNode prod=null;
+        while(it.hasNext()){
+            dp=it.next();
+            prod=new ProductoNode(dp.getProducto());
+            raiz.add(prod);
+            Set<Detalleproductopresupuesto> setDetProPre=dp.getDetalleproductopresupuestos();
+            Iterator<Detalleproductopresupuesto> itDetProPre=setDetProPre.iterator();
+            PiezaNode pieza=null;
+            Detalleproductopresupuesto detProPre=null;
+            while(itDetProPre.hasNext()){
+                detProPre=itDetProPre.next();
+                pieza=new PiezaNode(detProPre.getPieza());
+                prod.add(pieza);
+                Set<Detallepiezapresupuesto> setDetPiPre=detProPre.getDetallepiezapresupuestos();
+                Detallepiezapresupuesto detPiPre=null;
+                Iterator<Detallepiezapresupuesto> itDetPiPre=setDetPiPre.iterator();
+                EtapaProduccionNode etapaProd=null;
+                while(itDetPiPre.hasNext()){
+                    detPiPre=itDetPiPre.next();
+                    etapaProd=new EtapaProduccionNode(detPiPre.getEtapadeproduccion());
+                    pieza.add(etapaProd);
+                }
+            }
+        }
+        trtDetalleProcProd.updateUI();
+    }
 
     /**
      * @param args the command line arguments
@@ -262,6 +301,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
+    // End of variables declaration
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {
@@ -322,29 +362,100 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
     }
 
-    class DetalleProduccionTableModel extends DefaultTreeTableModel {
+    class ProductoNode extends AbstractMutableTreeTableNode {
 
-        private String[] columnNames = {
-            "Detalle Produccion",
-            "Empleado",
-            "Máquinas"
-        };
+        private Producto producto;
 
-        public int getRowCount() {
-            return 0;
+        public ProductoNode(Producto producto) {
+            this.producto = producto;
+        }
+
+        public Object getValueAt(int i) {
+            switch (i) {
+                case 0:
+                    return producto.getNombre();
+            }
+            return "";
         }
 
         public int getColumnCount() {
-            return columnNames.length;
+            return columnCountTreeTable;
+        }
+    }
+
+    class PiezaNode extends AbstractMutableTreeTableNode {
+
+        private Pieza pieza;
+
+        public PiezaNode(Pieza pieza) {
+            this.pieza = pieza;
         }
 
-        public String[] getColumnNames() {
-            return columnNames;
+        public Object getValueAt(int i) {
+            switch (i) {
+                case 0:
+                    return pieza.getNombre();
+            }
+            return "";
         }
 
-        @Override
-        public String getColumnName(int column) {
-            return columnNames[column];
+        public int getColumnCount() {
+            return columnCountTreeTable;
+        }
+    }
+
+    class EtapaProduccionNode extends AbstractMutableTreeTableNode {
+
+        private Etapadeproduccion etapa;
+        private Maquina maquina;
+        private Empleado empleado;
+
+        public EtapaProduccionNode(Etapadeproduccion etapa) {
+            this.etapa = etapa;
+        }
+
+        public Empleado getEmpleado() {
+            return empleado;
+        }
+
+        public void setEmpleado(Empleado empleado) {
+            this.empleado = empleado;
+        }
+
+        public Etapadeproduccion getEtapa() {
+            return etapa;
+        }
+
+        public void setEtapa(Etapadeproduccion etapa) {
+            this.etapa = etapa;
+        }
+
+        public Maquina getMaquina() {
+            return maquina;
+        }
+
+        public void setMaquina(Maquina maquina) {
+            this.maquina = maquina;
+        }
+
+        public Object getValueAt(int i) {
+            try {
+                switch (i) {
+                    case 0:
+                        return etapa.getNombre();
+                    case 1:
+                        return empleado.getNombre() + " " + empleado.getApellido();
+                    case 2:
+                        return maquina.getNombre();
+                }
+            } catch (NullPointerException ex) {
+                return "null";
+            }
+            return "";
+        }
+
+        public int getColumnCount() {
+            return columnCountTreeTable;
         }
     }
 }
