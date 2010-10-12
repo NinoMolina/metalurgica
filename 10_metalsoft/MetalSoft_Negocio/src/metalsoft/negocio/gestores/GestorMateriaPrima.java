@@ -142,7 +142,7 @@ public class GestorMateriaPrima {
     }
 
     
-    public long modificarEtapaDeProduccion(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida, String idCodBarra)
+    public long modificar(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida, String idCodBarra)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
