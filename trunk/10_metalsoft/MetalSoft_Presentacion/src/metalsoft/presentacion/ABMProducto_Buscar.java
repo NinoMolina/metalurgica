@@ -28,6 +28,15 @@ public class ABMProducto_Buscar extends javax.swing.JFrame implements IBuscador{
 
     /** Creates new form AMBProducto_Buscar */
     private ABMProducto ventana;
+    private GenerarCodigoBarra ventanaCodBarra;
+
+    public GenerarCodigoBarra getVentanaCodBarra() {
+        return ventanaCodBarra;
+    }
+
+    public void setVentanaCodBarra(GenerarCodigoBarra ventanaCodBarra) {
+        this.ventanaCodBarra = ventanaCodBarra;
+    }
     private Timer timer;
     private GestorProducto gestor;
     public ABMProducto_Buscar() {
@@ -160,8 +169,14 @@ public class ABMProducto_Buscar extends javax.swing.JFrame implements IBuscador{
     }
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdProducto(id);
-        ventana.productoSeleccionado();
+        if(ventana!=null){
+            ventana.setIdProducto(id);
+            ventana.productoSeleccionado();
+        }
+        if(ventanaCodBarra!=null){
+            ventanaCodBarra.setIdProductoReal(id);
+            ventanaCodBarra.productoSeleccionado();
+        }
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
