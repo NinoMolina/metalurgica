@@ -147,7 +147,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificarEtapaDeProduccion(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
+            id=gestor.modificar(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
             if(id>-1){
                 JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
                 setEnabled(false);
