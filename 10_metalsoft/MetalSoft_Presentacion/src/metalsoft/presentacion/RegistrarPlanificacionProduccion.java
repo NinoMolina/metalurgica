@@ -10,11 +10,15 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.datos.dbobject.PedidoDB;
-import metalsoft.datos.dbobject.PresupuestoDB;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
@@ -28,12 +32,17 @@ import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlightPredicate.ColumnHighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+import org.jdesktop.swingx.renderer.DefaultTableRenderer;
+import org.jdesktop.swingx.renderer.DefaultTreeRenderer;
+import org.jdesktop.swingx.renderer.StringValue;
+import org.jdesktop.swingx.renderer.StringValues;
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.treetable.SimpleFileSystemModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
+import pojos.Presupuesto;
 
 /**
  *
@@ -44,6 +53,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     /** Creates new form RegistrarPlanificacionProduccion */
     private LinkedList<ViewPedidoNoPlanificado> filasPedidosNoPlanificados;
     private GestorRegistrarPlanificacionProduccion gestor;
+    private Presupuesto presupuesto;
+
     public RegistrarPlanificacionProduccion() {
         initComponents();
         setearTablaPedidos();
@@ -65,6 +76,24 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         list.add("BBBBBBB");
         TreeTableModel treeTableModel = new DefaultTreeTableModel(raiz, list);
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
+        trtDetalleProcProd.setRootVisible(true);
+
+        System.out.println(n1.getValueAt(n1.getColumnCount()));
+         // <snip> JXTreeTable rendering
+         // StringValue provides node text, used in hierarchical column
+
+         // create and set a tree renderer using the custom Icon-/StringValue
+         StringValue locSize = new StringValue() {
+
+             @Override
+             public String getString(Object value) {
+                 if(value instanceof Presupuesto)
+                    return presupuesto.toString();
+             }
+         };
+         trtDetalleProcProd.setDefaultRenderer(Object.class, new DefaultTableRenderer(locSize, JLabel.CENTER));
+         DefaultTableRenderer r=(DefaultTableRenderer) trtDetalleProcProd.getDefaultRenderer(String.class);
+         System.out.println(r.getString(new String("dsadasd")));
     }
 
     private void setearTablaPedidos() {
@@ -146,6 +175,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         );
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(tblPedidos);
 
@@ -196,6 +230,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        presupuesto=gestor.buscarPresupuesto(filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow()).getIdpresupuesto());
+        trtDetalleProcProd.updateUI();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,41 +321,30 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             }
         }
     }
-//    class DetalleProduccionTreeTableModel extends AbstractTreeTableModel {
-//
-//        private String[] columnNames = {
-//            "Detalle Produccion",
-//            "Empleado",
-//            "Máquinas"
-//        };
-//
-//        public int getColumnCount() {
-//            return columnNames.length;
-//        }
-//
-//        public Object getValueAt(Object o, int i) {
-//            return null;
-//        }
-//
-//        public Object getChild(Object parent, int index) {
-//            return null;
-//        }
-//
-//        public int getChildCount(Object parent) {
-//            return 0;
-//        }
-//
-//        public int getIndexOfChild(Object parent, Object child) {
-//            return 0;
-//        }
-//
-//        public String[] getColumnNames() {
-//            return columnNames;
-//        }
-//
-//        @Override
-//        public String getColumnName(int column) {
-//            return columnNames[column];
-//        }
-//    }
+
+    class DetalleProduccionTableModel extends DefaultTreeTableModel {
+
+        private String[] columnNames = {
+            "Detalle Produccion",
+            "Empleado",
+            "Máquinas"
+        };
+
+        public int getRowCount() {
+            return 0;
+        }
+
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public String[] getColumnNames() {
+            return columnNames;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+        }
+    }
 }
