@@ -361,9 +361,6 @@ public class ABMPieza extends javax.swing.JFrame {
             frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
             frmBuscarPieza.setGestor(gestorPieza);
             frmBuscarPieza.setVentana(this);
-
-
-
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
