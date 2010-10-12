@@ -76,7 +76,7 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
         lstLista = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jRadioButton1.setText("Nombre");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +207,7 @@ public class ABMEmpleado_Buscar extends javax.swing.JFrame {
     public JComboBox getCombo(String className) {
         return null;
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
