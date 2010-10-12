@@ -110,6 +110,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Materia Prima"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbMateriaPrimaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbPieza">
           <Properties>
@@ -118,6 +121,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Pieza"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbPiezaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbProducto">
           <Properties>
@@ -126,6 +132,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbProductoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
