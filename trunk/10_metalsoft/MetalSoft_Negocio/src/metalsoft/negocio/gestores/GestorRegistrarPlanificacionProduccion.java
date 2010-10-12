@@ -6,6 +6,8 @@
 package metalsoft.negocio.gestores;
 
 import com.sun.org.apache.bcel.internal.util.JavaWrapper;
+import dao.ServicioDao;
+import dao.ServicioDaoPresupuestoImpl;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -13,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.access.AccessViews;
+import pojos.Presupuesto;
 
 /**
  *
@@ -41,6 +44,11 @@ public class GestorRegistrarPlanificacionProduccion {
             }
         }
         return list;
+    }
+
+    public Presupuesto buscarPresupuesto(long idPresupuesto) {
+        ServicioDao<Presupuesto> dao=new ServicioDaoPresupuestoImpl<Presupuesto>();
+        return dao.findById(idPresupuesto, Presupuesto.class.getSimpleName());
     }
 
 }
