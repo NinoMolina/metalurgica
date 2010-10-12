@@ -28,6 +28,15 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
 
 
     private ABMMateriaPrima ventana;
+    private GenerarCodigoBarra ventanaCodigoBarra;
+
+    public GenerarCodigoBarra getVentanaCodigoBarra() {
+        return ventanaCodigoBarra;
+    }
+
+    public void setVentanaCodigoBarra(GenerarCodigoBarra ventanaCodigoBarra) {
+        this.ventanaCodigoBarra = ventanaCodigoBarra;
+    }
     private Timer timer;
     private GestorMateriaPrima gestor=null;
     private MateriaprimaDB[] materiasPrimasDB;
@@ -171,8 +180,13 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
     }
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdEtapa(id);
-        ventana.etapaSeleccionada();
+        if(ventana!=null){
+            ventana.setIdEtapa(id);
+            ventana.etapaSeleccionada();}
+        if(ventanaCodigoBarra!=null){
+            ventanaCodigoBarra.setIdMateriaPrima(id);
+            ventanaCodigoBarra.materiaPrimaSeleccionada();
+        }
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
