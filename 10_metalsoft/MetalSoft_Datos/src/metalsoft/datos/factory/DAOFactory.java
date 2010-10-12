@@ -187,7 +187,7 @@ public DetallepiezacalidadpresupuestoDAO createDetallepiezacalidadpresupuestoDAO
 
 	public ProductoDAO createProductoDAO();
 
-	//public ProductorealDAO createProductorealDAO();
+	public ProductorealDAO createProductorealDAO();
 
 	public ProveedorDAO createProveedorDAO();
 

@@ -510,7 +510,11 @@ private static final DetalleproductopresupuestoDAOImpl  detalleproductopresupues
 		return productodaoimpl;
 	}
 
-	
+		private static final ProductorealDAOImpl  productorealdaoimpl = new ProductorealDAOImpl();
+	public ProductorealDAO createProductorealDAO()
+	{
+		return productorealdaoimpl;
+	}
 
 	private static final ProveedorDAOImpl  proveedordaoimpl = new ProveedorDAOImpl();
 	public ProveedorDAO createProveedorDAO()
