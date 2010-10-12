@@ -104,7 +104,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         trtDetalleProcProd = new org.jdesktop.swingx.JXTreeTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Confirmados"));
 
