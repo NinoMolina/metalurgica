@@ -505,10 +505,10 @@ public class ABMMaquina extends javax.swing.JFrame {
         dccFechaAlta.setSelectedDate(null);
         dccFechaBaja.setSelectedDate(null);
 
-        cmbUnidadMedida.setSelectedIndex(-1);
-        cmbEstado.setSelectedIndex(-1);
-        cmbMarca.setSelectedIndex(-1);
-        cmbTipoMaquina.setSelectedIndex(-1);
+        cmbUnidadMedida.setSelectedIndex(0);
+        cmbEstado.setSelectedIndex(0);
+        cmbMarca.setSelectedIndex(0);
+        cmbTipoMaquina.setSelectedIndex(0);
     }
     private void setEnableComponents(boolean b)
     {
