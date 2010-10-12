@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import com.sun.org.apache.bcel.internal.util.JavaWrapper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
