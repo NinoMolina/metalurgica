@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Productoreal" schema="public" table="productoreal">
+    <id name="idproductoreal" type="long">
+      <column name="idproductoreal"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Estadoproductoreal" fetch="select" name="estadoproductoreal">
+      <column name="estado"/>
+    </many-to-one>
+    <many-to-one class="pojos.Pedido" fetch="select" name="pedido">
+      <column name="idpedido"/>
+    </many-to-one>
+    <many-to-one class="pojos.Codigodebarra" fetch="select" name="codigodebarra">
+      <column name="codigobarra"/>
+    </many-to-one>
+    <property name="nroproducto" type="java.lang.Long">
+      <column name="nroproducto"/>
+    </property>
+    <property name="fechaterminacion" type="date">
+      <column length="13" name="fechaterminacion"/>
+    </property>
+    <property name="fechainicioproduccion" type="date">
+      <column length="13" name="fechainicioproduccion"/>
+    </property>
+    <property name="idpieza" type="java.lang.Long">
+      <column name="idpieza"/>
+    </property>
+    <property name="idpiezareal" type="java.lang.Long">
+      <column name="idpiezareal"/>
+    </property>
+    <set inverse="true" name="detalleproductoreals">
+      <key>
+        <column name="idproductoreal" not-null="true"/>
+      </key>
+      <one-to-many class="pojos.Detalleproductoreal"/>
+    </set>
+  </class>
+</hibernate-mapping>

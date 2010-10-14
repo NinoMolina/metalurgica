@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Asistencia" schema="public" table="asistencia">
+    <composite-id class="pojos.AsistenciaId" name="id">
+      <key-property name="empleado" type="long">
+        <column name="empleado"/>
+      </key-property>
+      <key-property name="fechaingreso" type="long">
+        <column name="fechaingreso"/>
+      </key-property>
+      <key-property name="horaingreso" type="time">
+        <column length="15" name="horaingreso"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="pojos.Empleado" fetch="select" insert="false" name="empleado" update="false">
+      <column name="empleado" not-null="true" unique="true"/>
+    </many-to-one>
+    <property name="horaegreso" type="time">
+      <column length="15" name="horaegreso"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column length="100" name="observaciones"/>
+    </property>
+  </class>
+</hibernate-mapping>

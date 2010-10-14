@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Trabajotercerizado" schema="public" table="trabajotercerizado">
+    <id name="idtrabajo" type="long">
+      <column name="idtrabajo"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Estadotrabajotercerizado" fetch="select" name="estadotrabajotercerizado">
+      <column name="estado"/>
+    </many-to-one>
+    <many-to-one class="pojos.Pedido" fetch="select" name="pedido">
+      <column name="pedido"/>
+    </many-to-one>
+    <many-to-one class="pojos.Empresametalurgica" fetch="select" name="empresametalurgica">
+      <column name="empresa"/>
+    </many-to-one>
+    <property name="nrotrabajotercerizado" type="java.lang.Long">
+      <column name="nrotrabajotercerizado"/>
+    </property>
+    <property name="fechapedidocotizacion" type="date">
+      <column length="13" name="fechapedidocotizacion"/>
+    </property>
+    <property name="fechaentregaestipulada" type="date">
+      <column length="13" name="fechaentregaestipulada"/>
+    </property>
+    <property name="fechaconfirmaciontrabajo" type="date">
+      <column length="13" name="fechaconfirmaciontrabajo"/>
+    </property>
+    <property name="fechacancelacion" type="date">
+      <column length="13" name="fechacancelacion"/>
+    </property>
+    <property name="fechaentregareal" type="date">
+      <column length="13" name="fechaentregareal"/>
+    </property>
+    <property name="fechaenvioaempresa" type="date">
+      <column length="13" name="fechaenvioaempresa"/>
+    </property>
+    <property name="motivocancelacion" type="string">
+      <column length="100" name="motivocancelacion"/>
+    </property>
+    <set inverse="true" name="detalletrabajotercerizados">
+      <key>
+        <column name="idtrabajotercerizado" not-null="true"/>
+      </key>
+      <one-to-many class="pojos.Detalletrabajotercerizado"/>
+    </set>
+    <set inverse="true" name="reclamoempresametalurgicas">
+      <key>
+        <column name="trabajotercerizado"/>
+      </key>
+      <one-to-many class="pojos.Reclamoempresametalurgica"/>
+    </set>
+  </class>
+</hibernate-mapping>

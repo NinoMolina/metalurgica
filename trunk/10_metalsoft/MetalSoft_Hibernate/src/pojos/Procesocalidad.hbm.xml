@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Procesocalidad" schema="public" table="procesocalidad">
+    <id name="idprocesocalidad" type="long">
+      <column name="idprocesocalidad"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Accioncalidad" fetch="select" name="accioncalidad">
+      <column name="accioncalidad"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column length="50" name="nombre"/>
+    </property>
+    <property name="nroproceso" type="java.lang.Long">
+      <column name="nroproceso"/>
+    </property>
+    <property name="especificacion" type="string">
+      <column length="100" name="especificacion"/>
+    </property>
+    <property name="tolerancia" type="string">
+      <column length="100" name="tolerancia"/>
+    </property>
+    <property name="descripcion" type="string">
+      <column length="100" name="descripcion"/>
+    </property>
+    <property name="duracionestimada" type="time">
+      <column length="15" name="duracionestimada"/>
+    </property>
+    <property name="fechacreacion" type="date">
+      <column length="13" name="fechacreacion"/>
+    </property>
+    <property name="herramienta" type="string">
+      <column length="50" name="herramienta"/>
+    </property>
+    <set inverse="true" name="ejecucionprocesocalidads">
+      <key>
+        <column name="idprocesocalidad" not-null="true" unique="true"/>
+      </key>
+      <one-to-many class="pojos.Ejecucionprocesocalidad"/>
+    </set>
+    <set inverse="true" name="detalleplanificacioncalidads">
+      <key>
+        <column name="procesocalidad"/>
+      </key>
+      <one-to-many class="pojos.Detalleplanificacioncalidad"/>
+    </set>
+    <set inverse="true" name="detallepiezacalidadpresupuestos">
+      <key>
+        <column name="idprocesocalidad"/>
+      </key>
+      <one-to-many class="pojos.Detallepiezacalidadpresupuesto"/>
+    </set>
+    <set inverse="true" name="detalleplanprocesoscalidads">
+      <key>
+        <column name="idprocesocalidad"/>
+      </key>
+      <one-to-many class="pojos.Detalleplanprocesoscalidad"/>
+    </set>
+    <set inverse="true" name="maquinaxprocesocalidads">
+      <key>
+        <column name="idprocesocalidad" not-null="true"/>
+      </key>
+      <one-to-many class="pojos.Maquinaxprocesocalidad"/>
+    </set>
+  </class>
+</hibernate-mapping>

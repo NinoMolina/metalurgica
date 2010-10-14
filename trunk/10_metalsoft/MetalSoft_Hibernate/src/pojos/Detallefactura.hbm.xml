@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Detallefactura" schema="public" table="detallefactura">
+    <composite-id class="pojos.DetallefacturaId" name="id">
+      <key-property name="iddetalle" type="long">
+        <column name="iddetalle"/>
+      </key-property>
+      <key-property name="idfactura" type="long">
+        <column name="idfactura"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="pojos.Factura" fetch="select" insert="false" name="factura" update="false">
+      <column name="idfactura" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="pojos.Pedido" fetch="select" name="pedido">
+      <column name="idpedido"/>
+    </many-to-one>
+    <property name="montoparcial" type="java.lang.Double">
+      <column name="montoparcial" precision="17" scale="17"/>
+    </property>
+    <property name="cantidad" type="java.lang.Integer">
+      <column name="cantidad"/>
+    </property>
+    <property name="iddetallepedido" type="java.lang.Long">
+      <column name="iddetallepedido"/>
+    </property>
+  </class>
+</hibernate-mapping>
