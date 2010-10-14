@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Domicilio" schema="public" table="domicilio">
+    <id name="iddomicilio" type="long">
+      <column name="iddomicilio"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Barrio" fetch="select" name="barrio">
+      <column name="barrio"/>
+    </many-to-one>
+    <property name="calle" type="string">
+      <column length="50" name="calle"/>
+    </property>
+    <property name="numerocalle" type="java.lang.Integer">
+      <column name="numerocalle"/>
+    </property>
+    <property name="piso" type="java.lang.Integer">
+      <column name="piso"/>
+    </property>
+    <property name="depto" type="string">
+      <column length="5" name="depto"/>
+    </property>
+    <property name="torre" type="string">
+      <column length="10" name="torre"/>
+    </property>
+    <set inverse="true" name="proveedormantenimientomaquinas">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Proveedormantenimientomaquina"/>
+    </set>
+    <set inverse="true" name="clientes">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Cliente"/>
+    </set>
+    <set inverse="true" name="empresametalurgicas">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Empresametalurgica"/>
+    </set>
+    <set inverse="true" name="empleados">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Empleado"/>
+    </set>
+    <set inverse="true" name="proveedors">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Proveedor"/>
+    </set>
+    <set inverse="true" name="responsables">
+      <key>
+        <column name="domicilio"/>
+      </key>
+      <one-to-many class="pojos.Responsable"/>
+    </set>
+  </class>
+</hibernate-mapping>

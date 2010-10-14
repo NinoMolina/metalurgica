@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Cliente" schema="public" table="cliente">
+    <id name="idcliente" type="long">
+      <column name="idcliente"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Usuario" fetch="select" name="usuario">
+      <column name="usuario"/>
+    </many-to-one>
+    <many-to-one class="pojos.Domicilio" fetch="select" name="domicilio">
+      <column name="domicilio"/>
+    </many-to-one>
+    <many-to-one class="pojos.Estadocliente" fetch="select" name="estadocliente">
+      <column name="estado"/>
+    </many-to-one>
+    <many-to-one class="pojos.Responsable" fetch="select" name="responsable">
+      <column name="responsable"/>
+    </many-to-one>
+    <many-to-one class="pojos.Condicioniva" fetch="select" name="condicioniva">
+      <column name="condicioniva"/>
+    </many-to-one>
+    <many-to-one class="pojos.Prioridad" fetch="select" name="prioridad">
+      <column name="prioridad"/>
+    </many-to-one>
+    <property name="nrocliente" type="java.lang.Long">
+      <column name="nrocliente"/>
+    </property>
+    <property name="esmoroso" type="java.lang.Boolean">
+      <column name="esmoroso"/>
+    </property>
+    <property name="razonsocial" type="string">
+      <column length="50" name="razonsocial"/>
+    </property>
+    <property name="telefono" type="string">
+      <column length="50" name="telefono"/>
+    </property>
+    <property name="celular" type="string">
+      <column length="50" name="celular"/>
+    </property>
+    <property name="mail" type="string">
+      <column length="50" name="mail"/>
+    </property>
+    <property name="fechaalta" type="date">
+      <column length="13" name="fechaalta"/>
+    </property>
+    <property name="fechabaja" type="date">
+      <column length="13" name="fechabaja"/>
+    </property>
+    <property name="cuil" type="string">
+      <column length="50" name="cuil"/>
+    </property>
+    <property name="cuit" type="string">
+      <column length="50" name="cuit"/>
+    </property>
+    <set inverse="true" name="reclamoclientes">
+      <key>
+        <column name="cliente"/>
+      </key>
+      <one-to-many class="pojos.Reclamocliente"/>
+    </set>
+    <set inverse="true" name="pedidos">
+      <key>
+        <column name="cliente"/>
+      </key>
+      <one-to-many class="pojos.Pedido"/>
+    </set>
+  </class>
+</hibernate-mapping>

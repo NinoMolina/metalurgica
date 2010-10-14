@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Turno" schema="public" table="turno">
+    <id name="idturno" type="long">
+      <column name="idturno"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="horainicio" type="time">
+      <column length="15" name="horainicio"/>
+    </property>
+    <property name="horafin" type="time">
+      <column length="15" name="horafin"/>
+    </property>
+    <property name="nombre" type="string">
+      <column length="20" name="nombre"/>
+    </property>
+    <property name="descripcion" type="string">
+      <column length="50" name="descripcion"/>
+    </property>
+    <set inverse="true" name="empleados" table="empleadoxturno">
+      <key>
+        <column name="idturno" not-null="true"/>
+      </key>
+      <many-to-many entity-name="pojos.Empleado">
+        <column name="idempleado" not-null="true"/>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

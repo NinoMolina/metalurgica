@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Compra" schema="public" table="compra">
+    <id name="idcompra" type="long">
+      <column name="idcompra"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="pojos.Estadocompra" fetch="select" name="estadocompra">
+      <column name="estado"/>
+    </many-to-one>
+    <many-to-one class="pojos.Proveedor" fetch="select" name="proveedor">
+      <column name="proveedor"/>
+    </many-to-one>
+    <property name="nrocompra" type="java.lang.Long">
+      <column name="nrocompra"/>
+    </property>
+    <property name="fechacompra" type="date">
+      <column length="13" name="fechacompra"/>
+    </property>
+    <property name="vigencia" type="date">
+      <column length="13" name="vigencia"/>
+    </property>
+    <property name="documentoremito" type="java.lang.Long">
+      <column name="documentoremito"/>
+    </property>
+    <property name="preciototal" type="java.lang.Double">
+      <column name="preciototal" precision="17" scale="17"/>
+    </property>
+    <property name="motivo" type="string">
+      <column length="100" name="motivo"/>
+    </property>
+    <set inverse="true" name="reclamoproveedors">
+      <key>
+        <column name="compra"/>
+      </key>
+      <one-to-many class="pojos.Reclamoproveedor"/>
+    </set>
+    <set inverse="true" name="detallecompras">
+      <key>
+        <column name="idcompra" not-null="true"/>
+      </key>
+      <one-to-many class="pojos.Detallecompra"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="pojos.Rol" schema="public" table="rol">
+    <id name="idrol" type="long">
+      <column name="idrol"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="rol" type="string">
+      <column length="50" name="rol"/>
+    </property>
+    <property name="descripcion" type="string">
+      <column length="50" name="descripcion"/>
+    </property>
+    <set inverse="false" name="usuarios" table="usuarioxrol">
+      <key>
+        <column name="idrol" not-null="true"/>
+      </key>
+      <many-to-many entity-name="pojos.Usuario">
+        <column name="idusuario" not-null="true"/>
+      </many-to-many>
+    </set>
+    <set inverse="false" name="privilegios" table="rolxprivilegio">
+      <key>
+        <column name="idrol" not-null="true"/>
+      </key>
+      <many-to-many entity-name="pojos.Privilegio">
+        <column name="idprivilegio" not-null="true"/>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>
