@@ -10,14 +10,16 @@
  */
 package metalsoft.presentacion;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -70,10 +72,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private int columnCountTreeTable = 3;
     private ViewPedidoNoPlanificado viewPedidoSeleccionado;
     private ArrayList<String> listColumnNamesTreeTable;
-
+    private HashMap<String,JPanel> hashPanels;
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
+        iniciarPaneles();
+        setEnableHyperLink(false);
         listColumnNamesTreeTable=new ArrayList<String>();
         listColumnNamesTreeTable.add("Detalle");
         listColumnNamesTreeTable.add("Empleado");
@@ -86,6 +90,26 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         tblPedidos.updateUI();
     }
 
+    private void setEnableHyperLink(boolean flag){
+        tskPanel.setEnabled(flag);
+        hplAsignarEmpleado.setEnabled(flag);
+        hplAsignarMaquinas.setEnabled(flag);
+    }
+    private void iniciarPaneles(){
+        hashPanels=new HashMap<String, JPanel>();
+        hashPanels.put(pnlTreeTable.getName(), pnlTreeTable);
+        hashPanels.put(pnlEmpleado.getName(), pnlEmpleado);
+        hashPanels.put(pnlMaquinas.getName(), pnlMaquinas);
+        setVisiblePanel(pnlTreeTable.getName());
+    }
+
+    private void setVisiblePanel(String namePanel){
+        Collection<JPanel> collection=hashPanels.values();
+        for (JPanel jPanel : collection) {
+            jPanel.setVisible(false);
+        }
+        hashPanels.get(namePanel).setVisible(true);
+    }
     private void setearTreeTable() {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("Pedido");
 //        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
@@ -135,8 +159,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
+        jPanel3 = new javax.swing.JPanel();
+        jXTaskPaneContainer1 = new org.jdesktop.swingx.JXTaskPaneContainer();
+        tskPanel = new org.jdesktop.swingx.JXTaskPane();
+        hplAsignarEmpleado = new org.jdesktop.swingx.JXHyperlink();
+        hplAsignarMaquinas = new org.jdesktop.swingx.JXHyperlink();
+        pnl = new javax.swing.JPanel();
+        pnlTreeTable = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         trtDetalleProcProd = new org.jdesktop.swingx.JXTreeTable();
+        pnlEmpleado = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblEmpleados = new org.jdesktop.swingx.JXTable();
+        pnlMaquinas = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,7 +201,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -195,7 +230,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSeleccionar))
                 .addContainerGap())
@@ -210,27 +245,112 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addComponent(btnSeleccionar))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Planificación"));
+
+        hplAsignarEmpleado.setText("Asignar Empleado");
+        hplAsignarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hplAsignarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplAsignarEmpleadoActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplAsignarEmpleado);
+
+        hplAsignarMaquinas.setText("Asignar Máquinas");
+        hplAsignarMaquinas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tskPanel.getContentPane().add(hplAsignarMaquinas);
+
+        jXTaskPaneContainer1.add(tskPanel);
+
+        pnl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jScrollPane2.setViewportView(trtDetalleProcProd);
+
+        javax.swing.GroupLayout pnlTreeTableLayout = new javax.swing.GroupLayout(pnlTreeTable);
+        pnlTreeTable.setLayout(pnlTreeTableLayout);
+        pnlTreeTableLayout.setHorizontalGroup(
+            pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+        );
+        pnlTreeTableLayout.setVerticalGroup(
+            pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTreeTableLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pnl.add(pnlTreeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jScrollPane3.setViewportView(tblEmpleados);
+
+        javax.swing.GroupLayout pnlEmpleadoLayout = new javax.swing.GroupLayout(pnlEmpleado);
+        pnlEmpleado.setLayout(pnlEmpleadoLayout);
+        pnlEmpleadoLayout.setHorizontalGroup(
+            pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+        );
+        pnlEmpleadoLayout.setVerticalGroup(
+            pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEmpleadoLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+
+        pnl.add(pnlEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 330));
+
+        javax.swing.GroupLayout pnlMaquinasLayout = new javax.swing.GroupLayout(pnlMaquinas);
+        pnlMaquinas.setLayout(pnlMaquinasLayout);
+        pnlMaquinasLayout.setHorizontalGroup(
+            pnlMaquinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+        pnlMaquinasLayout.setVerticalGroup(
+            pnlMaquinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+        );
+
+        pnl.add(pnlMaquinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 330));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jXTaskPaneContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jXTaskPaneContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,8 +359,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         viewPedidoSeleccionado=filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
         presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
+        setVisiblePanel(pnlTreeTable.getName());
+        setEnableHyperLink(true);
         cargarDatosTreeTable(presupuesto.getDetallepresupuestos());
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void hplAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarEmpleadoActionPerformed
+        pnlTreeTable.setVisible(false);
+        pnlMaquinas.setVisible(false);
+        pnlEmpleado.setVisible(true);
+    }//GEN-LAST:event_hplAsignarEmpleadoActionPerformed
 
     private void cargarDatosTreeTable(Set<Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz=new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
@@ -288,16 +416,27 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
+    private org.jdesktop.swingx.JXHyperlink hplAsignarEmpleado;
+    private org.jdesktop.swingx.JXHyperlink hplAsignarMaquinas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer1;
+    private javax.swing.JPanel pnl;
+    private javax.swing.JPanel pnlEmpleado;
+    private javax.swing.JPanel pnlMaquinas;
+    private javax.swing.JPanel pnlTreeTable;
+    private org.jdesktop.swingx.JXTable tblEmpleados;
     private org.jdesktop.swingx.JXTable tblPedidos;
     private org.jdesktop.swingx.JXTreeTable trtDetalleProcProd;
+    private org.jdesktop.swingx.JXTaskPane tskPanel;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
