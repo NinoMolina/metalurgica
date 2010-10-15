@@ -27,6 +27,10 @@ esPedidoNoPlanificado
 mostrarCliente
 mostrarDetallePedido
 mostrarListadoMateriaPrima
+esPedidoConFacturaAsociada
+mostrarFechaEntregaPrevista
+esPedidoNoCobrado
+esPedidoConFacturaVencida
 
 ListadoMateriaPrimaAComprar
 mostrarMateriaPrima
@@ -77,6 +81,9 @@ mostrarMonto
 mostrarNumero
 mostrarFechaPresupuesto
 
+ReclamoCliente:
+buscarUltimoNumero
+
 Cliente:
 mostrarNumero
 tomarUsuarioYContraseña
@@ -100,6 +107,10 @@ mostrarApellido
 
 Factura:
 mostrarNumero
+esFacturaVencida
+
+EstadoFactura:
+mostrarNombre
 
 DetalleRequerimientomateriaPrima:
 mostrarCantidad
@@ -157,4 +168,13 @@ interfazPlanificacionProduccion
 gestorPlanificacionProduccion
 gestorEntregaPedido
 interfazEntregaPedido
-
+gestorConsultaWeb
+interfazConsultaWeb
+gestorFactura
+interfazFactura
+impresorFactura
+gestorRemito
+interfazRemito
+impresorRemito
+gestorCobro
+interfazCobro
