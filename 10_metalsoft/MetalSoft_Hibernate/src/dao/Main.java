@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String arg[]){
 
-        ServicioDaoPresupuestoImpl<Presupuesto> dao=new ServicioDaoPresupuestoImpl<Presupuesto>();
+        DaoPresupuesto<Presupuesto> dao=new DaoPresupuesto<Presupuesto>();
         System.out.println(Presupuesto.class.getSimpleName());
         Presupuesto p=dao.findById(19l, Presupuesto.class.getSimpleName());
         List<Presupuesto> list=dao.findAll(Presupuesto.class.getSimpleName());
