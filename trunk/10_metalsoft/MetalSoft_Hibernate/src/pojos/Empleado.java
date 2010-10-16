@@ -30,6 +30,7 @@ public class Empleado  implements java.io.Serializable {
      private Set<Ejecucionetapaproduccion> ejecucionetapaproduccions = new HashSet<Ejecucionetapaproduccion>(0);
      private Set<Mantenimientocorrectivo> mantenimientocorrectivos = new HashSet<Mantenimientocorrectivo>(0);
      private Set<Turno> turnos = new HashSet<Turno>(0);
+     private Set<Disponibilidadhoraria> disponibilidadhoraria = new HashSet<Disponibilidadhoraria>(0);
      private Set<Detallaplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detallaplanificacionproduccion>(0);
      private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 
@@ -40,28 +41,25 @@ public class Empleado  implements java.io.Serializable {
     public Empleado(long idempleado) {
         this.idempleado = idempleado;
     }
-    public Empleado(long idempleado, Usuario usuario, Tipodocumento tipodocumento, Domicilio domicilio, Categoria categoria, Cargo cargo, Long legajo, Date fechaingreso, String nombre, String apellido, String telefono, String email, Integer nrodocumento, Date fechaegreso, String motivoegreso, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Mantenimientocorrectivo> mantenimientocorrectivos, Set<Turno> turnos, Set<Detallaplanificacionproduccion> detallaplanificacionproduccions, Set<Asistencia> asistencias) {
-       this.idempleado = idempleado;
-       this.usuario = usuario;
-       this.tipodocumento = tipodocumento;
-       this.domicilio = domicilio;
-       this.categoria = categoria;
-       this.cargo = cargo;
-       this.legajo = legajo;
-       this.fechaingreso = fechaingreso;
-       this.nombre = nombre;
-       this.apellido = apellido;
-       this.telefono = telefono;
-       this.email = email;
-       this.nrodocumento = nrodocumento;
-       this.fechaegreso = fechaegreso;
-       this.motivoegreso = motivoegreso;
-       this.ejecucionetapaproduccions = ejecucionetapaproduccions;
-       this.mantenimientocorrectivos = mantenimientocorrectivos;
-       this.turnos = turnos;
-       this.detallaplanificacionproduccions = detallaplanificacionproduccions;
-       this.asistencias = asistencias;
+
+    public Empleado(long idempleado, Usuario usuario, Tipodocumento tipodocumento, Domicilio domicilio, Categoria categoria, Cargo cargo, Long legajo, Date fechaingreso, String nombre, String apellido, String telefono, String email, Integer nrodocumento, Date fechaegreso, String motivoegreso) {
+        this.idempleado = idempleado;
+        this.usuario = usuario;
+        this.tipodocumento = tipodocumento;
+        this.domicilio = domicilio;
+        this.categoria = categoria;
+        this.cargo = cargo;
+        this.legajo = legajo;
+        this.fechaingreso = fechaingreso;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
+        this.nrodocumento = nrodocumento;
+        this.fechaegreso = fechaegreso;
+        this.motivoegreso = motivoegreso;
     }
+
    
     public long getIdempleado() {
         return this.idempleado;
@@ -202,6 +200,19 @@ public class Empleado  implements java.io.Serializable {
     
     public void setAsistencias(Set<Asistencia> asistencias) {
         this.asistencias = asistencias;
+    }
+
+    public Set<Disponibilidadhoraria> getDisponibilidadhoraria() {
+        return disponibilidadhoraria;
+    }
+
+    public void setDisponibilidadhoraria(Set<Disponibilidadhoraria> disponibilidadhoraria) {
+        this.disponibilidadhoraria = disponibilidadhoraria;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre()+" "+getApellido();
     }
 
 

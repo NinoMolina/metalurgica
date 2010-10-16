@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="pojos.Disponibilidadhoraria" table="disponibilidadhoraria">
+    <id name="id" type="long">
+      <column name="id"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="fecha" type="java.util.Date">
+      <column length="15" name="fecha"/>
+    </property>
+    <property name="tiempodisponible" type="java.util.Date">
+      <column length="15" name="tiempodisponible"/>
+    </property>
+    <many-to-one class="pojos.Empleado" fetch="select" name="empleado">
+      <column name="idempleado"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

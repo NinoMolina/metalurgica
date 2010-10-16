@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class name="pojos.Detallepiezapresupuesto" schema="public" table="detallepiezapresupuesto" lazy="false">
+  <class lazy="false" name="pojos.Detallepiezapresupuesto" schema="public" table="detallepiezapresupuesto">
     <id name="iddetalle" type="long">
       <column name="iddetalle"/>
       <generator class="assigned"/>

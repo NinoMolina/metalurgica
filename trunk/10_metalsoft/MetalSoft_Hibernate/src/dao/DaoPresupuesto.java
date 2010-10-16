@@ -14,7 +14,7 @@ import org.hibernate.Session;
  *
  * @author Nino
  */
-public class ServicioDaoPresupuestoImpl<T> extends ServicioDao<T> {
+public class DaoPresupuesto<T> extends Dao<T> {
 
     private Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 

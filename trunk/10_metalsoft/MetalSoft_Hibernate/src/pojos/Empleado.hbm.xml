@@ -81,5 +81,11 @@
       </key>
       <one-to-many class="pojos.Asistencia"/>
     </set>
+    <set inverse="true" lazy="false" name="disponibilidadhoraria">
+      <key>
+        <column name="idempleado"/>
+      </key>
+      <one-to-many class="pojos.Disponibilidadhoraria"/>
+    </set>
   </class>
 </hibernate-mapping>

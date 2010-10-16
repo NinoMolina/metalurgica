@@ -15,7 +15,7 @@ import org.hibernate.Session;
  *
  * @author Nino
  */
-public abstract class ServicioDao<T> {
+public abstract class Dao<T> {
 
     public abstract Session getSession();
     public abstract void setSession(Session s);
