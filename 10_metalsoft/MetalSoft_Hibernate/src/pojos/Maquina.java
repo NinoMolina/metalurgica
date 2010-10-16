@@ -122,6 +122,11 @@ public class Maquina  implements java.io.Serializable {
         this.mantenimientocorrectivos = mantenimientocorrectivos;
     }
 
+    @Override
+    public String toString() {
+        return getNombre();
+    }
+
 
 
 
