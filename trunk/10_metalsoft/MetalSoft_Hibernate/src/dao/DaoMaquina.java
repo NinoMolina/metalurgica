@@ -11,10 +11,14 @@ import org.hibernate.Session;
  *
  * @author Nino
  */
-public class DaoMaquina extends Dao{
+public class DaoMaquina<T> extends Dao<T>{
 
     private Session session=HibernateUtil.getSessionFactory().getCurrentSession();
 
+    public DaoMaquina() {
+    }
+
+    
     @Override
     public Session getSession() {
         return session;
@@ -25,10 +29,9 @@ public class DaoMaquina extends Dao{
         session=s;
     }
 
-
     @Override
-    public Object findById(Long id, String clase) {
-        return null;
+    public T findById(Long id, String clase) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
