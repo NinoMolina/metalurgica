@@ -5,6 +5,7 @@
 
 package dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -14,10 +15,6 @@ import org.hibernate.Session;
 public class DaoMaquina<T> extends Dao<T>{
 
     private Session session=HibernateUtil.getSessionFactory().getCurrentSession();
-
-    public DaoMaquina() {
-    }
-
     
     @Override
     public Session getSession() {
@@ -31,7 +28,11 @@ public class DaoMaquina<T> extends Dao<T>{
 
     @Override
     public T findById(Long id, String clase) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        getSession().beginTransaction();
+        Query query = getSession().createQuery("FROM " + clase + " WHERE id=" + id);
+        T a = (T) query.list().get(0);
+        getSession().getTransaction().commit();
+        return a;
     }
 
 }
