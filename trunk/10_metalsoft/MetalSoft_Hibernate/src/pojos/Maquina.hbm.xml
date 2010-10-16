@@ -7,13 +7,13 @@
       <column name="idmaquina"/>
       <generator class="assigned"/>
     </id>
-    <many-to-one class="pojos.Marca" fetch="select" name="marca">
+    <many-to-one class="pojos.Marca" fetch="select" name="marca" lazy="false">
       <column name="marca"/>
     </many-to-one>
     <many-to-one class="pojos.Estadomaquina" fetch="select" name="estadomaquina">
       <column name="estado"/>
     </many-to-one>
-    <many-to-one class="pojos.Tipomaquina" fetch="select" name="tipomaquina">
+    <many-to-one class="pojos.Tipomaquina" fetch="select" name="tipomaquina" lazy="false">
       <column name="tipomaquina"/>
     </many-to-one>
     <property name="nombre" type="string">
