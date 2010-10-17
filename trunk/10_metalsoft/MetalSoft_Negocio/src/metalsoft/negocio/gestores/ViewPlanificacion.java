@@ -24,6 +24,15 @@ public class ViewPlanificacion {
     private long idpresupuesto;
     private long idcliente;
     private long idprioridad;
+    private long idestado;
+
+    public long getIdestado() {
+        return idestado;
+    }
+
+    public void setIdestado(long idestado) {
+        this.idestado = idestado;
+    }
 
     public Date getFechaentregaestipulada() {
         return fechaentregaestipulada;
