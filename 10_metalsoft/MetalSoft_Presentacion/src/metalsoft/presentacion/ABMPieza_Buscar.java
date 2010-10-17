@@ -35,16 +35,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador {
     private HiloBuscarPieza hiloBuscarPieza;
     private metalsoft.datos.dbobject.PiezaDB[] piezasDB;
     private ABMPieza ventana;
-    private GenerarCodigoBarra ventanaCodigoBarra;
-
-    public GenerarCodigoBarra getVentanaCodigoBarra() {
-        return ventanaCodigoBarra;
-    }
-
-    public void setVentanaCodigoBarra(GenerarCodigoBarra ventanaCodigoBarra) {
-        this.ventanaCodigoBarra = ventanaCodigoBarra;
-    }
-
+   
     public JButton getBtnSeleccionar() {
         return btnSeleccionar;
     }
@@ -233,11 +224,7 @@ public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador {
             ventana.setIdPieza(idPieza);
             ventana.piezaSeleccionada();
         }
-        if (ventanaCodigoBarra != null) {
-            ventanaCodigoBarra.setIdPiezaReal(idPieza);
-            ventanaCodigoBarra.piezaSeleccionada();
-        }
-
+        
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
