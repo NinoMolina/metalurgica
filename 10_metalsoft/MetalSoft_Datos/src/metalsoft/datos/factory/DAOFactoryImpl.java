@@ -82,11 +82,12 @@ public class DAOFactoryImpl implements Serializable,DAOFactory
 		return condicionivadaoimpl;
 	}
 
-	private static final DetallaplanificacionproduccionDAOImpl  detallaplanificacionproducciondaoimpl = new DetallaplanificacionproduccionDAOImpl();
-	public DetallaplanificacionproduccionDAO createDetallaplanificacionproduccionDAO()
+private static final DetalleplanificacionproduccionDAOImpl  detalleplanificacionproducciondaoimpl = new DetalleplanificacionproduccionDAOImpl();
+	public DetalleplanificacionproduccionDAO createDetalleplanificacionproduccionDAO()
 	{
-		return detallaplanificacionproducciondaoimpl;
+		return detalleplanificacionproducciondaoimpl;
 	}
+
 
 	private static final DetallecompraDAOImpl  detallecompradaoimpl = new DetallecompraDAOImpl();
 	public DetallecompraDAO createDetallecompraDAO()

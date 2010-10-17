@@ -38,7 +38,7 @@ public interface DAOFactory
 
 	public CondicionivaDAO createCondicionivaDAO();
 
-	public DetallaplanificacionproduccionDAO createDetallaplanificacionproduccionDAO();
+	public DetalleplanificacionproduccionDAO createDetalleplanificacionproduccionDAO();
 
 	public DetallecompraDAO createDetallecompraDAO();
 
