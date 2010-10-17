@@ -105,5 +105,17 @@ public class AccessMateriaPrima {
         }
         return result;
     }
+    public static long updateMateriaPrimaDB(metalsoft.datos.dbobject.MateriaprimaDB materiaPrima, Connection cn) {
+        long result=-1;
+        MateriaprimaDAO dao=new DAOFactoryImpl().createMateriaprimaDAO();
+
+        MateriaprimaPK pk=new MateriaprimaPK(materiaPrima.getIdmateriaprima());
+        try {
+            result=dao.update(pk,materiaPrima, cn);
+        } catch (MateriaprimaException ex) {
+            Logger.getLogger(AccessMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
 }
