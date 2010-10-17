@@ -84,13 +84,16 @@ public class CodigodebarraDAOImpl implements CodigodebarraDAO
 	public int insert(CodigodebarraDB codigodebarra ,Connection con)throws CodigodebarraException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into CODIGODEBARRA( DESCRIPCION, CODIGO) values (?, ?)");
+			ps = con.prepareStatement("insert into CODIGODEBARRA( DESCRIPCION, CODIGO) values (?, ?) RETURNING IDCODIGO");
 				ps.setString(1,codigodebarra.getDescripcion());
 				ps.setString(2,codigodebarra.getCodigo());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new CodigodebarraException(sqle);}
 		catch(Exception e){throw new CodigodebarraException(e);}
 	}
