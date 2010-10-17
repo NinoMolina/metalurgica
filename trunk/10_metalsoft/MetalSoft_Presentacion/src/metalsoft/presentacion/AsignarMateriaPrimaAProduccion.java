@@ -12,6 +12,7 @@ package metalsoft.presentacion;
 
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.negocio.gestores.GestorPlanificacion;
 import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.util.Fecha;
 
@@ -22,15 +23,18 @@ import metalsoft.util.Fecha;
 public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
     private LinkedList<ViewPlanificacion> filasPedidos;
-
+    private long idPedido;
+    private GestorPlanificacion gestor;
     /** Creates new form AsignarMateriaPrimaAProduccion */
     public AsignarMateriaPrimaAProduccion() {
         initComponents();
+        gestor=new GestorPlanificacion();
         buscarPedidosConMPAsignada();
+
     }
 
     public void buscarPedidosConMPAsignada() {
-        filasPedidos = gestor.buscarPedidosConDetalleProcesoCalidad();
+        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados();
         tblPedidos.updateUI();
     }
 
@@ -115,12 +119,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
         idPedido = viewPedido.getIdpedido();
-        long nroPresupuesto = gestor.buscarNroPresupuesto(idPedido);
-        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
-        lblHoraJornada.setText(Jornada.HORAS_JORNADA + " horas)");
-        setFechas();
-        cargarTablas();
-        calcularTotales();
+        
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
