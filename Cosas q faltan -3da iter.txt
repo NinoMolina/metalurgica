@@ -13,9 +13,11 @@
                equivalencias con cu
                *EjecucionProcesoCalidad - Estas es de la 3ra iter
 
-          Actualizar DER vistas parciales
+          Actualizar Diag  vistas parciales
 
           Secuencia: Aplicacion Patrones
+          Despliegue
+          Der actualizar tablas
 
 **Prueba: hacer 3 casos de prueba
 
