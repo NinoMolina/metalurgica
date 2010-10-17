@@ -1,5 +1,5 @@
 package pojos;
-// Generated 12/10/2010 01:33:18 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 04:46:17 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class Pieza  implements java.io.Serializable {
      private Set<Detalleproductopresupuesto> detalleproductopresupuestos = new HashSet<Detalleproductopresupuesto>(0);
      private Set<Detalleplanprocedimientos> detalleplanprocedimientoses = new HashSet<Detalleplanprocedimientos>(0);
      private Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidads = new HashSet<Detalleplanprocesoscalidad>(0);
-     private Set<Detallaplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detallaplanificacionproduccion>(0);
+     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
      private Set<Detalleproducto> detalleproductos = new HashSet<Detalleproducto>(0);
 
     public Pieza() {
@@ -38,7 +38,7 @@ public class Pieza  implements java.io.Serializable {
     public Pieza(long idpieza) {
         this.idpieza = idpieza;
     }
-    public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacioncalidad> detalleplanificacioncalidads, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Piezareal> piezareals, Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimas, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleproductopresupuesto> detalleproductopresupuestos, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidads, Set<Detallaplanificacionproduccion> detallaplanificacionproduccions, Set<Detalleproducto> detalleproductos) {
+    public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacioncalidad> detalleplanificacioncalidads, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Piezareal> piezareals, Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimas, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleproductopresupuesto> detalleproductopresupuestos, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidads, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Detalleproducto> detalleproductos) {
        this.idpieza = idpieza;
        this.materiaprima = materiaprima;
        this.matriz = matriz;
@@ -55,7 +55,7 @@ public class Pieza  implements java.io.Serializable {
        this.detalleproductopresupuestos = detalleproductopresupuestos;
        this.detalleplanprocedimientoses = detalleplanprocedimientoses;
        this.detalleplanprocesoscalidads = detalleplanprocesoscalidads;
-       this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+       this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.detalleproductos = detalleproductos;
     }
    
@@ -171,12 +171,12 @@ public class Pieza  implements java.io.Serializable {
     public void setDetalleplanprocesoscalidads(Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidads) {
         this.detalleplanprocesoscalidads = detalleplanprocesoscalidads;
     }
-    public Set<Detallaplanificacionproduccion> getDetallaplanificacionproduccions() {
-        return this.detallaplanificacionproduccions;
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
+        return this.detalleplanificacionproduccions;
     }
     
-    public void setDetallaplanificacionproduccions(Set<Detallaplanificacionproduccion> detallaplanificacionproduccions) {
-        this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+    public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
     public Set<Detalleproducto> getDetalleproductos() {
         return this.detalleproductos;

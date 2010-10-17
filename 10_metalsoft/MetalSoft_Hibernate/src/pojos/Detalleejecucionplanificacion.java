@@ -16,7 +16,7 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
      private Ejecucionetapaproduccion ejecucionetapaproduccion;
      private Long pieza;
      private Long piezareal;
-     private Set<Detallaplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detallaplanificacionproduccion>(0);
+     private Set<Detalleplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
 
     public Detalleejecucionplanificacion() {
     }
@@ -27,7 +27,7 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
         this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
         this.ejecucionetapaproduccion = ejecucionetapaproduccion;
     }
-    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Long piezareal, Set<Detallaplanificacionproduccion> detallaplanificacionproduccions) {
+    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Long piezareal, Set<Detalleplanificacionproduccion> detallaplanificacionproduccions) {
        this.id = id;
        this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
@@ -71,11 +71,11 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
     public void setPiezareal(Long piezareal) {
         this.piezareal = piezareal;
     }
-    public Set<Detallaplanificacionproduccion> getDetallaplanificacionproduccions() {
+    public Set<Detalleplanificacionproduccion> getDetallaplanificacionproduccions() {
         return this.detallaplanificacionproduccions;
     }
     
-    public void setDetallaplanificacionproduccions(Set<Detallaplanificacionproduccion> detallaplanificacionproduccions) {
+    public void setDetallaplanificacionproduccions(Set<Detalleplanificacionproduccion> detallaplanificacionproduccions) {
         this.detallaplanificacionproduccions = detallaplanificacionproduccions;
     }
 
