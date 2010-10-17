@@ -309,14 +309,14 @@ public class AccessViews {
         else return ll;
     }
 
-    public static LinkedList<ViewPlanificacion> planificacionConRecursosAsignados(long estado, Connection cn)
+    public static LinkedList<ViewPlanificacion> planificacionConRecursosAsignados(Connection cn)
     {
         ViewPlanificacion view=null;
         LinkedList<ViewPlanificacion> ll=new LinkedList<ViewPlanificacion>();
         String query="SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, "+
                     "idpedido,idcliente,idprioridad,presupuesto, idestado "+
                      " FROM viewpedidosconrecasignados"+
-                     " WHERE idestado="+estado;
+                     " WHERE idestado=1";
         PreparedStatement ps=null;
         ResultSet rs=null;
         try {
