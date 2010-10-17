@@ -91,6 +91,7 @@ public class PiezarealDAOImpl implements PiezarealDAO
 	public int insert(PiezarealDB piezareal ,Connection con)throws PiezarealException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
 			ps = con.prepareStatement("insert into PIEZAREAL( IDPIEZA, ESTADO, NROPIEZA, IDCODIGOBARRA) values (?, ?, ?, ?) RETURNING IDPIEZAREAL");
@@ -103,7 +104,9 @@ public class PiezarealDAOImpl implements PiezarealDAO
                 else ps.setNull(4,java.sql.Types.NULL);
                 
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new PiezarealException(sqle);}
 		catch(Exception e){throw new PiezarealException(e);}
 	}
