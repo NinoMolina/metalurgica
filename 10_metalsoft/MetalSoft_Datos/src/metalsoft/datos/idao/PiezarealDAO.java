@@ -16,15 +16,15 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface PiezarealDAO
 {
-	public int insert(Piezareal piezareal, Connection con ) throws PiezarealException;
-	public int update(PiezarealPK piezarealpk, Piezareal piezareal, Connection con) throws PiezarealException;
+	public int insert(PiezarealDB piezareal, Connection con ) throws PiezarealException;
+	public int update(PiezarealPK piezarealpk, PiezarealDB piezareal, Connection con) throws PiezarealException;
 	public int delete(PiezarealPK piezarealpk, Connection con) throws PiezarealException;
-	public Piezareal findByPrimaryKey(PiezarealPK piezarealpk , Connection con) throws PiezarealException;
-	public Piezareal[] findAll(Connection con) throws PiezarealException;
-	public Piezareal[] findByIdpiezareal(long idpiezareal,Connection con) throws PiezarealException;
-	public Piezareal[] findByIdpieza(long idpieza,Connection con) throws PiezarealException;
-	public Piezareal[] findByEstado(long estado,Connection con) throws PiezarealException;
-	public Piezareal[] findByNropieza(int nropieza,Connection con) throws PiezarealException;
-	public Piezareal[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezarealException;
-	public Piezareal[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezarealException;
+	public PiezarealDB findByPrimaryKey(PiezarealPK piezarealpk , Connection con) throws PiezarealException;
+	public PiezarealDB[] findAll(Connection con) throws PiezarealException;
+	public PiezarealDB[] findByIdpiezareal(long idpiezareal,Connection con) throws PiezarealException;
+	public PiezarealDB[] findByIdpieza(long idpieza,Connection con) throws PiezarealException;
+	public PiezarealDB[] findByEstado(long estado,Connection con) throws PiezarealException;
+	public PiezarealDB[] findByNropieza(int nropieza,Connection con) throws PiezarealException;
+	public PiezarealDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezarealException;
+	public PiezarealDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezarealException;
 }
