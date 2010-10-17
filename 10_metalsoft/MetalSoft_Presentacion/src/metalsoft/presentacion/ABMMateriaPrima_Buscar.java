@@ -8,7 +8,6 @@
  *
  * Created on 27/08/2010, 16:16:37
  */
-
 package metalsoft.presentacion;
 
 import java.util.Timer;
@@ -26,26 +25,15 @@ import metalsoft.util.ItemCombo;
  */
 public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
 
-
     private ABMMateriaPrima ventana;
-    private GenerarCodigoBarra ventanaCodigoBarra;
-
-    public GenerarCodigoBarra getVentanaCodigoBarra() {
-        return ventanaCodigoBarra;
-    }
-
-    public void setVentanaCodigoBarra(GenerarCodigoBarra ventanaCodigoBarra) {
-        this.ventanaCodigoBarra = ventanaCodigoBarra;
-    }
     private Timer timer;
-    private GestorMateriaPrima gestor=null;
+    private GestorMateriaPrima gestor = null;
     private MateriaprimaDB[] materiasPrimasDB;
 
     /** Creates new form ABMMateriaPrima_Buscar */
     public ABMMateriaPrima_Buscar() {
         initComponents();
     }
-
 
     public GestorMateriaPrima getGestor() {
         return gestor;
@@ -54,10 +42,10 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
     public ABMMateriaPrima getVentana() {
         return ventana;
     }
+
     /** Creates new form ABMEtapaDeProduccion_Buscar */
-    
     void setVentana(ABMMateriaPrima ventana) {
-        this.ventana=ventana;
+        this.ventana = ventana;
     }
 
     /** This method is called from within the constructor to
@@ -148,14 +136,16 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMMateriaPrima_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMMateriaPrima_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloBuscarMateriaPrima hiloBuscar;
+
                 @Override
                 public void run() {
-                    hiloBuscar=new HiloBuscarMateriaPrima();
+                    hiloBuscar = new HiloBuscarMateriaPrima();
                     hiloBuscar.setVentana(abm);
                     hiloBuscar.setValor(txtValor.getText());
                     hiloBuscar.start();
@@ -179,13 +169,10 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
         this.txtValor = txtValor;
     }
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        if(ventana!=null){
+        long id = Long.parseLong(((ItemCombo) lstLista.getSelectedValue()).getId());
+        if (ventana != null) {
             ventana.setIdEtapa(id);
-            ventana.etapaSeleccionada();}
-        if(ventanaCodigoBarra!=null){
-            ventanaCodigoBarra.setIdMateriaPrima(id);
-            ventanaCodigoBarra.materiaPrimaSeleccionada();
+            ventana.etapaSeleccionada();
         }
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
@@ -195,17 +182,15 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
     }
 
     public void setBusqueda(Object[] obj) {
-        materiasPrimasDB=(MateriaprimaDB[]) obj;
+        materiasPrimasDB = (MateriaprimaDB[]) obj;
     }
 
     public JComboBox getCombo(String className) {
         return null;
     }
     /**
-    * @param args the command line arguments
-    */
-    
-
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JRadioButton jRadioButton1;
@@ -213,5 +198,4 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
 }
