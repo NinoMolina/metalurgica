@@ -28,6 +28,7 @@ import metalsoft.datos.idao.PiezarealDAO;
 import metalsoft.datos.idao.ProductoDAO;
 import metalsoft.datos.idao.ProductorealDAO;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.access.AccessPiezaReal;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
@@ -113,11 +114,12 @@ public class GestorCodigoBarra {
         else return false;
     }
 
-    public long guardarCodPieza(CodigoDeBarra codBarra, PiezarealDB idPiezaReal)
+    public long guardarCodPieza(CodigoDeBarra codBarra, long idPiezaReal)
     {
         CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
         CodigodebarraDB p=new CodigodebarraDB();
         p.setDescripcion(codBarra.getDescripcion());
+        PiezarealDB prdb=new PiezarealDB();
 
         int id=-1;
         int idPieza=-1;
@@ -125,6 +127,7 @@ public class GestorCodigoBarra {
         Connection cn=null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
+            prdb=AccessPiezaReal.findById(idPiezaReal, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,14 +137,14 @@ public class GestorCodigoBarra {
             id=dao.insert(p, cn);
             p.setIdcodigo(id);
             p.setCodigo("PIE"+id);
-            idPiezaReal.setIdcodbarra(id);
+            prdb.setIdcodbarra(id);
 
             CodigodebarraPK cpk=new CodigodebarraPK(id);
             id=dao.update(cpk, p, cn);
 
             PiezarealDAO daoPieza=new DAOFactoryImpl().createPiezarealDAO();
-            PiezarealPK pipk=new PiezarealPK(idPiezaReal.getIdpiezareal(), idPiezaReal.getIdpieza());
-            idPieza=daoPieza.update(pipk, idPiezaReal, cn);
+            PiezarealPK pipk=new PiezarealPK(prdb.getIdpiezareal(), prdb.getIdpieza());
+            idPieza=daoPieza.update(pipk, prdb, cn);
 
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,11 +161,12 @@ public class GestorCodigoBarra {
         return id;
     }
 
-    public long guardarCodProducto(CodigoDeBarra codBarra, Productoreal idPiezaReal)
+    public long guardarCodProducto(CodigoDeBarra codBarra, long idPiezaReal)
     {
         CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
         CodigodebarraDB p=new CodigodebarraDB();
         p.setDescripcion(codBarra.getDescripcion());
+        Productoreal pr=new Productoreal();
 
         int id=-1;
         int idPieza=-1;
@@ -170,6 +174,7 @@ public class GestorCodigoBarra {
         Connection cn=null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
+            ///Buscar el Prducto Real con su access!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,14 +184,14 @@ public class GestorCodigoBarra {
             id=dao.insert(p, cn);
             p.setIdcodigo(id);
             p.setCodigo("PIE"+id);
-            idPiezaReal.setCodigobarra(id);
+            pr.setCodigobarra(id);
 
             CodigodebarraPK cpk=new CodigodebarraPK(id);
             id=dao.update(cpk, p, cn);
 
             ProductorealDAO daoPieza=new DAOFactoryImpl().createProductorealDAO();
-            ProductorealPK pipk=new ProductorealPK(idPiezaReal.getIdproductoreal());
-            idPieza=daoPieza.update(pipk, idPiezaReal, cn);
+            ProductorealPK pipk=new ProductorealPK(pr.getIdproductoreal());
+            idPieza=daoPieza.update(pipk, pr, cn);
 
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
