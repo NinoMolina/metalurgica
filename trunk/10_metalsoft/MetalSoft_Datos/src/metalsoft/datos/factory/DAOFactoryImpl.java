@@ -336,7 +336,13 @@ private static final DetalleproductopresupuestoDAOImpl  detalleproductopresupues
 		return estadopiezarealdaoimpl;
 	}
 
+private static final EstadoplanificacionproduccionDAOImpl  estadoplanificacionproducciondaoimpl = new EstadoplanificacionproduccionDAOImpl();
+	public EstadoplanificacionproduccionDAO createEstadoplanificacionproduccionDAO()
+	{
+		return estadoplanificacionproducciondaoimpl;
+	}
 	
+
 	private static final EstadotrabajotercerizadoDAOImpl  estadotrabajotercerizadodaoimpl = new EstadotrabajotercerizadoDAOImpl();
 	public EstadotrabajotercerizadoDAO createEstadotrabajotercerizadoDAO()
 	{
