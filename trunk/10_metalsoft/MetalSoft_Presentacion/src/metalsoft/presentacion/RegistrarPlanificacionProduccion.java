@@ -13,10 +13,12 @@ package metalsoft.presentacion;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreePath;
@@ -35,12 +37,17 @@ import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableNode;
 import pojos.Detallepiezapresupuesto;
+import pojos.Detalleplanificacionproduccion;
 import pojos.Detallepresupuesto;
 import pojos.Detalleproductopresupuesto;
+import pojos.Disponibilidadhoraria;
 import pojos.Empleado;
 import pojos.Etapadeproduccion;
 import pojos.Maquina;
+import pojos.Pedido;
 import pojos.Pieza;
+import pojos.Planificacioncalidad;
+import pojos.Planificacionproduccion;
 import pojos.Presupuesto;
 import pojos.Producto;
 
@@ -451,6 +458,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         );
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
 
@@ -512,7 +524,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void btnSeleccionarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEmpleadoActionPerformed
         empleadoSeleccionado =(Empleado) jlstEmpleados.getSelectedValue();
         //validar que disp horaria no sea null
-        lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhoraria().toArray());
+        try{
+        lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
+        }catch(Exception ex){
+            System.out.println("entro en el catch de lstDisponibilidad");
+        }
     }//GEN-LAST:event_btnSeleccionarEmpleadoActionPerformed
 
     private void hplAsignarMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarMaquinasActionPerformed
@@ -533,6 +549,40 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        Planificacionproduccion planificacionproduccion=new Planificacionproduccion();
+        Set<Detalleplanificacionproduccion> setDetalle=new HashSet<Detalleplanificacionproduccion>();
+        Detalleplanificacionproduccion detalleplanificacionproduccion=null;
+        Pedido pedido=gestor.buscarPedido(viewPedidoSeleccionado.getIdpedido());
+        int filas=trtDetalleProcProd.getRowCount();
+        TreePath tp=null;
+        for (int i = 0; i < filas; i++) {
+            tp=trtDetalleProcProd.getPathForRow(i);
+            Object obj=tp.getLastPathComponent();
+            if(obj instanceof EtapaProduccionNode){
+                EtapaProduccionNode etapaProduccionNode=(EtapaProduccionNode) obj;
+                PiezaNode piezaNode=(PiezaNode)etapaProduccionNode.getParent();
+                detalleplanificacionproduccion=new Detalleplanificacionproduccion();
+                detalleplanificacionproduccion.setEmpleado(etapaProduccionNode.getEmpleado());
+                detalleplanificacionproduccion.setMaquina(etapaProduccionNode.getMaquina());
+                detalleplanificacionproduccion.setEtapadeproduccion(etapaProduccionNode.getEtapa());
+                detalleplanificacionproduccion.setPieza(piezaNode.getPieza());
+                setDetalle.add(detalleplanificacionproduccion);
+            }
+        }
+        planificacionproduccion.setPedido(pedido);
+        planificacionproduccion.setDetalleplanificacionproduccions(setDetalle);
+        try{
+            gestor.guardarPlanificacionProduccion(planificacionproduccion);
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error al guardar los datos\nNo se pudo guardar!!");
+
+        }
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cargarLista(JXList lista,Object[] values) {
         lista.setListData(values);
@@ -724,6 +774,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         public int getColumnCount() {
             return columnCountTreeTable;
+        }
+
+        public Pieza getPieza(){
+            return pieza;
         }
     }
 
