@@ -29,7 +29,7 @@ public class GestorPlanificacion {
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.planificacionConRecursosAsignados(1, cn);
+            list = AccessViews.planificacionConRecursosAsignados(cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
