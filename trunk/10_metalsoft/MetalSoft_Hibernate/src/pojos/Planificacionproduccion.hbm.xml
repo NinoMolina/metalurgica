@@ -1,45 +1,46 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 17/10/2010 04:46:22 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="pojos.Planificacionproduccion" table="planificacionproduccion" schema="public">
-        <id name="idplanificacionproduccion" type="long">
-            <column name="idplanificacionproduccion" />
-            <generator class="assigned" />
-        </id>
-        <many-to-one name="pedido" class="pojos.Pedido" fetch="select">
-            <column name="pedido" />
-        </many-to-one>
-        <many-to-one name="estadoplanificacionproduccion" class="pojos.Estadoplanificacionproduccion" fetch="select">
-            <column name="idestado" />
-        </many-to-one>
-        <property name="nroplanificacion" type="java.lang.Long">
-            <column name="nroplanificacion" />
-        </property>
-        <property name="fechacreacion" type="date">
-            <column name="fechacreacion" length="13" />
-        </property>
-        <property name="observaciones" type="string">
-            <column name="observaciones" length="50" />
-        </property>
-        <property name="fechainicioprevista" type="date">
-            <column name="fechainicioprevista" length="13" />
-        </property>
-        <property name="fechafinprevista" type="date">
-            <column name="fechafinprevista" length="13" />
-        </property>
-        <set name="ejecucionplanificacionproduccions" inverse="true">
-            <key>
-                <column name="idplanificacionproduccion" not-null="true" unique="true" />
-            </key>
-            <one-to-many class="pojos.Ejecucionplanificacionproduccion" />
-        </set>
-        <set name="detalleplanificacionproduccions" inverse="true">
-            <key>
-                <column name="idplanificacionproduccion" not-null="true" />
-            </key>
-            <one-to-many class="pojos.Detalleplanificacionproduccion" />
-        </set>
-    </class>
+  <class name="pojos.Planificacionproduccion" schema="public" table="planificacionproduccion">
+    <id name="idplanificacionproduccion" type="long">
+      <column name="idplanificacionproduccion"/>
+      <generator class="sequence">
+        <param name="sequence">planificacionproduccion_idplanificacionproduccion_seq</param>
+      </generator>
+    </id>
+    <many-to-one class="pojos.Pedido" fetch="select" name="pedido">
+      <column name="pedido"/>
+    </many-to-one>
+    <many-to-one class="pojos.Estadoplanificacionproduccion" fetch="select" name="estadoplanificacionproduccion">
+      <column name="idestado"/>
+    </many-to-one>
+    <property name="nroplanificacion" type="java.lang.Long">
+      <column name="nroplanificacion"/>
+    </property>
+    <property name="fechacreacion" type="date">
+      <column length="13" name="fechacreacion"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column length="50" name="observaciones"/>
+    </property>
+    <property name="fechainicioprevista" type="date">
+      <column length="13" name="fechainicioprevista"/>
+    </property>
+    <property name="fechafinprevista" type="date">
+      <column length="13" name="fechafinprevista"/>
+    </property>
+    <set inverse="true" name="ejecucionplanificacionproduccions">
+      <key>
+        <column name="idplanificacionproduccion" not-null="true" unique="true"/>
+      </key>
+      <one-to-many class="pojos.Ejecucionplanificacionproduccion"/>
+    </set>
+    <set inverse="true" name="detalleplanificacionproduccions">
+      <key>
+        <column name="idplanificacionproduccion" not-null="true"/>
+      </key>
+      <one-to-many class="pojos.Detalleplanificacionproduccion"/>
+    </set>
+  </class>
 </hibernate-mapping>

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class lazy="false" name="pojos.Detallepiezapresupuesto" schema="public" table="detallepiezapresupuesto">
+  <class name="pojos.Detallepiezapresupuesto" schema="public" table="detallepiezapresupuesto">
     <id name="iddetalle" type="long">
       <column name="iddetalle"/>
       <generator class="assigned"/>
@@ -10,7 +10,7 @@
     <many-to-one class="pojos.Detalleproductopresupuesto" fetch="select" name="detalleproductopresupuesto">
       <column name="iddetalleproductopresupuesto"/>
     </many-to-one>
-    <many-to-one class="pojos.Etapadeproduccion" fetch="select" name="etapadeproduccion">
+    <many-to-one class="pojos.Etapadeproduccion" fetch="select" name="etapadeproduccion" lazy="false">
       <column name="idetapa"/>
     </many-to-one>
     <property name="duracionpiezaxetapa" type="time">

@@ -1,5 +1,5 @@
 package pojos;
-// Generated 17/10/2010 05:09:42 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 06:45:36 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -211,6 +211,11 @@ public class Empleado  implements java.io.Serializable {
     
     public void setAsistencias(Set<Asistencia> asistencias) {
         this.asistencias = asistencias;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre()+" "+getApellido();
     }
 
 

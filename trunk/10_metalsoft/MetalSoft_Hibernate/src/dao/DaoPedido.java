@@ -5,15 +5,17 @@
 
 package dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
  *
  * @author Nino
  */
-public class DaoDetallePlanificacionProduccion<T> extends Dao<T>{
+public class DaoPedido<T> extends Dao<T>{
 
     private Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+
     @Override
     public Session getSession() {
         return session;
@@ -26,7 +28,10 @@ public class DaoDetallePlanificacionProduccion<T> extends Dao<T>{
 
     @Override
     public T findById(Long id, String clase) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        getSession().beginTransaction();
+        Query query = getSession().createQuery("FROM " + clase + " WHERE id=" + id);
+        T a = (T) query.list().get(0);
+        getSession().getTransaction().commit();
+        return a;
     }
-
 }

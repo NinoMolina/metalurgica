@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/10/2010 04:46:22 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 17/10/2010 06:45:40 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="pojos.Pieza" table="pieza" schema="public">
+    <class name="pojos.Pieza" table="pieza" schema="public" lazy="false">
         <id name="idpieza" type="long">
             <column name="idpieza" />
             <generator class="assigned" />

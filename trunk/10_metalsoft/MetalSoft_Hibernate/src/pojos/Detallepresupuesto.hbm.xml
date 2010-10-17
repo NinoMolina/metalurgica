@@ -10,7 +10,7 @@
     <many-to-one class="pojos.Presupuesto" fetch="select" name="presupuesto">
       <column name="idpresupuesto" not-null="true"/>
     </many-to-one>
-    <many-to-one class="pojos.Producto" fetch="select" lazy="false" name="producto">
+    <many-to-one class="pojos.Producto" fetch="select" name="producto" lazy="false">
       <column name="idproducto"/>
     </many-to-one>
     <property name="iddetallepedido" type="java.lang.Long">
@@ -22,7 +22,7 @@
     <property name="precio" type="java.lang.Double">
       <column name="precio" precision="17" scale="17"/>
     </property>
-    <set inverse="true" lazy="false" name="detalleproductopresupuestos">
+    <set inverse="true" name="detalleproductopresupuestos" lazy="false">
       <key>
         <column name="iddetallepresupuesto"/>
       </key>
