@@ -314,7 +314,7 @@ public class AccessViews {
         ViewPlanificacion view=null;
         LinkedList<ViewPlanificacion> ll=new LinkedList<ViewPlanificacion>();
         String query="SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, "+
-                    "idpedido,idcliente,idprioridad,idestado,presupuesto "+
+                    "idpedido,idcliente,idprioridad,presupuesto, idestado "+
                      " FROM viewpedidosconrecasignados"+
                      " WHERE idestado="+estado;
         PreparedStatement ps=null;
@@ -325,16 +325,18 @@ public class AccessViews {
             while(rs.next())
             {
                 view=new ViewPlanificacion();
-                view.setIdcliente(rs.getLong("idcliente"));
-                view.setRazonsocial(rs.getString("razonsocial"));
-                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
-                view.setIdpedido(rs.getLong("idpedido"));
                 view.setNropedido(rs.getInt("nropedido"));
-                view.setIdprioridad(rs.getLong("idprioridad"));
                 view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
+                view.setRazonsocial(rs.getString("razonsocial"));
                 view.setPrioridad(rs.getString("prioridad"));
-                view.setIdestado(rs.getLong("idestado"));
+                //if(rs.getDate("fechaentregaestipulada")!=null)
+                    view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdcliente(rs.getLong("idcliente"));
+                view.setIdprioridad(rs.getLong("idprioridad"));
                 view.setIdpresupuesto(rs.getLong("presupuesto"));
+                view.setIdestado(rs.getLong("idestado"));
+                
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
