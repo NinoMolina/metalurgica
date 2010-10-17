@@ -17,21 +17,21 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetallaplanificacionproduccionDAO
 {
-	public int insert(Detallaplanificacionproduccion detallaplanificacionproduccion, Connection con ) throws DetallaplanificacionproduccionException;
-	public int update(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk, Detallaplanificacionproduccion detallaplanificacionproduccion, Connection con) throws DetallaplanificacionproduccionException;
-	public int delete(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk, Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion findByPrimaryKey(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk , Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findAll(Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByIddetalle(long iddetalle,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByIdplanificacionproduccion(long idplanificacionproduccion,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByIddetalleejecucionplanificacion(long iddetalleejecucionplanificacion,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByIdejecucionplanificacionproduccion(long idejecucionplanificacionproduccion,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByPieza(long pieza,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByEmpleado(long empleado,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByFechainicio(Date fechainicio,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByHorainicio(Time horainicio,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByFechafin(Date fechafin,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findByHorafin(Time horafin,Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetallaplanificacionproduccionException;
-	public Detallaplanificacionproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetallaplanificacionproduccionException;
+	public int insert(Detallaplanificacionproduccion detallaplanificacionproduccion, Connection con ) throws DetalleplanificacionproduccionException;
+	public int update(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk, Detallaplanificacionproduccion detallaplanificacionproduccion, Connection con) throws DetalleplanificacionproduccionException;
+	public int delete(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk, Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion findByPrimaryKey(DetallaplanificacionproduccionPK detallaplanificacionproduccionpk , Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findAll(Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByIddetalle(long iddetalle,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByIdplanificacionproduccion(long idplanificacionproduccion,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByIddetalleejecucionplanificacion(long iddetalleejecucionplanificacion,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByIdejecucionplanificacionproduccion(long idejecucionplanificacionproduccion,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByPieza(long pieza,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByEmpleado(long empleado,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByFechainicio(Date fechainicio,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByHorainicio(Time horainicio,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByFechafin(Date fechafin,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findByHorafin(Time horafin,Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws DetalleplanificacionproduccionException;
+	public Detallaplanificacionproduccion[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws DetalleplanificacionproduccionException;
 }
