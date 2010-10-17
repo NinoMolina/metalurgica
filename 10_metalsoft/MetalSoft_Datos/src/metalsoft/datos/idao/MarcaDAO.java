@@ -16,14 +16,14 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface MarcaDAO
 {
-	public int insert(Marca marca, Connection con ) throws MarcaException;
-	public int update(MarcaPK marcapk, Marca marca, Connection con) throws MarcaException;
+	public int insert(MarcaDB marca, Connection con ) throws MarcaException;
+	public int update(MarcaPK marcapk, MarcaDB marca, Connection con) throws MarcaException;
 	public int delete(MarcaPK marcapk, Connection con) throws MarcaException;
-	public Marca findByPrimaryKey(MarcaPK marcapk , Connection con) throws MarcaException;
-	public Marca[] findAll(Connection con) throws MarcaException;
-	public Marca[] findByIdmarca(long idmarca,Connection con) throws MarcaException;
-	public Marca[] findByNombre(String nombre,Connection con) throws MarcaException;
-	public Marca[] findByDescripcion(String descripcion,Connection con) throws MarcaException;
-	public Marca[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MarcaException;
-	public Marca[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MarcaException;
+	public MarcaDB findByPrimaryKey(MarcaPK marcapk , Connection con) throws MarcaException;
+	public MarcaDB[] findAll(Connection con) throws MarcaException;
+	public MarcaDB[] findByIdmarca(long idmarca,Connection con) throws MarcaException;
+	public MarcaDB[] findByNombre(String nombre,Connection con) throws MarcaException;
+	public MarcaDB[] findByDescripcion(String descripcion,Connection con) throws MarcaException;
+	public MarcaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws MarcaException;
+	public MarcaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws MarcaException;
 }
