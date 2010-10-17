@@ -11,11 +11,12 @@ package metalsoft.datos.idao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import java.sql.Connection;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetallaplanificacionproduccionRecordCountDAO
 {
-	public DetallaplanificacionproduccionRecordCount getRecordCount(Connection con) throws DetallaplanificacionproduccionRecordCountException;
+	public DetallaplanificacionproduccionRecordCount getRecordCount(Connection con) throws DetalleplanificacionproduccionException;
 }
