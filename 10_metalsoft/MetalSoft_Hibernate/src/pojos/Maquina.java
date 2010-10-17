@@ -1,5 +1,5 @@
 package pojos;
-// Generated 12/10/2010 01:33:18 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 06:45:36 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -21,6 +21,7 @@ public class Maquina  implements java.io.Serializable {
      private Set<Etapadeproduccion> etapadeproduccions = new HashSet<Etapadeproduccion>(0);
      private Set<Maquinaxprocesocalidad> maquinaxprocesocalidads = new HashSet<Maquinaxprocesocalidad>(0);
      private Set<Mantenimientopreventivo> mantenimientopreventivos = new HashSet<Mantenimientopreventivo>(0);
+     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
      private Set<Mantenimientocorrectivo> mantenimientocorrectivos = new HashSet<Mantenimientocorrectivo>(0);
 
     public Maquina() {
@@ -30,7 +31,7 @@ public class Maquina  implements java.io.Serializable {
     public Maquina(long idmaquina) {
         this.idmaquina = idmaquina;
     }
-    public Maquina(long idmaquina, Marca marca, Estadomaquina estadomaquina, Tipomaquina tipomaquina, String nombre, String descripcion, Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccions, Set<Etapadeproduccion> etapadeproduccions, Set<Maquinaxprocesocalidad> maquinaxprocesocalidads, Set<Mantenimientopreventivo> mantenimientopreventivos, Set<Mantenimientocorrectivo> mantenimientocorrectivos) {
+    public Maquina(long idmaquina, Marca marca, Estadomaquina estadomaquina, Tipomaquina tipomaquina, String nombre, String descripcion, Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccions, Set<Etapadeproduccion> etapadeproduccions, Set<Maquinaxprocesocalidad> maquinaxprocesocalidads, Set<Mantenimientopreventivo> mantenimientopreventivos, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Mantenimientocorrectivo> mantenimientocorrectivos) {
        this.idmaquina = idmaquina;
        this.marca = marca;
        this.estadomaquina = estadomaquina;
@@ -41,6 +42,7 @@ public class Maquina  implements java.io.Serializable {
        this.etapadeproduccions = etapadeproduccions;
        this.maquinaxprocesocalidads = maquinaxprocesocalidads;
        this.mantenimientopreventivos = mantenimientopreventivos;
+       this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.mantenimientocorrectivos = mantenimientocorrectivos;
     }
    
@@ -113,6 +115,13 @@ public class Maquina  implements java.io.Serializable {
     
     public void setMantenimientopreventivos(Set<Mantenimientopreventivo> mantenimientopreventivos) {
         this.mantenimientopreventivos = mantenimientopreventivos;
+    }
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
+        return this.detalleplanificacionproduccions;
+    }
+    
+    public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
     public Set<Mantenimientocorrectivo> getMantenimientocorrectivos() {
         return this.mantenimientocorrectivos;

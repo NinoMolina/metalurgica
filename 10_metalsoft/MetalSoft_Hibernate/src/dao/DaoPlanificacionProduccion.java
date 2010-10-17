@@ -11,7 +11,7 @@ import org.hibernate.Session;
  *
  * @author Nino
  */
-public class DaoPlanificacionProduccion extends Dao{
+public class DaoPlanificacionProduccion<T> extends Dao<T>{
 
     private Session session=HibernateUtil.getSessionFactory().getCurrentSession();
     @Override
@@ -25,7 +25,7 @@ public class DaoPlanificacionProduccion extends Dao{
     }
 
     @Override
-    public Object findById(Long id, String clase) {
+    public T findById(Long id, String clase) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

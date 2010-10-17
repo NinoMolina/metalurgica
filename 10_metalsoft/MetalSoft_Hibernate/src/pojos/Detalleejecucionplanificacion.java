@@ -1,5 +1,5 @@
 package pojos;
-// Generated 12/10/2010 01:33:18 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 06:45:36 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
      private Ejecucionetapaproduccion ejecucionetapaproduccion;
      private Long pieza;
      private Long piezareal;
-     private Set<Detalleplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
+     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
 
     public Detalleejecucionplanificacion() {
     }
@@ -27,13 +27,13 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
         this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
         this.ejecucionetapaproduccion = ejecucionetapaproduccion;
     }
-    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Long piezareal, Set<Detalleplanificacionproduccion> detallaplanificacionproduccions) {
+    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Long piezareal, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
        this.id = id;
        this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
        this.pieza = pieza;
        this.piezareal = piezareal;
-       this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+       this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
    
     public DetalleejecucionplanificacionId getId() {
@@ -71,12 +71,12 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
     public void setPiezareal(Long piezareal) {
         this.piezareal = piezareal;
     }
-    public Set<Detalleplanificacionproduccion> getDetallaplanificacionproduccions() {
-        return this.detallaplanificacionproduccions;
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
+        return this.detalleplanificacionproduccions;
     }
     
-    public void setDetallaplanificacionproduccions(Set<Detalleplanificacionproduccion> detallaplanificacionproduccions) {
-        this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+    public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
 
 

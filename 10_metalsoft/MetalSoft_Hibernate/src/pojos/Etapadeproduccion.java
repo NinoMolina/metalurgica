@@ -1,5 +1,5 @@
 package pojos;
-// Generated 12/10/2010 01:33:18 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 06:45:36 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -22,6 +22,7 @@ public class Etapadeproduccion  implements java.io.Serializable {
      private Date duracionestimada;
      private Date fechacreacion;
      private Set<Detalletrabajotercerizado> detalletrabajotercerizados = new HashSet<Detalletrabajotercerizado>(0);
+     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
      private Set<Ejecucionetapaproduccion> ejecucionetapaproduccions = new HashSet<Ejecucionetapaproduccion>(0);
      private Set<Piezaxetapadeproduccion> piezaxetapadeproduccions = new HashSet<Piezaxetapadeproduccion>(0);
      private Set<Detalleplanprocedimientos> detalleplanprocedimientoses = new HashSet<Detalleplanprocedimientos>(0);
@@ -34,7 +35,7 @@ public class Etapadeproduccion  implements java.io.Serializable {
     public Etapadeproduccion(long idetapaproduccion) {
         this.idetapaproduccion = idetapaproduccion;
     }
-    public Etapadeproduccion(long idetapaproduccion, Maquina maquina, Unidadmedida unidadmedida, Long nroetapaproduccion, String nombre, Date horasmaquina, Date horashombre, Date duracionestimada, Date fechacreacion, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detallepiezapresupuesto> detallepiezapresupuestos) {
+    public Etapadeproduccion(long idetapaproduccion, Maquina maquina, Unidadmedida unidadmedida, Long nroetapaproduccion, String nombre, Date horasmaquina, Date horashombre, Date duracionestimada, Date fechacreacion, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detallepiezapresupuesto> detallepiezapresupuestos) {
        this.idetapaproduccion = idetapaproduccion;
        this.maquina = maquina;
        this.unidadmedida = unidadmedida;
@@ -45,6 +46,7 @@ public class Etapadeproduccion  implements java.io.Serializable {
        this.duracionestimada = duracionestimada;
        this.fechacreacion = fechacreacion;
        this.detalletrabajotercerizados = detalletrabajotercerizados;
+       this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.ejecucionetapaproduccions = ejecucionetapaproduccions;
        this.piezaxetapadeproduccions = piezaxetapadeproduccions;
        this.detalleplanprocedimientoses = detalleplanprocedimientoses;
@@ -120,6 +122,13 @@ public class Etapadeproduccion  implements java.io.Serializable {
     
     public void setDetalletrabajotercerizados(Set<Detalletrabajotercerizado> detalletrabajotercerizados) {
         this.detalletrabajotercerizados = detalletrabajotercerizados;
+    }
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
+        return this.detalleplanificacionproduccions;
+    }
+    
+    public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
     public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccions() {
         return this.ejecucionetapaproduccions;

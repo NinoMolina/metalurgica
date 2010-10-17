@@ -1,65 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/10/2010 06:45:40 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class lazy="false" name="pojos.Etapadeproduccion" schema="public" table="etapadeproduccion">
-    <id name="idetapaproduccion" type="long">
-      <column name="idetapaproduccion"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="pojos.Maquina" fetch="select" name="maquina">
-      <column name="maquina"/>
-    </many-to-one>
-    <many-to-one class="pojos.Unidadmedida" fetch="select" name="unidadmedida">
-      <column name="unidaddemedida"/>
-    </many-to-one>
-    <property name="nroetapaproduccion" type="java.lang.Long">
-      <column name="nroetapaproduccion"/>
-    </property>
-    <property name="nombre" type="string">
-      <column length="50" name="nombre"/>
-    </property>
-    <property name="horasmaquina" type="time">
-      <column length="15" name="horasmaquina"/>
-    </property>
-    <property name="horashombre" type="time">
-      <column length="15" name="horashombre"/>
-    </property>
-    <property name="duracionestimada" type="time">
-      <column length="15" name="duracionestimada"/>
-    </property>
-    <property name="fechacreacion" type="date">
-      <column length="13" name="fechacreacion"/>
-    </property>
-    <set inverse="true" name="detalletrabajotercerizados">
-      <key>
-        <column name="proceso"/>
-      </key>
-      <one-to-many class="pojos.Detalletrabajotercerizado"/>
-    </set>
-    <set inverse="true" name="ejecucionetapaproduccions">
-      <key>
-        <column name="idetapaproduccion" not-null="true" unique="true"/>
-      </key>
-      <one-to-many class="pojos.Ejecucionetapaproduccion"/>
-    </set>
-    <set inverse="true" name="piezaxetapadeproduccions">
-      <key>
-        <column name="idetapaproduccion" not-null="true"/>
-      </key>
-      <one-to-many class="pojos.Piezaxetapadeproduccion"/>
-    </set>
-    <set inverse="true" name="detalleplanprocedimientoses">
-      <key>
-        <column name="idetapaproduccion"/>
-      </key>
-      <one-to-many class="pojos.Detalleplanprocedimientos"/>
-    </set>
-    <set inverse="true" name="detallepiezapresupuestos">
-      <key>
-        <column name="idetapa"/>
-      </key>
-      <one-to-many class="pojos.Detallepiezapresupuesto"/>
-    </set>
-  </class>
+    <class name="pojos.Etapadeproduccion" table="etapadeproduccion" schema="public">
+        <id name="idetapaproduccion" type="long">
+            <column name="idetapaproduccion" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="maquina" class="pojos.Maquina" fetch="select">
+            <column name="maquina" />
+        </many-to-one>
+        <many-to-one name="unidadmedida" class="pojos.Unidadmedida" fetch="select">
+            <column name="unidaddemedida" />
+        </many-to-one>
+        <property name="nroetapaproduccion" type="java.lang.Long">
+            <column name="nroetapaproduccion" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="horasmaquina" type="time">
+            <column name="horasmaquina" length="15" />
+        </property>
+        <property name="horashombre" type="time">
+            <column name="horashombre" length="15" />
+        </property>
+        <property name="duracionestimada" type="time">
+            <column name="duracionestimada" length="15" />
+        </property>
+        <property name="fechacreacion" type="date">
+            <column name="fechacreacion" length="13" />
+        </property>
+        <set name="detalletrabajotercerizados" inverse="true">
+            <key>
+                <column name="proceso" />
+            </key>
+            <one-to-many class="pojos.Detalletrabajotercerizado" />
+        </set>
+        <set name="detalleplanificacionproduccions" inverse="true">
+            <key>
+                <column name="idetapaproduccion" />
+            </key>
+            <one-to-many class="pojos.Detalleplanificacionproduccion" />
+        </set>
+        <set name="ejecucionetapaproduccions" inverse="true">
+            <key>
+                <column name="idetapaproduccion" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="pojos.Ejecucionetapaproduccion" />
+        </set>
+        <set name="piezaxetapadeproduccions" inverse="true">
+            <key>
+                <column name="idetapaproduccion" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Piezaxetapadeproduccion" />
+        </set>
+        <set name="detalleplanprocedimientoses" inverse="true">
+            <key>
+                <column name="idetapaproduccion" />
+            </key>
+            <one-to-many class="pojos.Detalleplanprocedimientos" />
+        </set>
+        <set name="detallepiezapresupuestos" inverse="true">
+            <key>
+                <column name="idetapa" />
+            </key>
+            <one-to-many class="pojos.Detallepiezapresupuesto" />
+        </set>
+    </class>
 </hibernate-mapping>

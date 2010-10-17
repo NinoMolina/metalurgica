@@ -19,13 +19,13 @@
     <property name="nropresupuesto" type="java.lang.Long">
       <column name="nropresupuesto"/>
     </property>
-    <set inverse="true" lazy="false" name="detallepresupuestos">
+    <set inverse="true" name="detallepresupuestos" lazy="false">
       <key>
         <column name="idpresupuesto" not-null="true"/>
       </key>
       <one-to-many class="pojos.Detallepresupuesto"/>
     </set>
-    <set inverse="true" lazy="true" name="pedidos">
+    <set inverse="true" name="pedidos">
       <key>
         <column name="presupuesto"/>
       </key>
