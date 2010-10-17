@@ -13,6 +13,7 @@ import java.math.*;
 import java.sql.*;
 import java.net.URL;
 import java.util.*;
+import javax.lang.model.type.NullType;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 import metalsoft.datos.idao.*;
@@ -91,9 +92,12 @@ public class PiezarealDAOImpl implements PiezarealDAO
 		{
 			ps = con.prepareStatement("insert into PIEZAREAL( IDPIEZA, ESTADO, NROPIEZA, IDCODIGOBARRA) values (?, ?, ?, ?) RETURNING IDPIEZAREAL");
 				ps.setLong(1,piezareal.getIdpieza());
-				ps.setLong(2,piezareal.getEstado());
-				ps.setInt(3,piezareal.getNropieza());
-                ps.setLong(4,piezareal.getIdcodbarra());
+                if(piezareal.getEstado()>-1)ps.setLong(2,piezareal.getEstado());
+                else ps.setNull(2, java.sql.Types.NULL);
+                if(piezareal.getNropieza()>-1) ps.setInt(3,piezareal.getNropieza());
+                else ps.setNull(3, java.sql.Types.NULL);
+                if(piezareal.getIdcodbarra()>-1)ps.setLong(4,piezareal.getIdcodbarra());
+                else ps.setNull(4,java.sql.Types.NULL);
                 
 
 				return(ps.executeUpdate());
