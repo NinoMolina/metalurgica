@@ -125,6 +125,9 @@ public DetallepiezacalidadpresupuestoDAO createDetallepiezacalidadpresupuestoDAO
 
 	public EstadopiezarealDAO createEstadopiezarealDAO();
 
+public EstadoplanificacionproduccionDAO createEstadoplanificacionproduccionDAO();
+
+
 	//public EstadoproductorealDAO createEstadoproductorealDAO();
 
 	//public EstadoremitoDAO createEstadoremitoDAO();
