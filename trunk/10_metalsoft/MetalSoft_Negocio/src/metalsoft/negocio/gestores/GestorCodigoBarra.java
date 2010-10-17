@@ -16,11 +16,17 @@ import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.CodigodebarraDB;
 import metalsoft.datos.dbobject.CodigodebarraPK;
+import metalsoft.datos.dbobject.PiezarealDB;
 import metalsoft.datos.dbobject.PiezarealPK;
+import metalsoft.datos.dbobject.ProductoDB;
+import metalsoft.datos.dbobject.Productoreal;
+import metalsoft.datos.dbobject.ProductorealPK;
 import metalsoft.datos.exception.CodigodebarraException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.CodigodebarraDAO;
 import metalsoft.datos.idao.PiezarealDAO;
+import metalsoft.datos.idao.ProductoDAO;
+import metalsoft.datos.idao.ProductorealDAO;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.util.Combo;
@@ -107,7 +113,7 @@ public class GestorCodigoBarra {
         else return false;
     }
 
-    public long guardarCodPieza(CodigoDeBarra codBarra, long idArticulo)
+    public long guardarCodPieza(CodigoDeBarra codBarra, PiezarealDB idPiezaReal)
     {
         CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
         CodigodebarraDB p=new CodigodebarraDB();
@@ -128,10 +134,60 @@ public class GestorCodigoBarra {
             id=dao.insert(p, cn);
             p.setIdcodigo(id);
             p.setCodigo("PIE"+id);
-            codBarra.setCodigo("PIE"+id);
+            idPiezaReal.setIdcodbarra(id);
+
+            CodigodebarraPK cpk=new CodigodebarraPK(id);
+            id=dao.update(cpk, p, cn);
+
             PiezarealDAO daoPieza=new DAOFactoryImpl().createPiezarealDAO();
-            PiezarealPK pipk=new PiezarealPK(idArticulo, idPieza);
-            idPieza=daoPieza.update(piezarealpk, piezareal, cn);
+            PiezarealPK pipk=new PiezarealPK(idPiezaReal.getIdpiezareal(), idPiezaReal.getIdpieza());
+            idPieza=daoPieza.update(pipk, idPiezaReal, cn);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(cn!=null)try {
+                cn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return id;
+    }
+
+    public long guardarCodProducto(CodigoDeBarra codBarra, Productoreal idPiezaReal)
+    {
+        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
+        CodigodebarraDB p=new CodigodebarraDB();
+        p.setDescripcion(codBarra.getDescripcion());
+
+        int id=-1;
+        int idPieza=-1;
+
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        try {
+            id=dao.insert(p, cn);
+            p.setIdcodigo(id);
+            p.setCodigo("PIE"+id);
+            idPiezaReal.setCodigobarra(id);
+
+            CodigodebarraPK cpk=new CodigodebarraPK(id);
+            id=dao.update(cpk, p, cn);
+
+            ProductorealDAO daoPieza=new DAOFactoryImpl().createProductorealDAO();
+            ProductorealPK pipk=new ProductorealPK(idPiezaReal.getIdproductoreal());
+            idPieza=daoPieza.update(pipk, idPiezaReal, cn);
+
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,34 +204,4 @@ public class GestorCodigoBarra {
     }
 
 
-    public long modificarEtapaDeProduccion(MateriaPrima materiaPrima, long idMateriaPrima,String idTipoMaterial, String idUnidadMedida, String idCodBarra)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-        pg=new PostgreSQLManager();
-        long result=-1;
-
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result=materiaPrima.modificar(materiaPrima, idMateriaPrima,Long.parseLong(idTipoMaterial), Long.parseLong(idUnidadMedida),Long.parseLong(idCodBarra), cn);
-            cn.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return result;
-    }
 }
