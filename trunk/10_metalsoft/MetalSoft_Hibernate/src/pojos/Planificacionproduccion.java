@@ -1,5 +1,5 @@
 package pojos;
-// Generated 12/10/2010 01:33:18 by Hibernate Tools 3.2.1.GA
+// Generated 17/10/2010 04:46:17 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -14,13 +14,14 @@ public class Planificacionproduccion  implements java.io.Serializable {
 
      private long idplanificacionproduccion;
      private Pedido pedido;
+     private Estadoplanificacionproduccion estadoplanificacionproduccion;
      private Long nroplanificacion;
      private Date fechacreacion;
      private String observaciones;
      private Date fechainicioprevista;
      private Date fechafinprevista;
      private Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccions = new HashSet<Ejecucionplanificacionproduccion>(0);
-     private Set<Detallaplanificacionproduccion> detallaplanificacionproduccions = new HashSet<Detallaplanificacionproduccion>(0);
+     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
 
     public Planificacionproduccion() {
     }
@@ -29,16 +30,17 @@ public class Planificacionproduccion  implements java.io.Serializable {
     public Planificacionproduccion(long idplanificacionproduccion) {
         this.idplanificacionproduccion = idplanificacionproduccion;
     }
-    public Planificacionproduccion(long idplanificacionproduccion, Pedido pedido, Long nroplanificacion, Date fechacreacion, String observaciones, Date fechainicioprevista, Date fechafinprevista, Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccions, Set<Detallaplanificacionproduccion> detallaplanificacionproduccions) {
+    public Planificacionproduccion(long idplanificacionproduccion, Pedido pedido, Estadoplanificacionproduccion estadoplanificacionproduccion, Long nroplanificacion, Date fechacreacion, String observaciones, Date fechainicioprevista, Date fechafinprevista, Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccions, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
        this.idplanificacionproduccion = idplanificacionproduccion;
        this.pedido = pedido;
+       this.estadoplanificacionproduccion = estadoplanificacionproduccion;
        this.nroplanificacion = nroplanificacion;
        this.fechacreacion = fechacreacion;
        this.observaciones = observaciones;
        this.fechainicioprevista = fechainicioprevista;
        this.fechafinprevista = fechafinprevista;
        this.ejecucionplanificacionproduccions = ejecucionplanificacionproduccions;
-       this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+       this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
    
     public long getIdplanificacionproduccion() {
@@ -54,6 +56,13 @@ public class Planificacionproduccion  implements java.io.Serializable {
     
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+    public Estadoplanificacionproduccion getEstadoplanificacionproduccion() {
+        return this.estadoplanificacionproduccion;
+    }
+    
+    public void setEstadoplanificacionproduccion(Estadoplanificacionproduccion estadoplanificacionproduccion) {
+        this.estadoplanificacionproduccion = estadoplanificacionproduccion;
     }
     public Long getNroplanificacion() {
         return this.nroplanificacion;
@@ -97,12 +106,12 @@ public class Planificacionproduccion  implements java.io.Serializable {
     public void setEjecucionplanificacionproduccions(Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccions) {
         this.ejecucionplanificacionproduccions = ejecucionplanificacionproduccions;
     }
-    public Set<Detallaplanificacionproduccion> getDetallaplanificacionproduccions() {
-        return this.detallaplanificacionproduccions;
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
+        return this.detalleplanificacionproduccions;
     }
     
-    public void setDetallaplanificacionproduccions(Set<Detallaplanificacionproduccion> detallaplanificacionproduccions) {
-        this.detallaplanificacionproduccions = detallaplanificacionproduccions;
+    public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
 
 

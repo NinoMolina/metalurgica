@@ -1,91 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/10/2010 01:33:20 by Hibernate Tools 3.2.1.GA -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/10/2010 05:09:46 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class name="pojos.Empleado" schema="public" table="empleado">
-    <id name="idempleado" type="long">
-      <column name="idempleado"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="pojos.Usuario" fetch="select" name="usuario">
-      <column name="usuario"/>
-    </many-to-one>
-    <many-to-one class="pojos.Tipodocumento" fetch="select" name="tipodocumento">
-      <column name="tipodocumento"/>
-    </many-to-one>
-    <many-to-one class="pojos.Domicilio" fetch="select" name="domicilio">
-      <column name="domicilio"/>
-    </many-to-one>
-    <many-to-one class="pojos.Categoria" fetch="select" name="categoria">
-      <column name="categoria"/>
-    </many-to-one>
-    <many-to-one class="pojos.Cargo" fetch="select" name="cargo">
-      <column name="cargo"/>
-    </many-to-one>
-    <property name="legajo" type="java.lang.Long">
-      <column name="legajo"/>
-    </property>
-    <property name="fechaingreso" type="date">
-      <column length="13" name="fechaingreso"/>
-    </property>
-    <property name="nombre" type="string">
-      <column length="50" name="nombre"/>
-    </property>
-    <property name="apellido" type="string">
-      <column length="50" name="apellido"/>
-    </property>
-    <property name="telefono" type="string">
-      <column length="50" name="telefono"/>
-    </property>
-    <property name="email" type="string">
-      <column length="50" name="email"/>
-    </property>
-    <property name="nrodocumento" type="java.lang.Integer">
-      <column name="nrodocumento"/>
-    </property>
-    <property name="fechaegreso" type="date">
-      <column length="13" name="fechaegreso"/>
-    </property>
-    <property name="motivoegreso" type="string">
-      <column length="100" name="motivoegreso"/>
-    </property>
-    <set inverse="true" name="ejecucionetapaproduccions">
-      <key>
-        <column name="empleado"/>
-      </key>
-      <one-to-many class="pojos.Ejecucionetapaproduccion"/>
-    </set>
-    <set inverse="true" name="mantenimientocorrectivos">
-      <key>
-        <column name="empleado"/>
-      </key>
-      <one-to-many class="pojos.Mantenimientocorrectivo"/>
-    </set>
-    <set inverse="false" name="turnos" table="empleadoxturno">
-      <key>
-        <column name="idempleado" not-null="true"/>
-      </key>
-      <many-to-many entity-name="pojos.Turno">
-        <column name="idturno" not-null="true"/>
-      </many-to-many>
-    </set>
-    <set inverse="true" name="detallaplanificacionproduccions">
-      <key>
-        <column name="empleado"/>
-      </key>
-      <one-to-many class="pojos.Detallaplanificacionproduccion"/>
-    </set>
-    <set inverse="true" name="asistencias">
-      <key>
-        <column name="empleado" not-null="true" unique="true"/>
-      </key>
-      <one-to-many class="pojos.Asistencia"/>
-    </set>
-    <set inverse="true" lazy="false" name="disponibilidadhoraria">
-      <key>
-        <column name="idempleado"/>
-      </key>
-      <one-to-many class="pojos.Disponibilidadhoraria"/>
-    </set>
-  </class>
+    <class name="pojos.Empleado" table="empleado" schema="public">
+        <id name="idempleado" type="long">
+            <column name="idempleado" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="usuario" class="pojos.Usuario" fetch="select">
+            <column name="usuario" />
+        </many-to-one>
+        <many-to-one name="tipodocumento" class="pojos.Tipodocumento" fetch="select">
+            <column name="tipodocumento" />
+        </many-to-one>
+        <many-to-one name="domicilio" class="pojos.Domicilio" fetch="select">
+            <column name="domicilio" />
+        </many-to-one>
+        <many-to-one name="categoria" class="pojos.Categoria" fetch="select">
+            <column name="categoria" />
+        </many-to-one>
+        <many-to-one name="cargo" class="pojos.Cargo" fetch="select">
+            <column name="cargo" />
+        </many-to-one>
+        <property name="legajo" type="java.lang.Long">
+            <column name="legajo" />
+        </property>
+        <property name="fechaingreso" type="date">
+            <column name="fechaingreso" length="13" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="50" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" />
+        </property>
+        <property name="nrodocumento" type="java.lang.Integer">
+            <column name="nrodocumento" />
+        </property>
+        <property name="fechaegreso" type="date">
+            <column name="fechaegreso" length="13" />
+        </property>
+        <property name="motivoegreso" type="string">
+            <column name="motivoegreso" length="100" />
+        </property>
+        <set name="ejecucionetapaproduccions" inverse="true">
+            <key>
+                <column name="empleado" />
+            </key>
+            <one-to-many class="pojos.Ejecucionetapaproduccion" />
+        </set>
+        <set name="mantenimientocorrectivos" inverse="true">
+            <key>
+                <column name="empleado" />
+            </key>
+            <one-to-many class="pojos.Mantenimientocorrectivo" />
+        </set>
+        <set name="turnos" inverse="false" table="empleadoxturno">
+            <key>
+                <column name="idempleado" not-null="true" />
+            </key>
+            <many-to-many entity-name="pojos.Turno">
+                <column name="idturno" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="disponibilidadhorarias" inverse="true" lazy="false">
+            <key>
+                <column name="idempleado" />
+            </key>
+            <one-to-many class="pojos.Disponibilidadhoraria" />
+        </set>
+        <set name="detalleplanificacionproduccions" inverse="true">
+            <key>
+                <column name="idempleado" />
+            </key>
+            <one-to-many class="pojos.Detalleplanificacionproduccion" />
+        </set>
+        <set name="asistencias" inverse="true">
+            <key>
+                <column name="empleado" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="pojos.Asistencia" />
+        </set>
+    </class>
 </hibernate-mapping>
