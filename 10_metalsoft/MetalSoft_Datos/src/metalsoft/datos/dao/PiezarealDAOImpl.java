@@ -65,9 +65,12 @@ public class PiezarealDAOImpl implements PiezarealDAO
 		try
 		{
 			ps = con.prepareStatement("update PIEZAREAL set ESTADO = ? , NROPIEZA = ?, IDCODIGOBARRA = ?  where idpiezareal = ? AND idpieza = ?");
-				ps.setLong(1,piezareal.getEstado());
-				ps.setInt(2,piezareal.getNropieza());
-                ps.setLong(3,piezareal.getIdcodbarra());
+                if(piezareal.getEstado()>-1)ps.setLong(1,piezareal.getEstado());
+                else ps.setNull(1, java.sql.Types.NULL);
+                if(piezareal.getNropieza()>-1) ps.setInt(2,piezareal.getNropieza());
+                else ps.setNull(2, java.sql.Types.NULL);
+                if(piezareal.getIdcodbarra()>-1)ps.setLong(3,piezareal.getIdcodbarra());
+                else ps.setNull(3,java.sql.Types.NULL);
 
 				ps.setLong(4,piezarealpk.getIdpiezareal());
 				ps.setLong(5,piezarealpk.getIdpieza());
