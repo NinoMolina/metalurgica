@@ -8,12 +8,12 @@
  *
  * Created on 17/10/2010, 04:56:29
  */
-
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.negocio.gestores.ViewPedidosConRecAsignados;
+import metalsoft.negocio.gestores.ViewPlanificacion;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -21,10 +21,17 @@ import metalsoft.negocio.gestores.ViewPedidosConRecAsignados;
  */
 public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
-    private LinkedList<ViewPedidosConRecAsignados> filasPedidos;
+    private LinkedList<ViewPlanificacion> filasPedidos;
+
     /** Creates new form AsignarMateriaPrimaAProduccion */
     public AsignarMateriaPrimaAProduccion() {
         initComponents();
+        buscarPedidosConMPAsignada();
+    }
+
+    public void buscarPedidosConMPAsignada() {
+        filasPedidos = gestor.buscarPedidosConDetalleProcesoCalidad();
+        tblPedidos.updateUI();
     }
 
     /** This method is called from within the constructor to
@@ -106,7 +113,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        ViewPedidosConRecAsignados viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
         idPedido = viewPedido.getIdpedido();
         long nroPresupuesto = gestor.buscarNroPresupuesto(idPedido);
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
@@ -117,29 +124,29 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new AsignarMateriaPrimaAProduccion().setVisible(true);
             }
         });
     }
-class PedidoTableModel extends AbstractTableModel {
+
+    class PedidoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {"Nro",
-            "Nro Ped Cliente",
-            "Prioridad",
+            "Pedido Cotiz Cliente",
             "Cliente",
-            "Ped Cotizacion",
-            "Cot Req Para",
-            "Entrega Estipulada",
-            "Estado"};
+            "Prioridad",
+            "Fecha de Entrega",
+            "Presupuesto"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewPedidosConRecAsignados view = filasPedidos.get(rowIndex);
+            ViewPlanificacion view = filasPedidos.get(rowIndex);
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
@@ -147,21 +154,18 @@ class PedidoTableModel extends AbstractTableModel {
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
-                    return view.getPrioridad();
+                    return view.getRazonsocial();
                 case 3:
-                    return view.getCliente();
+                    return view.getPrioridad();
                 case 4:
-                    return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
-                case 5:
-                    return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
-                case 6:
                     if (view.getFechaentregaestipulada() == null) {
                         return "";
                     } else {
                         return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
                     }
-                case 7:
-                    return view.getEstado();
+                case 5:
+                    return view.getIdpresupuesto();
+
                 default:
                     return null;
             }
@@ -200,5 +204,4 @@ class PedidoTableModel extends AbstractTableModel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
-
 }
