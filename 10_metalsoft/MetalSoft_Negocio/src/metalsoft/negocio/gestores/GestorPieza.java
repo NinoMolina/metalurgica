@@ -17,7 +17,7 @@ import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.MateriaprimaPK;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.PiezaPK;
-import metalsoft.datos.dbobject.Piezareal;
+import metalsoft.datos.dbobject.PiezarealDB;
 import metalsoft.datos.exception.PiezaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 //import metalsoft.datos.idao.PiezaDAO;
@@ -44,7 +44,7 @@ public class GestorPieza
    private MateriaprimaDB[] materiaPrima;
    private EtapadeproduccionDB[] etapaDeProduccion;
    private metalsoft.datos.dbobject.Matriz[] matriz;
-   private metalsoft.datos.dbobject.Piezareal[] piezaReal;
+   private metalsoft.datos.dbobject.PiezarealDB[] piezaReal;
 
 
    /**
@@ -567,7 +567,7 @@ public class GestorPieza
     }
     
     //PIEZA REAL
-     private PiezaReal parseToPiezaReal(Piezareal pr) {
+     private PiezaReal parseToPiezaReal(PiezarealDB pr) {
         if(pr==null)return null;
 
         PiezaReal x=new PiezaReal();
