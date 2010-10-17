@@ -54,20 +54,22 @@ public class PiezarealDAOImpl implements PiezarealDAO
 /**
 * This method updates a record in table PIEZAREAL
 * @param PiezarealPK
-* @param Piezareal
+* @param PiezarealDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(PiezarealPK piezarealpk, Piezareal piezareal, Connection con)throws PiezarealException{
+	public int update(PiezarealPK piezarealpk, PiezarealDB piezareal, Connection con)throws PiezarealException{
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update PIEZAREAL set ESTADO = ? , NROPIEZA = ?  where idpiezareal = ? AND idpieza = ?");
+			ps = con.prepareStatement("update PIEZAREAL set ESTADO = ? , NROPIEZA = ?, IDCODIGOBARRA = ?  where idpiezareal = ? AND idpieza = ?");
 				ps.setLong(1,piezareal.getEstado());
 				ps.setInt(2,piezareal.getNropieza());
-				ps.setLong(3,piezarealpk.getIdpiezareal());
-				ps.setLong(4,piezarealpk.getIdpieza());
+                ps.setLong(3,piezareal.getIdcodbarra());
+
+				ps.setLong(4,piezarealpk.getIdpiezareal());
+				ps.setLong(5,piezarealpk.getIdpieza());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezarealException(sqle);}
@@ -77,20 +79,22 @@ public class PiezarealDAOImpl implements PiezarealDAO
 /**
 * This method inserts data in table PIEZAREAL
 *
-* @param Piezareal piezareal
+* @param PiezarealDB piezareal
 * @param   Connection con
 * @return  PiezarealPK
 */
 
-	public int insert(Piezareal piezareal ,Connection con)throws PiezarealException {
+	public int insert(PiezarealDB piezareal ,Connection con)throws PiezarealException {
 
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into PIEZAREAL( IDPIEZA, ESTADO, NROPIEZA) values (?, ?, ?)");
+			ps = con.prepareStatement("insert into PIEZAREAL( IDPIEZA, ESTADO, NROPIEZA, IDCODIGOBARRA) values (?, ?, ?, ?) RETURNING IDPIEZAREAL");
 				ps.setLong(1,piezareal.getIdpieza());
 				ps.setLong(2,piezareal.getEstado());
 				ps.setInt(3,piezareal.getNropieza());
+                ps.setLong(4,piezareal.getIdcodbarra());
+                
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PiezarealException(sqle);}
@@ -103,7 +107,7 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * 
 */
 
-	public Piezareal findByPrimaryKey(long idpiezareal, long idpieza, Connection con) throws PiezarealException{
+	public PiezarealDB findByPrimaryKey(long idpiezareal, long idpieza, Connection con) throws PiezarealException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -127,10 +131,10 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * 
 * @param  PiezarealPK piezarealpk
 * @param Connection con
-* @return  Piezareal
+* @return  PiezarealDB
 */
 
-	public Piezareal findByPrimaryKey(PiezarealPK piezarealpk, Connection con) throws PiezarealException{
+	public PiezarealDB findByPrimaryKey(PiezarealPK piezarealpk, Connection con) throws PiezarealException{
 		return findByPrimaryKey(piezarealpk.getIdpiezareal(), piezarealpk.getIdpieza(), con);
 	}
 
@@ -140,10 +144,10 @@ public class PiezarealDAOImpl implements PiezarealDAO
 *
 * @param   long  idpiezareal
 * @param   Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 */
 
-	public Piezareal[] findByIdpiezareal(long idpiezareal, Connection con) throws PiezarealException{
+	public PiezarealDB[] findByIdpiezareal(long idpiezareal, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpiezareal, idpieza, estado, nropieza from piezareal where idpiezareal = ? order by idpiezareal";
@@ -167,10 +171,10 @@ public class PiezarealDAOImpl implements PiezarealDAO
 *
 * @param   long  idpieza
 * @param   Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 */
 
-	public Piezareal[] findByIdpieza(long idpieza, Connection con) throws PiezarealException{
+	public PiezarealDB[] findByIdpieza(long idpieza, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpiezareal, idpieza, estado, nropieza from piezareal where idpieza = ? order by idpieza";
@@ -194,10 +198,10 @@ public class PiezarealDAOImpl implements PiezarealDAO
 *
 * @param   long  estado
 * @param   Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 */
 
-	public Piezareal[] findByEstado(long estado, Connection con) throws PiezarealException{
+	public PiezarealDB[] findByEstado(long estado, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpiezareal, idpieza, estado, nropieza from piezareal where estado = ? order by estado";
@@ -221,10 +225,10 @@ public class PiezarealDAOImpl implements PiezarealDAO
 *
 * @param   int  nropieza
 * @param   Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 */
 
-	public Piezareal[] findByNropieza(int nropieza, Connection con) throws PiezarealException{
+	public PiezarealDB[] findByNropieza(int nropieza, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpiezareal, idpieza, estado, nropieza from piezareal where nropieza = ? order by nropieza";
@@ -246,11 +250,11 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * Returns all rows from piezareal table 
 *
 * @param Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 *
 */
 
-	public Piezareal[] findAll( Connection con) throws PiezarealException{
+	public PiezarealDB[] findAll( Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idpiezareal, idpieza, estado, nropieza from piezareal";
@@ -274,11 +278,11 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 *
 */
 
-	public Piezareal[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezarealException{
+	public PiezarealDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -305,11 +309,11 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 *
 */
 
-	public Piezareal[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezarealException{
+	public PiezarealDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PiezarealException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idpiezareal, idpieza, estado, nropieza from piezareal";
@@ -335,14 +339,14 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Piezareal
+* @return  PiezarealDB
 *
 */
 
-	protected Piezareal fetchSingleResult(ResultSet rs) throws SQLException
+	protected PiezarealDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Piezareal dto = new Piezareal();
+					PiezarealDB dto = new PiezarealDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -354,12 +358,12 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Piezareal dto
+* @param PiezarealDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Piezareal dto, ResultSet rs) throws SQLException
+	protected void populateVO(PiezarealDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdpiezareal(rs.getLong("idpiezareal"));
 		 dto.setIdpieza(rs.getLong("idpieza"));
@@ -372,18 +376,18 @@ public class PiezarealDAOImpl implements PiezarealDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Piezareal[]
+* @return  PiezarealDB[]
 */
 
-	protected Piezareal[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected PiezarealDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Piezareal dto = new Piezareal();
+			PiezarealDB dto = new PiezarealDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Piezareal ret[] = new Piezareal[ resultList.size() ];
+		PiezarealDB ret[] = new PiezarealDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
