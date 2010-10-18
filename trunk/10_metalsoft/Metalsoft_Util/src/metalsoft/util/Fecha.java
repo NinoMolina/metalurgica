@@ -49,6 +49,9 @@ public class Fecha {
         return Calendar.getInstance();
     }
 
+    public static java.util.Date fechaActualDate(){
+        return new Date();
+    }
 
     public static String fechaHoraMinutoSegundoActual()
     {
