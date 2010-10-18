@@ -91,6 +91,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         mniGenerarDetalleMateriaPrima = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        mniLanzarProduccion = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
@@ -248,6 +249,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuProduccion.add(jMenuItem2);
+
+        mniLanzarProduccion.setText("Lanzar Producción");
+        mniLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLanzarProduccionActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniLanzarProduccion);
 
         mbrMenu.add(mnuProduccion);
 
@@ -547,6 +556,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void mniLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLanzarProduccionActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarLanzamientoProduccion.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniLanzarProduccionActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -566,6 +587,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniEtapaDeProduccion;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
+    private javax.swing.JMenuItem mniLanzarProduccion;
     private javax.swing.JMenuItem mniListadoClientes;
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;

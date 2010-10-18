@@ -586,6 +586,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         planificacionproduccion.setDetalleplanificacionproduccions(setDetalle);
         try{
             gestor.guardarPlanificacionProduccion(planificacionproduccion);
+            gestor.actualizarEstadoPedido(pedido);
             JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Error al guardar los datos\nNo se pudo guardar!!");
