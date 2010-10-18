@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.gestores.GestorCodigoBarra;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
@@ -370,6 +371,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
         idPedido = viewPedido.getIdpedido();
+
         long nroPresupuesto = gestorPresupuesto.buscarNroPresupuesto(idPedido);
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
         cargarTablaMatPrima();
@@ -390,24 +392,42 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         long result = -1;
         long resultCB = -1;
+        long idDetalleMPAsignada = -1;
+        long idMPAsigXPieza = -1;
+        int cont = 0;
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
-        //Antes ver si hay la cantidad de Mat Prima Suficiente
-        materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
-        PiezaReal piezaReal = new PiezaReal();
-        piezaReal.setNroPieza((int) view.getIdpieza());
-        CodigoDeBarra cb = new CodigoDeBarra();
-        cb.setDescripcion(view.getNombrepieza());
-        int cont=0;
-        for (int i = 0; i < view.getCantpieza(); i++) {
-            result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1);
-            if (result > -1) {
-                resultCB = gestorCodigoBarra.guardarCodPieza(cb, result);
+        long idMP = view.getIdmateriaprima();
+        if (gestor.mpPermitidaAAsignar(idPedido, idMP) > 0) {
+            //Antes ver si hay la cantidad de Mat Prima Suficiente
+            materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
+
+            PiezaReal piezaReal = new PiezaReal();
+            piezaReal.setNroPieza((int) view.getIdpieza());
+            CodigoDeBarra cb = new CodigoDeBarra();
+            cb.setDescripcion(view.getNombrepieza());
+
+            Planificacionproduccion plan = gestor.buscarPlanificacionPorPedido(idPedido);
+            long[] piezasReales = new long[view.getCantpieza()];
+            for (int i = 0; i < view.getCantpieza(); i++) {
+                result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1);
+                piezasReales[i] = result;
+                if (result > -1) {
+                    resultCB = gestorCodigoBarra.guardarCodPieza(cb, result);
+                }
+                if (resultCB > -1) {
+                    cont++;
+                }
             }
-            if (resultCB > -1) { cont++;}
+            if (cont > 0) {
+                long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
+                idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), idMP, cont);
+                if (idDetalleMPAsignada > -1) {
+                    for (int i = 0; i < piezasReales.length; i++) {
+                        gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada);
+                    }
+                }
+            }
         }
-        if (cont > 0) {
-                gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
-            }
         if (result > -1 && cont > 0) {
             JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
             setEnabled(false);
