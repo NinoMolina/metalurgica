@@ -1,0 +1,200 @@
+CREATE FUNCTION "public"."nvonroempleado" () RETURNS bigint AS
+$body$
+DECLARE
+  result BIGINT;
+BEGIN
+  SELECT (max(p.legajo)+1) INTO result FROM empleado p;
+  IF(result IS NULL)THEN
+  	result:=1;
+  END IF;
+  RETURN result;
+END;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER;
+
+
+CREATE FUNCTION "public"."nvonromaquina" () RETURNS bigint AS
+$body$
+DECLARE
+  result BIGINT;
+BEGIN
+  SELECT (max(p.idmaquina)+1) INTO result FROM maquina p;
+  IF(result IS NULL)THEN
+  	result:=1;
+  END IF;
+  RETURN result;
+END;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER;
+
+
+
+
+--> cambiar en asistencia... long por Date en fechaIngreso
+
+--> Turno : 	1. Mañana
+		2. Tarde
+		3. Noche
+
+
+CREATE TABLE "public"."maquina" (
+  "idmaquina" BIGSERIAL, 
+  "nombre" VARCHAR(50), 
+  "marca" BIGINT, 
+  "descripcion" VARCHAR(100), 
+  "estado" BIGINT, 
+  "tipomaquina" BIGINT, 
+  "fechaalta" DATE, 
+  "fechabaja" DATE, 
+  "tiempocapacidadproduccion" TIME(6) WITHOUT TIME ZONE, 
+  "idunidadmedida" BIGINT, 
+  CONSTRAINT "maquina_pkey" PRIMARY KEY("idmaquina"), 
+  CONSTRAINT "maquina_fk" FOREIGN KEY ("marca")
+    REFERENCES "public"."marca"("idmarca")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "maquina_fk1" FOREIGN KEY ("estado")
+    REFERENCES "public"."estadomaquina"("idestado")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "maquina_fk2" FOREIGN KEY ("tipomaquina")
+    REFERENCES "public"."tipomaquina"("idtipomaquina")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "maquina_fk3" FOREIGN KEY ("idunidadmedida")
+    REFERENCES "public"."unidadmedida"("idunidadmedida")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
+
+
+CREATE TABLE "public"."piezareal" (
+  "idpiezareal" BIGSERIAL, 
+  "idpieza" BIGINT NOT NULL, 
+  "estado" BIGINT, 
+  "nropieza" INTEGER, 
+  "idcodigobarra" BIGINT, 
+  CONSTRAINT "piezareal_idpieza_key" UNIQUE("idpieza"), 
+  CONSTRAINT "piezareal_idpiezareal_key" UNIQUE("idpiezareal"), 
+  CONSTRAINT "piezareal_pkey" PRIMARY KEY("idpiezareal", "idpieza"), 
+  CONSTRAINT "piezareal_fk" FOREIGN KEY ("idpieza")
+    REFERENCES "public"."pieza"("idpieza")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "piezareal_fk1" FOREIGN KEY ("estado")
+    REFERENCES "public"."estadopiezareal"("idestado")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "piezareal_fk2" FOREIGN KEY ("idcodigobarra")
+    REFERENCES "public"."codigodebarra"("idcodigo")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
+
+
+CREATE VIEW viewpedidossinmateriaprima
+AS
+SELECT 
+  pe.idpedido
+FROM
+  pedido pe,
+  detallepedido dp,
+  producto pro,
+  detalleproducto dpro
+WHERE
+  pe.idpedido = dp.idpedido AND 
+  dp.producto = pro.idproducto AND 
+  pro.idproducto = dpro.idproducto
+GROUP BY
+  pe.idpedido
+HAVING
+  sum(dpro.cantidadpiezas) >= (SELECT count(pre.idpiezareal) AS "FIELD_1" FROM piezareal pre, pedido WHERE pedido.idpedido = pe.idpedido AND pre.idpedido = pedido.idpedido GROUP BY pre.idpedido, pre.idpiezareal) OR 
+  pe.idpedido NOT IN (SELECT pre.idpedido FROM piezareal pre, pedido WHERE pre.idpedido = pedido.idpedido GROUP BY pre.idpedido, pre.idpiezareal)
+ORDER BY
+  pe.idpedido
+;
+
+
+CREATE TABLE "public"."pieza" (
+  "idpieza" BIGSERIAL, 
+  "nombre" VARCHAR(50), 
+  "tipomaterial" BIGINT, 
+  "materiaprima" BIGINT, 
+  "matriz" BIGINT, 
+  "alto" NUMERIC(10,3), 
+  "ancho" NUMERIC(10,3), 
+  "largo" NUMERIC(10,3), 
+  "unidadmedida" BIGINT, 
+  CONSTRAINT "pieza_pkey" PRIMARY KEY("idpieza"), 
+  CONSTRAINT "pieza_fk" FOREIGN KEY ("unidadmedida")
+    REFERENCES "public"."unidadmedida"("idunidadmedida")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "pieza_fk1" FOREIGN KEY ("materiaprima")
+    REFERENCES "public"."materiaprima"("idmateriaprima")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "pieza_fk2" FOREIGN KEY ("matriz")
+    REFERENCES "public"."matriz"("idmatriz")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
+
+
+--- insertar campos de pieza!!!
+
+
+
+
+CREATE TABLE "public"."detallempasignada" (
+  "id" BIGSERIAL, 
+  "idmateriaprima" BIGINT, 
+  "cantidadmp" INTEGER, 
+  "idplanificacionproduccion" BIGINT, 
+  CONSTRAINT "detallempasignada_pkey" PRIMARY KEY("id"), 
+  CONSTRAINT "detallempasignada_fk" FOREIGN KEY ("idmateriaprima")
+    REFERENCES "public"."materiaprima"("idmateriaprima")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "detallempasignada_fk1" FOREIGN KEY ("idplanificacionproduccion")
+    REFERENCES "public"."planificacionproduccion"("idplanificacionproduccion")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
+
+
+
+CREATE TABLE "public"."mpasignadaxpiezareal" (
+  "idpiezareal" BIGINT, 
+  "iddetallempasignada" BIGINT, 
+  "id" BIGSERIAL, 
+  CONSTRAINT "mpasignadaxpiezareal_pkey" PRIMARY KEY("id"), 
+  CONSTRAINT "mpasignadaxpiezareal_fk" FOREIGN KEY ("idpiezareal")
+    REFERENCES "public"."piezareal"("idpiezareal")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "mpasignadaxpiezareal_fk1" FOREIGN KEY ("iddetallempasignada")
+    REFERENCES "public"."detallempasignada"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
