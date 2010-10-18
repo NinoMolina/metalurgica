@@ -589,7 +589,7 @@ public class AccessViews {
         boolean b1=false;
         viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
         String query="SELECT pedido, idmateriaprima, cantidad"+
-                     " FROM viewcantidadmpxpedido" +
+                     " FROM viewcantidadmpenpedido" +
                      " WHERE pedido="+idPedido+" AND idmateriaprima="+idmp;
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -633,7 +633,7 @@ public class AccessViews {
         boolean b1=false;
         viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
         String query="SELECT pedido, sum(cantidad) as cantidad"+
-                     " FROM viewcantidadmpxpedido" +
+                     " FROM viewcantidadmpenpedido" +
                      " WHERE pedido="+idPedido+
                      " GROUP BY pedido ";
         PreparedStatement ps=null;
