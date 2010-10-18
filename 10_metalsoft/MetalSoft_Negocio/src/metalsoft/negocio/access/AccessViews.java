@@ -491,7 +491,7 @@ public class AccessViews {
         ViewPedidoNoPlanificado view=null;
         LinkedList<ViewPedidoNoPlanificado> ll=new LinkedList<ViewPedidoNoPlanificado>();
         String query="SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
-                     " FROM viewpedidosnoplanificados";
+                     " FROM viewpedidosconplanifsinrecursos";
         PreparedStatement ps=null;
         ResultSet rs=null;
         try {
