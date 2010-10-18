@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Ejecucionprocesocalidad" table="ejecucionprocesocalidad" schema="public">
+        <composite-id name="id" class="pojos.EjecucionprocesocalidadId">
+            <key-property name="idejecucion" type="long">
+                <column name="idejecucion" />
+            </key-property>
+            <key-property name="idprocesocalidad" type="long">
+                <column name="idprocesocalidad" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="procesocalidad" class="pojos.Procesocalidad" update="false" insert="false" fetch="select">
+            <column name="idprocesocalidad" not-null="true" unique="true" />
+        </many-to-one>
+        <many-to-one name="estadoejecucionprocesocalidad" class="pojos.Estadoejecucionprocesocalidad" fetch="select">
+            <column name="estado" />
+        </many-to-one>
+        <property name="duracionreal" type="time">
+            <column name="duracionreal" length="15" />
+        </property>
+        <property name="resultado" type="string">
+            <column name="resultado" length="100" />
+        </property>
+        <property name="nroejecucion" type="java.lang.Long">
+            <column name="nroejecucion" />
+        </property>
+        <set name="detalleejecucionplanificacioncalidads" inverse="true">
+            <key>
+                <column name="ejecucionprocesocalidad" />
+                <column name="idprocesocalidad" />
+            </key>
+            <one-to-many class="pojos.Detalleejecucionplanificacioncalidad" />
+        </set>
+    </class>
+</hibernate-mapping>

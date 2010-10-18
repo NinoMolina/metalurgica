@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Materiaprima" table="materiaprima" schema="public">
+        <id name="idmateriaprima" type="long">
+            <column name="idmateriaprima" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="codigodebarra" class="pojos.Codigodebarra" fetch="select">
+            <column name="codbarra" />
+        </many-to-one>
+        <many-to-one name="unidadmedida" class="pojos.Unidadmedida" fetch="select">
+            <column name="unidadmedida" />
+        </many-to-one>
+        <many-to-one name="tipomaterial" class="pojos.Tipomaterial" fetch="select">
+            <column name="tipomaterial" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="fechaalta" type="date">
+            <column name="fechaalta" length="13" />
+        </property>
+        <property name="fechabaja" type="date">
+            <column name="fechabaja" length="13" />
+        </property>
+        <property name="stock" type="java.lang.Long">
+            <column name="stock" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="100" />
+        </property>
+        <property name="alto" type="big_decimal">
+            <column name="alto" precision="10" scale="3" />
+        </property>
+        <property name="largo" type="big_decimal">
+            <column name="largo" precision="10" scale="3" />
+        </property>
+        <property name="ancho" type="big_decimal">
+            <column name="ancho" precision="10" scale="3" />
+        </property>
+        <property name="codproducto" type="string">
+            <column name="codproducto" length="100" />
+        </property>
+        <property name="precio" type="java.lang.Double">
+            <column name="precio" precision="17" scale="17" />
+        </property>
+        <property name="nromateriaprima" type="java.lang.Long">
+            <column name="nromateriaprima" />
+        </property>
+        <set name="proveedorxmateriaprimas" inverse="true">
+            <key>
+                <column name="idmateriaprima" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Proveedorxmateriaprima" />
+        </set>
+        <set name="detallecompras" inverse="true">
+            <key>
+                <column name="materiaprima" />
+            </key>
+            <one-to-many class="pojos.Detallecompra" />
+        </set>
+        <set name="matrizs" inverse="true">
+            <key>
+                <column name="materiaprima" />
+            </key>
+            <one-to-many class="pojos.Matriz" />
+        </set>
+        <set name="detallempasignadas" inverse="true">
+            <key>
+                <column name="idmateriaprima" />
+            </key>
+            <one-to-many class="pojos.Detallempasignada" />
+        </set>
+        <set name="detallerequerimientosmateriaprimas" inverse="true">
+            <key>
+                <column name="idmateriaprima" />
+            </key>
+            <one-to-many class="pojos.Detallerequerimientosmateriaprima" />
+        </set>
+        <set name="detalleproductopresupuestos" inverse="true">
+            <key>
+                <column name="idmateriaprima" />
+            </key>
+            <one-to-many class="pojos.Detalleproductopresupuesto" />
+        </set>
+        <set name="piezas" inverse="true">
+            <key>
+                <column name="materiaprima" />
+            </key>
+            <one-to-many class="pojos.Pieza" />
+        </set>
+    </class>
+</hibernate-mapping>

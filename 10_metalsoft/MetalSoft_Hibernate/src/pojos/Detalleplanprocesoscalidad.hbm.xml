@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Detalleplanprocesoscalidad" table="detalleplanprocesoscalidad" schema="public">
+        <composite-id name="id" class="pojos.DetalleplanprocesoscalidadId">
+            <key-property name="iddetalle" type="long">
+                <column name="iddetalle" />
+            </key-property>
+            <key-property name="idplanprocesoscalidad" type="long">
+                <column name="idplanprocesoscalidad" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="procesocalidad" class="pojos.Procesocalidad" fetch="select">
+            <column name="idprocesocalidad" />
+        </many-to-one>
+        <many-to-one name="planprocesoscalidad" class="pojos.Planprocesoscalidad" update="false" insert="false" fetch="select">
+            <column name="idplanprocesoscalidad" not-null="true" />
+        </many-to-one>
+        <property name="idpieza" type="java.lang.Long">
+            <column name="idpieza" />
+        </property>
+        <property name="duracionestimada" type="time">
+            <column name="duracionestimada" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Ejecucionetapaproduccion" table="ejecucionetapaproduccion" schema="public">
+        <composite-id name="id" class="pojos.EjecucionetapaproduccionId">
+            <key-property name="idejecucion" type="long">
+                <column name="idejecucion" />
+            </key-property>
+            <key-property name="idetapaproduccion" type="long">
+                <column name="idetapaproduccion" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="empleado" class="pojos.Empleado" fetch="select">
+            <column name="empleado" />
+        </many-to-one>
+        <many-to-one name="estadoejecetapaprod" class="pojos.Estadoejecetapaprod" fetch="select">
+            <column name="estado" />
+        </many-to-one>
+        <many-to-one name="etapadeproduccion" class="pojos.Etapadeproduccion" update="false" insert="false" fetch="select">
+            <column name="idetapaproduccion" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="totalhorasmaquina" type="time">
+            <column name="totalhorasmaquina" length="15" />
+        </property>
+        <property name="totalhorashombre" type="time">
+            <column name="totalhorashombre" length="15" />
+        </property>
+        <property name="fechainicio" type="date">
+            <column name="fechainicio" length="13" />
+        </property>
+        <property name="horainicio" type="time">
+            <column name="horainicio" length="15" />
+        </property>
+        <property name="fechafin" type="date">
+            <column name="fechafin" length="13" />
+        </property>
+        <property name="horafin" type="time">
+            <column name="horafin" length="15" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="observaciones" length="100" />
+        </property>
+        <property name="nroejecucion" type="long">
+            <column name="nroejecucion" not-null="true" unique="true" />
+        </property>
+        <set name="maquinaxejecucionetapaproduccions" inverse="true">
+            <key>
+                <column name="idejecucionetapaproduccion" not-null="true" />
+                <column name="idetapaproduccion" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Maquinaxejecucionetapaproduccion" />
+        </set>
+        <set name="detalleejecucionplanificacions" inverse="true">
+            <key>
+                <column name="ejecucionetapa" not-null="true" />
+                <column name="idetapaproduccion" />
+            </key>
+            <one-to-many class="pojos.Detalleejecucionplanificacion" />
+        </set>
+    </class>
+</hibernate-mapping>
