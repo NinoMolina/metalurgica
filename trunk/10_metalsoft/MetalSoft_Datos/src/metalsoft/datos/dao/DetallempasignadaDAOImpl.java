@@ -85,14 +85,17 @@ public class DetallempasignadaDAOImpl implements DetallempasignadaDAO
 	public int insert(Detallempasignada detallempasignada ,Connection con)throws DetallempasignadaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEMPASIGNADA( IDMATERIAPRIMA, CANTIDADMP, IDPLANIFICACIONPRODUCCION) values (?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEMPASIGNADA( IDMATERIAPRIMA, CANTIDADMP, IDPLANIFICACIONPRODUCCION) values (?, ?, ?) RETURNING ID");
 				ps.setLong(1,detallempasignada.getIdmateriaprima());
 				ps.setInt(2,detallempasignada.getCantidadmp());
 				ps.setLong(3,detallempasignada.getIdplanificacionproduccion());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new DetallempasignadaException(sqle);}
 		catch(Exception e){throw new DetallempasignadaException(e);}
 	}
