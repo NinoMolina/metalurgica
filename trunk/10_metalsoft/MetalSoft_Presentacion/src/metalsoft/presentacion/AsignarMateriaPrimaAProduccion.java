@@ -427,12 +427,15 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     }
                 }
             }
-        }
-        if (result > -1 && cont > 0) {
-            JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
-            setEnabled(false);
+
+            if (result > -1 && cont > 0) {
+                JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
+                setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+            JOptionPane.showMessageDialog(this, "El pedido ya tiene asignado toda la materia prima seleccionada");
         }
 
 
