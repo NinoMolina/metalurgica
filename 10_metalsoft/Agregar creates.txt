@@ -198,3 +198,29 @@ CREATE TABLE "public"."mpasignadaxpiezareal" (
     ON UPDATE NO ACTION
     NOT DEFERRABLE
 ) WITH OIDS;
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+CREATE VIEW "public"."viewcantidadmpxpedido" (
+    pedido,
+    idmateriaprima,
+    cantidad)
+AS
+SELECT ppro.pedido, dmpa.idmateriaprima, sum(dmpa.cantidadmp) AS cantidad
+FROM planificacionproduccion ppro, detallempasignada dmpa
+WHERE ppro.idplanificacionproduccion = dmpa.idplanificacionproduccion
+GROUP BY ppro.pedido, dmpa.idmateriaprima;
+
+
+
+CREATE VIEW "public"."viewcantidadmpasiganda" (
+    pedido,
+    idmateriaprima,
+    cantidad)
+AS
+SELECT ppro.pedido, dmpa.idmateriaprima, sum(dmpa.cantidadmp) AS cantidad
+FROM planificacionproduccion ppro, detallempasignada dmpa
+WHERE ppro.idplanificacionproduccion = dmpa.idplanificacionproduccion
+GROUP BY ppro.pedido, dmpa.idmateriaprima;
