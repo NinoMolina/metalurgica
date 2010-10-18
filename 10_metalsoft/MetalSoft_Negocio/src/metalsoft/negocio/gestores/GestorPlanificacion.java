@@ -131,7 +131,7 @@ public class GestorPlanificacion {
         }
         return result;
     }
-    public long mpPermitidaAAsignar(long idPedido)
+    public long mpPermitidaAAsignar(long idPedido,long idmp)
     {
         PostgreSQLManager pg=null;
         Connection cn=null;
@@ -142,7 +142,7 @@ public class GestorPlanificacion {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=0;
+            result=AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
