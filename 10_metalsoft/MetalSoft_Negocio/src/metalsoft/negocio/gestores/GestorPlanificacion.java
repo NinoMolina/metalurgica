@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
@@ -30,27 +29,17 @@ import metalsoft.util.ItemCombo;
  */
 public class GestorPlanificacion {
 
-    public GestorPlanificacion(){
-
+    public GestorPlanificacion() {
     }
-    public Planificacionproduccion buscarPlanificacionPorPedido(long idPedido) {
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Planificacionproduccion db=new Planificacionproduccion();
-        Connection cn = null;
-        try {
-            cn = pg.concectGetCn();
-            db = AccessPlanificacion.findByIdPedido(idPedido, cn);
-        } catch (Exception ex) {
-            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
+    public Planificacionproduccion buscarPlanificacionPorPedido(long idPedido, Connection cn) {
+        Planificacionproduccion db = new Planificacionproduccion();
+
+        db = AccessPlanificacion.findByIdPedido(idPedido, cn);
+
         return db;
     }
+
     public LinkedList<ViewPlanificacion> buscarPlanificacionConRecursosAsignados() {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPlanificacion> list = null;
@@ -69,25 +58,32 @@ public class GestorPlanificacion {
         }
         return list;
     }
-    public long guardarDetalleAsignacionMP(long idPlan,long idMP, int cant,Connection cn)
-    {
-        long result=-1;
-            result=AccessPlanificacion.insertDetalleMPAsignada(idPlan, idMP, cant, cn);
-        
+
+    public long guardarDetalleAsignacionMP(long idPlan, long idMP, int cant, Connection cn) {
+        long result = -1;
+        result = AccessPlanificacion.insertDetalleMPAsignada(idPlan, idMP, cant, cn);
+
         return result;
     }
-    public long guardarMPAsignadaXPieza(long idPieza,long idDetalleMP)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
 
-        pg=new PostgreSQLManager();
-        long result=-1;
+    public long guardarMPAsignadaXPieza(long idPieza, long idDetalleMP, Connection cn) {
+        long result = -1;
+        result = AccessPlanificacion.insertMPAsignadaXPiezaReal(idPieza, idDetalleMP, cn);
+
+        return result;
+    }
+
+    public long mpPermitidaAAsignar(long idPedido, long idmp) {
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+
+        pg = new PostgreSQLManager();
+        long result = -1;
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=AccessPlanificacion.insertMPAsignadaXPiezaReal(idPieza, idDetalleMP, cn);
+            result = AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,40 +92,7 @@ public class GestorPlanificacion {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return result;
-    }
-    public long mpPermitidaAAsignar(long idPedido,long idmp)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-
-        pg=new PostgreSQLManager();
-        long result=-1;
-
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result=AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
-            cn.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -139,5 +102,4 @@ public class GestorPlanificacion {
         return result;
 
     }
-
 }
