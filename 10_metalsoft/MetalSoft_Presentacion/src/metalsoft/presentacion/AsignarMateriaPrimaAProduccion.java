@@ -24,6 +24,7 @@ import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.gestores.GestorCodigoBarra;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
+import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorPlanificacion;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -409,7 +410,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            if (gestor.mpPermitidaAAsignar(idPedido, idMP) != 0) {//consulta si esa materia prima esta asignada del todo
+            if (gestor.mpPermitidaAAsignar(idPedido, idMP,cn) != 0) {//consulta si esa materia prima esta asignada del todo
                 //Antes ver si hay la cantidad de Mat Prima Suficiente
                 materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
@@ -441,6 +442,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                 }
                 cn.commit();
                 if (result > -1 && cont > 0) {
+                    if(gestor.mpEstaTodaAsignada(idPedido)) gestor.setEstadoMateriaPrimaAsignada(idPedido);
                     JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
                     setEnabled(false);
                 } else {
