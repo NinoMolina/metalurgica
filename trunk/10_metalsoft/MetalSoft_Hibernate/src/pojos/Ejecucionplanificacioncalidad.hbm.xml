@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Ejecucionplanificacioncalidad" table="ejecucionplanificacioncalidad" schema="public">
+        <composite-id name="id" class="pojos.EjecucionplanificacioncalidadId">
+            <key-property name="idejecucion" type="long">
+                <column name="idejecucion" />
+            </key-property>
+            <key-property name="idplanificacioncalidad" type="long">
+                <column name="idplanificacioncalidad" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="estadoejecplancalidad" class="pojos.Estadoejecplancalidad" fetch="select">
+            <column name="estado" />
+        </many-to-one>
+        <many-to-one name="planificacioncalidad" class="pojos.Planificacioncalidad" update="false" insert="false" fetch="select">
+            <column name="idplanificacioncalidad" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="fechainicio" type="date">
+            <column name="fechainicio" length="13" />
+        </property>
+        <property name="fechafin" type="date">
+            <column name="fechafin" length="13" />
+        </property>
+        <property name="horainicio" type="time">
+            <column name="horainicio" length="15" />
+        </property>
+        <property name="horafin" type="time">
+            <column name="horafin" length="15" />
+        </property>
+        <set name="detalleejecucionplanificacioncalidads" inverse="true">
+            <key>
+                <column name="idejecucionplanificacioncalidad" not-null="true" />
+                <column name="idplanificacioncalidad" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Detalleejecucionplanificacioncalidad" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Calendario" table="calendario" schema="public">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="dia" type="java.lang.Integer">
+            <column name="dia" />
+        </property>
+        <property name="mes" type="java.lang.Integer">
+            <column name="mes" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="anio" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" />
+        </property>
+        <property name="todoeldia" type="java.lang.Boolean">
+            <column name="todoeldia" />
+        </property>
+        <property name="horadesde" type="time">
+            <column name="horadesde" length="8" />
+        </property>
+        <property name="horahasta" type="time">
+            <column name="horahasta" length="8" />
+        </property>
+    </class>
+</hibernate-mapping>

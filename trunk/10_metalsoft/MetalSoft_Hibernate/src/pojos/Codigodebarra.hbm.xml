@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Codigodebarra" table="codigodebarra" schema="public">
+        <id name="idcodigo" type="long">
+            <column name="idcodigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="codigo" type="string">
+            <column name="codigo" length="50" />
+        </property>
+        <set name="materiaprimas" inverse="true">
+            <key>
+                <column name="codbarra" />
+            </key>
+            <one-to-many class="pojos.Materiaprima" />
+        </set>
+        <set name="productoreals" inverse="true">
+            <key>
+                <column name="codigobarra" />
+            </key>
+            <one-to-many class="pojos.Productoreal" />
+        </set>
+        <set name="piezareals" inverse="true">
+            <key>
+                <column name="idcodigobarra" />
+            </key>
+            <one-to-many class="pojos.Piezareal" />
+        </set>
+    </class>
+</hibernate-mapping>

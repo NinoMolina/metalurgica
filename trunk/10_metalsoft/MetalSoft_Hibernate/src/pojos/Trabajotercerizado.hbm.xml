@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Trabajotercerizado" table="trabajotercerizado" schema="public">
+        <id name="idtrabajo" type="long">
+            <column name="idtrabajo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="estadotrabajotercerizado" class="pojos.Estadotrabajotercerizado" fetch="select">
+            <column name="estado" />
+        </many-to-one>
+        <many-to-one name="pedido" class="pojos.Pedido" fetch="select">
+            <column name="pedido" />
+        </many-to-one>
+        <many-to-one name="empresametalurgica" class="pojos.Empresametalurgica" fetch="select">
+            <column name="empresa" />
+        </many-to-one>
+        <property name="nrotrabajotercerizado" type="java.lang.Long">
+            <column name="nrotrabajotercerizado" />
+        </property>
+        <property name="fechapedidocotizacion" type="date">
+            <column name="fechapedidocotizacion" length="13" />
+        </property>
+        <property name="fechaentregaestipulada" type="date">
+            <column name="fechaentregaestipulada" length="13" />
+        </property>
+        <property name="fechaconfirmaciontrabajo" type="date">
+            <column name="fechaconfirmaciontrabajo" length="13" />
+        </property>
+        <property name="fechacancelacion" type="date">
+            <column name="fechacancelacion" length="13" />
+        </property>
+        <property name="fechaentregareal" type="date">
+            <column name="fechaentregareal" length="13" />
+        </property>
+        <property name="fechaenvioaempresa" type="date">
+            <column name="fechaenvioaempresa" length="13" />
+        </property>
+        <property name="motivocancelacion" type="string">
+            <column name="motivocancelacion" length="100" />
+        </property>
+        <set name="detalletrabajotercerizados" inverse="true">
+            <key>
+                <column name="idtrabajotercerizado" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Detalletrabajotercerizado" />
+        </set>
+        <set name="reclamoempresametalurgicas" inverse="true">
+            <key>
+                <column name="trabajotercerizado" />
+            </key>
+            <one-to-many class="pojos.Reclamoempresametalurgica" />
+        </set>
+    </class>
+</hibernate-mapping>

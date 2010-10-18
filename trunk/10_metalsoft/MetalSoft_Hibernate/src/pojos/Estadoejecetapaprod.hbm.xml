@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Estadoejecetapaprod" table="estadoejecetapaprod" schema="public">
+        <id name="idestado" type="long">
+            <column name="idestado" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <set name="ejecucionetapaproduccions" inverse="true">
+            <key>
+                <column name="estado" />
+            </key>
+            <one-to-many class="pojos.Ejecucionetapaproduccion" />
+        </set>
+    </class>
+</hibernate-mapping>

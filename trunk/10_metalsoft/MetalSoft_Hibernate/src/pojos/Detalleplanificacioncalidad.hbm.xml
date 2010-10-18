@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Detalleplanificacioncalidad" table="detalleplanificacioncalidad" schema="public">
+        <composite-id name="id" class="pojos.DetalleplanificacioncalidadId">
+            <key-property name="iddetalle" type="long">
+                <column name="iddetalle" />
+            </key-property>
+            <key-property name="idplanificacioncalidad" type="long">
+                <column name="idplanificacioncalidad" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="detalleejecucionplanificacioncalidad" class="pojos.Detalleejecucionplanificacioncalidad" update="false" insert="false" fetch="select">
+            <column name="idplanificacioncalidad" not-null="true" />
+            <column name="iddetalleejecucionplanificacioncalidad" />
+            <column name="idejecucionplanificacioncalidad" />
+        </many-to-one>
+        <many-to-one name="procesocalidad" class="pojos.Procesocalidad" fetch="select">
+            <column name="procesocalidad" />
+        </many-to-one>
+        <many-to-one name="planificacioncalidad" class="pojos.Planificacioncalidad" update="false" insert="false" fetch="select">
+            <column name="idplanificacioncalidad" not-null="true" />
+        </many-to-one>
+        <property name="fechainicioplan" type="date">
+            <column name="fechainicioplan" length="13" />
+        </property>
+        <property name="fechafinplan" type="date">
+            <column name="fechafinplan" length="13" />
+        </property>
+        <property name="horainicioplan" type="time">
+            <column name="horainicioplan" length="15" />
+        </property>
+        <property name="horafinplan" type="time">
+            <column name="horafinplan" length="15" />
+        </property>
+        <property name="pieza" type="java.lang.Long">
+            <column name="pieza" />
+        </property>
+    </class>
+</hibernate-mapping>

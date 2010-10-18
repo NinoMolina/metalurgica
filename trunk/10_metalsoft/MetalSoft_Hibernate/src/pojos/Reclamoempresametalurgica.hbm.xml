@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Reclamoempresametalurgica" table="reclamoempresametalurgica" schema="public">
+        <id name="idreclamo" type="long">
+            <column name="idreclamo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="trabajotercerizado" class="pojos.Trabajotercerizado" fetch="select">
+            <column name="trabajotercerizado" />
+        </many-to-one>
+        <many-to-one name="tiporeclamo" class="pojos.Tiporeclamo" fetch="select">
+            <column name="tiporeclamo" />
+        </many-to-one>
+        <property name="nroreclamo" type="java.lang.Long">
+            <column name="nroreclamo" />
+        </property>
+        <property name="motivo" type="string">
+            <column name="motivo" length="50" />
+        </property>
+        <property name="fechareclamo" type="date">
+            <column name="fechareclamo" length="13" />
+        </property>
+        <set name="detallereclamoempresametalurgicas" inverse="true">
+            <key>
+                <column name="idreclamo" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Detallereclamoempresametalurgica" />
+        </set>
+    </class>
+</hibernate-mapping>
