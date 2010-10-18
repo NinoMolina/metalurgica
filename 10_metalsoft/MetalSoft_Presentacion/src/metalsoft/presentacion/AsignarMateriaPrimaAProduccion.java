@@ -397,7 +397,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         int cont = 0;
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
         long idMP = view.getIdmateriaprima();
-        if (gestor.mpPermitidaAAsignar(idPedido, idMP) > 0) {
+        if (gestor.mpPermitidaAAsignar(idPedido, idMP) > 0) //consulta si esa materia prima esta asignada del todo
             //Antes ver si hay la cantidad de Mat Prima Suficiente
             materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
