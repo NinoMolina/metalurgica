@@ -24,6 +24,7 @@ import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
+import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
 import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
@@ -584,6 +585,37 @@ public class AccessViews {
         }
         return ll;
     }
+<<<<<<< .mine
+
+    public static LinkedList<ViewPedidosConMPAsignada> listPedidosConMPAsignada(Connection cn) {
+        ViewPedidosConMPAsignada view=null;
+        LinkedList<ViewPedidosConMPAsignada> ll=new LinkedList<ViewPedidosConMPAsignada>();
+        String query="SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacionproduccion"+
+                     " FROM viewpedidosconmpasignada";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewPedidosConMPAsignada();
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdplanificacionproduccion(rs.getLong("idplanificacionproduccion"));
+                view.setFechacreacion(rs.getDate("fechacreacion"));
+                view.setFechainicioprevista(rs.getDate("fechainicioprevista"));
+                view.setFechafinprevista(rs.getDate("fechafinprevista"));
+                view.setNropedido(rs.getLong("nropedido"));
+                view.setNroplanificacionproduccion(rs.getLong("nroplanificacionproduccion"));
+                view.setObservaciones(rs.getString("Observaciones"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
+=======
     public static int cantidadMPFaltaAsignar(long idPedido, long idmp, Connection cn) {
         int cantidad=-1;
         boolean b1=false;
@@ -673,4 +705,5 @@ public class AccessViews {
         if(cantidad==0) return true;
         else return false;
     }
+>>>>>>> .r1676
 }
