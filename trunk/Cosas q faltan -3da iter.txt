@@ -1,20 +1,16 @@
 **Analisis: completar el diag con metodos q surgieron en las colaboraciones
             terminar vistas parciales
             diag clases sacar codigo de barra a materia prima
+            colaboraciones que hay q cambiar cu :31- 61- 130 (reclamos) y 96 y 101
 
-**Requerimientos: 
-                 Preguntar CU 138 como hacer con los actores
-                 Copiar diag de cu
-
-                 cambiar cu 68 y 96
+              
 
 **Diseño:
           DTE: hacer los nuevos y corregir los viejos
                equivalencias con cu
                *EjecucionProcesoCalidad - Estas es de la 3ra iter
 
-          Actualizar Diag  vistas parciales
-
+        
           Secuencia: Aplicacion Patrones
           Despliegue
           Der actualizar tablas
