@@ -1,7 +1,5 @@
-**Analisis: completar el diag con metodos q surgieron en las colaboraciones
-            terminar vistas parciales
-            diag clases sacar codigo de barra a materia prima
-            colaboraciones que hay q cambiar cu :31- 61- 130 (reclamos) y 96 y 101
+**Analisis: 
+         TERMINADO! :)
 
               
 
