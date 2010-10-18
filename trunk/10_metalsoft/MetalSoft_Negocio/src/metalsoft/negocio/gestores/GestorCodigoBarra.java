@@ -136,7 +136,7 @@ public class GestorCodigoBarra {
         try {
             id=dao.insert(p, cn);
             p.setIdcodigo(id);
-            p.setCodigo("PIE"+id);
+            p.setCodigo("PIE"+idPiezaReal);
             prdb.setIdcodbarra(id);
 
             CodigodebarraPK cpk=new CodigodebarraPK(id);
