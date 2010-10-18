@@ -16,6 +16,7 @@ import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.dbobject.UnidadmedidaDB;
 import metalsoft.negocio.access.AccessMateriaPrima;
+import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPlanificacion;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.access.AccessUnidadDeMedida;
@@ -73,25 +74,25 @@ public class GestorPlanificacion {
         return result;
     }
 
-    public long mpPermitidaAAsignar(long idPedido, long idmp) {
-        PostgreSQLManager pg = null;
-        Connection cn = null;
+    public long mpPermitidaAAsignar(long idPedido, long idmp, Connection cn) {
 
-        pg = new PostgreSQLManager();
         long result = -1;
+        result = AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
 
+        return result;
+
+    }
+    public boolean mpEstaTodaAsignada(long idPedido) {
+
+        boolean result = false;
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result = AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
-            cn.commit();
+            result = AccessViews.mpEstaTodaAsignada(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
-            }
         } finally {
             try {
                 pg.disconnect();
@@ -100,6 +101,24 @@ public class GestorPlanificacion {
             }
         }
         return result;
+
+    }
+    public void setEstadoMateriaPrimaAsignada(long idPedido)
+    {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            AccessPedido.update(idPedido, IdsEstadoPedido.CONMATERIAPRIMAASIGNADA, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     }
 }
