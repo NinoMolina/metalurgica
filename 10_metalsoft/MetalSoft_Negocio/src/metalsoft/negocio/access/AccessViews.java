@@ -29,6 +29,7 @@ import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import metalsoft.negocio.gestores.viewAsignarMateriaPrima;
 import metalsoft.util.Fecha;
 
 /**
@@ -582,5 +583,94 @@ public class AccessViews {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ll;
+    }
+    public static int cantidadMPFaltaAsignar(long idPedido, long idmp, Connection cn) {
+        int cantidad=-1;
+        boolean b1=false;
+        viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
+        String query="SELECT pedido, idmateriaprima, cantidad"+
+                     " FROM viewcantidadmpxpedido" +
+                     " WHERE pedido="+idPedido+" AND idmateriaprima="+idmp;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                viewCantMP.setPedido(rs.getLong("pedido"));
+                viewCantMP.setIdmateriaprima(rs.getLong("idmateriaprima"));
+                viewCantMP.setCantidad(rs.getInt("cantidad"));
+                b1=true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        boolean b2=false;
+        viewAsignarMateriaPrima viewMPAsignada=new viewAsignarMateriaPrima();
+        String query2="SELECT pedido, idmateriaprima, cantidad"+
+                     " FROM viewcantidadmpasiganda" +
+                     " WHERE pedido="+idPedido+" AND idmateriaprima="+idmp;
+        try {
+            ps = cn.prepareStatement(query2);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                viewMPAsignada.setPedido(rs.getLong("pedido"));
+                viewMPAsignada.setIdmateriaprima(rs.getLong("idmateriaprima"));
+                viewMPAsignada.setCantidad(rs.getInt("cantidad"));
+                b2=true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(b1 && b2) cantidad=viewCantMP.getCantidad()-viewMPAsignada.getCantidad();
+
+        return cantidad;
+    }
+    public static boolean mpEstaTodaAsignada(long idPedido, Connection cn) {
+        int cantidad=-1;
+        boolean b1=false;
+        viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
+        String query="SELECT pedido, sum(cantidad) as cantidad"+
+                     " FROM viewcantidadmpxpedido" +
+                     " WHERE pedido="+idPedido+
+                     " GROUP BY pedido ";
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                viewCantMP.setPedido(rs.getLong("pedido"));
+                viewCantMP.setCantidad(rs.getInt("cantidad"));
+                b1=true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        boolean b2=false;
+        viewAsignarMateriaPrima viewMPAsignada=new viewAsignarMateriaPrima();
+        String query2="SELECT pedido, sum(cantidad) as cantidad"+
+                     " FROM viewcantidadmpasiganda" +
+                     " WHERE pedido="+idPedido+
+                     " GROUP BY pedido ";
+        try {
+            ps = cn.prepareStatement(query2);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                viewMPAsignada.setPedido(rs.getLong("pedido"));
+                viewMPAsignada.setCantidad(rs.getInt("cantidad"));
+                b2=true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(b1 && b2) cantidad=viewCantMP.getCantidad()-viewMPAsignada.getCantidad();
+
+        if(cantidad==0) return true;
+        else return false;
     }
 }
