@@ -69,35 +69,11 @@ public class GestorPlanificacion {
         }
         return list;
     }
-    public long guardarDetalleAsignacionMP(long idPlan,long idMP, int cant)
+    public long guardarDetalleAsignacionMP(long idPlan,long idMP, int cant,Connection cn)
     {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-
-        pg=new PostgreSQLManager();
         long result=-1;
-
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
             result=AccessPlanificacion.insertDetalleMPAsignada(idPlan, idMP, cant, cn);
-            cn.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        
         return result;
     }
     public long guardarMPAsignadaXPieza(long idPieza,long idDetalleMP)
