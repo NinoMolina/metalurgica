@@ -11,7 +11,7 @@ import java.util.Set;
 public class Maquina  implements java.io.Serializable {
 
 
-     private long idmaquina;
+     private long id;
      private Marca marca;
      private Estadomaquina estadomaquina;
      private Tipomaquina tipomaquina;
@@ -29,10 +29,10 @@ public class Maquina  implements java.io.Serializable {
 
 	
     public Maquina(long idmaquina) {
-        this.idmaquina = idmaquina;
+        this.id = idmaquina;
     }
     public Maquina(long idmaquina, Marca marca, Estadomaquina estadomaquina, Tipomaquina tipomaquina, String nombre, String descripcion, Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccions, Set<Etapadeproduccion> etapadeproduccions, Set<Maquinaxprocesocalidad> maquinaxprocesocalidads, Set<Mantenimientopreventivo> mantenimientopreventivos, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Mantenimientocorrectivo> mantenimientocorrectivos) {
-       this.idmaquina = idmaquina;
+       this.id = idmaquina;
        this.marca = marca;
        this.estadomaquina = estadomaquina;
        this.tipomaquina = tipomaquina;
@@ -45,14 +45,16 @@ public class Maquina  implements java.io.Serializable {
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.mantenimientocorrectivos = mantenimientocorrectivos;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIdmaquina() {
-        return this.idmaquina;
-    }
-    
-    public void setIdmaquina(long idmaquina) {
-        this.idmaquina = idmaquina;
-    }
+
     public Marca getMarca() {
         return this.marca;
     }

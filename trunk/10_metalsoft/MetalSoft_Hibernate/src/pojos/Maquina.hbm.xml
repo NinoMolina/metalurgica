@@ -4,7 +4,7 @@
 <!-- Generated 17/10/2010 06:45:40 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pojos.Maquina" table="maquina" schema="public">
-        <id name="idmaquina" type="long">
+        <id name="id" type="java.lang.Long">
             <column name="idmaquina" />
             <generator class="assigned" />
         </id>

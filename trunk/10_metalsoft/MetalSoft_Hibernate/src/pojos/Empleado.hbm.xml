@@ -4,7 +4,7 @@
 <!-- Generated 17/10/2010 06:45:40 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pojos.Empleado" table="empleado" schema="public" lazy="false">
-        <id name="idempleado" type="long">
+        <id name="id" type="java.lang.Long">
             <column name="idempleado" />
             <generator class="assigned" />
         </id>

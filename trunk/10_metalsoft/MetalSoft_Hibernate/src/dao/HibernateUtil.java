@@ -35,4 +35,9 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
+    public static void limpiarSession(){
+        if(sessionFactory==null || sessionFactory.getCurrentSession()==null)return;
+        sessionFactory.getCurrentSession().clear();
+    }
 }

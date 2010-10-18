@@ -12,7 +12,7 @@ import java.util.Set;
 public class Pieza  implements java.io.Serializable {
 
 
-     private long idpieza;
+     private long id;
      private Materiaprima materiaprima;
      private Matriz matriz;
      private String nombre;
@@ -36,10 +36,10 @@ public class Pieza  implements java.io.Serializable {
 
 	
     public Pieza(long idpieza) {
-        this.idpieza = idpieza;
+        this.id = idpieza;
     }
     public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacioncalidad> detalleplanificacioncalidads, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Piezareal> piezareals, Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimas, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleproductopresupuesto> detalleproductopresupuestos, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidads, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Detalleproducto> detalleproductos) {
-       this.idpieza = idpieza;
+       this.id = idpieza;
        this.materiaprima = materiaprima;
        this.matriz = matriz;
        this.nombre = nombre;
@@ -58,14 +58,16 @@ public class Pieza  implements java.io.Serializable {
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.detalleproductos = detalleproductos;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIdpieza() {
-        return this.idpieza;
-    }
-    
-    public void setIdpieza(long idpieza) {
-        this.idpieza = idpieza;
-    }
+
     public Materiaprima getMateriaprima() {
         return this.materiaprima;
     }

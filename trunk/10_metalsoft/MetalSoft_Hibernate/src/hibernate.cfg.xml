@@ -9,7 +9,8 @@
     <property name="hibernate.connection.password">admin</property>
     <property name="hibernate.search.autoregister_listeners">false</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+    <property name="hibernate.show_sql">true</property>
+    <!--<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>-->
     <mapping resource="pojos/Planificacionproduccion.hbm.xml"/>
     <mapping resource="pojos/Tipoiva.hbm.xml"/>
     <mapping resource="pojos/Producto.hbm.xml"/>

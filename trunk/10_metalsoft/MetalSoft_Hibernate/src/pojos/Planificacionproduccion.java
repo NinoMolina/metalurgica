@@ -12,7 +12,7 @@ import java.util.Set;
 public class Planificacionproduccion  implements java.io.Serializable {
 
 
-     private long idplanificacionproduccion;
+     private long id;
      private Pedido pedido;
      private Estadoplanificacionproduccion estadoplanificacionproduccion;
      private Long nroplanificacion;
@@ -28,10 +28,10 @@ public class Planificacionproduccion  implements java.io.Serializable {
 
 	
     public Planificacionproduccion(long idplanificacionproduccion) {
-        this.idplanificacionproduccion = idplanificacionproduccion;
+        this.id = idplanificacionproduccion;
     }
     public Planificacionproduccion(long idplanificacionproduccion, Pedido pedido, Estadoplanificacionproduccion estadoplanificacionproduccion, Long nroplanificacion, Date fechacreacion, String observaciones, Date fechainicioprevista, Date fechafinprevista, Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccions, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
-       this.idplanificacionproduccion = idplanificacionproduccion;
+       this.id = idplanificacionproduccion;
        this.pedido = pedido;
        this.estadoplanificacionproduccion = estadoplanificacionproduccion;
        this.nroplanificacion = nroplanificacion;
@@ -42,14 +42,16 @@ public class Planificacionproduccion  implements java.io.Serializable {
        this.ejecucionplanificacionproduccions = ejecucionplanificacionproduccions;
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIdplanificacionproduccion() {
-        return this.idplanificacionproduccion;
-    }
-    
-    public void setIdplanificacionproduccion(long idplanificacionproduccion) {
-        this.idplanificacionproduccion = idplanificacionproduccion;
-    }
+
     public Pedido getPedido() {
         return this.pedido;
     }
