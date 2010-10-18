@@ -84,14 +84,17 @@ public class MpasignadaxpiezarealDAOImpl implements MpasignadaxpiezarealDAO
 	public int insert(Mpasignadaxpiezareal mpasignadaxpiezareal ,Connection con)throws MpasignadaxpiezarealException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into MPASIGNADAXPIEZAREAL( IDPIEZAREAL, IDDETALLEMPASIGNADA, ID) values (?, ?, ?)");
+			ps = con.prepareStatement("insert into MPASIGNADAXPIEZAREAL( IDPIEZAREAL, IDDETALLEMPASIGNADA, ID) values (?, ?, ?) RETURNING ID");
 				ps.setLong(1,mpasignadaxpiezareal.getIdpiezareal());
 				ps.setLong(2,mpasignadaxpiezareal.getIddetallempasignada());
 				ps.setLong(3,mpasignadaxpiezareal.getId());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new MpasignadaxpiezarealException(sqle);}
 		catch(Exception e){throw new MpasignadaxpiezarealException(e);}
 	}
