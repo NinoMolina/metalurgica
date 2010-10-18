@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 18/10/2010 11:22:54 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -12,9 +12,9 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
 
 
      private long iddetalle;
+     private Pieza pieza;
      private Materiaprima materiaprima;
      private Detallepresupuesto detallepresupuesto;
-     private Long idpieza;
      private Integer cantmateriaprima;
      private Integer cantpiezas;
      private Double preciomateriaprima;
@@ -29,11 +29,11 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
     public Detalleproductopresupuesto(long iddetalle) {
         this.iddetalle = iddetalle;
     }
-    public Detalleproductopresupuesto(long iddetalle, Materiaprima materiaprima, Detallepresupuesto detallepresupuesto, Long idpieza, Integer cantmateriaprima, Integer cantpiezas, Double preciomateriaprima, Long idproveedor, Set<Detallepiezapresupuesto> detallepiezapresupuestos, Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestos) {
+    public Detalleproductopresupuesto(long iddetalle, Pieza pieza, Materiaprima materiaprima, Detallepresupuesto detallepresupuesto, Integer cantmateriaprima, Integer cantpiezas, Double preciomateriaprima, Long idproveedor, Set<Detallepiezapresupuesto> detallepiezapresupuestos, Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestos) {
        this.iddetalle = iddetalle;
+       this.pieza = pieza;
        this.materiaprima = materiaprima;
        this.detallepresupuesto = detallepresupuesto;
-       this.idpieza = idpieza;
        this.cantmateriaprima = cantmateriaprima;
        this.cantpiezas = cantpiezas;
        this.preciomateriaprima = preciomateriaprima;
@@ -49,6 +49,13 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
     public void setIddetalle(long iddetalle) {
         this.iddetalle = iddetalle;
     }
+    public Pieza getPieza() {
+        return this.pieza;
+    }
+    
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
     public Materiaprima getMateriaprima() {
         return this.materiaprima;
     }
@@ -62,13 +69,6 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
     
     public void setDetallepresupuesto(Detallepresupuesto detallepresupuesto) {
         this.detallepresupuesto = detallepresupuesto;
-    }
-    public Long getIdpieza() {
-        return this.idpieza;
-    }
-    
-    public void setIdpieza(Long idpieza) {
-        this.idpieza = idpieza;
     }
     public Integer getCantmateriaprima() {
         return this.cantmateriaprima;

@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 18/10/2010 11:22:57 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pojos.Detalleproductopresupuesto" table="detalleproductopresupuesto" schema="public">
         <id name="iddetalle" type="long">
             <column name="iddetalle" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="pieza" class="pojos.Pieza" fetch="select">
+            <column name="idpieza" />
+        </many-to-one>
         <many-to-one name="materiaprima" class="pojos.Materiaprima" fetch="select">
             <column name="idmateriaprima" />
         </many-to-one>
         <many-to-one name="detallepresupuesto" class="pojos.Detallepresupuesto" fetch="select">
             <column name="iddetallepresupuesto" />
         </many-to-one>
-        <property name="idpieza" type="java.lang.Long">
-            <column name="idpieza" />
-        </property>
         <property name="cantmateriaprima" type="java.lang.Integer">
             <column name="cantmateriaprima" />
         </property>

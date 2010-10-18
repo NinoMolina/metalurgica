@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 11:11:02 by Hibernate Tools 3.2.1.GA
+// Generated 18/10/2010 11:22:54 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -22,6 +22,7 @@ public class Pieza  implements java.io.Serializable {
      private BigDecimal ancho;
      private BigDecimal largo;
      private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
+     private Set<Detalleproductopresupuesto> detalleproductopresupuestos = new HashSet<Detalleproductopresupuesto>(0);
 
     public Pieza() {
     }
@@ -30,7 +31,7 @@ public class Pieza  implements java.io.Serializable {
     public Pieza(long idpieza) {
         this.idpieza = idpieza;
     }
-    public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, Unidadmedida unidadmedida, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+    public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, Unidadmedida unidadmedida, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Detalleproductopresupuesto> detalleproductopresupuestos) {
        this.idpieza = idpieza;
        this.materiaprima = materiaprima;
        this.matriz = matriz;
@@ -41,6 +42,7 @@ public class Pieza  implements java.io.Serializable {
        this.ancho = ancho;
        this.largo = largo;
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
+       this.detalleproductopresupuestos = detalleproductopresupuestos;
     }
    
     public long getIdpieza() {
@@ -112,6 +114,13 @@ public class Pieza  implements java.io.Serializable {
     
     public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
         this.detalleplanificacionproduccions = detalleplanificacionproduccions;
+    }
+    public Set<Detalleproductopresupuesto> getDetalleproductopresupuestos() {
+        return this.detalleproductopresupuestos;
+    }
+    
+    public void setDetalleproductopresupuestos(Set<Detalleproductopresupuesto> detalleproductopresupuestos) {
+        this.detalleproductopresupuestos = detalleproductopresupuestos;
     }
 
 
