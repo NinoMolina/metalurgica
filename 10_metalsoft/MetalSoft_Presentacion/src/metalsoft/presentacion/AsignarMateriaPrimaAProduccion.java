@@ -12,15 +12,21 @@ package metalsoft.presentacion;
 
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.gestores.GestorCodigoBarra;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
 import metalsoft.negocio.gestores.GestorPlanificacion;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPlanificacion;
+import metalsoft.negocio.gestores.GestorPiezaReal;
+import metalsoft.negocio.produccion.CodigoDeBarra;
+import metalsoft.negocio.produccion.PiezaReal;
+import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -37,6 +43,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     private GestorPlanificacion gestor;
     private GestorPresupuesto gestorPresupuesto;
     private GestorMateriaPrima gestorMateriaPrima;
+    private GestorPiezaReal gestorPiezaReal;
+    private GestorCodigoBarra gestorCodigoBarra;
     private MateriaprimaDB materiaPrima;
 
     /** Creates new form AsignarMateriaPrimaAProduccion */
@@ -45,7 +53,9 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         lblNroPresupuesto.setVisible(false);
         gestor = new GestorPlanificacion();
         gestorPresupuesto = new GestorPresupuesto();
-        gestorMateriaPrima=new GestorMateriaPrima();
+        gestorMateriaPrima = new GestorMateriaPrima();
+        gestorPiezaReal = new GestorPiezaReal();
+        gestorCodigoBarra = new GestorCodigoBarra();
         cargarComboTipoMaterial();
         cargarComboUnidadMedida();
         buscarPedidosConMPAsignada();
@@ -370,7 +380,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
         long idMatPrima = view.getIdmateriaprima();
-        materiaPrima=gestorMateriaPrima.buscarPorId(idMatPrima);
+        materiaPrima = gestorMateriaPrima.buscarPorId(idMatPrima);
         mostrarDatosMateriaPrima(materiaPrima);
         btnAsignarMP.setEnabled(true);
 
@@ -378,10 +388,32 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
     private void btnAsignarMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMPActionPerformed
         // TODO add your handling code here:
+        long result = -1;
+        long resultCB = -1;
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
-        materiaPrima.setStock(materiaPrima.getStock()-view.getCantmateriaprima());
-
-        gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
+        //Antes ver si hay la cantidad de Mat Prima Suficiente
+        materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
+        PiezaReal piezaReal = new PiezaReal();
+        piezaReal.setNroPieza((int) view.getIdpieza());
+        CodigoDeBarra cb = new CodigoDeBarra();
+        cb.setDescripcion(view.getNombrepieza());
+        int cont=0;
+        for (int i = 0; i < view.getCantpieza(); i++) {
+            result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1);
+            if (result > -1) {
+                resultCB = gestorCodigoBarra.guardarCodPieza(cb, result);
+            }
+            if (resultCB > -1) { cont++;}
+        }
+        if (cont > 0) {
+                gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
+            }
+        if (result > -1 && cont > 0) {
+            JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
+            setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+        }
 
 
     }//GEN-LAST:event_btnAsignarMPActionPerformed
@@ -453,6 +485,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         cmbUnidadMedida.setSelectedIndex(-1);
         cmbTipoMaterial.setSelectedIndex(-1);
     }
+
     public void setEnableFalse() {
         txtCodBarra.setEnabled(false);
         txtDescripcion.setEnabled(false);
