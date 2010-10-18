@@ -2,8 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -24,6 +24,7 @@ import metalsoft.negocio.access.AccessPiezaReal;
 import metalsoft.negocio.produccion.PiezaReal;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
@@ -31,18 +32,16 @@ import metalsoft.util.ItemCombo;
 public class GestorPiezaReal {
 
     public PiezarealDB buscarPorId(long valor) {
-        Connection cn=null;
-        PostgreSQLManager pg=null;
-        PiezarealDB db=null;
+        Connection cn = null;
+        PostgreSQLManager pg = null;
+        PiezarealDB db = null;
         try {
-            pg=new PostgreSQLManager();
+            pg = new PostgreSQLManager();
             cn = pg.concectGetCn();
-            db=AccessPiezaReal.findById(valor,cn);
+            db = AccessPiezaReal.findById(valor, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -52,9 +51,9 @@ public class GestorPiezaReal {
         return db;
     }
 
-     public boolean eliminar(long id, long idpieza) {
-        PiezarealDAO dao=new DAOFactoryImpl().createPiezarealDAO();
-        Connection cn=null;
+    public boolean eliminar(long id, long idpieza) {
+        PiezarealDAO dao = new DAOFactoryImpl().createPiezarealDAO();
+        Connection cn = null;
 
         try {
             cn = new PostgreSQLManager().concectGetCn();
@@ -65,37 +64,45 @@ public class GestorPiezaReal {
 
         //realizo la eliminación
 
-        long result=-1;
-            result = AccessPiezaReal.delete(id, idpieza, cn);
+        long result = -1;
+        result = AccessPiezaReal.delete(id, idpieza, cn);
         try {
             cn.close();
         } catch (SQLException ex) {
             Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 cn.close();
-                cn=null;
+                cn = null;
             } catch (SQLException ex) {
                 Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if(result>0)return true;
-        else return false;
+        if (result > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public long guardar(PiezaReal piezaReal,long idPieza, long idestado,long idCodBarra)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-        pg=new PostgreSQLManager();
-        long result=-1;
+    public long guardar(PiezaReal piezaReal, long idPieza, long idestado, long idCodBarra, Connection cn) {
+        long result = -1;
+
+        result = AccessPiezaReal.insert(piezaReal, idPieza, idestado, idCodBarra, cn);
+
+        return result;
+    }
+
+    public long guardar(PiezaReal piezaReal, long idPieza, long idestado, long idCodBarra) {
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        long result = -1;
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=AccessPiezaReal.insert(piezaReal,idPieza, idestado,idCodBarra, cn);
+            result = AccessPiezaReal.insert(piezaReal, idPieza, idestado, idCodBarra, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,9 +111,7 @@ public class GestorPiezaReal {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -116,18 +121,16 @@ public class GestorPiezaReal {
         return result;
     }
 
-
-    public long modificar(PiezaReal piezaReal, long idPiezaReal,long idPieza, long idestado,long idCodBarra)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-        pg=new PostgreSQLManager();
-        long result=-1;
+    public long modificar(PiezaReal piezaReal, long idPiezaReal, long idPieza, long idestado, long idCodBarra) {
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        long result = -1;
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=AccessPiezaReal.update(piezaReal, idPiezaReal, idPieza, idestado, idCodBarra, cn);
+            result = AccessPiezaReal.update(piezaReal, idPiezaReal, idPieza, idestado, idCodBarra, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,9 +139,7 @@ public class GestorPiezaReal {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorPiezaReal.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -147,7 +148,4 @@ public class GestorPiezaReal {
         }
         return result;
     }
-    
-
-
 }
