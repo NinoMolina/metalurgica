@@ -21,9 +21,17 @@
                 <id>jar</id>
             </reference>
             <reference>
+                <foreign-project>MetalSoft_Hibernate</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>${project.MetalSoft_Hibernate}/build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>MetalSoft_Util</foreign-project>
                 <artifact-type>jar</artifact-type>
-                <script>${build.script.reference.MetalSoft_Util}</script>
+                <script>${project.MetalSoft_Util}/build.xml</script>
                 <target>jar</target>
                 <clean-target>clean</clean-target>
                 <id>jar</id>
