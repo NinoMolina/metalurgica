@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.dbobject.UnidadmedidaDB;
 import metalsoft.negocio.access.AccessMateriaPrima;
@@ -32,7 +33,24 @@ public class GestorPlanificacion {
     public GestorPlanificacion(){
 
     }
-
+    public Planificacionproduccion buscarPlanificacionPorPedido(long idPedido) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        Planificacionproduccion db=new Planificacionproduccion();
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            db = AccessPlanificacion.findByIdPedido(idPedido, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return db;
+    }
     public LinkedList<ViewPlanificacion> buscarPlanificacionConRecursosAsignados() {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPlanificacion> list = null;
@@ -112,6 +130,38 @@ public class GestorPlanificacion {
             }
         }
         return result;
+    }
+    public long mpPermitidaAAsignar(long idPedido)
+    {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+
+        pg=new PostgreSQLManager();
+        long result=-1;
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=0;
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+
     }
 
 }
