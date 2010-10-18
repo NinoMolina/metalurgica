@@ -87,11 +87,9 @@ public class MpasignadaxpiezarealDAOImpl implements MpasignadaxpiezarealDAO
         ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into MPASIGNADAXPIEZAREAL( IDPIEZAREAL, IDDETALLEMPASIGNADA, ID) values (?, ?, ?) RETURNING ID");
+			ps = con.prepareStatement("insert into MPASIGNADAXPIEZAREAL( IDPIEZAREAL, IDDETALLEMPASIGNADA) values (?, ?) RETURNING ID");
 				ps.setLong(1,mpasignadaxpiezareal.getIdpiezareal());
 				ps.setLong(2,mpasignadaxpiezareal.getIddetallempasignada());
-				ps.setLong(3,mpasignadaxpiezareal.getId());
-
 				rs=ps.executeQuery();
                 rs.next();
 				return (int) rs.getLong(1);
