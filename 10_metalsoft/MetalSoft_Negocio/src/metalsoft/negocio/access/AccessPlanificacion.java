@@ -12,11 +12,14 @@ import metalsoft.datos.dbobject.Detallempasignada;
 import metalsoft.datos.dbobject.DetallempasignadaPK;
 import metalsoft.datos.dbobject.Mpasignadaxpiezareal;
 import metalsoft.datos.dbobject.MpasignadaxpiezarealPK;
+import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.datos.exception.DetallempasignadaException;
 import metalsoft.datos.exception.MpasignadaxpiezarealException;
 import metalsoft.datos.factory.DAOFactoryCreater;
+import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DetallempasignadaDAO;
 import metalsoft.datos.idao.MpasignadaxpiezarealDAO;
+import metalsoft.datos.idao.PlanificacionproduccionDAO;
 
 /**
  *
@@ -77,5 +80,17 @@ public class AccessPlanificacion {
             Logger.getLogger(AccessPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    public static Planificacionproduccion findByIdPedido(long id,Connection cn)
+    {
+        PlanificacionproduccionDAO dao=new DAOFactoryImpl().createPlanificacionproduccionDAO();
+        Planificacionproduccion db = null;
+
+        try {
+            db=dao.findByPedido(id, cn)[0];
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
     }
 }
