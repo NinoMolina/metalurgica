@@ -2,8 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -22,6 +22,7 @@ import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.Productoreal;
 import metalsoft.datos.dbobject.ProductorealPK;
 import metalsoft.datos.exception.CodigodebarraException;
+import metalsoft.datos.exception.PiezarealException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.CodigodebarraDAO;
 import metalsoft.datos.idao.PiezarealDAO;
@@ -32,6 +33,7 @@ import metalsoft.negocio.access.AccessPiezaReal;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.util.Combo;
 import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
@@ -39,20 +41,18 @@ import metalsoft.util.ItemCombo;
 public class GestorCodigoBarra {
 
     public CodigodebarraDB[] buscarConILIKE(String valor) {
-        Connection cn=null;
-        PostgreSQLManager pg=null;
-        CodigodebarraDB[] x=null;
-        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
-        Object[] sqlParams=new Object[0];
+        Connection cn = null;
+        PostgreSQLManager pg = null;
+        CodigodebarraDB[] x = null;
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
+        Object[] sqlParams = new Object[0];
         try {
-            pg=new PostgreSQLManager();
+            pg = new PostgreSQLManager();
             cn = pg.concectGetCn();
-            x = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
+            x = dao.findExecutingUserWhere("nombre ILIKE '" + valor + "%'", sqlParams, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -63,19 +63,17 @@ public class GestorCodigoBarra {
     }
 
     public CodigodebarraDB buscarPorId(long valor) {
-        Connection cn=null;
-        PostgreSQLManager pg=null;
-        CodigodebarraDB db=null;
-        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
+        Connection cn = null;
+        PostgreSQLManager pg = null;
+        CodigodebarraDB db = null;
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
         try {
-            pg=new PostgreSQLManager();
+            pg = new PostgreSQLManager();
             cn = pg.concectGetCn();
-            db=dao.findByIdcodigo(valor, cn)[0];
+            db = dao.findByIdcodigo(valor, cn)[0];
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -85,9 +83,9 @@ public class GestorCodigoBarra {
         return db;
     }
 
-     public boolean eliminar(long id) {
-        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
-        Connection cn=null;
+    public boolean eliminar(long id) {
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
+        Connection cn = null;
 
         try {
             cn = new PostgreSQLManager().concectGetCn();
@@ -95,118 +93,142 @@ public class GestorCodigoBarra {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        long result=-1;
+        long result = -1;
 
-        CodigodebarraPK pk=new CodigodebarraPK(id);
+        CodigodebarraPK pk = new CodigodebarraPK(id);
         try {
-            result=dao.delete(pk, cn);
+            result = dao.delete(pk, cn);
         } catch (CodigodebarraException ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-            try {
-                cn.close();
-                cn=null;
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        if(result>0)return true;
-        else return false;
+        try {
+            cn.close();
+            cn = null;
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (result > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public long guardarCodPieza(CodigoDeBarra codBarra, long idPiezaReal)
-    {
-        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
-        CodigodebarraDB p=new CodigodebarraDB();
+    public long guardarCodPieza(CodigoDeBarra codBarra, long idPiezaReal) {
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
+        CodigodebarraDB p = new CodigodebarraDB();
         p.setDescripcion(codBarra.getDescripcion());
-        PiezarealDB prdb=new PiezarealDB();
+        PiezarealDB prdb = new PiezarealDB();
 
-        int id=-1;
-        int idPieza=-1;
+        int id = -1;
+        int idPieza = -1;
 
-        Connection cn=null;
+        Connection cn = null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
-            prdb=AccessPiezaReal.findById(idPiezaReal, cn);
+            prdb = AccessPiezaReal.findById(idPiezaReal, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
         try {
-            id=dao.insert(p, cn);
+            id = dao.insert(p, cn);
             p.setIdcodigo(id);
-            p.setCodigo("PIE"+idPiezaReal);
+            p.setCodigo("PIE" + idPiezaReal);
             prdb.setIdcodbarra(id);
 
-            CodigodebarraPK cpk=new CodigodebarraPK(id);
-            id=dao.update(cpk, p, cn);
+            CodigodebarraPK cpk = new CodigodebarraPK(id);
+            id = dao.update(cpk, p, cn);
 
-            PiezarealDAO daoPieza=new DAOFactoryImpl().createPiezarealDAO();
-            PiezarealPK pipk=new PiezarealPK(prdb.getIdpiezareal(), prdb.getIdpieza());
-            idPieza=daoPieza.update(pipk, prdb, cn);
+            PiezarealDAO daoPieza = new DAOFactoryImpl().createPiezarealDAO();
+            PiezarealPK pipk = new PiezarealPK(prdb.getIdpiezareal(), prdb.getIdpieza());
+            idPieza = daoPieza.update(pipk, prdb, cn);
 
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            if(cn!=null)try {
-                cn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
         return id;
     }
 
-    public long guardarCodProducto(CodigoDeBarra codBarra, long idPiezaReal)
-    {
-        CodigodebarraDAO dao=new DAOFactoryImpl().createCodigodebarraDAO();
-        CodigodebarraDB p=new CodigodebarraDB();
+    public long guardarCodPieza(CodigoDeBarra codBarra, long idPiezaReal, Connection cn) throws CodigodebarraException, PiezarealException {
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
+        CodigodebarraDB p = new CodigodebarraDB();
         p.setDescripcion(codBarra.getDescripcion());
-        Productoreal pr=new Productoreal();
+        PiezarealDB prdb = new PiezarealDB();
 
-        int id=-1;
-        int idPieza=-1;
+        int id = -1;
+        int idPieza = -1;
+        prdb = AccessPiezaReal.findById(idPiezaReal, cn);
 
-        Connection cn=null;
+        id = dao.insert(p, cn);
+        p.setIdcodigo(id);
+        p.setCodigo("PIE" + idPiezaReal);
+        prdb.setIdcodbarra(id);
+
+        CodigodebarraPK cpk = new CodigodebarraPK(id);
+        id = dao.update(cpk, p, cn);
+
+        PiezarealDAO daoPieza = new DAOFactoryImpl().createPiezarealDAO();
+        PiezarealPK pipk = new PiezarealPK(prdb.getIdpiezareal(), prdb.getIdpieza());
+        idPieza = daoPieza.update(pipk, prdb, cn);
+
+        return id;
+    }
+
+    public long guardarCodProducto(CodigoDeBarra codBarra, long idPiezaReal) {
+        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
+        CodigodebarraDB p = new CodigodebarraDB();
+        p.setDescripcion(codBarra.getDescripcion());
+        Productoreal pr = new Productoreal();
+
+        int id = -1;
+        int idPieza = -1;
+
+        Connection cn = null;
         try {
             cn = new PostgreSQLManager().concectGetCn();
-            ///Buscar el Prducto Real con su access!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ///Buscar el Prducto Real con su access!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
         try {
-            id=dao.insert(p, cn);
+            id = dao.insert(p, cn);
             p.setIdcodigo(id);
-            p.setCodigo("PIE"+id);
+            p.setCodigo("PIE" + id);
             pr.setCodigobarra(id);
 
-            CodigodebarraPK cpk=new CodigodebarraPK(id);
-            id=dao.update(cpk, p, cn);
+            CodigodebarraPK cpk = new CodigodebarraPK(id);
+            id = dao.update(cpk, p, cn);
 
-            ProductorealDAO daoPieza=new DAOFactoryImpl().createProductorealDAO();
-            ProductorealPK pipk=new ProductorealPK(pr.getIdproductoreal());
-            idPieza=daoPieza.update(pipk, pr, cn);
+            ProductorealDAO daoPieza = new DAOFactoryImpl().createProductorealDAO();
+            ProductorealPK pipk = new ProductorealPK(pr.getIdproductoreal());
+            idPieza = daoPieza.update(pipk, pr, cn);
 
         } catch (Exception ex) {
             Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            if(cn!=null)try {
-                cn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
         return id;
     }
-
-
 }
