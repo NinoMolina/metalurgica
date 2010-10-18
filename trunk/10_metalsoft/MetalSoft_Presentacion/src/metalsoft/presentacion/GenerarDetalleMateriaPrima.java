@@ -176,6 +176,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Generar Detalle de Materia Prima");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos C/Detalle Procedimientos"));
 

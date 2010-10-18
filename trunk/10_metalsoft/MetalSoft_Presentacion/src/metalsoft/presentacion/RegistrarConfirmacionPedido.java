@@ -81,6 +81,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Confirmar Pedido");
 
         tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
         jScrollPane1.setViewportView(tblPedidos);
@@ -159,10 +160,10 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
 
         lblNroPedCliente.setText("...");
 
-        lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroPedido.setText("...");
 
-        lblCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCliente.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblCliente.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

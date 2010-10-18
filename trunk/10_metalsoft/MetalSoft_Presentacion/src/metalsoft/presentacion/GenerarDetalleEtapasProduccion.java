@@ -173,6 +173,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         btnAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Generar Detalle Etapas de Producción");
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
