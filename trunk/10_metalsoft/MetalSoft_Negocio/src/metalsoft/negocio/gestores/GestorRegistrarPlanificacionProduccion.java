@@ -27,6 +27,7 @@ import metalsoft.negocio.access.AccessViews;
 import metalsoft.util.Fecha;
 import pojos.Detalleplanificacionproduccion;
 import pojos.Empleado;
+import pojos.Estadopedido;
 import pojos.Estadoplanificacionproduccion;
 import pojos.Maquina;
 import pojos.Pedido;
@@ -103,6 +104,12 @@ public class GestorRegistrarPlanificacionProduccion {
 
     public void limpiarSessionHibernate() {
         HibernateUtil.limpiarSession();
+    }
+
+    public void actualizarEstadoPedido(Pedido pedido) {
+        Dao<Pedido> daoPedido=new DaoPedido<Pedido>();
+        pedido.setEstadopedido(new Estadopedido(IdsEstadoPedido.PLANIFICADO));
+        daoPedido.update(pedido);
     }
 
 }

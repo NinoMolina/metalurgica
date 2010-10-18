@@ -16,18 +16,16 @@ public class IdsEstadoPedido {
     public static final long PEDIDOCONDETALLEDEPROCESOSDECALIDAD = 18;
     public static final long PRESUPUESTADO = 2;
     public static final long CONFIRMADO = 4;
-    public static final long ENESPERADECONFIRMACION = 7;
-    public static final long PLANIFICADO = 8;
-    public static final long CONMATERIAPRIMAASIGNADA = 9;
-    public static final long ENPRODUCCION = 10;
-    public static final long ENCALIDAD = 11;
-    public static final long ENARMADO = 12;
-    public static final long ENTREGADO = 13;
-    public static final long COBRADO = 14;
-    public static final long CONFACTURAVENCIDA = 15;
-    public static final long RECLAMADO = 19;
-    public static final long NUNCACOBRADO = 20;
-    public static final long RECHAZADO = 21;
-    public static final long CANCELADO = 22;
-
+    public static final long PLANIFICADO = 5;
+    public static final long CONMATERIAPRIMAASIGNADA = 3;
+    public static final long ENPRODUCCION = 6;
+    public static final long ENCALIDAD = 7;
+    public static final long ENARMADO = 8;
+    public static final long ENTREGADO = 9;
+    public static final long COBRADO = 10;
+    public static final long RECHAZADO = 11;
+    public static final long NUNCACOBRADO = 12;
+    public static final long CONFACTURAVENCIDA = 13;
+    public static final long RECLAMADO = 14;
+    public static final long CANCELADO = 15;
 }
