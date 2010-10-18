@@ -5,6 +5,7 @@
 
 package dao;
 
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -30,6 +31,8 @@ public class DaoPedido<T> extends Dao<T>{
     public T findById(Long id, String clase) {
         getSession().beginTransaction();
         Query query = getSession().createQuery("FROM " + clase + " WHERE id=" + id);
+        List list=query.list();
+        if(list==null || list.isEmpty())return null;
         T a = (T) query.list().get(0);
         getSession().getTransaction().commit();
         return a;
