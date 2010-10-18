@@ -585,7 +585,6 @@ public class AccessViews {
         }
         return ll;
     }
-<<<<<<< .mine
 
     public static LinkedList<ViewPedidosConMPAsignada> listPedidosConMPAsignada(Connection cn) {
         ViewPedidosConMPAsignada view=null;
@@ -615,7 +614,7 @@ public class AccessViews {
         }
         return ll;
     }
-=======
+
     public static int cantidadMPFaltaAsignar(long idPedido, long idmp, Connection cn) {
         int cantidad=-1;
         boolean b1=false;
@@ -705,5 +704,4 @@ public class AccessViews {
         if(cantidad==0) return true;
         else return false;
     }
->>>>>>> .r1676
 }
