@@ -12,7 +12,7 @@ import java.util.Set;
 public class Empleado  implements java.io.Serializable {
 
 
-     private long idempleado;
+     private long id;
      private Usuario usuario;
      private Tipodocumento tipodocumento;
      private Domicilio domicilio;
@@ -39,10 +39,10 @@ public class Empleado  implements java.io.Serializable {
 
 	
     public Empleado(long idempleado) {
-        this.idempleado = idempleado;
+        this.id = idempleado;
     }
     public Empleado(long idempleado, Usuario usuario, Tipodocumento tipodocumento, Domicilio domicilio, Categoria categoria, Cargo cargo, Long legajo, Date fechaingreso, String nombre, String apellido, String telefono, String email, Integer nrodocumento, Date fechaegreso, String motivoegreso, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Mantenimientocorrectivo> mantenimientocorrectivos, Set<Turno> turnos, Set<Disponibilidadhoraria> disponibilidadhorarias, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Asistencia> asistencias) {
-       this.idempleado = idempleado;
+       this.id = idempleado;
        this.usuario = usuario;
        this.tipodocumento = tipodocumento;
        this.domicilio = domicilio;
@@ -64,14 +64,15 @@ public class Empleado  implements java.io.Serializable {
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.asistencias = asistencias;
     }
-   
-    public long getIdempleado() {
-        return this.idempleado;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIdempleado(long idempleado) {
-        this.idempleado = idempleado;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Usuario getUsuario() {
         return this.usuario;
     }

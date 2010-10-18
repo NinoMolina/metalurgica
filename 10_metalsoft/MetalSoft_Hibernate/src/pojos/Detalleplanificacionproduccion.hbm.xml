@@ -3,7 +3,7 @@
 <!-- Generated 17/10/2010 06:01:55 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
   <class name="pojos.Detalleplanificacionproduccion" schema="public" table="detalleplanificacionproduccion">
-    <id name="id" type="long">
+    <id name="id" type="java.lang.Long">
       <column name="id"/>
       <generator class="sequence">
         <param name="sequence">detalleplanificacionproduccion_id_seq</param>

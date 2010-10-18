@@ -12,7 +12,7 @@ import java.util.Set;
 public class Etapadeproduccion  implements java.io.Serializable {
 
 
-     private long idetapaproduccion;
+     private long id;
      private Maquina maquina;
      private Unidadmedida unidadmedida;
      private Long nroetapaproduccion;
@@ -33,10 +33,10 @@ public class Etapadeproduccion  implements java.io.Serializable {
 
 	
     public Etapadeproduccion(long idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+        this.id = idetapaproduccion;
     }
     public Etapadeproduccion(long idetapaproduccion, Maquina maquina, Unidadmedida unidadmedida, Long nroetapaproduccion, String nombre, Date horasmaquina, Date horashombre, Date duracionestimada, Date fechacreacion, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detallepiezapresupuesto> detallepiezapresupuestos) {
-       this.idetapaproduccion = idetapaproduccion;
+       this.id = idetapaproduccion;
        this.maquina = maquina;
        this.unidadmedida = unidadmedida;
        this.nroetapaproduccion = nroetapaproduccion;
@@ -52,14 +52,15 @@ public class Etapadeproduccion  implements java.io.Serializable {
        this.detalleplanprocedimientoses = detalleplanprocedimientoses;
        this.detallepiezapresupuestos = detallepiezapresupuestos;
     }
-   
-    public long getIdetapaproduccion() {
-        return this.idetapaproduccion;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIdetapaproduccion(long idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Maquina getMaquina() {
         return this.maquina;
     }
