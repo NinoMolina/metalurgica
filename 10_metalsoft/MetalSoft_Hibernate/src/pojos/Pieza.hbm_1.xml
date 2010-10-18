@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2010 11:11:05 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojos.Pieza" table="pieza" schema="public">
+        <id name="idpieza" type="long">
+            <column name="idpieza" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="materiaprima" class="pojos.Materiaprima" fetch="select">
+            <column name="materiaprima" />
+        </many-to-one>
+        <many-to-one name="matriz" class="pojos.Matriz" fetch="select">
+            <column name="matriz" />
+        </many-to-one>
+        <many-to-one name="unidadmedida" class="pojos.Unidadmedida" fetch="select">
+            <column name="unidadmedida" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="tipomaterial" type="java.lang.Long">
+            <column name="tipomaterial" />
+        </property>
+        <property name="alto" type="big_decimal">
+            <column name="alto" precision="10" scale="3" />
+        </property>
+        <property name="ancho" type="big_decimal">
+            <column name="ancho" precision="10" scale="3" />
+        </property>
+        <property name="largo" type="big_decimal">
+            <column name="largo" precision="10" scale="3" />
+        </property>
+        <set name="detalleplanificacionproduccions" inverse="true">
+            <key>
+                <column name="idpieza" />
+            </key>
+            <one-to-many class="pojos.Detalleplanificacionproduccion" />
+        </set>
+    </class>
+</hibernate-mapping>
