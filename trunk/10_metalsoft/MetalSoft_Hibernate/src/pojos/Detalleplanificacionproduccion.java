@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:55:40 by Hibernate Tools 3.2.1.GA
+// Generated 18/10/2010 11:11:02 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -11,12 +11,12 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
 
 
      private long id;
+     private Pieza pieza;
      private Empleado empleado;
      private Planificacionproduccion planificacionproduccion;
      private Maquina maquina;
      private Detalleejecucionplanificacion detalleejecucionplanificacion;
      private Etapadeproduccion etapadeproduccion;
-     private Long idpieza;
      private Date fechainicio;
      private Date horainicio;
      private Date fechafin;
@@ -31,14 +31,14 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
         this.planificacionproduccion = planificacionproduccion;
         this.detalleejecucionplanificacion = detalleejecucionplanificacion;
     }
-    public Detalleplanificacionproduccion(long id, Empleado empleado, Planificacionproduccion planificacionproduccion, Maquina maquina, Detalleejecucionplanificacion detalleejecucionplanificacion, Etapadeproduccion etapadeproduccion, Long idpieza, Date fechainicio, Date horainicio, Date fechafin, Date horafin) {
+    public Detalleplanificacionproduccion(long id, Pieza pieza, Empleado empleado, Planificacionproduccion planificacionproduccion, Maquina maquina, Detalleejecucionplanificacion detalleejecucionplanificacion, Etapadeproduccion etapadeproduccion, Date fechainicio, Date horainicio, Date fechafin, Date horafin) {
        this.id = id;
+       this.pieza = pieza;
        this.empleado = empleado;
        this.planificacionproduccion = planificacionproduccion;
        this.maquina = maquina;
        this.detalleejecucionplanificacion = detalleejecucionplanificacion;
        this.etapadeproduccion = etapadeproduccion;
-       this.idpieza = idpieza;
        this.fechainicio = fechainicio;
        this.horainicio = horainicio;
        this.fechafin = fechafin;
@@ -51,6 +51,13 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
     
     public void setId(long id) {
         this.id = id;
+    }
+    public Pieza getPieza() {
+        return this.pieza;
+    }
+    
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
     }
     public Empleado getEmpleado() {
         return this.empleado;
@@ -86,13 +93,6 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
     
     public void setEtapadeproduccion(Etapadeproduccion etapadeproduccion) {
         this.etapadeproduccion = etapadeproduccion;
-    }
-    public Long getIdpieza() {
-        return this.idpieza;
-    }
-    
-    public void setIdpieza(Long idpieza) {
-        this.idpieza = idpieza;
     }
     public Date getFechainicio() {
         return this.fechainicio;
