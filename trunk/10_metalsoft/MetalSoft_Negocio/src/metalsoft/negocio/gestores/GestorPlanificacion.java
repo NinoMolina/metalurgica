@@ -16,6 +16,7 @@ import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.Tipomaterial;
 import metalsoft.datos.dbobject.UnidadmedidaDB;
 import metalsoft.negocio.access.AccessMateriaPrima;
+import metalsoft.negocio.access.AccessPlanificacion;
 import metalsoft.negocio.access.AccessTipoMaterial;
 import metalsoft.negocio.access.AccessUnidadDeMedida;
 import metalsoft.negocio.access.AccessViews;
@@ -49,6 +50,68 @@ public class GestorPlanificacion {
             }
         }
         return list;
+    }
+    public long guardarDetalleAsignacionMP(long idPlan,long idMP, int cant)
+    {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+
+        pg=new PostgreSQLManager();
+        long result=-1;
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=AccessPlanificacion.insertDetalleMPAsignada(idPlan, idMP, cant, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    public long guardarMPAsignadaXPieza(long idPieza,long idDetalleMP)
+    {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+
+        pg=new PostgreSQLManager();
+        long result=-1;
+
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=AccessPlanificacion.insertMPAsignadaXPiezaReal(idPieza, idDetalleMP, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 
 }
