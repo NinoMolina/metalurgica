@@ -10,10 +10,15 @@
  */
 package metalsoft.presentacion;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
@@ -397,46 +402,69 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         int cont = 0;
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
         long idMP = view.getIdmateriaprima();
-        if (gestor.mpPermitidaAAsignar(idPedido, idMP) > 0) {//consulta si esa materia prima esta asignada del todo
-            //Antes ver si hay la cantidad de Mat Prima Suficiente
-            materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
-            PiezaReal piezaReal = new PiezaReal();
-            piezaReal.setNroPieza((int) view.getIdpieza());
-            CodigoDeBarra cb = new CodigoDeBarra();
-            cb.setDescripcion(view.getNombrepieza());
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            if (gestor.mpPermitidaAAsignar(idPedido, idMP) != 0) {//consulta si esa materia prima esta asignada del todo
+                //Antes ver si hay la cantidad de Mat Prima Suficiente
+                materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
-            Planificacionproduccion plan = gestor.buscarPlanificacionPorPedido(idPedido);
-            long[] piezasReales = new long[view.getCantpieza()];
-            for (int i = 0; i < view.getCantpieza(); i++) {
-                result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1);
-                piezasReales[i] = result;
-                if (result > -1) {
-                    resultCB = gestorCodigoBarra.guardarCodPieza(cb, result);
-                }
-                if (resultCB > -1) {
-                    cont++;
-                }
-            }
-            if (cont > 0) {
-                long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
-                idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), idMP, cont);
-                if (idDetalleMPAsignada > -1) {
-                    for (int i = 0; i < piezasReales.length; i++) {
-                        gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada);
+                PiezaReal piezaReal = new PiezaReal();
+                piezaReal.setNroPieza((int) view.getIdpieza());
+                CodigoDeBarra cb = new CodigoDeBarra();
+                cb.setDescripcion(view.getNombrepieza());
+
+                Planificacionproduccion plan = gestor.buscarPlanificacionPorPedido(idPedido,cn);
+                long[] piezasReales = new long[view.getCantpieza()];
+                for (int i = 0; i < view.getCantpieza(); i++) {
+                    result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1,cn);
+                    piezasReales[i] = result;
+                    if (result > -1) {
+                        resultCB = gestorCodigoBarra.guardarCodPieza(cb, result,cn);
+                    }
+                    if (resultCB > -1) {
+                        cont++;
                     }
                 }
+                if (cont > 0) {
+                    long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
+                    idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), idMP, cont,cn);
+                    if (idDetalleMPAsignada > -1) {
+                        for (int i = 0; i < piezasReales.length; i++) {
+                            gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada,cn);
+                        }
+                    }
+                }
+                cn.commit();
+                if (result > -1 && cont > 0) {
+                    JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
+                    setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El pedido ya tiene asignado toda la materia prima seleccionada");
             }
 
-            if (result > -1 && cont > 0) {
-                JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
-                setEnabled(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+        } catch (Exception ex) {
+            Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "El pedido ya tiene asignado toda la materia prima seleccionada");
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
 
 
     }//GEN-LAST:event_btnAsignarMPActionPerformed
