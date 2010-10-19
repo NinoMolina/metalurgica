@@ -110,6 +110,7 @@ public class GestorPlanificacion {
         try {
             cn = pg.concectGetCn();
             AccessPedido.update(idPedido, IdsEstadoPedido.CONMATERIAPRIMAASIGNADA, cn);
+            AccessPlanificacion.updateEstadoMPAsignada(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
