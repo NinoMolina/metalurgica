@@ -12,6 +12,7 @@ package metalsoft.presentacion;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,7 +83,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         gestor = new GestorRegistrarPlanificacionProduccion();
         filasPedidosNoPlanificados = new LinkedList<ViewPedidoNoPlanificado>();
         buscarPedidosNoPlanificados();
-        setearTreeTable();
+        iniciarTreeTable();
         tblPedidos.updateUI();
         tskPanel.setTitle("Asignaciones");
         tskPanel.setAnimated(true);
@@ -110,7 +111,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         hashPanels.get(namePanel).setVisible(true);
     }
 
-    private void setearTreeTable() {
+    private void iniciarTreeTable() {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("");
 //        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
 //        raiz.add(n1);
@@ -584,17 +585,31 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
         planificacionproduccion.setPedido(pedido);
         planificacionproduccion.setDetalleplanificacionproduccions(setDetalle);
+        planificacionproduccion.setFechainicioprevista(viewPedidoSeleccionado.getFechapresupuesto());
+        planificacionproduccion.setFechafinprevista(viewPedidoSeleccionado.getFechaentregaestipulada());
+        planificacionproduccion.setFechacreacion(Fecha.fechaActualDate());
         try{
             gestor.guardarPlanificacionProduccion(planificacionproduccion);
             gestor.actualizarEstadoPedido(pedido);
             JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
+            filasPedidosNoPlanificados.remove(viewPedidoSeleccionado);
+            tblPedidos.updateUI();
+            limpiarCampos();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Error al guardar los datos\nNo se pudo guardar!!");
 
-        }
-        
+        }    
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void limpiarCampos(){
+        trtDetalleProcProd.removeAll();
+        iniciarTreeTable();
+        jlstEmpleados.removeAll();
+        jlstMaquinas.removeAll();
+        txtValorBusqueda.setText("");
+        setEnableHyperLink(false);
+        setVisiblePanel(pnlTreeTable.getName());
+    }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
 //        gestor.limpiarSessionHibernate();
         dispose();
