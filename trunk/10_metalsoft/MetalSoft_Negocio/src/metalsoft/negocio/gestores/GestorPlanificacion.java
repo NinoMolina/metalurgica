@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.Detallempasignada;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.Planificacionproduccion;
 import metalsoft.datos.dbobject.Tipomaterial;
@@ -63,6 +64,13 @@ public class GestorPlanificacion {
     public long guardarDetalleAsignacionMP(long idPlan, long idMP, int cant, Connection cn) {
         long result = -1;
         result = AccessPlanificacion.insertDetalleMPAsignada(idPlan, idMP, cant, cn);
+
+        return result;
+    }
+    public long modificarDetalleAsignacionMP(long id,long idPlan, long idMP, int cant, Connection cn) {
+        long result = -1;
+        Detallempasignada db=new Detallempasignada(id, idMP, cant, idPlan);
+        result = AccessPlanificacion.updateDetalleMPAsignada(db, cn);
 
         return result;
     }
