@@ -18,10 +18,11 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorRegistrarLanzamientoProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
+import metalsoft.negocio.produccion.EjecucionPlanificacionProduccion;
+import metalsoft.negocio.produccion.PlanificacionProduccion;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
-
 
 /**
  *
@@ -30,19 +31,23 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
 
     /** Creates new form RegistrarLanzamientoProduccion */
-    private LinkedList<ViewPedidosConMPAsignada> filasPedidosConMPAsignada=new LinkedList<ViewPedidosConMPAsignada>();
+    private LinkedList<ViewPedidosConMPAsignada> filasPedidosConMPAsignada = new LinkedList<ViewPedidosConMPAsignada>();
     private GestorRegistrarLanzamientoProduccion gestor;
     private ViewPedidosConMPAsignada viewPedidoSeleccionado;
+    private Date fechaActual;
+    private Date fechaFinRecalculada;
+
     public RegistrarLanzamientoProduccion() {
         initComponents();
-        gestor=new GestorRegistrarLanzamientoProduccion();
+        gestor = new GestorRegistrarLanzamientoProduccion();
         buscarPedidosConMPAsignada();
         setearTablaPedidos();
     }
 
-    private void buscarPedidosConMPAsignada(){
-        filasPedidosConMPAsignada=gestor.buscarPedidosConMPAsignada();
+    private void buscarPedidosConMPAsignada() {
+        filasPedidosConMPAsignada = gestor.buscarPedidosConMPAsignada();
     }
+
     private void setearTablaPedidos() {
         tblPedidos.setModel(new PedidoNoLanzadoTableModel());
         tblPedidos.setColumnControlVisible(true);
@@ -285,14 +290,14 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        viewPedidoSeleccionado=filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
+        viewPedidoSeleccionado = filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
         setearDatosPedidoSeleccionado();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnVerObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerObservacionesActionPerformed
-        JTextArea txtObs=new JTextArea(viewPedidoSeleccionado.getObservaciones());
+        JTextArea txtObs = new JTextArea(viewPedidoSeleccionado.getObservaciones());
         txtObs.setEditable(false);
-        Object[] obj={"Observaciones:",txtObs};
+        Object[] obj = {"Observaciones:", txtObs};
         JOptionPane.showMessageDialog(this, obj, "Observaciones Planificación", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerObservacionesActionPerformed
 
@@ -301,18 +306,30 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
-
+        EjecucionPlanificacionProduccion e = new EjecucionPlanificacionProduccion();
+        e.setFechaInicio(fechaActual);
+        e.setHoraInicio(new Date());
+        long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
+        e.setNroEjecucion(nroejecucion);
+        long result=gestor.guardarEjecucionPlanificacion(e,viewPedidoSeleccionado.getIdplanificacionproduccion());
+        if(result>0){
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
+        }
     }//GEN-LAST:event_btnLanzarProduccionActionPerformed
-    private void setearDatosPedidoSeleccionado(){
+    private void setearDatosPedidoSeleccionado() {
         lblFechaFinPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechafinprevista()));
         lblFechaInicioPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechainicioprevista()));
         lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         lblNroPlanifProduccion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, viewPedidoSeleccionado.getNroplanificacionproduccion()));
-        Date fechaActual=Fecha.fechaActualDate();
+        fechaActual = Fecha.fechaActualDate();
         jdcFechaInicioReal.setDate(fechaActual);
-        Date fechaFinRecalculada=gestor.calcularFechaFin(fechaActual,viewPedidoSeleccionado.getFechainicioprevista(),viewPedidoSeleccionado.getFechafinprevista());
+        fechaFinRecalculada = gestor.calcularFechaFin(fechaActual, viewPedidoSeleccionado.getFechainicioprevista(), viewPedidoSeleccionado.getFechafinprevista());
         lblFechaFinRecalculada.setText(Fecha.parseToString(fechaFinRecalculada));
     }
+
     /**
      * @param args the command line arguments
      */
