@@ -11,7 +11,6 @@ package metalsoft.datos.idao;
 import java.math.*;
 import java.sql.*;
 import java.net.URL;
-import java.util.*;
 import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface DetallempasignadaDAO
