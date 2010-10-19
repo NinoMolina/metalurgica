@@ -10,7 +10,7 @@
     <property name="hibernate.search.autoregister_listeners">false</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.show_sql">true</property>
-    <!--<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>-->
+    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
     <property name="hibernate.connection.pool_size">1</property>
     <mapping resource="pojos/Planificacionproduccion.hbm.xml"/>
     <mapping resource="pojos/Tipoiva.hbm.xml"/>
@@ -35,8 +35,8 @@
     <mapping resource="pojos/Detallemantenimientocorrectivo.hbm.xml"/>
     <mapping resource="pojos/Formadepago.hbm.xml"/>
     <mapping resource="pojos/Estadofactura.hbm.xml"/>
-    <mapping resource="pojos/Usuario.hbm.xml"/>
     <mapping resource="pojos/Pedidomatriz.hbm.xml"/>
+    <mapping resource="pojos/Usuario.hbm.xml"/>
     <mapping resource="pojos/Reclamocliente.hbm.xml"/>
     <mapping resource="pojos/Proveedormantenimientomaquina.hbm.xml"/>
     <mapping resource="pojos/Detalleplanprocedimientos.hbm.xml"/>
@@ -81,9 +81,9 @@
     <mapping resource="pojos/Ejecucionprocesocalidad.hbm.xml"/>
     <mapping resource="pojos/Estadoplanificacionproduccion.hbm.xml"/>
     <mapping resource="pojos/Detalleplanificacionproduccion.hbm.xml"/>
-    <mapping resource="pojos/Detallepiezacalidadpresupuesto.hbm.xml"/>
-    <mapping resource="pojos/Maquina.hbm.xml"/>
     <mapping resource="pojos/Remito.hbm.xml"/>
+    <mapping resource="pojos/Maquina.hbm.xml"/>
+    <mapping resource="pojos/Detallepiezacalidadpresupuesto.hbm.xml"/>
     <mapping resource="pojos/Cliente.hbm.xml"/>
     <mapping resource="pojos/Planificacioncalidad.hbm.xml"/>
     <mapping resource="pojos/Rol.hbm.xml"/>
@@ -91,8 +91,8 @@
     <mapping resource="pojos/Planrequerimientosmateriaprima.hbm.xml"/>
     <mapping resource="pojos/Etapadeproduccion.hbm.xml"/>
     <mapping resource="pojos/Estadocliente.hbm.xml"/>
-    <mapping resource="pojos/Estadoejecplancalidad.hbm.xml"/>
     <mapping resource="pojos/Estadoejecplanifpedido.hbm.xml"/>
+    <mapping resource="pojos/Estadoejecplancalidad.hbm.xml"/>
     <mapping resource="pojos/Estadopiezareal.hbm.xml"/>
     <mapping resource="pojos/Mantenimientocorrectivo.hbm.xml"/>
     <mapping resource="pojos/Disponibilidadhoraria.hbm.xml"/>
