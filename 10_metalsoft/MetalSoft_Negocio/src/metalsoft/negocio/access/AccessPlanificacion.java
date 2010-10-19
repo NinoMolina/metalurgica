@@ -13,6 +13,7 @@ import metalsoft.datos.dbobject.DetallempasignadaPK;
 import metalsoft.datos.dbobject.Mpasignadaxpiezareal;
 import metalsoft.datos.dbobject.MpasignadaxpiezarealPK;
 import metalsoft.datos.dbobject.Planificacionproduccion;
+import metalsoft.datos.dbobject.PlanificacionproduccionPK;
 import metalsoft.datos.exception.DetallempasignadaException;
 import metalsoft.datos.exception.MpasignadaxpiezarealException;
 import metalsoft.datos.factory.DAOFactoryCreater;
@@ -92,5 +93,19 @@ public class AccessPlanificacion {
             Logger.getLogger(AccessPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return db;
+    }
+    public static int updateEstadoMPAsignada(long idPlan, Connection cn) {
+        int result=-1;
+        PlanificacionproduccionDAO dao=new DAOFactoryImpl().createPlanificacionproduccionDAO();
+        Planificacionproduccion db = null;
+        PlanificacionproduccionPK pk=new PlanificacionproduccionPK(idPlan);
+        try {
+            db=findByIdPedido(idPlan, cn);
+            db.setIdestado(2);
+            result=dao.update(pk,db, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 }
