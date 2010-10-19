@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Producto  implements java.io.Serializable {
 
 
-     private long idproducto;
+     private long id;
      private Long nroproducto;
      private String nombre;
      private Double preciounitario;
@@ -27,10 +27,10 @@ public class Producto  implements java.io.Serializable {
 
 	
     public Producto(long idproducto) {
-        this.idproducto = idproducto;
+        this.id = idproducto;
     }
     public Producto(long idproducto, Long nroproducto, String nombre, Double preciounitario, String descripcion, Set<Detalleremito> detalleremitos, Set<Detallereclamocliente> detallereclamoclientes, Set<Detallepresupuesto> detallepresupuestos, Set<Detallepedido> detallepedidos, Set<Detalleproducto> detalleproductos) {
-       this.idproducto = idproducto;
+       this.id = idproducto;
        this.nroproducto = nroproducto;
        this.nombre = nombre;
        this.preciounitario = preciounitario;
@@ -41,14 +41,16 @@ public class Producto  implements java.io.Serializable {
        this.detallepedidos = detallepedidos;
        this.detalleproductos = detalleproductos;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIdproducto() {
-        return this.idproducto;
-    }
-    
-    public void setIdproducto(long idproducto) {
-        this.idproducto = idproducto;
-    }
+
     public Long getNroproducto() {
         return this.nroproducto;
     }

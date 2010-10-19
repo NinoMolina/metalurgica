@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/10/2010 10:12:44 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 19/10/2010 02:40:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pojos.Piezareal" table="piezareal" schema="public">
         <id name="idpiezareal" type="long">
@@ -20,5 +20,11 @@
         <property name="nropieza" type="java.lang.Integer">
             <column name="nropieza" />
         </property>
+        <set name="detalleejecucionplanificacions" inverse="true">
+            <key>
+                <column name="piezareal" />
+            </key>
+            <one-to-many class="pojos.Detalleejecucionplanificacion" />
+        </set>
     </class>
 </hibernate-mapping>

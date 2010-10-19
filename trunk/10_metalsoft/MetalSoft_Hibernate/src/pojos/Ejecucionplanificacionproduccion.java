@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -12,40 +12,42 @@ import java.util.Set;
 public class Ejecucionplanificacionproduccion  implements java.io.Serializable {
 
 
-     private EjecucionplanificacionproduccionId id;
+     private long idejecucion;
      private Planificacionproduccion planificacionproduccion;
      private Estadoejecplanifpedido estadoejecplanifpedido;
      private Date fechainicio;
      private Date fechafin;
      private Date horainicio;
      private Date horafin;
+     private Long nroejecucionplanificacion;
      private Set<Detalleejecucionplanificacion> detalleejecucionplanificacions = new HashSet<Detalleejecucionplanificacion>(0);
 
     public Ejecucionplanificacionproduccion() {
     }
 
 	
-    public Ejecucionplanificacionproduccion(EjecucionplanificacionproduccionId id, Planificacionproduccion planificacionproduccion) {
-        this.id = id;
+    public Ejecucionplanificacionproduccion(long idejecucion, Planificacionproduccion planificacionproduccion) {
+        this.idejecucion = idejecucion;
         this.planificacionproduccion = planificacionproduccion;
     }
-    public Ejecucionplanificacionproduccion(EjecucionplanificacionproduccionId id, Planificacionproduccion planificacionproduccion, Estadoejecplanifpedido estadoejecplanifpedido, Date fechainicio, Date fechafin, Date horainicio, Date horafin, Set<Detalleejecucionplanificacion> detalleejecucionplanificacions) {
-       this.id = id;
+    public Ejecucionplanificacionproduccion(long idejecucion, Planificacionproduccion planificacionproduccion, Estadoejecplanifpedido estadoejecplanifpedido, Date fechainicio, Date fechafin, Date horainicio, Date horafin, Long nroejecucionplanificacion, Set<Detalleejecucionplanificacion> detalleejecucionplanificacions) {
+       this.idejecucion = idejecucion;
        this.planificacionproduccion = planificacionproduccion;
        this.estadoejecplanifpedido = estadoejecplanifpedido;
        this.fechainicio = fechainicio;
        this.fechafin = fechafin;
        this.horainicio = horainicio;
        this.horafin = horafin;
+       this.nroejecucionplanificacion = nroejecucionplanificacion;
        this.detalleejecucionplanificacions = detalleejecucionplanificacions;
     }
    
-    public EjecucionplanificacionproduccionId getId() {
-        return this.id;
+    public long getIdejecucion() {
+        return this.idejecucion;
     }
     
-    public void setId(EjecucionplanificacionproduccionId id) {
-        this.id = id;
+    public void setIdejecucion(long idejecucion) {
+        this.idejecucion = idejecucion;
     }
     public Planificacionproduccion getPlanificacionproduccion() {
         return this.planificacionproduccion;
@@ -88,6 +90,13 @@ public class Ejecucionplanificacionproduccion  implements java.io.Serializable {
     
     public void setHorafin(Date horafin) {
         this.horafin = horafin;
+    }
+    public Long getNroejecucionplanificacion() {
+        return this.nroejecucionplanificacion;
+    }
+    
+    public void setNroejecucionplanificacion(Long nroejecucionplanificacion) {
+        this.nroejecucionplanificacion = nroejecucionplanificacion;
     }
     public Set<Detalleejecucionplanificacion> getDetalleejecucionplanificacions() {
         return this.detalleejecucionplanificacions;

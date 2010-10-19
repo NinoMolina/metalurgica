@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Presupuesto  implements java.io.Serializable {
 
 
-     private long idpresupuesto;
+     private long id;
      private Date fechapresupuesto;
      private Double montototal;
      private Date fechavencimiento;
@@ -25,10 +25,10 @@ public class Presupuesto  implements java.io.Serializable {
 
 	
     public Presupuesto(long idpresupuesto) {
-        this.idpresupuesto = idpresupuesto;
+        this.id = idpresupuesto;
     }
     public Presupuesto(long idpresupuesto, Date fechapresupuesto, Double montototal, Date fechavencimiento, Long nropresupuesto, Set<Detallepresupuesto> detallepresupuestos, Set<Pedido> pedidos) {
-       this.idpresupuesto = idpresupuesto;
+       this.id = idpresupuesto;
        this.fechapresupuesto = fechapresupuesto;
        this.montototal = montototal;
        this.fechavencimiento = fechavencimiento;
@@ -36,14 +36,15 @@ public class Presupuesto  implements java.io.Serializable {
        this.detallepresupuestos = detallepresupuestos;
        this.pedidos = pedidos;
     }
-   
-    public long getIdpresupuesto() {
-        return this.idpresupuesto;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIdpresupuesto(long idpresupuesto) {
-        this.idpresupuesto = idpresupuesto;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Date getFechapresupuesto() {
         return this.fechapresupuesto;
     }
