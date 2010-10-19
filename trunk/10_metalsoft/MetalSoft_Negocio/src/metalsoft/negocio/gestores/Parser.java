@@ -14,6 +14,7 @@ import metalsoft.datos.dbobject.DetallepiezapresupuestoDB;
 import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductoDB;
 import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
+import metalsoft.datos.dbobject.Ejecucionplanificacionproduccion;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 import metalsoft.datos.dbobject.MaquinaDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
@@ -29,6 +30,7 @@ import metalsoft.negocio.calidad.DetallePiezaCalidadPresupuesto;
 import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.produccion.EjecucionPlanificacionProduccion;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.negocio.rrhh.Calendario;
@@ -520,6 +522,15 @@ public class Parser {
         db.setMes(cal.getMes());
         db.setTodoeldia(cal.isTodoElDia());
 
+        return db;
+    }
+
+    public static Ejecucionplanificacionproduccion parseToDetallepiezapresupuestoDB(EjecucionPlanificacionProduccion ejecucion) {
+        Ejecucionplanificacionproduccion db=new Ejecucionplanificacionproduccion();
+        db.setFechafin(Fecha.parseToDateSQL(ejecucion.getFechaFin()));
+        db.setFechainicio(Fecha.parseToDateSQL(ejecucion.getFechaInicio()));
+        db.setHorafin(Fecha.parseToTimeSQL(ejecucion.getHoraFin()));
+        db.setHorainicio(Fecha.parseToTimeSQL(ejecucion.getHoraInicio()));
         return db;
     }
 }
