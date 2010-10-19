@@ -104,7 +104,8 @@ public class AccessPlanificacion {
         } catch (Exception ex) {
             Logger.getLogger(AccessPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return db[0];
+        if(db.length>0) return db[1];
+        else return null;
     }
     public static int updateEstadoMPAsignada(long idPlan, Connection cn) {
         int result=-1;
