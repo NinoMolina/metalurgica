@@ -65,4 +65,5 @@ CU 3ra Iteracion:
 180: Modificar Empresa de Mantenimiento
 181: Registrar baja de Empresa de Mantenimiento
 182: Registrar Ejecución de Procesos de Calidad
+183: Registrar Reclamo  a Empresa de MAntenimiento
 
