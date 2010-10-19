@@ -86,7 +86,6 @@ public class GestorRegistrarPlanificacionProduccion {
     public void guardarPlanificacionProduccion(Planificacionproduccion planificacionproduccion) {
         Dao<Planificacionproduccion> daoPlanificacion=new DaoPlanificacionProduccion<Planificacionproduccion>();
         Dao<Detalleplanificacionproduccion> daoDetalle=new DaoDetallePlanificacionProduccion<Detalleplanificacionproduccion>();
-        planificacionproduccion.setFechacreacion(Fecha.fechaActualDate());
         planificacionproduccion.setEstadoplanificacionproduccion(new Estadoplanificacionproduccion(1));
         daoPlanificacion.save(planificacionproduccion);
         Iterator<Detalleplanificacionproduccion> it=planificacionproduccion.getDetalleplanificacionproduccions().iterator();

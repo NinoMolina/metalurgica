@@ -492,7 +492,7 @@ public class AccessViews {
     public static LinkedList<ViewPedidoNoPlanificado> allPedidosNoPlanificados(Connection cn) {
         ViewPedidoNoPlanificado view=null;
         LinkedList<ViewPedidoNoPlanificado> ll=new LinkedList<ViewPedidoNoPlanificado>();
-        String query="SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
+        String query="SELECT nropedido,nropedcotcli,fechapedido,fechaentregaestipulada,estado,nropresupuesto,fechapresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
                      " FROM viewpedidosconplanifsinrecursos";
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -514,6 +514,8 @@ public class AccessViews {
                 view.setNropresupuesto(rs.getLong("nropresupuesto"));
                 view.setRazonsocial(rs.getString("razonsocial"));
                 view.setNrocliente(rs.getLong("nrocliente"));
+                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setFechapresupuesto(rs.getDate("fechapresupuesto"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
