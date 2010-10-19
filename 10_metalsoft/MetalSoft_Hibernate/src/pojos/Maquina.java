@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:55:40 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Maquina  implements java.io.Serializable {
 
 
-     private long idmaquina;
+     private long id;
      private Marca marca;
      private Estadomaquina estadomaquina;
      private Tipomaquina tipomaquina;
@@ -29,10 +29,10 @@ public class Maquina  implements java.io.Serializable {
 
 	
     public Maquina(long idmaquina) {
-        this.idmaquina = idmaquina;
+        this.id = idmaquina;
     }
     public Maquina(long idmaquina, Marca marca, Estadomaquina estadomaquina, Tipomaquina tipomaquina, Unidadmedida unidadmedida, String nombre, String descripcion, Date fechaalta, Date fechabaja, Date tiempocapacidadproduccion, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
-       this.idmaquina = idmaquina;
+       this.id = idmaquina;
        this.marca = marca;
        this.estadomaquina = estadomaquina;
        this.tipomaquina = tipomaquina;
@@ -44,14 +44,16 @@ public class Maquina  implements java.io.Serializable {
        this.tiempocapacidadproduccion = tiempocapacidadproduccion;
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIdmaquina() {
-        return this.idmaquina;
-    }
-    
-    public void setIdmaquina(long idmaquina) {
-        this.idmaquina = idmaquina;
-    }
+
     public Marca getMarca() {
         return this.marca;
     }
@@ -121,6 +123,11 @@ public class Maquina  implements java.io.Serializable {
     
     public void setDetalleplanificacionproduccions(Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
         this.detalleplanificacionproduccions = detalleplanificacionproduccions;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre();
     }
 
 

@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Etapadeproduccion  implements java.io.Serializable {
 
 
-     private long idetapaproduccion;
+     private long id;
      private Unidadmedida unidadmedida;
      private Long nroetapaproduccion;
      private String nombre;
@@ -33,10 +33,10 @@ public class Etapadeproduccion  implements java.io.Serializable {
 
 	
     public Etapadeproduccion(long idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+        this.id = idetapaproduccion;
     }
     public Etapadeproduccion(long idetapaproduccion, Unidadmedida unidadmedida, Long nroetapaproduccion, String nombre, Date horasmaquina, Date horashombre, Long maquina, Date duracionestimada, Date fechacreacion, Set<Detalletrabajotercerizado> detalletrabajotercerizados, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Ejecucionetapaproduccion> ejecucionetapaproduccions, Set<Piezaxetapadeproduccion> piezaxetapadeproduccions, Set<Detalleplanprocedimientos> detalleplanprocedimientoses, Set<Detallepiezapresupuesto> detallepiezapresupuestos) {
-       this.idetapaproduccion = idetapaproduccion;
+       this.id = idetapaproduccion;
        this.unidadmedida = unidadmedida;
        this.nroetapaproduccion = nroetapaproduccion;
        this.nombre = nombre;
@@ -52,14 +52,15 @@ public class Etapadeproduccion  implements java.io.Serializable {
        this.detalleplanprocedimientoses = detalleplanprocedimientoses;
        this.detallepiezapresupuestos = detallepiezapresupuestos;
     }
-   
-    public long getIdetapaproduccion() {
-        return this.idetapaproduccion;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIdetapaproduccion(long idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Unidadmedida getUnidadmedida() {
         return this.unidadmedida;
     }

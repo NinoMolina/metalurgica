@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 11:11:02 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -15,8 +15,8 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
      private Empleado empleado;
      private Planificacionproduccion planificacionproduccion;
      private Maquina maquina;
-     private Detalleejecucionplanificacion detalleejecucionplanificacion;
      private Etapadeproduccion etapadeproduccion;
+     private Detalleejecucionplanificacion detalleejecucionplanificacion;
      private Date fechainicio;
      private Date horainicio;
      private Date fechafin;
@@ -26,19 +26,18 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
     }
 
 	
-    public Detalleplanificacionproduccion(long id, Planificacionproduccion planificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
+    public Detalleplanificacionproduccion(long id, Planificacionproduccion planificacionproduccion) {
         this.id = id;
         this.planificacionproduccion = planificacionproduccion;
-        this.detalleejecucionplanificacion = detalleejecucionplanificacion;
     }
-    public Detalleplanificacionproduccion(long id, Pieza pieza, Empleado empleado, Planificacionproduccion planificacionproduccion, Maquina maquina, Detalleejecucionplanificacion detalleejecucionplanificacion, Etapadeproduccion etapadeproduccion, Date fechainicio, Date horainicio, Date fechafin, Date horafin) {
+    public Detalleplanificacionproduccion(long id, Pieza pieza, Empleado empleado, Planificacionproduccion planificacionproduccion, Maquina maquina, Etapadeproduccion etapadeproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion, Date fechainicio, Date horainicio, Date fechafin, Date horafin) {
        this.id = id;
        this.pieza = pieza;
        this.empleado = empleado;
        this.planificacionproduccion = planificacionproduccion;
        this.maquina = maquina;
-       this.detalleejecucionplanificacion = detalleejecucionplanificacion;
        this.etapadeproduccion = etapadeproduccion;
+       this.detalleejecucionplanificacion = detalleejecucionplanificacion;
        this.fechainicio = fechainicio;
        this.horainicio = horainicio;
        this.fechafin = fechafin;
@@ -80,19 +79,19 @@ public class Detalleplanificacionproduccion  implements java.io.Serializable {
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
     }
-    public Detalleejecucionplanificacion getDetalleejecucionplanificacion() {
-        return this.detalleejecucionplanificacion;
-    }
-    
-    public void setDetalleejecucionplanificacion(Detalleejecucionplanificacion detalleejecucionplanificacion) {
-        this.detalleejecucionplanificacion = detalleejecucionplanificacion;
-    }
     public Etapadeproduccion getEtapadeproduccion() {
         return this.etapadeproduccion;
     }
     
     public void setEtapadeproduccion(Etapadeproduccion etapadeproduccion) {
         this.etapadeproduccion = etapadeproduccion;
+    }
+    public Detalleejecucionplanificacion getDetalleejecucionplanificacion() {
+        return this.detalleejecucionplanificacion;
+    }
+    
+    public void setDetalleejecucionplanificacion(Detalleejecucionplanificacion detalleejecucionplanificacion) {
+        this.detalleejecucionplanificacion = detalleejecucionplanificacion;
     }
     public Date getFechainicio() {
         return this.fechainicio;

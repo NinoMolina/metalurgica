@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Detallepiezapresupuesto  implements java.io.Serializable {
 
 
-     private long iddetalle;
+     private long id;
      private Detalleproductopresupuesto detalleproductopresupuesto;
      private Etapadeproduccion etapadeproduccion;
      private Date duracionpiezaxetapa;
@@ -20,22 +20,23 @@ public class Detallepiezapresupuesto  implements java.io.Serializable {
 
 	
     public Detallepiezapresupuesto(long iddetalle) {
-        this.iddetalle = iddetalle;
+        this.id = iddetalle;
     }
     public Detallepiezapresupuesto(long iddetalle, Detalleproductopresupuesto detalleproductopresupuesto, Etapadeproduccion etapadeproduccion, Date duracionpiezaxetapa) {
-       this.iddetalle = iddetalle;
+       this.id = iddetalle;
        this.detalleproductopresupuesto = detalleproductopresupuesto;
        this.etapadeproduccion = etapadeproduccion;
        this.duracionpiezaxetapa = duracionpiezaxetapa;
     }
-   
-    public long getIddetalle() {
-        return this.iddetalle;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIddetalle(long iddetalle) {
-        this.iddetalle = iddetalle;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Detalleproductopresupuesto getDetalleproductopresupuesto() {
         return this.detalleproductopresupuesto;
     }

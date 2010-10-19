@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 11:22:54 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Detalleproductopresupuesto  implements java.io.Serializable {
 
 
-     private long iddetalle;
+     private long id;
      private Pieza pieza;
      private Materiaprima materiaprima;
      private Detallepresupuesto detallepresupuesto;
@@ -27,10 +27,10 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
 
 	
     public Detalleproductopresupuesto(long iddetalle) {
-        this.iddetalle = iddetalle;
+        this.id = iddetalle;
     }
     public Detalleproductopresupuesto(long iddetalle, Pieza pieza, Materiaprima materiaprima, Detallepresupuesto detallepresupuesto, Integer cantmateriaprima, Integer cantpiezas, Double preciomateriaprima, Long idproveedor, Set<Detallepiezapresupuesto> detallepiezapresupuestos, Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestos) {
-       this.iddetalle = iddetalle;
+       this.id = iddetalle;
        this.pieza = pieza;
        this.materiaprima = materiaprima;
        this.detallepresupuesto = detallepresupuesto;
@@ -41,14 +41,16 @@ public class Detalleproductopresupuesto  implements java.io.Serializable {
        this.detallepiezapresupuestos = detallepiezapresupuestos;
        this.detallepiezacalidadpresupuestos = detallepiezacalidadpresupuestos;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    
-    public long getIddetalle() {
-        return this.iddetalle;
-    }
-    
-    public void setIddetalle(long iddetalle) {
-        this.iddetalle = iddetalle;
-    }
+
     public Pieza getPieza() {
         return this.pieza;
     }

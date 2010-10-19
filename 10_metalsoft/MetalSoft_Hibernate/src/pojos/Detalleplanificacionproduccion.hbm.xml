@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/10/2010 11:11:05 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 19/10/2010 02:40:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pojos.Detalleplanificacionproduccion" table="detalleplanificacionproduccion" schema="public">
         <id name="id" type="long">
@@ -20,13 +20,11 @@
         <many-to-one name="maquina" class="pojos.Maquina" fetch="select">
             <column name="idmaquina" />
         </many-to-one>
-        <many-to-one name="detalleejecucionplanificacion" class="pojos.Detalleejecucionplanificacion" update="false" insert="false" fetch="select">
-            <column name="iddetalleejecucionplanificacion" />
+        <many-to-one name="etapadeproduccion" class="pojos.Etapadeproduccion" fetch="select">
             <column name="idetapaproduccion" />
-            <column name="idplanificacionproduccion" not-null="true" />
         </many-to-one>
-        <many-to-one name="etapadeproduccion" class="pojos.Etapadeproduccion" update="false" insert="false" fetch="select">
-            <column name="idetapaproduccion" />
+        <many-to-one name="detalleejecucionplanificacion" class="pojos.Detalleejecucionplanificacion" fetch="select">
+            <column name="iddetalleejecucionplanificacion" />
         </many-to-one>
         <property name="fechainicio" type="date">
             <column name="fechainicio" length="13" />

@@ -1,7 +1,8 @@
 package pojos;
-// Generated 18/10/2010 10:12:42 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,37 +12,52 @@ import java.util.Set;
 public class Detalleejecucionplanificacion  implements java.io.Serializable {
 
 
-     private DetalleejecucionplanificacionId id;
+     private long id;
+     private Piezareal piezareal;
      private Ejecucionplanificacionproduccion ejecucionplanificacionproduccion;
      private Ejecucionetapaproduccion ejecucionetapaproduccion;
      private Long pieza;
-     private Long piezareal;
+     private Date fechainicio;
+     private Date fechafin;
+     private Date horainicio;
+     private Date horafin;
      private Set<Detalleplanificacionproduccion> detalleplanificacionproduccions = new HashSet<Detalleplanificacionproduccion>(0);
 
     public Detalleejecucionplanificacion() {
     }
 
 	
-    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion) {
+    public Detalleejecucionplanificacion(long id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion) {
         this.id = id;
         this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
         this.ejecucionetapaproduccion = ejecucionetapaproduccion;
     }
-    public Detalleejecucionplanificacion(DetalleejecucionplanificacionId id, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Long piezareal, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
+    public Detalleejecucionplanificacion(long id, Piezareal piezareal, Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Ejecucionetapaproduccion ejecucionetapaproduccion, Long pieza, Date fechainicio, Date fechafin, Date horainicio, Date horafin, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions) {
        this.id = id;
+       this.piezareal = piezareal;
        this.ejecucionplanificacionproduccion = ejecucionplanificacionproduccion;
        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
        this.pieza = pieza;
-       this.piezareal = piezareal;
+       this.fechainicio = fechainicio;
+       this.fechafin = fechafin;
+       this.horainicio = horainicio;
+       this.horafin = horafin;
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
     }
    
-    public DetalleejecucionplanificacionId getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(DetalleejecucionplanificacionId id) {
+    public void setId(long id) {
         this.id = id;
+    }
+    public Piezareal getPiezareal() {
+        return this.piezareal;
+    }
+    
+    public void setPiezareal(Piezareal piezareal) {
+        this.piezareal = piezareal;
     }
     public Ejecucionplanificacionproduccion getEjecucionplanificacionproduccion() {
         return this.ejecucionplanificacionproduccion;
@@ -64,12 +80,33 @@ public class Detalleejecucionplanificacion  implements java.io.Serializable {
     public void setPieza(Long pieza) {
         this.pieza = pieza;
     }
-    public Long getPiezareal() {
-        return this.piezareal;
+    public Date getFechainicio() {
+        return this.fechainicio;
     }
     
-    public void setPiezareal(Long piezareal) {
-        this.piezareal = piezareal;
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+    public Date getFechafin() {
+        return this.fechafin;
+    }
+    
+    public void setFechafin(Date fechafin) {
+        this.fechafin = fechafin;
+    }
+    public Date getHorainicio() {
+        return this.horainicio;
+    }
+    
+    public void setHorainicio(Date horainicio) {
+        this.horainicio = horainicio;
+    }
+    public Date getHorafin() {
+        return this.horafin;
+    }
+    
+    public void setHorafin(Date horafin) {
+        this.horafin = horafin;
     }
     public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccions() {
         return this.detalleplanificacionproduccions;

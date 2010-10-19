@@ -1,5 +1,5 @@
 package pojos;
-// Generated 18/10/2010 11:22:54 by Hibernate Tools 3.2.1.GA
+// Generated 19/10/2010 02:40:26 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Pieza  implements java.io.Serializable {
 
 
-     private long idpieza;
+     private long id;
      private Materiaprima materiaprima;
      private Matriz matriz;
      private Unidadmedida unidadmedida;
@@ -29,10 +29,10 @@ public class Pieza  implements java.io.Serializable {
 
 	
     public Pieza(long idpieza) {
-        this.idpieza = idpieza;
+        this.id = idpieza;
     }
     public Pieza(long idpieza, Materiaprima materiaprima, Matriz matriz, Unidadmedida unidadmedida, String nombre, Long tipomaterial, BigDecimal alto, BigDecimal ancho, BigDecimal largo, Set<Detalleplanificacionproduccion> detalleplanificacionproduccions, Set<Detalleproductopresupuesto> detalleproductopresupuestos) {
-       this.idpieza = idpieza;
+       this.id = idpieza;
        this.materiaprima = materiaprima;
        this.matriz = matriz;
        this.unidadmedida = unidadmedida;
@@ -44,14 +44,15 @@ public class Pieza  implements java.io.Serializable {
        this.detalleplanificacionproduccions = detalleplanificacionproduccions;
        this.detalleproductopresupuestos = detalleproductopresupuestos;
     }
-   
-    public long getIdpieza() {
-        return this.idpieza;
+
+    public long getId() {
+        return id;
     }
-    
-    public void setIdpieza(long idpieza) {
-        this.idpieza = idpieza;
+
+    public void setId(long id) {
+        this.id = id;
     }
+
     public Materiaprima getMateriaprima() {
         return this.materiaprima;
     }
