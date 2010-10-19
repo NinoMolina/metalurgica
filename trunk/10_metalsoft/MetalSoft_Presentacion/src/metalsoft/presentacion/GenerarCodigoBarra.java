@@ -241,7 +241,7 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+
 //        if(rbProducto.isSelected()==true){
 //            ABMProducto_Buscar buscar=null;
 //            try {
