@@ -6,7 +6,9 @@
     <class name="pojos.Planificacionproduccion" table="planificacionproduccion" schema="public">
         <id name="idplanificacionproduccion" type="long">
             <column name="idplanificacionproduccion" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">planificacionproduccion_idplanificacionproduccion_seq</param>
+            </generator>
         </id>
         <many-to-one name="pedido" class="pojos.Pedido" fetch="select">
             <column name="pedido" />
