@@ -63,6 +63,7 @@ public class Fecha {
 
     public static String parseToString(Date fecha)
     {
+        if(fecha==null)return "";
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(fecha);
     }
