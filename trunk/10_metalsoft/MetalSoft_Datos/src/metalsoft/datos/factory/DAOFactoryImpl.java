@@ -121,6 +121,12 @@ private static final DetalleplanificacionproduccionDAOImpl  detalleplanificacion
 		return detallemantenimientopreventivodaoimpl;
 	}
 
+private static final DetallempasignadaDAOImpl  detallempasignadadaoimpl = new DetallempasignadaDAOImpl();
+	public DetallempasignadaDAO createDetallempasignadaDAO()
+	{
+		return detallempasignadadaoimpl;
+	}
+
 	private static final DetallepedidoDAOImpl  detallepedidodaoimpl = new DetallepedidoDAOImpl();
 	public DetallepedidoDAO createDetallepedidoDAO()
 	{
@@ -419,6 +425,11 @@ private static final EstadoplanificacionproduccionDAOImpl  estadoplanificacionpr
 	public MatrizDAO createMatrizDAO()
 	{
 		return matrizdaoimpl;
+	}
+private static final MpasignadaxpiezarealDAOImpl  mpasignadaxpiezarealdaoimpl = new MpasignadaxpiezarealDAOImpl();
+	public MpasignadaxpiezarealDAO createMpasignadaxpiezarealDAO()
+	{
+		return mpasignadaxpiezarealdaoimpl;
 	}
 
 	private static final PedidoDAOImpl  pedidodaoimpl = new PedidoDAOImpl();

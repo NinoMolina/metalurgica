@@ -51,6 +51,7 @@ public interface DAOFactory
 	public DetallemantenimientocorrectivoDAO createDetallemantenimientocorrectivoDAO();
 
 	public DetallemantenimientopreventivoDAO createDetallemantenimientopreventivoDAO();
+public DetallempasignadaDAO createDetallempasignadaDAO();
 
 	public DetallepedidoDAO createDetallepedidoDAO();
 
@@ -157,6 +158,7 @@ public EstadoplanificacionproduccionDAO createEstadoplanificacionproduccionDAO()
 	public MateriaprimaDAO createMateriaprimaDAO();
 
 	public MatrizDAO createMatrizDAO();
+public MpasignadaxpiezarealDAO createMpasignadaxpiezarealDAO();
 
 	public PedidoDAO createPedidoDAO();
 
