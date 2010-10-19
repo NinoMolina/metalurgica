@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.access.AccessEjecucionPlanificacionProduccion;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.produccion.EjecucionPlanificacionProduccion;
 import metalsoft.util.Fecha;
@@ -89,6 +90,32 @@ public class GestorRegistrarLanzamientoProduccion {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
             result=AccessEjecucionPlanificacionProduccion.insert(ejecucion,1,idPlanificacionProduccion,cn);
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }finally{
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public long actualizarEstadoPedido(long idpedido) {
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        long result=-1;
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=AccessPedido.update(idpedido, IdsEstadoPedido.ENPRODUCCION, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);

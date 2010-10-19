@@ -25,8 +25,25 @@ public class ViewPedidoNoPlanificado {
     private long idpresupuesto;
     private long idestado;
     private long idcliente;
+    private Date fechaentregaestipulada,fechapresupuesto;
 
     public ViewPedidoNoPlanificado() {
+    }
+
+    public Date getFechaentregaestipulada() {
+        return fechaentregaestipulada;
+    }
+
+    public void setFechaentregaestipulada(Date fechaentregaestipulada) {
+        this.fechaentregaestipulada = fechaentregaestipulada;
+    }
+
+    public Date getFechapresupuesto() {
+        return fechapresupuesto;
+    }
+
+    public void setFechapresupuesto(Date fechapresupuesto) {
+        this.fechapresupuesto = fechapresupuesto;
     }
 
     public String getEstado() {
