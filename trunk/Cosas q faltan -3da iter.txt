@@ -1,18 +1,13 @@
-**Analisis: 
-         TERMINADO! :)
-
-              
 
 **Diseño:
-          DTE: hacer los nuevos y corregir los viejos
-               equivalencias con cu
-               *EjecucionProcesoCalidad - Estas es de la 3ra iter
-
-        
-          Secuencia: Aplicacion Patrones
+         Secuencia: Aplicacion Patrones
           Despliegue
-          Der actualizar tablas
 
-**Prueba: hacer 3 casos de prueba
 
 **Implementación: terminar con la 2da iter
+
+
+
+	
+	
+	
