@@ -151,13 +151,13 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblNroPedido.setText("...");
 
-        lblNroPlanifProduccion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNroPlanifProduccion.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblNroPlanifProduccion.setText("...");
 
-        lblFechaInicioPrevista.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblFechaInicioPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaInicioPrevista.setText("...");
 
-        lblFechaFinPrevista.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblFechaFinPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaFinPrevista.setText("...");
 
         btnVerObservaciones.setText("Ver Observaciones");
@@ -170,11 +170,12 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         jLabel6.setText("Fecha Inicio Real:");
 
         jdcFechaInicioReal.setEnabled(false);
-        jdcFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jdcFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         jLabel7.setText("Fecha Fin Recalculada:");
 
         lblFechaFinRecalculada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblFechaFinRecalculada.setForeground(new java.awt.Color(102, 0, 0));
         lblFechaFinRecalculada.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -312,8 +313,9 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
         e.setNroEjecucion(nroejecucion);
         long result=gestor.guardarEjecucionPlanificacion(e,viewPedidoSeleccionado.getIdplanificacionproduccion());
+        long resultPedido=gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
         if(result>0){
-            JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
+            JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
         }
         else{
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
