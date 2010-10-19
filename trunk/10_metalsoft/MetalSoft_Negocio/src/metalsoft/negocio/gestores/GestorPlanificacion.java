@@ -124,10 +124,12 @@ public class GestorPlanificacion {
     {
         PostgreSQLManager pg = new PostgreSQLManager();
         Connection cn = null;
+        Planificacionproduccion idPlan=null;
         try {
             cn = pg.concectGetCn();
             AccessPedido.update(idPedido, IdsEstadoPedido.CONMATERIAPRIMAASIGNADA, cn);
-            AccessPlanificacion.updateEstadoMPAsignada(idPedido, cn);
+            idPlan=AccessPlanificacion.findByIdPedido(idPedido, cn);
+            AccessPlanificacion.updateEstadoMPAsignada(idPlan.getIdplanificacionproduccion(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
