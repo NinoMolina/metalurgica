@@ -434,11 +434,11 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                 }
                 if (cont > 0) {
                     long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
-                    Detallempasignada dmpa = gestor.buscarDetalleMPAsisnada(idMP, plan.getIdplanificacionproduccion(), cn);
+                    Detallempasignada dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
                     if (dmpa != null) {
                         idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
                     } else {
-                        idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), idMP, view.getCantmateriaprima(), cn);
+                        idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
                     }
                     if (idDetalleMPAsignada > -1) {
                         for (int i = 0; i < piezasReales.length; i++) {
