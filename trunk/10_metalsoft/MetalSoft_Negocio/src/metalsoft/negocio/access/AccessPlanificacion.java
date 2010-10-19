@@ -94,6 +94,18 @@ public class AccessPlanificacion {
         }
         return db;
     }
+    public static Detallempasignada findDetalleMPAsignada(Detallempasignada dbDetalle,Connection cn)
+    {
+        DetallempasignadaDAO dao=new DAOFactoryImpl().createDetallempasignadaDAO();
+        Detallempasignada[] db = null;
+
+        try {
+            db=dao.findByIdmateriaprimaAndIdPlan(dbDetalle.getIdmateriaprima(),dbDetalle.getIdplanificacionproduccion(), cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db[0];
+    }
     public static int updateEstadoMPAsignada(long idPlan, Connection cn) {
         int result=-1;
         PlanificacionproduccionDAO dao=new DAOFactoryImpl().createPlanificacionproduccionDAO();
