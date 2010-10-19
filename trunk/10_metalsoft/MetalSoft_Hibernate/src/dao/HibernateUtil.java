@@ -23,8 +23,8 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-//            sessionFactory=new Configuration().configure(new File("D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\MetalSoft_Hibernate\\src\\dao\\hibernate.cfg.xml")).buildSessionFactory();
-            sessionFactory=new AnnotationConfiguration().configure().buildSessionFactory();
+            sessionFactory=new Configuration().configure(new File("D:\\Mis documentos\\Facultad\\Proyecto Final\\Repositorio\\metalurgica\\10_metalsoft\\MetalSoft_Hibernate\\src\\hibernate.cfg.xml")).buildSessionFactory();
+//            sessionFactory=new AnnotationConfiguration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
