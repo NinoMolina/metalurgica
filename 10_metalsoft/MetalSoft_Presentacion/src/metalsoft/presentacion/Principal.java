@@ -99,8 +99,13 @@ public class Principal extends javax.swing.JFrame {
         mniListadoClientes = new javax.swing.JMenuItem();
         mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
         registrarEmpleado = new javax.swing.JMenuItem();
+        mniRegistrarAsistencia = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
+        mnuAlmacenamiento = new javax.swing.JMenu();
+        mniAsignarMPAProduccion = new javax.swing.JMenuItem();
+        mnuMantenimiento = new javax.swing.JMenu();
+        mniRegistrarMaquina = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -301,6 +306,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuRRHH.add(registrarEmpleado);
 
+        mniRegistrarAsistencia.setText("Registrar Asistencia");
+        mniRegistrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarAsistenciaActionPerformed(evt);
+            }
+        });
+        mnuRRHH.add(mniRegistrarAsistencia);
+
         mbrMenu.add(mnuRRHH);
 
         mnuTrabajosTercerizados.setText("Trabajos Tercerizados");
@@ -315,6 +328,30 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
+        mnuAlmacenamiento.setText("Almacenamiento");
+
+        mniAsignarMPAProduccion.setText("Asignar MP a Producción");
+        mniAsignarMPAProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAsignarMPAProduccionActionPerformed(evt);
+            }
+        });
+        mnuAlmacenamiento.add(mniAsignarMPAProduccion);
+
+        mbrMenu.add(mnuAlmacenamiento);
+
+        mnuMantenimiento.setText("Mantenimiento");
+
+        mniRegistrarMaquina.setText("Registrar Máquina");
+        mniRegistrarMaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarMaquinaActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniRegistrarMaquina);
+
+        mbrMenu.add(mnuMantenimiento);
+
         mnuAyuda.setText("Ayuda");
         mbrMenu.add(mnuAyuda);
 
@@ -324,11 +361,13 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 798, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -568,6 +607,42 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniLanzarProduccionActionPerformed
+
+    private void mniRegistrarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarAsistenciaActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarAsistencia.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniRegistrarAsistenciaActionPerformed
+
+    private void mniAsignarMPAProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAsignarMPAProduccionActionPerformed
+        try {
+            JFrameManager.crearVentana(AsignarMateriaPrimaAProduccion.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniAsignarMPAProduccionActionPerformed
+
+    private void mniRegistrarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarMaquinaActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMMaquina.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniRegistrarMaquinaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -582,6 +657,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JMenuBar mbrMenu;
+    private javax.swing.JMenuItem mniAsignarMPAProduccion;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
@@ -595,15 +671,19 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
+    private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniTipoMaterial;
+    private javax.swing.JMenu mnuAlmacenamiento;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
     private javax.swing.JMenu mnuCompras;
     private javax.swing.JMenu mnuFinanzas;
     private javax.swing.JMenu mnuInicio;
+    private javax.swing.JMenu mnuMantenimiento;
     private javax.swing.JMenu mnuProduccion;
     private javax.swing.JMenu mnuRRHH;
     private javax.swing.JMenu mnuTrabajosTercerizados;
