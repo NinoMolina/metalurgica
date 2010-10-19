@@ -1,0 +1,24 @@
+CREATE TABLE "public"."piezareal" (
+  "idpiezareal" BIGSERIAL, 
+  "idpieza" BIGINT NOT NULL, 
+  "estado" BIGINT, 
+  "nropieza" INTEGER, 
+  "idcodigobarra" BIGINT, 
+  CONSTRAINT "piezareal_idpiezareal_key" UNIQUE("idpiezareal"), 
+  CONSTRAINT "piezareal_pkey" PRIMARY KEY("idpiezareal", "idpieza"), 
+  CONSTRAINT "piezareal_fk" FOREIGN KEY ("idpieza")
+    REFERENCES "public"."pieza"("idpieza")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "piezareal_fk1" FOREIGN KEY ("estado")
+    REFERENCES "public"."estadopiezareal"("idestado")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE, 
+  CONSTRAINT "piezareal_fk2" FOREIGN KEY ("idcodigobarra")
+    REFERENCES "public"."codigodebarra"("idcodigo")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) WITH OIDS;
