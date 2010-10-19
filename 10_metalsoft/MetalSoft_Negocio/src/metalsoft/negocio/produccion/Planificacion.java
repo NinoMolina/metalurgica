@@ -2,45 +2,93 @@
 
 package metalsoft.negocio.produccion;
 
+import java.util.Date;
+
 
 public class Planificacion 
 {
-   private int nroPlanificacion;
-   private int fechaCreacion;
-   private int observaciones;
-   private int fechaFinPrevista;
-   private int fechaInicioPrevista;
+   private long nroPlanificacion;
+   private Date fechaCreacion;
+   private String observaciones;
+   private Date fechaFinPrevista;
+   private Date fechaInicioPrevista;
    private int cantHorasATrabajar;
-   private int horaInicioPRevista;
-   private int horaFinPrevista;
+   private Date horaInicioPRevista;
+   private Date horaFinPrevista;
    
    /**
     * @roseuid 4C27ED140010
     */
    public Planificacion() 
    {
-    
    }
+
+    public int getCantHorasATrabajar() {
+        return cantHorasATrabajar;
+    }
+
+    public void setCantHorasATrabajar(int cantHorasATrabajar) {
+        this.cantHorasATrabajar = cantHorasATrabajar;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaFinPrevista() {
+        return fechaFinPrevista;
+    }
+
+    public void setFechaFinPrevista(Date fechaFinPrevista) {
+        this.fechaFinPrevista = fechaFinPrevista;
+    }
+
+    public Date getFechaInicioPrevista() {
+        return fechaInicioPrevista;
+    }
+
+    public void setFechaInicioPrevista(Date fechaInicioPrevista) {
+        this.fechaInicioPrevista = fechaInicioPrevista;
+    }
+
+    public Date getHoraFinPrevista() {
+        return horaFinPrevista;
+    }
+
+    public void setHoraFinPrevista(Date horaFinPrevista) {
+        this.horaFinPrevista = horaFinPrevista;
+    }
+
+    public Date getHoraInicioPRevista() {
+        return horaInicioPRevista;
+    }
+
+    public void setHoraInicioPRevista(Date horaInicioPRevista) {
+        this.horaInicioPRevista = horaInicioPRevista;
+    }
+
+    public long getNroPlanificacion() {
+        return nroPlanificacion;
+    }
+
+    public void setNroPlanificacion(long nroPlanificacion) {
+        this.nroPlanificacion = nroPlanificacion;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
    
-   /**
-    * @roseuid 4BE7203300C8
-    */
-   public void crear() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4BE720480369
-    */
-   public void calcDuracionPromedio() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C0EB724018E
-    */
+
+
    public void calcFechaFinPrevista() 
    {
     
