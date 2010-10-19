@@ -6,47 +6,20 @@ package metalsoft.negocio.produccion;
 public class PlanificacionProduccion extends Planificacion 
 {
    private DetallePlanificacionProduccion detalle;
-   public EjecucionPlanificacionProduccion theEjecucionPlanificacionProduccion[];
-   public DetallePlanificacionProduccion theDetallePlanificacionProduccion[];
-   public EjecucionEtapaDeProduccion theEjecucionEtapaDeProduccion;
+
+    public DetallePlanificacionProduccion getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetallePlanificacionProduccion detalle) {
+        this.detalle = detalle;
+    }
+
+    public PlanificacionProduccion() {
+    }
+
+    public PlanificacionProduccion(DetallePlanificacionProduccion detalle) {
+        this.detalle = detalle;
+    }
    
-   /**
-    * @roseuid 4C27FA0E0056
-    */
-   public PlanificacionProduccion() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4BE711AF0318
-    */
-   public void construirEjecPlanifPedido() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C0AB7810165
-    */
-   public void conocerDetallePlanificacionProduccion() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C1F957B0175
-    */
-   public void mostrarFechaYHoraInicioPrevista() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 4C1F958B0216
-    */
-   public void mostrarFechaYHoraFinPrevista() 
-   {
-    
-   }
 }
