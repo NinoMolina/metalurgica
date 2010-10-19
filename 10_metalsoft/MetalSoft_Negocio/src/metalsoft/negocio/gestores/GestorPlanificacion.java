@@ -41,6 +41,15 @@ public class GestorPlanificacion {
 
         return db;
     }
+    public Detallempasignada buscarDetalleMPAsisnada(long idMP, long idPlan, Connection cn) {
+        Detallempasignada db = new Detallempasignada();
+        db.setIdmateriaprima(idMP);
+        db.setIdplanificacionproduccion(idPlan);
+
+        db = AccessPlanificacion.findDetalleMPAsignada(db, cn);
+
+        return db;
+    }
 
     public LinkedList<ViewPlanificacion> buscarPlanificacionConRecursosAsignados() {
         PostgreSQLManager pg = new PostgreSQLManager();
