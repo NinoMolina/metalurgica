@@ -225,7 +225,24 @@ public class DetallempasignadaDAOImpl implements DetallempasignadaDAO
 * @param   Connection con
 * @return  Detallempasignada[]
 */
-
+public Detallempasignada[] findByIdmateriaprimaAndIdPlan(long idmateriaprima, long idplanificacionproduccion, Connection con) throws DetallempasignadaException{
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			String SQL_STATEMENT ="Select id, idmateriaprima, cantidadmp, idplanificacionproduccion from detallempasignada where idmateriaprima = ? and idplanificacionproduccion = ? order by idmateriaprima";
+			try {
+					stmt = con.prepareStatement(SQL_STATEMENT);
+					stmt.setLong( 1, idmateriaprima );
+                    stmt.setLong( 2, idplanificacionproduccion );
+					rs = stmt.executeQuery();
+					return fetchMultiResults(rs);
+			}catch(SQLException sqle){
+					throw new DetallempasignadaException(sqle);
+			}
+			catch(Exception e){
+					throw new DetallempasignadaException(e);
+			}
+			finally{}
+	}
 	public Detallempasignada[] findByIdplanificacionproduccion(long idplanificacionproduccion, Connection con) throws DetallempasignadaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
