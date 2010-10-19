@@ -6,7 +6,9 @@
     <class name="pojos.Detalleplanificacionproduccion" table="detalleplanificacionproduccion" schema="public">
         <id name="id" type="long">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">detalleplanificacionproduccion_id_seq</param>
+            </generator>
         </id>
         <many-to-one name="pieza" class="pojos.Pieza" fetch="select">
             <column name="idpieza" />
