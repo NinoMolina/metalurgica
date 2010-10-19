@@ -11,6 +11,8 @@
 package metalsoft.presentacion;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -20,9 +22,11 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -32,15 +36,26 @@ public class Principal extends javax.swing.JFrame {
 
     private long idUsuario;
     private Rol[] roles;
-
+    private Timer tiempo;
     /** Creates new form Principal */
     public Principal(long idUsuario) {
         this.idUsuario = idUsuario;
         initComponents();
+        iniciarReloj();
         this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
 
         obtenerRolUsuario(idUsuario);
         //this.getContentPane().setBackground();
+    }
+
+    private void iniciarReloj(){
+        tiempo = new Timer(1000, new ActionListener(){
+
+            public void actionPerformed(ActionEvent evt){
+                lblReloj.setText(Fecha.fechaHoraMinutoSegundoActual());
+            }
+        });
+        tiempo.start();
     }
 
     public Principal() {
@@ -71,7 +86,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        lblImagen = new javax.swing.JLabel();
+        pnlImagen = new metalsoft.beans.JPanelBackground();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelTransparente1 = new metalsoft.beans.JPanelTransparente();
+        lblReloj = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mnuCompras = new javax.swing.JMenu();
@@ -123,7 +142,59 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(new java.awt.Color(240, 240, 240));
 
-        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background.jpg"))); // NOI18N
+        pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background.jpg"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 255, 102));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("MetalSoft");
+
+        jPanelTransparente1.setTran(0.25F);
+
+        lblReloj.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReloj.setText("...");
+        lblReloj.setOpaque(true);
+
+        javax.swing.GroupLayout jPanelTransparente1Layout = new javax.swing.GroupLayout(jPanelTransparente1);
+        jPanelTransparente1.setLayout(jPanelTransparente1Layout);
+        jPanelTransparente1Layout.setHorizontalGroup(
+            jPanelTransparente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente1Layout.createSequentialGroup()
+                .addContainerGap(624, Short.MAX_VALUE)
+                .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelTransparente1Layout.setVerticalGroup(
+            jPanelTransparente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTransparente1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblReloj, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
+        pnlImagen.setLayout(pnlImagenLayout);
+        pnlImagenLayout.setHorizontalGroup(
+            pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlImagenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelTransparente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlImagenLayout.setVerticalGroup(
+            pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelTransparente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
 
         mnuInicio.setText("Inicio");
         mbrMenu.add(mnuInicio);
@@ -361,13 +432,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 798, Short.MAX_VALUE)
+            .addComponent(pnlImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addComponent(pnlImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -647,6 +716,7 @@ public class Principal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -655,7 +725,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JLabel lblImagen;
+    private metalsoft.beans.JPanelTransparente jPanelTransparente1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblReloj;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniAsignarMPAProduccion;
     private javax.swing.JMenuItem mniCliente;
@@ -688,6 +760,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mnuRRHH;
     private javax.swing.JMenu mnuTrabajosTercerizados;
     private javax.swing.JMenu mnuVentas;
+    private metalsoft.beans.JPanelBackground pnlImagen;
     private javax.swing.JMenuItem registrarEmpleado;
     // End of variables declaration//GEN-END:variables
 
