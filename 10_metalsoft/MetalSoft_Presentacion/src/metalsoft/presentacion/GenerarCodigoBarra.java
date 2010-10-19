@@ -242,49 +242,49 @@ public class GenerarCodigoBarra extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(rbProducto.isSelected()==true){
-            ABMProducto_Buscar buscar=null;
-            try {
-                buscar=(ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
-                buscar.setVentanaCodBarra(this);
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if(rbMateriaPrima.isSelected()==true){
-            ABMMateriaPrima_Buscar buscar=null;
-            try {
-                buscar=(ABMMateriaPrima_Buscar) JFrameManager.crearVentana(ABMMateriaPrima_Buscar.class.getName());
-                buscar.setVentanaCodigoBarra(this);
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if(rbPieza.isSelected()==true){
-            try {
-                // TODO add your handling code here:
-                ABMPieza_Buscar frmBuscarPieza = null;
-                frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
-                frmBuscarPieza.setGestor(gestorPieza);
-                frmBuscarPieza.setVentanaCodigoBarra(this);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if(rbProducto.isSelected()==true){
+//            ABMProducto_Buscar buscar=null;
+//            try {
+//                buscar=(ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
+//                buscar.setVentanaCodBarra(this);
+//
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (InstantiationException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IllegalAccessException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        if(rbMateriaPrima.isSelected()==true){
+//            ABMMateriaPrima_Buscar buscar=null;
+//            try {
+//                buscar=(ABMMateriaPrima_Buscar) JFrameManager.crearVentana(ABMMateriaPrima_Buscar.class.getName());
+//                buscar.setVentanaCodigoBarra(this);
+//
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (InstantiationException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IllegalAccessException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        if(rbPieza.isSelected()==true){
+//            try {
+//                // TODO add your handling code here:
+//                ABMPieza_Buscar frmBuscarPieza = null;
+//                frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
+//                frmBuscarPieza.setGestor(gestorPieza);
+//                frmBuscarPieza.setVentanaCodigoBarra(this);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (InstantiationException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IllegalAccessException ex) {
+//                Logger.getLogger(GenerarCodigoBarra.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void rbMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMateriaPrimaActionPerformed
