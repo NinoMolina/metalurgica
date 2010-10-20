@@ -1,7 +1,8 @@
 
 **Diseño:
-         Secuencia: Aplicacion Patrones
-          Despliegue
+        Secuencia: Aplicacion Patrones
+        Despliegue
+	Cambiar DER 
 
 
 **Implementación: terminar con la 2da iter
