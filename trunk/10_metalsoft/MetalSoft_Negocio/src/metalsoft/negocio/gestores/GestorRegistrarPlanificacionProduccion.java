@@ -6,6 +6,11 @@
 package metalsoft.negocio.gestores;
 
 import com.sun.org.apache.bcel.internal.util.JavaWrapper;
+import controller.EmpleadoJpaController;
+import controller.MaquinaJpaController;
+import controller.PedidoJpaController;
+import controller.PlanificacionproduccionJpaController;
+import controller.PresupuestoJpaController;
 import dao.Dao;
 import dao.DaoDetallePlanificacionProduccion;
 import dao.DaoEmpleado;
@@ -16,6 +21,7 @@ import dao.DaoPresupuesto;
 import dao.HibernateUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,21 +70,33 @@ public class GestorRegistrarPlanificacionProduccion {
     }
 
     public Presupuesto buscarPresupuesto(long idPresupuesto) {
+//        JPA*********
+//        PresupuestoJpaController ctrl=new PresupuestoJpaController();
+//        ctrl.findPresupuesto(idPresupuesto);
+
+//        HIBERNATE*********
         Dao<Presupuesto> dao=new DaoPresupuesto<Presupuesto>();
         return dao.findById(idPresupuesto, Presupuesto.class.getSimpleName());
     }
 
     public List<Empleado> obtenerEmpleados() {
+//        EmpleadoJpaController ctrl=new EmpleadoJpaController();
+//        ctrl.findEmpleadoEntities();
+
         Dao<Empleado> daoEmpleado=new DaoEmpleado<Empleado>();
         return daoEmpleado.findAll(Empleado.class.getSimpleName());
     }
 
     public List<Maquina> obtenerMaquinas() {
+//        MaquinaJpaController ctrl=new MaquinaJpaController();
+//        ctrl.findMaquinaEntities();
         Dao<Maquina> daoMaquina=new DaoMaquina<Maquina>();
         return daoMaquina.findAll(Maquina.class.getSimpleName());
     }
 
     public Pedido buscarPedido(long idpedido) {
+//        PedidoJpaController ctrl=new PedidoJpaController();
+//        ctrl.findPedido(idpedido);
         Dao<Pedido> daoPedido=new DaoPedido<Pedido>();
         return daoPedido.findById(idpedido, Pedido.class.getSimpleName());
     }
@@ -101,14 +119,16 @@ public class GestorRegistrarPlanificacionProduccion {
         
     }
 
-    public void limpiarSessionHibernate() {
-        HibernateUtil.limpiarSession();
-    }
-
     public void actualizarEstadoPedido(Pedido pedido) {
         Dao<Pedido> daoPedido=new DaoPedido<Pedido>();
         pedido.setEstadopedido(new Estadopedido(IdsEstadoPedido.PLANIFICADO));
         daoPedido.update(pedido);
+    }
+
+    public List<entity.Planificacionproduccion> buscarPlanificacionesProduccion() {
+        PlanificacionproduccionJpaController ctrl=new PlanificacionproduccionJpaController();
+        System.out.println(Fecha.fechaActualDate());
+        return (List<entity.Planificacionproduccion>) ctrl.findByFechafinprevistaMayorActual(Fecha.fechaActualDate());
     }
 
 }
