@@ -238,7 +238,7 @@ public class ABMMaquina extends javax.swing.JFrame {
         lblnroMaquina = new javax.swing.JLabel();
         botones = new metalsoft.beans.ABM_Botones();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nombre:");
 
