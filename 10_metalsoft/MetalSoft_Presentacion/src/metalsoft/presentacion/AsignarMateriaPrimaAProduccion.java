@@ -124,6 +124,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
         btnAsignarMP = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -336,6 +337,13 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
             }
         });
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -345,7 +353,10 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAsignarMP))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAsignarMP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                        .addComponent(btnSalir)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -356,7 +367,9 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAsignarMP))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAsignarMP)
+                            .addComponent(btnSalir)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -476,6 +489,10 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnAsignarMPActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
     private void mostrarDatosMateriaPrima(MateriaprimaDB mp) {
 
         txtCodBarra.setText(String.valueOf(mp.getCodbarra()));
@@ -721,6 +738,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarMP;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnSeleccionarProveedor;
     private javax.swing.JComboBox cmbTipoMaterial;

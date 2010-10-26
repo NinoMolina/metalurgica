@@ -10,15 +10,19 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -28,6 +32,7 @@ import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
+import metalsoft.util.Jornada;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -37,6 +42,15 @@ import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableNode;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.gantt.Task;
+import org.jfree.data.gantt.TaskSeries;
+import org.jfree.data.gantt.TaskSeriesCollection;
+import org.jfree.data.time.Month;
+import org.jfree.data.time.TimePeriodAnchor;
 import pojos.Detallepiezapresupuesto;
 import pojos.Detalleplanificacionproduccion;
 import pojos.Detallepresupuesto;
@@ -68,6 +82,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private HashMap<String, JPanel> hashPanels;
     private List<Empleado> lstEmpleados;
     private List<Maquina> lstMaquinas;
+    private List<entity.Planificacionproduccion> lstPlanificacionProduccion;
     private Maquina maquinaSeleccionada;
     private Empleado empleadoSeleccionado;
 
@@ -83,10 +98,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         gestor = new GestorRegistrarPlanificacionProduccion();
         filasPedidosNoPlanificados = new LinkedList<ViewPedidoNoPlanificado>();
         buscarPedidosNoPlanificados();
+        cargarGantt();
         iniciarTreeTable();
         tblPedidos.updateUI();
         tskPanel.setTitle("Asignaciones");
         tskPanel.setAnimated(true);
+    }
+
+    private void cargarGantt() {
     }
 
     private void setEnableHyperLink(boolean flag) {
@@ -100,6 +119,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         hashPanels.put(pnlTreeTable.getName(), pnlTreeTable);
         hashPanels.put(pnlEmpleado.getName(), pnlEmpleado);
         hashPanels.put(pnlMaquinas.getName(), pnlMaquinas);
+        hashPanels.put(pnlDisponibilidad.getName(), pnlDisponibilidad);
         setVisiblePanel(pnlTreeTable.getName());
     }
 
@@ -165,6 +185,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         tskPanel = new org.jdesktop.swingx.JXTaskPane();
         hplAsignarEmpleado = new org.jdesktop.swingx.JXHyperlink();
         hplAsignarMaquinas = new org.jdesktop.swingx.JXHyperlink();
+        hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
+        hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
         pnl = new javax.swing.JPanel();
         pnlTreeTable = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -174,9 +196,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jlstEmpleados = new org.jdesktop.swingx.JXList();
         btnSeleccionarEmpleado = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        lstDisponibilidad = new org.jdesktop.swingx.JXList();
+        pnlDispHoraria = new javax.swing.JPanel();
         btnAsignarEmpleado = new javax.swing.JButton();
         pnlMaquinas = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -184,6 +204,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnAsignarMaquina = new javax.swing.JButton();
+        pnlDisponibilidad = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
@@ -285,6 +306,22 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         });
         tskPanel.getContentPane().add(hplAsignarMaquinas);
 
+        hplVerDisponibilidad.setText("Ver Disponibilidad");
+        hplVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerDisponibilidadActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerDisponibilidad);
+
+        hplVerPlanificacion.setText("Ver Planificación");
+        hplVerPlanificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerPlanificacionActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerPlanificacion);
+
         jXTaskPaneContainer1.add(tskPanel);
 
         pnl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -302,11 +339,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         pnlTreeTableLayout.setVerticalGroup(
             pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTreeTableLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        pnl.add(pnlTreeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        pnl.add(pnlTreeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 340));
 
         pnlEmpleado.setName("pnlEmpleado"); // NOI18N
 
@@ -342,26 +379,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilidad Horaria"));
+        pnlDispHoraria.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilidad Horaria"));
 
-        lstDisponibilidad.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstDisponibilidad.setEnabled(false);
-        jScrollPane4.setViewportView(lstDisponibilidad);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout pnlDispHorariaLayout = new javax.swing.GroupLayout(pnlDispHoraria);
+        pnlDispHoraria.setLayout(pnlDispHorariaLayout);
+        pnlDispHorariaLayout.setHorizontalGroup(
+            pnlDispHorariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
+        pnlDispHorariaLayout.setVerticalGroup(
+            pnlDispHorariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 147, Short.MAX_VALUE)
         );
 
         btnAsignarEmpleado.setText("Asignar");
@@ -375,13 +403,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         pnlEmpleado.setLayout(pnlEmpleadoLayout);
         pnlEmpleadoLayout.setHorizontalGroup(
             pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEmpleadoLayout.createSequentialGroup()
-                .addGroup(pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEmpleadoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEmpleadoLayout.createSequentialGroup()
+                .addGroup(pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlDispHoraria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlEmpleadoLayout.createSequentialGroup()
                         .addContainerGap(601, Short.MAX_VALUE)
-                        .addComponent(btnAsignarEmpleado))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAsignarEmpleado)))
                 .addContainerGap())
         );
         pnlEmpleadoLayout.setVerticalGroup(
@@ -389,13 +417,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             .addGroup(pnlEmpleadoLayout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlDispHoraria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAsignarEmpleado)
                 .addContainerGap())
         );
 
-        pnl.add(pnlEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 330));
+        pnl.add(pnlEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
 
         pnlMaquinas.setName("pnlMaquinas"); // NOI18N
 
@@ -434,13 +462,28 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAsignarMaquina)
                 .addContainerGap())
         );
 
-        pnl.add(pnlMaquinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 330));
+        pnl.add(pnlMaquinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
+
+        pnlDisponibilidad.setName("pnlDisponibilidad"); // NOI18N
+
+        javax.swing.GroupLayout pnlDisponibilidadLayout = new javax.swing.GroupLayout(pnlDisponibilidad);
+        pnlDisponibilidad.setLayout(pnlDisponibilidadLayout);
+        pnlDisponibilidadLayout.setHorizontalGroup(
+            pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+        pnlDisponibilidadLayout.setVerticalGroup(
+            pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
+        );
+
+        pnl.add(pnlDisponibilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -483,14 +526,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 821, Short.MAX_VALUE)
-                        .addComponent(btnSalir)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,8 +543,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnSalir))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -519,25 +562,54 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void hplAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarEmpleadoActionPerformed
         setVisiblePanel(pnlEmpleado.getName());
         lstEmpleados = gestor.obtenerEmpleados();
-        cargarLista(jlstEmpleados,lstEmpleados.toArray());
+        cargarLista(jlstEmpleados, lstEmpleados.toArray());
     }//GEN-LAST:event_hplAsignarEmpleadoActionPerformed
 
     private void btnAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpleadoActionPerformed
-        TreePath tp=trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
-        Object obj=tp.getLastPathComponent();
-        if(obj instanceof EtapaProduccionNode){
-            EtapaProduccionNode node=(EtapaProduccionNode) obj;
+        TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
+        Object obj = tp.getLastPathComponent();
+        if (obj instanceof EtapaProduccionNode) {
+            EtapaProduccionNode node = (EtapaProduccionNode) obj;
             node.setEmpleado(empleadoSeleccionado);
         }
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
 
     private void btnSeleccionarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEmpleadoActionPerformed
-        empleadoSeleccionado =(Empleado) jlstEmpleados.getSelectedValue();
+        empleadoSeleccionado = (Empleado) jlstEmpleados.getSelectedValue();
         //validar que disp horaria no sea null
-        try{
-        lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
-        }catch(Exception ex){
+        try {
+//            lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
+            Set<Disponibilidadhoraria> disp = empleadoSeleccionado.getDisponibilidadhorarias();
+            TaskSeriesCollection dataset = new TaskSeriesCollection();
+            TaskSeries unavailable = new TaskSeries("Disponibilidad");
+
+            for (Disponibilidadhoraria dispHoraria : disp) {
+                //creo una nueva tarea
+                Date fecha = dispHoraria.getFecha();
+                Task task = new Task(Fecha.parseToString(fecha),
+                        new GregorianCalendar(2010, 11, 1, 0, 0, 0).getTime(),
+                        new GregorianCalendar(2010, 11, 1, Jornada.HORAS_JORNADA, 0, 0).getTime());
+                //agrego la tarea la serie de taras
+                unavailable.add(task);
+
+                task.addSubtask(new Task("",
+                        new GregorianCalendar(2010, 11, 1, 0, 0, 0).getTime(),
+                        new GregorianCalendar(2010, 11, 1, Jornada.HORAS_JORNADA-dispHoraria.getTiempodisponible().getHours(), 60-dispHoraria.getTiempodisponible().getMinutes(), 0).getTime()));
+            }
+
+            dataset.add(unavailable);
+
+// title, domain axis, range axis, dataset, legend, tooltip, urls
+            JFreeChart chart = ChartFactory.createGanttChart("", "Días", "Horas", dataset, true, true, false);
+            ChartPanel chartPanel = new ChartPanel(chart);
+            chart.setBorderVisible(true);
+            chartPanel.setBounds(10, 15, pnlDispHoraria.getWidth()-20, pnlDispHoraria.getHeight()-30);
+            pnlDispHoraria.removeAll();
+            pnlDispHoraria.add(chartPanel);
+            pnlDispHoraria.updateUI();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             System.out.println("entro en el catch de lstDisponibilidad");
         }
     }//GEN-LAST:event_btnSeleccionarEmpleadoActionPerformed
@@ -545,17 +617,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void hplAsignarMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarMaquinasActionPerformed
         setVisiblePanel(pnlMaquinas.getName());
         lstMaquinas = gestor.obtenerMaquinas();
-        cargarLista(jlstMaquinas,lstMaquinas.toArray());
+        cargarLista(jlstMaquinas, lstMaquinas.toArray());
     }//GEN-LAST:event_hplAsignarMaquinasActionPerformed
 
     private void btnAsignarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMaquinaActionPerformed
-        maquinaSeleccionada =(Maquina) jlstMaquinas.getSelectedValue();
+        maquinaSeleccionada = (Maquina) jlstMaquinas.getSelectedValue();
         //obtengo el nodo seleccionado
-        TreePath tp=trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
-        Object obj=tp.getLastPathComponent();
+        TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
+        Object obj = tp.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
-        if(obj instanceof EtapaProduccionNode){
-            EtapaProduccionNode node=(EtapaProduccionNode) obj;
+        if (obj instanceof EtapaProduccionNode) {
+            EtapaProduccionNode node = (EtapaProduccionNode) obj;
             node.setMaquina(maquinaSeleccionada);
         }
         setVisiblePanel(pnlTreeTable.getName());
@@ -563,19 +635,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        Planificacionproduccion planificacionproduccion=new Planificacionproduccion();
-        Set<Detalleplanificacionproduccion> setDetalle=new HashSet<Detalleplanificacionproduccion>();
-        Detalleplanificacionproduccion detalleplanificacionproduccion=null;
-        Pedido pedido=gestor.buscarPedido(viewPedidoSeleccionado.getIdpedido());
-        int filas=trtDetalleProcProd.getRowCount();
-        TreePath tp=null;
+        Planificacionproduccion planificacionproduccion = new Planificacionproduccion();
+        Set<Detalleplanificacionproduccion> setDetalle = new HashSet<Detalleplanificacionproduccion>();
+        Detalleplanificacionproduccion detalleplanificacionproduccion = null;
+        Pedido pedido = gestor.buscarPedido(viewPedidoSeleccionado.getIdpedido());
+        int filas = trtDetalleProcProd.getRowCount();
+        TreePath tp = null;
         for (int i = 0; i < filas; i++) {
-            tp=trtDetalleProcProd.getPathForRow(i);
-            Object obj=tp.getLastPathComponent();
-            if(obj instanceof EtapaProduccionNode){
-                EtapaProduccionNode etapaProduccionNode=(EtapaProduccionNode) obj;
-                PiezaNode piezaNode=(PiezaNode)etapaProduccionNode.getParent();
-                detalleplanificacionproduccion=new Detalleplanificacionproduccion();
+            tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+            if (obj instanceof EtapaProduccionNode) {
+                EtapaProduccionNode etapaProduccionNode = (EtapaProduccionNode) obj;
+                PiezaNode piezaNode = (PiezaNode) etapaProduccionNode.getParent();
+                detalleplanificacionproduccion = new Detalleplanificacionproduccion();
                 detalleplanificacionproduccion.setEmpleado(etapaProduccionNode.getEmpleado());
                 detalleplanificacionproduccion.setMaquina(etapaProduccionNode.getMaquina());
                 detalleplanificacionproduccion.setEtapadeproduccion(etapaProduccionNode.getEtapa());
@@ -588,20 +660,20 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         planificacionproduccion.setFechainicioprevista(viewPedidoSeleccionado.getFechapresupuesto());
         planificacionproduccion.setFechafinprevista(viewPedidoSeleccionado.getFechaentregaestipulada());
         planificacionproduccion.setFechacreacion(Fecha.fechaActualDate());
-        try{
+        try {
             gestor.guardarPlanificacionProduccion(planificacionproduccion);
             gestor.actualizarEstadoPedido(pedido);
             JOptionPane.showMessageDialog(this, "Los datos se guardaron CORRECTAMENTE!");
             filasPedidosNoPlanificados.remove(viewPedidoSeleccionado);
             tblPedidos.updateUI();
             limpiarCampos();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al guardar los datos\nNo se pudo guardar!!");
 
-        }    
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         trtDetalleProcProd.removeAll();
         iniciarTreeTable();
         jlstEmpleados.removeAll();
@@ -619,7 +691,65 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 //        gestor.limpiarSessionHibernate();
     }//GEN-LAST:event_formWindowClosing
 
-    private void cargarLista(JXList lista,Object[] values) {
+    private void hplVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerDisponibilidadActionPerformed
+        pnlDisponibilidad.removeAll();
+        lstPlanificacionProduccion = gestor.buscarPlanificacionesProduccion();
+        TaskSeriesCollection dataset = new TaskSeriesCollection();
+        TaskSeries unavailable = new TaskSeries("Etapas Producción");
+
+        for (entity.Planificacionproduccion planificacion : lstPlanificacionProduccion) {
+            //creo una nueva tarea a agregar, las tareas son las planificaciones
+            Task task = new Task(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, planificacion.getNroplanificacion()),
+                    planificacion.getFechainicioprevista(),
+                    planificacion.getFechafinprevista());
+            //agrego la tarea la serie de taras
+            unavailable.add(task);
+            //busco los detalles, donde saco la etapa a ejecutar.
+            Set<entity.Detalleplanificacionproduccion> setDetalle = planificacion.getDetalleplanificacionproduccionSet();
+            for (entity.Detalleplanificacionproduccion detalle : setDetalle) {
+                GregorianCalendar inicio = new GregorianCalendar();
+                inicio.setTime(detalle.getFechainicio());
+                inicio.set(Calendar.HOUR, detalle.getHorainicio().getHours());
+                inicio.set(Calendar.MINUTE, detalle.getHorainicio().getMinutes());
+                inicio.set(Calendar.SECOND, detalle.getHorainicio().getSeconds());
+                System.out.println("inicio:" + Fecha.parseToString(inicio.getTime(), "dd/MM/yyyy hh:mm:ss"));
+                GregorianCalendar fin = new GregorianCalendar();
+                fin.setTime(detalle.getFechafin());
+                fin.set(Calendar.HOUR, detalle.getHorafin().getHours());
+                fin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
+                fin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
+                System.out.println("fin:" + Fecha.parseToString(fin.getTime(), "dd/MM/yyyy hh:mm:ss"));
+                task.addSubtask(new Task(detalle.getIdetapaproduccion().getNombre(),
+                        inicio.getTime(),
+                        fin.getTime()));
+            }
+        }
+
+        dataset.add(unavailable);
+
+// title, domain axis, range axis, dataset, legend, tooltip, urls
+        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Producciones", "Time", dataset, true, true, false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chart.setBorderVisible(true);
+        chartPanel.setBounds(0, 0, pnlDisponibilidad.getWidth(), pnlDisponibilidad.getHeight());
+        pnlDisponibilidad.add(chartPanel);
+//        this.getContentPane().add(chartPanel);
+//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        setBounds(50, 50, 800, 200);
+
+//        JFrame frame = new JFrame("MeetNow!");
+//        frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
+//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        frame.setBounds(50, 50, 800, 800);
+//        frame.setVisible(true);
+        setVisiblePanel(pnlDisponibilidad.getName());
+    }//GEN-LAST:event_hplVerDisponibilidadActionPerformed
+
+    private void hplVerPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerPlanificacionActionPerformed
+        setVisiblePanel(pnlTreeTable.getName());
+    }//GEN-LAST:event_hplVerPlanificacionActionPerformed
+
+    private void cargarLista(JXList lista, Object[] values) {
         lista.setListData(values);
     }
 
@@ -678,27 +808,28 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionarEmpleado;
     private org.jdesktop.swingx.JXHyperlink hplAsignarEmpleado;
     private org.jdesktop.swingx.JXHyperlink hplAsignarMaquinas;
+    private org.jdesktop.swingx.JXHyperlink hplVerDisponibilidad;
+    private org.jdesktop.swingx.JXHyperlink hplVerPlanificacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTextField1;
     private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer1;
     private org.jdesktop.swingx.JXList jlstEmpleados;
     private org.jdesktop.swingx.JXList jlstMaquinas;
-    private org.jdesktop.swingx.JXList lstDisponibilidad;
     private javax.swing.JPanel pnl;
+    private javax.swing.JPanel pnlDispHoraria;
+    private javax.swing.JPanel pnlDisponibilidad;
     private javax.swing.JPanel pnlEmpleado;
     private javax.swing.JPanel pnlMaquinas;
     private javax.swing.JPanel pnlTreeTable;
@@ -788,7 +919,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         public int getColumnCount() {
             return columnCountTreeTable;
         }
-
     }
 
     class PiezaNode extends AbstractMutableTreeTableNode {
@@ -811,7 +941,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             return columnCountTreeTable;
         }
 
-        public Pieza getPieza(){
+        public Pieza getPieza() {
             return pieza;
         }
     }
