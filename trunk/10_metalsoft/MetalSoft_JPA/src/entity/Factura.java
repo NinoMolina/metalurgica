@@ -1,0 +1,214 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package entity;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Nino
+ */
+@Entity
+@Table(name = "factura")
+@NamedQueries({
+    @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
+    @NamedQuery(name = "Factura.findByIdfactura", query = "SELECT f FROM Factura f WHERE f.idfactura = :idfactura"),
+    @NamedQuery(name = "Factura.findByNrofactura", query = "SELECT f FROM Factura f WHERE f.nrofactura = :nrofactura"),
+    @NamedQuery(name = "Factura.findByFechaemision", query = "SELECT f FROM Factura f WHERE f.fechaemision = :fechaemision"),
+    @NamedQuery(name = "Factura.findByFecharealcobro", query = "SELECT f FROM Factura f WHERE f.fecharealcobro = :fecharealcobro"),
+    @NamedQuery(name = "Factura.findByFechavencimiento", query = "SELECT f FROM Factura f WHERE f.fechavencimiento = :fechavencimiento"),
+    @NamedQuery(name = "Factura.findByTipofactura", query = "SELECT f FROM Factura f WHERE f.tipofactura = :tipofactura")})
+public class Factura implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "idfactura")
+    private Long idfactura;
+    @Column(name = "nrofactura")
+    private BigInteger nrofactura;
+    @Column(name = "fechaemision")
+    @Temporal(TemporalType.DATE)
+    private Date fechaemision;
+    @Column(name = "fecharealcobro")
+    @Temporal(TemporalType.DATE)
+    private Date fecharealcobro;
+    @Column(name = "fechavencimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechavencimiento;
+    @Column(name = "tipofactura")
+    private String tipofactura;
+    @OneToMany(mappedBy = "factura")
+    private Set<Pedido> pedidoSet;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadofactura estado;
+    @JoinColumn(name = "formapago", referencedColumnName = "idformapago")
+    @ManyToOne
+    private Formadepago formapago;
+    @JoinColumn(name = "tipoiva", referencedColumnName = "idtipoiva")
+    @ManyToOne
+    private Tipoiva tipoiva;
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
+    private Set<Detallefactura> detallefacturaSet;
+    @OneToMany(mappedBy = "factura")
+    private Set<Comprobantepago> comprobantepagoSet;
+
+    public Factura() {
+    }
+
+    public Factura(Long idfactura) {
+        this.idfactura = idfactura;
+    }
+
+    public Long getIdfactura() {
+        return idfactura;
+    }
+
+    public void setIdfactura(Long idfactura) {
+        this.idfactura = idfactura;
+    }
+
+    public BigInteger getNrofactura() {
+        return nrofactura;
+    }
+
+    public void setNrofactura(BigInteger nrofactura) {
+        this.nrofactura = nrofactura;
+    }
+
+    public Date getFechaemision() {
+        return fechaemision;
+    }
+
+    public void setFechaemision(Date fechaemision) {
+        this.fechaemision = fechaemision;
+    }
+
+    public Date getFecharealcobro() {
+        return fecharealcobro;
+    }
+
+    public void setFecharealcobro(Date fecharealcobro) {
+        this.fecharealcobro = fecharealcobro;
+    }
+
+    public Date getFechavencimiento() {
+        return fechavencimiento;
+    }
+
+    public void setFechavencimiento(Date fechavencimiento) {
+        this.fechavencimiento = fechavencimiento;
+    }
+
+    public String getTipofactura() {
+        return tipofactura;
+    }
+
+    public void setTipofactura(String tipofactura) {
+        this.tipofactura = tipofactura;
+    }
+
+    public Set<Pedido> getPedidoSet() {
+        return pedidoSet;
+    }
+
+    public void setPedidoSet(Set<Pedido> pedidoSet) {
+        this.pedidoSet = pedidoSet;
+    }
+
+    public Estadofactura getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadofactura estado) {
+        this.estado = estado;
+    }
+
+    public Formadepago getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(Formadepago formapago) {
+        this.formapago = formapago;
+    }
+
+    public Tipoiva getTipoiva() {
+        return tipoiva;
+    }
+
+    public void setTipoiva(Tipoiva tipoiva) {
+        this.tipoiva = tipoiva;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Set<Detallefactura> getDetallefacturaSet() {
+        return detallefacturaSet;
+    }
+
+    public void setDetallefacturaSet(Set<Detallefactura> detallefacturaSet) {
+        this.detallefacturaSet = detallefacturaSet;
+    }
+
+    public Set<Comprobantepago> getComprobantepagoSet() {
+        return comprobantepagoSet;
+    }
+
+    public void setComprobantepagoSet(Set<Comprobantepago> comprobantepagoSet) {
+        this.comprobantepagoSet = comprobantepagoSet;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idfactura != null ? idfactura.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Factura)) {
+            return false;
+        }
+        Factura other = (Factura) object;
+        if ((this.idfactura == null && other.idfactura != null) || (this.idfactura != null && !this.idfactura.equals(other.idfactura))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Factura[idfactura=" + idfactura + "]";
+    }
+
+}
