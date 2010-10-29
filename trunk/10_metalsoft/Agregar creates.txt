@@ -22,3 +22,44 @@ CREATE TABLE "public"."piezareal" (
     ON UPDATE NO ACTION
     NOT DEFERRABLE
 ) WITH OIDS;
+
+
+
+
+
+CREATE OR REPLACE VIEW "public"."viewpedidosclientesegunestado" (
+    nropedido,
+    nropedidocotizacioncliente,
+    fechapedidocotizacion,
+    fecharequeridacotizacion,
+    fechaentregaestipulada,
+    espedidoweb,
+    estado,
+    prioridad,
+    cliente,
+    idpedido,
+    idestado,
+    idcliente,
+    nrocliente)
+AS
+ SELECT p.nropedido,
+       p.nropedidocotizacioncliente,
+       p.fechapedidocotizacion,
+       p.fecharequeridacotizacion,
+       p.fechaentregaestipulada,
+       p.espedidoweb,
+       ep.nombre AS estado,
+       pr.nombre AS prioridad,
+       c.razonsocial AS cliente,
+       p.idpedido,
+       ep.idestado,
+       c.idcliente,
+       c.nrocliente
+ FROM pedido p,
+      cliente c,
+      estadopedido ep,
+      prioridad pr
+ WHERE p.cliente = c.idcliente AND
+       p.estado = ep.idestado AND
+       p.prioridad = pr.idprioridad
+ ORDER BY p.nropedido;
