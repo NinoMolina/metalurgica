@@ -95,5 +95,17 @@ public class AccessPedido {
         }
         return db;
     }
+    public static PedidoDB[] findByIdClienteIdEstado(long idCliente, long idEstado,Connection cn)
+    {
+        PedidoDAO dao=new DAOFactoryImpl().createPedidoDAO();
+        PedidoDB[] db = null;
+
+        try {
+            db=dao.findByClienteAndEstado(idCliente, idEstado, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
 
 }
