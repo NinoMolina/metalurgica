@@ -24,6 +24,7 @@ import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
+import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
 import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
 import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
@@ -302,6 +303,51 @@ public class AccessViews {
                 view.setNropedido(rs.getInt("nropedido"));
                 view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
                 view.setPrioridad(rs.getString("prioridad"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(ll.isEmpty())return null;
+        else return ll;
+    }
+    public static LinkedList<ViewPedidosClienteSegunEstado> pedidosClienteSegunEstado(long cliente, long estado, Connection cn)
+    {
+        ViewPedidosClienteSegunEstado view=null;
+        LinkedList<ViewPedidosClienteSegunEstado> ll=new LinkedList<ViewPedidosClienteSegunEstado>();
+        String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
+                     "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado,idcliente,nrocliente"+
+                     " FROM viewpedidosclientesegunestado"+
+                     " WHERE idestado="+estado +
+                     " AND idcliente="+cliente;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                view=new ViewPedidosClienteSegunEstado();
+                view.setCliente(rs.getString("cliente"));
+                view.setEspedidoweb(rs.getBoolean("espedidoweb"));
+                view.setEstado(rs.getString("estado"));
+
+//                String f=Fecha.parseToString(rs.getDate("fechaentregaestipulada").getTime());
+//                view.setFechaentregaestipulada(Fecha.parseToDate(f));
+//                f=Fecha.parseToString(rs.getDate("fechapedidocotizacion").getTime());
+//                view.setFechapedidocotizacion(Fecha.parseToDate(f));
+//                f=Fecha.parseToString(rs.getDate("fecharequeridacotizacion").getTime());
+//                view.setFecharequeridacotizacion(Fecha.parseToDate(f));
+                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setFechapedidocotizacion(rs.getDate("fechapedidocotizacion"));
+                view.setFecharequeridacotizacion(rs.getDate("fecharequeridacotizacion"));
+                view.setIdestado(rs.getLong("idestado"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setNropedido(rs.getInt("nropedido"));
+                view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
+                view.setPrioridad(rs.getString("prioridad"));
+                view.setIdcliente(rs.getLong("idcliente"));
+                view.setNrocliente(rs.getLong("nrocliente"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
