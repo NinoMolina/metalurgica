@@ -687,6 +687,24 @@ public class PedidoDAOImpl implements PedidoDAO
 			}
 			finally{}
 	}
+    public PedidoDB[] findByClienteAndEstado(long cliente, long estado, Connection con) throws PedidoException{
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where cliente = ? and estado = ? order by cliente";
+			try {
+					stmt = con.prepareStatement(SQL_STATEMENT);
+					stmt.setLong( 1, cliente );
+                    stmt.setLong(2, estado);
+					rs = stmt.executeQuery();
+					return fetchMultiResults(rs);
+			}catch(SQLException sqle){
+					throw new PedidoException(sqle);
+			}
+			catch(Exception e){
+					throw new PedidoException(e);
+			}
+			finally{}
+	}
 
 /**
 *
