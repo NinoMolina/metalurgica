@@ -11,14 +11,20 @@
 
 package metalsoft.presentacion;
 
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.negocio.gestores.GestorCliente;
+import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
 import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
+import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -27,21 +33,28 @@ import metalsoft.util.ItemCombo;
  */
 public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
+    private LinkedList<ViewPedidosClienteSegunEstado> filasPedidos;
     private GestorCliente gestorCliente;
     private Cliente cliente;
     private ClienteDB clienteDB;
+    private long idPedido;
     private EnumOpcionesABM opcion;
+    private GestorRegistrarEntregaPedido gestor;
 
     private long idCliente;
     /** Creates new form RegistrarEntregaPedido */
     public RegistrarEntregaPedido() {
         initComponents();
         gestorCliente=new GestorCliente();
+        filasPedidos = null;
         cmbEstado.setEnabled(false);
         cmbPrioridad.setEnabled(false);
 
     }
-
+    private void buscarPedidosClienteEnArmado() {
+        filasPedidos =gestor.buscarPedidosClienteEnArmado(idCliente);
+        tblPedidos.updateUI();
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -64,6 +77,10 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblPedidos = new javax.swing.JTable();
+        btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Entrega de Pedido");
@@ -151,6 +168,37 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                     .addComponent(btnBuscarCliente)))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos de Cliente Sin Entregar"));
+
+        tblPedidos.setModel(new PedidoTableModel());
+        jScrollPane3.setViewportView(tblPedidos);
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeleccionar))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -158,23 +206,31 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(11, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(111, 111, 111)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(132, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,6 +258,12 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
             Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        ViewPedidosClienteSegunEstado viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        idPedido = viewPedido.getIdpedido();
+        
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -259,6 +321,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbPrioridad;
     private javax.swing.JLabel jLabel1;
@@ -268,9 +331,80 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblNroCliente;
+    private javax.swing.JTable tblPedidos;
     private javax.swing.JTextField txtCUIT;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
 
+    class PedidoTableModel extends AbstractTableModel {
+
+        private String[] columnNames = {"Nro",
+            "Nro Ped Cliente",
+            "Prioridad",
+            "Cliente",
+            "Ped Cotizacion",
+            "Cot Req Para",
+            "Entrega Estipulada",
+            "Estado"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewPedidosClienteSegunEstado view = filasPedidos.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNropedido();
+                case 1:
+                    return view.getNropedidocotizacioncliente();
+                case 2:
+                    return view.getPrioridad();
+                case 3:
+                    return view.getCliente();
+                case 4:
+                    return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+                case 5:
+                    return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+                case 6:
+                    if (view.getFechaentregaestipulada() == null) {
+                        return "";
+                    } else {
+                        return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                    }
+                case 7:
+                    return view.getEstado();
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasPedidos != null) {
+                return filasPedidos.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
 }
