@@ -37,6 +37,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     public RegistrarEntregaPedido() {
         initComponents();
         gestorCliente=new GestorCliente();
+        cmbEstado.setEnabled(false);
+        cmbPrioridad.setEnabled(false);
 
     }
 
@@ -123,8 +125,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                                 .addGap(9, 9, 9)
                                 .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(57, 57, 57)
+                        .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
