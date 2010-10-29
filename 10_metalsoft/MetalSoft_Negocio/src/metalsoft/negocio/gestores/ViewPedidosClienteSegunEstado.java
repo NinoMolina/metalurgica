@@ -24,6 +24,22 @@ public class ViewPedidosClienteSegunEstado {
     private long idcliente;
     private long nrocliente;
 
+    public long getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(long idcliente) {
+        this.idcliente = idcliente;
+    }
+
+    public long getNrocliente() {
+        return nrocliente;
+    }
+
+    public void setNrocliente(long nrocliente) {
+        this.nrocliente = nrocliente;
+    }
+
     public ViewPedidosClienteSegunEstado() {
     }
 
