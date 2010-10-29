@@ -45,4 +45,5 @@ public interface PedidoDAO
 	public PedidoDB[] findByPrioridad(long prioridad,Connection con) throws PedidoException;
 	public PedidoDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws PedidoException;
 	public PedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PedidoException;
+    public PedidoDB[] findByClienteAndEstado(long cliente, long estado, Connection con) throws PedidoException;
 }
