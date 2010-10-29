@@ -8,7 +8,6 @@
  *
  * Created on 01/07/2010, 12:07:47
  */
-
 package metalsoft.presentacion;
 
 import java.util.Timer;
@@ -24,16 +23,25 @@ import metalsoft.negocio.gestores.IBuscador;
  *
  * @author Nino
  */
-public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
+public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador {
 
-    private GestorCliente gestor=null;
-    private ABMCliente ventana=null;
+    private GestorCliente gestor = null;
+    private ABMCliente ventana = null;
+    private RegistrarEntregaPedido ventanaRegistrarEntregaPedido=null;
     private Timer timer;
+
     /** Creates new form ABMCliente_Buscar */
     public ABMCliente_Buscar() {
         initComponents();
     }
 
+    public RegistrarEntregaPedido getVentanaRegistrarEntregaPedido() {
+        return ventanaRegistrarEntregaPedido;
+    }
+
+    public void setVentanaRegistrarEntregaPedido(RegistrarEntregaPedido ventanaRegistrarEntregaPedido) {
+        this.ventanaRegistrarEntregaPedido = ventanaRegistrarEntregaPedido;
+    }
     public GestorCliente getGestor() {
         return gestor;
     }
@@ -134,14 +142,16 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
 }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMCliente_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMCliente_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloBuscarCliente hiloBuscarCliente;
+
                 @Override
                 public void run() {
-                    hiloBuscarCliente=new HiloBuscarCliente();
+                    hiloBuscarCliente = new HiloBuscarCliente();
                     hiloBuscarCliente.setVentana(abm);
                     hiloBuscarCliente.setValor(txtValor.getText());
                     hiloBuscarCliente.start();
@@ -167,9 +177,16 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdCliente(id);
-        ventana.clienteSeleccionado();
+        long id = Long.parseLong(((ItemCombo) lstLista.getSelectedValue()).getId());
+        if (ventana != null) {
+            ventana.setIdCliente(id);
+            ventana.clienteSeleccionado();
+        }
+        if (ventanaRegistrarEntregaPedido != null) {
+            ventanaRegistrarEntregaPedido.setIdCliente(id);
+            ventanaRegistrarEntregaPedido.clienteSeleccionado();
+        }
+
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -177,10 +194,11 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
 }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMCliente_Buscar().setVisible(true);
             }
@@ -196,8 +214,9 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
     // End of variables declaration//GEN-END:variables
 
     void setVentanaCliente(ABMCliente abm) {
-        ventana=abm;
+        ventana = abm;
     }
+
 
     public JList getList(String className) {
         return lstLista;
@@ -208,7 +227,5 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador{
     }
 
     public void setBusqueda(Object[] obj) {
-        
     }
-
 }
