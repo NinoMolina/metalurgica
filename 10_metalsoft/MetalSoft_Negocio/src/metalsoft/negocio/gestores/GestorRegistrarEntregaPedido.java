@@ -78,7 +78,34 @@ public class GestorRegistrarEntregaPedido {
         }
         return pedido;
     }
+    public int updatePedidoaEntregado(PedidoDB pedido){
+        int result=-1;
+        PostgreSQLManager pg=new PostgreSQLManager();
+        Connection cn=null;
+        try {
 
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            result=AccessPedido.update(pedido, cn);
+            cn.commit();
+        } catch (Exception ex) {
+            try {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 
 
 
