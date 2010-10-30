@@ -15,12 +15,14 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
+import metalsoft.negocio.gestores.IdsEstadoPedido;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
@@ -60,7 +62,10 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         gestor = new GestorRegistrarEntregaPedido();
         cmbEstado1.setEnabled(false);
         cmbPrioridad1.setEnabled(false);
-
+        btnRegistrarEntrega.setEnabled(false);
+        btnSeleccionar.setEnabled(false);
+        btnGenerarFactura.setEnabled(false);
+        btnGenerarRemito.setEnabled(false);
     }
 
     private void buscarPedidosClienteEnArmado() {
@@ -123,6 +128,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDetallePedidoCotizacion = new javax.swing.JTable();
         btnRegistrarEntrega = new javax.swing.JButton();
+        btnGenerarFactura = new javax.swing.JButton();
+        btnGenerarRemito = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -478,6 +485,15 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     );
 
     btnRegistrarEntrega.setText("Registrar Entrega");
+    btnRegistrarEntrega.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnRegistrarEntregaActionPerformed(evt);
+        }
+    });
+
+    btnGenerarFactura.setText("Generar Factura");
+
+    btnGenerarRemito.setText("Generar Remito");
 
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);
@@ -491,7 +507,12 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(btnRegistrarEntrega))
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addComponent(btnRegistrarEntrega)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnGenerarFactura)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnGenerarRemito)))
             .addContainerGap())
     );
     jPanel4Layout.setVerticalGroup(
@@ -503,7 +524,10 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(btnRegistrarEntrega))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnRegistrarEntrega)
+                .addComponent(btnGenerarFactura)
+                .addComponent(btnGenerarRemito)))
     );
 
     btnSalir.setText("Salir");
@@ -554,9 +578,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
@@ -571,6 +593,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
             buscar.setVentanaRegistrarEntregaPedido(this);
             buscar.setGestor(gestorCliente);
             limpiarCamposPedido();
+            btnRegistrarEntrega.setEnabled(false);
+            btnSeleccionar.setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -645,6 +669,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
+        btnRegistrarEntrega.setEnabled(true);
 
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -652,6 +677,36 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         this.dispose();
 }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnRegistrarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntregaActionPerformed
+        // TODO add your handling code here:
+        int result=-1;
+        PedidoDB db=gestor.buscarPedidoPorID(idPedido);
+        db.setEstado(IdsEstadoPedido.ENTREGADO);
+        db.setFechaentregareal((java.sql.Date)Fecha.fechaActualDate());
+        result=gestor.updatePedidoaEntregado(db);
+        int ok = -1;
+        int okRemito = -1;
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this,"Se registro la entrega del Pedido nro "+db.getNropedido()+", en la fecha "+String.valueOf(Fecha.fechaActualDate()));
+            ok = JOptionPane.showConfirmDialog(this, "Desea imprimir la Factura?");
+            if (ok == JOptionPane.OK_OPTION) {
+                imprimirFactura();
+            }
+            ok = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
+            if (ok == JOptionPane.OK_OPTION) {
+                imprimirRemito();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
+        }
+    }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
+    private void imprimirFactura() {
+        gestor.imprimirFactura(idPedido);
+    }
+    private void imprimirRemito() {
+        gestor.imprimirRemito(idPedido);
+    }
     /**
      * @param args the command line arguments
      */
@@ -748,6 +803,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnGenerarFactura;
+    private javax.swing.JButton btnGenerarRemito;
     private javax.swing.JButton btnRegistrarEntrega;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
