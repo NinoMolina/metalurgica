@@ -40,58 +40,42 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
         btnSalir = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
-        btnNuevo.setText("Nuevo");
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/new1.png"))); // NOI18N
+        btnNuevo.setToolTipText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
+        add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 68, -1));
 
-        btnGuardar.setText("Guardar");
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/save1.png"))); // NOI18N
+        btnGuardar.setToolTipText("Guardar");
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 0, 74, -1));
 
-        btnModificar.setText("Modificar");
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/mod1.png"))); // NOI18N
+        btnModificar.setToolTipText("Modificar");
+        add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 0, 72, -1));
 
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/del1.png"))); // NOI18N
+        btnEliminar.setToolTipText("Eliminar");
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 0, 66, -1));
 
-        btnSalir.setText("Salir");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/exit1.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
+        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(479, 0, 68, -1));
 
-        btnBuscar.setText("Buscar");
-
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(btnNuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnGuardar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnModificar)
-                .add(5, 5, 5)
-                .add(btnEliminar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(14, 14, 14))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(btnNuevo)
-                .add(btnGuardar))
-            .add(btnModificar)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(btnEliminar)
-                .add(btnBuscar)
-                .add(btnSalir))
-        );
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/sea1.png"))); // NOI18N
+        btnBuscar.setToolTipText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 0, 66, 33));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
