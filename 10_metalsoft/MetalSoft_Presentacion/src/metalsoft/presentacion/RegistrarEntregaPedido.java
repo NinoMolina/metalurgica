@@ -688,12 +688,12 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         int okRemito = -1;
         if (result > 0) {
             JOptionPane.showMessageDialog(this,"Se registro la entrega del Pedido nro "+db.getNropedido()+", en la fecha "+String.valueOf(Fecha.fechaActualDate()));
-            ok = JOptionPane.showConfirmDialog(this, "Desea imprimir la Factura?");
+            ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
             if (ok == JOptionPane.OK_OPTION) {
                 imprimirFactura();
             }
-            ok = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
-            if (ok == JOptionPane.OK_OPTION) {
+            okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
+            if (okRemito == JOptionPane.OK_OPTION) {
                 imprimirRemito();
             }
 
