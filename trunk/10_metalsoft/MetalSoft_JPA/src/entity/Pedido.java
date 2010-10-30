@@ -80,47 +80,90 @@ public class Pedido implements Serializable {
     private Long idpedido;
     @OneToMany(mappedBy = "pedido")
     private Set<Planificacionproduccion> planificacionproduccionSet;
+    @OneToMany(mappedBy = "pedido1")
+    private Set<Planificacionproduccion> planificacionproduccionSet1;
     @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
     @ManyToOne
     private Cliente cliente;
+    @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
+    @ManyToOne
+    private Cliente cliente1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne(optional = false)
     private Estadopedido estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne(optional = false)
+    private Estadopedido estado1;
     @JoinColumn(name = "factura", referencedColumnName = "idfactura")
     @ManyToOne
     private Factura factura;
+    @JoinColumn(name = "factura", referencedColumnName = "idfactura")
+    @ManyToOne
+    private Factura factura1;
     @JoinColumn(name = "plano", referencedColumnName = "idplano")
     @ManyToOne
     private Plano plano;
+    @JoinColumn(name = "plano", referencedColumnName = "idplano")
+    @ManyToOne
+    private Plano plano1;
     @JoinColumn(name = "planprocedimientos", referencedColumnName = "idplanprocedimientos")
     @ManyToOne
     private Planprocedimientos planprocedimientos;
+    @JoinColumn(name = "planprocedimientos", referencedColumnName = "idplanprocedimientos")
+    @ManyToOne
+    private Planprocedimientos planprocedimientos1;
     @JoinColumn(name = "planprocesoscalidad", referencedColumnName = "idplanprocesoscalidad")
     @ManyToOne
     private Planprocesoscalidad planprocesoscalidad;
+    @JoinColumn(name = "planprocesoscalidad", referencedColumnName = "idplanprocesoscalidad")
+    @ManyToOne
+    private Planprocesoscalidad planprocesoscalidad1;
     @JoinColumn(name = "planrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima")
     @ManyToOne
     private Planrequerimientosmateriaprima planrequerimientosmateriaprima;
+    @JoinColumn(name = "planrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima")
+    @ManyToOne
+    private Planrequerimientosmateriaprima planrequerimientosmateriaprima1;
     @JoinColumn(name = "presupuesto", referencedColumnName = "idpresupuesto")
     @ManyToOne
     private Presupuesto presupuesto;
+    @JoinColumn(name = "presupuesto", referencedColumnName = "idpresupuesto")
+    @ManyToOne
+    private Presupuesto presupuesto1;
     @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
     @ManyToOne(optional = false)
     private Prioridad prioridad;
+    @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
+    @ManyToOne(optional = false)
+    private Prioridad prioridad1;
     @OneToMany(mappedBy = "idpedido")
     private Set<Productoreal> productorealSet;
+    @OneToMany(mappedBy = "idpedido1")
+    private Set<Productoreal> productorealSet1;
     @OneToMany(mappedBy = "pedido")
     private Set<Plano> planoSet;
+    @OneToMany(mappedBy = "pedido1")
+    private Set<Plano> planoSet1;
     @OneToMany(mappedBy = "pedido")
     private Set<Trabajotercerizado> trabajotercerizadoSet;
+    @OneToMany(mappedBy = "pedido1")
+    private Set<Trabajotercerizado> trabajotercerizadoSet1;
     @OneToMany(mappedBy = "pedido")
     private Set<Planificacioncalidad> planificacioncalidadSet;
+    @OneToMany(mappedBy = "pedido1")
+    private Set<Planificacioncalidad> planificacioncalidadSet1;
     @OneToMany(mappedBy = "pedido")
     private Set<Remito> remitoSet;
+    @OneToMany(mappedBy = "pedido1")
+    private Set<Remito> remitoSet1;
     @OneToMany(mappedBy = "idpedido")
     private Set<Detallefactura> detallefacturaSet;
+    @OneToMany(mappedBy = "idpedido1")
+    private Set<Detallefactura> detallefacturaSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpedido")
     private Set<Detallepedido> detallepedidoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpedido1")
+    private Set<Detallepedido> detallepedidoSet1;
 
     public Pedido() {
     }
@@ -238,12 +281,28 @@ public class Pedido implements Serializable {
         this.planificacionproduccionSet = planificacionproduccionSet;
     }
 
+    public Set<Planificacionproduccion> getPlanificacionproduccionSet1() {
+        return planificacionproduccionSet1;
+    }
+
+    public void setPlanificacionproduccionSet1(Set<Planificacionproduccion> planificacionproduccionSet1) {
+        this.planificacionproduccionSet1 = planificacionproduccionSet1;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Cliente getCliente1() {
+        return cliente1;
+    }
+
+    public void setCliente1(Cliente cliente1) {
+        this.cliente1 = cliente1;
     }
 
     public Estadopedido getEstado() {
@@ -254,12 +313,28 @@ public class Pedido implements Serializable {
         this.estado = estado;
     }
 
+    public Estadopedido getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadopedido estado1) {
+        this.estado1 = estado1;
+    }
+
     public Factura getFactura() {
         return factura;
     }
 
     public void setFactura(Factura factura) {
         this.factura = factura;
+    }
+
+    public Factura getFactura1() {
+        return factura1;
+    }
+
+    public void setFactura1(Factura factura1) {
+        this.factura1 = factura1;
     }
 
     public Plano getPlano() {
@@ -270,12 +345,28 @@ public class Pedido implements Serializable {
         this.plano = plano;
     }
 
+    public Plano getPlano1() {
+        return plano1;
+    }
+
+    public void setPlano1(Plano plano1) {
+        this.plano1 = plano1;
+    }
+
     public Planprocedimientos getPlanprocedimientos() {
         return planprocedimientos;
     }
 
     public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
         this.planprocedimientos = planprocedimientos;
+    }
+
+    public Planprocedimientos getPlanprocedimientos1() {
+        return planprocedimientos1;
+    }
+
+    public void setPlanprocedimientos1(Planprocedimientos planprocedimientos1) {
+        this.planprocedimientos1 = planprocedimientos1;
     }
 
     public Planprocesoscalidad getPlanprocesoscalidad() {
@@ -286,12 +377,28 @@ public class Pedido implements Serializable {
         this.planprocesoscalidad = planprocesoscalidad;
     }
 
+    public Planprocesoscalidad getPlanprocesoscalidad1() {
+        return planprocesoscalidad1;
+    }
+
+    public void setPlanprocesoscalidad1(Planprocesoscalidad planprocesoscalidad1) {
+        this.planprocesoscalidad1 = planprocesoscalidad1;
+    }
+
     public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima() {
         return planrequerimientosmateriaprima;
     }
 
     public void setPlanrequerimientosmateriaprima(Planrequerimientosmateriaprima planrequerimientosmateriaprima) {
         this.planrequerimientosmateriaprima = planrequerimientosmateriaprima;
+    }
+
+    public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima1() {
+        return planrequerimientosmateriaprima1;
+    }
+
+    public void setPlanrequerimientosmateriaprima1(Planrequerimientosmateriaprima planrequerimientosmateriaprima1) {
+        this.planrequerimientosmateriaprima1 = planrequerimientosmateriaprima1;
     }
 
     public Presupuesto getPresupuesto() {
@@ -302,12 +409,28 @@ public class Pedido implements Serializable {
         this.presupuesto = presupuesto;
     }
 
+    public Presupuesto getPresupuesto1() {
+        return presupuesto1;
+    }
+
+    public void setPresupuesto1(Presupuesto presupuesto1) {
+        this.presupuesto1 = presupuesto1;
+    }
+
     public Prioridad getPrioridad() {
         return prioridad;
     }
 
     public void setPrioridad(Prioridad prioridad) {
         this.prioridad = prioridad;
+    }
+
+    public Prioridad getPrioridad1() {
+        return prioridad1;
+    }
+
+    public void setPrioridad1(Prioridad prioridad1) {
+        this.prioridad1 = prioridad1;
     }
 
     public Set<Productoreal> getProductorealSet() {
@@ -318,12 +441,28 @@ public class Pedido implements Serializable {
         this.productorealSet = productorealSet;
     }
 
+    public Set<Productoreal> getProductorealSet1() {
+        return productorealSet1;
+    }
+
+    public void setProductorealSet1(Set<Productoreal> productorealSet1) {
+        this.productorealSet1 = productorealSet1;
+    }
+
     public Set<Plano> getPlanoSet() {
         return planoSet;
     }
 
     public void setPlanoSet(Set<Plano> planoSet) {
         this.planoSet = planoSet;
+    }
+
+    public Set<Plano> getPlanoSet1() {
+        return planoSet1;
+    }
+
+    public void setPlanoSet1(Set<Plano> planoSet1) {
+        this.planoSet1 = planoSet1;
     }
 
     public Set<Trabajotercerizado> getTrabajotercerizadoSet() {
@@ -334,12 +473,28 @@ public class Pedido implements Serializable {
         this.trabajotercerizadoSet = trabajotercerizadoSet;
     }
 
+    public Set<Trabajotercerizado> getTrabajotercerizadoSet1() {
+        return trabajotercerizadoSet1;
+    }
+
+    public void setTrabajotercerizadoSet1(Set<Trabajotercerizado> trabajotercerizadoSet1) {
+        this.trabajotercerizadoSet1 = trabajotercerizadoSet1;
+    }
+
     public Set<Planificacioncalidad> getPlanificacioncalidadSet() {
         return planificacioncalidadSet;
     }
 
     public void setPlanificacioncalidadSet(Set<Planificacioncalidad> planificacioncalidadSet) {
         this.planificacioncalidadSet = planificacioncalidadSet;
+    }
+
+    public Set<Planificacioncalidad> getPlanificacioncalidadSet1() {
+        return planificacioncalidadSet1;
+    }
+
+    public void setPlanificacioncalidadSet1(Set<Planificacioncalidad> planificacioncalidadSet1) {
+        this.planificacioncalidadSet1 = planificacioncalidadSet1;
     }
 
     public Set<Remito> getRemitoSet() {
@@ -350,6 +505,14 @@ public class Pedido implements Serializable {
         this.remitoSet = remitoSet;
     }
 
+    public Set<Remito> getRemitoSet1() {
+        return remitoSet1;
+    }
+
+    public void setRemitoSet1(Set<Remito> remitoSet1) {
+        this.remitoSet1 = remitoSet1;
+    }
+
     public Set<Detallefactura> getDetallefacturaSet() {
         return detallefacturaSet;
     }
@@ -358,12 +521,28 @@ public class Pedido implements Serializable {
         this.detallefacturaSet = detallefacturaSet;
     }
 
+    public Set<Detallefactura> getDetallefacturaSet1() {
+        return detallefacturaSet1;
+    }
+
+    public void setDetallefacturaSet1(Set<Detallefactura> detallefacturaSet1) {
+        this.detallefacturaSet1 = detallefacturaSet1;
+    }
+
     public Set<Detallepedido> getDetallepedidoSet() {
         return detallepedidoSet;
     }
 
     public void setDetallepedidoSet(Set<Detallepedido> detallepedidoSet) {
         this.detallepedidoSet = detallepedidoSet;
+    }
+
+    public Set<Detallepedido> getDetallepedidoSet1() {
+        return detallepedidoSet1;
+    }
+
+    public void setDetallepedidoSet1(Set<Detallepedido> detallepedidoSet1) {
+        this.detallepedidoSet1 = detallepedidoSet1;
     }
 
     @Override

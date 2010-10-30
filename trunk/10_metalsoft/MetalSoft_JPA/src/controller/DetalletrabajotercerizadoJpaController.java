@@ -40,7 +40,7 @@ public class DetalletrabajotercerizadoJpaController {
         if (detalletrabajotercerizado.getDetalletrabajotercerizadoPK() == null) {
             detalletrabajotercerizado.setDetalletrabajotercerizadoPK(new DetalletrabajotercerizadoPK());
         }
-        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado().getIdtrabajo());
+        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado1().getIdtrabajo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,28 +50,55 @@ public class DetalletrabajotercerizadoJpaController {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 detalletrabajotercerizado.setEstado(estado);
             }
+            Estadodetalletrabajotercerizado estado1 = detalletrabajotercerizado.getEstado1();
+            if (estado1 != null) {
+                estado1 = em.getReference(estado1.getClass(), estado1.getIdestado());
+                detalletrabajotercerizado.setEstado1(estado1);
+            }
             Etapadeproduccion proceso = detalletrabajotercerizado.getProceso();
             if (proceso != null) {
                 proceso = em.getReference(proceso.getClass(), proceso.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(proceso);
+            }
+            Etapadeproduccion proceso1 = detalletrabajotercerizado.getProceso1();
+            if (proceso1 != null) {
+                proceso1 = em.getReference(proceso1.getClass(), proceso1.getIdetapaproduccion());
+                detalletrabajotercerizado.setProceso1(proceso1);
             }
             Trabajotercerizado trabajotercerizado = detalletrabajotercerizado.getTrabajotercerizado();
             if (trabajotercerizado != null) {
                 trabajotercerizado = em.getReference(trabajotercerizado.getClass(), trabajotercerizado.getIdtrabajo());
                 detalletrabajotercerizado.setTrabajotercerizado(trabajotercerizado);
             }
+            Trabajotercerizado trabajotercerizado1 = detalletrabajotercerizado.getTrabajotercerizado1();
+            if (trabajotercerizado1 != null) {
+                trabajotercerizado1 = em.getReference(trabajotercerizado1.getClass(), trabajotercerizado1.getIdtrabajo());
+                detalletrabajotercerizado.setTrabajotercerizado1(trabajotercerizado1);
+            }
             em.persist(detalletrabajotercerizado);
             if (estado != null) {
                 estado.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 estado = em.merge(estado);
             }
+            if (estado1 != null) {
+                estado1.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                estado1 = em.merge(estado1);
+            }
             if (proceso != null) {
                 proceso.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
+            if (proceso1 != null) {
+                proceso1.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                proceso1 = em.merge(proceso1);
+            }
             if (trabajotercerizado != null) {
                 trabajotercerizado.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 trabajotercerizado = em.merge(trabajotercerizado);
+            }
+            if (trabajotercerizado1 != null) {
+                trabajotercerizado1.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                trabajotercerizado1 = em.merge(trabajotercerizado1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -87,7 +114,7 @@ public class DetalletrabajotercerizadoJpaController {
     }
 
     public void edit(Detalletrabajotercerizado detalletrabajotercerizado) throws NonexistentEntityException, Exception {
-        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado().getIdtrabajo());
+        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado1().getIdtrabajo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -95,21 +122,39 @@ public class DetalletrabajotercerizadoJpaController {
             Detalletrabajotercerizado persistentDetalletrabajotercerizado = em.find(Detalletrabajotercerizado.class, detalletrabajotercerizado.getDetalletrabajotercerizadoPK());
             Estadodetalletrabajotercerizado estadoOld = persistentDetalletrabajotercerizado.getEstado();
             Estadodetalletrabajotercerizado estadoNew = detalletrabajotercerizado.getEstado();
+            Estadodetalletrabajotercerizado estado1Old = persistentDetalletrabajotercerizado.getEstado1();
+            Estadodetalletrabajotercerizado estado1New = detalletrabajotercerizado.getEstado1();
             Etapadeproduccion procesoOld = persistentDetalletrabajotercerizado.getProceso();
             Etapadeproduccion procesoNew = detalletrabajotercerizado.getProceso();
+            Etapadeproduccion proceso1Old = persistentDetalletrabajotercerizado.getProceso1();
+            Etapadeproduccion proceso1New = detalletrabajotercerizado.getProceso1();
             Trabajotercerizado trabajotercerizadoOld = persistentDetalletrabajotercerizado.getTrabajotercerizado();
             Trabajotercerizado trabajotercerizadoNew = detalletrabajotercerizado.getTrabajotercerizado();
+            Trabajotercerizado trabajotercerizado1Old = persistentDetalletrabajotercerizado.getTrabajotercerizado1();
+            Trabajotercerizado trabajotercerizado1New = detalletrabajotercerizado.getTrabajotercerizado1();
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 detalletrabajotercerizado.setEstado(estadoNew);
+            }
+            if (estado1New != null) {
+                estado1New = em.getReference(estado1New.getClass(), estado1New.getIdestado());
+                detalletrabajotercerizado.setEstado1(estado1New);
             }
             if (procesoNew != null) {
                 procesoNew = em.getReference(procesoNew.getClass(), procesoNew.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(procesoNew);
             }
+            if (proceso1New != null) {
+                proceso1New = em.getReference(proceso1New.getClass(), proceso1New.getIdetapaproduccion());
+                detalletrabajotercerizado.setProceso1(proceso1New);
+            }
             if (trabajotercerizadoNew != null) {
                 trabajotercerizadoNew = em.getReference(trabajotercerizadoNew.getClass(), trabajotercerizadoNew.getIdtrabajo());
                 detalletrabajotercerizado.setTrabajotercerizado(trabajotercerizadoNew);
+            }
+            if (trabajotercerizado1New != null) {
+                trabajotercerizado1New = em.getReference(trabajotercerizado1New.getClass(), trabajotercerizado1New.getIdtrabajo());
+                detalletrabajotercerizado.setTrabajotercerizado1(trabajotercerizado1New);
             }
             detalletrabajotercerizado = em.merge(detalletrabajotercerizado);
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
@@ -120,6 +165,14 @@ public class DetalletrabajotercerizadoJpaController {
                 estadoNew.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 estadoNew = em.merge(estadoNew);
             }
+            if (estado1Old != null && !estado1Old.equals(estado1New)) {
+                estado1Old.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                estado1Old = em.merge(estado1Old);
+            }
+            if (estado1New != null && !estado1New.equals(estado1Old)) {
+                estado1New.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                estado1New = em.merge(estado1New);
+            }
             if (procesoOld != null && !procesoOld.equals(procesoNew)) {
                 procesoOld.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
                 procesoOld = em.merge(procesoOld);
@@ -128,6 +181,14 @@ public class DetalletrabajotercerizadoJpaController {
                 procesoNew.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 procesoNew = em.merge(procesoNew);
             }
+            if (proceso1Old != null && !proceso1Old.equals(proceso1New)) {
+                proceso1Old.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                proceso1Old = em.merge(proceso1Old);
+            }
+            if (proceso1New != null && !proceso1New.equals(proceso1Old)) {
+                proceso1New.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                proceso1New = em.merge(proceso1New);
+            }
             if (trabajotercerizadoOld != null && !trabajotercerizadoOld.equals(trabajotercerizadoNew)) {
                 trabajotercerizadoOld.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
                 trabajotercerizadoOld = em.merge(trabajotercerizadoOld);
@@ -135,6 +196,14 @@ public class DetalletrabajotercerizadoJpaController {
             if (trabajotercerizadoNew != null && !trabajotercerizadoNew.equals(trabajotercerizadoOld)) {
                 trabajotercerizadoNew.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
                 trabajotercerizadoNew = em.merge(trabajotercerizadoNew);
+            }
+            if (trabajotercerizado1Old != null && !trabajotercerizado1Old.equals(trabajotercerizado1New)) {
+                trabajotercerizado1Old.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                trabajotercerizado1Old = em.merge(trabajotercerizado1Old);
+            }
+            if (trabajotercerizado1New != null && !trabajotercerizado1New.equals(trabajotercerizado1Old)) {
+                trabajotercerizado1New.getDetalletrabajotercerizadoSet().add(detalletrabajotercerizado);
+                trabajotercerizado1New = em.merge(trabajotercerizado1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -170,15 +239,30 @@ public class DetalletrabajotercerizadoJpaController {
                 estado.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
                 estado = em.merge(estado);
             }
+            Estadodetalletrabajotercerizado estado1 = detalletrabajotercerizado.getEstado1();
+            if (estado1 != null) {
+                estado1.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                estado1 = em.merge(estado1);
+            }
             Etapadeproduccion proceso = detalletrabajotercerizado.getProceso();
             if (proceso != null) {
                 proceso.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
+            Etapadeproduccion proceso1 = detalletrabajotercerizado.getProceso1();
+            if (proceso1 != null) {
+                proceso1.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                proceso1 = em.merge(proceso1);
+            }
             Trabajotercerizado trabajotercerizado = detalletrabajotercerizado.getTrabajotercerizado();
             if (trabajotercerizado != null) {
                 trabajotercerizado.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
                 trabajotercerizado = em.merge(trabajotercerizado);
+            }
+            Trabajotercerizado trabajotercerizado1 = detalletrabajotercerizado.getTrabajotercerizado1();
+            if (trabajotercerizado1 != null) {
+                trabajotercerizado1.getDetalletrabajotercerizadoSet().remove(detalletrabajotercerizado);
+                trabajotercerizado1 = em.merge(trabajotercerizado1);
             }
             em.remove(detalletrabajotercerizado);
             em.getTransaction().commit();

@@ -52,8 +52,12 @@ public class Presupuesto implements Serializable {
     private BigInteger nropresupuesto;
     @OneToMany(mappedBy = "presupuesto")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "presupuesto1")
+    private Set<Pedido> pedidoSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpresupuesto")
     private Set<Detallepresupuesto> detallepresupuestoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpresupuesto1")
+    private Set<Detallepresupuesto> detallepresupuestoSet1;
 
     public Presupuesto() {
     }
@@ -110,12 +114,28 @@ public class Presupuesto implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Set<Detallepresupuesto> getDetallepresupuestoSet() {
         return detallepresupuestoSet;
     }
 
     public void setDetallepresupuestoSet(Set<Detallepresupuesto> detallepresupuestoSet) {
         this.detallepresupuestoSet = detallepresupuestoSet;
+    }
+
+    public Set<Detallepresupuesto> getDetallepresupuestoSet1() {
+        return detallepresupuestoSet1;
+    }
+
+    public void setDetallepresupuestoSet1(Set<Detallepresupuesto> detallepresupuestoSet1) {
+        this.detallepresupuestoSet1 = detallepresupuestoSet1;
     }
 
     @Override

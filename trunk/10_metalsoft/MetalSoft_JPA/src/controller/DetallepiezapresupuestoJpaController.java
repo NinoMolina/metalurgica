@@ -44,19 +44,37 @@ public class DetallepiezapresupuestoJpaController {
                 iddetalleproductopresupuesto = em.getReference(iddetalleproductopresupuesto.getClass(), iddetalleproductopresupuesto.getIddetalle());
                 detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuesto);
             }
+            Detalleproductopresupuesto iddetalleproductopresupuesto1 = detallepiezapresupuesto.getIddetalleproductopresupuesto1();
+            if (iddetalleproductopresupuesto1 != null) {
+                iddetalleproductopresupuesto1 = em.getReference(iddetalleproductopresupuesto1.getClass(), iddetalleproductopresupuesto1.getIddetalle());
+                detallepiezapresupuesto.setIddetalleproductopresupuesto1(iddetalleproductopresupuesto1);
+            }
             Etapadeproduccion idetapa = detallepiezapresupuesto.getIdetapa();
             if (idetapa != null) {
                 idetapa = em.getReference(idetapa.getClass(), idetapa.getIdetapaproduccion());
                 detallepiezapresupuesto.setIdetapa(idetapa);
+            }
+            Etapadeproduccion idetapa1 = detallepiezapresupuesto.getIdetapa1();
+            if (idetapa1 != null) {
+                idetapa1 = em.getReference(idetapa1.getClass(), idetapa1.getIdetapaproduccion());
+                detallepiezapresupuesto.setIdetapa1(idetapa1);
             }
             em.persist(detallepiezapresupuesto);
             if (iddetalleproductopresupuesto != null) {
                 iddetalleproductopresupuesto.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
                 iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
+            if (iddetalleproductopresupuesto1 != null) {
+                iddetalleproductopresupuesto1.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
+                iddetalleproductopresupuesto1 = em.merge(iddetalleproductopresupuesto1);
+            }
             if (idetapa != null) {
                 idetapa.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
                 idetapa = em.merge(idetapa);
+            }
+            if (idetapa1 != null) {
+                idetapa1.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
+                idetapa1 = em.merge(idetapa1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -79,15 +97,27 @@ public class DetallepiezapresupuestoJpaController {
             Detallepiezapresupuesto persistentDetallepiezapresupuesto = em.find(Detallepiezapresupuesto.class, detallepiezapresupuesto.getIddetalle());
             Detalleproductopresupuesto iddetalleproductopresupuestoOld = persistentDetallepiezapresupuesto.getIddetalleproductopresupuesto();
             Detalleproductopresupuesto iddetalleproductopresupuestoNew = detallepiezapresupuesto.getIddetalleproductopresupuesto();
+            Detalleproductopresupuesto iddetalleproductopresupuesto1Old = persistentDetallepiezapresupuesto.getIddetalleproductopresupuesto1();
+            Detalleproductopresupuesto iddetalleproductopresupuesto1New = detallepiezapresupuesto.getIddetalleproductopresupuesto1();
             Etapadeproduccion idetapaOld = persistentDetallepiezapresupuesto.getIdetapa();
             Etapadeproduccion idetapaNew = detallepiezapresupuesto.getIdetapa();
+            Etapadeproduccion idetapa1Old = persistentDetallepiezapresupuesto.getIdetapa1();
+            Etapadeproduccion idetapa1New = detallepiezapresupuesto.getIdetapa1();
             if (iddetalleproductopresupuestoNew != null) {
                 iddetalleproductopresupuestoNew = em.getReference(iddetalleproductopresupuestoNew.getClass(), iddetalleproductopresupuestoNew.getIddetalle());
                 detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuestoNew);
             }
+            if (iddetalleproductopresupuesto1New != null) {
+                iddetalleproductopresupuesto1New = em.getReference(iddetalleproductopresupuesto1New.getClass(), iddetalleproductopresupuesto1New.getIddetalle());
+                detallepiezapresupuesto.setIddetalleproductopresupuesto1(iddetalleproductopresupuesto1New);
+            }
             if (idetapaNew != null) {
                 idetapaNew = em.getReference(idetapaNew.getClass(), idetapaNew.getIdetapaproduccion());
                 detallepiezapresupuesto.setIdetapa(idetapaNew);
+            }
+            if (idetapa1New != null) {
+                idetapa1New = em.getReference(idetapa1New.getClass(), idetapa1New.getIdetapaproduccion());
+                detallepiezapresupuesto.setIdetapa1(idetapa1New);
             }
             detallepiezapresupuesto = em.merge(detallepiezapresupuesto);
             if (iddetalleproductopresupuestoOld != null && !iddetalleproductopresupuestoOld.equals(iddetalleproductopresupuestoNew)) {
@@ -98,6 +128,14 @@ public class DetallepiezapresupuestoJpaController {
                 iddetalleproductopresupuestoNew.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
                 iddetalleproductopresupuestoNew = em.merge(iddetalleproductopresupuestoNew);
             }
+            if (iddetalleproductopresupuesto1Old != null && !iddetalleproductopresupuesto1Old.equals(iddetalleproductopresupuesto1New)) {
+                iddetalleproductopresupuesto1Old.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
+                iddetalleproductopresupuesto1Old = em.merge(iddetalleproductopresupuesto1Old);
+            }
+            if (iddetalleproductopresupuesto1New != null && !iddetalleproductopresupuesto1New.equals(iddetalleproductopresupuesto1Old)) {
+                iddetalleproductopresupuesto1New.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
+                iddetalleproductopresupuesto1New = em.merge(iddetalleproductopresupuesto1New);
+            }
             if (idetapaOld != null && !idetapaOld.equals(idetapaNew)) {
                 idetapaOld.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
                 idetapaOld = em.merge(idetapaOld);
@@ -105,6 +143,14 @@ public class DetallepiezapresupuestoJpaController {
             if (idetapaNew != null && !idetapaNew.equals(idetapaOld)) {
                 idetapaNew.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
                 idetapaNew = em.merge(idetapaNew);
+            }
+            if (idetapa1Old != null && !idetapa1Old.equals(idetapa1New)) {
+                idetapa1Old.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
+                idetapa1Old = em.merge(idetapa1Old);
+            }
+            if (idetapa1New != null && !idetapa1New.equals(idetapa1Old)) {
+                idetapa1New.getDetallepiezapresupuestoSet().add(detallepiezapresupuesto);
+                idetapa1New = em.merge(idetapa1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -140,10 +186,20 @@ public class DetallepiezapresupuestoJpaController {
                 iddetalleproductopresupuesto.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
                 iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
+            Detalleproductopresupuesto iddetalleproductopresupuesto1 = detallepiezapresupuesto.getIddetalleproductopresupuesto1();
+            if (iddetalleproductopresupuesto1 != null) {
+                iddetalleproductopresupuesto1.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
+                iddetalleproductopresupuesto1 = em.merge(iddetalleproductopresupuesto1);
+            }
             Etapadeproduccion idetapa = detallepiezapresupuesto.getIdetapa();
             if (idetapa != null) {
                 idetapa.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
                 idetapa = em.merge(idetapa);
+            }
+            Etapadeproduccion idetapa1 = detallepiezapresupuesto.getIdetapa1();
+            if (idetapa1 != null) {
+                idetapa1.getDetallepiezapresupuestoSet().remove(detallepiezapresupuesto);
+                idetapa1 = em.merge(idetapa1);
             }
             em.remove(detallepiezapresupuesto);
             em.getTransaction().commit();

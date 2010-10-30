@@ -47,12 +47,20 @@ public class Remito implements Serializable {
     private Date fechaemision;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "remito")
     private Set<Detalleremito> detalleremitoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "remito1")
+    private Set<Detalleremito> detalleremitoSet1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoremito estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoremito estado1;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido1;
 
     public Remito() {
     }
@@ -93,6 +101,14 @@ public class Remito implements Serializable {
         this.detalleremitoSet = detalleremitoSet;
     }
 
+    public Set<Detalleremito> getDetalleremitoSet1() {
+        return detalleremitoSet1;
+    }
+
+    public void setDetalleremitoSet1(Set<Detalleremito> detalleremitoSet1) {
+        this.detalleremitoSet1 = detalleremitoSet1;
+    }
+
     public Estadoremito getEstado() {
         return estado;
     }
@@ -101,12 +117,28 @@ public class Remito implements Serializable {
         this.estado = estado;
     }
 
+    public Estadoremito getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadoremito estado1) {
+        this.estado1 = estado1;
+    }
+
     public Pedido getPedido() {
         return pedido;
     }
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public Pedido getPedido1() {
+        return pedido1;
+    }
+
+    public void setPedido1(Pedido pedido1) {
+        this.pedido1 = pedido1;
     }
 
     @Override

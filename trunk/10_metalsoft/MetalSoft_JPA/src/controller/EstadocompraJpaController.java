@@ -39,6 +39,9 @@ public class EstadocompraJpaController {
         if (estadocompra.getCompraSet() == null) {
             estadocompra.setCompraSet(new HashSet<Compra>());
         }
+        if (estadocompra.getCompraSet1() == null) {
+            estadocompra.setCompraSet1(new HashSet<Compra>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadocompraJpaController {
                 attachedCompraSet.add(compraSetCompraToAttach);
             }
             estadocompra.setCompraSet(attachedCompraSet);
+            Set<Compra> attachedCompraSet1 = new HashSet<Compra>();
+            for (Compra compraSet1CompraToAttach : estadocompra.getCompraSet1()) {
+                compraSet1CompraToAttach = em.getReference(compraSet1CompraToAttach.getClass(), compraSet1CompraToAttach.getIdcompra());
+                attachedCompraSet1.add(compraSet1CompraToAttach);
+            }
+            estadocompra.setCompraSet1(attachedCompraSet1);
             em.persist(estadocompra);
             for (Compra compraSetCompra : estadocompra.getCompraSet()) {
                 Estadocompra oldEstadoOfCompraSetCompra = compraSetCompra.getEstado();
@@ -57,6 +66,15 @@ public class EstadocompraJpaController {
                 if (oldEstadoOfCompraSetCompra != null) {
                     oldEstadoOfCompraSetCompra.getCompraSet().remove(compraSetCompra);
                     oldEstadoOfCompraSetCompra = em.merge(oldEstadoOfCompraSetCompra);
+                }
+            }
+            for (Compra compraSet1Compra : estadocompra.getCompraSet1()) {
+                Estadocompra oldEstado1OfCompraSet1Compra = compraSet1Compra.getEstado1();
+                compraSet1Compra.setEstado1(estadocompra);
+                compraSet1Compra = em.merge(compraSet1Compra);
+                if (oldEstado1OfCompraSet1Compra != null) {
+                    oldEstado1OfCompraSet1Compra.getCompraSet1().remove(compraSet1Compra);
+                    oldEstado1OfCompraSet1Compra = em.merge(oldEstado1OfCompraSet1Compra);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadocompraJpaController {
             Estadocompra persistentEstadocompra = em.find(Estadocompra.class, estadocompra.getIdestado());
             Set<Compra> compraSetOld = persistentEstadocompra.getCompraSet();
             Set<Compra> compraSetNew = estadocompra.getCompraSet();
+            Set<Compra> compraSet1Old = persistentEstadocompra.getCompraSet1();
+            Set<Compra> compraSet1New = estadocompra.getCompraSet1();
             Set<Compra> attachedCompraSetNew = new HashSet<Compra>();
             for (Compra compraSetNewCompraToAttach : compraSetNew) {
                 compraSetNewCompraToAttach = em.getReference(compraSetNewCompraToAttach.getClass(), compraSetNewCompraToAttach.getIdcompra());
@@ -87,6 +107,13 @@ public class EstadocompraJpaController {
             }
             compraSetNew = attachedCompraSetNew;
             estadocompra.setCompraSet(compraSetNew);
+            Set<Compra> attachedCompraSet1New = new HashSet<Compra>();
+            for (Compra compraSet1NewCompraToAttach : compraSet1New) {
+                compraSet1NewCompraToAttach = em.getReference(compraSet1NewCompraToAttach.getClass(), compraSet1NewCompraToAttach.getIdcompra());
+                attachedCompraSet1New.add(compraSet1NewCompraToAttach);
+            }
+            compraSet1New = attachedCompraSet1New;
+            estadocompra.setCompraSet1(compraSet1New);
             estadocompra = em.merge(estadocompra);
             for (Compra compraSetOldCompra : compraSetOld) {
                 if (!compraSetNew.contains(compraSetOldCompra)) {
@@ -102,6 +129,23 @@ public class EstadocompraJpaController {
                     if (oldEstadoOfCompraSetNewCompra != null && !oldEstadoOfCompraSetNewCompra.equals(estadocompra)) {
                         oldEstadoOfCompraSetNewCompra.getCompraSet().remove(compraSetNewCompra);
                         oldEstadoOfCompraSetNewCompra = em.merge(oldEstadoOfCompraSetNewCompra);
+                    }
+                }
+            }
+            for (Compra compraSet1OldCompra : compraSet1Old) {
+                if (!compraSet1New.contains(compraSet1OldCompra)) {
+                    compraSet1OldCompra.setEstado1(null);
+                    compraSet1OldCompra = em.merge(compraSet1OldCompra);
+                }
+            }
+            for (Compra compraSet1NewCompra : compraSet1New) {
+                if (!compraSet1Old.contains(compraSet1NewCompra)) {
+                    Estadocompra oldEstado1OfCompraSet1NewCompra = compraSet1NewCompra.getEstado1();
+                    compraSet1NewCompra.setEstado1(estadocompra);
+                    compraSet1NewCompra = em.merge(compraSet1NewCompra);
+                    if (oldEstado1OfCompraSet1NewCompra != null && !oldEstado1OfCompraSet1NewCompra.equals(estadocompra)) {
+                        oldEstado1OfCompraSet1NewCompra.getCompraSet1().remove(compraSet1NewCompra);
+                        oldEstado1OfCompraSet1NewCompra = em.merge(oldEstado1OfCompraSet1NewCompra);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadocompraJpaController {
             for (Compra compraSetCompra : compraSet) {
                 compraSetCompra.setEstado(null);
                 compraSetCompra = em.merge(compraSetCompra);
+            }
+            Set<Compra> compraSet1 = estadocompra.getCompraSet1();
+            for (Compra compraSet1Compra : compraSet1) {
+                compraSet1Compra.setEstado1(null);
+                compraSet1Compra = em.merge(compraSet1Compra);
             }
             em.remove(estadocompra);
             em.getTransaction().commit();

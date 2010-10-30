@@ -43,10 +43,19 @@ public class DisponibilidadhorariaJpaController {
                 idempleado = em.getReference(idempleado.getClass(), idempleado.getIdempleado());
                 disponibilidadhoraria.setIdempleado(idempleado);
             }
+            Empleado idempleado1 = disponibilidadhoraria.getIdempleado1();
+            if (idempleado1 != null) {
+                idempleado1 = em.getReference(idempleado1.getClass(), idempleado1.getIdempleado());
+                disponibilidadhoraria.setIdempleado1(idempleado1);
+            }
             em.persist(disponibilidadhoraria);
             if (idempleado != null) {
                 idempleado.getDisponibilidadhorariaSet().add(disponibilidadhoraria);
                 idempleado = em.merge(idempleado);
+            }
+            if (idempleado1 != null) {
+                idempleado1.getDisponibilidadhorariaSet().add(disponibilidadhoraria);
+                idempleado1 = em.merge(idempleado1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -69,9 +78,15 @@ public class DisponibilidadhorariaJpaController {
             Disponibilidadhoraria persistentDisponibilidadhoraria = em.find(Disponibilidadhoraria.class, disponibilidadhoraria.getId());
             Empleado idempleadoOld = persistentDisponibilidadhoraria.getIdempleado();
             Empleado idempleadoNew = disponibilidadhoraria.getIdempleado();
+            Empleado idempleado1Old = persistentDisponibilidadhoraria.getIdempleado1();
+            Empleado idempleado1New = disponibilidadhoraria.getIdempleado1();
             if (idempleadoNew != null) {
                 idempleadoNew = em.getReference(idempleadoNew.getClass(), idempleadoNew.getIdempleado());
                 disponibilidadhoraria.setIdempleado(idempleadoNew);
+            }
+            if (idempleado1New != null) {
+                idempleado1New = em.getReference(idempleado1New.getClass(), idempleado1New.getIdempleado());
+                disponibilidadhoraria.setIdempleado1(idempleado1New);
             }
             disponibilidadhoraria = em.merge(disponibilidadhoraria);
             if (idempleadoOld != null && !idempleadoOld.equals(idempleadoNew)) {
@@ -81,6 +96,14 @@ public class DisponibilidadhorariaJpaController {
             if (idempleadoNew != null && !idempleadoNew.equals(idempleadoOld)) {
                 idempleadoNew.getDisponibilidadhorariaSet().add(disponibilidadhoraria);
                 idempleadoNew = em.merge(idempleadoNew);
+            }
+            if (idempleado1Old != null && !idempleado1Old.equals(idempleado1New)) {
+                idempleado1Old.getDisponibilidadhorariaSet().remove(disponibilidadhoraria);
+                idempleado1Old = em.merge(idempleado1Old);
+            }
+            if (idempleado1New != null && !idempleado1New.equals(idempleado1Old)) {
+                idempleado1New.getDisponibilidadhorariaSet().add(disponibilidadhoraria);
+                idempleado1New = em.merge(idempleado1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -115,6 +138,11 @@ public class DisponibilidadhorariaJpaController {
             if (idempleado != null) {
                 idempleado.getDisponibilidadhorariaSet().remove(disponibilidadhoraria);
                 idempleado = em.merge(idempleado);
+            }
+            Empleado idempleado1 = disponibilidadhoraria.getIdempleado1();
+            if (idempleado1 != null) {
+                idempleado1.getDisponibilidadhorariaSet().remove(disponibilidadhoraria);
+                idempleado1 = em.merge(idempleado1);
             }
             em.remove(disponibilidadhoraria);
             em.getTransaction().commit();

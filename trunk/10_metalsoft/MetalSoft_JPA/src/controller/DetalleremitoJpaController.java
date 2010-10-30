@@ -39,7 +39,7 @@ public class DetalleremitoJpaController {
         if (detalleremito.getDetalleremitoPK() == null) {
             detalleremito.setDetalleremitoPK(new DetalleremitoPK());
         }
-        detalleremito.getDetalleremitoPK().setIdremito(detalleremito.getRemito().getIdremito());
+        detalleremito.getDetalleremitoPK().setIdremito(detalleremito.getRemito1().getIdremito());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,19 +49,37 @@ public class DetalleremitoJpaController {
                 producto = em.getReference(producto.getClass(), producto.getIdproducto());
                 detalleremito.setProducto(producto);
             }
+            Producto producto1 = detalleremito.getProducto1();
+            if (producto1 != null) {
+                producto1 = em.getReference(producto1.getClass(), producto1.getIdproducto());
+                detalleremito.setProducto1(producto1);
+            }
             Remito remito = detalleremito.getRemito();
             if (remito != null) {
                 remito = em.getReference(remito.getClass(), remito.getIdremito());
                 detalleremito.setRemito(remito);
+            }
+            Remito remito1 = detalleremito.getRemito1();
+            if (remito1 != null) {
+                remito1 = em.getReference(remito1.getClass(), remito1.getIdremito());
+                detalleremito.setRemito1(remito1);
             }
             em.persist(detalleremito);
             if (producto != null) {
                 producto.getDetalleremitoSet().add(detalleremito);
                 producto = em.merge(producto);
             }
+            if (producto1 != null) {
+                producto1.getDetalleremitoSet().add(detalleremito);
+                producto1 = em.merge(producto1);
+            }
             if (remito != null) {
                 remito.getDetalleremitoSet().add(detalleremito);
                 remito = em.merge(remito);
+            }
+            if (remito1 != null) {
+                remito1.getDetalleremitoSet().add(detalleremito);
+                remito1 = em.merge(remito1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,7 +95,7 @@ public class DetalleremitoJpaController {
     }
 
     public void edit(Detalleremito detalleremito) throws NonexistentEntityException, Exception {
-        detalleremito.getDetalleremitoPK().setIdremito(detalleremito.getRemito().getIdremito());
+        detalleremito.getDetalleremitoPK().setIdremito(detalleremito.getRemito1().getIdremito());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,15 +103,27 @@ public class DetalleremitoJpaController {
             Detalleremito persistentDetalleremito = em.find(Detalleremito.class, detalleremito.getDetalleremitoPK());
             Producto productoOld = persistentDetalleremito.getProducto();
             Producto productoNew = detalleremito.getProducto();
+            Producto producto1Old = persistentDetalleremito.getProducto1();
+            Producto producto1New = detalleremito.getProducto1();
             Remito remitoOld = persistentDetalleremito.getRemito();
             Remito remitoNew = detalleremito.getRemito();
+            Remito remito1Old = persistentDetalleremito.getRemito1();
+            Remito remito1New = detalleremito.getRemito1();
             if (productoNew != null) {
                 productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
                 detalleremito.setProducto(productoNew);
             }
+            if (producto1New != null) {
+                producto1New = em.getReference(producto1New.getClass(), producto1New.getIdproducto());
+                detalleremito.setProducto1(producto1New);
+            }
             if (remitoNew != null) {
                 remitoNew = em.getReference(remitoNew.getClass(), remitoNew.getIdremito());
                 detalleremito.setRemito(remitoNew);
+            }
+            if (remito1New != null) {
+                remito1New = em.getReference(remito1New.getClass(), remito1New.getIdremito());
+                detalleremito.setRemito1(remito1New);
             }
             detalleremito = em.merge(detalleremito);
             if (productoOld != null && !productoOld.equals(productoNew)) {
@@ -104,6 +134,14 @@ public class DetalleremitoJpaController {
                 productoNew.getDetalleremitoSet().add(detalleremito);
                 productoNew = em.merge(productoNew);
             }
+            if (producto1Old != null && !producto1Old.equals(producto1New)) {
+                producto1Old.getDetalleremitoSet().remove(detalleremito);
+                producto1Old = em.merge(producto1Old);
+            }
+            if (producto1New != null && !producto1New.equals(producto1Old)) {
+                producto1New.getDetalleremitoSet().add(detalleremito);
+                producto1New = em.merge(producto1New);
+            }
             if (remitoOld != null && !remitoOld.equals(remitoNew)) {
                 remitoOld.getDetalleremitoSet().remove(detalleremito);
                 remitoOld = em.merge(remitoOld);
@@ -111,6 +149,14 @@ public class DetalleremitoJpaController {
             if (remitoNew != null && !remitoNew.equals(remitoOld)) {
                 remitoNew.getDetalleremitoSet().add(detalleremito);
                 remitoNew = em.merge(remitoNew);
+            }
+            if (remito1Old != null && !remito1Old.equals(remito1New)) {
+                remito1Old.getDetalleremitoSet().remove(detalleremito);
+                remito1Old = em.merge(remito1Old);
+            }
+            if (remito1New != null && !remito1New.equals(remito1Old)) {
+                remito1New.getDetalleremitoSet().add(detalleremito);
+                remito1New = em.merge(remito1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -146,10 +192,20 @@ public class DetalleremitoJpaController {
                 producto.getDetalleremitoSet().remove(detalleremito);
                 producto = em.merge(producto);
             }
+            Producto producto1 = detalleremito.getProducto1();
+            if (producto1 != null) {
+                producto1.getDetalleremitoSet().remove(detalleremito);
+                producto1 = em.merge(producto1);
+            }
             Remito remito = detalleremito.getRemito();
             if (remito != null) {
                 remito.getDetalleremitoSet().remove(detalleremito);
                 remito = em.merge(remito);
+            }
+            Remito remito1 = detalleremito.getRemito1();
+            if (remito1 != null) {
+                remito1.getDetalleremitoSet().remove(detalleremito);
+                remito1 = em.merge(remito1);
             }
             em.remove(detalleremito);
             em.getTransaction().commit();

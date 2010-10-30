@@ -53,6 +53,9 @@ public class Sesion implements Serializable {
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario1;
 
     public Sesion() {
     }
@@ -107,6 +110,14 @@ public class Sesion implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Usuario getUsuario1() {
+        return usuario1;
+    }
+
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
     }
 
     @Override

@@ -5,6 +5,7 @@
 
 package controller;
 
+import controller.exceptions.IllegalOrphanException;
 import controller.exceptions.NonexistentEntityException;
 import controller.exceptions.PreexistingEntityException;
 import entity.Rol;
@@ -16,10 +17,11 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entity.Usuario;
+import entity.Usuarioxrol;
 import java.util.HashSet;
 import java.util.Set;
-import entity.Privilegio;
+import entity.Rolxprivilegio;
+import java.util.ArrayList;
 
 /**
  *
@@ -37,36 +39,82 @@ public class RolJpaController {
     }
 
     public void create(Rol rol) throws PreexistingEntityException, Exception {
-        if (rol.getUsuarioSet() == null) {
-            rol.setUsuarioSet(new HashSet<Usuario>());
+        if (rol.getUsuarioxrolSet() == null) {
+            rol.setUsuarioxrolSet(new HashSet<Usuarioxrol>());
         }
-        if (rol.getPrivilegioSet() == null) {
-            rol.setPrivilegioSet(new HashSet<Privilegio>());
+        if (rol.getUsuarioxrolSet1() == null) {
+            rol.setUsuarioxrolSet1(new HashSet<Usuarioxrol>());
+        }
+        if (rol.getRolxprivilegioSet() == null) {
+            rol.setRolxprivilegioSet(new HashSet<Rolxprivilegio>());
+        }
+        if (rol.getRolxprivilegioSet1() == null) {
+            rol.setRolxprivilegioSet1(new HashSet<Rolxprivilegio>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Set<Usuario> attachedUsuarioSet = new HashSet<Usuario>();
-            for (Usuario usuarioSetUsuarioToAttach : rol.getUsuarioSet()) {
-                usuarioSetUsuarioToAttach = em.getReference(usuarioSetUsuarioToAttach.getClass(), usuarioSetUsuarioToAttach.getIdusuario());
-                attachedUsuarioSet.add(usuarioSetUsuarioToAttach);
+            Set<Usuarioxrol> attachedUsuarioxrolSet = new HashSet<Usuarioxrol>();
+            for (Usuarioxrol usuarioxrolSetUsuarioxrolToAttach : rol.getUsuarioxrolSet()) {
+                usuarioxrolSetUsuarioxrolToAttach = em.getReference(usuarioxrolSetUsuarioxrolToAttach.getClass(), usuarioxrolSetUsuarioxrolToAttach.getUsuarioxrolPK());
+                attachedUsuarioxrolSet.add(usuarioxrolSetUsuarioxrolToAttach);
             }
-            rol.setUsuarioSet(attachedUsuarioSet);
-            Set<Privilegio> attachedPrivilegioSet = new HashSet<Privilegio>();
-            for (Privilegio privilegioSetPrivilegioToAttach : rol.getPrivilegioSet()) {
-                privilegioSetPrivilegioToAttach = em.getReference(privilegioSetPrivilegioToAttach.getClass(), privilegioSetPrivilegioToAttach.getIdprivilegio());
-                attachedPrivilegioSet.add(privilegioSetPrivilegioToAttach);
+            rol.setUsuarioxrolSet(attachedUsuarioxrolSet);
+            Set<Usuarioxrol> attachedUsuarioxrolSet1 = new HashSet<Usuarioxrol>();
+            for (Usuarioxrol usuarioxrolSet1UsuarioxrolToAttach : rol.getUsuarioxrolSet1()) {
+                usuarioxrolSet1UsuarioxrolToAttach = em.getReference(usuarioxrolSet1UsuarioxrolToAttach.getClass(), usuarioxrolSet1UsuarioxrolToAttach.getUsuarioxrolPK());
+                attachedUsuarioxrolSet1.add(usuarioxrolSet1UsuarioxrolToAttach);
             }
-            rol.setPrivilegioSet(attachedPrivilegioSet);
+            rol.setUsuarioxrolSet1(attachedUsuarioxrolSet1);
+            Set<Rolxprivilegio> attachedRolxprivilegioSet = new HashSet<Rolxprivilegio>();
+            for (Rolxprivilegio rolxprivilegioSetRolxprivilegioToAttach : rol.getRolxprivilegioSet()) {
+                rolxprivilegioSetRolxprivilegioToAttach = em.getReference(rolxprivilegioSetRolxprivilegioToAttach.getClass(), rolxprivilegioSetRolxprivilegioToAttach.getRolxprivilegioPK());
+                attachedRolxprivilegioSet.add(rolxprivilegioSetRolxprivilegioToAttach);
+            }
+            rol.setRolxprivilegioSet(attachedRolxprivilegioSet);
+            Set<Rolxprivilegio> attachedRolxprivilegioSet1 = new HashSet<Rolxprivilegio>();
+            for (Rolxprivilegio rolxprivilegioSet1RolxprivilegioToAttach : rol.getRolxprivilegioSet1()) {
+                rolxprivilegioSet1RolxprivilegioToAttach = em.getReference(rolxprivilegioSet1RolxprivilegioToAttach.getClass(), rolxprivilegioSet1RolxprivilegioToAttach.getRolxprivilegioPK());
+                attachedRolxprivilegioSet1.add(rolxprivilegioSet1RolxprivilegioToAttach);
+            }
+            rol.setRolxprivilegioSet1(attachedRolxprivilegioSet1);
             em.persist(rol);
-            for (Usuario usuarioSetUsuario : rol.getUsuarioSet()) {
-                usuarioSetUsuario.getRolSet().add(rol);
-                usuarioSetUsuario = em.merge(usuarioSetUsuario);
+            for (Usuarioxrol usuarioxrolSetUsuarioxrol : rol.getUsuarioxrolSet()) {
+                Rol oldRolOfUsuarioxrolSetUsuarioxrol = usuarioxrolSetUsuarioxrol.getRol();
+                usuarioxrolSetUsuarioxrol.setRol(rol);
+                usuarioxrolSetUsuarioxrol = em.merge(usuarioxrolSetUsuarioxrol);
+                if (oldRolOfUsuarioxrolSetUsuarioxrol != null) {
+                    oldRolOfUsuarioxrolSetUsuarioxrol.getUsuarioxrolSet().remove(usuarioxrolSetUsuarioxrol);
+                    oldRolOfUsuarioxrolSetUsuarioxrol = em.merge(oldRolOfUsuarioxrolSetUsuarioxrol);
+                }
             }
-            for (Privilegio privilegioSetPrivilegio : rol.getPrivilegioSet()) {
-                privilegioSetPrivilegio.getRolSet().add(rol);
-                privilegioSetPrivilegio = em.merge(privilegioSetPrivilegio);
+            for (Usuarioxrol usuarioxrolSet1Usuarioxrol : rol.getUsuarioxrolSet1()) {
+                Rol oldRol1OfUsuarioxrolSet1Usuarioxrol = usuarioxrolSet1Usuarioxrol.getRol1();
+                usuarioxrolSet1Usuarioxrol.setRol1(rol);
+                usuarioxrolSet1Usuarioxrol = em.merge(usuarioxrolSet1Usuarioxrol);
+                if (oldRol1OfUsuarioxrolSet1Usuarioxrol != null) {
+                    oldRol1OfUsuarioxrolSet1Usuarioxrol.getUsuarioxrolSet1().remove(usuarioxrolSet1Usuarioxrol);
+                    oldRol1OfUsuarioxrolSet1Usuarioxrol = em.merge(oldRol1OfUsuarioxrolSet1Usuarioxrol);
+                }
+            }
+            for (Rolxprivilegio rolxprivilegioSetRolxprivilegio : rol.getRolxprivilegioSet()) {
+                Rol oldRolOfRolxprivilegioSetRolxprivilegio = rolxprivilegioSetRolxprivilegio.getRol();
+                rolxprivilegioSetRolxprivilegio.setRol(rol);
+                rolxprivilegioSetRolxprivilegio = em.merge(rolxprivilegioSetRolxprivilegio);
+                if (oldRolOfRolxprivilegioSetRolxprivilegio != null) {
+                    oldRolOfRolxprivilegioSetRolxprivilegio.getRolxprivilegioSet().remove(rolxprivilegioSetRolxprivilegio);
+                    oldRolOfRolxprivilegioSetRolxprivilegio = em.merge(oldRolOfRolxprivilegioSetRolxprivilegio);
+                }
+            }
+            for (Rolxprivilegio rolxprivilegioSet1Rolxprivilegio : rol.getRolxprivilegioSet1()) {
+                Rol oldRol1OfRolxprivilegioSet1Rolxprivilegio = rolxprivilegioSet1Rolxprivilegio.getRol1();
+                rolxprivilegioSet1Rolxprivilegio.setRol1(rol);
+                rolxprivilegioSet1Rolxprivilegio = em.merge(rolxprivilegioSet1Rolxprivilegio);
+                if (oldRol1OfRolxprivilegioSet1Rolxprivilegio != null) {
+                    oldRol1OfRolxprivilegioSet1Rolxprivilegio.getRolxprivilegioSet1().remove(rolxprivilegioSet1Rolxprivilegio);
+                    oldRol1OfRolxprivilegioSet1Rolxprivilegio = em.merge(oldRol1OfRolxprivilegioSet1Rolxprivilegio);
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -81,53 +129,127 @@ public class RolJpaController {
         }
     }
 
-    public void edit(Rol rol) throws NonexistentEntityException, Exception {
+    public void edit(Rol rol) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Rol persistentRol = em.find(Rol.class, rol.getIdrol());
-            Set<Usuario> usuarioSetOld = persistentRol.getUsuarioSet();
-            Set<Usuario> usuarioSetNew = rol.getUsuarioSet();
-            Set<Privilegio> privilegioSetOld = persistentRol.getPrivilegioSet();
-            Set<Privilegio> privilegioSetNew = rol.getPrivilegioSet();
-            Set<Usuario> attachedUsuarioSetNew = new HashSet<Usuario>();
-            for (Usuario usuarioSetNewUsuarioToAttach : usuarioSetNew) {
-                usuarioSetNewUsuarioToAttach = em.getReference(usuarioSetNewUsuarioToAttach.getClass(), usuarioSetNewUsuarioToAttach.getIdusuario());
-                attachedUsuarioSetNew.add(usuarioSetNewUsuarioToAttach);
+            Set<Usuarioxrol> usuarioxrolSetOld = persistentRol.getUsuarioxrolSet();
+            Set<Usuarioxrol> usuarioxrolSetNew = rol.getUsuarioxrolSet();
+            Set<Usuarioxrol> usuarioxrolSet1Old = persistentRol.getUsuarioxrolSet1();
+            Set<Usuarioxrol> usuarioxrolSet1New = rol.getUsuarioxrolSet1();
+            Set<Rolxprivilegio> rolxprivilegioSetOld = persistentRol.getRolxprivilegioSet();
+            Set<Rolxprivilegio> rolxprivilegioSetNew = rol.getRolxprivilegioSet();
+            Set<Rolxprivilegio> rolxprivilegioSet1Old = persistentRol.getRolxprivilegioSet1();
+            Set<Rolxprivilegio> rolxprivilegioSet1New = rol.getRolxprivilegioSet1();
+            List<String> illegalOrphanMessages = null;
+            for (Usuarioxrol usuarioxrolSetOldUsuarioxrol : usuarioxrolSetOld) {
+                if (!usuarioxrolSetNew.contains(usuarioxrolSetOldUsuarioxrol)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Usuarioxrol " + usuarioxrolSetOldUsuarioxrol + " since its rol field is not nullable.");
+                }
             }
-            usuarioSetNew = attachedUsuarioSetNew;
-            rol.setUsuarioSet(usuarioSetNew);
-            Set<Privilegio> attachedPrivilegioSetNew = new HashSet<Privilegio>();
-            for (Privilegio privilegioSetNewPrivilegioToAttach : privilegioSetNew) {
-                privilegioSetNewPrivilegioToAttach = em.getReference(privilegioSetNewPrivilegioToAttach.getClass(), privilegioSetNewPrivilegioToAttach.getIdprivilegio());
-                attachedPrivilegioSetNew.add(privilegioSetNewPrivilegioToAttach);
+            for (Usuarioxrol usuarioxrolSet1OldUsuarioxrol : usuarioxrolSet1Old) {
+                if (!usuarioxrolSet1New.contains(usuarioxrolSet1OldUsuarioxrol)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Usuarioxrol " + usuarioxrolSet1OldUsuarioxrol + " since its rol1 field is not nullable.");
+                }
             }
-            privilegioSetNew = attachedPrivilegioSetNew;
-            rol.setPrivilegioSet(privilegioSetNew);
+            for (Rolxprivilegio rolxprivilegioSetOldRolxprivilegio : rolxprivilegioSetOld) {
+                if (!rolxprivilegioSetNew.contains(rolxprivilegioSetOldRolxprivilegio)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Rolxprivilegio " + rolxprivilegioSetOldRolxprivilegio + " since its rol field is not nullable.");
+                }
+            }
+            for (Rolxprivilegio rolxprivilegioSet1OldRolxprivilegio : rolxprivilegioSet1Old) {
+                if (!rolxprivilegioSet1New.contains(rolxprivilegioSet1OldRolxprivilegio)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Rolxprivilegio " + rolxprivilegioSet1OldRolxprivilegio + " since its rol1 field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            Set<Usuarioxrol> attachedUsuarioxrolSetNew = new HashSet<Usuarioxrol>();
+            for (Usuarioxrol usuarioxrolSetNewUsuarioxrolToAttach : usuarioxrolSetNew) {
+                usuarioxrolSetNewUsuarioxrolToAttach = em.getReference(usuarioxrolSetNewUsuarioxrolToAttach.getClass(), usuarioxrolSetNewUsuarioxrolToAttach.getUsuarioxrolPK());
+                attachedUsuarioxrolSetNew.add(usuarioxrolSetNewUsuarioxrolToAttach);
+            }
+            usuarioxrolSetNew = attachedUsuarioxrolSetNew;
+            rol.setUsuarioxrolSet(usuarioxrolSetNew);
+            Set<Usuarioxrol> attachedUsuarioxrolSet1New = new HashSet<Usuarioxrol>();
+            for (Usuarioxrol usuarioxrolSet1NewUsuarioxrolToAttach : usuarioxrolSet1New) {
+                usuarioxrolSet1NewUsuarioxrolToAttach = em.getReference(usuarioxrolSet1NewUsuarioxrolToAttach.getClass(), usuarioxrolSet1NewUsuarioxrolToAttach.getUsuarioxrolPK());
+                attachedUsuarioxrolSet1New.add(usuarioxrolSet1NewUsuarioxrolToAttach);
+            }
+            usuarioxrolSet1New = attachedUsuarioxrolSet1New;
+            rol.setUsuarioxrolSet1(usuarioxrolSet1New);
+            Set<Rolxprivilegio> attachedRolxprivilegioSetNew = new HashSet<Rolxprivilegio>();
+            for (Rolxprivilegio rolxprivilegioSetNewRolxprivilegioToAttach : rolxprivilegioSetNew) {
+                rolxprivilegioSetNewRolxprivilegioToAttach = em.getReference(rolxprivilegioSetNewRolxprivilegioToAttach.getClass(), rolxprivilegioSetNewRolxprivilegioToAttach.getRolxprivilegioPK());
+                attachedRolxprivilegioSetNew.add(rolxprivilegioSetNewRolxprivilegioToAttach);
+            }
+            rolxprivilegioSetNew = attachedRolxprivilegioSetNew;
+            rol.setRolxprivilegioSet(rolxprivilegioSetNew);
+            Set<Rolxprivilegio> attachedRolxprivilegioSet1New = new HashSet<Rolxprivilegio>();
+            for (Rolxprivilegio rolxprivilegioSet1NewRolxprivilegioToAttach : rolxprivilegioSet1New) {
+                rolxprivilegioSet1NewRolxprivilegioToAttach = em.getReference(rolxprivilegioSet1NewRolxprivilegioToAttach.getClass(), rolxprivilegioSet1NewRolxprivilegioToAttach.getRolxprivilegioPK());
+                attachedRolxprivilegioSet1New.add(rolxprivilegioSet1NewRolxprivilegioToAttach);
+            }
+            rolxprivilegioSet1New = attachedRolxprivilegioSet1New;
+            rol.setRolxprivilegioSet1(rolxprivilegioSet1New);
             rol = em.merge(rol);
-            for (Usuario usuarioSetOldUsuario : usuarioSetOld) {
-                if (!usuarioSetNew.contains(usuarioSetOldUsuario)) {
-                    usuarioSetOldUsuario.getRolSet().remove(rol);
-                    usuarioSetOldUsuario = em.merge(usuarioSetOldUsuario);
+            for (Usuarioxrol usuarioxrolSetNewUsuarioxrol : usuarioxrolSetNew) {
+                if (!usuarioxrolSetOld.contains(usuarioxrolSetNewUsuarioxrol)) {
+                    Rol oldRolOfUsuarioxrolSetNewUsuarioxrol = usuarioxrolSetNewUsuarioxrol.getRol();
+                    usuarioxrolSetNewUsuarioxrol.setRol(rol);
+                    usuarioxrolSetNewUsuarioxrol = em.merge(usuarioxrolSetNewUsuarioxrol);
+                    if (oldRolOfUsuarioxrolSetNewUsuarioxrol != null && !oldRolOfUsuarioxrolSetNewUsuarioxrol.equals(rol)) {
+                        oldRolOfUsuarioxrolSetNewUsuarioxrol.getUsuarioxrolSet().remove(usuarioxrolSetNewUsuarioxrol);
+                        oldRolOfUsuarioxrolSetNewUsuarioxrol = em.merge(oldRolOfUsuarioxrolSetNewUsuarioxrol);
+                    }
                 }
             }
-            for (Usuario usuarioSetNewUsuario : usuarioSetNew) {
-                if (!usuarioSetOld.contains(usuarioSetNewUsuario)) {
-                    usuarioSetNewUsuario.getRolSet().add(rol);
-                    usuarioSetNewUsuario = em.merge(usuarioSetNewUsuario);
+            for (Usuarioxrol usuarioxrolSet1NewUsuarioxrol : usuarioxrolSet1New) {
+                if (!usuarioxrolSet1Old.contains(usuarioxrolSet1NewUsuarioxrol)) {
+                    Rol oldRol1OfUsuarioxrolSet1NewUsuarioxrol = usuarioxrolSet1NewUsuarioxrol.getRol1();
+                    usuarioxrolSet1NewUsuarioxrol.setRol1(rol);
+                    usuarioxrolSet1NewUsuarioxrol = em.merge(usuarioxrolSet1NewUsuarioxrol);
+                    if (oldRol1OfUsuarioxrolSet1NewUsuarioxrol != null && !oldRol1OfUsuarioxrolSet1NewUsuarioxrol.equals(rol)) {
+                        oldRol1OfUsuarioxrolSet1NewUsuarioxrol.getUsuarioxrolSet1().remove(usuarioxrolSet1NewUsuarioxrol);
+                        oldRol1OfUsuarioxrolSet1NewUsuarioxrol = em.merge(oldRol1OfUsuarioxrolSet1NewUsuarioxrol);
+                    }
                 }
             }
-            for (Privilegio privilegioSetOldPrivilegio : privilegioSetOld) {
-                if (!privilegioSetNew.contains(privilegioSetOldPrivilegio)) {
-                    privilegioSetOldPrivilegio.getRolSet().remove(rol);
-                    privilegioSetOldPrivilegio = em.merge(privilegioSetOldPrivilegio);
+            for (Rolxprivilegio rolxprivilegioSetNewRolxprivilegio : rolxprivilegioSetNew) {
+                if (!rolxprivilegioSetOld.contains(rolxprivilegioSetNewRolxprivilegio)) {
+                    Rol oldRolOfRolxprivilegioSetNewRolxprivilegio = rolxprivilegioSetNewRolxprivilegio.getRol();
+                    rolxprivilegioSetNewRolxprivilegio.setRol(rol);
+                    rolxprivilegioSetNewRolxprivilegio = em.merge(rolxprivilegioSetNewRolxprivilegio);
+                    if (oldRolOfRolxprivilegioSetNewRolxprivilegio != null && !oldRolOfRolxprivilegioSetNewRolxprivilegio.equals(rol)) {
+                        oldRolOfRolxprivilegioSetNewRolxprivilegio.getRolxprivilegioSet().remove(rolxprivilegioSetNewRolxprivilegio);
+                        oldRolOfRolxprivilegioSetNewRolxprivilegio = em.merge(oldRolOfRolxprivilegioSetNewRolxprivilegio);
+                    }
                 }
             }
-            for (Privilegio privilegioSetNewPrivilegio : privilegioSetNew) {
-                if (!privilegioSetOld.contains(privilegioSetNewPrivilegio)) {
-                    privilegioSetNewPrivilegio.getRolSet().add(rol);
-                    privilegioSetNewPrivilegio = em.merge(privilegioSetNewPrivilegio);
+            for (Rolxprivilegio rolxprivilegioSet1NewRolxprivilegio : rolxprivilegioSet1New) {
+                if (!rolxprivilegioSet1Old.contains(rolxprivilegioSet1NewRolxprivilegio)) {
+                    Rol oldRol1OfRolxprivilegioSet1NewRolxprivilegio = rolxprivilegioSet1NewRolxprivilegio.getRol1();
+                    rolxprivilegioSet1NewRolxprivilegio.setRol1(rol);
+                    rolxprivilegioSet1NewRolxprivilegio = em.merge(rolxprivilegioSet1NewRolxprivilegio);
+                    if (oldRol1OfRolxprivilegioSet1NewRolxprivilegio != null && !oldRol1OfRolxprivilegioSet1NewRolxprivilegio.equals(rol)) {
+                        oldRol1OfRolxprivilegioSet1NewRolxprivilegio.getRolxprivilegioSet1().remove(rolxprivilegioSet1NewRolxprivilegio);
+                        oldRol1OfRolxprivilegioSet1NewRolxprivilegio = em.merge(oldRol1OfRolxprivilegioSet1NewRolxprivilegio);
+                    }
                 }
             }
             em.getTransaction().commit();
@@ -147,7 +269,7 @@ public class RolJpaController {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(Long id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -159,15 +281,37 @@ public class RolJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The rol with id " + id + " no longer exists.", enfe);
             }
-            Set<Usuario> usuarioSet = rol.getUsuarioSet();
-            for (Usuario usuarioSetUsuario : usuarioSet) {
-                usuarioSetUsuario.getRolSet().remove(rol);
-                usuarioSetUsuario = em.merge(usuarioSetUsuario);
+            List<String> illegalOrphanMessages = null;
+            Set<Usuarioxrol> usuarioxrolSetOrphanCheck = rol.getUsuarioxrolSet();
+            for (Usuarioxrol usuarioxrolSetOrphanCheckUsuarioxrol : usuarioxrolSetOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Rol (" + rol + ") cannot be destroyed since the Usuarioxrol " + usuarioxrolSetOrphanCheckUsuarioxrol + " in its usuarioxrolSet field has a non-nullable rol field.");
             }
-            Set<Privilegio> privilegioSet = rol.getPrivilegioSet();
-            for (Privilegio privilegioSetPrivilegio : privilegioSet) {
-                privilegioSetPrivilegio.getRolSet().remove(rol);
-                privilegioSetPrivilegio = em.merge(privilegioSetPrivilegio);
+            Set<Usuarioxrol> usuarioxrolSet1OrphanCheck = rol.getUsuarioxrolSet1();
+            for (Usuarioxrol usuarioxrolSet1OrphanCheckUsuarioxrol : usuarioxrolSet1OrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Rol (" + rol + ") cannot be destroyed since the Usuarioxrol " + usuarioxrolSet1OrphanCheckUsuarioxrol + " in its usuarioxrolSet1 field has a non-nullable rol1 field.");
+            }
+            Set<Rolxprivilegio> rolxprivilegioSetOrphanCheck = rol.getRolxprivilegioSet();
+            for (Rolxprivilegio rolxprivilegioSetOrphanCheckRolxprivilegio : rolxprivilegioSetOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Rol (" + rol + ") cannot be destroyed since the Rolxprivilegio " + rolxprivilegioSetOrphanCheckRolxprivilegio + " in its rolxprivilegioSet field has a non-nullable rol field.");
+            }
+            Set<Rolxprivilegio> rolxprivilegioSet1OrphanCheck = rol.getRolxprivilegioSet1();
+            for (Rolxprivilegio rolxprivilegioSet1OrphanCheckRolxprivilegio : rolxprivilegioSet1OrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Rol (" + rol + ") cannot be destroyed since the Rolxprivilegio " + rolxprivilegioSet1OrphanCheckRolxprivilegio + " in its rolxprivilegioSet1 field has a non-nullable rol1 field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(rol);
             em.getTransaction().commit();

@@ -45,6 +45,9 @@ public class Disponibilidadhoraria implements Serializable {
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
+    @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
+    @ManyToOne
+    private Empleado idempleado1;
 
     public Disponibilidadhoraria() {
     }
@@ -83,6 +86,14 @@ public class Disponibilidadhoraria implements Serializable {
 
     public void setIdempleado(Empleado idempleado) {
         this.idempleado = idempleado;
+    }
+
+    public Empleado getIdempleado1() {
+        return idempleado1;
+    }
+
+    public void setIdempleado1(Empleado idempleado1) {
+        this.idempleado1 = idempleado1;
     }
 
     @Override

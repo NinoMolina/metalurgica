@@ -49,11 +49,19 @@ public class Ejecucionprocesocalidad implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecucionprocesocalidad estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecucionprocesocalidad estado1;
     @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Procesocalidad procesocalidad;
+    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Procesocalidad procesocalidad1;
     @OneToMany(mappedBy = "ejecucionprocesocalidad")
     private Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet;
+    @OneToMany(mappedBy = "ejecucionprocesocalidad1")
+    private Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet1;
 
     public Ejecucionprocesocalidad() {
     }
@@ -106,6 +114,14 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.estado = estado;
     }
 
+    public Estadoejecucionprocesocalidad getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadoejecucionprocesocalidad estado1) {
+        this.estado1 = estado1;
+    }
+
     public Procesocalidad getProcesocalidad() {
         return procesocalidad;
     }
@@ -114,12 +130,28 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.procesocalidad = procesocalidad;
     }
 
+    public Procesocalidad getProcesocalidad1() {
+        return procesocalidad1;
+    }
+
+    public void setProcesocalidad1(Procesocalidad procesocalidad1) {
+        this.procesocalidad1 = procesocalidad1;
+    }
+
     public Set<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadSet() {
         return detalleejecucionplanificacioncalidadSet;
     }
 
     public void setDetalleejecucionplanificacioncalidadSet(Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet) {
         this.detalleejecucionplanificacioncalidadSet = detalleejecucionplanificacioncalidadSet;
+    }
+
+    public Set<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadSet1() {
+        return detalleejecucionplanificacioncalidadSet1;
+    }
+
+    public void setDetalleejecucionplanificacioncalidadSet1(Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet1) {
+        this.detalleejecucionplanificacioncalidadSet1 = detalleejecucionplanificacioncalidadSet1;
     }
 
     @Override

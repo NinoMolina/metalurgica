@@ -39,6 +39,9 @@ public class EstadotrabajotercerizadoJpaController {
         if (estadotrabajotercerizado.getTrabajotercerizadoSet() == null) {
             estadotrabajotercerizado.setTrabajotercerizadoSet(new HashSet<Trabajotercerizado>());
         }
+        if (estadotrabajotercerizado.getTrabajotercerizadoSet1() == null) {
+            estadotrabajotercerizado.setTrabajotercerizadoSet1(new HashSet<Trabajotercerizado>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadotrabajotercerizadoJpaController {
                 attachedTrabajotercerizadoSet.add(trabajotercerizadoSetTrabajotercerizadoToAttach);
             }
             estadotrabajotercerizado.setTrabajotercerizadoSet(attachedTrabajotercerizadoSet);
+            Set<Trabajotercerizado> attachedTrabajotercerizadoSet1 = new HashSet<Trabajotercerizado>();
+            for (Trabajotercerizado trabajotercerizadoSet1TrabajotercerizadoToAttach : estadotrabajotercerizado.getTrabajotercerizadoSet1()) {
+                trabajotercerizadoSet1TrabajotercerizadoToAttach = em.getReference(trabajotercerizadoSet1TrabajotercerizadoToAttach.getClass(), trabajotercerizadoSet1TrabajotercerizadoToAttach.getIdtrabajo());
+                attachedTrabajotercerizadoSet1.add(trabajotercerizadoSet1TrabajotercerizadoToAttach);
+            }
+            estadotrabajotercerizado.setTrabajotercerizadoSet1(attachedTrabajotercerizadoSet1);
             em.persist(estadotrabajotercerizado);
             for (Trabajotercerizado trabajotercerizadoSetTrabajotercerizado : estadotrabajotercerizado.getTrabajotercerizadoSet()) {
                 Estadotrabajotercerizado oldEstadoOfTrabajotercerizadoSetTrabajotercerizado = trabajotercerizadoSetTrabajotercerizado.getEstado();
@@ -57,6 +66,15 @@ public class EstadotrabajotercerizadoJpaController {
                 if (oldEstadoOfTrabajotercerizadoSetTrabajotercerizado != null) {
                     oldEstadoOfTrabajotercerizadoSetTrabajotercerizado.getTrabajotercerizadoSet().remove(trabajotercerizadoSetTrabajotercerizado);
                     oldEstadoOfTrabajotercerizadoSetTrabajotercerizado = em.merge(oldEstadoOfTrabajotercerizadoSetTrabajotercerizado);
+                }
+            }
+            for (Trabajotercerizado trabajotercerizadoSet1Trabajotercerizado : estadotrabajotercerizado.getTrabajotercerizadoSet1()) {
+                Estadotrabajotercerizado oldEstado1OfTrabajotercerizadoSet1Trabajotercerizado = trabajotercerizadoSet1Trabajotercerizado.getEstado1();
+                trabajotercerizadoSet1Trabajotercerizado.setEstado1(estadotrabajotercerizado);
+                trabajotercerizadoSet1Trabajotercerizado = em.merge(trabajotercerizadoSet1Trabajotercerizado);
+                if (oldEstado1OfTrabajotercerizadoSet1Trabajotercerizado != null) {
+                    oldEstado1OfTrabajotercerizadoSet1Trabajotercerizado.getTrabajotercerizadoSet1().remove(trabajotercerizadoSet1Trabajotercerizado);
+                    oldEstado1OfTrabajotercerizadoSet1Trabajotercerizado = em.merge(oldEstado1OfTrabajotercerizadoSet1Trabajotercerizado);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadotrabajotercerizadoJpaController {
             Estadotrabajotercerizado persistentEstadotrabajotercerizado = em.find(Estadotrabajotercerizado.class, estadotrabajotercerizado.getIdestado());
             Set<Trabajotercerizado> trabajotercerizadoSetOld = persistentEstadotrabajotercerizado.getTrabajotercerizadoSet();
             Set<Trabajotercerizado> trabajotercerizadoSetNew = estadotrabajotercerizado.getTrabajotercerizadoSet();
+            Set<Trabajotercerizado> trabajotercerizadoSet1Old = persistentEstadotrabajotercerizado.getTrabajotercerizadoSet1();
+            Set<Trabajotercerizado> trabajotercerizadoSet1New = estadotrabajotercerizado.getTrabajotercerizadoSet1();
             Set<Trabajotercerizado> attachedTrabajotercerizadoSetNew = new HashSet<Trabajotercerizado>();
             for (Trabajotercerizado trabajotercerizadoSetNewTrabajotercerizadoToAttach : trabajotercerizadoSetNew) {
                 trabajotercerizadoSetNewTrabajotercerizadoToAttach = em.getReference(trabajotercerizadoSetNewTrabajotercerizadoToAttach.getClass(), trabajotercerizadoSetNewTrabajotercerizadoToAttach.getIdtrabajo());
@@ -87,6 +107,13 @@ public class EstadotrabajotercerizadoJpaController {
             }
             trabajotercerizadoSetNew = attachedTrabajotercerizadoSetNew;
             estadotrabajotercerizado.setTrabajotercerizadoSet(trabajotercerizadoSetNew);
+            Set<Trabajotercerizado> attachedTrabajotercerizadoSet1New = new HashSet<Trabajotercerizado>();
+            for (Trabajotercerizado trabajotercerizadoSet1NewTrabajotercerizadoToAttach : trabajotercerizadoSet1New) {
+                trabajotercerizadoSet1NewTrabajotercerizadoToAttach = em.getReference(trabajotercerizadoSet1NewTrabajotercerizadoToAttach.getClass(), trabajotercerizadoSet1NewTrabajotercerizadoToAttach.getIdtrabajo());
+                attachedTrabajotercerizadoSet1New.add(trabajotercerizadoSet1NewTrabajotercerizadoToAttach);
+            }
+            trabajotercerizadoSet1New = attachedTrabajotercerizadoSet1New;
+            estadotrabajotercerizado.setTrabajotercerizadoSet1(trabajotercerizadoSet1New);
             estadotrabajotercerizado = em.merge(estadotrabajotercerizado);
             for (Trabajotercerizado trabajotercerizadoSetOldTrabajotercerizado : trabajotercerizadoSetOld) {
                 if (!trabajotercerizadoSetNew.contains(trabajotercerizadoSetOldTrabajotercerizado)) {
@@ -102,6 +129,23 @@ public class EstadotrabajotercerizadoJpaController {
                     if (oldEstadoOfTrabajotercerizadoSetNewTrabajotercerizado != null && !oldEstadoOfTrabajotercerizadoSetNewTrabajotercerizado.equals(estadotrabajotercerizado)) {
                         oldEstadoOfTrabajotercerizadoSetNewTrabajotercerizado.getTrabajotercerizadoSet().remove(trabajotercerizadoSetNewTrabajotercerizado);
                         oldEstadoOfTrabajotercerizadoSetNewTrabajotercerizado = em.merge(oldEstadoOfTrabajotercerizadoSetNewTrabajotercerizado);
+                    }
+                }
+            }
+            for (Trabajotercerizado trabajotercerizadoSet1OldTrabajotercerizado : trabajotercerizadoSet1Old) {
+                if (!trabajotercerizadoSet1New.contains(trabajotercerizadoSet1OldTrabajotercerizado)) {
+                    trabajotercerizadoSet1OldTrabajotercerizado.setEstado1(null);
+                    trabajotercerizadoSet1OldTrabajotercerizado = em.merge(trabajotercerizadoSet1OldTrabajotercerizado);
+                }
+            }
+            for (Trabajotercerizado trabajotercerizadoSet1NewTrabajotercerizado : trabajotercerizadoSet1New) {
+                if (!trabajotercerizadoSet1Old.contains(trabajotercerizadoSet1NewTrabajotercerizado)) {
+                    Estadotrabajotercerizado oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado = trabajotercerizadoSet1NewTrabajotercerizado.getEstado1();
+                    trabajotercerizadoSet1NewTrabajotercerizado.setEstado1(estadotrabajotercerizado);
+                    trabajotercerizadoSet1NewTrabajotercerizado = em.merge(trabajotercerizadoSet1NewTrabajotercerizado);
+                    if (oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado != null && !oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado.equals(estadotrabajotercerizado)) {
+                        oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado.getTrabajotercerizadoSet1().remove(trabajotercerizadoSet1NewTrabajotercerizado);
+                        oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado = em.merge(oldEstado1OfTrabajotercerizadoSet1NewTrabajotercerizado);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadotrabajotercerizadoJpaController {
             for (Trabajotercerizado trabajotercerizadoSetTrabajotercerizado : trabajotercerizadoSet) {
                 trabajotercerizadoSetTrabajotercerizado.setEstado(null);
                 trabajotercerizadoSetTrabajotercerizado = em.merge(trabajotercerizadoSetTrabajotercerizado);
+            }
+            Set<Trabajotercerizado> trabajotercerizadoSet1 = estadotrabajotercerizado.getTrabajotercerizadoSet1();
+            for (Trabajotercerizado trabajotercerizadoSet1Trabajotercerizado : trabajotercerizadoSet1) {
+                trabajotercerizadoSet1Trabajotercerizado.setEstado1(null);
+                trabajotercerizadoSet1Trabajotercerizado = em.merge(trabajotercerizadoSet1Trabajotercerizado);
             }
             em.remove(estadotrabajotercerizado);
             em.getTransaction().commit();

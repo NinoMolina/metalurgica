@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,8 +49,10 @@ public class Turno implements Serializable {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
-    @ManyToMany(mappedBy = "turnoSet")
-    private Set<Empleado> empleadoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "turno")
+    private Set<Empleadoxturno> empleadoxturnoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "turno1")
+    private Set<Empleadoxturno> empleadoxturnoSet1;
 
     public Turno() {
     }
@@ -98,12 +101,20 @@ public class Turno implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Set<Empleado> getEmpleadoSet() {
-        return empleadoSet;
+    public Set<Empleadoxturno> getEmpleadoxturnoSet() {
+        return empleadoxturnoSet;
     }
 
-    public void setEmpleadoSet(Set<Empleado> empleadoSet) {
-        this.empleadoSet = empleadoSet;
+    public void setEmpleadoxturnoSet(Set<Empleadoxturno> empleadoxturnoSet) {
+        this.empleadoxturnoSet = empleadoxturnoSet;
+    }
+
+    public Set<Empleadoxturno> getEmpleadoxturnoSet1() {
+        return empleadoxturnoSet1;
+    }
+
+    public void setEmpleadoxturnoSet1(Set<Empleadoxturno> empleadoxturnoSet1) {
+        this.empleadoxturnoSet1 = empleadoxturnoSet1;
     }
 
     @Override

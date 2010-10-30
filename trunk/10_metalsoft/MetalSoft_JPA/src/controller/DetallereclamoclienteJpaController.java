@@ -39,7 +39,7 @@ public class DetallereclamoclienteJpaController {
         if (detallereclamocliente.getDetallereclamoclientePK() == null) {
             detallereclamocliente.setDetallereclamoclientePK(new DetallereclamoclientePK());
         }
-        detallereclamocliente.getDetallereclamoclientePK().setIdreclamo(detallereclamocliente.getReclamocliente().getIdreclamo());
+        detallereclamocliente.getDetallereclamoclientePK().setIdreclamo(detallereclamocliente.getReclamocliente1().getIdreclamo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,19 +49,37 @@ public class DetallereclamoclienteJpaController {
                 producto = em.getReference(producto.getClass(), producto.getIdproducto());
                 detallereclamocliente.setProducto(producto);
             }
+            Producto producto1 = detallereclamocliente.getProducto1();
+            if (producto1 != null) {
+                producto1 = em.getReference(producto1.getClass(), producto1.getIdproducto());
+                detallereclamocliente.setProducto1(producto1);
+            }
             Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
             if (reclamocliente != null) {
                 reclamocliente = em.getReference(reclamocliente.getClass(), reclamocliente.getIdreclamo());
                 detallereclamocliente.setReclamocliente(reclamocliente);
+            }
+            Reclamocliente reclamocliente1 = detallereclamocliente.getReclamocliente1();
+            if (reclamocliente1 != null) {
+                reclamocliente1 = em.getReference(reclamocliente1.getClass(), reclamocliente1.getIdreclamo());
+                detallereclamocliente.setReclamocliente1(reclamocliente1);
             }
             em.persist(detallereclamocliente);
             if (producto != null) {
                 producto.getDetallereclamoclienteSet().add(detallereclamocliente);
                 producto = em.merge(producto);
             }
+            if (producto1 != null) {
+                producto1.getDetallereclamoclienteSet().add(detallereclamocliente);
+                producto1 = em.merge(producto1);
+            }
             if (reclamocliente != null) {
                 reclamocliente.getDetallereclamoclienteSet().add(detallereclamocliente);
                 reclamocliente = em.merge(reclamocliente);
+            }
+            if (reclamocliente1 != null) {
+                reclamocliente1.getDetallereclamoclienteSet().add(detallereclamocliente);
+                reclamocliente1 = em.merge(reclamocliente1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,7 +95,7 @@ public class DetallereclamoclienteJpaController {
     }
 
     public void edit(Detallereclamocliente detallereclamocliente) throws NonexistentEntityException, Exception {
-        detallereclamocliente.getDetallereclamoclientePK().setIdreclamo(detallereclamocliente.getReclamocliente().getIdreclamo());
+        detallereclamocliente.getDetallereclamoclientePK().setIdreclamo(detallereclamocliente.getReclamocliente1().getIdreclamo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,15 +103,27 @@ public class DetallereclamoclienteJpaController {
             Detallereclamocliente persistentDetallereclamocliente = em.find(Detallereclamocliente.class, detallereclamocliente.getDetallereclamoclientePK());
             Producto productoOld = persistentDetallereclamocliente.getProducto();
             Producto productoNew = detallereclamocliente.getProducto();
+            Producto producto1Old = persistentDetallereclamocliente.getProducto1();
+            Producto producto1New = detallereclamocliente.getProducto1();
             Reclamocliente reclamoclienteOld = persistentDetallereclamocliente.getReclamocliente();
             Reclamocliente reclamoclienteNew = detallereclamocliente.getReclamocliente();
+            Reclamocliente reclamocliente1Old = persistentDetallereclamocliente.getReclamocliente1();
+            Reclamocliente reclamocliente1New = detallereclamocliente.getReclamocliente1();
             if (productoNew != null) {
                 productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
                 detallereclamocliente.setProducto(productoNew);
             }
+            if (producto1New != null) {
+                producto1New = em.getReference(producto1New.getClass(), producto1New.getIdproducto());
+                detallereclamocliente.setProducto1(producto1New);
+            }
             if (reclamoclienteNew != null) {
                 reclamoclienteNew = em.getReference(reclamoclienteNew.getClass(), reclamoclienteNew.getIdreclamo());
                 detallereclamocliente.setReclamocliente(reclamoclienteNew);
+            }
+            if (reclamocliente1New != null) {
+                reclamocliente1New = em.getReference(reclamocliente1New.getClass(), reclamocliente1New.getIdreclamo());
+                detallereclamocliente.setReclamocliente1(reclamocliente1New);
             }
             detallereclamocliente = em.merge(detallereclamocliente);
             if (productoOld != null && !productoOld.equals(productoNew)) {
@@ -104,6 +134,14 @@ public class DetallereclamoclienteJpaController {
                 productoNew.getDetallereclamoclienteSet().add(detallereclamocliente);
                 productoNew = em.merge(productoNew);
             }
+            if (producto1Old != null && !producto1Old.equals(producto1New)) {
+                producto1Old.getDetallereclamoclienteSet().remove(detallereclamocliente);
+                producto1Old = em.merge(producto1Old);
+            }
+            if (producto1New != null && !producto1New.equals(producto1Old)) {
+                producto1New.getDetallereclamoclienteSet().add(detallereclamocliente);
+                producto1New = em.merge(producto1New);
+            }
             if (reclamoclienteOld != null && !reclamoclienteOld.equals(reclamoclienteNew)) {
                 reclamoclienteOld.getDetallereclamoclienteSet().remove(detallereclamocliente);
                 reclamoclienteOld = em.merge(reclamoclienteOld);
@@ -111,6 +149,14 @@ public class DetallereclamoclienteJpaController {
             if (reclamoclienteNew != null && !reclamoclienteNew.equals(reclamoclienteOld)) {
                 reclamoclienteNew.getDetallereclamoclienteSet().add(detallereclamocliente);
                 reclamoclienteNew = em.merge(reclamoclienteNew);
+            }
+            if (reclamocliente1Old != null && !reclamocliente1Old.equals(reclamocliente1New)) {
+                reclamocliente1Old.getDetallereclamoclienteSet().remove(detallereclamocliente);
+                reclamocliente1Old = em.merge(reclamocliente1Old);
+            }
+            if (reclamocliente1New != null && !reclamocliente1New.equals(reclamocliente1Old)) {
+                reclamocliente1New.getDetallereclamoclienteSet().add(detallereclamocliente);
+                reclamocliente1New = em.merge(reclamocliente1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -146,10 +192,20 @@ public class DetallereclamoclienteJpaController {
                 producto.getDetallereclamoclienteSet().remove(detallereclamocliente);
                 producto = em.merge(producto);
             }
+            Producto producto1 = detallereclamocliente.getProducto1();
+            if (producto1 != null) {
+                producto1.getDetallereclamoclienteSet().remove(detallereclamocliente);
+                producto1 = em.merge(producto1);
+            }
             Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
             if (reclamocliente != null) {
                 reclamocliente.getDetallereclamoclienteSet().remove(detallereclamocliente);
                 reclamocliente = em.merge(reclamocliente);
+            }
+            Reclamocliente reclamocliente1 = detallereclamocliente.getReclamocliente1();
+            if (reclamocliente1 != null) {
+                reclamocliente1.getDetallereclamoclienteSet().remove(detallereclamocliente);
+                reclamocliente1 = em.merge(reclamocliente1);
             }
             em.remove(detallereclamocliente);
             em.getTransaction().commit();

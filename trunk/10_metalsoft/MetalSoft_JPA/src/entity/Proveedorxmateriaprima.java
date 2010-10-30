@@ -35,9 +35,15 @@ public class Proveedorxmateriaprima implements Serializable {
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Materiaprima materiaprima;
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Materiaprima materiaprima1;
     @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Proveedor proveedor;
+    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Proveedor proveedor1;
 
     public Proveedorxmateriaprima() {
     }
@@ -74,12 +80,28 @@ public class Proveedorxmateriaprima implements Serializable {
         this.materiaprima = materiaprima;
     }
 
+    public Materiaprima getMateriaprima1() {
+        return materiaprima1;
+    }
+
+    public void setMateriaprima1(Materiaprima materiaprima1) {
+        this.materiaprima1 = materiaprima1;
+    }
+
     public Proveedor getProveedor() {
         return proveedor;
     }
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Proveedor getProveedor1() {
+        return proveedor1;
+    }
+
+    public void setProveedor1(Proveedor proveedor1) {
+        this.proveedor1 = proveedor1;
     }
 
     @Override

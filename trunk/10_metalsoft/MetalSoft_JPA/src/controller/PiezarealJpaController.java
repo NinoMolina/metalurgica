@@ -50,10 +50,20 @@ public class PiezarealJpaController {
                 idcodigobarra = em.getReference(idcodigobarra.getClass(), idcodigobarra.getIdcodigo());
                 piezareal.setIdcodigobarra(idcodigobarra);
             }
+            Codigodebarra idcodigobarra1 = piezareal.getIdcodigobarra1();
+            if (idcodigobarra1 != null) {
+                idcodigobarra1 = em.getReference(idcodigobarra1.getClass(), idcodigobarra1.getIdcodigo());
+                piezareal.setIdcodigobarra1(idcodigobarra1);
+            }
             Estadopiezareal estado = piezareal.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 piezareal.setEstado(estado);
+            }
+            Estadopiezareal estado1 = piezareal.getEstado1();
+            if (estado1 != null) {
+                estado1 = em.getReference(estado1.getClass(), estado1.getIdestado());
+                piezareal.setEstado1(estado1);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSet = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacionToAttach : piezareal.getDetalleejecucionplanificacionSet()) {
@@ -66,9 +76,17 @@ public class PiezarealJpaController {
                 idcodigobarra.getPiezarealSet().add(piezareal);
                 idcodigobarra = em.merge(idcodigobarra);
             }
+            if (idcodigobarra1 != null) {
+                idcodigobarra1.getPiezarealSet().add(piezareal);
+                idcodigobarra1 = em.merge(idcodigobarra1);
+            }
             if (estado != null) {
                 estado.getPiezarealSet().add(piezareal);
                 estado = em.merge(estado);
+            }
+            if (estado1 != null) {
+                estado1.getPiezarealSet().add(piezareal);
+                estado1 = em.merge(estado1);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacion : piezareal.getDetalleejecucionplanificacionSet()) {
                 Piezareal oldPiezarealOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = detalleejecucionplanificacionSetDetalleejecucionplanificacion.getPiezareal();
@@ -100,17 +118,29 @@ public class PiezarealJpaController {
             Piezareal persistentPiezareal = em.find(Piezareal.class, piezareal.getIdpiezareal());
             Codigodebarra idcodigobarraOld = persistentPiezareal.getIdcodigobarra();
             Codigodebarra idcodigobarraNew = piezareal.getIdcodigobarra();
+            Codigodebarra idcodigobarra1Old = persistentPiezareal.getIdcodigobarra1();
+            Codigodebarra idcodigobarra1New = piezareal.getIdcodigobarra1();
             Estadopiezareal estadoOld = persistentPiezareal.getEstado();
             Estadopiezareal estadoNew = piezareal.getEstado();
+            Estadopiezareal estado1Old = persistentPiezareal.getEstado1();
+            Estadopiezareal estado1New = piezareal.getEstado1();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetOld = persistentPiezareal.getDetalleejecucionplanificacionSet();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetNew = piezareal.getDetalleejecucionplanificacionSet();
             if (idcodigobarraNew != null) {
                 idcodigobarraNew = em.getReference(idcodigobarraNew.getClass(), idcodigobarraNew.getIdcodigo());
                 piezareal.setIdcodigobarra(idcodigobarraNew);
             }
+            if (idcodigobarra1New != null) {
+                idcodigobarra1New = em.getReference(idcodigobarra1New.getClass(), idcodigobarra1New.getIdcodigo());
+                piezareal.setIdcodigobarra1(idcodigobarra1New);
+            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 piezareal.setEstado(estadoNew);
+            }
+            if (estado1New != null) {
+                estado1New = em.getReference(estado1New.getClass(), estado1New.getIdestado());
+                piezareal.setEstado1(estado1New);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSetNew = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionSetNew) {
@@ -128,6 +158,14 @@ public class PiezarealJpaController {
                 idcodigobarraNew.getPiezarealSet().add(piezareal);
                 idcodigobarraNew = em.merge(idcodigobarraNew);
             }
+            if (idcodigobarra1Old != null && !idcodigobarra1Old.equals(idcodigobarra1New)) {
+                idcodigobarra1Old.getPiezarealSet().remove(piezareal);
+                idcodigobarra1Old = em.merge(idcodigobarra1Old);
+            }
+            if (idcodigobarra1New != null && !idcodigobarra1New.equals(idcodigobarra1Old)) {
+                idcodigobarra1New.getPiezarealSet().add(piezareal);
+                idcodigobarra1New = em.merge(idcodigobarra1New);
+            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getPiezarealSet().remove(piezareal);
                 estadoOld = em.merge(estadoOld);
@@ -135,6 +173,14 @@ public class PiezarealJpaController {
             if (estadoNew != null && !estadoNew.equals(estadoOld)) {
                 estadoNew.getPiezarealSet().add(piezareal);
                 estadoNew = em.merge(estadoNew);
+            }
+            if (estado1Old != null && !estado1Old.equals(estado1New)) {
+                estado1Old.getPiezarealSet().remove(piezareal);
+                estado1Old = em.merge(estado1Old);
+            }
+            if (estado1New != null && !estado1New.equals(estado1Old)) {
+                estado1New.getPiezarealSet().add(piezareal);
+                estado1New = em.merge(estado1New);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetOldDetalleejecucionplanificacion : detalleejecucionplanificacionSetOld) {
                 if (!detalleejecucionplanificacionSetNew.contains(detalleejecucionplanificacionSetOldDetalleejecucionplanificacion)) {
@@ -187,10 +233,20 @@ public class PiezarealJpaController {
                 idcodigobarra.getPiezarealSet().remove(piezareal);
                 idcodigobarra = em.merge(idcodigobarra);
             }
+            Codigodebarra idcodigobarra1 = piezareal.getIdcodigobarra1();
+            if (idcodigobarra1 != null) {
+                idcodigobarra1.getPiezarealSet().remove(piezareal);
+                idcodigobarra1 = em.merge(idcodigobarra1);
+            }
             Estadopiezareal estado = piezareal.getEstado();
             if (estado != null) {
                 estado.getPiezarealSet().remove(piezareal);
                 estado = em.merge(estado);
+            }
+            Estadopiezareal estado1 = piezareal.getEstado1();
+            if (estado1 != null) {
+                estado1.getPiezarealSet().remove(piezareal);
+                estado1 = em.merge(estado1);
             }
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet = piezareal.getDetalleejecucionplanificacionSet();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacion : detalleejecucionplanificacionSet) {

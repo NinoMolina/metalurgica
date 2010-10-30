@@ -39,6 +39,9 @@ public class EstadoproductorealJpaController {
         if (estadoproductoreal.getProductorealSet() == null) {
             estadoproductoreal.setProductorealSet(new HashSet<Productoreal>());
         }
+        if (estadoproductoreal.getProductorealSet1() == null) {
+            estadoproductoreal.setProductorealSet1(new HashSet<Productoreal>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadoproductorealJpaController {
                 attachedProductorealSet.add(productorealSetProductorealToAttach);
             }
             estadoproductoreal.setProductorealSet(attachedProductorealSet);
+            Set<Productoreal> attachedProductorealSet1 = new HashSet<Productoreal>();
+            for (Productoreal productorealSet1ProductorealToAttach : estadoproductoreal.getProductorealSet1()) {
+                productorealSet1ProductorealToAttach = em.getReference(productorealSet1ProductorealToAttach.getClass(), productorealSet1ProductorealToAttach.getIdproductoreal());
+                attachedProductorealSet1.add(productorealSet1ProductorealToAttach);
+            }
+            estadoproductoreal.setProductorealSet1(attachedProductorealSet1);
             em.persist(estadoproductoreal);
             for (Productoreal productorealSetProductoreal : estadoproductoreal.getProductorealSet()) {
                 Estadoproductoreal oldEstadoOfProductorealSetProductoreal = productorealSetProductoreal.getEstado();
@@ -57,6 +66,15 @@ public class EstadoproductorealJpaController {
                 if (oldEstadoOfProductorealSetProductoreal != null) {
                     oldEstadoOfProductorealSetProductoreal.getProductorealSet().remove(productorealSetProductoreal);
                     oldEstadoOfProductorealSetProductoreal = em.merge(oldEstadoOfProductorealSetProductoreal);
+                }
+            }
+            for (Productoreal productorealSet1Productoreal : estadoproductoreal.getProductorealSet1()) {
+                Estadoproductoreal oldEstado1OfProductorealSet1Productoreal = productorealSet1Productoreal.getEstado1();
+                productorealSet1Productoreal.setEstado1(estadoproductoreal);
+                productorealSet1Productoreal = em.merge(productorealSet1Productoreal);
+                if (oldEstado1OfProductorealSet1Productoreal != null) {
+                    oldEstado1OfProductorealSet1Productoreal.getProductorealSet1().remove(productorealSet1Productoreal);
+                    oldEstado1OfProductorealSet1Productoreal = em.merge(oldEstado1OfProductorealSet1Productoreal);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadoproductorealJpaController {
             Estadoproductoreal persistentEstadoproductoreal = em.find(Estadoproductoreal.class, estadoproductoreal.getIdestado());
             Set<Productoreal> productorealSetOld = persistentEstadoproductoreal.getProductorealSet();
             Set<Productoreal> productorealSetNew = estadoproductoreal.getProductorealSet();
+            Set<Productoreal> productorealSet1Old = persistentEstadoproductoreal.getProductorealSet1();
+            Set<Productoreal> productorealSet1New = estadoproductoreal.getProductorealSet1();
             Set<Productoreal> attachedProductorealSetNew = new HashSet<Productoreal>();
             for (Productoreal productorealSetNewProductorealToAttach : productorealSetNew) {
                 productorealSetNewProductorealToAttach = em.getReference(productorealSetNewProductorealToAttach.getClass(), productorealSetNewProductorealToAttach.getIdproductoreal());
@@ -87,6 +107,13 @@ public class EstadoproductorealJpaController {
             }
             productorealSetNew = attachedProductorealSetNew;
             estadoproductoreal.setProductorealSet(productorealSetNew);
+            Set<Productoreal> attachedProductorealSet1New = new HashSet<Productoreal>();
+            for (Productoreal productorealSet1NewProductorealToAttach : productorealSet1New) {
+                productorealSet1NewProductorealToAttach = em.getReference(productorealSet1NewProductorealToAttach.getClass(), productorealSet1NewProductorealToAttach.getIdproductoreal());
+                attachedProductorealSet1New.add(productorealSet1NewProductorealToAttach);
+            }
+            productorealSet1New = attachedProductorealSet1New;
+            estadoproductoreal.setProductorealSet1(productorealSet1New);
             estadoproductoreal = em.merge(estadoproductoreal);
             for (Productoreal productorealSetOldProductoreal : productorealSetOld) {
                 if (!productorealSetNew.contains(productorealSetOldProductoreal)) {
@@ -102,6 +129,23 @@ public class EstadoproductorealJpaController {
                     if (oldEstadoOfProductorealSetNewProductoreal != null && !oldEstadoOfProductorealSetNewProductoreal.equals(estadoproductoreal)) {
                         oldEstadoOfProductorealSetNewProductoreal.getProductorealSet().remove(productorealSetNewProductoreal);
                         oldEstadoOfProductorealSetNewProductoreal = em.merge(oldEstadoOfProductorealSetNewProductoreal);
+                    }
+                }
+            }
+            for (Productoreal productorealSet1OldProductoreal : productorealSet1Old) {
+                if (!productorealSet1New.contains(productorealSet1OldProductoreal)) {
+                    productorealSet1OldProductoreal.setEstado1(null);
+                    productorealSet1OldProductoreal = em.merge(productorealSet1OldProductoreal);
+                }
+            }
+            for (Productoreal productorealSet1NewProductoreal : productorealSet1New) {
+                if (!productorealSet1Old.contains(productorealSet1NewProductoreal)) {
+                    Estadoproductoreal oldEstado1OfProductorealSet1NewProductoreal = productorealSet1NewProductoreal.getEstado1();
+                    productorealSet1NewProductoreal.setEstado1(estadoproductoreal);
+                    productorealSet1NewProductoreal = em.merge(productorealSet1NewProductoreal);
+                    if (oldEstado1OfProductorealSet1NewProductoreal != null && !oldEstado1OfProductorealSet1NewProductoreal.equals(estadoproductoreal)) {
+                        oldEstado1OfProductorealSet1NewProductoreal.getProductorealSet1().remove(productorealSet1NewProductoreal);
+                        oldEstado1OfProductorealSet1NewProductoreal = em.merge(oldEstado1OfProductorealSet1NewProductoreal);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadoproductorealJpaController {
             for (Productoreal productorealSetProductoreal : productorealSet) {
                 productorealSetProductoreal.setEstado(null);
                 productorealSetProductoreal = em.merge(productorealSetProductoreal);
+            }
+            Set<Productoreal> productorealSet1 = estadoproductoreal.getProductorealSet1();
+            for (Productoreal productorealSet1Productoreal : productorealSet1) {
+                productorealSet1Productoreal.setEstado1(null);
+                productorealSet1Productoreal = em.merge(productorealSet1Productoreal);
             }
             em.remove(estadoproductoreal);
             em.getTransaction().commit();

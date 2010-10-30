@@ -47,14 +47,24 @@ public class Producto implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "producto")
     private Set<Detalleremito> detalleremitoSet;
+    @OneToMany(mappedBy = "producto1")
+    private Set<Detalleremito> detalleremitoSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproducto")
     private Set<Detalleproducto> detalleproductoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproducto1")
+    private Set<Detalleproducto> detalleproductoSet1;
     @OneToMany(mappedBy = "producto")
     private Set<Detallepedido> detallepedidoSet;
+    @OneToMany(mappedBy = "producto1")
+    private Set<Detallepedido> detallepedidoSet1;
     @OneToMany(mappedBy = "producto")
     private Set<Detallereclamocliente> detallereclamoclienteSet;
+    @OneToMany(mappedBy = "producto1")
+    private Set<Detallereclamocliente> detallereclamoclienteSet1;
     @OneToMany(mappedBy = "idproducto")
     private Set<Detallepresupuesto> detallepresupuestoSet;
+    @OneToMany(mappedBy = "idproducto1")
+    private Set<Detallepresupuesto> detallepresupuestoSet1;
 
     public Producto() {
     }
@@ -111,12 +121,28 @@ public class Producto implements Serializable {
         this.detalleremitoSet = detalleremitoSet;
     }
 
+    public Set<Detalleremito> getDetalleremitoSet1() {
+        return detalleremitoSet1;
+    }
+
+    public void setDetalleremitoSet1(Set<Detalleremito> detalleremitoSet1) {
+        this.detalleremitoSet1 = detalleremitoSet1;
+    }
+
     public Set<Detalleproducto> getDetalleproductoSet() {
         return detalleproductoSet;
     }
 
     public void setDetalleproductoSet(Set<Detalleproducto> detalleproductoSet) {
         this.detalleproductoSet = detalleproductoSet;
+    }
+
+    public Set<Detalleproducto> getDetalleproductoSet1() {
+        return detalleproductoSet1;
+    }
+
+    public void setDetalleproductoSet1(Set<Detalleproducto> detalleproductoSet1) {
+        this.detalleproductoSet1 = detalleproductoSet1;
     }
 
     public Set<Detallepedido> getDetallepedidoSet() {
@@ -127,6 +153,14 @@ public class Producto implements Serializable {
         this.detallepedidoSet = detallepedidoSet;
     }
 
+    public Set<Detallepedido> getDetallepedidoSet1() {
+        return detallepedidoSet1;
+    }
+
+    public void setDetallepedidoSet1(Set<Detallepedido> detallepedidoSet1) {
+        this.detallepedidoSet1 = detallepedidoSet1;
+    }
+
     public Set<Detallereclamocliente> getDetallereclamoclienteSet() {
         return detallereclamoclienteSet;
     }
@@ -135,12 +169,28 @@ public class Producto implements Serializable {
         this.detallereclamoclienteSet = detallereclamoclienteSet;
     }
 
+    public Set<Detallereclamocliente> getDetallereclamoclienteSet1() {
+        return detallereclamoclienteSet1;
+    }
+
+    public void setDetallereclamoclienteSet1(Set<Detallereclamocliente> detallereclamoclienteSet1) {
+        this.detallereclamoclienteSet1 = detallereclamoclienteSet1;
+    }
+
     public Set<Detallepresupuesto> getDetallepresupuestoSet() {
         return detallepresupuestoSet;
     }
 
     public void setDetallepresupuestoSet(Set<Detallepresupuesto> detallepresupuestoSet) {
         this.detallepresupuestoSet = detallepresupuestoSet;
+    }
+
+    public Set<Detallepresupuesto> getDetallepresupuestoSet1() {
+        return detallepresupuestoSet1;
+    }
+
+    public void setDetallepresupuestoSet1(Set<Detallepresupuesto> detallepresupuestoSet1) {
+        this.detallepresupuestoSet1 = detallepresupuestoSet1;
     }
 
     @Override

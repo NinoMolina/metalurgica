@@ -39,6 +39,9 @@ public class EstadoclienteJpaController {
         if (estadocliente.getClienteSet() == null) {
             estadocliente.setClienteSet(new HashSet<Cliente>());
         }
+        if (estadocliente.getClienteSet1() == null) {
+            estadocliente.setClienteSet1(new HashSet<Cliente>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadoclienteJpaController {
                 attachedClienteSet.add(clienteSetClienteToAttach);
             }
             estadocliente.setClienteSet(attachedClienteSet);
+            Set<Cliente> attachedClienteSet1 = new HashSet<Cliente>();
+            for (Cliente clienteSet1ClienteToAttach : estadocliente.getClienteSet1()) {
+                clienteSet1ClienteToAttach = em.getReference(clienteSet1ClienteToAttach.getClass(), clienteSet1ClienteToAttach.getIdcliente());
+                attachedClienteSet1.add(clienteSet1ClienteToAttach);
+            }
+            estadocliente.setClienteSet1(attachedClienteSet1);
             em.persist(estadocliente);
             for (Cliente clienteSetCliente : estadocliente.getClienteSet()) {
                 Estadocliente oldEstadoOfClienteSetCliente = clienteSetCliente.getEstado();
@@ -57,6 +66,15 @@ public class EstadoclienteJpaController {
                 if (oldEstadoOfClienteSetCliente != null) {
                     oldEstadoOfClienteSetCliente.getClienteSet().remove(clienteSetCliente);
                     oldEstadoOfClienteSetCliente = em.merge(oldEstadoOfClienteSetCliente);
+                }
+            }
+            for (Cliente clienteSet1Cliente : estadocliente.getClienteSet1()) {
+                Estadocliente oldEstado1OfClienteSet1Cliente = clienteSet1Cliente.getEstado1();
+                clienteSet1Cliente.setEstado1(estadocliente);
+                clienteSet1Cliente = em.merge(clienteSet1Cliente);
+                if (oldEstado1OfClienteSet1Cliente != null) {
+                    oldEstado1OfClienteSet1Cliente.getClienteSet1().remove(clienteSet1Cliente);
+                    oldEstado1OfClienteSet1Cliente = em.merge(oldEstado1OfClienteSet1Cliente);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadoclienteJpaController {
             Estadocliente persistentEstadocliente = em.find(Estadocliente.class, estadocliente.getIdestado());
             Set<Cliente> clienteSetOld = persistentEstadocliente.getClienteSet();
             Set<Cliente> clienteSetNew = estadocliente.getClienteSet();
+            Set<Cliente> clienteSet1Old = persistentEstadocliente.getClienteSet1();
+            Set<Cliente> clienteSet1New = estadocliente.getClienteSet1();
             Set<Cliente> attachedClienteSetNew = new HashSet<Cliente>();
             for (Cliente clienteSetNewClienteToAttach : clienteSetNew) {
                 clienteSetNewClienteToAttach = em.getReference(clienteSetNewClienteToAttach.getClass(), clienteSetNewClienteToAttach.getIdcliente());
@@ -87,6 +107,13 @@ public class EstadoclienteJpaController {
             }
             clienteSetNew = attachedClienteSetNew;
             estadocliente.setClienteSet(clienteSetNew);
+            Set<Cliente> attachedClienteSet1New = new HashSet<Cliente>();
+            for (Cliente clienteSet1NewClienteToAttach : clienteSet1New) {
+                clienteSet1NewClienteToAttach = em.getReference(clienteSet1NewClienteToAttach.getClass(), clienteSet1NewClienteToAttach.getIdcliente());
+                attachedClienteSet1New.add(clienteSet1NewClienteToAttach);
+            }
+            clienteSet1New = attachedClienteSet1New;
+            estadocliente.setClienteSet1(clienteSet1New);
             estadocliente = em.merge(estadocliente);
             for (Cliente clienteSetOldCliente : clienteSetOld) {
                 if (!clienteSetNew.contains(clienteSetOldCliente)) {
@@ -102,6 +129,23 @@ public class EstadoclienteJpaController {
                     if (oldEstadoOfClienteSetNewCliente != null && !oldEstadoOfClienteSetNewCliente.equals(estadocliente)) {
                         oldEstadoOfClienteSetNewCliente.getClienteSet().remove(clienteSetNewCliente);
                         oldEstadoOfClienteSetNewCliente = em.merge(oldEstadoOfClienteSetNewCliente);
+                    }
+                }
+            }
+            for (Cliente clienteSet1OldCliente : clienteSet1Old) {
+                if (!clienteSet1New.contains(clienteSet1OldCliente)) {
+                    clienteSet1OldCliente.setEstado1(null);
+                    clienteSet1OldCliente = em.merge(clienteSet1OldCliente);
+                }
+            }
+            for (Cliente clienteSet1NewCliente : clienteSet1New) {
+                if (!clienteSet1Old.contains(clienteSet1NewCliente)) {
+                    Estadocliente oldEstado1OfClienteSet1NewCliente = clienteSet1NewCliente.getEstado1();
+                    clienteSet1NewCliente.setEstado1(estadocliente);
+                    clienteSet1NewCliente = em.merge(clienteSet1NewCliente);
+                    if (oldEstado1OfClienteSet1NewCliente != null && !oldEstado1OfClienteSet1NewCliente.equals(estadocliente)) {
+                        oldEstado1OfClienteSet1NewCliente.getClienteSet1().remove(clienteSet1NewCliente);
+                        oldEstado1OfClienteSet1NewCliente = em.merge(oldEstado1OfClienteSet1NewCliente);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadoclienteJpaController {
             for (Cliente clienteSetCliente : clienteSet) {
                 clienteSetCliente.setEstado(null);
                 clienteSetCliente = em.merge(clienteSetCliente);
+            }
+            Set<Cliente> clienteSet1 = estadocliente.getClienteSet1();
+            for (Cliente clienteSet1Cliente : clienteSet1) {
+                clienteSet1Cliente.setEstado1(null);
+                clienteSet1Cliente = em.merge(clienteSet1Cliente);
             }
             em.remove(estadocliente);
             em.getTransaction().commit();

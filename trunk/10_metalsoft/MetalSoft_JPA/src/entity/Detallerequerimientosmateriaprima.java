@@ -39,9 +39,15 @@ public class Detallerequerimientosmateriaprima implements Serializable {
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima idmateriaprima;
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima idmateriaprima1;
     @JoinColumn(name = "idplanrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Planrequerimientosmateriaprima planrequerimientosmateriaprima;
+    @JoinColumn(name = "idplanrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Planrequerimientosmateriaprima planrequerimientosmateriaprima1;
 
     public Detallerequerimientosmateriaprima() {
     }
@@ -86,12 +92,28 @@ public class Detallerequerimientosmateriaprima implements Serializable {
         this.idmateriaprima = idmateriaprima;
     }
 
+    public Materiaprima getIdmateriaprima1() {
+        return idmateriaprima1;
+    }
+
+    public void setIdmateriaprima1(Materiaprima idmateriaprima1) {
+        this.idmateriaprima1 = idmateriaprima1;
+    }
+
     public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima() {
         return planrequerimientosmateriaprima;
     }
 
     public void setPlanrequerimientosmateriaprima(Planrequerimientosmateriaprima planrequerimientosmateriaprima) {
         this.planrequerimientosmateriaprima = planrequerimientosmateriaprima;
+    }
+
+    public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima1() {
+        return planrequerimientosmateriaprima1;
+    }
+
+    public void setPlanrequerimientosmateriaprima1(Planrequerimientosmateriaprima planrequerimientosmateriaprima1) {
+        this.planrequerimientosmateriaprima1 = planrequerimientosmateriaprima1;
     }
 
     @Override

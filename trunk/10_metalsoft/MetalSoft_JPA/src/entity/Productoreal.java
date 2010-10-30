@@ -58,14 +58,25 @@ public class Productoreal implements Serializable {
     @JoinColumn(name = "codigobarra", referencedColumnName = "idcodigo")
     @ManyToOne
     private Codigodebarra codigobarra;
+    @JoinColumn(name = "codigobarra", referencedColumnName = "idcodigo")
+    @ManyToOne
+    private Codigodebarra codigobarra1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoproductoreal estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoproductoreal estado1;
     @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido idpedido;
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido idpedido1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoreal")
     private Set<Detalleproductoreal> detalleproductorealSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoreal1")
+    private Set<Detalleproductoreal> detalleproductorealSet1;
 
     public Productoreal() {
     }
@@ -130,12 +141,28 @@ public class Productoreal implements Serializable {
         this.codigobarra = codigobarra;
     }
 
+    public Codigodebarra getCodigobarra1() {
+        return codigobarra1;
+    }
+
+    public void setCodigobarra1(Codigodebarra codigobarra1) {
+        this.codigobarra1 = codigobarra1;
+    }
+
     public Estadoproductoreal getEstado() {
         return estado;
     }
 
     public void setEstado(Estadoproductoreal estado) {
         this.estado = estado;
+    }
+
+    public Estadoproductoreal getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadoproductoreal estado1) {
+        this.estado1 = estado1;
     }
 
     public Pedido getIdpedido() {
@@ -146,12 +173,28 @@ public class Productoreal implements Serializable {
         this.idpedido = idpedido;
     }
 
+    public Pedido getIdpedido1() {
+        return idpedido1;
+    }
+
+    public void setIdpedido1(Pedido idpedido1) {
+        this.idpedido1 = idpedido1;
+    }
+
     public Set<Detalleproductoreal> getDetalleproductorealSet() {
         return detalleproductorealSet;
     }
 
     public void setDetalleproductorealSet(Set<Detalleproductoreal> detalleproductorealSet) {
         this.detalleproductorealSet = detalleproductorealSet;
+    }
+
+    public Set<Detalleproductoreal> getDetalleproductorealSet1() {
+        return detalleproductorealSet1;
+    }
+
+    public void setDetalleproductorealSet1(Set<Detalleproductoreal> detalleproductorealSet1) {
+        this.detalleproductorealSet1 = detalleproductorealSet1;
     }
 
     @Override

@@ -69,14 +69,25 @@ public class Empresametalurgica implements Serializable {
     @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicioniva;
+    @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicioniva1;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio1;
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable1;
     @OneToMany(mappedBy = "empresa")
     private Set<Trabajotercerizado> trabajotercerizadoSet;
+    @OneToMany(mappedBy = "empresa1")
+    private Set<Trabajotercerizado> trabajotercerizadoSet1;
 
     public Empresametalurgica() {
     }
@@ -173,12 +184,28 @@ public class Empresametalurgica implements Serializable {
         this.condicioniva = condicioniva;
     }
 
+    public Condicioniva getCondicioniva1() {
+        return condicioniva1;
+    }
+
+    public void setCondicioniva1(Condicioniva condicioniva1) {
+        this.condicioniva1 = condicioniva1;
+    }
+
     public Domicilio getDomicilio() {
         return domicilio;
     }
 
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public Domicilio getDomicilio1() {
+        return domicilio1;
+    }
+
+    public void setDomicilio1(Domicilio domicilio1) {
+        this.domicilio1 = domicilio1;
     }
 
     public Responsable getResponsable() {
@@ -189,12 +216,28 @@ public class Empresametalurgica implements Serializable {
         this.responsable = responsable;
     }
 
+    public Responsable getResponsable1() {
+        return responsable1;
+    }
+
+    public void setResponsable1(Responsable responsable1) {
+        this.responsable1 = responsable1;
+    }
+
     public Set<Trabajotercerizado> getTrabajotercerizadoSet() {
         return trabajotercerizadoSet;
     }
 
     public void setTrabajotercerizadoSet(Set<Trabajotercerizado> trabajotercerizadoSet) {
         this.trabajotercerizadoSet = trabajotercerizadoSet;
+    }
+
+    public Set<Trabajotercerizado> getTrabajotercerizadoSet1() {
+        return trabajotercerizadoSet1;
+    }
+
+    public void setTrabajotercerizadoSet1(Set<Trabajotercerizado> trabajotercerizadoSet1) {
+        this.trabajotercerizadoSet1 = trabajotercerizadoSet1;
     }
 
     @Override

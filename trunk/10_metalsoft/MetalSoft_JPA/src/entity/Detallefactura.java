@@ -42,9 +42,15 @@ public class Detallefactura implements Serializable {
     @JoinColumn(name = "idfactura", referencedColumnName = "idfactura", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Factura factura;
+    @JoinColumn(name = "idfactura", referencedColumnName = "idfactura", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Factura factura1;
     @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido idpedido;
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido idpedido1;
 
     public Detallefactura() {
     }
@@ -97,12 +103,28 @@ public class Detallefactura implements Serializable {
         this.factura = factura;
     }
 
+    public Factura getFactura1() {
+        return factura1;
+    }
+
+    public void setFactura1(Factura factura1) {
+        this.factura1 = factura1;
+    }
+
     public Pedido getIdpedido() {
         return idpedido;
     }
 
     public void setIdpedido(Pedido idpedido) {
         this.idpedido = idpedido;
+    }
+
+    public Pedido getIdpedido1() {
+        return idpedido1;
+    }
+
+    public void setIdpedido1(Pedido idpedido1) {
+        this.idpedido1 = idpedido1;
     }
 
     @Override

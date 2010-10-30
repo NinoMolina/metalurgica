@@ -9,7 +9,6 @@ import controller.exceptions.IllegalOrphanException;
 import controller.exceptions.NonexistentEntityException;
 import controller.exceptions.PreexistingEntityException;
 import entity.Ejecucionetapaproduccion;
-import entity.EjecucionetapaproduccionPK;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,7 +23,6 @@ import entity.Etapadeproduccion;
 import entity.Detalleejecucionplanificacion;
 import java.util.HashSet;
 import java.util.Set;
-import entity.Maquinaxejecucionetapaproduccion;
 import java.util.ArrayList;
 
 /**
@@ -42,30 +40,9 @@ public class EjecucionetapaproduccionJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Ejecucionetapaproduccion ejecucionetapaproduccion) throws IllegalOrphanException, PreexistingEntityException, Exception {
-        if (ejecucionetapaproduccion.getEjecucionetapaproduccionPK() == null) {
-            ejecucionetapaproduccion.setEjecucionetapaproduccionPK(new EjecucionetapaproduccionPK());
-        }
+    public void create(Ejecucionetapaproduccion ejecucionetapaproduccion) throws PreexistingEntityException, Exception {
         if (ejecucionetapaproduccion.getDetalleejecucionplanificacionSet() == null) {
             ejecucionetapaproduccion.setDetalleejecucionplanificacionSet(new HashSet<Detalleejecucionplanificacion>());
-        }
-        if (ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet() == null) {
-            ejecucionetapaproduccion.setMaquinaxejecucionetapaproduccionSet(new HashSet<Maquinaxejecucionetapaproduccion>());
-        }
-        ejecucionetapaproduccion.getEjecucionetapaproduccionPK().setIdetapaproduccion(ejecucionetapaproduccion.getEtapadeproduccion().getIdetapaproduccion());
-        List<String> illegalOrphanMessages = null;
-        Etapadeproduccion etapadeproduccionOrphanCheck = ejecucionetapaproduccion.getEtapadeproduccion();
-        if (etapadeproduccionOrphanCheck != null) {
-            Ejecucionetapaproduccion oldEjecucionetapaproduccionOfEtapadeproduccion = etapadeproduccionOrphanCheck.getEjecucionetapaproduccion();
-            if (oldEjecucionetapaproduccionOfEtapadeproduccion != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("The Etapadeproduccion " + etapadeproduccionOrphanCheck + " already has an item of type Ejecucionetapaproduccion whose etapadeproduccion column cannot be null. Please make another selection for the etapadeproduccion field.");
-            }
-        }
-        if (illegalOrphanMessages != null) {
-            throw new IllegalOrphanException(illegalOrphanMessages);
         }
         EntityManager em = null;
         try {
@@ -76,15 +53,30 @@ public class EjecucionetapaproduccionJpaController {
                 empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
                 ejecucionetapaproduccion.setEmpleado(empleado);
             }
+            Empleado empleado1 = ejecucionetapaproduccion.getEmpleado1();
+            if (empleado1 != null) {
+                empleado1 = em.getReference(empleado1.getClass(), empleado1.getIdempleado());
+                ejecucionetapaproduccion.setEmpleado1(empleado1);
+            }
             Estadoejecetapaprod estado = ejecucionetapaproduccion.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionetapaproduccion.setEstado(estado);
             }
-            Etapadeproduccion etapadeproduccion = ejecucionetapaproduccion.getEtapadeproduccion();
-            if (etapadeproduccion != null) {
-                etapadeproduccion = em.getReference(etapadeproduccion.getClass(), etapadeproduccion.getIdetapaproduccion());
-                ejecucionetapaproduccion.setEtapadeproduccion(etapadeproduccion);
+            Estadoejecetapaprod estado1 = ejecucionetapaproduccion.getEstado1();
+            if (estado1 != null) {
+                estado1 = em.getReference(estado1.getClass(), estado1.getIdestado());
+                ejecucionetapaproduccion.setEstado1(estado1);
+            }
+            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccion);
+            }
+            Etapadeproduccion idetapaproduccion1 = ejecucionetapaproduccion.getIdetapaproduccion1();
+            if (idetapaproduccion1 != null) {
+                idetapaproduccion1 = em.getReference(idetapaproduccion1.getClass(), idetapaproduccion1.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion1(idetapaproduccion1);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSet = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacionToAttach : ejecucionetapaproduccion.getDetalleejecucionplanificacionSet()) {
@@ -92,46 +84,43 @@ public class EjecucionetapaproduccionJpaController {
                 attachedDetalleejecucionplanificacionSet.add(detalleejecucionplanificacionSetDetalleejecucionplanificacionToAttach);
             }
             ejecucionetapaproduccion.setDetalleejecucionplanificacionSet(attachedDetalleejecucionplanificacionSet);
-            Set<Maquinaxejecucionetapaproduccion> attachedMaquinaxejecucionetapaproduccionSet = new HashSet<Maquinaxejecucionetapaproduccion>();
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccionToAttach : ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet()) {
-                maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccionToAttach = em.getReference(maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccionToAttach.getClass(), maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccionToAttach.getMaquinaxejecucionetapaproduccionPK());
-                attachedMaquinaxejecucionetapaproduccionSet.add(maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccionToAttach);
-            }
-            ejecucionetapaproduccion.setMaquinaxejecucionetapaproduccionSet(attachedMaquinaxejecucionetapaproduccionSet);
             em.persist(ejecucionetapaproduccion);
             if (empleado != null) {
                 empleado.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
                 empleado = em.merge(empleado);
             }
+            if (empleado1 != null) {
+                empleado1.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                empleado1 = em.merge(empleado1);
+            }
             if (estado != null) {
                 estado.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
                 estado = em.merge(estado);
             }
-            if (etapadeproduccion != null) {
-                etapadeproduccion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
-                etapadeproduccion = em.merge(etapadeproduccion);
+            if (estado1 != null) {
+                estado1.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                estado1 = em.merge(estado1);
+            }
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            if (idetapaproduccion1 != null) {
+                idetapaproduccion1.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                idetapaproduccion1 = em.merge(idetapaproduccion1);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacion : ejecucionetapaproduccion.getDetalleejecucionplanificacionSet()) {
-                Ejecucionetapaproduccion oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = detalleejecucionplanificacionSetDetalleejecucionplanificacion.getEjecucionetapaproduccion();
-                detalleejecucionplanificacionSetDetalleejecucionplanificacion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
+                Ejecucionetapaproduccion oldEjecucionetapaOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = detalleejecucionplanificacionSetDetalleejecucionplanificacion.getEjecucionetapa();
+                detalleejecucionplanificacionSetDetalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
                 detalleejecucionplanificacionSetDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionSetDetalleejecucionplanificacion);
-                if (oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion != null) {
-                    oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion.getDetalleejecucionplanificacionSet().remove(detalleejecucionplanificacionSetDetalleejecucionplanificacion);
-                    oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = em.merge(oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion);
-                }
-            }
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion : ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet()) {
-                Ejecucionetapaproduccion oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion = maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-                maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
-                maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion = em.merge(maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion);
-                if (oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion != null) {
-                    oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet().remove(maquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion);
-                    oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion = em.merge(oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetMaquinaxejecucionetapaproduccion);
+                if (oldEjecucionetapaOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion != null) {
+                    oldEjecucionetapaOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion.getDetalleejecucionplanificacionSet().remove(detalleejecucionplanificacionSetDetalleejecucionplanificacion);
+                    oldEjecucionetapaOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = em.merge(oldEjecucionetapaOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion);
                 }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findEjecucionetapaproduccion(ejecucionetapaproduccion.getEjecucionetapaproduccionPK()) != null) {
+            if (findEjecucionetapaproduccion(ejecucionetapaproduccion.getId()) != null) {
                 throw new PreexistingEntityException("Ejecucionetapaproduccion " + ejecucionetapaproduccion + " already exists.", ex);
             }
             throw ex;
@@ -143,46 +132,32 @@ public class EjecucionetapaproduccionJpaController {
     }
 
     public void edit(Ejecucionetapaproduccion ejecucionetapaproduccion) throws IllegalOrphanException, NonexistentEntityException, Exception {
-        ejecucionetapaproduccion.getEjecucionetapaproduccionPK().setIdetapaproduccion(ejecucionetapaproduccion.getEtapadeproduccion().getIdetapaproduccion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Ejecucionetapaproduccion persistentEjecucionetapaproduccion = em.find(Ejecucionetapaproduccion.class, ejecucionetapaproduccion.getEjecucionetapaproduccionPK());
+            Ejecucionetapaproduccion persistentEjecucionetapaproduccion = em.find(Ejecucionetapaproduccion.class, ejecucionetapaproduccion.getId());
             Empleado empleadoOld = persistentEjecucionetapaproduccion.getEmpleado();
             Empleado empleadoNew = ejecucionetapaproduccion.getEmpleado();
+            Empleado empleado1Old = persistentEjecucionetapaproduccion.getEmpleado1();
+            Empleado empleado1New = ejecucionetapaproduccion.getEmpleado1();
             Estadoejecetapaprod estadoOld = persistentEjecucionetapaproduccion.getEstado();
             Estadoejecetapaprod estadoNew = ejecucionetapaproduccion.getEstado();
-            Etapadeproduccion etapadeproduccionOld = persistentEjecucionetapaproduccion.getEtapadeproduccion();
-            Etapadeproduccion etapadeproduccionNew = ejecucionetapaproduccion.getEtapadeproduccion();
+            Estadoejecetapaprod estado1Old = persistentEjecucionetapaproduccion.getEstado1();
+            Estadoejecetapaprod estado1New = ejecucionetapaproduccion.getEstado1();
+            Etapadeproduccion idetapaproduccionOld = persistentEjecucionetapaproduccion.getIdetapaproduccion();
+            Etapadeproduccion idetapaproduccionNew = ejecucionetapaproduccion.getIdetapaproduccion();
+            Etapadeproduccion idetapaproduccion1Old = persistentEjecucionetapaproduccion.getIdetapaproduccion1();
+            Etapadeproduccion idetapaproduccion1New = ejecucionetapaproduccion.getIdetapaproduccion1();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetOld = persistentEjecucionetapaproduccion.getDetalleejecucionplanificacionSet();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetNew = ejecucionetapaproduccion.getDetalleejecucionplanificacionSet();
-            Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccionSetOld = persistentEjecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet();
-            Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccionSetNew = ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet();
             List<String> illegalOrphanMessages = null;
-            if (etapadeproduccionNew != null && !etapadeproduccionNew.equals(etapadeproduccionOld)) {
-                Ejecucionetapaproduccion oldEjecucionetapaproduccionOfEtapadeproduccion = etapadeproduccionNew.getEjecucionetapaproduccion();
-                if (oldEjecucionetapaproduccionOfEtapadeproduccion != null) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("The Etapadeproduccion " + etapadeproduccionNew + " already has an item of type Ejecucionetapaproduccion whose etapadeproduccion column cannot be null. Please make another selection for the etapadeproduccion field.");
-                }
-            }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetOldDetalleejecucionplanificacion : detalleejecucionplanificacionSetOld) {
                 if (!detalleejecucionplanificacionSetNew.contains(detalleejecucionplanificacionSetOldDetalleejecucionplanificacion)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Detalleejecucionplanificacion " + detalleejecucionplanificacionSetOldDetalleejecucionplanificacion + " since its ejecucionetapaproduccion field is not nullable.");
-                }
-            }
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetOldMaquinaxejecucionetapaproduccion : maquinaxejecucionetapaproduccionSetOld) {
-                if (!maquinaxejecucionetapaproduccionSetNew.contains(maquinaxejecucionetapaproduccionSetOldMaquinaxejecucionetapaproduccion)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Maquinaxejecucionetapaproduccion " + maquinaxejecucionetapaproduccionSetOldMaquinaxejecucionetapaproduccion + " since its ejecucionetapaproduccion field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Detalleejecucionplanificacion " + detalleejecucionplanificacionSetOldDetalleejecucionplanificacion + " since its ejecucionetapa field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -192,13 +167,25 @@ public class EjecucionetapaproduccionJpaController {
                 empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
                 ejecucionetapaproduccion.setEmpleado(empleadoNew);
             }
+            if (empleado1New != null) {
+                empleado1New = em.getReference(empleado1New.getClass(), empleado1New.getIdempleado());
+                ejecucionetapaproduccion.setEmpleado1(empleado1New);
+            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionetapaproduccion.setEstado(estadoNew);
             }
-            if (etapadeproduccionNew != null) {
-                etapadeproduccionNew = em.getReference(etapadeproduccionNew.getClass(), etapadeproduccionNew.getIdetapaproduccion());
-                ejecucionetapaproduccion.setEtapadeproduccion(etapadeproduccionNew);
+            if (estado1New != null) {
+                estado1New = em.getReference(estado1New.getClass(), estado1New.getIdestado());
+                ejecucionetapaproduccion.setEstado1(estado1New);
+            }
+            if (idetapaproduccionNew != null) {
+                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccionNew);
+            }
+            if (idetapaproduccion1New != null) {
+                idetapaproduccion1New = em.getReference(idetapaproduccion1New.getClass(), idetapaproduccion1New.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion1(idetapaproduccion1New);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSetNew = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionSetNew) {
@@ -207,13 +194,6 @@ public class EjecucionetapaproduccionJpaController {
             }
             detalleejecucionplanificacionSetNew = attachedDetalleejecucionplanificacionSetNew;
             ejecucionetapaproduccion.setDetalleejecucionplanificacionSet(detalleejecucionplanificacionSetNew);
-            Set<Maquinaxejecucionetapaproduccion> attachedMaquinaxejecucionetapaproduccionSetNew = new HashSet<Maquinaxejecucionetapaproduccion>();
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccionToAttach : maquinaxejecucionetapaproduccionSetNew) {
-                maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccionToAttach = em.getReference(maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccionToAttach.getClass(), maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccionToAttach.getMaquinaxejecucionetapaproduccionPK());
-                attachedMaquinaxejecucionetapaproduccionSetNew.add(maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccionToAttach);
-            }
-            maquinaxejecucionetapaproduccionSetNew = attachedMaquinaxejecucionetapaproduccionSetNew;
-            ejecucionetapaproduccion.setMaquinaxejecucionetapaproduccionSet(maquinaxejecucionetapaproduccionSetNew);
             ejecucionetapaproduccion = em.merge(ejecucionetapaproduccion);
             if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
                 empleadoOld.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
@@ -223,6 +203,14 @@ public class EjecucionetapaproduccionJpaController {
                 empleadoNew.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
                 empleadoNew = em.merge(empleadoNew);
             }
+            if (empleado1Old != null && !empleado1Old.equals(empleado1New)) {
+                empleado1Old.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                empleado1Old = em.merge(empleado1Old);
+            }
+            if (empleado1New != null && !empleado1New.equals(empleado1Old)) {
+                empleado1New.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                empleado1New = em.merge(empleado1New);
+            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
                 estadoOld = em.merge(estadoOld);
@@ -231,33 +219,38 @@ public class EjecucionetapaproduccionJpaController {
                 estadoNew.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
                 estadoNew = em.merge(estadoNew);
             }
-            if (etapadeproduccionOld != null && !etapadeproduccionOld.equals(etapadeproduccionNew)) {
-                etapadeproduccionOld.setEjecucionetapaproduccion(null);
-                etapadeproduccionOld = em.merge(etapadeproduccionOld);
+            if (estado1Old != null && !estado1Old.equals(estado1New)) {
+                estado1Old.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                estado1Old = em.merge(estado1Old);
             }
-            if (etapadeproduccionNew != null && !etapadeproduccionNew.equals(etapadeproduccionOld)) {
-                etapadeproduccionNew.setEjecucionetapaproduccion(ejecucionetapaproduccion);
-                etapadeproduccionNew = em.merge(etapadeproduccionNew);
+            if (estado1New != null && !estado1New.equals(estado1Old)) {
+                estado1New.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                estado1New = em.merge(estado1New);
+            }
+            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
+                idetapaproduccionOld.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                idetapaproduccionOld = em.merge(idetapaproduccionOld);
+            }
+            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
+                idetapaproduccionNew.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                idetapaproduccionNew = em.merge(idetapaproduccionNew);
+            }
+            if (idetapaproduccion1Old != null && !idetapaproduccion1Old.equals(idetapaproduccion1New)) {
+                idetapaproduccion1Old.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                idetapaproduccion1Old = em.merge(idetapaproduccion1Old);
+            }
+            if (idetapaproduccion1New != null && !idetapaproduccion1New.equals(idetapaproduccion1Old)) {
+                idetapaproduccion1New.getEjecucionetapaproduccionSet().add(ejecucionetapaproduccion);
+                idetapaproduccion1New = em.merge(idetapaproduccion1New);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetNewDetalleejecucionplanificacion : detalleejecucionplanificacionSetNew) {
                 if (!detalleejecucionplanificacionSetOld.contains(detalleejecucionplanificacionSetNewDetalleejecucionplanificacion)) {
-                    Ejecucionetapaproduccion oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion = detalleejecucionplanificacionSetNewDetalleejecucionplanificacion.getEjecucionetapaproduccion();
-                    detalleejecucionplanificacionSetNewDetalleejecucionplanificacion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
+                    Ejecucionetapaproduccion oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion = detalleejecucionplanificacionSetNewDetalleejecucionplanificacion.getEjecucionetapa();
+                    detalleejecucionplanificacionSetNewDetalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
                     detalleejecucionplanificacionSetNewDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionSetNewDetalleejecucionplanificacion);
-                    if (oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion != null && !oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion.equals(ejecucionetapaproduccion)) {
-                        oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion.getDetalleejecucionplanificacionSet().remove(detalleejecucionplanificacionSetNewDetalleejecucionplanificacion);
-                        oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion = em.merge(oldEjecucionetapaproduccionOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion);
-                    }
-                }
-            }
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion : maquinaxejecucionetapaproduccionSetNew) {
-                if (!maquinaxejecucionetapaproduccionSetOld.contains(maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion)) {
-                    Ejecucionetapaproduccion oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion = maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-                    maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
-                    maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion = em.merge(maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion);
-                    if (oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion != null && !oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion.equals(ejecucionetapaproduccion)) {
-                        oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet().remove(maquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion);
-                        oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion = em.merge(oldEjecucionetapaproduccionOfMaquinaxejecucionetapaproduccionSetNewMaquinaxejecucionetapaproduccion);
+                    if (oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion != null && !oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion.equals(ejecucionetapaproduccion)) {
+                        oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion.getDetalleejecucionplanificacionSet().remove(detalleejecucionplanificacionSetNewDetalleejecucionplanificacion);
+                        oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion = em.merge(oldEjecucionetapaOfDetalleejecucionplanificacionSetNewDetalleejecucionplanificacion);
                     }
                 }
             }
@@ -265,7 +258,7 @@ public class EjecucionetapaproduccionJpaController {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                EjecucionetapaproduccionPK id = ejecucionetapaproduccion.getEjecucionetapaproduccionPK();
+                Long id = ejecucionetapaproduccion.getId();
                 if (findEjecucionetapaproduccion(id) == null) {
                     throw new NonexistentEntityException("The ejecucionetapaproduccion with id " + id + " no longer exists.");
                 }
@@ -278,7 +271,7 @@ public class EjecucionetapaproduccionJpaController {
         }
     }
 
-    public void destroy(EjecucionetapaproduccionPK id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Long id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -286,7 +279,7 @@ public class EjecucionetapaproduccionJpaController {
             Ejecucionetapaproduccion ejecucionetapaproduccion;
             try {
                 ejecucionetapaproduccion = em.getReference(Ejecucionetapaproduccion.class, id);
-                ejecucionetapaproduccion.getEjecucionetapaproduccionPK();
+                ejecucionetapaproduccion.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ejecucionetapaproduccion with id " + id + " no longer exists.", enfe);
             }
@@ -296,14 +289,7 @@ public class EjecucionetapaproduccionJpaController {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Ejecucionetapaproduccion (" + ejecucionetapaproduccion + ") cannot be destroyed since the Detalleejecucionplanificacion " + detalleejecucionplanificacionSetOrphanCheckDetalleejecucionplanificacion + " in its detalleejecucionplanificacionSet field has a non-nullable ejecucionetapaproduccion field.");
-            }
-            Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccionSetOrphanCheck = ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet();
-            for (Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccionSetOrphanCheckMaquinaxejecucionetapaproduccion : maquinaxejecucionetapaproduccionSetOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Ejecucionetapaproduccion (" + ejecucionetapaproduccion + ") cannot be destroyed since the Maquinaxejecucionetapaproduccion " + maquinaxejecucionetapaproduccionSetOrphanCheckMaquinaxejecucionetapaproduccion + " in its maquinaxejecucionetapaproduccionSet field has a non-nullable ejecucionetapaproduccion field.");
+                illegalOrphanMessages.add("This Ejecucionetapaproduccion (" + ejecucionetapaproduccion + ") cannot be destroyed since the Detalleejecucionplanificacion " + detalleejecucionplanificacionSetOrphanCheckDetalleejecucionplanificacion + " in its detalleejecucionplanificacionSet field has a non-nullable ejecucionetapa field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -313,15 +299,30 @@ public class EjecucionetapaproduccionJpaController {
                 empleado.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
                 empleado = em.merge(empleado);
             }
+            Empleado empleado1 = ejecucionetapaproduccion.getEmpleado1();
+            if (empleado1 != null) {
+                empleado1.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                empleado1 = em.merge(empleado1);
+            }
             Estadoejecetapaprod estado = ejecucionetapaproduccion.getEstado();
             if (estado != null) {
                 estado.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
                 estado = em.merge(estado);
             }
-            Etapadeproduccion etapadeproduccion = ejecucionetapaproduccion.getEtapadeproduccion();
-            if (etapadeproduccion != null) {
-                etapadeproduccion.setEjecucionetapaproduccion(null);
-                etapadeproduccion = em.merge(etapadeproduccion);
+            Estadoejecetapaprod estado1 = ejecucionetapaproduccion.getEstado1();
+            if (estado1 != null) {
+                estado1.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                estado1 = em.merge(estado1);
+            }
+            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            Etapadeproduccion idetapaproduccion1 = ejecucionetapaproduccion.getIdetapaproduccion1();
+            if (idetapaproduccion1 != null) {
+                idetapaproduccion1.getEjecucionetapaproduccionSet().remove(ejecucionetapaproduccion);
+                idetapaproduccion1 = em.merge(idetapaproduccion1);
             }
             em.remove(ejecucionetapaproduccion);
             em.getTransaction().commit();
@@ -356,7 +357,7 @@ public class EjecucionetapaproduccionJpaController {
         }
     }
 
-    public Ejecucionetapaproduccion findEjecucionetapaproduccion(EjecucionetapaproduccionPK id) {
+    public Ejecucionetapaproduccion findEjecucionetapaproduccion(Long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Ejecucionetapaproduccion.class, id);

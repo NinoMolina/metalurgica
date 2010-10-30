@@ -41,9 +41,15 @@ public class Detallepiezapresupuesto implements Serializable {
     @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
     @ManyToOne
     private Detalleproductopresupuesto iddetalleproductopresupuesto;
+    @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detalleproductopresupuesto iddetalleproductopresupuesto1;
     @JoinColumn(name = "idetapa", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion idetapa;
+    @JoinColumn(name = "idetapa", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion idetapa1;
 
     public Detallepiezapresupuesto() {
     }
@@ -76,12 +82,28 @@ public class Detallepiezapresupuesto implements Serializable {
         this.iddetalleproductopresupuesto = iddetalleproductopresupuesto;
     }
 
+    public Detalleproductopresupuesto getIddetalleproductopresupuesto1() {
+        return iddetalleproductopresupuesto1;
+    }
+
+    public void setIddetalleproductopresupuesto1(Detalleproductopresupuesto iddetalleproductopresupuesto1) {
+        this.iddetalleproductopresupuesto1 = iddetalleproductopresupuesto1;
+    }
+
     public Etapadeproduccion getIdetapa() {
         return idetapa;
     }
 
     public void setIdetapa(Etapadeproduccion idetapa) {
         this.idetapa = idetapa;
+    }
+
+    public Etapadeproduccion getIdetapa1() {
+        return idetapa1;
+    }
+
+    public void setIdetapa1(Etapadeproduccion idetapa1) {
+        this.idetapa1 = idetapa1;
     }
 
     @Override

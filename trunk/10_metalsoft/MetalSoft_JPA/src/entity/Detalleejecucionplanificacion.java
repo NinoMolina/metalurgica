@@ -14,7 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,19 +31,20 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Detalleejecucionplanificacion.findAll", query = "SELECT d FROM Detalleejecucionplanificacion d"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findById", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.id = :id"),
-    @NamedQuery(name = "Detalleejecucionplanificacion.findByPieza", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.pieza = :pieza"),
+    @NamedQuery(name = "Detalleejecucionplanificacion.findByIdetapaproduccion", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.idetapaproduccion = :idetapaproduccion"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByFechainicio", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.fechainicio = :fechainicio"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByFechafin", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.fechafin = :fechafin"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByHorainicio", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.horainicio = :horainicio"),
-    @NamedQuery(name = "Detalleejecucionplanificacion.findByHorafin", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.horafin = :horafin")})
+    @NamedQuery(name = "Detalleejecucionplanificacion.findByHorafin", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.horafin = :horafin"),
+    @NamedQuery(name = "Detalleejecucionplanificacion.findByOrden", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.orden = :orden")})
 public class Detalleejecucionplanificacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-    @Column(name = "pieza")
-    private BigInteger pieza;
+    @Column(name = "idetapaproduccion")
+    private BigInteger idetapaproduccion;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.DATE)
     private Date fechainicio;
@@ -57,16 +57,21 @@ public class Detalleejecucionplanificacion implements Serializable {
     @Column(name = "horafin")
     @Temporal(TemporalType.TIME)
     private Date horafin;
+    @Column(name = "orden")
+    private Integer orden;
     @OneToMany(mappedBy = "iddetalleejecucionplanificacion")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @JoinColumns({
-        @JoinColumn(name = "ejecucionetapa", referencedColumnName = "idejecucion"),
-        @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")})
+    @OneToMany(mappedBy = "iddetalleejecucionplanificacion1")
+    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
+    @JoinColumn(name = "ejecucionetapa", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Ejecucionetapaproduccion ejecucionetapaproduccion;
+    private Ejecucionetapaproduccion ejecucionetapa;
     @JoinColumn(name = "idejecucionplanificacionproduccion", referencedColumnName = "idejecucion")
     @ManyToOne(optional = false)
     private Ejecucionplanificacionproduccion idejecucionplanificacionproduccion;
+    @JoinColumn(name = "pieza", referencedColumnName = "idpieza")
+    @ManyToOne
+    private Pieza pieza;
     @JoinColumn(name = "piezareal", referencedColumnName = "idpiezareal")
     @ManyToOne
     private Piezareal piezareal;
@@ -86,12 +91,12 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.id = id;
     }
 
-    public BigInteger getPieza() {
-        return pieza;
+    public BigInteger getIdetapaproduccion() {
+        return idetapaproduccion;
     }
 
-    public void setPieza(BigInteger pieza) {
-        this.pieza = pieza;
+    public void setIdetapaproduccion(BigInteger idetapaproduccion) {
+        this.idetapaproduccion = idetapaproduccion;
     }
 
     public Date getFechainicio() {
@@ -126,6 +131,14 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.horafin = horafin;
     }
 
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
     public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet() {
         return detalleplanificacionproduccionSet;
     }
@@ -134,12 +147,20 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
-    public Ejecucionetapaproduccion getEjecucionetapaproduccion() {
-        return ejecucionetapaproduccion;
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
+        return detalleplanificacionproduccionSet1;
     }
 
-    public void setEjecucionetapaproduccion(Ejecucionetapaproduccion ejecucionetapaproduccion) {
-        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
+    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
+        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
+    }
+
+    public Ejecucionetapaproduccion getEjecucionetapa() {
+        return ejecucionetapa;
+    }
+
+    public void setEjecucionetapa(Ejecucionetapaproduccion ejecucionetapa) {
+        this.ejecucionetapa = ejecucionetapa;
     }
 
     public Ejecucionplanificacionproduccion getIdejecucionplanificacionproduccion() {
@@ -148,6 +169,14 @@ public class Detalleejecucionplanificacion implements Serializable {
 
     public void setIdejecucionplanificacionproduccion(Ejecucionplanificacionproduccion idejecucionplanificacionproduccion) {
         this.idejecucionplanificacionproduccion = idejecucionplanificacionproduccion;
+    }
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
     }
 
     public Piezareal getPiezareal() {

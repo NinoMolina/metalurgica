@@ -39,8 +39,13 @@ public class Localidad implements Serializable {
     @JoinColumn(name = "provincia", referencedColumnName = "idprovincia")
     @ManyToOne
     private Provincia provincia;
+    @JoinColumn(name = "provincia", referencedColumnName = "idprovincia")
+    @ManyToOne
+    private Provincia provincia1;
     @OneToMany(mappedBy = "localidad")
     private Set<Barrio> barrioSet;
+    @OneToMany(mappedBy = "localidad1")
+    private Set<Barrio> barrioSet1;
 
     public Localidad() {
     }
@@ -73,12 +78,28 @@ public class Localidad implements Serializable {
         this.provincia = provincia;
     }
 
+    public Provincia getProvincia1() {
+        return provincia1;
+    }
+
+    public void setProvincia1(Provincia provincia1) {
+        this.provincia1 = provincia1;
+    }
+
     public Set<Barrio> getBarrioSet() {
         return barrioSet;
     }
 
     public void setBarrioSet(Set<Barrio> barrioSet) {
         this.barrioSet = barrioSet;
+    }
+
+    public Set<Barrio> getBarrioSet1() {
+        return barrioSet1;
+    }
+
+    public void setBarrioSet1(Set<Barrio> barrioSet1) {
+        this.barrioSet1 = barrioSet1;
     }
 
     @Override

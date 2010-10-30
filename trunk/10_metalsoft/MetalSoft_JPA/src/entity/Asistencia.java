@@ -43,6 +43,9 @@ public class Asistencia implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Empleado empleado1;
+    @JoinColumn(name = "empleado", referencedColumnName = "idempleado", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Empleado empleado2;
 
     public Asistencia() {
     }
@@ -85,6 +88,14 @@ public class Asistencia implements Serializable {
 
     public void setEmpleado1(Empleado empleado1) {
         this.empleado1 = empleado1;
+    }
+
+    public Empleado getEmpleado2() {
+        return empleado2;
+    }
+
+    public void setEmpleado2(Empleado empleado2) {
+        this.empleado2 = empleado2;
     }
 
     @Override

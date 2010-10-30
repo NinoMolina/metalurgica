@@ -39,8 +39,12 @@ public class Tipodocumento implements Serializable {
     private String nombre;
     @OneToMany(mappedBy = "tipodocumento")
     private Set<Responsable> responsableSet;
+    @OneToMany(mappedBy = "tipodocumento1")
+    private Set<Responsable> responsableSet1;
     @OneToMany(mappedBy = "tipodocumento")
     private Set<Empleado> empleadoSet;
+    @OneToMany(mappedBy = "tipodocumento1")
+    private Set<Empleado> empleadoSet1;
 
     public Tipodocumento() {
     }
@@ -81,12 +85,28 @@ public class Tipodocumento implements Serializable {
         this.responsableSet = responsableSet;
     }
 
+    public Set<Responsable> getResponsableSet1() {
+        return responsableSet1;
+    }
+
+    public void setResponsableSet1(Set<Responsable> responsableSet1) {
+        this.responsableSet1 = responsableSet1;
+    }
+
     public Set<Empleado> getEmpleadoSet() {
         return empleadoSet;
     }
 
     public void setEmpleadoSet(Set<Empleado> empleadoSet) {
         this.empleadoSet = empleadoSet;
+    }
+
+    public Set<Empleado> getEmpleadoSet1() {
+        return empleadoSet1;
+    }
+
+    public void setEmpleadoSet1(Set<Empleado> empleadoSet1) {
+        this.empleadoSet1 = empleadoSet1;
     }
 
     @Override

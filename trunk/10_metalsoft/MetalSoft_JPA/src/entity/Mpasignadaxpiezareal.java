@@ -38,6 +38,9 @@ public class Mpasignadaxpiezareal implements Serializable {
     @JoinColumn(name = "iddetallempasignada", referencedColumnName = "id")
     @ManyToOne
     private Detallempasignada iddetallempasignada;
+    @JoinColumn(name = "iddetallempasignada", referencedColumnName = "id")
+    @ManyToOne
+    private Detallempasignada iddetallempasignada1;
 
     public Mpasignadaxpiezareal() {
     }
@@ -68,6 +71,14 @@ public class Mpasignadaxpiezareal implements Serializable {
 
     public void setIddetallempasignada(Detallempasignada iddetallempasignada) {
         this.iddetallempasignada = iddetallempasignada;
+    }
+
+    public Detallempasignada getIddetallempasignada1() {
+        return iddetallempasignada1;
+    }
+
+    public void setIddetallempasignada1(Detallempasignada iddetallempasignada1) {
+        this.iddetallempasignada1 = iddetallempasignada1;
     }
 
     @Override

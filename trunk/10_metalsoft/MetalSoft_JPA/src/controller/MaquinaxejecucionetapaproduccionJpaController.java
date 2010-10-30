@@ -17,7 +17,6 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entity.Ejecucionetapaproduccion;
 
 /**
  *
@@ -38,22 +37,11 @@ public class MaquinaxejecucionetapaproduccionJpaController {
         if (maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK() == null) {
             maquinaxejecucionetapaproduccion.setMaquinaxejecucionetapaproduccionPK(new MaquinaxejecucionetapaproduccionPK());
         }
-        maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK().setIdejecucionetapaproduccion(maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion().getEjecucionetapaproduccionPK().getIdejecucion());
-        maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK().setIdetapaproduccion(maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion().getEjecucionetapaproduccionPK().getIdetapaproduccion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Ejecucionetapaproduccion ejecucionetapaproduccion = maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-            if (ejecucionetapaproduccion != null) {
-                ejecucionetapaproduccion = em.getReference(ejecucionetapaproduccion.getClass(), ejecucionetapaproduccion.getEjecucionetapaproduccionPK());
-                maquinaxejecucionetapaproduccion.setEjecucionetapaproduccion(ejecucionetapaproduccion);
-            }
             em.persist(maquinaxejecucionetapaproduccion);
-            if (ejecucionetapaproduccion != null) {
-                ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet().add(maquinaxejecucionetapaproduccion);
-                ejecucionetapaproduccion = em.merge(ejecucionetapaproduccion);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findMaquinaxejecucionetapaproduccion(maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK()) != null) {
@@ -68,28 +56,11 @@ public class MaquinaxejecucionetapaproduccionJpaController {
     }
 
     public void edit(Maquinaxejecucionetapaproduccion maquinaxejecucionetapaproduccion) throws NonexistentEntityException, Exception {
-        maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK().setIdejecucionetapaproduccion(maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion().getEjecucionetapaproduccionPK().getIdejecucion());
-        maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK().setIdetapaproduccion(maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion().getEjecucionetapaproduccionPK().getIdetapaproduccion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Maquinaxejecucionetapaproduccion persistentMaquinaxejecucionetapaproduccion = em.find(Maquinaxejecucionetapaproduccion.class, maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK());
-            Ejecucionetapaproduccion ejecucionetapaproduccionOld = persistentMaquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-            Ejecucionetapaproduccion ejecucionetapaproduccionNew = maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-            if (ejecucionetapaproduccionNew != null) {
-                ejecucionetapaproduccionNew = em.getReference(ejecucionetapaproduccionNew.getClass(), ejecucionetapaproduccionNew.getEjecucionetapaproduccionPK());
-                maquinaxejecucionetapaproduccion.setEjecucionetapaproduccion(ejecucionetapaproduccionNew);
-            }
             maquinaxejecucionetapaproduccion = em.merge(maquinaxejecucionetapaproduccion);
-            if (ejecucionetapaproduccionOld != null && !ejecucionetapaproduccionOld.equals(ejecucionetapaproduccionNew)) {
-                ejecucionetapaproduccionOld.getMaquinaxejecucionetapaproduccionSet().remove(maquinaxejecucionetapaproduccion);
-                ejecucionetapaproduccionOld = em.merge(ejecucionetapaproduccionOld);
-            }
-            if (ejecucionetapaproduccionNew != null && !ejecucionetapaproduccionNew.equals(ejecucionetapaproduccionOld)) {
-                ejecucionetapaproduccionNew.getMaquinaxejecucionetapaproduccionSet().add(maquinaxejecucionetapaproduccion);
-                ejecucionetapaproduccionNew = em.merge(ejecucionetapaproduccionNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -118,11 +89,6 @@ public class MaquinaxejecucionetapaproduccionJpaController {
                 maquinaxejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionPK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The maquinaxejecucionetapaproduccion with id " + id + " no longer exists.", enfe);
-            }
-            Ejecucionetapaproduccion ejecucionetapaproduccion = maquinaxejecucionetapaproduccion.getEjecucionetapaproduccion();
-            if (ejecucionetapaproduccion != null) {
-                ejecucionetapaproduccion.getMaquinaxejecucionetapaproduccionSet().remove(maquinaxejecucionetapaproduccion);
-                ejecucionetapaproduccion = em.merge(ejecucionetapaproduccion);
             }
             em.remove(maquinaxejecucionetapaproduccion);
             em.getTransaction().commit();

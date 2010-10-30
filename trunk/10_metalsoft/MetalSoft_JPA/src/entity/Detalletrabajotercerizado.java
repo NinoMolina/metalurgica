@@ -56,12 +56,21 @@ public class Detalletrabajotercerizado implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadodetalletrabajotercerizado estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadodetalletrabajotercerizado estado1;
     @JoinColumn(name = "proceso", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion proceso;
+    @JoinColumn(name = "proceso", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion proceso1;
     @JoinColumn(name = "idtrabajotercerizado", referencedColumnName = "idtrabajo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Trabajotercerizado trabajotercerizado;
+    @JoinColumn(name = "idtrabajotercerizado", referencedColumnName = "idtrabajo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Trabajotercerizado trabajotercerizado1;
 
     public Detalletrabajotercerizado() {
     }
@@ -138,6 +147,14 @@ public class Detalletrabajotercerizado implements Serializable {
         this.estado = estado;
     }
 
+    public Estadodetalletrabajotercerizado getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadodetalletrabajotercerizado estado1) {
+        this.estado1 = estado1;
+    }
+
     public Etapadeproduccion getProceso() {
         return proceso;
     }
@@ -146,12 +163,28 @@ public class Detalletrabajotercerizado implements Serializable {
         this.proceso = proceso;
     }
 
+    public Etapadeproduccion getProceso1() {
+        return proceso1;
+    }
+
+    public void setProceso1(Etapadeproduccion proceso1) {
+        this.proceso1 = proceso1;
+    }
+
     public Trabajotercerizado getTrabajotercerizado() {
         return trabajotercerizado;
     }
 
     public void setTrabajotercerizado(Trabajotercerizado trabajotercerizado) {
         this.trabajotercerizado = trabajotercerizado;
+    }
+
+    public Trabajotercerizado getTrabajotercerizado1() {
+        return trabajotercerizado1;
+    }
+
+    public void setTrabajotercerizado1(Trabajotercerizado trabajotercerizado1) {
+        this.trabajotercerizado1 = trabajotercerizado1;
     }
 
     @Override

@@ -11,14 +11,13 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,8 +30,7 @@ import javax.persistence.TemporalType;
 @Table(name = "ejecucionetapaproduccion")
 @NamedQueries({
     @NamedQuery(name = "Ejecucionetapaproduccion.findAll", query = "SELECT e FROM Ejecucionetapaproduccion e"),
-    @NamedQuery(name = "Ejecucionetapaproduccion.findByIdejecucion", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.ejecucionetapaproduccionPK.idejecucion = :idejecucion"),
-    @NamedQuery(name = "Ejecucionetapaproduccion.findByIdetapaproduccion", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.ejecucionetapaproduccionPK.idetapaproduccion = :idetapaproduccion"),
+    @NamedQuery(name = "Ejecucionetapaproduccion.findById", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.id = :id"),
     @NamedQuery(name = "Ejecucionetapaproduccion.findByNombre", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.nombre = :nombre"),
     @NamedQuery(name = "Ejecucionetapaproduccion.findByTotalhorasmaquina", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.totalhorasmaquina = :totalhorasmaquina"),
     @NamedQuery(name = "Ejecucionetapaproduccion.findByTotalhorashombre", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.totalhorashombre = :totalhorashombre"),
@@ -44,8 +42,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ejecucionetapaproduccion.findByNroejecucion", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.nroejecucion = :nroejecucion")})
 public class Ejecucionetapaproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EjecucionetapaproduccionPK ejecucionetapaproduccionPK;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "totalhorasmaquina")
@@ -74,39 +74,42 @@ public class Ejecucionetapaproduccion implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
+    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
+    @ManyToOne
+    private Empleado empleado1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecetapaprod estado;
-    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Etapadeproduccion etapadeproduccion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapaproduccion")
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecetapaprod estado1;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
+    @ManyToOne(optional = false)
+    private Etapadeproduccion idetapaproduccion;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
+    @ManyToOne(optional = false)
+    private Etapadeproduccion idetapaproduccion1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapa")
     private Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapaproduccion")
-    private Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccionSet;
 
     public Ejecucionetapaproduccion() {
     }
 
-    public Ejecucionetapaproduccion(EjecucionetapaproduccionPK ejecucionetapaproduccionPK) {
-        this.ejecucionetapaproduccionPK = ejecucionetapaproduccionPK;
+    public Ejecucionetapaproduccion(Long id) {
+        this.id = id;
     }
 
-    public Ejecucionetapaproduccion(EjecucionetapaproduccionPK ejecucionetapaproduccionPK, long nroejecucion) {
-        this.ejecucionetapaproduccionPK = ejecucionetapaproduccionPK;
+    public Ejecucionetapaproduccion(Long id, long nroejecucion) {
+        this.id = id;
         this.nroejecucion = nroejecucion;
     }
 
-    public Ejecucionetapaproduccion(long idejecucion, long idetapaproduccion) {
-        this.ejecucionetapaproduccionPK = new EjecucionetapaproduccionPK(idejecucion, idetapaproduccion);
+    public Long getId() {
+        return id;
     }
 
-    public EjecucionetapaproduccionPK getEjecucionetapaproduccionPK() {
-        return ejecucionetapaproduccionPK;
-    }
-
-    public void setEjecucionetapaproduccionPK(EjecucionetapaproduccionPK ejecucionetapaproduccionPK) {
-        this.ejecucionetapaproduccionPK = ejecucionetapaproduccionPK;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -189,6 +192,14 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.empleado = empleado;
     }
 
+    public Empleado getEmpleado1() {
+        return empleado1;
+    }
+
+    public void setEmpleado1(Empleado empleado1) {
+        this.empleado1 = empleado1;
+    }
+
     public Estadoejecetapaprod getEstado() {
         return estado;
     }
@@ -197,12 +208,28 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.estado = estado;
     }
 
-    public Etapadeproduccion getEtapadeproduccion() {
-        return etapadeproduccion;
+    public Estadoejecetapaprod getEstado1() {
+        return estado1;
     }
 
-    public void setEtapadeproduccion(Etapadeproduccion etapadeproduccion) {
-        this.etapadeproduccion = etapadeproduccion;
+    public void setEstado1(Estadoejecetapaprod estado1) {
+        this.estado1 = estado1;
+    }
+
+    public Etapadeproduccion getIdetapaproduccion() {
+        return idetapaproduccion;
+    }
+
+    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
+        this.idetapaproduccion = idetapaproduccion;
+    }
+
+    public Etapadeproduccion getIdetapaproduccion1() {
+        return idetapaproduccion1;
+    }
+
+    public void setIdetapaproduccion1(Etapadeproduccion idetapaproduccion1) {
+        this.idetapaproduccion1 = idetapaproduccion1;
     }
 
     public Set<Detalleejecucionplanificacion> getDetalleejecucionplanificacionSet() {
@@ -213,18 +240,10 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.detalleejecucionplanificacionSet = detalleejecucionplanificacionSet;
     }
 
-    public Set<Maquinaxejecucionetapaproduccion> getMaquinaxejecucionetapaproduccionSet() {
-        return maquinaxejecucionetapaproduccionSet;
-    }
-
-    public void setMaquinaxejecucionetapaproduccionSet(Set<Maquinaxejecucionetapaproduccion> maquinaxejecucionetapaproduccionSet) {
-        this.maquinaxejecucionetapaproduccionSet = maquinaxejecucionetapaproduccionSet;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ejecucionetapaproduccionPK != null ? ejecucionetapaproduccionPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -235,7 +254,7 @@ public class Ejecucionetapaproduccion implements Serializable {
             return false;
         }
         Ejecucionetapaproduccion other = (Ejecucionetapaproduccion) object;
-        if ((this.ejecucionetapaproduccionPK == null && other.ejecucionetapaproduccionPK != null) || (this.ejecucionetapaproduccionPK != null && !this.ejecucionetapaproduccionPK.equals(other.ejecucionetapaproduccionPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -243,7 +262,7 @@ public class Ejecucionetapaproduccion implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Ejecucionetapaproduccion[ejecucionetapaproduccionPK=" + ejecucionetapaproduccionPK + "]";
+        return "entity.Ejecucionetapaproduccion[id=" + id + "]";
     }
 
 }

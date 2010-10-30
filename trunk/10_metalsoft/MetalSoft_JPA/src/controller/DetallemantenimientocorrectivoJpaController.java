@@ -41,7 +41,7 @@ public class DetallemantenimientocorrectivoJpaController {
         if (detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK() == null) {
             detallemantenimientocorrectivo.setDetallemantenimientocorrectivoPK(new DetallemantenimientocorrectivoPK());
         }
-        detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK().setIdmantenimientocorrectivo(detallemantenimientocorrectivo.getMantenimientocorrectivo().getIdmantenimientocorrectivo());
+        detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK().setIdmantenimientocorrectivo(detallemantenimientocorrectivo.getMantenimientocorrectivo1().getIdmantenimientocorrectivo());
         List<String> illegalOrphanMessages = null;
         Mantenimientocorrectivo mantenimientocorrectivoOrphanCheck = detallemantenimientocorrectivo.getMantenimientocorrectivo();
         if (mantenimientocorrectivoOrphanCheck != null) {
@@ -51,6 +51,16 @@ public class DetallemantenimientocorrectivoJpaController {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("The Mantenimientocorrectivo " + mantenimientocorrectivoOrphanCheck + " already has an item of type Detallemantenimientocorrectivo whose mantenimientocorrectivo column cannot be null. Please make another selection for the mantenimientocorrectivo field.");
+            }
+        }
+        Mantenimientocorrectivo mantenimientocorrectivo1OrphanCheck = detallemantenimientocorrectivo.getMantenimientocorrectivo1();
+        if (mantenimientocorrectivo1OrphanCheck != null) {
+            Detallemantenimientocorrectivo oldDetallemantenimientocorrectivoOfMantenimientocorrectivo1 = mantenimientocorrectivo1OrphanCheck.getDetallemantenimientocorrectivo();
+            if (oldDetallemantenimientocorrectivoOfMantenimientocorrectivo1 != null) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("The Mantenimientocorrectivo " + mantenimientocorrectivo1OrphanCheck + " already has an item of type Detallemantenimientocorrectivo whose mantenimientocorrectivo1 column cannot be null. Please make another selection for the mantenimientocorrectivo1 field.");
             }
         }
         if (illegalOrphanMessages != null) {
@@ -65,19 +75,37 @@ public class DetallemantenimientocorrectivoJpaController {
                 mantenimientocorrectivo = em.getReference(mantenimientocorrectivo.getClass(), mantenimientocorrectivo.getIdmantenimientocorrectivo());
                 detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivo);
             }
+            Mantenimientocorrectivo mantenimientocorrectivo1 = detallemantenimientocorrectivo.getMantenimientocorrectivo1();
+            if (mantenimientocorrectivo1 != null) {
+                mantenimientocorrectivo1 = em.getReference(mantenimientocorrectivo1.getClass(), mantenimientocorrectivo1.getIdmantenimientocorrectivo());
+                detallemantenimientocorrectivo.setMantenimientocorrectivo1(mantenimientocorrectivo1);
+            }
             Rotura rotura = detallemantenimientocorrectivo.getRotura();
             if (rotura != null) {
                 rotura = em.getReference(rotura.getClass(), rotura.getIdrotura());
                 detallemantenimientocorrectivo.setRotura(rotura);
+            }
+            Rotura rotura1 = detallemantenimientocorrectivo.getRotura1();
+            if (rotura1 != null) {
+                rotura1 = em.getReference(rotura1.getClass(), rotura1.getIdrotura());
+                detallemantenimientocorrectivo.setRotura1(rotura1);
             }
             em.persist(detallemantenimientocorrectivo);
             if (mantenimientocorrectivo != null) {
                 mantenimientocorrectivo.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
                 mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
             }
+            if (mantenimientocorrectivo1 != null) {
+                mantenimientocorrectivo1.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
+                mantenimientocorrectivo1 = em.merge(mantenimientocorrectivo1);
+            }
             if (rotura != null) {
                 rotura.getDetallemantenimientocorrectivoSet().add(detallemantenimientocorrectivo);
                 rotura = em.merge(rotura);
+            }
+            if (rotura1 != null) {
+                rotura1.getDetallemantenimientocorrectivoSet().add(detallemantenimientocorrectivo);
+                rotura1 = em.merge(rotura1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -93,7 +121,7 @@ public class DetallemantenimientocorrectivoJpaController {
     }
 
     public void edit(Detallemantenimientocorrectivo detallemantenimientocorrectivo) throws IllegalOrphanException, NonexistentEntityException, Exception {
-        detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK().setIdmantenimientocorrectivo(detallemantenimientocorrectivo.getMantenimientocorrectivo().getIdmantenimientocorrectivo());
+        detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK().setIdmantenimientocorrectivo(detallemantenimientocorrectivo.getMantenimientocorrectivo1().getIdmantenimientocorrectivo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -101,8 +129,12 @@ public class DetallemantenimientocorrectivoJpaController {
             Detallemantenimientocorrectivo persistentDetallemantenimientocorrectivo = em.find(Detallemantenimientocorrectivo.class, detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK());
             Mantenimientocorrectivo mantenimientocorrectivoOld = persistentDetallemantenimientocorrectivo.getMantenimientocorrectivo();
             Mantenimientocorrectivo mantenimientocorrectivoNew = detallemantenimientocorrectivo.getMantenimientocorrectivo();
+            Mantenimientocorrectivo mantenimientocorrectivo1Old = persistentDetallemantenimientocorrectivo.getMantenimientocorrectivo1();
+            Mantenimientocorrectivo mantenimientocorrectivo1New = detallemantenimientocorrectivo.getMantenimientocorrectivo1();
             Rotura roturaOld = persistentDetallemantenimientocorrectivo.getRotura();
             Rotura roturaNew = detallemantenimientocorrectivo.getRotura();
+            Rotura rotura1Old = persistentDetallemantenimientocorrectivo.getRotura1();
+            Rotura rotura1New = detallemantenimientocorrectivo.getRotura1();
             List<String> illegalOrphanMessages = null;
             if (mantenimientocorrectivoNew != null && !mantenimientocorrectivoNew.equals(mantenimientocorrectivoOld)) {
                 Detallemantenimientocorrectivo oldDetallemantenimientocorrectivoOfMantenimientocorrectivo = mantenimientocorrectivoNew.getDetallemantenimientocorrectivo();
@@ -113,6 +145,15 @@ public class DetallemantenimientocorrectivoJpaController {
                     illegalOrphanMessages.add("The Mantenimientocorrectivo " + mantenimientocorrectivoNew + " already has an item of type Detallemantenimientocorrectivo whose mantenimientocorrectivo column cannot be null. Please make another selection for the mantenimientocorrectivo field.");
                 }
             }
+            if (mantenimientocorrectivo1New != null && !mantenimientocorrectivo1New.equals(mantenimientocorrectivo1Old)) {
+                Detallemantenimientocorrectivo oldDetallemantenimientocorrectivoOfMantenimientocorrectivo1 = mantenimientocorrectivo1New.getDetallemantenimientocorrectivo();
+                if (oldDetallemantenimientocorrectivoOfMantenimientocorrectivo1 != null) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("The Mantenimientocorrectivo " + mantenimientocorrectivo1New + " already has an item of type Detallemantenimientocorrectivo whose mantenimientocorrectivo1 column cannot be null. Please make another selection for the mantenimientocorrectivo1 field.");
+                }
+            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
@@ -120,9 +161,17 @@ public class DetallemantenimientocorrectivoJpaController {
                 mantenimientocorrectivoNew = em.getReference(mantenimientocorrectivoNew.getClass(), mantenimientocorrectivoNew.getIdmantenimientocorrectivo());
                 detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivoNew);
             }
+            if (mantenimientocorrectivo1New != null) {
+                mantenimientocorrectivo1New = em.getReference(mantenimientocorrectivo1New.getClass(), mantenimientocorrectivo1New.getIdmantenimientocorrectivo());
+                detallemantenimientocorrectivo.setMantenimientocorrectivo1(mantenimientocorrectivo1New);
+            }
             if (roturaNew != null) {
                 roturaNew = em.getReference(roturaNew.getClass(), roturaNew.getIdrotura());
                 detallemantenimientocorrectivo.setRotura(roturaNew);
+            }
+            if (rotura1New != null) {
+                rotura1New = em.getReference(rotura1New.getClass(), rotura1New.getIdrotura());
+                detallemantenimientocorrectivo.setRotura1(rotura1New);
             }
             detallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivo);
             if (mantenimientocorrectivoOld != null && !mantenimientocorrectivoOld.equals(mantenimientocorrectivoNew)) {
@@ -133,6 +182,14 @@ public class DetallemantenimientocorrectivoJpaController {
                 mantenimientocorrectivoNew.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
                 mantenimientocorrectivoNew = em.merge(mantenimientocorrectivoNew);
             }
+            if (mantenimientocorrectivo1Old != null && !mantenimientocorrectivo1Old.equals(mantenimientocorrectivo1New)) {
+                mantenimientocorrectivo1Old.setDetallemantenimientocorrectivo(null);
+                mantenimientocorrectivo1Old = em.merge(mantenimientocorrectivo1Old);
+            }
+            if (mantenimientocorrectivo1New != null && !mantenimientocorrectivo1New.equals(mantenimientocorrectivo1Old)) {
+                mantenimientocorrectivo1New.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
+                mantenimientocorrectivo1New = em.merge(mantenimientocorrectivo1New);
+            }
             if (roturaOld != null && !roturaOld.equals(roturaNew)) {
                 roturaOld.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivo);
                 roturaOld = em.merge(roturaOld);
@@ -140,6 +197,14 @@ public class DetallemantenimientocorrectivoJpaController {
             if (roturaNew != null && !roturaNew.equals(roturaOld)) {
                 roturaNew.getDetallemantenimientocorrectivoSet().add(detallemantenimientocorrectivo);
                 roturaNew = em.merge(roturaNew);
+            }
+            if (rotura1Old != null && !rotura1Old.equals(rotura1New)) {
+                rotura1Old.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivo);
+                rotura1Old = em.merge(rotura1Old);
+            }
+            if (rotura1New != null && !rotura1New.equals(rotura1Old)) {
+                rotura1New.getDetallemantenimientocorrectivoSet().add(detallemantenimientocorrectivo);
+                rotura1New = em.merge(rotura1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -175,10 +240,20 @@ public class DetallemantenimientocorrectivoJpaController {
                 mantenimientocorrectivo.setDetallemantenimientocorrectivo(null);
                 mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
             }
+            Mantenimientocorrectivo mantenimientocorrectivo1 = detallemantenimientocorrectivo.getMantenimientocorrectivo1();
+            if (mantenimientocorrectivo1 != null) {
+                mantenimientocorrectivo1.setDetallemantenimientocorrectivo(null);
+                mantenimientocorrectivo1 = em.merge(mantenimientocorrectivo1);
+            }
             Rotura rotura = detallemantenimientocorrectivo.getRotura();
             if (rotura != null) {
                 rotura.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivo);
                 rotura = em.merge(rotura);
+            }
+            Rotura rotura1 = detallemantenimientocorrectivo.getRotura1();
+            if (rotura1 != null) {
+                rotura1.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivo);
+                rotura1 = em.merge(rotura1);
             }
             em.remove(detallemantenimientocorrectivo);
             em.getTransaction().commit();

@@ -36,6 +36,8 @@ public class Provincia implements Serializable {
     private String nombre;
     @OneToMany(mappedBy = "provincia")
     private Set<Localidad> localidadSet;
+    @OneToMany(mappedBy = "provincia1")
+    private Set<Localidad> localidadSet1;
 
     public Provincia() {
     }
@@ -66,6 +68,14 @@ public class Provincia implements Serializable {
 
     public void setLocalidadSet(Set<Localidad> localidadSet) {
         this.localidadSet = localidadSet;
+    }
+
+    public Set<Localidad> getLocalidadSet1() {
+        return localidadSet1;
+    }
+
+    public void setLocalidadSet1(Set<Localidad> localidadSet1) {
+        this.localidadSet1 = localidadSet1;
     }
 
     @Override

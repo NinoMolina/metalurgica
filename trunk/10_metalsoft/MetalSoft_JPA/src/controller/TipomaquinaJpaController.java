@@ -39,6 +39,9 @@ public class TipomaquinaJpaController {
         if (tipomaquina.getMaquinaSet() == null) {
             tipomaquina.setMaquinaSet(new HashSet<Maquina>());
         }
+        if (tipomaquina.getMaquinaSet1() == null) {
+            tipomaquina.setMaquinaSet1(new HashSet<Maquina>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class TipomaquinaJpaController {
                 attachedMaquinaSet.add(maquinaSetMaquinaToAttach);
             }
             tipomaquina.setMaquinaSet(attachedMaquinaSet);
+            Set<Maquina> attachedMaquinaSet1 = new HashSet<Maquina>();
+            for (Maquina maquinaSet1MaquinaToAttach : tipomaquina.getMaquinaSet1()) {
+                maquinaSet1MaquinaToAttach = em.getReference(maquinaSet1MaquinaToAttach.getClass(), maquinaSet1MaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1.add(maquinaSet1MaquinaToAttach);
+            }
+            tipomaquina.setMaquinaSet1(attachedMaquinaSet1);
             em.persist(tipomaquina);
             for (Maquina maquinaSetMaquina : tipomaquina.getMaquinaSet()) {
                 Tipomaquina oldTipomaquinaOfMaquinaSetMaquina = maquinaSetMaquina.getTipomaquina();
@@ -57,6 +66,15 @@ public class TipomaquinaJpaController {
                 if (oldTipomaquinaOfMaquinaSetMaquina != null) {
                     oldTipomaquinaOfMaquinaSetMaquina.getMaquinaSet().remove(maquinaSetMaquina);
                     oldTipomaquinaOfMaquinaSetMaquina = em.merge(oldTipomaquinaOfMaquinaSetMaquina);
+                }
+            }
+            for (Maquina maquinaSet1Maquina : tipomaquina.getMaquinaSet1()) {
+                Tipomaquina oldTipomaquina1OfMaquinaSet1Maquina = maquinaSet1Maquina.getTipomaquina1();
+                maquinaSet1Maquina.setTipomaquina1(tipomaquina);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
+                if (oldTipomaquina1OfMaquinaSet1Maquina != null) {
+                    oldTipomaquina1OfMaquinaSet1Maquina.getMaquinaSet1().remove(maquinaSet1Maquina);
+                    oldTipomaquina1OfMaquinaSet1Maquina = em.merge(oldTipomaquina1OfMaquinaSet1Maquina);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class TipomaquinaJpaController {
             Tipomaquina persistentTipomaquina = em.find(Tipomaquina.class, tipomaquina.getIdtipomaquina());
             Set<Maquina> maquinaSetOld = persistentTipomaquina.getMaquinaSet();
             Set<Maquina> maquinaSetNew = tipomaquina.getMaquinaSet();
+            Set<Maquina> maquinaSet1Old = persistentTipomaquina.getMaquinaSet1();
+            Set<Maquina> maquinaSet1New = tipomaquina.getMaquinaSet1();
             Set<Maquina> attachedMaquinaSetNew = new HashSet<Maquina>();
             for (Maquina maquinaSetNewMaquinaToAttach : maquinaSetNew) {
                 maquinaSetNewMaquinaToAttach = em.getReference(maquinaSetNewMaquinaToAttach.getClass(), maquinaSetNewMaquinaToAttach.getIdmaquina());
@@ -87,6 +107,13 @@ public class TipomaquinaJpaController {
             }
             maquinaSetNew = attachedMaquinaSetNew;
             tipomaquina.setMaquinaSet(maquinaSetNew);
+            Set<Maquina> attachedMaquinaSet1New = new HashSet<Maquina>();
+            for (Maquina maquinaSet1NewMaquinaToAttach : maquinaSet1New) {
+                maquinaSet1NewMaquinaToAttach = em.getReference(maquinaSet1NewMaquinaToAttach.getClass(), maquinaSet1NewMaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1New.add(maquinaSet1NewMaquinaToAttach);
+            }
+            maquinaSet1New = attachedMaquinaSet1New;
+            tipomaquina.setMaquinaSet1(maquinaSet1New);
             tipomaquina = em.merge(tipomaquina);
             for (Maquina maquinaSetOldMaquina : maquinaSetOld) {
                 if (!maquinaSetNew.contains(maquinaSetOldMaquina)) {
@@ -102,6 +129,23 @@ public class TipomaquinaJpaController {
                     if (oldTipomaquinaOfMaquinaSetNewMaquina != null && !oldTipomaquinaOfMaquinaSetNewMaquina.equals(tipomaquina)) {
                         oldTipomaquinaOfMaquinaSetNewMaquina.getMaquinaSet().remove(maquinaSetNewMaquina);
                         oldTipomaquinaOfMaquinaSetNewMaquina = em.merge(oldTipomaquinaOfMaquinaSetNewMaquina);
+                    }
+                }
+            }
+            for (Maquina maquinaSet1OldMaquina : maquinaSet1Old) {
+                if (!maquinaSet1New.contains(maquinaSet1OldMaquina)) {
+                    maquinaSet1OldMaquina.setTipomaquina1(null);
+                    maquinaSet1OldMaquina = em.merge(maquinaSet1OldMaquina);
+                }
+            }
+            for (Maquina maquinaSet1NewMaquina : maquinaSet1New) {
+                if (!maquinaSet1Old.contains(maquinaSet1NewMaquina)) {
+                    Tipomaquina oldTipomaquina1OfMaquinaSet1NewMaquina = maquinaSet1NewMaquina.getTipomaquina1();
+                    maquinaSet1NewMaquina.setTipomaquina1(tipomaquina);
+                    maquinaSet1NewMaquina = em.merge(maquinaSet1NewMaquina);
+                    if (oldTipomaquina1OfMaquinaSet1NewMaquina != null && !oldTipomaquina1OfMaquinaSet1NewMaquina.equals(tipomaquina)) {
+                        oldTipomaquina1OfMaquinaSet1NewMaquina.getMaquinaSet1().remove(maquinaSet1NewMaquina);
+                        oldTipomaquina1OfMaquinaSet1NewMaquina = em.merge(oldTipomaquina1OfMaquinaSet1NewMaquina);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class TipomaquinaJpaController {
             for (Maquina maquinaSetMaquina : maquinaSet) {
                 maquinaSetMaquina.setTipomaquina(null);
                 maquinaSetMaquina = em.merge(maquinaSetMaquina);
+            }
+            Set<Maquina> maquinaSet1 = tipomaquina.getMaquinaSet1();
+            for (Maquina maquinaSet1Maquina : maquinaSet1) {
+                maquinaSet1Maquina.setTipomaquina1(null);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
             }
             em.remove(tipomaquina);
             em.getTransaction().commit();

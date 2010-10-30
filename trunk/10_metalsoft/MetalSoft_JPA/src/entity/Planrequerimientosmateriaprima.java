@@ -34,8 +34,12 @@ public class Planrequerimientosmateriaprima implements Serializable {
     private Long idplanrequerimientosmateriaprima;
     @OneToMany(mappedBy = "planrequerimientosmateriaprima")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "planrequerimientosmateriaprima1")
+    private Set<Pedido> pedidoSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planrequerimientosmateriaprima")
     private Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planrequerimientosmateriaprima1")
+    private Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaSet1;
 
     public Planrequerimientosmateriaprima() {
     }
@@ -60,12 +64,28 @@ public class Planrequerimientosmateriaprima implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Set<Detallerequerimientosmateriaprima> getDetallerequerimientosmateriaprimaSet() {
         return detallerequerimientosmateriaprimaSet;
     }
 
     public void setDetallerequerimientosmateriaprimaSet(Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaSet) {
         this.detallerequerimientosmateriaprimaSet = detallerequerimientosmateriaprimaSet;
+    }
+
+    public Set<Detallerequerimientosmateriaprima> getDetallerequerimientosmateriaprimaSet1() {
+        return detallerequerimientosmateriaprimaSet1;
+    }
+
+    public void setDetallerequerimientosmateriaprimaSet1(Set<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaSet1) {
+        this.detallerequerimientosmateriaprimaSet1 = detallerequerimientosmateriaprimaSet1;
     }
 
     @Override

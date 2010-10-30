@@ -43,10 +43,19 @@ public class MpasignadaxpiezarealJpaController {
                 iddetallempasignada = em.getReference(iddetallempasignada.getClass(), iddetallempasignada.getId());
                 mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignada);
             }
+            Detallempasignada iddetallempasignada1 = mpasignadaxpiezareal.getIddetallempasignada1();
+            if (iddetallempasignada1 != null) {
+                iddetallempasignada1 = em.getReference(iddetallempasignada1.getClass(), iddetallempasignada1.getId());
+                mpasignadaxpiezareal.setIddetallempasignada1(iddetallempasignada1);
+            }
             em.persist(mpasignadaxpiezareal);
             if (iddetallempasignada != null) {
                 iddetallempasignada.getMpasignadaxpiezarealSet().add(mpasignadaxpiezareal);
                 iddetallempasignada = em.merge(iddetallempasignada);
+            }
+            if (iddetallempasignada1 != null) {
+                iddetallempasignada1.getMpasignadaxpiezarealSet().add(mpasignadaxpiezareal);
+                iddetallempasignada1 = em.merge(iddetallempasignada1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -69,9 +78,15 @@ public class MpasignadaxpiezarealJpaController {
             Mpasignadaxpiezareal persistentMpasignadaxpiezareal = em.find(Mpasignadaxpiezareal.class, mpasignadaxpiezareal.getId());
             Detallempasignada iddetallempasignadaOld = persistentMpasignadaxpiezareal.getIddetallempasignada();
             Detallempasignada iddetallempasignadaNew = mpasignadaxpiezareal.getIddetallempasignada();
+            Detallempasignada iddetallempasignada1Old = persistentMpasignadaxpiezareal.getIddetallempasignada1();
+            Detallempasignada iddetallempasignada1New = mpasignadaxpiezareal.getIddetallempasignada1();
             if (iddetallempasignadaNew != null) {
                 iddetallempasignadaNew = em.getReference(iddetallempasignadaNew.getClass(), iddetallempasignadaNew.getId());
                 mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignadaNew);
+            }
+            if (iddetallempasignada1New != null) {
+                iddetallempasignada1New = em.getReference(iddetallempasignada1New.getClass(), iddetallempasignada1New.getId());
+                mpasignadaxpiezareal.setIddetallempasignada1(iddetallempasignada1New);
             }
             mpasignadaxpiezareal = em.merge(mpasignadaxpiezareal);
             if (iddetallempasignadaOld != null && !iddetallempasignadaOld.equals(iddetallempasignadaNew)) {
@@ -81,6 +96,14 @@ public class MpasignadaxpiezarealJpaController {
             if (iddetallempasignadaNew != null && !iddetallempasignadaNew.equals(iddetallempasignadaOld)) {
                 iddetallempasignadaNew.getMpasignadaxpiezarealSet().add(mpasignadaxpiezareal);
                 iddetallempasignadaNew = em.merge(iddetallempasignadaNew);
+            }
+            if (iddetallempasignada1Old != null && !iddetallempasignada1Old.equals(iddetallempasignada1New)) {
+                iddetallempasignada1Old.getMpasignadaxpiezarealSet().remove(mpasignadaxpiezareal);
+                iddetallempasignada1Old = em.merge(iddetallempasignada1Old);
+            }
+            if (iddetallempasignada1New != null && !iddetallempasignada1New.equals(iddetallempasignada1Old)) {
+                iddetallempasignada1New.getMpasignadaxpiezarealSet().add(mpasignadaxpiezareal);
+                iddetallempasignada1New = em.merge(iddetallempasignada1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -115,6 +138,11 @@ public class MpasignadaxpiezarealJpaController {
             if (iddetallempasignada != null) {
                 iddetallempasignada.getMpasignadaxpiezarealSet().remove(mpasignadaxpiezareal);
                 iddetallempasignada = em.merge(iddetallempasignada);
+            }
+            Detallempasignada iddetallempasignada1 = mpasignadaxpiezareal.getIddetallempasignada1();
+            if (iddetallempasignada1 != null) {
+                iddetallempasignada1.getMpasignadaxpiezarealSet().remove(mpasignadaxpiezareal);
+                iddetallempasignada1 = em.merge(iddetallempasignada1);
             }
             em.remove(mpasignadaxpiezareal);
             em.getTransaction().commit();

@@ -43,16 +43,28 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
     private BigInteger piezareal;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleejecucionplanificacioncalidad")
     private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleejecucionplanificacioncalidad1")
+    private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1;
+    @JoinColumns({
+        @JoinColumn(name = "idplanificacioncalidad", referencedColumnName = "idplanificacioncalidad", insertable = false, updatable = false),
+        @JoinColumn(name = "idejecucionplanificacioncalidad", referencedColumnName = "idejecucion", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad;
     @JoinColumns({
         @JoinColumn(name = "idejecucionplanificacioncalidad", referencedColumnName = "idejecucion", insertable = false, updatable = false),
         @JoinColumn(name = "idplanificacioncalidad", referencedColumnName = "idplanificacioncalidad", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad;
+    private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad1;
     @JoinColumns({
         @JoinColumn(name = "ejecucionprocesocalidad", referencedColumnName = "idejecucion"),
         @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")})
     @ManyToOne
     private Ejecucionprocesocalidad ejecucionprocesocalidad;
+    @JoinColumns({
+        @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad"),
+        @JoinColumn(name = "ejecucionprocesocalidad", referencedColumnName = "idejecucion")})
+    @ManyToOne
+    private Ejecucionprocesocalidad ejecucionprocesocalidad1;
 
     public Detalleejecucionplanificacioncalidad() {
     }
@@ -97,6 +109,14 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
         this.detalleplanificacioncalidadSet = detalleplanificacioncalidadSet;
     }
 
+    public Set<Detalleplanificacioncalidad> getDetalleplanificacioncalidadSet1() {
+        return detalleplanificacioncalidadSet1;
+    }
+
+    public void setDetalleplanificacioncalidadSet1(Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1) {
+        this.detalleplanificacioncalidadSet1 = detalleplanificacioncalidadSet1;
+    }
+
     public Ejecucionplanificacioncalidad getEjecucionplanificacioncalidad() {
         return ejecucionplanificacioncalidad;
     }
@@ -105,12 +125,28 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
         this.ejecucionplanificacioncalidad = ejecucionplanificacioncalidad;
     }
 
+    public Ejecucionplanificacioncalidad getEjecucionplanificacioncalidad1() {
+        return ejecucionplanificacioncalidad1;
+    }
+
+    public void setEjecucionplanificacioncalidad1(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad1) {
+        this.ejecucionplanificacioncalidad1 = ejecucionplanificacioncalidad1;
+    }
+
     public Ejecucionprocesocalidad getEjecucionprocesocalidad() {
         return ejecucionprocesocalidad;
     }
 
     public void setEjecucionprocesocalidad(Ejecucionprocesocalidad ejecucionprocesocalidad) {
         this.ejecucionprocesocalidad = ejecucionprocesocalidad;
+    }
+
+    public Ejecucionprocesocalidad getEjecucionprocesocalidad1() {
+        return ejecucionprocesocalidad1;
+    }
+
+    public void setEjecucionprocesocalidad1(Ejecucionprocesocalidad ejecucionprocesocalidad1) {
+        this.ejecucionprocesocalidad1 = ejecucionprocesocalidad1;
     }
 
     @Override

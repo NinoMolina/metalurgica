@@ -39,6 +39,9 @@ public class EstadofacturaJpaController {
         if (estadofactura.getFacturaSet() == null) {
             estadofactura.setFacturaSet(new HashSet<Factura>());
         }
+        if (estadofactura.getFacturaSet1() == null) {
+            estadofactura.setFacturaSet1(new HashSet<Factura>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadofacturaJpaController {
                 attachedFacturaSet.add(facturaSetFacturaToAttach);
             }
             estadofactura.setFacturaSet(attachedFacturaSet);
+            Set<Factura> attachedFacturaSet1 = new HashSet<Factura>();
+            for (Factura facturaSet1FacturaToAttach : estadofactura.getFacturaSet1()) {
+                facturaSet1FacturaToAttach = em.getReference(facturaSet1FacturaToAttach.getClass(), facturaSet1FacturaToAttach.getIdfactura());
+                attachedFacturaSet1.add(facturaSet1FacturaToAttach);
+            }
+            estadofactura.setFacturaSet1(attachedFacturaSet1);
             em.persist(estadofactura);
             for (Factura facturaSetFactura : estadofactura.getFacturaSet()) {
                 Estadofactura oldEstadoOfFacturaSetFactura = facturaSetFactura.getEstado();
@@ -57,6 +66,15 @@ public class EstadofacturaJpaController {
                 if (oldEstadoOfFacturaSetFactura != null) {
                     oldEstadoOfFacturaSetFactura.getFacturaSet().remove(facturaSetFactura);
                     oldEstadoOfFacturaSetFactura = em.merge(oldEstadoOfFacturaSetFactura);
+                }
+            }
+            for (Factura facturaSet1Factura : estadofactura.getFacturaSet1()) {
+                Estadofactura oldEstado1OfFacturaSet1Factura = facturaSet1Factura.getEstado1();
+                facturaSet1Factura.setEstado1(estadofactura);
+                facturaSet1Factura = em.merge(facturaSet1Factura);
+                if (oldEstado1OfFacturaSet1Factura != null) {
+                    oldEstado1OfFacturaSet1Factura.getFacturaSet1().remove(facturaSet1Factura);
+                    oldEstado1OfFacturaSet1Factura = em.merge(oldEstado1OfFacturaSet1Factura);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadofacturaJpaController {
             Estadofactura persistentEstadofactura = em.find(Estadofactura.class, estadofactura.getIdestado());
             Set<Factura> facturaSetOld = persistentEstadofactura.getFacturaSet();
             Set<Factura> facturaSetNew = estadofactura.getFacturaSet();
+            Set<Factura> facturaSet1Old = persistentEstadofactura.getFacturaSet1();
+            Set<Factura> facturaSet1New = estadofactura.getFacturaSet1();
             Set<Factura> attachedFacturaSetNew = new HashSet<Factura>();
             for (Factura facturaSetNewFacturaToAttach : facturaSetNew) {
                 facturaSetNewFacturaToAttach = em.getReference(facturaSetNewFacturaToAttach.getClass(), facturaSetNewFacturaToAttach.getIdfactura());
@@ -87,6 +107,13 @@ public class EstadofacturaJpaController {
             }
             facturaSetNew = attachedFacturaSetNew;
             estadofactura.setFacturaSet(facturaSetNew);
+            Set<Factura> attachedFacturaSet1New = new HashSet<Factura>();
+            for (Factura facturaSet1NewFacturaToAttach : facturaSet1New) {
+                facturaSet1NewFacturaToAttach = em.getReference(facturaSet1NewFacturaToAttach.getClass(), facturaSet1NewFacturaToAttach.getIdfactura());
+                attachedFacturaSet1New.add(facturaSet1NewFacturaToAttach);
+            }
+            facturaSet1New = attachedFacturaSet1New;
+            estadofactura.setFacturaSet1(facturaSet1New);
             estadofactura = em.merge(estadofactura);
             for (Factura facturaSetOldFactura : facturaSetOld) {
                 if (!facturaSetNew.contains(facturaSetOldFactura)) {
@@ -102,6 +129,23 @@ public class EstadofacturaJpaController {
                     if (oldEstadoOfFacturaSetNewFactura != null && !oldEstadoOfFacturaSetNewFactura.equals(estadofactura)) {
                         oldEstadoOfFacturaSetNewFactura.getFacturaSet().remove(facturaSetNewFactura);
                         oldEstadoOfFacturaSetNewFactura = em.merge(oldEstadoOfFacturaSetNewFactura);
+                    }
+                }
+            }
+            for (Factura facturaSet1OldFactura : facturaSet1Old) {
+                if (!facturaSet1New.contains(facturaSet1OldFactura)) {
+                    facturaSet1OldFactura.setEstado1(null);
+                    facturaSet1OldFactura = em.merge(facturaSet1OldFactura);
+                }
+            }
+            for (Factura facturaSet1NewFactura : facturaSet1New) {
+                if (!facturaSet1Old.contains(facturaSet1NewFactura)) {
+                    Estadofactura oldEstado1OfFacturaSet1NewFactura = facturaSet1NewFactura.getEstado1();
+                    facturaSet1NewFactura.setEstado1(estadofactura);
+                    facturaSet1NewFactura = em.merge(facturaSet1NewFactura);
+                    if (oldEstado1OfFacturaSet1NewFactura != null && !oldEstado1OfFacturaSet1NewFactura.equals(estadofactura)) {
+                        oldEstado1OfFacturaSet1NewFactura.getFacturaSet1().remove(facturaSet1NewFactura);
+                        oldEstado1OfFacturaSet1NewFactura = em.merge(oldEstado1OfFacturaSet1NewFactura);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadofacturaJpaController {
             for (Factura facturaSetFactura : facturaSet) {
                 facturaSetFactura.setEstado(null);
                 facturaSetFactura = em.merge(facturaSetFactura);
+            }
+            Set<Factura> facturaSet1 = estadofactura.getFacturaSet1();
+            for (Factura facturaSet1Factura : facturaSet1) {
+                facturaSet1Factura.setEstado1(null);
+                facturaSet1Factura = em.merge(facturaSet1Factura);
             }
             em.remove(estadofactura);
             em.getTransaction().commit();

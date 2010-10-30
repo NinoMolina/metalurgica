@@ -40,6 +40,9 @@ public class BarrioJpaController {
         if (barrio.getDomicilioSet() == null) {
             barrio.setDomicilioSet(new HashSet<Domicilio>());
         }
+        if (barrio.getDomicilioSet1() == null) {
+            barrio.setDomicilioSet1(new HashSet<Domicilio>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,16 +52,31 @@ public class BarrioJpaController {
                 localidad = em.getReference(localidad.getClass(), localidad.getIdlocalidad());
                 barrio.setLocalidad(localidad);
             }
+            Localidad localidad1 = barrio.getLocalidad1();
+            if (localidad1 != null) {
+                localidad1 = em.getReference(localidad1.getClass(), localidad1.getIdlocalidad());
+                barrio.setLocalidad1(localidad1);
+            }
             Set<Domicilio> attachedDomicilioSet = new HashSet<Domicilio>();
             for (Domicilio domicilioSetDomicilioToAttach : barrio.getDomicilioSet()) {
                 domicilioSetDomicilioToAttach = em.getReference(domicilioSetDomicilioToAttach.getClass(), domicilioSetDomicilioToAttach.getIddomicilio());
                 attachedDomicilioSet.add(domicilioSetDomicilioToAttach);
             }
             barrio.setDomicilioSet(attachedDomicilioSet);
+            Set<Domicilio> attachedDomicilioSet1 = new HashSet<Domicilio>();
+            for (Domicilio domicilioSet1DomicilioToAttach : barrio.getDomicilioSet1()) {
+                domicilioSet1DomicilioToAttach = em.getReference(domicilioSet1DomicilioToAttach.getClass(), domicilioSet1DomicilioToAttach.getIddomicilio());
+                attachedDomicilioSet1.add(domicilioSet1DomicilioToAttach);
+            }
+            barrio.setDomicilioSet1(attachedDomicilioSet1);
             em.persist(barrio);
             if (localidad != null) {
                 localidad.getBarrioSet().add(barrio);
                 localidad = em.merge(localidad);
+            }
+            if (localidad1 != null) {
+                localidad1.getBarrioSet().add(barrio);
+                localidad1 = em.merge(localidad1);
             }
             for (Domicilio domicilioSetDomicilio : barrio.getDomicilioSet()) {
                 Barrio oldBarrioOfDomicilioSetDomicilio = domicilioSetDomicilio.getBarrio();
@@ -67,6 +85,15 @@ public class BarrioJpaController {
                 if (oldBarrioOfDomicilioSetDomicilio != null) {
                     oldBarrioOfDomicilioSetDomicilio.getDomicilioSet().remove(domicilioSetDomicilio);
                     oldBarrioOfDomicilioSetDomicilio = em.merge(oldBarrioOfDomicilioSetDomicilio);
+                }
+            }
+            for (Domicilio domicilioSet1Domicilio : barrio.getDomicilioSet1()) {
+                Barrio oldBarrio1OfDomicilioSet1Domicilio = domicilioSet1Domicilio.getBarrio1();
+                domicilioSet1Domicilio.setBarrio1(barrio);
+                domicilioSet1Domicilio = em.merge(domicilioSet1Domicilio);
+                if (oldBarrio1OfDomicilioSet1Domicilio != null) {
+                    oldBarrio1OfDomicilioSet1Domicilio.getDomicilioSet1().remove(domicilioSet1Domicilio);
+                    oldBarrio1OfDomicilioSet1Domicilio = em.merge(oldBarrio1OfDomicilioSet1Domicilio);
                 }
             }
             em.getTransaction().commit();
@@ -90,11 +117,19 @@ public class BarrioJpaController {
             Barrio persistentBarrio = em.find(Barrio.class, barrio.getIdbarrio());
             Localidad localidadOld = persistentBarrio.getLocalidad();
             Localidad localidadNew = barrio.getLocalidad();
+            Localidad localidad1Old = persistentBarrio.getLocalidad1();
+            Localidad localidad1New = barrio.getLocalidad1();
             Set<Domicilio> domicilioSetOld = persistentBarrio.getDomicilioSet();
             Set<Domicilio> domicilioSetNew = barrio.getDomicilioSet();
+            Set<Domicilio> domicilioSet1Old = persistentBarrio.getDomicilioSet1();
+            Set<Domicilio> domicilioSet1New = barrio.getDomicilioSet1();
             if (localidadNew != null) {
                 localidadNew = em.getReference(localidadNew.getClass(), localidadNew.getIdlocalidad());
                 barrio.setLocalidad(localidadNew);
+            }
+            if (localidad1New != null) {
+                localidad1New = em.getReference(localidad1New.getClass(), localidad1New.getIdlocalidad());
+                barrio.setLocalidad1(localidad1New);
             }
             Set<Domicilio> attachedDomicilioSetNew = new HashSet<Domicilio>();
             for (Domicilio domicilioSetNewDomicilioToAttach : domicilioSetNew) {
@@ -103,6 +138,13 @@ public class BarrioJpaController {
             }
             domicilioSetNew = attachedDomicilioSetNew;
             barrio.setDomicilioSet(domicilioSetNew);
+            Set<Domicilio> attachedDomicilioSet1New = new HashSet<Domicilio>();
+            for (Domicilio domicilioSet1NewDomicilioToAttach : domicilioSet1New) {
+                domicilioSet1NewDomicilioToAttach = em.getReference(domicilioSet1NewDomicilioToAttach.getClass(), domicilioSet1NewDomicilioToAttach.getIddomicilio());
+                attachedDomicilioSet1New.add(domicilioSet1NewDomicilioToAttach);
+            }
+            domicilioSet1New = attachedDomicilioSet1New;
+            barrio.setDomicilioSet1(domicilioSet1New);
             barrio = em.merge(barrio);
             if (localidadOld != null && !localidadOld.equals(localidadNew)) {
                 localidadOld.getBarrioSet().remove(barrio);
@@ -111,6 +153,14 @@ public class BarrioJpaController {
             if (localidadNew != null && !localidadNew.equals(localidadOld)) {
                 localidadNew.getBarrioSet().add(barrio);
                 localidadNew = em.merge(localidadNew);
+            }
+            if (localidad1Old != null && !localidad1Old.equals(localidad1New)) {
+                localidad1Old.getBarrioSet().remove(barrio);
+                localidad1Old = em.merge(localidad1Old);
+            }
+            if (localidad1New != null && !localidad1New.equals(localidad1Old)) {
+                localidad1New.getBarrioSet().add(barrio);
+                localidad1New = em.merge(localidad1New);
             }
             for (Domicilio domicilioSetOldDomicilio : domicilioSetOld) {
                 if (!domicilioSetNew.contains(domicilioSetOldDomicilio)) {
@@ -126,6 +176,23 @@ public class BarrioJpaController {
                     if (oldBarrioOfDomicilioSetNewDomicilio != null && !oldBarrioOfDomicilioSetNewDomicilio.equals(barrio)) {
                         oldBarrioOfDomicilioSetNewDomicilio.getDomicilioSet().remove(domicilioSetNewDomicilio);
                         oldBarrioOfDomicilioSetNewDomicilio = em.merge(oldBarrioOfDomicilioSetNewDomicilio);
+                    }
+                }
+            }
+            for (Domicilio domicilioSet1OldDomicilio : domicilioSet1Old) {
+                if (!domicilioSet1New.contains(domicilioSet1OldDomicilio)) {
+                    domicilioSet1OldDomicilio.setBarrio1(null);
+                    domicilioSet1OldDomicilio = em.merge(domicilioSet1OldDomicilio);
+                }
+            }
+            for (Domicilio domicilioSet1NewDomicilio : domicilioSet1New) {
+                if (!domicilioSet1Old.contains(domicilioSet1NewDomicilio)) {
+                    Barrio oldBarrio1OfDomicilioSet1NewDomicilio = domicilioSet1NewDomicilio.getBarrio1();
+                    domicilioSet1NewDomicilio.setBarrio1(barrio);
+                    domicilioSet1NewDomicilio = em.merge(domicilioSet1NewDomicilio);
+                    if (oldBarrio1OfDomicilioSet1NewDomicilio != null && !oldBarrio1OfDomicilioSet1NewDomicilio.equals(barrio)) {
+                        oldBarrio1OfDomicilioSet1NewDomicilio.getDomicilioSet1().remove(domicilioSet1NewDomicilio);
+                        oldBarrio1OfDomicilioSet1NewDomicilio = em.merge(oldBarrio1OfDomicilioSet1NewDomicilio);
                     }
                 }
             }
@@ -163,10 +230,20 @@ public class BarrioJpaController {
                 localidad.getBarrioSet().remove(barrio);
                 localidad = em.merge(localidad);
             }
+            Localidad localidad1 = barrio.getLocalidad1();
+            if (localidad1 != null) {
+                localidad1.getBarrioSet().remove(barrio);
+                localidad1 = em.merge(localidad1);
+            }
             Set<Domicilio> domicilioSet = barrio.getDomicilioSet();
             for (Domicilio domicilioSetDomicilio : domicilioSet) {
                 domicilioSetDomicilio.setBarrio(null);
                 domicilioSetDomicilio = em.merge(domicilioSetDomicilio);
+            }
+            Set<Domicilio> domicilioSet1 = barrio.getDomicilioSet1();
+            for (Domicilio domicilioSet1Domicilio : domicilioSet1) {
+                domicilioSet1Domicilio.setBarrio1(null);
+                domicilioSet1Domicilio = em.merge(domicilioSet1Domicilio);
             }
             em.remove(barrio);
             em.getTransaction().commit();

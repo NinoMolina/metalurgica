@@ -41,6 +41,9 @@ public class EstadopedidoJpaController {
         if (estadopedido.getPedidoSet() == null) {
             estadopedido.setPedidoSet(new HashSet<Pedido>());
         }
+        if (estadopedido.getPedidoSet1() == null) {
+            estadopedido.setPedidoSet1(new HashSet<Pedido>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -51,6 +54,12 @@ public class EstadopedidoJpaController {
                 attachedPedidoSet.add(pedidoSetPedidoToAttach);
             }
             estadopedido.setPedidoSet(attachedPedidoSet);
+            Set<Pedido> attachedPedidoSet1 = new HashSet<Pedido>();
+            for (Pedido pedidoSet1PedidoToAttach : estadopedido.getPedidoSet1()) {
+                pedidoSet1PedidoToAttach = em.getReference(pedidoSet1PedidoToAttach.getClass(), pedidoSet1PedidoToAttach.getIdpedido());
+                attachedPedidoSet1.add(pedidoSet1PedidoToAttach);
+            }
+            estadopedido.setPedidoSet1(attachedPedidoSet1);
             em.persist(estadopedido);
             for (Pedido pedidoSetPedido : estadopedido.getPedidoSet()) {
                 Estadopedido oldEstadoOfPedidoSetPedido = pedidoSetPedido.getEstado();
@@ -59,6 +68,15 @@ public class EstadopedidoJpaController {
                 if (oldEstadoOfPedidoSetPedido != null) {
                     oldEstadoOfPedidoSetPedido.getPedidoSet().remove(pedidoSetPedido);
                     oldEstadoOfPedidoSetPedido = em.merge(oldEstadoOfPedidoSetPedido);
+                }
+            }
+            for (Pedido pedidoSet1Pedido : estadopedido.getPedidoSet1()) {
+                Estadopedido oldEstado1OfPedidoSet1Pedido = pedidoSet1Pedido.getEstado1();
+                pedidoSet1Pedido.setEstado1(estadopedido);
+                pedidoSet1Pedido = em.merge(pedidoSet1Pedido);
+                if (oldEstado1OfPedidoSet1Pedido != null) {
+                    oldEstado1OfPedidoSet1Pedido.getPedidoSet1().remove(pedidoSet1Pedido);
+                    oldEstado1OfPedidoSet1Pedido = em.merge(oldEstado1OfPedidoSet1Pedido);
                 }
             }
             em.getTransaction().commit();
@@ -82,6 +100,8 @@ public class EstadopedidoJpaController {
             Estadopedido persistentEstadopedido = em.find(Estadopedido.class, estadopedido.getIdestado());
             Set<Pedido> pedidoSetOld = persistentEstadopedido.getPedidoSet();
             Set<Pedido> pedidoSetNew = estadopedido.getPedidoSet();
+            Set<Pedido> pedidoSet1Old = persistentEstadopedido.getPedidoSet1();
+            Set<Pedido> pedidoSet1New = estadopedido.getPedidoSet1();
             List<String> illegalOrphanMessages = null;
             for (Pedido pedidoSetOldPedido : pedidoSetOld) {
                 if (!pedidoSetNew.contains(pedidoSetOldPedido)) {
@@ -89,6 +109,14 @@ public class EstadopedidoJpaController {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain Pedido " + pedidoSetOldPedido + " since its estado field is not nullable.");
+                }
+            }
+            for (Pedido pedidoSet1OldPedido : pedidoSet1Old) {
+                if (!pedidoSet1New.contains(pedidoSet1OldPedido)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Pedido " + pedidoSet1OldPedido + " since its estado1 field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -101,6 +129,13 @@ public class EstadopedidoJpaController {
             }
             pedidoSetNew = attachedPedidoSetNew;
             estadopedido.setPedidoSet(pedidoSetNew);
+            Set<Pedido> attachedPedidoSet1New = new HashSet<Pedido>();
+            for (Pedido pedidoSet1NewPedidoToAttach : pedidoSet1New) {
+                pedidoSet1NewPedidoToAttach = em.getReference(pedidoSet1NewPedidoToAttach.getClass(), pedidoSet1NewPedidoToAttach.getIdpedido());
+                attachedPedidoSet1New.add(pedidoSet1NewPedidoToAttach);
+            }
+            pedidoSet1New = attachedPedidoSet1New;
+            estadopedido.setPedidoSet1(pedidoSet1New);
             estadopedido = em.merge(estadopedido);
             for (Pedido pedidoSetNewPedido : pedidoSetNew) {
                 if (!pedidoSetOld.contains(pedidoSetNewPedido)) {
@@ -110,6 +145,17 @@ public class EstadopedidoJpaController {
                     if (oldEstadoOfPedidoSetNewPedido != null && !oldEstadoOfPedidoSetNewPedido.equals(estadopedido)) {
                         oldEstadoOfPedidoSetNewPedido.getPedidoSet().remove(pedidoSetNewPedido);
                         oldEstadoOfPedidoSetNewPedido = em.merge(oldEstadoOfPedidoSetNewPedido);
+                    }
+                }
+            }
+            for (Pedido pedidoSet1NewPedido : pedidoSet1New) {
+                if (!pedidoSet1Old.contains(pedidoSet1NewPedido)) {
+                    Estadopedido oldEstado1OfPedidoSet1NewPedido = pedidoSet1NewPedido.getEstado1();
+                    pedidoSet1NewPedido.setEstado1(estadopedido);
+                    pedidoSet1NewPedido = em.merge(pedidoSet1NewPedido);
+                    if (oldEstado1OfPedidoSet1NewPedido != null && !oldEstado1OfPedidoSet1NewPedido.equals(estadopedido)) {
+                        oldEstado1OfPedidoSet1NewPedido.getPedidoSet1().remove(pedidoSet1NewPedido);
+                        oldEstado1OfPedidoSet1NewPedido = em.merge(oldEstado1OfPedidoSet1NewPedido);
                     }
                 }
             }
@@ -149,6 +195,13 @@ public class EstadopedidoJpaController {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This Estadopedido (" + estadopedido + ") cannot be destroyed since the Pedido " + pedidoSetOrphanCheckPedido + " in its pedidoSet field has a non-nullable estado field.");
+            }
+            Set<Pedido> pedidoSet1OrphanCheck = estadopedido.getPedidoSet1();
+            for (Pedido pedidoSet1OrphanCheckPedido : pedidoSet1OrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Estadopedido (" + estadopedido + ") cannot be destroyed since the Pedido " + pedidoSet1OrphanCheckPedido + " in its pedidoSet1 field has a non-nullable estado1 field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);

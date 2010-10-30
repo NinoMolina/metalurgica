@@ -39,6 +39,8 @@ public class Categoria implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "categoria")
     private Set<Empleado> empleadoSet;
+    @OneToMany(mappedBy = "categoria1")
+    private Set<Empleado> empleadoSet1;
 
     public Categoria() {
     }
@@ -77,6 +79,14 @@ public class Categoria implements Serializable {
 
     public void setEmpleadoSet(Set<Empleado> empleadoSet) {
         this.empleadoSet = empleadoSet;
+    }
+
+    public Set<Empleado> getEmpleadoSet1() {
+        return empleadoSet1;
+    }
+
+    public void setEmpleadoSet1(Set<Empleado> empleadoSet1) {
+        this.empleadoSet1 = empleadoSet1;
     }
 
     @Override

@@ -40,9 +40,15 @@ public class Detallepedido implements Serializable {
     @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
     @ManyToOne(optional = false)
     private Pedido idpedido;
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne(optional = false)
+    private Pedido idpedido1;
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
+    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto producto1;
 
     public Detallepedido() {
     }
@@ -83,12 +89,28 @@ public class Detallepedido implements Serializable {
         this.idpedido = idpedido;
     }
 
+    public Pedido getIdpedido1() {
+        return idpedido1;
+    }
+
+    public void setIdpedido1(Pedido idpedido1) {
+        this.idpedido1 = idpedido1;
+    }
+
     public Producto getProducto() {
         return producto;
     }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Producto getProducto1() {
+        return producto1;
+    }
+
+    public void setProducto1(Producto producto1) {
+        this.producto1 = producto1;
     }
 
     @Override

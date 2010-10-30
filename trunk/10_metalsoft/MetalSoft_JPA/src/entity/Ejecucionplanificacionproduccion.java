@@ -62,9 +62,15 @@ public class Ejecucionplanificacionproduccion implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecplanifpedido estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecplanifpedido estado1;
     @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
     @ManyToOne(optional = false)
     private Planificacionproduccion idplanificacionproduccion;
+    @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
+    @ManyToOne(optional = false)
+    private Planificacionproduccion idplanificacionproduccion1;
 
     public Ejecucionplanificacionproduccion() {
     }
@@ -137,12 +143,28 @@ public class Ejecucionplanificacionproduccion implements Serializable {
         this.estado = estado;
     }
 
+    public Estadoejecplanifpedido getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadoejecplanifpedido estado1) {
+        this.estado1 = estado1;
+    }
+
     public Planificacionproduccion getIdplanificacionproduccion() {
         return idplanificacionproduccion;
     }
 
     public void setIdplanificacionproduccion(Planificacionproduccion idplanificacionproduccion) {
         this.idplanificacionproduccion = idplanificacionproduccion;
+    }
+
+    public Planificacionproduccion getIdplanificacionproduccion1() {
+        return idplanificacionproduccion1;
+    }
+
+    public void setIdplanificacionproduccion1(Planificacionproduccion idplanificacionproduccion1) {
+        this.idplanificacionproduccion1 = idplanificacionproduccion1;
     }
 
     @Override

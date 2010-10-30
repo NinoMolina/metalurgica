@@ -48,17 +48,30 @@ public class Detalleproductopresupuesto implements Serializable {
     private BigInteger idproveedor;
     @OneToMany(mappedBy = "iddetalleproductopresupuesto")
     private Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet;
+    @OneToMany(mappedBy = "iddetalleproductopresupuesto1")
+    private Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet1;
     @OneToMany(mappedBy = "iddetalleproductopresupuesto")
     private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet;
+    @OneToMany(mappedBy = "iddetalleproductopresupuesto1")
+    private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1;
     @JoinColumn(name = "iddetallepresupuesto", referencedColumnName = "iddetalle")
     @ManyToOne
     private Detallepresupuesto iddetallepresupuesto;
+    @JoinColumn(name = "iddetallepresupuesto", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detallepresupuesto iddetallepresupuesto1;
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima idmateriaprima;
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima idmateriaprima1;
     @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
     @ManyToOne
     private Pieza idpieza;
+    @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
+    @ManyToOne
+    private Pieza idpieza1;
 
     public Detalleproductopresupuesto() {
     }
@@ -115,12 +128,28 @@ public class Detalleproductopresupuesto implements Serializable {
         this.detallepiezacalidadpresupuestoSet = detallepiezacalidadpresupuestoSet;
     }
 
+    public Set<Detallepiezacalidadpresupuesto> getDetallepiezacalidadpresupuestoSet1() {
+        return detallepiezacalidadpresupuestoSet1;
+    }
+
+    public void setDetallepiezacalidadpresupuestoSet1(Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet1) {
+        this.detallepiezacalidadpresupuestoSet1 = detallepiezacalidadpresupuestoSet1;
+    }
+
     public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet() {
         return detallepiezapresupuestoSet;
     }
 
     public void setDetallepiezapresupuestoSet(Set<Detallepiezapresupuesto> detallepiezapresupuestoSet) {
         this.detallepiezapresupuestoSet = detallepiezapresupuestoSet;
+    }
+
+    public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet1() {
+        return detallepiezapresupuestoSet1;
+    }
+
+    public void setDetallepiezapresupuestoSet1(Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1) {
+        this.detallepiezapresupuestoSet1 = detallepiezapresupuestoSet1;
     }
 
     public Detallepresupuesto getIddetallepresupuesto() {
@@ -131,6 +160,14 @@ public class Detalleproductopresupuesto implements Serializable {
         this.iddetallepresupuesto = iddetallepresupuesto;
     }
 
+    public Detallepresupuesto getIddetallepresupuesto1() {
+        return iddetallepresupuesto1;
+    }
+
+    public void setIddetallepresupuesto1(Detallepresupuesto iddetallepresupuesto1) {
+        this.iddetallepresupuesto1 = iddetallepresupuesto1;
+    }
+
     public Materiaprima getIdmateriaprima() {
         return idmateriaprima;
     }
@@ -139,12 +176,28 @@ public class Detalleproductopresupuesto implements Serializable {
         this.idmateriaprima = idmateriaprima;
     }
 
+    public Materiaprima getIdmateriaprima1() {
+        return idmateriaprima1;
+    }
+
+    public void setIdmateriaprima1(Materiaprima idmateriaprima1) {
+        this.idmateriaprima1 = idmateriaprima1;
+    }
+
     public Pieza getIdpieza() {
         return idpieza;
     }
 
     public void setIdpieza(Pieza idpieza) {
         this.idpieza = idpieza;
+    }
+
+    public Pieza getIdpieza1() {
+        return idpieza1;
+    }
+
+    public void setIdpieza1(Pieza idpieza1) {
+        this.idpieza1 = idpieza1;
     }
 
     @Override

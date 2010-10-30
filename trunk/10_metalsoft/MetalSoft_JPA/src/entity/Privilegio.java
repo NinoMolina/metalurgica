@@ -8,14 +8,13 @@ package entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,11 +38,10 @@ public class Privilegio implements Serializable {
     private String privilegio;
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinTable(name = "rolxprivilegio", joinColumns = {
-        @JoinColumn(name = "idprivilegio", referencedColumnName = "idprivilegio")}, inverseJoinColumns = {
-        @JoinColumn(name = "idrol", referencedColumnName = "idrol")})
-    @ManyToMany
-    private Set<Rol> rolSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "privilegio")
+    private Set<Rolxprivilegio> rolxprivilegioSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "privilegio1")
+    private Set<Rolxprivilegio> rolxprivilegioSet1;
 
     public Privilegio() {
     }
@@ -76,12 +74,20 @@ public class Privilegio implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Set<Rol> getRolSet() {
-        return rolSet;
+    public Set<Rolxprivilegio> getRolxprivilegioSet() {
+        return rolxprivilegioSet;
     }
 
-    public void setRolSet(Set<Rol> rolSet) {
-        this.rolSet = rolSet;
+    public void setRolxprivilegioSet(Set<Rolxprivilegio> rolxprivilegioSet) {
+        this.rolxprivilegioSet = rolxprivilegioSet;
+    }
+
+    public Set<Rolxprivilegio> getRolxprivilegioSet1() {
+        return rolxprivilegioSet1;
+    }
+
+    public void setRolxprivilegioSet1(Set<Rolxprivilegio> rolxprivilegioSet1) {
+        this.rolxprivilegioSet1 = rolxprivilegioSet1;
     }
 
     @Override

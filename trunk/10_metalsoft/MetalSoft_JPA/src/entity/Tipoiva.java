@@ -39,6 +39,8 @@ public class Tipoiva implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipoiva")
     private Set<Factura> facturaSet;
+    @OneToMany(mappedBy = "tipoiva1")
+    private Set<Factura> facturaSet1;
 
     public Tipoiva() {
     }
@@ -77,6 +79,14 @@ public class Tipoiva implements Serializable {
 
     public void setFacturaSet(Set<Factura> facturaSet) {
         this.facturaSet = facturaSet;
+    }
+
+    public Set<Factura> getFacturaSet1() {
+        return facturaSet1;
+    }
+
+    public void setFacturaSet1(Set<Factura> facturaSet1) {
+        this.facturaSet1 = facturaSet1;
     }
 
     @Override

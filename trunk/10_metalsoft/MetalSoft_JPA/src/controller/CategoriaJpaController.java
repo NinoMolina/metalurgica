@@ -39,6 +39,9 @@ public class CategoriaJpaController {
         if (categoria.getEmpleadoSet() == null) {
             categoria.setEmpleadoSet(new HashSet<Empleado>());
         }
+        if (categoria.getEmpleadoSet1() == null) {
+            categoria.setEmpleadoSet1(new HashSet<Empleado>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class CategoriaJpaController {
                 attachedEmpleadoSet.add(empleadoSetEmpleadoToAttach);
             }
             categoria.setEmpleadoSet(attachedEmpleadoSet);
+            Set<Empleado> attachedEmpleadoSet1 = new HashSet<Empleado>();
+            for (Empleado empleadoSet1EmpleadoToAttach : categoria.getEmpleadoSet1()) {
+                empleadoSet1EmpleadoToAttach = em.getReference(empleadoSet1EmpleadoToAttach.getClass(), empleadoSet1EmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1.add(empleadoSet1EmpleadoToAttach);
+            }
+            categoria.setEmpleadoSet1(attachedEmpleadoSet1);
             em.persist(categoria);
             for (Empleado empleadoSetEmpleado : categoria.getEmpleadoSet()) {
                 Categoria oldCategoriaOfEmpleadoSetEmpleado = empleadoSetEmpleado.getCategoria();
@@ -57,6 +66,15 @@ public class CategoriaJpaController {
                 if (oldCategoriaOfEmpleadoSetEmpleado != null) {
                     oldCategoriaOfEmpleadoSetEmpleado.getEmpleadoSet().remove(empleadoSetEmpleado);
                     oldCategoriaOfEmpleadoSetEmpleado = em.merge(oldCategoriaOfEmpleadoSetEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1Empleado : categoria.getEmpleadoSet1()) {
+                Categoria oldCategoria1OfEmpleadoSet1Empleado = empleadoSet1Empleado.getCategoria1();
+                empleadoSet1Empleado.setCategoria1(categoria);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
+                if (oldCategoria1OfEmpleadoSet1Empleado != null) {
+                    oldCategoria1OfEmpleadoSet1Empleado.getEmpleadoSet1().remove(empleadoSet1Empleado);
+                    oldCategoria1OfEmpleadoSet1Empleado = em.merge(oldCategoria1OfEmpleadoSet1Empleado);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class CategoriaJpaController {
             Categoria persistentCategoria = em.find(Categoria.class, categoria.getIdcategoria());
             Set<Empleado> empleadoSetOld = persistentCategoria.getEmpleadoSet();
             Set<Empleado> empleadoSetNew = categoria.getEmpleadoSet();
+            Set<Empleado> empleadoSet1Old = persistentCategoria.getEmpleadoSet1();
+            Set<Empleado> empleadoSet1New = categoria.getEmpleadoSet1();
             Set<Empleado> attachedEmpleadoSetNew = new HashSet<Empleado>();
             for (Empleado empleadoSetNewEmpleadoToAttach : empleadoSetNew) {
                 empleadoSetNewEmpleadoToAttach = em.getReference(empleadoSetNewEmpleadoToAttach.getClass(), empleadoSetNewEmpleadoToAttach.getIdempleado());
@@ -87,6 +107,13 @@ public class CategoriaJpaController {
             }
             empleadoSetNew = attachedEmpleadoSetNew;
             categoria.setEmpleadoSet(empleadoSetNew);
+            Set<Empleado> attachedEmpleadoSet1New = new HashSet<Empleado>();
+            for (Empleado empleadoSet1NewEmpleadoToAttach : empleadoSet1New) {
+                empleadoSet1NewEmpleadoToAttach = em.getReference(empleadoSet1NewEmpleadoToAttach.getClass(), empleadoSet1NewEmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1New.add(empleadoSet1NewEmpleadoToAttach);
+            }
+            empleadoSet1New = attachedEmpleadoSet1New;
+            categoria.setEmpleadoSet1(empleadoSet1New);
             categoria = em.merge(categoria);
             for (Empleado empleadoSetOldEmpleado : empleadoSetOld) {
                 if (!empleadoSetNew.contains(empleadoSetOldEmpleado)) {
@@ -102,6 +129,23 @@ public class CategoriaJpaController {
                     if (oldCategoriaOfEmpleadoSetNewEmpleado != null && !oldCategoriaOfEmpleadoSetNewEmpleado.equals(categoria)) {
                         oldCategoriaOfEmpleadoSetNewEmpleado.getEmpleadoSet().remove(empleadoSetNewEmpleado);
                         oldCategoriaOfEmpleadoSetNewEmpleado = em.merge(oldCategoriaOfEmpleadoSetNewEmpleado);
+                    }
+                }
+            }
+            for (Empleado empleadoSet1OldEmpleado : empleadoSet1Old) {
+                if (!empleadoSet1New.contains(empleadoSet1OldEmpleado)) {
+                    empleadoSet1OldEmpleado.setCategoria1(null);
+                    empleadoSet1OldEmpleado = em.merge(empleadoSet1OldEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1NewEmpleado : empleadoSet1New) {
+                if (!empleadoSet1Old.contains(empleadoSet1NewEmpleado)) {
+                    Categoria oldCategoria1OfEmpleadoSet1NewEmpleado = empleadoSet1NewEmpleado.getCategoria1();
+                    empleadoSet1NewEmpleado.setCategoria1(categoria);
+                    empleadoSet1NewEmpleado = em.merge(empleadoSet1NewEmpleado);
+                    if (oldCategoria1OfEmpleadoSet1NewEmpleado != null && !oldCategoria1OfEmpleadoSet1NewEmpleado.equals(categoria)) {
+                        oldCategoria1OfEmpleadoSet1NewEmpleado.getEmpleadoSet1().remove(empleadoSet1NewEmpleado);
+                        oldCategoria1OfEmpleadoSet1NewEmpleado = em.merge(oldCategoria1OfEmpleadoSet1NewEmpleado);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class CategoriaJpaController {
             for (Empleado empleadoSetEmpleado : empleadoSet) {
                 empleadoSetEmpleado.setCategoria(null);
                 empleadoSetEmpleado = em.merge(empleadoSetEmpleado);
+            }
+            Set<Empleado> empleadoSet1 = categoria.getEmpleadoSet1();
+            for (Empleado empleadoSet1Empleado : empleadoSet1) {
+                empleadoSet1Empleado.setCategoria1(null);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
             }
             em.remove(categoria);
             em.getTransaction().commit();

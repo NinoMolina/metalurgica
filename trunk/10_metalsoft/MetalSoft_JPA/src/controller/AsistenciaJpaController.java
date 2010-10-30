@@ -38,7 +38,7 @@ public class AsistenciaJpaController {
         if (asistencia.getAsistenciaPK() == null) {
             asistencia.setAsistenciaPK(new AsistenciaPK());
         }
-        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado1().getIdempleado());
+        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado2().getIdempleado());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,10 +48,19 @@ public class AsistenciaJpaController {
                 empleado1 = em.getReference(empleado1.getClass(), empleado1.getIdempleado());
                 asistencia.setEmpleado1(empleado1);
             }
+            Empleado empleado2 = asistencia.getEmpleado2();
+            if (empleado2 != null) {
+                empleado2 = em.getReference(empleado2.getClass(), empleado2.getIdempleado());
+                asistencia.setEmpleado2(empleado2);
+            }
             em.persist(asistencia);
             if (empleado1 != null) {
                 empleado1.getAsistenciaSet().add(asistencia);
                 empleado1 = em.merge(empleado1);
+            }
+            if (empleado2 != null) {
+                empleado2.getAsistenciaSet().add(asistencia);
+                empleado2 = em.merge(empleado2);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -67,7 +76,7 @@ public class AsistenciaJpaController {
     }
 
     public void edit(Asistencia asistencia) throws NonexistentEntityException, Exception {
-        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado1().getIdempleado());
+        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado2().getIdempleado());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -75,9 +84,15 @@ public class AsistenciaJpaController {
             Asistencia persistentAsistencia = em.find(Asistencia.class, asistencia.getAsistenciaPK());
             Empleado empleado1Old = persistentAsistencia.getEmpleado1();
             Empleado empleado1New = asistencia.getEmpleado1();
+            Empleado empleado2Old = persistentAsistencia.getEmpleado2();
+            Empleado empleado2New = asistencia.getEmpleado2();
             if (empleado1New != null) {
                 empleado1New = em.getReference(empleado1New.getClass(), empleado1New.getIdempleado());
                 asistencia.setEmpleado1(empleado1New);
+            }
+            if (empleado2New != null) {
+                empleado2New = em.getReference(empleado2New.getClass(), empleado2New.getIdempleado());
+                asistencia.setEmpleado2(empleado2New);
             }
             asistencia = em.merge(asistencia);
             if (empleado1Old != null && !empleado1Old.equals(empleado1New)) {
@@ -87,6 +102,14 @@ public class AsistenciaJpaController {
             if (empleado1New != null && !empleado1New.equals(empleado1Old)) {
                 empleado1New.getAsistenciaSet().add(asistencia);
                 empleado1New = em.merge(empleado1New);
+            }
+            if (empleado2Old != null && !empleado2Old.equals(empleado2New)) {
+                empleado2Old.getAsistenciaSet().remove(asistencia);
+                empleado2Old = em.merge(empleado2Old);
+            }
+            if (empleado2New != null && !empleado2New.equals(empleado2Old)) {
+                empleado2New.getAsistenciaSet().add(asistencia);
+                empleado2New = em.merge(empleado2New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -121,6 +144,11 @@ public class AsistenciaJpaController {
             if (empleado1 != null) {
                 empleado1.getAsistenciaSet().remove(asistencia);
                 empleado1 = em.merge(empleado1);
+            }
+            Empleado empleado2 = asistencia.getEmpleado2();
+            if (empleado2 != null) {
+                empleado2.getAsistenciaSet().remove(asistencia);
+                empleado2 = em.merge(empleado2);
             }
             em.remove(asistencia);
             em.getTransaction().commit();

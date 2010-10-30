@@ -43,6 +43,9 @@ public class RemitoJpaController {
         if (remito.getDetalleremitoSet() == null) {
             remito.setDetalleremitoSet(new HashSet<Detalleremito>());
         }
+        if (remito.getDetalleremitoSet1() == null) {
+            remito.setDetalleremitoSet1(new HashSet<Detalleremito>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -52,10 +55,20 @@ public class RemitoJpaController {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 remito.setEstado(estado);
             }
+            Estadoremito estado1 = remito.getEstado1();
+            if (estado1 != null) {
+                estado1 = em.getReference(estado1.getClass(), estado1.getIdestado());
+                remito.setEstado1(estado1);
+            }
             Pedido pedido = remito.getPedido();
             if (pedido != null) {
                 pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
                 remito.setPedido(pedido);
+            }
+            Pedido pedido1 = remito.getPedido1();
+            if (pedido1 != null) {
+                pedido1 = em.getReference(pedido1.getClass(), pedido1.getIdpedido());
+                remito.setPedido1(pedido1);
             }
             Set<Detalleremito> attachedDetalleremitoSet = new HashSet<Detalleremito>();
             for (Detalleremito detalleremitoSetDetalleremitoToAttach : remito.getDetalleremitoSet()) {
@@ -63,14 +76,28 @@ public class RemitoJpaController {
                 attachedDetalleremitoSet.add(detalleremitoSetDetalleremitoToAttach);
             }
             remito.setDetalleremitoSet(attachedDetalleremitoSet);
+            Set<Detalleremito> attachedDetalleremitoSet1 = new HashSet<Detalleremito>();
+            for (Detalleremito detalleremitoSet1DetalleremitoToAttach : remito.getDetalleremitoSet1()) {
+                detalleremitoSet1DetalleremitoToAttach = em.getReference(detalleremitoSet1DetalleremitoToAttach.getClass(), detalleremitoSet1DetalleremitoToAttach.getDetalleremitoPK());
+                attachedDetalleremitoSet1.add(detalleremitoSet1DetalleremitoToAttach);
+            }
+            remito.setDetalleremitoSet1(attachedDetalleremitoSet1);
             em.persist(remito);
             if (estado != null) {
                 estado.getRemitoSet().add(remito);
                 estado = em.merge(estado);
             }
+            if (estado1 != null) {
+                estado1.getRemitoSet().add(remito);
+                estado1 = em.merge(estado1);
+            }
             if (pedido != null) {
                 pedido.getRemitoSet().add(remito);
                 pedido = em.merge(pedido);
+            }
+            if (pedido1 != null) {
+                pedido1.getRemitoSet().add(remito);
+                pedido1 = em.merge(pedido1);
             }
             for (Detalleremito detalleremitoSetDetalleremito : remito.getDetalleremitoSet()) {
                 Remito oldRemitoOfDetalleremitoSetDetalleremito = detalleremitoSetDetalleremito.getRemito();
@@ -79,6 +106,15 @@ public class RemitoJpaController {
                 if (oldRemitoOfDetalleremitoSetDetalleremito != null) {
                     oldRemitoOfDetalleremitoSetDetalleremito.getDetalleremitoSet().remove(detalleremitoSetDetalleremito);
                     oldRemitoOfDetalleremitoSetDetalleremito = em.merge(oldRemitoOfDetalleremitoSetDetalleremito);
+                }
+            }
+            for (Detalleremito detalleremitoSet1Detalleremito : remito.getDetalleremitoSet1()) {
+                Remito oldRemito1OfDetalleremitoSet1Detalleremito = detalleremitoSet1Detalleremito.getRemito1();
+                detalleremitoSet1Detalleremito.setRemito1(remito);
+                detalleremitoSet1Detalleremito = em.merge(detalleremitoSet1Detalleremito);
+                if (oldRemito1OfDetalleremitoSet1Detalleremito != null) {
+                    oldRemito1OfDetalleremitoSet1Detalleremito.getDetalleremitoSet1().remove(detalleremitoSet1Detalleremito);
+                    oldRemito1OfDetalleremitoSet1Detalleremito = em.merge(oldRemito1OfDetalleremitoSet1Detalleremito);
                 }
             }
             em.getTransaction().commit();
@@ -102,10 +138,16 @@ public class RemitoJpaController {
             Remito persistentRemito = em.find(Remito.class, remito.getIdremito());
             Estadoremito estadoOld = persistentRemito.getEstado();
             Estadoremito estadoNew = remito.getEstado();
+            Estadoremito estado1Old = persistentRemito.getEstado1();
+            Estadoremito estado1New = remito.getEstado1();
             Pedido pedidoOld = persistentRemito.getPedido();
             Pedido pedidoNew = remito.getPedido();
+            Pedido pedido1Old = persistentRemito.getPedido1();
+            Pedido pedido1New = remito.getPedido1();
             Set<Detalleremito> detalleremitoSetOld = persistentRemito.getDetalleremitoSet();
             Set<Detalleremito> detalleremitoSetNew = remito.getDetalleremitoSet();
+            Set<Detalleremito> detalleremitoSet1Old = persistentRemito.getDetalleremitoSet1();
+            Set<Detalleremito> detalleremitoSet1New = remito.getDetalleremitoSet1();
             List<String> illegalOrphanMessages = null;
             for (Detalleremito detalleremitoSetOldDetalleremito : detalleremitoSetOld) {
                 if (!detalleremitoSetNew.contains(detalleremitoSetOldDetalleremito)) {
@@ -115,6 +157,14 @@ public class RemitoJpaController {
                     illegalOrphanMessages.add("You must retain Detalleremito " + detalleremitoSetOldDetalleremito + " since its remito field is not nullable.");
                 }
             }
+            for (Detalleremito detalleremitoSet1OldDetalleremito : detalleremitoSet1Old) {
+                if (!detalleremitoSet1New.contains(detalleremitoSet1OldDetalleremito)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Detalleremito " + detalleremitoSet1OldDetalleremito + " since its remito1 field is not nullable.");
+                }
+            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
@@ -122,9 +172,17 @@ public class RemitoJpaController {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 remito.setEstado(estadoNew);
             }
+            if (estado1New != null) {
+                estado1New = em.getReference(estado1New.getClass(), estado1New.getIdestado());
+                remito.setEstado1(estado1New);
+            }
             if (pedidoNew != null) {
                 pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
                 remito.setPedido(pedidoNew);
+            }
+            if (pedido1New != null) {
+                pedido1New = em.getReference(pedido1New.getClass(), pedido1New.getIdpedido());
+                remito.setPedido1(pedido1New);
             }
             Set<Detalleremito> attachedDetalleremitoSetNew = new HashSet<Detalleremito>();
             for (Detalleremito detalleremitoSetNewDetalleremitoToAttach : detalleremitoSetNew) {
@@ -133,6 +191,13 @@ public class RemitoJpaController {
             }
             detalleremitoSetNew = attachedDetalleremitoSetNew;
             remito.setDetalleremitoSet(detalleremitoSetNew);
+            Set<Detalleremito> attachedDetalleremitoSet1New = new HashSet<Detalleremito>();
+            for (Detalleremito detalleremitoSet1NewDetalleremitoToAttach : detalleremitoSet1New) {
+                detalleremitoSet1NewDetalleremitoToAttach = em.getReference(detalleremitoSet1NewDetalleremitoToAttach.getClass(), detalleremitoSet1NewDetalleremitoToAttach.getDetalleremitoPK());
+                attachedDetalleremitoSet1New.add(detalleremitoSet1NewDetalleremitoToAttach);
+            }
+            detalleremitoSet1New = attachedDetalleremitoSet1New;
+            remito.setDetalleremitoSet1(detalleremitoSet1New);
             remito = em.merge(remito);
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getRemitoSet().remove(remito);
@@ -142,6 +207,14 @@ public class RemitoJpaController {
                 estadoNew.getRemitoSet().add(remito);
                 estadoNew = em.merge(estadoNew);
             }
+            if (estado1Old != null && !estado1Old.equals(estado1New)) {
+                estado1Old.getRemitoSet().remove(remito);
+                estado1Old = em.merge(estado1Old);
+            }
+            if (estado1New != null && !estado1New.equals(estado1Old)) {
+                estado1New.getRemitoSet().add(remito);
+                estado1New = em.merge(estado1New);
+            }
             if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
                 pedidoOld.getRemitoSet().remove(remito);
                 pedidoOld = em.merge(pedidoOld);
@@ -149,6 +222,14 @@ public class RemitoJpaController {
             if (pedidoNew != null && !pedidoNew.equals(pedidoOld)) {
                 pedidoNew.getRemitoSet().add(remito);
                 pedidoNew = em.merge(pedidoNew);
+            }
+            if (pedido1Old != null && !pedido1Old.equals(pedido1New)) {
+                pedido1Old.getRemitoSet().remove(remito);
+                pedido1Old = em.merge(pedido1Old);
+            }
+            if (pedido1New != null && !pedido1New.equals(pedido1Old)) {
+                pedido1New.getRemitoSet().add(remito);
+                pedido1New = em.merge(pedido1New);
             }
             for (Detalleremito detalleremitoSetNewDetalleremito : detalleremitoSetNew) {
                 if (!detalleremitoSetOld.contains(detalleremitoSetNewDetalleremito)) {
@@ -158,6 +239,17 @@ public class RemitoJpaController {
                     if (oldRemitoOfDetalleremitoSetNewDetalleremito != null && !oldRemitoOfDetalleremitoSetNewDetalleremito.equals(remito)) {
                         oldRemitoOfDetalleremitoSetNewDetalleremito.getDetalleremitoSet().remove(detalleremitoSetNewDetalleremito);
                         oldRemitoOfDetalleremitoSetNewDetalleremito = em.merge(oldRemitoOfDetalleremitoSetNewDetalleremito);
+                    }
+                }
+            }
+            for (Detalleremito detalleremitoSet1NewDetalleremito : detalleremitoSet1New) {
+                if (!detalleremitoSet1Old.contains(detalleremitoSet1NewDetalleremito)) {
+                    Remito oldRemito1OfDetalleremitoSet1NewDetalleremito = detalleremitoSet1NewDetalleremito.getRemito1();
+                    detalleremitoSet1NewDetalleremito.setRemito1(remito);
+                    detalleremitoSet1NewDetalleremito = em.merge(detalleremitoSet1NewDetalleremito);
+                    if (oldRemito1OfDetalleremitoSet1NewDetalleremito != null && !oldRemito1OfDetalleremitoSet1NewDetalleremito.equals(remito)) {
+                        oldRemito1OfDetalleremitoSet1NewDetalleremito.getDetalleremitoSet1().remove(detalleremitoSet1NewDetalleremito);
+                        oldRemito1OfDetalleremitoSet1NewDetalleremito = em.merge(oldRemito1OfDetalleremitoSet1NewDetalleremito);
                     }
                 }
             }
@@ -198,6 +290,13 @@ public class RemitoJpaController {
                 }
                 illegalOrphanMessages.add("This Remito (" + remito + ") cannot be destroyed since the Detalleremito " + detalleremitoSetOrphanCheckDetalleremito + " in its detalleremitoSet field has a non-nullable remito field.");
             }
+            Set<Detalleremito> detalleremitoSet1OrphanCheck = remito.getDetalleremitoSet1();
+            for (Detalleremito detalleremitoSet1OrphanCheckDetalleremito : detalleremitoSet1OrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Remito (" + remito + ") cannot be destroyed since the Detalleremito " + detalleremitoSet1OrphanCheckDetalleremito + " in its detalleremitoSet1 field has a non-nullable remito1 field.");
+            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
@@ -206,10 +305,20 @@ public class RemitoJpaController {
                 estado.getRemitoSet().remove(remito);
                 estado = em.merge(estado);
             }
+            Estadoremito estado1 = remito.getEstado1();
+            if (estado1 != null) {
+                estado1.getRemitoSet().remove(remito);
+                estado1 = em.merge(estado1);
+            }
             Pedido pedido = remito.getPedido();
             if (pedido != null) {
                 pedido.getRemitoSet().remove(remito);
                 pedido = em.merge(pedido);
+            }
+            Pedido pedido1 = remito.getPedido1();
+            if (pedido1 != null) {
+                pedido1.getRemitoSet().remove(remito);
+                pedido1 = em.merge(pedido1);
             }
             em.remove(remito);
             em.getTransaction().commit();

@@ -43,9 +43,15 @@ public class Detallemantenimientocorrectivo implements Serializable {
     @JoinColumn(name = "idmantenimientocorrectivo", referencedColumnName = "idmantenimientocorrectivo", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Mantenimientocorrectivo mantenimientocorrectivo;
+    @JoinColumn(name = "idmantenimientocorrectivo", referencedColumnName = "idmantenimientocorrectivo", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Mantenimientocorrectivo mantenimientocorrectivo1;
     @JoinColumn(name = "rotura", referencedColumnName = "idrotura")
     @ManyToOne
     private Rotura rotura;
+    @JoinColumn(name = "rotura", referencedColumnName = "idrotura")
+    @ManyToOne
+    private Rotura rotura1;
 
     public Detallemantenimientocorrectivo() {
     }
@@ -90,12 +96,28 @@ public class Detallemantenimientocorrectivo implements Serializable {
         this.mantenimientocorrectivo = mantenimientocorrectivo;
     }
 
+    public Mantenimientocorrectivo getMantenimientocorrectivo1() {
+        return mantenimientocorrectivo1;
+    }
+
+    public void setMantenimientocorrectivo1(Mantenimientocorrectivo mantenimientocorrectivo1) {
+        this.mantenimientocorrectivo1 = mantenimientocorrectivo1;
+    }
+
     public Rotura getRotura() {
         return rotura;
     }
 
     public void setRotura(Rotura rotura) {
         this.rotura = rotura;
+    }
+
+    public Rotura getRotura1() {
+        return rotura1;
+    }
+
+    public void setRotura1(Rotura rotura1) {
+        this.rotura1 = rotura1;
     }
 
     @Override

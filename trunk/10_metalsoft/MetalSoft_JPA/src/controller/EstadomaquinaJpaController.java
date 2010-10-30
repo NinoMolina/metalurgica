@@ -39,6 +39,9 @@ public class EstadomaquinaJpaController {
         if (estadomaquina.getMaquinaSet() == null) {
             estadomaquina.setMaquinaSet(new HashSet<Maquina>());
         }
+        if (estadomaquina.getMaquinaSet1() == null) {
+            estadomaquina.setMaquinaSet1(new HashSet<Maquina>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadomaquinaJpaController {
                 attachedMaquinaSet.add(maquinaSetMaquinaToAttach);
             }
             estadomaquina.setMaquinaSet(attachedMaquinaSet);
+            Set<Maquina> attachedMaquinaSet1 = new HashSet<Maquina>();
+            for (Maquina maquinaSet1MaquinaToAttach : estadomaquina.getMaquinaSet1()) {
+                maquinaSet1MaquinaToAttach = em.getReference(maquinaSet1MaquinaToAttach.getClass(), maquinaSet1MaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1.add(maquinaSet1MaquinaToAttach);
+            }
+            estadomaquina.setMaquinaSet1(attachedMaquinaSet1);
             em.persist(estadomaquina);
             for (Maquina maquinaSetMaquina : estadomaquina.getMaquinaSet()) {
                 Estadomaquina oldEstadoOfMaquinaSetMaquina = maquinaSetMaquina.getEstado();
@@ -57,6 +66,15 @@ public class EstadomaquinaJpaController {
                 if (oldEstadoOfMaquinaSetMaquina != null) {
                     oldEstadoOfMaquinaSetMaquina.getMaquinaSet().remove(maquinaSetMaquina);
                     oldEstadoOfMaquinaSetMaquina = em.merge(oldEstadoOfMaquinaSetMaquina);
+                }
+            }
+            for (Maquina maquinaSet1Maquina : estadomaquina.getMaquinaSet1()) {
+                Estadomaquina oldEstado1OfMaquinaSet1Maquina = maquinaSet1Maquina.getEstado1();
+                maquinaSet1Maquina.setEstado1(estadomaquina);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
+                if (oldEstado1OfMaquinaSet1Maquina != null) {
+                    oldEstado1OfMaquinaSet1Maquina.getMaquinaSet1().remove(maquinaSet1Maquina);
+                    oldEstado1OfMaquinaSet1Maquina = em.merge(oldEstado1OfMaquinaSet1Maquina);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadomaquinaJpaController {
             Estadomaquina persistentEstadomaquina = em.find(Estadomaquina.class, estadomaquina.getIdestado());
             Set<Maquina> maquinaSetOld = persistentEstadomaquina.getMaquinaSet();
             Set<Maquina> maquinaSetNew = estadomaquina.getMaquinaSet();
+            Set<Maquina> maquinaSet1Old = persistentEstadomaquina.getMaquinaSet1();
+            Set<Maquina> maquinaSet1New = estadomaquina.getMaquinaSet1();
             Set<Maquina> attachedMaquinaSetNew = new HashSet<Maquina>();
             for (Maquina maquinaSetNewMaquinaToAttach : maquinaSetNew) {
                 maquinaSetNewMaquinaToAttach = em.getReference(maquinaSetNewMaquinaToAttach.getClass(), maquinaSetNewMaquinaToAttach.getIdmaquina());
@@ -87,6 +107,13 @@ public class EstadomaquinaJpaController {
             }
             maquinaSetNew = attachedMaquinaSetNew;
             estadomaquina.setMaquinaSet(maquinaSetNew);
+            Set<Maquina> attachedMaquinaSet1New = new HashSet<Maquina>();
+            for (Maquina maquinaSet1NewMaquinaToAttach : maquinaSet1New) {
+                maquinaSet1NewMaquinaToAttach = em.getReference(maquinaSet1NewMaquinaToAttach.getClass(), maquinaSet1NewMaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1New.add(maquinaSet1NewMaquinaToAttach);
+            }
+            maquinaSet1New = attachedMaquinaSet1New;
+            estadomaquina.setMaquinaSet1(maquinaSet1New);
             estadomaquina = em.merge(estadomaquina);
             for (Maquina maquinaSetOldMaquina : maquinaSetOld) {
                 if (!maquinaSetNew.contains(maquinaSetOldMaquina)) {
@@ -102,6 +129,23 @@ public class EstadomaquinaJpaController {
                     if (oldEstadoOfMaquinaSetNewMaquina != null && !oldEstadoOfMaquinaSetNewMaquina.equals(estadomaquina)) {
                         oldEstadoOfMaquinaSetNewMaquina.getMaquinaSet().remove(maquinaSetNewMaquina);
                         oldEstadoOfMaquinaSetNewMaquina = em.merge(oldEstadoOfMaquinaSetNewMaquina);
+                    }
+                }
+            }
+            for (Maquina maquinaSet1OldMaquina : maquinaSet1Old) {
+                if (!maquinaSet1New.contains(maquinaSet1OldMaquina)) {
+                    maquinaSet1OldMaquina.setEstado1(null);
+                    maquinaSet1OldMaquina = em.merge(maquinaSet1OldMaquina);
+                }
+            }
+            for (Maquina maquinaSet1NewMaquina : maquinaSet1New) {
+                if (!maquinaSet1Old.contains(maquinaSet1NewMaquina)) {
+                    Estadomaquina oldEstado1OfMaquinaSet1NewMaquina = maquinaSet1NewMaquina.getEstado1();
+                    maquinaSet1NewMaquina.setEstado1(estadomaquina);
+                    maquinaSet1NewMaquina = em.merge(maquinaSet1NewMaquina);
+                    if (oldEstado1OfMaquinaSet1NewMaquina != null && !oldEstado1OfMaquinaSet1NewMaquina.equals(estadomaquina)) {
+                        oldEstado1OfMaquinaSet1NewMaquina.getMaquinaSet1().remove(maquinaSet1NewMaquina);
+                        oldEstado1OfMaquinaSet1NewMaquina = em.merge(oldEstado1OfMaquinaSet1NewMaquina);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadomaquinaJpaController {
             for (Maquina maquinaSetMaquina : maquinaSet) {
                 maquinaSetMaquina.setEstado(null);
                 maquinaSetMaquina = em.merge(maquinaSetMaquina);
+            }
+            Set<Maquina> maquinaSet1 = estadomaquina.getMaquinaSet1();
+            for (Maquina maquinaSet1Maquina : maquinaSet1) {
+                maquinaSet1Maquina.setEstado1(null);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
             }
             em.remove(estadomaquina);
             em.getTransaction().commit();

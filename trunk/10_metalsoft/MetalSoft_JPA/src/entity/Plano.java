@@ -41,13 +41,18 @@ public class Plano implements Serializable {
     private BigInteger nroplano;
     @Column(name = "escala")
     private Integer escala;
-    @JoinColumn(name = "imagen")
+    @Column(name = "imagen")
     private Serializable imagen;
     @OneToMany(mappedBy = "plano")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "plano1")
+    private Set<Pedido> pedidoSet1;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido1;
 
     public Plano() {
     }
@@ -96,12 +101,28 @@ public class Plano implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Pedido getPedido() {
         return pedido;
     }
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public Pedido getPedido1() {
+        return pedido1;
+    }
+
+    public void setPedido1(Pedido pedido1) {
+        this.pedido1 = pedido1;
     }
 
     @Override

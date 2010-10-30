@@ -39,7 +39,7 @@ public class DetalleplanprocesoscalidadJpaController {
         if (detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK() == null) {
             detalleplanprocesoscalidad.setDetalleplanprocesoscalidadPK(new DetalleplanprocesoscalidadPK());
         }
-        detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK().setIdplanprocesoscalidad(detalleplanprocesoscalidad.getPlanprocesoscalidad().getIdplanprocesoscalidad());
+        detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK().setIdplanprocesoscalidad(detalleplanprocesoscalidad.getPlanprocesoscalidad1().getIdplanprocesoscalidad());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,19 +49,37 @@ public class DetalleplanprocesoscalidadJpaController {
                 planprocesoscalidad = em.getReference(planprocesoscalidad.getClass(), planprocesoscalidad.getIdplanprocesoscalidad());
                 detalleplanprocesoscalidad.setPlanprocesoscalidad(planprocesoscalidad);
             }
+            Planprocesoscalidad planprocesoscalidad1 = detalleplanprocesoscalidad.getPlanprocesoscalidad1();
+            if (planprocesoscalidad1 != null) {
+                planprocesoscalidad1 = em.getReference(planprocesoscalidad1.getClass(), planprocesoscalidad1.getIdplanprocesoscalidad());
+                detalleplanprocesoscalidad.setPlanprocesoscalidad1(planprocesoscalidad1);
+            }
             Procesocalidad idprocesocalidad = detalleplanprocesoscalidad.getIdprocesocalidad();
             if (idprocesocalidad != null) {
                 idprocesocalidad = em.getReference(idprocesocalidad.getClass(), idprocesocalidad.getIdprocesocalidad());
                 detalleplanprocesoscalidad.setIdprocesocalidad(idprocesocalidad);
+            }
+            Procesocalidad idprocesocalidad1 = detalleplanprocesoscalidad.getIdprocesocalidad1();
+            if (idprocesocalidad1 != null) {
+                idprocesocalidad1 = em.getReference(idprocesocalidad1.getClass(), idprocesocalidad1.getIdprocesocalidad());
+                detalleplanprocesoscalidad.setIdprocesocalidad1(idprocesocalidad1);
             }
             em.persist(detalleplanprocesoscalidad);
             if (planprocesoscalidad != null) {
                 planprocesoscalidad.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
                 planprocesoscalidad = em.merge(planprocesoscalidad);
             }
+            if (planprocesoscalidad1 != null) {
+                planprocesoscalidad1.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
+                planprocesoscalidad1 = em.merge(planprocesoscalidad1);
+            }
             if (idprocesocalidad != null) {
                 idprocesocalidad.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
                 idprocesocalidad = em.merge(idprocesocalidad);
+            }
+            if (idprocesocalidad1 != null) {
+                idprocesocalidad1.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
+                idprocesocalidad1 = em.merge(idprocesocalidad1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,7 +95,7 @@ public class DetalleplanprocesoscalidadJpaController {
     }
 
     public void edit(Detalleplanprocesoscalidad detalleplanprocesoscalidad) throws NonexistentEntityException, Exception {
-        detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK().setIdplanprocesoscalidad(detalleplanprocesoscalidad.getPlanprocesoscalidad().getIdplanprocesoscalidad());
+        detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK().setIdplanprocesoscalidad(detalleplanprocesoscalidad.getPlanprocesoscalidad1().getIdplanprocesoscalidad());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,15 +103,27 @@ public class DetalleplanprocesoscalidadJpaController {
             Detalleplanprocesoscalidad persistentDetalleplanprocesoscalidad = em.find(Detalleplanprocesoscalidad.class, detalleplanprocesoscalidad.getDetalleplanprocesoscalidadPK());
             Planprocesoscalidad planprocesoscalidadOld = persistentDetalleplanprocesoscalidad.getPlanprocesoscalidad();
             Planprocesoscalidad planprocesoscalidadNew = detalleplanprocesoscalidad.getPlanprocesoscalidad();
+            Planprocesoscalidad planprocesoscalidad1Old = persistentDetalleplanprocesoscalidad.getPlanprocesoscalidad1();
+            Planprocesoscalidad planprocesoscalidad1New = detalleplanprocesoscalidad.getPlanprocesoscalidad1();
             Procesocalidad idprocesocalidadOld = persistentDetalleplanprocesoscalidad.getIdprocesocalidad();
             Procesocalidad idprocesocalidadNew = detalleplanprocesoscalidad.getIdprocesocalidad();
+            Procesocalidad idprocesocalidad1Old = persistentDetalleplanprocesoscalidad.getIdprocesocalidad1();
+            Procesocalidad idprocesocalidad1New = detalleplanprocesoscalidad.getIdprocesocalidad1();
             if (planprocesoscalidadNew != null) {
                 planprocesoscalidadNew = em.getReference(planprocesoscalidadNew.getClass(), planprocesoscalidadNew.getIdplanprocesoscalidad());
                 detalleplanprocesoscalidad.setPlanprocesoscalidad(planprocesoscalidadNew);
             }
+            if (planprocesoscalidad1New != null) {
+                planprocesoscalidad1New = em.getReference(planprocesoscalidad1New.getClass(), planprocesoscalidad1New.getIdplanprocesoscalidad());
+                detalleplanprocesoscalidad.setPlanprocesoscalidad1(planprocesoscalidad1New);
+            }
             if (idprocesocalidadNew != null) {
                 idprocesocalidadNew = em.getReference(idprocesocalidadNew.getClass(), idprocesocalidadNew.getIdprocesocalidad());
                 detalleplanprocesoscalidad.setIdprocesocalidad(idprocesocalidadNew);
+            }
+            if (idprocesocalidad1New != null) {
+                idprocesocalidad1New = em.getReference(idprocesocalidad1New.getClass(), idprocesocalidad1New.getIdprocesocalidad());
+                detalleplanprocesoscalidad.setIdprocesocalidad1(idprocesocalidad1New);
             }
             detalleplanprocesoscalidad = em.merge(detalleplanprocesoscalidad);
             if (planprocesoscalidadOld != null && !planprocesoscalidadOld.equals(planprocesoscalidadNew)) {
@@ -104,6 +134,14 @@ public class DetalleplanprocesoscalidadJpaController {
                 planprocesoscalidadNew.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
                 planprocesoscalidadNew = em.merge(planprocesoscalidadNew);
             }
+            if (planprocesoscalidad1Old != null && !planprocesoscalidad1Old.equals(planprocesoscalidad1New)) {
+                planprocesoscalidad1Old.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
+                planprocesoscalidad1Old = em.merge(planprocesoscalidad1Old);
+            }
+            if (planprocesoscalidad1New != null && !planprocesoscalidad1New.equals(planprocesoscalidad1Old)) {
+                planprocesoscalidad1New.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
+                planprocesoscalidad1New = em.merge(planprocesoscalidad1New);
+            }
             if (idprocesocalidadOld != null && !idprocesocalidadOld.equals(idprocesocalidadNew)) {
                 idprocesocalidadOld.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
                 idprocesocalidadOld = em.merge(idprocesocalidadOld);
@@ -111,6 +149,14 @@ public class DetalleplanprocesoscalidadJpaController {
             if (idprocesocalidadNew != null && !idprocesocalidadNew.equals(idprocesocalidadOld)) {
                 idprocesocalidadNew.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
                 idprocesocalidadNew = em.merge(idprocesocalidadNew);
+            }
+            if (idprocesocalidad1Old != null && !idprocesocalidad1Old.equals(idprocesocalidad1New)) {
+                idprocesocalidad1Old.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
+                idprocesocalidad1Old = em.merge(idprocesocalidad1Old);
+            }
+            if (idprocesocalidad1New != null && !idprocesocalidad1New.equals(idprocesocalidad1Old)) {
+                idprocesocalidad1New.getDetalleplanprocesoscalidadSet().add(detalleplanprocesoscalidad);
+                idprocesocalidad1New = em.merge(idprocesocalidad1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -146,10 +192,20 @@ public class DetalleplanprocesoscalidadJpaController {
                 planprocesoscalidad.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
                 planprocesoscalidad = em.merge(planprocesoscalidad);
             }
+            Planprocesoscalidad planprocesoscalidad1 = detalleplanprocesoscalidad.getPlanprocesoscalidad1();
+            if (planprocesoscalidad1 != null) {
+                planprocesoscalidad1.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
+                planprocesoscalidad1 = em.merge(planprocesoscalidad1);
+            }
             Procesocalidad idprocesocalidad = detalleplanprocesoscalidad.getIdprocesocalidad();
             if (idprocesocalidad != null) {
                 idprocesocalidad.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
                 idprocesocalidad = em.merge(idprocesocalidad);
+            }
+            Procesocalidad idprocesocalidad1 = detalleplanprocesoscalidad.getIdprocesocalidad1();
+            if (idprocesocalidad1 != null) {
+                idprocesocalidad1.getDetalleplanprocesoscalidadSet().remove(detalleplanprocesoscalidad);
+                idprocesocalidad1 = em.merge(idprocesocalidad1);
             }
             em.remove(detalleplanprocesoscalidad);
             em.getTransaction().commit();

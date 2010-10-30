@@ -38,7 +38,7 @@ public class DetalleproductorealJpaController {
         if (detalleproductoreal.getDetalleproductorealPK() == null) {
             detalleproductoreal.setDetalleproductorealPK(new DetalleproductorealPK());
         }
-        detalleproductoreal.getDetalleproductorealPK().setIdproductoreal(detalleproductoreal.getProductoreal().getIdproductoreal());
+        detalleproductoreal.getDetalleproductorealPK().setIdproductoreal(detalleproductoreal.getProductoreal1().getIdproductoreal());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,10 +48,19 @@ public class DetalleproductorealJpaController {
                 productoreal = em.getReference(productoreal.getClass(), productoreal.getIdproductoreal());
                 detalleproductoreal.setProductoreal(productoreal);
             }
+            Productoreal productoreal1 = detalleproductoreal.getProductoreal1();
+            if (productoreal1 != null) {
+                productoreal1 = em.getReference(productoreal1.getClass(), productoreal1.getIdproductoreal());
+                detalleproductoreal.setProductoreal1(productoreal1);
+            }
             em.persist(detalleproductoreal);
             if (productoreal != null) {
                 productoreal.getDetalleproductorealSet().add(detalleproductoreal);
                 productoreal = em.merge(productoreal);
+            }
+            if (productoreal1 != null) {
+                productoreal1.getDetalleproductorealSet().add(detalleproductoreal);
+                productoreal1 = em.merge(productoreal1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -67,7 +76,7 @@ public class DetalleproductorealJpaController {
     }
 
     public void edit(Detalleproductoreal detalleproductoreal) throws NonexistentEntityException, Exception {
-        detalleproductoreal.getDetalleproductorealPK().setIdproductoreal(detalleproductoreal.getProductoreal().getIdproductoreal());
+        detalleproductoreal.getDetalleproductorealPK().setIdproductoreal(detalleproductoreal.getProductoreal1().getIdproductoreal());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -75,9 +84,15 @@ public class DetalleproductorealJpaController {
             Detalleproductoreal persistentDetalleproductoreal = em.find(Detalleproductoreal.class, detalleproductoreal.getDetalleproductorealPK());
             Productoreal productorealOld = persistentDetalleproductoreal.getProductoreal();
             Productoreal productorealNew = detalleproductoreal.getProductoreal();
+            Productoreal productoreal1Old = persistentDetalleproductoreal.getProductoreal1();
+            Productoreal productoreal1New = detalleproductoreal.getProductoreal1();
             if (productorealNew != null) {
                 productorealNew = em.getReference(productorealNew.getClass(), productorealNew.getIdproductoreal());
                 detalleproductoreal.setProductoreal(productorealNew);
+            }
+            if (productoreal1New != null) {
+                productoreal1New = em.getReference(productoreal1New.getClass(), productoreal1New.getIdproductoreal());
+                detalleproductoreal.setProductoreal1(productoreal1New);
             }
             detalleproductoreal = em.merge(detalleproductoreal);
             if (productorealOld != null && !productorealOld.equals(productorealNew)) {
@@ -87,6 +102,14 @@ public class DetalleproductorealJpaController {
             if (productorealNew != null && !productorealNew.equals(productorealOld)) {
                 productorealNew.getDetalleproductorealSet().add(detalleproductoreal);
                 productorealNew = em.merge(productorealNew);
+            }
+            if (productoreal1Old != null && !productoreal1Old.equals(productoreal1New)) {
+                productoreal1Old.getDetalleproductorealSet().remove(detalleproductoreal);
+                productoreal1Old = em.merge(productoreal1Old);
+            }
+            if (productoreal1New != null && !productoreal1New.equals(productoreal1Old)) {
+                productoreal1New.getDetalleproductorealSet().add(detalleproductoreal);
+                productoreal1New = em.merge(productoreal1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -121,6 +144,11 @@ public class DetalleproductorealJpaController {
             if (productoreal != null) {
                 productoreal.getDetalleproductorealSet().remove(detalleproductoreal);
                 productoreal = em.merge(productoreal);
+            }
+            Productoreal productoreal1 = detalleproductoreal.getProductoreal1();
+            if (productoreal1 != null) {
+                productoreal1.getDetalleproductorealSet().remove(detalleproductoreal);
+                productoreal1 = em.merge(productoreal1);
             }
             em.remove(detalleproductoreal);
             em.getTransaction().commit();

@@ -39,6 +39,8 @@ public class Estadoremito implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Remito> remitoSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Remito> remitoSet1;
 
     public Estadoremito() {
     }
@@ -77,6 +79,14 @@ public class Estadoremito implements Serializable {
 
     public void setRemitoSet(Set<Remito> remitoSet) {
         this.remitoSet = remitoSet;
+    }
+
+    public Set<Remito> getRemitoSet1() {
+        return remitoSet1;
+    }
+
+    public void setRemitoSet1(Set<Remito> remitoSet1) {
+        this.remitoSet1 = remitoSet1;
     }
 
     @Override

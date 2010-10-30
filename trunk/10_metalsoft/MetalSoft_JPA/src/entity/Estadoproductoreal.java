@@ -39,6 +39,8 @@ public class Estadoproductoreal implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Productoreal> productorealSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Productoreal> productorealSet1;
 
     public Estadoproductoreal() {
     }
@@ -77,6 +79,14 @@ public class Estadoproductoreal implements Serializable {
 
     public void setProductorealSet(Set<Productoreal> productorealSet) {
         this.productorealSet = productorealSet;
+    }
+
+    public Set<Productoreal> getProductorealSet1() {
+        return productorealSet1;
+    }
+
+    public void setProductorealSet1(Set<Productoreal> productorealSet1) {
+        this.productorealSet1 = productorealSet1;
     }
 
     @Override

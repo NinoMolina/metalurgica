@@ -46,11 +46,19 @@ public class Detallepresupuesto implements Serializable {
     @JoinColumn(name = "idpresupuesto", referencedColumnName = "idpresupuesto")
     @ManyToOne(optional = false)
     private Presupuesto idpresupuesto;
+    @JoinColumn(name = "idpresupuesto", referencedColumnName = "idpresupuesto")
+    @ManyToOne(optional = false)
+    private Presupuesto idpresupuesto1;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto idproducto;
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto idproducto1;
     @OneToMany(mappedBy = "iddetallepresupuesto")
     private Set<Detalleproductopresupuesto> detalleproductopresupuestoSet;
+    @OneToMany(mappedBy = "iddetallepresupuesto1")
+    private Set<Detalleproductopresupuesto> detalleproductopresupuestoSet1;
 
     public Detallepresupuesto() {
     }
@@ -99,6 +107,14 @@ public class Detallepresupuesto implements Serializable {
         this.idpresupuesto = idpresupuesto;
     }
 
+    public Presupuesto getIdpresupuesto1() {
+        return idpresupuesto1;
+    }
+
+    public void setIdpresupuesto1(Presupuesto idpresupuesto1) {
+        this.idpresupuesto1 = idpresupuesto1;
+    }
+
     public Producto getIdproducto() {
         return idproducto;
     }
@@ -107,12 +123,28 @@ public class Detallepresupuesto implements Serializable {
         this.idproducto = idproducto;
     }
 
+    public Producto getIdproducto1() {
+        return idproducto1;
+    }
+
+    public void setIdproducto1(Producto idproducto1) {
+        this.idproducto1 = idproducto1;
+    }
+
     public Set<Detalleproductopresupuesto> getDetalleproductopresupuestoSet() {
         return detalleproductopresupuestoSet;
     }
 
     public void setDetalleproductopresupuestoSet(Set<Detalleproductopresupuesto> detalleproductopresupuestoSet) {
         this.detalleproductopresupuestoSet = detalleproductopresupuestoSet;
+    }
+
+    public Set<Detalleproductopresupuesto> getDetalleproductopresupuestoSet1() {
+        return detalleproductopresupuestoSet1;
+    }
+
+    public void setDetalleproductopresupuestoSet1(Set<Detalleproductopresupuesto> detalleproductopresupuestoSet1) {
+        this.detalleproductopresupuestoSet1 = detalleproductopresupuestoSet1;
     }
 
     @Override

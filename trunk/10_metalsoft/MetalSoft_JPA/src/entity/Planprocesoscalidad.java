@@ -34,8 +34,12 @@ public class Planprocesoscalidad implements Serializable {
     private Long idplanprocesoscalidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planprocesoscalidad")
     private Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planprocesoscalidad1")
+    private Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet1;
     @OneToMany(mappedBy = "planprocesoscalidad")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "planprocesoscalidad1")
+    private Set<Pedido> pedidoSet1;
 
     public Planprocesoscalidad() {
     }
@@ -60,12 +64,28 @@ public class Planprocesoscalidad implements Serializable {
         this.detalleplanprocesoscalidadSet = detalleplanprocesoscalidadSet;
     }
 
+    public Set<Detalleplanprocesoscalidad> getDetalleplanprocesoscalidadSet1() {
+        return detalleplanprocesoscalidadSet1;
+    }
+
+    public void setDetalleplanprocesoscalidadSet1(Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet1) {
+        this.detalleplanprocesoscalidadSet1 = detalleplanprocesoscalidadSet1;
+    }
+
     public Set<Pedido> getPedidoSet() {
         return pedidoSet;
     }
 
     public void setPedidoSet(Set<Pedido> pedidoSet) {
         this.pedidoSet = pedidoSet;
+    }
+
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
     }
 
     @Override

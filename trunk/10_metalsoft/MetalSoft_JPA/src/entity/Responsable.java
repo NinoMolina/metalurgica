@@ -54,17 +54,31 @@ public class Responsable implements Serializable {
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio1;
     @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
     @ManyToOne
     private Tipodocumento tipodocumento;
+    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
+    @ManyToOne
+    private Tipodocumento tipodocumento1;
     @OneToMany(mappedBy = "responsable")
     private Set<Empresametalurgica> empresametalurgicaSet;
+    @OneToMany(mappedBy = "responsable1")
+    private Set<Empresametalurgica> empresametalurgicaSet1;
     @OneToMany(mappedBy = "responsable")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "responsable1")
+    private Set<Cliente> clienteSet1;
     @OneToMany(mappedBy = "responsable")
     private Set<Proveedor> proveedorSet;
+    @OneToMany(mappedBy = "responsable1")
+    private Set<Proveedor> proveedorSet1;
     @OneToMany(mappedBy = "responsable")
     private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet;
+    @OneToMany(mappedBy = "responsable1")
+    private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1;
 
     public Responsable() {
     }
@@ -137,12 +151,28 @@ public class Responsable implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public Domicilio getDomicilio1() {
+        return domicilio1;
+    }
+
+    public void setDomicilio1(Domicilio domicilio1) {
+        this.domicilio1 = domicilio1;
+    }
+
     public Tipodocumento getTipodocumento() {
         return tipodocumento;
     }
 
     public void setTipodocumento(Tipodocumento tipodocumento) {
         this.tipodocumento = tipodocumento;
+    }
+
+    public Tipodocumento getTipodocumento1() {
+        return tipodocumento1;
+    }
+
+    public void setTipodocumento1(Tipodocumento tipodocumento1) {
+        this.tipodocumento1 = tipodocumento1;
     }
 
     public Set<Empresametalurgica> getEmpresametalurgicaSet() {
@@ -153,12 +183,28 @@ public class Responsable implements Serializable {
         this.empresametalurgicaSet = empresametalurgicaSet;
     }
 
+    public Set<Empresametalurgica> getEmpresametalurgicaSet1() {
+        return empresametalurgicaSet1;
+    }
+
+    public void setEmpresametalurgicaSet1(Set<Empresametalurgica> empresametalurgicaSet1) {
+        this.empresametalurgicaSet1 = empresametalurgicaSet1;
+    }
+
     public Set<Cliente> getClienteSet() {
         return clienteSet;
     }
 
     public void setClienteSet(Set<Cliente> clienteSet) {
         this.clienteSet = clienteSet;
+    }
+
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
     }
 
     public Set<Proveedor> getProveedorSet() {
@@ -169,12 +215,28 @@ public class Responsable implements Serializable {
         this.proveedorSet = proveedorSet;
     }
 
+    public Set<Proveedor> getProveedorSet1() {
+        return proveedorSet1;
+    }
+
+    public void setProveedorSet1(Set<Proveedor> proveedorSet1) {
+        this.proveedorSet1 = proveedorSet1;
+    }
+
     public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet() {
         return proveedormantenimientomaquinaSet;
     }
 
     public void setProveedormantenimientomaquinaSet(Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet) {
         this.proveedormantenimientomaquinaSet = proveedormantenimientomaquinaSet;
+    }
+
+    public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet1() {
+        return proveedormantenimientomaquinaSet1;
+    }
+
+    public void setProveedormantenimientomaquinaSet1(Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1) {
+        this.proveedormantenimientomaquinaSet1 = proveedormantenimientomaquinaSet1;
     }
 
     @Override

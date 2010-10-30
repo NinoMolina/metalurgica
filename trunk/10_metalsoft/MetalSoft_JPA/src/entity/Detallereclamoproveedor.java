@@ -51,9 +51,17 @@ public class Detallereclamoproveedor implements Serializable {
         @JoinColumn(name = "idcompra", referencedColumnName = "idcompra")})
     @ManyToOne
     private Detallecompra detallecompra;
+    @JoinColumns({
+        @JoinColumn(name = "idcompra", referencedColumnName = "idcompra"),
+        @JoinColumn(name = "iddetallecompra", referencedColumnName = "iddetalle")})
+    @ManyToOne
+    private Detallecompra detallecompra1;
     @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Reclamoproveedor reclamoproveedor;
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Reclamoproveedor reclamoproveedor1;
 
     public Detallereclamoproveedor() {
     }
@@ -114,12 +122,28 @@ public class Detallereclamoproveedor implements Serializable {
         this.detallecompra = detallecompra;
     }
 
+    public Detallecompra getDetallecompra1() {
+        return detallecompra1;
+    }
+
+    public void setDetallecompra1(Detallecompra detallecompra1) {
+        this.detallecompra1 = detallecompra1;
+    }
+
     public Reclamoproveedor getReclamoproveedor() {
         return reclamoproveedor;
     }
 
     public void setReclamoproveedor(Reclamoproveedor reclamoproveedor) {
         this.reclamoproveedor = reclamoproveedor;
+    }
+
+    public Reclamoproveedor getReclamoproveedor1() {
+        return reclamoproveedor1;
+    }
+
+    public void setReclamoproveedor1(Reclamoproveedor reclamoproveedor1) {
+        this.reclamoproveedor1 = reclamoproveedor1;
     }
 
     @Override

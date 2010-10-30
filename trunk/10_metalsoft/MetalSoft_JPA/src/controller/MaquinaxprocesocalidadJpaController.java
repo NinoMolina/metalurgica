@@ -38,7 +38,7 @@ public class MaquinaxprocesocalidadJpaController {
         if (maquinaxprocesocalidad.getMaquinaxprocesocalidadPK() == null) {
             maquinaxprocesocalidad.setMaquinaxprocesocalidadPK(new MaquinaxprocesocalidadPK());
         }
-        maquinaxprocesocalidad.getMaquinaxprocesocalidadPK().setIdprocesocalidad(maquinaxprocesocalidad.getProcesocalidad().getIdprocesocalidad());
+        maquinaxprocesocalidad.getMaquinaxprocesocalidadPK().setIdprocesocalidad(maquinaxprocesocalidad.getProcesocalidad1().getIdprocesocalidad());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,10 +48,19 @@ public class MaquinaxprocesocalidadJpaController {
                 procesocalidad = em.getReference(procesocalidad.getClass(), procesocalidad.getIdprocesocalidad());
                 maquinaxprocesocalidad.setProcesocalidad(procesocalidad);
             }
+            Procesocalidad procesocalidad1 = maquinaxprocesocalidad.getProcesocalidad1();
+            if (procesocalidad1 != null) {
+                procesocalidad1 = em.getReference(procesocalidad1.getClass(), procesocalidad1.getIdprocesocalidad());
+                maquinaxprocesocalidad.setProcesocalidad1(procesocalidad1);
+            }
             em.persist(maquinaxprocesocalidad);
             if (procesocalidad != null) {
                 procesocalidad.getMaquinaxprocesocalidadSet().add(maquinaxprocesocalidad);
                 procesocalidad = em.merge(procesocalidad);
+            }
+            if (procesocalidad1 != null) {
+                procesocalidad1.getMaquinaxprocesocalidadSet().add(maquinaxprocesocalidad);
+                procesocalidad1 = em.merge(procesocalidad1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -67,7 +76,7 @@ public class MaquinaxprocesocalidadJpaController {
     }
 
     public void edit(Maquinaxprocesocalidad maquinaxprocesocalidad) throws NonexistentEntityException, Exception {
-        maquinaxprocesocalidad.getMaquinaxprocesocalidadPK().setIdprocesocalidad(maquinaxprocesocalidad.getProcesocalidad().getIdprocesocalidad());
+        maquinaxprocesocalidad.getMaquinaxprocesocalidadPK().setIdprocesocalidad(maquinaxprocesocalidad.getProcesocalidad1().getIdprocesocalidad());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -75,9 +84,15 @@ public class MaquinaxprocesocalidadJpaController {
             Maquinaxprocesocalidad persistentMaquinaxprocesocalidad = em.find(Maquinaxprocesocalidad.class, maquinaxprocesocalidad.getMaquinaxprocesocalidadPK());
             Procesocalidad procesocalidadOld = persistentMaquinaxprocesocalidad.getProcesocalidad();
             Procesocalidad procesocalidadNew = maquinaxprocesocalidad.getProcesocalidad();
+            Procesocalidad procesocalidad1Old = persistentMaquinaxprocesocalidad.getProcesocalidad1();
+            Procesocalidad procesocalidad1New = maquinaxprocesocalidad.getProcesocalidad1();
             if (procesocalidadNew != null) {
                 procesocalidadNew = em.getReference(procesocalidadNew.getClass(), procesocalidadNew.getIdprocesocalidad());
                 maquinaxprocesocalidad.setProcesocalidad(procesocalidadNew);
+            }
+            if (procesocalidad1New != null) {
+                procesocalidad1New = em.getReference(procesocalidad1New.getClass(), procesocalidad1New.getIdprocesocalidad());
+                maquinaxprocesocalidad.setProcesocalidad1(procesocalidad1New);
             }
             maquinaxprocesocalidad = em.merge(maquinaxprocesocalidad);
             if (procesocalidadOld != null && !procesocalidadOld.equals(procesocalidadNew)) {
@@ -87,6 +102,14 @@ public class MaquinaxprocesocalidadJpaController {
             if (procesocalidadNew != null && !procesocalidadNew.equals(procesocalidadOld)) {
                 procesocalidadNew.getMaquinaxprocesocalidadSet().add(maquinaxprocesocalidad);
                 procesocalidadNew = em.merge(procesocalidadNew);
+            }
+            if (procesocalidad1Old != null && !procesocalidad1Old.equals(procesocalidad1New)) {
+                procesocalidad1Old.getMaquinaxprocesocalidadSet().remove(maquinaxprocesocalidad);
+                procesocalidad1Old = em.merge(procesocalidad1Old);
+            }
+            if (procesocalidad1New != null && !procesocalidad1New.equals(procesocalidad1Old)) {
+                procesocalidad1New.getMaquinaxprocesocalidadSet().add(maquinaxprocesocalidad);
+                procesocalidad1New = em.merge(procesocalidad1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -121,6 +144,11 @@ public class MaquinaxprocesocalidadJpaController {
             if (procesocalidad != null) {
                 procesocalidad.getMaquinaxprocesocalidadSet().remove(maquinaxprocesocalidad);
                 procesocalidad = em.merge(procesocalidad);
+            }
+            Procesocalidad procesocalidad1 = maquinaxprocesocalidad.getProcesocalidad1();
+            if (procesocalidad1 != null) {
+                procesocalidad1.getMaquinaxprocesocalidadSet().remove(maquinaxprocesocalidad);
+                procesocalidad1 = em.merge(procesocalidad1);
             }
             em.remove(maquinaxprocesocalidad);
             em.getTransaction().commit();

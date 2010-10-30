@@ -38,9 +38,15 @@ public class Detalleremito implements Serializable {
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
+    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto producto1;
     @JoinColumn(name = "idremito", referencedColumnName = "idremito", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Remito remito;
+    @JoinColumn(name = "idremito", referencedColumnName = "idremito", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Remito remito1;
 
     public Detalleremito() {
     }
@@ -85,12 +91,28 @@ public class Detalleremito implements Serializable {
         this.producto = producto;
     }
 
+    public Producto getProducto1() {
+        return producto1;
+    }
+
+    public void setProducto1(Producto producto1) {
+        this.producto1 = producto1;
+    }
+
     public Remito getRemito() {
         return remito;
     }
 
     public void setRemito(Remito remito) {
         this.remito = remito;
+    }
+
+    public Remito getRemito1() {
+        return remito1;
+    }
+
+    public void setRemito1(Remito remito1) {
+        this.remito1 = remito1;
     }
 
     @Override

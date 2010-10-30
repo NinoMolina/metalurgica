@@ -39,6 +39,9 @@ public class EstadoejecplancalidadJpaController {
         if (estadoejecplancalidad.getEjecucionplanificacioncalidadSet() == null) {
             estadoejecplancalidad.setEjecucionplanificacioncalidadSet(new HashSet<Ejecucionplanificacioncalidad>());
         }
+        if (estadoejecplancalidad.getEjecucionplanificacioncalidadSet1() == null) {
+            estadoejecplancalidad.setEjecucionplanificacioncalidadSet1(new HashSet<Ejecucionplanificacioncalidad>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class EstadoejecplancalidadJpaController {
                 attachedEjecucionplanificacioncalidadSet.add(ejecucionplanificacioncalidadSetEjecucionplanificacioncalidadToAttach);
             }
             estadoejecplancalidad.setEjecucionplanificacioncalidadSet(attachedEjecucionplanificacioncalidadSet);
+            Set<Ejecucionplanificacioncalidad> attachedEjecucionplanificacioncalidadSet1 = new HashSet<Ejecucionplanificacioncalidad>();
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1EjecucionplanificacioncalidadToAttach : estadoejecplancalidad.getEjecucionplanificacioncalidadSet1()) {
+                ejecucionplanificacioncalidadSet1EjecucionplanificacioncalidadToAttach = em.getReference(ejecucionplanificacioncalidadSet1EjecucionplanificacioncalidadToAttach.getClass(), ejecucionplanificacioncalidadSet1EjecucionplanificacioncalidadToAttach.getEjecucionplanificacioncalidadPK());
+                attachedEjecucionplanificacioncalidadSet1.add(ejecucionplanificacioncalidadSet1EjecucionplanificacioncalidadToAttach);
+            }
+            estadoejecplancalidad.setEjecucionplanificacioncalidadSet1(attachedEjecucionplanificacioncalidadSet1);
             em.persist(estadoejecplancalidad);
             for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad : estadoejecplancalidad.getEjecucionplanificacioncalidadSet()) {
                 Estadoejecplancalidad oldEstadoOfEjecucionplanificacioncalidadSetEjecucionplanificacioncalidad = ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad.getEstado();
@@ -57,6 +66,15 @@ public class EstadoejecplancalidadJpaController {
                 if (oldEstadoOfEjecucionplanificacioncalidadSetEjecucionplanificacioncalidad != null) {
                     oldEstadoOfEjecucionplanificacioncalidadSetEjecucionplanificacioncalidad.getEjecucionplanificacioncalidadSet().remove(ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad);
                     oldEstadoOfEjecucionplanificacioncalidadSetEjecucionplanificacioncalidad = em.merge(oldEstadoOfEjecucionplanificacioncalidadSetEjecucionplanificacioncalidad);
+                }
+            }
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad : estadoejecplancalidad.getEjecucionplanificacioncalidadSet1()) {
+                Estadoejecplancalidad oldEstado1OfEjecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad = ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad.getEstado1();
+                ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad.setEstado1(estadoejecplancalidad);
+                ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad);
+                if (oldEstado1OfEjecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad != null) {
+                    oldEstado1OfEjecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadSet1().remove(ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad);
+                    oldEstado1OfEjecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad = em.merge(oldEstado1OfEjecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class EstadoejecplancalidadJpaController {
             Estadoejecplancalidad persistentEstadoejecplancalidad = em.find(Estadoejecplancalidad.class, estadoejecplancalidad.getIdestado());
             Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSetOld = persistentEstadoejecplancalidad.getEjecucionplanificacioncalidadSet();
             Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSetNew = estadoejecplancalidad.getEjecucionplanificacioncalidadSet();
+            Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet1Old = persistentEstadoejecplancalidad.getEjecucionplanificacioncalidadSet1();
+            Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet1New = estadoejecplancalidad.getEjecucionplanificacioncalidadSet1();
             Set<Ejecucionplanificacioncalidad> attachedEjecucionplanificacioncalidadSetNew = new HashSet<Ejecucionplanificacioncalidad>();
             for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSetNewEjecucionplanificacioncalidadToAttach : ejecucionplanificacioncalidadSetNew) {
                 ejecucionplanificacioncalidadSetNewEjecucionplanificacioncalidadToAttach = em.getReference(ejecucionplanificacioncalidadSetNewEjecucionplanificacioncalidadToAttach.getClass(), ejecucionplanificacioncalidadSetNewEjecucionplanificacioncalidadToAttach.getEjecucionplanificacioncalidadPK());
@@ -87,6 +107,13 @@ public class EstadoejecplancalidadJpaController {
             }
             ejecucionplanificacioncalidadSetNew = attachedEjecucionplanificacioncalidadSetNew;
             estadoejecplancalidad.setEjecucionplanificacioncalidadSet(ejecucionplanificacioncalidadSetNew);
+            Set<Ejecucionplanificacioncalidad> attachedEjecucionplanificacioncalidadSet1New = new HashSet<Ejecucionplanificacioncalidad>();
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidadToAttach : ejecucionplanificacioncalidadSet1New) {
+                ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidadToAttach = em.getReference(ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidadToAttach.getClass(), ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidadToAttach.getEjecucionplanificacioncalidadPK());
+                attachedEjecucionplanificacioncalidadSet1New.add(ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidadToAttach);
+            }
+            ejecucionplanificacioncalidadSet1New = attachedEjecucionplanificacioncalidadSet1New;
+            estadoejecplancalidad.setEjecucionplanificacioncalidadSet1(ejecucionplanificacioncalidadSet1New);
             estadoejecplancalidad = em.merge(estadoejecplancalidad);
             for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSetOldEjecucionplanificacioncalidad : ejecucionplanificacioncalidadSetOld) {
                 if (!ejecucionplanificacioncalidadSetNew.contains(ejecucionplanificacioncalidadSetOldEjecucionplanificacioncalidad)) {
@@ -102,6 +129,23 @@ public class EstadoejecplancalidadJpaController {
                     if (oldEstadoOfEjecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad != null && !oldEstadoOfEjecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad.equals(estadoejecplancalidad)) {
                         oldEstadoOfEjecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad.getEjecucionplanificacioncalidadSet().remove(ejecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad);
                         oldEstadoOfEjecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad = em.merge(oldEstadoOfEjecucionplanificacioncalidadSetNewEjecucionplanificacioncalidad);
+                    }
+                }
+            }
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1OldEjecucionplanificacioncalidad : ejecucionplanificacioncalidadSet1Old) {
+                if (!ejecucionplanificacioncalidadSet1New.contains(ejecucionplanificacioncalidadSet1OldEjecucionplanificacioncalidad)) {
+                    ejecucionplanificacioncalidadSet1OldEjecucionplanificacioncalidad.setEstado1(null);
+                    ejecucionplanificacioncalidadSet1OldEjecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidadSet1OldEjecucionplanificacioncalidad);
+                }
+            }
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad : ejecucionplanificacioncalidadSet1New) {
+                if (!ejecucionplanificacioncalidadSet1Old.contains(ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad)) {
+                    Estadoejecplancalidad oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad = ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad.getEstado1();
+                    ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad.setEstado1(estadoejecplancalidad);
+                    ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad);
+                    if (oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad != null && !oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad.equals(estadoejecplancalidad)) {
+                        oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad.getEjecucionplanificacioncalidadSet1().remove(ejecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad);
+                        oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad = em.merge(oldEstado1OfEjecucionplanificacioncalidadSet1NewEjecucionplanificacioncalidad);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class EstadoejecplancalidadJpaController {
             for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad : ejecucionplanificacioncalidadSet) {
                 ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad.setEstado(null);
                 ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidadSetEjecucionplanificacioncalidad);
+            }
+            Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet1 = estadoejecplancalidad.getEjecucionplanificacioncalidadSet1();
+            for (Ejecucionplanificacioncalidad ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad : ejecucionplanificacioncalidadSet1) {
+                ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad.setEstado1(null);
+                ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidadSet1Ejecucionplanificacioncalidad);
             }
             em.remove(estadoejecplancalidad);
             em.getTransaction().commit();

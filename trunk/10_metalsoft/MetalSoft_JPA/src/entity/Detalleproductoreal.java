@@ -45,6 +45,9 @@ public class Detalleproductoreal implements Serializable {
     @JoinColumn(name = "idproductoreal", referencedColumnName = "idproductoreal", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Productoreal productoreal;
+    @JoinColumn(name = "idproductoreal", referencedColumnName = "idproductoreal", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Productoreal productoreal1;
 
     public Detalleproductoreal() {
     }
@@ -103,6 +106,14 @@ public class Detalleproductoreal implements Serializable {
 
     public void setProductoreal(Productoreal productoreal) {
         this.productoreal = productoreal;
+    }
+
+    public Productoreal getProductoreal1() {
+        return productoreal1;
+    }
+
+    public void setProductoreal1(Productoreal productoreal1) {
+        this.productoreal1 = productoreal1;
     }
 
     @Override

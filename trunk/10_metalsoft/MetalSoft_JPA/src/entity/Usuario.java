@@ -8,10 +8,10 @@ package entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -38,18 +38,30 @@ public class Usuario implements Serializable {
     private String usuario;
     @Column(name = "clave")
     private String clave;
-    @ManyToMany(mappedBy = "usuarioSet")
-    private Set<Rol> rolSet;
     @OneToMany(mappedBy = "usuario")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "usuario1")
+    private Set<Cliente> clienteSet1;
     @OneToMany(mappedBy = "usuario")
     private Set<Factura> facturaSet;
+    @OneToMany(mappedBy = "usuario1")
+    private Set<Factura> facturaSet1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Set<Usuarioxrol> usuarioxrolSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario1")
+    private Set<Usuarioxrol> usuarioxrolSet1;
     @OneToMany(mappedBy = "usuario")
     private Set<Sesion> sesionSet;
+    @OneToMany(mappedBy = "usuario1")
+    private Set<Sesion> sesionSet1;
     @OneToMany(mappedBy = "usuario")
     private Set<Empleado> empleadoSet;
+    @OneToMany(mappedBy = "usuario1")
+    private Set<Empleado> empleadoSet1;
     @OneToMany(mappedBy = "usuario")
     private Set<Comprobantepago> comprobantepagoSet;
+    @OneToMany(mappedBy = "usuario1")
+    private Set<Comprobantepago> comprobantepagoSet1;
 
     public Usuario() {
     }
@@ -82,20 +94,20 @@ public class Usuario implements Serializable {
         this.clave = clave;
     }
 
-    public Set<Rol> getRolSet() {
-        return rolSet;
-    }
-
-    public void setRolSet(Set<Rol> rolSet) {
-        this.rolSet = rolSet;
-    }
-
     public Set<Cliente> getClienteSet() {
         return clienteSet;
     }
 
     public void setClienteSet(Set<Cliente> clienteSet) {
         this.clienteSet = clienteSet;
+    }
+
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
     }
 
     public Set<Factura> getFacturaSet() {
@@ -106,12 +118,44 @@ public class Usuario implements Serializable {
         this.facturaSet = facturaSet;
     }
 
+    public Set<Factura> getFacturaSet1() {
+        return facturaSet1;
+    }
+
+    public void setFacturaSet1(Set<Factura> facturaSet1) {
+        this.facturaSet1 = facturaSet1;
+    }
+
+    public Set<Usuarioxrol> getUsuarioxrolSet() {
+        return usuarioxrolSet;
+    }
+
+    public void setUsuarioxrolSet(Set<Usuarioxrol> usuarioxrolSet) {
+        this.usuarioxrolSet = usuarioxrolSet;
+    }
+
+    public Set<Usuarioxrol> getUsuarioxrolSet1() {
+        return usuarioxrolSet1;
+    }
+
+    public void setUsuarioxrolSet1(Set<Usuarioxrol> usuarioxrolSet1) {
+        this.usuarioxrolSet1 = usuarioxrolSet1;
+    }
+
     public Set<Sesion> getSesionSet() {
         return sesionSet;
     }
 
     public void setSesionSet(Set<Sesion> sesionSet) {
         this.sesionSet = sesionSet;
+    }
+
+    public Set<Sesion> getSesionSet1() {
+        return sesionSet1;
+    }
+
+    public void setSesionSet1(Set<Sesion> sesionSet1) {
+        this.sesionSet1 = sesionSet1;
     }
 
     public Set<Empleado> getEmpleadoSet() {
@@ -122,12 +166,28 @@ public class Usuario implements Serializable {
         this.empleadoSet = empleadoSet;
     }
 
+    public Set<Empleado> getEmpleadoSet1() {
+        return empleadoSet1;
+    }
+
+    public void setEmpleadoSet1(Set<Empleado> empleadoSet1) {
+        this.empleadoSet1 = empleadoSet1;
+    }
+
     public Set<Comprobantepago> getComprobantepagoSet() {
         return comprobantepagoSet;
     }
 
     public void setComprobantepagoSet(Set<Comprobantepago> comprobantepagoSet) {
         this.comprobantepagoSet = comprobantepagoSet;
+    }
+
+    public Set<Comprobantepago> getComprobantepagoSet1() {
+        return comprobantepagoSet1;
+    }
+
+    public void setComprobantepagoSet1(Set<Comprobantepago> comprobantepagoSet1) {
+        this.comprobantepagoSet1 = comprobantepagoSet1;
     }
 
     @Override

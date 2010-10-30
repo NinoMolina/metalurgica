@@ -71,26 +71,48 @@ public class Cliente implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "cliente")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "cliente1")
+    private Set<Pedido> pedidoSet1;
     @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicioniva;
+    @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicioniva1;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadocliente estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadocliente estado1;
     @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
     @ManyToOne
     private Prioridad prioridad;
+    @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
+    @ManyToOne
+    private Prioridad prioridad1;
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable1;
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario1;
     @OneToMany(mappedBy = "cliente")
     private Set<Reclamocliente> reclamoclienteSet;
+    @OneToMany(mappedBy = "cliente1")
+    private Set<Reclamocliente> reclamoclienteSet1;
 
     public Cliente() {
     }
@@ -195,12 +217,28 @@ public class Cliente implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Condicioniva getCondicioniva() {
         return condicioniva;
     }
 
     public void setCondicioniva(Condicioniva condicioniva) {
         this.condicioniva = condicioniva;
+    }
+
+    public Condicioniva getCondicioniva1() {
+        return condicioniva1;
+    }
+
+    public void setCondicioniva1(Condicioniva condicioniva1) {
+        this.condicioniva1 = condicioniva1;
     }
 
     public Domicilio getDomicilio() {
@@ -211,12 +249,28 @@ public class Cliente implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public Domicilio getDomicilio1() {
+        return domicilio1;
+    }
+
+    public void setDomicilio1(Domicilio domicilio1) {
+        this.domicilio1 = domicilio1;
+    }
+
     public Estadocliente getEstado() {
         return estado;
     }
 
     public void setEstado(Estadocliente estado) {
         this.estado = estado;
+    }
+
+    public Estadocliente getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadocliente estado1) {
+        this.estado1 = estado1;
     }
 
     public Prioridad getPrioridad() {
@@ -227,12 +281,28 @@ public class Cliente implements Serializable {
         this.prioridad = prioridad;
     }
 
+    public Prioridad getPrioridad1() {
+        return prioridad1;
+    }
+
+    public void setPrioridad1(Prioridad prioridad1) {
+        this.prioridad1 = prioridad1;
+    }
+
     public Responsable getResponsable() {
         return responsable;
     }
 
     public void setResponsable(Responsable responsable) {
         this.responsable = responsable;
+    }
+
+    public Responsable getResponsable1() {
+        return responsable1;
+    }
+
+    public void setResponsable1(Responsable responsable1) {
+        this.responsable1 = responsable1;
     }
 
     public Usuario getUsuario() {
@@ -243,12 +313,28 @@ public class Cliente implements Serializable {
         this.usuario = usuario;
     }
 
+    public Usuario getUsuario1() {
+        return usuario1;
+    }
+
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
+    }
+
     public Set<Reclamocliente> getReclamoclienteSet() {
         return reclamoclienteSet;
     }
 
     public void setReclamoclienteSet(Set<Reclamocliente> reclamoclienteSet) {
         this.reclamoclienteSet = reclamoclienteSet;
+    }
+
+    public Set<Reclamocliente> getReclamoclienteSet1() {
+        return reclamoclienteSet1;
+    }
+
+    public void setReclamoclienteSet1(Set<Reclamocliente> reclamoclienteSet1) {
+        this.reclamoclienteSet1 = reclamoclienteSet1;
     }
 
     @Override

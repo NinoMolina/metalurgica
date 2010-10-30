@@ -43,9 +43,15 @@ public class Detalleplanprocesoscalidad implements Serializable {
     @JoinColumn(name = "idplanprocesoscalidad", referencedColumnName = "idplanprocesoscalidad", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Planprocesoscalidad planprocesoscalidad;
+    @JoinColumn(name = "idplanprocesoscalidad", referencedColumnName = "idplanprocesoscalidad", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Planprocesoscalidad planprocesoscalidad1;
     @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
     @ManyToOne
     private Procesocalidad idprocesocalidad;
+    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
+    @ManyToOne
+    private Procesocalidad idprocesocalidad1;
 
     public Detalleplanprocesoscalidad() {
     }
@@ -90,12 +96,28 @@ public class Detalleplanprocesoscalidad implements Serializable {
         this.planprocesoscalidad = planprocesoscalidad;
     }
 
+    public Planprocesoscalidad getPlanprocesoscalidad1() {
+        return planprocesoscalidad1;
+    }
+
+    public void setPlanprocesoscalidad1(Planprocesoscalidad planprocesoscalidad1) {
+        this.planprocesoscalidad1 = planprocesoscalidad1;
+    }
+
     public Procesocalidad getIdprocesocalidad() {
         return idprocesocalidad;
     }
 
     public void setIdprocesocalidad(Procesocalidad idprocesocalidad) {
         this.idprocesocalidad = idprocesocalidad;
+    }
+
+    public Procesocalidad getIdprocesocalidad1() {
+        return idprocesocalidad1;
+    }
+
+    public void setIdprocesocalidad1(Procesocalidad idprocesocalidad1) {
+        this.idprocesocalidad1 = idprocesocalidad1;
     }
 
     @Override

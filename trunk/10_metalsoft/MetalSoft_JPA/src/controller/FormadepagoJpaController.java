@@ -40,8 +40,14 @@ public class FormadepagoJpaController {
         if (formadepago.getFacturaSet() == null) {
             formadepago.setFacturaSet(new HashSet<Factura>());
         }
+        if (formadepago.getFacturaSet1() == null) {
+            formadepago.setFacturaSet1(new HashSet<Factura>());
+        }
         if (formadepago.getComprobantepagoSet() == null) {
             formadepago.setComprobantepagoSet(new HashSet<Comprobantepago>());
+        }
+        if (formadepago.getComprobantepagoSet1() == null) {
+            formadepago.setComprobantepagoSet1(new HashSet<Comprobantepago>());
         }
         EntityManager em = null;
         try {
@@ -53,12 +59,24 @@ public class FormadepagoJpaController {
                 attachedFacturaSet.add(facturaSetFacturaToAttach);
             }
             formadepago.setFacturaSet(attachedFacturaSet);
+            Set<Factura> attachedFacturaSet1 = new HashSet<Factura>();
+            for (Factura facturaSet1FacturaToAttach : formadepago.getFacturaSet1()) {
+                facturaSet1FacturaToAttach = em.getReference(facturaSet1FacturaToAttach.getClass(), facturaSet1FacturaToAttach.getIdfactura());
+                attachedFacturaSet1.add(facturaSet1FacturaToAttach);
+            }
+            formadepago.setFacturaSet1(attachedFacturaSet1);
             Set<Comprobantepago> attachedComprobantepagoSet = new HashSet<Comprobantepago>();
             for (Comprobantepago comprobantepagoSetComprobantepagoToAttach : formadepago.getComprobantepagoSet()) {
                 comprobantepagoSetComprobantepagoToAttach = em.getReference(comprobantepagoSetComprobantepagoToAttach.getClass(), comprobantepagoSetComprobantepagoToAttach.getIdcomprobantepago());
                 attachedComprobantepagoSet.add(comprobantepagoSetComprobantepagoToAttach);
             }
             formadepago.setComprobantepagoSet(attachedComprobantepagoSet);
+            Set<Comprobantepago> attachedComprobantepagoSet1 = new HashSet<Comprobantepago>();
+            for (Comprobantepago comprobantepagoSet1ComprobantepagoToAttach : formadepago.getComprobantepagoSet1()) {
+                comprobantepagoSet1ComprobantepagoToAttach = em.getReference(comprobantepagoSet1ComprobantepagoToAttach.getClass(), comprobantepagoSet1ComprobantepagoToAttach.getIdcomprobantepago());
+                attachedComprobantepagoSet1.add(comprobantepagoSet1ComprobantepagoToAttach);
+            }
+            formadepago.setComprobantepagoSet1(attachedComprobantepagoSet1);
             em.persist(formadepago);
             for (Factura facturaSetFactura : formadepago.getFacturaSet()) {
                 Formadepago oldFormapagoOfFacturaSetFactura = facturaSetFactura.getFormapago();
@@ -69,6 +87,15 @@ public class FormadepagoJpaController {
                     oldFormapagoOfFacturaSetFactura = em.merge(oldFormapagoOfFacturaSetFactura);
                 }
             }
+            for (Factura facturaSet1Factura : formadepago.getFacturaSet1()) {
+                Formadepago oldFormapago1OfFacturaSet1Factura = facturaSet1Factura.getFormapago1();
+                facturaSet1Factura.setFormapago1(formadepago);
+                facturaSet1Factura = em.merge(facturaSet1Factura);
+                if (oldFormapago1OfFacturaSet1Factura != null) {
+                    oldFormapago1OfFacturaSet1Factura.getFacturaSet1().remove(facturaSet1Factura);
+                    oldFormapago1OfFacturaSet1Factura = em.merge(oldFormapago1OfFacturaSet1Factura);
+                }
+            }
             for (Comprobantepago comprobantepagoSetComprobantepago : formadepago.getComprobantepagoSet()) {
                 Formadepago oldFormadepagoOfComprobantepagoSetComprobantepago = comprobantepagoSetComprobantepago.getFormadepago();
                 comprobantepagoSetComprobantepago.setFormadepago(formadepago);
@@ -76,6 +103,15 @@ public class FormadepagoJpaController {
                 if (oldFormadepagoOfComprobantepagoSetComprobantepago != null) {
                     oldFormadepagoOfComprobantepagoSetComprobantepago.getComprobantepagoSet().remove(comprobantepagoSetComprobantepago);
                     oldFormadepagoOfComprobantepagoSetComprobantepago = em.merge(oldFormadepagoOfComprobantepagoSetComprobantepago);
+                }
+            }
+            for (Comprobantepago comprobantepagoSet1Comprobantepago : formadepago.getComprobantepagoSet1()) {
+                Formadepago oldFormadepago1OfComprobantepagoSet1Comprobantepago = comprobantepagoSet1Comprobantepago.getFormadepago1();
+                comprobantepagoSet1Comprobantepago.setFormadepago1(formadepago);
+                comprobantepagoSet1Comprobantepago = em.merge(comprobantepagoSet1Comprobantepago);
+                if (oldFormadepago1OfComprobantepagoSet1Comprobantepago != null) {
+                    oldFormadepago1OfComprobantepagoSet1Comprobantepago.getComprobantepagoSet1().remove(comprobantepagoSet1Comprobantepago);
+                    oldFormadepago1OfComprobantepagoSet1Comprobantepago = em.merge(oldFormadepago1OfComprobantepagoSet1Comprobantepago);
                 }
             }
             em.getTransaction().commit();
@@ -99,8 +135,12 @@ public class FormadepagoJpaController {
             Formadepago persistentFormadepago = em.find(Formadepago.class, formadepago.getIdformapago());
             Set<Factura> facturaSetOld = persistentFormadepago.getFacturaSet();
             Set<Factura> facturaSetNew = formadepago.getFacturaSet();
+            Set<Factura> facturaSet1Old = persistentFormadepago.getFacturaSet1();
+            Set<Factura> facturaSet1New = formadepago.getFacturaSet1();
             Set<Comprobantepago> comprobantepagoSetOld = persistentFormadepago.getComprobantepagoSet();
             Set<Comprobantepago> comprobantepagoSetNew = formadepago.getComprobantepagoSet();
+            Set<Comprobantepago> comprobantepagoSet1Old = persistentFormadepago.getComprobantepagoSet1();
+            Set<Comprobantepago> comprobantepagoSet1New = formadepago.getComprobantepagoSet1();
             Set<Factura> attachedFacturaSetNew = new HashSet<Factura>();
             for (Factura facturaSetNewFacturaToAttach : facturaSetNew) {
                 facturaSetNewFacturaToAttach = em.getReference(facturaSetNewFacturaToAttach.getClass(), facturaSetNewFacturaToAttach.getIdfactura());
@@ -108,6 +148,13 @@ public class FormadepagoJpaController {
             }
             facturaSetNew = attachedFacturaSetNew;
             formadepago.setFacturaSet(facturaSetNew);
+            Set<Factura> attachedFacturaSet1New = new HashSet<Factura>();
+            for (Factura facturaSet1NewFacturaToAttach : facturaSet1New) {
+                facturaSet1NewFacturaToAttach = em.getReference(facturaSet1NewFacturaToAttach.getClass(), facturaSet1NewFacturaToAttach.getIdfactura());
+                attachedFacturaSet1New.add(facturaSet1NewFacturaToAttach);
+            }
+            facturaSet1New = attachedFacturaSet1New;
+            formadepago.setFacturaSet1(facturaSet1New);
             Set<Comprobantepago> attachedComprobantepagoSetNew = new HashSet<Comprobantepago>();
             for (Comprobantepago comprobantepagoSetNewComprobantepagoToAttach : comprobantepagoSetNew) {
                 comprobantepagoSetNewComprobantepagoToAttach = em.getReference(comprobantepagoSetNewComprobantepagoToAttach.getClass(), comprobantepagoSetNewComprobantepagoToAttach.getIdcomprobantepago());
@@ -115,6 +162,13 @@ public class FormadepagoJpaController {
             }
             comprobantepagoSetNew = attachedComprobantepagoSetNew;
             formadepago.setComprobantepagoSet(comprobantepagoSetNew);
+            Set<Comprobantepago> attachedComprobantepagoSet1New = new HashSet<Comprobantepago>();
+            for (Comprobantepago comprobantepagoSet1NewComprobantepagoToAttach : comprobantepagoSet1New) {
+                comprobantepagoSet1NewComprobantepagoToAttach = em.getReference(comprobantepagoSet1NewComprobantepagoToAttach.getClass(), comprobantepagoSet1NewComprobantepagoToAttach.getIdcomprobantepago());
+                attachedComprobantepagoSet1New.add(comprobantepagoSet1NewComprobantepagoToAttach);
+            }
+            comprobantepagoSet1New = attachedComprobantepagoSet1New;
+            formadepago.setComprobantepagoSet1(comprobantepagoSet1New);
             formadepago = em.merge(formadepago);
             for (Factura facturaSetOldFactura : facturaSetOld) {
                 if (!facturaSetNew.contains(facturaSetOldFactura)) {
@@ -133,6 +187,23 @@ public class FormadepagoJpaController {
                     }
                 }
             }
+            for (Factura facturaSet1OldFactura : facturaSet1Old) {
+                if (!facturaSet1New.contains(facturaSet1OldFactura)) {
+                    facturaSet1OldFactura.setFormapago1(null);
+                    facturaSet1OldFactura = em.merge(facturaSet1OldFactura);
+                }
+            }
+            for (Factura facturaSet1NewFactura : facturaSet1New) {
+                if (!facturaSet1Old.contains(facturaSet1NewFactura)) {
+                    Formadepago oldFormapago1OfFacturaSet1NewFactura = facturaSet1NewFactura.getFormapago1();
+                    facturaSet1NewFactura.setFormapago1(formadepago);
+                    facturaSet1NewFactura = em.merge(facturaSet1NewFactura);
+                    if (oldFormapago1OfFacturaSet1NewFactura != null && !oldFormapago1OfFacturaSet1NewFactura.equals(formadepago)) {
+                        oldFormapago1OfFacturaSet1NewFactura.getFacturaSet1().remove(facturaSet1NewFactura);
+                        oldFormapago1OfFacturaSet1NewFactura = em.merge(oldFormapago1OfFacturaSet1NewFactura);
+                    }
+                }
+            }
             for (Comprobantepago comprobantepagoSetOldComprobantepago : comprobantepagoSetOld) {
                 if (!comprobantepagoSetNew.contains(comprobantepagoSetOldComprobantepago)) {
                     comprobantepagoSetOldComprobantepago.setFormadepago(null);
@@ -147,6 +218,23 @@ public class FormadepagoJpaController {
                     if (oldFormadepagoOfComprobantepagoSetNewComprobantepago != null && !oldFormadepagoOfComprobantepagoSetNewComprobantepago.equals(formadepago)) {
                         oldFormadepagoOfComprobantepagoSetNewComprobantepago.getComprobantepagoSet().remove(comprobantepagoSetNewComprobantepago);
                         oldFormadepagoOfComprobantepagoSetNewComprobantepago = em.merge(oldFormadepagoOfComprobantepagoSetNewComprobantepago);
+                    }
+                }
+            }
+            for (Comprobantepago comprobantepagoSet1OldComprobantepago : comprobantepagoSet1Old) {
+                if (!comprobantepagoSet1New.contains(comprobantepagoSet1OldComprobantepago)) {
+                    comprobantepagoSet1OldComprobantepago.setFormadepago1(null);
+                    comprobantepagoSet1OldComprobantepago = em.merge(comprobantepagoSet1OldComprobantepago);
+                }
+            }
+            for (Comprobantepago comprobantepagoSet1NewComprobantepago : comprobantepagoSet1New) {
+                if (!comprobantepagoSet1Old.contains(comprobantepagoSet1NewComprobantepago)) {
+                    Formadepago oldFormadepago1OfComprobantepagoSet1NewComprobantepago = comprobantepagoSet1NewComprobantepago.getFormadepago1();
+                    comprobantepagoSet1NewComprobantepago.setFormadepago1(formadepago);
+                    comprobantepagoSet1NewComprobantepago = em.merge(comprobantepagoSet1NewComprobantepago);
+                    if (oldFormadepago1OfComprobantepagoSet1NewComprobantepago != null && !oldFormadepago1OfComprobantepagoSet1NewComprobantepago.equals(formadepago)) {
+                        oldFormadepago1OfComprobantepagoSet1NewComprobantepago.getComprobantepagoSet1().remove(comprobantepagoSet1NewComprobantepago);
+                        oldFormadepago1OfComprobantepagoSet1NewComprobantepago = em.merge(oldFormadepago1OfComprobantepagoSet1NewComprobantepago);
                     }
                 }
             }
@@ -184,10 +272,20 @@ public class FormadepagoJpaController {
                 facturaSetFactura.setFormapago(null);
                 facturaSetFactura = em.merge(facturaSetFactura);
             }
+            Set<Factura> facturaSet1 = formadepago.getFacturaSet1();
+            for (Factura facturaSet1Factura : facturaSet1) {
+                facturaSet1Factura.setFormapago1(null);
+                facturaSet1Factura = em.merge(facturaSet1Factura);
+            }
             Set<Comprobantepago> comprobantepagoSet = formadepago.getComprobantepagoSet();
             for (Comprobantepago comprobantepagoSetComprobantepago : comprobantepagoSet) {
                 comprobantepagoSetComprobantepago.setFormadepago(null);
                 comprobantepagoSetComprobantepago = em.merge(comprobantepagoSetComprobantepago);
+            }
+            Set<Comprobantepago> comprobantepagoSet1 = formadepago.getComprobantepagoSet1();
+            for (Comprobantepago comprobantepagoSet1Comprobantepago : comprobantepagoSet1) {
+                comprobantepagoSet1Comprobantepago.setFormadepago1(null);
+                comprobantepagoSet1Comprobantepago = em.merge(comprobantepagoSet1Comprobantepago);
             }
             em.remove(formadepago);
             em.getTransaction().commit();

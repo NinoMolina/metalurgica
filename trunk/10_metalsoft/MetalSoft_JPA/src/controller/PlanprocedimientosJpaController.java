@@ -42,8 +42,14 @@ public class PlanprocedimientosJpaController {
         if (planprocedimientos.getPedidoSet() == null) {
             planprocedimientos.setPedidoSet(new HashSet<Pedido>());
         }
+        if (planprocedimientos.getPedidoSet1() == null) {
+            planprocedimientos.setPedidoSet1(new HashSet<Pedido>());
+        }
         if (planprocedimientos.getDetalleplanprocedimientosSet() == null) {
             planprocedimientos.setDetalleplanprocedimientosSet(new HashSet<Detalleplanprocedimientos>());
+        }
+        if (planprocedimientos.getDetalleplanprocedimientosSet1() == null) {
+            planprocedimientos.setDetalleplanprocedimientosSet1(new HashSet<Detalleplanprocedimientos>());
         }
         EntityManager em = null;
         try {
@@ -55,12 +61,24 @@ public class PlanprocedimientosJpaController {
                 attachedPedidoSet.add(pedidoSetPedidoToAttach);
             }
             planprocedimientos.setPedidoSet(attachedPedidoSet);
+            Set<Pedido> attachedPedidoSet1 = new HashSet<Pedido>();
+            for (Pedido pedidoSet1PedidoToAttach : planprocedimientos.getPedidoSet1()) {
+                pedidoSet1PedidoToAttach = em.getReference(pedidoSet1PedidoToAttach.getClass(), pedidoSet1PedidoToAttach.getIdpedido());
+                attachedPedidoSet1.add(pedidoSet1PedidoToAttach);
+            }
+            planprocedimientos.setPedidoSet1(attachedPedidoSet1);
             Set<Detalleplanprocedimientos> attachedDetalleplanprocedimientosSet = new HashSet<Detalleplanprocedimientos>();
             for (Detalleplanprocedimientos detalleplanprocedimientosSetDetalleplanprocedimientosToAttach : planprocedimientos.getDetalleplanprocedimientosSet()) {
                 detalleplanprocedimientosSetDetalleplanprocedimientosToAttach = em.getReference(detalleplanprocedimientosSetDetalleplanprocedimientosToAttach.getClass(), detalleplanprocedimientosSetDetalleplanprocedimientosToAttach.getDetalleplanprocedimientosPK());
                 attachedDetalleplanprocedimientosSet.add(detalleplanprocedimientosSetDetalleplanprocedimientosToAttach);
             }
             planprocedimientos.setDetalleplanprocedimientosSet(attachedDetalleplanprocedimientosSet);
+            Set<Detalleplanprocedimientos> attachedDetalleplanprocedimientosSet1 = new HashSet<Detalleplanprocedimientos>();
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1DetalleplanprocedimientosToAttach : planprocedimientos.getDetalleplanprocedimientosSet1()) {
+                detalleplanprocedimientosSet1DetalleplanprocedimientosToAttach = em.getReference(detalleplanprocedimientosSet1DetalleplanprocedimientosToAttach.getClass(), detalleplanprocedimientosSet1DetalleplanprocedimientosToAttach.getDetalleplanprocedimientosPK());
+                attachedDetalleplanprocedimientosSet1.add(detalleplanprocedimientosSet1DetalleplanprocedimientosToAttach);
+            }
+            planprocedimientos.setDetalleplanprocedimientosSet1(attachedDetalleplanprocedimientosSet1);
             em.persist(planprocedimientos);
             for (Pedido pedidoSetPedido : planprocedimientos.getPedidoSet()) {
                 Planprocedimientos oldPlanprocedimientosOfPedidoSetPedido = pedidoSetPedido.getPlanprocedimientos();
@@ -71,6 +89,15 @@ public class PlanprocedimientosJpaController {
                     oldPlanprocedimientosOfPedidoSetPedido = em.merge(oldPlanprocedimientosOfPedidoSetPedido);
                 }
             }
+            for (Pedido pedidoSet1Pedido : planprocedimientos.getPedidoSet1()) {
+                Planprocedimientos oldPlanprocedimientos1OfPedidoSet1Pedido = pedidoSet1Pedido.getPlanprocedimientos1();
+                pedidoSet1Pedido.setPlanprocedimientos1(planprocedimientos);
+                pedidoSet1Pedido = em.merge(pedidoSet1Pedido);
+                if (oldPlanprocedimientos1OfPedidoSet1Pedido != null) {
+                    oldPlanprocedimientos1OfPedidoSet1Pedido.getPedidoSet1().remove(pedidoSet1Pedido);
+                    oldPlanprocedimientos1OfPedidoSet1Pedido = em.merge(oldPlanprocedimientos1OfPedidoSet1Pedido);
+                }
+            }
             for (Detalleplanprocedimientos detalleplanprocedimientosSetDetalleplanprocedimientos : planprocedimientos.getDetalleplanprocedimientosSet()) {
                 Planprocedimientos oldPlanprocedimientosOfDetalleplanprocedimientosSetDetalleplanprocedimientos = detalleplanprocedimientosSetDetalleplanprocedimientos.getPlanprocedimientos();
                 detalleplanprocedimientosSetDetalleplanprocedimientos.setPlanprocedimientos(planprocedimientos);
@@ -78,6 +105,15 @@ public class PlanprocedimientosJpaController {
                 if (oldPlanprocedimientosOfDetalleplanprocedimientosSetDetalleplanprocedimientos != null) {
                     oldPlanprocedimientosOfDetalleplanprocedimientosSetDetalleplanprocedimientos.getDetalleplanprocedimientosSet().remove(detalleplanprocedimientosSetDetalleplanprocedimientos);
                     oldPlanprocedimientosOfDetalleplanprocedimientosSetDetalleplanprocedimientos = em.merge(oldPlanprocedimientosOfDetalleplanprocedimientosSetDetalleplanprocedimientos);
+                }
+            }
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1Detalleplanprocedimientos : planprocedimientos.getDetalleplanprocedimientosSet1()) {
+                Planprocedimientos oldPlanprocedimientos1OfDetalleplanprocedimientosSet1Detalleplanprocedimientos = detalleplanprocedimientosSet1Detalleplanprocedimientos.getPlanprocedimientos1();
+                detalleplanprocedimientosSet1Detalleplanprocedimientos.setPlanprocedimientos1(planprocedimientos);
+                detalleplanprocedimientosSet1Detalleplanprocedimientos = em.merge(detalleplanprocedimientosSet1Detalleplanprocedimientos);
+                if (oldPlanprocedimientos1OfDetalleplanprocedimientosSet1Detalleplanprocedimientos != null) {
+                    oldPlanprocedimientos1OfDetalleplanprocedimientosSet1Detalleplanprocedimientos.getDetalleplanprocedimientosSet1().remove(detalleplanprocedimientosSet1Detalleplanprocedimientos);
+                    oldPlanprocedimientos1OfDetalleplanprocedimientosSet1Detalleplanprocedimientos = em.merge(oldPlanprocedimientos1OfDetalleplanprocedimientosSet1Detalleplanprocedimientos);
                 }
             }
             em.getTransaction().commit();
@@ -101,8 +137,12 @@ public class PlanprocedimientosJpaController {
             Planprocedimientos persistentPlanprocedimientos = em.find(Planprocedimientos.class, planprocedimientos.getIdplanprocedimientos());
             Set<Pedido> pedidoSetOld = persistentPlanprocedimientos.getPedidoSet();
             Set<Pedido> pedidoSetNew = planprocedimientos.getPedidoSet();
+            Set<Pedido> pedidoSet1Old = persistentPlanprocedimientos.getPedidoSet1();
+            Set<Pedido> pedidoSet1New = planprocedimientos.getPedidoSet1();
             Set<Detalleplanprocedimientos> detalleplanprocedimientosSetOld = persistentPlanprocedimientos.getDetalleplanprocedimientosSet();
             Set<Detalleplanprocedimientos> detalleplanprocedimientosSetNew = planprocedimientos.getDetalleplanprocedimientosSet();
+            Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1Old = persistentPlanprocedimientos.getDetalleplanprocedimientosSet1();
+            Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1New = planprocedimientos.getDetalleplanprocedimientosSet1();
             List<String> illegalOrphanMessages = null;
             for (Detalleplanprocedimientos detalleplanprocedimientosSetOldDetalleplanprocedimientos : detalleplanprocedimientosSetOld) {
                 if (!detalleplanprocedimientosSetNew.contains(detalleplanprocedimientosSetOldDetalleplanprocedimientos)) {
@@ -110,6 +150,14 @@ public class PlanprocedimientosJpaController {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain Detalleplanprocedimientos " + detalleplanprocedimientosSetOldDetalleplanprocedimientos + " since its planprocedimientos field is not nullable.");
+                }
+            }
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1OldDetalleplanprocedimientos : detalleplanprocedimientosSet1Old) {
+                if (!detalleplanprocedimientosSet1New.contains(detalleplanprocedimientosSet1OldDetalleplanprocedimientos)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Detalleplanprocedimientos " + detalleplanprocedimientosSet1OldDetalleplanprocedimientos + " since its planprocedimientos1 field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -122,6 +170,13 @@ public class PlanprocedimientosJpaController {
             }
             pedidoSetNew = attachedPedidoSetNew;
             planprocedimientos.setPedidoSet(pedidoSetNew);
+            Set<Pedido> attachedPedidoSet1New = new HashSet<Pedido>();
+            for (Pedido pedidoSet1NewPedidoToAttach : pedidoSet1New) {
+                pedidoSet1NewPedidoToAttach = em.getReference(pedidoSet1NewPedidoToAttach.getClass(), pedidoSet1NewPedidoToAttach.getIdpedido());
+                attachedPedidoSet1New.add(pedidoSet1NewPedidoToAttach);
+            }
+            pedidoSet1New = attachedPedidoSet1New;
+            planprocedimientos.setPedidoSet1(pedidoSet1New);
             Set<Detalleplanprocedimientos> attachedDetalleplanprocedimientosSetNew = new HashSet<Detalleplanprocedimientos>();
             for (Detalleplanprocedimientos detalleplanprocedimientosSetNewDetalleplanprocedimientosToAttach : detalleplanprocedimientosSetNew) {
                 detalleplanprocedimientosSetNewDetalleplanprocedimientosToAttach = em.getReference(detalleplanprocedimientosSetNewDetalleplanprocedimientosToAttach.getClass(), detalleplanprocedimientosSetNewDetalleplanprocedimientosToAttach.getDetalleplanprocedimientosPK());
@@ -129,6 +184,13 @@ public class PlanprocedimientosJpaController {
             }
             detalleplanprocedimientosSetNew = attachedDetalleplanprocedimientosSetNew;
             planprocedimientos.setDetalleplanprocedimientosSet(detalleplanprocedimientosSetNew);
+            Set<Detalleplanprocedimientos> attachedDetalleplanprocedimientosSet1New = new HashSet<Detalleplanprocedimientos>();
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1NewDetalleplanprocedimientosToAttach : detalleplanprocedimientosSet1New) {
+                detalleplanprocedimientosSet1NewDetalleplanprocedimientosToAttach = em.getReference(detalleplanprocedimientosSet1NewDetalleplanprocedimientosToAttach.getClass(), detalleplanprocedimientosSet1NewDetalleplanprocedimientosToAttach.getDetalleplanprocedimientosPK());
+                attachedDetalleplanprocedimientosSet1New.add(detalleplanprocedimientosSet1NewDetalleplanprocedimientosToAttach);
+            }
+            detalleplanprocedimientosSet1New = attachedDetalleplanprocedimientosSet1New;
+            planprocedimientos.setDetalleplanprocedimientosSet1(detalleplanprocedimientosSet1New);
             planprocedimientos = em.merge(planprocedimientos);
             for (Pedido pedidoSetOldPedido : pedidoSetOld) {
                 if (!pedidoSetNew.contains(pedidoSetOldPedido)) {
@@ -147,6 +209,23 @@ public class PlanprocedimientosJpaController {
                     }
                 }
             }
+            for (Pedido pedidoSet1OldPedido : pedidoSet1Old) {
+                if (!pedidoSet1New.contains(pedidoSet1OldPedido)) {
+                    pedidoSet1OldPedido.setPlanprocedimientos1(null);
+                    pedidoSet1OldPedido = em.merge(pedidoSet1OldPedido);
+                }
+            }
+            for (Pedido pedidoSet1NewPedido : pedidoSet1New) {
+                if (!pedidoSet1Old.contains(pedidoSet1NewPedido)) {
+                    Planprocedimientos oldPlanprocedimientos1OfPedidoSet1NewPedido = pedidoSet1NewPedido.getPlanprocedimientos1();
+                    pedidoSet1NewPedido.setPlanprocedimientos1(planprocedimientos);
+                    pedidoSet1NewPedido = em.merge(pedidoSet1NewPedido);
+                    if (oldPlanprocedimientos1OfPedidoSet1NewPedido != null && !oldPlanprocedimientos1OfPedidoSet1NewPedido.equals(planprocedimientos)) {
+                        oldPlanprocedimientos1OfPedidoSet1NewPedido.getPedidoSet1().remove(pedidoSet1NewPedido);
+                        oldPlanprocedimientos1OfPedidoSet1NewPedido = em.merge(oldPlanprocedimientos1OfPedidoSet1NewPedido);
+                    }
+                }
+            }
             for (Detalleplanprocedimientos detalleplanprocedimientosSetNewDetalleplanprocedimientos : detalleplanprocedimientosSetNew) {
                 if (!detalleplanprocedimientosSetOld.contains(detalleplanprocedimientosSetNewDetalleplanprocedimientos)) {
                     Planprocedimientos oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos = detalleplanprocedimientosSetNewDetalleplanprocedimientos.getPlanprocedimientos();
@@ -155,6 +234,17 @@ public class PlanprocedimientosJpaController {
                     if (oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos != null && !oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos.equals(planprocedimientos)) {
                         oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos.getDetalleplanprocedimientosSet().remove(detalleplanprocedimientosSetNewDetalleplanprocedimientos);
                         oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos = em.merge(oldPlanprocedimientosOfDetalleplanprocedimientosSetNewDetalleplanprocedimientos);
+                    }
+                }
+            }
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1NewDetalleplanprocedimientos : detalleplanprocedimientosSet1New) {
+                if (!detalleplanprocedimientosSet1Old.contains(detalleplanprocedimientosSet1NewDetalleplanprocedimientos)) {
+                    Planprocedimientos oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos = detalleplanprocedimientosSet1NewDetalleplanprocedimientos.getPlanprocedimientos1();
+                    detalleplanprocedimientosSet1NewDetalleplanprocedimientos.setPlanprocedimientos1(planprocedimientos);
+                    detalleplanprocedimientosSet1NewDetalleplanprocedimientos = em.merge(detalleplanprocedimientosSet1NewDetalleplanprocedimientos);
+                    if (oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos != null && !oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos.equals(planprocedimientos)) {
+                        oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos.getDetalleplanprocedimientosSet1().remove(detalleplanprocedimientosSet1NewDetalleplanprocedimientos);
+                        oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos = em.merge(oldPlanprocedimientos1OfDetalleplanprocedimientosSet1NewDetalleplanprocedimientos);
                     }
                 }
             }
@@ -195,6 +285,13 @@ public class PlanprocedimientosJpaController {
                 }
                 illegalOrphanMessages.add("This Planprocedimientos (" + planprocedimientos + ") cannot be destroyed since the Detalleplanprocedimientos " + detalleplanprocedimientosSetOrphanCheckDetalleplanprocedimientos + " in its detalleplanprocedimientosSet field has a non-nullable planprocedimientos field.");
             }
+            Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1OrphanCheck = planprocedimientos.getDetalleplanprocedimientosSet1();
+            for (Detalleplanprocedimientos detalleplanprocedimientosSet1OrphanCheckDetalleplanprocedimientos : detalleplanprocedimientosSet1OrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Planprocedimientos (" + planprocedimientos + ") cannot be destroyed since the Detalleplanprocedimientos " + detalleplanprocedimientosSet1OrphanCheckDetalleplanprocedimientos + " in its detalleplanprocedimientosSet1 field has a non-nullable planprocedimientos1 field.");
+            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
@@ -202,6 +299,11 @@ public class PlanprocedimientosJpaController {
             for (Pedido pedidoSetPedido : pedidoSet) {
                 pedidoSetPedido.setPlanprocedimientos(null);
                 pedidoSetPedido = em.merge(pedidoSetPedido);
+            }
+            Set<Pedido> pedidoSet1 = planprocedimientos.getPedidoSet1();
+            for (Pedido pedidoSet1Pedido : pedidoSet1) {
+                pedidoSet1Pedido.setPlanprocedimientos1(null);
+                pedidoSet1Pedido = em.merge(pedidoSet1Pedido);
             }
             em.remove(planprocedimientos);
             em.getTransaction().commit();
