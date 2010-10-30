@@ -68,17 +68,30 @@ public class Proveedormantenimientomaquina implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "proveedormantenimiento")
     private Set<Mantenimientocorrectivo> mantenimientocorrectivoSet;
+    @OneToMany(mappedBy = "proveedormantenimiento1")
+    private Set<Mantenimientocorrectivo> mantenimientocorrectivoSet1;
     @OneToMany(mappedBy = "proveedormantenimiento")
     private Set<Mantenimientopreventivo> mantenimientopreventivoSet;
+    @OneToMany(mappedBy = "proveedormantenimiento1")
+    private Set<Mantenimientopreventivo> mantenimientopreventivoSet1;
     @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicioniva;
+    @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicioniva1;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio1;
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable1;
 
     public Proveedormantenimientomaquina() {
     }
@@ -175,12 +188,28 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.mantenimientocorrectivoSet = mantenimientocorrectivoSet;
     }
 
+    public Set<Mantenimientocorrectivo> getMantenimientocorrectivoSet1() {
+        return mantenimientocorrectivoSet1;
+    }
+
+    public void setMantenimientocorrectivoSet1(Set<Mantenimientocorrectivo> mantenimientocorrectivoSet1) {
+        this.mantenimientocorrectivoSet1 = mantenimientocorrectivoSet1;
+    }
+
     public Set<Mantenimientopreventivo> getMantenimientopreventivoSet() {
         return mantenimientopreventivoSet;
     }
 
     public void setMantenimientopreventivoSet(Set<Mantenimientopreventivo> mantenimientopreventivoSet) {
         this.mantenimientopreventivoSet = mantenimientopreventivoSet;
+    }
+
+    public Set<Mantenimientopreventivo> getMantenimientopreventivoSet1() {
+        return mantenimientopreventivoSet1;
+    }
+
+    public void setMantenimientopreventivoSet1(Set<Mantenimientopreventivo> mantenimientopreventivoSet1) {
+        this.mantenimientopreventivoSet1 = mantenimientopreventivoSet1;
     }
 
     public Condicioniva getCondicioniva() {
@@ -191,6 +220,14 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.condicioniva = condicioniva;
     }
 
+    public Condicioniva getCondicioniva1() {
+        return condicioniva1;
+    }
+
+    public void setCondicioniva1(Condicioniva condicioniva1) {
+        this.condicioniva1 = condicioniva1;
+    }
+
     public Domicilio getDomicilio() {
         return domicilio;
     }
@@ -199,12 +236,28 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public Domicilio getDomicilio1() {
+        return domicilio1;
+    }
+
+    public void setDomicilio1(Domicilio domicilio1) {
+        this.domicilio1 = domicilio1;
+    }
+
     public Responsable getResponsable() {
         return responsable;
     }
 
     public void setResponsable(Responsable responsable) {
         this.responsable = responsable;
+    }
+
+    public Responsable getResponsable1() {
+        return responsable1;
+    }
+
+    public void setResponsable1(Responsable responsable1) {
+        this.responsable1 = responsable1;
     }
 
     @Override

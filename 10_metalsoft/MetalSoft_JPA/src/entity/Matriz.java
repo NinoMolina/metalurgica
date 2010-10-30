@@ -58,11 +58,18 @@ public class Matriz implements Serializable {
     private BigInteger tipomaterial;
     @OneToMany(mappedBy = "matriz")
     private Set<Pieza> piezaSet;
+    @OneToMany(mappedBy = "matriz1")
+    private Set<Pieza> piezaSet1;
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
+    @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima materiaprima1;
     @OneToMany(mappedBy = "idmatriz")
     private Set<Pedidomatriz> pedidomatrizSet;
+    @OneToMany(mappedBy = "idmatriz1")
+    private Set<Pedidomatriz> pedidomatrizSet1;
 
     public Matriz() {
     }
@@ -135,6 +142,14 @@ public class Matriz implements Serializable {
         this.piezaSet = piezaSet;
     }
 
+    public Set<Pieza> getPiezaSet1() {
+        return piezaSet1;
+    }
+
+    public void setPiezaSet1(Set<Pieza> piezaSet1) {
+        this.piezaSet1 = piezaSet1;
+    }
+
     public Materiaprima getMateriaprima() {
         return materiaprima;
     }
@@ -143,12 +158,28 @@ public class Matriz implements Serializable {
         this.materiaprima = materiaprima;
     }
 
+    public Materiaprima getMateriaprima1() {
+        return materiaprima1;
+    }
+
+    public void setMateriaprima1(Materiaprima materiaprima1) {
+        this.materiaprima1 = materiaprima1;
+    }
+
     public Set<Pedidomatriz> getPedidomatrizSet() {
         return pedidomatrizSet;
     }
 
     public void setPedidomatrizSet(Set<Pedidomatriz> pedidomatrizSet) {
         this.pedidomatrizSet = pedidomatrizSet;
+    }
+
+    public Set<Pedidomatriz> getPedidomatrizSet1() {
+        return pedidomatrizSet1;
+    }
+
+    public void setPedidomatrizSet1(Set<Pedidomatriz> pedidomatrizSet1) {
+        this.pedidomatrizSet1 = pedidomatrizSet1;
     }
 
     @Override

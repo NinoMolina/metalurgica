@@ -39,6 +39,9 @@ public class PlanoJpaController {
         if (plano.getPedidoSet() == null) {
             plano.setPedidoSet(new HashSet<Pedido>());
         }
+        if (plano.getPedidoSet1() == null) {
+            plano.setPedidoSet1(new HashSet<Pedido>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,12 +51,23 @@ public class PlanoJpaController {
                 pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
                 plano.setPedido(pedido);
             }
+            Pedido pedido1 = plano.getPedido1();
+            if (pedido1 != null) {
+                pedido1 = em.getReference(pedido1.getClass(), pedido1.getIdpedido());
+                plano.setPedido1(pedido1);
+            }
             Set<Pedido> attachedPedidoSet = new HashSet<Pedido>();
             for (Pedido pedidoSetPedidoToAttach : plano.getPedidoSet()) {
                 pedidoSetPedidoToAttach = em.getReference(pedidoSetPedidoToAttach.getClass(), pedidoSetPedidoToAttach.getIdpedido());
                 attachedPedidoSet.add(pedidoSetPedidoToAttach);
             }
             plano.setPedidoSet(attachedPedidoSet);
+            Set<Pedido> attachedPedidoSet1 = new HashSet<Pedido>();
+            for (Pedido pedidoSet1PedidoToAttach : plano.getPedidoSet1()) {
+                pedidoSet1PedidoToAttach = em.getReference(pedidoSet1PedidoToAttach.getClass(), pedidoSet1PedidoToAttach.getIdpedido());
+                attachedPedidoSet1.add(pedidoSet1PedidoToAttach);
+            }
+            plano.setPedidoSet1(attachedPedidoSet1);
             em.persist(plano);
             if (pedido != null) {
                 Plano oldPlanoOfPedido = pedido.getPlano();
@@ -64,6 +78,15 @@ public class PlanoJpaController {
                 pedido.setPlano(plano);
                 pedido = em.merge(pedido);
             }
+            if (pedido1 != null) {
+                Plano oldPlanoOfPedido1 = pedido1.getPlano();
+                if (oldPlanoOfPedido1 != null) {
+                    oldPlanoOfPedido1.setPedido1(null);
+                    oldPlanoOfPedido1 = em.merge(oldPlanoOfPedido1);
+                }
+                pedido1.setPlano(plano);
+                pedido1 = em.merge(pedido1);
+            }
             for (Pedido pedidoSetPedido : plano.getPedidoSet()) {
                 Plano oldPlanoOfPedidoSetPedido = pedidoSetPedido.getPlano();
                 pedidoSetPedido.setPlano(plano);
@@ -71,6 +94,15 @@ public class PlanoJpaController {
                 if (oldPlanoOfPedidoSetPedido != null) {
                     oldPlanoOfPedidoSetPedido.getPedidoSet().remove(pedidoSetPedido);
                     oldPlanoOfPedidoSetPedido = em.merge(oldPlanoOfPedidoSetPedido);
+                }
+            }
+            for (Pedido pedidoSet1Pedido : plano.getPedidoSet1()) {
+                Plano oldPlano1OfPedidoSet1Pedido = pedidoSet1Pedido.getPlano1();
+                pedidoSet1Pedido.setPlano1(plano);
+                pedidoSet1Pedido = em.merge(pedidoSet1Pedido);
+                if (oldPlano1OfPedidoSet1Pedido != null) {
+                    oldPlano1OfPedidoSet1Pedido.getPedidoSet1().remove(pedidoSet1Pedido);
+                    oldPlano1OfPedidoSet1Pedido = em.merge(oldPlano1OfPedidoSet1Pedido);
                 }
             }
             em.getTransaction().commit();
@@ -94,11 +126,19 @@ public class PlanoJpaController {
             Plano persistentPlano = em.find(Plano.class, plano.getIdplano());
             Pedido pedidoOld = persistentPlano.getPedido();
             Pedido pedidoNew = plano.getPedido();
+            Pedido pedido1Old = persistentPlano.getPedido1();
+            Pedido pedido1New = plano.getPedido1();
             Set<Pedido> pedidoSetOld = persistentPlano.getPedidoSet();
             Set<Pedido> pedidoSetNew = plano.getPedidoSet();
+            Set<Pedido> pedidoSet1Old = persistentPlano.getPedidoSet1();
+            Set<Pedido> pedidoSet1New = plano.getPedidoSet1();
             if (pedidoNew != null) {
                 pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
                 plano.setPedido(pedidoNew);
+            }
+            if (pedido1New != null) {
+                pedido1New = em.getReference(pedido1New.getClass(), pedido1New.getIdpedido());
+                plano.setPedido1(pedido1New);
             }
             Set<Pedido> attachedPedidoSetNew = new HashSet<Pedido>();
             for (Pedido pedidoSetNewPedidoToAttach : pedidoSetNew) {
@@ -107,6 +147,13 @@ public class PlanoJpaController {
             }
             pedidoSetNew = attachedPedidoSetNew;
             plano.setPedidoSet(pedidoSetNew);
+            Set<Pedido> attachedPedidoSet1New = new HashSet<Pedido>();
+            for (Pedido pedidoSet1NewPedidoToAttach : pedidoSet1New) {
+                pedidoSet1NewPedidoToAttach = em.getReference(pedidoSet1NewPedidoToAttach.getClass(), pedidoSet1NewPedidoToAttach.getIdpedido());
+                attachedPedidoSet1New.add(pedidoSet1NewPedidoToAttach);
+            }
+            pedidoSet1New = attachedPedidoSet1New;
+            plano.setPedidoSet1(pedidoSet1New);
             plano = em.merge(plano);
             if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
                 pedidoOld.setPlano(null);
@@ -120,6 +167,19 @@ public class PlanoJpaController {
                 }
                 pedidoNew.setPlano(plano);
                 pedidoNew = em.merge(pedidoNew);
+            }
+            if (pedido1Old != null && !pedido1Old.equals(pedido1New)) {
+                pedido1Old.setPlano(null);
+                pedido1Old = em.merge(pedido1Old);
+            }
+            if (pedido1New != null && !pedido1New.equals(pedido1Old)) {
+                Plano oldPlanoOfPedido1 = pedido1New.getPlano();
+                if (oldPlanoOfPedido1 != null) {
+                    oldPlanoOfPedido1.setPedido1(null);
+                    oldPlanoOfPedido1 = em.merge(oldPlanoOfPedido1);
+                }
+                pedido1New.setPlano(plano);
+                pedido1New = em.merge(pedido1New);
             }
             for (Pedido pedidoSetOldPedido : pedidoSetOld) {
                 if (!pedidoSetNew.contains(pedidoSetOldPedido)) {
@@ -135,6 +195,23 @@ public class PlanoJpaController {
                     if (oldPlanoOfPedidoSetNewPedido != null && !oldPlanoOfPedidoSetNewPedido.equals(plano)) {
                         oldPlanoOfPedidoSetNewPedido.getPedidoSet().remove(pedidoSetNewPedido);
                         oldPlanoOfPedidoSetNewPedido = em.merge(oldPlanoOfPedidoSetNewPedido);
+                    }
+                }
+            }
+            for (Pedido pedidoSet1OldPedido : pedidoSet1Old) {
+                if (!pedidoSet1New.contains(pedidoSet1OldPedido)) {
+                    pedidoSet1OldPedido.setPlano1(null);
+                    pedidoSet1OldPedido = em.merge(pedidoSet1OldPedido);
+                }
+            }
+            for (Pedido pedidoSet1NewPedido : pedidoSet1New) {
+                if (!pedidoSet1Old.contains(pedidoSet1NewPedido)) {
+                    Plano oldPlano1OfPedidoSet1NewPedido = pedidoSet1NewPedido.getPlano1();
+                    pedidoSet1NewPedido.setPlano1(plano);
+                    pedidoSet1NewPedido = em.merge(pedidoSet1NewPedido);
+                    if (oldPlano1OfPedidoSet1NewPedido != null && !oldPlano1OfPedidoSet1NewPedido.equals(plano)) {
+                        oldPlano1OfPedidoSet1NewPedido.getPedidoSet1().remove(pedidoSet1NewPedido);
+                        oldPlano1OfPedidoSet1NewPedido = em.merge(oldPlano1OfPedidoSet1NewPedido);
                     }
                 }
             }
@@ -172,10 +249,20 @@ public class PlanoJpaController {
                 pedido.setPlano(null);
                 pedido = em.merge(pedido);
             }
+            Pedido pedido1 = plano.getPedido1();
+            if (pedido1 != null) {
+                pedido1.setPlano(null);
+                pedido1 = em.merge(pedido1);
+            }
             Set<Pedido> pedidoSet = plano.getPedidoSet();
             for (Pedido pedidoSetPedido : pedidoSet) {
                 pedidoSetPedido.setPlano(null);
                 pedidoSetPedido = em.merge(pedidoSetPedido);
+            }
+            Set<Pedido> pedidoSet1 = plano.getPedidoSet1();
+            for (Pedido pedidoSet1Pedido : pedidoSet1) {
+                pedidoSet1Pedido.setPlano1(null);
+                pedidoSet1Pedido = em.merge(pedidoSet1Pedido);
             }
             em.remove(plano);
             em.getTransaction().commit();

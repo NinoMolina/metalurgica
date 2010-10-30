@@ -43,8 +43,13 @@ public class Barrio implements Serializable {
     @JoinColumn(name = "localidad", referencedColumnName = "idlocalidad")
     @ManyToOne
     private Localidad localidad;
+    @JoinColumn(name = "localidad", referencedColumnName = "idlocalidad")
+    @ManyToOne
+    private Localidad localidad1;
     @OneToMany(mappedBy = "barrio")
     private Set<Domicilio> domicilioSet;
+    @OneToMany(mappedBy = "barrio1")
+    private Set<Domicilio> domicilioSet1;
 
     public Barrio() {
     }
@@ -85,12 +90,28 @@ public class Barrio implements Serializable {
         this.localidad = localidad;
     }
 
+    public Localidad getLocalidad1() {
+        return localidad1;
+    }
+
+    public void setLocalidad1(Localidad localidad1) {
+        this.localidad1 = localidad1;
+    }
+
     public Set<Domicilio> getDomicilioSet() {
         return domicilioSet;
     }
 
     public void setDomicilioSet(Set<Domicilio> domicilioSet) {
         this.domicilioSet = domicilioSet;
+    }
+
+    public Set<Domicilio> getDomicilioSet1() {
+        return domicilioSet1;
+    }
+
+    public void setDomicilioSet1(Set<Domicilio> domicilioSet1) {
+        this.domicilioSet1 = domicilioSet1;
     }
 
     @Override

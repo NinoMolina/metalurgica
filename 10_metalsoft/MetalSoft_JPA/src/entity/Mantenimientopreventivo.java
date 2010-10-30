@@ -64,9 +64,14 @@ public class Mantenimientopreventivo implements Serializable {
     private BigInteger maquina;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo")
     private Detallemantenimientopreventivo detallemantenimientopreventivo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo1")
+    private Detallemantenimientopreventivo detallemantenimientopreventivo1;
     @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
     @ManyToOne
     private Proveedormantenimientomaquina proveedormantenimiento;
+    @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
+    @ManyToOne
+    private Proveedormantenimientomaquina proveedormantenimiento1;
 
     public Mantenimientopreventivo() {
     }
@@ -147,12 +152,28 @@ public class Mantenimientopreventivo implements Serializable {
         this.detallemantenimientopreventivo = detallemantenimientopreventivo;
     }
 
+    public Detallemantenimientopreventivo getDetallemantenimientopreventivo1() {
+        return detallemantenimientopreventivo1;
+    }
+
+    public void setDetallemantenimientopreventivo1(Detallemantenimientopreventivo detallemantenimientopreventivo1) {
+        this.detallemantenimientopreventivo1 = detallemantenimientopreventivo1;
+    }
+
     public Proveedormantenimientomaquina getProveedormantenimiento() {
         return proveedormantenimiento;
     }
 
     public void setProveedormantenimiento(Proveedormantenimientomaquina proveedormantenimiento) {
         this.proveedormantenimiento = proveedormantenimiento;
+    }
+
+    public Proveedormantenimientomaquina getProveedormantenimiento1() {
+        return proveedormantenimiento1;
+    }
+
+    public void setProveedormantenimiento1(Proveedormantenimientomaquina proveedormantenimiento1) {
+        this.proveedormantenimiento1 = proveedormantenimiento1;
     }
 
     @Override

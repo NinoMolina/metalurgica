@@ -59,11 +59,18 @@ public class Planificacioncalidad implements Serializable {
     private Date fechafinprevista;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad")
     private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad1")
+    private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad1;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad")
     private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad1")
+    private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1;
 
     public Planificacioncalidad() {
     }
@@ -128,6 +135,14 @@ public class Planificacioncalidad implements Serializable {
         this.ejecucionplanificacioncalidad = ejecucionplanificacioncalidad;
     }
 
+    public Ejecucionplanificacioncalidad getEjecucionplanificacioncalidad1() {
+        return ejecucionplanificacioncalidad1;
+    }
+
+    public void setEjecucionplanificacioncalidad1(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad1) {
+        this.ejecucionplanificacioncalidad1 = ejecucionplanificacioncalidad1;
+    }
+
     public Pedido getPedido() {
         return pedido;
     }
@@ -136,12 +151,28 @@ public class Planificacioncalidad implements Serializable {
         this.pedido = pedido;
     }
 
+    public Pedido getPedido1() {
+        return pedido1;
+    }
+
+    public void setPedido1(Pedido pedido1) {
+        this.pedido1 = pedido1;
+    }
+
     public Set<Detalleplanificacioncalidad> getDetalleplanificacioncalidadSet() {
         return detalleplanificacioncalidadSet;
     }
 
     public void setDetalleplanificacioncalidadSet(Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet) {
         this.detalleplanificacioncalidadSet = detalleplanificacioncalidadSet;
+    }
+
+    public Set<Detalleplanificacioncalidad> getDetalleplanificacioncalidadSet1() {
+        return detalleplanificacioncalidadSet1;
+    }
+
+    public void setDetalleplanificacioncalidadSet1(Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1) {
+        this.detalleplanificacioncalidadSet1 = detalleplanificacioncalidadSet1;
     }
 
     @Override

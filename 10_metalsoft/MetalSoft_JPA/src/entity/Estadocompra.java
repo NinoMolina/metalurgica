@@ -39,6 +39,8 @@ public class Estadocompra implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Compra> compraSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Compra> compraSet1;
 
     public Estadocompra() {
     }
@@ -77,6 +79,14 @@ public class Estadocompra implements Serializable {
 
     public void setCompraSet(Set<Compra> compraSet) {
         this.compraSet = compraSet;
+    }
+
+    public Set<Compra> getCompraSet1() {
+        return compraSet1;
+    }
+
+    public void setCompraSet1(Set<Compra> compraSet1) {
+        this.compraSet1 = compraSet1;
     }
 
     @Override

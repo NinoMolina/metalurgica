@@ -55,11 +55,19 @@ public class Ejecucionplanificacioncalidad implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecplancalidad estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecplancalidad estado1;
     @JoinColumn(name = "idplanificacioncalidad", referencedColumnName = "idplanificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Planificacioncalidad planificacioncalidad;
+    @JoinColumn(name = "idplanificacioncalidad", referencedColumnName = "idplanificacion", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Planificacioncalidad planificacioncalidad1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionplanificacioncalidad")
     private Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionplanificacioncalidad1")
+    private Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet1;
 
     public Ejecucionplanificacioncalidad() {
     }
@@ -120,6 +128,14 @@ public class Ejecucionplanificacioncalidad implements Serializable {
         this.estado = estado;
     }
 
+    public Estadoejecplancalidad getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadoejecplancalidad estado1) {
+        this.estado1 = estado1;
+    }
+
     public Planificacioncalidad getPlanificacioncalidad() {
         return planificacioncalidad;
     }
@@ -128,12 +144,28 @@ public class Ejecucionplanificacioncalidad implements Serializable {
         this.planificacioncalidad = planificacioncalidad;
     }
 
+    public Planificacioncalidad getPlanificacioncalidad1() {
+        return planificacioncalidad1;
+    }
+
+    public void setPlanificacioncalidad1(Planificacioncalidad planificacioncalidad1) {
+        this.planificacioncalidad1 = planificacioncalidad1;
+    }
+
     public Set<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadSet() {
         return detalleejecucionplanificacioncalidadSet;
     }
 
     public void setDetalleejecucionplanificacioncalidadSet(Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet) {
         this.detalleejecucionplanificacioncalidadSet = detalleejecucionplanificacioncalidadSet;
+    }
+
+    public Set<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadSet1() {
+        return detalleejecucionplanificacioncalidadSet1;
+    }
+
+    public void setDetalleejecucionplanificacioncalidadSet1(Set<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadSet1) {
+        this.detalleejecucionplanificacioncalidadSet1 = detalleejecucionplanificacioncalidadSet1;
     }
 
     @Override

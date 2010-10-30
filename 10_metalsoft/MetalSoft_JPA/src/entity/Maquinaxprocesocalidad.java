@@ -42,6 +42,9 @@ public class Maquinaxprocesocalidad implements Serializable {
     @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Procesocalidad procesocalidad;
+    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Procesocalidad procesocalidad1;
 
     public Maquinaxprocesocalidad() {
     }
@@ -84,6 +87,14 @@ public class Maquinaxprocesocalidad implements Serializable {
 
     public void setProcesocalidad(Procesocalidad procesocalidad) {
         this.procesocalidad = procesocalidad;
+    }
+
+    public Procesocalidad getProcesocalidad1() {
+        return procesocalidad1;
+    }
+
+    public void setProcesocalidad1(Procesocalidad procesocalidad1) {
+        this.procesocalidad1 = procesocalidad1;
     }
 
     @Override

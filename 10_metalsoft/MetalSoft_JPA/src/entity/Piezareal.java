@@ -43,9 +43,15 @@ public class Piezareal implements Serializable {
     @JoinColumn(name = "idcodigobarra", referencedColumnName = "idcodigo")
     @ManyToOne
     private Codigodebarra idcodigobarra;
+    @JoinColumn(name = "idcodigobarra", referencedColumnName = "idcodigo")
+    @ManyToOne
+    private Codigodebarra idcodigobarra1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadopiezareal estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadopiezareal estado1;
     @OneToMany(mappedBy = "piezareal")
     private Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet;
 
@@ -93,12 +99,28 @@ public class Piezareal implements Serializable {
         this.idcodigobarra = idcodigobarra;
     }
 
+    public Codigodebarra getIdcodigobarra1() {
+        return idcodigobarra1;
+    }
+
+    public void setIdcodigobarra1(Codigodebarra idcodigobarra1) {
+        this.idcodigobarra1 = idcodigobarra1;
+    }
+
     public Estadopiezareal getEstado() {
         return estado;
     }
 
     public void setEstado(Estadopiezareal estado) {
         this.estado = estado;
+    }
+
+    public Estadopiezareal getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadopiezareal estado1) {
+        this.estado1 = estado1;
     }
 
     public Set<Detalleejecucionplanificacion> getDetalleejecucionplanificacionSet() {

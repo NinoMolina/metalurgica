@@ -60,14 +60,24 @@ public class Compra implements Serializable {
     private String motivo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra")
     private Set<Detallecompra> detallecompraSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra1")
+    private Set<Detallecompra> detallecompraSet1;
     @OneToMany(mappedBy = "compra")
     private Set<Reclamoproveedor> reclamoproveedorSet;
+    @OneToMany(mappedBy = "compra1")
+    private Set<Reclamoproveedor> reclamoproveedorSet1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadocompra estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadocompra estado1;
     @JoinColumn(name = "proveedor", referencedColumnName = "idproveedor")
     @ManyToOne
     private Proveedor proveedor;
+    @JoinColumn(name = "proveedor", referencedColumnName = "idproveedor")
+    @ManyToOne
+    private Proveedor proveedor1;
 
     public Compra() {
     }
@@ -140,12 +150,28 @@ public class Compra implements Serializable {
         this.detallecompraSet = detallecompraSet;
     }
 
+    public Set<Detallecompra> getDetallecompraSet1() {
+        return detallecompraSet1;
+    }
+
+    public void setDetallecompraSet1(Set<Detallecompra> detallecompraSet1) {
+        this.detallecompraSet1 = detallecompraSet1;
+    }
+
     public Set<Reclamoproveedor> getReclamoproveedorSet() {
         return reclamoproveedorSet;
     }
 
     public void setReclamoproveedorSet(Set<Reclamoproveedor> reclamoproveedorSet) {
         this.reclamoproveedorSet = reclamoproveedorSet;
+    }
+
+    public Set<Reclamoproveedor> getReclamoproveedorSet1() {
+        return reclamoproveedorSet1;
+    }
+
+    public void setReclamoproveedorSet1(Set<Reclamoproveedor> reclamoproveedorSet1) {
+        this.reclamoproveedorSet1 = reclamoproveedorSet1;
     }
 
     public Estadocompra getEstado() {
@@ -156,12 +182,28 @@ public class Compra implements Serializable {
         this.estado = estado;
     }
 
+    public Estadocompra getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadocompra estado1) {
+        this.estado1 = estado1;
+    }
+
     public Proveedor getProveedor() {
         return proveedor;
     }
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Proveedor getProveedor1() {
+        return proveedor1;
+    }
+
+    public void setProveedor1(Proveedor proveedor1) {
+        this.proveedor1 = proveedor1;
     }
 
     @Override

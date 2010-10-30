@@ -68,16 +68,29 @@ public class Procesocalidad implements Serializable {
     @JoinColumn(name = "accioncalidad", referencedColumnName = "idaccioncalidad")
     @ManyToOne
     private Accioncalidad accioncalidad;
+    @JoinColumn(name = "accioncalidad", referencedColumnName = "idaccioncalidad")
+    @ManyToOne
+    private Accioncalidad accioncalidad1;
     @OneToMany(mappedBy = "idprocesocalidad")
     private Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet;
+    @OneToMany(mappedBy = "idprocesocalidad1")
+    private Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "procesocalidad")
     private Set<Maquinaxprocesocalidad> maquinaxprocesocalidadSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "procesocalidad1")
+    private Set<Maquinaxprocesocalidad> maquinaxprocesocalidadSet1;
     @OneToMany(mappedBy = "idprocesocalidad")
     private Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet;
+    @OneToMany(mappedBy = "idprocesocalidad1")
+    private Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet1;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "procesocalidad")
     private Ejecucionprocesocalidad ejecucionprocesocalidad;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "procesocalidad1")
+    private Ejecucionprocesocalidad ejecucionprocesocalidad1;
     @OneToMany(mappedBy = "procesocalidad")
     private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet;
+    @OneToMany(mappedBy = "procesocalidad1")
+    private Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1;
 
     public Procesocalidad() {
     }
@@ -166,12 +179,28 @@ public class Procesocalidad implements Serializable {
         this.accioncalidad = accioncalidad;
     }
 
+    public Accioncalidad getAccioncalidad1() {
+        return accioncalidad1;
+    }
+
+    public void setAccioncalidad1(Accioncalidad accioncalidad1) {
+        this.accioncalidad1 = accioncalidad1;
+    }
+
     public Set<Detalleplanprocesoscalidad> getDetalleplanprocesoscalidadSet() {
         return detalleplanprocesoscalidadSet;
     }
 
     public void setDetalleplanprocesoscalidadSet(Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet) {
         this.detalleplanprocesoscalidadSet = detalleplanprocesoscalidadSet;
+    }
+
+    public Set<Detalleplanprocesoscalidad> getDetalleplanprocesoscalidadSet1() {
+        return detalleplanprocesoscalidadSet1;
+    }
+
+    public void setDetalleplanprocesoscalidadSet1(Set<Detalleplanprocesoscalidad> detalleplanprocesoscalidadSet1) {
+        this.detalleplanprocesoscalidadSet1 = detalleplanprocesoscalidadSet1;
     }
 
     public Set<Maquinaxprocesocalidad> getMaquinaxprocesocalidadSet() {
@@ -182,12 +211,28 @@ public class Procesocalidad implements Serializable {
         this.maquinaxprocesocalidadSet = maquinaxprocesocalidadSet;
     }
 
+    public Set<Maquinaxprocesocalidad> getMaquinaxprocesocalidadSet1() {
+        return maquinaxprocesocalidadSet1;
+    }
+
+    public void setMaquinaxprocesocalidadSet1(Set<Maquinaxprocesocalidad> maquinaxprocesocalidadSet1) {
+        this.maquinaxprocesocalidadSet1 = maquinaxprocesocalidadSet1;
+    }
+
     public Set<Detallepiezacalidadpresupuesto> getDetallepiezacalidadpresupuestoSet() {
         return detallepiezacalidadpresupuestoSet;
     }
 
     public void setDetallepiezacalidadpresupuestoSet(Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet) {
         this.detallepiezacalidadpresupuestoSet = detallepiezacalidadpresupuestoSet;
+    }
+
+    public Set<Detallepiezacalidadpresupuesto> getDetallepiezacalidadpresupuestoSet1() {
+        return detallepiezacalidadpresupuestoSet1;
+    }
+
+    public void setDetallepiezacalidadpresupuestoSet1(Set<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoSet1) {
+        this.detallepiezacalidadpresupuestoSet1 = detallepiezacalidadpresupuestoSet1;
     }
 
     public Ejecucionprocesocalidad getEjecucionprocesocalidad() {
@@ -198,12 +243,28 @@ public class Procesocalidad implements Serializable {
         this.ejecucionprocesocalidad = ejecucionprocesocalidad;
     }
 
+    public Ejecucionprocesocalidad getEjecucionprocesocalidad1() {
+        return ejecucionprocesocalidad1;
+    }
+
+    public void setEjecucionprocesocalidad1(Ejecucionprocesocalidad ejecucionprocesocalidad1) {
+        this.ejecucionprocesocalidad1 = ejecucionprocesocalidad1;
+    }
+
     public Set<Detalleplanificacioncalidad> getDetalleplanificacioncalidadSet() {
         return detalleplanificacioncalidadSet;
     }
 
     public void setDetalleplanificacioncalidadSet(Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet) {
         this.detalleplanificacioncalidadSet = detalleplanificacioncalidadSet;
+    }
+
+    public Set<Detalleplanificacioncalidad> getDetalleplanificacioncalidadSet1() {
+        return detalleplanificacioncalidadSet1;
+    }
+
+    public void setDetalleplanificacioncalidadSet1(Set<Detalleplanificacioncalidad> detalleplanificacioncalidadSet1) {
+        this.detalleplanificacioncalidadSet1 = detalleplanificacioncalidadSet1;
     }
 
     @Override

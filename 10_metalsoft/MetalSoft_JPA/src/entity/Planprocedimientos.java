@@ -34,8 +34,12 @@ public class Planprocedimientos implements Serializable {
     private Long idplanprocedimientos;
     @OneToMany(mappedBy = "planprocedimientos")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "planprocedimientos1")
+    private Set<Pedido> pedidoSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planprocedimientos")
     private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planprocedimientos1")
+    private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1;
 
     public Planprocedimientos() {
     }
@@ -60,12 +64,28 @@ public class Planprocedimientos implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet() {
         return detalleplanprocedimientosSet;
     }
 
     public void setDetalleplanprocedimientosSet(Set<Detalleplanprocedimientos> detalleplanprocedimientosSet) {
         this.detalleplanprocedimientosSet = detalleplanprocedimientosSet;
+    }
+
+    public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet1() {
+        return detalleplanprocedimientosSet1;
+    }
+
+    public void setDetalleplanprocedimientosSet1(Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1) {
+        this.detalleplanprocedimientosSet1 = detalleplanprocedimientosSet1;
     }
 
     @Override

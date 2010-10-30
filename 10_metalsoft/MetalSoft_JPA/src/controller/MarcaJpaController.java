@@ -39,6 +39,9 @@ public class MarcaJpaController {
         if (marca.getMaquinaSet() == null) {
             marca.setMaquinaSet(new HashSet<Maquina>());
         }
+        if (marca.getMaquinaSet1() == null) {
+            marca.setMaquinaSet1(new HashSet<Maquina>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class MarcaJpaController {
                 attachedMaquinaSet.add(maquinaSetMaquinaToAttach);
             }
             marca.setMaquinaSet(attachedMaquinaSet);
+            Set<Maquina> attachedMaquinaSet1 = new HashSet<Maquina>();
+            for (Maquina maquinaSet1MaquinaToAttach : marca.getMaquinaSet1()) {
+                maquinaSet1MaquinaToAttach = em.getReference(maquinaSet1MaquinaToAttach.getClass(), maquinaSet1MaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1.add(maquinaSet1MaquinaToAttach);
+            }
+            marca.setMaquinaSet1(attachedMaquinaSet1);
             em.persist(marca);
             for (Maquina maquinaSetMaquina : marca.getMaquinaSet()) {
                 Marca oldMarcaOfMaquinaSetMaquina = maquinaSetMaquina.getMarca();
@@ -57,6 +66,15 @@ public class MarcaJpaController {
                 if (oldMarcaOfMaquinaSetMaquina != null) {
                     oldMarcaOfMaquinaSetMaquina.getMaquinaSet().remove(maquinaSetMaquina);
                     oldMarcaOfMaquinaSetMaquina = em.merge(oldMarcaOfMaquinaSetMaquina);
+                }
+            }
+            for (Maquina maquinaSet1Maquina : marca.getMaquinaSet1()) {
+                Marca oldMarca1OfMaquinaSet1Maquina = maquinaSet1Maquina.getMarca1();
+                maquinaSet1Maquina.setMarca1(marca);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
+                if (oldMarca1OfMaquinaSet1Maquina != null) {
+                    oldMarca1OfMaquinaSet1Maquina.getMaquinaSet1().remove(maquinaSet1Maquina);
+                    oldMarca1OfMaquinaSet1Maquina = em.merge(oldMarca1OfMaquinaSet1Maquina);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class MarcaJpaController {
             Marca persistentMarca = em.find(Marca.class, marca.getIdmarca());
             Set<Maquina> maquinaSetOld = persistentMarca.getMaquinaSet();
             Set<Maquina> maquinaSetNew = marca.getMaquinaSet();
+            Set<Maquina> maquinaSet1Old = persistentMarca.getMaquinaSet1();
+            Set<Maquina> maquinaSet1New = marca.getMaquinaSet1();
             Set<Maquina> attachedMaquinaSetNew = new HashSet<Maquina>();
             for (Maquina maquinaSetNewMaquinaToAttach : maquinaSetNew) {
                 maquinaSetNewMaquinaToAttach = em.getReference(maquinaSetNewMaquinaToAttach.getClass(), maquinaSetNewMaquinaToAttach.getIdmaquina());
@@ -87,6 +107,13 @@ public class MarcaJpaController {
             }
             maquinaSetNew = attachedMaquinaSetNew;
             marca.setMaquinaSet(maquinaSetNew);
+            Set<Maquina> attachedMaquinaSet1New = new HashSet<Maquina>();
+            for (Maquina maquinaSet1NewMaquinaToAttach : maquinaSet1New) {
+                maquinaSet1NewMaquinaToAttach = em.getReference(maquinaSet1NewMaquinaToAttach.getClass(), maquinaSet1NewMaquinaToAttach.getIdmaquina());
+                attachedMaquinaSet1New.add(maquinaSet1NewMaquinaToAttach);
+            }
+            maquinaSet1New = attachedMaquinaSet1New;
+            marca.setMaquinaSet1(maquinaSet1New);
             marca = em.merge(marca);
             for (Maquina maquinaSetOldMaquina : maquinaSetOld) {
                 if (!maquinaSetNew.contains(maquinaSetOldMaquina)) {
@@ -102,6 +129,23 @@ public class MarcaJpaController {
                     if (oldMarcaOfMaquinaSetNewMaquina != null && !oldMarcaOfMaquinaSetNewMaquina.equals(marca)) {
                         oldMarcaOfMaquinaSetNewMaquina.getMaquinaSet().remove(maquinaSetNewMaquina);
                         oldMarcaOfMaquinaSetNewMaquina = em.merge(oldMarcaOfMaquinaSetNewMaquina);
+                    }
+                }
+            }
+            for (Maquina maquinaSet1OldMaquina : maquinaSet1Old) {
+                if (!maquinaSet1New.contains(maquinaSet1OldMaquina)) {
+                    maquinaSet1OldMaquina.setMarca1(null);
+                    maquinaSet1OldMaquina = em.merge(maquinaSet1OldMaquina);
+                }
+            }
+            for (Maquina maquinaSet1NewMaquina : maquinaSet1New) {
+                if (!maquinaSet1Old.contains(maquinaSet1NewMaquina)) {
+                    Marca oldMarca1OfMaquinaSet1NewMaquina = maquinaSet1NewMaquina.getMarca1();
+                    maquinaSet1NewMaquina.setMarca1(marca);
+                    maquinaSet1NewMaquina = em.merge(maquinaSet1NewMaquina);
+                    if (oldMarca1OfMaquinaSet1NewMaquina != null && !oldMarca1OfMaquinaSet1NewMaquina.equals(marca)) {
+                        oldMarca1OfMaquinaSet1NewMaquina.getMaquinaSet1().remove(maquinaSet1NewMaquina);
+                        oldMarca1OfMaquinaSet1NewMaquina = em.merge(oldMarca1OfMaquinaSet1NewMaquina);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class MarcaJpaController {
             for (Maquina maquinaSetMaquina : maquinaSet) {
                 maquinaSetMaquina.setMarca(null);
                 maquinaSetMaquina = em.merge(maquinaSetMaquina);
+            }
+            Set<Maquina> maquinaSet1 = marca.getMaquinaSet1();
+            for (Maquina maquinaSet1Maquina : maquinaSet1) {
+                maquinaSet1Maquina.setMarca1(null);
+                maquinaSet1Maquina = em.merge(maquinaSet1Maquina);
             }
             em.remove(marca);
             em.getTransaction().commit();

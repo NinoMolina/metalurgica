@@ -43,9 +43,15 @@ public class Detallemantenimientopreventivo implements Serializable {
     @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Mantenimientopreventivo mantenimientopreventivo;
+    @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Mantenimientopreventivo mantenimientopreventivo1;
     @JoinColumn(name = "servicio", referencedColumnName = "idservicio")
     @ManyToOne
     private Servicio servicio;
+    @JoinColumn(name = "servicio", referencedColumnName = "idservicio")
+    @ManyToOne
+    private Servicio servicio1;
 
     public Detallemantenimientopreventivo() {
     }
@@ -90,12 +96,28 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.mantenimientopreventivo = mantenimientopreventivo;
     }
 
+    public Mantenimientopreventivo getMantenimientopreventivo1() {
+        return mantenimientopreventivo1;
+    }
+
+    public void setMantenimientopreventivo1(Mantenimientopreventivo mantenimientopreventivo1) {
+        this.mantenimientopreventivo1 = mantenimientopreventivo1;
+    }
+
     public Servicio getServicio() {
         return servicio;
     }
 
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
+    }
+
+    public Servicio getServicio1() {
+        return servicio1;
+    }
+
+    public void setServicio1(Servicio servicio1) {
+        this.servicio1 = servicio1;
     }
 
     @Override

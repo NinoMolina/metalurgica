@@ -10,9 +10,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -42,11 +39,6 @@ public class Maquinaxejecucionetapaproduccion implements Serializable {
     @Column(name = "horashombre")
     @Temporal(TemporalType.TIME)
     private Date horashombre;
-    @JoinColumns({
-        @JoinColumn(name = "idejecucionetapaproduccion", referencedColumnName = "idejecucion", insertable = false, updatable = false),
-        @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private Ejecucionetapaproduccion ejecucionetapaproduccion;
 
     public Maquinaxejecucionetapaproduccion() {
     }
@@ -81,14 +73,6 @@ public class Maquinaxejecucionetapaproduccion implements Serializable {
 
     public void setHorashombre(Date horashombre) {
         this.horashombre = horashombre;
-    }
-
-    public Ejecucionetapaproduccion getEjecucionetapaproduccion() {
-        return ejecucionetapaproduccion;
-    }
-
-    public void setEjecucionetapaproduccion(Ejecucionetapaproduccion ejecucionetapaproduccion) {
-        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
     }
 
     @Override

@@ -39,6 +39,8 @@ public class Accioncalidad implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "accioncalidad")
     private Set<Procesocalidad> procesocalidadSet;
+    @OneToMany(mappedBy = "accioncalidad1")
+    private Set<Procesocalidad> procesocalidadSet1;
 
     public Accioncalidad() {
     }
@@ -77,6 +79,14 @@ public class Accioncalidad implements Serializable {
 
     public void setProcesocalidadSet(Set<Procesocalidad> procesocalidadSet) {
         this.procesocalidadSet = procesocalidadSet;
+    }
+
+    public Set<Procesocalidad> getProcesocalidadSet1() {
+        return procesocalidadSet1;
+    }
+
+    public void setProcesocalidadSet1(Set<Procesocalidad> procesocalidadSet1) {
+        this.procesocalidadSet1 = procesocalidadSet1;
     }
 
     @Override

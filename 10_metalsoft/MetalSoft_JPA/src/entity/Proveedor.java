@@ -69,17 +69,30 @@ public class Proveedor implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "proveedor")
     private Set<Compra> compraSet;
+    @OneToMany(mappedBy = "proveedor1")
+    private Set<Compra> compraSet1;
     @JoinColumn(name = "condicion", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicion;
+    @JoinColumn(name = "condicion", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicion1;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio1;
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor")
     private Set<Proveedorxmateriaprima> proveedorxmateriaprimaSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor1")
+    private Set<Proveedorxmateriaprima> proveedorxmateriaprimaSet1;
 
     public Proveedor() {
     }
@@ -176,12 +189,28 @@ public class Proveedor implements Serializable {
         this.compraSet = compraSet;
     }
 
+    public Set<Compra> getCompraSet1() {
+        return compraSet1;
+    }
+
+    public void setCompraSet1(Set<Compra> compraSet1) {
+        this.compraSet1 = compraSet1;
+    }
+
     public Condicioniva getCondicion() {
         return condicion;
     }
 
     public void setCondicion(Condicioniva condicion) {
         this.condicion = condicion;
+    }
+
+    public Condicioniva getCondicion1() {
+        return condicion1;
+    }
+
+    public void setCondicion1(Condicioniva condicion1) {
+        this.condicion1 = condicion1;
     }
 
     public Domicilio getDomicilio() {
@@ -192,6 +221,14 @@ public class Proveedor implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public Domicilio getDomicilio1() {
+        return domicilio1;
+    }
+
+    public void setDomicilio1(Domicilio domicilio1) {
+        this.domicilio1 = domicilio1;
+    }
+
     public Responsable getResponsable() {
         return responsable;
     }
@@ -200,12 +237,28 @@ public class Proveedor implements Serializable {
         this.responsable = responsable;
     }
 
+    public Responsable getResponsable1() {
+        return responsable1;
+    }
+
+    public void setResponsable1(Responsable responsable1) {
+        this.responsable1 = responsable1;
+    }
+
     public Set<Proveedorxmateriaprima> getProveedorxmateriaprimaSet() {
         return proveedorxmateriaprimaSet;
     }
 
     public void setProveedorxmateriaprimaSet(Set<Proveedorxmateriaprima> proveedorxmateriaprimaSet) {
         this.proveedorxmateriaprimaSet = proveedorxmateriaprimaSet;
+    }
+
+    public Set<Proveedorxmateriaprima> getProveedorxmateriaprimaSet1() {
+        return proveedorxmateriaprimaSet1;
+    }
+
+    public void setProveedorxmateriaprimaSet1(Set<Proveedorxmateriaprima> proveedorxmateriaprimaSet1) {
+        this.proveedorxmateriaprimaSet1 = proveedorxmateriaprimaSet1;
     }
 
     @Override

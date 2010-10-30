@@ -39,11 +39,19 @@ public class Detallempasignada implements Serializable {
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima idmateriaprima;
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima idmateriaprima1;
     @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
     @ManyToOne
     private Planificacionproduccion idplanificacionproduccion;
+    @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
+    @ManyToOne
+    private Planificacionproduccion idplanificacionproduccion1;
     @OneToMany(mappedBy = "iddetallempasignada")
     private Set<Mpasignadaxpiezareal> mpasignadaxpiezarealSet;
+    @OneToMany(mappedBy = "iddetallempasignada1")
+    private Set<Mpasignadaxpiezareal> mpasignadaxpiezarealSet1;
 
     public Detallempasignada() {
     }
@@ -76,6 +84,14 @@ public class Detallempasignada implements Serializable {
         this.idmateriaprima = idmateriaprima;
     }
 
+    public Materiaprima getIdmateriaprima1() {
+        return idmateriaprima1;
+    }
+
+    public void setIdmateriaprima1(Materiaprima idmateriaprima1) {
+        this.idmateriaprima1 = idmateriaprima1;
+    }
+
     public Planificacionproduccion getIdplanificacionproduccion() {
         return idplanificacionproduccion;
     }
@@ -84,12 +100,28 @@ public class Detallempasignada implements Serializable {
         this.idplanificacionproduccion = idplanificacionproduccion;
     }
 
+    public Planificacionproduccion getIdplanificacionproduccion1() {
+        return idplanificacionproduccion1;
+    }
+
+    public void setIdplanificacionproduccion1(Planificacionproduccion idplanificacionproduccion1) {
+        this.idplanificacionproduccion1 = idplanificacionproduccion1;
+    }
+
     public Set<Mpasignadaxpiezareal> getMpasignadaxpiezarealSet() {
         return mpasignadaxpiezarealSet;
     }
 
     public void setMpasignadaxpiezarealSet(Set<Mpasignadaxpiezareal> mpasignadaxpiezarealSet) {
         this.mpasignadaxpiezarealSet = mpasignadaxpiezarealSet;
+    }
+
+    public Set<Mpasignadaxpiezareal> getMpasignadaxpiezarealSet1() {
+        return mpasignadaxpiezarealSet1;
+    }
+
+    public void setMpasignadaxpiezarealSet1(Set<Mpasignadaxpiezareal> mpasignadaxpiezarealSet1) {
+        this.mpasignadaxpiezarealSet1 = mpasignadaxpiezarealSet1;
     }
 
     @Override

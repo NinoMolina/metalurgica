@@ -43,9 +43,15 @@ public class Detalleplanprocedimientos implements Serializable {
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion idetapaproduccion;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion idetapaproduccion1;
     @JoinColumn(name = "idplanpprocedimientos", referencedColumnName = "idplanprocedimientos", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Planprocedimientos planprocedimientos;
+    @JoinColumn(name = "idplanpprocedimientos", referencedColumnName = "idplanprocedimientos", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Planprocedimientos planprocedimientos1;
 
     public Detalleplanprocedimientos() {
     }
@@ -90,12 +96,28 @@ public class Detalleplanprocedimientos implements Serializable {
         this.idetapaproduccion = idetapaproduccion;
     }
 
+    public Etapadeproduccion getIdetapaproduccion1() {
+        return idetapaproduccion1;
+    }
+
+    public void setIdetapaproduccion1(Etapadeproduccion idetapaproduccion1) {
+        this.idetapaproduccion1 = idetapaproduccion1;
+    }
+
     public Planprocedimientos getPlanprocedimientos() {
         return planprocedimientos;
     }
 
     public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
         this.planprocedimientos = planprocedimientos;
+    }
+
+    public Planprocedimientos getPlanprocedimientos1() {
+        return planprocedimientos1;
+    }
+
+    public void setPlanprocedimientos1(Planprocedimientos planprocedimientos1) {
+        this.planprocedimientos1 = planprocedimientos1;
     }
 
     @Override

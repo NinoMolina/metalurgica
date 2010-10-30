@@ -39,8 +39,8 @@ public class ProveedorxmateriaprimaJpaController {
         if (proveedorxmateriaprima.getProveedorxmateriaprimaPK() == null) {
             proveedorxmateriaprima.setProveedorxmateriaprimaPK(new ProveedorxmateriaprimaPK());
         }
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima().getIdmateriaprima());
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor1().getIdproveedor());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima1().getIdmateriaprima());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,19 +50,37 @@ public class ProveedorxmateriaprimaJpaController {
                 materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
                 proveedorxmateriaprima.setMateriaprima(materiaprima);
             }
+            Materiaprima materiaprima1 = proveedorxmateriaprima.getMateriaprima1();
+            if (materiaprima1 != null) {
+                materiaprima1 = em.getReference(materiaprima1.getClass(), materiaprima1.getIdmateriaprima());
+                proveedorxmateriaprima.setMateriaprima1(materiaprima1);
+            }
             Proveedor proveedor = proveedorxmateriaprima.getProveedor();
             if (proveedor != null) {
                 proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
                 proveedorxmateriaprima.setProveedor(proveedor);
+            }
+            Proveedor proveedor1 = proveedorxmateriaprima.getProveedor1();
+            if (proveedor1 != null) {
+                proveedor1 = em.getReference(proveedor1.getClass(), proveedor1.getIdproveedor());
+                proveedorxmateriaprima.setProveedor1(proveedor1);
             }
             em.persist(proveedorxmateriaprima);
             if (materiaprima != null) {
                 materiaprima.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
                 materiaprima = em.merge(materiaprima);
             }
+            if (materiaprima1 != null) {
+                materiaprima1.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
+                materiaprima1 = em.merge(materiaprima1);
+            }
             if (proveedor != null) {
                 proveedor.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
                 proveedor = em.merge(proveedor);
+            }
+            if (proveedor1 != null) {
+                proveedor1.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
+                proveedor1 = em.merge(proveedor1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -78,8 +96,8 @@ public class ProveedorxmateriaprimaJpaController {
     }
 
     public void edit(Proveedorxmateriaprima proveedorxmateriaprima) throws NonexistentEntityException, Exception {
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima().getIdmateriaprima());
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor1().getIdproveedor());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima1().getIdmateriaprima());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -87,15 +105,27 @@ public class ProveedorxmateriaprimaJpaController {
             Proveedorxmateriaprima persistentProveedorxmateriaprima = em.find(Proveedorxmateriaprima.class, proveedorxmateriaprima.getProveedorxmateriaprimaPK());
             Materiaprima materiaprimaOld = persistentProveedorxmateriaprima.getMateriaprima();
             Materiaprima materiaprimaNew = proveedorxmateriaprima.getMateriaprima();
+            Materiaprima materiaprima1Old = persistentProveedorxmateriaprima.getMateriaprima1();
+            Materiaprima materiaprima1New = proveedorxmateriaprima.getMateriaprima1();
             Proveedor proveedorOld = persistentProveedorxmateriaprima.getProveedor();
             Proveedor proveedorNew = proveedorxmateriaprima.getProveedor();
+            Proveedor proveedor1Old = persistentProveedorxmateriaprima.getProveedor1();
+            Proveedor proveedor1New = proveedorxmateriaprima.getProveedor1();
             if (materiaprimaNew != null) {
                 materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
                 proveedorxmateriaprima.setMateriaprima(materiaprimaNew);
             }
+            if (materiaprima1New != null) {
+                materiaprima1New = em.getReference(materiaprima1New.getClass(), materiaprima1New.getIdmateriaprima());
+                proveedorxmateriaprima.setMateriaprima1(materiaprima1New);
+            }
             if (proveedorNew != null) {
                 proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
                 proveedorxmateriaprima.setProveedor(proveedorNew);
+            }
+            if (proveedor1New != null) {
+                proveedor1New = em.getReference(proveedor1New.getClass(), proveedor1New.getIdproveedor());
+                proveedorxmateriaprima.setProveedor1(proveedor1New);
             }
             proveedorxmateriaprima = em.merge(proveedorxmateriaprima);
             if (materiaprimaOld != null && !materiaprimaOld.equals(materiaprimaNew)) {
@@ -106,6 +136,14 @@ public class ProveedorxmateriaprimaJpaController {
                 materiaprimaNew.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
                 materiaprimaNew = em.merge(materiaprimaNew);
             }
+            if (materiaprima1Old != null && !materiaprima1Old.equals(materiaprima1New)) {
+                materiaprima1Old.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
+                materiaprima1Old = em.merge(materiaprima1Old);
+            }
+            if (materiaprima1New != null && !materiaprima1New.equals(materiaprima1Old)) {
+                materiaprima1New.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
+                materiaprima1New = em.merge(materiaprima1New);
+            }
             if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
                 proveedorOld.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
                 proveedorOld = em.merge(proveedorOld);
@@ -113,6 +151,14 @@ public class ProveedorxmateriaprimaJpaController {
             if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
                 proveedorNew.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
                 proveedorNew = em.merge(proveedorNew);
+            }
+            if (proveedor1Old != null && !proveedor1Old.equals(proveedor1New)) {
+                proveedor1Old.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
+                proveedor1Old = em.merge(proveedor1Old);
+            }
+            if (proveedor1New != null && !proveedor1New.equals(proveedor1Old)) {
+                proveedor1New.getProveedorxmateriaprimaSet().add(proveedorxmateriaprima);
+                proveedor1New = em.merge(proveedor1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -148,10 +194,20 @@ public class ProveedorxmateriaprimaJpaController {
                 materiaprima.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
                 materiaprima = em.merge(materiaprima);
             }
+            Materiaprima materiaprima1 = proveedorxmateriaprima.getMateriaprima1();
+            if (materiaprima1 != null) {
+                materiaprima1.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
+                materiaprima1 = em.merge(materiaprima1);
+            }
             Proveedor proveedor = proveedorxmateriaprima.getProveedor();
             if (proveedor != null) {
                 proveedor.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
                 proveedor = em.merge(proveedor);
+            }
+            Proveedor proveedor1 = proveedorxmateriaprima.getProveedor1();
+            if (proveedor1 != null) {
+                proveedor1.getProveedorxmateriaprimaSet().remove(proveedorxmateriaprima);
+                proveedor1 = em.merge(proveedor1);
             }
             em.remove(proveedorxmateriaprima);
             em.getTransaction().commit();

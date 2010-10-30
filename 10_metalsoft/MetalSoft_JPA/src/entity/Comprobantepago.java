@@ -48,12 +48,21 @@ public class Comprobantepago implements Serializable {
     @JoinColumn(name = "factura", referencedColumnName = "idfactura")
     @ManyToOne
     private Factura factura;
+    @JoinColumn(name = "factura", referencedColumnName = "idfactura")
+    @ManyToOne
+    private Factura factura1;
     @JoinColumn(name = "formadepago", referencedColumnName = "idformapago")
     @ManyToOne
     private Formadepago formadepago;
+    @JoinColumn(name = "formadepago", referencedColumnName = "idformapago")
+    @ManyToOne
+    private Formadepago formadepago1;
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario1;
 
     public Comprobantepago() {
     }
@@ -102,6 +111,14 @@ public class Comprobantepago implements Serializable {
         this.factura = factura;
     }
 
+    public Factura getFactura1() {
+        return factura1;
+    }
+
+    public void setFactura1(Factura factura1) {
+        this.factura1 = factura1;
+    }
+
     public Formadepago getFormadepago() {
         return formadepago;
     }
@@ -110,12 +127,28 @@ public class Comprobantepago implements Serializable {
         this.formadepago = formadepago;
     }
 
+    public Formadepago getFormadepago1() {
+        return formadepago1;
+    }
+
+    public void setFormadepago1(Formadepago formadepago1) {
+        this.formadepago1 = formadepago1;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Usuario getUsuario1() {
+        return usuario1;
+    }
+
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
     }
 
     @Override

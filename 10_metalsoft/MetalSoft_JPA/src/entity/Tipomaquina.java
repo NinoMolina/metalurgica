@@ -39,6 +39,8 @@ public class Tipomaquina implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipomaquina")
     private Set<Maquina> maquinaSet;
+    @OneToMany(mappedBy = "tipomaquina1")
+    private Set<Maquina> maquinaSet1;
 
     public Tipomaquina() {
     }
@@ -77,6 +79,14 @@ public class Tipomaquina implements Serializable {
 
     public void setMaquinaSet(Set<Maquina> maquinaSet) {
         this.maquinaSet = maquinaSet;
+    }
+
+    public Set<Maquina> getMaquinaSet1() {
+        return maquinaSet1;
+    }
+
+    public void setMaquinaSet1(Set<Maquina> maquinaSet1) {
+        this.maquinaSet1 = maquinaSet1;
     }
 
     @Override

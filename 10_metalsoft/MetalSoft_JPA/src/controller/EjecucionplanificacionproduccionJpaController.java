@@ -52,10 +52,20 @@ public class EjecucionplanificacionproduccionJpaController {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionplanificacionproduccion.setEstado(estado);
             }
+            Estadoejecplanifpedido estado1 = ejecucionplanificacionproduccion.getEstado1();
+            if (estado1 != null) {
+                estado1 = em.getReference(estado1.getClass(), estado1.getIdestado());
+                ejecucionplanificacionproduccion.setEstado1(estado1);
+            }
             Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
             if (idplanificacionproduccion != null) {
                 idplanificacionproduccion = em.getReference(idplanificacionproduccion.getClass(), idplanificacionproduccion.getIdplanificacionproduccion());
                 ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccion);
+            }
+            Planificacionproduccion idplanificacionproduccion1 = ejecucionplanificacionproduccion.getIdplanificacionproduccion1();
+            if (idplanificacionproduccion1 != null) {
+                idplanificacionproduccion1 = em.getReference(idplanificacionproduccion1.getClass(), idplanificacionproduccion1.getIdplanificacionproduccion());
+                ejecucionplanificacionproduccion.setIdplanificacionproduccion1(idplanificacionproduccion1);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSet = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacionToAttach : ejecucionplanificacionproduccion.getDetalleejecucionplanificacionSet()) {
@@ -68,9 +78,17 @@ public class EjecucionplanificacionproduccionJpaController {
                 estado.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
                 estado = em.merge(estado);
             }
+            if (estado1 != null) {
+                estado1.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
+                estado1 = em.merge(estado1);
+            }
             if (idplanificacionproduccion != null) {
                 idplanificacionproduccion.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
                 idplanificacionproduccion = em.merge(idplanificacionproduccion);
+            }
+            if (idplanificacionproduccion1 != null) {
+                idplanificacionproduccion1.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
+                idplanificacionproduccion1 = em.merge(idplanificacionproduccion1);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetDetalleejecucionplanificacion : ejecucionplanificacionproduccion.getDetalleejecucionplanificacionSet()) {
                 Ejecucionplanificacionproduccion oldIdejecucionplanificacionproduccionOfDetalleejecucionplanificacionSetDetalleejecucionplanificacion = detalleejecucionplanificacionSetDetalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
@@ -102,8 +120,12 @@ public class EjecucionplanificacionproduccionJpaController {
             Ejecucionplanificacionproduccion persistentEjecucionplanificacionproduccion = em.find(Ejecucionplanificacionproduccion.class, ejecucionplanificacionproduccion.getIdejecucion());
             Estadoejecplanifpedido estadoOld = persistentEjecucionplanificacionproduccion.getEstado();
             Estadoejecplanifpedido estadoNew = ejecucionplanificacionproduccion.getEstado();
+            Estadoejecplanifpedido estado1Old = persistentEjecucionplanificacionproduccion.getEstado1();
+            Estadoejecplanifpedido estado1New = ejecucionplanificacionproduccion.getEstado1();
             Planificacionproduccion idplanificacionproduccionOld = persistentEjecucionplanificacionproduccion.getIdplanificacionproduccion();
             Planificacionproduccion idplanificacionproduccionNew = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
+            Planificacionproduccion idplanificacionproduccion1Old = persistentEjecucionplanificacionproduccion.getIdplanificacionproduccion1();
+            Planificacionproduccion idplanificacionproduccion1New = ejecucionplanificacionproduccion.getIdplanificacionproduccion1();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetOld = persistentEjecucionplanificacionproduccion.getDetalleejecucionplanificacionSet();
             Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSetNew = ejecucionplanificacionproduccion.getDetalleejecucionplanificacionSet();
             List<String> illegalOrphanMessages = null;
@@ -122,9 +144,17 @@ public class EjecucionplanificacionproduccionJpaController {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionplanificacionproduccion.setEstado(estadoNew);
             }
+            if (estado1New != null) {
+                estado1New = em.getReference(estado1New.getClass(), estado1New.getIdestado());
+                ejecucionplanificacionproduccion.setEstado1(estado1New);
+            }
             if (idplanificacionproduccionNew != null) {
                 idplanificacionproduccionNew = em.getReference(idplanificacionproduccionNew.getClass(), idplanificacionproduccionNew.getIdplanificacionproduccion());
                 ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccionNew);
+            }
+            if (idplanificacionproduccion1New != null) {
+                idplanificacionproduccion1New = em.getReference(idplanificacionproduccion1New.getClass(), idplanificacionproduccion1New.getIdplanificacionproduccion());
+                ejecucionplanificacionproduccion.setIdplanificacionproduccion1(idplanificacionproduccion1New);
             }
             Set<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionSetNew = new HashSet<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionSetNew) {
@@ -142,6 +172,14 @@ public class EjecucionplanificacionproduccionJpaController {
                 estadoNew.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
                 estadoNew = em.merge(estadoNew);
             }
+            if (estado1Old != null && !estado1Old.equals(estado1New)) {
+                estado1Old.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
+                estado1Old = em.merge(estado1Old);
+            }
+            if (estado1New != null && !estado1New.equals(estado1Old)) {
+                estado1New.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
+                estado1New = em.merge(estado1New);
+            }
             if (idplanificacionproduccionOld != null && !idplanificacionproduccionOld.equals(idplanificacionproduccionNew)) {
                 idplanificacionproduccionOld.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
                 idplanificacionproduccionOld = em.merge(idplanificacionproduccionOld);
@@ -149,6 +187,14 @@ public class EjecucionplanificacionproduccionJpaController {
             if (idplanificacionproduccionNew != null && !idplanificacionproduccionNew.equals(idplanificacionproduccionOld)) {
                 idplanificacionproduccionNew.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
                 idplanificacionproduccionNew = em.merge(idplanificacionproduccionNew);
+            }
+            if (idplanificacionproduccion1Old != null && !idplanificacionproduccion1Old.equals(idplanificacionproduccion1New)) {
+                idplanificacionproduccion1Old.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
+                idplanificacionproduccion1Old = em.merge(idplanificacionproduccion1Old);
+            }
+            if (idplanificacionproduccion1New != null && !idplanificacionproduccion1New.equals(idplanificacionproduccion1Old)) {
+                idplanificacionproduccion1New.getEjecucionplanificacionproduccionSet().add(ejecucionplanificacionproduccion);
+                idplanificacionproduccion1New = em.merge(idplanificacionproduccion1New);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionSetNewDetalleejecucionplanificacion : detalleejecucionplanificacionSetNew) {
                 if (!detalleejecucionplanificacionSetOld.contains(detalleejecucionplanificacionSetNewDetalleejecucionplanificacion)) {
@@ -206,10 +252,20 @@ public class EjecucionplanificacionproduccionJpaController {
                 estado.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
                 estado = em.merge(estado);
             }
+            Estadoejecplanifpedido estado1 = ejecucionplanificacionproduccion.getEstado1();
+            if (estado1 != null) {
+                estado1.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
+                estado1 = em.merge(estado1);
+            }
             Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
             if (idplanificacionproduccion != null) {
                 idplanificacionproduccion.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
                 idplanificacionproduccion = em.merge(idplanificacionproduccion);
+            }
+            Planificacionproduccion idplanificacionproduccion1 = ejecucionplanificacionproduccion.getIdplanificacionproduccion1();
+            if (idplanificacionproduccion1 != null) {
+                idplanificacionproduccion1.getEjecucionplanificacionproduccionSet().remove(ejecucionplanificacionproduccion);
+                idplanificacionproduccion1 = em.merge(idplanificacionproduccion1);
             }
             em.remove(ejecucionplanificacionproduccion);
             em.getTransaction().commit();

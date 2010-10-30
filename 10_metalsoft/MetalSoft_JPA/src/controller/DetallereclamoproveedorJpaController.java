@@ -39,7 +39,7 @@ public class DetallereclamoproveedorJpaController {
         if (detallereclamoproveedor.getDetallereclamoproveedorPK() == null) {
             detallereclamoproveedor.setDetallereclamoproveedorPK(new DetallereclamoproveedorPK());
         }
-        detallereclamoproveedor.getDetallereclamoproveedorPK().setIdreclamo(detallereclamoproveedor.getReclamoproveedor().getIdreclamo());
+        detallereclamoproveedor.getDetallereclamoproveedorPK().setIdreclamo(detallereclamoproveedor.getReclamoproveedor1().getIdreclamo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,19 +49,37 @@ public class DetallereclamoproveedorJpaController {
                 detallecompra = em.getReference(detallecompra.getClass(), detallecompra.getDetallecompraPK());
                 detallereclamoproveedor.setDetallecompra(detallecompra);
             }
+            Detallecompra detallecompra1 = detallereclamoproveedor.getDetallecompra1();
+            if (detallecompra1 != null) {
+                detallecompra1 = em.getReference(detallecompra1.getClass(), detallecompra1.getDetallecompraPK());
+                detallereclamoproveedor.setDetallecompra1(detallecompra1);
+            }
             Reclamoproveedor reclamoproveedor = detallereclamoproveedor.getReclamoproveedor();
             if (reclamoproveedor != null) {
                 reclamoproveedor = em.getReference(reclamoproveedor.getClass(), reclamoproveedor.getIdreclamo());
                 detallereclamoproveedor.setReclamoproveedor(reclamoproveedor);
+            }
+            Reclamoproveedor reclamoproveedor1 = detallereclamoproveedor.getReclamoproveedor1();
+            if (reclamoproveedor1 != null) {
+                reclamoproveedor1 = em.getReference(reclamoproveedor1.getClass(), reclamoproveedor1.getIdreclamo());
+                detallereclamoproveedor.setReclamoproveedor1(reclamoproveedor1);
             }
             em.persist(detallereclamoproveedor);
             if (detallecompra != null) {
                 detallecompra.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
                 detallecompra = em.merge(detallecompra);
             }
+            if (detallecompra1 != null) {
+                detallecompra1.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
+                detallecompra1 = em.merge(detallecompra1);
+            }
             if (reclamoproveedor != null) {
                 reclamoproveedor.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
                 reclamoproveedor = em.merge(reclamoproveedor);
+            }
+            if (reclamoproveedor1 != null) {
+                reclamoproveedor1.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
+                reclamoproveedor1 = em.merge(reclamoproveedor1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,7 +95,7 @@ public class DetallereclamoproveedorJpaController {
     }
 
     public void edit(Detallereclamoproveedor detallereclamoproveedor) throws NonexistentEntityException, Exception {
-        detallereclamoproveedor.getDetallereclamoproveedorPK().setIdreclamo(detallereclamoproveedor.getReclamoproveedor().getIdreclamo());
+        detallereclamoproveedor.getDetallereclamoproveedorPK().setIdreclamo(detallereclamoproveedor.getReclamoproveedor1().getIdreclamo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,15 +103,27 @@ public class DetallereclamoproveedorJpaController {
             Detallereclamoproveedor persistentDetallereclamoproveedor = em.find(Detallereclamoproveedor.class, detallereclamoproveedor.getDetallereclamoproveedorPK());
             Detallecompra detallecompraOld = persistentDetallereclamoproveedor.getDetallecompra();
             Detallecompra detallecompraNew = detallereclamoproveedor.getDetallecompra();
+            Detallecompra detallecompra1Old = persistentDetallereclamoproveedor.getDetallecompra1();
+            Detallecompra detallecompra1New = detallereclamoproveedor.getDetallecompra1();
             Reclamoproveedor reclamoproveedorOld = persistentDetallereclamoproveedor.getReclamoproveedor();
             Reclamoproveedor reclamoproveedorNew = detallereclamoproveedor.getReclamoproveedor();
+            Reclamoproveedor reclamoproveedor1Old = persistentDetallereclamoproveedor.getReclamoproveedor1();
+            Reclamoproveedor reclamoproveedor1New = detallereclamoproveedor.getReclamoproveedor1();
             if (detallecompraNew != null) {
                 detallecompraNew = em.getReference(detallecompraNew.getClass(), detallecompraNew.getDetallecompraPK());
                 detallereclamoproveedor.setDetallecompra(detallecompraNew);
             }
+            if (detallecompra1New != null) {
+                detallecompra1New = em.getReference(detallecompra1New.getClass(), detallecompra1New.getDetallecompraPK());
+                detallereclamoproveedor.setDetallecompra1(detallecompra1New);
+            }
             if (reclamoproveedorNew != null) {
                 reclamoproveedorNew = em.getReference(reclamoproveedorNew.getClass(), reclamoproveedorNew.getIdreclamo());
                 detallereclamoproveedor.setReclamoproveedor(reclamoproveedorNew);
+            }
+            if (reclamoproveedor1New != null) {
+                reclamoproveedor1New = em.getReference(reclamoproveedor1New.getClass(), reclamoproveedor1New.getIdreclamo());
+                detallereclamoproveedor.setReclamoproveedor1(reclamoproveedor1New);
             }
             detallereclamoproveedor = em.merge(detallereclamoproveedor);
             if (detallecompraOld != null && !detallecompraOld.equals(detallecompraNew)) {
@@ -104,6 +134,14 @@ public class DetallereclamoproveedorJpaController {
                 detallecompraNew.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
                 detallecompraNew = em.merge(detallecompraNew);
             }
+            if (detallecompra1Old != null && !detallecompra1Old.equals(detallecompra1New)) {
+                detallecompra1Old.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
+                detallecompra1Old = em.merge(detallecompra1Old);
+            }
+            if (detallecompra1New != null && !detallecompra1New.equals(detallecompra1Old)) {
+                detallecompra1New.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
+                detallecompra1New = em.merge(detallecompra1New);
+            }
             if (reclamoproveedorOld != null && !reclamoproveedorOld.equals(reclamoproveedorNew)) {
                 reclamoproveedorOld.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
                 reclamoproveedorOld = em.merge(reclamoproveedorOld);
@@ -111,6 +149,14 @@ public class DetallereclamoproveedorJpaController {
             if (reclamoproveedorNew != null && !reclamoproveedorNew.equals(reclamoproveedorOld)) {
                 reclamoproveedorNew.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
                 reclamoproveedorNew = em.merge(reclamoproveedorNew);
+            }
+            if (reclamoproveedor1Old != null && !reclamoproveedor1Old.equals(reclamoproveedor1New)) {
+                reclamoproveedor1Old.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
+                reclamoproveedor1Old = em.merge(reclamoproveedor1Old);
+            }
+            if (reclamoproveedor1New != null && !reclamoproveedor1New.equals(reclamoproveedor1Old)) {
+                reclamoproveedor1New.getDetallereclamoproveedorSet().add(detallereclamoproveedor);
+                reclamoproveedor1New = em.merge(reclamoproveedor1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -146,10 +192,20 @@ public class DetallereclamoproveedorJpaController {
                 detallecompra.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
                 detallecompra = em.merge(detallecompra);
             }
+            Detallecompra detallecompra1 = detallereclamoproveedor.getDetallecompra1();
+            if (detallecompra1 != null) {
+                detallecompra1.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
+                detallecompra1 = em.merge(detallecompra1);
+            }
             Reclamoproveedor reclamoproveedor = detallereclamoproveedor.getReclamoproveedor();
             if (reclamoproveedor != null) {
                 reclamoproveedor.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
                 reclamoproveedor = em.merge(reclamoproveedor);
+            }
+            Reclamoproveedor reclamoproveedor1 = detallereclamoproveedor.getReclamoproveedor1();
+            if (reclamoproveedor1 != null) {
+                reclamoproveedor1.getDetallereclamoproveedorSet().remove(detallereclamoproveedor);
+                reclamoproveedor1 = em.merge(reclamoproveedor1);
             }
             em.remove(detallereclamoproveedor);
             em.getTransaction().commit();

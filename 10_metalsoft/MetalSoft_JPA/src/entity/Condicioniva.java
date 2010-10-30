@@ -39,12 +39,20 @@ public class Condicioniva implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "condicioniva")
     private Set<Empresametalurgica> empresametalurgicaSet;
+    @OneToMany(mappedBy = "condicioniva1")
+    private Set<Empresametalurgica> empresametalurgicaSet1;
     @OneToMany(mappedBy = "condicioniva")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "condicioniva1")
+    private Set<Cliente> clienteSet1;
     @OneToMany(mappedBy = "condicion")
     private Set<Proveedor> proveedorSet;
+    @OneToMany(mappedBy = "condicion1")
+    private Set<Proveedor> proveedorSet1;
     @OneToMany(mappedBy = "condicioniva")
     private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet;
+    @OneToMany(mappedBy = "condicioniva1")
+    private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1;
 
     public Condicioniva() {
     }
@@ -85,12 +93,28 @@ public class Condicioniva implements Serializable {
         this.empresametalurgicaSet = empresametalurgicaSet;
     }
 
+    public Set<Empresametalurgica> getEmpresametalurgicaSet1() {
+        return empresametalurgicaSet1;
+    }
+
+    public void setEmpresametalurgicaSet1(Set<Empresametalurgica> empresametalurgicaSet1) {
+        this.empresametalurgicaSet1 = empresametalurgicaSet1;
+    }
+
     public Set<Cliente> getClienteSet() {
         return clienteSet;
     }
 
     public void setClienteSet(Set<Cliente> clienteSet) {
         this.clienteSet = clienteSet;
+    }
+
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
     }
 
     public Set<Proveedor> getProveedorSet() {
@@ -101,12 +125,28 @@ public class Condicioniva implements Serializable {
         this.proveedorSet = proveedorSet;
     }
 
+    public Set<Proveedor> getProveedorSet1() {
+        return proveedorSet1;
+    }
+
+    public void setProveedorSet1(Set<Proveedor> proveedorSet1) {
+        this.proveedorSet1 = proveedorSet1;
+    }
+
     public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet() {
         return proveedormantenimientomaquinaSet;
     }
 
     public void setProveedormantenimientomaquinaSet(Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet) {
         this.proveedormantenimientomaquinaSet = proveedormantenimientomaquinaSet;
+    }
+
+    public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet1() {
+        return proveedormantenimientomaquinaSet1;
+    }
+
+    public void setProveedormantenimientomaquinaSet1(Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1) {
+        this.proveedormantenimientomaquinaSet1 = proveedormantenimientomaquinaSet1;
     }
 
     @Override

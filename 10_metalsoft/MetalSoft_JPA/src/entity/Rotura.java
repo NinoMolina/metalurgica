@@ -39,6 +39,8 @@ public class Rotura implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "rotura")
     private Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet;
+    @OneToMany(mappedBy = "rotura1")
+    private Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet1;
 
     public Rotura() {
     }
@@ -77,6 +79,14 @@ public class Rotura implements Serializable {
 
     public void setDetallemantenimientocorrectivoSet(Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet) {
         this.detallemantenimientocorrectivoSet = detallemantenimientocorrectivoSet;
+    }
+
+    public Set<Detallemantenimientocorrectivo> getDetallemantenimientocorrectivoSet1() {
+        return detallemantenimientocorrectivoSet1;
+    }
+
+    public void setDetallemantenimientocorrectivoSet1(Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet1) {
+        this.detallemantenimientocorrectivoSet1 = detallemantenimientocorrectivoSet1;
     }
 
     @Override

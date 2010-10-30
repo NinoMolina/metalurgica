@@ -39,6 +39,8 @@ public class Estadopiezareal implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Piezareal> piezarealSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Piezareal> piezarealSet1;
 
     public Estadopiezareal() {
     }
@@ -77,6 +79,14 @@ public class Estadopiezareal implements Serializable {
 
     public void setPiezarealSet(Set<Piezareal> piezarealSet) {
         this.piezarealSet = piezarealSet;
+    }
+
+    public Set<Piezareal> getPiezarealSet1() {
+        return piezarealSet1;
+    }
+
+    public void setPiezarealSet1(Set<Piezareal> piezarealSet1) {
+        this.piezarealSet1 = piezarealSet1;
     }
 
     @Override

@@ -42,6 +42,9 @@ public class Piezaxetapadeproduccion implements Serializable {
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Etapadeproduccion etapadeproduccion;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Etapadeproduccion etapadeproduccion1;
 
     public Piezaxetapadeproduccion() {
     }
@@ -84,6 +87,14 @@ public class Piezaxetapadeproduccion implements Serializable {
 
     public void setEtapadeproduccion(Etapadeproduccion etapadeproduccion) {
         this.etapadeproduccion = etapadeproduccion;
+    }
+
+    public Etapadeproduccion getEtapadeproduccion1() {
+        return etapadeproduccion1;
+    }
+
+    public void setEtapadeproduccion1(Etapadeproduccion etapadeproduccion1) {
+        this.etapadeproduccion1 = etapadeproduccion1;
     }
 
     @Override

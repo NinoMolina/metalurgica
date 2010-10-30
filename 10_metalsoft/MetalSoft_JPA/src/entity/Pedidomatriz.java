@@ -48,6 +48,9 @@ public class Pedidomatriz implements Serializable {
     @JoinColumn(name = "idmatriz", referencedColumnName = "idmatriz")
     @ManyToOne
     private Matriz idmatriz;
+    @JoinColumn(name = "idmatriz", referencedColumnName = "idmatriz")
+    @ManyToOne
+    private Matriz idmatriz1;
 
     public Pedidomatriz() {
     }
@@ -94,6 +97,14 @@ public class Pedidomatriz implements Serializable {
 
     public void setIdmatriz(Matriz idmatriz) {
         this.idmatriz = idmatriz;
+    }
+
+    public Matriz getIdmatriz1() {
+        return idmatriz1;
+    }
+
+    public void setIdmatriz1(Matriz idmatriz1) {
+        this.idmatriz1 = idmatriz1;
     }
 
     @Override

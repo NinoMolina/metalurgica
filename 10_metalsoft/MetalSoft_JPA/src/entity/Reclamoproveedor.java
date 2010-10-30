@@ -51,11 +51,19 @@ public class Reclamoproveedor implements Serializable {
     @JoinColumn(name = "compra", referencedColumnName = "idcompra")
     @ManyToOne
     private Compra compra;
+    @JoinColumn(name = "compra", referencedColumnName = "idcompra")
+    @ManyToOne
+    private Compra compra1;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
+    @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
+    @ManyToOne
+    private Tiporeclamo tiporeclamo1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoproveedor")
     private Set<Detallereclamoproveedor> detallereclamoproveedorSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoproveedor1")
+    private Set<Detallereclamoproveedor> detallereclamoproveedorSet1;
 
     public Reclamoproveedor() {
     }
@@ -104,6 +112,14 @@ public class Reclamoproveedor implements Serializable {
         this.compra = compra;
     }
 
+    public Compra getCompra1() {
+        return compra1;
+    }
+
+    public void setCompra1(Compra compra1) {
+        this.compra1 = compra1;
+    }
+
     public Tiporeclamo getTiporeclamo() {
         return tiporeclamo;
     }
@@ -112,12 +128,28 @@ public class Reclamoproveedor implements Serializable {
         this.tiporeclamo = tiporeclamo;
     }
 
+    public Tiporeclamo getTiporeclamo1() {
+        return tiporeclamo1;
+    }
+
+    public void setTiporeclamo1(Tiporeclamo tiporeclamo1) {
+        this.tiporeclamo1 = tiporeclamo1;
+    }
+
     public Set<Detallereclamoproveedor> getDetallereclamoproveedorSet() {
         return detallereclamoproveedorSet;
     }
 
     public void setDetallereclamoproveedorSet(Set<Detallereclamoproveedor> detallereclamoproveedorSet) {
         this.detallereclamoproveedorSet = detallereclamoproveedorSet;
+    }
+
+    public Set<Detallereclamoproveedor> getDetallereclamoproveedorSet1() {
+        return detallereclamoproveedorSet1;
+    }
+
+    public void setDetallereclamoproveedorSet1(Set<Detallereclamoproveedor> detallereclamoproveedorSet1) {
+        this.detallereclamoproveedorSet1 = detallereclamoproveedorSet1;
     }
 
     @Override

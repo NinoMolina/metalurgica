@@ -40,8 +40,14 @@ public class TipodocumentoJpaController {
         if (tipodocumento.getResponsableSet() == null) {
             tipodocumento.setResponsableSet(new HashSet<Responsable>());
         }
+        if (tipodocumento.getResponsableSet1() == null) {
+            tipodocumento.setResponsableSet1(new HashSet<Responsable>());
+        }
         if (tipodocumento.getEmpleadoSet() == null) {
             tipodocumento.setEmpleadoSet(new HashSet<Empleado>());
+        }
+        if (tipodocumento.getEmpleadoSet1() == null) {
+            tipodocumento.setEmpleadoSet1(new HashSet<Empleado>());
         }
         EntityManager em = null;
         try {
@@ -53,12 +59,24 @@ public class TipodocumentoJpaController {
                 attachedResponsableSet.add(responsableSetResponsableToAttach);
             }
             tipodocumento.setResponsableSet(attachedResponsableSet);
+            Set<Responsable> attachedResponsableSet1 = new HashSet<Responsable>();
+            for (Responsable responsableSet1ResponsableToAttach : tipodocumento.getResponsableSet1()) {
+                responsableSet1ResponsableToAttach = em.getReference(responsableSet1ResponsableToAttach.getClass(), responsableSet1ResponsableToAttach.getIdresponsable());
+                attachedResponsableSet1.add(responsableSet1ResponsableToAttach);
+            }
+            tipodocumento.setResponsableSet1(attachedResponsableSet1);
             Set<Empleado> attachedEmpleadoSet = new HashSet<Empleado>();
             for (Empleado empleadoSetEmpleadoToAttach : tipodocumento.getEmpleadoSet()) {
                 empleadoSetEmpleadoToAttach = em.getReference(empleadoSetEmpleadoToAttach.getClass(), empleadoSetEmpleadoToAttach.getIdempleado());
                 attachedEmpleadoSet.add(empleadoSetEmpleadoToAttach);
             }
             tipodocumento.setEmpleadoSet(attachedEmpleadoSet);
+            Set<Empleado> attachedEmpleadoSet1 = new HashSet<Empleado>();
+            for (Empleado empleadoSet1EmpleadoToAttach : tipodocumento.getEmpleadoSet1()) {
+                empleadoSet1EmpleadoToAttach = em.getReference(empleadoSet1EmpleadoToAttach.getClass(), empleadoSet1EmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1.add(empleadoSet1EmpleadoToAttach);
+            }
+            tipodocumento.setEmpleadoSet1(attachedEmpleadoSet1);
             em.persist(tipodocumento);
             for (Responsable responsableSetResponsable : tipodocumento.getResponsableSet()) {
                 Tipodocumento oldTipodocumentoOfResponsableSetResponsable = responsableSetResponsable.getTipodocumento();
@@ -69,6 +87,15 @@ public class TipodocumentoJpaController {
                     oldTipodocumentoOfResponsableSetResponsable = em.merge(oldTipodocumentoOfResponsableSetResponsable);
                 }
             }
+            for (Responsable responsableSet1Responsable : tipodocumento.getResponsableSet1()) {
+                Tipodocumento oldTipodocumento1OfResponsableSet1Responsable = responsableSet1Responsable.getTipodocumento1();
+                responsableSet1Responsable.setTipodocumento1(tipodocumento);
+                responsableSet1Responsable = em.merge(responsableSet1Responsable);
+                if (oldTipodocumento1OfResponsableSet1Responsable != null) {
+                    oldTipodocumento1OfResponsableSet1Responsable.getResponsableSet1().remove(responsableSet1Responsable);
+                    oldTipodocumento1OfResponsableSet1Responsable = em.merge(oldTipodocumento1OfResponsableSet1Responsable);
+                }
+            }
             for (Empleado empleadoSetEmpleado : tipodocumento.getEmpleadoSet()) {
                 Tipodocumento oldTipodocumentoOfEmpleadoSetEmpleado = empleadoSetEmpleado.getTipodocumento();
                 empleadoSetEmpleado.setTipodocumento(tipodocumento);
@@ -76,6 +103,15 @@ public class TipodocumentoJpaController {
                 if (oldTipodocumentoOfEmpleadoSetEmpleado != null) {
                     oldTipodocumentoOfEmpleadoSetEmpleado.getEmpleadoSet().remove(empleadoSetEmpleado);
                     oldTipodocumentoOfEmpleadoSetEmpleado = em.merge(oldTipodocumentoOfEmpleadoSetEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1Empleado : tipodocumento.getEmpleadoSet1()) {
+                Tipodocumento oldTipodocumento1OfEmpleadoSet1Empleado = empleadoSet1Empleado.getTipodocumento1();
+                empleadoSet1Empleado.setTipodocumento1(tipodocumento);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
+                if (oldTipodocumento1OfEmpleadoSet1Empleado != null) {
+                    oldTipodocumento1OfEmpleadoSet1Empleado.getEmpleadoSet1().remove(empleadoSet1Empleado);
+                    oldTipodocumento1OfEmpleadoSet1Empleado = em.merge(oldTipodocumento1OfEmpleadoSet1Empleado);
                 }
             }
             em.getTransaction().commit();
@@ -99,8 +135,12 @@ public class TipodocumentoJpaController {
             Tipodocumento persistentTipodocumento = em.find(Tipodocumento.class, tipodocumento.getIdtipodocumento());
             Set<Responsable> responsableSetOld = persistentTipodocumento.getResponsableSet();
             Set<Responsable> responsableSetNew = tipodocumento.getResponsableSet();
+            Set<Responsable> responsableSet1Old = persistentTipodocumento.getResponsableSet1();
+            Set<Responsable> responsableSet1New = tipodocumento.getResponsableSet1();
             Set<Empleado> empleadoSetOld = persistentTipodocumento.getEmpleadoSet();
             Set<Empleado> empleadoSetNew = tipodocumento.getEmpleadoSet();
+            Set<Empleado> empleadoSet1Old = persistentTipodocumento.getEmpleadoSet1();
+            Set<Empleado> empleadoSet1New = tipodocumento.getEmpleadoSet1();
             Set<Responsable> attachedResponsableSetNew = new HashSet<Responsable>();
             for (Responsable responsableSetNewResponsableToAttach : responsableSetNew) {
                 responsableSetNewResponsableToAttach = em.getReference(responsableSetNewResponsableToAttach.getClass(), responsableSetNewResponsableToAttach.getIdresponsable());
@@ -108,6 +148,13 @@ public class TipodocumentoJpaController {
             }
             responsableSetNew = attachedResponsableSetNew;
             tipodocumento.setResponsableSet(responsableSetNew);
+            Set<Responsable> attachedResponsableSet1New = new HashSet<Responsable>();
+            for (Responsable responsableSet1NewResponsableToAttach : responsableSet1New) {
+                responsableSet1NewResponsableToAttach = em.getReference(responsableSet1NewResponsableToAttach.getClass(), responsableSet1NewResponsableToAttach.getIdresponsable());
+                attachedResponsableSet1New.add(responsableSet1NewResponsableToAttach);
+            }
+            responsableSet1New = attachedResponsableSet1New;
+            tipodocumento.setResponsableSet1(responsableSet1New);
             Set<Empleado> attachedEmpleadoSetNew = new HashSet<Empleado>();
             for (Empleado empleadoSetNewEmpleadoToAttach : empleadoSetNew) {
                 empleadoSetNewEmpleadoToAttach = em.getReference(empleadoSetNewEmpleadoToAttach.getClass(), empleadoSetNewEmpleadoToAttach.getIdempleado());
@@ -115,6 +162,13 @@ public class TipodocumentoJpaController {
             }
             empleadoSetNew = attachedEmpleadoSetNew;
             tipodocumento.setEmpleadoSet(empleadoSetNew);
+            Set<Empleado> attachedEmpleadoSet1New = new HashSet<Empleado>();
+            for (Empleado empleadoSet1NewEmpleadoToAttach : empleadoSet1New) {
+                empleadoSet1NewEmpleadoToAttach = em.getReference(empleadoSet1NewEmpleadoToAttach.getClass(), empleadoSet1NewEmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1New.add(empleadoSet1NewEmpleadoToAttach);
+            }
+            empleadoSet1New = attachedEmpleadoSet1New;
+            tipodocumento.setEmpleadoSet1(empleadoSet1New);
             tipodocumento = em.merge(tipodocumento);
             for (Responsable responsableSetOldResponsable : responsableSetOld) {
                 if (!responsableSetNew.contains(responsableSetOldResponsable)) {
@@ -133,6 +187,23 @@ public class TipodocumentoJpaController {
                     }
                 }
             }
+            for (Responsable responsableSet1OldResponsable : responsableSet1Old) {
+                if (!responsableSet1New.contains(responsableSet1OldResponsable)) {
+                    responsableSet1OldResponsable.setTipodocumento1(null);
+                    responsableSet1OldResponsable = em.merge(responsableSet1OldResponsable);
+                }
+            }
+            for (Responsable responsableSet1NewResponsable : responsableSet1New) {
+                if (!responsableSet1Old.contains(responsableSet1NewResponsable)) {
+                    Tipodocumento oldTipodocumento1OfResponsableSet1NewResponsable = responsableSet1NewResponsable.getTipodocumento1();
+                    responsableSet1NewResponsable.setTipodocumento1(tipodocumento);
+                    responsableSet1NewResponsable = em.merge(responsableSet1NewResponsable);
+                    if (oldTipodocumento1OfResponsableSet1NewResponsable != null && !oldTipodocumento1OfResponsableSet1NewResponsable.equals(tipodocumento)) {
+                        oldTipodocumento1OfResponsableSet1NewResponsable.getResponsableSet1().remove(responsableSet1NewResponsable);
+                        oldTipodocumento1OfResponsableSet1NewResponsable = em.merge(oldTipodocumento1OfResponsableSet1NewResponsable);
+                    }
+                }
+            }
             for (Empleado empleadoSetOldEmpleado : empleadoSetOld) {
                 if (!empleadoSetNew.contains(empleadoSetOldEmpleado)) {
                     empleadoSetOldEmpleado.setTipodocumento(null);
@@ -147,6 +218,23 @@ public class TipodocumentoJpaController {
                     if (oldTipodocumentoOfEmpleadoSetNewEmpleado != null && !oldTipodocumentoOfEmpleadoSetNewEmpleado.equals(tipodocumento)) {
                         oldTipodocumentoOfEmpleadoSetNewEmpleado.getEmpleadoSet().remove(empleadoSetNewEmpleado);
                         oldTipodocumentoOfEmpleadoSetNewEmpleado = em.merge(oldTipodocumentoOfEmpleadoSetNewEmpleado);
+                    }
+                }
+            }
+            for (Empleado empleadoSet1OldEmpleado : empleadoSet1Old) {
+                if (!empleadoSet1New.contains(empleadoSet1OldEmpleado)) {
+                    empleadoSet1OldEmpleado.setTipodocumento1(null);
+                    empleadoSet1OldEmpleado = em.merge(empleadoSet1OldEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1NewEmpleado : empleadoSet1New) {
+                if (!empleadoSet1Old.contains(empleadoSet1NewEmpleado)) {
+                    Tipodocumento oldTipodocumento1OfEmpleadoSet1NewEmpleado = empleadoSet1NewEmpleado.getTipodocumento1();
+                    empleadoSet1NewEmpleado.setTipodocumento1(tipodocumento);
+                    empleadoSet1NewEmpleado = em.merge(empleadoSet1NewEmpleado);
+                    if (oldTipodocumento1OfEmpleadoSet1NewEmpleado != null && !oldTipodocumento1OfEmpleadoSet1NewEmpleado.equals(tipodocumento)) {
+                        oldTipodocumento1OfEmpleadoSet1NewEmpleado.getEmpleadoSet1().remove(empleadoSet1NewEmpleado);
+                        oldTipodocumento1OfEmpleadoSet1NewEmpleado = em.merge(oldTipodocumento1OfEmpleadoSet1NewEmpleado);
                     }
                 }
             }
@@ -184,10 +272,20 @@ public class TipodocumentoJpaController {
                 responsableSetResponsable.setTipodocumento(null);
                 responsableSetResponsable = em.merge(responsableSetResponsable);
             }
+            Set<Responsable> responsableSet1 = tipodocumento.getResponsableSet1();
+            for (Responsable responsableSet1Responsable : responsableSet1) {
+                responsableSet1Responsable.setTipodocumento1(null);
+                responsableSet1Responsable = em.merge(responsableSet1Responsable);
+            }
             Set<Empleado> empleadoSet = tipodocumento.getEmpleadoSet();
             for (Empleado empleadoSetEmpleado : empleadoSet) {
                 empleadoSetEmpleado.setTipodocumento(null);
                 empleadoSetEmpleado = em.merge(empleadoSetEmpleado);
+            }
+            Set<Empleado> empleadoSet1 = tipodocumento.getEmpleadoSet1();
+            for (Empleado empleadoSet1Empleado : empleadoSet1) {
+                empleadoSet1Empleado.setTipodocumento1(null);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
             }
             em.remove(tipodocumento);
             em.getTransaction().commit();

@@ -44,9 +44,15 @@ public class Detallepiezacalidadpresupuesto implements Serializable {
     @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
     @ManyToOne
     private Detalleproductopresupuesto iddetalleproductopresupuesto;
+    @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detalleproductopresupuesto iddetalleproductopresupuesto1;
     @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
     @ManyToOne
     private Procesocalidad idprocesocalidad;
+    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
+    @ManyToOne
+    private Procesocalidad idprocesocalidad1;
 
     public Detallepiezacalidadpresupuesto() {
     }
@@ -87,12 +93,28 @@ public class Detallepiezacalidadpresupuesto implements Serializable {
         this.iddetalleproductopresupuesto = iddetalleproductopresupuesto;
     }
 
+    public Detalleproductopresupuesto getIddetalleproductopresupuesto1() {
+        return iddetalleproductopresupuesto1;
+    }
+
+    public void setIddetalleproductopresupuesto1(Detalleproductopresupuesto iddetalleproductopresupuesto1) {
+        this.iddetalleproductopresupuesto1 = iddetalleproductopresupuesto1;
+    }
+
     public Procesocalidad getIdprocesocalidad() {
         return idprocesocalidad;
     }
 
     public void setIdprocesocalidad(Procesocalidad idprocesocalidad) {
         this.idprocesocalidad = idprocesocalidad;
+    }
+
+    public Procesocalidad getIdprocesocalidad1() {
+        return idprocesocalidad1;
+    }
+
+    public void setIdprocesocalidad1(Procesocalidad idprocesocalidad1) {
+        this.idprocesocalidad1 = idprocesocalidad1;
     }
 
     @Override

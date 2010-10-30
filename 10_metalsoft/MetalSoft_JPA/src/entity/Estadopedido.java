@@ -40,6 +40,8 @@ public class Estadopedido implements Serializable {
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private Set<Pedido> pedidoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado1")
+    private Set<Pedido> pedidoSet1;
 
     public Estadopedido() {
     }
@@ -78,6 +80,14 @@ public class Estadopedido implements Serializable {
 
     public void setPedidoSet(Set<Pedido> pedidoSet) {
         this.pedidoSet = pedidoSet;
+    }
+
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
     }
 
     @Override

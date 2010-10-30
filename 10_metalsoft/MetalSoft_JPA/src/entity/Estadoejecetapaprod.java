@@ -39,6 +39,8 @@ public class Estadoejecetapaprod implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1;
 
     public Estadoejecetapaprod() {
     }
@@ -77,6 +79,14 @@ public class Estadoejecetapaprod implements Serializable {
 
     public void setEjecucionetapaproduccionSet(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet) {
         this.ejecucionetapaproduccionSet = ejecucionetapaproduccionSet;
+    }
+
+    public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet1() {
+        return ejecucionetapaproduccionSet1;
+    }
+
+    public void setEjecucionetapaproduccionSet1(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1) {
+        this.ejecucionetapaproduccionSet1 = ejecucionetapaproduccionSet1;
     }
 
     @Override

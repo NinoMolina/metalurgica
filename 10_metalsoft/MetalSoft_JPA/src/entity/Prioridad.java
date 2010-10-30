@@ -40,8 +40,12 @@ public class Prioridad implements Serializable {
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prioridad")
     private Set<Pedido> pedidoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prioridad1")
+    private Set<Pedido> pedidoSet1;
     @OneToMany(mappedBy = "prioridad")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "prioridad1")
+    private Set<Cliente> clienteSet1;
 
     public Prioridad() {
     }
@@ -82,12 +86,28 @@ public class Prioridad implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Set<Cliente> getClienteSet() {
         return clienteSet;
     }
 
     public void setClienteSet(Set<Cliente> clienteSet) {
         this.clienteSet = clienteSet;
+    }
+
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
     }
 
     @Override

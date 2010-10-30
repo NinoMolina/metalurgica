@@ -58,22 +58,40 @@ public class Factura implements Serializable {
     private String tipofactura;
     @OneToMany(mappedBy = "factura")
     private Set<Pedido> pedidoSet;
+    @OneToMany(mappedBy = "factura1")
+    private Set<Pedido> pedidoSet1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadofactura estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadofactura estado1;
     @JoinColumn(name = "formapago", referencedColumnName = "idformapago")
     @ManyToOne
     private Formadepago formapago;
+    @JoinColumn(name = "formapago", referencedColumnName = "idformapago")
+    @ManyToOne
+    private Formadepago formapago1;
     @JoinColumn(name = "tipoiva", referencedColumnName = "idtipoiva")
     @ManyToOne
     private Tipoiva tipoiva;
+    @JoinColumn(name = "tipoiva", referencedColumnName = "idtipoiva")
+    @ManyToOne
+    private Tipoiva tipoiva1;
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
     private Set<Detallefactura> detallefacturaSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura1")
+    private Set<Detallefactura> detallefacturaSet1;
     @OneToMany(mappedBy = "factura")
     private Set<Comprobantepago> comprobantepagoSet;
+    @OneToMany(mappedBy = "factura1")
+    private Set<Comprobantepago> comprobantepagoSet1;
 
     public Factura() {
     }
@@ -138,12 +156,28 @@ public class Factura implements Serializable {
         this.pedidoSet = pedidoSet;
     }
 
+    public Set<Pedido> getPedidoSet1() {
+        return pedidoSet1;
+    }
+
+    public void setPedidoSet1(Set<Pedido> pedidoSet1) {
+        this.pedidoSet1 = pedidoSet1;
+    }
+
     public Estadofactura getEstado() {
         return estado;
     }
 
     public void setEstado(Estadofactura estado) {
         this.estado = estado;
+    }
+
+    public Estadofactura getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadofactura estado1) {
+        this.estado1 = estado1;
     }
 
     public Formadepago getFormapago() {
@@ -154,12 +188,28 @@ public class Factura implements Serializable {
         this.formapago = formapago;
     }
 
+    public Formadepago getFormapago1() {
+        return formapago1;
+    }
+
+    public void setFormapago1(Formadepago formapago1) {
+        this.formapago1 = formapago1;
+    }
+
     public Tipoiva getTipoiva() {
         return tipoiva;
     }
 
     public void setTipoiva(Tipoiva tipoiva) {
         this.tipoiva = tipoiva;
+    }
+
+    public Tipoiva getTipoiva1() {
+        return tipoiva1;
+    }
+
+    public void setTipoiva1(Tipoiva tipoiva1) {
+        this.tipoiva1 = tipoiva1;
     }
 
     public Usuario getUsuario() {
@@ -170,6 +220,14 @@ public class Factura implements Serializable {
         this.usuario = usuario;
     }
 
+    public Usuario getUsuario1() {
+        return usuario1;
+    }
+
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
+    }
+
     public Set<Detallefactura> getDetallefacturaSet() {
         return detallefacturaSet;
     }
@@ -178,12 +236,28 @@ public class Factura implements Serializable {
         this.detallefacturaSet = detallefacturaSet;
     }
 
+    public Set<Detallefactura> getDetallefacturaSet1() {
+        return detallefacturaSet1;
+    }
+
+    public void setDetallefacturaSet1(Set<Detallefactura> detallefacturaSet1) {
+        this.detallefacturaSet1 = detallefacturaSet1;
+    }
+
     public Set<Comprobantepago> getComprobantepagoSet() {
         return comprobantepagoSet;
     }
 
     public void setComprobantepagoSet(Set<Comprobantepago> comprobantepagoSet) {
         this.comprobantepagoSet = comprobantepagoSet;
+    }
+
+    public Set<Comprobantepago> getComprobantepagoSet1() {
+        return comprobantepagoSet1;
+    }
+
+    public void setComprobantepagoSet1(Set<Comprobantepago> comprobantepagoSet1) {
+        this.comprobantepagoSet1 = comprobantepagoSet1;
     }
 
     @Override

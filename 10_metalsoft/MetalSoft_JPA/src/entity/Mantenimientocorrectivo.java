@@ -61,11 +61,19 @@ public class Mantenimientocorrectivo implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
+    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
+    @ManyToOne
+    private Empleado empleado1;
     @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
     @ManyToOne
     private Proveedormantenimientomaquina proveedormantenimiento;
+    @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
+    @ManyToOne
+    private Proveedormantenimientomaquina proveedormantenimiento1;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientocorrectivo")
     private Detallemantenimientocorrectivo detallemantenimientocorrectivo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientocorrectivo1")
+    private Detallemantenimientocorrectivo detallemantenimientocorrectivo1;
 
     public Mantenimientocorrectivo() {
     }
@@ -138,6 +146,14 @@ public class Mantenimientocorrectivo implements Serializable {
         this.empleado = empleado;
     }
 
+    public Empleado getEmpleado1() {
+        return empleado1;
+    }
+
+    public void setEmpleado1(Empleado empleado1) {
+        this.empleado1 = empleado1;
+    }
+
     public Proveedormantenimientomaquina getProveedormantenimiento() {
         return proveedormantenimiento;
     }
@@ -146,12 +162,28 @@ public class Mantenimientocorrectivo implements Serializable {
         this.proveedormantenimiento = proveedormantenimiento;
     }
 
+    public Proveedormantenimientomaquina getProveedormantenimiento1() {
+        return proveedormantenimiento1;
+    }
+
+    public void setProveedormantenimiento1(Proveedormantenimientomaquina proveedormantenimiento1) {
+        this.proveedormantenimiento1 = proveedormantenimiento1;
+    }
+
     public Detallemantenimientocorrectivo getDetallemantenimientocorrectivo() {
         return detallemantenimientocorrectivo;
     }
 
     public void setDetallemantenimientocorrectivo(Detallemantenimientocorrectivo detallemantenimientocorrectivo) {
         this.detallemantenimientocorrectivo = detallemantenimientocorrectivo;
+    }
+
+    public Detallemantenimientocorrectivo getDetallemantenimientocorrectivo1() {
+        return detallemantenimientocorrectivo1;
+    }
+
+    public void setDetallemantenimientocorrectivo1(Detallemantenimientocorrectivo detallemantenimientocorrectivo1) {
+        this.detallemantenimientocorrectivo1 = detallemantenimientocorrectivo1;
     }
 
     @Override

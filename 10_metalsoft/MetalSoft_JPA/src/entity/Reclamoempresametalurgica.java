@@ -50,12 +50,20 @@ public class Reclamoempresametalurgica implements Serializable {
     private Date fechareclamo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoempresametalurgica")
     private Set<Detallereclamoempresametalurgica> detallereclamoempresametalurgicaSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoempresametalurgica1")
+    private Set<Detallereclamoempresametalurgica> detallereclamoempresametalurgicaSet1;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
+    @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
+    @ManyToOne
+    private Tiporeclamo tiporeclamo1;
     @JoinColumn(name = "trabajotercerizado", referencedColumnName = "idtrabajo")
     @ManyToOne
     private Trabajotercerizado trabajotercerizado;
+    @JoinColumn(name = "trabajotercerizado", referencedColumnName = "idtrabajo")
+    @ManyToOne
+    private Trabajotercerizado trabajotercerizado1;
 
     public Reclamoempresametalurgica() {
     }
@@ -104,6 +112,14 @@ public class Reclamoempresametalurgica implements Serializable {
         this.detallereclamoempresametalurgicaSet = detallereclamoempresametalurgicaSet;
     }
 
+    public Set<Detallereclamoempresametalurgica> getDetallereclamoempresametalurgicaSet1() {
+        return detallereclamoempresametalurgicaSet1;
+    }
+
+    public void setDetallereclamoempresametalurgicaSet1(Set<Detallereclamoempresametalurgica> detallereclamoempresametalurgicaSet1) {
+        this.detallereclamoempresametalurgicaSet1 = detallereclamoempresametalurgicaSet1;
+    }
+
     public Tiporeclamo getTiporeclamo() {
         return tiporeclamo;
     }
@@ -112,12 +128,28 @@ public class Reclamoempresametalurgica implements Serializable {
         this.tiporeclamo = tiporeclamo;
     }
 
+    public Tiporeclamo getTiporeclamo1() {
+        return tiporeclamo1;
+    }
+
+    public void setTiporeclamo1(Tiporeclamo tiporeclamo1) {
+        this.tiporeclamo1 = tiporeclamo1;
+    }
+
     public Trabajotercerizado getTrabajotercerizado() {
         return trabajotercerizado;
     }
 
     public void setTrabajotercerizado(Trabajotercerizado trabajotercerizado) {
         this.trabajotercerizado = trabajotercerizado;
+    }
+
+    public Trabajotercerizado getTrabajotercerizado1() {
+        return trabajotercerizado1;
+    }
+
+    public void setTrabajotercerizado1(Trabajotercerizado trabajotercerizado1) {
+        this.trabajotercerizado1 = trabajotercerizado1;
     }
 
     @Override

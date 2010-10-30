@@ -39,7 +39,7 @@ public class DetallefacturaJpaController {
         if (detallefactura.getDetallefacturaPK() == null) {
             detallefactura.setDetallefacturaPK(new DetallefacturaPK());
         }
-        detallefactura.getDetallefacturaPK().setIdfactura(detallefactura.getFactura().getIdfactura());
+        detallefactura.getDetallefacturaPK().setIdfactura(detallefactura.getFactura1().getIdfactura());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,19 +49,37 @@ public class DetallefacturaJpaController {
                 factura = em.getReference(factura.getClass(), factura.getIdfactura());
                 detallefactura.setFactura(factura);
             }
+            Factura factura1 = detallefactura.getFactura1();
+            if (factura1 != null) {
+                factura1 = em.getReference(factura1.getClass(), factura1.getIdfactura());
+                detallefactura.setFactura1(factura1);
+            }
             Pedido idpedido = detallefactura.getIdpedido();
             if (idpedido != null) {
                 idpedido = em.getReference(idpedido.getClass(), idpedido.getIdpedido());
                 detallefactura.setIdpedido(idpedido);
+            }
+            Pedido idpedido1 = detallefactura.getIdpedido1();
+            if (idpedido1 != null) {
+                idpedido1 = em.getReference(idpedido1.getClass(), idpedido1.getIdpedido());
+                detallefactura.setIdpedido1(idpedido1);
             }
             em.persist(detallefactura);
             if (factura != null) {
                 factura.getDetallefacturaSet().add(detallefactura);
                 factura = em.merge(factura);
             }
+            if (factura1 != null) {
+                factura1.getDetallefacturaSet().add(detallefactura);
+                factura1 = em.merge(factura1);
+            }
             if (idpedido != null) {
                 idpedido.getDetallefacturaSet().add(detallefactura);
                 idpedido = em.merge(idpedido);
+            }
+            if (idpedido1 != null) {
+                idpedido1.getDetallefacturaSet().add(detallefactura);
+                idpedido1 = em.merge(idpedido1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,7 +95,7 @@ public class DetallefacturaJpaController {
     }
 
     public void edit(Detallefactura detallefactura) throws NonexistentEntityException, Exception {
-        detallefactura.getDetallefacturaPK().setIdfactura(detallefactura.getFactura().getIdfactura());
+        detallefactura.getDetallefacturaPK().setIdfactura(detallefactura.getFactura1().getIdfactura());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,15 +103,27 @@ public class DetallefacturaJpaController {
             Detallefactura persistentDetallefactura = em.find(Detallefactura.class, detallefactura.getDetallefacturaPK());
             Factura facturaOld = persistentDetallefactura.getFactura();
             Factura facturaNew = detallefactura.getFactura();
+            Factura factura1Old = persistentDetallefactura.getFactura1();
+            Factura factura1New = detallefactura.getFactura1();
             Pedido idpedidoOld = persistentDetallefactura.getIdpedido();
             Pedido idpedidoNew = detallefactura.getIdpedido();
+            Pedido idpedido1Old = persistentDetallefactura.getIdpedido1();
+            Pedido idpedido1New = detallefactura.getIdpedido1();
             if (facturaNew != null) {
                 facturaNew = em.getReference(facturaNew.getClass(), facturaNew.getIdfactura());
                 detallefactura.setFactura(facturaNew);
             }
+            if (factura1New != null) {
+                factura1New = em.getReference(factura1New.getClass(), factura1New.getIdfactura());
+                detallefactura.setFactura1(factura1New);
+            }
             if (idpedidoNew != null) {
                 idpedidoNew = em.getReference(idpedidoNew.getClass(), idpedidoNew.getIdpedido());
                 detallefactura.setIdpedido(idpedidoNew);
+            }
+            if (idpedido1New != null) {
+                idpedido1New = em.getReference(idpedido1New.getClass(), idpedido1New.getIdpedido());
+                detallefactura.setIdpedido1(idpedido1New);
             }
             detallefactura = em.merge(detallefactura);
             if (facturaOld != null && !facturaOld.equals(facturaNew)) {
@@ -104,6 +134,14 @@ public class DetallefacturaJpaController {
                 facturaNew.getDetallefacturaSet().add(detallefactura);
                 facturaNew = em.merge(facturaNew);
             }
+            if (factura1Old != null && !factura1Old.equals(factura1New)) {
+                factura1Old.getDetallefacturaSet().remove(detallefactura);
+                factura1Old = em.merge(factura1Old);
+            }
+            if (factura1New != null && !factura1New.equals(factura1Old)) {
+                factura1New.getDetallefacturaSet().add(detallefactura);
+                factura1New = em.merge(factura1New);
+            }
             if (idpedidoOld != null && !idpedidoOld.equals(idpedidoNew)) {
                 idpedidoOld.getDetallefacturaSet().remove(detallefactura);
                 idpedidoOld = em.merge(idpedidoOld);
@@ -111,6 +149,14 @@ public class DetallefacturaJpaController {
             if (idpedidoNew != null && !idpedidoNew.equals(idpedidoOld)) {
                 idpedidoNew.getDetallefacturaSet().add(detallefactura);
                 idpedidoNew = em.merge(idpedidoNew);
+            }
+            if (idpedido1Old != null && !idpedido1Old.equals(idpedido1New)) {
+                idpedido1Old.getDetallefacturaSet().remove(detallefactura);
+                idpedido1Old = em.merge(idpedido1Old);
+            }
+            if (idpedido1New != null && !idpedido1New.equals(idpedido1Old)) {
+                idpedido1New.getDetallefacturaSet().add(detallefactura);
+                idpedido1New = em.merge(idpedido1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -146,10 +192,20 @@ public class DetallefacturaJpaController {
                 factura.getDetallefacturaSet().remove(detallefactura);
                 factura = em.merge(factura);
             }
+            Factura factura1 = detallefactura.getFactura1();
+            if (factura1 != null) {
+                factura1.getDetallefacturaSet().remove(detallefactura);
+                factura1 = em.merge(factura1);
+            }
             Pedido idpedido = detallefactura.getIdpedido();
             if (idpedido != null) {
                 idpedido.getDetallefacturaSet().remove(detallefactura);
                 idpedido = em.merge(idpedido);
+            }
+            Pedido idpedido1 = detallefactura.getIdpedido1();
+            if (idpedido1 != null) {
+                idpedido1.getDetallefacturaSet().remove(detallefactura);
+                idpedido1 = em.merge(idpedido1);
             }
             em.remove(detallefactura);
             em.getTransaction().commit();

@@ -50,19 +50,34 @@ public class Domicilio implements Serializable {
     private String torre;
     @OneToMany(mappedBy = "domicilio")
     private Set<Responsable> responsableSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Responsable> responsableSet1;
     @OneToMany(mappedBy = "domicilio")
     private Set<Empresametalurgica> empresametalurgicaSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Empresametalurgica> empresametalurgicaSet1;
     @OneToMany(mappedBy = "domicilio")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Cliente> clienteSet1;
     @OneToMany(mappedBy = "domicilio")
     private Set<Proveedor> proveedorSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Proveedor> proveedorSet1;
     @OneToMany(mappedBy = "domicilio")
     private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1;
     @JoinColumn(name = "barrio", referencedColumnName = "idbarrio")
     @ManyToOne
     private Barrio barrio;
+    @JoinColumn(name = "barrio", referencedColumnName = "idbarrio")
+    @ManyToOne
+    private Barrio barrio1;
     @OneToMany(mappedBy = "domicilio")
     private Set<Empleado> empleadoSet;
+    @OneToMany(mappedBy = "domicilio1")
+    private Set<Empleado> empleadoSet1;
 
     public Domicilio() {
     }
@@ -127,12 +142,28 @@ public class Domicilio implements Serializable {
         this.responsableSet = responsableSet;
     }
 
+    public Set<Responsable> getResponsableSet1() {
+        return responsableSet1;
+    }
+
+    public void setResponsableSet1(Set<Responsable> responsableSet1) {
+        this.responsableSet1 = responsableSet1;
+    }
+
     public Set<Empresametalurgica> getEmpresametalurgicaSet() {
         return empresametalurgicaSet;
     }
 
     public void setEmpresametalurgicaSet(Set<Empresametalurgica> empresametalurgicaSet) {
         this.empresametalurgicaSet = empresametalurgicaSet;
+    }
+
+    public Set<Empresametalurgica> getEmpresametalurgicaSet1() {
+        return empresametalurgicaSet1;
+    }
+
+    public void setEmpresametalurgicaSet1(Set<Empresametalurgica> empresametalurgicaSet1) {
+        this.empresametalurgicaSet1 = empresametalurgicaSet1;
     }
 
     public Set<Cliente> getClienteSet() {
@@ -143,12 +174,28 @@ public class Domicilio implements Serializable {
         this.clienteSet = clienteSet;
     }
 
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
+    }
+
     public Set<Proveedor> getProveedorSet() {
         return proveedorSet;
     }
 
     public void setProveedorSet(Set<Proveedor> proveedorSet) {
         this.proveedorSet = proveedorSet;
+    }
+
+    public Set<Proveedor> getProveedorSet1() {
+        return proveedorSet1;
+    }
+
+    public void setProveedorSet1(Set<Proveedor> proveedorSet1) {
+        this.proveedorSet1 = proveedorSet1;
     }
 
     public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet() {
@@ -159,6 +206,14 @@ public class Domicilio implements Serializable {
         this.proveedormantenimientomaquinaSet = proveedormantenimientomaquinaSet;
     }
 
+    public Set<Proveedormantenimientomaquina> getProveedormantenimientomaquinaSet1() {
+        return proveedormantenimientomaquinaSet1;
+    }
+
+    public void setProveedormantenimientomaquinaSet1(Set<Proveedormantenimientomaquina> proveedormantenimientomaquinaSet1) {
+        this.proveedormantenimientomaquinaSet1 = proveedormantenimientomaquinaSet1;
+    }
+
     public Barrio getBarrio() {
         return barrio;
     }
@@ -167,12 +222,28 @@ public class Domicilio implements Serializable {
         this.barrio = barrio;
     }
 
+    public Barrio getBarrio1() {
+        return barrio1;
+    }
+
+    public void setBarrio1(Barrio barrio1) {
+        this.barrio1 = barrio1;
+    }
+
     public Set<Empleado> getEmpleadoSet() {
         return empleadoSet;
     }
 
     public void setEmpleadoSet(Set<Empleado> empleadoSet) {
         this.empleadoSet = empleadoSet;
+    }
+
+    public Set<Empleado> getEmpleadoSet1() {
+        return empleadoSet1;
+    }
+
+    public void setEmpleadoSet1(Set<Empleado> empleadoSet1) {
+        this.empleadoSet1 = empleadoSet1;
     }
 
     @Override

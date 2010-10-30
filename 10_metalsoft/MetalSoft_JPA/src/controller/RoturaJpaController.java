@@ -39,6 +39,9 @@ public class RoturaJpaController {
         if (rotura.getDetallemantenimientocorrectivoSet() == null) {
             rotura.setDetallemantenimientocorrectivoSet(new HashSet<Detallemantenimientocorrectivo>());
         }
+        if (rotura.getDetallemantenimientocorrectivoSet1() == null) {
+            rotura.setDetallemantenimientocorrectivoSet1(new HashSet<Detallemantenimientocorrectivo>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class RoturaJpaController {
                 attachedDetallemantenimientocorrectivoSet.add(detallemantenimientocorrectivoSetDetallemantenimientocorrectivoToAttach);
             }
             rotura.setDetallemantenimientocorrectivoSet(attachedDetallemantenimientocorrectivoSet);
+            Set<Detallemantenimientocorrectivo> attachedDetallemantenimientocorrectivoSet1 = new HashSet<Detallemantenimientocorrectivo>();
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1DetallemantenimientocorrectivoToAttach : rotura.getDetallemantenimientocorrectivoSet1()) {
+                detallemantenimientocorrectivoSet1DetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoSet1DetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoSet1DetallemantenimientocorrectivoToAttach.getDetallemantenimientocorrectivoPK());
+                attachedDetallemantenimientocorrectivoSet1.add(detallemantenimientocorrectivoSet1DetallemantenimientocorrectivoToAttach);
+            }
+            rotura.setDetallemantenimientocorrectivoSet1(attachedDetallemantenimientocorrectivoSet1);
             em.persist(rotura);
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSetDetallemantenimientocorrectivo : rotura.getDetallemantenimientocorrectivoSet()) {
                 Rotura oldRoturaOfDetallemantenimientocorrectivoSetDetallemantenimientocorrectivo = detallemantenimientocorrectivoSetDetallemantenimientocorrectivo.getRotura();
@@ -57,6 +66,15 @@ public class RoturaJpaController {
                 if (oldRoturaOfDetallemantenimientocorrectivoSetDetallemantenimientocorrectivo != null) {
                     oldRoturaOfDetallemantenimientocorrectivoSetDetallemantenimientocorrectivo.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivoSetDetallemantenimientocorrectivo);
                     oldRoturaOfDetallemantenimientocorrectivoSetDetallemantenimientocorrectivo = em.merge(oldRoturaOfDetallemantenimientocorrectivoSetDetallemantenimientocorrectivo);
+                }
+            }
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo : rotura.getDetallemantenimientocorrectivoSet1()) {
+                Rotura oldRotura1OfDetallemantenimientocorrectivoSet1Detallemantenimientocorrectivo = detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo.getRotura1();
+                detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo.setRotura1(rotura);
+                detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo);
+                if (oldRotura1OfDetallemantenimientocorrectivoSet1Detallemantenimientocorrectivo != null) {
+                    oldRotura1OfDetallemantenimientocorrectivoSet1Detallemantenimientocorrectivo.getDetallemantenimientocorrectivoSet1().remove(detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo);
+                    oldRotura1OfDetallemantenimientocorrectivoSet1Detallemantenimientocorrectivo = em.merge(oldRotura1OfDetallemantenimientocorrectivoSet1Detallemantenimientocorrectivo);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class RoturaJpaController {
             Rotura persistentRotura = em.find(Rotura.class, rotura.getIdrotura());
             Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSetOld = persistentRotura.getDetallemantenimientocorrectivoSet();
             Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSetNew = rotura.getDetallemantenimientocorrectivoSet();
+            Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet1Old = persistentRotura.getDetallemantenimientocorrectivoSet1();
+            Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet1New = rotura.getDetallemantenimientocorrectivoSet1();
             Set<Detallemantenimientocorrectivo> attachedDetallemantenimientocorrectivoSetNew = new HashSet<Detallemantenimientocorrectivo>();
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSetNewDetallemantenimientocorrectivoToAttach : detallemantenimientocorrectivoSetNew) {
                 detallemantenimientocorrectivoSetNewDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoSetNewDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoSetNewDetallemantenimientocorrectivoToAttach.getDetallemantenimientocorrectivoPK());
@@ -87,6 +107,13 @@ public class RoturaJpaController {
             }
             detallemantenimientocorrectivoSetNew = attachedDetallemantenimientocorrectivoSetNew;
             rotura.setDetallemantenimientocorrectivoSet(detallemantenimientocorrectivoSetNew);
+            Set<Detallemantenimientocorrectivo> attachedDetallemantenimientocorrectivoSet1New = new HashSet<Detallemantenimientocorrectivo>();
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivoToAttach : detallemantenimientocorrectivoSet1New) {
+                detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivoToAttach.getDetallemantenimientocorrectivoPK());
+                attachedDetallemantenimientocorrectivoSet1New.add(detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivoToAttach);
+            }
+            detallemantenimientocorrectivoSet1New = attachedDetallemantenimientocorrectivoSet1New;
+            rotura.setDetallemantenimientocorrectivoSet1(detallemantenimientocorrectivoSet1New);
             rotura = em.merge(rotura);
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSetOldDetallemantenimientocorrectivo : detallemantenimientocorrectivoSetOld) {
                 if (!detallemantenimientocorrectivoSetNew.contains(detallemantenimientocorrectivoSetOldDetallemantenimientocorrectivo)) {
@@ -102,6 +129,23 @@ public class RoturaJpaController {
                     if (oldRoturaOfDetallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo != null && !oldRoturaOfDetallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo.equals(rotura)) {
                         oldRoturaOfDetallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo.getDetallemantenimientocorrectivoSet().remove(detallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo);
                         oldRoturaOfDetallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo = em.merge(oldRoturaOfDetallemantenimientocorrectivoSetNewDetallemantenimientocorrectivo);
+                    }
+                }
+            }
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1OldDetallemantenimientocorrectivo : detallemantenimientocorrectivoSet1Old) {
+                if (!detallemantenimientocorrectivoSet1New.contains(detallemantenimientocorrectivoSet1OldDetallemantenimientocorrectivo)) {
+                    detallemantenimientocorrectivoSet1OldDetallemantenimientocorrectivo.setRotura1(null);
+                    detallemantenimientocorrectivoSet1OldDetallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivoSet1OldDetallemantenimientocorrectivo);
+                }
+            }
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo : detallemantenimientocorrectivoSet1New) {
+                if (!detallemantenimientocorrectivoSet1Old.contains(detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo)) {
+                    Rotura oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo = detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo.getRotura1();
+                    detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo.setRotura1(rotura);
+                    detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo);
+                    if (oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo != null && !oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo.equals(rotura)) {
+                        oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo.getDetallemantenimientocorrectivoSet1().remove(detallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo);
+                        oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo = em.merge(oldRotura1OfDetallemantenimientocorrectivoSet1NewDetallemantenimientocorrectivo);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class RoturaJpaController {
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSetDetallemantenimientocorrectivo : detallemantenimientocorrectivoSet) {
                 detallemantenimientocorrectivoSetDetallemantenimientocorrectivo.setRotura(null);
                 detallemantenimientocorrectivoSetDetallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivoSetDetallemantenimientocorrectivo);
+            }
+            Set<Detallemantenimientocorrectivo> detallemantenimientocorrectivoSet1 = rotura.getDetallemantenimientocorrectivoSet1();
+            for (Detallemantenimientocorrectivo detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo : detallemantenimientocorrectivoSet1) {
+                detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo.setRotura1(null);
+                detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivoSet1Detallemantenimientocorrectivo);
             }
             em.remove(rotura);
             em.getTransaction().commit();

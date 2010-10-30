@@ -39,8 +39,12 @@ public class Formadepago implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "formapago")
     private Set<Factura> facturaSet;
+    @OneToMany(mappedBy = "formapago1")
+    private Set<Factura> facturaSet1;
     @OneToMany(mappedBy = "formadepago")
     private Set<Comprobantepago> comprobantepagoSet;
+    @OneToMany(mappedBy = "formadepago1")
+    private Set<Comprobantepago> comprobantepagoSet1;
 
     public Formadepago() {
     }
@@ -81,12 +85,28 @@ public class Formadepago implements Serializable {
         this.facturaSet = facturaSet;
     }
 
+    public Set<Factura> getFacturaSet1() {
+        return facturaSet1;
+    }
+
+    public void setFacturaSet1(Set<Factura> facturaSet1) {
+        this.facturaSet1 = facturaSet1;
+    }
+
     public Set<Comprobantepago> getComprobantepagoSet() {
         return comprobantepagoSet;
     }
 
     public void setComprobantepagoSet(Set<Comprobantepago> comprobantepagoSet) {
         this.comprobantepagoSet = comprobantepagoSet;
+    }
+
+    public Set<Comprobantepago> getComprobantepagoSet1() {
+        return comprobantepagoSet1;
+    }
+
+    public void setComprobantepagoSet1(Set<Comprobantepago> comprobantepagoSet1) {
+        this.comprobantepagoSet1 = comprobantepagoSet1;
     }
 
     @Override

@@ -50,12 +50,20 @@ public class Reclamocliente implements Serializable {
     private Date fechareclamo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamocliente")
     private Set<Detallereclamocliente> detallereclamoclienteSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamocliente1")
+    private Set<Detallereclamocliente> detallereclamoclienteSet1;
     @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
     @ManyToOne
     private Cliente cliente;
+    @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
+    @ManyToOne
+    private Cliente cliente1;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
+    @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
+    @ManyToOne
+    private Tiporeclamo tiporeclamo1;
 
     public Reclamocliente() {
     }
@@ -104,6 +112,14 @@ public class Reclamocliente implements Serializable {
         this.detallereclamoclienteSet = detallereclamoclienteSet;
     }
 
+    public Set<Detallereclamocliente> getDetallereclamoclienteSet1() {
+        return detallereclamoclienteSet1;
+    }
+
+    public void setDetallereclamoclienteSet1(Set<Detallereclamocliente> detallereclamoclienteSet1) {
+        this.detallereclamoclienteSet1 = detallereclamoclienteSet1;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -112,12 +128,28 @@ public class Reclamocliente implements Serializable {
         this.cliente = cliente;
     }
 
+    public Cliente getCliente1() {
+        return cliente1;
+    }
+
+    public void setCliente1(Cliente cliente1) {
+        this.cliente1 = cliente1;
+    }
+
     public Tiporeclamo getTiporeclamo() {
         return tiporeclamo;
     }
 
     public void setTiporeclamo(Tiporeclamo tiporeclamo) {
         this.tiporeclamo = tiporeclamo;
+    }
+
+    public Tiporeclamo getTiporeclamo1() {
+        return tiporeclamo1;
+    }
+
+    public void setTiporeclamo1(Tiporeclamo tiporeclamo1) {
+        this.tiporeclamo1 = tiporeclamo1;
     }
 
     @Override

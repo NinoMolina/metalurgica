@@ -44,19 +44,37 @@ public class DetallepedidoJpaController {
                 idpedido = em.getReference(idpedido.getClass(), idpedido.getIdpedido());
                 detallepedido.setIdpedido(idpedido);
             }
+            Pedido idpedido1 = detallepedido.getIdpedido1();
+            if (idpedido1 != null) {
+                idpedido1 = em.getReference(idpedido1.getClass(), idpedido1.getIdpedido());
+                detallepedido.setIdpedido1(idpedido1);
+            }
             Producto producto = detallepedido.getProducto();
             if (producto != null) {
                 producto = em.getReference(producto.getClass(), producto.getIdproducto());
                 detallepedido.setProducto(producto);
+            }
+            Producto producto1 = detallepedido.getProducto1();
+            if (producto1 != null) {
+                producto1 = em.getReference(producto1.getClass(), producto1.getIdproducto());
+                detallepedido.setProducto1(producto1);
             }
             em.persist(detallepedido);
             if (idpedido != null) {
                 idpedido.getDetallepedidoSet().add(detallepedido);
                 idpedido = em.merge(idpedido);
             }
+            if (idpedido1 != null) {
+                idpedido1.getDetallepedidoSet().add(detallepedido);
+                idpedido1 = em.merge(idpedido1);
+            }
             if (producto != null) {
                 producto.getDetallepedidoSet().add(detallepedido);
                 producto = em.merge(producto);
+            }
+            if (producto1 != null) {
+                producto1.getDetallepedidoSet().add(detallepedido);
+                producto1 = em.merge(producto1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -79,15 +97,27 @@ public class DetallepedidoJpaController {
             Detallepedido persistentDetallepedido = em.find(Detallepedido.class, detallepedido.getIddetalle());
             Pedido idpedidoOld = persistentDetallepedido.getIdpedido();
             Pedido idpedidoNew = detallepedido.getIdpedido();
+            Pedido idpedido1Old = persistentDetallepedido.getIdpedido1();
+            Pedido idpedido1New = detallepedido.getIdpedido1();
             Producto productoOld = persistentDetallepedido.getProducto();
             Producto productoNew = detallepedido.getProducto();
+            Producto producto1Old = persistentDetallepedido.getProducto1();
+            Producto producto1New = detallepedido.getProducto1();
             if (idpedidoNew != null) {
                 idpedidoNew = em.getReference(idpedidoNew.getClass(), idpedidoNew.getIdpedido());
                 detallepedido.setIdpedido(idpedidoNew);
             }
+            if (idpedido1New != null) {
+                idpedido1New = em.getReference(idpedido1New.getClass(), idpedido1New.getIdpedido());
+                detallepedido.setIdpedido1(idpedido1New);
+            }
             if (productoNew != null) {
                 productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
                 detallepedido.setProducto(productoNew);
+            }
+            if (producto1New != null) {
+                producto1New = em.getReference(producto1New.getClass(), producto1New.getIdproducto());
+                detallepedido.setProducto1(producto1New);
             }
             detallepedido = em.merge(detallepedido);
             if (idpedidoOld != null && !idpedidoOld.equals(idpedidoNew)) {
@@ -98,6 +128,14 @@ public class DetallepedidoJpaController {
                 idpedidoNew.getDetallepedidoSet().add(detallepedido);
                 idpedidoNew = em.merge(idpedidoNew);
             }
+            if (idpedido1Old != null && !idpedido1Old.equals(idpedido1New)) {
+                idpedido1Old.getDetallepedidoSet().remove(detallepedido);
+                idpedido1Old = em.merge(idpedido1Old);
+            }
+            if (idpedido1New != null && !idpedido1New.equals(idpedido1Old)) {
+                idpedido1New.getDetallepedidoSet().add(detallepedido);
+                idpedido1New = em.merge(idpedido1New);
+            }
             if (productoOld != null && !productoOld.equals(productoNew)) {
                 productoOld.getDetallepedidoSet().remove(detallepedido);
                 productoOld = em.merge(productoOld);
@@ -105,6 +143,14 @@ public class DetallepedidoJpaController {
             if (productoNew != null && !productoNew.equals(productoOld)) {
                 productoNew.getDetallepedidoSet().add(detallepedido);
                 productoNew = em.merge(productoNew);
+            }
+            if (producto1Old != null && !producto1Old.equals(producto1New)) {
+                producto1Old.getDetallepedidoSet().remove(detallepedido);
+                producto1Old = em.merge(producto1Old);
+            }
+            if (producto1New != null && !producto1New.equals(producto1Old)) {
+                producto1New.getDetallepedidoSet().add(detallepedido);
+                producto1New = em.merge(producto1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -140,10 +186,20 @@ public class DetallepedidoJpaController {
                 idpedido.getDetallepedidoSet().remove(detallepedido);
                 idpedido = em.merge(idpedido);
             }
+            Pedido idpedido1 = detallepedido.getIdpedido1();
+            if (idpedido1 != null) {
+                idpedido1.getDetallepedidoSet().remove(detallepedido);
+                idpedido1 = em.merge(idpedido1);
+            }
             Producto producto = detallepedido.getProducto();
             if (producto != null) {
                 producto.getDetallepedidoSet().remove(detallepedido);
                 producto = em.merge(producto);
+            }
+            Producto producto1 = detallepedido.getProducto1();
+            if (producto1 != null) {
+                producto1.getDetallepedidoSet().remove(detallepedido);
+                producto1 = em.merge(producto1);
             }
             em.remove(detallepedido);
             em.getTransaction().commit();

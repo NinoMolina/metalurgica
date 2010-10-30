@@ -45,12 +45,20 @@ public class Unidadmedida implements Serializable {
     private Double enmm;
     @OneToMany(mappedBy = "unidadmedida")
     private Set<Materiaprima> materiaprimaSet;
+    @OneToMany(mappedBy = "unidadmedida1")
+    private Set<Materiaprima> materiaprimaSet1;
     @OneToMany(mappedBy = "unidadmedida")
     private Set<Pieza> piezaSet;
+    @OneToMany(mappedBy = "unidadmedida1")
+    private Set<Pieza> piezaSet1;
     @OneToMany(mappedBy = "idunidadmedida")
     private Set<Maquina> maquinaSet;
+    @OneToMany(mappedBy = "idunidadmedida1")
+    private Set<Maquina> maquinaSet1;
     @OneToMany(mappedBy = "unidaddemedida")
     private Set<Etapadeproduccion> etapadeproduccionSet;
+    @OneToMany(mappedBy = "unidaddemedida1")
+    private Set<Etapadeproduccion> etapadeproduccionSet1;
 
     public Unidadmedida() {
     }
@@ -107,12 +115,28 @@ public class Unidadmedida implements Serializable {
         this.materiaprimaSet = materiaprimaSet;
     }
 
+    public Set<Materiaprima> getMateriaprimaSet1() {
+        return materiaprimaSet1;
+    }
+
+    public void setMateriaprimaSet1(Set<Materiaprima> materiaprimaSet1) {
+        this.materiaprimaSet1 = materiaprimaSet1;
+    }
+
     public Set<Pieza> getPiezaSet() {
         return piezaSet;
     }
 
     public void setPiezaSet(Set<Pieza> piezaSet) {
         this.piezaSet = piezaSet;
+    }
+
+    public Set<Pieza> getPiezaSet1() {
+        return piezaSet1;
+    }
+
+    public void setPiezaSet1(Set<Pieza> piezaSet1) {
+        this.piezaSet1 = piezaSet1;
     }
 
     public Set<Maquina> getMaquinaSet() {
@@ -123,12 +147,28 @@ public class Unidadmedida implements Serializable {
         this.maquinaSet = maquinaSet;
     }
 
+    public Set<Maquina> getMaquinaSet1() {
+        return maquinaSet1;
+    }
+
+    public void setMaquinaSet1(Set<Maquina> maquinaSet1) {
+        this.maquinaSet1 = maquinaSet1;
+    }
+
     public Set<Etapadeproduccion> getEtapadeproduccionSet() {
         return etapadeproduccionSet;
     }
 
     public void setEtapadeproduccionSet(Set<Etapadeproduccion> etapadeproduccionSet) {
         this.etapadeproduccionSet = etapadeproduccionSet;
+    }
+
+    public Set<Etapadeproduccion> getEtapadeproduccionSet1() {
+        return etapadeproduccionSet1;
+    }
+
+    public void setEtapadeproduccionSet1(Set<Etapadeproduccion> etapadeproduccionSet1) {
+        this.etapadeproduccionSet1 = etapadeproduccionSet1;
     }
 
     @Override

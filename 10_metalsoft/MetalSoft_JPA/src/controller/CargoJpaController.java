@@ -39,6 +39,9 @@ public class CargoJpaController {
         if (cargo.getEmpleadoSet() == null) {
             cargo.setEmpleadoSet(new HashSet<Empleado>());
         }
+        if (cargo.getEmpleadoSet1() == null) {
+            cargo.setEmpleadoSet1(new HashSet<Empleado>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -49,6 +52,12 @@ public class CargoJpaController {
                 attachedEmpleadoSet.add(empleadoSetEmpleadoToAttach);
             }
             cargo.setEmpleadoSet(attachedEmpleadoSet);
+            Set<Empleado> attachedEmpleadoSet1 = new HashSet<Empleado>();
+            for (Empleado empleadoSet1EmpleadoToAttach : cargo.getEmpleadoSet1()) {
+                empleadoSet1EmpleadoToAttach = em.getReference(empleadoSet1EmpleadoToAttach.getClass(), empleadoSet1EmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1.add(empleadoSet1EmpleadoToAttach);
+            }
+            cargo.setEmpleadoSet1(attachedEmpleadoSet1);
             em.persist(cargo);
             for (Empleado empleadoSetEmpleado : cargo.getEmpleadoSet()) {
                 Cargo oldCargoOfEmpleadoSetEmpleado = empleadoSetEmpleado.getCargo();
@@ -57,6 +66,15 @@ public class CargoJpaController {
                 if (oldCargoOfEmpleadoSetEmpleado != null) {
                     oldCargoOfEmpleadoSetEmpleado.getEmpleadoSet().remove(empleadoSetEmpleado);
                     oldCargoOfEmpleadoSetEmpleado = em.merge(oldCargoOfEmpleadoSetEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1Empleado : cargo.getEmpleadoSet1()) {
+                Cargo oldCargo1OfEmpleadoSet1Empleado = empleadoSet1Empleado.getCargo1();
+                empleadoSet1Empleado.setCargo1(cargo);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
+                if (oldCargo1OfEmpleadoSet1Empleado != null) {
+                    oldCargo1OfEmpleadoSet1Empleado.getEmpleadoSet1().remove(empleadoSet1Empleado);
+                    oldCargo1OfEmpleadoSet1Empleado = em.merge(oldCargo1OfEmpleadoSet1Empleado);
                 }
             }
             em.getTransaction().commit();
@@ -80,6 +98,8 @@ public class CargoJpaController {
             Cargo persistentCargo = em.find(Cargo.class, cargo.getIdcargo());
             Set<Empleado> empleadoSetOld = persistentCargo.getEmpleadoSet();
             Set<Empleado> empleadoSetNew = cargo.getEmpleadoSet();
+            Set<Empleado> empleadoSet1Old = persistentCargo.getEmpleadoSet1();
+            Set<Empleado> empleadoSet1New = cargo.getEmpleadoSet1();
             Set<Empleado> attachedEmpleadoSetNew = new HashSet<Empleado>();
             for (Empleado empleadoSetNewEmpleadoToAttach : empleadoSetNew) {
                 empleadoSetNewEmpleadoToAttach = em.getReference(empleadoSetNewEmpleadoToAttach.getClass(), empleadoSetNewEmpleadoToAttach.getIdempleado());
@@ -87,6 +107,13 @@ public class CargoJpaController {
             }
             empleadoSetNew = attachedEmpleadoSetNew;
             cargo.setEmpleadoSet(empleadoSetNew);
+            Set<Empleado> attachedEmpleadoSet1New = new HashSet<Empleado>();
+            for (Empleado empleadoSet1NewEmpleadoToAttach : empleadoSet1New) {
+                empleadoSet1NewEmpleadoToAttach = em.getReference(empleadoSet1NewEmpleadoToAttach.getClass(), empleadoSet1NewEmpleadoToAttach.getIdempleado());
+                attachedEmpleadoSet1New.add(empleadoSet1NewEmpleadoToAttach);
+            }
+            empleadoSet1New = attachedEmpleadoSet1New;
+            cargo.setEmpleadoSet1(empleadoSet1New);
             cargo = em.merge(cargo);
             for (Empleado empleadoSetOldEmpleado : empleadoSetOld) {
                 if (!empleadoSetNew.contains(empleadoSetOldEmpleado)) {
@@ -102,6 +129,23 @@ public class CargoJpaController {
                     if (oldCargoOfEmpleadoSetNewEmpleado != null && !oldCargoOfEmpleadoSetNewEmpleado.equals(cargo)) {
                         oldCargoOfEmpleadoSetNewEmpleado.getEmpleadoSet().remove(empleadoSetNewEmpleado);
                         oldCargoOfEmpleadoSetNewEmpleado = em.merge(oldCargoOfEmpleadoSetNewEmpleado);
+                    }
+                }
+            }
+            for (Empleado empleadoSet1OldEmpleado : empleadoSet1Old) {
+                if (!empleadoSet1New.contains(empleadoSet1OldEmpleado)) {
+                    empleadoSet1OldEmpleado.setCargo1(null);
+                    empleadoSet1OldEmpleado = em.merge(empleadoSet1OldEmpleado);
+                }
+            }
+            for (Empleado empleadoSet1NewEmpleado : empleadoSet1New) {
+                if (!empleadoSet1Old.contains(empleadoSet1NewEmpleado)) {
+                    Cargo oldCargo1OfEmpleadoSet1NewEmpleado = empleadoSet1NewEmpleado.getCargo1();
+                    empleadoSet1NewEmpleado.setCargo1(cargo);
+                    empleadoSet1NewEmpleado = em.merge(empleadoSet1NewEmpleado);
+                    if (oldCargo1OfEmpleadoSet1NewEmpleado != null && !oldCargo1OfEmpleadoSet1NewEmpleado.equals(cargo)) {
+                        oldCargo1OfEmpleadoSet1NewEmpleado.getEmpleadoSet1().remove(empleadoSet1NewEmpleado);
+                        oldCargo1OfEmpleadoSet1NewEmpleado = em.merge(oldCargo1OfEmpleadoSet1NewEmpleado);
                     }
                 }
             }
@@ -138,6 +182,11 @@ public class CargoJpaController {
             for (Empleado empleadoSetEmpleado : empleadoSet) {
                 empleadoSetEmpleado.setCargo(null);
                 empleadoSetEmpleado = em.merge(empleadoSetEmpleado);
+            }
+            Set<Empleado> empleadoSet1 = cargo.getEmpleadoSet1();
+            for (Empleado empleadoSet1Empleado : empleadoSet1) {
+                empleadoSet1Empleado.setCargo1(null);
+                empleadoSet1Empleado = em.merge(empleadoSet1Empleado);
             }
             em.remove(cargo);
             em.getTransaction().commit();

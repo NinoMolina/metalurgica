@@ -39,6 +39,8 @@ public class Servicio implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "servicio")
     private Set<Detallemantenimientopreventivo> detallemantenimientopreventivoSet;
+    @OneToMany(mappedBy = "servicio1")
+    private Set<Detallemantenimientopreventivo> detallemantenimientopreventivoSet1;
 
     public Servicio() {
     }
@@ -77,6 +79,14 @@ public class Servicio implements Serializable {
 
     public void setDetallemantenimientopreventivoSet(Set<Detallemantenimientopreventivo> detallemantenimientopreventivoSet) {
         this.detallemantenimientopreventivoSet = detallemantenimientopreventivoSet;
+    }
+
+    public Set<Detallemantenimientopreventivo> getDetallemantenimientopreventivoSet1() {
+        return detallemantenimientopreventivoSet1;
+    }
+
+    public void setDetallemantenimientopreventivoSet1(Set<Detallemantenimientopreventivo> detallemantenimientopreventivoSet1) {
+        this.detallemantenimientopreventivoSet1 = detallemantenimientopreventivoSet1;
     }
 
     @Override

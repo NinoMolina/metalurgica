@@ -39,10 +39,16 @@ public class Codigodebarra implements Serializable {
     private String codigo;
     @OneToMany(mappedBy = "codigobarra")
     private Set<Productoreal> productorealSet;
+    @OneToMany(mappedBy = "codigobarra1")
+    private Set<Productoreal> productorealSet1;
     @OneToMany(mappedBy = "codbarra")
     private Set<Materiaprima> materiaprimaSet;
+    @OneToMany(mappedBy = "codbarra1")
+    private Set<Materiaprima> materiaprimaSet1;
     @OneToMany(mappedBy = "idcodigobarra")
     private Set<Piezareal> piezarealSet;
+    @OneToMany(mappedBy = "idcodigobarra1")
+    private Set<Piezareal> piezarealSet1;
 
     public Codigodebarra() {
     }
@@ -83,6 +89,14 @@ public class Codigodebarra implements Serializable {
         this.productorealSet = productorealSet;
     }
 
+    public Set<Productoreal> getProductorealSet1() {
+        return productorealSet1;
+    }
+
+    public void setProductorealSet1(Set<Productoreal> productorealSet1) {
+        this.productorealSet1 = productorealSet1;
+    }
+
     public Set<Materiaprima> getMateriaprimaSet() {
         return materiaprimaSet;
     }
@@ -91,12 +105,28 @@ public class Codigodebarra implements Serializable {
         this.materiaprimaSet = materiaprimaSet;
     }
 
+    public Set<Materiaprima> getMateriaprimaSet1() {
+        return materiaprimaSet1;
+    }
+
+    public void setMateriaprimaSet1(Set<Materiaprima> materiaprimaSet1) {
+        this.materiaprimaSet1 = materiaprimaSet1;
+    }
+
     public Set<Piezareal> getPiezarealSet() {
         return piezarealSet;
     }
 
     public void setPiezarealSet(Set<Piezareal> piezarealSet) {
         this.piezarealSet = piezarealSet;
+    }
+
+    public Set<Piezareal> getPiezarealSet1() {
+        return piezarealSet1;
+    }
+
+    public void setPiezarealSet1(Set<Piezareal> piezarealSet1) {
+        this.piezarealSet1 = piezarealSet1;
     }
 
     @Override

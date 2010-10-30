@@ -43,10 +43,19 @@ public class DetalleproductoJpaController {
                 idproducto = em.getReference(idproducto.getClass(), idproducto.getIdproducto());
                 detalleproducto.setIdproducto(idproducto);
             }
+            Producto idproducto1 = detalleproducto.getIdproducto1();
+            if (idproducto1 != null) {
+                idproducto1 = em.getReference(idproducto1.getClass(), idproducto1.getIdproducto());
+                detalleproducto.setIdproducto1(idproducto1);
+            }
             em.persist(detalleproducto);
             if (idproducto != null) {
                 idproducto.getDetalleproductoSet().add(detalleproducto);
                 idproducto = em.merge(idproducto);
+            }
+            if (idproducto1 != null) {
+                idproducto1.getDetalleproductoSet().add(detalleproducto);
+                idproducto1 = em.merge(idproducto1);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -69,9 +78,15 @@ public class DetalleproductoJpaController {
             Detalleproducto persistentDetalleproducto = em.find(Detalleproducto.class, detalleproducto.getIddetalle());
             Producto idproductoOld = persistentDetalleproducto.getIdproducto();
             Producto idproductoNew = detalleproducto.getIdproducto();
+            Producto idproducto1Old = persistentDetalleproducto.getIdproducto1();
+            Producto idproducto1New = detalleproducto.getIdproducto1();
             if (idproductoNew != null) {
                 idproductoNew = em.getReference(idproductoNew.getClass(), idproductoNew.getIdproducto());
                 detalleproducto.setIdproducto(idproductoNew);
+            }
+            if (idproducto1New != null) {
+                idproducto1New = em.getReference(idproducto1New.getClass(), idproducto1New.getIdproducto());
+                detalleproducto.setIdproducto1(idproducto1New);
             }
             detalleproducto = em.merge(detalleproducto);
             if (idproductoOld != null && !idproductoOld.equals(idproductoNew)) {
@@ -81,6 +96,14 @@ public class DetalleproductoJpaController {
             if (idproductoNew != null && !idproductoNew.equals(idproductoOld)) {
                 idproductoNew.getDetalleproductoSet().add(detalleproducto);
                 idproductoNew = em.merge(idproductoNew);
+            }
+            if (idproducto1Old != null && !idproducto1Old.equals(idproducto1New)) {
+                idproducto1Old.getDetalleproductoSet().remove(detalleproducto);
+                idproducto1Old = em.merge(idproducto1Old);
+            }
+            if (idproducto1New != null && !idproducto1New.equals(idproducto1Old)) {
+                idproducto1New.getDetalleproductoSet().add(detalleproducto);
+                idproducto1New = em.merge(idproducto1New);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -115,6 +138,11 @@ public class DetalleproductoJpaController {
             if (idproducto != null) {
                 idproducto.getDetalleproductoSet().remove(detalleproducto);
                 idproducto = em.merge(idproducto);
+            }
+            Producto idproducto1 = detalleproducto.getIdproducto1();
+            if (idproducto1 != null) {
+                idproducto1.getDetalleproductoSet().remove(detalleproducto);
+                idproducto1 = em.merge(idproducto1);
             }
             em.remove(detalleproducto);
             em.getTransaction().commit();

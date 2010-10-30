@@ -8,14 +8,13 @@ package entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,13 +38,14 @@ public class Rol implements Serializable {
     private String rol;
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinTable(name = "usuarioxrol", joinColumns = {
-        @JoinColumn(name = "idrol", referencedColumnName = "idrol")}, inverseJoinColumns = {
-        @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")})
-    @ManyToMany
-    private Set<Usuario> usuarioSet;
-    @ManyToMany(mappedBy = "rolSet")
-    private Set<Privilegio> privilegioSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
+    private Set<Usuarioxrol> usuarioxrolSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol1")
+    private Set<Usuarioxrol> usuarioxrolSet1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
+    private Set<Rolxprivilegio> rolxprivilegioSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol1")
+    private Set<Rolxprivilegio> rolxprivilegioSet1;
 
     public Rol() {
     }
@@ -78,20 +78,36 @@ public class Rol implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Set<Usuario> getUsuarioSet() {
-        return usuarioSet;
+    public Set<Usuarioxrol> getUsuarioxrolSet() {
+        return usuarioxrolSet;
     }
 
-    public void setUsuarioSet(Set<Usuario> usuarioSet) {
-        this.usuarioSet = usuarioSet;
+    public void setUsuarioxrolSet(Set<Usuarioxrol> usuarioxrolSet) {
+        this.usuarioxrolSet = usuarioxrolSet;
     }
 
-    public Set<Privilegio> getPrivilegioSet() {
-        return privilegioSet;
+    public Set<Usuarioxrol> getUsuarioxrolSet1() {
+        return usuarioxrolSet1;
     }
 
-    public void setPrivilegioSet(Set<Privilegio> privilegioSet) {
-        this.privilegioSet = privilegioSet;
+    public void setUsuarioxrolSet1(Set<Usuarioxrol> usuarioxrolSet1) {
+        this.usuarioxrolSet1 = usuarioxrolSet1;
+    }
+
+    public Set<Rolxprivilegio> getRolxprivilegioSet() {
+        return rolxprivilegioSet;
+    }
+
+    public void setRolxprivilegioSet(Set<Rolxprivilegio> rolxprivilegioSet) {
+        this.rolxprivilegioSet = rolxprivilegioSet;
+    }
+
+    public Set<Rolxprivilegio> getRolxprivilegioSet1() {
+        return rolxprivilegioSet1;
+    }
+
+    public void setRolxprivilegioSet1(Set<Rolxprivilegio> rolxprivilegioSet1) {
+        this.rolxprivilegioSet1 = rolxprivilegioSet1;
     }
 
     @Override

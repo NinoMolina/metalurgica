@@ -39,6 +39,8 @@ public class Estadoejecplancalidad implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet1;
 
     public Estadoejecplancalidad() {
     }
@@ -77,6 +79,14 @@ public class Estadoejecplancalidad implements Serializable {
 
     public void setEjecucionplanificacioncalidadSet(Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet) {
         this.ejecucionplanificacioncalidadSet = ejecucionplanificacioncalidadSet;
+    }
+
+    public Set<Ejecucionplanificacioncalidad> getEjecucionplanificacioncalidadSet1() {
+        return ejecucionplanificacioncalidadSet1;
+    }
+
+    public void setEjecucionplanificacioncalidadSet1(Set<Ejecucionplanificacioncalidad> ejecucionplanificacioncalidadSet1) {
+        this.ejecucionplanificacioncalidadSet1 = ejecucionplanificacioncalidadSet1;
     }
 
     @Override

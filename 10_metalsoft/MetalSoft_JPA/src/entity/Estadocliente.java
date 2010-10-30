@@ -39,6 +39,8 @@ public class Estadocliente implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Cliente> clienteSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Cliente> clienteSet1;
 
     public Estadocliente() {
     }
@@ -77,6 +79,14 @@ public class Estadocliente implements Serializable {
 
     public void setClienteSet(Set<Cliente> clienteSet) {
         this.clienteSet = clienteSet;
+    }
+
+    public Set<Cliente> getClienteSet1() {
+        return clienteSet1;
+    }
+
+    public void setClienteSet1(Set<Cliente> clienteSet1) {
+        this.clienteSet1 = clienteSet1;
     }
 
     @Override

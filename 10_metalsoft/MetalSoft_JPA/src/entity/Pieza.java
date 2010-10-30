@@ -52,17 +52,32 @@ public class Pieza implements Serializable {
     private BigDecimal largo;
     @OneToMany(mappedBy = "idpieza")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
+    @OneToMany(mappedBy = "idpieza1")
+    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
+    @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima materiaprima1;
     @JoinColumn(name = "matriz", referencedColumnName = "idmatriz")
     @ManyToOne
     private Matriz matriz;
+    @JoinColumn(name = "matriz", referencedColumnName = "idmatriz")
+    @ManyToOne
+    private Matriz matriz1;
     @JoinColumn(name = "unidadmedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidadmedida;
+    @JoinColumn(name = "unidadmedida", referencedColumnName = "idunidadmedida")
+    @ManyToOne
+    private Unidadmedida unidadmedida1;
+    @OneToMany(mappedBy = "pieza")
+    private Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet;
     @OneToMany(mappedBy = "idpieza")
     private Set<Detalleproductopresupuesto> detalleproductopresupuestoSet;
+    @OneToMany(mappedBy = "idpieza1")
+    private Set<Detalleproductopresupuesto> detalleproductopresupuestoSet1;
 
     public Pieza() {
     }
@@ -127,12 +142,28 @@ public class Pieza implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
+        return detalleplanificacionproduccionSet1;
+    }
+
+    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
+        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
+    }
+
     public Materiaprima getMateriaprima() {
         return materiaprima;
     }
 
     public void setMateriaprima(Materiaprima materiaprima) {
         this.materiaprima = materiaprima;
+    }
+
+    public Materiaprima getMateriaprima1() {
+        return materiaprima1;
+    }
+
+    public void setMateriaprima1(Materiaprima materiaprima1) {
+        this.materiaprima1 = materiaprima1;
     }
 
     public Matriz getMatriz() {
@@ -143,6 +174,14 @@ public class Pieza implements Serializable {
         this.matriz = matriz;
     }
 
+    public Matriz getMatriz1() {
+        return matriz1;
+    }
+
+    public void setMatriz1(Matriz matriz1) {
+        this.matriz1 = matriz1;
+    }
+
     public Unidadmedida getUnidadmedida() {
         return unidadmedida;
     }
@@ -151,12 +190,36 @@ public class Pieza implements Serializable {
         this.unidadmedida = unidadmedida;
     }
 
+    public Unidadmedida getUnidadmedida1() {
+        return unidadmedida1;
+    }
+
+    public void setUnidadmedida1(Unidadmedida unidadmedida1) {
+        this.unidadmedida1 = unidadmedida1;
+    }
+
+    public Set<Detalleejecucionplanificacion> getDetalleejecucionplanificacionSet() {
+        return detalleejecucionplanificacionSet;
+    }
+
+    public void setDetalleejecucionplanificacionSet(Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet) {
+        this.detalleejecucionplanificacionSet = detalleejecucionplanificacionSet;
+    }
+
     public Set<Detalleproductopresupuesto> getDetalleproductopresupuestoSet() {
         return detalleproductopresupuestoSet;
     }
 
     public void setDetalleproductopresupuestoSet(Set<Detalleproductopresupuesto> detalleproductopresupuestoSet) {
         this.detalleproductopresupuestoSet = detalleproductopresupuestoSet;
+    }
+
+    public Set<Detalleproductopresupuesto> getDetalleproductopresupuestoSet1() {
+        return detalleproductopresupuestoSet1;
+    }
+
+    public void setDetalleproductopresupuestoSet1(Set<Detalleproductopresupuesto> detalleproductopresupuestoSet1) {
+        this.detalleproductopresupuestoSet1 = detalleproductopresupuestoSet1;
     }
 
     @Override

@@ -39,6 +39,8 @@ public class Tipomaterial implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipomaterial")
     private Set<Materiaprima> materiaprimaSet;
+    @OneToMany(mappedBy = "tipomaterial1")
+    private Set<Materiaprima> materiaprimaSet1;
 
     public Tipomaterial() {
     }
@@ -77,6 +79,14 @@ public class Tipomaterial implements Serializable {
 
     public void setMateriaprimaSet(Set<Materiaprima> materiaprimaSet) {
         this.materiaprimaSet = materiaprimaSet;
+    }
+
+    public Set<Materiaprima> getMateriaprimaSet1() {
+        return materiaprimaSet1;
+    }
+
+    public void setMateriaprimaSet1(Set<Materiaprima> materiaprimaSet1) {
+        this.materiaprimaSet1 = materiaprimaSet1;
     }
 
     @Override

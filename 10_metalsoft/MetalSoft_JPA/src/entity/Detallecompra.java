@@ -47,14 +47,25 @@ public class Detallecompra implements Serializable {
     @JoinColumn(name = "idcompra", referencedColumnName = "idcompra", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Compra compra;
+    @JoinColumn(name = "idcompra", referencedColumnName = "idcompra", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Compra compra1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadodetallecompra estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadodetallecompra estado1;
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
+    @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima materiaprima1;
     @OneToMany(mappedBy = "detallecompra")
     private Set<Detallereclamoproveedor> detallereclamoproveedorSet;
+    @OneToMany(mappedBy = "detallecompra1")
+    private Set<Detallereclamoproveedor> detallereclamoproveedorSet1;
 
     public Detallecompra() {
     }
@@ -107,12 +118,28 @@ public class Detallecompra implements Serializable {
         this.compra = compra;
     }
 
+    public Compra getCompra1() {
+        return compra1;
+    }
+
+    public void setCompra1(Compra compra1) {
+        this.compra1 = compra1;
+    }
+
     public Estadodetallecompra getEstado() {
         return estado;
     }
 
     public void setEstado(Estadodetallecompra estado) {
         this.estado = estado;
+    }
+
+    public Estadodetallecompra getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadodetallecompra estado1) {
+        this.estado1 = estado1;
     }
 
     public Materiaprima getMateriaprima() {
@@ -123,12 +150,28 @@ public class Detallecompra implements Serializable {
         this.materiaprima = materiaprima;
     }
 
+    public Materiaprima getMateriaprima1() {
+        return materiaprima1;
+    }
+
+    public void setMateriaprima1(Materiaprima materiaprima1) {
+        this.materiaprima1 = materiaprima1;
+    }
+
     public Set<Detallereclamoproveedor> getDetallereclamoproveedorSet() {
         return detallereclamoproveedorSet;
     }
 
     public void setDetallereclamoproveedorSet(Set<Detallereclamoproveedor> detallereclamoproveedorSet) {
         this.detallereclamoproveedorSet = detallereclamoproveedorSet;
+    }
+
+    public Set<Detallereclamoproveedor> getDetallereclamoproveedorSet1() {
+        return detallereclamoproveedorSet1;
+    }
+
+    public void setDetallereclamoproveedorSet1(Set<Detallereclamoproveedor> detallereclamoproveedorSet1) {
+        this.detallereclamoproveedorSet1 = detallereclamoproveedorSet1;
     }
 
     @Override

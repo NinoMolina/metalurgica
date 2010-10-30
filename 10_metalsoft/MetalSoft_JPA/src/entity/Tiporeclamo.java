@@ -39,10 +39,16 @@ public class Tiporeclamo implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tiporeclamo")
     private Set<Reclamoproveedor> reclamoproveedorSet;
+    @OneToMany(mappedBy = "tiporeclamo1")
+    private Set<Reclamoproveedor> reclamoproveedorSet1;
     @OneToMany(mappedBy = "tiporeclamo")
     private Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet;
+    @OneToMany(mappedBy = "tiporeclamo1")
+    private Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet1;
     @OneToMany(mappedBy = "tiporeclamo")
     private Set<Reclamocliente> reclamoclienteSet;
+    @OneToMany(mappedBy = "tiporeclamo1")
+    private Set<Reclamocliente> reclamoclienteSet1;
 
     public Tiporeclamo() {
     }
@@ -83,6 +89,14 @@ public class Tiporeclamo implements Serializable {
         this.reclamoproveedorSet = reclamoproveedorSet;
     }
 
+    public Set<Reclamoproveedor> getReclamoproveedorSet1() {
+        return reclamoproveedorSet1;
+    }
+
+    public void setReclamoproveedorSet1(Set<Reclamoproveedor> reclamoproveedorSet1) {
+        this.reclamoproveedorSet1 = reclamoproveedorSet1;
+    }
+
     public Set<Reclamoempresametalurgica> getReclamoempresametalurgicaSet() {
         return reclamoempresametalurgicaSet;
     }
@@ -91,12 +105,28 @@ public class Tiporeclamo implements Serializable {
         this.reclamoempresametalurgicaSet = reclamoempresametalurgicaSet;
     }
 
+    public Set<Reclamoempresametalurgica> getReclamoempresametalurgicaSet1() {
+        return reclamoempresametalurgicaSet1;
+    }
+
+    public void setReclamoempresametalurgicaSet1(Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet1) {
+        this.reclamoempresametalurgicaSet1 = reclamoempresametalurgicaSet1;
+    }
+
     public Set<Reclamocliente> getReclamoclienteSet() {
         return reclamoclienteSet;
     }
 
     public void setReclamoclienteSet(Set<Reclamocliente> reclamoclienteSet) {
         this.reclamoclienteSet = reclamoclienteSet;
+    }
+
+    public Set<Reclamocliente> getReclamoclienteSet1() {
+        return reclamoclienteSet1;
+    }
+
+    public void setReclamoclienteSet1(Set<Reclamocliente> reclamoclienteSet1) {
+        this.reclamoclienteSet1 = reclamoclienteSet1;
     }
 
     @Override

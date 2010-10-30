@@ -71,16 +71,29 @@ public class Trabajotercerizado implements Serializable {
     @JoinColumn(name = "empresa", referencedColumnName = "idempresametalurgica")
     @ManyToOne
     private Empresametalurgica empresa;
+    @JoinColumn(name = "empresa", referencedColumnName = "idempresametalurgica")
+    @ManyToOne
+    private Empresametalurgica empresa1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadotrabajotercerizado estado;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadotrabajotercerizado estado1;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido1;
     @OneToMany(mappedBy = "trabajotercerizado")
     private Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet;
+    @OneToMany(mappedBy = "trabajotercerizado1")
+    private Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trabajotercerizado")
     private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trabajotercerizado1")
+    private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1;
 
     public Trabajotercerizado() {
     }
@@ -169,12 +182,28 @@ public class Trabajotercerizado implements Serializable {
         this.empresa = empresa;
     }
 
+    public Empresametalurgica getEmpresa1() {
+        return empresa1;
+    }
+
+    public void setEmpresa1(Empresametalurgica empresa1) {
+        this.empresa1 = empresa1;
+    }
+
     public Estadotrabajotercerizado getEstado() {
         return estado;
     }
 
     public void setEstado(Estadotrabajotercerizado estado) {
         this.estado = estado;
+    }
+
+    public Estadotrabajotercerizado getEstado1() {
+        return estado1;
+    }
+
+    public void setEstado1(Estadotrabajotercerizado estado1) {
+        this.estado1 = estado1;
     }
 
     public Pedido getPedido() {
@@ -185,6 +214,14 @@ public class Trabajotercerizado implements Serializable {
         this.pedido = pedido;
     }
 
+    public Pedido getPedido1() {
+        return pedido1;
+    }
+
+    public void setPedido1(Pedido pedido1) {
+        this.pedido1 = pedido1;
+    }
+
     public Set<Reclamoempresametalurgica> getReclamoempresametalurgicaSet() {
         return reclamoempresametalurgicaSet;
     }
@@ -193,12 +230,28 @@ public class Trabajotercerizado implements Serializable {
         this.reclamoempresametalurgicaSet = reclamoempresametalurgicaSet;
     }
 
+    public Set<Reclamoempresametalurgica> getReclamoempresametalurgicaSet1() {
+        return reclamoempresametalurgicaSet1;
+    }
+
+    public void setReclamoempresametalurgicaSet1(Set<Reclamoempresametalurgica> reclamoempresametalurgicaSet1) {
+        this.reclamoempresametalurgicaSet1 = reclamoempresametalurgicaSet1;
+    }
+
     public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet() {
         return detalletrabajotercerizadoSet;
     }
 
     public void setDetalletrabajotercerizadoSet(Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet) {
         this.detalletrabajotercerizadoSet = detalletrabajotercerizadoSet;
+    }
+
+    public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet1() {
+        return detalletrabajotercerizadoSet1;
+    }
+
+    public void setDetalletrabajotercerizadoSet1(Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1) {
+        this.detalletrabajotercerizadoSet1 = detalletrabajotercerizadoSet1;
     }
 
     @Override

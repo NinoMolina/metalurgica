@@ -41,9 +41,15 @@ public class Detallereclamocliente implements Serializable {
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
+    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto producto1;
     @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Reclamocliente reclamocliente;
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Reclamocliente reclamocliente1;
 
     public Detallereclamocliente() {
     }
@@ -96,12 +102,28 @@ public class Detallereclamocliente implements Serializable {
         this.producto = producto;
     }
 
+    public Producto getProducto1() {
+        return producto1;
+    }
+
+    public void setProducto1(Producto producto1) {
+        this.producto1 = producto1;
+    }
+
     public Reclamocliente getReclamocliente() {
         return reclamocliente;
     }
 
     public void setReclamocliente(Reclamocliente reclamocliente) {
         this.reclamocliente = reclamocliente;
+    }
+
+    public Reclamocliente getReclamocliente1() {
+        return reclamocliente1;
+    }
+
+    public void setReclamocliente1(Reclamocliente reclamocliente1) {
+        this.reclamocliente1 = reclamocliente1;
     }
 
     @Override

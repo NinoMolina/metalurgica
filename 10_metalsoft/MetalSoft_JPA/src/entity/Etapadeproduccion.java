@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -66,19 +65,34 @@ public class Etapadeproduccion implements Serializable {
     private Date fechacreacion;
     @OneToMany(mappedBy = "idetapaproduccion")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion")
-    private Ejecucionetapaproduccion ejecucionetapaproduccion;
+    @OneToMany(mappedBy = "idetapaproduccion1")
+    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idetapaproduccion")
+    private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idetapaproduccion1")
+    private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion")
     private Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion1")
+    private Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet1;
     @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidaddemedida;
+    @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
+    @ManyToOne
+    private Unidadmedida unidaddemedida1;
     @OneToMany(mappedBy = "idetapa")
     private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet;
+    @OneToMany(mappedBy = "idetapa1")
+    private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1;
     @OneToMany(mappedBy = "idetapaproduccion")
     private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet;
+    @OneToMany(mappedBy = "idetapaproduccion1")
+    private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1;
     @OneToMany(mappedBy = "proceso")
     private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet;
+    @OneToMany(mappedBy = "proceso1")
+    private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1;
 
     public Etapadeproduccion() {
     }
@@ -159,12 +173,28 @@ public class Etapadeproduccion implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
-    public Ejecucionetapaproduccion getEjecucionetapaproduccion() {
-        return ejecucionetapaproduccion;
+    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
+        return detalleplanificacionproduccionSet1;
     }
 
-    public void setEjecucionetapaproduccion(Ejecucionetapaproduccion ejecucionetapaproduccion) {
-        this.ejecucionetapaproduccion = ejecucionetapaproduccion;
+    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
+        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
+    }
+
+    public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet() {
+        return ejecucionetapaproduccionSet;
+    }
+
+    public void setEjecucionetapaproduccionSet(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet) {
+        this.ejecucionetapaproduccionSet = ejecucionetapaproduccionSet;
+    }
+
+    public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet1() {
+        return ejecucionetapaproduccionSet1;
+    }
+
+    public void setEjecucionetapaproduccionSet1(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1) {
+        this.ejecucionetapaproduccionSet1 = ejecucionetapaproduccionSet1;
     }
 
     public Set<Piezaxetapadeproduccion> getPiezaxetapadeproduccionSet() {
@@ -175,12 +205,28 @@ public class Etapadeproduccion implements Serializable {
         this.piezaxetapadeproduccionSet = piezaxetapadeproduccionSet;
     }
 
+    public Set<Piezaxetapadeproduccion> getPiezaxetapadeproduccionSet1() {
+        return piezaxetapadeproduccionSet1;
+    }
+
+    public void setPiezaxetapadeproduccionSet1(Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet1) {
+        this.piezaxetapadeproduccionSet1 = piezaxetapadeproduccionSet1;
+    }
+
     public Unidadmedida getUnidaddemedida() {
         return unidaddemedida;
     }
 
     public void setUnidaddemedida(Unidadmedida unidaddemedida) {
         this.unidaddemedida = unidaddemedida;
+    }
+
+    public Unidadmedida getUnidaddemedida1() {
+        return unidaddemedida1;
+    }
+
+    public void setUnidaddemedida1(Unidadmedida unidaddemedida1) {
+        this.unidaddemedida1 = unidaddemedida1;
     }
 
     public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet() {
@@ -191,6 +237,14 @@ public class Etapadeproduccion implements Serializable {
         this.detallepiezapresupuestoSet = detallepiezapresupuestoSet;
     }
 
+    public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet1() {
+        return detallepiezapresupuestoSet1;
+    }
+
+    public void setDetallepiezapresupuestoSet1(Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1) {
+        this.detallepiezapresupuestoSet1 = detallepiezapresupuestoSet1;
+    }
+
     public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet() {
         return detalleplanprocedimientosSet;
     }
@@ -199,12 +253,28 @@ public class Etapadeproduccion implements Serializable {
         this.detalleplanprocedimientosSet = detalleplanprocedimientosSet;
     }
 
+    public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet1() {
+        return detalleplanprocedimientosSet1;
+    }
+
+    public void setDetalleplanprocedimientosSet1(Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1) {
+        this.detalleplanprocedimientosSet1 = detalleplanprocedimientosSet1;
+    }
+
     public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet() {
         return detalletrabajotercerizadoSet;
     }
 
     public void setDetalletrabajotercerizadoSet(Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet) {
         this.detalletrabajotercerizadoSet = detalletrabajotercerizadoSet;
+    }
+
+    public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet1() {
+        return detalletrabajotercerizadoSet1;
+    }
+
+    public void setDetalletrabajotercerizadoSet1(Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1) {
+        this.detalletrabajotercerizadoSet1 = detalletrabajotercerizadoSet1;
     }
 
     @Override

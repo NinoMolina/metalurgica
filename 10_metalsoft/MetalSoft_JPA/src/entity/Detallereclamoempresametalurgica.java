@@ -52,6 +52,9 @@ public class Detallereclamoempresametalurgica implements Serializable {
     @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Reclamoempresametalurgica reclamoempresametalurgica;
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Reclamoempresametalurgica reclamoempresametalurgica1;
 
     public Detallereclamoempresametalurgica() {
     }
@@ -118,6 +121,14 @@ public class Detallereclamoempresametalurgica implements Serializable {
 
     public void setReclamoempresametalurgica(Reclamoempresametalurgica reclamoempresametalurgica) {
         this.reclamoempresametalurgica = reclamoempresametalurgica;
+    }
+
+    public Reclamoempresametalurgica getReclamoempresametalurgica1() {
+        return reclamoempresametalurgica1;
+    }
+
+    public void setReclamoempresametalurgica1(Reclamoempresametalurgica reclamoempresametalurgica1) {
+        this.reclamoempresametalurgica1 = reclamoempresametalurgica1;
     }
 
     @Override

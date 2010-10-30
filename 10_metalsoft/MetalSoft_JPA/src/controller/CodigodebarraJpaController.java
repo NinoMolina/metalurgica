@@ -41,11 +41,20 @@ public class CodigodebarraJpaController {
         if (codigodebarra.getProductorealSet() == null) {
             codigodebarra.setProductorealSet(new HashSet<Productoreal>());
         }
+        if (codigodebarra.getProductorealSet1() == null) {
+            codigodebarra.setProductorealSet1(new HashSet<Productoreal>());
+        }
         if (codigodebarra.getMateriaprimaSet() == null) {
             codigodebarra.setMateriaprimaSet(new HashSet<Materiaprima>());
         }
+        if (codigodebarra.getMateriaprimaSet1() == null) {
+            codigodebarra.setMateriaprimaSet1(new HashSet<Materiaprima>());
+        }
         if (codigodebarra.getPiezarealSet() == null) {
             codigodebarra.setPiezarealSet(new HashSet<Piezareal>());
+        }
+        if (codigodebarra.getPiezarealSet1() == null) {
+            codigodebarra.setPiezarealSet1(new HashSet<Piezareal>());
         }
         EntityManager em = null;
         try {
@@ -57,18 +66,36 @@ public class CodigodebarraJpaController {
                 attachedProductorealSet.add(productorealSetProductorealToAttach);
             }
             codigodebarra.setProductorealSet(attachedProductorealSet);
+            Set<Productoreal> attachedProductorealSet1 = new HashSet<Productoreal>();
+            for (Productoreal productorealSet1ProductorealToAttach : codigodebarra.getProductorealSet1()) {
+                productorealSet1ProductorealToAttach = em.getReference(productorealSet1ProductorealToAttach.getClass(), productorealSet1ProductorealToAttach.getIdproductoreal());
+                attachedProductorealSet1.add(productorealSet1ProductorealToAttach);
+            }
+            codigodebarra.setProductorealSet1(attachedProductorealSet1);
             Set<Materiaprima> attachedMateriaprimaSet = new HashSet<Materiaprima>();
             for (Materiaprima materiaprimaSetMateriaprimaToAttach : codigodebarra.getMateriaprimaSet()) {
                 materiaprimaSetMateriaprimaToAttach = em.getReference(materiaprimaSetMateriaprimaToAttach.getClass(), materiaprimaSetMateriaprimaToAttach.getIdmateriaprima());
                 attachedMateriaprimaSet.add(materiaprimaSetMateriaprimaToAttach);
             }
             codigodebarra.setMateriaprimaSet(attachedMateriaprimaSet);
+            Set<Materiaprima> attachedMateriaprimaSet1 = new HashSet<Materiaprima>();
+            for (Materiaprima materiaprimaSet1MateriaprimaToAttach : codigodebarra.getMateriaprimaSet1()) {
+                materiaprimaSet1MateriaprimaToAttach = em.getReference(materiaprimaSet1MateriaprimaToAttach.getClass(), materiaprimaSet1MateriaprimaToAttach.getIdmateriaprima());
+                attachedMateriaprimaSet1.add(materiaprimaSet1MateriaprimaToAttach);
+            }
+            codigodebarra.setMateriaprimaSet1(attachedMateriaprimaSet1);
             Set<Piezareal> attachedPiezarealSet = new HashSet<Piezareal>();
             for (Piezareal piezarealSetPiezarealToAttach : codigodebarra.getPiezarealSet()) {
                 piezarealSetPiezarealToAttach = em.getReference(piezarealSetPiezarealToAttach.getClass(), piezarealSetPiezarealToAttach.getIdpiezareal());
                 attachedPiezarealSet.add(piezarealSetPiezarealToAttach);
             }
             codigodebarra.setPiezarealSet(attachedPiezarealSet);
+            Set<Piezareal> attachedPiezarealSet1 = new HashSet<Piezareal>();
+            for (Piezareal piezarealSet1PiezarealToAttach : codigodebarra.getPiezarealSet1()) {
+                piezarealSet1PiezarealToAttach = em.getReference(piezarealSet1PiezarealToAttach.getClass(), piezarealSet1PiezarealToAttach.getIdpiezareal());
+                attachedPiezarealSet1.add(piezarealSet1PiezarealToAttach);
+            }
+            codigodebarra.setPiezarealSet1(attachedPiezarealSet1);
             em.persist(codigodebarra);
             for (Productoreal productorealSetProductoreal : codigodebarra.getProductorealSet()) {
                 Codigodebarra oldCodigobarraOfProductorealSetProductoreal = productorealSetProductoreal.getCodigobarra();
@@ -77,6 +104,15 @@ public class CodigodebarraJpaController {
                 if (oldCodigobarraOfProductorealSetProductoreal != null) {
                     oldCodigobarraOfProductorealSetProductoreal.getProductorealSet().remove(productorealSetProductoreal);
                     oldCodigobarraOfProductorealSetProductoreal = em.merge(oldCodigobarraOfProductorealSetProductoreal);
+                }
+            }
+            for (Productoreal productorealSet1Productoreal : codigodebarra.getProductorealSet1()) {
+                Codigodebarra oldCodigobarra1OfProductorealSet1Productoreal = productorealSet1Productoreal.getCodigobarra1();
+                productorealSet1Productoreal.setCodigobarra1(codigodebarra);
+                productorealSet1Productoreal = em.merge(productorealSet1Productoreal);
+                if (oldCodigobarra1OfProductorealSet1Productoreal != null) {
+                    oldCodigobarra1OfProductorealSet1Productoreal.getProductorealSet1().remove(productorealSet1Productoreal);
+                    oldCodigobarra1OfProductorealSet1Productoreal = em.merge(oldCodigobarra1OfProductorealSet1Productoreal);
                 }
             }
             for (Materiaprima materiaprimaSetMateriaprima : codigodebarra.getMateriaprimaSet()) {
@@ -88,6 +124,15 @@ public class CodigodebarraJpaController {
                     oldCodbarraOfMateriaprimaSetMateriaprima = em.merge(oldCodbarraOfMateriaprimaSetMateriaprima);
                 }
             }
+            for (Materiaprima materiaprimaSet1Materiaprima : codigodebarra.getMateriaprimaSet1()) {
+                Codigodebarra oldCodbarra1OfMateriaprimaSet1Materiaprima = materiaprimaSet1Materiaprima.getCodbarra1();
+                materiaprimaSet1Materiaprima.setCodbarra1(codigodebarra);
+                materiaprimaSet1Materiaprima = em.merge(materiaprimaSet1Materiaprima);
+                if (oldCodbarra1OfMateriaprimaSet1Materiaprima != null) {
+                    oldCodbarra1OfMateriaprimaSet1Materiaprima.getMateriaprimaSet1().remove(materiaprimaSet1Materiaprima);
+                    oldCodbarra1OfMateriaprimaSet1Materiaprima = em.merge(oldCodbarra1OfMateriaprimaSet1Materiaprima);
+                }
+            }
             for (Piezareal piezarealSetPiezareal : codigodebarra.getPiezarealSet()) {
                 Codigodebarra oldIdcodigobarraOfPiezarealSetPiezareal = piezarealSetPiezareal.getIdcodigobarra();
                 piezarealSetPiezareal.setIdcodigobarra(codigodebarra);
@@ -95,6 +140,15 @@ public class CodigodebarraJpaController {
                 if (oldIdcodigobarraOfPiezarealSetPiezareal != null) {
                     oldIdcodigobarraOfPiezarealSetPiezareal.getPiezarealSet().remove(piezarealSetPiezareal);
                     oldIdcodigobarraOfPiezarealSetPiezareal = em.merge(oldIdcodigobarraOfPiezarealSetPiezareal);
+                }
+            }
+            for (Piezareal piezarealSet1Piezareal : codigodebarra.getPiezarealSet1()) {
+                Codigodebarra oldIdcodigobarra1OfPiezarealSet1Piezareal = piezarealSet1Piezareal.getIdcodigobarra1();
+                piezarealSet1Piezareal.setIdcodigobarra1(codigodebarra);
+                piezarealSet1Piezareal = em.merge(piezarealSet1Piezareal);
+                if (oldIdcodigobarra1OfPiezarealSet1Piezareal != null) {
+                    oldIdcodigobarra1OfPiezarealSet1Piezareal.getPiezarealSet1().remove(piezarealSet1Piezareal);
+                    oldIdcodigobarra1OfPiezarealSet1Piezareal = em.merge(oldIdcodigobarra1OfPiezarealSet1Piezareal);
                 }
             }
             em.getTransaction().commit();
@@ -118,10 +172,16 @@ public class CodigodebarraJpaController {
             Codigodebarra persistentCodigodebarra = em.find(Codigodebarra.class, codigodebarra.getIdcodigo());
             Set<Productoreal> productorealSetOld = persistentCodigodebarra.getProductorealSet();
             Set<Productoreal> productorealSetNew = codigodebarra.getProductorealSet();
+            Set<Productoreal> productorealSet1Old = persistentCodigodebarra.getProductorealSet1();
+            Set<Productoreal> productorealSet1New = codigodebarra.getProductorealSet1();
             Set<Materiaprima> materiaprimaSetOld = persistentCodigodebarra.getMateriaprimaSet();
             Set<Materiaprima> materiaprimaSetNew = codigodebarra.getMateriaprimaSet();
+            Set<Materiaprima> materiaprimaSet1Old = persistentCodigodebarra.getMateriaprimaSet1();
+            Set<Materiaprima> materiaprimaSet1New = codigodebarra.getMateriaprimaSet1();
             Set<Piezareal> piezarealSetOld = persistentCodigodebarra.getPiezarealSet();
             Set<Piezareal> piezarealSetNew = codigodebarra.getPiezarealSet();
+            Set<Piezareal> piezarealSet1Old = persistentCodigodebarra.getPiezarealSet1();
+            Set<Piezareal> piezarealSet1New = codigodebarra.getPiezarealSet1();
             Set<Productoreal> attachedProductorealSetNew = new HashSet<Productoreal>();
             for (Productoreal productorealSetNewProductorealToAttach : productorealSetNew) {
                 productorealSetNewProductorealToAttach = em.getReference(productorealSetNewProductorealToAttach.getClass(), productorealSetNewProductorealToAttach.getIdproductoreal());
@@ -129,6 +189,13 @@ public class CodigodebarraJpaController {
             }
             productorealSetNew = attachedProductorealSetNew;
             codigodebarra.setProductorealSet(productorealSetNew);
+            Set<Productoreal> attachedProductorealSet1New = new HashSet<Productoreal>();
+            for (Productoreal productorealSet1NewProductorealToAttach : productorealSet1New) {
+                productorealSet1NewProductorealToAttach = em.getReference(productorealSet1NewProductorealToAttach.getClass(), productorealSet1NewProductorealToAttach.getIdproductoreal());
+                attachedProductorealSet1New.add(productorealSet1NewProductorealToAttach);
+            }
+            productorealSet1New = attachedProductorealSet1New;
+            codigodebarra.setProductorealSet1(productorealSet1New);
             Set<Materiaprima> attachedMateriaprimaSetNew = new HashSet<Materiaprima>();
             for (Materiaprima materiaprimaSetNewMateriaprimaToAttach : materiaprimaSetNew) {
                 materiaprimaSetNewMateriaprimaToAttach = em.getReference(materiaprimaSetNewMateriaprimaToAttach.getClass(), materiaprimaSetNewMateriaprimaToAttach.getIdmateriaprima());
@@ -136,6 +203,13 @@ public class CodigodebarraJpaController {
             }
             materiaprimaSetNew = attachedMateriaprimaSetNew;
             codigodebarra.setMateriaprimaSet(materiaprimaSetNew);
+            Set<Materiaprima> attachedMateriaprimaSet1New = new HashSet<Materiaprima>();
+            for (Materiaprima materiaprimaSet1NewMateriaprimaToAttach : materiaprimaSet1New) {
+                materiaprimaSet1NewMateriaprimaToAttach = em.getReference(materiaprimaSet1NewMateriaprimaToAttach.getClass(), materiaprimaSet1NewMateriaprimaToAttach.getIdmateriaprima());
+                attachedMateriaprimaSet1New.add(materiaprimaSet1NewMateriaprimaToAttach);
+            }
+            materiaprimaSet1New = attachedMateriaprimaSet1New;
+            codigodebarra.setMateriaprimaSet1(materiaprimaSet1New);
             Set<Piezareal> attachedPiezarealSetNew = new HashSet<Piezareal>();
             for (Piezareal piezarealSetNewPiezarealToAttach : piezarealSetNew) {
                 piezarealSetNewPiezarealToAttach = em.getReference(piezarealSetNewPiezarealToAttach.getClass(), piezarealSetNewPiezarealToAttach.getIdpiezareal());
@@ -143,6 +217,13 @@ public class CodigodebarraJpaController {
             }
             piezarealSetNew = attachedPiezarealSetNew;
             codigodebarra.setPiezarealSet(piezarealSetNew);
+            Set<Piezareal> attachedPiezarealSet1New = new HashSet<Piezareal>();
+            for (Piezareal piezarealSet1NewPiezarealToAttach : piezarealSet1New) {
+                piezarealSet1NewPiezarealToAttach = em.getReference(piezarealSet1NewPiezarealToAttach.getClass(), piezarealSet1NewPiezarealToAttach.getIdpiezareal());
+                attachedPiezarealSet1New.add(piezarealSet1NewPiezarealToAttach);
+            }
+            piezarealSet1New = attachedPiezarealSet1New;
+            codigodebarra.setPiezarealSet1(piezarealSet1New);
             codigodebarra = em.merge(codigodebarra);
             for (Productoreal productorealSetOldProductoreal : productorealSetOld) {
                 if (!productorealSetNew.contains(productorealSetOldProductoreal)) {
@@ -158,6 +239,23 @@ public class CodigodebarraJpaController {
                     if (oldCodigobarraOfProductorealSetNewProductoreal != null && !oldCodigobarraOfProductorealSetNewProductoreal.equals(codigodebarra)) {
                         oldCodigobarraOfProductorealSetNewProductoreal.getProductorealSet().remove(productorealSetNewProductoreal);
                         oldCodigobarraOfProductorealSetNewProductoreal = em.merge(oldCodigobarraOfProductorealSetNewProductoreal);
+                    }
+                }
+            }
+            for (Productoreal productorealSet1OldProductoreal : productorealSet1Old) {
+                if (!productorealSet1New.contains(productorealSet1OldProductoreal)) {
+                    productorealSet1OldProductoreal.setCodigobarra1(null);
+                    productorealSet1OldProductoreal = em.merge(productorealSet1OldProductoreal);
+                }
+            }
+            for (Productoreal productorealSet1NewProductoreal : productorealSet1New) {
+                if (!productorealSet1Old.contains(productorealSet1NewProductoreal)) {
+                    Codigodebarra oldCodigobarra1OfProductorealSet1NewProductoreal = productorealSet1NewProductoreal.getCodigobarra1();
+                    productorealSet1NewProductoreal.setCodigobarra1(codigodebarra);
+                    productorealSet1NewProductoreal = em.merge(productorealSet1NewProductoreal);
+                    if (oldCodigobarra1OfProductorealSet1NewProductoreal != null && !oldCodigobarra1OfProductorealSet1NewProductoreal.equals(codigodebarra)) {
+                        oldCodigobarra1OfProductorealSet1NewProductoreal.getProductorealSet1().remove(productorealSet1NewProductoreal);
+                        oldCodigobarra1OfProductorealSet1NewProductoreal = em.merge(oldCodigobarra1OfProductorealSet1NewProductoreal);
                     }
                 }
             }
@@ -178,6 +276,23 @@ public class CodigodebarraJpaController {
                     }
                 }
             }
+            for (Materiaprima materiaprimaSet1OldMateriaprima : materiaprimaSet1Old) {
+                if (!materiaprimaSet1New.contains(materiaprimaSet1OldMateriaprima)) {
+                    materiaprimaSet1OldMateriaprima.setCodbarra1(null);
+                    materiaprimaSet1OldMateriaprima = em.merge(materiaprimaSet1OldMateriaprima);
+                }
+            }
+            for (Materiaprima materiaprimaSet1NewMateriaprima : materiaprimaSet1New) {
+                if (!materiaprimaSet1Old.contains(materiaprimaSet1NewMateriaprima)) {
+                    Codigodebarra oldCodbarra1OfMateriaprimaSet1NewMateriaprima = materiaprimaSet1NewMateriaprima.getCodbarra1();
+                    materiaprimaSet1NewMateriaprima.setCodbarra1(codigodebarra);
+                    materiaprimaSet1NewMateriaprima = em.merge(materiaprimaSet1NewMateriaprima);
+                    if (oldCodbarra1OfMateriaprimaSet1NewMateriaprima != null && !oldCodbarra1OfMateriaprimaSet1NewMateriaprima.equals(codigodebarra)) {
+                        oldCodbarra1OfMateriaprimaSet1NewMateriaprima.getMateriaprimaSet1().remove(materiaprimaSet1NewMateriaprima);
+                        oldCodbarra1OfMateriaprimaSet1NewMateriaprima = em.merge(oldCodbarra1OfMateriaprimaSet1NewMateriaprima);
+                    }
+                }
+            }
             for (Piezareal piezarealSetOldPiezareal : piezarealSetOld) {
                 if (!piezarealSetNew.contains(piezarealSetOldPiezareal)) {
                     piezarealSetOldPiezareal.setIdcodigobarra(null);
@@ -192,6 +307,23 @@ public class CodigodebarraJpaController {
                     if (oldIdcodigobarraOfPiezarealSetNewPiezareal != null && !oldIdcodigobarraOfPiezarealSetNewPiezareal.equals(codigodebarra)) {
                         oldIdcodigobarraOfPiezarealSetNewPiezareal.getPiezarealSet().remove(piezarealSetNewPiezareal);
                         oldIdcodigobarraOfPiezarealSetNewPiezareal = em.merge(oldIdcodigobarraOfPiezarealSetNewPiezareal);
+                    }
+                }
+            }
+            for (Piezareal piezarealSet1OldPiezareal : piezarealSet1Old) {
+                if (!piezarealSet1New.contains(piezarealSet1OldPiezareal)) {
+                    piezarealSet1OldPiezareal.setIdcodigobarra1(null);
+                    piezarealSet1OldPiezareal = em.merge(piezarealSet1OldPiezareal);
+                }
+            }
+            for (Piezareal piezarealSet1NewPiezareal : piezarealSet1New) {
+                if (!piezarealSet1Old.contains(piezarealSet1NewPiezareal)) {
+                    Codigodebarra oldIdcodigobarra1OfPiezarealSet1NewPiezareal = piezarealSet1NewPiezareal.getIdcodigobarra1();
+                    piezarealSet1NewPiezareal.setIdcodigobarra1(codigodebarra);
+                    piezarealSet1NewPiezareal = em.merge(piezarealSet1NewPiezareal);
+                    if (oldIdcodigobarra1OfPiezarealSet1NewPiezareal != null && !oldIdcodigobarra1OfPiezarealSet1NewPiezareal.equals(codigodebarra)) {
+                        oldIdcodigobarra1OfPiezarealSet1NewPiezareal.getPiezarealSet1().remove(piezarealSet1NewPiezareal);
+                        oldIdcodigobarra1OfPiezarealSet1NewPiezareal = em.merge(oldIdcodigobarra1OfPiezarealSet1NewPiezareal);
                     }
                 }
             }
@@ -229,15 +361,30 @@ public class CodigodebarraJpaController {
                 productorealSetProductoreal.setCodigobarra(null);
                 productorealSetProductoreal = em.merge(productorealSetProductoreal);
             }
+            Set<Productoreal> productorealSet1 = codigodebarra.getProductorealSet1();
+            for (Productoreal productorealSet1Productoreal : productorealSet1) {
+                productorealSet1Productoreal.setCodigobarra1(null);
+                productorealSet1Productoreal = em.merge(productorealSet1Productoreal);
+            }
             Set<Materiaprima> materiaprimaSet = codigodebarra.getMateriaprimaSet();
             for (Materiaprima materiaprimaSetMateriaprima : materiaprimaSet) {
                 materiaprimaSetMateriaprima.setCodbarra(null);
                 materiaprimaSetMateriaprima = em.merge(materiaprimaSetMateriaprima);
             }
+            Set<Materiaprima> materiaprimaSet1 = codigodebarra.getMateriaprimaSet1();
+            for (Materiaprima materiaprimaSet1Materiaprima : materiaprimaSet1) {
+                materiaprimaSet1Materiaprima.setCodbarra1(null);
+                materiaprimaSet1Materiaprima = em.merge(materiaprimaSet1Materiaprima);
+            }
             Set<Piezareal> piezarealSet = codigodebarra.getPiezarealSet();
             for (Piezareal piezarealSetPiezareal : piezarealSet) {
                 piezarealSetPiezareal.setIdcodigobarra(null);
                 piezarealSetPiezareal = em.merge(piezarealSetPiezareal);
+            }
+            Set<Piezareal> piezarealSet1 = codigodebarra.getPiezarealSet1();
+            for (Piezareal piezarealSet1Piezareal : piezarealSet1) {
+                piezarealSet1Piezareal.setIdcodigobarra1(null);
+                piezarealSet1Piezareal = em.merge(piezarealSet1Piezareal);
             }
             em.remove(codigodebarra);
             em.getTransaction().commit();

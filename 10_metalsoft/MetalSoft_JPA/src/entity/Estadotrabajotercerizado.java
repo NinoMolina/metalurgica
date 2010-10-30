@@ -39,6 +39,8 @@ public class Estadotrabajotercerizado implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private Set<Trabajotercerizado> trabajotercerizadoSet;
+    @OneToMany(mappedBy = "estado1")
+    private Set<Trabajotercerizado> trabajotercerizadoSet1;
 
     public Estadotrabajotercerizado() {
     }
@@ -77,6 +79,14 @@ public class Estadotrabajotercerizado implements Serializable {
 
     public void setTrabajotercerizadoSet(Set<Trabajotercerizado> trabajotercerizadoSet) {
         this.trabajotercerizadoSet = trabajotercerizadoSet;
+    }
+
+    public Set<Trabajotercerizado> getTrabajotercerizadoSet1() {
+        return trabajotercerizadoSet1;
+    }
+
+    public void setTrabajotercerizadoSet1(Set<Trabajotercerizado> trabajotercerizadoSet1) {
+        this.trabajotercerizadoSet1 = trabajotercerizadoSet1;
     }
 
     @Override
