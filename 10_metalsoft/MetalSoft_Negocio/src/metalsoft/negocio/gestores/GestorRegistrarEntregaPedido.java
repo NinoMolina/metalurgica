@@ -95,7 +95,7 @@ public class GestorRegistrarEntregaPedido {
             jviewer.setTitle("Factura");
             jviewer.setVisible(true);
 
-            String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
+            //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
             //Se exporta a PDF
             //JasperExportManager.exportReportToPdfFile(jasperPrint,"G:\\"+nroPre+"-"+Fecha.fechaActual(Fecha.YYYY_MM_DD_GUION)+".pdf");
             // Visualizar el reporte en el Jasperviwer
@@ -139,7 +139,7 @@ public class GestorRegistrarEntregaPedido {
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
 
-            String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
+            //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
 
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,6 +151,9 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+
+
+
     public PedidoDB buscarPedidoPorID(long id)
     {
         PostgreSQLManager pg = new PostgreSQLManager();
