@@ -14,10 +14,15 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.Formadepago;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.negocio.access.AccessFormaDePago;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.util.Combo;
+import metalsoft.util.ItemCombo;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -203,6 +208,33 @@ public class GestorRegistrarEntregaPedido {
         return result;
     }
 
+    public void obtenerPrioridades(JComboBox combo) {
+        Formadepago[] prioridades=null;
+        Connection cn=null;
+        PostgreSQLManager pg=null;
+        combo.removeAllItems();
+        try {
+            pg=new PostgreSQLManager();
+            cn=pg.concectGetCn();
+            prioridades = AccessFormaDePago.findAll(cn);
 
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<prioridades.length;i++)
+            {
+                Combo.cargarCombo(combo, String.valueOf(prioridades[i].getIdformapago()), prioridades[i].getNombre());
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
 }
