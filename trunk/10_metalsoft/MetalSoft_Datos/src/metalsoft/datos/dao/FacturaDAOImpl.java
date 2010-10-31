@@ -91,20 +91,25 @@ public class FacturaDAOImpl implements FacturaDAO
 	public int insert(FacturaDB factura ,Connection con)throws FacturaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into FACTURA( NROFACTURA, FECHAEMISION, TIPOIVA, FECHAREALCOBRO, FORMAPAGO, FECHAVENCIMIENTO, USUARIO, ESTADO, TIPOFACTURA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into FACTURA( NROFACTURA, FECHAEMISION, TIPOIVA, FECHAREALCOBRO, FORMAPAGO, FECHAVENCIMIENTO, USUARIO, ESTADO, TIPOFACTURA) values (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING IDFACTURA");
 				ps.setLong(1,factura.getNrofactura());
 				ps.setDate(2,factura.getFechaemision());
-				ps.setLong(3,factura.getTipoiva());
+                if(factura.getTipoiva()>0) ps.setLong(3,factura.getTipoiva());
+                else ps.setNull(3,java.sql.Types.NULL);
 				ps.setDate(4,factura.getFecharealcobro());
 				ps.setLong(5,factura.getFormapago());
 				ps.setDate(6,factura.getFechavencimiento());
-				ps.setLong(7,factura.getUsuario());
+                if(factura.getUsuario()>0) ps.setLong(7,factura.getUsuario());
+                else ps.setNull(7,java.sql.Types.NULL);;
 				ps.setLong(8,factura.getEstado());
 				ps.setString(9,factura.getTipofactura());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new FacturaException(sqle);}
 		catch(Exception e){throw new FacturaException(e);}
 	}
