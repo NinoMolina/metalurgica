@@ -377,7 +377,7 @@ public class GestorRegistrarEntregaPedido {
         remDB.setNrocomprobantepago(result);
         AccessComprobantePago.update(remDB, cn);
         ped.setEstado(IdsEstadoPedido.COBRADO);
-        result = updatePedido(ped);
+        updatePedido(ped);
 
         return result;
 
