@@ -66,11 +66,13 @@ public class FacturaDAOImpl implements FacturaDAO
 			ps = con.prepareStatement("update FACTURA set NROFACTURA = ? , FECHAEMISION = ? , TIPOIVA = ? , FECHAREALCOBRO = ? , FORMAPAGO = ? , FECHAVENCIMIENTO = ? , USUARIO = ? , ESTADO = ? , TIPOFACTURA = ?  where idfactura = ?");
 				ps.setLong(1,factura.getNrofactura());
 				ps.setDate(2,factura.getFechaemision());
-				ps.setLong(3,factura.getTipoiva());
+				if(factura.getTipoiva()>0) ps.setLong(3,factura.getTipoiva());
+                else ps.setNull(3,java.sql.Types.NULL);
 				ps.setDate(4,factura.getFecharealcobro());
 				ps.setLong(5,factura.getFormapago());
 				ps.setDate(6,factura.getFechavencimiento());
-				ps.setLong(7,factura.getUsuario());
+				if(factura.getUsuario()>0) ps.setLong(7,factura.getUsuario());
+                else ps.setNull(7,java.sql.Types.NULL);
 				ps.setLong(8,factura.getEstado());
 				ps.setString(9,factura.getTipofactura());
 				ps.setLong(10,facturapk.getIdfactura());
