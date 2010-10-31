@@ -376,6 +376,8 @@ public class GestorRegistrarEntregaPedido {
         remDB.setIdcomprobantepago(result);
         remDB.setNrocomprobantepago(result);
         AccessComprobantePago.update(remDB, cn);
+        ped.setEstado(IdsEstadoPedido.COBRADO);
+        result = updatePedido(ped);
 
         return result;
 
@@ -401,7 +403,7 @@ public class GestorRegistrarEntregaPedido {
         return pedido;
     }
 
-    public int updatePedidoaEntregado(PedidoDB pedido) {
+    public int updatePedido(PedidoDB pedido) {
         int result = -1;
         PostgreSQLManager pg = new PostgreSQLManager();
         Connection cn = null;
