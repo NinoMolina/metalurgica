@@ -250,6 +250,7 @@ public class GestorRegistrarEntregaPedido {
             db.setMontoparcial(view.getCantidad() * view.getPrecio());
             resultDetalle = AccessFactura.insertDetalleFactura(db, cn);
         }
+        facturaDB.setIdfactura(result);
         facturaDB.setNrofactura(result);
         AccessFactura.update(facturaDB, cn);
 
@@ -290,6 +291,7 @@ public class GestorRegistrarEntregaPedido {
             db.setProducto(view.getIdProducto());
             resultDetalle = AccessRemito.insertDetalleRemito(db, cn);
         }
+        remDB.setIdremito(result);
         remDB.setNroremito(result);
         AccessRemito.update(remDB, cn);
 
