@@ -679,33 +679,67 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
     private void btnRegistrarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntregaActionPerformed
         // TODO add your handling code here:
-        int result=-1;
-        PedidoDB db=gestor.buscarPedidoPorID(idPedido);
+        int result = -1;
+        PedidoDB db = gestor.buscarPedidoPorID(idPedido);
         db.setEstado(IdsEstadoPedido.ENTREGADO);
-        db.setFechaentregareal((java.sql.Date)Fecha.fechaActualDate());
-        result=gestor.updatePedidoaEntregado(db);
+        db.setFechaentregareal((java.sql.Date) Fecha.fechaActualDate());
+        result = gestor.updatePedidoaEntregado(db);
         int ok = -1;
         int okRemito = -1;
         if (result > 0) {
-            JOptionPane.showMessageDialog(this,"Se registro la entrega del Pedido nro "+db.getNropedido()+", en la fecha "+String.valueOf(Fecha.fechaActualDate()));
-            ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
-            if (ok == JOptionPane.OK_OPTION) {
-                imprimirFactura();
-            }
+            JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + String.valueOf(Fecha.fechaActualDate()));
+
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {
                 imprimirRemito();
+                boolean flag = false;
+                do {
+                    ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
+                    if (ok == JOptionPane.OK_OPTION) {
+                        JComboBox combo=new JComboBox();
+                        JComboBox combotipoFactura=cargarComboTipoFactura();
+
+                        gestor.obtenerPrioridades(combo);
+                        Object[] obj = {"Forma de Pago:", combo, "Tipo de Factura",combotipoFactura};
+
+                        int res = JOptionPane.showConfirmDialog(null, obj, "Ingresar Forma de Pago y Tipo de Factura", JOptionPane.OK_CANCEL_OPTION);
+
+                        if (res == JOptionPane.OK_OPTION) {
+                            long formaPago=Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
+                            String tipoFactura=String.valueOf(((ItemCombo) combo.getSelectedItem()).getMostrar());
+                            imprimirFactura(formaPago,tipoFactura);
+                            flag=false;
+                        }else{
+                            flag=true;
+                        }
+
+                    }
+                } while (flag);
             }
 
+
+
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
+            JOptionPane.showMessageDialog(this, "No se pudo registrar la entrega del Pedido!");
         }
+        pedidoSeleccionado(idPedido);
+        btnRegistrarEntrega.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
-    private void imprimirFactura() {
-        gestor.imprimirFactura(idPedido);
+    private void imprimirFactura(long idformapago, String tipoFactura) {
+        gestor.imprimirFactura(idPedido,idformapago,tipoFactura);
     }
+
     private void imprimirRemito() {
         gestor.imprimirRemito(idPedido);
+    }
+    private JComboBox cargarComboTipoFactura(){
+        JComboBox combo=new JComboBox();
+        combo.addItem(new ItemCombo("1", "A"));
+        combo.addItem(new ItemCombo("2", "B"));
+        combo.addItem(new ItemCombo("3", "C"));
+        combo.setSelectedIndex(0);
+
+        return combo;
     }
     /**
      * @param args the command line arguments
@@ -789,6 +823,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     }
 
     private void pedidoSeleccionado(long idPedido) {
+        this.idPedido = idPedido;
     }
 
     private void cargarComboPrioridad1() {
