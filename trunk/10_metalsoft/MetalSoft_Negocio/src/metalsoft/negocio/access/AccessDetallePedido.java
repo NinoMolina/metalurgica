@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.datos.factory.DAOFactoryCreater;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.DetallepedidoDAO;
 import metalsoft.negocio.gestores.Parser;
@@ -36,6 +37,16 @@ public class AccessDetallePedido {
             Logger.getLogger(AccessDetallePedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    public static DetallepedidoDB[] findByIdPedido(long idPres, Connection cn) {
+        DetallepedidoDAO dao=new DAOFactoryCreater().getFactry().createDetallepedidoDAO();
+        DetallepedidoDB[] db=null;
+        try {
+            db=dao.findByIdpedido(idPres, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
     }
 
 }
