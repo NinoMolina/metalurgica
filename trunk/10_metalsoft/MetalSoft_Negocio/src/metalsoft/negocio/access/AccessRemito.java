@@ -53,7 +53,7 @@ public class AccessRemito {
         }
         return db;
     }
-    public static long insertDetalleFactura(Detalleremito db,Connection cn)
+    public static long insertDetalleRemito(Detalleremito db,Connection cn)
     {
         DetalleremitoDAO dao=new DAOFactoryCreater().getFactry().createDetalleremitoDAO();
         long result=-1;
