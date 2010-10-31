@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
 import java.net.MalformedURLException;
@@ -10,18 +9,31 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.ClienteDB;
+import metalsoft.datos.dbobject.Detallefactura;
+import metalsoft.datos.dbobject.DetallepedidoDB;
+import metalsoft.datos.dbobject.Detalleremito;
+import metalsoft.datos.dbobject.FacturaDB;
 import metalsoft.datos.dbobject.Formadepago;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.dbobject.Remito;
+import metalsoft.negocio.access.AccessCliente;
+import metalsoft.negocio.access.AccessDetallePedido;
+import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
+import metalsoft.negocio.access.AccessFactura;
 import metalsoft.negocio.access.AccessFormaDePago;
 import metalsoft.negocio.access.AccessPedido;
+import metalsoft.negocio.access.AccessRemito;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.util.Combo;
+import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -34,13 +46,16 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Vicky
  */
 public class GestorRegistrarEntregaPedido {
-    public LinkedList<ViewPedidosClienteSegunEstado> buscarPedidosClienteEnArmado(long idCliente){
-       PostgreSQLManager pg = new PostgreSQLManager();
+
+    private LinkedList<ViewDetallePedidoCotizacion> detallePedidoDB;
+
+    public LinkedList<ViewPedidosClienteSegunEstado> buscarPedidosClienteEnArmado(long idCliente) {
+        PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPedidosClienteSegunEstado> list = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.pedidosClienteSegunEstado(idCliente,IdsEstadoPedido.ENARMADO, cn);
+            list = AccessViews.pedidosClienteSegunEstado(idCliente, IdsEstadoPedido.ENARMADO, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -53,8 +68,8 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoSeleccionado(long idPedido){
-       PostgreSQLManager pg = new PostgreSQLManager();
+    public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoSeleccionado(long idPedido) {
+        PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewDetallePedidoCotizacion> list = null;
         Connection cn = null;
         try {
@@ -71,14 +86,16 @@ public class GestorRegistrarEntregaPedido {
         }
         return list;
     }
-    public void imprimirFactura(long id) {
+
+    public void imprimirFactura(long id, long idformapago,String tipofactura) {
         URL sourceFile = null;
         try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
@@ -88,6 +105,8 @@ public class GestorRegistrarEntregaPedido {
 
         try {
             cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            guardarFactura(id, idformapago, tipofactura, cn);
 
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
 
@@ -105,8 +124,14 @@ public class GestorRegistrarEntregaPedido {
             //JasperExportManager.exportReportToPdfFile(jasperPrint,"G:\\"+nroPre+"-"+Fecha.fechaActual(Fecha.YYYY_MM_DD_GUION)+".pdf");
             // Visualizar el reporte en el Jasperviwer
             //JasperViewer.viewReport(jasperPrint, false);
+            cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         } finally {
             try {
                 pg.disconnect();
@@ -115,6 +140,7 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+
     public void imprimirRemito(long id) {
         URL sourceFile = null;
         try {
@@ -132,6 +158,8 @@ public class GestorRegistrarEntregaPedido {
 
         try {
             cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            guardarRemito(id, cn);
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
@@ -146,6 +174,30 @@ public class GestorRegistrarEntregaPedido {
 
             //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
 
+            cn.commit();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoCotizacion(long idPedido) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewDetallePedidoCotizacion> list = null;
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            list = AccessViews.listDetallePedidoCotizacion(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -155,39 +207,118 @@ public class GestorRegistrarEntregaPedido {
                 Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return list;
     }
 
+    public long guardarFactura(long idPedido, long fp, String tipofactura, Connection cn) {
+        long result = -1;
+        long resultPedido = -1;
+        long resultDetalle = -1;
+        FacturaDB facturaDB = new FacturaDB();
+        PedidoDB ped = AccessPedido.findByIdPedido(idPedido, cn);
+        ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
+        detallePedidoDB = buscarDetallePedidoCotizacion(idPedido);
+        facturaDB.setEstado(1);
+        facturaDB.setFechaemision(Fecha.parseToDateSQL(Fecha.fechaActualDate()));
+        facturaDB.setFormapago(fp);
+        facturaDB.setTipofactura(tipofactura);
+        facturaDB.setTipoiva(cli.getCondicioniva());
+        //remDB.setFechavencimiento();
+        //remDB.setUsuario(idPedido);
 
+        result = AccessFactura.insert(facturaDB, cn);
+        ped.setFactura(result);
+        resultPedido = AccessPedido.update(ped, cn);
 
-    public PedidoDB buscarPedidoPorID(long id)
-    {
+        Detallefactura db = null;
+        Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
+        ViewDetallePedidoCotizacion view = null;
+        while (iter.hasNext()) {
+            view = iter.next();
+
+            db.setCantidad(view.getCantidad());
+            db.setIddetallepedido(view.getIdDetalle());
+            db.setIdfactura(result);
+            db.setIdpedido(idPedido);
+            db.setMontoparcial(view.getCantidad() * view.getPrecio());
+            resultDetalle = AccessFactura.insertDetalleFactura(db, cn);
+        }
+        facturaDB.setNrofactura(result);
+        AccessFactura.update(facturaDB, cn);
+
+        //tiene que devolver 1 cuando se guarda correctamente
+        //como son 2 actualizaciones entonces la suma de las filas acutalizadas
+        //dividido 2 tiene que ser 1
+        return result;
+
+    }
+
+    public long guardarRemito(long idPedido, Connection cn) {
+
+        long result = -1;
+        long resultPedido = -1;
+        long resultDetalle = -1;
+        Remito remDB = new Remito();
+
+        PedidoDB ped = AccessPedido.findByIdPedido(idPedido, cn);
+        ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
+        detallePedidoDB = buscarDetallePedidoCotizacion(idPedido);
+        remDB.setEstado(1);
+        remDB.setFechaemision(Fecha.parseToDateSQL(Fecha.fechaActualDate()));
+        remDB.setPedido(idPedido);
+
+        result = AccessRemito.insert(remDB, cn);
+
+        resultPedido = AccessPedido.update(ped, cn);
+
+        Detalleremito db = null;
+        Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
+        ViewDetallePedidoCotizacion view = null;
+        while (iter.hasNext()) {
+            view = iter.next();
+
+            db.setCantidad(view.getCantidad());
+            db.setDescripcion(view.getDescripcion());
+            db.setIdremito(result);
+            db.setProducto(view.getIdProducto());
+            resultDetalle = AccessRemito.insertDetalleRemito(db, cn);
+        }
+        remDB.setNroremito(result);
+        AccessRemito.update(remDB, cn);
+
+        return result;
+
+    }
+
+    public PedidoDB buscarPedidoPorID(long id) {
         PostgreSQLManager pg = new PostgreSQLManager();
-        PedidoDB pedido=null;
+        PedidoDB pedido = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
 
-            pedido=AccessPedido.findByIdPedido(id, cn);
+            pedido = AccessPedido.findByIdPedido(id, cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return pedido;
     }
-    public int updatePedidoaEntregado(PedidoDB pedido){
-        int result=-1;
-        PostgreSQLManager pg=new PostgreSQLManager();
-        Connection cn=null;
+
+    public int updatePedidoaEntregado(PedidoDB pedido) {
+        int result = -1;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        Connection cn = null;
         try {
 
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=AccessPedido.update(pedido, cn);
+            result = AccessPedido.update(pedido, cn);
             cn.commit();
         } catch (Exception ex) {
             try {
@@ -196,9 +327,7 @@ public class GestorRegistrarEntregaPedido {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -209,26 +338,23 @@ public class GestorRegistrarEntregaPedido {
     }
 
     public void obtenerPrioridades(JComboBox combo) {
-        Formadepago[] prioridades=null;
-        Connection cn=null;
-        PostgreSQLManager pg=null;
+        Formadepago[] prioridades = null;
+        Connection cn = null;
+        PostgreSQLManager pg = null;
         combo.removeAllItems();
         try {
-            pg=new PostgreSQLManager();
-            cn=pg.concectGetCn();
+            pg = new PostgreSQLManager();
+            cn = pg.concectGetCn();
             prioridades = AccessFormaDePago.findAll(cn);
 
-            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
-            for(int i=0;i<prioridades.length;i++)
-            {
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (int i = 0; i < prioridades.length; i++) {
                 Combo.cargarCombo(combo, String.valueOf(prioridades[i].getIdformapago()), prioridades[i].getNombre());
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -236,5 +362,4 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
-
 }
