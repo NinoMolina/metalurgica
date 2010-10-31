@@ -54,12 +54,12 @@ public class FacturaDAOImpl implements FacturaDAO
 /**
 * This method updates a record in table FACTURA
 * @param FacturaPK
-* @param Factura
+* @param FacturaDB
 * @param  Connection con
 * @return   int
 */
 
-	public int update(FacturaPK facturapk, Factura factura, Connection con)throws FacturaException{
+	public int update(FacturaPK facturapk, FacturaDB factura, Connection con)throws FacturaException{
 		PreparedStatement ps = null;
 		try
 		{
@@ -83,12 +83,12 @@ public class FacturaDAOImpl implements FacturaDAO
 /**
 * This method inserts data in table FACTURA
 *
-* @param Factura factura
+* @param FacturaDB factura
 * @param   Connection con
 * @return  FacturaPK
 */
 
-	public int insert(Factura factura ,Connection con)throws FacturaException {
+	public int insert(FacturaDB factura ,Connection con)throws FacturaException {
 
 		PreparedStatement ps = null;
 		try
@@ -115,7 +115,7 @@ public class FacturaDAOImpl implements FacturaDAO
 * 
 */
 
-	public Factura findByPrimaryKey(long idfactura, Connection con) throws FacturaException{
+	public FacturaDB findByPrimaryKey(long idfactura, Connection con) throws FacturaException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -138,10 +138,10 @@ public class FacturaDAOImpl implements FacturaDAO
 * 
 * @param  FacturaPK facturapk
 * @param Connection con
-* @return  Factura
+* @return  FacturaDB
 */
 
-	public Factura findByPrimaryKey(FacturaPK facturapk, Connection con) throws FacturaException{
+	public FacturaDB findByPrimaryKey(FacturaPK facturapk, Connection con) throws FacturaException{
 		return findByPrimaryKey(facturapk.getIdfactura(), con);
 	}
 
@@ -151,10 +151,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  idfactura
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByIdfactura(long idfactura, Connection con) throws FacturaException{
+	public FacturaDB[] findByIdfactura(long idfactura, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where idfactura = ? order by idfactura";
@@ -178,10 +178,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  nrofactura
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByNrofactura(long nrofactura, Connection con) throws FacturaException{
+	public FacturaDB[] findByNrofactura(long nrofactura, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where nrofactura = ? order by nrofactura";
@@ -205,10 +205,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   Date  fechaemision
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByFechaemision(Date fechaemision, Connection con) throws FacturaException{
+	public FacturaDB[] findByFechaemision(Date fechaemision, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where fechaemision = ? order by fechaemision";
@@ -232,10 +232,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  tipoiva
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByTipoiva(long tipoiva, Connection con) throws FacturaException{
+	public FacturaDB[] findByTipoiva(long tipoiva, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where tipoiva = ? order by tipoiva";
@@ -259,10 +259,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   Date  fecharealcobro
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByFecharealcobro(Date fecharealcobro, Connection con) throws FacturaException{
+	public FacturaDB[] findByFecharealcobro(Date fecharealcobro, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where fecharealcobro = ? order by fecharealcobro";
@@ -286,10 +286,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  formapago
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByFormapago(long formapago, Connection con) throws FacturaException{
+	public FacturaDB[] findByFormapago(long formapago, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where formapago = ? order by formapago";
@@ -313,10 +313,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   Date  fechavencimiento
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByFechavencimiento(Date fechavencimiento, Connection con) throws FacturaException{
+	public FacturaDB[] findByFechavencimiento(Date fechavencimiento, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where fechavencimiento = ? order by fechavencimiento";
@@ -340,10 +340,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  usuario
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByUsuario(long usuario, Connection con) throws FacturaException{
+	public FacturaDB[] findByUsuario(long usuario, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where usuario = ? order by usuario";
@@ -367,10 +367,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   long  estado
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByEstado(long estado, Connection con) throws FacturaException{
+	public FacturaDB[] findByEstado(long estado, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where estado = ? order by estado";
@@ -394,10 +394,10 @@ public class FacturaDAOImpl implements FacturaDAO
 *
 * @param   String  tipofactura
 * @param   Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	public Factura[] findByTipofactura(String tipofactura, Connection con) throws FacturaException{
+	public FacturaDB[] findByTipofactura(String tipofactura, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura where tipofactura = ? order by tipofactura";
@@ -419,11 +419,11 @@ public class FacturaDAOImpl implements FacturaDAO
 * Returns all rows from factura table 
 *
 * @param Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 *
 */
 
-	public Factura[] findAll( Connection con) throws FacturaException{
+	public FacturaDB[] findAll( Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_STATEMENT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura";
@@ -447,11 +447,11 @@ public class FacturaDAOImpl implements FacturaDAO
 * @param String selectStatement
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 *
 */
 
-	public Factura[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws FacturaException{
+	public FacturaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			final String SQL_STATEMENT = selectStatement;
@@ -478,11 +478,11 @@ public class FacturaDAOImpl implements FacturaDAO
 * @param String whereClause
 * @param Object[] sqlParams
 * @param Connection con
-* @return  Factura[]
+* @return  FacturaDB[]
 *
 */
 
-	public Factura[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws FacturaException{
+	public FacturaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws FacturaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			String SQL_SELECT ="Select idfactura, nrofactura, fechaemision, tipoiva, fecharealcobro, formapago, fechavencimiento, usuario, estado, tipofactura from factura";
@@ -508,14 +508,14 @@ public class FacturaDAOImpl implements FacturaDAO
 * Populates a Data Transfer Object by fetching single record from resultSet 
 *
 * @param ResultSet rs
-* @return  Factura
+* @return  FacturaDB
 *
 */
 
-	protected Factura fetchSingleResult(ResultSet rs) throws SQLException
+	protected FacturaDB fetchSingleResult(ResultSet rs) throws SQLException
 	{
 			if (rs.next()) {
-					Factura dto = new Factura();
+					FacturaDB dto = new FacturaDB();
 					populateVO( dto, rs);
 				return dto;
 			} else {
@@ -527,12 +527,12 @@ public class FacturaDAOImpl implements FacturaDAO
 * 
 * Populates a Data Transfer Object by fetching data from  ResultSet
 * 
-* @param Factura dto
+* @param FacturaDB dto
 * @param   ResultSet rs
 * @return  void
 */
 
-	protected void populateVO(Factura dto, ResultSet rs) throws SQLException
+	protected void populateVO(FacturaDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdfactura(rs.getLong("idfactura"));
 		 dto.setNrofactura(rs.getLong("nrofactura"));
@@ -551,18 +551,18 @@ public class FacturaDAOImpl implements FacturaDAO
 * Returns an array of Value Objects by fetching data from resultSet
 * 
 * @param   ResultSet rs
-* @return  Factura[]
+* @return  FacturaDB[]
 */
 
-	protected Factura[]  fetchMultiResults(ResultSet rs) throws SQLException
+	protected FacturaDB[]  fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Factura dto = new Factura();
+			FacturaDB dto = new FacturaDB();
 			populateVO( dto, rs);
 			resultList.add(dto);
 		}
-		Factura ret[] = new Factura[ resultList.size() ];
+		FacturaDB ret[] = new FacturaDB[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
