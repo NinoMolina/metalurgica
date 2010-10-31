@@ -88,16 +88,21 @@ public class DetallefacturaDAOImpl implements DetallefacturaDAO
 	public int insert(Detallefactura detallefactura ,Connection con)throws DetallefacturaException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEFACTURA( IDFACTURA, IDPEDIDO, MONTOPARCIAL, CANTIDAD, IDDETALLEPEDIDO) values (?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEFACTURA( IDFACTURA, IDPEDIDO, MONTOPARCIAL, CANTIDAD, IDDETALLEPEDIDO) values (?, ?, ?, ?, ?) RETURNING IDDETALLE");
 				ps.setLong(1,detallefactura.getIdfactura());
 				ps.setLong(2,detallefactura.getIdpedido());
 				ps.setDouble(3,detallefactura.getMontoparcial());
 				ps.setInt(4,detallefactura.getCantidad());
+
+                
 				ps.setLong(5,detallefactura.getIddetallepedido());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new DetallefacturaException(sqle);}
 		catch(Exception e){throw new DetallefacturaException(e);}
 	}
