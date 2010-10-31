@@ -31,7 +31,7 @@ public class AccessComprobantePago {
         return result;
     }
 
-    public static Comprobantepago findByIdRemito(long idPres, Connection cn) {
+    public static Comprobantepago findByIdComprobante(long idPres, Connection cn) {
         ComprobantepagoDAO dao=new DAOFactoryCreater().getFactry().createComprobantepagoDAO();
         Comprobantepago db=null;
         try {
@@ -41,7 +41,16 @@ public class AccessComprobantePago {
         }
         return db;
     }
-
+    public static Comprobantepago[] findByIdFactura(long idPres, Connection cn) {
+        ComprobantepagoDAO dao=new DAOFactoryCreater().getFactry().createComprobantepagoDAO();
+        Comprobantepago[] db=null;
+        try {
+            db=dao.findByFactura(idPres, cn);
+        } catch (ComprobantepagoException ex) {
+            Logger.getLogger(AccessComprobantePago.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
     public static int update(Comprobantepago db,Connection cn)
     {
         int result=-1;
