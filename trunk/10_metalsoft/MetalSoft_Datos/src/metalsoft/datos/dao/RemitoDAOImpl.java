@@ -86,15 +86,18 @@ public class RemitoDAOImpl implements RemitoDAO
 	public int insert(Remito remito ,Connection con)throws RemitoException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into REMITO( NROREMITO, FECHAEMISION, PEDIDO, ESTADO) values (?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into REMITO( NROREMITO, FECHAEMISION, PEDIDO, ESTADO) values (?, ?, ?, ?) RETURNING IDREMITO");
 				ps.setLong(1,remito.getNroremito());
 				ps.setDate(2,remito.getFechaemision());
 				ps.setLong(3,remito.getPedido());
 				ps.setLong(4,remito.getEstado());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new RemitoException(sqle);}
 		catch(Exception e){throw new RemitoException(e);}
 	}
