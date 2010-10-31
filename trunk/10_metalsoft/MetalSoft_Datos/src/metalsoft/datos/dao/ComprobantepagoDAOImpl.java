@@ -68,7 +68,8 @@ public class ComprobantepagoDAOImpl implements ComprobantepagoDAO
 				ps.setDate(2,comprobantepago.getFechaemision());
 				ps.setDouble(3,comprobantepago.getMonto());
 				ps.setLong(4,comprobantepago.getFormadepago());
-				ps.setLong(5,comprobantepago.getUsuario());
+				if(comprobantepago.getUsuario()>0) ps.setLong(5,comprobantepago.getUsuario());
+                else ps.setNull(5,java.sql.Types.NULL);
 				ps.setLong(6,comprobantepago.getFactura());
 				ps.setLong(7,comprobantepagopk.getIdcomprobantepago());
 
@@ -88,17 +89,21 @@ public class ComprobantepagoDAOImpl implements ComprobantepagoDAO
 	public int insert(Comprobantepago comprobantepago ,Connection con)throws ComprobantepagoException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into COMPROBANTEPAGO( NROCOMPROBANTEPAGO, FECHAEMISION, MONTO, FORMADEPAGO, USUARIO, FACTURA) values (?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into COMPROBANTEPAGO( NROCOMPROBANTEPAGO, FECHAEMISION, MONTO, FORMADEPAGO, USUARIO, FACTURA) values (?, ?, ?, ?, ?, ?) RETURNING IDCOMPROBANTEPAGO");
 				ps.setLong(1,comprobantepago.getNrocomprobantepago());
 				ps.setDate(2,comprobantepago.getFechaemision());
 				ps.setDouble(3,comprobantepago.getMonto());
 				ps.setLong(4,comprobantepago.getFormadepago());
-				ps.setLong(5,comprobantepago.getUsuario());
+                if(comprobantepago.getUsuario()>0) ps.setLong(5,comprobantepago.getUsuario());
+                else ps.setNull(5,java.sql.Types.NULL);
 				ps.setLong(6,comprobantepago.getFactura());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new ComprobantepagoException(sqle);}
 		catch(Exception e){throw new ComprobantepagoException(e);}
 	}
