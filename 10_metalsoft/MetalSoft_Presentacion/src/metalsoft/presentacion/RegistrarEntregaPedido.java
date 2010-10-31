@@ -690,7 +690,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                         JComboBox combo=new JComboBox();
                         JComboBox combotipoFactura=cargarComboTipoFactura();
 
-                        gestor.obtenerPrioridades(combo);
+                        gestor.obtenerFormasDePago(combo);
                         Object[] obj = {"Forma de Pago:", combo, "Tipo de Factura",combotipoFactura};
 
                         int res = JOptionPane.showConfirmDialog(null, obj, "Ingresar Forma de Pago y Tipo de Factura", JOptionPane.OK_CANCEL_OPTION);
