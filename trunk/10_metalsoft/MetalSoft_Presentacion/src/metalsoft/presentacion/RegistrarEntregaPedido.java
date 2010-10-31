@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -682,12 +683,12 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         int result = -1;
         PedidoDB db = gestor.buscarPedidoPorID(idPedido);
         db.setEstado(IdsEstadoPedido.ENTREGADO);
-        db.setFechaentregareal((java.sql.Date) Fecha.fechaActualDate());
+        db.setFechaentregareal(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         result = gestor.updatePedidoaEntregado(db);
         int ok = -1;
         int okRemito = -1;
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + String.valueOf(Fecha.fechaActualDate()));
+            JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
 
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {
@@ -706,7 +707,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
                         if (res == JOptionPane.OK_OPTION) {
                             long formaPago=Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
-                            String tipoFactura=String.valueOf(((ItemCombo) combo.getSelectedItem()).getMostrar());
+                            String tipoFactura=String.valueOf(((ItemCombo) combotipoFactura.getSelectedItem()).getMostrar());
                             imprimirFactura(formaPago,tipoFactura);
                             flag=false;
                         }else{
