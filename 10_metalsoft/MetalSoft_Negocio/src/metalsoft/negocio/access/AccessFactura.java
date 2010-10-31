@@ -56,7 +56,7 @@ public class AccessFactura {
         }
         return db;
     }
-    public static long insertDetalleFactura(Detallefactura db,Connection cn) throws DetallefacturaException
+    public static long insertDetalleFactura(Detallefactura db,Connection cn)
     {
         DetallefacturaDAO dao=new DAOFactoryCreater().getFactry().createDetallefacturaDAO();
         long result=-1;
