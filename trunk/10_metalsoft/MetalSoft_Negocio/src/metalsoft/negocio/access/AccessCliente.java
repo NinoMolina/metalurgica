@@ -101,8 +101,18 @@ public class AccessCliente {
         try {
             x = dao.findExecutingUserWhere("razonsocial ILIKE '"+valor+"%'", sqlParams, cn);
         } catch (Exception ex) {
-            Logger.getLogger(AccessProducto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return x;
+    }
+    public static ClienteDB findByIdCliente(long id, Connection cn) {
+        ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
+        ClienteDB db=null;
+        try {
+            db=dao.findByIdcliente(id, cn)[0];
+        } catch (Exception ex) {
+            Logger.getLogger(AccessCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
     }
 }
