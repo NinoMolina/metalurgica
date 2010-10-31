@@ -103,7 +103,7 @@ public class FacturaDAOImpl implements FacturaDAO
 				ps.setLong(5,factura.getFormapago());
 				ps.setDate(6,factura.getFechavencimiento());
                 if(factura.getUsuario()>0) ps.setLong(7,factura.getUsuario());
-                else ps.setNull(7,java.sql.Types.NULL);;
+                else ps.setNull(7,java.sql.Types.NULL);
 				ps.setLong(8,factura.getEstado());
 				ps.setString(9,factura.getTipofactura());
 
