@@ -86,15 +86,18 @@ public class DetalleremitoDAOImpl implements DetalleremitoDAO
 	public int insert(Detalleremito detalleremito ,Connection con)throws DetalleremitoException {
 
 		PreparedStatement ps = null;
+        ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLEREMITO( IDREMITO, CANTIDAD, DESCRIPCION, PRODUCTO) values (?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLEREMITO( IDREMITO, CANTIDAD, DESCRIPCION, PRODUCTO) values (?, ?, ?, ?) RETURNING IDDETALLE");
 				ps.setLong(1,detalleremito.getIdremito());
 				ps.setInt(2,detalleremito.getCantidad());
 				ps.setString(3,detalleremito.getDescripcion());
 				ps.setLong(4,detalleremito.getProducto());
 
-				return(ps.executeUpdate());
+				rs=ps.executeQuery();
+                rs.next();
+				return (int) rs.getLong(1);
 		}catch(SQLException sqle){throw new DetalleremitoException(sqle);}
 		catch(Exception e){throw new DetalleremitoException(e);}
 	}
