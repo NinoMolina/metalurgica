@@ -107,7 +107,12 @@ private static final DetalleplanificacionproduccionDAOImpl  detalleplanificacion
 		return detalleejecucionplanificacioncalidaddaoimpl;
 	}
 
-	
+private static final DetallefacturaDAOImpl  detallefacturadaoimpl = new DetallefacturaDAOImpl();
+	public DetallefacturaDAO createDetallefacturaDAO()
+	{
+		return detallefacturadaoimpl;
+	}
+
 
 	private static final DetallemantenimientocorrectivoDAOImpl  detallemantenimientocorrectivodaoimpl = new DetallemantenimientocorrectivoDAOImpl();
 	public DetallemantenimientocorrectivoDAO createDetallemantenimientocorrectivoDAO()
