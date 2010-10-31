@@ -144,7 +144,7 @@ public class GestorRegistrarEntregaPedido {
     public void imprimirRemito(long id) {
         URL sourceFile = null;
         try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptRemito.jasper");
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -171,6 +171,7 @@ public class GestorRegistrarEntregaPedido {
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
+            
 
             //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
 
@@ -219,10 +220,10 @@ public class GestorRegistrarEntregaPedido {
         ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
         detallePedidoDB = buscarDetallePedidoCotizacion(idPedido);
         facturaDB.setEstado(1);
-        facturaDB.setFechaemision(Fecha.parseToDateSQL(Fecha.fechaActualDate()));
+        facturaDB.setFechaemision(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         facturaDB.setFormapago(fp);
         facturaDB.setTipofactura(tipofactura);
-        facturaDB.setTipoiva(cli.getCondicioniva());
+        //facturaDB.setTipoiva(cli.getCondicioniva());
         //remDB.setFechavencimiento();
         //remDB.setUsuario(idPedido);
 
@@ -230,7 +231,7 @@ public class GestorRegistrarEntregaPedido {
         ped.setFactura(result);
         resultPedido = AccessPedido.update(ped, cn);
 
-        Detallefactura db = null;
+        Detallefactura db = new Detallefactura();
         Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
         ViewDetallePedidoCotizacion view = null;
         while (iter.hasNext()) {
@@ -264,14 +265,14 @@ public class GestorRegistrarEntregaPedido {
         ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
         detallePedidoDB = buscarDetallePedidoCotizacion(idPedido);
         remDB.setEstado(1);
-        remDB.setFechaemision(Fecha.parseToDateSQL(Fecha.fechaActualDate()));
+        remDB.setFechaemision(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         remDB.setPedido(idPedido);
 
         result = AccessRemito.insert(remDB, cn);
 
         resultPedido = AccessPedido.update(ped, cn);
 
-        Detalleremito db = null;
+        Detalleremito db = new Detalleremito();
         Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
         ViewDetallePedidoCotizacion view = null;
         while (iter.hasNext()) {
