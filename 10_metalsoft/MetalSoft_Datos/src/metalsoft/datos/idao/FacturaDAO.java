@@ -17,21 +17,21 @@ import metalsoft.datos.exception.*;
 import metalsoft.datos.dbobject.*;
 public interface FacturaDAO
 {
-	public int insert(Factura factura, Connection con ) throws FacturaException;
-	public int update(FacturaPK facturapk, Factura factura, Connection con) throws FacturaException;
+	public int insert(FacturaDB factura, Connection con ) throws FacturaException;
+	public int update(FacturaPK facturapk, FacturaDB factura, Connection con) throws FacturaException;
 	public int delete(FacturaPK facturapk, Connection con) throws FacturaException;
-	public Factura findByPrimaryKey(FacturaPK facturapk , Connection con) throws FacturaException;
-	public Factura[] findAll(Connection con) throws FacturaException;
-	public Factura[] findByIdfactura(long idfactura,Connection con) throws FacturaException;
-	public Factura[] findByNrofactura(long nrofactura,Connection con) throws FacturaException;
-	public Factura[] findByFechaemision(Date fechaemision,Connection con) throws FacturaException;
-	public Factura[] findByTipoiva(long tipoiva,Connection con) throws FacturaException;
-	public Factura[] findByFecharealcobro(Date fecharealcobro,Connection con) throws FacturaException;
-	public Factura[] findByFormapago(long formapago,Connection con) throws FacturaException;
-	public Factura[] findByFechavencimiento(Date fechavencimiento,Connection con) throws FacturaException;
-	public Factura[] findByUsuario(long usuario,Connection con) throws FacturaException;
-	public Factura[] findByEstado(long estado,Connection con) throws FacturaException;
-	public Factura[] findByTipofactura(String tipofactura,Connection con) throws FacturaException;
-	public Factura[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws FacturaException;
-	public Factura[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws FacturaException;
+	public FacturaDB findByPrimaryKey(FacturaPK facturapk , Connection con) throws FacturaException;
+	public FacturaDB[] findAll(Connection con) throws FacturaException;
+	public FacturaDB[] findByIdfactura(long idfactura,Connection con) throws FacturaException;
+	public FacturaDB[] findByNrofactura(long nrofactura,Connection con) throws FacturaException;
+	public FacturaDB[] findByFechaemision(Date fechaemision,Connection con) throws FacturaException;
+	public FacturaDB[] findByTipoiva(long tipoiva,Connection con) throws FacturaException;
+	public FacturaDB[] findByFecharealcobro(Date fecharealcobro,Connection con) throws FacturaException;
+	public FacturaDB[] findByFormapago(long formapago,Connection con) throws FacturaException;
+	public FacturaDB[] findByFechavencimiento(Date fechavencimiento,Connection con) throws FacturaException;
+	public FacturaDB[] findByUsuario(long usuario,Connection con) throws FacturaException;
+	public FacturaDB[] findByEstado(long estado,Connection con) throws FacturaException;
+	public FacturaDB[] findByTipofactura(String tipofactura,Connection con) throws FacturaException;
+	public FacturaDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws FacturaException;
+	public FacturaDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws FacturaException;
 }
