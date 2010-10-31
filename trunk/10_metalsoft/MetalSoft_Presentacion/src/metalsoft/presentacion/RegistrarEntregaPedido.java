@@ -674,7 +674,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         PedidoDB db = gestor.buscarPedidoPorID(idPedido);
         db.setEstado(IdsEstadoPedido.ENTREGADO);
         db.setFechaentregareal(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
-        result = gestor.updatePedidoaEntregado(db);
+        result = gestor.updatePedido(db);
         int ok = -1;
         int okRemito = -1;
         if (result > 0) {
