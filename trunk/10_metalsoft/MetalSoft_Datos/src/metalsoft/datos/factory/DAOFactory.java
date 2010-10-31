@@ -46,7 +46,7 @@ public interface DAOFactory
 
 	public DetalleejecucionplanificacioncalidadDAO createDetalleejecucionplanificacioncalidadDAO();
 
-	//public DetallefacturaDAO createDetallefacturaDAO();
+	public DetallefacturaDAO createDetallefacturaDAO();
 
 	public DetallemantenimientocorrectivoDAO createDetallemantenimientocorrectivoDAO();
 
