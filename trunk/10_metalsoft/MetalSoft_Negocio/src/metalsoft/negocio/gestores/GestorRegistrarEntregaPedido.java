@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.Detallefactura;
@@ -171,11 +172,8 @@ public class GestorRegistrarEntregaPedido {
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
-            
-
-            //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
-
             cn.commit();
+            
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
             try {
@@ -191,7 +189,15 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+    private JComboBox cargarComboTipoFactura(){
+        JComboBox combo=new JComboBox();
+        combo.addItem(new ItemCombo("1", "A"));
+        combo.addItem(new ItemCombo("2", "B"));
+        combo.addItem(new ItemCombo("3", "C"));
+        combo.setSelectedIndex(0);
 
+        return combo;
+    }
     public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoCotizacion(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewDetallePedidoCotizacion> list = null;
@@ -363,4 +369,6 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+
+
 }
