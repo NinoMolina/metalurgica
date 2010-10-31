@@ -356,7 +356,6 @@ public class GestorRegistrarEntregaPedido {
             cn = pg.concectGetCn();
             prioridades = AccessFormaDePago.findAll(cn);
 
-            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
             for (int i = 0; i < prioridades.length; i++) {
                 Combo.cargarCombo(combo, String.valueOf(prioridades[i].getIdformapago()), prioridades[i].getNombre());
             }
