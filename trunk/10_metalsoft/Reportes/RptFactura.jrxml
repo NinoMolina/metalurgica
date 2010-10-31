@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="91"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -51,7 +51,27 @@ WHERE
   ci.idcondicioniva = cli.condicioniva AND
   cli.idcliente = ped.cliente AND
   fp.idformapago=f.formapago AND
-  df.iddetallepedido=dp.iddetalle]]>
+  df.iddetallepedido=dp.iddetalle
+GROUP BY df.iddetalle,
+ ped.idpedido,
+  ped.nropedido,
+  f.nrofactura,
+  f.fechavencimiento,
+  f.fechaemision,
+  cli.razonsocial,
+  dom.calle,
+  dom.numerocalle,
+  cli.cuit,
+  ci.nombre,
+  rem.nroremito,
+  pro.nombre,
+  pro.descripcion,
+  dp.cantidad,
+  dp.precio,
+  df.montoparcial,
+  df.cantidad,
+  fp.nombre,
+  f.tipofactura]]>
 	</queryString>
 	<field name="idpedido" class="java.lang.Long"/>
 	<field name="nropedido" class="java.lang.Long"/>
