@@ -67,7 +67,8 @@ public class RemitoDAOImpl implements RemitoDAO
 				ps.setLong(1,remito.getNroremito());
 				ps.setDate(2,remito.getFechaemision());
 				ps.setLong(3,remito.getPedido());
-				ps.setLong(4,remito.getEstado());
+				if(remito.getEstado()>0) ps.setLong(4,remito.getEstado());
+                else ps.setNull(4,java.sql.Types.NULL);
 				ps.setLong(5,remitopk.getIdremito());
 
 				return(ps.executeUpdate());
@@ -93,7 +94,9 @@ public class RemitoDAOImpl implements RemitoDAO
 				ps.setLong(1,remito.getNroremito());
 				ps.setDate(2,remito.getFechaemision());
 				ps.setLong(3,remito.getPedido());
-				ps.setLong(4,remito.getEstado());
+
+                if(remito.getEstado()>0) ps.setLong(4,remito.getEstado());
+                else ps.setNull(4,java.sql.Types.NULL);
 
 				rs=ps.executeQuery();
                 rs.next();
