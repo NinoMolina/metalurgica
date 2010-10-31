@@ -70,6 +70,24 @@ public class GestorRegistrarEntregaPedido {
         }
         return list;
     }
+    public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosEntregados() {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        LinkedList<ViewPedidoEnListadoProcedimientos> list = null;
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            list = AccessViews.pedidosSegunEstado(IdsEstadoPedido.ENTREGADO, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
 
     public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoSeleccionado(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -410,7 +428,7 @@ public class GestorRegistrarEntregaPedido {
         return result;
     }
 
-    public void obtenerPrioridades(JComboBox combo) {
+    public void obtenerFormasDePago(JComboBox combo) {
         Formadepago[] prioridades = null;
         Connection cn = null;
         PostgreSQLManager pg = null;
