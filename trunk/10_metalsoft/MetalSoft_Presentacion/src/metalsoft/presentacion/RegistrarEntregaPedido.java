@@ -65,8 +65,6 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         cmbPrioridad1.setEnabled(false);
         btnRegistrarEntrega.setEnabled(false);
         btnSeleccionar.setEnabled(false);
-        btnGenerarFactura.setEnabled(false);
-        btnGenerarRemito.setEnabled(false);
     }
 
     private void buscarPedidosClienteEnArmado() {
@@ -129,8 +127,6 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDetallePedidoCotizacion = new javax.swing.JTable();
         btnRegistrarEntrega = new javax.swing.JButton();
-        btnGenerarFactura = new javax.swing.JButton();
-        btnGenerarRemito = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -492,10 +488,6 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         }
     });
 
-    btnGenerarFactura.setText("Generar Factura");
-
-    btnGenerarRemito.setText("Generar Remito");
-
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);
     jPanel4Layout.setHorizontalGroup(
@@ -508,12 +500,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addComponent(btnRegistrarEntrega)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnGenerarFactura)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnGenerarRemito)))
+                .addComponent(btnRegistrarEntrega))
             .addContainerGap())
     );
     jPanel4Layout.setVerticalGroup(
@@ -525,10 +512,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnRegistrarEntrega)
-                .addComponent(btnGenerarFactura)
-                .addComponent(btnGenerarRemito)))
+            .addComponent(btnRegistrarEntrega))
     );
 
     btnSalir.setText("Salir");
@@ -579,7 +563,9 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
@@ -839,8 +825,6 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
-    private javax.swing.JButton btnGenerarFactura;
-    private javax.swing.JButton btnGenerarRemito;
     private javax.swing.JButton btnRegistrarEntrega;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
