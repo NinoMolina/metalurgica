@@ -49,6 +49,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         gestor = new GestorRegistrarEntregaPedido();
         filasPedidos=gestor.buscarPedidosEntregados();
         tblPedidos.updateUI();
+        btnRegistrarCobro.setEnabled(false);
     }
     
 
@@ -569,6 +570,8 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         } while (flag);
 
         pedidoSeleccionado(idPedido);
+        filasPedidos=gestor.buscarPedidosEntregados();
+        tblPedidos.updateUI();
         btnRegistrarCobro.setEnabled(false);
 }//GEN-LAST:event_btnRegistrarCobroActionPerformed
 
