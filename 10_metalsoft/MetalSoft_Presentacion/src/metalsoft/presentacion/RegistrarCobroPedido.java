@@ -536,11 +536,8 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         gestorPedido.obtenerEstados(cmbEstado1);
     }
     private void btnRegistrarCobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarCobroActionPerformed
-        // TODO add your handling code here:
-        int result = -1;
+
         PedidoDB db = gestor.buscarPedidoPorID(idPedido);
-        db.setEstado(IdsEstadoPedido.COBRADO);
-        result = gestor.updatePedidoaEntregado(db);
         int ok = -1;
 
         boolean flag = false;
