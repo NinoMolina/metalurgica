@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.ClienteDB;
+import metalsoft.datos.dbobject.Comprobantepago;
 import metalsoft.datos.dbobject.Detallefactura;
 import metalsoft.datos.dbobject.DetallepedidoDB;
 import metalsoft.datos.dbobject.Detalleremito;
@@ -26,6 +27,7 @@ import metalsoft.datos.dbobject.Formadepago;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.Remito;
 import metalsoft.negocio.access.AccessCliente;
+import metalsoft.negocio.access.AccessComprobantePago;
 import metalsoft.negocio.access.AccessDetallePedido;
 import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFactura;
@@ -189,14 +191,52 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
-    private JComboBox cargarComboTipoFactura(){
-        JComboBox combo=new JComboBox();
-        combo.addItem(new ItemCombo("1", "A"));
-        combo.addItem(new ItemCombo("2", "B"));
-        combo.addItem(new ItemCombo("3", "C"));
-        combo.setSelectedIndex(0);
+    public void imprimirComprobantePago(long id, Double monto, long idformapago) {
+        URL sourceFile = null;
+        try {
+            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptComprobanteDePago.jasper");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
 
-        return combo;
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            guardarComprobanteDePago(id, monto, idformapago, cn);
+//            ps=cn.prepareStatement(query);
+//            rs=ps.executeQuery();
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            param.put("ID_PEDIDO", new Long(id));
+//            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Recibo");
+            jviewer.setVisible(true);
+            cn.commit();
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoCotizacion(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -277,8 +317,6 @@ public class GestorRegistrarEntregaPedido {
 
         result = AccessRemito.insert(remDB, cn);
 
-        resultPedido = AccessPedido.update(ped, cn);
-
         Detalleremito db = new Detalleremito();
         Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
         ViewDetallePedidoCotizacion view = null;
@@ -294,6 +332,32 @@ public class GestorRegistrarEntregaPedido {
         remDB.setIdremito(result);
         remDB.setNroremito(result);
         AccessRemito.update(remDB, cn);
+
+        return result;
+
+    }
+    public long guardarComprobanteDePago(long idPedido, Double monto, long formaPago, Connection cn) {
+
+        long result = -1;
+        long resultPedido = -1;
+        long resultDetalle = -1;
+        Comprobantepago remDB = new Comprobantepago();
+
+        PedidoDB ped = AccessPedido.findByIdPedido(idPedido, cn);
+        ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
+        detallePedidoDB = buscarDetallePedidoCotizacion(idPedido);
+        remDB.setFechaemision(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
+        remDB.setFactura(ped.getFactura());
+        remDB.setFormadepago(formaPago);
+        remDB.setMonto(monto);
+        //remDB.setUsuario();
+
+        result = AccessComprobantePago.insert(remDB, cn);
+
+        
+        remDB.setIdcomprobantepago(result);
+        remDB.setNrocomprobantepago(result);
+        AccessComprobantePago.update(remDB, cn);
 
         return result;
 
