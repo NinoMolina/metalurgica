@@ -7,7 +7,7 @@ package metalsoft.presentacion;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
-import metalsoft.presentacion.lookandfeel.Temas;
+import metalsoft.presentacion.lookandfeel.Skins;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Main {
 
             public void run() {
                 JFrame.setDefaultLookAndFeelDecorated(true);
-                LookAndFeelManager.setLookAndFeel(Temas.Moderate);
+                LookAndFeelManager.setLookAndFeel(Skins.Moderate);
                 AbrirSesion p = new AbrirSesion();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
