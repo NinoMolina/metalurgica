@@ -10,6 +10,12 @@
  */
 package metalsoft.presentacion;
 
+import entity.Detallepiezapresupuesto;
+import entity.Detalleplanificacionproduccion;
+import entity.Detalleproductopresupuesto;
+import entity.Empleado;
+import entity.Maquina;
+import entity.Producto;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -20,6 +26,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreePath;
@@ -44,6 +51,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
+import org.joda.time.JodaTimePermission;
 
 /**
  *
@@ -64,11 +72,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private List<entity.Planificacionproduccion> lstPlanificacionProduccion;
     private entity.Maquina maquinaSeleccionada;
     private entity.Empleado empleadoSeleccionado;
+    private Task taskActual;
+    private HashMap<Long, entity.Empleado> hashEmpleadoNoDisponible;
+    private HashMap<Long, Maquina> hashMaquinasNoDisponible;
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
         addListeners();
         iniciarPaneles();
+        hashEmpleadoNoDisponible = new HashMap<Long, Empleado>();
+        hashMaquinasNoDisponible = new HashMap<Long, Maquina>();
         setEnableHyperLink(false);
         listColumnNamesTreeTable = new ArrayList<String>();
         listColumnNamesTreeTable.add("Detalle");
@@ -112,6 +125,27 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (obj instanceof EtapaProduccionNode && objAnterior instanceof EtapaProduccionNode) {
             EtapaProduccionNode node = (EtapaProduccionNode) obj;
             EtapaProduccionNode nodeAnterior = (EtapaProduccionNode) objAnterior;
+            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
+            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
+            Date fin=recalcularFechaFin(node.getInicioEtapa(),nodeAnterior.getInicioEtapa(),node.getFinEtapa());
+            System.out.println("Node NvoFin: "+fin);
+            node.setFinEtapa(fin);
+            node.setInicioEtapa(nodeAnterior.getInicioEtapa());
+            Date d=null;
+            if(node.getFinEtapa().getMinutes()!=0){
+                d=(Date) node.getFinEtapa().clone();
+                d.setHours(d.getHours()+1);
+                d.setMinutes(0);
+                d.setSeconds(0);
+            }
+            else{
+                d=node.getFinEtapa();
+            }
+            fin=recalcularFechaFin(nodeAnterior.getInicioEtapa(),d,nodeAnterior.getFinEtapa());
+            System.out.println("NodeAnterior NvoFin: "+fin);
+            nodeAnterior.setFinEtapa(fin);
+            
+            nodeAnterior.setInicioEtapa(d);
             int indexNode = node.getParent().getIndex(node);
             int indexNodeAnterior = nodeAnterior.getParent().getIndex(nodeAnterior);
             PiezaNode parent = (PiezaNode) nodeAnterior.getParent();
@@ -119,6 +153,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             parent.getChildren().set(indexNodeAnterior, node);
         }
         trtDetalleProcProd.updateUI();
+    }
+
+    private Date recalcularFechaFin(Date inicioActual,Date inicioNuevo,Date fin){
+        Long dif=fin.getTime()-inicioActual.getTime();
+        Date finNuevo=new Date(inicioNuevo.getTime()+dif);
+        return finNuevo;
     }
 
     private void addListenerBtnBajar() {
@@ -657,18 +697,55 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlEmpleado.getName());
             lstEmpleados = gestor.obtenerEmpleados();
+            empleadosNoDisponibles(lstEmpleados);
             tblEmpleado.updateUI();
         }
-
     }//GEN-LAST:event_hplAsignarEmpleadoActionPerformed
+
+    private void empleadosNoDisponibles(List<Empleado> list) {
+        if (hashEmpleadoNoDisponible == null) {
+            hashEmpleadoNoDisponible = new HashMap<Long, Empleado>();
+        }
+        for (Empleado empleado : list) {
+            TreePath path = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
+            EtapaProduccionNode node = (EtapaProduccionNode) path.getLastPathComponent();
+            Set<Detalleplanificacionproduccion> set = empleado.getDetalleplanificacionproduccionSet();
+            for (Detalleplanificacionproduccion detalle : set) {
+                GregorianCalendar detalleInicio = new GregorianCalendar();
+                detalleInicio.setTime(detalle.getFechainicio());
+                detalleInicio.set(Calendar.HOUR_OF_DAY, detalle.getHorainicio().getHours());
+                detalleInicio.set(Calendar.MINUTE, detalle.getHorainicio().getMinutes());
+                detalleInicio.set(Calendar.SECOND, detalle.getHorainicio().getSeconds());
+                GregorianCalendar detalleFin = new GregorianCalendar();
+                detalleFin.setTime(detalle.getFechafin());
+                detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
+                detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
+                detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
+
+                if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
+                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
+                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
+                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                }
+            }
+        }
+    }
 
     private boolean validarEtapaSeleccionada() {
         //obtengo el nodo seleccionado
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
+        if (tp == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción\npara poder asignar");
+            return false;
+        }
         Object obj = tp.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
         if (obj instanceof EtapaProduccionNode) {
             return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción\npara poder asignar");
         }
         return false;
     }
@@ -725,10 +802,42 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlMaquinas.getName());
             lstMaquinas = gestor.obtenerMaquinas();
+            maquinasNoDisponibles(lstMaquinas);
             tblMaquinas.updateUI();
         }
 
     }//GEN-LAST:event_hplAsignarMaquinasActionPerformed
+
+    private void maquinasNoDisponibles(List<Maquina> list) {
+        if (hashMaquinasNoDisponible == null) {
+            hashMaquinasNoDisponible = new HashMap<Long, Maquina>();
+        }
+        for (Maquina maquina : list) {
+            TreePath path = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
+            EtapaProduccionNode node = (EtapaProduccionNode) path.getLastPathComponent();
+            Set<Detalleplanificacionproduccion> set = maquina.getDetalleplanificacionproduccionSet();
+            for (Detalleplanificacionproduccion detalle : set) {
+                GregorianCalendar detalleInicio = new GregorianCalendar();
+                detalleInicio.setTime(detalle.getFechainicio());
+                detalleInicio.set(Calendar.HOUR_OF_DAY, detalle.getHorainicio().getHours());
+                detalleInicio.set(Calendar.MINUTE, detalle.getHorainicio().getMinutes());
+                detalleInicio.set(Calendar.SECOND, detalle.getHorainicio().getSeconds());
+                GregorianCalendar detalleFin = new GregorianCalendar();
+                detalleFin.setTime(detalle.getFechafin());
+                detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
+                detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
+                detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
+
+                if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
+                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
+                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
+                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                }
+            }
+        }
+    }
 
     private void btnAsignarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMaquinaActionPerformed
         maquinaSeleccionada = (entity.Maquina) lstMaquinas.get(tblMaquinas.getSelectedRow());
@@ -761,7 +870,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         lstPlanificacionProduccion = gestor.buscarPlanificacionesProduccion();
         TaskSeriesCollection dataset = new TaskSeriesCollection();
         TaskSeries unavailable = new TaskSeries("Etapas Producción");
-
         for (entity.Planificacionproduccion planificacion : lstPlanificacionProduccion) {
             //creo una nueva tarea a agregar, las tareas son las planificaciones
             Task task = new Task(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, planificacion.getNroplanificacion()),
@@ -789,6 +897,24 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                         inicio.getTime(),
                         fin.getTime());
                 task.addSubtask(subTask);
+            }
+        }
+        //        PLANIFICACION ACTUAL
+        taskActual = null;
+        taskActual = new Task("Nueva Planificación",
+                Fecha.fechaActualDate(), new Date());
+        //agrego la tarea la serie de taras
+        unavailable.add(taskActual);
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
+            TreePath tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+            if (obj instanceof EtapaProduccionNode) {
+                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
+                Task subTaskActual = new Task(node.getEtapa().getNombre(),
+                        node.getInicioEtapa(),
+                        node.getFinEtapa());
+                taskActual.addSubtask(subTaskActual);
             }
         }
 
@@ -827,6 +953,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         Iterator<entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
+        Date finEtapaAnterior = null;
         while (it.hasNext()) {
             dp = it.next();
             prod = new ProductoNode(dp.getIdproducto());
@@ -837,6 +964,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             entity.Detalleproductopresupuesto detProPre = null;
             while (itDetProPre.hasNext()) {
                 detProPre = itDetProPre.next();
+                prod.setDetalleProductoPresupuesto(detProPre);
                 pieza = new PiezaNode(detProPre.getIdpieza());
                 prod.add(pieza);
                 Set<entity.Detallepiezapresupuesto> setDetPiPre = detProPre.getDetallepiezapresupuestoSet();
@@ -846,13 +974,71 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 while (itDetPiPre.hasNext()) {
                     detPiPre = itDetPiPre.next();
                     etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
+                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
+                    etapaProd.setDetallePiezaPresupuesto(detPiPre);
+                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
+                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
+                    Date fechaInicio = null;
+                    if (finEtapaAnterior == null) {
+                        fechaInicio = Fecha.fechaActualDate();
+                    } else {
+                        fechaInicio = finEtapaAnterior;
+                    }
+                    GregorianCalendar inicio = new GregorianCalendar();
+                    inicio.setTime(fechaInicio);
+                    inicio.add(Calendar.HOUR_OF_DAY, 1);
+                    inicio.set(Calendar.MINUTE, 0);
+                    inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+
+                    GregorianCalendar fin = new GregorianCalendar();
+                    fin.setTime(inicio.getTime());
+                    fin.add(Calendar.HOUR_OF_DAY, detPiPre.getDuracionpiezaxetapa().getHours());
+                    fin.add(Calendar.MINUTE, detPiPre.getDuracionpiezaxetapa().getMinutes());
+                    fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+                    etapaProd.setInicioEtapa(inicio.getTime());
+                    etapaProd.setFinEtapa(fin.getTime());
                     pieza.add(etapaProd);
+                    finEtapaAnterior = fin.getTime();
                 }
             }
         }
         trtDetalleProcProd.expandAll();
         trtDetalleProcProd.setEditable(false);
 //        trtDetalleProcProd.updateUI();
+    }
+
+    private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
+        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+        }
+        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio.add(Calendar.DAY_OF_YEAR, 1);
+            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+        }
+        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+        }
+        return inicio;
+    }
+
+    private GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
+        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
+            int hora = fin.get(Calendar.HOUR_OF_DAY);
+            int horaAM = (horaFinJornada - 12);
+            int dif = horaAM - hora;
+            int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
+            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+        }
+        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+            int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
+            int horasfaltantes = dif;
+            fin.add(Calendar.DAY_OF_YEAR, 1);
+            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+        }
+        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+            fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+        }
+        return fin;
     }
 
     /**
@@ -959,7 +1145,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 case 4:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
                 case 5:
-                    return Decimales.con2Decimales(view.getMontototal());
+                    return "$ " + Decimales.con2Decimales(view.getMontototal());
                 case 6:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
                 case 7:
@@ -975,7 +1161,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         private String[] columnNames = {
             "Legajo",
             "Nombre",
-            "Apellido"
+            "Apellido",
+            "Estado"
         };
 
         public int getRowCount() {
@@ -1009,9 +1196,18 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     return empleado.getNombre();
                 case 2:
                     return empleado.getApellido();
+                case 3:
+                    return disponibilidadEmpleado(empleado);
                 default:
                     return null;
             }
+        }
+
+        private String disponibilidadEmpleado(Empleado e) {
+            if (hashEmpleadoNoDisponible.get(e.getIdempleado()) == null) {
+                return "Disponible";
+            }
+            return "Ocupado";
         }
     }
 
@@ -1056,16 +1252,24 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 case 2:
                     return maquina.getDescripcion();
                 case 3:
-                    return maquina.getEstado().getNombre();
+                    return disponibilidadMaquina(maquina);
                 default:
                     return null;
             }
+        }
+
+        private String disponibilidadMaquina(Maquina e) {
+            if (hashMaquinasNoDisponible.get(e.getIdmaquina()) == null) {
+                return "Disponible";
+            }
+            return "Ocupado";
         }
     }
 
     class ProductoNode extends AbstractMutableTreeTableNode {
 
         private entity.Producto producto;
+        private entity.Detalleproductopresupuesto detalleProductoPresupuesto;
 
         public ProductoNode(entity.Producto producto) {
             this.producto = producto;
@@ -1081,6 +1285,22 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         public int getColumnCount() {
             return columnCountTreeTable;
+        }
+
+        public Detalleproductopresupuesto getDetalleProductoPresupuesto() {
+            return detalleProductoPresupuesto;
+        }
+
+        public void setDetalleProductoPresupuesto(Detalleproductopresupuesto detalleProductoPresupuesto) {
+            this.detalleProductoPresupuesto = detalleProductoPresupuesto;
+        }
+
+        public Producto getProducto() {
+            return producto;
+        }
+
+        public void setProducto(Producto producto) {
+            this.producto = producto;
         }
     }
 
@@ -1118,9 +1338,35 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         private entity.Etapadeproduccion etapa;
         private entity.Maquina maquina;
         private entity.Empleado empleado;
+        private entity.Detallepiezapresupuesto detallePiezaPresupuesto;
+        private Date inicioEtapa, finEtapa;
+
+        public Date getFinEtapa() {
+            return finEtapa;
+        }
+
+        public void setFinEtapa(Date finEtapa) {
+            this.finEtapa = finEtapa;
+        }
+
+        public Date getInicioEtapa() {
+            return inicioEtapa;
+        }
+
+        public void setInicioEtapa(Date inicioEtapa) {
+            this.inicioEtapa = inicioEtapa;
+        }
 
         public EtapaProduccionNode(entity.Etapadeproduccion etapa) {
             this.etapa = etapa;
+        }
+
+        public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
+            return detallePiezaPresupuesto;
+        }
+
+        public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
+            this.detallePiezaPresupuesto = detallePiezaPresupuesto;
         }
 
         public entity.Empleado getEmpleado() {
