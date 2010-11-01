@@ -4,10 +4,7 @@
  */
 package metalsoft.presentacion.lookandfeel;
 
-import ch.randelshofer.quaqua.BasicQuaquaLookAndFeel;
 import ch.randelshofer.quaqua.QuaquaLookAndFeel;
-import ch.randelshofer.quaqua.jaguar.Quaqua14JaguarLookAndFeel;
-import ch.randelshofer.quaqua.snow_leopard.Quaqua16SnowLeopardLookAndFeel;
 import com.easynth.lookandfeel.EaSynthLookAndFeel;
 import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
@@ -36,6 +33,32 @@ import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
 import com.jtattoo.plaf.luna.LunaLookAndFeel;
 import com.jtattoo.plaf.mint.MintLookAndFeel;
 import com.jtattoo.plaf.noire.NoireLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceBusinessBlueSteelLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceChallengerDeepLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceCremeLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceDustCoffeeLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceDustLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceEmeraldDuskLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMarinerLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMistAquaLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMistSilverLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceModerateLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceSaharaLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel;
 
 /**
  *
@@ -46,7 +69,117 @@ public enum Temas {
     EASYNTH, IDW, METAL, MOTIF, MULTI, NIMROD, QUAQUA,
     SYNTH, SYNTHETICA, WINDOWS, WINDOWSCLASSIC, NIMBUS,
     SYSTEM, AERO, MCWIN, SMART, ACRYL, ALUMNINIUM, LUNA,
-    BERNSTEIN, FAST, HIFI, MINT, NOIRE;
+    BERNSTEIN, FAST, HIFI, MINT, NOIRE,
+    Autumn, BusinessBlackSteel, BusinessBlueSteel, Business,
+    ChallengerDeep, CremeCoffee, Creme, DustCoffee, Dust, EmeraldDusk,
+    Gemini, GraphiteAqua, GraphiteGlass, Magellan, Mariner,
+    MistAqua, MistSilver, Moderate, NebulaBrickWall, Nebula,
+    OfficeBlack2007, OfficeBlue2007, OfficeSilver2007, Raven,
+    Sahara, Twilight;
+
+    public static LookAndFeel getAutumn() {
+        return new SubstanceAutumnLookAndFeel();
+    }
+
+    public static LookAndFeel getBusinessBlackSteel() {
+        return new SubstanceBusinessBlackSteelLookAndFeel();
+    }
+
+    public static LookAndFeel getBusinessBlueSteel() {
+        return new SubstanceBusinessBlueSteelLookAndFeel();
+    }
+
+    public static LookAndFeel getBusiness() {
+        return new SubstanceBusinessLookAndFeel();
+    }
+
+    public static LookAndFeel getChallengerDeep() {
+        return new SubstanceChallengerDeepLookAndFeel();
+    }
+
+    public static LookAndFeel getCremeCoffee() {
+        return new SubstanceCremeCoffeeLookAndFeel();
+    }
+
+    public static LookAndFeel getCreme() {
+        return new SubstanceCremeLookAndFeel();
+    }
+
+    public static LookAndFeel getDustCoffee() {
+        return new SubstanceDustCoffeeLookAndFeel();
+    }
+
+    public static LookAndFeel getDust() {
+        return new SubstanceDustLookAndFeel();
+    }
+
+    public static LookAndFeel getEmeraldDusk() {
+        return new SubstanceEmeraldDuskLookAndFeel();
+    }
+
+    public static LookAndFeel getGemini() {
+        return new SubstanceGeminiLookAndFeel();
+    }
+
+    public static LookAndFeel getGraphiteAqua() {
+        return new SubstanceGraphiteAquaLookAndFeel();
+    }
+
+    public static LookAndFeel getGraphiteGlass() {
+        return new SubstanceGraphiteGlassLookAndFeel();
+    }
+
+    public static LookAndFeel getMagellan() {
+        return new SubstanceMagellanLookAndFeel();
+    }
+
+    public static LookAndFeel getMariner() {
+        return new SubstanceMarinerLookAndFeel();
+    }
+
+    public static LookAndFeel getMistAqua() {
+        return new SubstanceMistAquaLookAndFeel();
+    }
+
+    public static LookAndFeel getMistSilver() {
+        return new SubstanceMistSilverLookAndFeel();
+    }
+
+    public static LookAndFeel getModerate() {
+        return new SubstanceModerateLookAndFeel();
+    }
+
+    public static LookAndFeel getNebulaBrickWall() {
+        return new SubstanceNebulaBrickWallLookAndFeel();
+    }
+
+    public static LookAndFeel getNebula() {
+        return new SubstanceNebulaLookAndFeel();
+    }
+
+    public static LookAndFeel getOfficeBlack2007() {
+        return new SubstanceOfficeBlack2007LookAndFeel();
+    }
+
+    public static LookAndFeel getOfficeBlue2007() {
+        return new SubstanceOfficeBlue2007LookAndFeel();
+    }
+
+    public static LookAndFeel getOfficeSilver2007() {
+        return new SubstanceOfficeSilver2007LookAndFeel();
+    }
+
+    public static LookAndFeel getRaven() {
+        return new SubstanceRavenLookAndFeel();
+    }
+
+    public static LookAndFeel getSahara() {
+        return new SubstanceSaharaLookAndFeel();
+    }
+
+    public static LookAndFeel getTwilight() {
+        return new SubstanceTwilightLookAndFeel();
+    }
 
     public static LookAndFeel getBernstein() {
         return new BernsteinLookAndFeel();
