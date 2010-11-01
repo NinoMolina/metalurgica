@@ -34,11 +34,13 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
     private void initComponents() {
 
         btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(480, 44));
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/new1.png"))); // NOI18N
         btnNuevo.setToolTipText("Nuevo");
@@ -48,11 +50,11 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/save1.png"))); // NOI18N
-        btnGuardar.setToolTipText("Guardar");
-
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/mod1.png"))); // NOI18N
         btnModificar.setToolTipText("Modificar");
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/save1.png"))); // NOI18N
+        btnGuardar.setToolTipText("Guardar");
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/del1.png"))); // NOI18N
         btnEliminar.setToolTipText("Eliminar");
@@ -74,27 +76,31 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(10, 10, 10)
-                .add(btnNuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(6, 6, 6)
-                .add(btnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(6, 6, 6)
-                .add(btnModificar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(6, 6, 6)
-                .add(btnEliminar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(99, 99, 99)
-                .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(6, 6, 6)
-                .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .add(btnNuevo)
+                .add(3, 3, 3)
+                .add(btnGuardar)
+                .add(3, 3, 3)
+                .add(btnModificar)
+                .add(3, 3, 3)
+                .add(btnEliminar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 105, Short.MAX_VALUE)
+                .add(btnBuscar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(btnNuevo)
-            .add(btnGuardar)
-            .add(btnModificar)
-            .add(btnEliminar)
-            .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(btnSalir)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnNuevo)
+                    .add(btnGuardar)
+                    .add(btnModificar)
+                    .add(btnEliminar)
+                    .add(btnBuscar)
+                    .add(btnSalir))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
