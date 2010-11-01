@@ -92,6 +92,84 @@ public class LookAndFeelManager {
                 case NOIRE:
                     UIManager.setLookAndFeel(Temas.getNoire());
                     break;
+                case Autumn:
+                    UIManager.setLookAndFeel(Temas.getAutumn());
+                    break;
+                case BusinessBlackSteel:
+                    UIManager.setLookAndFeel(Temas.getBusinessBlackSteel());
+                    break;
+                case BusinessBlueSteel:
+                    UIManager.setLookAndFeel(Temas.getBusinessBlueSteel());
+                    break;
+                case Business:
+                    UIManager.setLookAndFeel(Temas.getBusiness());
+                    break;
+                case ChallengerDeep:
+                    UIManager.setLookAndFeel(Temas.getChallengerDeep());
+                    break;
+                case CremeCoffee:
+                    UIManager.setLookAndFeel(Temas.getCremeCoffee());
+                    break;
+                case Creme:
+                    UIManager.setLookAndFeel(Temas.getCreme());
+                    break;
+                case DustCoffee:
+                    UIManager.setLookAndFeel(Temas.getDustCoffee());
+                    break;
+                case Dust:
+                    UIManager.setLookAndFeel(Temas.getDust());
+                    break;
+                case EmeraldDusk:
+                    UIManager.setLookAndFeel(Temas.getEmeraldDusk());
+                    break;
+                case Gemini:
+                    UIManager.setLookAndFeel(Temas.getGemini());
+                    break;
+                case GraphiteAqua:
+                    UIManager.setLookAndFeel(Temas.getGraphiteAqua());
+                    break;
+                case GraphiteGlass:
+                    UIManager.setLookAndFeel(Temas.getGraphiteGlass());
+                    break;
+                case Magellan:
+                    UIManager.setLookAndFeel(Temas.getMagellan());
+                    break;
+                case Mariner:
+                    UIManager.setLookAndFeel(Temas.getMariner());
+                    break;
+                case MistAqua:
+                    UIManager.setLookAndFeel(Temas.getMistAqua());
+                    break;
+                case MistSilver:
+                    UIManager.setLookAndFeel(Temas.getMistSilver());
+                    break;
+                case Moderate:
+                    UIManager.setLookAndFeel(Temas.getModerate());
+                    break;
+                case NebulaBrickWall:
+                    UIManager.setLookAndFeel(Temas.getNebulaBrickWall());
+                    break;
+                case Nebula:
+                    UIManager.setLookAndFeel(Temas.getNebula());
+                    break;
+                case OfficeBlack2007:
+                    UIManager.setLookAndFeel(Temas.getOfficeBlack2007());
+                    break;
+                case OfficeBlue2007:
+                    UIManager.setLookAndFeel(Temas.getOfficeBlue2007());
+                    break;
+                case OfficeSilver2007:
+                    UIManager.setLookAndFeel(Temas.getOfficeSilver2007());
+                    break;
+                case Raven:
+                    UIManager.setLookAndFeel(Temas.getRaven());
+                    break;
+                case Sahara:
+                    UIManager.setLookAndFeel(Temas.getSahara());
+                    break;
+                case Twilight:
+                    UIManager.setLookAndFeel(Temas.getTwilight());
+                    break;
                 default:
                     UIManager.setLookAndFeel(Temas.getMetal());
                     break;
