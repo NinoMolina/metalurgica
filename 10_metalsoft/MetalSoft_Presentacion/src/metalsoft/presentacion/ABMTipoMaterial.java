@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import metalsoft.negocio.gestores.*;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
-import metalsoft.presentacion.lookandfeel.Temas;
+import metalsoft.presentacion.lookandfeel.Skins;
 /**
  *
  * @author Nino
@@ -236,7 +236,7 @@ public class ABMTipoMaterial extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    LookAndFeelManager.setLookAndFeel(Temas.WINDOWS);
+                    LookAndFeelManager.setLookAndFeel(Skins.WINDOWS);
                     JFrameManager.crearVentana(ABMTipoMaterial.class.getName());
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
