@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sun.util.BuddhistCalendar;
@@ -50,7 +53,9 @@ public class Fecha {
     }
 
     public static java.util.Date fechaActualDate(){
-        return new Date();
+        GregorianCalendar calendar=new GregorianCalendar();
+        System.out.println(calendar.getTimeZone());
+        return calendar.getTime();
     }
 
     public static String fechaHoraMinutoSegundoActual()
