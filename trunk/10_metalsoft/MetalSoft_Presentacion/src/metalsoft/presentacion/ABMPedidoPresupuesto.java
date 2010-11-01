@@ -11,22 +11,16 @@
 
 package metalsoft.presentacion;
 
-import datechooser.model.multiple.MultyModelBehavior;
 import javax.swing.JList;
 import metalsoft.util.Fecha;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -38,8 +32,6 @@ import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.ventas.Cliente;
-import metalsoft.negocio.ventas.Pedido;
-import metalsoft.negocio.ventas.Producto;
 import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;

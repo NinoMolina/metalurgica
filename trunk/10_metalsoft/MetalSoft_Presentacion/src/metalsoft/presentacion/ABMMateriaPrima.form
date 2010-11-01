@@ -31,15 +31,15 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dccFechaAlta" min="-2" pref="107" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="dccFechaAlta" min="-2" pref="113" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dccFechaBaja" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="dccFechaBaja" min="-2" pref="106" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <EmptySpace pref="51" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="363" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -47,12 +47,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cmbUnidadMedida" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dimensiones1" pref="299" max="32767" attributes="0"/>
+                              <Component id="dimensiones1" pref="310" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="1">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtNombre" pref="416" max="32767" attributes="0"/>
+                              <Component id="txtNombre" pref="427" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -62,7 +62,7 @@
                           <Group type="102" alignment="1" attributes="1">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtCodBarra" pref="280" max="32767" attributes="0"/>
+                              <Component id="txtCodBarra" pref="291" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jSeparator1" pref="469" max="32767" attributes="0"/>
+                      <Component id="jSeparator1" pref="480" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -129,8 +129,8 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="dccFechaAlta" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Component id="dccFechaAlta" min="-2" max="-2" attributes="0"/>
                   <Component id="dccFechaBaja" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -216,18 +216,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="datechooser.beans.DateChooserCombo" name="dccFechaBaja">
-      <Properties>
-        <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
-          <SerializedValue value="-84,-19,0,5,115,114,0,36,100,97,116,101,99,104,111,111,115,101,114,46,109,111,100,101,108,46,109,117,108,116,105,112,108,101,46,80,101,114,105,111,100,83,101,116,-104,-44,-96,42,-91,51,-90,42,2,0,3,76,0,4,100,97,116,97,116,0,22,76,106,97,118,97,47,117,116,105,108,47,76,105,110,107,101,100,76,105,115,116,59,76,0,9,108,97,115,116,65,100,100,101,100,116,0,35,76,100,97,116,101,99,104,111,111,115,101,114,47,109,111,100,101,108,47,109,117,108,116,105,112,108,101,47,80,101,114,105,111,100,59,76,0,10,112,101,114,105,111,100,67,97,115,104,113,0,126,0,2,120,112,115,114,0,20,106,97,118,97,46,117,116,105,108,46,76,105,110,107,101,100,76,105,115,116,12,41,83,93,74,96,-120,34,3,0,0,120,112,119,4,0,0,0,0,120,112,112"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="datechooser.beans.DateChooserCombo" name="dccFechaAlta">
-      <Properties>
-        <Property name="dch_combo_dateFormat" type="int" value="2"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JComboBox" name="cmbTipoMaterial">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -260,6 +248,10 @@
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
     <Component class="metalsoft.beans.ABM_Botones" name="botones">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dccFechaBaja">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dccFechaAlta">
     </Component>
   </SubComponents>
 </Form>

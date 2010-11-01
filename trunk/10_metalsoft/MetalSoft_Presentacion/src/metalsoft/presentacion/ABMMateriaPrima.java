@@ -11,27 +11,11 @@
 
 package metalsoft.presentacion;
 
-import metalsoft.negocio.gestores.IBuscador;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.tree.DefaultTreeCellEditor.DefaultTextField;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
@@ -60,7 +44,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         addListenerBtnSalir();
         cargarComboTipoMaterial();
         cargarComboUnidadMedida();
-        setEnabled(false);
+        enableComponents(false);
     }
     public void etapaSeleccionada() {
         materiaPrimaDB=gestor.buscarPorId(idMateriaPrima);
@@ -92,8 +76,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     {
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
-        setEnabled(true);
-        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
+        enableComponents(true);
+        dccFechaAlta.setDate(Fecha.fechaActualDate());
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         long nroMatPrima=gestor.generarNvoNroMateriaPrima();
         lblNroMateriaPrima.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, nroMatPrima));
@@ -110,11 +94,11 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     {
         MateriaPrima ep=new MateriaPrima();
         Date fechaAlta=null;
-        if(dccFechaAlta.getSelectedDate()!=null)
-            fechaAlta=dccFechaAlta.getSelectedDate().getTime();
+        if(dccFechaAlta.getDate()!=null)
+            fechaAlta=dccFechaAlta.getDate();
         Date fechaBaja=null;
-        if(dccFechaBaja.getSelectedDate()!=null)
-            fechaBaja=dccFechaBaja.getSelectedDate().getTime();
+        if(dccFechaBaja.getDate()!=null)
+            fechaBaja=dccFechaBaja.getDate();
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         ep.setFechaAlta(fechaAlta);
@@ -140,7 +124,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
             if(id>-1){
                 JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
-                setEnabled(false);
+                enableComponents(false);
             }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
@@ -150,7 +134,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             id=gestor.modificar(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
             if(id>-1){
                 JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
-                setEnabled(false);
+                enableComponents(false);
             }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
@@ -166,7 +150,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
     {
         opcion=EnumOpcionesABM.MODIFICAR;
-        setEnabled(true);
+        enableComponents(true);
     }
 
     private void addListenerBtnBuscar() {
@@ -244,8 +228,6 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtStock = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        dccFechaBaja = new datechooser.beans.DateChooserCombo();
-        dccFechaAlta = new datechooser.beans.DateChooserCombo();
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbUnidadMedida = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
@@ -253,6 +235,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         lblNroMateriaPrima = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botones = new metalsoft.beans.ABM_Botones();
+        dccFechaBaja = new com.toedter.calendar.JDateChooser();
+        dccFechaAlta = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar Materia Prima");
@@ -279,14 +263,6 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        try {
-            dccFechaBaja.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
-        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-            e1.printStackTrace();
-        }
-
-        dccFechaAlta.setFormat(2);
-
         jLabel11.setText("Cod. Barra:");
 
         lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -304,25 +280,25 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dimensiones1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+                                .addComponent(dimensiones1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,7 +306,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                .addComponent(txtCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -341,7 +317,7 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                                 .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,8 +356,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
-                    .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
+                    .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,8 +388,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JComboBox cmbTipoMaterial;
     private javax.swing.JComboBox cmbUnidadMedida;
-    private datechooser.beans.DateChooserCombo dccFechaAlta;
-    private datechooser.beans.DateChooserCombo dccFechaBaja;
+    private com.toedter.calendar.JDateChooser dccFechaAlta;
+    private com.toedter.calendar.JDateChooser dccFechaBaja;
     private metalsoft.beans.Dimensiones dimensiones1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -443,20 +419,16 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         txtStock.setText(String.valueOf(mp.getStock()));
         
         if(mp.getFechaalta()==null)
-            dccFechaAlta.setSelectedDate(null);
+            dccFechaAlta.setDate(null);
         else{
-            GregorianCalendar gc=new GregorianCalendar();
-            gc.setTime(mp.getFechaalta());
-            dccFechaAlta.setSelectedDate(gc);
+            dccFechaAlta.setDate(mp.getFechaalta());
         }
         
         if(mp.getFechabaja()==null)
-            dccFechaBaja.setSelectedDate(null);
+            dccFechaBaja.setDate(null);
         else
         {
-            GregorianCalendar gcb=new GregorianCalendar();
-            gcb.setTime(mp.getFechabaja());
-            dccFechaBaja.setSelectedDate(gcb);
+            dccFechaBaja.setDate(mp.getFechabaja());
         }
         dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
         dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
@@ -476,8 +448,8 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         //txtPrecio.setText(String.valueOf(mp.g)
         txtStock.setText("");
         
-        dccFechaAlta.setSelectedDate(null);
-        dccFechaBaja.setSelectedDate(null);
+        dccFechaAlta.setDate(null);
+        dccFechaBaja.setDate(null);
 
         dimensiones1.getTxtAlto().setText("");
         dimensiones1.getTxtAncho().setText("");
