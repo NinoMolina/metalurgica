@@ -35,7 +35,7 @@ WHERE
   p.cliente=cli.idcliente AND
   cli.domicilio=dom.iddomicilio AND
   cli.condicioniva=ci.idcondicioniva AND
-  p.idpedido = $P{ID_PEDIDO}]]>
+  cp.idcomprobantepago = $P{ID_COMPROBANTE}]]>
 	</queryString>
 	<field name="nrocomprobantepago" class="java.lang.Long"/>
 	<field name="fechaemision" class="java.sql.Date"/>
