@@ -70,6 +70,7 @@ public class GestorRegistrarEntregaPedido {
         }
         return list;
     }
+
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosEntregados() {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPedidoEnListadoProcedimientos> list = null;
@@ -108,7 +109,7 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public void imprimirFactura(long id, long idformapago,String tipofactura) {
+    public void imprimirFactura(long id, long idformapago, String tipofactura) {
         URL sourceFile = null;
         try {
             sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
@@ -193,7 +194,7 @@ public class GestorRegistrarEntregaPedido {
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
             cn.commit();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
             try {
@@ -209,6 +210,7 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+
     public void imprimirComprobantePago(long id, Double monto, long idformapago) {
         URL sourceFile = null;
         try {
@@ -256,6 +258,7 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+
     public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoCotizacion(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewDetallePedidoCotizacion> list = null;
@@ -354,6 +357,7 @@ public class GestorRegistrarEntregaPedido {
         return result;
 
     }
+
     public long guardarComprobanteDePago(long idPedido, Double monto, long formaPago, Connection cn) {
 
         long result = -1;
@@ -372,13 +376,15 @@ public class GestorRegistrarEntregaPedido {
 
         result = AccessComprobantePago.insert(remDB, cn);
 
-        
+
         remDB.setIdcomprobantepago(result);
         remDB.setNrocomprobantepago(result);
         AccessComprobantePago.update(remDB, cn);
-        ped.setEstado(IdsEstadoPedido.COBRADO);
-        updatePedido(ped);
-
+        Double diferecia = montoFactura(idPedido) - montoPagadoPorFactura(idPedido) - monto;
+        if (diferecia == 0) {
+            ped.setEstado(IdsEstadoPedido.COBRADO);
+            updatePedido(ped);
+        }
         return result;
 
     }
@@ -402,18 +408,19 @@ public class GestorRegistrarEntregaPedido {
         }
         return pedido;
     }
+
     public Double montoPagadoPorFactura(long id) {
         PostgreSQLManager pg = new PostgreSQLManager();
         PedidoDB pedido = buscarPedidoPorID(id);
-        Comprobantepago[] cp=null;
-        Double monto=null;
+        Comprobantepago[] cp = null;
+        Double monto = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            cp=AccessComprobantePago.findByIdFactura(pedido.getFactura(), cn);
-            monto=(double)0;
-            for(int i=0;i<cp.length;i++){
-                monto=monto+cp[i].getMonto();
+            cp = AccessComprobantePago.findByIdFactura(pedido.getFactura(), cn);
+            monto = (double) 0;
+            for (int i = 0; i < cp.length; i++) {
+                monto = monto + cp[i].getMonto();
             }
 
         } catch (Exception ex) {
@@ -427,18 +434,19 @@ public class GestorRegistrarEntregaPedido {
         }
         return monto;
     }
+
     public Double montoFactura(long id) {
         PostgreSQLManager pg = new PostgreSQLManager();
         PedidoDB pedido = buscarPedidoPorID(id);
-        Detallefactura[] cp=null;
-        Double monto=null;
+        Detallefactura[] cp = null;
+        Double monto = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            cp=AccessFactura.findDetalles(pedido.getFactura(), cn);
-            monto=(double)0;
-            for(int i=0;i<cp.length;i++){
-                monto=monto+cp[i].getMontoparcial();
+            cp = AccessFactura.findDetalles(pedido.getFactura(), cn);
+            monto = (double) 0;
+            for (int i = 0; i < cp.length; i++) {
+                monto = monto + cp[i].getMontoparcial();
             }
 
         } catch (Exception ex) {
@@ -452,6 +460,7 @@ public class GestorRegistrarEntregaPedido {
         }
         return monto;
     }
+
     public int updatePedido(PedidoDB pedido) {
         int result = -1;
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -503,6 +512,4 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
-
-
 }
