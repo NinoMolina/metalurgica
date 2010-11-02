@@ -229,11 +229,11 @@ public class GestorRegistrarEntregaPedido {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            guardarComprobanteDePago(id, monto, idformapago, cn);
+            long result=guardarComprobanteDePago(id, monto, idformapago, cn);
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
-            param.put("ID_PEDIDO", new Long(id));
+            param.put("ID_COMPROBANTE", new Long(result));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
