@@ -427,6 +427,31 @@ public class GestorRegistrarEntregaPedido {
         }
         return monto;
     }
+    public Double montoFactura(long id) {
+        PostgreSQLManager pg = new PostgreSQLManager();
+        PedidoDB pedido = buscarPedidoPorID(id);
+        Detallefactura[] cp=null;
+        Double monto=null;
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            cp=AccessFactura.findDetalles(pedido.getFactura(), cn);
+            monto=(double)0;
+            for(int i=0;i<cp.length;i++){
+                monto=monto+cp[i].getMontoparcial();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return monto;
+    }
     public int updatePedido(PedidoDB pedido) {
         int result = -1;
         PostgreSQLManager pg = new PostgreSQLManager();
