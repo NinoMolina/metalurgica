@@ -47,11 +47,10 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         initComponents();
         gestorPedido = new GestorPedidoCotizacion();
         gestor = new GestorRegistrarEntregaPedido();
-        filasPedidos=gestor.buscarPedidosEntregados();
+        filasPedidos = gestor.buscarPedidosEntregados();
         tblPedidos.updateUI();
         btnRegistrarCobro.setEnabled(false);
     }
-    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -554,11 +553,16 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
                 long formaPago = Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
                 if (monto.getText().compareTo("") != 0) {
                     Double montoPago = Double.parseDouble(monto.getText());
-                    ok = JOptionPane.showConfirmDialog(this, "Esta seguro que desea imprimir el comprobante de pago por $"+monto.getText()+"?");
-                    if (ok == JOptionPane.OK_OPTION) {
-                        gestor.imprimirComprobantePago(idPedido, montoPago, formaPago);
-                        flag = false;
+                    Double montoFactura=gestor.montoFactura(idPedido);
+                    Double diferenciaMontos=montoFactura-gestor.montoPagadoPorFactura(idPedido);
+                    if (diferenciaMontos >= montoPago) {
+                        ok = JOptionPane.showConfirmDialog(this, "Esta seguro que desea imprimir el comprobante de pago por $" + monto.getText() + "?");
+                        if (ok == JOptionPane.OK_OPTION) {
+                            gestor.imprimirComprobantePago(idPedido, montoPago, formaPago);
+                            flag = false;
+                        }
                     }
+                    else JOptionPane.showMessageDialog(this, "El monto de la ingresado supera lo requerido por pagar. Lo qe resta por pagar son $"+diferenciaMontos);
                 }
             } else {
                 flag = true;
@@ -567,7 +571,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         } while (flag);
 
         pedidoSeleccionado(idPedido);
-        filasPedidos=gestor.buscarPedidosEntregados();
+        filasPedidos = gestor.buscarPedidosEntregados();
         tblPedidos.updateUI();
         btnRegistrarCobro.setEnabled(false);
 }//GEN-LAST:event_btnRegistrarCobroActionPerformed
