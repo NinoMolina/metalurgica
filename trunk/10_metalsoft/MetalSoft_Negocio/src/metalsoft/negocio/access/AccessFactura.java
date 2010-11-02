@@ -56,6 +56,16 @@ public class AccessFactura {
         }
         return db;
     }
+    public static Detallefactura[] findDetalles(long idDet, Connection cn) {
+        DetallefacturaDAO dao=new DAOFactoryCreater().getFactry().createDetallefacturaDAO();
+        Detallefactura[] db = null;
+        try {
+            db=dao.findByIdfactura(idDet, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return db;
+    }
     public static long insertDetalleFactura(Detallefactura db,Connection cn)
     {
         DetallefacturaDAO dao=new DAOFactoryCreater().getFactry().createDetallefacturaDAO();
