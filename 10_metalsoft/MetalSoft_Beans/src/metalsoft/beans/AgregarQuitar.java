@@ -60,23 +60,23 @@ public class AgregarQuitar extends javax.swing.JPanel implements java.beans.Cust
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
 
-        btnAgregar.setText(">>");
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/agregarA.png"))); // NOI18N
 
-        btnQuitar.setText("<<");
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/quitarDe.png"))); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(btnAgregar)
-            .add(btnQuitar)
+            .add(btnAgregar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .add(btnQuitar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(btnAgregar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnQuitar))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(btnQuitar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
