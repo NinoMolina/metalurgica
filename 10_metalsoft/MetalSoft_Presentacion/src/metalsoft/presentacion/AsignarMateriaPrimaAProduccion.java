@@ -12,7 +12,6 @@ package metalsoft.presentacion;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +21,8 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.Detallempasignada;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.Planificacionproduccion;
-import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.gestores.GestorCodigoBarra;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
-import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorPlanificacion;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -34,10 +31,8 @@ import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.negocio.gestores.GestorPiezaReal;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.negocio.produccion.PiezaReal;
-import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
-import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -104,9 +99,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         btnSeleccionarProveedor = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        dccFechaAlta = new datechooser.beans.DateChooserCombo();
         jLabel8 = new javax.swing.JLabel();
-        dccFechaBaja = new datechooser.beans.DateChooserCombo();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
@@ -123,6 +116,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         txtStock = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
+        dccFechaAlta = new com.toedter.calendar.JDateChooser();
+        dccFechaBaja = new com.toedter.calendar.JDateChooser();
         btnAsignarMP = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
@@ -207,12 +202,6 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
         jLabel8.setText("Fecha Baja:");
 
-        try {
-            dccFechaBaja.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
-        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-            e1.printStackTrace();
-        }
-
         jLabel4.setText("Descripcion:");
 
         txtDescripcion.setColumns(20);
@@ -240,19 +229,20 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(121, 121, 121)
+                            .addComponent(jLabel8))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
@@ -287,7 +277,12 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -317,12 +312,10 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(18, 18, 18)
+                    .addGap(24, 24, 24)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel7)
-                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel8))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4)
@@ -503,19 +496,16 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         txtStock.setText(String.valueOf(mp.getStock()));
 
         if (mp.getFechaalta() == null) {
-            dccFechaAlta.setSelectedDate(null);
+            dccFechaAlta.setDate(null);
         } else {
-            GregorianCalendar gc = new GregorianCalendar();
-            gc.setTime(mp.getFechaalta());
-            dccFechaAlta.setSelectedDate(gc);
+            dccFechaAlta.setDate(mp.getFechaalta());
         }
 
         if (mp.getFechabaja() == null) {
-            dccFechaBaja.setSelectedDate(null);
+            dccFechaBaja.setDate(null);
         } else {
-            GregorianCalendar gcb = new GregorianCalendar();
-            gcb.setTime(mp.getFechabaja());
-            dccFechaBaja.setSelectedDate(gcb);
+
+            dccFechaBaja.setDate(mp.getFechabaja());
         }
         dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
         dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
@@ -551,8 +541,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         //txtPrecio.setText(String.valueOf(materiaPrima.g)
         txtStock.setText("");
 
-        dccFechaAlta.setSelectedDate(null);
-        dccFechaBaja.setSelectedDate(null);
+        dccFechaAlta.setDate(null);
+        dccFechaBaja.setDate(null);
 
         dimensiones1.getTxtAlto().setText("");
         dimensiones1.getTxtAncho().setText("");
@@ -743,8 +733,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionarProveedor;
     private javax.swing.JComboBox cmbTipoMaterial;
     private javax.swing.JComboBox cmbUnidadMedida;
-    private datechooser.beans.DateChooserCombo dccFechaAlta;
-    private datechooser.beans.DateChooserCombo dccFechaBaja;
+    private com.toedter.calendar.JDateChooser dccFechaAlta;
+    private com.toedter.calendar.JDateChooser dccFechaBaja;
     private metalsoft.beans.Dimensiones dimensiones1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
