@@ -10,11 +10,19 @@
  */
 package metalsoft.presentacion;
 
+import controller.EstadoplanificacionproduccionJpaController;
+import controller.PedidoJpaController;
 import entity.Detallepiezapresupuesto;
 import entity.Detalleplanificacionproduccion;
 import entity.Detalleproductopresupuesto;
 import entity.Empleado;
+import entity.Estadopedido;
+import entity.Estadoplanificacionproduccion;
+import entity.Etapadeproduccion;
 import entity.Maquina;
+import entity.Pedido;
+import entity.Pieza;
+import entity.Planificacionproduccion;
 import entity.Producto;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +30,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +45,6 @@ import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import metalsoft.util.Jornada;
-import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -125,27 +133,29 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (obj instanceof EtapaProduccionNode && objAnterior instanceof EtapaProduccionNode) {
             EtapaProduccionNode node = (EtapaProduccionNode) obj;
             EtapaProduccionNode nodeAnterior = (EtapaProduccionNode) objAnterior;
-            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
-            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
-            Date fin=recalcularFechaFin(node.getInicioEtapa(),nodeAnterior.getInicioEtapa(),node.getFinEtapa());
-            System.out.println("Node NvoFin: "+fin);
+//            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
+//            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
+            Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
+//            System.out.println("Node NvoFin: "+fin);
             node.setFinEtapa(fin);
             node.setInicioEtapa(nodeAnterior.getInicioEtapa());
-            Date d=null;
-            if(node.getFinEtapa().getMinutes()!=0){
-                d=(Date) node.getFinEtapa().clone();
-                d.setHours(d.getHours()+1);
-                d.setMinutes(0);
-                d.setSeconds(0);
-            }
-            else{
-                d=node.getFinEtapa();
-            }
-            fin=recalcularFechaFin(nodeAnterior.getInicioEtapa(),d,nodeAnterior.getFinEtapa());
-            System.out.println("NodeAnterior NvoFin: "+fin);
+//            Date d=null;
+//            if(node.getFinEtapa().getMinutes()!=0){
+//                d=(Date) node.getFinEtapa().clone();
+//                d.setHours(d.getHours()+1);
+//                d.setMinutes(0);
+//                d.setSeconds(0);
+//            }
+//            else{
+//                d=node.getFinEtapa();
+//            }
+            GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+            fechaNuevoInicio.setTime(node.getFinEtapa());
+            fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+            fin = recalcularFechaFin(nodeAnterior.getInicioEtapa(), fechaNuevoInicio.getTime(), nodeAnterior.getFinEtapa());
+//            System.out.println("NodeAnterior NvoFin: "+fin);
             nodeAnterior.setFinEtapa(fin);
-            
-            nodeAnterior.setInicioEtapa(d);
+            nodeAnterior.setInicioEtapa(fechaNuevoInicio.getTime());
             int indexNode = node.getParent().getIndex(node);
             int indexNodeAnterior = nodeAnterior.getParent().getIndex(nodeAnterior);
             PiezaNode parent = (PiezaNode) nodeAnterior.getParent();
@@ -155,9 +165,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         trtDetalleProcProd.updateUI();
     }
 
-    private Date recalcularFechaFin(Date inicioActual,Date inicioNuevo,Date fin){
-        Long dif=fin.getTime()-inicioActual.getTime();
-        Date finNuevo=new Date(inicioNuevo.getTime()+dif);
+    private Date recalcularFechaFin(Date inicioActual, Date inicioNuevo, Date fin) {
+        Long dif = fin.getTime() - inicioActual.getTime();
+        Date finNuevo = new Date(inicioNuevo.getTime() + dif);
         return finNuevo;
     }
 
@@ -182,6 +192,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             if (obj instanceof EtapaProduccionNode && objSiguiente instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
                 EtapaProduccionNode nodeSiguiente = (EtapaProduccionNode) objSiguiente;
+                Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
+//            System.out.println("Node NvoFin: "+fin);
+                nodeSiguiente.setFinEtapa(fin);
+                nodeSiguiente.setInicioEtapa(node.getInicioEtapa());
+                GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+                fechaNuevoInicio.setTime(nodeSiguiente.getFinEtapa());
+                fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+                fin = recalcularFechaFin(node.getInicioEtapa(), fechaNuevoInicio.getTime(), node.getFinEtapa());
+//            System.out.println("NodeAnterior NvoFin: "+fin);
+                node.setFinEtapa(fin);
+                node.setInicioEtapa(fechaNuevoInicio.getTime());
                 int indexNode = node.getParent().getIndex(node);
                 int indexNodeSiguiente = nodeSiguiente.getParent().getIndex(nodeSiguiente);
                 PiezaNode parent = (PiezaNode) nodeSiguiente.getParent();
@@ -204,6 +225,76 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        int respuesta=JOptionPane.showConfirmDialog(this, "Está por guardar la planificación\nDesea Continuar?", "Atención", JOptionPane.OK_CANCEL_OPTION);
+        if(respuesta==JOptionPane.CANCEL_OPTION)return;
+        int orden=1;
+        ProductoNode prodNodeAnterior=null;
+        Set<Detalleplanificacionproduccion> detalle=new HashSet<Detalleplanificacionproduccion>();
+        Planificacionproduccion plan=new Planificacionproduccion();
+        Date menor=null,mayor=null;
+        for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
+            TreePath tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+            if (obj instanceof EtapaProduccionNode) {
+                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+                PiezaNode piezaNode=(PiezaNode) node.getParent();
+                ProductoNode productoNode=(ProductoNode) piezaNode.getParent();
+                if(prodNodeAnterior!=productoNode){
+                    orden=1;
+                    prodNodeAnterior=productoNode;
+                }
+                if(menor==null && mayor==null){
+                    menor=node.getInicioEtapa();
+                    mayor=node.getFinEtapa();
+                }
+                if(menor.compareTo(node.getInicioEtapa())>0){
+                    menor=node.getInicioEtapa();
+                }
+                if(mayor.compareTo(node.getFinEtapa())<0){
+                    mayor=node.getFinEtapa();
+                }
+                Empleado emp=node.getEmpleado();
+                Maquina maq=node.getMaquina();
+                Producto prod=productoNode.getProducto();
+                Pieza pieza=piezaNode.getPieza();
+                Etapadeproduccion etapa=node.getEtapa();
+                Detalleplanificacionproduccion dpp=new Detalleplanificacionproduccion();
+                dpp.setFechafin(node.getFinEtapa());
+                dpp.setFechainicio(node.getInicioEtapa());
+                dpp.setHorafin(node.getFinEtapa());
+                dpp.setHorainicio(node.getInicioEtapa());
+                dpp.setIdempleado(emp);
+                dpp.setIdetapaproduccion(etapa);
+                dpp.setIdmaquina(maq);
+                dpp.setIdpieza(pieza);
+                dpp.setIdproducto(prod);
+                dpp.setIdplanificacionproduccion(plan);
+                dpp.setOrden(orden);
+                detalle.add(dpp);
+//                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
+//                Task subTaskActual = new Task(node.getEtapa().getNombre(),
+//                        node.getInicioEtapa(),
+//                        node.getFinEtapa());
+//                taskActual.addSubtask(subTaskActual);
+                orden++;
+            }
+        }
+
+        plan.setFechacreacion(Fecha.fechaActualDate());
+        plan.setFechafinprevista(mayor);
+        plan.setFechainicioprevista(menor);
+        PedidoJpaController ctrlPedido=new PedidoJpaController();
+        Pedido ped=ctrlPedido.findPedido(viewPedidoSeleccionado.getIdpedido());
+        plan.setPedido(ped);
+        plan.setObservaciones(txtObservaciones.getText());
+        boolean result=gestor.guardarPlanificacionProduccion(plan,detalle);
+        if(result){
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente!");
+            filasPedidosNoPlanificados.remove(viewPedidoSeleccionado);
+            limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!");
+        }
     }
 
     private void addListenerBtnSalir() {
@@ -226,14 +317,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
+
+
     }
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {
         viewPedidoSeleccionado = filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
         presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
-        setVisiblePanel(pnlTreeTable.getName());
-        setEnableHyperLink(true);
-        cargarDatosTreeTable(presupuesto.getDetallepresupuestoSet());
+        setVisiblePanel(
+                pnlTreeTable.getName());
+        setEnableHyperLink(
+                true);
+        cargarDatosTreeTable(
+                presupuesto.getDetallepresupuestoSet());
     }
 
     private void setearTablas() {
@@ -272,6 +368,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         hplAsignarMaquinas.setEnabled(flag);
         hplVerDisponibilidad.setEnabled(flag);
         hplVerPlanificacion.setEnabled(flag);
+        hplObservaciones.setEnabled(flag);
     }
 
     private void iniciarPaneles() {
@@ -280,6 +377,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         hashPanels.put(pnlEmpleado.getName(), pnlEmpleado);
         hashPanels.put(pnlMaquinas.getName(), pnlMaquinas);
         hashPanels.put(pnlDisponibilidad.getName(), pnlDisponibilidad);
+        hashPanels.put(pnlObservaciones.getName(), pnlObservaciones);
         setVisiblePanel(pnlTreeTable.getName());
     }
 
@@ -336,6 +434,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         hplAsignarMaquinas = new org.jdesktop.swingx.JXHyperlink();
         hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
         hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
+        hplObservaciones = new org.jdesktop.swingx.JXHyperlink();
         pnl = new javax.swing.JPanel();
         pnlTreeTable = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -343,7 +442,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         subirBajar = new metalsoft.beans.SubirBajar();
         pnlEmpleado = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        btnSeleccionarEmpleado = new javax.swing.JButton();
+        btnVerDisponibilidad = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmpleado = new org.jdesktop.swingx.JXTable();
         pnlDispHoraria = new javax.swing.JPanel();
@@ -355,6 +454,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblMaquinas = new org.jdesktop.swingx.JXTable();
         pnlDisponibilidad = new javax.swing.JPanel();
+        pnlObservaciones = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtObservaciones = new javax.swing.JTextArea();
         beanBtnGuardar = new metalsoft.beans.BtnGuardar();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
 
@@ -466,6 +568,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         });
         tskPanel.getContentPane().add(hplVerPlanificacion);
 
+        hplObservaciones.setText("Agregar Observación");
+        hplObservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplObservacionesActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplObservaciones);
+
         jXTaskPaneContainer1.add(tskPanel);
 
         pnl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -500,10 +610,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleado"));
 
-        btnSeleccionarEmpleado.setText("Ver Disponibilidad");
-        btnSeleccionarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        btnVerDisponibilidad.setText("Ver Disponibilidad");
+        btnVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarEmpleadoActionPerformed(evt);
+                btnVerDisponibilidadActionPerformed(evt);
             }
         });
 
@@ -517,7 +627,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionarEmpleado)
+                .addComponent(btnVerDisponibilidad)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -526,7 +636,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(btnSeleccionarEmpleado))
+                        .addComponent(btnVerDisponibilidad))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -641,6 +751,31 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         pnl.add(pnlDisponibilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
 
+        pnlObservaciones.setName("pnlObservaciones"); // NOI18N
+
+        txtObservaciones.setColumns(20);
+        txtObservaciones.setRows(5);
+        jScrollPane5.setViewportView(txtObservaciones);
+
+        javax.swing.GroupLayout pnlObservacionesLayout = new javax.swing.GroupLayout(pnlObservaciones);
+        pnlObservaciones.setLayout(pnlObservacionesLayout);
+        pnlObservacionesLayout.setHorizontalGroup(
+            pnlObservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlObservacionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlObservacionesLayout.setVerticalGroup(
+            pnlObservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlObservacionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(159, Short.MAX_VALUE))
+        );
+
+        pnl.add(pnlObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -671,8 +806,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 831, Short.MAX_VALUE)
-                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 809, Short.MAX_VALUE)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -697,7 +832,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlEmpleado.getName());
             lstEmpleados = gestor.obtenerEmpleados();
-            empleadosNoDisponibles(lstEmpleados);
+            empleadosNoDisponibles(
+                    lstEmpleados);
             tblEmpleado.updateUI();
         }
     }//GEN-LAST:event_hplAsignarEmpleadoActionPerformed
@@ -721,7 +857,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-
                 if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
                     hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
                 } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
@@ -750,6 +885,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         return false;
     }
     private void btnAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpleadoActionPerformed
+        if(tblEmpleado.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado!");
+            return;
+        }
+        empleadoSeleccionado=lstEmpleados.get(tblEmpleado.getSelectedRow());
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
         if (obj instanceof EtapaProduccionNode) {
@@ -758,16 +898,18 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
-
-    private void btnSeleccionarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEmpleadoActionPerformed
+    private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
+        if (tblEmpleado.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione el Empleado para el cual\nse desea ver su disponibilidad");
+            return;
+        }
         empleadoSeleccionado = (entity.Empleado) lstEmpleados.get(tblEmpleado.getSelectedRow());
         //validar que disp horaria no sea null
         try {
 //            lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
             Set<entity.Disponibilidadhoraria> disp = empleadoSeleccionado.getDisponibilidadhorariaSet();
             TaskSeriesCollection dataset = new TaskSeriesCollection();
-            TaskSeries unavailable = new TaskSeries("Disponibilidad");
-
+            TaskSeries unavailable = new TaskSeries("Ocupación");
             for (entity.Disponibilidadhoraria dispHoraria : disp) {
                 //creo una nueva tarea
                 Date fecha = dispHoraria.getFecha();
@@ -776,14 +918,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                         new GregorianCalendar(2010, 11, 1, Jornada.HORAS_JORNADA, 0, 0).getTime());
                 //agrego la tarea la serie de taras
                 unavailable.add(task);
-
                 task.addSubtask(new Task("",
                         new GregorianCalendar(2010, 11, 1, 0, 0, 0).getTime(),
-                        new GregorianCalendar(2010, 11, 1, Jornada.HORAS_JORNADA - dispHoraria.getTiempodisponible().getHours(), 60 - dispHoraria.getTiempodisponible().getMinutes(), 0).getTime()));
+                        new GregorianCalendar(2010, 11, 1,
+                        Jornada.HORAS_JORNADA - dispHoraria.getTiempodisponible().getHours(),
+                        60 - dispHoraria.getTiempodisponible().getMinutes(), 0).getTime()));
             }
-
             dataset.add(unavailable);
-
 // title, domain axis, range axis, dataset, legend, tooltip, urls
             JFreeChart chart = ChartFactory.createGanttChart("", "Días", "Horas", dataset, true, true, false);
             ChartPanel chartPanel = new ChartPanel(chart);
@@ -796,16 +937,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             ex.printStackTrace();
             System.out.println("entro en el catch de lstDisponibilidad");
         }
-    }//GEN-LAST:event_btnSeleccionarEmpleadoActionPerformed
+    }//GEN-LAST:event_btnVerDisponibilidadActionPerformed
 
     private void hplAsignarMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarMaquinasActionPerformed
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlMaquinas.getName());
             lstMaquinas = gestor.obtenerMaquinas();
-            maquinasNoDisponibles(lstMaquinas);
+            maquinasNoDisponibles(
+                    lstMaquinas);
             tblMaquinas.updateUI();
         }
-
     }//GEN-LAST:event_hplAsignarMaquinasActionPerformed
 
     private void maquinasNoDisponibles(List<Maquina> list) {
@@ -827,7 +968,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-
                 if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
                     hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
                 } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
@@ -857,9 +997,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         iniciarTreeTable();
         tblEmpleado.removeAll();
         tblMaquinas.removeAll();
+        pnlDispHoraria.removeAll();
         txtValorBusqueda.setText("");
+        txtObservaciones.setText("");
         setEnableHyperLink(false);
         setVisiblePanel(pnlTreeTable.getName());
+        tblPedidos.updateUI();
     }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 //        gestor.limpiarSessionHibernate();
@@ -905,12 +1048,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 Fecha.fechaActualDate(), new Date());
         //agrego la tarea la serie de taras
         unavailable.add(taskActual);
-        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
+        for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
             TreePath tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
             if (obj instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
-                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
+//                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
                 Task subTaskActual = new Task(node.getEtapa().getNombre(),
                         node.getInicioEtapa(),
                         node.getFinEtapa());
@@ -936,15 +1079,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 //        frame.setVisible(true);
         setVisiblePanel(pnlDisponibilidad.getName());
     }//GEN-LAST:event_hplVerDisponibilidadActionPerformed
-
     private void hplVerPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerPlanificacionActionPerformed
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_hplVerPlanificacionActionPerformed
 
-    private void cargarLista(JXList lista, Object[] values) {
-        lista.setListData(values);
-
-    }
+    private void hplObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplObservacionesActionPerformed
+        setVisiblePanel(pnlObservaciones.getName());
+    }//GEN-LAST:event_hplObservacionesActionPerformed
 
     private void cargarDatosTreeTable(Set<entity.Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
@@ -986,10 +1127,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     }
                     GregorianCalendar inicio = new GregorianCalendar();
                     inicio.setTime(fechaInicio);
-                    inicio.add(Calendar.HOUR_OF_DAY, 1);
-                    inicio.set(Calendar.MINUTE, 0);
+                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
                     inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-
                     GregorianCalendar fin = new GregorianCalendar();
                     fin.setTime(inicio.getTime());
                     fin.add(Calendar.HOUR_OF_DAY, detPiPre.getDuracionpiezaxetapa().getHours());
@@ -1010,10 +1149,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
         if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+            inicio.set(Calendar.MINUTE, 0);
         }
         if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio.add(Calendar.DAY_OF_YEAR, 1);
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+            inicio.set(Calendar.MINUTE, 0);
         }
         if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
@@ -1048,8 +1189,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-
-
                 new RegistrarPlanificacionProduccion().setVisible(true);
             }
         });
@@ -1060,9 +1199,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionar;
     private javax.swing.JButton btnAsignarEmpleado;
     private javax.swing.JButton btnAsignarMaquina;
-    private javax.swing.JButton btnSeleccionarEmpleado;
+    private javax.swing.JButton btnVerDisponibilidad;
     private org.jdesktop.swingx.JXHyperlink hplAsignarEmpleado;
     private org.jdesktop.swingx.JXHyperlink hplAsignarMaquinas;
+    private org.jdesktop.swingx.JXHyperlink hplObservaciones;
     private org.jdesktop.swingx.JXHyperlink hplVerDisponibilidad;
     private org.jdesktop.swingx.JXHyperlink hplVerPlanificacion;
     private javax.swing.JLabel jLabel1;
@@ -1078,6 +1218,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTextField1;
     private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer1;
     private javax.swing.JPanel pnl;
@@ -1085,6 +1226,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDisponibilidad;
     private javax.swing.JPanel pnlEmpleado;
     private javax.swing.JPanel pnlMaquinas;
+    private javax.swing.JPanel pnlObservaciones;
     private javax.swing.JPanel pnlTreeTable;
     private metalsoft.beans.SubirBajar subirBajar;
     private org.jdesktop.swingx.JXTable tblEmpleado;
@@ -1092,6 +1234,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXTable tblPedidos;
     private org.jdesktop.swingx.JXTreeTable trtDetalleProcProd;
     private org.jdesktop.swingx.JXTaskPane tskPanel;
+    private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
