@@ -6,15 +6,10 @@ package metalsoft.presentacion;
  *
  * Created on 05/10/2010, 09:03:12
  */
-import metalsoft.util.Fecha;
-import metalsoft.util.EnumOpcionesABM;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import metalsoft.util.EnumOpcionesABM;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorEmpleado;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -22,7 +17,11 @@ import metalsoft.negocio.rrhh.Domicilio;
 import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.Combo;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import metalsoft.datos.dbobject.EmpleadoxturnoDB;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -54,9 +53,220 @@ public class ABMEmpleado extends javax.swing.JFrame {
         cargarComboCargo();
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
         cargarTipoDocumento();
+        addListeners();
+        setEnableComponents(false);
+    }
+
+     private void addListeners() {
         addListenerCmbProvincia();
         addListenerCmbLocalidad();
-        setEnableComponents(false);
+        addListenerBtnNuevo();
+        addListenerBtnGuardar();
+        addListenerBtnModificar();
+        addListenerBtnBuscar();
+        addListenerBtnSalir();
+        addListenerBtnEliminar();
+    }
+    private void addListenerBtnNuevo() {
+        botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+    }
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        opcion = EnumOpcionesABM.NUEVO;
+        setEnableComponents(true);
+        limpiarCampos();
+        empleado = new Empleado();
+        long nroEmp = gestor.generarNvoNroEmpleado();
+        Combo.setItemComboSeleccionado(cmbCategoria, 1);
+        chkMañana.setSelected(false);
+        chkNoche.setSelected(false);
+        chkTarde.setSelected(false);
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, nroEmp));
+    }
+
+    private void addListenerBtnEliminar() {
+        botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        int result = -1;
+        java.sql.Date fechaBaja = new java.sql.Date(Fecha.parseToDate(Fecha.fechaActual(), "dd/MM/yyyy").getTime());
+        empleadoDB.setFechaegreso(fechaBaja);
+        gestor.setIdEmpleado(idEmpleado);
+        result = gestor.bajaEmpleado(empleadoDB);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "El empleado se eliminó correctamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el empleado");
+        }
+        opcion = EnumOpcionesABM.ELIMINAR;
+    }
+
+    private void addListenerBtnGuardar() {
+        botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+    private void addListenerBtnModificar() {
+        botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        opcion = EnumOpcionesABM.MODIFICAR;
+        setEnableComponents(true);
+    }
+
+    private void addListenerBtnBuscar() {
+        botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        opcion = EnumOpcionesABM.BUSCAR;
+        ABMEmpleado_Buscar buscar = null;
+        try {
+            buscar = (ABMEmpleado_Buscar) JFrameManager.crearVentana(ABMEmpleado_Buscar.class.getName());
+            buscar.setVentana(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        this.dispose();
+    }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+
+long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
+        long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
+
+        if (chkMañana.isSelected() == true) {
+            turnos.add((int) 1);
+        }
+        if (chkTarde.isSelected() == true) {
+            turnos.add((int) 2);
+        }
+        if (chkNoche.isSelected() == true) {
+            turnos.add((int) 3);
+        }
+        long idBarrio = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()) != null) {
+            idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
+        }
+        long idLocalidad = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()) != null) {
+            idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
+        }
+
+        long idProvincia = -1;
+        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()) != null) {
+            idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
+        }
+
+        long idTipoDoc = -1;
+        if (((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()) != null) {
+            idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
+        }
+
+        //private long cargo;
+        int nroDoc = Integer.parseInt(beanResponsable.getTxtNroDoc().getText());
+        empleado.setNroDocumento(nroDoc);
+        String motivoEgreso = txtMotivoEgreso.getText();
+        empleado.setMotivoEgreso(motivoEgreso);
+        String apeResp = beanResponsable.getTxtApellido().getText();
+        empleado.setApellido(apeResp);
+        String emaResp = beanResponsable.getTxtEmail().getText();
+        empleado.setEmail(emaResp);
+
+        //String faxResp = beanResponsable.getTxtFax().getText();
+
+        String nomResp = beanResponsable.getTxtNombre().getText();
+        empleado.setNombre(nomResp);
+        String telResp = beanResponsable.getTxtTelefono().getText();
+        empleado.setTelefono(telResp);
+
+        String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
+        String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
+        String nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
+        String piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
+        String torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
+
+
+        Date fechaIngreso = null;
+        if (dccFechaIngreso.getDate() != null) {
+            fechaIngreso = dccFechaIngreso.getDate();
+        }
+        Date fechaEgreso = null;
+        if (dccFechaEgreso.getDate() != null) {
+            fechaEgreso = dccFechaEgreso.getDate();
+        }
+        empleado.setFechaIngreso(fechaIngreso);
+        empleado.setFechaEgreso(fechaEgreso);
+        domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
+        empleado.setDomicilio(domicilioResponsable);
+
+        long nro = gestor.generarNvoNroEmpleado();
+        empleado.setLegajo(nro);
+        gestor.setIdBarrio(idBarrio);
+        gestor.setIdLocalidad(idLocalidad);
+        gestor.setIdProvincia(idProvincia);
+        gestor.setIdcargo(idcargo);
+        gestor.setIdcategoria(idCategoria);
+        gestor.setIdturnos(turnos);
+        gestor.setIdTipoDoc(idTipoDoc);
+
+        idEmpleado = -1;
+
+        switch (opcion) {
+            case NUEVO:
+                idEmpleado = gestor.registrarEmpleado(empleado);
+                break;
+            case MODIFICAR:
+                gestor.setIdDomicilio(domicilioResponsableDB.getIddomicilio());
+
+                idEmpleado = gestor.modificarEmpleado(empleado);
+                break;
+            default:
+                break;
+        }
+        opcion = EnumOpcionesABM.GUARDAR;
+
+        if (idEmpleado > 0) {
+            JOptionPane.showMessageDialog(this, "El empleado se guardó correctamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el empleado");
+        }
     }
 
     private void setEnableComponents(boolean b) {
@@ -73,8 +283,8 @@ public class ABMEmpleado extends javax.swing.JFrame {
         txtMotivoEgreso.setText("");
         txtUsuario.setText("");
         ///hacer lo de las fechas
-        dccFechaEgreso.setSelectedDate(null);
-        dccFechaIngreso.setSelectedDate(null);
+        dccFechaEgreso.setDate(null);
+        dccFechaIngreso.setDate(null);
 //        else{
 //            GregorianCalendar gc=new GregorianCalendar();
 //            gc.setTime(proveedorDB.getFechaalta());
@@ -156,8 +366,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         cmbCategoria = new javax.swing.JComboBox();
         beanResponsable = new metalsoft.beans.Responsable();
         lblNroCliente = new javax.swing.JLabel();
-        dccFechaIngreso = new datechooser.beans.DateChooserCombo();
-        dccFechaEgreso = new datechooser.beans.DateChooserCombo();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMotivoEgreso = new javax.swing.JTextArea();
@@ -165,16 +373,13 @@ public class ABMEmpleado extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmbCargo = new javax.swing.JComboBox();
-        btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         jpTurnos = new javax.swing.JPanel();
         chkMañana = new javax.swing.JCheckBox();
         chkTarde = new javax.swing.JCheckBox();
         chkNoche = new javax.swing.JCheckBox();
-        btnSalir = new javax.swing.JButton();
+        dccFechaIngreso = new com.toedter.calendar.JDateChooser();
+        dccFechaEgreso = new com.toedter.calendar.JDateChooser();
+        botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,41 +413,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Cargo:");
-
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
 
         jpTurnos.setBorder(javax.swing.BorderFactory.createTitledBorder("Turnos"));
 
@@ -287,126 +457,90 @@ public class ABMEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpTurnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(22, 22, 22)
+                        .addComponent(cmbCargo, 0, 239, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpTurnos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(22, 22, 22)
-                                .addComponent(cmbCargo, 0, 239, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dccFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dccFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
-                        .addGap(5, 5, 5)
-                        .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dccFechaEgreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dccFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblNroCliente))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jpTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(dccFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dccFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNuevo)
-                        .addComponent(btnGuardar))
-                    .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnBuscar)))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNroCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jpTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(dccFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13)
+                    .addComponent(dccFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(631, Short.MAX_VALUE)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(452, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(22, 22, 22))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(23, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -415,161 +549,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_txtUsuarioActionPerformed
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        opcion = EnumOpcionesABM.NUEVO;
-        setEnableComponents(true);
-        limpiarCampos();
-        empleado = new Empleado();
-        long nroEmp = gestor.generarNvoNroEmpleado();
-        Combo.setItemComboSeleccionado(cmbCategoria, 1);
-        chkMañana.setSelected(false);
-        chkNoche.setSelected(false);
-        chkTarde.setSelected(false);
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, nroEmp));
-
-}//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
-        long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
-
-        if (chkMañana.isSelected() == true) {
-            turnos.add((int) 1);
-        }
-        if (chkTarde.isSelected() == true) {
-            turnos.add((int) 2);
-        }
-        if (chkNoche.isSelected() == true) {
-            turnos.add((int) 3);
-        }
-        long idBarrio = -1;
-        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()) != null) {
-            idBarrio = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
-        }
-        long idLocalidad = -1;
-        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()) != null) {
-            idLocalidad = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
-        }
-
-        long idProvincia = -1;
-        if (((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()) != null) {
-            idProvincia = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
-        }
-
-        long idTipoDoc = -1;
-        if (((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()) != null) {
-            idTipoDoc = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
-        }
-
-        //private long cargo;
-        int nroDoc = Integer.parseInt(beanResponsable.getTxtNroDoc().getText());
-        empleado.setNroDocumento(nroDoc);
-        String motivoEgreso = txtMotivoEgreso.getText();
-        empleado.setMotivoEgreso(motivoEgreso);
-        String apeResp = beanResponsable.getTxtApellido().getText();
-        empleado.setApellido(apeResp);
-        String emaResp = beanResponsable.getTxtEmail().getText();
-        empleado.setEmail(emaResp);
-
-        //String faxResp = beanResponsable.getTxtFax().getText();
-
-        String nomResp = beanResponsable.getTxtNombre().getText();
-        empleado.setNombre(nomResp);
-        String telResp = beanResponsable.getTxtTelefono().getText();
-        empleado.setTelefono(telResp);
-
-        String calle = beanResponsable.getDomicilioResponsable().getTxtCalle().getText();
-        String depto = beanResponsable.getDomicilioResponsable().getTxtDepto().getText();
-        String nroCalle = beanResponsable.getDomicilioResponsable().getTxtNumero().getText();
-        String piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
-        String torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
-
-
-        Date fechaIngreso = null;
-        if (dccFechaIngreso.getSelectedDate() != null) {
-            fechaIngreso = dccFechaIngreso.getSelectedDate().getTime();
-        }
-        Date fechaEgreso = null;
-        if (dccFechaEgreso.getSelectedDate() != null) {
-            fechaEgreso = dccFechaEgreso.getSelectedDate().getTime();
-        }
-        empleado.setFechaIngreso(fechaIngreso);
-        empleado.setFechaEgreso(fechaEgreso);
-        domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
-        empleado.setDomicilio(domicilioResponsable);
-
-        long nro = gestor.generarNvoNroEmpleado();
-        empleado.setLegajo(nro);
-        gestor.setIdBarrio(idBarrio);
-        gestor.setIdLocalidad(idLocalidad);
-        gestor.setIdProvincia(idProvincia);
-        gestor.setIdcargo(idcargo);
-        gestor.setIdcategoria(idCategoria);
-        gestor.setIdturnos(turnos);
-        gestor.setIdTipoDoc(idTipoDoc);
-
-        idEmpleado = -1;
-
-        switch (opcion) {
-            case NUEVO:
-                idEmpleado = gestor.registrarEmpleado(empleado);
-                break;
-            case MODIFICAR:
-                gestor.setIdDomicilio(domicilioResponsableDB.getIddomicilio());
-
-                idEmpleado = gestor.modificarEmpleado(empleado);
-                break;
-            default:
-                break;
-        }
-        opcion = EnumOpcionesABM.GUARDAR;
-
-        if (idEmpleado > 0) {
-            JOptionPane.showMessageDialog(this, "El empleado se guardó correctamente");
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el empleado");
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        opcion = EnumOpcionesABM.MODIFICAR;
-        setEnableComponents(true);
-}//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int result = -1;
-        java.sql.Date fechaBaja = new java.sql.Date(Fecha.parseToDate(Fecha.fechaActual(), "dd/MM/yyyy").getTime());
-        empleadoDB.setFechaegreso(fechaBaja);
-        gestor.setIdEmpleado(idEmpleado);
-        result = gestor.bajaEmpleado(empleadoDB);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "El empleado se eliminó correctamente");
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar el empleado");
-        }
-        opcion = EnumOpcionesABM.ELIMINAR;
-}//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        opcion = EnumOpcionesABM.BUSCAR;
-        ABMEmpleado_Buscar buscar = null;
-        try {
-            buscar = (ABMEmpleado_Buscar) JFrameManager.crearVentana(ABMEmpleado_Buscar.class.getName());
-            buscar.setVentana(this);
-            buscar.setGestor(gestor);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-}//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-}//GEN-LAST:event_btnSalirActionPerformed
 
     private void chkTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTardeActionPerformed
         // TODO add your handling code here:
@@ -633,19 +612,16 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private void setDatosEmpleado() {
 
         if (empleadoDB.getFechaingreso() == null) {
-            dccFechaIngreso.setSelectedDate(null);
+            dccFechaIngreso.setDate(null);
         } else {
-            GregorianCalendar gc = new GregorianCalendar();
-            gc.setTime(empleadoDB.getFechaingreso());
-            dccFechaIngreso.setSelectedDate(gc);
+
+            dccFechaIngreso.setDate(empleadoDB.getFechaingreso());
         }
 
         if (empleadoDB.getFechaegreso() == null) {
-            dccFechaEgreso.setSelectedDate(null);
+            dccFechaEgreso.setDate(null);
         } else {
-            GregorianCalendar gcb = new GregorianCalendar();
-            gcb.setTime(empleadoDB.getFechaegreso());
-            dccFechaEgreso.setSelectedDate(gcb);
+            dccFechaEgreso.setDate(empleadoDB.getFechaegreso());
         }
 
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, empleadoDB.getLegajo()));
@@ -735,19 +711,14 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.Responsable beanResponsable;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnSalir;
+    private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JCheckBox chkMañana;
     private javax.swing.JCheckBox chkNoche;
     private javax.swing.JCheckBox chkTarde;
     private javax.swing.JComboBox cmbCargo;
     private javax.swing.JComboBox cmbCategoria;
-    private datechooser.beans.DateChooserCombo dccFechaEgreso;
-    private datechooser.beans.DateChooserCombo dccFechaIngreso;
+    private com.toedter.calendar.JDateChooser dccFechaEgreso;
+    private com.toedter.calendar.JDateChooser dccFechaIngreso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
