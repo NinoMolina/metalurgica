@@ -439,7 +439,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         } else {
             dccPedidoCotizacion.setDate(ped.getFechapedidocotizacion());
         }
-        lblNroPedido.setText(String.valueOf(ped.getNropedido()));
+        lblNroPedido.setText("PED-"+String.valueOf(ped.getNropedido()));
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
@@ -590,7 +590,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNropedido();
+                    return "PED-"+view.getNropedido();
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
