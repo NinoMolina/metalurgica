@@ -174,6 +174,7 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
         jLabel6.setText("CUIT:");
 
+        btnBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sea1.png"))); // NOI18N
         btnBuscarCliente.setText("Buscar Cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
