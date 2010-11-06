@@ -8,7 +8,6 @@
  *
  * Created on 27/06/2010, 18:28:24
  */
-
 package metalsoft.presentacion;
 
 import java.sql.SQLException;
@@ -30,15 +29,162 @@ public class ABMMatriz extends javax.swing.JFrame {
 
     private Matriz matriz;
     private GestorMatriz gestor;
+
     /** Creates new form ABMTipoMaterial */
-     /** Creates new form ABMMatriz */
+    /** Creates new form ABMMatriz */
     public ABMMatriz() {
         initComponents();
+        addListeners();
         gestor = new GestorMatriz();
         gestor.buscarTipoMaterial(cmbTipoMaterial);
         gestor.buscarMateriaPrima(cmbMateriaPrima);
+        setEnableComponents(false);
     }
 
+    private void addListeners() {
+        addListenerBtnNuevo();
+        addListenerBtnGuardar();
+        addListenerBtnModificar();
+        addListenerBtnBuscar();
+        addListenerBtnSalir();
+        addListenerBtnEliminar();
+    }
+
+    private void addListenerBtnNuevo() {
+        botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnEliminar() {
+        botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnGuardar() {
+        botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnModificar() {
+        botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnBuscar() {
+        botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        limpiarCampos();
+        setEnableComponents(true);
+    }
+    public void limpiarCampos(){
+        txtCodigo.setText("");
+        txtDescripcion.setText("");
+        txtNombre.setText("");
+        cmbMateriaPrima.setSelectedIndex(0);
+        cmbTipoMaterial.setSelectedIndex(0);
+    }
+    public void setEnableComponents(boolean b){
+        txtCodigo.setEnabled(b);
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
+        cmbMateriaPrima.setEnabled(b);
+        cmbTipoMaterial.setEnabled(b);
+    }
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
+        String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
+        boolean ok = gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+        } else {
+            JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
+        }
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        ABMMatriz_Buscar buscar = null;
+        try {
+            buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
+            buscar.setVentanaMatriz(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
+            String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
+
+            int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
+            if (id > -1) {
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setEnableComponents(false);
+
+    }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+
+        boolean ok = gestor.eliminarMatriz(matriz);
+        setEnableComponents(false);
+        limpiarCampos();
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+        } else {
+            JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
+        }
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        dispose();
+    }
 
     public JTextArea getTxtDescripcion() {
         return txtDescripcion;
@@ -55,24 +201,27 @@ public class ABMMatriz extends javax.swing.JFrame {
     public void setTxtNombre(JTextField txtNombre) {
         this.txtNombre = txtNombre;
     }
-      public JTextField getTxtCodigo() {
+
+    public JTextField getTxtCodigo() {
         return txtCodigo;
     }
 
     public void setTxtCodigo(JTextField txtCodigo) {
         this.txtCodigo = txtCodigo;
     }
-    public JComboBox getcmbMateriaPrima()
-    {
+
+    public JComboBox getcmbMateriaPrima() {
         return cmbMateriaPrima;
     }
+
     public void setcmbMateriaPrima(JComboBox cmbMateriaPrima) {
         this.cmbMateriaPrima = cmbMateriaPrima;
     }
-    public JComboBox getcmbTipoMaterial()
-    {
+
+    public JComboBox getcmbTipoMaterial() {
         return cmbTipoMaterial;
     }
+
     public void setcmbTipoMaterial(JComboBox cmbTipoMaterial) {
         this.cmbTipoMaterial = cmbTipoMaterial;
     }
@@ -84,7 +233,7 @@ public class ABMMatriz extends javax.swing.JFrame {
     public void setMatriz(Matriz matriz) {
         this.matriz = matriz;
     }
-   
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -104,15 +253,10 @@ public class ABMMatriz extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmbTipoMaterial = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar Matriz");
@@ -136,48 +280,6 @@ public class ABMMatriz extends javax.swing.JFrame {
             }
         });
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Código:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,87 +287,68 @@ public class ABMMatriz extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addContainerGap()
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
-                        .addGap(10, 10, 10)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNombre)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addGap(10, 10, 10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cmbTipoMaterial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cmbMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jButton1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)))
-                        .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir)
-                        .addContainerGap())))
+                            .addComponent(jSeparator1)))
+                    .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(cmbMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                            .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnSalir)
-                    .addComponent(btnGuardar))
-                .addGap(25, 25, 25))
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -275,67 +358,12 @@ public class ABMMatriz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
-        String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
-        boolean ok=gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(),txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima) ,Integer.parseInt(indexTipoMaterial));
-        if(ok)JOptionPane.showMessageDialog(this, "Modificación Realizada!");
-        else JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
-}//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-     ABMMatriz_Buscar buscar=null;
-        try {
-            buscar=(ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
-            buscar.setVentanaMatriz(this);
-            buscar.setGestor(gestor);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try {
-            String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
-            String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
-
-            int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima) ,Integer.parseInt(indexTipoMaterial));
-            if (id > -1) {
-                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
-            } else {
-                JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-}//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-        boolean ok=gestor.eliminarMatriz(matriz);
-        if(ok)JOptionPane.showMessageDialog(this, "Eliminación Realizada");
-        else JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
-}//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMMatriz().setVisible(true);
             }
@@ -343,12 +371,7 @@ public class ABMMatriz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnSalir;
+    private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbTipoMaterial;
     private javax.swing.JButton jButton1;
@@ -363,5 +386,4 @@ public class ABMMatriz extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-
 }
