@@ -15,4 +15,5 @@ public class Jornada {
     public static int HORA_INICIO_JORNADA = 8;
     public static int CANT_HORAS_COMIDA = 1;
     public static int HORA_FIN_JORNADA = HORAS_JORNADA+CANT_HORAS_COMIDA+HORA_INICIO_JORNADA;
+    public static int MINUTOS_ENTRE_ETAPAS=15;
 }
