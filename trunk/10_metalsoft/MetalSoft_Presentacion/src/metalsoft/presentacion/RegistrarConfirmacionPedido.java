@@ -18,6 +18,8 @@ import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
@@ -31,11 +33,22 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     private GestorRegistrarPedidoConfirmado gestor;
     public RegistrarConfirmacionPedido() {
         initComponents();
+        setearTablas();
         gestor=new GestorRegistrarPedidoConfirmado();
         buscarPedidosNoConfirmados();
         tblPedidos.updateUI();
     }
-
+    private void setearTablas() {
+        //DETALLE PEDIDO
+        tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
+        tblPedidos.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidos.setShowHorizontalLines(false);
+        tblPedidos.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblPedidos.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+    }
     private void buscarPedidosNoConfirmados(){
         filasPedidosNoConfirmados=gestor.buscarPedidosNoConfirmados();
     }
@@ -49,8 +62,6 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblPedidos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -79,12 +90,11 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         lblCliente = new javax.swing.JLabel();
         btnRegistrarConfirmacion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPedidos = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Confirmar Pedido");
-
-        tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
-        jScrollPane1.setViewportView(tblPedidos);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
 
@@ -123,6 +133,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                 .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/48-check.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +254,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                     .addComponent(lblCliente)))
         );
 
+        btnRegistrarConfirmacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
         btnRegistrarConfirmacion.setText("Registrar Confirmación");
         btnRegistrarConfirmacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,12 +262,15 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setText("Salir");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit1.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
+
+        jScrollPane2.setViewportView(tblPedidos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,13 +279,13 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegistrarConfirmacion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
                         .addComponent(btnSalir)))
                 .addContainerGap())
         );
@@ -280,7 +295,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSeleccionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,7 +384,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblCliente;
@@ -380,7 +395,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     private javax.swing.JLabel lblNroPedCliente;
     private javax.swing.JLabel lblNroPedido;
     private javax.swing.JLabel lblNroPresupuesto;
-    private javax.swing.JTable tblPedidos;
+    private org.jdesktop.swingx.JXTable tblPedidos;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
