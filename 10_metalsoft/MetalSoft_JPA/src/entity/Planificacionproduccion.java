@@ -13,12 +13,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,7 +44,9 @@ import javax.persistence.TemporalType;
 public class Planificacionproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name="planificacionproduccion_idplanificacionproduccion_seq",sequenceName="planificacionproduccion_idplanificacionproduccion_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="planificacionproduccion_idplanificacionproduccion_seq")
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idplanificacionproduccion")
     private Long idplanificacionproduccion;
     @Column(name = "nroplanificacion")
@@ -59,28 +64,16 @@ public class Planificacionproduccion implements Serializable {
     private Date fechafinprevista;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion1")
-    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
     @JoinColumn(name = "idestado", referencedColumnName = "id")
     @ManyToOne
     private Estadoplanificacionproduccion idestado;
-    @JoinColumn(name = "idestado", referencedColumnName = "id")
-    @ManyToOne
-    private Estadoplanificacionproduccion idestado1;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
-    @ManyToOne
-    private Pedido pedido1;
     @OneToMany(mappedBy = "idplanificacionproduccion")
     private Set<Detallempasignada> detallempasignadaSet;
-    @OneToMany(mappedBy = "idplanificacionproduccion1")
-    private Set<Detallempasignada> detallempasignadaSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
     private Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion1")
-    private Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionSet1;
 
     public Planificacionproduccion() {
     }
@@ -145,28 +138,12 @@ public class Planificacionproduccion implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
-    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
-        return detalleplanificacionproduccionSet1;
-    }
-
-    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
-        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
-    }
-
     public Estadoplanificacionproduccion getIdestado() {
         return idestado;
     }
 
     public void setIdestado(Estadoplanificacionproduccion idestado) {
         this.idestado = idestado;
-    }
-
-    public Estadoplanificacionproduccion getIdestado1() {
-        return idestado1;
-    }
-
-    public void setIdestado1(Estadoplanificacionproduccion idestado1) {
-        this.idestado1 = idestado1;
     }
 
     public Pedido getPedido() {
@@ -177,14 +154,6 @@ public class Planificacionproduccion implements Serializable {
         this.pedido = pedido;
     }
 
-    public Pedido getPedido1() {
-        return pedido1;
-    }
-
-    public void setPedido1(Pedido pedido1) {
-        this.pedido1 = pedido1;
-    }
-
     public Set<Detallempasignada> getDetallempasignadaSet() {
         return detallempasignadaSet;
     }
@@ -193,28 +162,12 @@ public class Planificacionproduccion implements Serializable {
         this.detallempasignadaSet = detallempasignadaSet;
     }
 
-    public Set<Detallempasignada> getDetallempasignadaSet1() {
-        return detallempasignadaSet1;
-    }
-
-    public void setDetallempasignadaSet1(Set<Detallempasignada> detallempasignadaSet1) {
-        this.detallempasignadaSet1 = detallempasignadaSet1;
-    }
-
     public Set<Ejecucionplanificacionproduccion> getEjecucionplanificacionproduccionSet() {
         return ejecucionplanificacionproduccionSet;
     }
 
     public void setEjecucionplanificacionproduccionSet(Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionSet) {
         this.ejecucionplanificacionproduccionSet = ejecucionplanificacionproduccionSet;
-    }
-
-    public Set<Ejecucionplanificacionproduccion> getEjecucionplanificacionproduccionSet1() {
-        return ejecucionplanificacionproduccionSet1;
-    }
-
-    public void setEjecucionplanificacionproduccionSet1(Set<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionSet1) {
-        this.ejecucionplanificacionproduccionSet1 = ejecucionplanificacionproduccionSet1;
     }
 
     @Override
