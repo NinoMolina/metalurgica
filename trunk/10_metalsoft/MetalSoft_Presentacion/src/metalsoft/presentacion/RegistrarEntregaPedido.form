@@ -431,6 +431,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNroPedidoCliente">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbPrioridad1">
                   <Properties>
@@ -462,6 +465,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNroFactura">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
@@ -471,6 +477,9 @@
                 <Component class="javax.swing.JLabel" name="lblNroPedido">
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccFechaReqCotizacion">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -563,14 +572,29 @@
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccConfirmacionPedido">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccEntregaEstipulada">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccPedidoCotizacion">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccEntregaReal">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccCancelacion">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
