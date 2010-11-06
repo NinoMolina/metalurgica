@@ -501,13 +501,19 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+                        btnAsignarMP.setEnabled(false);
+                        limpiarCampos();
                     }
                 }else{
                     JOptionPane.showMessageDialog(this, "No hay suficiente Stock de la materia prima "+materiaPrima.getNombre());
+                    btnAsignarMP.setEnabled(false);
+                    limpiarCampos();
                 }
 
             } else {
                 JOptionPane.showMessageDialog(this, "El pedido ya tiene asignado toda la materia prima seleccionada");
+                btnAsignarMP.setEnabled(false);
+                limpiarCampos();
             }
 
         } catch (Exception ex) {
