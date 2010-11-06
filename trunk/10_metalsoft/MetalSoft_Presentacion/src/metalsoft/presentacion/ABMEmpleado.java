@@ -383,7 +383,7 @@ long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).g
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Cliente"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empleado"));
 
         jLabel1.setText("Legajo:");
 
