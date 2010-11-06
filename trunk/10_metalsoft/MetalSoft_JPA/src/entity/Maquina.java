@@ -56,32 +56,18 @@ public class Maquina implements Serializable {
     private Date tiempocapacidadproduccion;
     @OneToMany(mappedBy = "idmaquina")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @OneToMany(mappedBy = "idmaquina1")
-    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadomaquina estado;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadomaquina estado1;
     @JoinColumn(name = "marca", referencedColumnName = "idmarca")
     @ManyToOne
     private Marca marca;
-    @JoinColumn(name = "marca", referencedColumnName = "idmarca")
-    @ManyToOne
-    private Marca marca1;
     @JoinColumn(name = "tipomaquina", referencedColumnName = "idtipomaquina")
     @ManyToOne
     private Tipomaquina tipomaquina;
-    @JoinColumn(name = "tipomaquina", referencedColumnName = "idtipomaquina")
-    @ManyToOne
-    private Tipomaquina tipomaquina1;
     @JoinColumn(name = "idunidadmedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida idunidadmedida;
-    @JoinColumn(name = "idunidadmedida", referencedColumnName = "idunidadmedida")
-    @ManyToOne
-    private Unidadmedida idunidadmedida1;
 
     public Maquina() {
     }
@@ -146,28 +132,12 @@ public class Maquina implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
-    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
-        return detalleplanificacionproduccionSet1;
-    }
-
-    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
-        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
-    }
-
     public Estadomaquina getEstado() {
         return estado;
     }
 
     public void setEstado(Estadomaquina estado) {
         this.estado = estado;
-    }
-
-    public Estadomaquina getEstado1() {
-        return estado1;
-    }
-
-    public void setEstado1(Estadomaquina estado1) {
-        this.estado1 = estado1;
     }
 
     public Marca getMarca() {
@@ -178,14 +148,6 @@ public class Maquina implements Serializable {
         this.marca = marca;
     }
 
-    public Marca getMarca1() {
-        return marca1;
-    }
-
-    public void setMarca1(Marca marca1) {
-        this.marca1 = marca1;
-    }
-
     public Tipomaquina getTipomaquina() {
         return tipomaquina;
     }
@@ -194,28 +156,12 @@ public class Maquina implements Serializable {
         this.tipomaquina = tipomaquina;
     }
 
-    public Tipomaquina getTipomaquina1() {
-        return tipomaquina1;
-    }
-
-    public void setTipomaquina1(Tipomaquina tipomaquina1) {
-        this.tipomaquina1 = tipomaquina1;
-    }
-
     public Unidadmedida getIdunidadmedida() {
         return idunidadmedida;
     }
 
     public void setIdunidadmedida(Unidadmedida idunidadmedida) {
         this.idunidadmedida = idunidadmedida;
-    }
-
-    public Unidadmedida getIdunidadmedida1() {
-        return idunidadmedida1;
-    }
-
-    public void setIdunidadmedida1(Unidadmedida idunidadmedida1) {
-        this.idunidadmedida1 = idunidadmedida1;
     }
 
     @Override
@@ -240,7 +186,7 @@ public class Maquina implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Maquina[idmaquina=" + idmaquina + "]";
+        return getNombre();
     }
 
 }
