@@ -11,10 +11,6 @@
 
 package metalsoft.presentacion;
 
-import javax.swing.table.AbstractTableModel;
-import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,16 +19,15 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.gestores.GestorDetalleMateriaPrima;
-import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
-import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
 import metalsoft.negocio.gestores.PiezaXMateriaPrima;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
-import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewMateriaPrima;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
@@ -57,6 +52,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
         gestor=new GestorDetalleMateriaPrima();
         buscarPedidosCDetalleProcedimientos();
+        setearTablas();
         addListeners();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
@@ -64,11 +60,129 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         filasMateriaPrimaSeleccionada=new LinkedList<ViewMateriaPrima>();
         tblMateriaPrimaSeleccionada.updateUI();
     }
+
+    private void setearTablas(){
+        //DETALLE PEDIDO
+        tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
+        tblDetallePedido.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblDetallePedido.setShowHorizontalLines(false);
+        tblDetallePedido.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblDetallePedido.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+        //DETALLE PRODUCTO
+        tblDetalleProducto.setModel(new DetalleProductoTableModel());
+        tblDetalleProducto.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblDetalleProducto.setShowHorizontalLines(false);
+        tblDetalleProducto.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblDetalleProducto.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+
+        tblMateriaPrima.setModel(new MateriaPrimaTableModel());
+        tblMateriaPrima.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblMateriaPrima.setShowHorizontalLines(false);
+        tblMateriaPrima.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblMateriaPrima.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+
+        tblMateriaPrimaSeleccionada.setModel(new MateriaPrimaSeleccionadaTableModel());
+        tblMateriaPrimaSeleccionada.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblMateriaPrimaSeleccionada.setShowHorizontalLines(false);
+        tblMateriaPrimaSeleccionada.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblMateriaPrimaSeleccionada.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+    }
     private void addListeners()
     {
         addListenerBtnAgregar();
         addListenerBtnQuitar();
         addListenerBtnSeleccionarPedido();
+        addListenerBtnSeleccionarPieza();
+        addListenerBtnSeleccionarProducto();
+        addListenerBtnGuardar();
+        addListenerBtnSalir();
+    }
+
+    private void addListenerBtnGuardar()
+    {
+        beanBtnGuardar.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        boolean result=gestor.guardarMateriaPrimaPiezaPresupuesto();
+        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
+    }
+
+    private void addListenerBtnSalir()
+    {
+        beanBtnSalir.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        this.dispose();
+    }
+    private void addListenerBtnSeleccionarPieza()
+    {
+        beanBtnSeleccionarPieza.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPiezaBeanActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSeleccionarPiezaBeanActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        filasMateriaPrima=gestor.obtenerAllMateriaPrima();
+
+        filasMateriaPrimaSeleccionada.clear();
+
+        MateriaprimaDB db=gestor.buscarMateriaPrimaDePieza(v.getIdPieza());
+        separarEtapasDeProduccion(db);
+        tblMateriaPrima.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrima.updateUI();
+        idPiezaSeleccionada=v.getIdPieza();
+        lblPiezaSeleccionada.setText(v.getNombrePieza());
+        beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+    }
+
+    private void addListenerBtnSeleccionarProducto()
+    {
+        beanBtnSeleccionarProducto.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarProductoBeanActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        ViewDetallePedidoCotizacion v=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPro=v.getIdProducto();
+        filasDetalleProducto=gestor.buscarDetalleProducto(idPro);
+        tblDetalleProducto.updateUI();
+        idProductoSeleccionado=idPro;
+        lblProductoSeleccionado.setText(v.getNombreProducto());
     }
 
     private void addListenerBtnSeleccionarPedido()
@@ -150,30 +264,30 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDetallePedido = new javax.swing.JTable();
-        btnSeleccionarProducto = new javax.swing.JButton();
+        tblDetallePedido = new org.jdesktop.swingx.JXTable();
+        beanBtnSeleccionarProducto = new metalsoft.beans.BtnSeleccionar();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblDetalleProducto = new javax.swing.JTable();
-        btnSeleccionarPieza = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDetalleProducto = new org.jdesktop.swingx.JXTable();
+        beanBtnSeleccionarPieza = new metalsoft.beans.BtnSeleccionar();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblPiezaSeleccionada = new javax.swing.JLabel();
         txtEtapaProduccion = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblMateriaPrima = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         beanAgregarQuitar = new metalsoft.beans.AgregarQuitar();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblMateriaPrimaSeleccionada = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         lblProductoSeleccionado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblPedidoSeleccionado = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnAsignar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblMateriaPrima = new org.jdesktop.swingx.JXTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblMateriaPrimaSeleccionada = new org.jdesktop.swingx.JXTable();
+        beanBtnSalir = new metalsoft.beans.BtnSalirr();
+        beanBtnGuardar = new metalsoft.beans.BtnGuardar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Generar Detalle de Materia Prima");
@@ -195,7 +309,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(562, 562, 562))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                        .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -212,15 +326,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Pedido"));
 
-        tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
         jScrollPane1.setViewportView(tblDetallePedido);
-
-        btnSeleccionarProducto.setText("Seleccionar");
-        btnSeleccionarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarProductoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -229,29 +335,21 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-                    .addComponent(btnSeleccionarProducto, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                    .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionarProducto))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Producto"));
 
-        tblDetalleProducto.setModel(new DetalleProductoTableModel());
-        jScrollPane3.setViewportView(tblDetalleProducto);
-
-        btnSeleccionarPieza.setText("Seleccionar");
-        btnSeleccionarPieza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarPiezaActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(tblDetalleProducto);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -260,16 +358,16 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
-                    .addComponent(btnSeleccionarPieza, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                    .addComponent(beanBtnSeleccionarPieza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionarPieza))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(beanBtnSeleccionarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pieza Seleccionada"));
@@ -285,13 +383,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             }
         });
 
-        tblMateriaPrima.setModel(new MateriaPrimaTableModel());
-        jScrollPane4.setViewportView(tblMateriaPrima);
-
         jLabel3.setText("Nombre Materia Prima:");
-
-        tblMateriaPrimaSeleccionada.setModel(new MateriaPrimaSeleccionadaTableModel());
-        jScrollPane5.setViewportView(tblMateriaPrimaSeleccionada);
 
         jLabel4.setText("Producto:");
 
@@ -303,12 +395,17 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         lblPedidoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPedidoSeleccionado.setText("....");
 
+        btnAsignar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/48-badge-check.png"))); // NOI18N
         btnAsignar.setText("Asignar");
         btnAsignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsignarActionPerformed(evt);
             }
         });
+
+        jScrollPane3.setViewportView(tblMateriaPrima);
+
+        jScrollPane4.setViewportView(tblMateriaPrimaSeleccionada);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -317,25 +414,26 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
+                                .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnAsignar))
+                                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                        .addGap(5, 5, 5))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
+                                        .addComponent(btnAsignar)
+                                        .addGap(6, 6, 6)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -366,30 +464,16 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(beanAgregarQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAsignar))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(btnAsignar)))
+                .addGap(29, 29, 29))
         );
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -397,72 +481,39 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 774, Short.MAX_VALUE)
-                .addComponent(btnSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 788, Short.MAX_VALUE)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(593, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnSalir))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(44, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSeleccionarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProductoActionPerformed
-        ViewDetallePedidoCotizacion v=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
-        long idPro=v.getIdProducto();
-        filasDetalleProducto=gestor.buscarDetalleProducto(idPro);
-        tblDetalleProducto.updateUI();
-        idProductoSeleccionado=idPro;
-        lblProductoSeleccionado.setText(v.getNombreProducto());
-}//GEN-LAST:event_btnSeleccionarProductoActionPerformed
-
-    private void btnSeleccionarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPiezaActionPerformed
-
-        ViewDetalleProducto v=(ViewDetalleProducto)filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
-        filasMateriaPrima=gestor.obtenerAllMateriaPrima();
-
-        filasMateriaPrimaSeleccionada.clear();
-
-        MateriaprimaDB db=gestor.buscarMateriaPrimaDePieza(v.getIdPieza());
-        separarEtapasDeProduccion(db);
-        tblMateriaPrima.updateUI();
-        tblMateriaPrimaSeleccionada.updateUI();
-        tblMateriaPrima.updateUI();
-        idPiezaSeleccionada=v.getIdPieza();
-        lblPiezaSeleccionada.setText(v.getNombrePieza());
-        beanAgregarQuitar.getBtnAgregar().setEnabled(true);
-        beanAgregarQuitar.getBtnQuitar().setEnabled(true);
-}//GEN-LAST:event_btnSeleccionarPiezaActionPerformed
 
     private void separarEtapasDeProduccion(MateriaprimaDB materiaPrimaDB)
     {
@@ -540,16 +591,6 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
 }//GEN-LAST:event_btnAsignarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        boolean result=gestor.guardarMateriaPrimaPiezaPresupuesto();
-        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
-        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
-}//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     /*
      * 0: no se pudo agregar
      * -1: se agrego correctamente
@@ -586,12 +627,12 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
+    private metalsoft.beans.BtnGuardar beanBtnGuardar;
+    private metalsoft.beans.BtnSalirr beanBtnSalir;
+    private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarPieza;
+    private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarProducto;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private javax.swing.JButton btnAsignar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnSeleccionarPieza;
-    private javax.swing.JButton btnSeleccionarProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -602,18 +643,18 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPedidoSeleccionado;
     private javax.swing.JLabel lblPiezaSeleccionada;
     private javax.swing.JLabel lblProductoSeleccionado;
-    private javax.swing.JTable tblDetallePedido;
-    private javax.swing.JTable tblDetalleProducto;
-    private javax.swing.JTable tblMateriaPrima;
-    private javax.swing.JTable tblMateriaPrimaSeleccionada;
+    private org.jdesktop.swingx.JXTable tblDetallePedido;
+    private org.jdesktop.swingx.JXTable tblDetalleProducto;
+    private org.jdesktop.swingx.JXTable tblMateriaPrima;
+    private org.jdesktop.swingx.JXTable tblMateriaPrimaSeleccionada;
     private javax.swing.JTextField txtEtapaProduccion;
     // End of variables declaration//GEN-END:variables
     public JTable getTable(String className) {
