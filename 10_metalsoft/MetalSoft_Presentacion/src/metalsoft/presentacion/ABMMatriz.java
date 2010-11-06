@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
 import metalsoft.negocio.produccion.Matriz;
+import metalsoft.util.EnumOpcionesABM;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ABMMatriz extends javax.swing.JFrame {
 
     private Matriz matriz;
     private GestorMatriz gestor;
+    private EnumOpcionesABM opcion;
 
     /** Creates new form ABMTipoMaterial */
     /** Creates new form ABMMatriz */
@@ -106,17 +108,20 @@ public class ABMMatriz extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        opcion = EnumOpcionesABM.NUEVO;
         limpiarCampos();
         setEnableComponents(true);
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         txtCodigo.setText("");
         txtDescripcion.setText("");
         txtNombre.setText("");
         cmbMateriaPrima.setSelectedIndex(0);
         cmbTipoMaterial.setSelectedIndex(0);
     }
-    public void setEnableComponents(boolean b){
+
+    public void setEnableComponents(boolean b) {
         txtCodigo.setEnabled(b);
         txtDescripcion.setEnabled(b);
         txtNombre.setEnabled(b);
@@ -125,15 +130,8 @@ public class ABMMatriz extends javax.swing.JFrame {
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
-        String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
-        String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
-        boolean ok = gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
-        if (ok) {
-            JOptionPane.showMessageDialog(this, "Modificación Realizada!");
-        } else {
-            JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
-        }
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,24 +150,41 @@ public class ABMMatriz extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            try {
+                String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
+                String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
+
+                int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
+                if (id > -1) {
+                    JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setEnableComponents(false);
+        }
+
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
+            setEnableComponents(true);
             String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
             String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
-
-            int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
-            if (id > -1) {
-                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
+            boolean ok = gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
+            if (ok) {
+                JOptionPane.showMessageDialog(this, "Modificación Realizada!");
             } else {
-                JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+                JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        setEnableComponents(false);
+
+
 
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion=EnumOpcionesABM.ELIMINAR;
 
         boolean ok = gestor.eliminarMatriz(matriz);
         setEnableComponents(false);
