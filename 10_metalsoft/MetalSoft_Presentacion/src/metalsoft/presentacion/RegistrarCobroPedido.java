@@ -47,6 +47,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
     /** Creates new form RegistrarCobroPedido */
     public RegistrarCobroPedido() {
         initComponents();
+        setearTablas();
         gestorPedido = new GestorPedidoCotizacion();
         gestor = new GestorRegistrarEntregaPedido();
         filasPedidos = gestor.buscarPedidosEntregados();
