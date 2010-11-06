@@ -83,7 +83,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         Combo.setItemComboSeleccionado(cmbEstado, 1);
         Combo.setItemComboSeleccionado(cmbPrioridad, 3);
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroCli));
-        txtFechaAlta.setText(Fecha.fechaActual());
+        txtFechaAlta.setDate(Fecha.fechaActualDate());
     }
 
     private void addListenerBtnGuardar() {
@@ -177,8 +177,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         String cuitCli = txtCUIT.getText();
         String celCli = txtCelular.getText();
-        String fecAltaCli = txtFechaAlta.getText();
-        String fecBajaCli = txtFechaBaja.getText();
+        String fecAltaCli = txtFechaAlta.getDate().toString();
+        String fecBajaCli = txtFechaBaja.getDate().toString();
         String mailCli = txtMail.getText();
         long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
         String nroCli = String.valueOf(nro);
@@ -242,8 +242,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private void limpiarCampos() {
         txtCUIT.setText("");
         txtCelular.setText("");
-        txtFechaAlta.setText("");
-        txtFechaBaja.setText("");
+        txtFechaAlta.setDate(Fecha.fechaActualDate());
+        txtFechaBaja.setDate(null);
         txtMail.setText("");
         lblNroCliente.setText("");
         txtRazonSocial.setText("");
@@ -364,8 +364,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         jLabel13 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
         txtCUIT = new javax.swing.JTextField();
-        txtFechaBaja = new javax.swing.JTextField();
-        txtFechaAlta = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtCelular = new javax.swing.JTextField();
         txtMail = new javax.swing.JTextField();
@@ -375,6 +373,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         beanDomicilioCliente = new metalsoft.beans.Domicilio();
         beanResponsable = new metalsoft.beans.Responsable();
         lblNroCliente = new javax.swing.JLabel();
+        txtFechaAlta = new com.toedter.calendar.JDateChooser();
+        txtFechaBaja = new com.toedter.calendar.JDateChooser();
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -444,31 +444,34 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
                                     .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                     .addComponent(txtMail, javax.swing.GroupLayout.Alignment.LEADING))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(jLabel3)
                                 .addGap(9, 9, 9)
-                                .addComponent(txtRazonSocial))
+                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel6)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel2))
+                                        .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtCUIT)
-                                            .addComponent(cmbCondicionIVA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtFechaAlta)
-                                            .addComponent(txtFechaBaja, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)))))))
+                                            .addComponent(cmbCondicionIVA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtFechaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,21 +498,24 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
                             .addComponent(jLabel2)
                             .addComponent(cmbCondicionIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel5))
                     .addComponent(txtFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanDomicilioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
             .addComponent(beanResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,7 +530,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,12 +688,12 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private void setDatosCliente() {
         txtCUIT.setText(clienteDB.getCuit());
         txtCelular.setText(clienteDB.getCelular());
-        txtFechaAlta.setText(Fecha.parseToString(clienteDB.getFechaalta(), "dd/MM/yyyy"));
+        txtFechaAlta.setDate(clienteDB.getFechaalta());
         java.sql.Date fechaBaja = clienteDB.getFechabaja();
         if (fechaBaja != null) {
-            txtFechaBaja.setText(Fecha.parseToString(clienteDB.getFechabaja(), "dd/MM/yyyy"));
+            txtFechaBaja.setDate(clienteDB.getFechabaja());
         } else {
-            txtFechaBaja.setText("");
+            txtFechaBaja.setDate(null);
         }
         txtMail.setText(clienteDB.getMail());
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, clienteDB.getNrocliente()));
@@ -776,8 +782,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private javax.swing.JLabel lblNroCliente;
     private javax.swing.JTextField txtCUIT;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtFechaAlta;
-    private javax.swing.JTextField txtFechaBaja;
+    private com.toedter.calendar.JDateChooser txtFechaAlta;
+    private com.toedter.calendar.JDateChooser txtFechaBaja;
     private javax.swing.JTextField txtMail;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
