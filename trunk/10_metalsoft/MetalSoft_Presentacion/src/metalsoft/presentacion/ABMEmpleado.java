@@ -381,7 +381,7 @@ long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).g
         dccFechaEgreso = new com.toedter.calendar.JDateChooser();
         botones = new metalsoft.beans.ABM_Botones();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empleado"));
 
