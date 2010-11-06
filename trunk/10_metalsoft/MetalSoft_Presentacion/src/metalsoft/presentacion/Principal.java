@@ -45,6 +45,8 @@ public class Principal extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
 
         obtenerRolUsuario(idUsuario);
+        lblRol.setText(roles[0].getRol());
+        lblUsuario.setText(new Long(idUsuario).toString());
         //this.getContentPane().setBackground();
     }
 
@@ -150,7 +152,7 @@ public class Principal extends javax.swing.JFrame {
 
         pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background.jpg"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36));
         jLabel1.setForeground(new java.awt.Color(102, 255, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("MetalSoft");
@@ -158,17 +160,17 @@ public class Principal extends javax.swing.JFrame {
         jPanelTransparente1.setBackground(new java.awt.Color(153, 255, 153));
         jPanelTransparente1.setTran(0.25F);
 
-        lblReloj.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReloj.setFont(new java.awt.Font("Tahoma", 0, 14));
         lblReloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblReloj.setText("...");
         lblReloj.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 102, 0));
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
         jLabel2.setText("Usuario:");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 102, 0));
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 204));
         jLabel3.setText("Rol:");
 
         lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -184,12 +186,12 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addGap(10, 10, 10)
-                .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -200,10 +202,10 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelTransparente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReloj, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(lblUsuario)
-                    .addComponent(lblRol))
+                    .addComponent(lblRol)
+                    .addComponent(jLabel2)
+                    .addComponent(lblUsuario))
                 .addContainerGap())
         );
 
