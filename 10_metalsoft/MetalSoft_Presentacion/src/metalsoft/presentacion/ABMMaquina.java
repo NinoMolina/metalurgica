@@ -94,7 +94,7 @@ public class ABMMaquina extends javax.swing.JFrame {
     {
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
-        dccFechaAlta.setSelectedDate(Fecha.fechaActualCalendar());
+        dccFechaAlta.setDate(Fecha.fechaActualDate());
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         long nroMaQUINA=gestor.generarNvoNroMaquina();
         lblnroMaquina.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MAQUINA, nroMaQUINA));
@@ -112,11 +112,11 @@ public class ABMMaquina extends javax.swing.JFrame {
     {
         Maquina ep=new Maquina();
         Date fechaAlta=null;
-        if(dccFechaAlta.getSelectedDate()!=null)
-            fechaAlta=dccFechaAlta.getSelectedDate().getTime();
+        if(dccFechaAlta.getDate()!=null)
+            fechaAlta=dccFechaAlta.getDate();
         Date fechaBaja=null;
-        if(dccFechaBaja.getSelectedDate()!=null)
-            fechaBaja=dccFechaBaja.getSelectedDate().getTime();
+        if(dccFechaBaja.getDate()!=null)
+            fechaBaja=dccFechaBaja.getDate();
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         ep.setFechaAlta(fechaAlta);
@@ -217,9 +217,7 @@ public class ABMMaquina extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        dccFechaAlta = new datechooser.beans.DateChooserCombo();
         jLabel5 = new javax.swing.JLabel();
-        dccFechaBaja = new datechooser.beans.DateChooserCombo();
         jLabel6 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox();
         cmbTipoMaquina = new javax.swing.JComboBox();
@@ -236,6 +234,8 @@ public class ABMMaquina extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         lblnroMaquina = new javax.swing.JLabel();
+        dccFechaAlta = new com.toedter.calendar.JDateChooser();
+        dccFechaBaja = new com.toedter.calendar.JDateChooser();
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -283,7 +283,7 @@ public class ABMMaquina extends javax.swing.JFrame {
                 .addComponent(txtTiempoProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,11 +317,12 @@ public class ABMMaquina extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
+                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -332,12 +333,12 @@ public class ABMMaquina extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(174, Short.MAX_VALUE))
+                        .addContainerGap(185, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -352,7 +353,7 @@ public class ABMMaquina extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbEstado, 0, 138, Short.MAX_VALUE))))
+                        .addComponent(cmbEstado, 0, 149, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,19 +369,21 @@ public class ABMMaquina extends javax.swing.JFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
@@ -408,7 +411,7 @@ public class ABMMaquina extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,8 +443,8 @@ public class ABMMaquina extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbMarca;
     private javax.swing.JComboBox cmbTipoMaquina;
     private javax.swing.JComboBox cmbUnidadMedida;
-    private datechooser.beans.DateChooserCombo dccFechaAlta;
-    private datechooser.beans.DateChooserCombo dccFechaBaja;
+    private com.toedter.calendar.JDateChooser dccFechaAlta;
+    private com.toedter.calendar.JDateChooser dccFechaBaja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -470,20 +473,16 @@ public class ABMMaquina extends javax.swing.JFrame {
         txtTiempoProduccion.setText(String.valueOf(mp.getTiempoCapacidadProduccion()));
 
         if(mp.getFechaAlta()==null)
-            dccFechaAlta.setSelectedDate(null);
+            dccFechaAlta.setDate(null);
         else{
-            GregorianCalendar gc=new GregorianCalendar();
-            gc.setTime(mp.getFechaAlta());
-            dccFechaAlta.setSelectedDate(gc);
+            dccFechaAlta.setDate(mp.getFechaAlta());
         }
 
         if(mp.getFechaBaja()==null)
-            dccFechaBaja.setSelectedDate(null);
+            dccFechaBaja.setDate(null);
         else
         {
-            GregorianCalendar gcb=new GregorianCalendar();
-            gcb.setTime(mp.getFechaBaja());
-            dccFechaBaja.setSelectedDate(gcb);
+            dccFechaBaja.setDate(mp.getFechaBaja());
         }
         
         if(mp.getEstado()<1) Combo.setItemComboSeleccionado(cmbEstado, -1);
@@ -502,8 +501,8 @@ public class ABMMaquina extends javax.swing.JFrame {
         lblnroMaquina.setText("");;
         txtTiempoProduccion.setText("");
 
-        dccFechaAlta.setSelectedDate(null);
-        dccFechaBaja.setSelectedDate(null);
+        dccFechaAlta.setDate(null);
+        dccFechaBaja.setDate(null);
 
         cmbUnidadMedida.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
