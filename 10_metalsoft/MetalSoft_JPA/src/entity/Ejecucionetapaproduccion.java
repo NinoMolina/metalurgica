@@ -70,26 +70,17 @@ public class Ejecucionetapaproduccion implements Serializable {
     private String observaciones;
     @Basic(optional = false)
     @Column(name = "nroejecucion")
-    private long nroejecucion;
+    private Long nroejecucion;
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
-    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
-    @ManyToOne
-    private Empleado empleado1;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecetapaprod estado;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadoejecetapaprod estado1;
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
     @ManyToOne(optional = false)
     private Etapadeproduccion idetapaproduccion;
-    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
-    @ManyToOne(optional = false)
-    private Etapadeproduccion idetapaproduccion1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapa")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapaproduccion")
     private Set<Detalleejecucionplanificacion> detalleejecucionplanificacionSet;
 
     public Ejecucionetapaproduccion() {
@@ -176,11 +167,11 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public long getNroejecucion() {
+    public Long getNroejecucion() {
         return nroejecucion;
     }
 
-    public void setNroejecucion(long nroejecucion) {
+    public void setNroejecucion(Long nroejecucion) {
         this.nroejecucion = nroejecucion;
     }
 
@@ -192,13 +183,6 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.empleado = empleado;
     }
 
-    public Empleado getEmpleado1() {
-        return empleado1;
-    }
-
-    public void setEmpleado1(Empleado empleado1) {
-        this.empleado1 = empleado1;
-    }
 
     public Estadoejecetapaprod getEstado() {
         return estado;
@@ -208,13 +192,6 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.estado = estado;
     }
 
-    public Estadoejecetapaprod getEstado1() {
-        return estado1;
-    }
-
-    public void setEstado1(Estadoejecetapaprod estado1) {
-        this.estado1 = estado1;
-    }
 
     public Etapadeproduccion getIdetapaproduccion() {
         return idetapaproduccion;
@@ -224,13 +201,6 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.idetapaproduccion = idetapaproduccion;
     }
 
-    public Etapadeproduccion getIdetapaproduccion1() {
-        return idetapaproduccion1;
-    }
-
-    public void setIdetapaproduccion1(Etapadeproduccion idetapaproduccion1) {
-        this.idetapaproduccion1 = idetapaproduccion1;
-    }
 
     public Set<Detalleejecucionplanificacion> getDetalleejecucionplanificacionSet() {
         return detalleejecucionplanificacionSet;

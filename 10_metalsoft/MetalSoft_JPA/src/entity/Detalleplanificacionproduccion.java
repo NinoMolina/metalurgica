@@ -10,11 +10,14 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,14 +34,17 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detalleplanificacionproduccion.findByFechainicio", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.fechainicio = :fechainicio"),
     @NamedQuery(name = "Detalleplanificacionproduccion.findByHorainicio", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.horainicio = :horainicio"),
     @NamedQuery(name = "Detalleplanificacionproduccion.findByFechafin", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.fechafin = :fechafin"),
-    @NamedQuery(name = "Detalleplanificacionproduccion.findByHorafin", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.horafin = :horafin"),
-    @NamedQuery(name = "Detalleplanificacionproduccion.findByOrden", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.orden = :orden")})
+    @NamedQuery(name = "Detalleplanificacionproduccion.findByHorafin", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.horafin = :horafin")})
 public class Detalleplanificacionproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name="detalleplanificacionproduccion_id_seq", sequenceName="detalleplanificacionproduccion_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="detalleplanificacionproduccion_id_seq")
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name="orden")
+    private int orden;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.DATE)
     private Date fechainicio;
@@ -51,44 +57,27 @@ public class Detalleplanificacionproduccion implements Serializable {
     @Column(name = "horafin")
     @Temporal(TemporalType.TIME)
     private Date horafin;
-    @Column(name = "orden")
-    private Integer orden;
     @JoinColumn(name = "iddetalleejecucionplanificacion", referencedColumnName = "id")
     @ManyToOne
     private Detalleejecucionplanificacion iddetalleejecucionplanificacion;
-    @JoinColumn(name = "iddetalleejecucionplanificacion", referencedColumnName = "id")
-    @ManyToOne
-    private Detalleejecucionplanificacion iddetalleejecucionplanificacion1;
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
-    @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
-    @ManyToOne
-    private Empleado idempleado1;
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion idetapaproduccion;
-    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
-    @ManyToOne
-    private Etapadeproduccion idetapaproduccion1;
     @JoinColumn(name = "idmaquina", referencedColumnName = "idmaquina")
     @ManyToOne
     private Maquina idmaquina;
-    @JoinColumn(name = "idmaquina", referencedColumnName = "idmaquina")
-    @ManyToOne
-    private Maquina idmaquina1;
     @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
     @ManyToOne
     private Pieza idpieza;
-    @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
-    private Pieza idpieza1;
+    private Producto idproducto;
     @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
     @ManyToOne(optional = false)
     private Planificacionproduccion idplanificacionproduccion;
-    @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
-    @ManyToOne(optional = false)
-    private Planificacionproduccion idplanificacionproduccion1;
 
     public Detalleplanificacionproduccion() {
     }
@@ -104,6 +93,16 @@ public class Detalleplanificacionproduccion implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
+
 
     public Date getFechainicio() {
         return fechainicio;
@@ -137,28 +136,12 @@ public class Detalleplanificacionproduccion implements Serializable {
         this.horafin = horafin;
     }
 
-    public Integer getOrden() {
-        return orden;
-    }
-
-    public void setOrden(Integer orden) {
-        this.orden = orden;
-    }
-
     public Detalleejecucionplanificacion getIddetalleejecucionplanificacion() {
         return iddetalleejecucionplanificacion;
     }
 
     public void setIddetalleejecucionplanificacion(Detalleejecucionplanificacion iddetalleejecucionplanificacion) {
         this.iddetalleejecucionplanificacion = iddetalleejecucionplanificacion;
-    }
-
-    public Detalleejecucionplanificacion getIddetalleejecucionplanificacion1() {
-        return iddetalleejecucionplanificacion1;
-    }
-
-    public void setIddetalleejecucionplanificacion1(Detalleejecucionplanificacion iddetalleejecucionplanificacion1) {
-        this.iddetalleejecucionplanificacion1 = iddetalleejecucionplanificacion1;
     }
 
     public Empleado getIdempleado() {
@@ -169,28 +152,12 @@ public class Detalleplanificacionproduccion implements Serializable {
         this.idempleado = idempleado;
     }
 
-    public Empleado getIdempleado1() {
-        return idempleado1;
-    }
-
-    public void setIdempleado1(Empleado idempleado1) {
-        this.idempleado1 = idempleado1;
-    }
-
     public Etapadeproduccion getIdetapaproduccion() {
         return idetapaproduccion;
     }
 
     public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
         this.idetapaproduccion = idetapaproduccion;
-    }
-
-    public Etapadeproduccion getIdetapaproduccion1() {
-        return idetapaproduccion1;
-    }
-
-    public void setIdetapaproduccion1(Etapadeproduccion idetapaproduccion1) {
-        this.idetapaproduccion1 = idetapaproduccion1;
     }
 
     public Maquina getIdmaquina() {
@@ -201,14 +168,6 @@ public class Detalleplanificacionproduccion implements Serializable {
         this.idmaquina = idmaquina;
     }
 
-    public Maquina getIdmaquina1() {
-        return idmaquina1;
-    }
-
-    public void setIdmaquina1(Maquina idmaquina1) {
-        this.idmaquina1 = idmaquina1;
-    }
-
     public Pieza getIdpieza() {
         return idpieza;
     }
@@ -217,12 +176,12 @@ public class Detalleplanificacionproduccion implements Serializable {
         this.idpieza = idpieza;
     }
 
-    public Pieza getIdpieza1() {
-        return idpieza1;
+    public Producto getIdproducto() {
+        return idproducto;
     }
 
-    public void setIdpieza1(Pieza idpieza1) {
-        this.idpieza1 = idpieza1;
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
     }
 
     public Planificacionproduccion getIdplanificacionproduccion() {
@@ -231,14 +190,6 @@ public class Detalleplanificacionproduccion implements Serializable {
 
     public void setIdplanificacionproduccion(Planificacionproduccion idplanificacionproduccion) {
         this.idplanificacionproduccion = idplanificacionproduccion;
-    }
-
-    public Planificacionproduccion getIdplanificacionproduccion1() {
-        return idplanificacionproduccion1;
-    }
-
-    public void setIdplanificacionproduccion1(Planificacionproduccion idplanificacionproduccion1) {
-        this.idplanificacionproduccion1 = idplanificacionproduccion1;
     }
 
     @Override
@@ -256,6 +207,9 @@ public class Detalleplanificacionproduccion implements Serializable {
         }
         Detalleplanificacionproduccion other = (Detalleplanificacionproduccion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        if(this.id==null && other.id==null){
             return false;
         }
         return true;

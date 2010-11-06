@@ -36,7 +36,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Etapadeproduccion.findByNombre", query = "SELECT e FROM Etapadeproduccion e WHERE e.nombre = :nombre"),
     @NamedQuery(name = "Etapadeproduccion.findByHorasmaquina", query = "SELECT e FROM Etapadeproduccion e WHERE e.horasmaquina = :horasmaquina"),
     @NamedQuery(name = "Etapadeproduccion.findByHorashombre", query = "SELECT e FROM Etapadeproduccion e WHERE e.horashombre = :horashombre"),
-    @NamedQuery(name = "Etapadeproduccion.findByMaquina", query = "SELECT e FROM Etapadeproduccion e WHERE e.maquina = :maquina"),
     @NamedQuery(name = "Etapadeproduccion.findByDuracionestimada", query = "SELECT e FROM Etapadeproduccion e WHERE e.duracionestimada = :duracionestimada"),
     @NamedQuery(name = "Etapadeproduccion.findByFechacreacion", query = "SELECT e FROM Etapadeproduccion e WHERE e.fechacreacion = :fechacreacion")})
 public class Etapadeproduccion implements Serializable {
@@ -55,8 +54,6 @@ public class Etapadeproduccion implements Serializable {
     @Column(name = "horashombre")
     @Temporal(TemporalType.TIME)
     private Date horashombre;
-    @Column(name = "maquina")
-    private BigInteger maquina;
     @Column(name = "duracionestimada")
     @Temporal(TemporalType.TIME)
     private Date duracionestimada;
@@ -65,34 +62,22 @@ public class Etapadeproduccion implements Serializable {
     private Date fechacreacion;
     @OneToMany(mappedBy = "idetapaproduccion")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @OneToMany(mappedBy = "idetapaproduccion1")
-    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idetapaproduccion")
     private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idetapaproduccion1")
-    private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion")
     private Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion1")
-    private Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet1;
     @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidaddemedida;
-    @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
+    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
     @ManyToOne
-    private Unidadmedida unidaddemedida1;
+    private Maquina maquina;
     @OneToMany(mappedBy = "idetapa")
     private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet;
-    @OneToMany(mappedBy = "idetapa1")
-    private Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1;
     @OneToMany(mappedBy = "idetapaproduccion")
     private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet;
-    @OneToMany(mappedBy = "idetapaproduccion1")
-    private Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1;
     @OneToMany(mappedBy = "proceso")
     private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet;
-    @OneToMany(mappedBy = "proceso1")
-    private Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1;
 
     public Etapadeproduccion() {
     }
@@ -141,13 +126,14 @@ public class Etapadeproduccion implements Serializable {
         this.horashombre = horashombre;
     }
 
-    public BigInteger getMaquina() {
+    public Maquina getMaquina() {
         return maquina;
     }
 
-    public void setMaquina(BigInteger maquina) {
+    public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
     }
+
 
     public Date getDuracionestimada() {
         return duracionestimada;
@@ -173,13 +159,7 @@ public class Etapadeproduccion implements Serializable {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
     }
 
-    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
-        return detalleplanificacionproduccionSet1;
-    }
-
-    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
-        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
-    }
+    
 
     public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet() {
         return ejecucionetapaproduccionSet;
@@ -189,13 +169,7 @@ public class Etapadeproduccion implements Serializable {
         this.ejecucionetapaproduccionSet = ejecucionetapaproduccionSet;
     }
 
-    public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet1() {
-        return ejecucionetapaproduccionSet1;
-    }
-
-    public void setEjecucionetapaproduccionSet1(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1) {
-        this.ejecucionetapaproduccionSet1 = ejecucionetapaproduccionSet1;
-    }
+   
 
     public Set<Piezaxetapadeproduccion> getPiezaxetapadeproduccionSet() {
         return piezaxetapadeproduccionSet;
@@ -205,13 +179,7 @@ public class Etapadeproduccion implements Serializable {
         this.piezaxetapadeproduccionSet = piezaxetapadeproduccionSet;
     }
 
-    public Set<Piezaxetapadeproduccion> getPiezaxetapadeproduccionSet1() {
-        return piezaxetapadeproduccionSet1;
-    }
-
-    public void setPiezaxetapadeproduccionSet1(Set<Piezaxetapadeproduccion> piezaxetapadeproduccionSet1) {
-        this.piezaxetapadeproduccionSet1 = piezaxetapadeproduccionSet1;
-    }
+    
 
     public Unidadmedida getUnidaddemedida() {
         return unidaddemedida;
@@ -221,13 +189,7 @@ public class Etapadeproduccion implements Serializable {
         this.unidaddemedida = unidaddemedida;
     }
 
-    public Unidadmedida getUnidaddemedida1() {
-        return unidaddemedida1;
-    }
-
-    public void setUnidaddemedida1(Unidadmedida unidaddemedida1) {
-        this.unidaddemedida1 = unidaddemedida1;
-    }
+   
 
     public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet() {
         return detallepiezapresupuestoSet;
@@ -237,14 +199,7 @@ public class Etapadeproduccion implements Serializable {
         this.detallepiezapresupuestoSet = detallepiezapresupuestoSet;
     }
 
-    public Set<Detallepiezapresupuesto> getDetallepiezapresupuestoSet1() {
-        return detallepiezapresupuestoSet1;
-    }
-
-    public void setDetallepiezapresupuestoSet1(Set<Detallepiezapresupuesto> detallepiezapresupuestoSet1) {
-        this.detallepiezapresupuestoSet1 = detallepiezapresupuestoSet1;
-    }
-
+   
     public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet() {
         return detalleplanprocedimientosSet;
     }
@@ -253,14 +208,7 @@ public class Etapadeproduccion implements Serializable {
         this.detalleplanprocedimientosSet = detalleplanprocedimientosSet;
     }
 
-    public Set<Detalleplanprocedimientos> getDetalleplanprocedimientosSet1() {
-        return detalleplanprocedimientosSet1;
-    }
-
-    public void setDetalleplanprocedimientosSet1(Set<Detalleplanprocedimientos> detalleplanprocedimientosSet1) {
-        this.detalleplanprocedimientosSet1 = detalleplanprocedimientosSet1;
-    }
-
+   
     public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet() {
         return detalletrabajotercerizadoSet;
     }
@@ -269,13 +217,7 @@ public class Etapadeproduccion implements Serializable {
         this.detalletrabajotercerizadoSet = detalletrabajotercerizadoSet;
     }
 
-    public Set<Detalletrabajotercerizado> getDetalletrabajotercerizadoSet1() {
-        return detalletrabajotercerizadoSet1;
-    }
-
-    public void setDetalletrabajotercerizadoSet1(Set<Detalletrabajotercerizado> detalletrabajotercerizadoSet1) {
-        this.detalletrabajotercerizadoSet1 = detalletrabajotercerizadoSet1;
-    }
+   
 
     @Override
     public int hashCode() {

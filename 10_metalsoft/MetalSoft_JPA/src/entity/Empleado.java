@@ -15,6 +15,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,7 +50,7 @@ public class Empleado implements Serializable {
     @Column(name = "idempleado")
     private Long idempleado;
     @Column(name = "legajo")
-    private BigInteger legajo;
+    private Long legajo;
     @Column(name = "fechaingreso")
     @Temporal(TemporalType.DATE)
     private Date fechaingreso;
@@ -67,60 +69,36 @@ public class Empleado implements Serializable {
     private Date fechaegreso;
     @Column(name = "motivoegreso")
     private String motivoegreso;
+    @JoinTable(name = "empleadoxturno", joinColumns = {
+        @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")}, inverseJoinColumns = {
+        @JoinColumn(name = "idturno", referencedColumnName = "idturno")})
+    @ManyToMany
+    private Set<Turno> turnoSet;
     @OneToMany(mappedBy = "idempleado")
     private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet;
-    @OneToMany(mappedBy = "idempleado1")
-    private Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
-    private Set<Empleadoxturno> empleadoxturnoSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado1")
-    private Set<Empleadoxturno> empleadoxturnoSet1;
     @OneToMany(mappedBy = "empleado")
     private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet;
-    @OneToMany(mappedBy = "empleado1")
-    private Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1;
     @OneToMany(mappedBy = "empleado")
     private Set<Mantenimientocorrectivo> mantenimientocorrectivoSet;
-    @OneToMany(mappedBy = "empleado1")
-    private Set<Mantenimientocorrectivo> mantenimientocorrectivoSet1;
     @OneToMany(mappedBy = "idempleado")
     private Set<Disponibilidadhoraria> disponibilidadhorariaSet;
-    @OneToMany(mappedBy = "idempleado1")
-    private Set<Disponibilidadhoraria> disponibilidadhorariaSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado1")
     private Set<Asistencia> asistenciaSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado2")
-    private Set<Asistencia> asistenciaSet1;
     @JoinColumn(name = "cargo", referencedColumnName = "idcargo")
     @ManyToOne
     private Cargo cargo;
-    @JoinColumn(name = "cargo", referencedColumnName = "idcargo")
-    @ManyToOne
-    private Cargo cargo1;
     @JoinColumn(name = "categoria", referencedColumnName = "idcategoria")
     @ManyToOne
     private Categoria categoria;
-    @JoinColumn(name = "categoria", referencedColumnName = "idcategoria")
-    @ManyToOne
-    private Categoria categoria1;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio1;
     @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
     @ManyToOne
     private Tipodocumento tipodocumento;
-    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
-    @ManyToOne
-    private Tipodocumento tipodocumento1;
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
-    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
-    @ManyToOne
-    private Usuario usuario1;
 
     public Empleado() {
     }
@@ -137,11 +115,11 @@ public class Empleado implements Serializable {
         this.idempleado = idempleado;
     }
 
-    public BigInteger getLegajo() {
+    public Long getLegajo() {
         return legajo;
     }
 
-    public void setLegajo(BigInteger legajo) {
+    public void setLegajo(Long legajo) {
         this.legajo = legajo;
     }
 
@@ -209,36 +187,20 @@ public class Empleado implements Serializable {
         this.motivoegreso = motivoegreso;
     }
 
+    public Set<Turno> getTurnoSet() {
+        return turnoSet;
+    }
+
+    public void setTurnoSet(Set<Turno> turnoSet) {
+        this.turnoSet = turnoSet;
+    }
+
     public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet() {
         return detalleplanificacionproduccionSet;
     }
 
     public void setDetalleplanificacionproduccionSet(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet) {
         this.detalleplanificacionproduccionSet = detalleplanificacionproduccionSet;
-    }
-
-    public Set<Detalleplanificacionproduccion> getDetalleplanificacionproduccionSet1() {
-        return detalleplanificacionproduccionSet1;
-    }
-
-    public void setDetalleplanificacionproduccionSet1(Set<Detalleplanificacionproduccion> detalleplanificacionproduccionSet1) {
-        this.detalleplanificacionproduccionSet1 = detalleplanificacionproduccionSet1;
-    }
-
-    public Set<Empleadoxturno> getEmpleadoxturnoSet() {
-        return empleadoxturnoSet;
-    }
-
-    public void setEmpleadoxturnoSet(Set<Empleadoxturno> empleadoxturnoSet) {
-        this.empleadoxturnoSet = empleadoxturnoSet;
-    }
-
-    public Set<Empleadoxturno> getEmpleadoxturnoSet1() {
-        return empleadoxturnoSet1;
-    }
-
-    public void setEmpleadoxturnoSet1(Set<Empleadoxturno> empleadoxturnoSet1) {
-        this.empleadoxturnoSet1 = empleadoxturnoSet1;
     }
 
     public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet() {
@@ -249,28 +211,12 @@ public class Empleado implements Serializable {
         this.ejecucionetapaproduccionSet = ejecucionetapaproduccionSet;
     }
 
-    public Set<Ejecucionetapaproduccion> getEjecucionetapaproduccionSet1() {
-        return ejecucionetapaproduccionSet1;
-    }
-
-    public void setEjecucionetapaproduccionSet1(Set<Ejecucionetapaproduccion> ejecucionetapaproduccionSet1) {
-        this.ejecucionetapaproduccionSet1 = ejecucionetapaproduccionSet1;
-    }
-
     public Set<Mantenimientocorrectivo> getMantenimientocorrectivoSet() {
         return mantenimientocorrectivoSet;
     }
 
     public void setMantenimientocorrectivoSet(Set<Mantenimientocorrectivo> mantenimientocorrectivoSet) {
         this.mantenimientocorrectivoSet = mantenimientocorrectivoSet;
-    }
-
-    public Set<Mantenimientocorrectivo> getMantenimientocorrectivoSet1() {
-        return mantenimientocorrectivoSet1;
-    }
-
-    public void setMantenimientocorrectivoSet1(Set<Mantenimientocorrectivo> mantenimientocorrectivoSet1) {
-        this.mantenimientocorrectivoSet1 = mantenimientocorrectivoSet1;
     }
 
     public Set<Disponibilidadhoraria> getDisponibilidadhorariaSet() {
@@ -281,28 +227,12 @@ public class Empleado implements Serializable {
         this.disponibilidadhorariaSet = disponibilidadhorariaSet;
     }
 
-    public Set<Disponibilidadhoraria> getDisponibilidadhorariaSet1() {
-        return disponibilidadhorariaSet1;
-    }
-
-    public void setDisponibilidadhorariaSet1(Set<Disponibilidadhoraria> disponibilidadhorariaSet1) {
-        this.disponibilidadhorariaSet1 = disponibilidadhorariaSet1;
-    }
-
     public Set<Asistencia> getAsistenciaSet() {
         return asistenciaSet;
     }
 
     public void setAsistenciaSet(Set<Asistencia> asistenciaSet) {
         this.asistenciaSet = asistenciaSet;
-    }
-
-    public Set<Asistencia> getAsistenciaSet1() {
-        return asistenciaSet1;
-    }
-
-    public void setAsistenciaSet1(Set<Asistencia> asistenciaSet1) {
-        this.asistenciaSet1 = asistenciaSet1;
     }
 
     public Cargo getCargo() {
@@ -313,28 +243,12 @@ public class Empleado implements Serializable {
         this.cargo = cargo;
     }
 
-    public Cargo getCargo1() {
-        return cargo1;
-    }
-
-    public void setCargo1(Cargo cargo1) {
-        this.cargo1 = cargo1;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public Categoria getCategoria1() {
-        return categoria1;
-    }
-
-    public void setCategoria1(Categoria categoria1) {
-        this.categoria1 = categoria1;
     }
 
     public Domicilio getDomicilio() {
@@ -345,14 +259,6 @@ public class Empleado implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public Domicilio getDomicilio1() {
-        return domicilio1;
-    }
-
-    public void setDomicilio1(Domicilio domicilio1) {
-        this.domicilio1 = domicilio1;
-    }
-
     public Tipodocumento getTipodocumento() {
         return tipodocumento;
     }
@@ -361,28 +267,12 @@ public class Empleado implements Serializable {
         this.tipodocumento = tipodocumento;
     }
 
-    public Tipodocumento getTipodocumento1() {
-        return tipodocumento1;
-    }
-
-    public void setTipodocumento1(Tipodocumento tipodocumento1) {
-        this.tipodocumento1 = tipodocumento1;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public Usuario getUsuario1() {
-        return usuario1;
-    }
-
-    public void setUsuario1(Usuario usuario1) {
-        this.usuario1 = usuario1;
     }
 
     @Override
@@ -407,7 +297,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Empleado[idempleado=" + idempleado + "]";
+        return getNombre()+" "+getApellido();
     }
 
 }
