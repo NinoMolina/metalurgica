@@ -8,7 +8,6 @@
  *
  * Created on 27/06/2010, 20:09:48
  */
-
 package metalsoft.presentacion;
 
 import java.util.logging.Level;
@@ -21,15 +20,15 @@ import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.util.Combo;
 
-
 /**
  *
  * @author Vicky
  */
 public class ABMPieza extends javax.swing.JFrame {
+
     private GestorPieza gestorPieza;
     private metalsoft.datos.dbobject.PiezaDB piezaDB;
-    private long idPieza=-1;
+    private long idPieza = -1;
 
     public long getIdPieza() {
         return idPieza;
@@ -86,34 +85,177 @@ public class ABMPieza extends javax.swing.JFrame {
     public void setPieza(metalsoft.datos.dbobject.PiezaDB pieza) {
         this.piezaDB = pieza;
     }
+
     /** Creates new form ABMPieza */
     public ABMPieza() {
         initComponents();
-        gestorPieza=new GestorPieza();
+        addListeners();
+        gestorPieza = new GestorPieza();
         cargarComboMateriaPrima();
         cargarComboMatriz();
         cargarComboTipoMaterial();
         idpieza.setVisible(false);
         idpieza.setText("");
     }
-    public void cargarComboMateriaPrima()
-    {
+
+    private void addListeners() {
+        addListenerBtnNuevo();
+        addListenerBtnGuardar();
+        addListenerBtnModificar();
+        addListenerBtnBuscar();
+        addListenerBtnSalir();
+        addListenerBtnEliminar();
+    }
+
+    private void addListenerBtnNuevo() {
+        botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnEliminar() {
+        botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnGuardar() {
+        botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnModificar() {
+        botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnBuscar() {
+        botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnSalir() {
+        botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        limpiar();
+        Combo.setItemComboSeleccionado(cmbMatriz, -1);
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        long idTipoMaterial = Long.parseLong(((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId());
+        long idMateriaPrima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
+        long idMatriz = Long.parseLong(((ItemCombo) cmbMatriz.getSelectedItem()).getId());
+        Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
+        Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
+        Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
+        gestorPieza.guardar(txtNombre.getText(), alto, ancho, largo, idTipoMaterial, idMateriaPrima, idMatriz);
+
+        JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
+        limpiar();
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            // TODO add your handling code here:
+            ABMPieza_Buscar frmBuscarPieza = null;
+            frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
+            frmBuscarPieza.setGestor(gestorPieza);
+            frmBuscarPieza.setVentana(this);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        if (idpieza.getText().compareTo("") != 0) {
+            String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
+            String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
+            String indexMatriz = ((ItemCombo) cmbMatriz.getSelectedItem()).getId();
+            Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
+            Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
+            Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
+            boolean result = gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
+            if (result == true) {
+                JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+        }
+        limpiar();
+    }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        if (idpieza.getText().compareTo("") != 0) {
+            boolean result = gestorPieza.eliminarPieza(Long.parseLong(idpieza.getText()));
+            if (result == true) {
+                JOptionPane.showMessageDialog(rootPane, "Se ha eliminado la pieza");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "La pieza NO ha podido ser eliminada");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+        }
+        limpiar();
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        dispose();
+    }
+
+    public void cargarComboMateriaPrima() {
         gestorPieza.obtenerMateriaPrima(cmbMateriaPrima);
     }
-    public void cargarComboMatriz()
-    {
+
+    public void cargarComboMatriz() {
         gestorPieza.obtenerMatriz(cmbMatriz);
     }
-    public void cargarComboTipoMaterial()
-    {
+
+    public void cargarComboTipoMaterial() {
         gestorPieza.obtenerTipoMaterial(cmbTipoMaterial);
     }
-    public void piezaSeleccionada()
-    {
-        piezaDB=gestorPieza.buscarPieza(idPieza);
+
+    public void piezaSeleccionada() {
+        piezaDB = gestorPieza.buscarPieza(idPieza);
         mostrarDatosProducto();
-        
+
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -135,12 +277,7 @@ public class ABMPieza extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         dimensiones1 = new metalsoft.beans.Dimensiones();
         idpieza = new javax.swing.JLabel();
-        btnNuevo = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -169,11 +306,10 @@ public class ABMPieza extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
                 .add(dimensiones1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(4, 4, 4)
                 .add(idpieza)
-                .addContainerGap())
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -191,25 +327,25 @@ public class ABMPieza extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel7)
-                            .add(jLabel8))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(cmbMateriaPrima, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(cmbTipoMaterial, 0, 314, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 364, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jLabel11)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmbMatriz, 0, 371, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .add(cmbMatriz, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
+                            .add(jLabel1)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(txtNombre))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
+                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jLabel7)
+                                .add(jLabel8))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(cmbMateriaPrima, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(cmbTipoMaterial, 0, 160, Short.MAX_VALUE))))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -238,95 +374,29 @@ public class ABMPieza extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createSequentialGroup()
-                        .add(btnNuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnModificar)
-                        .add(5, 5, 5)
-                        .add(btnEliminar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnGuardar)
-                        .add(9, 9, 9)
-                        .add(btnSalir)))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(botones, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 380, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(btnModificar)
-                    .add(btnEliminar)
-                    .add(btnNuevo)
-                    .add(btnBuscar)
-                    .add(btnGuardar)
-                    .add(btnSalir))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(botones, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
-        limpiar();
-        Combo.setItemComboSeleccionado(cmbMatriz, -1);
-}//GEN-LAST:event_btnNuevoActionPerformed
-    public void limpiar()
-    {
+    public void limpiar() {
         cmbMateriaPrima.setSelectedIndex(-1);
         cmbMatriz.setSelectedIndex(-1);
         cmbTipoMaterial.setSelectedIndex(-1);
@@ -336,80 +406,16 @@ public class ABMPieza extends javax.swing.JFrame {
         txtNombre.setText("");
         idpieza.setText("");
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        long idTipoMaterial=Long.parseLong(((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId());
-        long idMateriaPrima=Long.parseLong(((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId());
-        long idMatriz=Long.parseLong(((ItemCombo)cmbMatriz.getSelectedItem()).getId());
-        Double alto=Double.parseDouble(dimensiones1.getTxtAlto().getText());
-        Double ancho=Double.parseDouble(dimensiones1.getTxtAncho().getText());
-        Double largo=Double.parseDouble(dimensiones1.getTxtLargo().getText());
-        gestorPieza.guardar(txtNombre.getText(),alto,ancho,largo, idTipoMaterial, idMateriaPrima, idMatriz);
-
-        JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
-        limpiar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
     private void cmbMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMatrizActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbMatrizActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try {
-            // TODO add your handling code here:
-            ABMPieza_Buscar frmBuscarPieza = null;
-            frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
-            frmBuscarPieza.setGestor(gestorPieza);
-            frmBuscarPieza.setVentana(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-        if(idpieza.getText().compareTo("")!=0)
-        {
-            String indexTipoMaterial=((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId();
-            String indexMateriaPrima=((ItemCombo)cmbMateriaPrima.getSelectedItem()).getId();
-            String indexMatriz=((ItemCombo)cmbMatriz.getSelectedItem()).getId();
-            Double alto=Double.parseDouble(dimensiones1.getTxtAlto().getText());
-            Double ancho=Double.parseDouble(dimensiones1.getTxtAncho().getText());
-            Double largo=Double.parseDouble(dimensiones1.getTxtLargo().getText());
-            boolean result=gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
-            if(result==true) JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
-            else JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
-        }
-        else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
-        limpiar();
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if(idpieza.getText().compareTo("")!=0)
-        {
-            boolean result=gestorPieza.eliminarPieza(Long.parseLong(idpieza.getText()));
-            if(result==true) JOptionPane.showMessageDialog(rootPane, "Se ha eliminado la pieza");
-            else JOptionPane.showMessageDialog(rootPane, "La pieza NO ha podido ser eliminada");
-        }
-        else JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
-        limpiar();
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMPieza().setVisible(true);
             }
@@ -417,12 +423,7 @@ public class ABMPieza extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnSalir;
+    private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbMatriz;
     private javax.swing.JComboBox cmbTipoMaterial;
@@ -447,7 +448,6 @@ public class ABMPieza extends javax.swing.JFrame {
         Combo.setItemComboSeleccionado(cmbTipoMaterial, piezaDB.getTipomaterial());
         Combo.setItemComboSeleccionado(cmbMateriaPrima, piezaDB.getMateriaprima());
         Combo.setItemComboSeleccionado(cmbMatriz, piezaDB.getMatriz());
-        
-    }
 
+    }
 }
