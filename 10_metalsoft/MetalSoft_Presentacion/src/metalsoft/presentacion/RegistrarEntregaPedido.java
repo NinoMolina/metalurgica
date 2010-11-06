@@ -89,8 +89,6 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         /* On dit de surligner une ligne sur deux */
         tblDetallePedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
-
-
     }
     private void buscarPedidosClienteEnArmado() {
         filasPedidos = gestor.buscarPedidosClienteEnArmado(idCliente);
@@ -283,13 +281,19 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
 
         jLabel11.setText("Nro.Pedido:");
 
+        txtNroPedidoCliente.setEnabled(false);
+
         jLabel9.setText("Prioridad:");
 
         jLabel10.setText("Estado:");
 
         jLabel12.setText("Nro. Factura:");
 
+        txtNroFactura.setEnabled(false);
+
         jLabel13.setText("Fecha Req de Cotización:");
+
+        dccFechaReqCotizacion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -362,6 +366,16 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         jLabel15.setText("Fecha de Cancelación:");
 
         jLabel16.setText("Fecha de Entrega Real:");
+
+        dccConfirmacionPedido.setEnabled(false);
+
+        dccEntregaEstipulada.setEnabled(false);
+
+        dccPedidoCotizacion.setEnabled(false);
+
+        dccEntregaReal.setEnabled(false);
+
+        dccCancelacion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
