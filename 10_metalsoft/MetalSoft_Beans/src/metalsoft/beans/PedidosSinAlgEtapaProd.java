@@ -11,6 +11,9 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
+import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 
 /**
@@ -24,6 +27,18 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
     /** Creates new customizer PedidosSinAlgEtapaProd */
     public PedidosSinAlgEtapaProd() {
         initComponents();
+        setTabla();
+    }
+
+    private void setTabla(){
+        tblPedidos.setModel(new PedidoTableModel());
+        tblPedidos.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidos.setShowHorizontalLines(false);
+        tblPedidos.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblPedidos.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
     public void setObject(Object bean) {
@@ -44,18 +59,18 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
     }
 
     public JButton getBtnSeleccionarPedido() {
-        return btnSeleccionarPedido;
+        return btnSeleccionar.getBtnSeleccionar();
     }
 
     public void setBtnSeleccionarPedido(JButton btnSeleccionarPedido) {
-        this.btnSeleccionarPedido = btnSeleccionarPedido;
+        this.btnSeleccionar.setBtnSeleccionar(btnSeleccionarPedido);
     }
 
     public JTable getTblPedidos() {
         return tblPedidos;
     }
 
-    public void setTblPedidos(JTable tblPedidos) {
+    public void setTblPedidos(JXTable tblPedidos) {
         this.tblPedidos = tblPedidos;
     }
 
@@ -64,7 +79,7 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        btnSeleccionarPedido.setEnabled(enabled);
+        btnSeleccionar.setEnabled(enabled);
         tblPedidos.setEnabled(enabled);
     }
 
@@ -77,37 +92,35 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblPedidos = new javax.swing.JTable();
-        btnSeleccionarPedido = new javax.swing.JButton();
+        btnSeleccionar = new metalsoft.beans.BtnSeleccionar();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPedidos = new org.jdesktop.swingx.JXTable();
 
-        tblPedidos.setModel(new PedidoTableModel());
-        tblPedidos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane2.setViewportView(tblPedidos);
-
-        btnSeleccionarPedido.setText("Seleccionar");
+        jScrollPane1.setViewportView(tblPedidos);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, btnSeleccionarPedido)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .add(btnSeleccionar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnSeleccionarPedido))
+                .add(btnSeleccionar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSeleccionarPedido;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblPedidos;
+    private metalsoft.beans.BtnSeleccionar btnSeleccionar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private org.jdesktop.swingx.JXTable tblPedidos;
     // End of variables declaration//GEN-END:variables
 
     class PedidoTableModel extends AbstractTableModel
