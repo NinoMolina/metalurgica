@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
 import metalsoft.util.Combo;
+import metalsoft.util.EnumOpcionesABM;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ABMPieza extends javax.swing.JFrame {
     private GestorPieza gestorPieza;
     private metalsoft.datos.dbobject.PiezaDB piezaDB;
     private long idPieza = -1;
+    private EnumOpcionesABM opcion;
 
     public long getIdPieza() {
         return idPieza;
@@ -96,6 +98,7 @@ public class ABMPieza extends javax.swing.JFrame {
         cargarComboTipoMaterial();
         idpieza.setVisible(false);
         idpieza.setText("");
+        setEnableComponents(false);
     }
 
     private void addListeners() {
@@ -163,22 +166,56 @@ public class ABMPieza extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        opcion = EnumOpcionesABM.NUEVO;
         limpiar();
+        setEnableComponents(true);
         Combo.setItemComboSeleccionado(cmbMatriz, -1);
+    }
+
+    public void setEnableComponents(boolean b) {
+        cmbMateriaPrima.setEnabled(b);
+        cmbMatriz.setEnabled(b);
+        cmbTipoMaterial.setEnabled(b);
+        dimensiones1.getTxtAlto().setEnabled(b);
+        dimensiones1.getTxtAncho().setEnabled(b);
+        dimensiones1.getTxtLargo().setEnabled(b);
+        txtNombre.setEnabled(b);
+        idpieza.setEnabled(b);
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        long idTipoMaterial = Long.parseLong(((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId());
-        long idMateriaPrima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
-        long idMatriz = Long.parseLong(((ItemCombo) cmbMatriz.getSelectedItem()).getId());
-        Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
-        Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
-        Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
-        gestorPieza.guardar(txtNombre.getText(), alto, ancho, largo, idTipoMaterial, idMateriaPrima, idMatriz);
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            long idTipoMaterial = Long.parseLong(((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId());
+            long idMateriaPrima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
+            long idMatriz = Long.parseLong(((ItemCombo) cmbMatriz.getSelectedItem()).getId());
+            Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
+            Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
+            Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
+            gestorPieza.guardar(txtNombre.getText(), alto, ancho, largo, idTipoMaterial, idMateriaPrima, idMatriz);
 
-        JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
-        limpiar();
+            JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");            
+        }
+
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
+            if (idpieza.getText().compareTo("") != 0) {
+                String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
+                String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
+                String indexMatriz = ((ItemCombo) cmbMatriz.getSelectedItem()).getId();
+                Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
+                Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
+                Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
+                boolean result = gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
+                if (result == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
+            }
+        }
+
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,27 +237,13 @@ public class ABMPieza extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if (idpieza.getText().compareTo("") != 0) {
-            String indexTipoMaterial = ((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId();
-            String indexMateriaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId();
-            String indexMatriz = ((ItemCombo) cmbMatriz.getSelectedItem()).getId();
-            Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
-            Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
-            Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
-            boolean result = gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
-            if (result == true) {
-                JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un pieza primero (buscarla)");
-        }
-        limpiar();
+        opcion = EnumOpcionesABM.MODIFICAR;
+        setEnableComponents(true);
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        opcion = EnumOpcionesABM.ELIMINAR;
         if (idpieza.getText().compareTo("") != 0) {
             boolean result = gestorPieza.eliminarPieza(Long.parseLong(idpieza.getText()));
             if (result == true) {
@@ -396,6 +419,7 @@ public class ABMPieza extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     public void limpiar() {
         cmbMateriaPrima.setSelectedIndex(-1);
         cmbMatriz.setSelectedIndex(-1);
