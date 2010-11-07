@@ -483,16 +483,17 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         Detallempasignada dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
                         if (dmpa != null) {
                             idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
+                            idDetalleMPAsignada=dmpa.getId();
                         } else {
                             idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
                         }
-                        if (idDetalleMPAsignada > -1) {
+                        if (idDetalleMPAsignada > 0) {
                             for (int i = 0; i < piezasReales.length; i++) {
                                 gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada, cn);
                             }
                         }
                     }
-                    cn.commit();
+                    
                     if (result > -1 && cont > 0) {
                         if (gestor.mpEstaTodaAsignada(idPedido)) {
                             gestor.setEstadoMateriaPrimaAsignada(idPedido);
@@ -501,9 +502,11 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                             tblMatPrimaXPieza.updateUI();
                             limpiarCampos();
                         }
+                        cn.commit();
                         JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
 
                     } else {
+                        cn.rollback();
                         JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
                         btnAsignarMP.setEnabled(false);
                         limpiarCampos();
