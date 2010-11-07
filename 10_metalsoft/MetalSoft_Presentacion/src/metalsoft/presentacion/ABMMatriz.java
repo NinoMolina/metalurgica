@@ -41,6 +41,9 @@ public class ABMMatriz extends javax.swing.JFrame {
         gestor.buscarTipoMaterial(cmbTipoMaterial);
         gestor.buscarMateriaPrima(cmbMateriaPrima);
         setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListeners() {
@@ -111,6 +114,9 @@ public class ABMMatriz extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.NUEVO;
         limpiarCampos();
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     public void limpiarCampos() {
@@ -132,6 +138,9 @@ public class ABMMatriz extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +167,9 @@ public class ABMMatriz extends javax.swing.JFrame {
                 int id = gestor.guardarMatriz(Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
                 if (id > -1) {
                     JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
+                    botones.getBtnGuardar().setEnabled(false);
+                    botones.getBtnModificar().setEnabled(false);
+                    botones.getBtnEliminar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
                 }
@@ -184,13 +196,16 @@ public class ABMMatriz extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        opcion=EnumOpcionesABM.ELIMINAR;
+        opcion = EnumOpcionesABM.ELIMINAR;
 
         boolean ok = gestor.eliminarMatriz(matriz);
         setEnableComponents(false);
         limpiarCampos();
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
