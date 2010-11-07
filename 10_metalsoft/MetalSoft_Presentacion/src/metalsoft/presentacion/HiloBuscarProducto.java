@@ -60,6 +60,7 @@ public class HiloBuscarProducto extends Thread{
         JList combo=ventana.getList(HiloBuscarProducto.class.getName());
         combo.removeAll();
         cargarCombo(combo,productosDB);
+        ventana.setBusqueda(productosDB);
     }
 
     private void cargarCombo(JList combo, metalsoft.datos.dbobject.ProductoDB[] dbs) {
