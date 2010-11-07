@@ -8,7 +8,6 @@
  *
  * Created on May 10, 2010, 10:13:14 PM
  */
-
 package metalsoft.presentacion;
 
 import javax.swing.JList;
@@ -41,31 +40,33 @@ import org.jdesktop.swingx.JXBusyLabel;
  *
  * @author Vicky
  */
-public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscador{
+public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscador {
 
     private static Timer timer;
     private GestorPedidoCotizacion gestor;
     private HiloBuscarCliente hiloBuscarCliente;
-    private LinkedList<ViewDetallePedidoCotizacion> filas=new LinkedList<ViewDetallePedidoCotizacion>();
+    private LinkedList<ViewDetallePedidoCotizacion> filas = new LinkedList<ViewDetallePedidoCotizacion>();
     private static Cliente[] clientes;
     private ArrayList<ViewDetallePedidoCotizacion> view;
     private EnumOpcionesABM opcion;
     private ArrayList<ViewDetallePedidoCotizacion> arlDetallePedCotAEliminar;
     private ArrayList arlIdsProductoDetallePedido;
+
     /** Creates new form ABMPedidoCotizacion */
     public ABMPedidoPresupuesto() {
         initComponents();
         addListeners();
-        gestor=new GestorPedidoCotizacion();
-        timer=new Timer();
+        gestor = new GestorPedidoCotizacion();
+        timer = new Timer();
         bsyBuscar.setVisible(false);
+        bsyBuscarProducto.setVisible(false);
         cargarComboPrioridad();
         cargarComboEstado();
         tblDetallePedidoCotizacion.updateUI();
         setEnableComponents(false);
     }
 
-    private void addListeners(){
+    private void addListeners() {
         addListenerBtnNuevo();
         addListenerBtnGuardar();
         addListenerBtnModificar();
@@ -77,67 +78,71 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
     private void addListenerBtnNuevo() {
         beanBotones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
     }
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.NUEVO;
-        int nro=obtenerNuevoNroPedidoCotizacion();
-        if(nro>0)
-        {
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.NUEVO;
+        int nro = obtenerNuevoNroPedidoCotizacion();
+        if (nro > 0) {
             limpiarCampos();
             Combo.setItemComboSeleccionado(cmbEstado, 1);
             Combo.setItemComboSeleccionado(cmbPrioridad, 3);
             lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, nro));
             dccPedidoCotizacion.setDate(Fecha.fechaActualDate());
             setEnableComponents(true);
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "No se pudo generar el nro de pedido.");
         }
     }
 
     private void addListenerBtnGuardar() {
         beanBotones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         //tomo los datos de la ventana
-        long idCli=Long.parseLong(((ItemCombo)cmbResultadoBusqueda.getSelectedItem()).getId());
-        int nroPedidoCliente=Integer.parseInt(txtNroPedidoCliente.getText());
-        int nroPedido=NumerosAMostrar.getNumeroInt(lblNroPedido.getText());
-        int nroFactura=-1;
+        long idCli = Long.parseLong(((ItemCombo) cmbResultadoBusqueda.getSelectedItem()).getId());
+        int nroPedidoCliente = Integer.parseInt(txtNroPedidoCliente.getText());
+        int nroPedido = NumerosAMostrar.getNumeroInt(lblNroPedido.getText());
+        int nroFactura = -1;
 
-        if(txtNroFactura.getText().compareTo("")!=0)
-            nroFactura=Integer.parseInt(txtNroFactura.getText());
+        if (txtNroFactura.getText().compareTo("") != 0) {
+            nroFactura = Integer.parseInt(txtNroFactura.getText());
+        }
 
-        String motivoCancelacion=txtMotivoCancelacion.getText();
+        String motivoCancelacion = txtMotivoCancelacion.getText();
 
-        Date fechaCancelacion=null;
-        if(dccCancelacion.getDate()!=null)
-            fechaCancelacion=dccCancelacion.getDate();
-        Date fechaConfirmacionPedido=null;
-        if(dccConfirmacionPedido.getDate()!=null)
-            fechaConfirmacionPedido=dccConfirmacionPedido.getDate();
-        Date fechaEntregaReal=null;
-        if(dccEntregaReal.getDate()!=null)
-            fechaEntregaReal=dccEntregaReal.getDate();
-        Date fechaEntregaEstipulada=null;
-        if(dccEntregaEstipulada.getDate()!=null)
-            fechaEntregaEstipulada=dccEntregaEstipulada.getDate();
+        Date fechaCancelacion = null;
+        if (dccCancelacion.getDate() != null) {
+            fechaCancelacion = dccCancelacion.getDate();
+        }
+        Date fechaConfirmacionPedido = null;
+        if (dccConfirmacionPedido.getDate() != null) {
+            fechaConfirmacionPedido = dccConfirmacionPedido.getDate();
+        }
+        Date fechaEntregaReal = null;
+        if (dccEntregaReal.getDate() != null) {
+            fechaEntregaReal = dccEntregaReal.getDate();
+        }
+        Date fechaEntregaEstipulada = null;
+        if (dccEntregaEstipulada.getDate() != null) {
+            fechaEntregaEstipulada = dccEntregaEstipulada.getDate();
+        }
 
-        Date fechaRequeridaCotizacion=dccFechaReqCotizacion.getDate();
-        Date fechaPedidoCotizacion=dccPedidoCotizacion.getDate();
-        long idEstado=Long.parseLong(((ItemCombo)cmbEstado.getSelectedItem()).getId());
-        long idPrioridad=Long.parseLong(((ItemCombo)cmbPrioridad.getSelectedItem()).getId());
+        Date fechaRequeridaCotizacion = dccFechaReqCotizacion.getDate();
+        Date fechaPedidoCotizacion = dccPedidoCotizacion.getDate();
+        long idEstado = Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
+        long idPrioridad = Long.parseLong(((ItemCombo) cmbPrioridad.getSelectedItem()).getId());
         //seteo los valores necesarios en el gestor para guardar el pedido
         gestor.setNroPedidoCliente(nroPedidoCliente);
         gestor.setNroPedido(nroPedido);
@@ -156,27 +161,22 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         //el detalle del pedido
         gestor.setListaDetalle(filas);
 
-        long result=-1;
-        if(opcion==EnumOpcionesABM.NUEVO)
-        {
-            result=gestor.registrarPedidoCotizacion();
+        long result = -1;
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            result = gestor.registrarPedidoCotizacion();
         }
-        if(opcion==EnumOpcionesABM.MODIFICAR)
-        {
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
 //            gestor.setDetalleAEliminar(arlDetallePedCotAEliminar);
 //            gestor.setIdProducto(idProducto);
 //            result=gestor.modificarProducto();
             setEnableComponents(false);
         }
-        if(result>0)
-        {
-            JOptionPane.showMessageDialog(this, "El Pedido Nro: "+nroPedido+" se guardó correctamente.");
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "El Pedido Nro: " + nroPedido + " se guardó correctamente.");
             setEnableComponents(false);
             limpiarCampos();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "El Pedido Nro: "+nroPedido+" no se pudo guardar.");
+        } else {
+            JOptionPane.showMessageDialog(this, "El Pedido Nro: " + nroPedido + " no se pudo guardar.");
         }
     }
 //    private ArrayList crearDetallePedido(Pedido p)
@@ -215,18 +215,17 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 //        }
 //        gestor.setListaDetalle(arlDatos,arlIds);
 //    }
-
-
     private void addListenerBtnModificar() {
         beanBotones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.MODIFICAR;
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.MODIFICAR;
 //        arlDetProdAEliminar=new ArrayList<ViewDetalleProducto>();
 //        botones.getBtnModificar().setEnabled(false);
         setEnableComponents(true);
@@ -234,13 +233,14 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
     private void addListenerBtnBuscar() {
         beanBotones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
 //        opcion=EnumOpcionesABM.BUSCAR;
 //        ABMProducto_Buscar buscar=null;
 //        try {
@@ -258,24 +258,27 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
     private void addListenerBtnSalir() {
         beanBotones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
     }
+
     private void addListenerBtnAgregar() {
         beanBtnAgregar.getBtnAgregar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
     }
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {
         ItemCombo item = (ItemCombo) lstResultadoBusqueda.getSelectedValue();
         long idProducto = Long.parseLong(item.getId());
         ViewDetallePedidoCotizacion v = new ViewDetallePedidoCotizacion();
@@ -301,15 +304,17 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             tblDetallePedidoCotizacion.updateUI();
         }
     }
+
     private void addListenerBtnQuitar() {
         beanBtnQuitar.getBtnQuitar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarActionPerformed(evt);
             }
         });
     }
-    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {
         int selectedRow = tblDetallePedidoCotizacion.getSelectedRow();
         if (opcion == EnumOpcionesABM.MODIFICAR) {
             arlDetallePedCotAEliminar.add(filas.get(selectedRow));
@@ -317,6 +322,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         filas.remove(selectedRow);
         tblDetallePedidoCotizacion.updateUI();
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -375,6 +381,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         jRadioButton1 = new javax.swing.JRadioButton();
         btnNuevoProducto = new javax.swing.JButton();
         beanBtnAgregar = new metalsoft.beans.BtnAgregar();
+        bsyBuscarProducto = new org.jdesktop.swingx.JXBusyLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblDetallePedidoCotizacion = new javax.swing.JTable();
@@ -615,6 +622,19 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Producto"));
 
+        lstResultadoBusqueda.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstResultadoBusquedaValueChanged(evt);
+            }
+        });
+        lstResultadoBusqueda.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                lstResultadoBusquedaCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                lstResultadoBusquedaInputMethodTextChanged(evt);
+            }
+        });
         jScrollPane4.setViewportView(lstResultadoBusqueda);
 
         txtValorBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -642,7 +662,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel18)
@@ -652,16 +672,19 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoProducto))
+                    .addComponent(btnNuevoProducto)
+                    .addComponent(bsyBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jLabel18))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jLabel18))
+                    .addComponent(bsyBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -730,7 +753,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                     .addComponent(jLabel14)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -768,7 +791,6 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     }//GEN-LAST:event_cmbResultadoBusquedaActionPerformed
 
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
-
     }
 
     public static Cliente[] getClientes() {
@@ -822,14 +844,13 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     private void txtRazonSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyReleased
         bsyBuscar.setVisible(true);
         bsyBuscar.setBusy(true);
-        if(txtRazonSocial.getText().compareTo("")!=0)
-        {
-            final ABMPedidoPresupuesto ventana=this;
+        if (txtRazonSocial.getText().compareTo("") != 0) {
+            final ABMPedidoPresupuesto ventana = this;
             timer.schedule(new TimerTask() {
 
                 @Override
                 public void run() {
-                    hiloBuscarCliente=new HiloBuscarCliente();
+                    hiloBuscarCliente = new HiloBuscarCliente();
                     hiloBuscarCliente.setVentana(ventana);
                     hiloBuscarCliente.setValor(txtRazonSocial.getText());
                     hiloBuscarCliente.start();
@@ -851,14 +872,18 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
-        if(txtValorBusqueda.getText().compareTo("")!=0) {
-            final ABMPedidoPresupuesto abm=this;
-            timer=new Timer();
+        bsyBuscarProducto.setVisible(true);
+        bsyBuscarProducto.setBusy(true);
+        if (txtValorBusqueda.getText().compareTo("") != 0) {
+            final ABMPedidoPresupuesto abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloBuscarProducto hiloBuscarProducto;
+
                 @Override
                 public void run() {
-                    hiloBuscarProducto=new HiloBuscarProducto();
+                    hiloBuscarProducto = new HiloBuscarProducto();
                     hiloBuscarProducto.setVentana(abm);
                     hiloBuscarProducto.setValor(txtValorBusqueda.getText());
                     hiloBuscarProducto.start();
@@ -867,8 +892,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         }
 }//GEN-LAST:event_txtValorBusquedaKeyReleased
 
-    public void agregarFila(ViewDetallePedidoCotizacion v)
-    {
+    public void agregarFila(ViewDetallePedidoCotizacion v) {
         filas.addLast(v);
     }
     private void btnNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProductoActionPerformed
@@ -883,22 +907,32 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         }
 }//GEN-LAST:event_btnNuevoProductoActionPerformed
 
+    private void lstResultadoBusquedaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaCaretPositionChanged
+    }//GEN-LAST:event_lstResultadoBusquedaCaretPositionChanged
+
+    private void lstResultadoBusquedaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaInputMethodTextChanged
+    }//GEN-LAST:event_lstResultadoBusquedaInputMethodTextChanged
+
+    private void lstResultadoBusquedaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaValueChanged
+    }//GEN-LAST:event_lstResultadoBusquedaValueChanged
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMPedidoPresupuesto().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.ABM_Botones beanBotones;
     private metalsoft.beans.BtnAgregar beanBtnAgregar;
     private metalsoft.beans.BtnQuitar beanBtnQuitar;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar;
+    private org.jdesktop.swingx.JXBusyLabel bsyBuscarProducto;
     private javax.swing.JButton btnNuevoCliente;
     private javax.swing.JButton btnNuevoProducto;
     private javax.swing.JComboBox cmbEstado;
@@ -951,32 +985,33 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    public GestorPedidoCotizacion getGestor()
-    {
+    public GestorPedidoCotizacion getGestor() {
         return gestor;
     }
+
     public JList getList(String className) {
-        if(className.compareTo(HiloBuscarProducto.class.getName())==0)
+        if (className.compareTo(HiloBuscarProducto.class.getName()) == 0) {
             return lstResultadoBusqueda;
+        }
         return null;
     }
 
     public void setBusqueda(Object[] obj) {
-        if(obj instanceof ProductoDB[])
-        {
-
+        if (obj instanceof ProductoDB[]) {
+            bsyBuscarProducto.setBusy(false);
+            bsyBuscarProducto.setVisible(false);
         }
-        if( obj instanceof ClienteDB[])
-        {
-
+        if (obj instanceof ClienteDB[]) {
+            bsyBuscar.setBusy(false);
+            bsyBuscar.setVisible(false);
         }
-        bsyBuscar.setBusy(false);
-        bsyBuscar.setVisible(false);
+
     }
 
     public JComboBox getCombo(String className) {
-        if(className.compareTo(HiloBuscarCliente.class.getName())==0)
+        if (className.compareTo(HiloBuscarCliente.class.getName()) == 0) {
             return cmbResultadoBusqueda;
+        }
         return null;
     }
 
@@ -1042,34 +1077,31 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         lblNroPedido.setText("");
     }
 
+    class DetallePedidoCotizacionTableModel extends AbstractTableModel {
 
-    class DetallePedidoCotizacionTableModel extends AbstractTableModel
-    {
         String[] columnNames = {"Nro",
-                        "Cantidad",
-                        "Producto",
-                        "Descripción",
-                        "Cant. Piezas"};
+            "Cantidad",
+            "Producto",
+            "Descripción",
+            "Cant. Piezas"};
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewDetallePedidoCotizacion view=filas.get(rowIndex);
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return view.getNumeroProducto();
-            case 1:
-              return view.getCantidad();
-            case 2:
-              return view.getNombreProducto();
-            case 3:
-              return view.getDescripcion();
-            case 4:
-              return view.getCantidadPiezas();
-            default:
-              return null;
+            ViewDetallePedidoCotizacion view = filas.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNumeroProducto();
+                case 1:
+                    return view.getCantidad();
+                case 2:
+                    return view.getNombreProducto();
+                case 3:
+                    return view.getDescripcion();
+                case 4:
+                    return view.getCantidadPiezas();
+                default:
+                    return null;
             }
 
         }
@@ -1078,16 +1110,15 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filas!=null)
-            return filas.size();
-          return 0;
+        public int getRowCount() {
+            if (filas != null) {
+                return filas.size();
+            }
+            return 0;
         }
 
         /**
@@ -1095,11 +1126,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
