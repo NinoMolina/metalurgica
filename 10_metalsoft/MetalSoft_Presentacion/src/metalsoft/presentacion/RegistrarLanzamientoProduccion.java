@@ -42,8 +42,41 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         gestor = new GestorRegistrarLanzamientoProduccion();
         buscarPedidosConMPAsignada();
         setearTablaPedidos();
+        addListeners();
     }
 
+
+    private void addListeners(){
+        addListenerBtnSeleccionarPedido();
+        addListenerBtnSalir();
+    }
+
+    private void addListenerBtnSeleccionarPedido() {
+        beanBtnSeleccionarPedido.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPedidoActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        viewPedidoSeleccionado = filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
+        setearDatosPedidoSeleccionado();
+    }
+
+    private void addListenerBtnSalir() {
+        beanBtnSalir.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        dispose();
+    }
     private void buscarPedidosConMPAsignada() {
         filasPedidosConMPAsignada = gestor.buscarPedidosConMPAsignada();
     }
@@ -74,7 +107,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         tblPedidos = new org.jdesktop.swingx.JXTable();
         jLabel1 = new javax.swing.JLabel();
         jdcFehaFiltro = new com.toedter.calendar.JDateChooser();
-        btnSeleccionar = new javax.swing.JButton();
+        beanBtnSeleccionarPedido = new metalsoft.beans.BtnSeleccionar();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -89,8 +122,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         jdcFechaInicioReal = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         lblFechaFinRecalculada = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JButton();
         btnLanzarProduccion = new javax.swing.JButton();
+        beanBtnSalir = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lanzar Producción");
@@ -102,13 +135,6 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         jLabel1.setText("Fecha prevista de lanzamiento:");
 
         jdcFehaFiltro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        btnSeleccionar.setText("Seleccionar");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,7 +148,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(beanBtnSeleccionarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,7 +161,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionar))
+                .addComponent(beanBtnSeleccionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido/Planificación Seleccionado"));
@@ -160,6 +187,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblFechaFinPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaFinPrevista.setText("...");
 
+        btnVerObservaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detalle factura.png"))); // NOI18N
         btnVerObservaciones.setText("Ver Observaciones");
         btnVerObservaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +202,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
 
         jLabel7.setText("Fecha Fin Recalculada:");
 
-        lblFechaFinRecalculada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblFechaFinRecalculada.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaFinRecalculada.setForeground(new java.awt.Color(102, 0, 0));
         lblFechaFinRecalculada.setText("...");
 
@@ -216,7 +244,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addGap(10, 10, 10))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnVerObservaciones)
-                        .addContainerGap(558, Short.MAX_VALUE))))
+                        .addContainerGap(530, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,17 +268,11 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addComponent(lblFechaFinRecalculada))
                     .addComponent(jdcFechaInicioReal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVerObservaciones))
         );
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
+        btnLanzarProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
         btnLanzarProduccion.setText("Lanzar Producción");
         btnLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,8 +291,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLanzarProduccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 531, Short.MAX_VALUE)
-                        .addComponent(btnSalir)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -281,8 +303,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLanzarProduccion))
                 .addContainerGap())
         );
@@ -290,21 +312,12 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        viewPedidoSeleccionado = filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
-        setearDatosPedidoSeleccionado();
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
-
     private void btnVerObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerObservacionesActionPerformed
         JTextArea txtObs = new JTextArea(viewPedidoSeleccionado.getObservaciones());
         txtObs.setEditable(false);
         Object[] obj = {"Observaciones:", txtObs};
         JOptionPane.showMessageDialog(this, obj, "Observaciones Planificación", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerObservacionesActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
         EjecucionPlanificacionProduccion e = new EjecucionPlanificacionProduccion();
@@ -344,9 +357,9 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private metalsoft.beans.BtnSalirr beanBtnSalir;
+    private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarPedido;
     private javax.swing.JButton btnLanzarProduccion;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVerObservaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
