@@ -51,18 +51,24 @@ public class GestorPlanificacion {
         return db;
     }
 
-    public LinkedList<ViewPlanificacion> buscarPlanificacionConRecursosAsignados() {
-        PostgreSQLManager pg = new PostgreSQLManager();
+    public LinkedList<ViewPlanificacion> buscarPlanificacionConRecursosAsignados(Connection cn) {
         LinkedList<ViewPlanificacion> list = null;
-        Connection cn = null;
+        PostgreSQLManager pg = null;
+        boolean flag=false;
+        if(cn==null){
+            pg=new PostgreSQLManager();
+            flag=true;
+        }
         try {
-            cn = pg.concectGetCn();
+            if(flag)
+                cn = pg.concectGetCn();
             list = AccessViews.planificacionConRecursosAsignados(cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                pg.disconnect();
+                if(flag)
+                    pg.disconnect();
             } catch (SQLException ex) {
                 Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
             }
