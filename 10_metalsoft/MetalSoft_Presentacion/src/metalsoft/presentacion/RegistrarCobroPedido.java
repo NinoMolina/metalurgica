@@ -501,10 +501,14 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
                     Double montoFactura=gestor.montoFactura(idPedido);
                     Double diferenciaMontos=montoFactura-gestor.montoPagadoPorFactura(idPedido);
                     if (diferenciaMontos >= montoPago) {
+
                         ok = JOptionPane.showConfirmDialog(this, "Esta seguro que desea imprimir el comprobante de pago por $" + monto.getText() + "?");
                         if (ok == JOptionPane.OK_OPTION) {
                             gestor.imprimirComprobantePago(idPedido, montoPago, formaPago);
                             flag = false;
+                            if(gestor.estaTodaPagada(idPedido)){
+                                gestor.registrarCobroTotal(idPedido);
+                            }
                         }
                     }
                     else JOptionPane.showMessageDialog(this, "El monto de la ingresado supera lo requerido por pagar. Lo que resta por pagar son $"+diferenciaMontos);
