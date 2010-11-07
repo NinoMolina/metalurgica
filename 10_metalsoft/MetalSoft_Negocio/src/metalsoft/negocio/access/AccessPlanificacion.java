@@ -113,7 +113,7 @@ public class AccessPlanificacion {
         Planificacionproduccion db = null;
         PlanificacionproduccionPK pk=new PlanificacionproduccionPK(idPlan);
         try {
-            db=findByIdPedido(idPlan, cn);
+            db=dao.findByIdplanificacionproduccion(idPlan, cn)[0];
             db.setIdestado(2);
             result=dao.update(pk,db, cn);
         } catch (Exception ex) {
