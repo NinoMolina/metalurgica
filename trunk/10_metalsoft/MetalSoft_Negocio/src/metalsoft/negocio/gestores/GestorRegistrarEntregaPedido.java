@@ -210,7 +210,38 @@ public class GestorRegistrarEntregaPedido {
             }
         }
     }
+    public boolean estaTodaPagada(long id)
+    {
+        Double diferenciaMontos=(double)-1;
+        diferenciaMontos=montoFactura(id)-montoPagadoPorFactura(id);
+        if(diferenciaMontos==0) return true;
+        else return false;
+    }
+    public long registrarCobroTotal(long idPedido)
+    {
+        long result=-1;
+        PostgreSQLManager pg = new PostgreSQLManager();
 
+        Connection cn = null;
+        try {
+            cn = pg.concectGetCn();
+            PedidoDB ped=AccessPedido.findByIdPedido(idPedido, cn);
+            FacturaDB fact=AccessFactura.findByIdFactura(ped.getFactura(), cn);
+            ped.setEstado(IdsEstadoPedido.COBRADO);
+            fact.setEstado(2);
+            result = AccessPedido.update(ped, cn);
+            result = AccessFactura.update(fact, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
     public void imprimirComprobantePago(long id, Double monto, long idformapago) {
         URL sourceFile = null;
         try {
