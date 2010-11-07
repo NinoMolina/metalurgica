@@ -215,16 +215,16 @@ public class GestorPresupuesto {
         return list;
     }
 
-    public void setFechaPresupuesto(Calendar c) {
-        fechaPresupuesto = c.getTime();
+    public void setFechaPresupuesto(Date c) {
+        fechaPresupuesto = c;
     }
 
-    public void setFechaVencimientoPresupuesto(Calendar c) {
-        fechaVencimientoPresupuesto = c.getTime();
+    public void setFechaVencimientoPresupuesto(Date c) {
+        fechaVencimientoPresupuesto = c;
     }
 
-    public void setFechaEstimadaFinProduccion(Calendar c) {
-        fechaEstimadaFinProduccion = c.getTime();
+    public void setFechaEstimadaFinProduccion(Date c) {
+        fechaEstimadaFinProduccion = c;
     }
 
     public void setMontoTotal(String text) {
@@ -281,7 +281,8 @@ public class GestorPresupuesto {
     public void imprimirPresupuesto() {
         URL sourceFile = null;
         try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+//            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+            sourceFile = new URL("/rpt/RptPresupuesto.jasper");
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
