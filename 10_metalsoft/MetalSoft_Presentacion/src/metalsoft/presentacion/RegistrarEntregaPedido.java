@@ -10,6 +10,8 @@
  */
 package metalsoft.presentacion;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -635,16 +637,19 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
                     if (ok == JOptionPane.OK_OPTION) {
                         JComboBox combo=new JComboBox();
                         JComboBox combotipoFactura=cargarComboTipoFactura();
+                        JDateChooser jdcVencimiento=new JDateChooser();
+                        jdcVencimiento.setDate(Fecha.fechaActualDate());
 
                         gestor.obtenerFormasDePago(combo);
-                        Object[] obj = {"Forma de Pago:", combo, "Tipo de Factura",combotipoFactura};
+                        Object[] obj = {"Forma de Pago:", combo, "Tipo de Factura:",combotipoFactura, "Fecha de Vencimiento:", jdcVencimiento};
 
                         int res = JOptionPane.showConfirmDialog(null, obj, "Ingresar Forma de Pago y Tipo de Factura", JOptionPane.OK_CANCEL_OPTION);
 
                         if (res == JOptionPane.OK_OPTION) {
                             long formaPago=Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
                             String tipoFactura=String.valueOf(((ItemCombo) combotipoFactura.getSelectedItem()).getMostrar());
-                            imprimirFactura(formaPago,tipoFactura);
+                            java.util.Date fechaVencimiento=jdcVencimiento.getDate();
+                            imprimirFactura(formaPago,tipoFactura,fechaVencimiento);
                             flag=false;
                         }else{
                             flag=true;
@@ -662,8 +667,8 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         pedidoSeleccionado(idPedido);
         btnRegistrarEntrega.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
-    private void imprimirFactura(long idformapago, String tipoFactura) {
-        gestor.imprimirFactura(idPedido,idformapago,tipoFactura);
+    private void imprimirFactura(long idformapago, String tipoFactura, java.util.Date fechaVencimiento) {
+        gestor.imprimirFactura(idPedido,idformapago,tipoFactura,fechaVencimiento);
     }
 
     private void imprimirRemito() {
