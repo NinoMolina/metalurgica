@@ -166,9 +166,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
             buscar = (ABMEmpleado_Buscar) JFrameManager.crearVentana(ABMEmpleado_Buscar.class.getName());
             buscar.setVentana(this);
             buscar.setGestor(gestor);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -629,6 +627,9 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
         mostrarDatosEmpleado();
         setEnableComponents(false);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     private void mostrarDatosEmpleado() {
