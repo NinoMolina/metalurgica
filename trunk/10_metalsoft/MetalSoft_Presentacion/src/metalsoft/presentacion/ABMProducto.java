@@ -8,7 +8,6 @@
  *
  * Created on 27/07/2010, 09:05:44
  */
-
 package metalsoft.presentacion;
 
 import metalsoft.negocio.gestores.IBuscador;
@@ -52,11 +51,12 @@ public class ABMProducto extends javax.swing.JFrame {
     private ArrayList detalleProductoDB;
     private ArrayList<ViewDetalleProducto> arlDetProdAEliminar;
     private ArrayList<ViewDetalleProducto> view;
-    private long idProducto=-1;
+    private long idProducto = -1;
     //lista enlazada que contiene las filas de la tabla
 //    private LinkedList<Object[]> filas=new LinkedList<Object[]>();
-    private LinkedList<ViewDetalleProducto> filas=new LinkedList<ViewDetalleProducto>();
+    private LinkedList<ViewDetalleProducto> filas = new LinkedList<ViewDetalleProducto>();
     private EnumOpcionesABM opcion;
+
     /** Creates new form Producto */
     public ABMProducto() {
 
@@ -68,11 +68,15 @@ public class ABMProducto extends javax.swing.JFrame {
         addListenerBtnBuscar();
         addListenerBtnSalir();
         setEnableComponents(false);
-        gestor=new GestorProducto();
+        gestor = new GestorProducto();
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         tblDetalleProducto.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleProducto.updateUI();
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
+
     private void setearTablas() {
         //DETALLE PRODUCTO
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
@@ -90,57 +94,60 @@ public class ABMProducto extends javax.swing.JFrame {
 
     private void addListenerBtnNuevo() {
         botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
     }
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.NUEVO;
-        String numProducto=gestor.generarNuevoNumeroProducto();
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.NUEVO;
+        String numProducto = gestor.generarNuevoNumeroProducto();
         txtNumero.setText(numProducto);
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnGuardar() {
         botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        String descripcion=txtDescripcion.getText();
-        String nombre=txtNombre.getText();
-        String numero=txtNumero.getText();
-        String[] vNum=numero.split("-");
-        numero=vNum[1];
-        String precioUnitario=txtPrecioUnitario.getText();
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        String descripcion = txtDescripcion.getText();
+        String nombre = txtNombre.getText();
+        String numero = txtNumero.getText();
+        String[] vNum = numero.split("-");
+        numero = vNum[1];
+        String precioUnitario = txtPrecioUnitario.getText();
         gestor.setDescripcionProducto(descripcion);
         gestor.setNombreProducto(nombre);
         gestor.setNumeroProducto(numero);
         gestor.setPrecioUnitarioProducto(precioUnitario);
         gestor.setListaDetalle(filas);
-        long result=-1;
-        if(opcion==EnumOpcionesABM.NUEVO)
-        {
-            result=gestor.registrarProducto();
+        long result = -1;
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            result = gestor.registrarProducto();
         }
-        if(opcion==EnumOpcionesABM.MODIFICAR)
-        {
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
             gestor.setDetalleAEliminar(arlDetProdAEliminar);
             gestor.setIdProducto(idProducto);
-            result=gestor.modificarProducto();
+            result = gestor.modificarProducto();
         }
-        if(result>0)
-        {
-            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!","Guardar",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar",JOptionPane.ERROR_MESSAGE);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -162,39 +169,43 @@ public class ABMProducto extends javax.swing.JFrame {
 //        }
 //        gestor.setListaDetalle(arlDatos,arlIds);
 //    }
-
-    private void setListaDetalleGestor()
-    {
+    private void setListaDetalleGestor() {
         gestor.setListaDetalle(filas);
     }
+
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.MODIFICAR;
-        arlDetProdAEliminar=new ArrayList<ViewDetalleProducto>();
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.MODIFICAR;
+        arlDetProdAEliminar = new ArrayList<ViewDetalleProducto>();
         botones.getBtnModificar().setEnabled(false);
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void addListenerBtnBuscar() {
         botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.BUSCAR;
-        ABMProducto_Buscar buscar=null;
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.BUSCAR;
+        ABMProducto_Buscar buscar = null;
         try {
-            buscar=(ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
+            buscar = (ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
             buscar.setVentana(this);
             buscar.setGestor(gestor);
         } catch (ClassNotFoundException ex) {
@@ -208,15 +219,17 @@ public class ABMProducto extends javax.swing.JFrame {
 
     private void addListenerBtnSalir() {
         botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -445,13 +458,13 @@ public class ABMProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
-        ItemCombo item=(ItemCombo) lstResultadoBusqueda.getSelectedValue();
-        long idPieza=Long.parseLong(item.getId());
-        Pieza p=gestor.buscarPiezaParaDetalleProducto(idPieza);
-        JTextField txtCant=new JTextField("1");
-        JTextArea txtDesc=new JTextArea("");
-        JScrollPane scroll=new JScrollPane(txtDesc);
-        Object[] obj={"Cantidad",txtCant,"Descripcion",scroll};
+        ItemCombo item = (ItemCombo) lstResultadoBusqueda.getSelectedValue();
+        long idPieza = Long.parseLong(item.getId());
+        Pieza p = gestor.buscarPiezaParaDetalleProducto(idPieza);
+        JTextField txtCant = new JTextField("1");
+        JTextArea txtDesc = new JTextArea("");
+        JScrollPane scroll = new JScrollPane(txtDesc);
+        Object[] obj = {"Cantidad", txtCant, "Descripcion", scroll};
 //        JOptionPane optionPane=new JOptionPane(obj, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
 //        JDialog dialog = optionPane.createDialog(this, "Ingresar Cantidad y Descripción");
 //        dialog.setVisible(true);
@@ -460,15 +473,14 @@ public class ABMProducto extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             String cant = txtCant.getText();
             String desc = txtDesc.getText();
-            agregarFila( p.getNombre(), desc, Integer.parseInt(cant),p.getAlto(),p.getAncho(),p.getLargo(), p.getTipoMaterial().getNombre(),idPieza, -1, idProducto);
+            agregarFila(p.getNombre(), desc, Integer.parseInt(cant), p.getAlto(), p.getAncho(), p.getLargo(), p.getTipoMaterial().getNombre(), idPieza, -1, idProducto);
             tblDetalleProducto.updateUI();
         }
 
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
 
     private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
-        if(txtValorBusqueda.getText().compareTo("")!=0)
-        {
+        if (txtValorBusqueda.getText().compareTo("") != 0) {
             gestor.setListaPiezas(lstResultadoBusqueda);
             gestor.buscarPiezas(txtValorBusqueda.getText());
         }
@@ -487,10 +499,9 @@ public class ABMProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaPiezaActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        int selectedRow=tblDetalleProducto.getSelectedRow();
+        int selectedRow = tblDetalleProducto.getSelectedRow();
         filas.remove(selectedRow);
-        if(opcion==EnumOpcionesABM.MODIFICAR)
-        {
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
             arlDetProdAEliminar.add(view.get(selectedRow));
         }
         tblDetalleProducto.updateUI();
@@ -509,9 +520,7 @@ public class ABMProducto extends javax.swing.JFrame {
 //        filas.addLast(datosFila);
 //
 //    }
-
-    public void agregarFila(String pieza,String desc,int cant,double alto,double ancho,double largo,String mat, long idPieza, long idDet, long idProd)
-    {
+    public void agregarFila(String pieza, String desc, int cant, double alto, double ancho, double largo, String mat, long idPieza, long idDet, long idProd) {
         //vector de tipo Object que contiene los datos de una fila
         ViewDetalleProducto datosFila = new ViewDetalleProducto();
         datosFila.setCantidadPieza(cant);
@@ -527,21 +536,25 @@ public class ABMProducto extends javax.swing.JFrame {
         filas.addLast(datosFila);
     }
 
-    public void agregarFila(ViewDetalleProducto v)
-    {
+    public void agregarFila(ViewDetalleProducto v) {
         filas.addLast(v);
     }
+
     public void setIdProducto(long id) {
-        idProducto=id;
+        idProducto = id;
     }
+
     public void productoSeleccionado() {
-        productoDB=gestor.buscarProductoDB(idProducto);
-        view=gestor.viewDetalleProducto(idProducto);
+        productoDB = gestor.buscarProductoDB(idProducto);
+        view = gestor.viewDetalleProducto(idProducto);
         mostrarDatosProducto();
         setEnableComponents(false);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
-    private void mostrarDatosProducto()
-    {
+
+    private void mostrarDatosProducto() {
         //seteo los datos del producto
         txtDescripcion.setText(productoDB.getDescripcion());
         txtNombre.setText(productoDB.getNombre());
@@ -549,17 +562,16 @@ public class ABMProducto extends javax.swing.JFrame {
         txtPrecioUnitario.setText(String.valueOf(productoDB.getPreciounitario()));
         //seteo los datos del detalle del producto (la tabla)
         filas.clear();
-        Iterator i=view.iterator();
-        ViewDetalleProducto v=null;
-        while(i.hasNext())
-        {
-            v=(ViewDetalleProducto) i.next();
+        Iterator i = view.iterator();
+        ViewDetalleProducto v = null;
+        while (i.hasNext()) {
+            v = (ViewDetalleProducto) i.next();
             agregarFila(v);
         }
         tblDetalleProducto.updateUI();
     }
-    private void setEnableComponents(boolean b)
-    {
+
+    private void setEnableComponents(boolean b) {
         txtDescripcion.setEnabled(b);
         txtNombre.setEnabled(b);
         txtNumero.setEnabled(b);
@@ -571,11 +583,13 @@ public class ABMProducto extends javax.swing.JFrame {
         btnNuevaPieza.setEnabled(b);
         btnQuitar.setEnabled(b);
     }
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMProducto().setVisible(true);
             }
@@ -610,71 +624,60 @@ public class ABMProducto extends javax.swing.JFrame {
 
 
     // End of variables declaration
-
-
     // End of variables declaration
+    public class DetalleProductoTableModel extends AbstractTableModel {
 
+        String[] columnNames = {"Pieza",
+            "Descripcion",
+            "Cantidad",
+            "Dimensiones",
+            "Material"};
 
-    public class DetalleProductoTableModel extends AbstractTableModel{
-      String[] columnNames = {"Pieza",
-                        "Descripcion",
-                        "Cantidad",
-                        "Dimensiones",
-                        "Material"};
-    
-    public Object getValueAt(int rowIndex, int columnIndex)
-    {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ViewDetalleProducto view=filas.get(rowIndex);
+            ViewDetalleProducto view = filas.get(rowIndex);
 //      Object[] df=filas.get(rowIndex);
-        switch(columnIndex)
-        {
-        case 0:
-          return view.getNombrePieza();
-        case 1:
-          return view.getDescripcion();
-        case 2:
-          return String.valueOf(view.getCantidadPieza());
-        case 3:
-          return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
-        case 4:
-          return view.getNombreTipoMaterial();
-        default:
-          return null;
+            switch (columnIndex) {
+                case 0:
+                    return view.getNombrePieza();
+                case 1:
+                    return view.getDescripcion();
+                case 2:
+                    return String.valueOf(view.getCantidadPieza());
+                case 3:
+                    return "Alto: " + view.getAlto() + "\n Ancho: " + view.getAncho() + "\n Largo: " + view.getLargo();
+                case 4:
+                    return view.getNombreTipoMaterial();
+                default:
+                    return null;
+            }
+
         }
 
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filas != null) {
+                return filas.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
     }
-
-    /**
-     * Retorna la cantidad de columnas que tiene la tabla
-     * @return Numero de filas que contendra la tabla
-     */
-    public int getColumnCount()
-    {
-      return columnNames.length;
-    }
-
-    public int getRowCount()
-    {
-      if(filas!=null)
-        return filas.size();
-      return 0;
-    }
-
-    /**
-     * Devuelve el nombre de las columnas para mostrar en el encabezado
-     * @param column Numero de la columna cuyo nombre se quiere
-     * @return Nombre de la columna
-     */
-
-    @Override
-    public String getColumnName(int column)
-    {
-      return columnNames[column];
-
-    }
-
-  }
-
-
 }
