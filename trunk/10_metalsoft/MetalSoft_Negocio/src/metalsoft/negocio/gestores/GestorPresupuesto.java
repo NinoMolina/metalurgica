@@ -279,14 +279,14 @@ public class GestorPresupuesto {
     }
 
     public void imprimirPresupuesto() {
-        URL sourceFile = null;
-        try {
-//            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
-            sourceFile = new URL("/rpt/RptPresupuesto.jasper");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+//        URL sourceFile = null;
+//        try {
+////            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptPresupuesto.jasper");
+//            sourceFile = new URL("/rpt/RptPresupuesto.jasper");
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        String sourceFile = "\\rpt\\RptPresupuesto.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
