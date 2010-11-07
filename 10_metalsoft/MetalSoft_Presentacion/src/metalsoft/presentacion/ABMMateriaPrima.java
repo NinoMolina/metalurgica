@@ -45,10 +45,16 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         cargarComboTipoMaterial();
         cargarComboUnidadMedida();
         enableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
     public void etapaSeleccionada() {
         materiaPrimaDB=gestor.buscarPorId(idMateriaPrima);
         mostrarDatosMateriaPrima(materiaPrimaDB);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     public void setIdEtapa(long id) {
@@ -81,6 +87,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         long nroMatPrima=gestor.generarNvoNroMateriaPrima();
         lblNroMateriaPrima.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, nroMatPrima));
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnGuardar() {
@@ -125,6 +134,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             if(id>-1){
                 JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
                 enableComponents(false);
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar();
             }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
@@ -135,6 +147,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
             if(id>-1){
                 JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
                 enableComponents(false);
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar();
             }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
@@ -151,6 +166,9 @@ public class ABMMateriaPrima extends javax.swing.JFrame {
     {
         opcion=EnumOpcionesABM.MODIFICAR;
         enableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void addListenerBtnBuscar() {
