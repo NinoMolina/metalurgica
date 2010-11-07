@@ -8,8 +8,8 @@
  *
  * Created on 10/10/2010, 17:17:47
  */
-
 package metalsoft.presentacion;
+
 import java.sql.Time;
 import metalsoft.negocio.gestores.IBuscador;
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
@@ -47,12 +48,13 @@ public class ABMMaquina extends javax.swing.JFrame {
 
     private GestorMaquina gestor;
     private MaquinaDB maquinaDB;
-    private long idMaquina=-1;
+    private long idMaquina = -1;
     private EnumOpcionesABM opcion;
+
     /** Creates new form ABMMaquina */
     public ABMMaquina() {
         initComponents();
-        gestor=new GestorMaquina();
+        gestor = new GestorMaquina();
         addListenerBtnNuevo();
         addListenerBtnGuardar();
         addListenerBtnModificar();
@@ -63,6 +65,9 @@ public class ABMMaquina extends javax.swing.JFrame {
         cargarComboEstado();
         cargarComboUnidadMedida();
         setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void cargarComboEstado() {
@@ -74,113 +79,135 @@ public class ABMMaquina extends javax.swing.JFrame {
         cmbMarca.removeAllItems();
         gestor.obtenerMarca(cmbMarca);
     }
+
     public void maquinaSeleccionada() {
-        maquinaDB=gestor.buscarPorId(idMaquina);
+        maquinaDB = gestor.buscarPorId(idMaquina);
         mostrarDatosMaquina(maquinaDB);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     public void setIdMaquina(long id) {
-        idMaquina=id;
+        idMaquina = id;
     }
 
     private void addListenerBtnNuevo() {
         botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
     }
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.NUEVO;
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.NUEVO;
         limpiarCampos();
         dccFechaAlta.setDate(Fecha.fechaActualDate());
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
-        long nroMaQUINA=gestor.generarNvoNroMaquina();
+        long nroMaQUINA = gestor.generarNvoNroMaquina();
         lblnroMaquina.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MAQUINA, nroMaQUINA));
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnGuardar() {
         botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        Maquina ep=new Maquina();
-        Date fechaAlta=null;
-        if(dccFechaAlta.getDate()!=null)
-            fechaAlta=dccFechaAlta.getDate();
-        Date fechaBaja=null;
-        if(dccFechaBaja.getDate()!=null)
-            fechaBaja=dccFechaBaja.getDate();
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        Maquina ep = new Maquina();
+        Date fechaAlta = null;
+        if (dccFechaAlta.getDate() != null) {
+            fechaAlta = dccFechaAlta.getDate();
+        }
+        Date fechaBaja = null;
+        if (dccFechaBaja.getDate() != null) {
+            fechaBaja = dccFechaBaja.getDate();
+        }
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         //ep.setFechaAlta(Fecha.parseToDate(txt.getText()));
         ep.setFechaAlta(fechaAlta);
         ep.setFechaBaja(fechaBaja);
-        
+
         ep.setNroMaquina(NumerosAMostrar.getNumeroLong(lblnroMaquina.getText()));
         ep.setDescripcion(txtDescripcion.getText());
         ep.setNombre(txtNombre.getText());
-        if(txtTiempoProduccion.getText().compareTo("")!=0)
+        if (txtTiempoProduccion.getText().compareTo("") != 0) {
             ep.setTiempoCapacidadProduccion(Fecha.parseToTimeSQL(Fecha.parseToHourMinuteSecond(txtTiempoProduccion.getText())));
-        else ep.setTiempoCapacidadProduccion(null);
-        long idTipoMaquina=Long.parseLong(((ItemCombo) cmbTipoMaquina.getSelectedItem()).getId());
-        long idMarca=Long.parseLong(((ItemCombo) cmbMarca.getSelectedItem()).getId());
-        long idUnidadMedida=Long.parseLong(((ItemCombo) cmbUnidadMedida.getSelectedItem()).getId());
-        long idEstado=Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
-        
+        } else {
+            ep.setTiempoCapacidadProduccion(null);
+        }
+        long idTipoMaquina = Long.parseLong(((ItemCombo) cmbTipoMaquina.getSelectedItem()).getId());
+        long idMarca = Long.parseLong(((ItemCombo) cmbMarca.getSelectedItem()).getId());
+        long idUnidadMedida = Long.parseLong(((ItemCombo) cmbUnidadMedida.getSelectedItem()).getId());
+        long idEstado = Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
+
 
         long id;
-        if(opcion==EnumOpcionesABM.NUEVO)
-        {
-            id=gestor.guardar(ep, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
-            if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Maquina: "+txtNombre.getText());
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            id = gestor.guardar(ep, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
+            if (id > -1) {
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Maquina: " + txtNombre.getText());
                 setEnableComponents(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
             }
-            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
-        if(opcion==EnumOpcionesABM.MODIFICAR)
-        {
-            id=gestor.modificar(ep, idMaquina, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
-            if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Maquina: "+txtNombre.getText());
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
+            id = gestor.modificar(ep, idMaquina, idTipoMaquina, idUnidadMedida, idMarca, idEstado);
+            if (id > -1) {
+                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Maquina: " + txtNombre.getText());
                 setEnableComponents(false);
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
             }
-            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
-        //limpiarCampos();
+    //limpiarCampos();
     }
+
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        opcion=EnumOpcionesABM.MODIFICAR;
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void addListenerBtnBuscar() {
         botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        ABMMaquina_Buscar buscar=null;
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        ABMMaquina_Buscar buscar = null;
         try {
-            buscar=(ABMMaquina_Buscar) JFrameManager.crearVentana(ABMMaquina_Buscar.class.getName());
+            buscar = (ABMMaquina_Buscar) JFrameManager.crearVentana(ABMMaquina_Buscar.class.getName());
             buscar.setVentana(this);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMMaquina.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,13 +220,14 @@ public class ABMMaquina extends javax.swing.JFrame {
 
     private void addListenerBtnSalir() {
         botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
 
@@ -420,16 +448,18 @@ public class ABMMaquina extends javax.swing.JFrame {
         cmbTipoMaquina.removeAllItems();
         gestor.obtenerTipoMaquina(cmbTipoMaquina);
     }
-    private void cargarComboUnidadMedida()
-    {
+
+    private void cargarComboUnidadMedida() {
         cmbUnidadMedida.removeAllItems();
         gestor.obternerUnidadMedida(cmbUnidadMedida);
     }
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMMaquina().setVisible(true);
             }
@@ -471,33 +501,45 @@ public class ABMMaquina extends javax.swing.JFrame {
         lblnroMaquina.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, mp.getIdmaquina()));
         txtTiempoProduccion.setText(String.valueOf(mp.getTiempoCapacidadProduccion()));
 
-        if(mp.getFechaAlta()==null)
+        if (mp.getFechaAlta() == null) {
             dccFechaAlta.setDate(null);
-        else{
+        } else {
             dccFechaAlta.setDate(mp.getFechaAlta());
         }
 
-        if(mp.getFechaBaja()==null)
+        if (mp.getFechaBaja() == null) {
             dccFechaBaja.setDate(null);
-        else
-        {
+        } else {
             dccFechaBaja.setDate(mp.getFechaBaja());
         }
-        
-        if(mp.getEstado()<1) Combo.setItemComboSeleccionado(cmbEstado, -1);
-        else Combo.setItemComboSeleccionado(cmbEstado, mp.getEstado());
-        if(mp.getUnidadMedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
-        else Combo.setItemComboSeleccionado(cmbUnidadMedida, mp.getUnidadMedida());
-        if(mp.getMarca()<1) Combo.setItemComboSeleccionado(cmbMarca, -1);
-        else Combo.setItemComboSeleccionado(cmbMarca, mp.getMarca());
-        if(mp.getTipomaquina()<1) Combo.setItemComboSeleccionado(cmbTipoMaquina, -1);
-        else Combo.setItemComboSeleccionado(cmbTipoMaquina, mp.getTipomaquina());
+
+        if (mp.getEstado() < 1) {
+            Combo.setItemComboSeleccionado(cmbEstado, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbEstado, mp.getEstado());
+        }
+        if (mp.getUnidadMedida() < 1) {
+            Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbUnidadMedida, mp.getUnidadMedida());
+        }
+        if (mp.getMarca() < 1) {
+            Combo.setItemComboSeleccionado(cmbMarca, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbMarca, mp.getMarca());
+        }
+        if (mp.getTipomaquina() < 1) {
+            Combo.setItemComboSeleccionado(cmbTipoMaquina, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbTipoMaquina, mp.getTipomaquina());
+        }
     }
-    public void limpiarCampos()
-    {
+
+    public void limpiarCampos() {
         txtDescripcion.setText("");
         txtNombre.setText("");
-        lblnroMaquina.setText("");;
+        lblnroMaquina.setText("");
+        ;
         txtTiempoProduccion.setText("");
 
         dccFechaAlta.setDate(null);
@@ -508,8 +550,8 @@ public class ABMMaquina extends javax.swing.JFrame {
         cmbMarca.setSelectedIndex(0);
         cmbTipoMaquina.setSelectedIndex(0);
     }
-    private void setEnableComponents(boolean b)
-    {
+
+    private void setEnableComponents(boolean b) {
         txtDescripcion.setEnabled(b);
         txtNombre.setEnabled(b);
         lblnroMaquina.setEnabled(b);
