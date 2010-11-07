@@ -11,7 +11,9 @@
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
+import javax.swing.DefaultRowSorter;
 import javax.swing.JOptionPane;
+import javax.swing.event.RowSorterEvent;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorRegistrarPedidoConfirmado;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -33,13 +35,14 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     private GestorRegistrarPedidoConfirmado gestor;
     public RegistrarConfirmacionPedido() {
         initComponents();
+        addListeners();
         setearTablas();
         gestor=new GestorRegistrarPedidoConfirmado();
         buscarPedidosNoConfirmados();
         tblPedidos.updateUI();
     }
-    private void setearTablas() {
-        //DETALLE PEDIDO
+
+    private void setearTablas(){
         tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
         tblPedidos.setColumnControlVisible(true);
         /* On supprime les traits des lignes et des colonnes */
@@ -49,6 +52,44 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
+
+    private void addListeners(){
+        addListenerBtnSalir();
+        addListenerBtnSeleccionarPedido();
+    }
+
+
+    private void addListenerBtnSeleccionarPedido() {
+        beanBtnSeleccionar.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPedidoActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tblPedidos.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido...");
+            return;
+        }
+        viewPedidoSeleccionado = filasPedidosNoConfirmados.get(tblPedidos.getSelectedRow());
+        setDatosPedidoSeleccionado();
+        btnRegistrarConfirmacion.setEnabled(true);
+    }
+    private void addListenerBtnSalir() {
+        beanBtnSalir.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
+
     private void buscarPedidosNoConfirmados(){
         filasPedidosNoConfirmados=gestor.buscarPedidosNoConfirmados();
     }
@@ -62,13 +103,13 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         txtValorBusqueda = new javax.swing.JTextField();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
-        btnSeleccionar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -89,7 +130,8 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         lblCliente = new javax.swing.JLabel();
         btnRegistrarConfirmacion = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        beanBtnSalir = new metalsoft.beans.BtnSalirr();
+        beanBtnSeleccionar = new metalsoft.beans.BtnSeleccionar();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
 
@@ -98,12 +140,16 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
 
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Nro Pedido");
 
         jLabel1.setText("Valor de Búsqueda:");
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Fecha Pedido");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Cliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -132,14 +178,6 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/48-check.png"))); // NOI18N
-        btnSeleccionar.setText("Seleccionar");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Pedido Seleccionado"));
 
@@ -262,31 +300,23 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit1.png"))); // NOI18N
-        btnSalir.setToolTipText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
         jScrollPane2.setViewportView(tblPedidos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegistrarConfirmacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
-                        .addComponent(btnSalir)))
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -297,24 +327,18 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionar)
+                .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegistrarConfirmacion)
-                    .addComponent(btnSalir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrarConfirmacion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        viewPedidoSeleccionado=filasPedidosNoConfirmados.get(tblPedidos.getSelectedRow());
-        setDatosPedidoSeleccionado();
-        btnRegistrarConfirmacion.setEnabled(true);
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnRegistrarConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarConfirmacionActionPerformed
         int result=JOptionPane.showConfirmDialog(this, "Está por modificar el pedido Nro '"+NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido())+"' como CONFIRMADO \nDesea Continuar?","Aviso",JOptionPane.OK_CANCEL_OPTION);
@@ -329,10 +353,6 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRegistrarConfirmacionActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void limpiarCampos(){
         lblCliente.setText("...");
@@ -367,9 +387,10 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private metalsoft.beans.BtnSalirr beanBtnSalir;
+    private metalsoft.beans.BtnSeleccionar beanBtnSeleccionar;
     private javax.swing.JButton btnRegistrarConfirmacion;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
