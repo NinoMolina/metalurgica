@@ -35,13 +35,13 @@ public class GestorIniciarSesion {
         this.user = user;
     }
 
-    public long buscarUsuario()
+    public metalsoft.datos.dbobject.Usuario buscarUsuario()
     {
         GestorIniciarSesionDB gdb=new GestorIniciarSesionDB();
         return gdb.esUsuario(user, pass);
     }
     
-    public long buscarUsuario(String user, String pass)
+    public metalsoft.datos.dbobject.Usuario buscarUsuario(String user, String pass)
     {
         GestorIniciarSesionDB gdb=new GestorIniciarSesionDB();
         return gdb.esUsuario(user, pass);

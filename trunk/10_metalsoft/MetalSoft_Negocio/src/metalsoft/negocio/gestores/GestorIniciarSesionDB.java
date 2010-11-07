@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import metalsoft.datos.exception.UsuarioException;
 import metalsoft.datos.idao.UsuarioDAO;
 import metalsoft.datos.factory.DAOFactoryCreater;
-import metalsoft.negocio.adminusuarios.Usuario;
 
 /**
  *
@@ -25,11 +24,10 @@ public class GestorIniciarSesionDB {
     {
     }
     
-    public long esUsuario(String user,String pass)
+    public metalsoft.datos.dbobject.Usuario esUsuario(String user,String pass)
     {
         UsuarioDAO dao=new DAOFactoryCreater().getFactry().createUsuarioDAO();
         metalsoft.datos.dbobject.Usuario u[];
-        Usuario usuario=null;
         Object sqlParam[]=new Object[2];
         sqlParam[0]=user;
         sqlParam[1]=pass;
@@ -48,7 +46,7 @@ public class GestorIniciarSesionDB {
             }
             else
             { 
-                return -1;
+                return null;
             }
             
         }
@@ -58,6 +56,6 @@ public class GestorIniciarSesionDB {
         catch (Exception ex) {
             Logger.getLogger(GestorIniciarSesionDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usuariodb.getIdusuario();
+        return usuariodb;
     }
 }
