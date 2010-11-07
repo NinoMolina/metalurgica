@@ -10,8 +10,6 @@
  */
 package metalsoft.presentacion;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,14 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorDetalleProcesosCalidad;
-import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
 import metalsoft.negocio.gestores.PiezaXProcesosCalidad;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
-import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.util.Fecha;
@@ -57,6 +52,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         gestor = new GestorDetalleProcesosCalidad();
         buscarPedidosConDetalleMateriaPrima();
         addListeners();
+        setearTablas();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblProcesoCalidad.updateUI();
@@ -672,7 +668,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             "Cot Req Para",
             "Entrega Estipulada",
             "Estado"};
-
+            
         public Object getValueAt(int rowIndex, int columnIndex) {
 
             ViewPedidoEnListadoProcedimientos view = filasPedidos.get(rowIndex);
