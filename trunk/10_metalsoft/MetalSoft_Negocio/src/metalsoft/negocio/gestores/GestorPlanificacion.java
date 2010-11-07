@@ -99,46 +99,27 @@ public class GestorPlanificacion {
         return result;
 
     }
-    public boolean mpEstaTodaAsignada(long idPedido) {
+    public boolean mpEstaTodaAsignada(long idPedido, Connection cn) {
 
         boolean result = false;
-
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Connection cn = null;
         try {
-            cn = pg.concectGetCn();
             result = AccessViews.mpEstaTodaAsignada(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        } 
         return result;
 
     }
-    public void setEstadoMateriaPrimaAsignada(long idPedido)
+    public void setEstadoMateriaPrimaAsignada(long idPedido,Connection cn)
     {
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Connection cn = null;
         Planificacionproduccion idPlan=null;
         try {
-            cn = pg.concectGetCn();
             AccessPedido.update(idPedido, IdsEstadoPedido.CONMATERIAPRIMAASIGNADA, cn);
             idPlan=AccessPlanificacion.findByIdPedido(idPedido, cn);
             AccessPlanificacion.updateEstadoMPAsignada(idPlan.getIdplanificacionproduccion(), cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        } 
 
     }
 }
