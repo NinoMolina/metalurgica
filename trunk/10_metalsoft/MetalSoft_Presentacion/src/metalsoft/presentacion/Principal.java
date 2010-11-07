@@ -167,18 +167,20 @@ public class Principal extends javax.swing.JFrame {
         lblReloj.setText("...");
         lblReloj.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 204, 0));
         jLabel2.setText("Usuario:");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
-        jLabel3.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 0));
         jLabel3.setText("Rol:");
 
-        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(227, 233, 255));
         lblUsuario.setText("...");
 
-        lblRol.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblRol.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblRol.setForeground(new java.awt.Color(227, 233, 255));
         lblRol.setText("...");
 
         javax.swing.GroupLayout jPanelTransparente1Layout = new javax.swing.GroupLayout(jPanelTransparente1);
@@ -247,6 +249,11 @@ public class Principal extends javax.swing.JFrame {
         mnuInicio.setText("Inicio");
 
         mniCerrarSesion.setText("Cerrar Sesión");
+        mniCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCerrarSesionActionPerformed(evt);
+            }
+        });
         mnuInicio.add(mniCerrarSesion);
 
         mbrMenu.add(mnuInicio);
@@ -805,6 +812,10 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCobroPedidoActionPerformed
+
+    private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mniCerrarSesionActionPerformed
     /**
      * @param args the command line arguments
      */
