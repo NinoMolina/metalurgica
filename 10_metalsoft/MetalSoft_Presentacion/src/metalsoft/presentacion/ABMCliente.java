@@ -39,7 +39,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private Cliente cliente;
     private metalsoft.datos.dbobject.ClienteDB clienteDB;
     private metalsoft.datos.dbobject.ResponsableDB responsableDB;
-    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB, domicilioResponsableDB;
+    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB,  domicilioResponsableDB;
     private EnumOpcionesABM opcion;
     private long idCliente;
 
@@ -70,15 +70,17 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         addListenerBtnBuscar();
         addListenerBtnSalir();
     }
+
     private void addListenerBtnNuevo() {
         botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
     }
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
@@ -94,20 +96,23 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
     private void addListenerBtnGuardar() {
         botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
+
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
@@ -117,22 +122,21 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
     private void addListenerBtnBuscar() {
         botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMCliente_Buscar buscar = null;
         try {
             buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
             buscar.setVentanaCliente(this);
             buscar.setGestor(gestor);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -144,17 +148,18 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
     private void addListenerBtnSalir() {
         botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         long idEstado = Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
         long idPrioridad = Long.parseLong(((ItemCombo) cmbPrioridad.getSelectedItem()).getId());
@@ -681,6 +686,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         domicilioResponsableDB = gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
         mostrarDatosCliente();
         setEnableComponents(false);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     private void mostrarDatosCliente() {
