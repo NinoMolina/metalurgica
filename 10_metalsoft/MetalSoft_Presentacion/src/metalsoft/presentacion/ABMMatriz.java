@@ -149,6 +149,9 @@ public class ABMMatriz extends javax.swing.JFrame {
             buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
             buscar.setVentanaMatriz(this);
             buscar.setGestor(gestor);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
