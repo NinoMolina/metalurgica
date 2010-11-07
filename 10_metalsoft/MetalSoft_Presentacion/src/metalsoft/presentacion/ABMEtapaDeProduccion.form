@@ -160,8 +160,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txthorasmaquina" pref="259" max="32767" attributes="0"/>
                               <Component id="txthorashombre" alignment="0" pref="259" max="32767" attributes="0"/>
-                              <Component id="txthorasmaquina" alignment="0" pref="259" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
