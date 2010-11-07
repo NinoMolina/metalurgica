@@ -110,13 +110,13 @@ public class GestorRegistrarEntregaPedido {
     }
 
     public void imprimirFactura(long id, long idformapago, String tipofactura) {
-        URL sourceFile = null;
-        try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+//        URL sourceFile = null;
+//        try {
+//            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        String sourceFile = "D:\\rpt\\RptFactura.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -164,13 +164,13 @@ public class GestorRegistrarEntregaPedido {
     }
 
     public void imprimirRemito(long id) {
-        URL sourceFile = null;
-        try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptRemito.jasper");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+//        URL sourceFile = null;
+//        try {
+//           sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptRemito.jasper");
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        String sourceFile = "D:\\rpt\\RptRemito.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
@@ -243,13 +243,13 @@ public class GestorRegistrarEntregaPedido {
         return result;
     }
     public void imprimirComprobantePago(long id, Double monto, long idformapago) {
-        URL sourceFile = null;
-        try {
-            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptComprobanteDePago.jasper");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //String sourceFile = "G:\\ReportesRptPresupuesto.jasper";
+//        URL sourceFile = null;
+//        try {
+//            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptComprobanteDePago.jasper");
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        String sourceFile = "D:\\rpt\\RptComprobanteDePago.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
