@@ -55,9 +55,12 @@ public class ABMEmpleado extends javax.swing.JFrame {
         cargarTipoDocumento();
         addListeners();
         setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
-     private void addListeners() {
+    private void addListeners() {
         addListenerCmbProvincia();
         addListenerCmbLocalidad();
         addListenerBtnNuevo();
@@ -67,15 +70,17 @@ public class ABMEmpleado extends javax.swing.JFrame {
         addListenerBtnSalir();
         addListenerBtnEliminar();
     }
+
     private void addListenerBtnNuevo() {
         botones.getBtnNuevo().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
     }
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.NUEVO;
         setEnableComponents(true);
         limpiarCampos();
@@ -86,17 +91,21 @@ public class ABMEmpleado extends javax.swing.JFrame {
         chkNoche.setSelected(false);
         chkTarde.setSelected(false);
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, nroEmp));
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnEliminar() {
         botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
     }
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         int result = -1;
         java.sql.Date fechaBaja = new java.sql.Date(Fecha.parseToDate(Fecha.fechaActual(), "dd/MM/yyyy").getTime());
         empleadoDB.setFechaegreso(fechaBaja);
@@ -104,47 +113,62 @@ public class ABMEmpleado extends javax.swing.JFrame {
         result = gestor.bajaEmpleado(empleadoDB);
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "El empleado se eliminó correctamente");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
+            limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el empleado");
         }
         opcion = EnumOpcionesABM.ELIMINAR;
+
     }
 
     private void addListenerBtnGuardar() {
         botones.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
+
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void addListenerBtnBuscar() {
         botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMEmpleado_Buscar buscar = null;
         try {
             buscar = (ABMEmpleado_Buscar) JFrameManager.crearVentana(ABMEmpleado_Buscar.class.getName());
             buscar.setVentana(this);
             buscar.setGestor(gestor);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -156,19 +180,20 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     private void addListenerBtnSalir() {
         botones.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
 
-long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+
+        long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
         long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
 
         if (chkMañana.isSelected() == true) {
@@ -264,6 +289,9 @@ long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).g
 
         if (idEmpleado > 0) {
             JOptionPane.showMessageDialog(this, "El empleado se guardó correctamente");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el empleado");
         }
@@ -591,7 +619,9 @@ long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).g
     public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
         domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
-        if(empleadoDB.getUsuario()>0)usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
+        if (empleadoDB.getUsuario() > 0) {
+            usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
+        }
         turnos.clear();
         EmpleadoxturnoDB[] ext = gestor.buscarTurnosDB(idEmpleado);
         for (int i = 0; i < ext.length; i++) {
@@ -639,7 +669,7 @@ long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).g
         }
         Iterator it = turnos.iterator();
         while (it.hasNext()) {
-            switch ((int)((EmpleadoxturnoDB)it.next()).getIdturno()) {
+            switch ((int) ((EmpleadoxturnoDB) it.next()).getIdturno()) {
                 case 1:
                     chkMañana.setSelected(true);
                     break;
