@@ -160,7 +160,7 @@ public class ABMMaquina extends javax.swing.JFrame {
                 setEnableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
-                botones.getBtnEliminar();
+                botones.getBtnEliminar().setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
             }
@@ -173,7 +173,7 @@ public class ABMMaquina extends javax.swing.JFrame {
                 setEnableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
-                botones.getBtnEliminar();
+                botones.getBtnEliminar().setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
             }
