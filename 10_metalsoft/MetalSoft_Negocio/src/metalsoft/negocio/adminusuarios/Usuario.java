@@ -135,7 +135,7 @@ public class Usuario
     
    }
 
-   public static long esUsuario(String user, String pass)
+   public metalsoft.datos.dbobject.Usuario esUsuario(String user, String pass)
    {
        GestorIniciarSesionDB gdb=new GestorIniciarSesionDB();
        return gdb.esUsuario(user, pass);
