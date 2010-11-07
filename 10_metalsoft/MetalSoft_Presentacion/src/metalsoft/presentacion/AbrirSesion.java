@@ -73,12 +73,11 @@ public class AbrirSesion extends javax.swing.JFrame {
         GestorIniciarSesion g=new GestorIniciarSesion();
         g.setUser(iniciarSesion.getTxtUsuario().getText());
         g.setPass(iniciarSesion.getTxtClave().getText());
-        long idUsuario=-1L;
-        idUsuario=g.buscarUsuario();
-        if(idUsuario>0)
+        metalsoft.datos.dbobject.Usuario usuario=g.buscarUsuario();
+        if(usuario!=null)
         {
             try {
-                Principal p=new Principal(idUsuario);
+                Principal p=new Principal(usuario);
                 this.dispose();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
