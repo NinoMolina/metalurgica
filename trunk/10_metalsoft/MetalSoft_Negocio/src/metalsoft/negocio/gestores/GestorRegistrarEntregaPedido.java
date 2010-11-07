@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -109,7 +110,7 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public void imprimirFactura(long id, long idformapago, String tipofactura) {
+    public void imprimirFactura(long id, long idformapago, String tipofactura, Date fechaVencimiento) {
 //        URL sourceFile = null;
 //        try {
 //            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
@@ -128,7 +129,7 @@ public class GestorRegistrarEntregaPedido {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            guardarFactura(id, idformapago, tipofactura, cn);
+            guardarFactura(id, idformapago, tipofactura,fechaVencimiento, cn);
 
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
 
@@ -309,7 +310,7 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public long guardarFactura(long idPedido, long fp, String tipofactura, Connection cn) {
+    public long guardarFactura(long idPedido, long fp, String tipofactura,Date fechaVencimiento, Connection cn) {
         long result = -1;
         long resultPedido = -1;
         long resultDetalle = -1;
@@ -322,7 +323,7 @@ public class GestorRegistrarEntregaPedido {
         facturaDB.setFormapago(fp);
         facturaDB.setTipofactura(tipofactura);
         //facturaDB.setTipoiva(cli.getCondicioniva());
-        //remDB.setFechavencimiento();
+        facturaDB.setFechavencimiento(Fecha.parseToDateSQL(fechaVencimiento));
         //remDB.setUsuario(idPedido);
 
         result = AccessFactura.insert(facturaDB, cn);
