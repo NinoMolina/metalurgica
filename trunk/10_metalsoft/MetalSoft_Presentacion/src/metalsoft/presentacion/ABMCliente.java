@@ -54,6 +54,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
         cargarTipoDocumento();
         addListeners();
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
 
         setEnableComponents(false);
     }
@@ -84,6 +87,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         Combo.setItemComboSeleccionado(cmbPrioridad, 3);
         lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroCli));
         txtFechaAlta.setDate(Fecha.fechaActualDate());
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnGuardar() {
@@ -104,6 +110,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     {
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void addListenerBtnBuscar() {
@@ -121,6 +130,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
             buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
             buscar.setVentanaCliente(this);
             buscar.setGestor(gestor);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -219,6 +231,9 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         if (idCliente > 0) {
             JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         }
