@@ -158,6 +158,9 @@ public class ABMMaquina extends javax.swing.JFrame {
             if (id > -1) {
                 JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Maquina: " + txtNombre.getText());
                 setEnableComponents(false);
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar();
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
             }
