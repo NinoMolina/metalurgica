@@ -496,6 +496,10 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     if (result > -1 && cont > 0) {
                         if (gestor.mpEstaTodaAsignada(idPedido)) {
                             gestor.setEstadoMateriaPrimaAsignada(idPedido);
+                            buscarPedidosConMPAsignada();
+                            filasMateriaPrimaXPiezaPresupuesto.clear();
+                            tblMatPrimaXPieza.updateUI();
+                            limpiarCampos();
                         }
                         JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
 
