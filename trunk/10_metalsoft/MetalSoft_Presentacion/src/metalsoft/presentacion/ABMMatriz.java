@@ -172,7 +172,7 @@ public class ABMMatriz extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Matriz: " + txtNombre.getText());
                     botones.getBtnGuardar().setEnabled(false);
                     botones.getBtnModificar().setEnabled(false);
-                    botones.getBtnEliminar();
+                    botones.getBtnEliminar().setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
                 }
@@ -189,6 +189,9 @@ public class ABMMatriz extends javax.swing.JFrame {
             boolean ok = gestor.modificarMatriz(matriz, Long.parseLong(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(indexMateriaPrima), Integer.parseInt(indexTipoMaterial));
             if (ok) {
                 JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar().setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
             }
