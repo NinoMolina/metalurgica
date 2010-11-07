@@ -99,6 +99,9 @@ public class ABMPieza extends javax.swing.JFrame {
         idpieza.setVisible(false);
         idpieza.setText("");
         setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListeners() {
@@ -170,6 +173,9 @@ public class ABMPieza extends javax.swing.JFrame {
         limpiar();
         setEnableComponents(true);
         Combo.setItemComboSeleccionado(cmbMatriz, -1);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     public void setEnableComponents(boolean b) {
@@ -186,15 +192,22 @@ public class ABMPieza extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         if (opcion == EnumOpcionesABM.NUEVO) {
+            int sol = -1;
             long idTipoMaterial = Long.parseLong(((ItemCombo) cmbTipoMaterial.getSelectedItem()).getId());
             long idMateriaPrima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
             long idMatriz = Long.parseLong(((ItemCombo) cmbMatriz.getSelectedItem()).getId());
             Double alto = Double.parseDouble(dimensiones1.getTxtAlto().getText());
             Double ancho = Double.parseDouble(dimensiones1.getTxtAncho().getText());
             Double largo = Double.parseDouble(dimensiones1.getTxtLargo().getText());
-            gestorPieza.guardar(txtNombre.getText(), alto, ancho, largo, idTipoMaterial, idMateriaPrima, idMatriz);
-
-            JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");            
+            sol = gestorPieza.guardar(txtNombre.getText(), alto, ancho, largo, idTipoMaterial, idMateriaPrima, idMatriz);
+            if (sol > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Los datos se guardaron correctamente");
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
+            }
         }
 
         if (opcion == EnumOpcionesABM.MODIFICAR) {
@@ -208,6 +221,9 @@ public class ABMPieza extends javax.swing.JFrame {
                 boolean result = gestorPieza.modificarPieza(Long.parseLong(idpieza.getText()), txtNombre.getText(), alto, ancho, largo, Long.parseLong(indexTipoMaterial), Long.parseLong(indexMateriaPrima), Long.parseLong(indexMatriz));
                 if (result == true) {
                     JOptionPane.showMessageDialog(rootPane, "Los datos han sido guardados");
+                    botones.getBtnGuardar().setEnabled(false);
+                    botones.getBtnModificar().setEnabled(false);
+                    botones.getBtnEliminar();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Los datos NO se pudieron guardar");
                 }
@@ -239,6 +255,9 @@ public class ABMPieza extends javax.swing.JFrame {
         // TODO add your handling code here:
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +267,9 @@ public class ABMPieza extends javax.swing.JFrame {
             boolean result = gestorPieza.eliminarPieza(Long.parseLong(idpieza.getText()));
             if (result == true) {
                 JOptionPane.showMessageDialog(rootPane, "Se ha eliminado la pieza");
+                botones.getBtnGuardar().setEnabled(false);
+                botones.getBtnModificar().setEnabled(false);
+                botones.getBtnEliminar().setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "La pieza NO ha podido ser eliminada");
             }
@@ -276,7 +298,9 @@ public class ABMPieza extends javax.swing.JFrame {
     public void piezaSeleccionada() {
         piezaDB = gestorPieza.buscarPieza(idPieza);
         mostrarDatosProducto();
-
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     /** This method is called from within the constructor to
