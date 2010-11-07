@@ -60,6 +60,9 @@ public class ABMProveedor extends javax.swing.JFrame {
         addListenerCmbProvincia();
         addListenerCmbLocalidad();
         setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListeners() {
@@ -131,6 +134,9 @@ public class ABMProveedor extends javax.swing.JFrame {
         limpiarCampos();
         dccFechaAlta.setDate(Fecha.fechaActualDate());
         dccFechaBaja.setDate(null);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +222,9 @@ public class ABMProveedor extends javax.swing.JFrame {
 
         if (idProveedor > 0) {
             JOptionPane.showMessageDialog(this, "El Proveedor se guardó correctamente");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el Proveedor");
         }
@@ -224,6 +233,9 @@ public class ABMProveedor extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.MODIFICAR;
         setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,6 +248,9 @@ public class ABMProveedor extends javax.swing.JFrame {
 //        else JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         opcion = EnumOpcionesABM.ELIMINAR;
         limpiarCampos();
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -679,6 +694,9 @@ public class ABMProveedor extends javax.swing.JFrame {
         domicilioResponsableDB = gestor.buscarDomicilioResponsableDB(responsableDB.getDomicilio());
         mostrarDatosProveedor();
         setEnableComponents(false);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     private void mostrarDatosProveedor() {
