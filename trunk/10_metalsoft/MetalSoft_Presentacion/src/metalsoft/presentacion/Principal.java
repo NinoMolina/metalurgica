@@ -10,20 +10,12 @@
  */
 package metalsoft.presentacion;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
 import metalsoft.util.Fecha;
@@ -34,19 +26,19 @@ import metalsoft.util.Fecha;
  */
 public class Principal extends javax.swing.JFrame {
 
-    private long idUsuario;
+    private metalsoft.datos.dbobject.Usuario usuario;
     private Rol[] roles;
     private Timer tiempo;
     /** Creates new form Principal */
-    public Principal(long idUsuario) {
-        this.idUsuario = idUsuario;
+    public Principal(metalsoft.datos.dbobject.Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         iniciarReloj();
         this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
 
-        obtenerRolUsuario(idUsuario);
+        obtenerRolUsuario(usuario.getIdusuario());
         lblRol.setText(roles[0].getRol());
-        lblUsuario.setText(new Long(idUsuario).toString());
+        lblUsuario.setText(usuario.getUsuario());
         //this.getContentPane().setBackground();
     }
 
@@ -63,14 +55,6 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
 
-    }
-
-    public long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     /** This method is called from within the constructor to
