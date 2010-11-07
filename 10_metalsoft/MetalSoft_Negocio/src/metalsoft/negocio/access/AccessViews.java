@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.access;
 
 import java.sql.Connection;
@@ -40,21 +39,19 @@ import metalsoft.util.Fecha;
  */
 public class AccessViews {
 
-    public static ViewDetallePedidoCotizacion detallePedidoCotizacion(long id, Connection cn)
-    {
-        ViewDetallePedidoCotizacion view=null;
-        String query="SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido"+
-                     " FROM viewdetallepedidocotizacion"+
-                     " WHERE idproducto=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static ViewDetallePedidoCotizacion detallePedidoCotizacion(long id, Connection cn) {
+        ViewDetallePedidoCotizacion view = null;
+        String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido" +
+                " FROM viewdetallepedidocotizacion" +
+                " WHERE idproducto=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, id);
-            rs=ps.executeQuery();
-            if(rs.next())
-            {
-                view=new ViewDetallePedidoCotizacion();
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                view = new ViewDetallePedidoCotizacion();
                 view.setCantidad(rs.getInt("cantidad"));
                 view.setPrecio(rs.getDouble("precio"));
                 view.setDescripcion(rs.getString("descripcion"));
@@ -70,22 +67,20 @@ public class AccessViews {
         return view;
     }
 
-    public static LinkedList<ViewDetallePedidoCotizacion> listDetallePedidoCotizacion(long idPedido, Connection cn)
-    {
-        ViewDetallePedidoCotizacion view=null;
-        LinkedList<ViewDetallePedidoCotizacion> ll=new LinkedList<ViewDetallePedidoCotizacion>();
-        String query="SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido"+
-                     " FROM viewdetallepedidocotizacion"+
-                     " WHERE idpedido=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewDetallePedidoCotizacion> listDetallePedidoCotizacion(long idPedido, Connection cn) {
+        ViewDetallePedidoCotizacion view = null;
+        LinkedList<ViewDetallePedidoCotizacion> ll = new LinkedList<ViewDetallePedidoCotizacion>();
+        String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido" +
+                " FROM viewdetallepedidocotizacion" +
+                " WHERE idpedido=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, idPedido);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewDetallePedidoCotizacion();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewDetallePedidoCotizacion();
                 view.setCantidad(rs.getInt("cantidad"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setPrecio(rs.getDouble("precio"));
@@ -102,23 +97,21 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewDetalleProducto> listDetalleProducto(long idProdcuto, Connection cn)
-    {
-        ViewDetalleProducto view=null;
-        LinkedList<ViewDetalleProducto> ll=new LinkedList<ViewDetalleProducto>();
-        String query="SELECT nombrepieza,descripcion,cantidadpiezas,alto,ancho,largo,nombretipomaterial,"+
-                     "idpieza,iddetalle,idproducto"+
-                     " FROM viewdetalleproducto"+
-                     " WHERE idproducto=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewDetalleProducto> listDetalleProducto(long idProdcuto, Connection cn) {
+        ViewDetalleProducto view = null;
+        LinkedList<ViewDetalleProducto> ll = new LinkedList<ViewDetalleProducto>();
+        String query = "SELECT nombrepieza,descripcion,cantidadpiezas,alto,ancho,largo,nombretipomaterial," +
+                "idpieza,iddetalle,idproducto" +
+                " FROM viewdetalleproducto" +
+                " WHERE idproducto=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, idProdcuto);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewDetalleProducto();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewDetalleProducto();
                 view.setCantidadPieza(rs.getInt("cantidadpiezas"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setAlto(rs.getDouble("alto"));
@@ -138,25 +131,23 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewEtapasXPiezaPresupuesto> listEtapasXPiezaPresupuesto(long idPresupuesto, Connection cn)
-    {
-        ViewEtapasXPiezaPresupuesto view=null;
-        LinkedList<ViewEtapasXPiezaPresupuesto> ll=new LinkedList<ViewEtapasXPiezaPresupuesto>();
-        String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
-                     "nroetapaproduccion,nombreetapaproduccion,duracionetapaxpieza,duraciontotal, "+
-                     "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto,iddetallepiezapresupuesto, "+
-                     "idproducto,idpieza,idetapaproduccion"+
-                     " FROM viewetapasxpiezapresupuesto"+
-                     " WHERE idpresupuesto=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewEtapasXPiezaPresupuesto> listEtapasXPiezaPresupuesto(long idPresupuesto, Connection cn) {
+        ViewEtapasXPiezaPresupuesto view = null;
+        LinkedList<ViewEtapasXPiezaPresupuesto> ll = new LinkedList<ViewEtapasXPiezaPresupuesto>();
+        String query = "SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, " +
+                "nroetapaproduccion,nombreetapaproduccion,duracionetapaxpieza,duraciontotal, " +
+                "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto,iddetallepiezapresupuesto, " +
+                "idproducto,idpieza,idetapaproduccion" +
+                " FROM viewetapasxpiezapresupuesto" +
+                " WHERE idpresupuesto=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, idPresupuesto);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewEtapasXPiezaPresupuesto();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewEtapasXPiezaPresupuesto();
                 view.setCantpieza(rs.getInt("cantpieza"));
                 view.setCantproducto(rs.getInt("cantproducto"));
                 view.setDuracionetapaxpieza(rs.getTime("duracionetapaxpieza"));
@@ -181,25 +172,23 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewMateriaPrimaXPiezaPresupuesto> listMateriaPrimaXPiezaPresupuesto(long idPresupuesto, Connection cn)
-    {
-        ViewMateriaPrimaXPiezaPresupuesto view=null;
-        LinkedList<ViewMateriaPrimaXPiezaPresupuesto> ll=new LinkedList<ViewMateriaPrimaXPiezaPresupuesto>();
-        String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
-                     "nombremateriaprima,preciomateriaprima,cantmateriaprima,canttotal,preciototal, "+
-                     "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto, "+
-                     "idproducto,idpieza,idmateriaprima,idproveedor"+
-                     " FROM viewmpxpiezapresupuesto"+
-                     " WHERE idpresupuesto=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewMateriaPrimaXPiezaPresupuesto> listMateriaPrimaXPiezaPresupuesto(long idPresupuesto, Connection cn) {
+        ViewMateriaPrimaXPiezaPresupuesto view = null;
+        LinkedList<ViewMateriaPrimaXPiezaPresupuesto> ll = new LinkedList<ViewMateriaPrimaXPiezaPresupuesto>();
+        String query = "SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, " +
+                "nombremateriaprima,preciomateriaprima,cantmateriaprima,canttotal,preciototal, " +
+                "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto, " +
+                "idproducto,idpieza,idmateriaprima,idproveedor" +
+                " FROM viewmpxpiezapresupuesto" +
+                " WHERE idpresupuesto=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, idPresupuesto);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewMateriaPrimaXPiezaPresupuesto();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewMateriaPrimaXPiezaPresupuesto();
                 view.setCantpieza(rs.getInt("cantpieza"));
                 view.setCantproducto(rs.getInt("cantproducto"));
                 view.setCantmateriaprima(rs.getInt("cantmateriaprima"));
@@ -225,25 +214,23 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewProcesoCalidadXPiezaPresupuesto> listProCalidadXPiezaPresupuesto(long idPresupuesto, Connection cn)
-    {
-        ViewProcesoCalidadXPiezaPresupuesto view=null;
-        LinkedList<ViewProcesoCalidadXPiezaPresupuesto> ll=new LinkedList<ViewProcesoCalidadXPiezaPresupuesto>();
-        String query="SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, "+
-                     "nroprocesocalidad,nombreprocesocalidad,cantprocesocalidad,duracionprocalidadxpieza,duraciontotal, "+
-                     "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto,iddetallepiezacalidadpresupuesto, "+
-                     "idproducto,idpieza,idprocesocalidad"+
-                     " FROM viewprocalidadxpiezapresupesto"+
-                     " WHERE idpresupuesto=?";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewProcesoCalidadXPiezaPresupuesto> listProCalidadXPiezaPresupuesto(long idPresupuesto, Connection cn) {
+        ViewProcesoCalidadXPiezaPresupuesto view = null;
+        LinkedList<ViewProcesoCalidadXPiezaPresupuesto> ll = new LinkedList<ViewProcesoCalidadXPiezaPresupuesto>();
+        String query = "SELECT nroproducto,nombreproducto,cantproducto,nombrepieza,cantpieza, " +
+                "nroprocesocalidad,nombreprocesocalidad,cantprocesocalidad,duracionprocalidadxpieza,duraciontotal, " +
+                "idpresupuesto,iddetallepresupuesto,iddetalleproductopresupuesto,iddetallepiezacalidadpresupuesto, " +
+                "idproducto,idpieza,idprocesocalidad" +
+                " FROM viewprocalidadxpiezapresupesto" +
+                " WHERE idpresupuesto=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
             ps.setLong(1, idPresupuesto);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewProcesoCalidadXPiezaPresupuesto();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewProcesoCalidadXPiezaPresupuesto();
                 view.setCantpieza(rs.getInt("cantpieza"));
                 view.setCantprocesocalidad(rs.getInt("cantprocesocalidad"));
                 view.setCantproducto(rs.getInt("cantproducto"));
@@ -269,26 +256,24 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewPedidoEnListadoProcedimientos> pedidosSegunEstado(long estado, Connection cn)
-    {
-        ViewPedidoEnListadoProcedimientos view=null;
-        LinkedList<ViewPedidoEnListadoProcedimientos> ll=new LinkedList<ViewPedidoEnListadoProcedimientos>();
-        String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
-                     "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado"+
-                     " FROM viewpedidoendetalleprocedimientos"+
-                     " WHERE idestado="+estado;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewPedidoEnListadoProcedimientos> pedidosSegunEstado(long estado, Connection cn) {
+        ViewPedidoEnListadoProcedimientos view = null;
+        LinkedList<ViewPedidoEnListadoProcedimientos> ll = new LinkedList<ViewPedidoEnListadoProcedimientos>();
+        String query = "SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion," +
+                "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado" +
+                " FROM viewpedidoendetalleprocedimientos" +
+                " WHERE idestado=" + estado;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPedidoEnListadoProcedimientos();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidoEnListadoProcedimientos();
                 view.setCliente(rs.getString("cliente"));
                 view.setEspedidoweb(rs.getBoolean("espedidoweb"));
                 view.setEstado(rs.getString("estado"));
-                
+
 //                String f=Fecha.parseToString(rs.getDate("fechaentregaestipulada").getTime());
 //                view.setFechaentregaestipulada(Fecha.parseToDate(f));
 //                f=Fecha.parseToString(rs.getDate("fechapedidocotizacion").getTime());
@@ -308,26 +293,28 @@ public class AccessViews {
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(ll.isEmpty())return null;
-        else return ll;
+        if (ll.isEmpty()) {
+            return null;
+        } else {
+            return ll;
+        }
     }
-    public static LinkedList<ViewPedidosClienteSegunEstado> pedidosClienteSegunEstado(long cliente, long estado, Connection cn)
-    {
-        ViewPedidosClienteSegunEstado view=null;
-        LinkedList<ViewPedidosClienteSegunEstado> ll=new LinkedList<ViewPedidosClienteSegunEstado>();
-        String query="SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion,"+
-                     "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado,idcliente,nrocliente"+
-                     " FROM viewpedidosclientesegunestado"+
-                     " WHERE idestado="+estado +
-                     " AND idcliente="+cliente;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+
+    public static LinkedList<ViewPedidosClienteSegunEstado> pedidosClienteSegunEstado(long cliente, long estado, Connection cn) {
+        ViewPedidosClienteSegunEstado view = null;
+        LinkedList<ViewPedidosClienteSegunEstado> ll = new LinkedList<ViewPedidosClienteSegunEstado>();
+        String query = "SELECT nropedido,nropedidocotizacioncliente,fechapedidocotizacion,fecharequeridacotizacion," +
+                "fechaentregaestipulada,espedidoweb,estado,prioridad,cliente,idpedido,idestado,idcliente,nrocliente" +
+                " FROM viewpedidosclientesegunestado" +
+                " WHERE idestado=" + estado +
+                " AND idcliente=" + cliente;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPedidosClienteSegunEstado();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidosClienteSegunEstado();
                 view.setCliente(rs.getString("cliente"));
                 view.setEspedidoweb(rs.getBoolean("espedidoweb"));
                 view.setEstado(rs.getString("estado"));
@@ -353,60 +340,63 @@ public class AccessViews {
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(ll.isEmpty())return null;
-        else return ll;
+        if (ll.isEmpty()) {
+            return null;
+        } else {
+            return ll;
+        }
     }
 
-    public static LinkedList<ViewPlanificacion> planificacionConRecursosAsignados(Connection cn)
-    {
-        ViewPlanificacion view=null;
-        LinkedList<ViewPlanificacion> ll=new LinkedList<ViewPlanificacion>();
-        String query="SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, "+
-                    "idpedido,idcliente,idprioridad,presupuesto, idestado "+
-                     " FROM viewpedidosconrecasignados"+
-                     " WHERE idestado=1";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewPlanificacion> planificacionConRecursosAsignados(Connection cn) {
+        ViewPlanificacion view = null;
+        LinkedList<ViewPlanificacion> ll = new LinkedList<ViewPlanificacion>();
+        String query = "SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, " +
+                "idpedido,idcliente,idprioridad,presupuesto, idestado " +
+                " FROM viewpedidosconrecasignados" +
+                " WHERE idestado=1";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPlanificacion();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPlanificacion();
                 view.setNropedido(rs.getInt("nropedido"));
                 view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
                 view.setRazonsocial(rs.getString("razonsocial"));
                 view.setPrioridad(rs.getString("prioridad"));
                 //if(rs.getDate("fechaentregaestipulada")!=null)
-                    view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
                 view.setIdpedido(rs.getLong("idpedido"));
                 view.setIdcliente(rs.getLong("idcliente"));
                 view.setIdprioridad(rs.getLong("idprioridad"));
                 view.setIdpresupuesto(rs.getLong("presupuesto"));
                 view.setIdestado(rs.getLong("idestado"));
-                
+
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(ll.isEmpty())return null;
-        else return ll;
+        if (ll.isEmpty()) {
+            return null;
+        } else {
+            return ll;
+        }
     }
 
     public static LinkedList<ViewEtapaDeProduccion> allEtapasDeProduccion(Connection cn) {
-        ViewEtapaDeProduccion view=null;
-        LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
-        String query="SELECT numero,nombre,horashombre,horasmaquina,duracionestimada,idetapa"+
-                     " FROM viewetapadeproduccion";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewEtapaDeProduccion view = null;
+        LinkedList<ViewEtapaDeProduccion> ll = new LinkedList<ViewEtapaDeProduccion>();
+        String query = "SELECT numero,nombre,horashombre,horasmaquina,duracionestimada,idetapa" +
+                " FROM viewetapadeproduccion";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewEtapaDeProduccion();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewEtapaDeProduccion();
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
@@ -422,18 +412,17 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewMateriaPrima> allMateriaPrima(Connection cn) {
-        ViewMateriaPrima view=null;
-        LinkedList<ViewMateriaPrima> ll=new LinkedList<ViewMateriaPrima>();
-        String query="SELECT nombremateriaprima,descripcion,alto,ancho,largo,unidadmedida,tipomaterial,idmateriaprima"+
-                     " FROM viewmateriaprima";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewMateriaPrima view = null;
+        LinkedList<ViewMateriaPrima> ll = new LinkedList<ViewMateriaPrima>();
+        String query = "SELECT nombremateriaprima,descripcion,alto,ancho,largo,unidadmedida,tipomaterial,idmateriaprima" +
+                " FROM viewmateriaprima";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewMateriaPrima();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewMateriaPrima();
                 view.setAlto(rs.getDouble("alto"));
                 view.setAncho(rs.getDouble("ancho"));
                 view.setDescripcion(rs.getString("descripcion"));
@@ -450,20 +439,19 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewEtapaDeProduccion> etapasDeProduccionILIKE(String valor,Connection cn) {
-        ViewEtapaDeProduccion view=null;
-        LinkedList<ViewEtapaDeProduccion> ll=new LinkedList<ViewEtapaDeProduccion>();
-        String query="SELECT numero,nombre,idetapa"+
-                     " FROM viewetapadeproduccion"+
-                     " WHERE nombre ILIKE '"+valor+"%'";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewEtapaDeProduccion> etapasDeProduccionILIKE(String valor, Connection cn) {
+        ViewEtapaDeProduccion view = null;
+        LinkedList<ViewEtapaDeProduccion> ll = new LinkedList<ViewEtapaDeProduccion>();
+        String query = "SELECT numero,nombre,idetapa" +
+                " FROM viewetapadeproduccion" +
+                " WHERE nombre ILIKE '" + valor + "%'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewEtapaDeProduccion();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewEtapaDeProduccion();
                 view.setIdetapa(rs.getLong("idetapa"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNumero(rs.getInt("numero"));
@@ -476,18 +464,17 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewProcesoCalidad> allProcesosCalidad(Connection cn) {
-        ViewProcesoCalidad view=null;
-        LinkedList<ViewProcesoCalidad> ll=new LinkedList<ViewProcesoCalidad>();
-        String query="SELECT nroproceso,nombreproceso,duracionestimada,herramienta,nombreaccioncalidad,idprocesocalidad"+
-                     " FROM viewprocesocalidad";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewProcesoCalidad view = null;
+        LinkedList<ViewProcesoCalidad> ll = new LinkedList<ViewProcesoCalidad>();
+        String query = "SELECT nroproceso,nombreproceso,duracionestimada,herramienta,nombreaccioncalidad,idprocesocalidad" +
+                " FROM viewprocesocalidad";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewProcesoCalidad();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewProcesoCalidad();
                 view.setNroproceso(rs.getLong("nroproceso"));
                 view.setNombreproceso(rs.getString("nombreproceso"));
                 view.setNombreaccioncalidad(rs.getString("nombreaccioncalidad"));
@@ -503,18 +490,17 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewPedidoNoConfirmado> allPedidosNoConfirmados(Connection cn) {
-        ViewPedidoNoConfirmado view=null;
-        LinkedList<ViewPedidoNoConfirmado> ll=new LinkedList<ViewPedidoNoConfirmado>();
-        String query="SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,vencimientopresupuesto,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
-                     " FROM viewpedidosnoconfirmados";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewPedidoNoConfirmado view = null;
+        LinkedList<ViewPedidoNoConfirmado> ll = new LinkedList<ViewPedidoNoConfirmado>();
+        String query = "SELECT nropedido,nropedcotcli,fechapedido,estado,nropresupuesto,montototal,vencimientopresupuesto,razonsocial,idpedido,idpresupuesto,idestado,idcliente" +
+                " FROM viewpedidosnoconfirmados";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPedidoNoConfirmado();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidoNoConfirmado();
                 view.setEstado(rs.getString("estado"));
                 view.setFechapedido(rs.getDate("fechapedido"));
                 view.setIdcliente(rs.getLong("idcliente"));
@@ -536,18 +522,17 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewPedidoNoPlanificado> allPedidosNoPlanificados(Connection cn) {
-        ViewPedidoNoPlanificado view=null;
-        LinkedList<ViewPedidoNoPlanificado> ll=new LinkedList<ViewPedidoNoPlanificado>();
-        String query="SELECT nropedido,nropedcotcli,fechapedido,fechaentregaestipulada,estado,nropresupuesto,fechapresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente"+
-                     " FROM viewpedidosconplanifsinrecursos";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewPedidoNoPlanificado view = null;
+        LinkedList<ViewPedidoNoPlanificado> ll = new LinkedList<ViewPedidoNoPlanificado>();
+        String query = "SELECT nropedido,nropedcotcli,fechapedido,fechaentregaestipulada,estado,nropresupuesto,fechapresupuesto,montototal,nrocliente,razonsocial,idpedido,idpresupuesto,idestado,idcliente" +
+                " FROM viewpedidosconplanifsinrecursos";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPedidoNoPlanificado();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidoNoPlanificado();
                 view.setEstado(rs.getString("estado"));
                 view.setFechapedido(rs.getDate("fechapedido"));
                 view.setIdcliente(rs.getLong("idcliente"));
@@ -570,20 +555,19 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewProveedorXMateriaPrima> listProveedorXMateriaPrima(long idMatPrima,Connection cn) {
-        ViewProveedorXMateriaPrima view=null;
-        LinkedList<ViewProveedorXMateriaPrima> ll=new LinkedList<ViewProveedorXMateriaPrima>();
-        String query="SELECT nroproveedor,razonsocial,condicioniva,provincia,telefono,mail,responsable,precio,idproveedor,idresponsable,idmateriaprima"+
-                     " FROM viewproveedorxmateriaprima" +
-                     " WHERE idmateriaprima="+idMatPrima;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+    public static LinkedList<ViewProveedorXMateriaPrima> listProveedorXMateriaPrima(long idMatPrima, Connection cn) {
+        ViewProveedorXMateriaPrima view = null;
+        LinkedList<ViewProveedorXMateriaPrima> ll = new LinkedList<ViewProveedorXMateriaPrima>();
+        String query = "SELECT nroproveedor,razonsocial,condicioniva,provincia,telefono,mail,responsable,precio,idproveedor,idresponsable,idmateriaprima" +
+                " FROM viewproveedorxmateriaprima" +
+                " WHERE idmateriaprima=" + idMatPrima;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewProveedorXMateriaPrima();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewProveedorXMateriaPrima();
                 view.setCondicioniva(rs.getString("condicioniva"));
                 view.setIdmateriaprima(rs.getLong("idmateriaprima"));
                 view.setIdproveedor(rs.getLong("idproveedor"));
@@ -604,19 +588,18 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewProductoPresupuesto> listProductoPresupuesto(long idPedido, Connection cn) {
-        ViewProductoPresupuesto view=null;
-        LinkedList<ViewProductoPresupuesto> ll=new LinkedList<ViewProductoPresupuesto>();
-        String query="SELECT cantidadproducto,nombreproducto,preciounitario,importe,idpedido,idpresupuesto,iddetallepresupuesto,idproducto"+
-                     " FROM viewproductopresupuesto" +
-                     " WHERE idpedido="+idPedido;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewProductoPresupuesto view = null;
+        LinkedList<ViewProductoPresupuesto> ll = new LinkedList<ViewProductoPresupuesto>();
+        String query = "SELECT cantidadproducto,nombreproducto,preciounitario,importe,idpedido,idpresupuesto,iddetallepresupuesto,idproducto" +
+                " FROM viewproductopresupuesto" +
+                " WHERE idpedido=" + idPedido;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewProductoPresupuesto();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewProductoPresupuesto();
                 view.setCantidadproducto(rs.getInt("cantidadproducto"));
                 view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
                 view.setIdpedido(rs.getLong("idpedido"));
@@ -635,18 +618,17 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewPedidosConMPAsignada> listPedidosConMPAsignada(Connection cn) {
-        ViewPedidosConMPAsignada view=null;
-        LinkedList<ViewPedidosConMPAsignada> ll=new LinkedList<ViewPedidosConMPAsignada>();
-        String query="SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacionproduccion"+
-                     " FROM viewpedidosconmpasignada";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        ViewPedidosConMPAsignada view = null;
+        LinkedList<ViewPedidosConMPAsignada> ll = new LinkedList<ViewPedidosConMPAsignada>();
+        String query = "SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacionproduccion" +
+                " FROM viewpedidosconmpasignada";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                view=new ViewPedidosConMPAsignada();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidosConMPAsignada();
                 view.setIdpedido(rs.getLong("idpedido"));
                 view.setIdplanificacionproduccion(rs.getLong("idplanificacionproduccion"));
                 view.setFechacreacion(rs.getDate("fechacreacion"));
@@ -664,92 +646,99 @@ public class AccessViews {
     }
 
     public static int cantidadMPFaltaAsignar(long idPedido, long idmp, Connection cn) {
-        int cantidad=-1;
-        boolean b1=false;
-        viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
-        String query="SELECT pedido, idmateriaprima, cantidad"+
-                     " FROM viewcantidadmpenpedido" +
-                     " WHERE pedido="+idPedido+" AND idmateriaprima="+idmp;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        int cantidad = -1;
+        boolean b1 = false;
+        viewAsignarMateriaPrima viewCantMP = new viewAsignarMateriaPrima();
+        String query = "SELECT pedido, idmateriaprima, cantidad" +
+                " FROM viewcantidadmpenpedido" +
+                " WHERE pedido=" + idPedido + " AND idmateriaprima=" + idmp;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 viewCantMP.setPedido(rs.getLong("pedido"));
                 viewCantMP.setIdmateriaprima(rs.getLong("idmateriaprima"));
                 viewCantMP.setCantidad(rs.getInt("cantidad"));
-                b1=true;
+                b1 = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        boolean b2=false;
-        viewAsignarMateriaPrima viewMPAsignada=new viewAsignarMateriaPrima();
-        String query2="SELECT pedido, idmateriaprima, cantidad"+
-                     " FROM viewcantidadmpasiganda" +
-                     " WHERE pedido="+idPedido+" AND idmateriaprima="+idmp;
+        boolean b2 = false;
+        viewAsignarMateriaPrima viewMPAsignada = new viewAsignarMateriaPrima();
+        String query2 = "SELECT pedido, idmateriaprima, cantidad" +
+                " FROM viewcantidadmpasiganda" +
+                " WHERE pedido=" + idPedido + " AND idmateriaprima=" + idmp;
         try {
             ps = cn.prepareStatement(query2);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 viewMPAsignada.setPedido(rs.getLong("pedido"));
                 viewMPAsignada.setIdmateriaprima(rs.getLong("idmateriaprima"));
                 viewMPAsignada.setCantidad(rs.getInt("cantidad"));
-                b2=true;
+                b2 = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(b1 && b2) cantidad=viewCantMP.getCantidad()-viewMPAsignada.getCantidad();
+        if (b1 && b2) {
+            cantidad = viewCantMP.getCantidad() - viewMPAsignada.getCantidad();
+        }
 
         return cantidad;
     }
+
     public static boolean mpEstaTodaAsignada(long idPedido, Connection cn) {
-        int cantidad=-1;
-        boolean b1=false;
-        viewAsignarMateriaPrima viewCantMP=new viewAsignarMateriaPrima();
-        String query="SELECT pedido, sum(cantidad) as cantidad"+
-                     " FROM viewcantidadmpenpedido" +
-                     " WHERE pedido="+idPedido+
-                     " GROUP BY pedido ";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        int cantidad = -1;
+        boolean b1 = false;
+        viewAsignarMateriaPrima viewCantMP = new viewAsignarMateriaPrima();
+        String query = "SELECT pedido, sum(cantidad) as cantidad" +
+                " FROM viewcantidadmpenpedido" +
+                " WHERE pedido=" + idPedido +
+                " GROUP BY pedido ";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = cn.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 viewCantMP.setPedido(rs.getLong("pedido"));
                 viewCantMP.setCantidad(rs.getInt("cantidad"));
-                b1=true;
+                b1 = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        boolean b2=false;
-        viewAsignarMateriaPrima viewMPAsignada=new viewAsignarMateriaPrima();
-        String query2="SELECT pedido, sum(cantidad) as cantidad"+
-                     " FROM viewcantidadmpasiganda" +
-                     " WHERE pedido="+idPedido+
-                     " GROUP BY pedido ";
+        boolean b2 = false;
+        viewAsignarMateriaPrima viewMPAsignada = new viewAsignarMateriaPrima();
+        String query2 = "SELECT pedido, sum(cantidad) as cantidad" +
+                " FROM viewcantidadmpasiganda" +
+                " WHERE pedido=" + idPedido +
+                " GROUP BY pedido ";
         try {
             ps = cn.prepareStatement(query2);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 viewMPAsignada.setPedido(rs.getLong("pedido"));
                 viewMPAsignada.setCantidad(rs.getInt("cantidad"));
-                b2=true;
+                b2 = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(b1 && b2) cantidad=viewCantMP.getCantidad()-viewMPAsignada.getCantidad();
+        if (b1 && b2) {
+            cantidad = viewCantMP.getCantidad() - viewMPAsignada.getCantidad();
+        }
+//        else {
+//            return false;
+//        }
 
-        if(cantidad==0) return true;
-        else return false;
+        if (cantidad == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
