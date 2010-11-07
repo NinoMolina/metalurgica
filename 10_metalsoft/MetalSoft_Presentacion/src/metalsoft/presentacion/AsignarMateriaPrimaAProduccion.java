@@ -95,7 +95,12 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
     }
 
     public void buscarPedidosConMPAsignada() {
-        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados();
+        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(null);
+        tblPedidos.updateUI();
+    }
+
+    public void buscarPedidosConMPAsignada(Connection cn) {
+        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(cn);
         tblPedidos.updateUI();
     }
 
@@ -179,7 +184,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
                     .addComponent(btnSeleccionarProveedor))
                 .addContainerGap())
         );
@@ -201,11 +206,11 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addComponent(lblNroPresupuesto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 398, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 418, Short.MAX_VALUE)
                         .addComponent(btnSeleccionar))
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -261,7 +266,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(162, 162, 162))
+                .addGap(182, 182, 182))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +290,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -293,7 +298,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,7 +306,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel11)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(txtCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                             .addGap(321, 321, 321)
                             .addComponent(jLabel9)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -396,14 +401,15 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAsignarMP)
+                        .addGap(503, 503, 503)
+                        .addComponent(btnSalir))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(btnAsignarMP)
-                .addGap(443, 443, 443)
-                .addComponent(btnSalir)
-                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,11 +485,11 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         }
                     }
                     if (cont > 0) {
-                        long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima);
+                        long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima, cn);
                         Detallempasignada dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
                         if (dmpa != null) {
                             idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
-                            idDetalleMPAsignada=dmpa.getId();
+                            idDetalleMPAsignada = dmpa.getId();
                         } else {
                             idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
                         }
@@ -493,11 +499,11 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                             }
                         }
                     }
-                    
+
                     if (result > -1 && cont > 0) {
-                        if (gestor.mpEstaTodaAsignada(idPedido,cn)) {
-                            gestor.setEstadoMateriaPrimaAsignada(idPedido,cn);
-                            buscarPedidosConMPAsignada();
+                        if (gestor.mpEstaTodaAsignada(idPedido, cn)) {
+                            gestor.setEstadoMateriaPrimaAsignada(idPedido, cn);
+                            buscarPedidosConMPAsignada(cn);
                             filasMateriaPrimaXPiezaPresupuesto.clear();
                             tblMatPrimaXPieza.updateUI();
                             limpiarCampos();
@@ -511,8 +517,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         btnAsignarMP.setEnabled(false);
                         limpiarCampos();
                     }
-                }else{
-                    JOptionPane.showMessageDialog(this, "No hay suficiente Stock de la materia prima "+materiaPrima.getNombre());
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay suficiente Stock de la materia prima " + materiaPrima.getNombre());
                     btnAsignarMP.setEnabled(false);
                     limpiarCampos();
                 }
