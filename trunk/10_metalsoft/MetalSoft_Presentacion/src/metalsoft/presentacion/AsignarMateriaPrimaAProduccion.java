@@ -455,7 +455,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            if (gestor.mpPermitidaAAsignar(idPedido, idMP, cn) != 0) {//consulta si esa materia prima esta asignada del todo
+            if (gestor.mpPermitidaAAsignar(idPedido, idMP, cn) >= 0) {//consulta si esa materia prima esta asignada del todo
                 //Antes ver si hay la cantidad de Mat Prima Suficiente
                 int cantidadStock = (int) (materiaPrima.getStock() - view.getCantmateriaprima());
                 if (cantidadStock >= 0) {
