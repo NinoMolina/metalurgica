@@ -23,7 +23,7 @@ public class Main {
 
             public void run() {
                 JFrame.setDefaultLookAndFeelDecorated(true);
-                LookAndFeelManager.setLookAndFeel(Skins.Moderate);
+                LookAndFeelManager.setLookAndFeel(Skins.MINT);
                 AbrirSesion p = new AbrirSesion();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
