@@ -5,7 +5,9 @@
 
 package metalsoft.util;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -126,5 +128,41 @@ public class Calculos{
 
     public static Date calcularDuracionPiezaXProcesoCalidad(Date duracionestimada) {
         return duracionestimada;
+    }
+
+    private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
+        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+            inicio.set(Calendar.MINUTE, 0);
+        }
+        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio.add(Calendar.DAY_OF_YEAR, 1);
+            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+            inicio.set(Calendar.MINUTE, 0);
+        }
+        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+            inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+        }
+        return inicio;
+    }
+
+    private GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
+        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
+            int hora = fin.get(Calendar.HOUR_OF_DAY);
+            int horaAM = (horaFinJornada - 12);
+            int dif = horaAM - hora;
+            int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
+            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+        }
+        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+            int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
+            int horasfaltantes = dif;
+            fin.add(Calendar.DAY_OF_YEAR, 1);
+            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+        }
+        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+            fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+        }
+        return fin;
     }
 }
