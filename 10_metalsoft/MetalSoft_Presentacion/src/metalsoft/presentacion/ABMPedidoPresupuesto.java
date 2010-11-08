@@ -356,7 +356,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         lblCuit = new javax.swing.JLabel();
-        lblCondIva = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -439,7 +439,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             }
         });
 
-        jLabel16.setText("Cond. Iva:");
+        jLabel16.setText("Teléfono:");
 
         jLabel17.setText("CUIT:");
 
@@ -467,11 +467,11 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
-                        .addComponent(lblCondIva, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                        .addComponent(lblCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -491,8 +491,8 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
                         .addComponent(jLabel17))
-                    .addComponent(lblCondIva, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -811,11 +811,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     }
 
     public JLabel getLblCondIva() {
-        return lblCondIva;
-    }
-
-    public void setLblCondIva(JLabel lblCondIva) {
-        this.lblCondIva = lblCondIva;
+        return lblTelefono;
     }
 
     public JLabel getLblCuit() {
@@ -981,9 +977,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lblCondIva;
     private javax.swing.JLabel lblCuit;
     private javax.swing.JLabel lblNroPedido;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JList lstResultadoBusqueda;
     private javax.swing.JRadioButton rbtNombre;
     private javax.swing.JTable tblDetallePedidoCotizacion;
@@ -1011,6 +1007,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             bsyBuscarProducto.setVisible(false);
         }
         if (obj instanceof ClienteDB[]) {
+            ClienteDB cli=(ClienteDB) obj[0];
+            lblTelefono.setText(cli.getTelefono());
+            lblCuit.setText(cli.getCuit());
             bsyBuscar.setBusy(false);
             bsyBuscar.setVisible(false);
         }
@@ -1085,7 +1084,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         dccFechaReqCotizacion.setDate(null);
         dccPedidoCotizacion.setDate(null);
 
-        lblCondIva.setText("");
+        lblTelefono.setText("");
         lblCuit.setText("");
         lblNroPedido.setText("");
 

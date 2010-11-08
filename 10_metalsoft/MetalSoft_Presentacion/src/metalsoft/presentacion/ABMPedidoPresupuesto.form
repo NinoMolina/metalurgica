@@ -173,11 +173,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblCondIva" min="-2" pref="173" max="-2" attributes="0"/>
+                              <Component id="lblTelefono" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblCuit" pref="202" max="32767" attributes="0"/>
+                              <Component id="lblCuit" pref="208" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -204,8 +204,8 @@
                               <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblCondIva" min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="lblCuit" min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblTelefono" min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -254,7 +254,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cond. Iva:"/>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
@@ -264,7 +264,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblCuit">
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCondIva">
+            <Component class="javax.swing.JLabel" name="lblTelefono">
             </Component>
           </SubComponents>
         </Container>
