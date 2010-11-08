@@ -455,6 +455,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         tblMaquinas = new org.jdesktop.swingx.JXTable();
         pnlDisponibilidad = new javax.swing.JPanel();
         pnlObservaciones = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
         beanBtnGuardar = new metalsoft.beans.BtnGuardar();
@@ -757,25 +758,40 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         pnlObservaciones.setName("pnlObservaciones"); // NOI18N
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Observaciones"));
+
         txtObservaciones.setColumns(20);
         txtObservaciones.setRows(5);
         jScrollPane5.setViewportView(txtObservaciones);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlObservacionesLayout = new javax.swing.GroupLayout(pnlObservaciones);
         pnlObservaciones.setLayout(pnlObservacionesLayout);
         pnlObservacionesLayout.setHorizontalGroup(
             pnlObservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlObservacionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlObservacionesLayout.setVerticalGroup(
             pnlObservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlObservacionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(76, 76, 76))
         );
 
         pnl.add(pnlObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
@@ -1226,6 +1242,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
