@@ -809,7 +809,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
             switch(columnIndex)
             {
             case 0:
-              return view.getNumeroProducto();
+              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
             case 1:
               return view.getCantidad();
             case 2:
