@@ -19,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.gestores.GestorDetalleMateriaPrima;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.PiezaXMateriaPrima;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
@@ -737,7 +738,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNropedido();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
@@ -800,7 +801,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNumeroProducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
                 case 1:
                     return view.getCantidad();
                 case 2:
