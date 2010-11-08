@@ -25,6 +25,7 @@ import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
 import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.PiezaXEtapas;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
@@ -738,7 +739,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
             switch(columnIndex)
             {
             case 0:
-              return view.getNropedido();
+              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
             case 1:
               return view.getNropedidocotizacioncliente();
             case 2:
@@ -926,7 +927,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
             case 1:
               return view.getNombre();
             default:
@@ -977,7 +978,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
             switch(columnIndex)
             {
             case 0:
-              return view.getNumero();
+              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
             case 1:
               return view.getNombre();
             default:
