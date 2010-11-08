@@ -114,7 +114,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(dccFechaReqCotizacion.getDate()==null){
+        if (dccFechaReqCotizacion.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar la fecha requerida de cotización");
             return;
         }
@@ -861,6 +861,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                     hiloBuscarCliente.start();
                 }
             }, 1500);
+        } else {
+            bsyBuscar.setVisible(false);
+            bsyBuscar.setBusy(false);
         }
     }//GEN-LAST:event_txtRazonSocialKeyReleased
 
@@ -894,6 +897,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                     hiloBuscarProducto.start();
                 }
             }, 1500);
+        } else {
+            bsyBuscarProducto.setVisible(false);
+            bsyBuscarProducto.setBusy(false);
         }
 }//GEN-LAST:event_txtValorBusquedaKeyReleased
 
@@ -1003,19 +1009,22 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
     public void setBusqueda(Object[] obj) {
         if (obj instanceof ProductoDB[]) {
-            bsyBuscarProducto.setBusy(false);
-            bsyBuscarProducto.setVisible(false);
         }
         if (obj instanceof ClienteDB[]) {
-            if(obj.length>0){
-                ClienteDB cli=(ClienteDB) obj[0];
+            if (obj.length > 0) {
+                ClienteDB cli = (ClienteDB) obj[0];
                 lblTelefono.setText(cli.getTelefono());
                 lblCuit.setText(cli.getCuit());
+            } else {
+                lblCuit.setText("");
+                lblTelefono.setText("");
             }
-            bsyBuscar.setBusy(false);
-            bsyBuscar.setVisible(false);
-        }
 
+        }
+        bsyBuscar.setBusy(false);
+        bsyBuscar.setVisible(false);
+        bsyBuscarProducto.setBusy(false);
+        bsyBuscarProducto.setVisible(false);
     }
 
     public JComboBox getCombo(String className) {
