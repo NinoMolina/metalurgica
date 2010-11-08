@@ -11,9 +11,7 @@
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
-import javax.swing.DefaultRowSorter;
 import javax.swing.JOptionPane;
-import javax.swing.event.RowSorterEvent;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorRegistrarPedidoConfirmado;
 import metalsoft.negocio.gestores.NumerosAMostrar;
