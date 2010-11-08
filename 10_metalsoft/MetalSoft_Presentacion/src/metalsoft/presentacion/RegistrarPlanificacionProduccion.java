@@ -1029,13 +1029,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             for (entity.Detalleplanificacionproduccion detalle : setDetalle) {
                 GregorianCalendar inicio = new GregorianCalendar();
                 inicio.setTime(detalle.getFechainicio());
-                inicio.set(Calendar.HOUR, detalle.getHorainicio().getHours());
+                inicio.set(Calendar.HOUR_OF_DAY, detalle.getHorainicio().getHours());
                 inicio.set(Calendar.MINUTE, detalle.getHorainicio().getMinutes());
                 inicio.set(Calendar.SECOND, detalle.getHorainicio().getSeconds());
                 System.out.println("inicio:" + Fecha.parseToString(inicio.getTime(), "dd/MM/yyyy hh:mm:ss"));
                 GregorianCalendar fin = new GregorianCalendar();
                 fin.setTime(detalle.getFechafin());
-                fin.set(Calendar.HOUR, detalle.getHorafin().getHours());
+                fin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 fin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 fin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
                 System.out.println("fin:" + Fecha.parseToString(fin.getTime(), "dd/MM/yyyy hh:mm:ss"));
@@ -1048,8 +1048,18 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
         //        PLANIFICACION ACTUAL
         taskActual = null;
+        GregorianCalendar fechaInicio=(GregorianCalendar) Fecha.fechaActualCalendar();
+        fechaInicio.set(Calendar.HOUR_OF_DAY, Jornada.HORA_INICIO_JORNADA);
+        fechaInicio.set(Calendar.MINUTE, 0);
+        fechaInicio.set(Calendar.SECOND, 0);
+
+        GregorianCalendar fechaFin=(GregorianCalendar) Fecha.fechaActualCalendar();
+        fechaFin.add(Calendar.DAY_OF_MONTH, 3);
+        fechaFin.set(Calendar.HOUR_OF_DAY, Jornada.HORA_FIN_JORNADA);
+        fechaFin.set(Calendar.MINUTE, 0);
+        fechaFin.set(Calendar.SECOND, 0);
         taskActual = new Task("Nueva Planificación",
-                Fecha.fechaActualDate(), new Date());
+                fechaInicio.getTime(), fechaFin.getTime());
         //agrego la tarea la serie de taras
         unavailable.add(taskActual);
         for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
