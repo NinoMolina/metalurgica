@@ -35,11 +35,28 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
         initComponents();
         addListeners();
         setearTablas();
+        setEnabledComponents(false);
+        limpiarCampos();
         gestor=new GestorRegistrarPedidoConfirmado();
         buscarPedidosNoConfirmados();
         tblPedidos.updateUI();
     }
 
+    private void limpiarCampos(){
+        lblCliente.setText("...");
+        lblEstado.setText("...");
+        lblFechaPedido.setText("...");
+        lblFechaVencimientoPresupuesto.setText("...");
+        lblMontoTotal.setText("...");
+        lblNroPedido.setText("...");
+        lblNroPedCliente.setText("...");
+        lblNroPresupuesto.setText("...");
+        txtValorBusqueda.setText("");
+    }
+
+    private void setEnabledComponents(boolean b){
+        btnRegistrarConfirmacion.setEnabled(b);
+    }
     private void setearTablas(){
         tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
         tblPedidos.setColumnControlVisible(true);
@@ -348,21 +365,12 @@ public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
                 filasPedidosNoConfirmados.remove(viewPedidoSeleccionado);
                 tblPedidos.updateUI();
                 limpiarCampos();
+                setEnabledComponents(false);
             }
         }
     }//GEN-LAST:event_btnRegistrarConfirmacionActionPerformed
 
-    private void limpiarCampos(){
-        lblCliente.setText("...");
-        lblEstado.setText("...");
-        lblFechaPedido.setText("...");
-        lblFechaVencimientoPresupuesto.setText("...");
-        lblMontoTotal.setText("...");
-        lblNroPedCliente.setText("...");
-        lblNroPedido.setText("...");
-        lblNroPresupuesto.setText("...");
-        btnRegistrarConfirmacion.setEnabled(false);
-    }
+
     private void setDatosPedidoSeleccionado(){
         lblCliente.setText(viewPedidoSeleccionado.getRazonsocial());
         lblEstado.setText(viewPedidoSeleccionado.getEstado());
