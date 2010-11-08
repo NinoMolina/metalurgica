@@ -87,32 +87,32 @@ public class Principal extends javax.swing.JFrame {
         mniCerrarSesion = new javax.swing.JMenuItem();
         mnuCompras = new javax.swing.JMenu();
         mniMateriaPrima = new javax.swing.JMenuItem();
-        mniProveedor = new javax.swing.JMenuItem();
         mniRegistrarPresupuesto = new javax.swing.JMenuItem();
+        mniProveedor = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
-        mniPieza = new javax.swing.JMenuItem();
-        mniProducto = new javax.swing.JMenuItem();
-        mniPresupuesto = new javax.swing.JMenuItem();
-        mniEtapaDeProduccion = new javax.swing.JMenuItem();
         mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
         mniEntregaPedido = new javax.swing.JMenuItem();
+        mniEtapaDeProduccion = new javax.swing.JMenuItem();
+        mniPresupuesto = new javax.swing.JMenuItem();
+        mniPieza = new javax.swing.JMenuItem();
+        mniProducto = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
-        mniTipoMaterial = new javax.swing.JMenuItem();
-        mniMatriz = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mniGenerarDetalleMateriaPrima = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         mniLanzarProduccion = new javax.swing.JMenuItem();
+        mniMatriz = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        mniTipoMaterial = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
         mnuRRHH = new javax.swing.JMenu();
-        mniListadoClientes = new javax.swing.JMenuItem();
+        mniListadoEmpleados = new javax.swing.JMenuItem();
+        mniRegistrarAsistencia = new javax.swing.JMenuItem();
         mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
         registrarEmpleado = new javax.swing.JMenuItem();
-        mniRegistrarAsistencia = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
@@ -151,19 +151,19 @@ public class Principal extends javax.swing.JFrame {
         lblReloj.setText("...");
         lblReloj.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabel2.setForeground(new java.awt.Color(204, 204, 0));
         jLabel2.setText("Usuario:");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabel3.setForeground(new java.awt.Color(204, 204, 0));
         jLabel3.setText("Rol:");
 
-        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18));
         lblUsuario.setForeground(new java.awt.Color(227, 233, 255));
         lblUsuario.setText("...");
 
-        lblRol.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblRol.setFont(new java.awt.Font("Calibri", 1, 18));
         lblRol.setForeground(new java.awt.Color(227, 233, 255));
         lblRol.setText("...");
 
@@ -252,14 +252,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(mniMateriaPrima);
 
-        mniProveedor.setText("Proveedor");
-        mniProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniProveedorActionPerformed(evt);
-            }
-        });
-        mnuCompras.add(mniProveedor);
-
         mniRegistrarPresupuesto.setText("Presupuestar");
         mniRegistrarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,6 +259,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCompras.add(mniRegistrarPresupuesto);
+
+        mniProveedor.setText("Proveedor");
+        mniProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProveedorActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(mniProveedor);
 
         mbrMenu.add(mnuCompras);
 
@@ -285,38 +285,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniCliente);
 
-        mniPieza.setText("Pieza");
-        mniPieza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniPiezaActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniPieza);
-
-        mniProducto.setText("Producto");
-        mniProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniProductoActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniProducto);
-
-        mniPresupuesto.setText("Pedido");
-        mniPresupuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniPresupuestoActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniPresupuesto);
-
-        mniEtapaDeProduccion.setText("Etapa de Producción");
-        mniEtapaDeProduccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniEtapaDeProduccionActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniEtapaDeProduccion);
-
         mniRegistrarConfirmacionPedido.setText("Confirmar Pedido");
         mniRegistrarConfirmacionPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,25 +301,41 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniEntregaPedido);
 
+        mniEtapaDeProduccion.setText("Etapa de Producción");
+        mniEtapaDeProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEtapaDeProduccionActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniEtapaDeProduccion);
+
+        mniPresupuesto.setText("Pedido");
+        mniPresupuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPresupuestoActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniPresupuesto);
+
+        mniPieza.setText("Pieza");
+        mniPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPiezaActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniPieza);
+
+        mniProducto.setText("Producto");
+        mniProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProductoActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mniProducto);
+
         mbrMenu.add(mnuVentas);
 
         mnuProduccion.setText("Producción");
-
-        mniTipoMaterial.setText("Tipo Material");
-        mniTipoMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniTipoMaterialActionPerformed(evt);
-            }
-        });
-        mnuProduccion.add(mniTipoMaterial);
-
-        mniMatriz.setText("Matriz");
-        mniMatriz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniMatrizActionPerformed(evt);
-            }
-        });
-        mnuProduccion.add(mniMatriz);
 
         jMenuItem1.setText("Generar Detalle Etapas Producción");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +353,22 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniGenerarDetalleMateriaPrima);
 
+        mniLanzarProduccion.setText("Lanzar Producción");
+        mniLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLanzarProduccionActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniLanzarProduccion);
+
+        mniMatriz.setText("Matriz");
+        mniMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMatrizActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniMatriz);
+
         jMenuItem2.setText("Registrar Planificación");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,13 +377,13 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(jMenuItem2);
 
-        mniLanzarProduccion.setText("Lanzar Producción");
-        mniLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
+        mniTipoMaterial.setText("Tipo Material");
+        mniTipoMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniLanzarProduccionActionPerformed(evt);
+                mniTipoMaterialActionPerformed(evt);
             }
         });
-        mnuProduccion.add(mniLanzarProduccion);
+        mnuProduccion.add(mniTipoMaterial);
 
         mbrMenu.add(mnuProduccion);
 
@@ -413,13 +413,21 @@ public class Principal extends javax.swing.JFrame {
 
         mnuRRHH.setText("RRHH");
 
-        mniListadoClientes.setText("Listado Clientes");
-        mniListadoClientes.addActionListener(new java.awt.event.ActionListener() {
+        mniListadoEmpleados.setText("Listado Empleados");
+        mniListadoEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniListadoClientesActionPerformed(evt);
+                mniListadoEmpleadosActionPerformed(evt);
             }
         });
-        mnuRRHH.add(mniListadoClientes);
+        mnuRRHH.add(mniListadoEmpleados);
+
+        mniRegistrarAsistencia.setText("Registrar Asistencia");
+        mniRegistrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarAsistenciaActionPerformed(evt);
+            }
+        });
+        mnuRRHH.add(mniRegistrarAsistencia);
 
         mniRegistrarDiaNoLaboral.setText("Registrar Día no Laboral");
         mniRegistrarDiaNoLaboral.addActionListener(new java.awt.event.ActionListener() {
@@ -436,14 +444,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuRRHH.add(registrarEmpleado);
-
-        mniRegistrarAsistencia.setText("Registrar Asistencia");
-        mniRegistrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniRegistrarAsistenciaActionPerformed(evt);
-            }
-        });
-        mnuRRHH.add(mniRegistrarAsistencia);
 
         mbrMenu.add(mnuRRHH);
 
@@ -502,8 +502,8 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoClientesActionPerformed
-    }//GEN-LAST:event_mniListadoClientesActionPerformed
+    private void mniListadoEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoEmpleadosActionPerformed
+    }//GEN-LAST:event_mniListadoEmpleadosActionPerformed
 
     private void mniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteActionPerformed
         try {
@@ -832,7 +832,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
-    private javax.swing.JMenuItem mniListadoClientes;
+    private javax.swing.JMenuItem mniListadoEmpleados;
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniPieza;
