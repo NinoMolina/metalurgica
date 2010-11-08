@@ -92,6 +92,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         beanBtnGuardar.getBtnGuardar().setEnabled(b);
         btnSeleccionarProveedor.setEnabled(b);
         btnVerDetalle.setEnabled(b);
+        dccFechaEstimadaFinProduccion.setEnabled(b);
+        dccFechaPresupuesto.setEnabled(b);
+        dccFechaVencimiento.setEnabled(b);
     }
 
     private void setearTablas() {
@@ -321,7 +324,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, beanBtnSeleccionarPedido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -482,7 +485,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel1.setText("Fecha Estimada Fin Producción:");
 
-        lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblDuracionTotal.setText("...");
 
         lblCostoTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -493,10 +496,10 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblGanancia.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblGanancia.setText("...");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel22.setText("NETO TOTAL A COBRAR: $");
 
-        lblTotalACobrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTotalACobrar.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblTotalACobrar.setText("...");
 
         jLabel4.setText("IVA (21%):          $");
@@ -657,9 +660,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -667,7 +670,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
