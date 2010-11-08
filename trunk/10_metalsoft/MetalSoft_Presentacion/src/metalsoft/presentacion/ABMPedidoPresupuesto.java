@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -95,6 +96,9 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, nro));
             dccPedidoCotizacion.setDate(Fecha.fechaActualDate());
             setEnableComponents(true);
+            dccPedidoCotizacion.setEnabled(false);
+            beanBotones.getBtnEliminar().setEnabled(false);
+            beanBotones.getBtnModificar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo generar el nro de pedido.");
         }
@@ -110,6 +114,10 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        if(dccFechaReqCotizacion.getDate()==null){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar la fecha requerida de cotización");
+            return;
+        }
         //tomo los datos de la ventana
         long idCli = Long.parseLong(((ItemCombo) cmbResultadoBusqueda.getSelectedItem()).getId());
         int nroPedidoCliente = Integer.parseInt(txtNroPedidoCliente.getText());
@@ -378,7 +386,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         lstResultadoBusqueda = new javax.swing.JList();
         txtValorBusqueda = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rbtNombre = new javax.swing.JRadioButton();
         btnNuevoProducto = new javax.swing.JButton();
         beanBtnAgregar = new metalsoft.beans.BtnAgregar();
         bsyBuscarProducto = new org.jdesktop.swingx.JXBusyLabel();
@@ -645,7 +653,8 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
         jLabel18.setText("Valor de Búsqueda:");
 
-        jRadioButton1.setText("Nombre");
+        rbtNombre.setSelected(true);
+        rbtNombre.setText("Nombre");
 
         btnNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
         btnNuevoProducto.setText("Nuevo Producto");
@@ -663,7 +672,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbtNombre)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel18)
                         .addGap(11, 11, 11)
@@ -682,7 +691,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbtNombre)
                         .addComponent(jLabel18))
                     .addComponent(bsyBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -967,7 +976,6 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -977,6 +985,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
     private javax.swing.JLabel lblCuit;
     private javax.swing.JLabel lblNroPedido;
     private javax.swing.JList lstResultadoBusqueda;
+    private javax.swing.JRadioButton rbtNombre;
     private javax.swing.JTable tblDetallePedidoCotizacion;
     private javax.swing.JTextArea txtMotivoCancelacion;
     private javax.swing.JTextField txtNroFactura;
@@ -1045,6 +1054,10 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         dccEntregaReal.setEnabled(b);
         dccFechaReqCotizacion.setEnabled(b);
         dccPedidoCotizacion.setEnabled(b);
+        rbtNombre.setEnabled(b);
+        beanBotones.getBtnEliminar().setEnabled(b);
+        beanBotones.getBtnModificar().setEnabled(b);
+        beanBotones.getBtnGuardar().setEnabled(b);
     }
 
     private int obtenerNuevoNroPedidoCotizacion() {
@@ -1075,6 +1088,8 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
         lblCondIva.setText("");
         lblCuit.setText("");
         lblNroPedido.setText("");
+
+        lstResultadoBusqueda.setListData(new Vector<Object>());
     }
 
     class DetallePedidoCotizacionTableModel extends AbstractTableModel {
