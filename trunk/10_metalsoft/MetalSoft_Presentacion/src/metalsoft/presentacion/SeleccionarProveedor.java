@@ -166,6 +166,7 @@ public class SeleccionarProveedor extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Seleccionar Proveedor");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Materia Prima"));
 
@@ -177,7 +178,7 @@ public class SeleccionarProveedor extends javax.swing.JFrame {
 
         jLabel3.setText("Nro:");
 
-        lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroMateriaPrima.setText("...");
 
         txtDescripcion.setColumns(20);
@@ -252,14 +253,17 @@ public class SeleccionarProveedor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/seleccionar.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setToolTipText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarActionPerformed(evt);
             }
         });
 
-        btnSalir.setText("Salir");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit1.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -277,7 +281,7 @@ public class SeleccionarProveedor extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSeleccionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
                         .addComponent(btnSalir)))
                 .addContainerGap())
         );
