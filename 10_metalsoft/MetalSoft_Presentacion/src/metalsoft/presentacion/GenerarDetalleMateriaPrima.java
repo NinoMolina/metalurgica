@@ -61,6 +61,25 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         tblMateriaPrimaSeleccionada.updateUI();
     }
 
+        private void limpiarCampos(){
+        if(filasDetallePedido!=null)
+            filasDetallePedido.clear();
+        if(filasDetalleProducto!=null)
+            filasDetalleProducto.clear();
+        if(filasMateriaPrima!=null)
+            filasMateriaPrima.clear();
+        if(filasMateriaPrimaSeleccionada!=null)
+            filasMateriaPrimaSeleccionada.clear();
+        tblDetallePedido.updateUI();
+        tblDetalleProducto.updateUI();
+        tblMateriaPrima.updateUI();
+        tblMateriaPrimaSeleccionada.updateUI();
+        txtEtapaProduccion.setText("");
+        txtPedidoCotizacion.setText("");
+        lblPedidoSeleccionado.setText("...");
+        lblPiezaSeleccionada.setText("...");
+        lblProductoSeleccionado.setText("...");
+    }
     private void setearTablas(){
         //DETALLE PEDIDO
         tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
@@ -260,7 +279,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPedidoCotizacion = new javax.swing.JTextField();
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -306,7 +325,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(562, 562, 562))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
@@ -318,7 +337,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanTblPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
@@ -420,8 +439,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE))
+                                .addComponent(txtEtapaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -647,7 +666,6 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPedidoSeleccionado;
     private javax.swing.JLabel lblPiezaSeleccionada;
     private javax.swing.JLabel lblProductoSeleccionado;
@@ -656,6 +674,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     private org.jdesktop.swingx.JXTable tblMateriaPrima;
     private org.jdesktop.swingx.JXTable tblMateriaPrimaSeleccionada;
     private javax.swing.JTextField txtEtapaProduccion;
+    private javax.swing.JTextField txtPedidoCotizacion;
     // End of variables declaration//GEN-END:variables
     public JTable getTable(String className) {
         if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
