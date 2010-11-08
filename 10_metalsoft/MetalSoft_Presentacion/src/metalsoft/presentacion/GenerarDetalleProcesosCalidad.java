@@ -52,12 +52,45 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         gestor = new GestorDetalleProcesosCalidad();
         buscarPedidosConDetalleMateriaPrima();
         addListeners();
+        setEnabledComponents(false);
         setearTablas();
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblProcesoCalidad.updateUI();
         filasProcesoCalidadSeleccionado = new LinkedList<ViewProcesoCalidad>();
         tblProcesoCalidadSeleccionado.updateUI();
+    }
+
+    private void limpiarCampos() {
+        if (filasDetallePedido != null) {
+            filasDetallePedido.clear();
+        }
+        if (filasDetalleProducto != null) {
+            filasDetalleProducto.clear();
+        }
+        if (filasProcesoCalidad != null) {
+            filasProcesoCalidad.clear();
+        }
+        if (filasProcesoCalidadSeleccionado != null) {
+            filasProcesoCalidadSeleccionado.clear();
+        }
+        tblDetallePedido.updateUI();
+        tblDetalleProducto.updateUI();
+        tblProcesoCalidad.updateUI();
+        tblProcesoCalidadSeleccionado.updateUI();
+        txtProcesoCalidad.setText("");
+        lblPedidoSeleccionado.setText("...");
+        lblPiezaSeleccionada.setText("...");
+        lblProductoSeleccionado.setText("...");
+    }
+
+    private void setEnabledComponents(boolean b) {
+        beanAgregarQuitar.setEnabled(b);
+        beanBtnGuardar.getBtnGuardar().setEnabled(b);
+        beanBtnSeleccionarPieza.setEnabled(b);
+        beanBtnSeleccionarProducto.setEnabled(b);
+        txtProcesoCalidad.setEnabled(b);
+        btnAsignar.setEnabled(b);
     }
 
     private void setearTablas() {
@@ -112,6 +145,8 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         boolean result = gestor.guardarPiezaXProcesoCalidad();
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+            limpiarCampos();
+            setEnabledComponents(false);
         } else {
             JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
         }
@@ -149,6 +184,8 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         lblPiezaSeleccionada.setText(v.getNombrePieza());
         beanAgregarQuitar.getBtnAgregar().setEnabled(true);
         beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        btnAsignar.setEnabled(true);
+        txtProcesoCalidad.setEnabled(true);
     }
 
     private void addListenerBtnSeleccionarProducto() {
@@ -167,6 +204,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         tblDetalleProducto.updateUI();
         idProductoSeleccionado = idPro;
         lblProductoSeleccionado.setText(v.getNombreProducto());
+        beanBtnSeleccionarPieza.setEnabled(true);
     }
 
     private void addListeners() {
@@ -189,12 +227,15 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarCampos();
         ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
         idPedidoSeleccionado = idPed;
         lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
+        setEnabledComponents(false);
+        beanBtnSeleccionarProducto.setEnabled(true);
     }
 
     private void addListenerBtnAgregar() {
@@ -576,6 +617,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         result = gestor.addPiezaXProcesoCalidad(pxpc);
 
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
+        beanBtnGuardar.getBtnGuardar().setEnabled(true);
 }//GEN-LAST:event_btnAsignarActionPerformed
 
     /*
