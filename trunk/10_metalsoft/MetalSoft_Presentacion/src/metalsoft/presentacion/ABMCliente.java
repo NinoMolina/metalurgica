@@ -57,12 +57,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnGuardar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
-        beanDomicilioCliente.getBtnAgregarBarrio().setEnabled(false);
-        beanDomicilioCliente.getBtnAgregarLocalidad().setEnabled(false);
-        beanDomicilioCliente.getBtnAgregarProvincia().setEnabled(false);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarBarrio().setEnabled(false);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarLocalidad().setEnabled(false);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarProvincia().setEnabled(false);
 
         setEnableComponents(false);
     }
@@ -98,12 +92,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
-        beanDomicilioCliente.getBtnAgregarBarrio().setEnabled(true);
-        beanDomicilioCliente.getBtnAgregarLocalidad().setEnabled(true);
-        beanDomicilioCliente.getBtnAgregarProvincia().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarBarrio().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarLocalidad().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarProvincia().setEnabled(true);
     }
 
     private void addListenerBtnGuardar() {
@@ -130,12 +118,6 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnModificar().setEnabled(false);
         botones.getBtnEliminar().setEnabled(false);
-        beanDomicilioCliente.getBtnAgregarBarrio().setEnabled(true);
-        beanDomicilioCliente.getBtnAgregarLocalidad().setEnabled(true);
-        beanDomicilioCliente.getBtnAgregarProvincia().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarBarrio().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarLocalidad().setEnabled(true);
-        beanResponsable.getDomicilioResponsable().getBtnAgregarProvincia().setEnabled(true);
     }
 
     private void addListenerBtnBuscar() {
@@ -257,12 +239,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
-            beanDomicilioCliente.getBtnAgregarBarrio().setEnabled(false);
-            beanDomicilioCliente.getBtnAgregarLocalidad().setEnabled(false);
-            beanDomicilioCliente.getBtnAgregarProvincia().setEnabled(false);
-            beanResponsable.getDomicilioResponsable().getBtnAgregarBarrio().setEnabled(false);
-            beanResponsable.getDomicilioResponsable().getBtnAgregarLocalidad().setEnabled(false);
-            beanResponsable.getDomicilioResponsable().getBtnAgregarProvincia().setEnabled(false);
+            setEnableComponents(false);
+
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         }
@@ -281,6 +259,12 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         cmbPrioridad.setEnabled(b);
         beanDomicilioCliente.setEnabled(b);
         beanResponsable.setEnabled(b);
+        beanDomicilioCliente.getBtnAgregarBarrio().setEnabled(b);
+        beanDomicilioCliente.getBtnAgregarLocalidad().setEnabled(b);
+        beanDomicilioCliente.getBtnAgregarProvincia().setEnabled(b);
+        beanResponsable.getDomicilioResponsable().getBtnAgregarBarrio().setEnabled(b);
+        beanResponsable.getDomicilioResponsable().getBtnAgregarLocalidad().setEnabled(b);
+        beanResponsable.getDomicilioResponsable().getBtnAgregarProvincia().setEnabled(b);
     }
 
     private void limpiarCampos() {
