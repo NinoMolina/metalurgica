@@ -10,12 +10,10 @@
  */
 package metalsoft.presentacion;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorPresupuesto;
@@ -29,7 +27,6 @@ import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import metalsoft.util.Jornada;
-import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -59,9 +56,42 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         initComponents();
         addListeners();
         setearTablas();
+        limpiarCampos();
+        setEnabledComponents(false);
         filasPedidos = null;
         gestor = new GestorPresupuesto();
         buscarPedidosConDetalleProcesoCalidad();
+    }
+
+    private void limpiarCampos() {
+        lblBrutoTotal.setText("...");
+        lblCostoMateriaPrima.setText("...");
+        lblCostoTotal.setText("0");
+        lblDuracionProcesosCalidad.setText("...");
+        lblDuracionProcesosProduccion.setText("...");
+        lblGanancia.setText("...");
+        lblHoraJornada.setText("...");
+        lblIVA.setText("...");
+        lblNroPresupuesto.setText("...");
+        lblTotalACobrar.setText("...");
+        if (filasEtapasXPiezaPresupuesto != null) {
+            filasEtapasXPiezaPresupuesto.clear();
+        }
+        if (filasMateriaPrimaXPiezaPresupuesto != null) {
+            filasMateriaPrimaXPiezaPresupuesto.clear();
+        }
+        if (filasProcesoCalidadXPiezaPresupuesto != null) {
+            filasProcesoCalidadXPiezaPresupuesto.clear();
+        }
+        tblEtapasXPieza.updateUI();
+        tblMatPrimaXPieza.updateUI();
+        tblProCalidadXPieza.updateUI();
+    }
+
+    private void setEnabledComponents(boolean b) {
+        beanBtnGuardar.getBtnGuardar().setEnabled(b);
+        btnSeleccionarProveedor.setEnabled(b);
+        btnVerDetalle.setEnabled(b);
     }
 
     private void setearTablas() {
@@ -119,6 +149,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     }
 
     private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tblPedidos.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
+            return;
+        }
+        limpiarCampos();
+        setEnabledComponents(true);
+        beanBtnGuardar.getBtnGuardar().setEnabled(false);
         ViewPedidoEnListadoProcedimientos viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
         idPedido = viewPedido.getIdpedido();
         long nroPresupuesto = gestor.buscarNroPresupuesto(idPedido);
@@ -149,6 +186,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         int ok = -1;
         if (result > 0) {
             ok = JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
+            limpiarCampos();
+            setEnabledComponents(false);
             if (ok == JOptionPane.OK_OPTION) {
                 imprimirPresupuesto();
             }
@@ -670,6 +709,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         SeleccionarProveedor p = new SeleccionarProveedor(idMatPrima, this);
         p.setVisible(true);
         p.setLocationRelativeTo(null);
+        beanBtnGuardar.getBtnGuardar().setEnabled(true);
     }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
     private void btnVerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalleActionPerformed
