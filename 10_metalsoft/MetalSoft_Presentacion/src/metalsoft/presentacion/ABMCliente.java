@@ -253,44 +253,44 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
     private boolean esValido(){
         boolean result=true;
-        if(txtRazonSocial.getText().compareTo("")!=0)
+        if(txtRazonSocial.getText().compareTo("")==0)
             result=false;
-        if(txtCUIT.getText().compareTo("")!=0)
+        if(txtCUIT.getText().compareTo("")==0)
             result=false;
-        if(cmbCondicionIVA.getSelectedIndex()>0)
+        if(cmbCondicionIVA.getSelectedIndex()<=0)
             result=false;
-        if(cmbEstado.getSelectedIndex()>0)
+        if(cmbEstado.getSelectedIndex()<=0)
             result=false;
-        if(cmbPrioridad.getSelectedIndex()>0)
+        if(cmbPrioridad.getSelectedIndex()<=0)
             result=false;
-        if(beanDomicilioCliente.getCmbBarrio().getSelectedIndex()>0)
+        if(beanDomicilioCliente.getCmbBarrio().getSelectedIndex()<=0)
             result=false;
-        if(beanDomicilioCliente.getCmbLocalidad().getSelectedIndex()>0)
+        if(beanDomicilioCliente.getCmbLocalidad().getSelectedIndex()<=0)
             result=false;
-        if(beanDomicilioCliente.getCmbProvincia().getSelectedIndex()>0)
+        if(beanDomicilioCliente.getCmbProvincia().getSelectedIndex()<=0)
             result=false;
-        if(beanDomicilioCliente.getTxtCalle().getText().compareTo("")!=0)
+        if(beanDomicilioCliente.getTxtCalle().getText().compareTo("")==0)
             result=false;
-        if(beanDomicilioCliente.getTxtNumero().getText().compareTo("")!=0)
+        if(beanDomicilioCliente.getTxtNumero().getText().compareTo("")==0)
             result=false;
 
-        if(beanResponsable.getTxtNombre().getText().compareTo("")!=0)
+        if(beanResponsable.getTxtNombre().getText().compareTo("")==0)
             result=false;
-        if(beanResponsable.getTxtApellido().getText().compareTo("")!=0)
+        if(beanResponsable.getTxtApellido().getText().compareTo("")==0)
             result=false;
-        if(beanResponsable.getTxtNroDoc().getText().compareTo("")!=0)
+        if(beanResponsable.getTxtNroDoc().getText().compareTo("")==0)
             result=false;
-        if(beanResponsable.getCmbTipoDoc().getSelectedIndex()>0)
+        if(beanResponsable.getCmbTipoDoc().getSelectedIndex()<=0)
             result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex()>0)
+        if(beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex()<=0)
             result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex()>0)
+        if(beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex()<=0)
             result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex()>0)
+        if(beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex()<=0)
             result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("")!=0)
+        if(beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("")==0)
             result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("")!=0)
+        if(beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("")==0)
             result=false;
 
         return result;
