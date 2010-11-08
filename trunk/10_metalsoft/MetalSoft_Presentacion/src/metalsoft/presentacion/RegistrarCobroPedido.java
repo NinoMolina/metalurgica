@@ -122,6 +122,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         btnRegistrarCobro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Cobro Pedido");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Entregados No Cobrados"));
 
