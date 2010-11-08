@@ -40,11 +40,27 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     public RegistrarLanzamientoProduccion() {
         initComponents();
         gestor = new GestorRegistrarLanzamientoProduccion();
+        limpiarCampos();
+        setearEnabledComponents(false);
         buscarPedidosConMPAsignada();
         setearTablaPedidos();
         addListeners();
     }
 
+    private void setearEnabledComponents(boolean b){
+        btnLanzarProduccion.setEnabled(b);
+        btnVerObservaciones.setEnabled(b);
+    }
+
+    private void limpiarCampos(){
+        lblFechaFinPrevista.setText("...");
+        lblFechaFinRecalculada.setText("...");
+        lblFechaInicioPrevista.setText("...");
+        lblNroPedido.setText("...");
+        lblNroPlanifProduccion.setText("...");
+        jdcFechaInicioReal.setDate(null);
+        jdcFehaFiltro.setDate(null);
+    }
 
     private void addListeners(){
         addListenerBtnSeleccionarPedido();
@@ -61,8 +77,13 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }
 
     private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tblPedidos.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
+            return;
+        }
         viewPedidoSeleccionado = filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
         setearDatosPedidoSeleccionado();
+        setearEnabledComponents(true);
     }
 
     private void addListenerBtnSalir() {
@@ -329,6 +350,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         long resultPedido=gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
         if(result>0){
             JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+            setearEnabledComponents(false);
+            limpiarCampos();
         }
         else{
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
