@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorDetalleProcesosCalidad;
 import metalsoft.negocio.gestores.IBuscadorView;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.PiezaXProcesosCalidad;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
@@ -717,7 +718,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNropedido();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
@@ -780,7 +781,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNumeroProducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
                 case 1:
                     return view.getCantidad();
                 case 2:
@@ -892,7 +893,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNroproceso();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, view.getNroproceso());
                 case 1:
                     return view.getNombreaccioncalidad();
                 case 2:
@@ -948,7 +949,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNroproceso();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, view.getNroproceso());
                 case 1:
                     return view.getNombreaccioncalidad();
                 case 2:
