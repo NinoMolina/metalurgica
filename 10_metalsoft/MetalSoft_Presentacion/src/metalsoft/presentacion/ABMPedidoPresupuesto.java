@@ -1007,9 +1007,11 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
             bsyBuscarProducto.setVisible(false);
         }
         if (obj instanceof ClienteDB[]) {
-            ClienteDB cli=(ClienteDB) obj[0];
-            lblTelefono.setText(cli.getTelefono());
-            lblCuit.setText(cli.getCuit());
+            if(obj.length>0){
+                ClienteDB cli=(ClienteDB) obj[0];
+                lblTelefono.setText(cli.getTelefono());
+                lblCuit.setText(cli.getCuit());
+            }
             bsyBuscar.setBusy(false);
             bsyBuscar.setVisible(false);
         }
