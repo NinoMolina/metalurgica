@@ -24,6 +24,7 @@ import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import metalsoft.util.Calculos;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import metalsoft.util.Jornada;
@@ -800,6 +801,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         c.add(Calendar.MINUTE, minutos);
         c.add(Calendar.HOUR_OF_DAY, horas);
         c.add(Calendar.DAY_OF_YEAR, dias);
+        c=Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, c);
         dccFechaEstimadaFinProduccion.setDate(c.getTime());
     }
 
