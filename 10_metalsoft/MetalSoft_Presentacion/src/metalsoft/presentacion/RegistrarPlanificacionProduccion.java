@@ -39,6 +39,7 @@ import javax.swing.tree.TreePath;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
+import metalsoft.util.Calculos;
 import metalsoft.util.Decimales;
 import metalsoft.util.Fecha;
 import metalsoft.util.Jornada;
@@ -1158,12 +1159,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     GregorianCalendar inicio = new GregorianCalendar();
                     inicio.setTime(fechaInicio);
                     inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-                    inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
                     GregorianCalendar fin = new GregorianCalendar();
                     fin.setTime(inicio.getTime());
                     fin.add(Calendar.HOUR_OF_DAY, detPiPre.getDuracionpiezaxetapa().getHours());
                     fin.add(Calendar.MINUTE, detPiPre.getDuracionpiezaxetapa().getMinutes());
-                    fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+                    fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
                     etapaProd.setInicioEtapa(inicio.getTime());
                     etapaProd.setFinEtapa(fin.getTime());
                     pieza.add(etapaProd);
@@ -1176,41 +1177,41 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 //        trtDetalleProcProd.updateUI();
     }
 
-    private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
-        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
-            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
-            inicio.set(Calendar.MINUTE, 0);
-        }
-        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
-            inicio.add(Calendar.DAY_OF_YEAR, 1);
-            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
-            inicio.set(Calendar.MINUTE, 0);
-        }
-        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
-            inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-        }
-        return inicio;
-    }
-
-    private GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
-        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
-            int hora = fin.get(Calendar.HOUR_OF_DAY);
-            int horaAM = (horaFinJornada - 12);
-            int dif = horaAM - hora;
-            int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
-            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
-        }
-        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
-            int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
-            int horasfaltantes = dif;
-            fin.add(Calendar.DAY_OF_YEAR, 1);
-            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
-        }
-        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
-            fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
-        }
-        return fin;
-    }
+//    private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
+//        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
+//            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+//            inicio.set(Calendar.MINUTE, 0);
+//        }
+//        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+//            inicio.add(Calendar.DAY_OF_YEAR, 1);
+//            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
+//            inicio.set(Calendar.MINUTE, 0);
+//        }
+//        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+//            inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+//        }
+//        return inicio;
+//    }
+//
+//    private GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
+//        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
+//            int hora = fin.get(Calendar.HOUR_OF_DAY);
+//            int horaAM = (horaFinJornada - 12);
+//            int dif = horaAM - hora;
+//            int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
+//            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+//        }
+//        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+//            int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
+//            int horasfaltantes = dif;
+//            fin.add(Calendar.DAY_OF_YEAR, 1);
+//            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
+//        }
+//        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+//            fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+//        }
+//        return fin;
+//    }
 
     /**
      * @param args the command line arguments
