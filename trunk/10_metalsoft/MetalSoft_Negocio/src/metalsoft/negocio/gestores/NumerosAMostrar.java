@@ -20,6 +20,7 @@ public class NumerosAMostrar {
     public static final int NRO_MAQUINA = 8;
     public static final int NRO_PLANIF_PRODUCCION = 9;
     public static final int NRO_ETAPA_PRODUCCION = 10;
+    public static final int NRO_PROCESO_CALIDAD = 11;
 
     public static String getNumeroString(int tiponro, long nro) {
         switch (tiponro) {
@@ -43,6 +44,8 @@ public class NumerosAMostrar {
                 return "PLAN-" + String.valueOf(nro);
             case NRO_ETAPA_PRODUCCION:
                 return "ETPR-" + String.valueOf(nro);
+            case NRO_PROCESO_CALIDAD:
+                return "PRCA-" + String.valueOf(nro);
             default:
                 return null;
         }
