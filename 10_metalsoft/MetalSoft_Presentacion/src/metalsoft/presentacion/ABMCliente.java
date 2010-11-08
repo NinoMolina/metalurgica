@@ -161,6 +161,10 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        if(!esValido()){
+            JOptionPane.showMessageDialog(this, "No estan todos los campos completados");
+            return;
+        }
         long idEstado = Long.parseLong(((ItemCombo) cmbEstado.getSelectedItem()).getId());
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
         long idPrioridad = Long.parseLong(((ItemCombo) cmbPrioridad.getSelectedItem()).getId());
@@ -245,6 +249,51 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         }
+    }
+
+    private boolean esValido(){
+        boolean result=true;
+        if(txtRazonSocial.getText().compareTo("")!=0)
+            result=false;
+        if(txtCUIT.getText().compareTo("")!=0)
+            result=false;
+        if(cmbCondicionIVA.getSelectedIndex()>0)
+            result=false;
+        if(cmbEstado.getSelectedIndex()>0)
+            result=false;
+        if(cmbPrioridad.getSelectedIndex()>0)
+            result=false;
+        if(beanDomicilioCliente.getCmbBarrio().getSelectedIndex()>0)
+            result=false;
+        if(beanDomicilioCliente.getCmbLocalidad().getSelectedIndex()>0)
+            result=false;
+        if(beanDomicilioCliente.getCmbProvincia().getSelectedIndex()>0)
+            result=false;
+        if(beanDomicilioCliente.getTxtCalle().getText().compareTo("")!=0)
+            result=false;
+        if(beanDomicilioCliente.getTxtNumero().getText().compareTo("")!=0)
+            result=false;
+
+        if(beanResponsable.getTxtNombre().getText().compareTo("")!=0)
+            result=false;
+        if(beanResponsable.getTxtApellido().getText().compareTo("")!=0)
+            result=false;
+        if(beanResponsable.getTxtNroDoc().getText().compareTo("")!=0)
+            result=false;
+        if(beanResponsable.getCmbTipoDoc().getSelectedIndex()>0)
+            result=false;
+        if(beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex()>0)
+            result=false;
+        if(beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex()>0)
+            result=false;
+        if(beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex()>0)
+            result=false;
+        if(beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("")!=0)
+            result=false;
+        if(beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("")!=0)
+            result=false;
+
+        return result;
     }
 
     private void setEnableComponents(boolean b) {
@@ -433,6 +482,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         jLabel13.setText("Fecha Baja:");
 
+        txtRazonSocial.setNextFocusableComponent(cmbPrioridad);
+
         txtMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMailActionPerformed(evt);
@@ -440,8 +491,10 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         });
 
         beanDomicilioCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio Cliente"));
+        beanDomicilioCliente.setNextFocusableComponent(beanResponsable);
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Responsable"));
+        beanResponsable.setNextFocusableComponent(botones);
 
         lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroCliente.setText("...");
