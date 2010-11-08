@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.util.Date;
 import metalsoft.util.Fecha;
 import metalsoft.util.EnumOpcionesABM;
 import java.util.logging.Level;
@@ -39,7 +40,7 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
     private Cliente cliente;
     private metalsoft.datos.dbobject.ClienteDB clienteDB;
     private metalsoft.datos.dbobject.ResponsableDB responsableDB;
-    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB,  domicilioResponsableDB;
+    private metalsoft.datos.dbobject.DomicilioDB domicilioClienteDB, domicilioResponsableDB;
     private EnumOpcionesABM opcion;
     private long idCliente;
 
@@ -194,8 +195,8 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
 
         String cuitCli = txtCUIT.getText();
         String celCli = txtCelular.getText();
-        String fecAltaCli = txtFechaAlta.getDate().toString();
-        String fecBajaCli = txtFechaBaja.getDate().toString();
+        Date fecAltaCli = txtFechaAlta.getDate();
+        Date fecBajaCli = txtFechaBaja.getDate();
         String mailCli = txtMail.getText();
         long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
         String nroCli = String.valueOf(nro);
@@ -657,23 +658,12 @@ public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IRe
         return resp;
     }
 
-    private Cliente crearCliente(String cuit, String cel, String fechaAlta, String fechaBaja, String mail, String nroCli, String razon, String tel) {
+    private Cliente crearCliente(String cuit, String cel, Date fechaAlta, Date fechaBaja, String mail, String nroCli, String razon, String tel) {
         Cliente x = new Cliente();
         x.setCUIT(cuit);
         x.setCelular(cel);
-
-        if (fechaAlta.compareTo("") != 0) {
-            x.setFechaAlta(Fecha.parseToDate(fechaAlta));
-        } else {
-            x.setFechaAlta(null);
-        }
-
-        if (fechaBaja.compareTo("") != 0) {
-            x.setFechaBaja(Fecha.parseToDate(fechaBaja));
-        } else {
-            x.setFechaBaja(null);
-        }
-
+        x.setFechaAlta(fechaAlta);
+        x.setFechaBaja(fechaBaja);
         x.setMail(mail);
         x.setNroCliente(Integer.parseInt(nroCli));
         x.setRazonSocial(razon);
