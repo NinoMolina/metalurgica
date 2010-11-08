@@ -64,6 +64,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         buscarPedidosGenerados();
         addListeners();
         setearTablas();
+        setEnabledComponents(false);
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblEtapa.updateUI();
@@ -71,6 +72,14 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         tblEtapaSeleccionada.updateUI();
     }
 
+    private void setEnabledComponents(boolean b){
+        beanAgregarQuitar.setEnabled(b);
+        beanBtnGuardar.getBtnGuardar().setEnabled(b);
+        beanBtnSeleccionarPieza.setEnabled(b);
+        beanBtnSeleccionarProducto.setEnabled(b);
+        txtEtapaProduccion.setEnabled(b);
+        btnAsignar.setEnabled(b);
+    }
     private void setearTablas(){
         //DETALLE PEDIDO
         tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
@@ -132,8 +141,32 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
         boolean result=gestor.guardarEtapasPiezaPresupuesto();
-        if(result)JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+        if(result){
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+            limpiarCampos();
+            setEnabledComponents(false);
+        }
         else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
+    }
+
+    private void limpiarCampos(){
+        if(filasDetallePedido!=null)
+            filasDetallePedido.clear();
+        if(filasDetalleProducto!=null)
+            filasDetalleProducto.clear();
+        if(filasEtapaProduccion!=null)
+            filasEtapaProduccion.clear();
+        if(filasEtapaProduccionSeleccionada!=null)
+            filasEtapaProduccionSeleccionada.clear();
+        tblDetallePedido.updateUI();
+        tblDetalleProducto.updateUI();
+        tblEtapa.updateUI();
+        tblEtapaSeleccionada.updateUI();
+        txtEtapaProduccion.setText("");
+        txtPedidoCotizacion.setText("");
+        lblPedidoSeleccionado.setText("...");
+        lblPiezaSeleccionada.setText("...");
+        lblProductoSeleccionado.setText("...");
     }
 
     private void addListenerBtnSalir()
@@ -171,6 +204,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         lblPiezaSeleccionada.setText(v.getNombrePieza());
         beanAgregarQuitar.getBtnAgregar().setEnabled(true);
         beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        btnAsignar.setEnabled(true);
+        txtEtapaProduccion.setEnabled(true);
     }
 
     private void addListenerBtnSeleccionarProducto()
@@ -190,6 +225,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         tblDetalleProducto.updateUI();
         idProductoSeleccionado=idPro;
         lblProductoSeleccionado.setText(v.getNombreProducto());
+        beanBtnSeleccionarPieza.setEnabled(true);
     }
 
     private void addListenerBtnSeleccionarPedido()
@@ -203,12 +239,15 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
 
     private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt)
     {
+        limpiarCampos();
         ViewPedidoEnListadoProcedimientos v=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed=v.getIdpedido();
         filasDetallePedido=gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
         idPedidoSeleccionado=idPed;
         lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
+        setEnabledComponents(false);
+        beanBtnSeleccionarProducto.setEnabled(true);
     }
     private void addListenerBtnAgregar()
     {
@@ -261,7 +300,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPedidoCotizacion = new javax.swing.JTextField();
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -307,7 +346,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(txtPedidoCotizacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(562, 562, 562))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
@@ -319,7 +358,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(txtPedidoCotizacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(8, 8, 8))
@@ -429,16 +468,16 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(lblPiezaSeleccionada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jLabel3)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(txtEtapaProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
-                            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 378, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 378, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(btnAsignar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(btnAsignar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(beanAgregarQuitar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 417, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -577,6 +616,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
 
         int result=gestor.addPiezaXEtapas(pxe);
         mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
+        beanBtnGuardar.getBtnGuardar().setEnabled(true);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
      /*
@@ -635,7 +675,6 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPedidoSeleccionado;
     private javax.swing.JLabel lblPiezaSeleccionada;
     private javax.swing.JLabel lblProductoSeleccionado;
@@ -644,6 +683,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     private org.jdesktop.swingx.JXTable tblEtapa;
     private org.jdesktop.swingx.JXTable tblEtapaSeleccionada;
     private javax.swing.JTextField txtEtapaProduccion;
+    private javax.swing.JTextField txtPedidoCotizacion;
     // End of variables declaration//GEN-END:variables
 
     public JTable getTable(String className) {
