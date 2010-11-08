@@ -10,14 +10,11 @@
  */
 package metalsoft.presentacion;
 
-import controller.EstadoplanificacionproduccionJpaController;
 import controller.PedidoJpaController;
 import entity.Detallepiezapresupuesto;
 import entity.Detalleplanificacionproduccion;
 import entity.Detalleproductopresupuesto;
 import entity.Empleado;
-import entity.Estadopedido;
-import entity.Estadoplanificacionproduccion;
 import entity.Etapadeproduccion;
 import entity.Maquina;
 import entity.Pedido;
@@ -59,7 +56,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
-import org.joda.time.JodaTimePermission;
 
 /**
  *
@@ -90,7 +86,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         iniciarPaneles();
         hashEmpleadoNoDisponible = new HashMap<Long, Empleado>();
         hashMaquinasNoDisponible = new HashMap<Long, Maquina>();
-        setEnableHyperLink(false);
+        setEnabledComponents(false);
         listColumnNamesTreeTable = new ArrayList<String>();
         listColumnNamesTreeTable.add("Detalle");
         listColumnNamesTreeTable.add("Empleado");
@@ -322,14 +318,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tblPedidos.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
+            return;
+        }
         viewPedidoSeleccionado = filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
         presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
-        setVisiblePanel(
-                pnlTreeTable.getName());
-        setEnableHyperLink(
-                true);
-        cargarDatosTreeTable(
-                presupuesto.getDetallepresupuestoSet());
+        setVisiblePanel(pnlTreeTable.getName());
+        setEnabledComponents(true);
+        cargarDatosTreeTable(presupuesto.getDetallepresupuestoSet());
     }
 
     private void setearTablas() {
@@ -362,13 +359,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
-    private void setEnableHyperLink(boolean flag) {
+    private void setEnabledComponents(boolean flag) {
         tskPanel.setEnabled(flag);
         hplAsignarEmpleado.setEnabled(flag);
         hplAsignarMaquinas.setEnabled(flag);
         hplVerDisponibilidad.setEnabled(flag);
         hplVerPlanificacion.setEnabled(flag);
         hplObservaciones.setEnabled(flag);
+        subirBajar.setEnabled(flag);
+        beanBtnGuardar.getBtnGuardar().setEnabled(flag);
     }
 
     private void iniciarPaneles() {
@@ -417,6 +416,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -472,12 +472,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
 
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Nro Pedido");
 
         jLabel1.setText("Valor de Búsqueda:");
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Fecha Pedido");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Cliente");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1000,7 +1004,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         pnlDispHoraria.removeAll();
         txtValorBusqueda.setText("");
         txtObservaciones.setText("");
-        setEnableHyperLink(false);
+        setEnabledComponents(false);
         setVisiblePanel(pnlTreeTable.getName());
         tblPedidos.updateUI();
     }
@@ -1200,6 +1204,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JButton btnAsignarEmpleado;
     private javax.swing.JButton btnAsignarMaquina;
     private javax.swing.JButton btnVerDisponibilidad;
+    private javax.swing.ButtonGroup buttonGroup1;
     private org.jdesktop.swingx.JXHyperlink hplAsignarEmpleado;
     private org.jdesktop.swingx.JXHyperlink hplAsignarMaquinas;
     private org.jdesktop.swingx.JXHyperlink hplObservaciones;
