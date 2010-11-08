@@ -235,7 +235,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
         jLabel8.setText("Fecha Baja:");
 
-        jLabel4.setText("Descripcion:");
+        jLabel4.setText("Descripción:");
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
