@@ -181,15 +181,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblNroPresupuesto" min="-2" pref="123" max="-2" attributes="1"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNroPresupuesto" min="-2" pref="111" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblMontoTotal" min="-2" pref="77" max="-2" attributes="1"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblMontoTotal" min="-2" pref="91" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="lblFechaVencimientoPresupuesto" pref="82" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblFechaVencimientoPresupuesto" pref="79" max="32767" attributes="1"/>
                       </Group>
                       <Component id="jSeparator2" alignment="0" pref="593" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -224,10 +224,10 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNroPresupuesto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFechaVencimientoPresupuesto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblMontoTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblFechaVencimientoPresupuesto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -268,7 +268,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto Total:"/>
+            <Property name="text" type="java.lang.String" value="Monto Total: $"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
