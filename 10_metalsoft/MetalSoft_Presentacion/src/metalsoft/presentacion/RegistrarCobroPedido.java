@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
@@ -54,6 +55,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         tblPedidos.updateUI();
         btnRegistrarCobro.setEnabled(false);
     }
+
     private void setearTablas() {
         //DETALLE PEDIDO
         tblPedidos.setModel(new PedidoTableModel());
@@ -246,9 +248,13 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
 
         txtNroPedidoCliente.setEnabled(false);
 
+        cmbPrioridad1.setEnabled(false);
+
         jLabel9.setText("Prioridad:");
 
         jLabel10.setText("Estado:");
+
+        cmbEstado1.setEnabled(false);
 
         jLabel12.setText("Nro. Factura:");
 
@@ -440,7 +446,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
         } else {
             dccPedidoCotizacion.setDate(ped.getFechapedidocotizacion());
         }
-        lblNroPedido.setText("PED-"+String.valueOf(ped.getNropedido()));
+        lblNroPedido.setText("PED-" + String.valueOf(ped.getNropedido()));
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
@@ -486,11 +492,13 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
 
         boolean flag = false;
         do {
+            Double montoFactura = gestor.montoFactura(idPedido);
+            Double diferenciaMontos = montoFactura - gestor.montoPagadoPorFactura(idPedido);
             JComboBox combo = new JComboBox();
             JTextField monto = new JTextField();
-
+            JLabel saldo = new JLabel(String.valueOf(diferenciaMontos));
             gestor.obtenerFormasDePago(combo);
-            Object[] obj = {"Forma de Pago:", combo, "Monto a Cobrar", monto};
+            Object[] obj = {"Forma de Pago:", combo, "Saldo", saldo, "Monto a Cobrar", monto};
 
             int res = JOptionPane.showConfirmDialog(null, obj, "Ingresar Forma de Pago y Monto a Cobrar", JOptionPane.OK_CANCEL_OPTION);
 
@@ -498,20 +506,21 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
                 long formaPago = Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
                 if (monto.getText().compareTo("") != 0) {
                     Double montoPago = Double.parseDouble(monto.getText());
-                    Double montoFactura=gestor.montoFactura(idPedido);
-                    Double diferenciaMontos=montoFactura-gestor.montoPagadoPorFactura(idPedido);
+
+
                     if (diferenciaMontos >= montoPago) {
 
                         ok = JOptionPane.showConfirmDialog(this, "Esta seguro que desea imprimir el comprobante de pago por $" + monto.getText() + "?");
                         if (ok == JOptionPane.OK_OPTION) {
                             gestor.imprimirComprobantePago(idPedido, montoPago, formaPago);
                             flag = false;
-                            if(gestor.estaTodaPagada(idPedido)){
+                            if (gestor.estaTodaPagada(idPedido)) {
                                 gestor.registrarCobroTotal(idPedido);
                             }
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El monto de la ingresado supera lo requerido por pagar. Lo que resta por pagar son $" + diferenciaMontos);
                     }
-                    else JOptionPane.showMessageDialog(this, "El monto de la ingresado supera lo requerido por pagar. Lo que resta por pagar son $"+diferenciaMontos);
                 }
             } else {
                 flag = true;
@@ -540,7 +549,6 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarCobro;
     private javax.swing.JButton btnSalir;
@@ -595,7 +603,7 @@ public class RegistrarCobroPedido extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return "PED-"+view.getNropedido();
+                    return "PED-" + view.getNropedido();
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
