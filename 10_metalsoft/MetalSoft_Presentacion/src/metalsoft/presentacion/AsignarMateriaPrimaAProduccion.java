@@ -154,6 +154,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Asignar Materia Prima a Producción");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos sin Materia Prima asignada"));
 
