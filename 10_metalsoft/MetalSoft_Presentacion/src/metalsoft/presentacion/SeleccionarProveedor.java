@@ -385,7 +385,7 @@ public class SeleccionarProveedor extends javax.swing.JFrame {
             case 6:
               return view.getResponsable();
             case 7:
-              return view.getPrecio();
+              return "$ "+view.getPrecio();
             default:
               return null;
             }
