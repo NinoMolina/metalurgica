@@ -274,11 +274,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
         lblDuracionProcesosCalidad = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tblProCalidadXPieza = new org.jdesktop.swingx.JXTable();
+        lblDuracionTotal2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         lblDuracionProcesosProduccion = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblEtapasXPieza = new org.jdesktop.swingx.JXTable();
+        lblDuracionTotal1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -391,6 +393,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jScrollPane8.setViewportView(tblProCalidadXPieza);
 
+        lblDuracionTotal2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDuracionTotal2.setText("(hh:mm:ss)");
+
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -402,7 +407,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                     .add(jPanel5Layout.createSequentialGroup()
                         .add(jLabel15)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(lblDuracionProcesosCalidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(lblDuracionProcesosCalidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblDuracionTotal2)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -412,7 +419,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel15)
-                    .add(lblDuracionProcesosCalidad))
+                    .add(lblDuracionProcesosCalidad)
+                    .add(lblDuracionTotal2))
                 .addContainerGap())
         );
 
@@ -420,10 +428,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel17.setText("Duración de Procesos de Producción:");
 
-        lblDuracionProcesosProduccion.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblDuracionProcesosProduccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracionProcesosProduccion.setText("...");
 
         jScrollPane7.setViewportView(tblEtapasXPieza);
+
+        lblDuracionTotal1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDuracionTotal1.setText("(hh:mm:ss)");
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -436,7 +447,9 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jLabel17)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(lblDuracionProcesosProduccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(lblDuracionProcesosProduccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblDuracionTotal1)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -446,7 +459,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 7, Short.MAX_VALUE)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel17)
-                    .add(lblDuracionProcesosProduccion))
+                    .add(lblDuracionProcesosProduccion)
+                    .add(lblDuracionTotal1))
                 .addContainerGap())
         );
 
@@ -476,7 +490,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel18.setText("Fecha presupuesto:");
 
-        lblNroPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblNroPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroPresupuesto.setText("...");
 
         jLabel11.setText("Nro. Presupuesto:");
@@ -485,7 +499,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
 
         jLabel1.setText("Fecha Estimada Fin Producción:");
 
-        lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracionTotal.setText("...");
 
         lblCostoTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -958,6 +972,8 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
     private javax.swing.JLabel lblDuracionProcesosCalidad;
     private javax.swing.JLabel lblDuracionProcesosProduccion;
     private javax.swing.JLabel lblDuracionTotal;
+    private javax.swing.JLabel lblDuracionTotal1;
+    private javax.swing.JLabel lblDuracionTotal2;
     private javax.swing.JLabel lblGanancia;
     private javax.swing.JLabel lblHoraJornada;
     private javax.swing.JLabel lblIVA;
@@ -986,7 +1002,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNropedido();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
@@ -1065,7 +1081,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNroproducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNroproducto());
                 case 1:
                     return view.getNombreproducto();
                 case 2:
@@ -1075,13 +1091,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 case 4:
                     return view.getCantpieza();
                 case 5:
-                    return view.getNroetapaproduccion();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNroetapaproduccion());
                 case 6:
                     return view.getNombreetapaproduccion();
                 case 7:
-                    return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza());
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza())+" (hh:mm:ss)";
                 case 8:
-                    return view.getDuraciontotal();
+                    return view.getDuraciontotal()+" (hh:mm:ss)";
                 default:
                     return null;
             }
@@ -1143,7 +1159,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNroproducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNroproducto());
                 case 1:
                     return view.getNombreproducto();
                 case 2:
@@ -1155,13 +1171,13 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 case 5:
                     return view.getNombremateriaprima();
                 case 6:
-                    return view.getPreciomateriaprima();
+                    return "$ "+view.getPreciomateriaprima();
                 case 7:
                     return view.getCantmateriaprima();
                 case 8:
                     return view.getCanttotal();
                 case 9:
-                    return view.getPreciototal();
+                    return "$ "+view.getPreciototal();
                 default:
                     return null;
             }
@@ -1223,7 +1239,7 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNroproducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNroproducto());
                 case 1:
                     return view.getNombreproducto();
                 case 2:
@@ -1233,15 +1249,15 @@ public class RegistrarPresupuesto extends javax.swing.JFrame {
                 case 4:
                     return view.getCantpieza();
                 case 5:
-                    return view.getNroprocesocalidad();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, view.getNroprocesocalidad());
                 case 6:
                     return view.getNombreprocesocalidad();
                 case 7:
                     return view.getCantprocesocalidad();
                 case 8:
-                    return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza());
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza())+" (hh:mm:ss)";
                 case 9:
-                    return view.getDuraciontotal();
+                    return view.getDuraciontotal()+" (hh:mm:ss)";
                 default:
                     return null;
             }
