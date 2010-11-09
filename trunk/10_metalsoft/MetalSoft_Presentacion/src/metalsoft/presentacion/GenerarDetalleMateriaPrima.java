@@ -219,7 +219,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt) {
-        if(tblDetallePedido.getSelectedRow()<0){
+        if (tblDetallePedido.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
             return;
         }
@@ -613,6 +613,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
 }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        if (filasMateriaPrimaSeleccionada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ninguna materia prima para asignar!");
+            return;
+        }
         PiezaXMateriaPrima pxmp = new PiezaXMateriaPrima();
 
         ViewDetalleProducto viewDetPro = filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
