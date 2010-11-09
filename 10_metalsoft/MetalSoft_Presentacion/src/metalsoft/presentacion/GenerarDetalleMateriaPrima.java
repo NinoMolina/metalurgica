@@ -187,6 +187,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnSeleccionarPiezaBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblDetalleProducto.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
+            return;
+        }
         ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasMateriaPrima = gestor.obtenerAllMateriaPrima();
 
@@ -215,6 +219,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tblDetallePedido.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
+            return;
+        }
         ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
@@ -234,6 +242,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (beanTblPedidos.getTblPedidos().getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
+            return;
+        }
         limpiarCampos();
         ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed = v.getIdpedido();
@@ -255,6 +267,10 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblMateriaPrima.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima!");
+            return;
+        }
         if (filasMateriaPrimaSeleccionada.isEmpty()) {
             beanAgregarQuitar.getBtnQuitar().setEnabled(true);
         } else {
@@ -280,6 +296,9 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
     }
 
     private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (filasMateriaPrimaSeleccionada.isEmpty()) {
+            return;
+        }
         if (filasMateriaPrima.isEmpty()) {
             beanAgregarQuitar.getBtnAgregar().setEnabled(true);
         }
@@ -612,7 +631,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JFrame implements IB
         ViewPedidoEnListadoProcedimientos viewPed = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed = viewPed.getIdpedido();
 
-        ViewMateriaPrima viewMatPrima = filasMateriaPrimaSeleccionada.get(tblMateriaPrimaSeleccionada.getSelectedRow());
+        ViewMateriaPrima viewMatPrima = filasMateriaPrimaSeleccionada.get(0);
         double altoMatPrima = viewMatPrima.getAlto();
         double anchoMatPrima = viewMatPrima.getAncho();
         double largoMatPrima = viewMatPrima.getLargo();
