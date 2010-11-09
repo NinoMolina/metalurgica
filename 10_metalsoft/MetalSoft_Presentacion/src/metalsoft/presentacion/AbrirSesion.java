@@ -31,7 +31,7 @@ public class AbrirSesion extends javax.swing.JFrame {
     /** Creates new form AbrirSesion */
     public AbrirSesion() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/LogoMS7.png")).getImage());
         addListenerBtnIniciar();
         addListenerBtnSalir();
         iniciarSesion.getTxtUsuario().setText("admin");
