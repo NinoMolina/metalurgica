@@ -34,8 +34,8 @@ public class AbrirSesion extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/img/LogoMS7.png")).getImage());
         addListenerBtnIniciar();
         addListenerBtnSalir();
-        iniciarSesion.getTxtUsuario().setText("admin");
-        iniciarSesion.getTxtClave().setText("admin");
+//        iniciarSesion.getTxtUsuario().setText("admin");
+//        iniciarSesion.getTxtClave().setText("admin");
     }
     public String getPass() {
         return pass;
