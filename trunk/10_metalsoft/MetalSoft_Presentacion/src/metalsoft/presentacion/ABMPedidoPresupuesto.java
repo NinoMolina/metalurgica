@@ -508,6 +508,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscado
 
         jLabel12.setText("Fecha Req de Cotización:");
 
+        lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroPedido.setText("...");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
