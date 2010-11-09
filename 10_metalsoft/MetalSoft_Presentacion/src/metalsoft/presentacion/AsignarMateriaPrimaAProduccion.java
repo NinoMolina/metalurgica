@@ -249,15 +249,15 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 
         jLabel1.setText("Nro. Materia Prima:");
 
-        lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroMateriaPrima.setText("...");
 
         jLabel11.setText("Cod. Barra:");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Stock:");
 
-        txtStock.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtStock.setFont(new java.awt.Font("Tahoma", 1, 11));
 
         jLabel6.setText("Tipo de Material:");
 
