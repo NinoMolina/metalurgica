@@ -34,7 +34,7 @@ public class Principal extends javax.swing.JFrame {
         this.usuario = usuario;
         initComponents();
         iniciarReloj();
-        this.setIconImage(new ImageIcon(getClass().getResource("/img/m.jpg")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/img/LogoMS7.png")).getImage());
 
         obtenerRolUsuario(usuario.getIdusuario());
         lblRol.setText(roles[0].getRol());
