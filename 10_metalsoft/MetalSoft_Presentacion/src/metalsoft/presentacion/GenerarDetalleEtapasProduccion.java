@@ -8,7 +8,6 @@
  *
  * Created on May 11, 2010, 2:48:45 AM
  */
-
 package metalsoft.presentacion;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implements IBuscadorView{
+public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implements IBuscadorView {
 
     /** Creates new form GenerarListadoProcedimientosCotización */
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
@@ -55,13 +54,13 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     private GestorDetalleProcedimientos gestor;
     private Timer timer;
     private TableCellRender tcrTblDetallePedido;
-    private long idPedidoSeleccionado,idProductoSeleccionado,idPiezaSeleccionada;
+    private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
 
     public GenerarDetalleEtapasProduccion() {
         initComponents();
-        tcrTblDetallePedido=new TableCellRender();
-        tblDetallePedido.setDefaultRenderer(Object.class,tcrTblDetallePedido);
-        gestor=new GestorDetalleProcedimientos();
+        tcrTblDetallePedido = new TableCellRender();
+        tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);
+        gestor = new GestorDetalleProcedimientos();
         buscarPedidosGenerados();
         addListeners();
         setearTablas();
@@ -69,11 +68,11 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblEtapa.updateUI();
-        filasEtapaProduccionSeleccionada=new LinkedList<ViewEtapaDeProduccion>();
+        filasEtapaProduccionSeleccionada = new LinkedList<ViewEtapaDeProduccion>();
         tblEtapaSeleccionada.updateUI();
     }
 
-    private void setEnabledComponents(boolean b){
+    private void setEnabledComponents(boolean b) {
         beanAgregarQuitar.setEnabled(b);
         beanBtnGuardar.getBtnGuardar().setEnabled(b);
         beanBtnSeleccionarPieza.setEnabled(b);
@@ -81,7 +80,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         txtEtapaProduccion.setEnabled(b);
         btnAsignar.setEnabled(b);
     }
-    private void setearTablas(){
+
+    private void setearTablas() {
         //DETALLE PEDIDO
         tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
         tblDetallePedido.setColumnControlVisible(true);
@@ -119,8 +119,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         tblEtapaSeleccionada.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
-    private void addListeners()
-    {
+
+    private void addListeners() {
         addListenerBtnAgregar();
         addListenerBtnQuitar();
         addListenerBtnSeleccionarPedido();
@@ -130,35 +130,39 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         addListenerBtnGuardar();
     }
 
-    private void addListenerBtnGuardar()
-    {
+    private void addListenerBtnGuardar() {
         beanBtnGuardar.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
     }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        boolean result=gestor.guardarEtapasPiezaPresupuesto();
-        if(result){
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        boolean result = gestor.guardarEtapasPiezaPresupuesto();
+        if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
             limpiarCampos();
             setEnabledComponents(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
         }
-        else JOptionPane.showMessageDialog(this, "NO se pudieron guardar los datos de la pieza");
     }
 
-    private void limpiarCampos(){
-        if(filasDetallePedido!=null)
+    private void limpiarCampos() {
+        if (filasDetallePedido != null) {
             filasDetallePedido.clear();
-        if(filasDetalleProducto!=null)
+        }
+        if (filasDetalleProducto != null) {
             filasDetalleProducto.clear();
-        if(filasEtapaProduccion!=null)
+        }
+        if (filasEtapaProduccion != null) {
             filasEtapaProduccion.clear();
-        if(filasEtapaProduccionSeleccionada!=null)
+        }
+        if (filasEtapaProduccionSeleccionada != null) {
             filasEtapaProduccionSeleccionada.clear();
+        }
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblEtapa.updateUI();
@@ -170,30 +174,33 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         lblProductoSeleccionado.setText("...");
     }
 
-    private void addListenerBtnSalir()
-    {
+    private void addListenerBtnSalir() {
         beanBtnSalir.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
-    private void addListenerBtnSeleccionarPieza()
-    {
+
+    private void addListenerBtnSeleccionarPieza() {
         beanBtnSeleccionarPieza.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarPiezaBeanActionPerformed(evt);
             }
         });
     }
 
-    private void btnSeleccionarPiezaBeanActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnSeleccionarPiezaBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblDetalleProducto.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
+            return;
+        }
         ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasEtapaProduccion = gestor.obtenerEtapasDeProduccion();
         filasEtapaProduccionSeleccionada.clear();
@@ -209,87 +216,111 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         txtEtapaProduccion.setEnabled(true);
     }
 
-    private void addListenerBtnSeleccionarProducto()
-    {
+    private void addListenerBtnSeleccionarProducto() {
         beanBtnSeleccionarProducto.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarProductoBeanActionPerformed(evt);
             }
         });
     }
 
-    private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        ViewDetallePedidoCotizacion v=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
-        long idPro=v.getIdProducto();
-        filasDetalleProducto=gestor.buscarDetalleProducto(idPro);
+    private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblDetallePedido.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
+            return;
+        }
+        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPro = v.getIdProducto();
+        filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
-        idProductoSeleccionado=idPro;
+        idProductoSeleccionado = idPro;
         lblProductoSeleccionado.setText(v.getNombreProducto());
         beanBtnSeleccionarPieza.setEnabled(true);
     }
 
-    private void addListenerBtnSeleccionarPedido()
-    {
+    private void addListenerBtnSeleccionarPedido() {
         beanTblPedidos.getBtnSeleccionarPedido().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarPedidoBeanActionPerformed(evt);
             }
         });
     }
 
-    private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (beanTblPedidos.getTblPedidos().getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
+            return;
+        }
         limpiarCampos();
-        ViewPedidoEnListadoProcedimientos v=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
-        long idPed=v.getIdpedido();
-        filasDetallePedido=gestor.buscarDetallePedido(idPed);
+        ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed = v.getIdpedido();
+        filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
-        idPedidoSeleccionado=idPed;
+        idPedidoSeleccionado = idPed;
         lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
         setEnabledComponents(false);
         beanBtnSeleccionarProducto.setEnabled(true);
     }
-    private void addListenerBtnAgregar()
-    {
+
+    private void addListenerBtnAgregar() {
         beanAgregarQuitar.getBtnAgregar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBeanAgregarActionPerformed(evt);
             }
         });
     }
-    private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
+
+    private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblEtapa.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso de calidad!");
+            return;
+        }
+        if (filasEtapaProduccionSeleccionada.isEmpty()) {
+            beanAgregarQuitar.getBtnQuitar().setEnabled(true);
+        }
+        ViewEtapaDeProduccion v = filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
         filasEtapaProduccionSeleccionada.add(v);
         tblEtapa.updateUI();
         tblEtapaSeleccionada.updateUI();
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+        if (filasEtapaProduccion.isEmpty()) {
+            beanAgregarQuitar.getBtnAgregar().setEnabled(false);
+        }
     }
-    private void addListenerBtnQuitar()
-    {
+
+    private void addListenerBtnQuitar() {
         beanAgregarQuitar.getBtnQuitar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBeanQuitarActionPerformed(evt);
             }
         });
     }
-    private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        if(filasEtapaProduccion.isEmpty())beanAgregarQuitar.getBtnAgregar().setEnabled(true);
-        ViewEtapaDeProduccion v=filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
+
+    private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (filasEtapaProduccionSeleccionada.isEmpty()) {
+            return;
+        }
+        if (filasEtapaProduccion.isEmpty()) {
+            beanAgregarQuitar.getBtnAgregar().setEnabled(true);
+        }
+        ViewEtapaDeProduccion v = filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
         filasEtapaProduccion.add(v);
         tblEtapa.updateUI();
         tblEtapaSeleccionada.updateUI();
-        if(filasEtapaProduccionSeleccionada.isEmpty())beanAgregarQuitar.getBtnQuitar().setEnabled(false);
+        if (filasEtapaProduccionSeleccionada.isEmpty()) {
+            beanAgregarQuitar.getBtnQuitar().setEnabled(false);
+        }
     }
-    private void buscarPedidosGenerados()
-    {
-        filasPedidos=gestor.buscarPedidosGenerados();
+
+    private void buscarPedidosGenerados() {
+        filasPedidos = gestor.buscarPedidosGenerados();
         beanTblPedidos.setFilasPedidos(filasPedidos);
         beanTblPedidos.updateTblPedidos();
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -549,18 +580,14 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void separarEtapasDeProduccion(PiezaxetapadeproduccionDB[] pxeDB)
-    {
-        ViewEtapaDeProduccion v=null;
-        PiezaxetapadeproduccionDB db=null;
-        for(int i=0;i<filasEtapaProduccion.size();i++)
-        {
-            v=filasEtapaProduccion.get(i);
-            for(int j=0;j<pxeDB.length;j++)
-            {
-                db=pxeDB[j];
-                if(v.getIdetapa()==db.getIdetapaproduccion())
-                {
+    private void separarEtapasDeProduccion(PiezaxetapadeproduccionDB[] pxeDB) {
+        ViewEtapaDeProduccion v = null;
+        PiezaxetapadeproduccionDB db = null;
+        for (int i = 0; i < filasEtapaProduccion.size(); i++) {
+            v = filasEtapaProduccion.get(i);
+            for (int j = 0; j < pxeDB.length; j++) {
+                db = pxeDB[j];
+                if (v.getIdetapa() == db.getIdetapaproduccion()) {
                     filasEtapaProduccionSeleccionada.add(filasEtapaProduccion.remove(i));
                 }
             }
@@ -569,15 +596,16 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     }
 
     private void txtEtapaProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEtapaProduccionKeyReleased
-        if(txtEtapaProduccion.getText().compareTo("")!=0)
-        {
-            final GenerarDetalleEtapasProduccion abm=this;
+        if (txtEtapaProduccion.getText().compareTo("") != 0) {
+            final GenerarDetalleEtapasProduccion abm = this;
             timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloViewEtapaDeProduccion hilo;
+
                 @Override
                 public void run() {
-                    hilo=new HiloViewEtapaDeProduccion();
+                    hilo = new HiloViewEtapaDeProduccion();
                     hilo.setClient(abm);
                     hilo.setValor(txtEtapaProduccion.getText());
                     hilo.start();
@@ -587,21 +615,21 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        PiezaXEtapas pxe=new PiezaXEtapas();
+        PiezaXEtapas pxe = new PiezaXEtapas();
 
-        ViewDetalleProducto viewDetPro=filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
-        ViewDetallePedidoCotizacion viewDetPed=filasDetallePedido.get(tblDetallePedido.getSelectedRow());
-        long idPi=viewDetPro.getIdPieza();
-        double ancho=viewDetPro.getAncho();
-        double alto=viewDetPro.getAlto();
-        double largo=viewDetPro.getLargo();
-        long idProd=viewDetPro.getIdProducto();
-        double precioProd=viewDetPed.getPrecio();
-        int cantProd=viewDetPed.getCantidad();
-        int cantPiezas=viewDetPro.getCantidadPieza();
-        long idDetPedido=viewDetPed.getIdDetalle();
-        ViewPedidoEnListadoProcedimientos viewPed=filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
-        long idPed=viewPed.getIdpedido();
+        ViewDetalleProducto viewDetPro = filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetallePedidoCotizacion viewDetPed = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        long idPi = viewDetPro.getIdPieza();
+        double ancho = viewDetPro.getAncho();
+        double alto = viewDetPro.getAlto();
+        double largo = viewDetPro.getLargo();
+        long idProd = viewDetPro.getIdProducto();
+        double precioProd = viewDetPed.getPrecio();
+        int cantProd = viewDetPed.getCantidad();
+        int cantPiezas = viewDetPro.getCantidadPieza();
+        long idDetPedido = viewDetPed.getIdDetalle();
+        ViewPedidoEnListadoProcedimientos viewPed = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        long idPed = viewPed.getIdpedido();
 
         pxe.setAlto(alto);
         pxe.setAncho(ancho);
@@ -615,45 +643,44 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         pxe.setIdPedido(idPed);
         pxe.setEtapas(filasEtapaProduccionSeleccionada);
 
-        int result=gestor.addPiezaXEtapas(pxe);
-        mostrarMensajeAsignar(result,viewDetPro.getNombrePieza());
+        int result = gestor.addPiezaXEtapas(pxe);
+        mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
         beanBtnGuardar.getBtnGuardar().setEnabled(true);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
-     /*
+    /*
      * 0: no se pudo agregar
      * -1: se agrego correctamente
      * 1: se modifico correctamente
      */
-    private void mostrarMensajeAsignar(int result,String nombrePieza)
-    {
-        switch(result)
-        {
+    private void mostrarMensajeAsignar(int result, String nombrePieza) {
+        switch (result) {
             case 1:
-                JOptionPane.showMessageDialog(this, "Se modificó la pre-asignación de etapas para la pieza '"+nombrePieza+"'");
+                JOptionPane.showMessageDialog(this, "Se modificó la pre-asignación de etapas para la pieza '" + nombrePieza + "'");
                 break;
             case 0:
-                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+nombrePieza+"'");
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '" + nombrePieza + "'");
                 break;
             case -1:
-                JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '"+nombrePieza+"'");
+                JOptionPane.showMessageDialog(this, "Se pre-asignaron etapas para la pieza '" + nombrePieza + "'");
                 break;
             default:
-                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '"+nombrePieza+"'");
+                JOptionPane.showMessageDialog(this, "NO se pudo pre-asignar etapas para la pieza '" + nombrePieza + "'");
 
         }
     }
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new GenerarDetalleEtapasProduccion().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.AgregarQuitar beanAgregarQuitar;
     private metalsoft.beans.BtnGuardar beanBtnGuardar;
@@ -688,74 +715,71 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     // End of variables declaration//GEN-END:variables
 
     public JTable getTable(String className) {
-        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
-        {
+        if (className.compareTo(HiloViewEtapaDeProduccion.class.getName()) == 0) {
             return tblEtapa;
         }
         return null;
     }
 
     public LinkedList getFilas(String className) {
-        if(className.compareTo(HiloViewEtapaDeProduccion.class.getName())==0)
-        {
+        if (className.compareTo(HiloViewEtapaDeProduccion.class.getName()) == 0) {
             return filasEtapaProduccion;
         }
         return null;
     }
 
     private ArrayList<Integer> buscarProductosSinAlgunaEtapa() {
-        Iterator<ViewDetallePedidoCotizacion> i=filasDetallePedido.iterator();
-        ViewDetallePedidoCotizacion v=null;
-        ArrayList<Integer> rows=new ArrayList<Integer>();
-        int contador=0;
-        while(i.hasNext())
-        {
-            v=i.next();
-            long idProd=v.getIdProducto();
-            boolean es=gestor.esProductoSinAlgunaEtapa(idProd);
-            if(es)rows.add(contador);
+        Iterator<ViewDetallePedidoCotizacion> i = filasDetallePedido.iterator();
+        ViewDetallePedidoCotizacion v = null;
+        ArrayList<Integer> rows = new ArrayList<Integer>();
+        int contador = 0;
+        while (i.hasNext()) {
+            v = i.next();
+            long idProd = v.getIdProducto();
+            boolean es = gestor.esProductoSinAlgunaEtapa(idProd);
+            if (es) {
+                rows.add(contador);
+            }
             contador++;
         }
         return rows;
     }
     // End of variables declaration
 
-    class PedidoTableModel extends AbstractTableModel
-    {
+    class PedidoTableModel extends AbstractTableModel {
+
         String[] columnNames = {"Nro",
-                        "Nro Ped Cliente",
-                        "Prioridad",
-                        "Cliente",
-                        "Ped Cotizacion",
-                        "Cot Req Para",
-                        "Entrega Estipulada",
-                        "Estado"};
+            "Nro Ped Cliente",
+            "Prioridad",
+            "Cliente",
+            "Ped Cotizacion",
+            "Cot Req Para",
+            "Entrega Estipulada",
+            "Estado"};
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewPedidoEnListadoProcedimientos view=filasPedidos.get(rowIndex);
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
-            case 1:
-              return view.getNropedidocotizacioncliente();
-            case 2:
-              return view.getPrioridad();
-            case 3:
-              return view.getCliente();
-            case 4:
-              return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
-            case 5:
-              return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
-            case 6:
-              return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
-            case 7:
-              return view.getEstado();
-            default:
-              return null;
+            ViewPedidoEnListadoProcedimientos view = filasPedidos.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
+                case 1:
+                    return view.getNropedidocotizacioncliente();
+                case 2:
+                    return view.getPrioridad();
+                case 3:
+                    return view.getCliente();
+                case 4:
+                    return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+                case 5:
+                    return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+                case 6:
+                    return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                case 7:
+                    return view.getEstado();
+                default:
+                    return null;
             }
 
         }
@@ -764,16 +788,15 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasPedidos!=null)
-            return filasPedidos.size();
-          return 0;
+        public int getRowCount() {
+            if (filasPedidos != null) {
+                return filasPedidos.size();
+            }
+            return 0;
         }
 
         /**
@@ -781,45 +804,39 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
- 
-
     }
 
-    class DetallePedidoCotizacionTableModel extends AbstractTableModel
-    {
+    class DetallePedidoCotizacionTableModel extends AbstractTableModel {
+
         String[] columnNames = {"Nro",
-                        "Cantidad",
-                        "Producto",
-                        "Descripción",
-                        "Cant. Piezas"};
+            "Cantidad",
+            "Producto",
+            "Descripción",
+            "Cant. Piezas"};
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewDetallePedidoCotizacion view=filasDetallePedido.get(rowIndex);
+            ViewDetallePedidoCotizacion view = filasDetallePedido.get(rowIndex);
 
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
-            case 1:
-              return view.getCantidad();
-            case 2:
-              return view.getNombreProducto();
-            case 3:
-              return view.getDescripcion();
-            case 4:
-              return view.getCantidadPiezas();
-            default:
-              return null;
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
+                case 1:
+                    return view.getCantidad();
+                case 2:
+                    return view.getNombreProducto();
+                case 3:
+                    return view.getDescripcion();
+                case 4:
+                    return view.getCantidadPiezas();
+                default:
+                    return null;
             }
 
         }
@@ -828,16 +845,15 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasDetallePedido!=null)
-            return filasDetallePedido.size();
-          return 0;
+        public int getRowCount() {
+            if (filasDetallePedido != null) {
+                return filasDetallePedido.size();
+            }
+            return 0;
         }
 
         /**
@@ -845,93 +861,38 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
 
-    class DetalleProductoTableModel extends AbstractTableModel{
-      String[] columnNames = {"Pieza",
-                        "Descripcion",
-                        "Cantidad",
-                        "Dimensiones",
-                        "Material"};
+    class DetalleProductoTableModel extends AbstractTableModel {
 
-    public Object getValueAt(int rowIndex, int columnIndex)
-    {
+        String[] columnNames = {"Pieza",
+            "Descripcion",
+            "Cantidad",
+            "Dimensiones",
+            "Material"};
 
-        ViewDetalleProducto view=filasDetalleProducto.get(rowIndex);
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewDetalleProducto view = filasDetalleProducto.get(rowIndex);
 //      Object[] df=filas.get(rowIndex);
-        switch(columnIndex)
-        {
-        case 0:
-          return view.getNombrePieza();
-        case 1:
-          return view.getDescripcion();
-        case 2:
-          return String.valueOf(view.getCantidadPieza());
-        case 3:
-          return "Alto: "+view.getAlto()+"\n Ancho: "+view.getAncho()+"\n Largo: "+view.getLargo();
-        case 4:
-          return view.getNombreTipoMaterial();
-        default:
-          return null;
-        }
-
-    }
-
-    /**
-     * Retorna la cantidad de columnas que tiene la tabla
-     * @return Numero de filas que contendra la tabla
-     */
-    public int getColumnCount()
-    {
-      return columnNames.length;
-    }
-
-    public int getRowCount()
-    {
-      if(filasDetalleProducto!=null)
-        return filasDetalleProducto.size();
-      return 0;
-    }
-
-    /**
-     * Devuelve el nombre de las columnas para mostrar en el encabezado
-     * @param column Numero de la columna cuyo nombre se quiere
-     * @return Nombre de la columna
-     */
-
-    @Override
-    public String getColumnName(int column)
-    {
-      return columnNames[column];
-
-    }
-
-  }
-
-    class EtapaTableModel extends AbstractTableModel{
-          String[] columnNames = {"Nro",
-                            "Nombre"};
-
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
-
-            ViewEtapaDeProduccion view=filasEtapaProduccion.get(rowIndex);
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
-            case 1:
-              return view.getNombre();
-            default:
-              return null;
+            switch (columnIndex) {
+                case 0:
+                    return view.getNombrePieza();
+                case 1:
+                    return view.getDescripcion();
+                case 2:
+                    return String.valueOf(view.getCantidadPieza());
+                case 3:
+                    return "Alto: " + view.getAlto() + "\n Ancho: " + view.getAncho() + "\n Largo: " + view.getLargo();
+                case 4:
+                    return view.getNombreTipoMaterial();
+                default:
+                    return null;
             }
 
         }
@@ -940,16 +901,15 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasEtapaProduccion!=null)
-            return filasEtapaProduccion.size();
-          return 0;
+        public int getRowCount() {
+            if (filasDetalleProducto != null) {
+                return filasDetalleProducto.size();
+            }
+            return 0;
         }
 
         /**
@@ -957,32 +917,76 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
 
-    class EtapaSeleccionadaTableModel extends AbstractTableModel{
-          String[] columnNames = {"Nro",
-                            "Nombre"};
+    class EtapaTableModel extends AbstractTableModel {
 
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
+        String[] columnNames = {"Nro",
+            "Nombre"};
 
-            ViewEtapaDeProduccion view=filasEtapaProduccionSeleccionada.get(rowIndex);
-    //      Object[] df=filas.get(rowIndex);
-            switch(columnIndex)
-            {
-            case 0:
-              return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
-            case 1:
-              return view.getNombre();
-            default:
-              return null;
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewEtapaDeProduccion view = filasEtapaProduccion.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
+                case 1:
+                    return view.getNombre();
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasEtapaProduccion != null) {
+                return filasEtapaProduccion.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
+
+    class EtapaSeleccionadaTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Nro",
+            "Nombre"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewEtapaDeProduccion view = filasEtapaProduccionSeleccionada.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, view.getNumero());
+                case 1:
+                    return view.getNombre();
+                default:
+                    return null;
             }
         }
 
@@ -990,16 +994,15 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * Retorna la cantidad de columnas que tiene la tabla
          * @return Numero de filas que contendra la tabla
          */
-        public int getColumnCount()
-        {
-          return columnNames.length;
+        public int getColumnCount() {
+            return columnNames.length;
         }
 
-        public int getRowCount()
-        {
-          if(filasEtapaProduccionSeleccionada!=null)
-            return filasEtapaProduccionSeleccionada.size();
-          return 0;
+        public int getRowCount() {
+            if (filasEtapaProduccionSeleccionada != null) {
+                return filasEtapaProduccionSeleccionada.size();
+            }
+            return 0;
         }
 
         /**
@@ -1007,11 +1010,9 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
          */
-
         @Override
-        public String getColumnName(int column)
-        {
-          return columnNames[column];
+        public String getColumnName(int column) {
+            return columnNames[column];
 
         }
     }
