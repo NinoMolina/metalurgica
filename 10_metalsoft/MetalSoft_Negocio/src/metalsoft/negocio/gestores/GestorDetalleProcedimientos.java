@@ -192,7 +192,7 @@ public class GestorDetalleProcedimientos {
             //voy a modificar el objeto
             if(index>-1)
             {
-                arlPiezaXEtapas.add(index, pxe);
+                arlPiezaXEtapas.set(index, pxe);
                 result = 1;
             }
             //si no obtuve un indice mayor a -1 entonces
