@@ -19,7 +19,6 @@ import metalsoft.negocio.gestores.GestorRegistrarLanzamientoProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
 import metalsoft.negocio.produccion.EjecucionPlanificacionProduccion;
-import metalsoft.negocio.produccion.PlanificacionProduccion;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
