@@ -11,7 +11,6 @@
 package metalsoft.presentacion;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -19,10 +18,8 @@ import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
 import metalsoft.negocio.gestores.GestorDetalleProcedimientos;
-import metalsoft.negocio.gestores.GestorGenerarPresupuesto;
 import metalsoft.negocio.gestores.IBuscadorView;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.PiezaXEtapas;
@@ -30,11 +27,6 @@ import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
-import metalsoft.negocio.ventas.DetallePiezaPresupuesto;
-import metalsoft.negocio.ventas.DetallePresupuesto;
-import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
-import metalsoft.negocio.ventas.Pedido;
-import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -646,7 +638,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
         pxe.setIdProducto(idProd);
         pxe.setIdDetallePedido(idDetPedido);
         pxe.setIdPedido(idPed);
-        pxe.setEtapas(filasEtapaProduccionSeleccionada);
+        pxe.setEtapas(new LinkedList<ViewEtapaDeProduccion>(filasEtapaProduccionSeleccionada));
 
         int result = gestor.addPiezaXEtapas(pxe);
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
