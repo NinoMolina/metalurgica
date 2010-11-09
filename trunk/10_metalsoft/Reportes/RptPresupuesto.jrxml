@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="272"/>
-	<property name="ireport.y" value="327"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="330"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -26,81 +26,20 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 	<variable name="importe" class="java.lang.Float">
 		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
 	</variable>
-	<variable name="subtotal" class="java.lang.Float" calculation="Sum">
+	<variable name="subtotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
-	<variable name="total" class="java.lang.Float">
-		<variableExpression><![CDATA[$V{subtotal}+$V{iva}]]></variableExpression>
+	<variable name="total" class="java.lang.Double">
+		<variableExpression><![CDATA[(new Double($V{subtotal}).add(new Double($V{iva})))]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="iva" class="java.lang.Float">
+	<variable name="iva" class="java.lang.Double">
 		<variableExpression><![CDATA[$V{subtotal}*0.21]]></variableExpression>
 	</variable>
-	<group name="Group3">
-		<groupHeader>
-			<band height="20">
-				<staticText>
-					<reportElement x="0" y="0" width="52" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Item]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="52" y="0" width="69" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Cantidad]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="482" y="0" width="73" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Importe]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="121" y="0" width="285" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Descripción]]></text>
-				</staticText>
-				<line>
-					<reportElement x="0" y="19" width="555" height="1"/>
-				</line>
-				<line>
-					<reportElement x="0" y="1" width="1" height="18"/>
-				</line>
-				<line>
-					<reportElement x="52" y="1" width="1" height="18"/>
-				</line>
-				<line>
-					<reportElement x="120" y="0" width="1" height="18"/>
-				</line>
-				<line>
-					<reportElement x="406" y="0" width="1" height="18"/>
-				</line>
-				<staticText>
-					<reportElement x="407" y="0" width="74" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Pre. Unit]]></text>
-				</staticText>
-				<line>
-					<reportElement x="555" y="1" width="1" height="18"/>
-				</line>
-				<line>
-					<reportElement x="482" y="0" width="1" height="18"/>
-				</line>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band/>
-		</groupFooter>
-	</group>
+	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
+	</variable>
+	<variable name="variable1" class="java.lang.Float" resetType="Group" resetGroup="Totales" calculation="Sum"/>
 	<group name="Totales">
 		<groupFooter>
 			<band height="63">
@@ -137,7 +76,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 					<textElement textAlignment="Center">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$V{total}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.Float"><![CDATA[$V{total}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="451" y="0" width="1" height="20"/>
@@ -316,13 +255,6 @@ Construcción de herramientas en general.]]></text>
 	<detail>
 		<band height="23">
 			<textField>
-				<reportElement x="0" y="0" width="52" height="22"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="420" y="1" width="61" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
@@ -385,6 +317,13 @@ Construcción de herramientas en general.]]></text>
 				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="1" y="1" width="51" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{contarFilas}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
