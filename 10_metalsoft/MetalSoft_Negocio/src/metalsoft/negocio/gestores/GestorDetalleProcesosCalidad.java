@@ -141,7 +141,7 @@ public class GestorDetalleProcesosCalidad {
             //voy a modificar el objeto
             if(index>-1)
             {
-                arlPiezaXProcesoCalidad.add(index, pxpc);
+                arlPiezaXProcesoCalidad.set(index, pxpc);
                 result = 1;
             }
             //si no obtuve un indice mayor a -1 entonces
