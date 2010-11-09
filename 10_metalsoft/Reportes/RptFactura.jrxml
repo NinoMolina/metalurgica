@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="95"/>
+	<property name="ireport.y" value="94"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -104,6 +104,9 @@ GROUP BY df.iddetalle,
 	</variable>
 	<variable name="iva" class="java.lang.Float">
 		<variableExpression><![CDATA[$V{subtotal}*0.21]]></variableExpression>
+	</variable>
+	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
 	</variable>
 	<group name="Group3">
 		<groupHeader>
@@ -510,13 +513,6 @@ Fecha de Inicio: 01/04/87]]></text>
 	<detail>
 		<band height="23">
 			<textField>
-				<reportElement x="0" y="0" width="52" height="22"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="420" y="1" width="61" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
@@ -579,6 +575,13 @@ Fecha de Inicio: 01/04/87]]></text>
 				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="1" y="0" width="51" height="21" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
