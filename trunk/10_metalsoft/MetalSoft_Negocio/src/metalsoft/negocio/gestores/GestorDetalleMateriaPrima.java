@@ -184,7 +184,7 @@ public class GestorDetalleMateriaPrima {
             //voy a modificar el objeto
             if(index>-1)
             {
-                arlPiezasXMateriaPrima.add(index, pxmp);
+                arlPiezasXMateriaPrima.set(index, pxmp);
                 result = 1;
             }
             //si no obtuve un indice mayor a -1 entonces
