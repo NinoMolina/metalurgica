@@ -142,7 +142,7 @@ public class PedidosSinAlgEtapaProd extends javax.swing.JPanel implements java.b
             switch(columnIndex)
             {
             case 0:
-              return view.getNropedido();
+              return "PEDI-"+view.getNropedido();
             case 1:
               return view.getNropedidocotizacioncliente();
             case 2:
