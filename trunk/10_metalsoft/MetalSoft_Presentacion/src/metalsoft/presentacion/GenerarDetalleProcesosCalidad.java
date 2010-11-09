@@ -176,6 +176,10 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnSeleccionarPiezaBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblDetalleProducto.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
+            return;
+        }
         ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         filasProcesoCalidad = gestor.obtenerProcesosCalidad();
         filasProcesoCalidadSeleccionado.clear();
@@ -199,6 +203,10 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnSeleccionarProductoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblDetallePedido.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
+            return;
+        }
         ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
@@ -228,6 +236,10 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnSeleccionarPedidoBeanActionPerformed(java.awt.event.ActionEvent evt) {
+        if (beanTblPedidos.getTblPedidos().getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
+            return;
+        }
         limpiarCampos();
         ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
         long idPed = v.getIdpedido();
@@ -249,6 +261,10 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tblProcesoCalidad.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso de calidad!");
+            return;
+        }
         int cantProcesos = -1;
         JTextField txtCant = new JTextField("1");
         Object[] obj = {"Cantidad", txtCant};
@@ -280,6 +296,9 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }
 
     private void btnBeanQuitarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (filasProcesoCalidadSeleccionado.isEmpty()) {
+            return;
+        }
         if (filasProcesoCalidad.isEmpty()) {
             beanAgregarQuitar.getBtnAgregar().setEnabled(true);
         }
@@ -592,6 +611,10 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
     }//GEN-LAST:event_txtProcesoCalidadActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        if (filasProcesoCalidadSeleccionado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningún proceso de calidad para asignar!");
+            return;
+        }
         ViewDetalleProducto viewDetPro = filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
         ViewDetallePedidoCotizacion viewDetPed = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
         long idPi = viewDetPro.getIdPieza();
@@ -711,7 +734,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
             "Cot Req Para",
             "Entrega Estipulada",
             "Estado"};
-            
+
         public Object getValueAt(int rowIndex, int columnIndex) {
 
             ViewPedidoEnListadoProcedimientos view = filasPedidos.get(rowIndex);
