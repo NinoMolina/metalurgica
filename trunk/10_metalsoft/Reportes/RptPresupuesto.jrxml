@@ -30,7 +30,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Double">
-		<variableExpression><![CDATA[(new Double($V{subtotal}).add(new Double($V{iva})))]]></variableExpression>
+		<variableExpression><![CDATA[$V{subtotal}+$V{iva}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="iva" class="java.lang.Double">
