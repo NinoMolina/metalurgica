@@ -615,6 +615,11 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implement
     }//GEN-LAST:event_txtEtapaProduccionKeyReleased
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        if (filasEtapaProduccionSeleccionada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningún proceso de producción para asignar!");
+            return;
+        }
+
         PiezaXEtapas pxe = new PiezaXEtapas();
 
         ViewDetalleProducto viewDetPro = filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
