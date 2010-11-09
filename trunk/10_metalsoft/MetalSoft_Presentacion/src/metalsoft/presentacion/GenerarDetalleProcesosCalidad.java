@@ -637,7 +637,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
         pxpc.setIdProducto(idProd);
         pxpc.setIdDetallePedido(idDetPedido);
         pxpc.setIdPedido(idPed);
-        pxpc.setProcesoCalidad(filasProcesoCalidadSeleccionado);
+        pxpc.setProcesoCalidad(new LinkedList<ViewProcesoCalidad>(filasProcesoCalidadSeleccionado));
         result = gestor.addPiezaXProcesoCalidad(pxpc);
 
         mostrarMensajeAsignar(result, viewDetPro.getNombrePieza());
