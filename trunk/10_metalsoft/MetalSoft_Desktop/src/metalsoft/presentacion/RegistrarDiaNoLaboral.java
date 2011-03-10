@@ -27,8 +27,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import metalsoft.datos.dbobject.CalendarioDB;
+import metalsoft.datos.jpa.entity.Calendario;
 import metalsoft.negocio.gestores.GestorCalendario;
-import metalsoft.negocio.rrhh.Calendario;
 import metalsoft.util.Fecha;
 
 /**
@@ -420,12 +420,12 @@ public class RegistrarDiaNoLaboral extends javax.swing.JFrame {
         int mes = c.get(Calendar.MONTH) + 1;
         int anio = c.get(Calendar.YEAR);
         int dia = c.get(Calendar.DAY_OF_MONTH);
-        Calendario cal = new Calendario();
+        Calendario cal=new Calendario();
         cal.setAnio(anio);
         cal.setDia(dia);
-        cal.setFecha(fechaSeleccionada);
         cal.setMes(mes);
-        cal.setTodoElDia(true);
+        cal.setFecha(fechaSeleccionada);
+        cal.setTodoeldia(true);
 
         int resp = JOptionPane.showConfirmDialog(this, "Se agregará el día " + Fecha.parseToString(fechaSeleccionada) + " como día no laboral \nDesea continuar?");
         if (resp == JOptionPane.OK_OPTION) {
