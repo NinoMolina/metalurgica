@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.CalendarioDB;
+import metalsoft.datos.jpa.controller.CalendarioJpaController;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Calendario;
 import metalsoft.negocio.access.AccessCalendario;
-import metalsoft.negocio.rrhh.Calendario;
 import metalsoft.util.Fecha;
 
 /**
@@ -48,28 +50,15 @@ public class GestorCalendario {
         //HACER que no ingrese una fecha ya existente en la bd
         //poner not null en el campo fecha en la bd
         //o buscar la fecha a guardar para ver si ya existe
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Connection cn = null;
-        long result = -1;
+
+        CalendarioJpaController controller=new CalendarioJpaController();
         try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result = AccessCalendario.insert(cal, cn);
-            cn.commit();
-        } catch (Exception ex) {
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorCalendario.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            controller.create(cal);
+        } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorCalendario.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCalendario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return cal.getId();
     }
 }
