@@ -7,6 +7,13 @@ package metalsoft.negocio.gestores;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import javax.swing.JComboBox;
+import metalsoft.datos.jpa.controller.MateriaprimaJpaController;
+import metalsoft.datos.jpa.controller.ProveedorJpaController;
+import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -143,5 +150,82 @@ public class ViewProveedorXMateriaPrima implements Comparable{
         return -1;
     }
 
+    private List<Materiaprima> materiaprima;
+
+    public List<Materiaprima> getMP() {
+        return materiaprima;
+    }
+
+    public void setMateriaprima(List<Materiaprima> materiaprima) {
+        this.materiaprima = materiaprima;
+    }
+
+    public Materiaprima getMateriaprimaSeleccionada(String id) {
+        long idLong = Long.parseLong(id);
+        return searchMateriaprimaById(idLong);
+    }
+
+    private Materiaprima searchMateriaprimaById(long id) {
+        for (Materiaprima mp : materiaprima) {
+            if (mp.getIdmateriaprima() == id) {
+                return mp;
+            }
+        }
+        return null;
+    }
+
+    public void cargarComboMateriaprima(JComboBox combo) {
+        materiaprima = null;
+        MateriaprimaJpaController controller = new MateriaprimaJpaController();
+        materiaprima = controller.findMateriaprimaEntities();
+        ItemCombo item = null;
+        combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+        for (Materiaprima mp : materiaprima) {
+            item = new ItemCombo();
+            item.setId(String.valueOf(mp.getIdmateriaprima()));
+            item.setMostrar(mp.getNombre());
+            combo.addItem(item);
+        }
+        combo.setSelectedIndex(0);
+    }
+
+    private List<Proveedor> proveedor;
+
+     public List<Proveedor> getProv() {
+        return proveedor;
+    }
+
+    public void setProveedor(List<Proveedor> proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public Proveedor getProveedorSeleccionado(String id) {
+        long idLong = Long.parseLong(id);
+        return searchProveedorById(idLong);
+    }
+
+    private Proveedor searchProveedorById(long id) {
+        for (Proveedor p : proveedor) {
+            if (p.getIdproveedor() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void cargarComboProveedor(JComboBox combo) {
+        proveedor = null;
+        ProveedorJpaController controller = new ProveedorJpaController();
+        proveedor = controller.findProveedorEntities();
+        ItemCombo item = null;
+        combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+        for (Proveedor p : proveedor) {
+            item = new ItemCombo();
+            item.setId(String.valueOf(p.getIdproveedor()));
+            item.setMostrar(p.getRazonsocial());
+            combo.addItem(item);
+        }
+        combo.setSelectedIndex(0);
+    }
     
 }
