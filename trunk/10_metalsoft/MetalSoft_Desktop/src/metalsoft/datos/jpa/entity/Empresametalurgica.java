@@ -12,12 +12,15 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,6 +47,8 @@ public class Empresametalurgica implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresametalurgica_seq")
+    @SequenceGenerator(name = "empresametalurgica_seq", sequenceName = "empresametalurgica_idempresametalurgica_seq", allocationSize = 1)
     @Column(name = "idempresametalurgica")
     private Long idempresametalurgica;
     @Column(name = "nroempresametalurgica")
