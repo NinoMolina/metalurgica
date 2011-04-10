@@ -373,7 +373,7 @@ public class PlanificacionproduccionJpaController {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Planificacionproduccion.findByFechafinMayorActual");
-            q.setParameter("fechafinprevista", fecha);
+            q.setParameter("fechaActual", fecha);
             return q.getResultList();
         } finally {
             em.close();

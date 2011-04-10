@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -13,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,11 +38,15 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Planificacionproduccion.findByFechacreacion", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechacreacion = :fechacreacion"),
     @NamedQuery(name = "Planificacionproduccion.findByObservaciones", query = "SELECT p FROM Planificacionproduccion p WHERE p.observaciones = :observaciones"),
     @NamedQuery(name = "Planificacionproduccion.findByFechainicioprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechainicioprevista = :fechainicioprevista"),
-    @NamedQuery(name = "Planificacionproduccion.findByFechafinprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista = :fechafinprevista")})
+    @NamedQuery(name = "Planificacionproduccion.findByFechafinprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista = :fechafinprevista"),
+    @NamedQuery(name = "Planificacionproduccion.findByFechafinMayorActual", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista > :fechaActual")})
 public class Planificacionproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planificacionproduccion_seq")
+    @SequenceGenerator(name = "planificacionproduccion_seq", sequenceName = "planificacionproduccion_idplanificacionproduccion_seq", allocationSize = 1)
     @Column(name = "idplanificacionproduccion")
     private Long idplanificacionproduccion;
     @Column(name = "nroplanificacion")
@@ -58,21 +64,16 @@ public class Planificacionproduccion implements Serializable {
     private Date fechafinprevista;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-
     @JoinColumn(name = "idestado", referencedColumnName = "id")
     @ManyToOne
     private Estadoplanificacionproduccion idestado;
-
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-
     @OneToMany(mappedBy = "idplanificacionproduccion")
     private List<Detallempasignada> detallempasignadaList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
     private List<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionList;
-
 
     public Planificacionproduccion() {
     }
@@ -137,7 +138,6 @@ public class Planificacionproduccion implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-
     public Estadoplanificacionproduccion getIdestado() {
         return idestado;
     }
@@ -162,7 +162,6 @@ public class Planificacionproduccion implements Serializable {
         this.detallempasignadaList = detallempasignadaList;
     }
 
-
     public List<Ejecucionplanificacionproduccion> getEjecucionplanificacionproduccionList() {
         return ejecucionplanificacionproduccionList;
     }
@@ -170,7 +169,6 @@ public class Planificacionproduccion implements Serializable {
     public void setEjecucionplanificacionproduccionList(List<Ejecucionplanificacionproduccion> ejecucionplanificacionproduccionList) {
         this.ejecucionplanificacionproduccionList = ejecucionplanificacionproduccionList;
     }
-
 
     @Override
     public int hashCode() {
@@ -196,5 +194,4 @@ public class Planificacionproduccion implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Planificacionproduccion[idplanificacionproduccion=" + idplanificacionproduccion + "]";
     }
-
 }

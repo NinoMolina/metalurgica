@@ -10,11 +10,13 @@
  */
 package metalsoft.presentacion;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.GestorRegistrarLanzamientoProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
@@ -340,12 +342,15 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerObservacionesActionPerformed
 
     private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
-        EjecucionPlanificacionProduccion e = new EjecucionPlanificacionProduccion();
-        e.setFechaInicio(fechaActual);
-        e.setHoraInicio(new Date());
+        metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa=new Ejecucionplanificacionproduccion();
+        jpa.setFechainicio(fechaActual);
+        jpa.setHorainicio(new Date());
+//        EjecucionPlanificacionProduccion e = new EjecucionPlanificacionProduccion();
+//        e.setFechaInicio(fechaActual);
+//        e.setHoraInicio(new Date());
         long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
-        e.setNroEjecucion(nroejecucion);
-        long result=gestor.guardarEjecucionPlanificacion(e,viewPedidoSeleccionado.getIdplanificacionproduccion());
+        jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
+        long result=gestor.guardarEjecucionPlanificacion(jpa,viewPedidoSeleccionado.getIdplanificacionproduccion());
         long resultPedido=gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
         if(result>0){
             JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");

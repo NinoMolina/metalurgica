@@ -1032,6 +1032,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void hplVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerDisponibilidadActionPerformed
         pnlDisponibilidad.removeAll();
         lstPlanificacionProduccion = gestor.buscarPlanificacionesProduccion();
+        if(lstPlanificacionProduccion==null){
+            JOptionPane.showMessageDialog(this, "No existen planificaciones que ocupen fechas posteriores a la actual");
+            return;
+        }
         TaskSeriesCollection dataset = new TaskSeriesCollection();
         TaskSeries unavailable = new TaskSeries("Etapas Producción");
         for (metalsoft.datos.jpa.entity.Planificacionproduccion planificacion : lstPlanificacionProduccion) {

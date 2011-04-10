@@ -7,7 +7,8 @@ package metalsoft.negocio.gestores;
 
 import java.util.HashSet;
 import metalsoft.datos.dbobject.PedidoDB;
-import metalsoft.datos.dbobject.PlanificacionproduccionDB;
+import metalsoft.datos.jpa.entity.Planificacionproduccion;
+
 
 /**
  *
@@ -20,9 +21,8 @@ public class LanzadorProduccion {
         hash=new HashSet<HiloProduccion>();
     }
 
-    public static void lanzarProduccion(PedidoDB pedido, PlanificacionproduccionDB planificacion){
+    public static void lanzarProduccion(Planificacionproduccion planificacion){
         HiloProduccion hilo=new HiloProduccion();
-        hilo.setPedido(pedido);
         hilo.setPlanificacion(planificacion);
         Thread thread=new Thread(hilo);
         hash.add(hilo);

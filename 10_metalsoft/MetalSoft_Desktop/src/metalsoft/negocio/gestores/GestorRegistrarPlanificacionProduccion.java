@@ -134,17 +134,7 @@ public class GestorRegistrarPlanificacionProduccion {
             }
         }
         return result;
-        //        Dao<Planificacionproduccion> daoPlanificacion=new DaoPlanificacionProduccion<Planificacionproduccion>();
-        //        Dao<Detalleplanificacionproduccion> daoDetalle=new DaoDetallePlanificacionProduccion<Detalleplanificacionproduccion>();
-        //        planificacionproduccion.setEstadoplanificacionproduccion(new Estadoplanificacionproduccion(1));
-        //        daoPlanificacion.save(planificacionproduccion);
-        //        Iterator<Detalleplanificacionproduccion> it=planificacionproduccion.getDetalleplanificacionproduccions().iterator();
-        //        Detalleplanificacionproduccion detalle=null;
-        //        while(it.hasNext()){
-        //            detalle=it.next();
-        //            detalle.setPlanificacionproduccion(planificacionproduccion);
-        //            daoDetalle.save(detalle);
-        //        }
+        
         //falta insertar una nueva disponibilidad del empleado para las tareas
         //asignadas en la planificacion.
         //Tambien hay que ver las fechas de inicio y fin del detalle de planificacion

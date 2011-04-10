@@ -6,8 +6,8 @@
 package metalsoft.negocio.gestores;
 
 import java.util.Date;
-import metalsoft.datos.dbobject.PedidoDB;
-import metalsoft.datos.dbobject.PlanificacionproduccionDB;
+import metalsoft.datos.jpa.entity.Planificacionproduccion;
+
 
 /**
  *
@@ -15,26 +15,17 @@ import metalsoft.datos.dbobject.PlanificacionproduccionDB;
  */
 public class HiloProduccion implements Runnable{
 
-    private PedidoDB pedido;
-    private PlanificacionproduccionDB planificacion;
+    private Planificacionproduccion planificacion;
     private Date fechaInicio,fechaFin;
     public void run() {
         
     }
 
-    public PedidoDB getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(PedidoDB pedido) {
-        this.pedido = pedido;
-    }
-
-    public PlanificacionproduccionDB getPlanificacion() {
+    public Planificacionproduccion getPlanificacion() {
         return planificacion;
     }
 
-    public void setPlanificacion(PlanificacionproduccionDB planificacion) {
+    public void setPlanificacion(Planificacionproduccion planificacion) {
         this.planificacion = planificacion;
     }
 
