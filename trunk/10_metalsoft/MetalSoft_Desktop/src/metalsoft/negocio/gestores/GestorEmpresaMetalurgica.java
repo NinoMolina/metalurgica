@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import metalsoft.datos.dbobject.LocalidadDB;
 
 import metalsoft.datos.exception.BarrioException;
 import metalsoft.datos.exception.LocalidadException;
+import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
@@ -50,6 +52,12 @@ public class GestorEmpresaMetalurgica {
     public GestorEmpresaMetalurgica() {
     }
 
+    public Empresametalurgica buscarEmpresaMetalurgica(long id)
+    {
+        EmpresametalurgicaJpaController controller=new EmpresametalurgicaJpaController();
+        Empresametalurgica empresa=controller.findEmpresametalurgica(id);
+        return empresa;
+    }
     public void buscarCondicionIva(JComboBox combo) {
         try {
             List<Condicioniva> condiciones = null;
@@ -189,5 +197,10 @@ public class GestorEmpresaMetalurgica {
             Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return empresa.getIdempresametalurgica();
+    }
+
+    public Localidad buscarLocalidadDeBarrio(Barrio barrio) {
+
+        return barrio.getLocalidad();
     }
 }
