@@ -32,6 +32,9 @@ public class ViewProveedorXMateriaPrima implements Comparable{
     private long idresponsable;
     private long idmateriaprima;
     private String telefono;
+
+
+    
     public ViewProveedorXMateriaPrima()
     {
     }
