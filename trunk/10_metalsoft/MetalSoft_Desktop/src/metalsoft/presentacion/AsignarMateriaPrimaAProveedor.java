@@ -12,11 +12,12 @@ package metalsoft.presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -25,14 +26,11 @@ import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
 
     private ViewProveedorXMateriaPrima view;
-    //private List<Materiaprima> filasMP;
-    //private List<Proveedor> filasProveedor;
 
     /** Creates new form AsignarMateriaPrimaAProveedor */
     public AsignarMateriaPrimaAProveedor() {
         initComponents();
         view = new ViewProveedorXMateriaPrima();
-        //filasMP = new ArrayList<Materiaprima>();
         cargarComboMateriaprima();
         cargarComboProveedores();
         addListeners();
@@ -46,7 +44,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar1.getBtnGuardar().addActionListener(new ActionListener() {
+        btnGuardar.getBtnGuardar().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btnGuardarActionPerformed(e);
@@ -56,16 +54,36 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {
-        //TODO
+        long idMateriaprima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
+        long idProveedor = Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId());
+        double precio = Double.parseDouble(txtPrecio.getText());
+        Proveedorxmateriaprima pxm = new Proveedorxmateriaprima();
+        pxm.setPrecio(precio);
+        long idMPxP = view.asignarMPProveedor(pxm, idMateriaprima, idProveedor);
+        if (idMPxP > 0) {
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente!");
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar...");
+        }
     }
+
     private void cargarComboMateriaprima() {
         cmbMateriaPrima.removeAllItems();
         view.cargarComboMateriaprima(cmbMateriaPrima);
     }
-     private void cargarComboProveedores() {
+
+    private void cargarComboProveedores() {
         cmbProveedor.removeAllItems();
         view.cargarComboProveedor(cmbProveedor);
     }
+
+        public void limpiar() {
+        cmbMateriaPrima.setSelectedIndex(0);
+        cmbProveedor.setSelectedIndex(0);
+        txtPrecio.setText("");
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -82,7 +100,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         btnSalir = new metalsoft.beans.BtnSalirr();
-        btnGuardar1 = new metalsoft.beans.BtnGuardar();
+        btnGuardar = new metalsoft.beans.BtnGuardar();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -125,7 +143,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
                                     .addComponent(lblProveedor)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
-                                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -163,7 +181,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -191,7 +209,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.beans.BtnGuardar btnGuardar1;
+    private metalsoft.beans.BtnGuardar btnGuardar;
     private metalsoft.beans.BtnSalirr btnSalir;
     private javax.swing.JComboBox cmbMateriaPrima;
     private javax.swing.JComboBox cmbProveedor;
