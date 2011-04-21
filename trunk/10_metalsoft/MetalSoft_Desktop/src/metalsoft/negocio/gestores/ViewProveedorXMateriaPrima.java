@@ -2,25 +2,32 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
-
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.ProveedorxmateriaprimaDB;
 import metalsoft.datos.jpa.controller.MateriaprimaJpaController;
 import metalsoft.datos.jpa.controller.ProveedorJpaController;
+import metalsoft.datos.jpa.controller.ProveedorxmateriaprimaJpaController;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.util.ItemCombo;
 
 /**
  *
  * @author Nino
  */
-public class ViewProveedorXMateriaPrima implements Comparable{
+public class ViewProveedorXMateriaPrima implements Comparable {
 
     private long nroproveedor;
     private String razonsocial;
@@ -33,11 +40,9 @@ public class ViewProveedorXMateriaPrima implements Comparable{
     private long idresponsable;
     private long idmateriaprima;
     private String telefono;
+    private metalsoft.datos.dbobject.ProveedorxmateriaprimaDB proveedorxmateriaprimaDB;
 
-
-    
-    public ViewProveedorXMateriaPrima()
-    {
+    public ViewProveedorXMateriaPrima() {
     }
 
     public String getCondicioniva() {
@@ -129,31 +134,27 @@ public class ViewProveedorXMateriaPrima implements Comparable{
     }
 
     public int compareTo(Object o) {
-        ViewProveedorXMateriaPrima obj=(ViewProveedorXMateriaPrima) o;
-        if(this.getIdmateriaprima()==obj.getIdmateriaprima() && this.getIdproveedor()==obj.getIdproveedor())
-        {
+        ViewProveedorXMateriaPrima obj = (ViewProveedorXMateriaPrima) o;
+        if (this.getIdmateriaprima() == obj.getIdmateriaprima() && this.getIdproveedor() == obj.getIdproveedor()) {
             return 0;
-        }
-        else
-        {
+        } else {
             return -1;
         }
     }
 
-    public static int contain(Comparable px, Collection coleccion)
-    {
-        Iterator<Comparable> i=coleccion.iterator();
-        Comparable x=null;
-        int contador=0;
-        while(i.hasNext())
-        {
-            x=i.next();
-            if(x.compareTo(px)==0)return contador;
+    public static int contain(Comparable px, Collection coleccion) {
+        Iterator<Comparable> i = coleccion.iterator();
+        Comparable x = null;
+        int contador = 0;
+        while (i.hasNext()) {
+            x = i.next();
+            if (x.compareTo(px) == 0) {
+                return contador;
+            }
             contador++;
         }
         return -1;
     }
-
     private List<Materiaprima> materiaprima;
 
     public List<Materiaprima> getMP() {
@@ -192,10 +193,9 @@ public class ViewProveedorXMateriaPrima implements Comparable{
         }
         combo.setSelectedIndex(0);
     }
-
     private List<Proveedor> proveedor;
 
-     public List<Proveedor> getProv() {
+    public List<Proveedor> getProv() {
         return proveedor;
     }
 
@@ -231,5 +231,22 @@ public class ViewProveedorXMateriaPrima implements Comparable{
         }
         combo.setSelectedIndex(0);
     }
-    
+
+    public long asignarMPProveedor(Proveedorxmateriaprima pxm, long idMP, long idProv) {
+        ProveedorxmateriaprimaJpaController controller = new ProveedorxmateriaprimaJpaController();
+         try {
+             Materiaprima MP = searchMateriaprimaById(idMP);
+             Proveedor Prov = searchProveedorById(idProv);
+             pxm.setMateriaprima(MP);
+             pxm.setProveedor(Prov);
+             controller.create(pxm);
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(ViewProveedorXMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } catch (Exception ex) {
+            Logger.getLogger(ViewProveedorXMateriaPrima.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return 1;
+    }
 }
