@@ -14,14 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
+import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
 import metalsoft.datos.jpa.controller.PlanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
-import metalsoft.negocio.access.AccessEjecucionPlanificacionProduccion;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.gestores.estados.EstadoEjecucionPlanificacionPedido;
 import metalsoft.util.Fecha;
 
 /**
@@ -111,13 +113,22 @@ public class GestorRegistrarLanzamientoProduccion {
 //        }
 
         EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController();
-        PlanificacionproduccionJpaController controllerPlanificacion=new PlanificacionproduccionJpaController();
-        Planificacionproduccion p=null;
+        PlanificacionproduccionJpaController controllerPlanificacion = new PlanificacionproduccionJpaController();
+        Planificacionproduccion p = null;
+
+        EstadoejecplanifpedidoJpaController controllerEstadoEjecPlanif = new EstadoejecplanifpedidoJpaController();
+        Estadoejecplanifpedido estadoEjecucion = null;
+
         try {
-            p=controllerPlanificacion.findPlanificacionproduccion(idPlanificacionProduccion);
+            /*
+             * Buscar el estado inicial y asignarlo
+             */
+            estadoEjecucion = controllerEstadoEjecPlanif.findEstadoejecplanifpedido(EstadoEjecucionPlanificacionPedido.ENEJECUCION);
+            ejecucion.setEstado(estadoEjecucion);
+            p = controllerPlanificacion.findPlanificacionproduccion(idPlanificacionProduccion);
             ejecucion.setIdplanificacionproduccion(p);
             controller.create(ejecucion);
-            result=ejecucion.getIdejecucion();
+            result = ejecucion.getIdejecucion();
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
