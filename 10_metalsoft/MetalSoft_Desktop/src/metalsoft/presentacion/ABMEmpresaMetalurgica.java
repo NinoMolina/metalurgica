@@ -82,9 +82,10 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         txtFechaAlta = new com.toedter.calendar.JDateChooser();
         txtFechaBaja = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Empresa Metalurgica");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Cliente"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empresa Metalurgica"));
 
         jLabel1.setText("Nro. Empresa:");
 
