@@ -48,12 +48,12 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         addListeners();
     }
 
-    private void setearEnabledComponents(boolean b){
+    private void setearEnabledComponents(boolean b) {
         btnLanzarProduccion.setEnabled(b);
         btnVerObservaciones.setEnabled(b);
     }
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         lblFechaFinPrevista.setText("...");
         lblFechaFinRecalculada.setText("...");
         lblFechaInicioPrevista.setText("...");
@@ -63,7 +63,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         jdcFehaFiltro.setDate(null);
     }
 
-    private void addListeners(){
+    private void addListeners() {
         addListenerBtnSeleccionarPedido();
         addListenerBtnSalir();
     }
@@ -78,7 +78,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }
 
     private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
-        if(tblPedidos.getSelectedRow()<0){
+        if (tblPedidos.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
             return;
         }
@@ -99,6 +99,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
     }
+
     private void buscarPedidosConMPAsignada() {
         filasPedidosConMPAsignada = gestor.buscarPedidosConMPAsignada();
     }
@@ -342,24 +343,26 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerObservacionesActionPerformed
 
     private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
-        metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa=new Ejecucionplanificacionproduccion();
-        jpa.setFechainicio(fechaActual);
-        jpa.setHorainicio(new Date());
-//        EjecucionPlanificacionProduccion e = new EjecucionPlanificacionProduccion();
-//        e.setFechaInicio(fechaActual);
-//        e.setHoraInicio(new Date());
-        long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
-        jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
-        long result=gestor.guardarEjecucionPlanificacion(jpa,viewPedidoSeleccionado.getIdplanificacionproduccion());
-        long resultPedido=gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
-        if(result>0){
-            JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
-            setearEnabledComponents(false);
-            limpiarCampos();
+        try {
+            metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa = new Ejecucionplanificacionproduccion();
+            jpa.setFechainicio(fechaActual);
+            jpa.setHorainicio(new Date());
+            long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
+            jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
+            long result = gestor.guardarEjecucionPlanificacion(jpa, viewPedidoSeleccionado.getIdplanificacionproduccion());
+            long resultPedido = gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+                setearEnabledComponents(false);
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!\n"+ex.getMessage());
+            ex.printStackTrace();
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
-        }
+
     }//GEN-LAST:event_btnLanzarProduccionActionPerformed
     private void setearDatosPedidoSeleccionado() {
         lblFechaFinPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechafinprevista()));
