@@ -4,26 +4,35 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
+import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
 import metalsoft.datos.jpa.controller.PlanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detallempasignada;
+import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
 import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessViews;
-import metalsoft.negocio.gestores.estados.EstadoEjecucionPlanificacionPedido;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionPedido;
 import metalsoft.util.Fecha;
 
 /**
@@ -89,46 +98,64 @@ public class GestorRegistrarLanzamientoProduccion {
     }
 
     public long guardarEjecucionPlanificacion(Ejecucionplanificacionproduccion ejecucion, long idPlanificacionProduccion) {
-//        PostgreSQLManager pg = new PostgreSQLManager();
-//        Connection cn = null;
+
         long result = -1;
-//        try {
-//            cn = pg.concectGetCn();
-//            cn.setAutoCommit(false);
-//            result = AccessEjecucionPlanificacionProduccion.insert(ejecucion, 1, idPlanificacionProduccion, cn);
-//            cn.commit();
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
-//            try {
-//                cn.rollback();
-//            } catch (SQLException ex1) {
-//                Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
-//        } finally {
-//            try {
-//                pg.disconnect();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
 
         EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController();
         PlanificacionproduccionJpaController controllerPlanificacion = new PlanificacionproduccionJpaController();
-        Planificacionproduccion p = null;
+        Planificacionproduccion planificacionProduccion = null;
 
         EstadoejecplanifpedidoJpaController controllerEstadoEjecPlanif = new EstadoejecplanifpedidoJpaController();
         Estadoejecplanifpedido estadoEjecucion = null;
+
+        List<Detallempasignada> lstDetallempasignada = null;
+
+        List<Detalleplanificacionproduccion> lstDetallePlanificacion = null;
 
         try {
             /*
              * Buscar el estado inicial y asignarlo
              */
-            estadoEjecucion = controllerEstadoEjecPlanif.findEstadoejecplanifpedido(EstadoEjecucionPlanificacionPedido.ENEJECUCION);
+            estadoEjecucion = controllerEstadoEjecPlanif.findEstadoejecplanifpedido(IdsEstadoEjecucionPlanificacionPedido.ENEJECUCION);
             ejecucion.setEstado(estadoEjecucion);
-            p = controllerPlanificacion.findPlanificacionproduccion(idPlanificacionProduccion);
-            ejecucion.setIdplanificacionproduccion(p);
+            planificacionProduccion = controllerPlanificacion.findPlanificacionproduccion(idPlanificacionProduccion);
+            ejecucion.setIdplanificacionproduccion(planificacionProduccion);
             controller.create(ejecucion);
+            /*
+             * Asigno el id de ejecucion al resultado
+             * Si retorno un valor >0 es porque se guardo correctamente
+             */
             result = ejecucion.getIdejecucion();
+
+
+            lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
+            lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
+
+            Detalleejecucionplanificacion detalleejecucionplanificacion = null;
+            for (Detalleplanificacionproduccion detalleplanificacionproduccion : lstDetallePlanificacion) {
+                /*
+                 * Creacion del detalle ejecucion planificacion
+                 */
+                detalleejecucionplanificacion = new Detalleejecucionplanificacion();
+                detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(ejecucion);
+                detalleejecucionplanificacion.setIdetapaproduccion(BigInteger.valueOf(detalleplanificacionproduccion.getIdetapaproduccion().getIdetapaproduccion()));
+                detalleejecucionplanificacion.setOrden(detalleplanificacionproduccion.getOrden());
+                detalleejecucionplanificacion.setPieza(detalleplanificacionproduccion.getIdpieza());
+                /*
+                 * Creacion ejecucion etapa produccion
+                 */
+                Ejecucionetapaproduccion ejecucionetapaproduccion=new Ejecucionetapaproduccion();
+                ejecucionetapaproduccion.setEmpleado(detalleplanificacionproduccion.getIdempleado());
+                ejecucionetapaproduccion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
+                long nroEjecucion=generarNvoNroEjecucionEtapa();
+                ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
+                EstadoejecetapaprodJpaController estadoEjecEtapaController=new EstadoejecetapaprodJpaController();
+                Estadoejecetapaprod estadoEjecEtapaProd=estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
+                ejecucionetapaproduccion.setEstado(estadoEjecEtapaProd);
+
+            }
+
+
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -161,6 +188,16 @@ public class GestorRegistrarLanzamientoProduccion {
             } catch (SQLException ex) {
                 Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        return result;
+    }
+
+    private long generarNvoNroEjecucionEtapa() {
+        long result=-1;
+        try {
+            result=AccessFunctions.nvoNroEjecucionEtapa(new PostgreSQLManager().concectGetCn());
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

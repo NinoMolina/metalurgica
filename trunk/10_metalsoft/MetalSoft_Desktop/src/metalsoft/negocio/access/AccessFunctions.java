@@ -224,4 +224,18 @@ public class AccessFunctions {
         }
         return result;
     }
+
+    public static long nvoNroEjecucionEtapa(Connection cn) {
+        String query="{ ? = call nvonroejecucionetapa()}";
+        long result=-1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result=cs.getLong(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }

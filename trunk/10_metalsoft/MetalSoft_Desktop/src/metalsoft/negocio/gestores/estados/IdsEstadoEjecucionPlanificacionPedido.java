@@ -8,7 +8,7 @@ package metalsoft.negocio.gestores.estados;
  *
  * @author Nino
  */
-public class EstadoEjecucionPlanificacionPedido {
+public class IdsEstadoEjecucionPlanificacionPedido {
 
     public static final long ENEJECUCION = 1;
     public static final long DETENIDA = 2;
