@@ -45,7 +45,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
     public ABMEmpresaMetalurgica() {
         initComponents();
-        empresa=new Empresametalurgica();
         gestor = new GestorEmpresaMetalurgica();
         cargarComboCondIva();
         cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
@@ -400,7 +399,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         String nroCli = String.valueOf(nro);
         String razonCli = txtRazonSocial.getText();
         String telCli = txtTelefono.getText();
-
+        empresa=new Empresametalurgica();
         empresa.setCelular(celCli);
         empresa.setCondicioniva(null);
         empresa.setCuit(cuitCli);
