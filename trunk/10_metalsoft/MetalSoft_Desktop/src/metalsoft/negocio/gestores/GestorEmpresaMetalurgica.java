@@ -5,10 +5,13 @@
 package metalsoft.negocio.gestores;
 
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.LocalidadDB;
 
 import metalsoft.datos.exception.BarrioException;
@@ -32,6 +35,7 @@ import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.negocio.access.AccessEmpresaMetalurgica;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.Parser;
 
@@ -202,5 +206,26 @@ public class GestorEmpresaMetalurgica {
     public Localidad buscarLocalidadDeBarrio(Barrio barrio) {
 
         return barrio.getLocalidad();
+    }
+    public long generarNvoNroEmpresa() {
+        long result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroCliente(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
     }
 }
