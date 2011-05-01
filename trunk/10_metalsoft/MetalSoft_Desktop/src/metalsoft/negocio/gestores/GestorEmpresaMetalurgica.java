@@ -214,7 +214,7 @@ public class GestorEmpresaMetalurgica {
         pg=new PostgreSQLManager();
         try {
             cn = pg.concectGetCn();
-            result=AccessFunctions.nvoNroCliente(cn);
+            result=AccessFunctions.nvoNroEmpresaMetalurgica(cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -223,7 +223,7 @@ public class GestorEmpresaMetalurgica {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
