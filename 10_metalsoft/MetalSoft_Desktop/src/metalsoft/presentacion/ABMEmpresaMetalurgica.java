@@ -33,8 +33,19 @@ import metalsoft.util.ItemCombo;
 public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
     /** Creates new form ABMEmpresaMetalurgica */
+    private GestorEmpresaMetalurgica gestor;
+    private Domicilio domicilioEmpresa;
+    private Domicilio domicilioResponsable;
+    private long idDomicilio;
+    private long idResponsable;
+    private Responsable responsable;
+    private Empresametalurgica empresa;
+    private EnumOpcionesABM opcion;
+    private long idEmpresa;
+
     public ABMEmpresaMetalurgica() {
         initComponents();
+        empresa=new Empresametalurgica();
         gestor = new GestorEmpresaMetalurgica();
         cargarComboCondIva();
         cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
@@ -246,15 +257,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     private void txtMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMailActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_txtMailActionPerformed
-    private GestorEmpresaMetalurgica gestor;
-    private Domicilio domicilioEmpresa;
-    private Domicilio domicilioResponsable;
-    private long idDomicilio;
-    private long idResponsable;
-    private Responsable responsable;
-    private Empresametalurgica empresa;
-    private EnumOpcionesABM opcion;
-    private long idEmpresa;
+    
 
 
     private void addListeners() {
@@ -278,7 +281,10 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         setEnableComponents(true);
-        //lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, nroCli));
+        limpiarCampos();
+        opcion = EnumOpcionesABM.NUEVO;
+        long nroCli = gestor.generarNvoNroEmpresa();
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPRESA_METALURGICA, nroCli));
         txtFechaAlta.setDate(Fecha.fechaActualDate());
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
@@ -394,6 +400,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         String nroCli = String.valueOf(nro);
         String razonCli = txtRazonSocial.getText();
         String telCli = txtTelefono.getText();
+
         empresa.setCelular(celCli);
         empresa.setCondicioniva(null);
         empresa.setCuit(cuitCli);
