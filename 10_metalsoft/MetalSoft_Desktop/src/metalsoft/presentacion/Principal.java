@@ -121,6 +121,7 @@ public class Principal extends javax.swing.JFrame {
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
         mniRegistrarMaquina = new javax.swing.JMenuItem();
+        mniRotura = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -499,6 +500,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniRegistrarMaquina);
 
+        mniRotura.setText("Rotura");
+        mniRotura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRoturaActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniRotura);
+
         mbrMenu.add(mnuMantenimiento);
 
         mnuAyuda.setText("Ayuda");
@@ -842,6 +851,19 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void mniRoturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRoturaActionPerformed
+        try {
+                JFrameManager.crearVentana(ABMRotura.class.getName());
+            } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniRoturaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -888,6 +910,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
     private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
+    private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAlmacenamiento;
     private javax.swing.JMenu mnuAyuda;
