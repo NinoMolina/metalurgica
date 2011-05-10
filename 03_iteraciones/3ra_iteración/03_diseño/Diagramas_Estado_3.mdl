@@ -866,7 +866,7 @@
 		exportControl 	"Public"
 		logical_models 	(list unit_reference_list)
 		logical_presentations 	(list unit_reference_list))
-	    (object Class_Category "Analysis Model"
+	    (object Class_Category "Modelo  de Diseño"
 		quid       	"35B678170028"
 		documentation 	
 |This model is optional.
@@ -1131,7 +1131,7 @@
 			(object State_Transition
 			    quid       	"4C20513E01A5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    supplier_quidu 	"4C204FFA00CB"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -1142,9 +1142,9 @@
 			(object State_Transition
 			    quid       	"4C20514500BB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    supplier_quidu 	"4C205008030D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "generarPresupuesto()"
 				quid       	"4C20514500BC")
@@ -1153,9 +1153,9 @@
 			(object State_Transition
 			    quid       	"4C20514702BF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEsperaDeConfirmación"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaDeConfirmación"
 			    supplier_quidu 	"4C20501903B9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "registrarEntregaPresupuesto()"
 				quid       	"4C20514702C0")
@@ -1164,9 +1164,9 @@
 			(object State_Transition
 			    quid       	"4C20514F02AF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    supplier_quidu 	"4C20505303D8"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEsperaDeConfirmación"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaDeConfirmación"
 			    client_quidu 	"4C20501903B9"
 			    Event      	(object Event "registrarConfirmacionPedido()"
 				quid       	"4C20514F02B0")
@@ -1175,9 +1175,9 @@
 			(object State_Transition
 			    quid       	"4C20515301C5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Planificado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Planificado"
 			    supplier_quidu 	"4C20506400DA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    client_quidu 	"4C20505303D8"
 			    Event      	(object Event "registrarPlanificacion()&&registrarPlanificacionControlDeCalidadProduccion()"
 				quid       	"4C20515301C6")
@@ -1186,9 +1186,9 @@
 			(object State_Transition
 			    quid       	"4C20515702BF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Planificado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Planificado"
 			    client_quidu 	"4C20506400DA"
 			    Event      	(object Event "registrarLanzamientoProduccion()"
 				quid       	"4C20515702C0")
@@ -1197,9 +1197,9 @@
 			(object State_Transition
 			    quid       	"4C2051620222"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    supplier_quidu 	"4C2050A902DE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    client_quidu 	"4C20509903A9"
 			    Event      	(object Event "registrarEntregaPedido()"
 				quid       	"4C2051620223")
@@ -1208,9 +1208,9 @@
 			(object State_Transition
 			    quid       	"4C20516501B5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    supplier_quidu 	"4C2050B901A5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    client_quidu 	"4C2050A902DE"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4C20516501B6")
@@ -1220,24 +1220,24 @@
 			    quid       	"4C20516B0261"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::CobradoTotal"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoTotal"
 			    client_quidu 	"4CBD240201B9"
 			    sendEvent  	(object sendEvent
 				quid       	"4C20516B0264"))
 			(object State_Transition
 			    quid       	"4C20517101C5"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    client_quidu 	"4C2050B901A5"
 			    sendEvent  	(object sendEvent
 				quid       	"4C20517101C8"))
 			(object State_Transition
 			    quid       	"4C20517C036B"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Planificado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Planificado"
 			    supplier_quidu 	"4C20506400DA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "modificarPlanificacion()"
 				quid       	"4C20517C036C")
@@ -1245,9 +1245,9 @@
 				quid       	"4C20517C036E"))
 			(object State_Transition
 			    quid       	"4C20518B038A"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    supplier_quidu 	"4C2050EA00FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    client_quidu 	"4C2050B901A5"
 			    sendEvent  	(object sendEvent
 				quid       	"4C20518B038D"))
@@ -1255,16 +1255,16 @@
 			    quid       	"4C2051B101E4"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    client_quidu 	"4C2050EA00FA"
 			    sendEvent  	(object sendEvent
 				quid       	"4C2051B101E7"))
 			(object State_Transition
 			    quid       	"4C2051C500AB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    client_quidu 	"4C20505303D8"
 			    Event      	(object Event "registrarCancelacionPedido()"
 				quid       	"4C2051C500AC")
@@ -1272,18 +1272,18 @@
 				quid       	"4C2051C500AE"))
 			(object State_Transition
 			    quid       	"4C2051C8033C"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Planificado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Planificado"
 			    client_quidu 	"4C20506400DA"
 			    sendEvent  	(object sendEvent
 				quid       	"4C2051C8033F"))
 			(object State_Transition
 			    quid       	"4C2051D300BB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEsperaDeConfirmación"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaDeConfirmación"
 			    client_quidu 	"4C20501903B9"
 			    Event      	(object Event "registrarVencimientoPresupuesto()"
 				quid       	"4C2051D300BC")
@@ -1292,9 +1292,9 @@
 			(object State_Transition
 			    quid       	"4C2051EB01A5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    client_quidu 	"4C2050EA00FA"
 			    Event      	(object Event "registrarReclamoACliente()"
 				quid       	"4C2051EB01A6")
@@ -1303,9 +1303,9 @@
 			(object State_Transition
 			    quid       	"4C2051F000AB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoACliente"
 				quid       	"4C2051F000AC"
@@ -1315,9 +1315,9 @@
 			(object State_Transition
 			    quid       	"4C2051FA001F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaCobrado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaCobrado"
 			    supplier_quidu 	"4C20510C00EA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarBajaPedido()"
 				quid       	"4C2051FA0020")
@@ -1327,16 +1327,16 @@
 			    quid       	"4C2051FD036B"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::NuncaCobrado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaCobrado"
 			    client_quidu 	"4C20510C00EA"
 			    sendEvent  	(object sendEvent
 				quid       	"4C2051FD036E"))
 			(object State_Transition
 			    quid       	"4C20520500DA"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    supplier_quidu 	"4C2050B901A5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4C20520500DB")
@@ -1345,9 +1345,9 @@
 			(object State_Transition
 			    quid       	"4C20522C0290"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    client_quidu 	"4C2050A902DE"
 			    Event      	(object Event "registrarReclamoCliente()"
 				quid       	"4C20522C0291")
@@ -1356,9 +1356,9 @@
 			(object State_Transition
 			    quid       	"4C2052510128"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    supplier_quidu 	"4C2050EA00FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    client_quidu 	"4C2050A902DE"
 			    Event      	(object Event "registrarVencimientoFactura()"
 				quid       	"4C2052510129")
@@ -1367,9 +1367,9 @@
 			(object State_Transition
 			    quid       	"4C2052580119"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    supplier_quidu 	"4C2050B901A5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    client_quidu 	"4C2050EA00FA"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4C205258011A")
@@ -1379,16 +1379,16 @@
 			    quid       	"4C20533C00AB"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    client_quidu 	"4C2050F4029F"
 			    sendEvent  	(object sendEvent
 				quid       	"4C20533C00AE"))
 			(object State_Transition
 			    quid       	"4C20551600CB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaCobrado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaCobrado"
 			    supplier_quidu 	"4C20510C00EA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "registrarBajaPedido()"
 				quid       	"4C20551600CC")
@@ -1397,9 +1397,9 @@
 			(object State_Transition
 			    quid       	"4C2055EC02CE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    supplier_quidu 	"4C205008030D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEsperaDeConfirmación"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaDeConfirmación"
 			    client_quidu 	"4C20501903B9"
 			    Event      	(object Event "generarPresupuesto()"
 				quid       	"4C2055EC02CF")
@@ -1408,7 +1408,7 @@
 			(object State_Transition
 			    quid       	"4C20587C005D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Activo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Activo"
 			    supplier_quidu 	"4C2058330148"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -1419,9 +1419,9 @@
 			(object State_Transition
 			    quid       	"4C20587F003E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Inactivo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Inactivo"
 			    supplier_quidu 	"4C2058410213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Activo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Activo"
 			    client_quidu 	"4C2058330148"
 			    Event      	(object Event "registrarFechaBaja()"
 				quid       	"4C20587F003F")
@@ -1431,16 +1431,16 @@
 			    quid       	"4C20588D033C"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Inactivo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Inactivo"
 			    client_quidu 	"4C2058410213"
 			    sendEvent  	(object sendEvent
 				quid       	"4C20588D033F"))
 			(object State_Transition
 			    quid       	"4C20589B002E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Moroso"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Moroso"
 			    supplier_quidu 	"4C205854009C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Activo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Activo"
 			    client_quidu 	"4C2058330148"
 			    Event      	(object Event "registrarVencimientoFactura()"
 				quid       	"4C20589B002F")
@@ -1449,9 +1449,9 @@
 			(object State_Transition
 			    quid       	"4C2058A3033C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Activo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Activo"
 			    supplier_quidu 	"4C2058330148"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Moroso"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Moroso"
 			    client_quidu 	"4C205854009C"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4C2058A3033D")
@@ -1460,9 +1460,9 @@
 			(object State_Transition
 			    quid       	"4C2058AD00BB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Inactivo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Inactivo"
 			    supplier_quidu 	"4C2058410213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Moroso"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Moroso"
 			    client_quidu 	"4C205854009C"
 			    Event      	(object Event "registrarFechaBaja()"
 				quid       	"4C2058AD00BC")
@@ -1471,7 +1471,7 @@
 			(object State_Transition
 			    quid       	"4C205B92003E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PedidoGenerado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoGenerado"
 			    supplier_quidu 	"4C205A2203B9"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -1482,9 +1482,9 @@
 			(object State_Transition
 			    quid       	"4C205BB1001F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEsperaPresupuesto"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaPresupuesto"
 			    supplier_quidu 	"4C205A3402CE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PedidoGenerado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoGenerado"
 			    client_quidu 	"4C205A2203B9"
 			    Event      	(object Event "registrarEnvioPedidoCotizacionTrabajo()"
 				quid       	"4C205BB10020")
@@ -1493,9 +1493,9 @@
 			(object State_Transition
 			    quid       	"4C205BEC01C5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    supplier_quidu 	"4C205008030D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEsperaPresupuesto"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEsperaPresupuesto"
 			    client_quidu 	"4C205A3402CE"
 			    Event      	(object Event "registrarIngresoCotizacionTrabajo()"
 				quid       	"4C205BEC01C6")
@@ -1504,9 +1504,9 @@
 			(object State_Transition
 			    quid       	"4C205C0203D8"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    supplier_quidu 	"4C20505303D8"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "registrarConfirmacionTrabajo()"
 				quid       	"4C205C0203D9")
@@ -1515,9 +1515,9 @@
 			(object State_Transition
 			    quid       	"4C205C2C005D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    supplier_quidu 	"4C205AB7035B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PlanificadoParaControlDeCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PlanificadoParaControlDeCalidad"
 			    client_quidu 	"4CBC46BC03AE"
 			    Event      	(object Event "registrarEgresoPiezasATrabajo()"
 				quid       	"4C205C2C005E")
@@ -1526,9 +1526,9 @@
 			(object State_Transition
 			    quid       	"4C205C5F001F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoTotal"
 			    supplier_quidu 	"4C205AC700CB"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    client_quidu 	"4C205AB7035B"
 			    Event      	(object Event "registrarIngresoDePiezaDeTrabajo()"
 				quid       	"4C205C5F0020")
@@ -1537,9 +1537,9 @@
 			(object State_Transition
 			    quid       	"4C205C8D009C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoTotal"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoTotal"
 			    client_quidu 	"4C205AC700CB"
 			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C205C8D009D")
@@ -1548,9 +1548,9 @@
 			(object State_Transition
 			    quid       	"4C205CB502FD"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    supplier_quidu 	"4C205AEF007D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarAceptacion()"
 				quid       	"4C205CB502FE")
@@ -1559,9 +1559,9 @@
 			(object State_Transition
 			    quid       	"4C205CEB00FA"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    Event      	(object Event "registrarFinTrabajo()"
 				quid       	"4C205CEB00FB")
@@ -1571,16 +1571,16 @@
 			    quid       	"4C205CFD036B"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    client_quidu 	"4C205AF7001F"
 			    sendEvent  	(object sendEvent
 				quid       	"4C205CFD036E"))
 			(object State_Transition
 			    quid       	"4C205D21037A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "registrarCancelacionPedidoTrabajo()"
 				quid       	"4C205D21037B")
@@ -1589,9 +1589,9 @@
 			(object State_Transition
 			    quid       	"4C205D6A0261"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    client_quidu 	"4C205AB7035B"
 			    Event      	(object Event "registrarCancelacionPedidoTrabajo()"
 				quid       	"4C205D6A0262")
@@ -1600,9 +1600,9 @@
 			(object State_Transition
 			    quid       	"4C205D9602CE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidoParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoParcial"
 			    supplier_quidu 	"4C205AD302CE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    client_quidu 	"4C205AB7035B"
 			    Event      	(object Event "registrarIngresoDePiezaDeTrabajo()"
 				quid       	"4C205D9602CF")
@@ -1611,9 +1611,9 @@
 			(object State_Transition
 			    quid       	"4C205DDC02BF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidoParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoParcial"
 			    supplier_quidu 	"4C205AD302CE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoParcial"
 			    client_quidu 	"4C205AD302CE"
 			    Event      	(object Event "registrarIngresoDePiezaDeTrabajo()"
 				quid       	"4C205DDC02C0")
@@ -1622,9 +1622,9 @@
 			(object State_Transition
 			    quid       	"4C205E0101C5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoTotal"
 			    supplier_quidu 	"4C205AC700CB"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoParcial"
 			    client_quidu 	"4C205AD302CE"
 			    Event      	(object Event "registrarIngresoDePiezaDeTrabajo()"
 				quid       	"4C205E0101C6")
@@ -1633,9 +1633,9 @@
 			(object State_Transition
 			    quid       	"4C205E4103A9"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoTotal"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoTotal"
 			    client_quidu 	"4C205AC700CB"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C205E4103AA")
@@ -1644,9 +1644,9 @@
 			(object State_Transition
 			    quid       	"4C205E460203"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C205E460204")
@@ -1655,9 +1655,9 @@
 			(object State_Transition
 			    quid       	"4C205E550196"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidoParcial"
 			    client_quidu 	"4C205AD302CE"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C205E550197")
@@ -1666,9 +1666,9 @@
 			(object State_Transition
 			    quid       	"4C205F0C0109"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    client_quidu 	"4C205B3101B5"
 			    Event      	(object Event "registrarReclamoEmpresaMetalurgica()"
 				quid       	"4C205F0C010A")
@@ -1677,9 +1677,9 @@
 			(object State_Transition
 			    quid       	"4C205FA301C5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    supplier_quidu 	"4C205AB7035B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarEgresoPiezaATrabajo()"
 				quid       	"4C205FA301C6")
@@ -1688,9 +1688,9 @@
 			(object State_Transition
 			    quid       	"4C79D36D005C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeProcedimientos"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeProcedimientos"
 			    supplier_quidu 	"4C79D2F90213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "generarDetalleDeProcedimientosParaPresupuesto()"
 				quid       	"4C79D36D005D")
@@ -1699,9 +1699,9 @@
 			(object State_Transition
 			    quid       	"4C79D937010E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeMateriaPrima"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeMateriaPrima"
 			    supplier_quidu 	"4C79D9170348"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeProcedimientos"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeProcedimientos"
 			    client_quidu 	"4C79D2F90213"
 			    Event      	(object Event "generarDetalleDeMateriaPrimaParaPresupuesto()"
 				quid       	"4C79D937010F")
@@ -1710,9 +1710,9 @@
 			(object State_Transition
 			    quid       	"4C79D9910232"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeProcesosDeCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeProcesosDeCalidad"
 			    supplier_quidu 	"4C79D976002C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeMateriaPrima"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeMateriaPrima"
 			    client_quidu 	"4C79D9170348"
 			    Event      	(object Event "generarDetalleDeProcesosDeControlDeCalidad()"
 				quid       	"4C79D9910233")
@@ -1721,9 +1721,9 @@
 			(object State_Transition
 			    quid       	"4C79DBF10133"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    supplier_quidu 	"4C205008030D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PedidoConDetalleDeProcesosDeCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PedidoConDetalleDeProcesosDeCalidad"
 			    client_quidu 	"4C79D976002C"
 			    Event      	(object Event "generarPresupuesto()"
 				quid       	"4C79DBF10134")
@@ -1732,9 +1732,9 @@
 			(object State_Transition
 			    quid       	"4C79DCA30019"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::ConMateriaPrimaAsignada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::ConMateriaPrimaAsignada"
 			    supplier_quidu 	"4C79DC7B0076"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Planificado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Planificado"
 			    client_quidu 	"4C20506400DA"
 			    Event      	(object Event "RegistrarEntregaMateriaPrimaAProduccion()||RegistrarAsigancionDeScrapAProduccion()"
 				quid       	"4C79DCA3001A")
@@ -1743,9 +1743,9 @@
 			(object State_Transition
 			    quid       	"4C79DCAA0383"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ConMateriaPrimaAsignada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ConMateriaPrimaAsignada"
 			    client_quidu 	"4C79DC7B0076"
 			    Event      	(object Event "registrarLanzamientoProduccion()"
 				quid       	"4C79DCAA0384")
@@ -1754,7 +1754,7 @@
 			(object State_Transition
 			    quid       	"4C79E1460074"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    supplier_quidu 	"4C79E1370314"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -1765,9 +1765,9 @@
 			(object State_Transition
 			    quid       	"4C79E58101E3"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadaAProveedor"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadaAProveedor"
 			    supplier_quidu 	"4C79E55D0142"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarEnvioOrdenCompra()"
 				quid       	"4C79E58101E4")
@@ -1776,9 +1776,9 @@
 			(object State_Transition
 			    quid       	"4C79E5DE030E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidaTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidaTotal"
 			    supplier_quidu 	"4C79E5A402AA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadaAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadaAProveedor"
 			    client_quidu 	"4C79E55D0142"
 			    Event      	(object Event "RegistrarIngresoMateriaPrima()"
 				quid       	"4C79E5DE030F")
@@ -1787,9 +1787,9 @@
 			(object State_Transition
 			    quid       	"4C79E644006D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::RecibidaParcial"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidaParcial"
 			    supplier_quidu 	"4C79E62A015E"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadaAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadaAProveedor"
 			    client_quidu 	"4C79E55D0142"
 			    Event      	(object Event "registrarIngresoMateriaPrima()"
 				quid       	"4C79E644006E")
@@ -1798,9 +1798,9 @@
 			(object State_Transition
 			    quid       	"4C79E67601C5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelada"
 			    supplier_quidu 	"4C79E669018D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarCancelacionOrdenCompra()"
 				quid       	"4C79E67601C6")
@@ -1809,9 +1809,9 @@
 			(object State_Transition
 			    quid       	"4C79E687000E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelada"
 			    supplier_quidu 	"4C79E669018D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadaAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadaAProveedor"
 			    client_quidu 	"4C79E55D0142"
 			    Event      	(object Event "registrarCancelacionOrdenCompra()"
 				quid       	"4C79E687000F")
@@ -1820,9 +1820,9 @@
 			(object State_Transition
 			    quid       	"4C79E6F200D2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidaTotal"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidaTotal"
 			    client_quidu 	"4C79E5A402AA"
 			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C79E6F200D3")
@@ -1831,9 +1831,9 @@
 			(object State_Transition
 			    quid       	"4C79E7E301FA"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidaTotal"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidaTotal"
 			    client_quidu 	"4C79E5A402AA"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C79E7E301FB")
@@ -1842,9 +1842,9 @@
 			(object State_Transition
 			    quid       	"4C79E7F40324"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::RecibidaParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::RecibidaParcial"
 			    client_quidu 	"4C79E62A015E"
 			    Event      	(object Event "generarSoliciudReclamo()"
 				quid       	"4C79E7F40325")
@@ -1853,9 +1853,9 @@
 			(object State_Transition
 			    quid       	"4C79E817035A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C79E817035B")
@@ -1864,9 +1864,9 @@
 			(object State_Transition
 			    quid       	"4C79E86601A2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazada"
 			    supplier_quidu 	"4C79E85E0021"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarNoAceptacion()"
 				quid       	"4C79E86601A3")
@@ -1875,9 +1875,9 @@
 			(object State_Transition
 			    quid       	"4C79E8950078"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    client_quidu 	"4C205B3101B5"
 			    Event      	(object Event "registrarReclamoAProveedor()"
 				quid       	"4C79E8950079")
@@ -1886,9 +1886,9 @@
 			(object State_Transition
 			    quid       	"4C79E8B3022A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarReclamoAProveedor"
 				quid       	"4C79E8B3022B")
@@ -1898,9 +1898,9 @@
 			(object State_Transition
 			    quid       	"4C79E92F0145"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazada"
 			    supplier_quidu 	"4C79E85E0021"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarDevolucion()"
 				quid       	"4C79E92F0146")
@@ -1910,7 +1910,7 @@
 			    quid       	"4C79E94B026A"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    sendEvent  	(object sendEvent
 				quid       	"4C79E94B026D"))
@@ -1918,7 +1918,7 @@
 			    quid       	"4C79E95300AF"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Cancelada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelada"
 			    client_quidu 	"4C79E669018D"
 			    sendEvent  	(object sendEvent
 				quid       	"4C79E95300B2"))
@@ -1926,7 +1926,7 @@
 			    quid       	"4C79E9580060"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazada"
 			    client_quidu 	"4C79E85E0021"
 			    sendEvent  	(object sendEvent
 				quid       	"4C79E9580063"))
@@ -1934,16 +1934,16 @@
 			    quid       	"4C79E9A402F9"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    client_quidu 	"4C79E987011F"
 			    sendEvent  	(object sendEvent
 				quid       	"4C79E9A402FC"))
 			(object State_Transition
 			    quid       	"4C79E9A8023D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    Event      	(object Event "registrarFinOrdenCompra()"
 				quid       	"4C79E9A8023E")
@@ -1953,16 +1953,16 @@
 			    quid       	"4C79EA04022B"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    sendEvent  	(object sendEvent
 				quid       	"4C79EA04022E"))
 			(object State_Transition
 			    quid       	"4C79F0F501D4"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    supplier_quidu 	"4C79F0EA02E1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarIngresoMateriaPrima()"
 				quid       	"4C79F0F501D5")
@@ -1971,9 +1971,9 @@
 			(object State_Transition
 			    quid       	"4C79F1F7038F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    client_quidu 	"4C79F0EA02E1"
 			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C79F1F70390")
@@ -1982,9 +1982,9 @@
 			(object State_Transition
 			    quid       	"4C79F21A01AE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    client_quidu 	"4C79F0EA02E1"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C79F21A01AF")
@@ -1993,9 +1993,9 @@
 			(object State_Transition
 			    quid       	"4C79F245019A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarDevolucion()"
 				quid       	"4C79F245019B")
@@ -2004,9 +2004,9 @@
 			(object State_Transition
 			    quid       	"4C79F27A034C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarDevolucion()"
 				quid       	"4C79F27A034D")
@@ -2015,9 +2015,9 @@
 			(object State_Transition
 			    quid       	"4C79F2C90202"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "registrarFinOrdenCompra()"
 				quid       	"4CBC425E02AD")
@@ -2026,9 +2026,9 @@
 			(object State_Transition
 			    quid       	"4C79F5D10094"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    supplier_quidu 	"4C205AB7035B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEgresoDePiezaATrabajo()"
 				quid       	"4C79F5D10095")
@@ -2037,9 +2037,9 @@
 			(object State_Transition
 			    quid       	"4C79F63D03D0"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    supplier_quidu 	"4C79F0EA02E1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEmpresaMetalurgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEmpresaMetalurgica"
 			    client_quidu 	"4C205AB7035B"
 			    Event      	(object Event "registrarIngresoDePiezaDeTrabajo()"
 				quid       	"4C79F63D03D1")
@@ -2048,7 +2048,7 @@
 			(object State_Transition
 			    quid       	"4C7A68C900D2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeAlta"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeAlta"
 			    supplier_quidu 	"4C7A68B0028A"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2059,9 +2059,9 @@
 			(object State_Transition
 			    quid       	"4C7A68FE03A5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Solicitada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitada"
 			    supplier_quidu 	"4C7A68EB02A7"
-			    client     	"Logical View::Analysis Model::State/Activity Model::AsignadaAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProveedor"
 			    client_quidu 	"4C7A69B9031F"
 			    Event      	(object Event "registrarEnvioOrdenCompra()"
 				quid       	"4C7A68FE03A6")
@@ -2070,9 +2070,9 @@
 			(object State_Transition
 			    quid       	"4C7A69DA0237"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::AsignadaAProveedor"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProveedor"
 			    supplier_quidu 	"4C7A69B9031F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::DadaDeAlta"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeAlta"
 			    client_quidu 	"4C7A68B0028A"
 			    Event      	(object Event "asignarMateriaPrimaAProveedor()"
 				quid       	"4C7A69DA0238")
@@ -2081,9 +2081,9 @@
 			(object State_Transition
 			    quid       	"4C7A6AD7020F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Solicitada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitada"
 			    supplier_quidu 	"4C7A68EB02A7"
-			    client     	"Logical View::Analysis Model::State/Activity Model::DadaDeAlta"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeAlta"
 			    client_quidu 	"4C7A68B0028A"
 			    Event      	(object Event "registrarEnvioOrdenCompra()"
 				quid       	"4C7A6AD70210")
@@ -2092,9 +2092,9 @@
 			(object State_Transition
 			    quid       	"4C7A6B240004"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Recibida"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Recibida"
 			    supplier_quidu 	"4C7A6B1800C3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Solicitada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitada"
 			    client_quidu 	"4C7A68EB02A7"
 			    Event      	(object Event "registrarIngresoMateriaPrima()"
 				quid       	"4C7A6B240005")
@@ -2103,9 +2103,9 @@
 			(object State_Transition
 			    quid       	"4C7A6E6E0249"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PlanificadaParaControl de Calidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PlanificadaParaControl de Calidad"
 			    client_quidu 	"4CBCFCC6032F"
 			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C7A6E6E024A")
@@ -2114,9 +2114,9 @@
 			(object State_Transition
 			    quid       	"4C7A700101ED"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    supplier_quidu 	"4C205B3101B5"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibida"
 			    client_quidu 	"4C7A6B1800C3"
 			    Event      	(object Event "generarSolicitudReclamo()"
 				quid       	"4C7A700101EE")
@@ -2125,9 +2125,9 @@
 			(object State_Transition
 			    quid       	"4C7A705C0184"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Aceptada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptada"
 			    supplier_quidu 	"4C7A6DC10346"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarAceptacion()"
 				quid       	"4C7A705C0185")
@@ -2136,9 +2136,9 @@
 			(object State_Transition
 			    quid       	"4C7A708E0336"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::AsignadaAProduccion"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProduccion"
 			    supplier_quidu 	"4C7A6DD40135"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptada"
 			    client_quidu 	"4C7A6DC10346"
 			    Event      	(object Event "registrarEntregaDeMateriaPrima AProduccion()"
 				quid       	"4C7A708E0337")
@@ -2146,9 +2146,9 @@
 				quid       	"4C7A708E0339"))
 			(object State_Transition
 			    quid       	"4C7A715703A1"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Scrap()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Scrap()"
 			    supplier_quidu 	"4C7A6E1502CC"
-			    client     	"Logical View::Analysis Model::State/Activity Model::AsignadaAProduccion"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProduccion"
 			    client_quidu 	"4C7A6DD40135"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7A715703A4"))
@@ -2156,16 +2156,16 @@
 			    quid       	"4C7A72540388"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::AsignadaAProduccion"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProduccion"
 			    client_quidu 	"4C7A6DD40135"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7A7254038B"))
 			(object State_Transition
 			    quid       	"4C7A725E01A3"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptada"
 			    client_quidu 	"4C7A6DC10346"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A725E01A4")
@@ -2176,7 +2176,7 @@
 			    label      	""
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    client_quidu 	"4C7A6E3C0360"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A794B0668")
@@ -2185,9 +2185,9 @@
 			(object State_Transition
 			    quid       	"4C7A7AE80291"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A7AE80292")
@@ -2195,18 +2195,18 @@
 				quid       	"4C7A7AE80294"))
 			(object State_Transition
 			    quid       	"4C7A7AEC007C"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibida"
 			    client_quidu 	"4C7A6B1800C3"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7A7AEC007F"))
 			(object State_Transition
 			    quid       	"4C7A7AF70206"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Solicitada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitada"
 			    client_quidu 	"4C7A68EB02A7"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A7AF70207")
@@ -2215,9 +2215,9 @@
 			(object State_Transition
 			    quid       	"4C7A7C4A0216"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::DadaDeAlta"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeAlta"
 			    client_quidu 	"4C7A68B0028A"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A7C4A0217")
@@ -2226,9 +2226,9 @@
 			(object State_Transition
 			    quid       	"4C7A7C5402B2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja()"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja()"
 			    supplier_quidu 	"4C7A6E3C0360"
-			    client     	"Logical View::Analysis Model::State/Activity Model::AsignadaAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::AsignadaAProveedor"
 			    client_quidu 	"4C7A69B9031F"
 			    Event      	(object Event "registrarBajaMateriaPrima()"
 				quid       	"4C7A7C5402B3")
@@ -2237,9 +2237,9 @@
 			(object State_Transition
 			    quid       	"4C7AC8720135"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnTrabajoTercerizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnTrabajoTercerizado"
 			    supplier_quidu 	"4C7AC8510297"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarEgresoPiezaATrabajo()"
 				quid       	"4C7AC8720136")
@@ -2248,9 +2248,9 @@
 			(object State_Transition
 			    quid       	"4C7AC8790114"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    supplier_quidu 	"4C7A6F820010"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnTrabajoTercerizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnTrabajoTercerizado"
 			    client_quidu 	"4C7AC8510297"
 			    Event      	(object Event "registrarIngresoPiezaDeTrabajo()"
 				quid       	"4C7AC8790115")
@@ -2259,9 +2259,9 @@
 			(object State_Transition
 			    quid       	"4C7ACA96021F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarEntregaPieza()"
 				quid       	"4C7ACA960220")
@@ -2270,9 +2270,9 @@
 			(object State_Transition
 			    quid       	"4C7ACB3703BD"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarEntregaPieza()"
 				quid       	"4C7ACB3703BE")
@@ -2281,9 +2281,9 @@
 			(object State_Transition
 			    quid       	"4C7AD5D40381"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    supplier_quidu 	"4C7A6F820010"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    client_quidu 	"4C2050710213"
 			    Event      	(object Event "registrarIngresoDePiezaDeProduccion()"
 				quid       	"4C7AD5D40382")
@@ -2291,18 +2291,18 @@
 				quid       	"4C7AD5D40384"))
 			(object State_Transition
 			    quid       	"4C7ADB210252"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7ADB210255"))
 			(object State_Transition
 			    quid       	"4C7ADB2F0244"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7ADB2F0245")
@@ -2311,9 +2311,9 @@
 			(object State_Transition
 			    quid       	"4C7ADC14035D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7ADC14035E")
@@ -2322,7 +2322,7 @@
 			(object State_Transition
 			    quid       	"4C7ADCD5024E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2333,7 +2333,7 @@
 			(object State_Transition
 			    quid       	"4C7ADD1202AE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    supplier_quidu 	"4C79E1370314"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2344,9 +2344,9 @@
 			(object State_Transition
 			    quid       	"4C7ADFB70384"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    supplier_quidu 	"4C7A6F820010"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    client_quidu 	"4C2050710213"
 			    Event      	(object Event "registrarIngresoDeProducto()"
 				quid       	"4C7ADFB70385")
@@ -2355,9 +2355,9 @@
 			(object State_Transition
 			    quid       	"4C7AE0100307"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7AE0100308")
@@ -2366,9 +2366,9 @@
 			(object State_Transition
 			    quid       	"4C7AE080026C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7AE080026D")
@@ -2377,9 +2377,9 @@
 			(object State_Transition
 			    quid       	"4C7AE1B0028E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    supplier_quidu 	"4C7A6F820010"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarAceptacion()"
 				quid       	"4C7AE1B0028F")
@@ -2388,9 +2388,9 @@
 			(object State_Transition
 			    quid       	"4C7AE1D401DB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    supplier_quidu 	"4C20509903A9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarArmadoPedido()"
 				quid       	"4C7AE1D401DC")
@@ -2398,18 +2398,18 @@
 				quid       	"4C7AE1D401DE"))
 			(object State_Transition
 			    quid       	"4C7AE24A02FD"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    supplier_quidu 	"4C20509903A9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7AE24A0300"))
 			(object State_Transition
 			    quid       	"4C7AE298031F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::ListoParaEntregar"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::ListoParaEntregar"
 			    supplier_quidu 	"4C7AC8B40189"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    client_quidu 	"4C7A6F820010"
 			    Event      	(object Event "registrarArmadoDelPedido()"
 				quid       	"4C7AE2980320")
@@ -2418,9 +2418,9 @@
 			(object State_Transition
 			    quid       	"4C7AE2CE024A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Entregada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Entregada"
 			    supplier_quidu 	"4C7AC8DB018F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ListoParaEntregar"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ListoParaEntregar"
 			    client_quidu 	"4C7AC8B40189"
 			    Event      	(object Event "registrarEntregaPedido()"
 				quid       	"4C7AE2CE024B")
@@ -2430,16 +2430,16 @@
 			    quid       	"4C7AE2F70173"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregada"
 			    client_quidu 	"4C7AC8DB018F"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7AE2F70176"))
 			(object State_Transition
 			    quid       	"4C7AE3E802F0"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Scrap"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Scrap"
 			    supplier_quidu 	"4C7AC95F030B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    client_quidu 	"4C2050710213"
 			    Event      	(object Event "registrarScrap()"
 				quid       	"4C7AE3E802F1")
@@ -2448,9 +2448,9 @@
 			(object State_Transition
 			    quid       	"4C7AE4170085"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Scrap"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Scrap"
 			    client_quidu 	"4C7AC95F030B"
 			    Event      	(object Event "registrarAsignacionDeScrapAProduccion()"
 				quid       	"4C7AE4170086")
@@ -2459,9 +2459,9 @@
 			(object State_Transition
 			    quid       	"4C7AE57B0158"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Scrap"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Scrap"
 			    supplier_quidu 	"4C7AC95F030B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarScrap()"
 				quid       	"4C7AE57B0159")
@@ -2470,9 +2470,9 @@
 			(object State_Transition
 			    quid       	"4C7AE6D802B4"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazada"
 			    client_quidu 	"4C79E85E0021"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7AE6D802B5")
@@ -2481,9 +2481,9 @@
 			(object State_Transition
 			    quid       	"4C7AE7D101EE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnTrabajoTercerizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnTrabajoTercerizado"
 			    client_quidu 	"4C7AC8510297"
 			    Event      	(object Event "registrarReclamoAEmpresaMetalurgica()"
 				quid       	"4C7AE7D101EF")
@@ -2492,7 +2492,7 @@
 			(object State_Transition
 			    quid       	"4C7AE8E80067"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    supplier_quidu 	"4C204FFA00CB"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2503,9 +2503,9 @@
 			(object State_Transition
 			    quid       	"4C7AE8EB01D5"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7AE8EB01D6")
@@ -2514,9 +2514,9 @@
 			(object State_Transition
 			    quid       	"4C7AE9C100D1"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarNoAceptacion()"
 				quid       	"4C7AE9C100D2")
@@ -2525,9 +2525,9 @@
 			(object State_Transition
 			    quid       	"4C7AE9C103C7"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    supplier_quidu 	"4C2050710213"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "registrarEntregaDePieza()"
 				quid       	"4C7AE9C103C8")
@@ -2536,9 +2536,9 @@
 			(object State_Transition
 			    quid       	"4C7AE9D803AB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    supplier_quidu 	"4C2050A902DE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ListoParaEntregar"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ListoParaEntregar"
 			    client_quidu 	"4C7AC8B40189"
 			    Event      	(object Event "registrarEntregaPedido()"
 				quid       	"4C7AE9D803AC")
@@ -2548,16 +2548,16 @@
 			    quid       	"4C7AE9D90299"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    client_quidu 	"4C2050A902DE"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7AE9D9029C"))
 			(object State_Transition
 			    quid       	"4C7AE9DD0261"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoAProveedor"
 				quid       	"4C7AE9DD0262")
@@ -2568,16 +2568,16 @@
 			    quid       	"4C7AE9DE023C"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7AE9DE023F"))
 			(object State_Transition
 			    quid       	"4C7AE9DF00E1"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnTrabajoTercerizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnTrabajoTercerizado"
 			    client_quidu 	"4C7AC8510297"
 			    Event      	(object Event "registrarReclamoAEmpresaMetalurgica()"
 				quid       	"4C7AE9DF00E2")
@@ -2586,7 +2586,7 @@
 			(object State_Transition
 			    quid       	"4C7AEB5E0139"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Solicitud Generada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitud Generada"
 			    supplier_quidu 	"4C7AEB4F0248"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2597,9 +2597,9 @@
 			(object State_Transition
 			    quid       	"4C7AEB7E00BC"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    supplier_quidu 	"4C204FFA00CB"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Solicitud Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Solicitud Generada"
 			    client_quidu 	"4C7AEB4F0248"
 			    Event      	(object Event "registrarReclamo()"
 				quid       	"4C7AEB7E00BD")
@@ -2608,9 +2608,9 @@
 			(object State_Transition
 			    quid       	"4C7AEC800378"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    supplier_quidu 	"4C7AEB8E01A7"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEnvíoReclamoAProveedor()"
 				quid       	"4C7AEC800379")
@@ -2619,9 +2619,9 @@
 			(object State_Transition
 			    quid       	"4C7AECA60360"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaMetalúrgica"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaMetalúrgica"
 			    supplier_quidu 	"4C7AEB970267"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEnvíoReclamoAEmpresaMetaúrgica()"
 				quid       	"4C7AECA60361")
@@ -2630,9 +2630,9 @@
 			(object State_Transition
 			    quid       	"4C7AECC60000"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoACliente"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoACliente"
 			    supplier_quidu 	"4C7AEBA50281"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEnvíoReclamoACliente()"
 				quid       	"4C7AECC60001")
@@ -2641,9 +2641,9 @@
 			(object State_Transition
 			    quid       	"4C7AECDC00C8"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    supplier_quidu 	"4C79F0EA02E1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarReclamoDeCliente()"
 				quid       	"4C7AECDC00C9")
@@ -2652,9 +2652,9 @@
 			(object State_Transition
 			    quid       	"4C7AED0C000E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    supplier_quidu 	"4C205AEF007D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    client_quidu 	"4C79F0EA02E1"
 			    Event      	(object Event "registrarAceptaciónDeReclamo()"
 				quid       	"4C7AED0C000F")
@@ -2662,18 +2662,18 @@
 				quid       	"4C7AED0C0011"))
 			(object State_Transition
 			    quid       	"4C7AED17021C"
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    client_quidu 	"4C7AEB8E01A7"
 			    sendEvent  	(object sendEvent
 				quid       	"4C7AED17021F"))
 			(object State_Transition
 			    quid       	"4C7AED3400E1"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    supplier_quidu 	"4C7AEB8E01A7"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    client_quidu 	"4C7AEB8E01A7"
 			    Event      	(object Event "registrarEnvíoReclamoAProveedor"
 				quid       	"4C7AED3400E2")
@@ -2682,9 +2682,9 @@
 			(object State_Transition
 			    quid       	"4C7AED37025F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaMetalúrgica"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaMetalúrgica"
 			    supplier_quidu 	"4C7AEB970267"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaMetalúrgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaMetalúrgica"
 			    client_quidu 	"4C7AEB970267"
 			    Event      	(object Event "registrarEnvíoReclamoAEmpresaMetalúrgica"
 				quid       	"4C7AED370260")
@@ -2693,9 +2693,9 @@
 			(object State_Transition
 			    quid       	"4C7AED3B0287"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoACliente"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoACliente"
 			    supplier_quidu 	"4C7AEBA50281"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoACliente"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoACliente"
 			    client_quidu 	"4C7AEBA50281"
 			    Event      	(object Event "registrarEnvíoReclamoACliente"
 				quid       	"4C7AED3B0288")
@@ -2704,9 +2704,9 @@
 			(object State_Transition
 			    quid       	"4C7AEDF903C9"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaResuelto"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaResuelto"
 			    supplier_quidu 	"4CBCFED402C0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    client_quidu 	"4C7AEB8E01A7"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4C7AEDF903CA")
@@ -2715,9 +2715,9 @@
 			(object State_Transition
 			    quid       	"4C7AEE000090"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaResuelto"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaResuelto"
 			    supplier_quidu 	"4CBCFED402C0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaMetalúrgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaMetalúrgica"
 			    client_quidu 	"4C7AEB970267"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4C7AEE000091")
@@ -2726,9 +2726,9 @@
 			(object State_Transition
 			    quid       	"4C7AEE030234"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaResuelto"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaResuelto"
 			    supplier_quidu 	"4CBCFED402C0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoACliente"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoACliente"
 			    client_quidu 	"4C7AEBA50281"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4C7AEE030235")
@@ -2739,7 +2739,7 @@
 			    label      	""
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4C7AEF5803AB")
@@ -2748,9 +2748,9 @@
 			(object State_Transition
 			    quid       	"4C7AEF750016"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    supplier_quidu 	"4C2050CA0138"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibido"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibido"
 			    client_quidu 	"4C79F0EA02E1"
 			    Event      	(object Event "registrarRechazoDeReclamo()"
 				quid       	"4C7AEF750017")
@@ -2761,7 +2761,7 @@
 			    label      	""
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4C7AEF9A0395")
@@ -2770,7 +2770,7 @@
 			(object State_Transition
 			    quid       	"4C7AFE1B0355"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -2781,9 +2781,9 @@
 			(object State_Transition
 			    quid       	"4C7AFE3C01FE"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarFinEjecuciónEtapaProduccion()"
 				quid       	"4C7AFE3C01FF")
@@ -2792,9 +2792,9 @@
 			(object State_Transition
 			    quid       	"4C7AFE7C029E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    supplier_quidu 	"4C7AFC700239"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarParadaMáquina()"
 				quid       	"4C7AFE7C029F")
@@ -2803,9 +2803,9 @@
 			(object State_Transition
 			    quid       	"4C7AFF9A03D2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "registrarReanudacionProduccion()"
 				quid       	"4C7AFF9A03D3")
@@ -2814,9 +2814,9 @@
 			(object State_Transition
 			    quid       	"4C7AFFBC02BF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    supplier_quidu 	"4C7AFC770106"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "modificarPlanificacionProduccion()"
 				quid       	"4C7AFFBC02C0")
@@ -2825,9 +2825,9 @@
 			(object State_Transition
 			    quid       	"4C7AFFE6036D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    client_quidu 	"4C7AFC770106"
 			    Event      	(object Event "registrarLanzamientoProduccion()"
 				quid       	"4C7AFFE6036E")
@@ -2836,9 +2836,9 @@
 			(object State_Transition
 			    quid       	"4C7B2ED70236"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    supplier_quidu 	"4C20509903A9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarAceptacion()"
 				quid       	"4C7B2ED70237")
@@ -2847,9 +2847,9 @@
 			(object State_Transition
 			    quid       	"4C7B2EF60126"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::ListoParaEntregar"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::ListoParaEntregar"
 			    supplier_quidu 	"4C7AC8B40189"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    client_quidu 	"4C20509903A9"
 			    Event      	(object Event "registrarArmadoDelPedido()"
 				quid       	"4C7B2EF60127")
@@ -2858,9 +2858,9 @@
 			(object State_Transition
 			    quid       	"4C7B33170242"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarLanzamientoProduccion()"
 				quid       	"4C7B33170243")
@@ -2869,9 +2869,9 @@
 			(object State_Transition
 			    quid       	"4C7B33F00255"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelada"
 			    supplier_quidu 	"4C79E669018D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarCancelacionEtapaProduccion()"
 				quid       	"4C7B33F00256")
@@ -2880,9 +2880,9 @@
 			(object State_Transition
 			    quid       	"4C7BE370007C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    supplier_quidu 	"4C2050850203"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    client_quidu 	"4C2050710213"
 			    Event      	(object Event "registrarLanzamientoControlDeCalidad()"
 				quid       	"4C7BE370007D")
@@ -2891,9 +2891,9 @@
 			(object State_Transition
 			    quid       	"4C7BE389010C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnArmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnArmado"
 			    supplier_quidu 	"4C20509903A9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnCalidad"
 			    client_quidu 	"4C2050850203"
 			    Event      	(object Event "registrarArmadoPedido()"
 				quid       	"4C7BE389010D")
@@ -2902,9 +2902,9 @@
 			(object State_Transition
 			    quid       	"4C7C6F2B00DD"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoEmpresaMetalurgica"
 				quid       	"4C7C6F2B00DE")
@@ -2914,9 +2914,9 @@
 			(object State_Transition
 			    quid       	"4C7C735E02AD"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnSolicitudReclamo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnSolicitudReclamo"
 			    client_quidu 	"4C205B3101B5"
 			    Event      	(object Event "registrarReclamoAProveedor()"
 				quid       	"4C7C735E02AE")
@@ -2925,9 +2925,9 @@
 			(object State_Transition
 			    quid       	"4C7C737901A6"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoAproveedor"
 				quid       	"4C7C737901A7")
@@ -2937,9 +2937,9 @@
 			(object State_Transition
 			    quid       	"4C7C73AD0337"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoAEmpresaMetalúrgica"
 				quid       	"4C7C73AD0338")
@@ -2949,9 +2949,9 @@
 			(object State_Transition
 			    quid       	"4C7C74AC022A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    Event      	(object Event "registrarFinOrdenCompra()"
 				quid       	"4C7C74AC022B")
@@ -2960,9 +2960,9 @@
 			(object State_Transition
 			    quid       	"4C7C76EF0138"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnAlmacén"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnAlmacén"
 			    supplier_quidu 	"4C7A6F820010"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnProducción"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnProducción"
 			    client_quidu 	"4C2050710213"
 			    Event      	(object Event "registrarIngresoDePiezaDePRoduccion()"
 				quid       	"4C7C76EF0139")
@@ -2971,9 +2971,9 @@
 			(object State_Transition
 			    quid       	"4C7C77B5016D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarReclamoAEmpresaMetalurgica"
 				quid       	"4C7C77B5016E")
@@ -2983,9 +2983,9 @@
 			(object State_Transition
 			    quid       	"4C7C7B7F0392"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarReclamoEmpresaDeMantenimiento"
 				quid       	"4C7C7B7F0393")
@@ -2995,9 +2995,9 @@
 			(object State_Transition
 			    quid       	"4C7C7F01008D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    client_quidu 	"4C7AFC770106"
 			    Event      	(object Event "registrarLanzamientoControlCalidad()"
 				quid       	"4C7C7F01008E")
@@ -3006,9 +3006,9 @@
 			(object State_Transition
 			    quid       	"4C7C7F270205"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    supplier_quidu 	"4C7AFC770106"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "modificarPlanificacionControlCalidad()"
 				quid       	"4C7C7F270206")
@@ -3017,9 +3017,9 @@
 			(object State_Transition
 			    quid       	"4C7C7F46031B"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "registrarReanudacionControlCalidad()"
 				quid       	"4C7C7F46031C")
@@ -3028,9 +3028,9 @@
 			(object State_Transition
 			    quid       	"4C7C7F5B033C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarEjecucionProcesoCalidad()"
 				quid       	"4C7C7F5B033D")
@@ -3039,7 +3039,7 @@
 			(object State_Transition
 			    quid       	"4C7C7FF10340"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -3050,9 +3050,9 @@
 			(object State_Transition
 			    quid       	"4CBC4433021F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    supplier_quidu 	"4C205008030D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "generarPresupuesto"
 				quid       	"4CBC44330220")
@@ -3061,9 +3061,9 @@
 			(object State_Transition
 			    quid       	"4CBC445E004D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    supplier_quidu 	"4C20505303D8"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "registrarConfirmaciónPedido()"
 				quid       	"4CBC445E004E")
@@ -3072,9 +3072,9 @@
 			(object State_Transition
 			    quid       	"4CBC4482007C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Presupuestado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Presupuestado"
 			    client_quidu 	"4C205008030D"
 			    Event      	(object Event "registrarVencimientoPresupuesto()"
 				quid       	"4CBC4482007D")
@@ -3083,9 +3083,9 @@
 			(object State_Transition
 			    quid       	"4CBC4651018A"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarFin Trabajo()"
 				quid       	"4CBC4651018B")
@@ -3094,9 +3094,9 @@
 			(object State_Transition
 			    quid       	"4CBC47100171"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PlanificadoParaControlDeCalidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PlanificadoParaControlDeCalidad"
 			    supplier_quidu 	"4CBC46BC03AE"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Confirmado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Confirmado"
 			    client_quidu 	"4C20505303D8"
 			    Event      	(object Event "registrarPlanificacionControlDeCalidad()"
 				quid       	"4CBC47100172")
@@ -3105,9 +3105,9 @@
 			(object State_Transition
 			    quid       	"4CBC4742020B"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelado"
 			    supplier_quidu 	"4C2050F4029F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::PlanificadoParaControlDeCalidad"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::PlanificadoParaControlDeCalidad"
 			    client_quidu 	"4CBC46BC03AE"
 			    Event      	(object Event "registrarCancelacionPedido()"
 				quid       	"4CBC4742020C")
@@ -3116,9 +3116,9 @@
 			(object State_Transition
 			    quid       	"4CBC488202B9"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Aceptado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Aceptado"
 			    client_quidu 	"4C205AEF007D"
 			    Event      	(object Event "registrarFinTrabajo()"
 				quid       	"4CBC488202BA")
@@ -3127,9 +3127,9 @@
 			(object State_Transition
 			    quid       	"4CBC488F0323"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazado"
 			    client_quidu 	"4C2050CA0138"
 			    Event      	(object Event "registrarFinTrabajo()"
 				quid       	"4CBC488F0324")
@@ -3139,16 +3139,16 @@
 			    quid       	"4CBC4896025B"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    client_quidu 	"4C205AF7001F"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBC4896025E"))
 			(object State_Transition
 			    quid       	"4CBC4A140252"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Rechazada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Rechazada"
 			    client_quidu 	"4C79E85E0021"
 			    Event      	(object Event "registrarFinOrdenCompra()"
 				quid       	"4CBC4A140253")
@@ -3157,9 +3157,9 @@
 			(object State_Transition
 			    quid       	"4CBC4A390287"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarFinOrdenCompra()"
 				quid       	"4CBC4A390288")
@@ -3168,9 +3168,9 @@
 			(object State_Transition
 			    quid       	"4CBCFD0202C0"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::PlanificadaParaControl de Calidad"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::PlanificadaParaControl de Calidad"
 			    supplier_quidu 	"4CBCFCC6032F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Recibida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Recibida"
 			    client_quidu 	"4C7A6B1800C3"
 			    Event      	(object Event "registrarPlanificacionControlDeCalidad()"
 				quid       	"4CBCFD0202C1")
@@ -3179,9 +3179,9 @@
 			(object State_Transition
 			    quid       	"4CBCFF0E0143"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoACliente"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoACliente"
 			    client_quidu 	"4C7AEBA50281"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4CBCFF0E0144")
@@ -3190,9 +3190,9 @@
 			(object State_Transition
 			    quid       	"4CBCFF130210"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAProveedor"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAProveedor"
 			    client_quidu 	"4C7AEB8E01A7"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4CBCFF130211")
@@ -3202,16 +3202,16 @@
 			    quid       	"4CBCFF4A0301"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::NuncaResuelto"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaResuelto"
 			    client_quidu 	"4CBCFED402C0"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBCFF4A0304"))
 			(object State_Transition
 			    quid       	"4CBCFF50009D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaMetalúrgica"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaMetalúrgica"
 			    client_quidu 	"4C7AEB970267"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4CBCFF50009E")
@@ -3220,9 +3220,9 @@
 			(object State_Transition
 			    quid       	"4CBD05BB01B0"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarLanzamientoControlDeCalidad()"
 				quid       	"4CBD05BB01B1")
@@ -3231,9 +3231,9 @@
 			(object State_Transition
 			    quid       	"4CBD068E00B2"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarLanzamientoControlDeCalidad()"
 				quid       	"4CBD068E00B3")
@@ -3242,9 +3242,9 @@
 			(object State_Transition
 			    quid       	"4CBD06AB0350"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    client_quidu 	"4C7AFC770106"
 			    Event      	(object Event "registrarLanzamientoControlDeCalidad()"
 				quid       	"4CBD06AB0351")
@@ -3253,9 +3253,9 @@
 			(object State_Transition
 			    quid       	"4CBD06D40116"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cancelada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cancelada"
 			    supplier_quidu 	"4C79E669018D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarCancelaciónProcesoCalidad()"
 				quid       	"4CBD06D40117")
@@ -3264,9 +3264,9 @@
 			(object State_Transition
 			    quid       	"4CBD06EF0308"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Replanificada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Replanificada"
 			    supplier_quidu 	"4C7AFC770106"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "modificarPlanificacionControlCalidad()"
 				quid       	"4CBD06EF0309")
@@ -3275,9 +3275,9 @@
 			(object State_Transition
 			    quid       	"4CBD072100CC"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Detenida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Detenida"
 			    client_quidu 	"4C7AFC700239"
 			    Event      	(object Event "registrarReanudacionControlCalidad()"
 				quid       	"4CBD072100CD")
@@ -3286,9 +3286,9 @@
 			(object State_Transition
 			    quid       	"4CBD073A027B"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizada"
 			    supplier_quidu 	"4C79E987011F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarFinEjecucionProcesoCalidad()"
 				quid       	"4CBD073A027C")
@@ -3297,9 +3297,9 @@
 			(object State_Transition
 			    quid       	"4CBD10C801AD"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Anulada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Anulada"
 			    supplier_quidu 	"4CBD0DE00319"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "anularFactura()"
 				quid       	"4CBD10C801AE")
@@ -3308,9 +3308,9 @@
 			(object State_Transition
 			    quid       	"4CBD10D40026"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cobrada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cobrada"
 			    supplier_quidu 	"4CBD0DED02D0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarCobroFactura()"
 				quid       	"4CBD10D40027")
@@ -3319,9 +3319,9 @@
 			(object State_Transition
 			    quid       	"4CBD10E500E0"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Vencida"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Vencida"
 			    supplier_quidu 	"4CBD0E2B019E"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generada"
 			    client_quidu 	"4C79E1370314"
 			    Event      	(object Event "registrarVencimientoFactura()"
 				quid       	"4CBD10E500E1")
@@ -3330,9 +3330,9 @@
 			(object State_Transition
 			    quid       	"4CBD10FC020C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Vencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Vencida"
 			    client_quidu 	"4CBD0E2B019E"
 			    Event      	(object Event "registrarReclamoACliente()"
 				quid       	"4CBD10FC020D")
@@ -3341,9 +3341,9 @@
 			(object State_Transition
 			    quid       	"4CBD110C015F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    supplier_quidu 	"4C79E88400FA"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarReclamoCliente"
 				quid       	"4CBD110C0160")
@@ -3353,9 +3353,9 @@
 			(object State_Transition
 			    quid       	"4CBD1149008C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cobrada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cobrada"
 			    supplier_quidu 	"4CBD0DED02D0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarCobroFactura()"
 				quid       	"4CBD1149008D")
@@ -3365,7 +3365,7 @@
 			    quid       	"4CBD118F03A1"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Anulada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Anulada"
 			    client_quidu 	"4CBD0DE00319"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD118F03A4"))
@@ -3373,7 +3373,7 @@
 			    quid       	"4CBD11960339"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Cobrada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Cobrada"
 			    client_quidu 	"4CBD0DED02D0"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD1196033C"))
@@ -3381,16 +3381,16 @@
 			    quid       	"4CBD119A0186"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::NuncaCobrada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaCobrada"
 			    client_quidu 	"4CBD0DFA034A"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD119A0189"))
 			(object State_Transition
 			    quid       	"4CBD119D030F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaCobrada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaCobrada"
 			    supplier_quidu 	"4CBD0DFA034A"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamada"
 			    client_quidu 	"4C79E88400FA"
 			    Event      	(object Event "registrarFinPedido()"
 				quid       	"4CBD119D0310")
@@ -3399,9 +3399,9 @@
 			(object State_Transition
 			    quid       	"4CBD11BF038C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Cobrada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Cobrada"
 			    supplier_quidu 	"4CBD0DED02D0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Vencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Vencida"
 			    client_quidu 	"4CBD0E2B019E"
 			    Event      	(object Event "registrarCobroFactura()"
 				quid       	"4CBD11BF038D")
@@ -3410,9 +3410,9 @@
 			(object State_Transition
 			    quid       	"4CBD150E0215"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarEnvioAMantenimientoPreventivo()"
 				quid       	"4CBD150E0216")
@@ -3421,9 +3421,9 @@
 			(object State_Transition
 			    quid       	"4CBD152701D8"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    supplier_quidu 	"4C205AF7001F"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    client_quidu 	"4C7AFC4A03B1"
 			    Event      	(object Event "registrarIngresoMaquinaDeReparacion()"
 				quid       	"4CBD152701D9")
@@ -3432,9 +3432,9 @@
 			(object State_Transition
 			    quid       	"4CBD1C3D039F"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    supplier_quidu 	"4C205106034B"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    client_quidu 	"4C205AF7001F"
 			    Event      	(object Event "registrarReclamoAEmpresaDeMantenimiento()"
 				quid       	"4CBD1C3D03A0")
@@ -3443,9 +3443,9 @@
 			(object State_Transition
 			    quid       	"4CBD1C88024C"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarFinMantenimiento()"
 				quid       	"4CBD1C88024D")
@@ -3454,9 +3454,9 @@
 			(object State_Transition
 			    quid       	"4CBD1D1401EF"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Realizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Realizado"
 			    client_quidu 	"4C205AF7001F"
 			    Event      	(object Event "registrarAceptacionMantenimieno()"
 				quid       	"4CBD1D1401F0")
@@ -3466,7 +3466,7 @@
 			    quid       	"4CBD1D3202FE"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    client_quidu 	"4CBD1D0501B3"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD1D320301"))
@@ -3474,16 +3474,16 @@
 			    quid       	"4CBD1DA203DB"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Omitido"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Omitido"
 			    client_quidu 	"4CBD1475009D"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD1DA203DE"))
 			(object State_Transition
 			    quid       	"4CBD1DAA0338"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Omitido"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Omitido"
 			    supplier_quidu 	"4CBD1475009D"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarNoEnvioAMantenimientoPreventivo()"
 				quid       	"4CBD1DAA0339")
@@ -3492,9 +3492,9 @@
 			(object State_Transition
 			    quid       	"4CBD1DE002CB"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnEjecución"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnEjecución"
 			    supplier_quidu 	"4C7AFC4A03B1"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarEnvioAMantenimientoPreventivo()"
 				quid       	"4CBD1DE002CC")
@@ -3503,7 +3503,7 @@
 			(object State_Transition
 			    quid       	"4CBD1F670306"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    supplier_quidu 	"4CBD1EDA00A0"
 			    client     	"$UNNAMED$3"
 			    client_quidu 	"4C204FF5004E"
@@ -3514,9 +3514,9 @@
 			(object State_Transition
 			    quid       	"4CBD1F8903B7"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnUso"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnUso"
 			    supplier_quidu 	"4CBD1F1601F4"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    client_quidu 	"4CBD1EDA00A0"
 			    Event      	(object Event "registrarMaquinaEnUso()"
 				quid       	"4CBD1F8903B8")
@@ -3525,9 +3525,9 @@
 			(object State_Transition
 			    quid       	"4CBD1F8F022E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    supplier_quidu 	"4CBD1EDA00A0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnUso"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnUso"
 			    client_quidu 	"4CBD1F1601F4"
 			    Event      	(object Event "registrarMaquinaDisponible()"
 				quid       	"4CBD1F8F022F")
@@ -3536,9 +3536,9 @@
 			(object State_Transition
 			    quid       	"4CBD1FEC00ED"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnMantenimientoPreventivo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnMantenimientoPreventivo"
 			    supplier_quidu 	"4CBD1EDE0387"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    client_quidu 	"4CBD1EDA00A0"
 			    Event      	(object Event "registrarEnvioAMantenimientoPreventivo()"
 				quid       	"4CBD1FEC00EE")
@@ -3547,9 +3547,9 @@
 			(object State_Transition
 			    quid       	"4CBD200E0330"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnMantenimientoCorrectivo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnMantenimientoCorrectivo"
 			    supplier_quidu 	"4CBD1EF800E6"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    client_quidu 	"4CBD1EDA00A0"
 			    Event      	(object Event "registrarEnvioAMantenimientoCorrectivo()"
 				quid       	"4CBD200E0331")
@@ -3558,9 +3558,9 @@
 			(object State_Transition
 			    quid       	"4CBD20440382"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    supplier_quidu 	"4CBD1EDA00A0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnMantenimientoCorrectivo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnMantenimientoCorrectivo"
 			    client_quidu 	"4CBD1EF800E6"
 			    Event      	(object Event "registrarIngresoMáquinaDeReparacion()"
 				quid       	"4CBD20440383")
@@ -3569,9 +3569,9 @@
 			(object State_Transition
 			    quid       	"4CBD208701C1"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Disponible"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Disponible"
 			    supplier_quidu 	"4CBD1EDA00A0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnMantenimientoPreventivo"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnMantenimientoPreventivo"
 			    client_quidu 	"4CBD1EDE0387"
 			    Event      	(object Event "registrarIngresoMaquinaDeReparacion()"
 				quid       	"4CBD208701C2")
@@ -3580,9 +3580,9 @@
 			(object State_Transition
 			    quid       	"4CBD2131009E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Averiada"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Averiada"
 			    supplier_quidu 	"4CBD1F1E01F2"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnUso"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnUso"
 			    client_quidu 	"4CBD1F1601F4"
 			    Event      	(object Event "registrarParadaDeMaquina()"
 				quid       	"4CBD2131009F")
@@ -3591,9 +3591,9 @@
 			(object State_Transition
 			    quid       	"4CBD215C0113"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnMantenimientoCorrectivo"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnMantenimientoCorrectivo"
 			    supplier_quidu 	"4CBD1EF800E6"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Averiada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Averiada"
 			    client_quidu 	"4CBD1F1E01F2"
 			    Event      	(object Event "registrarEnvioAMantenimientoCorrectivo()"
 				quid       	"4CBD215C0114")
@@ -3602,9 +3602,9 @@
 			(object State_Transition
 			    quid       	"4CBD217F0337"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja"
 			    supplier_quidu 	"4CBD1F4A007E"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Averiada"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Averiada"
 			    client_quidu 	"4CBD1F1E01F2"
 			    Event      	(object Event "registrarBajaDeMaquina()"
 				quid       	"4CBD217F0338")
@@ -3614,16 +3614,16 @@
 			    quid       	"4CBD21E50326"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::DadaDeBaja"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::DadaDeBaja"
 			    client_quidu 	"4CBD1F4A007E"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD21E50329"))
 			(object State_Transition
 			    quid       	"4CBD227F007D"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
 			    supplier_quidu 	"4CBD225A0220"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Generado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Generado"
 			    client_quidu 	"4C204FFA00CB"
 			    Event      	(object Event "registrarReclamoAEmpresaDeMantenimiento()"
 				quid       	"4CBD227F007E")
@@ -3632,9 +3632,9 @@
 			(object State_Transition
 			    quid       	"4CBD22AD00E7"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
 			    supplier_quidu 	"4CBD225A0220"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
 			    client_quidu 	"4CBD225A0220"
 			    Event      	(object Event "registrarEnvíoReclamoAEmpresaDeMantenimiento"
 				quid       	"4CBD22AD00E8")
@@ -3643,9 +3643,9 @@
 			(object State_Transition
 			    quid       	"4CBD23140253"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::NuncaResuelto"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::NuncaResuelto"
 			    supplier_quidu 	"4CBCFED402C0"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
 			    client_quidu 	"4CBD225A0220"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4CBD23140254")
@@ -3655,16 +3655,16 @@
 			    quid       	"4CBD2330011A"
 			    supplier   	"$UNNAMED$5"
 			    supplier_quidu 	"4C205167033C"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    client_quidu 	"4CBD1D0501B3"
 			    sendEvent  	(object sendEvent
 				quid       	"4CBD2330011D"))
 			(object State_Transition
 			    quid       	"4CBD2337018B"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::Finalizado"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::Finalizado"
 			    supplier_quidu 	"4CBD1D0501B3"
-			    client     	"Logical View::Analysis Model::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::EnviadoAEmpresaDeMAntenimiento"
 			    client_quidu 	"4CBD225A0220"
 			    Event      	(object Event "registrarFinReclamo()"
 				quid       	"4CBD2337018C")
@@ -3673,9 +3673,9 @@
 			(object State_Transition
 			    quid       	"4CBD243D01E8"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoTotal"
 			    supplier_quidu 	"4CBD240201B9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::CobradoParcial"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoParcial"
 			    client_quidu 	"4C2050B901A5"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4CBD243D01E9")
@@ -3684,9 +3684,9 @@
 			(object State_Transition
 			    quid       	"4CBD244F0094"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoTotal"
 			    supplier_quidu 	"4CBD240201B9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Entregado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Entregado"
 			    client_quidu 	"4C2050A902DE"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4CBD244F0095")
@@ -3695,9 +3695,9 @@
 			(object State_Transition
 			    quid       	"4CBD2467008E"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoTotal"
 			    supplier_quidu 	"4CBD240201B9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::Reclamado"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::Reclamado"
 			    client_quidu 	"4C205106034B"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4CBD2467008F")
@@ -3706,9 +3706,9 @@
 			(object State_Transition
 			    quid       	"4CBD248C0180"
 			    label      	""
-			    supplier   	"Logical View::Analysis Model::State/Activity Model::CobradoTotal"
+			    supplier   	"Logical View::Modelo  de Diseño::State/Activity Model::CobradoTotal"
 			    supplier_quidu 	"4CBD240201B9"
-			    client     	"Logical View::Analysis Model::State/Activity Model::ConFacturaVencida"
+			    client     	"Logical View::Modelo  de Diseño::State/Activity Model::ConFacturaVencida"
 			    client_quidu 	"4C2050EA00FA"
 			    Event      	(object Event "registrarCobroPedido()"
 				quid       	"4CBD248C0181")
