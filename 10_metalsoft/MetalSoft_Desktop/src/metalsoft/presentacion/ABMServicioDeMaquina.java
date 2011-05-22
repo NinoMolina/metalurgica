@@ -4,10 +4,11 @@
  */
 
 /*
- * ABMRotura.java
+ * ABMServicioDeMaquina.java
  *
- * Created on 03/05/2011, 23:00:16
+ * Created on 15/05/2011, 16:07:45
  */
+
 package metalsoft.presentacion;
 
 import java.awt.event.ActionEvent;
@@ -17,25 +18,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import metalsoft.negocio.gestores.*;
-import metalsoft.negocio.mantenimiento.Rotura;
+import metalsoft.negocio.mantenimiento.ServicioMaquina;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
 import metalsoft.presentacion.lookandfeel.Skins;
+
 
 /**
  *
  * @author Lorreine Prescott
  */
-public class ABMRotura extends javax.swing.JFrame {
+public class ABMServicioDeMaquina extends javax.swing.JFrame {
 
-    private Rotura rotura;
+    private ServicioMaquina servicio;
+    /** Creates new form ABMServicioDeMaquina */
+    public ABMServicioDeMaquina() {
 
-    /** Creates new form ABMRotura */
-    public ABMRotura() {
         initComponents();
         addListeners();
     }
 
-    private void addListeners() {
+     private void addListeners() {
 
         addListenerBtnNuevo();
         addListenerBtnGuardar();
@@ -56,8 +58,8 @@ public class ABMRotura extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(ActionEvent e) {
         // TODO add your handling code here:
-        GestorRotura gestor = new GestorRotura();
-        boolean ok = gestor.eliminarRotura(rotura);
+        GestorServicioMaquina gestor = new GestorServicioMaquina();
+        boolean ok = gestor.eliminarServicioMaquina(servicio);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
         } else {
@@ -96,8 +98,8 @@ public class ABMRotura extends javax.swing.JFrame {
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        GestorRotura gestor = new GestorRotura();
-        boolean ok = gestor.modificarRotura(rotura, txtNombre.getText(), txtDescripcion.getText());
+        GestorServicioMaquina gestor = new GestorServicioMaquina();
+        boolean ok = gestor.modificarServicioMaquina(servicio, txtNombre.getText(), txtDescripcion.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
         } else {
@@ -115,16 +117,16 @@ public class ABMRotura extends javax.swing.JFrame {
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        ABMRotura_Buscar buscar = null;
+        ABMServicioMaquina_Buscar buscar = null;
         try {
-            buscar = (ABMRotura_Buscar) JFrameManager.crearVentana(ABMRotura_Buscar.class.getName());
-            buscar.setVentanaRotura(this);
+            buscar = (ABMServicioMaquina_Buscar) JFrameManager.crearVentana(ABMServicioMaquina_Buscar.class.getName());
+            buscar.setVentanaServicioMaquina(this);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -143,10 +145,11 @@ public class ABMRotura extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        GestorRotura gestor = new GestorRotura();
-        long id = gestor.guardarRotura(txtNombre.getText(), txtDescripcion.getText());
+
+        GestorServicioMaquina gestor = new GestorServicioMaquina();
+        long id = gestor.guardarServicioMaquina(txtNombre.getText(), txtDescripcion.getText());
         if (id > -1) {
-            JOptionPane.showMessageDialog(this, "Se guardó la siguiente Rotura: " + txtNombre.getText());
+            JOptionPane.showMessageDialog(this, "Se guardó el siguiente Servicio de Máquina: " + txtNombre.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
@@ -168,12 +171,12 @@ public class ABMRotura extends javax.swing.JFrame {
         this.txtNombre = txtNombre;
     }
 
-    public Rotura getRotura() {
-        return rotura;
+    public ServicioMaquina getServicioMaquina() {
+        return servicio;
     }
 
-    public void setRotura(Rotura rotura) {
-        this.rotura = rotura;
+    public void setServicioMaquina(ServicioMaquina servicio) {
+        this.servicio = servicio;
     }
 
     /** This method is called from within the constructor to
@@ -185,15 +188,15 @@ public class ABMRotura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botones = new metalsoft.beans.ABM_Botones();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        botones = new metalsoft.beans.ABM_Botones();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Rotura");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Servicio de Máquina");
 
         jLabel1.setText("Nombre:");
 
@@ -209,17 +212,17 @@ public class ABMRotura extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botones, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)))
+                    .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,38 +231,43 @@ public class ABMRotura extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    * @param args the command line arguments
+    */
+   
+   public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 try {
                     LookAndFeelManager.setLookAndFeel(Skins.WINDOWS);
-                    JFrameManager.crearVentana(ABMRotura.class.getName());
+                    JFrameManager.crearVentana(ABMServicioDeMaquina.class.getName());
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
-                    Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IllegalAccessException ex) {
-                    Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.ABM_Botones botones;
     private javax.swing.JLabel jLabel1;
@@ -268,4 +276,5 @@ public class ABMRotura extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
 }
