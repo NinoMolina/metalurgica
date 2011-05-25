@@ -7,7 +7,10 @@ package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -50,7 +53,7 @@ public class Compra implements Serializable {
     @Column(name = "idcompra")
     private Long idcompra;
     @Column(name = "nrocompra")
-    private BigInteger nrocompra;
+    private int nrocompra;
     @Column(name = "fechacompra")
     @Temporal(TemporalType.DATE)
     private Date fechacompra;
@@ -76,6 +79,7 @@ public class Compra implements Serializable {
     @JoinColumn(name = "proveedor", referencedColumnName = "idproveedor")
     @ManyToOne
     private Proveedor proveedor;
+    private ArrayList detalle;
 
 
     public Compra() {
@@ -93,11 +97,11 @@ public class Compra implements Serializable {
         this.idcompra = idcompra;
     }
 
-    public BigInteger getNrocompra() {
+    public int getNrocompra() {
         return nrocompra;
     }
 
-    public void setNrocompra(BigInteger nrocompra) {
+    public void setNrocompra(int nrocompra) {
         this.nrocompra = nrocompra;
     }
 
@@ -141,12 +145,12 @@ public class Compra implements Serializable {
         this.motivo = motivo;
     }
 
-    public List<Detallecompra> getDetallecompraList() {
-        return detallecompraList;
+    public ArrayList getDetalle() {
+        return detalle;
     }
 
-    public void setDetallecompraList(List<Detallecompra> detallecompraList) {
-        this.detallecompraList = detallecompraList;
+    public void setDetalle(ArrayList detalle) {
+        this.detalle = detalle;
     }
 
 
@@ -177,7 +181,6 @@ public class Compra implements Serializable {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-
 
     @Override
     public int hashCode() {
