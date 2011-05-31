@@ -10,13 +10,26 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import metalsoft.datos.PostgreSQLManager;
 
 /**
  *
  * @author Nino
  */
 public class AccessFunctions {
+
+    public static int nvoNroPiezaReal(Connection cn){
+        String query="{ ? = call nvonropiezareal()}";
+        int result=-1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result=cs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
     public static int nvoNroPedido(Connection cn)
     {

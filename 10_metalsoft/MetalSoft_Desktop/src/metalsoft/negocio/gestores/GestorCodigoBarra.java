@@ -151,31 +151,6 @@ public class GestorCodigoBarra {
         return id;
     }
 
-    public long guardarCodPieza(CodigoDeBarra codBarra, long idPiezaReal, Connection cn) throws CodigodebarraException, PiezarealException {
-        CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
-        CodigodebarraDB p = new CodigodebarraDB();
-        p.setDescripcion(codBarra.getDescripcion());
-        PiezarealDB prdb = new PiezarealDB();
-
-        int id = -1;
-        int idPieza = -1;
-        prdb = AccessPiezaReal.findById(idPiezaReal, cn);
-
-        id = dao.insert(p, cn);
-        p.setIdcodigo(id);
-        p.setCodigo("PIE" + idPiezaReal);
-        prdb.setIdcodbarra(id);
-
-        CodigodebarraPKDB cpk = new CodigodebarraPKDB(id);
-        id = dao.update(cpk, p, cn);
-
-        PiezarealDAO daoPieza = new DAOFactoryImpl().createPiezarealDAO();
-        PiezarealPKDB pipk = new PiezarealPKDB(prdb.getIdpiezareal(), prdb.getIdpieza());
-        idPieza = daoPieza.update(pipk, prdb, cn);
-
-        return id;
-    }
-
     public long guardarCodProducto(CodigoDeBarra codBarra, long idPiezaReal) {
         CodigodebarraDAO dao = new DAOFactoryImpl().createCodigodebarraDAO();
         CodigodebarraDB p = new CodigodebarraDB();

@@ -21,6 +21,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.DetallempasignadaDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PlanificacionproduccionDB;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.gestores.GestorCodigoBarra;
 import metalsoft.negocio.gestores.GestorMateriaPrima;
 import metalsoft.negocio.gestores.GestorPlanificacion;
@@ -31,9 +32,9 @@ import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.negocio.gestores.GestorPiezaReal;
 import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.negocio.produccion.PiezaReal;
+import metalsoft.util.BarCodeUtil;
 import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
-import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -475,22 +476,26 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
                     PiezaReal piezaReal = new PiezaReal();
-                    piezaReal.setNroPieza((int) view.getIdpieza());
+                    piezaReal.setNroPieza(AccessFunctions.nvoNroPiezaReal(cn));
                     CodigoDeBarra cb = new CodigoDeBarra();
-                    cb.setDescripcion(view.getNombrepieza());
+                    cb.setCodigo(BarCodeUtil.generarCodigo(String.valueOf(piezaReal.getNroPieza())));
+                    piezaReal.setCodigoBarra(cb);
 
                     PlanificacionproduccionDB plan = gestor.buscarPlanificacionPorPedido(idPedido, cn);
                     long[] piezasReales = new long[view.getCantpieza()];
+                    /*
+                     * se generan todas las piezas reales necesarias
+                     */
                     for (int i = 0; i < view.getCantpieza(); i++) {
-                        result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, -1, cn);
+                        result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, cn);
                         piezasReales[i] = result;
                         if (result > -1) {
-                            resultCB = gestorCodigoBarra.guardarCodPieza(cb, result, cn);
-                        }
-                        if (resultCB > -1) {
                             cont++;
                         }
                     }
+                    /*
+                     * Tengo que guardar un detalle de mp por cada materia prima
+                     */
                     if (cont > 0) {
                         long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima, cn);
                         DetallempasignadaDB dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
@@ -500,6 +505,9 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                         } else {
                             idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
                         }
+                        /*
+                         * guardo la relacion entre la pieza real y el detalle de mp asignada
+                         */
                         if (idDetalleMPAsignada > 0) {
                             for (int i = 0; i < piezasReales.length; i++) {
                                 gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada, cn);
