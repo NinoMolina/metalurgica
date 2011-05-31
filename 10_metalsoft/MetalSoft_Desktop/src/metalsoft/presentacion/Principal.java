@@ -702,15 +702,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniRegistrarPresupuestoActionPerformed
 
     private void mniEmpresaMetalurgicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMetalurgicaActionPerformed
-//          try {
-//            JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+          try {
+            JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_mniEmpresaMetalurgicaActionPerformed
 
     private void mniRegistrarDiaNoLaboralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarDiaNoLaboralActionPerformed

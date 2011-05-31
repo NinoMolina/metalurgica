@@ -293,9 +293,6 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuTrabajosTercerizados">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Trabajos Tercerizados"/>
-          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniEmpresaMetalurgica">
               <Properties>
