@@ -18,6 +18,9 @@ import metalsoft.datos.dbobject.PiezarealDB;
 import metalsoft.datos.exception.PiezarealException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PiezarealDAO;
+import metalsoft.datos.jpa.controller.CodigodebarraJpaController;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Codigodebarra;
 import metalsoft.negocio.access.AccessFunctions;
 //import metalsoft.negocio.access.AccessMateriaPrima;
 import metalsoft.negocio.access.AccessPiezaReal;
@@ -85,10 +88,15 @@ public class GestorPiezaReal {
         }
     }
 
-    public long guardar(PiezaReal piezaReal, long idPieza, long idestado, long idCodBarra, Connection cn) {
+    public long guardar(PiezaReal piezaReal, long idPieza, long idestado, Connection cn) throws Exception {
         long result = -1;
 
-        result = AccessPiezaReal.insert(piezaReal, idPieza, idestado, idCodBarra, cn);
+        Codigodebarra codBarra=new Codigodebarra();
+        codBarra.setCodigo(piezaReal.getCodigoBarra().getCodigo());
+        CodigodebarraJpaController codigodebarraJpaController=new CodigodebarraJpaController();
+        codigodebarraJpaController.create(codBarra);
+        
+        result = AccessPiezaReal.insert(piezaReal, idPieza, idestado, codBarra.getIdcodigo(), cn);
 
         return result;
     }
