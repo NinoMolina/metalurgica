@@ -228,4 +228,19 @@ public class GestorEmpresaMetalurgica {
         }
         return result;
     }
+    public Condicioniva obtenerCondicionIva(long id)
+    {
+        CondicionivaJpaController controller=new CondicionivaJpaController();
+        return controller.findCondicioniva(id);
+    }
+    public Tipodocumento obtenerTipoDocumento(long id)
+    {
+        TipodocumentoJpaController controller=new TipodocumentoJpaController();
+        return controller.findTipodocumento(id);
+    }
+    public Barrio obtenerBarrio(long id)
+    {
+        BarrioJpaController controller=new BarrioJpaController();
+        return controller.findBarrio(id);
+    }
 }
