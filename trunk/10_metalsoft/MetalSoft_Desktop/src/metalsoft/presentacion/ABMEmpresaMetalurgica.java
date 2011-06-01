@@ -299,6 +299,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         setEnableComponents(true);
+        empresa=new Empresametalurgica();
         limpiarCampos();
         opcion = EnumOpcionesABM.NUEVO;
         long nroCli = gestor.generarNvoNroEmpresa();
@@ -427,6 +428,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 //        String nroCli = String.valueOf(nro);
 //        String razonCli = txtRazonSocial.getText();
 //        String telCli = txtTelefono.getText();
+//        empresa.setNroempresametalurgica(BigInteger.valueOf(nro));
 //        empresa.setCelular(celCli);
 //        empresa.setCuit(cuitCli);
 //        empresa.setFechaalta(fecAltaCli);
@@ -442,7 +444,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
         switch (opcion) {
             case NUEVO:
-                empresa=nuevaEmpresa();
+                //empresa=nuevaEmpresa();
                 idEmpresa=gestor.guardarEmpresaMetalurgica(empresa);
                 break;
             case MODIFICAR:
@@ -463,6 +465,69 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
         }
+    }
+    public Empresametalurgica modificarEmpresa(){
+        long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
+        Condicioniva condIVA=gestor.obtenerCondicionIva(idCondIva);
+        long idBarrioCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbBarrio().getSelectedItem()).getId());
+        Barrio barrioCliente=gestor.obtenerBarrio(idBarrioCliente);
+        long idLocalidadCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbLocalidad().getSelectedItem()).getId());
+        long idProvinciaCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbProvincia().getSelectedItem()).getId());
+        long idBarrioResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
+        Barrio barrioResponsable=gestor.obtenerBarrio(idBarrioResponsable);
+        long idLocalidadResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
+        long idProvinciaResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
+        long idTipoDocResponsable = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
+        Tipodocumento tipodocResp=gestor.obtenerTipoDocumento(idTipoDocResponsable);
+
+        //domicilio empresa
+        domicilioEmpresa.setCalle(beanDomicilioCliente.getTxtCalle().getText());
+        domicilioEmpresa.setDepto(beanDomicilioCliente.getTxtDepto().getText());
+        domicilioEmpresa.setNumerocalle(Integer.parseInt(beanDomicilioCliente.getTxtNumero().getText()));
+        domicilioEmpresa.setPiso(Integer.parseInt(String.valueOf(beanDomicilioCliente.getSldPiso().getValue())));
+        domicilioEmpresa.setTorre(beanDomicilioCliente.getTxtTorre().getText());
+
+        //Responsable
+        responsable.setApellido(beanResponsable.getTxtApellido().getText());
+        responsable.setEmail(beanResponsable.getTxtEmail().getText());
+        responsable.setFax(beanResponsable.getTxtFax().getText());
+        responsable.setNombre(beanResponsable.getTxtNombre().getText());
+        responsable.setNrodocumento(Integer.parseInt(beanResponsable.getTxtNroDoc().getText()));
+        responsable.setTelefono(beanResponsable.getTxtTelefono().getText());
+        responsable.setTipodocumento(tipodocResp);
+
+        //domicilio responsable
+        domicilioResponsable.setCalle(beanResponsable.getDomicilioResponsable().getTxtCalle().getText());
+        domicilioResponsable.setDepto(beanResponsable.getDomicilioResponsable().getTxtDepto().getText());
+        domicilioResponsable.setNumerocalle(Integer.parseInt(beanResponsable.getDomicilioResponsable().getTxtNumero().getText()));
+        domicilioResponsable.setPiso(Integer.parseInt(String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue())));
+        domicilioResponsable.setTorre(beanResponsable.getDomicilioResponsable().getTxtTorre().getText());
+
+        responsable.setDomicilio(domicilioResponsable);
+
+        String cuitCli = txtCUIT.getText();
+        String celCli = txtCelular.getText();
+        Date fecAltaCli = txtFechaAlta.getDate();
+        Date fecBajaCli = txtFechaBaja.getDate();
+        String mailCli = txtMail.getText();
+        long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
+        String nroCli = String.valueOf(nro);
+        String razonCli = txtRazonSocial.getText();
+        String telCli = txtTelefono.getText();
+        empresa.setNroempresametalurgica(BigInteger.valueOf(nro));
+        empresa.setCelular(celCli);
+        empresa.setCuit(cuitCli);
+        empresa.setFechaalta(fecAltaCli);
+        empresa.setFechabaja(fecBajaCli);
+        empresa.setMail(mailCli);
+        empresa.setRazonsocial(razonCli);
+        empresa.setTelefono(telCli);
+        empresa.setCondicioniva(condIVA);
+
+        empresa.setResponsable(responsable);
+        empresa.setDomicilio(domicilioEmpresa);
+
+        return empresa;
     }
     public Empresametalurgica nuevaEmpresa(){
 
