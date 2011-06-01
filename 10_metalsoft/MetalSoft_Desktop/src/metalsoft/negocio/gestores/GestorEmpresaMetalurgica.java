@@ -186,8 +186,8 @@ public class GestorEmpresaMetalurgica {
         Responsable resp=null;
         Domicilio domicilio=null;
         try {
-            domResp=controllerDomicilio.findDomicilio(empresa.getResponsable().getDomicilio().getIddomicilio());
             resp=controllerResponsable.findResponsable(empresa.getResponsable().getIdresponsable());
+            domResp=controllerDomicilio.findDomicilio(resp.getDomicilio().getIddomicilio());
             domicilio=controllerDomicilio.findDomicilio(empresa.getDomicilio().getIddomicilio());
 
             if(domResp==null) controllerDomicilio.create(empresa.getResponsable().getDomicilio());
@@ -196,9 +196,11 @@ public class GestorEmpresaMetalurgica {
             controller.edit(empresa);
 
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
         return empresa.getIdempresametalurgica();
     }
@@ -207,6 +209,7 @@ public class GestorEmpresaMetalurgica {
 
         return barrio.getLocalidad();
     }
+    
     public long generarNvoNroEmpresa() {
         long result=-1;
         PostgreSQLManager pg=null;
