@@ -186,16 +186,10 @@ public class GestorEmpresaMetalurgica {
         Responsable resp=null;
         Domicilio domicilio=null;
         try {
-            resp=controllerResponsable.findResponsable(empresa.getResponsable().getIdresponsable());
-            domResp=controllerDomicilio.findDomicilio(resp.getDomicilio().getIddomicilio());
-            domicilio=controllerDomicilio.findDomicilio(empresa.getDomicilio().getIddomicilio());
 
-            if(domResp==null) controllerDomicilio.create(empresa.getResponsable().getDomicilio());
-            if(resp==null) controllerResponsable.create(empresa.getResponsable());
-            if(domicilio==null) controllerDomicilio.create(empresa.getDomicilio());
-            controllerDomicilio.edit(domicilio);
-            controllerDomicilio.edit(domResp);
-            controllerResponsable.edit(resp);
+            controllerDomicilio.edit(empresa.getDomicilio());
+            controllerDomicilio.edit(empresa.getResponsable().getDomicilio());
+            controllerResponsable.edit(empresa.getResponsable());
             controller.edit(empresa);
 
         } catch (PreexistingEntityException ex) {
