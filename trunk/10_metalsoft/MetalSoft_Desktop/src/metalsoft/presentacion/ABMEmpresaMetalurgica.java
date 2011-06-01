@@ -398,14 +398,14 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.GUARDAR;
 
         if (idEmpresa > 0) {
-            JOptionPane.showMessageDialog(this, "El cliente se guardó correctamente");
+            JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se guardó correctamente");
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
             setEnableComponents(false);
 
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el cliente");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la Empresa Metalurgica");
         }
     }
     public Empresametalurgica modificarEmpresa(){
