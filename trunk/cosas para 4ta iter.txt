@@ -1,0 +1,8 @@
+Cosas para hacer 4ta iter
+
+requerim:
+
+cambiar descripciones CU reg reclamo emp metal. y regist reclamo prov
+
+analisis:
+corregir diag clases CU 9 generar presup
