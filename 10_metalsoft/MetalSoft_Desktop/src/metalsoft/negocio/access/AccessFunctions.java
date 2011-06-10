@@ -17,14 +17,14 @@ import java.util.logging.Logger;
  */
 public class AccessFunctions {
 
-    public static int nvoNroPiezaReal(Connection cn){
+    public static long nvoNroPiezaReal(Connection cn){
         String query="{ ? = call nvonropiezareal()}";
-        int result=-1;
+        long result=-1;
         try {
             CallableStatement cs = cn.prepareCall(query);
             cs.registerOutParameter(1, java.sql.Types.BIGINT);
             cs.execute();
-            result=cs.getInt(1);
+            result=cs.getLong(1);
         } catch (SQLException ex) {
             Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
