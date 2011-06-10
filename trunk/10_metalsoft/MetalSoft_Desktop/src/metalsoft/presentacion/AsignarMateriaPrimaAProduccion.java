@@ -476,7 +476,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
 
                     PiezaReal piezaReal = new PiezaReal();
-                    piezaReal.setNroPieza(AccessFunctions.nvoNroPiezaReal(cn));
+                    piezaReal.setNroPieza((int)AccessFunctions.nvoNroPiezaReal(cn));
                     CodigoDeBarra cb = new CodigoDeBarra();
                     cb.setCodigo(BarCodeUtil.generarCodigo(String.valueOf(piezaReal.getNroPieza())));
                     piezaReal.setCodigoBarra(cb);
