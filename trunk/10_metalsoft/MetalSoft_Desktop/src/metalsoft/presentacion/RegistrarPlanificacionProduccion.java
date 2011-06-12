@@ -229,32 +229,62 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         Set<Detalleplanificacionproduccion> detalle=new HashSet<Detalleplanificacionproduccion>();
         Planificacionproduccion plan=new Planificacionproduccion();
         Date menor=null,mayor=null;
+        /*
+         * recorro los nodos del arbol jtree
+         */
         for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
             TreePath tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
+            /*
+             * obtengo cada una de las etapas de produccion
+             */
             if (obj instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
                 PiezaNode piezaNode=(PiezaNode) node.getParent();
                 ProductoNode productoNode=(ProductoNode) piezaNode.getParent();
+
+                /*
+                 * Veo si pase al siguiente producto, si pase reinicio el orden
+                 * pero esto se tendria que hacer si se hace produccion en paralelo,
+                 * para lo cual hay que ver si no se ha asignado el mismo empleado o maquina
+                 * para una etapa de produccion que se ejecute en paralelo con otra
+                 */
                 if(prodNodeAnterior!=productoNode){
+                    /*
+                     * el orden deberia ser por pieza y no por producto porque un producto
+                     * puede tener 2 piezas que se pueden ejecutar en paralelo.
+                     * Tendria que reiniciar el orden si estoy en el mismo producto y misma pieza.
+                     * agregar if (piezaNodoAnterior == piezaNodo)
+                     */
                     orden=1;
                     prodNodeAnterior=productoNode;
                 }
+                /*
+                 * Validacion de fechas
+                 */
                 if(menor==null && mayor==null){
                     menor=node.getInicioEtapa();
                     mayor=node.getFinEtapa();
+                } else {
+                    if(menor.compareTo(node.getInicioEtapa())>0){
+                        menor=node.getInicioEtapa();
+                    }
+                    if(mayor.compareTo(node.getFinEtapa())<0){
+                            mayor = node.getFinEtapa();
+                    }
                 }
-                if(menor.compareTo(node.getInicioEtapa())>0){
-                    menor=node.getInicioEtapa();
-                }
-                if(mayor.compareTo(node.getFinEtapa())<0){
-                    mayor=node.getFinEtapa();
-                }
+
+
                 Empleado emp=node.getEmpleado();
                 Maquina maq=node.getMaquina();
+
                 Producto prod=productoNode.getProducto();
                 Pieza pieza=piezaNode.getPieza();
                 Etapadeproduccion etapa=node.getEtapa();
+
+                /*
+                 * por cada etapa de produccion se crea un detalle de planificacion produccion
+                 */
                 Detalleplanificacionproduccion dpp=new Detalleplanificacionproduccion();
                 dpp.setFechafin(node.getFinEtapa());
                 dpp.setFechainicio(node.getInicioEtapa());
