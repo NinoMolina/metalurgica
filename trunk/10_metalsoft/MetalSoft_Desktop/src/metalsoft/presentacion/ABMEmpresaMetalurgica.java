@@ -295,7 +295,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
             opcion = EnumOpcionesABM.ELIMINAR;
             empresa.setFechabaja(Fecha.fechaActualDate());
             idEmpresa = gestor.modificarEmpresaMetalurgica(empresa);
-            JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se guardó correctamente");
+            JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se dio de baja correctamente");
             limpiarCampos();
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
