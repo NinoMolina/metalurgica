@@ -8,7 +8,6 @@
  *
  * Created on 10/04/2011, 18:48:51
  */
-
 package metalsoft.presentacion;
 
 import java.math.BigInteger;
@@ -261,8 +260,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     private void txtMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMailActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_txtMailActionPerformed
-    
-
 
     private void addListeners() {
         addListenerCmbProvincia();
@@ -272,6 +269,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        addListenerBtnEliminar();
     }
 
     private void addListenerBtnNuevo() {
@@ -282,6 +280,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
             }
         });
     }
+
     private void addListenerBtnEliminar() {
         botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
 
@@ -290,16 +289,23 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
             }
         });
     }
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt){
-        opcion = EnumOpcionesABM.ELIMINAR;
-        limpiarCampos();
-        botones.getBtnGuardar().setEnabled(false);
-        botones.getBtnModificar().setEnabled(false);
-        botones.getBtnEliminar().setEnabled(false);
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (JOptionPane.showConfirmDialog(this,"Esta seguro que desea dar de baja la empresa?") == JOptionPane.OK_OPTION) {
+            opcion = EnumOpcionesABM.ELIMINAR;
+            empresa.setFechabaja(Fecha.fechaActualDate());
+            idEmpresa = gestor.modificarEmpresaMetalurgica(empresa);
+            JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se guardó correctamente");
+            limpiarCampos();
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
+        }
     }
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         setEnableComponents(true);
-        empresa=new Empresametalurgica();
+        empresa = new Empresametalurgica();
         limpiarCampos();
         opcion = EnumOpcionesABM.NUEVO;
         long nroCli = gestor.generarNvoNroEmpresa();
@@ -376,7 +382,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(!esValido()){
+        if (!esValido()) {
             JOptionPane.showMessageDialog(this, "No estan todos los campos completados");
             return;
         }
@@ -385,11 +391,11 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
         switch (opcion) {
             case NUEVO:
-                empresa=nuevaEmpresa();
-                idEmpresa=gestor.guardarEmpresaMetalurgica(empresa);
+                empresa = nuevaEmpresa();
+                idEmpresa = gestor.guardarEmpresaMetalurgica(empresa);
                 break;
             case MODIFICAR:
-                empresa=modificarEmpresa();
+                empresa = modificarEmpresa();
                 idEmpresa = gestor.modificarEmpresaMetalurgica(empresa);
                 break;
             default:
@@ -408,21 +414,22 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pudo guardar la Empresa Metalurgica");
         }
     }
-    public Empresametalurgica modificarEmpresa(){
 
-        
+    public Empresametalurgica modificarEmpresa() {
+
+
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
-        Condicioniva condIVA=gestor.obtenerCondicionIva(idCondIva);
+        Condicioniva condIVA = gestor.obtenerCondicionIva(idCondIva);
         long idBarrioCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbBarrio().getSelectedItem()).getId());
-        Barrio barrioCliente=gestor.obtenerBarrio(idBarrioCliente);
+        Barrio barrioCliente = gestor.obtenerBarrio(idBarrioCliente);
         long idLocalidadCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbLocalidad().getSelectedItem()).getId());
         long idProvinciaCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbProvincia().getSelectedItem()).getId());
         long idBarrioResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
-        Barrio barrioResponsable=gestor.obtenerBarrio(idBarrioResponsable);
+        Barrio barrioResponsable = gestor.obtenerBarrio(idBarrioResponsable);
         long idLocalidadResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
         long idProvinciaResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
         long idTipoDocResponsable = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
-        Tipodocumento tipodocResp=gestor.obtenerTipoDocumento(idTipoDocResponsable);
+        Tipodocumento tipodocResp = gestor.obtenerTipoDocumento(idTipoDocResponsable);
 
         //domicilio empresa
         domicilioEmpresa.setCalle(beanDomicilioCliente.getTxtCalle().getText());
@@ -475,28 +482,29 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
         return empresa;
     }
-    public Empresametalurgica nuevaEmpresa(){
 
-        empresa=new Empresametalurgica();
+    public Empresametalurgica nuevaEmpresa() {
+
+        empresa = new Empresametalurgica();
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
-        Condicioniva condIVA=gestor.obtenerCondicionIva(idCondIva);
+        Condicioniva condIVA = gestor.obtenerCondicionIva(idCondIva);
         long idBarrioCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbBarrio().getSelectedItem()).getId());
-        Barrio barrioCliente=gestor.obtenerBarrio(idBarrioCliente);
+        Barrio barrioCliente = gestor.obtenerBarrio(idBarrioCliente);
         long idLocalidadCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbLocalidad().getSelectedItem()).getId());
         long idProvinciaCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbProvincia().getSelectedItem()).getId());
         long idBarrioResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedItem()).getId());
-        Barrio barrioResponsable=gestor.obtenerBarrio(idBarrioResponsable);
+        Barrio barrioResponsable = gestor.obtenerBarrio(idBarrioResponsable);
         long idLocalidadResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedItem()).getId());
         long idProvinciaResponsable = Long.parseLong(((ItemCombo) beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedItem()).getId());
         long idTipoDocResponsable = Long.parseLong(((ItemCombo) beanResponsable.getCmbTipoDoc().getSelectedItem()).getId());
-        Tipodocumento tipodocResp=gestor.obtenerTipoDocumento(idTipoDocResponsable);
+        Tipodocumento tipodocResp = gestor.obtenerTipoDocumento(idTipoDocResponsable);
         String calle = beanDomicilioCliente.getTxtCalle().getText();
         String depto = beanDomicilioCliente.getTxtDepto().getText();
         String nroCalle = beanDomicilioCliente.getTxtNumero().getText();
         String piso = String.valueOf(beanDomicilioCliente.getSldPiso().getValue());
         String torre = beanDomicilioCliente.getTxtTorre().getText();
         //creo domicilio Empresa sin referencias
-        domicilioEmpresa = crearDomicilio(calle, depto, nroCalle, piso, torre,barrioCliente);
+        domicilioEmpresa = crearDomicilio(calle, depto, nroCalle, piso, torre, barrioCliente);
 
         String apeResp = beanResponsable.getTxtApellido().getText();
         String emaResp = beanResponsable.getTxtEmail().getText();
@@ -513,7 +521,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         piso = String.valueOf(beanResponsable.getDomicilioResponsable().getSldPiso().getValue());
         torre = beanResponsable.getDomicilioResponsable().getTxtTorre().getText();
         //creo domicilio responsable sin referencias
-        domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre,barrioResponsable);
+        domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre, barrioResponsable);
         responsable.setDomicilio(domicilioResponsable);
 
         String cuitCli = txtCUIT.getText();
@@ -539,43 +547,61 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
 
         return empresa;
     }
-    private boolean esValido(){
-        boolean result=true;
-        if(txtRazonSocial.getText().compareTo("")==0)
-            result=false;
-        if(txtCUIT.getText().compareTo("")==0)
-            result=false;
-        if(cmbCondicionIVA.getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbBarrio().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbLocalidad().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbProvincia().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getTxtCalle().getText().compareTo("")==0)
-            result=false;
-        if(beanDomicilioCliente.getTxtNumero().getText().compareTo("")==0)
-            result=false;
 
-        if(beanResponsable.getTxtNombre().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getTxtApellido().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getTxtNroDoc().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getCmbTipoDoc().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("")==0)
-            result=false;
+    private boolean esValido() {
+        boolean result = true;
+        if (txtRazonSocial.getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (txtCUIT.getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (cmbCondicionIVA.getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbBarrio().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbLocalidad().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbProvincia().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getTxtCalle().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getTxtNumero().getText().compareTo("") == 0) {
+            result = false;
+        }
+
+        if (beanResponsable.getTxtNombre().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getTxtApellido().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getTxtNroDoc().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getCmbTipoDoc().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("") == 0) {
+            result = false;
+        }
 
         return result;
     }
@@ -609,7 +635,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         txtRazonSocial.setText("");
         txtTelefono.setText("");
         cmbCondicionIVA.setSelectedIndex(0);
-        
+
         beanDomicilioCliente.limpiarCampos();
         beanResponsable.limpiarCampos();
     }
@@ -700,7 +726,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         }
     }
 
-    
     private Domicilio crearDomicilio(String calle, String depto, String nroCalle, String piso, String torre, Barrio barrio) {
         Domicilio dom = new Domicilio();
         dom.setCalle(calle);
@@ -718,8 +743,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         gestor.buscarCondicionIva(cmbCondicionIVA);
     }
 
-    
-
     public void mostrarDatosDomicilio() {
 
         String prov = domicilioEmpresa.getBarrio().getLocalidad().getProvincia().getNombre();
@@ -736,7 +759,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         beanDomicilioCliente.getSldPiso().setValue(piso);
     }
 
-
     public void mostrarDatosResponsable() {
         String nombre = responsable.getNombre();
         String apellido = responsable.getApellido();
@@ -746,7 +768,6 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         cmb.removeAllItems();
         gestor.obtenerProvincias(cmb);
     }
-
 
     private Responsable crearResponsable(String apellido, String email, String fax, String nombre, String nroDoc, String telefono) {
         Responsable resp = new Responsable();
@@ -765,11 +786,11 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     }
 
     public void empresaSeleccionado() {
-        empresa= gestor.buscarEmpresaMetalurgica(idEmpresa);
+        empresa = gestor.buscarEmpresaMetalurgica(idEmpresa);
         mostrarDatosCliente();
-        domicilioEmpresa=empresa.getDomicilio();
-        responsable=empresa.getResponsable();
-        domicilioResponsable=responsable.getDomicilio();
+        domicilioEmpresa = empresa.getDomicilio();
+        responsable = empresa.getResponsable();
+        domicilioResponsable = responsable.getDomicilio();
         setEnableComponents(false);
         botones.getBtnModificar().setEnabled(true);
         botones.getBtnGuardar().setEnabled(false);
@@ -798,7 +819,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         txtCUIT.setText(empresa.getCuit());
         txtCelular.setText(empresa.getCelular());
 
-         if (empresa.getFechaalta() == null) {
+        if (empresa.getFechaalta() == null) {
             txtFechaAlta.setDate(null);
         } else {
 
@@ -816,7 +837,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         txtTelefono.setText(empresa.getTelefono());
 
         setItemComboSeleccionado(cmbCondicionIVA, empresa.getCondicioniva().getIdcondicioniva());
-        
+
         setDatosDomicilio(beanDomicilioCliente, empresa.getDomicilio());
 
         setDatosResponsable(empresa.getResponsable(), empresa.getResponsable().getDomicilio());
@@ -865,17 +886,18 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         metalsoft.beans.Domicilio beanDom = beanResponsable.getDomicilioResponsable();
         setDatosDomicilio(beanDom, domRespDB);
     }
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMEmpresaMetalurgica().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.Domicilio beanDomicilioCliente;
     private metalsoft.beans.Responsable beanResponsable;
@@ -900,5 +922,4 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-
 }
