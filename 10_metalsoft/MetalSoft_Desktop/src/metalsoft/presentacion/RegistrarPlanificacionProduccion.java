@@ -943,8 +943,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado!");
             return;
         }
-        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.getSelectedRow());
 
+        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.getSelectedRow());
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
@@ -956,8 +956,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
              */
             node.setEmpleado(empleadoSeleccionado);
 
-            boolean validacion = haySuperposicionAsignacion(node, EMPLEADO);
-            if (validacion) {
+            boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
+            if (superposicion) {
                 node.setEmpleado(null);
                 JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
                 return;
@@ -1023,29 +1023,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     continue;
                 }
                 if (node.getEmpleado().getIdempleado() == nodeActual.getEmpleado().getIdempleado()) {
-                    Date finNode = node.getFinEtapa();
-                    Date inicioNode = node.getInicioEtapa();
-                    Date inicioNodeActual = nodeActual.getInicioEtapa();
-                    Date finNodeActual = nodeActual.getFinEtapa();
 
-                    /*
-                     * intervalo del nodo que se esta recorriendo
-                     */
-                    Interval interval = new Interval(inicioNode.getTime(), finNode.getTime());
-                    /*
-                     * instante inicial y final del nodo actual
-                     * si alguno de estos instantes es contenido por el nodo recorrido entonces
-                     * hay superposicion
-                     */
-
-                    Instant insInicial = new Instant(inicioNodeActual.getTime());
-                    Instant insFinal = new Instant(finNodeActual.getTime());
-
-                    if (interval.contains(insInicial)) {
-                        return true;
-                    }
-
-                    if (interval.contains(insFinal)) {
+                    if (superposicion(node, nodeActual)) {
                         return true;
                     }
 
@@ -1057,14 +1036,84 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
     }
 
+    private boolean haySuperposicionMaquina(EtapaProduccionNode nodeActual) {
+
+
+        TreePath tp = null;
+        EtapaProduccionNode node = null;
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
+            tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+
+            if (obj instanceof EtapaProduccionNode) {
+                node = (EtapaProduccionNode) obj;
+
+                if (nodeActual.equals(node) || node.getMaquina() == null) {
+                    continue;
+                }
+                if (node.getMaquina().getIdmaquina() == nodeActual.getMaquina().getIdmaquina()) {
+
+                    if (superposicion(node, nodeActual)) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    private boolean superposicion(EtapaProduccionNode node, EtapaProduccionNode nodeActual) {
+        Date finNode = node.getFinEtapa();
+        Date inicioNode = node.getInicioEtapa();
+        Date inicioNodeActual = nodeActual.getInicioEtapa();
+        Date finNodeActual = nodeActual.getFinEtapa();
+
+        /*
+         * intervalo del nodo que se esta recorriendo
+         */
+        Interval interval = new Interval(inicioNode.getTime(), finNode.getTime());
+        /*
+         * instante inicial y final del nodo actual
+         * si alguno de estos instantes es contenido por el nodo recorrido entonces
+         * hay superposicion
+         */
+
+        Instant insInicial = new Instant(inicioNodeActual.getTime());
+        Instant insFinal = new Instant(finNodeActual.getTime());
+
+        if (interval.contains(insInicial)) {
+            return true;
+        }
+
+        if (interval.contains(insFinal)) {
+            return true;
+        }
+
+        /*
+         * puede que el nodo actual contenga el nodo que se esta recorriendo con lo
+         * cual la fecha inicio y fin del nodo actual no estaran dentro del intervalo del
+         * nodo recorrido pero puede haber superposicion.
+         * para eso veo si el intervalo del nodo actual contiene al del nodo que se esta
+         * recorriendo
+         */
+        Interval intervalNodoActual = new Interval(nodeActual.getInicioEtapa().getTime(), nodeActual.getFinEtapa().getTime());
+        if (intervalNodoActual.contains(interval)) {
+            return true;
+        }
+
+        return false;
+    }
+
     private boolean haySuperposicionAsignacion(EtapaProduccionNode node, int tipo) {
 
         switch (tipo) {
             case EMPLEADO:
                 return haySuperposicionEmpleado(node);
             case MAQUINA:
-
-                return false;
+                return haySuperposicionMaquina(node);
             default:
                 return false;
         }
@@ -1119,6 +1168,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         if (obj instanceof EtapaProduccionNode) {
             EtapaProduccionNode node = (EtapaProduccionNode) obj;
             node.setMaquina(maquinaSeleccionada);
+            /*
+             * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
+             */
+
+            boolean superposicion = haySuperposicionAsignacion(node, MAQUINA);
+            if (superposicion) {
+                node.setMaquina(null);
+                JOptionPane.showMessageDialog(this, "La máquina ya esta asignada a otra etapa de produccion dentro del horario de la etapa actual");
+                return;
+            }
         }
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
@@ -1246,10 +1305,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
+        /*
+         * obtengo el detalle del presupuesto
+         */
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
-        Date finEtapaAnterior = null;
+//        Date finEtapaAnterior = null;
+        /*
+         * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
+         */
         while (it.hasNext()) {
             dp = it.next();
             prod = new ProductoNode(dp.getIdproducto());
@@ -1258,6 +1323,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
             PiezaNode pieza = null;
             metalsoft.datos.jpa.entity.Detalleproductopresupuesto detProPre = null;
+            /*
+             * recorro los productos del detalle
+             */
             while (itDetProPre.hasNext()) {
                 detProPre = itDetProPre.next();
                 prod.setDetalleProductoPresupuesto(detProPre);
@@ -1267,6 +1335,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 metalsoft.datos.jpa.entity.Detallepiezapresupuesto detPiPre = null;
                 Iterator<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> itDetPiPre = setDetPiPre.iterator();
                 EtapaProduccionNode etapaProd = null;
+                /*
+                 * recorro las piezas de cada producto
+                 */
                 while (itDetPiPre.hasNext()) {
                     detPiPre = itDetPiPre.next();
                     etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
@@ -1274,68 +1345,30 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     etapaProd.setDetallePiezaPresupuesto(detPiPre);
                     int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
                     int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-                    Date fechaInicio = null;
-                    if (finEtapaAnterior == null) {
-                        fechaInicio = Fecha.fechaActualDate();
-                    } else {
-                        fechaInicio = finEtapaAnterior;
-                    }
+//                    Date fechaInicio = null;
+//                    if (finEtapaAnterior == null) {
+//                        fechaInicio = Fecha.fechaActualDate();
+//                    } else {
+//                        fechaInicio = finEtapaAnterior;
+//                    }
                     GregorianCalendar inicio = new GregorianCalendar();
-                    inicio.setTime(fechaInicio);
+//                    inicio.setTime(fechaInicio);
+                    inicio.setTime(new Date());
                     inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
                     inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-                    GregorianCalendar fin = new GregorianCalendar();
-                    fin.setTime(inicio.getTime());
-                    fin.add(Calendar.HOUR_OF_DAY, detPiPre.getDuracionpiezaxetapa().getHours());
-                    fin.add(Calendar.MINUTE, detPiPre.getDuracionpiezaxetapa().getMinutes());
-                    fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
                     etapaProd.setInicioEtapa(inicio.getTime());
                     etapaProd.setFinEtapa(fin.getTime());
                     pieza.add(etapaProd);
-                    finEtapaAnterior = fin.getTime();
+//                    finEtapaAnterior = fin.getTime();
                 }
             }
         }
         trtDetalleProcProd.expandAll();
         trtDetalleProcProd.setEditable(true);
-//        trtDetalleProcProd.updateUI();
+
     }
 
-//    private GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
-//        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
-//            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
-//            inicio.set(Calendar.MINUTE, 0);
-//        }
-//        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
-//            inicio.add(Calendar.DAY_OF_YEAR, 1);
-//            inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
-//            inicio.set(Calendar.MINUTE, 0);
-//        }
-//        if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
-//            inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-//        }
-//        return inicio;
-//    }
-//
-//    private GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
-//        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
-//            int hora = fin.get(Calendar.HOUR_OF_DAY);
-//            int horaAM = (horaFinJornada - 12);
-//            int dif = horaAM - hora;
-//            int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
-//            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
-//        }
-//        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
-//            int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
-//            int horasfaltantes = dif;
-//            fin.add(Calendar.DAY_OF_YEAR, 1);
-//            fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
-//        }
-//        if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
-//            fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
-//        }
-//        return fin;
-//    }
     /**
      * @param args the command line arguments
      */
@@ -1712,6 +1745,46 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             return "";
         }
 
+        @Override
+        public void setValueAt(Object aValue, int column) {
+
+            String fecha = null;
+            Date fechaDate = null;
+            GregorianCalendar inicio = null;
+            TreePath treePath = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getEditingRow());
+            Object obj = treePath.getLastPathComponent();
+            if (obj instanceof EtapaProduccionNode) {
+                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+
+                switch (column) {
+                    case 1:
+                        fecha = (String) aValue;
+                        fechaDate = Fecha.parseToDateConHoraMinuto(fecha);
+
+                        if (fechaDate == null) {
+                            JOptionPane.showMessageDialog(null, "La fecha está mal formada. Por favor ingrese una fecha válida \nEjemplo: 19/02/2011 08:00");
+                            return;
+                        }
+                        node.setInicioEtapa(fechaDate);
+                        inicio = new GregorianCalendar();
+                        inicio.setTime(node.getInicioEtapa());
+                        node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA,
+                                Jornada.HORA_FIN_JORNADA, inicio,
+                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours(), 
+                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes()).getTime());
+                        /*
+                         * validar que la nueva fecha y hora no se superponga con alguna de las otras etapas que tenga
+                         * la misma maquina y empleado
+                         */
+
+                        // TODO
+                        
+                        break;
+                }
+            }
+
+        }
+
         public int getColumnCount() {
             return columnCountTreeTable;
         }
@@ -1727,8 +1800,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         public boolean isCellEditable(Object node, int column) {
             switch (column) {
                 case 1:
-                    return true;
-                case 2:
                     return true;
                 default:
                     return super.isCellEditable(node, column);

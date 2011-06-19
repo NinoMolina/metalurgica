@@ -172,4 +172,13 @@ public class Calculos {
         }
         return fin;
     }
+
+    public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio, int horas, int minutos) {
+        GregorianCalendar fin = new GregorianCalendar();
+        fin.setTime(inicio.getTime());
+        fin.add(Calendar.HOUR_OF_DAY, horas);
+        fin.add(Calendar.MINUTE, minutos);
+        fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+        return fin;
+    }
 }
