@@ -2,14 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.beans;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 
 /**
  *
@@ -50,8 +49,18 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
         jLabel2.setText("Contraseña");
 
         txtUsuario.setToolTipText("Ingresar el usuario");
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         txtClave.setToolTipText("Ingresar la contraseña");
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClaveKeyReleased(evt);
+            }
+        });
 
         btnIniciar.setText("Iniciar");
         btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -118,8 +127,15 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        
     }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
+
+    }//GEN-LAST:event_txtClaveKeyReleased
 
     public JButton getBtnIniciar() {
         return btnIniciar;
@@ -136,8 +152,6 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     public void setBtnSalir(JButton btnSalir) {
         this.btnSalir = btnSalir;
     }
-
- 
 
     public JLabel getLblMensaje() {
         return lblMensaje;
@@ -162,8 +176,6 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     public void setTxtUsuario(JTextField txtUsuario) {
         this.txtUsuario = txtUsuario;
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
     private javax.swing.JButton btnSalir;
@@ -174,5 +186,4 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
 }
