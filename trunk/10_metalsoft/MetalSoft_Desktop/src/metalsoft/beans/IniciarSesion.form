@@ -79,11 +79,17 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Ingresar el usuario"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUsuarioKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtClave">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Ingresar la contrase&#xf1;a"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClaveKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnIniciar">
       <Properties>

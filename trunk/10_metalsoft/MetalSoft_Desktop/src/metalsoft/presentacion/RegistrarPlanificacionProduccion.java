@@ -57,6 +57,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
+import org.joda.time.Instant;
+import org.joda.time.Interval;
 
 /**
  *
@@ -80,6 +82,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private Task taskActual;
     private HashMap<Long, metalsoft.datos.jpa.entity.Empleado> hashEmpleadoNoDisponible;
     private HashMap<Long, Maquina> hashMaquinasNoDisponible;
+    private final int EMPLEADO = 1;
+    private final int MAQUINA = 2;
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
@@ -90,6 +94,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         setEnabledComponents(false);
         listColumnNamesTreeTable = new ArrayList<String>();
         listColumnNamesTreeTable.add("Detalle");
+        listColumnNamesTreeTable.add("Inicio");
+        listColumnNamesTreeTable.add("Fin");
         listColumnNamesTreeTable.add("Empleado");
         listColumnNamesTreeTable.add("Máquinas");
         setearTablas();
@@ -222,17 +228,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        int respuesta=JOptionPane.showConfirmDialog(this, "Está por guardar la planificación\nDesea Continuar?", "Atención", JOptionPane.OK_CANCEL_OPTION);
-        if(respuesta==JOptionPane.CANCEL_OPTION)return;
-        int orden=1;
-        ProductoNode prodNodeAnterior=null;
-        Set<Detalleplanificacionproduccion> detalle=new HashSet<Detalleplanificacionproduccion>();
-        Planificacionproduccion plan=new Planificacionproduccion();
-        Date menor=null,mayor=null;
+        int respuesta = JOptionPane.showConfirmDialog(this, "Está por guardar la planificación\nDesea Continuar?", "Atención", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta == JOptionPane.CANCEL_OPTION) {
+            return;
+        }
+        int orden = 1;
+        ProductoNode prodNodeAnterior = null;
+        Set<Detalleplanificacionproduccion> detalle = new HashSet<Detalleplanificacionproduccion>();
+        Planificacionproduccion plan = new Planificacionproduccion();
+        Date menor = null, mayor = null;
         /*
          * recorro los nodos del arbol jtree
          */
-        for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             TreePath tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
             /*
@@ -240,8 +248,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
              */
             if (obj instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
-                PiezaNode piezaNode=(PiezaNode) node.getParent();
-                ProductoNode productoNode=(ProductoNode) piezaNode.getParent();
+                PiezaNode piezaNode = (PiezaNode) node.getParent();
+                ProductoNode productoNode = (ProductoNode) piezaNode.getParent();
 
                 /*
                  * Veo si pase al siguiente producto, si pase reinicio el orden
@@ -249,43 +257,43 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                  * para lo cual hay que ver si no se ha asignado el mismo empleado o maquina
                  * para una etapa de produccion que se ejecute en paralelo con otra
                  */
-                if(prodNodeAnterior!=productoNode){
+                if (prodNodeAnterior != productoNode) {
                     /*
                      * el orden deberia ser por pieza y no por producto porque un producto
                      * puede tener 2 piezas que se pueden ejecutar en paralelo.
                      * Tendria que reiniciar el orden si estoy en el mismo producto y misma pieza.
                      * agregar if (piezaNodoAnterior == piezaNodo)
                      */
-                    orden=1;
-                    prodNodeAnterior=productoNode;
+                    orden = 1;
+                    prodNodeAnterior = productoNode;
                 }
                 /*
                  * Validacion de fechas
                  */
-                if(menor==null && mayor==null){
-                    menor=node.getInicioEtapa();
-                    mayor=node.getFinEtapa();
+                if (menor == null && mayor == null) {
+                    menor = node.getInicioEtapa();
+                    mayor = node.getFinEtapa();
                 } else {
-                    if(menor.compareTo(node.getInicioEtapa())>0){
-                        menor=node.getInicioEtapa();
+                    if (menor.compareTo(node.getInicioEtapa()) > 0) {
+                        menor = node.getInicioEtapa();
                     }
-                    if(mayor.compareTo(node.getFinEtapa())<0){
-                            mayor = node.getFinEtapa();
+                    if (mayor.compareTo(node.getFinEtapa()) < 0) {
+                        mayor = node.getFinEtapa();
                     }
                 }
 
 
-                Empleado emp=node.getEmpleado();
-                Maquina maq=node.getMaquina();
+                Empleado emp = node.getEmpleado();
+                Maquina maq = node.getMaquina();
 
-                Producto prod=productoNode.getProducto();
-                Pieza pieza=piezaNode.getPieza();
-                Etapadeproduccion etapa=node.getEtapa();
+                Producto prod = productoNode.getProducto();
+                Pieza pieza = piezaNode.getPieza();
+                Etapadeproduccion etapa = node.getEtapa();
 
                 /*
                  * por cada etapa de produccion se crea un detalle de planificacion produccion
                  */
-                Detalleplanificacionproduccion dpp=new Detalleplanificacionproduccion();
+                Detalleplanificacionproduccion dpp = new Detalleplanificacionproduccion();
                 dpp.setFechafin(node.getFinEtapa());
                 dpp.setFechainicio(node.getInicioEtapa());
                 dpp.setHorafin(node.getFinEtapa());
@@ -310,16 +318,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         plan.setFechacreacion(Fecha.fechaActualDate());
         plan.setFechafinprevista(mayor);
         plan.setFechainicioprevista(menor);
-        PedidoJpaController ctrlPedido=new PedidoJpaController();
-        Pedido ped=ctrlPedido.findPedido(viewPedidoSeleccionado.getIdpedido());
+        PedidoJpaController ctrlPedido = new PedidoJpaController();
+        Pedido ped = ctrlPedido.findPedido(viewPedidoSeleccionado.getIdpedido());
         plan.setPedido(ped);
         plan.setObservaciones(txtObservaciones.getText());
-        boolean result=gestor.guardarPlanificacionProduccion(plan,detalle);
-        if(result){
+        boolean result = gestor.guardarPlanificacionProduccion(plan, detalle);
+        if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente!");
             filasPedidosNoPlanificados.remove(viewPedidoSeleccionado);
             limpiarCampos();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!");
         }
     }
@@ -349,7 +357,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     }
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(tblPedidos.getSelectedRow()<0){
+        if (tblPedidos.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
             return;
         }
@@ -421,14 +429,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
     private void iniciarTreeTable() {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("");
-//        DefaultMutableTreeTableNode n1 = new DefaultMutableTreeTableNode("AAAAAA");
-//        raiz.add(n1);
-//        n1.add(new DefaultMutableTreeTableNode("algo"));
 
-        TreeTableModel treeTableModel = new DefaultTreeTableModel(raiz, listColumnNamesTreeTable);
-//        treeTableModel.setValueAt("changos", raiz, 2);
-//        ProductoNode n1 = new ProductoNode(new Producto(WIDTH, Long.MIN_VALUE, "Producto1", Double.NaN, null, null, null, null, null, null));
-//        raiz.add(n1);
+        TreeTableModel treeTableModel = new TablaPlanificacionModel(raiz, listColumnNamesTreeTable);
+
         trtDetalleProcProd.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
         trtDetalleProcProd.setRootVisible(true);
@@ -936,16 +939,30 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         return false;
     }
     private void btnAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpleadoActionPerformed
-        if(tblEmpleado.getSelectedRow()<0){
+        if (tblEmpleado.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado!");
             return;
         }
-        empleadoSeleccionado=lstEmpleados.get(tblEmpleado.getSelectedRow());
+        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.getSelectedRow());
+
+
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
+        EtapaProduccionNode node = null;
         if (obj instanceof EtapaProduccionNode) {
-            EtapaProduccionNode node = (EtapaProduccionNode) obj;
+            node = (EtapaProduccionNode) obj;
+            /*
+             * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
+             */
             node.setEmpleado(empleadoSeleccionado);
+
+            boolean validacion = haySuperposicionAsignacion(node, EMPLEADO);
+            if (validacion) {
+                node.setEmpleado(null);
+                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
+                return;
+            }
+
         }
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
@@ -989,6 +1006,69 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             System.out.println("entro en el catch de lstDisponibilidad");
         }
     }//GEN-LAST:event_btnVerDisponibilidadActionPerformed
+
+    private boolean haySuperposicionEmpleado(EtapaProduccionNode nodeActual) {
+
+
+        TreePath tp = null;
+        EtapaProduccionNode node = null;
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
+            tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+
+            if (obj instanceof EtapaProduccionNode) {
+                node = (EtapaProduccionNode) obj;
+
+                if (nodeActual.equals(node) || node.getEmpleado() == null) {
+                    continue;
+                }
+                if (node.getEmpleado().getIdempleado() == nodeActual.getEmpleado().getIdempleado()) {
+                    Date finNode = node.getFinEtapa();
+                    Date inicioNode = node.getInicioEtapa();
+                    Date inicioNodeActual = nodeActual.getInicioEtapa();
+                    Date finNodeActual = nodeActual.getFinEtapa();
+
+                    /*
+                     * intervalo del nodo que se esta recorriendo
+                     */
+                    Interval interval = new Interval(inicioNode.getTime(), finNode.getTime());
+                    /*
+                     * instante inicial y final del nodo actual
+                     * si alguno de estos instantes es contenido por el nodo recorrido entonces
+                     * hay superposicion
+                     */
+
+                    Instant insInicial = new Instant(inicioNodeActual.getTime());
+                    Instant insFinal = new Instant(finNodeActual.getTime());
+
+                    if (interval.contains(insInicial)) {
+                        return true;
+                    }
+
+                    if (interval.contains(insFinal)) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    private boolean haySuperposicionAsignacion(EtapaProduccionNode node, int tipo) {
+
+        switch (tipo) {
+            case EMPLEADO:
+                return haySuperposicionEmpleado(node);
+            case MAQUINA:
+
+                return false;
+            default:
+                return false;
+        }
+    }
 
     private void hplAsignarMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarMaquinasActionPerformed
         if (validarEtapaSeleccionada()) {
@@ -1062,7 +1142,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void hplVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerDisponibilidadActionPerformed
         pnlDisponibilidad.removeAll();
         lstPlanificacionProduccion = gestor.buscarPlanificacionesProduccion();
-        if(lstPlanificacionProduccion==null){
+        if (lstPlanificacionProduccion == null) {
             JOptionPane.showMessageDialog(this, "No existen planificaciones que ocupen fechas posteriores a la actual");
             return;
         }
@@ -1097,25 +1177,35 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 task.addSubtask(subTask);
             }
         }
-        //        PLANIFICACION ACTUAL
+        //        PLANIFICACION ACTUAL  *********************************************
         taskActual = null;
-        GregorianCalendar fechaInicio=(GregorianCalendar) Fecha.fechaActualCalendar();
+        GregorianCalendar fechaInicio = (GregorianCalendar) Fecha.fechaActualCalendar();
         fechaInicio.set(Calendar.HOUR_OF_DAY, Jornada.HORA_INICIO_JORNADA);
         fechaInicio.set(Calendar.MINUTE, 0);
         fechaInicio.set(Calendar.SECOND, 0);
 
-        GregorianCalendar fechaFin=(GregorianCalendar) Fecha.fechaActualCalendar();
-        fechaFin.add(Calendar.DAY_OF_MONTH, 3);
+        GregorianCalendar fechaFin = (GregorianCalendar) Fecha.fechaActualCalendar();
+//        fechaFin.add(Calendar.DAY_OF_MONTH, 3);
         fechaFin.set(Calendar.HOUR_OF_DAY, Jornada.HORA_FIN_JORNADA);
         fechaFin.set(Calendar.MINUTE, 0);
         fechaFin.set(Calendar.SECOND, 0);
-        taskActual = new Task("Nueva Planificación",
-                fechaInicio.getTime(), fechaFin.getTime());
-        //agrego la tarea la serie de taras
-        unavailable.add(taskActual);
-        for (int i = 0; i< trtDetalleProcProd.getRowCount(); i++) {
+
+
+
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             TreePath tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
+            // si es una pieza entonces genero una nueva tarea para que se muestre en el grafico
+            if (obj instanceof PiezaNode) {
+                PiezaNode piezaNode = (PiezaNode) obj;
+                taskActual = new Task("NP-" + piezaNode.getPieza().getNombre(),
+                        fechaInicio.getTime(), fechaFin.getTime());
+                //agrego la tarea la serie de taras
+                unavailable.add(taskActual);
+            }
+            /*
+             * para cada pieza agrego subtareas que en este caso serian las etapas de produccion
+             */
             if (obj instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
 //                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
@@ -1155,7 +1245,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
-        trtDetalleProcProd.setTreeTableModel(new DefaultTreeTableModel(raiz, listColumnNamesTreeTable));
+        trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
@@ -1180,7 +1270,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 while (itDetPiPre.hasNext()) {
                     detPiPre = itDetPiPre.next();
                     etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
-                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
+//                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
                     etapaProd.setDetallePiezaPresupuesto(detPiPre);
                     int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
                     int horaFinJornada = Jornada.HORA_FIN_JORNADA;
@@ -1207,7 +1297,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             }
         }
         trtDetalleProcProd.expandAll();
-        trtDetalleProcProd.setEditable(false);
+        trtDetalleProcProd.setEditable(true);
 //        trtDetalleProcProd.updateUI();
     }
 
@@ -1246,7 +1336,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 //        }
 //        return fin;
 //    }
-
     /**
      * @param args the command line arguments
      */
@@ -1609,8 +1698,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     case 0:
                         return etapa.getNombre();
                     case 1:
-                        return empleado.getNombre() + " " + empleado.getApellido();
+                        return Fecha.parseToStringFechaHora(getInicioEtapa());
                     case 2:
+                        return Fecha.parseToStringFechaHora(getFinEtapa());
+                    case 3:
+                        return empleado.getNombre() + " " + empleado.getApellido();
+                    case 4:
                         return maquina.getNombre();
                 }
             } catch (NullPointerException ex) {
@@ -1621,6 +1714,25 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         public int getColumnCount() {
             return columnCountTreeTable;
+        }
+    }
+
+    class TablaPlanificacionModel extends DefaultTreeTableModel {
+
+        private TablaPlanificacionModel(DefaultMutableTreeTableNode raiz, ArrayList<String> listColumnNamesTreeTable) {
+            super(raiz, listColumnNamesTreeTable);
+        }
+
+        @Override
+        public boolean isCellEditable(Object node, int column) {
+            switch (column) {
+                case 1:
+                    return true;
+                case 2:
+                    return true;
+                default:
+                    return super.isCellEditable(node, column);
+            }
         }
     }
 }

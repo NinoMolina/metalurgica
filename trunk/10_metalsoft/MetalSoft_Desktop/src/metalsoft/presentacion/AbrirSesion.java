@@ -8,11 +8,10 @@
  *
  * Created on 11/05/2010, 00:14:34
  */
-
 package metalsoft.presentacion;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -28,16 +27,17 @@ public class AbrirSesion extends javax.swing.JFrame {
     private String user;
     private String pass;
 
-
     /** Creates new form AbrirSesion */
     public AbrirSesion() {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
         addListenerBtnIniciar();
         addListenerBtnSalir();
+        addListenerTxt();
         iniciarSesion.getTxtUsuario().setText("admin");
         iniciarSesion.getTxtClave().setText("admin");
     }
+
     public String getPass() {
         return pass;
     }
@@ -53,48 +53,52 @@ public class AbrirSesion extends javax.swing.JFrame {
     public void setUser(String user) {
         this.user = user;
     }
+
     private void addListenerBtnIniciar() {
         iniciarSesion.getBtnIniciar().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
             }
         });
     }
+
     private void addListenerBtnSalir() {
         iniciarSesion.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
     }
+
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
+
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {
-        GestorIniciarSesion g=new GestorIniciarSesion();
+        GestorIniciarSesion g = new GestorIniciarSesion();
         g.setUser(iniciarSesion.getTxtUsuario().getText());
         g.setPass(iniciarSesion.getTxtClave().getText());
-        metalsoft.datos.dbobject.UsuarioDB usuario=g.buscarUsuario();
-        if(usuario!=null)
-        {
+        metalsoft.datos.dbobject.UsuarioDB usuario = g.buscarUsuario();
+        if (usuario != null) {
             try {
-                Principal p=new Principal(usuario);
+                Principal p = new Principal(usuario);
                 this.dispose();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error al iniciar sesion", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else
-        {
+        } else {
             iniciarSesion.getLblMensaje().setForeground(Color.RED);
             iniciarSesion.getLblMensaje().setText("*Usuario o clave incorrecta");
         }
-        
-        
+
+
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -135,22 +139,43 @@ public class AbrirSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-
     }//GEN-LAST:event_formKeyReleased
 
     private void iniciarSesionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iniciarSesionKeyReleased
-
     }//GEN-LAST:event_iniciarSesionKeyReleased
-
     /**
-    * @param args the command line arguments
-    */
-
-
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.IniciarSesion iniciarSesion;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void addListenerTxt() {
+        iniciarSesion.getTxtUsuario().addKeyListener(new java.awt.event.KeyAdapter() {
 
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+
+            private void txtUsuarioKeyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    btnIniciarActionPerformed(null);
+                }
+            }
+        });
+
+
+        iniciarSesion.getTxtClave().addKeyListener(new java.awt.event.KeyAdapter() {
+
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClaveKeyReleased(evt);
+            }
+
+            private void txtClaveKeyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    btnIniciarActionPerformed(null);
+                }
+            }
+        });
+    }
 }
