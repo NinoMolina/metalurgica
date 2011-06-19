@@ -114,6 +114,17 @@ public class Fecha {
         return f;
     }
 
+    public static Date parseToDateConHoraMinuto(String fecha) {
+        Date f = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        try {
+            f = formato.parse(fecha);
+        } catch (ParseException ex) {
+           
+        }
+        return f;
+    }
+
     public static String parseToString(long fecha) {
         String s = "";
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
