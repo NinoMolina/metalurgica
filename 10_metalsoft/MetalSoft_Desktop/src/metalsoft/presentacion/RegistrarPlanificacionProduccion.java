@@ -84,6 +84,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private HashMap<Long, Maquina> hashMaquinasNoDisponible;
     private final int EMPLEADO = 1;
     private final int MAQUINA = 2;
+    private final int EMPLEADO_MAQUINA = 3;
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
@@ -234,6 +235,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         }
         int orden = 1;
         ProductoNode prodNodeAnterior = null;
+        PiezaNode piezaNodeAnterior = null;
         Set<Detalleplanificacionproduccion> detalle = new HashSet<Detalleplanificacionproduccion>();
         Planificacionproduccion plan = new Planificacionproduccion();
         Date menor = null, mayor = null;
@@ -264,7 +266,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                      * Tendria que reiniciar el orden si estoy en el mismo producto y misma pieza.
                      * agregar if (piezaNodoAnterior == piezaNodo)
                      */
-                    orden = 1;
+                    if (piezaNodeAnterior != piezaNode){
+                        orden = 1;
+                        piezaNodeAnterior = piezaNode;
+                    }
+                    
                     prodNodeAnterior = productoNode;
                 }
                 /*
@@ -306,11 +312,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 dpp.setIdplanificacionproduccion(plan);
                 dpp.setOrden(orden);
                 detalle.add(dpp);
-//                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
-//                Task subTaskActual = new Task(node.getEtapa().getNombre(),
-//                        node.getInicioEtapa(),
-//                        node.getFinEtapa());
-//                taskActual.addSubtask(subTaskActual);
+
                 orden++;
             }
         }
@@ -1065,6 +1067,46 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
     }
 
+    private boolean haySuperposicionEmpleadoMaquina(EtapaProduccionNode nodeActual) {
+
+        TreePath tp = null;
+        EtapaProduccionNode node = null;
+        for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
+            tp = trtDetalleProcProd.getPathForRow(i);
+            Object obj = tp.getLastPathComponent();
+
+            if (obj instanceof EtapaProduccionNode) {
+                node = (EtapaProduccionNode) obj;
+
+                if (nodeActual.equals(node)) {
+                    continue;
+                }
+                if (node.getMaquina() != null && nodeActual.getMaquina() != null) {
+                    if (node.getMaquina().getIdmaquina() == nodeActual.getMaquina().getIdmaquina()) {
+
+                        if (superposicion(node, nodeActual)) {
+                            return true;
+                        }
+
+                    }
+                }
+
+                if (node.getEmpleado() != null && nodeActual.getEmpleado() != null) {
+                    if (node.getEmpleado().getIdempleado() == nodeActual.getEmpleado().getIdempleado()) {
+
+                        if (superposicion(node, nodeActual)) {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return false;
+
+    }
+
     private boolean superposicion(EtapaProduccionNode node, EtapaProduccionNode nodeActual) {
         Date finNode = node.getFinEtapa();
         Date inicioNode = node.getInicioEtapa();
@@ -1114,6 +1156,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 return haySuperposicionEmpleado(node);
             case MAQUINA:
                 return haySuperposicionMaquina(node);
+            case EMPLEADO_MAQUINA:
+                return haySuperposicionEmpleadoMaquina(node);
             default:
                 return false;
         }
@@ -1311,7 +1355,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
-//        Date finEtapaAnterior = null;
+        Date finEtapaAnterior = null;
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
@@ -1345,23 +1389,25 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                     etapaProd.setDetallePiezaPresupuesto(detPiPre);
                     int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
                     int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-//                    Date fechaInicio = null;
-//                    if (finEtapaAnterior == null) {
-//                        fechaInicio = Fecha.fechaActualDate();
-//                    } else {
-//                        fechaInicio = finEtapaAnterior;
-//                    }
+                    Date fechaInicio = null;
+                    if (finEtapaAnterior == null) {
+                        fechaInicio = Fecha.fechaActualDate();
+                    } else {
+                        fechaInicio = finEtapaAnterior;
+                    }
                     GregorianCalendar inicio = new GregorianCalendar();
-//                    inicio.setTime(fechaInicio);
-                    inicio.setTime(new Date());
+                    inicio.setTime(fechaInicio);
+//                    inicio.setTime(new Date());
                     inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
                     inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
                     GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
                     etapaProd.setInicioEtapa(inicio.getTime());
                     etapaProd.setFinEtapa(fin.getTime());
                     pieza.add(etapaProd);
-//                    finEtapaAnterior = fin.getTime();
+                    finEtapaAnterior = fin.getTime();
                 }
+
+                finEtapaAnterior = null;
             }
         }
         trtDetalleProcProd.expandAll();
@@ -1758,6 +1804,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
                 switch (column) {
                     case 1:
+                        Date fechaInicialAnterior = node.getInicioEtapa();
+                        Date fechaFinalAnterior = node.getFinEtapa();
+
                         fecha = (String) aValue;
                         fechaDate = Fecha.parseToDateConHoraMinuto(fecha);
 
@@ -1770,15 +1819,21 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                         inicio.setTime(node.getInicioEtapa());
                         node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA,
                                 Jornada.HORA_FIN_JORNADA, inicio,
-                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours(), 
+                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours(),
                                 node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes()).getTime());
                         /*
                          * validar que la nueva fecha y hora no se superponga con alguna de las otras etapas que tenga
                          * la misma maquina y empleado
                          */
 
-                        // TODO
-                        
+                        if (haySuperposicionAsignacion(node, EMPLEADO_MAQUINA)) {
+
+                            node.setInicioEtapa(fechaInicialAnterior);
+                            node.setFinEtapa(fechaFinalAnterior);
+                            JOptionPane.showMessageDialog(null, "No se puede modificar la fecha porque se producen superposiciones de Empleados o Máquinas");
+
+                        }
+
                         break;
                 }
             }
