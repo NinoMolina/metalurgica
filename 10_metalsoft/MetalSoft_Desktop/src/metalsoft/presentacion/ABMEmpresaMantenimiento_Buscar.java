@@ -11,33 +11,39 @@
 
 package metalsoft.presentacion;
 
+import java.util.Timer;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import metalsoft.negocio.gestores.GestorEmpresaMantenimiento;
+import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
  */
 public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 
-    private GestorEmpresaMetalurgica gestor=null;
-    private ABMEmpresaMetalurgica ventana=null;
+    private GestorEmpresaMantenimiento gestor=null;
+    private ABMEmpresaMantenimiento ventana=null;
     private Timer timer;
 
     /** Creates new form ABMProveedor_Buscar */
-    public ABMEmpresaMetalurgica_Buscar() {
+    public ABMEmpresaMantenimiento_Buscar() {
         initComponents();
     }
-    public GestorEmpresaMetalurgica getGestor() {
+    public GestorEmpresaMantenimiento getGestor() {
         return gestor;
     }
 
-    public void setGestor(GestorEmpresaMetalurgica gestor) {
+    public void setGestor(GestorEmpresaMantenimiento gestor) {
         this.gestor = gestor;
     }
 
-    public ABMEmpresaMetalurgica getVentana() {
+    public ABMEmpresaMantenimiento getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMEmpresaMetalurgica ventana) {
+    public void setVentana(ABMEmpresaMantenimiento ventana) {
         this.ventana = ventana;
     }
     /** Creates new form ABMEmpresaMantenimiento_Buscar */
@@ -142,13 +148,13 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
         if(txtValor.getText().compareTo("")!=0) {
-            final ABMEmpresaMetalurgica_Buscar abm=this;
+            final ABMEmpresaMantenimiento_Buscar abm=this;
             timer=new Timer();
             timer.schedule(new TimerTask() {
-                private HiloBuscarEmpresaMetalurgica hiloBuscarEmpresa;
+                private HiloBuscarEmpresaMantenimiento hiloBuscarEmpresa;
                 @Override
                 public void run() {
-                    hiloBuscarEmpresa=new HiloBuscarEmpresaMetalurgica();
+                    hiloBuscarEmpresa=new HiloBuscarEmpresaMantenimiento();
                     hiloBuscarEmpresa.setVentana(abm);
                     hiloBuscarEmpresa.setValor(txtValor.getText());
                     hiloBuscarEmpresa.start();
