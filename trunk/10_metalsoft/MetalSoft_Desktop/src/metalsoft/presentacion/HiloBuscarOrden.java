@@ -5,16 +5,22 @@
 
 package metalsoft.presentacion;
 
+import java.sql.Connection;
+import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JList;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.CompraDB;
+import metalsoft.negocio.access.AccessCompra;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.GestorCompra;
-import metalsoft.negocio.compras.Compra;
 /**
  *
  * @author Mariana
  */
 public class HiloBuscarOrden  extends Thread {
-    private ABMOrden_Buscar ventana;
+    private IBuscador ventana;
     private String valor;
 
     @Override
@@ -22,11 +28,11 @@ public class HiloBuscarOrden  extends Thread {
         buscarOrden();
     }
 
-    public ABMOrden_Buscar getVentana() {
+    public IBuscador getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMOrden_Buscar ventana) {
+    public void setVentana(IBuscador ventana) {
         this.ventana = ventana;
     }
 
@@ -40,7 +46,33 @@ public class HiloBuscarOrden  extends Thread {
 
     private void buscarOrden()
     {
-        //TODO
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(HiloBuscarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        CompraDB[] compraDB=AccessCompra.findByNumeroILIKE(getValor(),cn);
+        JList combo=ventana.getList(HiloBuscarOrden.class.getName());
+        combo.removeAll();
+        cargarCombo(combo,compraDB);
+        ventana.setBusqueda(compraDB);
+    }
+
+    private void cargarCombo(JList combo, metalsoft.datos.dbobject.CompraDB[] dbs) {
+        ItemCombo item=null,items[]=new ItemCombo[dbs.length];
+        for(int i=0;i<dbs.length;i++)
+        {
+            item=new ItemCombo(String.valueOf(dbs[i].getIdcompra()), "" + dbs[i].getNrocompra());
+            items[i]=item;
+        }
+        combo.setListData(items);
+    }
+
+    private void cargarCombo(JList combo, ItemCombo[] items) {
+        combo.setListData(items);
     }
     
 
