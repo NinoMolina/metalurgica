@@ -6,6 +6,22 @@ package metalsoft.negocio.compras;
 public class EstadoCompra 
 {
    private int nombre;
+
+    public int getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(int descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(int nombre) {
+        this.nombre = nombre;
+    }
    private int descripcion;
    
    /**
