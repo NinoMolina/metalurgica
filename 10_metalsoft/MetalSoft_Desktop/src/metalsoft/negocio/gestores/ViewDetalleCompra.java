@@ -10,35 +10,20 @@ package metalsoft.negocio.gestores;
  * @author Mariana
  */
 public class ViewDetalleCompra {
-    private String nombreMateriaPrima;
     private int cantidad;
-    private long idProveedor,idMateriaPrima,idDetalle;
+    private long idMateriaPrima;
+    String nombreMateriaPrima;
+
 
     public ViewDetalleCompra() {
     }
 
-    public long getIdDetalle() {
-        return idDetalle;
-    }
-
-    public void setIdDetalle(long idDetalle) {
-        this.idDetalle = idDetalle;
-    }
-
-        public int getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public long getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(long idProveedor) {
-        this.idProveedor = idProveedor;
     }
 
     public long getIdMateriaPrima() {

@@ -145,12 +145,12 @@ public class Compra implements Serializable {
         this.motivo = motivo;
     }
 
-    public ArrayList getDetalle() {
-        return detalle;
+    public List<Detallecompra> getDetallecompraList() {
+        return detallecompraList;
     }
 
-    public void setDetalle(ArrayList detalle) {
-        this.detalle = detalle;
+    public void setDetallecompraList(List<Detallecompra> detallecompraList) {
+        this.detallecompraList = detallecompraList;
     }
 
 
@@ -180,6 +180,21 @@ public class Compra implements Serializable {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+     public ArrayList getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(ArrayList detalle) {
+        this.detalle = detalle;
+    }
+
+        public Detallecompra crearDetalleCompra(int cant)
+    {
+        Detallecompra dc=new Detallecompra();
+        dc.setCantidad(cant);
+        return dc;
     }
 
     @Override

@@ -7,6 +7,7 @@ package metalsoft.negocio.gestores;
 
 import metalsoft.datos.dbobject.CalendarioDB;
 import metalsoft.datos.dbobject.ClienteDB;
+import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.CondicionivaDB;
 import metalsoft.datos.dbobject.DetallepedidoDB;
 import metalsoft.datos.dbobject.DetallepiezacalidadpresupuestoDB;
@@ -49,6 +50,7 @@ import metalsoft.negocio.ventas.CondicionIva;
 import metalsoft.negocio.ventas.Pieza;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
+import metalsoft.negocio.compras.Compra;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.negocio.rrhh.Empleado;
@@ -378,6 +380,15 @@ public class Parser {
         db.setPreciounitario(x.getPrecioUnitario());
         return db;
     }
+
+    public static CompraDB parseToCompraDB(Compra x) {
+        CompraDB db=new CompraDB();
+        db.setNrocompra(x.getNroCompra());
+        db.setIdcompra(x.getIdCompra());
+        db.setProveedor(x.getProveedor().getNroProveedor());
+        return db;
+    }
+
     public static EtapadeproduccionDB parseToEtapaDeProduccionDB(metalsoft.negocio.ventas.EtapaDeProduccion x)
     {
         EtapadeproduccionDB db=new EtapadeproduccionDB();
@@ -533,4 +544,5 @@ public class Parser {
         db.setHorainicio(Fecha.parseToTimeSQL(ejecucion.getHoraInicio()));
         return db;
     }
+   
 }
