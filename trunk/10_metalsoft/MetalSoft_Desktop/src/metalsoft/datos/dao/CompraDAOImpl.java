@@ -506,7 +506,7 @@ public class CompraDAOImpl implements CompraDAO
 	protected void populateVO(CompraDB dto, ResultSet rs) throws SQLException
 	{
 		 dto.setIdcompra(rs.getLong("idcompra"));
-		 dto.setNrocompra(rs.getLong("nrocompra"));
+		 dto.setNrocompra(rs.getInt("nrocompra"));
 		 dto.setFechacompra(rs.getDate("fechacompra"));
 		 dto.setVigencia(rs.getDate("vigencia"));
 		 dto.setDocumentoremito(rs.getLong("documentoremito"));
@@ -536,4 +536,62 @@ public class CompraDAOImpl implements CompraDAO
 		resultList.toArray( ret );
 		return ret;
 	}
+
+        public String getUltimoNumeroCompra(Connection con) throws Exception
+        {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String SQL_STATEMENT ="SELECT (MAX(nrocompra) + 1) AS maximo FROM compra";
+            try {
+                    stmt = con.prepareStatement(SQL_STATEMENT);
+                    rs = stmt.executeQuery();
+                    rs.next();
+                    Object id = rs.getInt("maximo");
+                    return id.toString();
+            }
+            catch(Exception e){
+                throw new Exception();
+            }
+        }
+
+        public String getUltimoIDCompra(Connection con) throws Exception
+        {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String SQL_STATEMENT ="Select max (idcompra) from compra";
+            try {
+                    stmt = con.prepareStatement(SQL_STATEMENT);
+                    rs = stmt.executeQuery();
+                    rs.next();
+                    Object id = rs.getInt("max");
+                    return id.toString();
+            }
+            catch(Exception e){
+                throw new Exception();
+            }
+        }
+
+    public int cancelarCompra(Connection con, long idOrden, String text)throws CompraException {
+        PreparedStatement ps = null;
+        try
+        {
+                ps = con.prepareStatement("UPDATE COMPRA set ESTADO = ? , MOTIVO = ? where idcompra = ?");
+                        ps.setLong(1, 3);
+                        ps.setString(2, text);
+                        ps.setLong(3, idOrden);
+                        return(ps.executeUpdate());
+        }
+        catch(SQLException sqle){throw new CompraException(sqle);}
+        catch(Exception e){throw new CompraException(e);}
+    }
+
+    public int eliminarCompra(Connection con, long idOrden) throws CompraException {
+       PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement("delete from  COMPRA where idcompra = ?");
+			ps.setLong(1, idOrden);
+			return(ps.executeUpdate());
+		}catch(SQLException sqle) {throw new CompraException(sqle);}
+		catch(Exception e) {throw new CompraException(e);}
+    }
 }

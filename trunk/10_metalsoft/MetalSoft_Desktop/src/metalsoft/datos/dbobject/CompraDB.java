@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class CompraDB implements Serializable
 {
 	private long idcompra;
-	private long nrocompra;
+	private int nrocompra;
 	private Date fechacompra;
 	private Date vigencia;
 	private long documentoremito;
@@ -33,7 +33,7 @@ public class CompraDB implements Serializable
 
 
 	public CompraDB(){}
-	public CompraDB(long idcompra ,long nrocompra ,Date fechacompra ,Date vigencia ,long documentoremito ,double preciototal ,long estado ,String motivo ,long proveedor){
+	public CompraDB(long idcompra ,int nrocompra ,Date fechacompra ,Date vigencia ,long documentoremito ,double preciototal ,long estado ,String motivo ,long proveedor){
 		this.idcompra = idcompra;
 		this.nrocompra = nrocompra;
 		this.fechacompra = fechacompra;
@@ -51,10 +51,10 @@ public class CompraDB implements Serializable
 	public long getIdcompra(){
 		 return(idcompra);
 	}
-	public void setNrocompra(long nrocompra ){
+	public void setNrocompra(int nrocompra ){
 		 this.nrocompra =nrocompra;
 	}
-	public long getNrocompra(){
+	public int getNrocompra(){
 		 return(nrocompra);
 	}
 	public void setFechacompra(Date fechacompra ){
@@ -82,7 +82,7 @@ public class CompraDB implements Serializable
 		 return(preciototal);
 	}
 	public void setEstado(long estado ){
-		 this.estado =estado;
+		 this.estado = estado;
 	}
 	public long getEstado(){
 		 return(estado);

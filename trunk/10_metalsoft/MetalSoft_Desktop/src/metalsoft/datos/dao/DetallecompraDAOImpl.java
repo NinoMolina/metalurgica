@@ -91,13 +91,12 @@ public class DetallecompraDAOImpl implements DetallecompraDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into DETALLECOMPRA( IDCOMPRA, CANTIDAD, MATERIAPRIMA, PRECIOHISTORICO, FECHARECEPCIONPARCIAL, ESTADO) values (?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into DETALLECOMPRA( IDCOMPRA, CANTIDAD, MATERIAPRIMA, PRECIOHISTORICO, ESTADO) values (?, ?, ?, ?, ?)");
 				ps.setLong(1,detallecompra.getIdcompra());
 				ps.setInt(2,detallecompra.getCantidad());
 				ps.setLong(3,detallecompra.getMateriaprima());
 				ps.setDouble(4,detallecompra.getPreciohistorico());
-				ps.setDate(5,detallecompra.getFecharecepcionparcial());
-				ps.setLong(6,detallecompra.getEstado());
+				ps.setLong(5,detallecompra.getEstado());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new DetallecompraException(sqle);}
@@ -478,4 +477,14 @@ public class DetallecompraDAOImpl implements DetallecompraDAO
 		resultList.toArray( ret );
 		return ret;
 	}
+
+    public int eliminarDetalle(Connection con, long idOrden) throws DetallecompraException {
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement("delete from  DETALLECOMPRA where idcompra = ?");
+			ps.setLong(1, idOrden);
+			return(ps.executeUpdate());
+		}catch(SQLException sqle) {throw new DetallecompraException(sqle);}
+		catch(Exception e) {throw new DetallecompraException(e);}
+    }
 }
