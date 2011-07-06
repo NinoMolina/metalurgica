@@ -10,20 +10,32 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.TrayIcon.MessageType;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.CompraDB;
+import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.gestores.GestorCompra;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetalleCompra;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
+import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -38,7 +50,11 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
     private LinkedList<ViewDetalleCompra> filas = new LinkedList<ViewDetalleCompra>();
     private EnumOpcionesABM opcion;
     private ArrayList<ViewDetalleCompra> view2;
-    private ArrayList<ViewDetalleCompra> arlDetMPAEliminar;
+    private ArrayList<ViewDetalleCompra> arlDetCompraAEliminar;
+    private long idOrden = -1;
+    private long idEstado = -1;
+    private CompraDB compraDB;
+    private Compra compra;
 
     /** Creates new form ABMOrdenDeCompra */
     public ABMOrdenDeCompra() {
@@ -48,9 +64,11 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        addListenerBtnEliminar();
+        this.gestor= new GestorCompra();
         view = new ViewProveedorXMateriaPrima();
         cargarComboMateriaprima();
-        cargarComboProveedores();
+        cargarComboProveedores();        
         setEnableComponents(false);
         tblDetalleOrden.setModel(new DetalleOrdenTableModel());
         tblDetalleOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -79,7 +97,7 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
 
     private void cargarComboProveedores() {
         cmbProveedor.removeAllItems();
-        view.cargarComboProveedor(cmbProveedor);
+        gestor.cargarComboProveedor(cmbProveedor);
     }
 
     private void addListenerBtnNuevo() {
@@ -91,8 +109,23 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
         });
     }
 
+    private void limpiarTablaDetalleOrden()
+    {
+        int cantidadFilas = tblDetalleOrden.getRowCount();
+        for(int i=0; i<cantidadFilas; i++)
+        {
+            filas.remove(0);
+            tblDetalleOrden.updateUI();
+        }
+    }
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+        this.cmbMateriaPrima.setSelectedIndex(0);
+        this.cmbProveedor.setSelectedIndex(0);
+        limpiarTablaDetalleOrden();
+        opcion = EnumOpcionesABM.NUEVO;
+        String numOrden = gestor.generarNuevoNumeroOrden();
+        this.txtNroOrden.setText(numOrden);
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
@@ -107,29 +140,51 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
             }
         });
     }
+    private List<Proveedor> proveedor;
+
+    public List<Proveedor> getProv() {
+        return proveedor;
+    }
+
+    public void setProveedor(List<Proveedor> proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    private Proveedor searchProveedorById(long id) {
+        for (Proveedor p : gestor.getProv()) {
+            if (p.getIdproveedor() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-
+        boolean validarProveedor = validar();
+        if(!validarProveedor)
+            return;
         String numero = txtNroOrden.getText();
+        long idProv = Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId());
+        Proveedor Prov = searchProveedorById(idProv);
 
-        /*gestor.setDescripcionProducto(descripcion);
-        gestor.setNombreProducto(nombre);
-        gestor.setNumeroProducto(numero);
-        gestor.setPrecioUnitarioProducto(precioUnitario);
+        gestor.setnumero(numero);
+        gestor.setproveedor(Prov);
         gestor.setListaDetalle(filas);
-         * */
-
-        long result = -1;
+        
+        boolean result = false;
         if (opcion == EnumOpcionesABM.NUEVO) {
-            //result = gestor.registrarProducto();
+            result = gestor.registrarOrden();
         }
         if (opcion == EnumOpcionesABM.MODIFICAR) {
-            //gestor.setDetalleAEliminar(arlDetProdAEliminar);
-            //gestor.setIdProducto(idProducto);
-            //result = gestor.modificarProducto();
+            gestor.setIdOrden(idOrden);
+            result = gestor.modificarOrden();
         }
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+        if (result) {
+            if(opcion == EnumOpcionesABM.NUEVO)
+                JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this, "Los datos se modificaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            setEnableComponents(false);
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
@@ -148,7 +203,13 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+        long idEstadoOrdenSeleccionada = this.getEstado();
+        if(idEstadoOrdenSeleccionada != 1){
+            JOptionPane.showMessageDialog(this,"El estado de la Orden de Compra no permite su modificación","Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        opcion = EnumOpcionesABM.MODIFICAR;
+        arlDetCompraAEliminar = new ArrayList<ViewDetalleCompra>();
         botones.getBtnModificar().setEnabled(false);
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
@@ -168,7 +229,17 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMOrden_Buscar buscar = null;
-        //TODO
+        try {
+            buscar = (ABMOrden_Buscar) JFrameManager.crearVentana(ABMOrden_Buscar.class.getName());
+            buscar.setVentana(this);
+            buscar.setGestor(gestor);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addListenerBtnSalir() {
@@ -180,13 +251,59 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
         });
     }
 
+    private void addListenerBtnEliminar() {
+        botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        long idEstadoOrdenSeleccionada = this.getEstado();
+        if(idEstadoOrdenSeleccionada != 1){
+            JOptionPane.showMessageDialog(this,"El estado de la Orden de Compra no permite su cancelación","Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JTextField txtMotivo = new JTextField("");
+        Object[] obj = {"Motivo", txtMotivo};
+        JOptionPane.showMessageDialog(null, obj, "Ingresar Motivo", JOptionPane.INFORMATION_MESSAGE);
+        if (JOptionPane.showConfirmDialog(this,"Esta seguro que desea cancelar la orden de compra?") == JOptionPane.OK_OPTION) {
+            opcion = EnumOpcionesABM.ELIMINAR;
+            idOrden = this.getIdOrden();
+            int result = gestor.cancelarOrden(idOrden,txtMotivo.getText());
+            if(result != -1){
+                JOptionPane.showMessageDialog(this, "La Orden de Compra ha sido cancelada correctamente");
+                this.limpiarCampos();
+            }
+        }
+    }
+
+    private void limpiarCampos(){
+       this.cmbMateriaPrima.setEnabled(false);
+       this.cmbProveedor.setEnabled(false);
+       this.txtNroOrden.setText("");
+       this.cmbMateriaPrima.setSelectedIndex(0);
+       this.cmbProveedor.setSelectedIndex(0);
+       limpiarTablaDetalleOrden();
+       botones.getBtnEliminar().setEnabled(false);
+       botones.getBtnGuardar().setEnabled(false);
+       botones.getBtnModificar().setEnabled(false);
+    }
+
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {
+        agregarDetalleCompra();
+    }
+
+    private void agregarDetalleCompra()
+    {
         long idMateriaprima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
-        Materiaprima mp = gestor.searchMateriaprimaById(idMateriaprima);
+        String nombreMateriaPrima = (((ItemCombo) cmbMateriaPrima.getSelectedItem()).toString());
         JTextField txtCant = new JTextField("1");
         Object[] obj = {"Cantidad", txtCant};
 
@@ -194,25 +311,85 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
 
         if (result == JOptionPane.OK_OPTION) {
             int cant = Integer.parseInt(txtCant.getText());
-            agregarFila(mp.getNombre(), cant);
+            agregarFila(idMateriaprima, nombreMateriaPrima, cant);
             tblDetalleOrden.updateUI();
         }
+    }
+
+    public void agregarFila(long idMateriaPrima, String nombreMateriaPrima, int cant) {
+        //vector de tipo Object que contiene los datos de una fila
+        ViewDetalleCompra datosFila = new ViewDetalleCompra();
+        datosFila.setNombreMateriaPrima(nombreMateriaPrima);
+        datosFila.setIdMateriaPrima(idMateriaPrima);
+        datosFila.setCantidad(cant);
+        filas.addLast(datosFila);
+    }
+
+    public void agregarFila(ViewDetalleCompra v) {
+        filas.addLast(v);
+    }
+
+    public void setIdOrden(long id) {
+        idOrden = id;
+    }
+
+    public long getIdOrden() {
+        return idOrden;
+    }
+
+    public void setEstado(long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public long getEstado() {
+        return idEstado;
+    }
+
+    public void ordenSeleccionada() {
+        
+        compraDB = gestor.buscarCompraDB(idOrden);
+        view2 = gestor.viewDetalleCompra(idOrden);
+        mostrarDatosCompra();
+        setEnableComponents(false);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
 
     }
 
-    public void agregarFila(String materiaPrima, int cant) {
-            //vector de tipo Object que contiene los datos de una fila
-            ViewDetalleCompra datosFila = new ViewDetalleCompra();
-            datosFila.setNombreMateriaPrima(materiaPrima);
-            datosFila.setCantidad(cant);
-            filas.addLast(datosFila);
+        private void mostrarDatosCompra() {
+        //seteo los datos de la compra
+        this.txtNroOrden.setText("" + compraDB.getNrocompra());
+        if (compraDB.getProveedor() < 1) {
+            Combo.setItemComboSeleccionado(this.cmbProveedor, -1);
+        } else {
+            Combo.setItemComboSeleccionado(this.cmbProveedor, compraDB.getProveedor());
         }
-
-        public void agregarFila(ViewDetalleCompra v) {
-            filas.addLast(v);
+        this.setEstado(compraDB.getEstado());
+        
+        //seteo los datos del detalle de la compra (la tabla)
+        filas.clear();
+        Iterator i = view2.iterator();
+        ViewDetalleCompra v = null;
+        while (i.hasNext()) {
+            v = (ViewDetalleCompra) i.next();
+            agregarFila(v);
         }
+        this.tblDetalleOrden.updateUI();
+    }
 
-    
+    public boolean validar()
+    {
+        String prov = cmbProveedor.getSelectedItem().toString();
+        if ( prov == ("--Seleccionar--"))
+        {
+             JOptionPane.showMessageDialog(this, "Debe Ingresar un Proveedor", "Atención", JOptionPane.INFORMATION_MESSAGE);
+             return false;
+        }
+        return true;
+    }
+  
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -377,28 +554,16 @@ public class ABMOrdenDeCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-int selectedRow = tblDetalleOrden.getSelectedRow();
+        int selectedRow = tblDetalleOrden.getSelectedRow();
         filas.remove(selectedRow);
         if (opcion == EnumOpcionesABM.MODIFICAR) {
-            arlDetMPAEliminar.add(view2.get(selectedRow));
+            arlDetCompraAEliminar.add(view2.get(selectedRow));
         }
         tblDetalleOrden.updateUI();
 }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
-        String materiaPrima = ((ItemCombo) cmbMateriaPrima.getSelectedItem()).toString();
-        //Materiaprima mp = gestor.searchMateriaprimaById(idMateriaprima);
-        JTextField txtCant = new JTextField("1");
-        Object[] obj = {"Cantidad", txtCant};
-
-        int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
-
-        if (result == JOptionPane.OK_OPTION) {
-            int cant = Integer.parseInt(txtCant.getText());
-            agregarFila(materiaPrima, cant);
-            //mp.getNombre()
-            tblDetalleOrden.updateUI();
-        }
+        agregarDetalleCompra();
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
 
     private void setEnableComponents(boolean b) {
@@ -407,6 +572,7 @@ int selectedRow = tblDetalleOrden.getSelectedRow();
         this.cmbMateriaPrima.setEnabled(b);
         this.cmbProveedor.setEnabled(b);
         this.btnQuitar.setEnabled(b);
+        this.btnAgregarPieza.setEnabled(b);
     }
 
     /**
@@ -435,7 +601,8 @@ int selectedRow = tblDetalleOrden.getSelectedRow();
     private org.jdesktop.swingx.JXTable tblDetalleOrden;
     private javax.swing.JTextField txtNroOrden;
     // End of variables declaration//GEN-END:variables
-public class DetalleOrdenTableModel extends AbstractTableModel {
+
+    public class DetalleOrdenTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nombre", "Cantidad"};
 
@@ -480,6 +647,4 @@ public class DetalleOrdenTableModel extends AbstractTableModel {
 
         }
     }
-
 }
-
