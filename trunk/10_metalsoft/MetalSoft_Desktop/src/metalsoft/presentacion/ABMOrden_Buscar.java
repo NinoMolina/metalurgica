@@ -13,22 +13,29 @@ package metalsoft.presentacion;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import metalsoft.datos.jpa.entity.Compra;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.negocio.gestores.GestorCompra;
+import metalsoft.negocio.gestores.IBuscador;
+import metalsoft.util.ItemCombo;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import metalsoft.negocio.access.AccessCompra;
 
 /**
  *
  * @author Mariana
  */
-public class ABMOrden_Buscar extends javax.swing.JFrame {
+public class ABMOrden_Buscar extends javax.swing.JFrame implements IBuscador{
     private static Timer timer;
-    private HiloBuscarOrden hiloBuscarOrden;
-    private Compra[] c;
     private ABMOrdenDeCompra ventana;
     private GestorCompra gestor;
-
+   
     /** Creates new form ABMOrden_Buscar */
     public ABMOrden_Buscar() {
         initComponents();
@@ -43,28 +50,11 @@ public class ABMOrden_Buscar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         txtValor = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstOrden = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jRadioButton1.setText("Nombre");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton2.setText("Descripción");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,8 +67,6 @@ public class ABMOrden_Buscar extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(lstOrden);
-
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,80 +74,71 @@ public class ABMOrden_Buscar extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Ingrese el Numero de Orden de Compra a buscar:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSeleccionar)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSeleccionar))
+                    .addComponent(jLabel1))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeleccionar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void setGestor(GestorCompra gestor) {
+        this.gestor=gestor;
+    }
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
+    public GestorCompra getGestor()
+    {
+        return gestor;
+    }
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtValorActionPerformed
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        String valor = txtValor.getText();
+        if (valor != "")
+        {
+            PostgreSQLManager pg=null;
+            Connection cn=null;
+            pg=new PostgreSQLManager();
+            try {
+                cn = pg.concectGetCn();
+            } catch (Exception ex) {
+                Logger.getLogger(HiloBuscarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            CompraDB[] compraDB=AccessCompra.findByNumeroILIKE(valor,cn);
+            if (compraDB.length==0)
+                JOptionPane.showMessageDialog(this, "No se encontro ninguna compra con ese numero", "Atención", JOptionPane.INFORMATION_MESSAGE);
+            else
+            {
+                ventana.setIdOrden(compraDB[0].getIdcompra());
+                ventana.ordenSeleccionada();
+                this.dispose();
+            }
+        }
+}//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMOrden_Buscar abm=this;
-            timer=new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    hiloBuscarOrden=new HiloBuscarOrden();
-                    hiloBuscarOrden.setVentana(abm);
-                    hiloBuscarOrden.setValor(txtValor.getText());
-                    hiloBuscarOrden.start();
-                }
-            }, 1500);
-        }
-    }
-
-    public JList getLstMatriz() {
-        return lstOrden;
-    }
-
-    public void setLstOrden(JList lstOrden) {
-        this.lstOrden = lstOrden;
     }
 
     public JTextField getTxtValor() {
@@ -170,22 +149,13 @@ public class ABMOrden_Buscar extends javax.swing.JFrame {
         this.txtValor = txtValor;
 }//GEN-LAST:event_txtValorKeyReleased
 
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Compra x=c[lstOrden.getSelectedIndex()];
-        /* ventana.setCompra(c);
-        ventana.getTxtNombre().setText(x.getNombre());
-        ventana.getTxtDescripcion().setText(x.getDescripcion());
-        ventana.getTxtCodigo().setText(String.valueOf(x.getCodmatriz()));
-        //ventana.getcmbMateriaPrima().setSelectedItem(gestor.getItemMateriaPrima(x.getMateriaprima()));
-        int indexMateriaPrima=gestor.getIndexMateriaPrima(x.getMateriaprima());
-        ventana.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
-        int indexTipoMaterial=gestor.getIndexTipoMaterial(x.getTipomaterial());
-        ventana.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
-         * */
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_txtValorActionPerformed
 
-        this.dispose();
-}//GEN-LAST:event_btnSeleccionarActionPerformed
-
+    public void setVentana(ABMOrdenDeCompra v) {
+        ventana=v;
+    }
     /**
     * @param args the command line arguments
     */
@@ -199,11 +169,20 @@ public class ABMOrden_Buscar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList lstOrden;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
+    
+   public JComboBox getCombo(String className) {
+        return null;
+    }
+
+    public void setBusqueda(Object[] obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JList getList(String className) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
