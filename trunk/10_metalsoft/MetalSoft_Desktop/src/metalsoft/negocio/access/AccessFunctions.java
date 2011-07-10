@@ -132,9 +132,10 @@ public class AccessFunctions {
         }
         return result;
     }
-    public static long nvoNroMateriaPrima(Connection cn)
+    
+    public static long nvoNroPedidoMatriz(Connection cn)
     {
-        String query="{ ? = call nvonromateriaprima()}";
+        String query="{ ? = call nvonropedidomatriz()}";
         long result=-1;
         try {
             CallableStatement cs = cn.prepareCall(query);
