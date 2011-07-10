@@ -89,21 +89,7 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
             }
         });
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        ABMMatriz_Buscar buscar = null;
-        try {
-            GestorMatriz gestorMatriz=new GestorMatriz();
-            buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
-            buscar.setVentanaPedidoMatriz(this);
-            buscar.setGestor(gestorMatriz);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -173,6 +159,11 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
 
         btnBuscarMatriz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/sea1.png"))); // NOI18N
         btnBuscarMatriz.setToolTipText("buscar Matriz");
+        btnBuscarMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarMatrizActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Codigo Matriz:");
 
@@ -331,6 +322,23 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
     private void txtnroMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnroMatrizActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnroMatrizActionPerformed
+
+    private void btnBuscarMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMatrizActionPerformed
+        // TODO add your handling code here:
+        ABMMatriz_Buscar buscar = null;
+        try {
+            GestorMatriz gestorMatriz=new GestorMatriz();
+            buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
+            buscar.setVentanaPedidoMatriz(this);
+            buscar.setGestor(gestorMatriz);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarMatrizActionPerformed
 
     /**
     * @param args the command line arguments
