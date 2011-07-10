@@ -6,13 +6,17 @@
 package metalsoft.negocio.gestores;
 
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
-import metalsoft.negocio.produccion.Matriz;
+
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.MatrizPKDB;
 import metalsoft.datos.dbobject.TipomaterialDB;
@@ -21,6 +25,9 @@ import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.MateriaprimaDAO;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.datos.idao.TipomaterialDAO;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.MatrizJpaController;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.util.ItemCombo;
 
 
@@ -184,43 +191,20 @@ public class GestorMatriz {
             }
         }
    }
-      public Matriz[] buscarMatriz(String valor) {
-        MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
-        Connection cn=null;
-        metalsoft.datos.dbobject.MatrizDB[] m=null;
+      public List<Matriz> buscarMatriz(String valor) {
+        List<Matriz> lstResultMatriz=new LinkedList<Matriz>();
         try {
-            cn = new PostgreSQLManager().concectGetCn();
+            Query query = JpaUtil.getNamedQuery("Matriz.findByNombreLike");
+            query.setParameter("nombre", valor);
+            lstResultMatriz = query.getResultList();
+            
         } catch (Exception ex) {
             Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Object[] sqlParams=new Object[0];
-        //Object[] sqlParams=new Object[1];
-        //sqlParams[0]=valor;
-        try {
-            m = dao.findExecutingUserWhere("nombre ILIKE '"+valor+"%'", sqlParams, cn);
-            cn.close();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return parseToMatriz(m);
+        return lstResultMatriz;
     }
-      private Matriz[] parseToMatriz(metalsoft.datos.dbobject.MatrizDB[] m) {
-        if(m==null)return null;
-
-        Matriz[] mat=new Matriz[m.length];
-        for(int i=0;i<m.length;i++)
-        {
-            Matriz x=new Matriz();
-            x.setNombre(m[i].getNombre());
-            x.setCodmatriz(m[i].getCodmatriz());
-            x.setDescripcion(m[i].getDescripcion());
-            x.setMateriaprima(m[i].getMateriaprima());
-            x.setTipomaterial(m[i].getTipomaterial());
-            mat[i]=x;
-        }
-        return mat;
-    }
-      public boolean modificarMatriz(metalsoft.negocio.produccion.Matriz matriz, long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) {
+      
+      public boolean modificarMatriz(Matriz matriz, long codigo, String nombre, String descripcion, int materiaPrima, int tipoMaterial) {
         MatrizDAO dao=new DAOFactoryImpl().createMatrizDAO();
         Connection cn=null;
         metalsoft.datos.dbobject.MatrizDB[] m=null;
