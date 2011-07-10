@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Accioncalidad;
 
@@ -27,5 +28,9 @@ public class JpaUtil {
         EntityManager em=JpaUtil.getEntityManager();
         TypedQuery q=em.createQuery(query, clase);
         return q.getResultList();
+    }
+
+    public static Query getNamedQuery(String name){
+        return getEntityManager().createNamedQuery(name);
     }
 }
