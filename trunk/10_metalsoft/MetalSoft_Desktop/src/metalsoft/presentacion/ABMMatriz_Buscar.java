@@ -11,12 +11,14 @@
 package metalsoft.presentacion;
 
 import com.sun.servicetag.RegistrationData;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.negocio.gestores.GestorMatriz;
-import metalsoft.negocio.produccion.Matriz;
+
 
 /**
  *
@@ -26,7 +28,7 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
 
     private static Timer timer;
     private HiloBuscarMatriz hiloBuscarMatriz;
-    private Matriz[] m;
+    private List<Matriz> m;
     private ABMMatriz ventana;
     private RegistrarPedidoMatriz ventanaPedido;
     private GestorMatriz gestor;
@@ -36,11 +38,11 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Matriz[] getMatriz() {
+    public List<Matriz> getMatriz() {
         return m;
     }
 
-    public void setMatriz(Matriz[] m) {
+    public void setMatriz(List<Matriz> m) {
         this.m = m;
     }
 
@@ -176,27 +178,20 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Matriz x = m[lstMatriz.getSelectedIndex()];
+        Matriz x = m.get(lstMatriz.getSelectedIndex());
         if (ventana != null) {
             ventana.setMatriz(x);
             ventana.getTxtNombre().setText(x.getNombre());
             ventana.getTxtDescripcion().setText(x.getDescripcion());
             ventana.getTxtCodigo().setText(String.valueOf(x.getCodmatriz()));
             //ventana.getcmbMateriaPrima().setSelectedItem(gestor.getItemMateriaPrima(x.getMateriaprima()));
-            int indexMateriaPrima = gestor.getIndexMateriaPrima(x.getMateriaprima());
+            int indexMateriaPrima = gestor.getIndexMateriaPrima(x.getMateriaprima().getIdmateriaprima());
             ventana.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
-            int indexTipoMaterial = gestor.getIndexTipoMaterial(x.getTipomaterial());
+            int indexTipoMaterial = gestor.getIndexTipoMaterial(x.getTipomaterial().getIdtipomaterial());
             ventana.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
         }
         if (ventanaPedido != null) {
-            ventanaPedido.setMatriz(x);
-            ventanaPedido.getTxtNombreMatriz().setText(x.getNombre());
-            ventanaPedido.getTxtDescripcion().setText(x.getDescripcion());
-            ventanaPedido.getTxtnroMatriz().setText(String.valueOf(x.getCodmatriz()));
-            int indexMateriaPrima = gestor.getIndexMateriaPrima(x.getMateriaprima());
-            ventanaPedido.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
-            int indexTipoMaterial = gestor.getIndexTipoMaterial(x.getTipomaterial());
-            ventanaPedido.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
+            ventanaPedido.seleccionarMatriz(x);
         }
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
