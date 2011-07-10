@@ -35,8 +35,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Matriz.findByNombre", query = "SELECT m FROM Matriz m WHERE m.nombre = :nombre"),
     @NamedQuery(name = "Matriz.findByDescripcion", query = "SELECT m FROM Matriz m WHERE m.descripcion = :descripcion"),
     @NamedQuery(name = "Matriz.findByObservaciones", query = "SELECT m FROM Matriz m WHERE m.observaciones = :observaciones"),
-    @NamedQuery(name = "Matriz.findByFechacreacion", query = "SELECT m FROM Matriz m WHERE m.fechacreacion = :fechacreacion"),
-    @NamedQuery(name = "Matriz.findByTipomaterial", query = "SELECT m FROM Matriz m WHERE m.tipomaterial = :tipomaterial")})
+    @NamedQuery(name = "Matriz.findByFechacreacion", query = "SELECT m FROM Matriz m WHERE m.fechacreacion = :fechacreacion")})
 public class Matriz implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,18 +53,16 @@ public class Matriz implements Serializable {
     @Column(name = "fechacreacion")
     @Temporal(TemporalType.DATE)
     private Date fechacreacion;
-    @Column(name = "tipomaterial")
-    private BigInteger tipomaterial;
     @OneToMany(mappedBy = "matriz")
     private List<Pieza> piezaList;
-
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
-
+    @JoinColumn(name = "tipomaterial", referencedColumnName = "idtipomaterial")
+    @ManyToOne
+    private Tipomaterial tipomaterial;
     @OneToMany(mappedBy = "idmatriz")
     private List<Pedidomatriz> pedidomatrizList;
-
 
     public Matriz() {
     }
@@ -122,14 +119,6 @@ public class Matriz implements Serializable {
         this.fechacreacion = fechacreacion;
     }
 
-    public BigInteger getTipomaterial() {
-        return tipomaterial;
-    }
-
-    public void setTipomaterial(BigInteger tipomaterial) {
-        this.tipomaterial = tipomaterial;
-    }
-
     public List<Pieza> getPiezaList() {
         return piezaList;
     }
@@ -137,7 +126,6 @@ public class Matriz implements Serializable {
     public void setPiezaList(List<Pieza> piezaList) {
         this.piezaList = piezaList;
     }
-
 
     public Materiaprima getMateriaprima() {
         return materiaprima;
@@ -147,6 +135,14 @@ public class Matriz implements Serializable {
         this.materiaprima = materiaprima;
     }
 
+    public Tipomaterial getTipomaterial() {
+        return tipomaterial;
+    }
+
+    public void setTipomaterial(Tipomaterial tipomaterial) {
+        this.tipomaterial = tipomaterial;
+    }
+
     public List<Pedidomatriz> getPedidomatrizList() {
         return pedidomatrizList;
     }
@@ -154,8 +150,6 @@ public class Matriz implements Serializable {
     public void setPedidomatrizList(List<Pedidomatriz> pedidomatrizList) {
         this.pedidomatrizList = pedidomatrizList;
     }
-
-
 
     @Override
     public int hashCode() {
