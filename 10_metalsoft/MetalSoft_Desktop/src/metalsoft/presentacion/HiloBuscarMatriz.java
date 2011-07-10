@@ -6,9 +6,10 @@
 package metalsoft.presentacion;
 
 import javax.swing.JList;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
-import metalsoft.negocio.produccion.Matriz;
+
 
 /**
  *
