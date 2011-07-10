@@ -23,6 +23,7 @@ public class NumerosAMostrar {
     public static final int NRO_PROCESO_CALIDAD = 11;
     public static final int NRO_EMPRESA_METALURGICA = 12;
     public static final int NRO_ORDEN_COMPRA = 13;
+    public static final int NRO_PEDIDO_MATRIZ = 14;
 
     public static String getNumeroString(int tiponro, long nro) {
         switch (tiponro) {
@@ -52,6 +53,8 @@ public class NumerosAMostrar {
                 return "EM-" + String.valueOf(nro);
             case NRO_ORDEN_COMPRA:
                 return "ORD-" + String.valueOf(nro);
+            case NRO_PEDIDO_MATRIZ:
+                return "PEDMAT-" + String.valueOf(nro);
             default:
                 return null;
         }
