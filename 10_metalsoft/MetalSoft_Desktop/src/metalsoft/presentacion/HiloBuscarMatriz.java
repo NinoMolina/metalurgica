@@ -5,6 +5,7 @@
 
 package metalsoft.presentacion;
 
+import java.util.List;
 import javax.swing.JList;
 import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.util.ItemCombo;
@@ -44,7 +45,7 @@ public class HiloBuscarMatriz extends Thread {
     private void buscarMatriz()
     {
         GestorMatriz gestor=new GestorMatriz();
-        Matriz[] m = gestor.buscarMatriz(valor);
+        List<Matriz> m = gestor.buscarMatriz(valor);
         JList list=ventana.getLstMatriz();
         list.removeAll();
         ventana.setMatriz(m);
@@ -55,13 +56,13 @@ public class HiloBuscarMatriz extends Thread {
     }
 
 
-    private void cargarLista(JList list, Matriz[] matriz) {
+    private void cargarLista(JList list, List<Matriz> matriz) {
 
-        ItemCombo item[]=new ItemCombo[matriz.length];
-        for(int i=0;i<matriz.length;i++)
+        ItemCombo item[]=new ItemCombo[matriz.size()];
+        for(int i=0;i<matriz.size();i++)
         {
             ItemCombo x=new ItemCombo();
-            x.setMostrar(matriz[i].getNombre());
+            x.setMostrar(matriz.get(i).getNombre());
             item[i]=x;
         }
         list.setListData(item);
