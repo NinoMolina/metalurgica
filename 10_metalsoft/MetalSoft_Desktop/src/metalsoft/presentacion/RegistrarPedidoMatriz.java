@@ -34,12 +34,17 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
     /** Creates new form RegistrarPedidoMatriz */
     private Matriz matriz;
     private GestorPedidoMatriz gestor;
+    private GestorMatriz gestorMatriz;
     public RegistrarPedidoMatriz() {
         initComponents();
         addListeners();
+        gestorMatriz=new GestorMatriz();
         gestor=new GestorPedidoMatriz();
         long nroPed = gestor.generarNvoNroPedido();
         lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO_MATRIZ, nroPed));
+        gestorMatriz.buscarTipoMaterial(cmbTipoMaterial);
+        gestorMatriz.buscarMateriaPrima(cmbMateriaPrima);
+        jDateChooser1.setDate(java.util.Calendar.getInstance().getTime());
     }
 
     public JLabel getLblNroPedido() {
@@ -193,6 +198,10 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
 
         jLabel6.setText("Materia Prima:");
 
+        cmbMateriaPrima.setEnabled(false);
+
+        cmbTipoMaterial.setEnabled(false);
+
         jLabel7.setText("Tipo Material:");
 
         txtDescripcion.setColumns(20);
@@ -330,7 +339,7 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
         // TODO add your handling code here:
         ABMMatriz_Buscar buscar = null;
         try {
-            GestorMatriz gestorMatriz=new GestorMatriz();
+            
             buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
             buscar.setVentanaPedidoMatriz(this);
             buscar.setGestor(gestorMatriz);
