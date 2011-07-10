@@ -11,16 +11,19 @@
 
 package metalsoft.presentacion;
 
+import java.math.BigInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.negocio.gestores.GestorMatriz;
 import metalsoft.negocio.gestores.GestorPedidoMatriz;
 import metalsoft.negocio.gestores.NumerosAMostrar;
-import metalsoft.negocio.produccion.Matriz;
+
+import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -339,6 +342,26 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarMatrizActionPerformed
+    public void seleccionarMatriz(Matriz ma)
+    {
+        matriz=ma;
+        txtDescripcion.setText(matriz.getDescripcion());
+        txtNombreMatriz.setText(matriz.getNombre());
+        txtnroMatriz.setText(String.valueOf(matriz.getCodmatriz()));
+        setItemComboSeleccionado(cmbMateriaPrima, matriz.getMateriaprima().getIdmateriaprima());
+        setItemComboSeleccionado(cmbTipoMaterial,matriz.getTipomaterial().getIdtipomaterial());
+    }
+    private void setItemComboSeleccionado(JComboBox cmb, long id) {
+        int length = cmb.getItemCount();
+        ItemCombo item = null;
+        for (int i = 0; i < length; i++) {
+            item = (ItemCombo) cmb.getItemAt(i);
+            if (Long.parseLong(item.getId()) == id) {
+                cmb.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
     /**
     * @param args the command line arguments
