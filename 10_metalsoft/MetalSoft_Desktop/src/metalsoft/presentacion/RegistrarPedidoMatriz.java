@@ -11,6 +11,17 @@
 
 package metalsoft.presentacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import metalsoft.negocio.gestores.GestorMatriz;
+import metalsoft.negocio.gestores.GestorPedidoMatriz;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.negocio.produccion.Matriz;
+
 /**
  *
  * @author Vicky
@@ -18,10 +29,107 @@ package metalsoft.presentacion;
 public class RegistrarPedidoMatriz extends javax.swing.JFrame {
 
     /** Creates new form RegistrarPedidoMatriz */
+    private Matriz matriz;
+    private GestorPedidoMatriz gestor;
     public RegistrarPedidoMatriz() {
         initComponents();
+        addListeners();
+        gestor=new GestorPedidoMatriz();
+        long nroPed = gestor.generarNvoNroPedido();
+        lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO_MATRIZ, nroPed));
     }
 
+    public JLabel getLblNroPedido() {
+        return lblNroPedido;
+    }
+
+    public void setLblNroPedido(JLabel lblNroPedido) {
+        this.lblNroPedido = lblNroPedido;
+    }
+
+    public JTextArea getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public void setTxtDescripcion(JTextArea txtDescripcion) {
+        this.txtDescripcion = txtDescripcion;
+    }
+
+    public JTextField getTxtNombreMatriz() {
+        return txtNombreMatriz;
+    }
+
+    public void setTxtNombreMatriz(JTextField txtNombreMatriz) {
+        this.txtNombreMatriz = txtNombreMatriz;
+    }
+
+    public JTextArea getTxtObservaciones() {
+        return txtObservaciones;
+    }
+
+    public void setTxtObservaciones(JTextArea txtObservaciones) {
+        this.txtObservaciones = txtObservaciones;
+    }
+
+    public JTextField getTxtnroMatriz() {
+        return txtnroMatriz;
+    }
+
+    public void setTxtnroMatriz(JTextField txtnroMatriz) {
+        this.txtnroMatriz = txtnroMatriz;
+    }
+    private void addListeners() {
+        addListenerBtnGuardar();
+    }
+    private void addListenerBtnGuardar() {
+        btnGuardar1.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        ABMMatriz_Buscar buscar = null;
+        try {
+            GestorMatriz gestorMatriz=new GestorMatriz();
+            buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
+            buscar.setVentanaPedidoMatriz(this);
+            buscar.setGestor(gestorMatriz);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+    public JComboBox getcmbMateriaPrima() {
+        return cmbMateriaPrima;
+    }
+
+    public void setcmbMateriaPrima(JComboBox cmbMateriaPrima) {
+        this.cmbMateriaPrima = cmbMateriaPrima;
+    }
+
+    public JComboBox getcmbTipoMaterial() {
+        return cmbTipoMaterial;
+    }
+
+    public void setcmbTipoMaterial(JComboBox cmbTipoMaterial) {
+        this.cmbTipoMaterial = cmbTipoMaterial;
+    }
+    public Matriz getMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(Matriz matriz) {
+        this.matriz = matriz;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -54,9 +162,10 @@ public class RegistrarPedidoMatriz extends javax.swing.JFrame {
         btnGuardar1 = new metalsoft.beans.BtnGuardar();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Pedido Matriz");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Matriz"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido Matriz"));
 
         jLabel1.setText("Nombre Matriz:");
 
