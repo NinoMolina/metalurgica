@@ -36,7 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Matriz.findByIdmatriz", query = "SELECT m FROM Matriz m WHERE m.idmatriz = :idmatriz"),
     @NamedQuery(name = "Matriz.findByCodmatriz", query = "SELECT m FROM Matriz m WHERE m.codmatriz = :codmatriz"),
     @NamedQuery(name = "Matriz.findByNombre", query = "SELECT m FROM Matriz m WHERE m.nombre = :nombre"),
-    @NamedQuery(name = "Matriz.findByNombreLike", query = "SELECT m FROM Matriz m WHERE m.nombre LIKE :nombre%"),
+    @NamedQuery(name = "Matriz.findByNombreLike", query = "SELECT m FROM Matriz m WHERE m.nombre LIKE :nombre"),
     @NamedQuery(name = "Matriz.findByDescripcion", query = "SELECT m FROM Matriz m WHERE m.descripcion = :descripcion"),
     @NamedQuery(name = "Matriz.findByObservaciones", query = "SELECT m FROM Matriz m WHERE m.observaciones = :observaciones"),
     @NamedQuery(name = "Matriz.findByFechacreacion", query = "SELECT m FROM Matriz m WHERE m.fechacreacion = :fechacreacion")})
