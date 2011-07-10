@@ -8,9 +8,9 @@
  *
  * Created on 30/06/2010, 13:02:15
  */
-
 package metalsoft.presentacion;
 
+import com.sun.servicetag.RegistrationData;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JList;
@@ -23,17 +23,20 @@ import metalsoft.negocio.produccion.Matriz;
  * @author Mariana
  */
 public class ABMMatriz_Buscar extends javax.swing.JFrame {
+
     private static Timer timer;
     private HiloBuscarMatriz hiloBuscarMatriz;
     private Matriz[] m;
     private ABMMatriz ventana;
+    private RegistrarPedidoMatriz ventanaPedido;
     private GestorMatriz gestor;
+
     /** Creates new form ABMMatriz_Buscar */
     public ABMMatriz_Buscar() {
         initComponents();
     }
 
-     public Matriz[] getMatriz() {
+    public Matriz[] getMatriz() {
         return m;
     }
 
@@ -140,13 +143,14 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMMatriz_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMMatriz_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 @Override
                 public void run() {
-                    hiloBuscarMatriz=new HiloBuscarMatriz();
+                    hiloBuscarMatriz = new HiloBuscarMatriz();
                     hiloBuscarMatriz.setVentana(abm);
                     hiloBuscarMatriz.setValor(txtValor.getText());
                     hiloBuscarMatriz.start();
@@ -172,16 +176,28 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Matriz x=m[lstMatriz.getSelectedIndex()];
-        ventana.setMatriz(x);
-        ventana.getTxtNombre().setText(x.getNombre());
-        ventana.getTxtDescripcion().setText(x.getDescripcion());
-        ventana.getTxtCodigo().setText(String.valueOf(x.getCodmatriz()));
-        //ventana.getcmbMateriaPrima().setSelectedItem(gestor.getItemMateriaPrima(x.getMateriaprima()));
-        int indexMateriaPrima=gestor.getIndexMateriaPrima(x.getMateriaprima());
-        ventana.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
-        int indexTipoMaterial=gestor.getIndexTipoMaterial(x.getTipomaterial());
-        ventana.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
+        Matriz x = m[lstMatriz.getSelectedIndex()];
+        if (ventana != null) {
+            ventana.setMatriz(x);
+            ventana.getTxtNombre().setText(x.getNombre());
+            ventana.getTxtDescripcion().setText(x.getDescripcion());
+            ventana.getTxtCodigo().setText(String.valueOf(x.getCodmatriz()));
+            //ventana.getcmbMateriaPrima().setSelectedItem(gestor.getItemMateriaPrima(x.getMateriaprima()));
+            int indexMateriaPrima = gestor.getIndexMateriaPrima(x.getMateriaprima());
+            ventana.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
+            int indexTipoMaterial = gestor.getIndexTipoMaterial(x.getTipomaterial());
+            ventana.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
+        }
+        if (ventanaPedido != null) {
+            ventanaPedido.setMatriz(x);
+            ventanaPedido.getTxtNombreMatriz().setText(x.getNombre());
+            ventanaPedido.getTxtDescripcion().setText(x.getDescripcion());
+            ventanaPedido.getTxtnroMatriz().setText(String.valueOf(x.getCodmatriz()));
+            int indexMateriaPrima = gestor.getIndexMateriaPrima(x.getMateriaprima());
+            ventanaPedido.getcmbMateriaPrima().setSelectedIndex(indexMateriaPrima);
+            int indexTipoMaterial = gestor.getIndexTipoMaterial(x.getTipomaterial());
+            ventanaPedido.getcmbTipoMaterial().setSelectedIndex(indexTipoMaterial);
+        }
         this.dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -198,16 +214,16 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMMatriz_Buscar().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JRadioButton jRadioButton1;
@@ -217,7 +233,11 @@ public class ABMMatriz_Buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
-     void setVentanaMatriz(ABMMatriz aThis) {
-        ventana=aThis;
+    void setVentanaMatriz(ABMMatriz aThis) {
+        ventana = aThis;
+    }
+
+    void setVentanaPedidoMatriz(RegistrarPedidoMatriz aThis) {
+        ventanaPedido = aThis;
     }
 }
