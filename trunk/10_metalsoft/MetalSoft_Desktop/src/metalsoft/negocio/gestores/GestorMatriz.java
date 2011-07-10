@@ -195,7 +195,7 @@ public class GestorMatriz {
         List<Matriz> lstResultMatriz=new LinkedList<Matriz>();
         try {
             Query query = JpaUtil.getNamedQuery("Matriz.findByNombreLike");
-            query.setParameter("nombre", valor);
+            query.setParameter("nombre", valor+"%");
             lstResultMatriz = query.getResultList();
             
         } catch (Exception ex) {
