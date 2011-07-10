@@ -16,6 +16,7 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Matriz;
+import metalsoft.datos.jpa.entity.Tipomaterial;
 import metalsoft.datos.jpa.entity.Pieza;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,12 @@ public class MatrizJpaController {
                 materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
                 matriz.setMateriaprima(materiaprima);
             }
+            
+            Tipomaterial tipomaterial = matriz.getTipomaterial();
+            if (tipomaterial != null) {
+                tipomaterial = em.getReference(tipomaterial.getClass(), tipomaterial.getIdtipomaterial());
+                matriz.setTipomaterial(tipomaterial);
+            }
             List<Pieza> attachedPiezaList = new ArrayList<Pieza>();
             for (Pieza piezaListPiezaToAttach : matriz.getPiezaList()) {
                 piezaListPiezaToAttach = em.getReference(piezaListPiezaToAttach.getClass(), piezaListPiezaToAttach.getIdpieza());
@@ -68,6 +75,11 @@ public class MatrizJpaController {
             if (materiaprima != null) {
                 materiaprima.getMatrizList().add(matriz);
                 materiaprima = em.merge(materiaprima);
+            }
+            
+            if (tipomaterial != null) {
+                tipomaterial.getMatrizList().add(matriz);
+                tipomaterial = em.merge(tipomaterial);
             }
             for (Pieza piezaListPieza : matriz.getPiezaList()) {
                 Matriz oldMatrizOfPiezaListPieza = piezaListPieza.getMatriz();
@@ -108,6 +120,8 @@ public class MatrizJpaController {
             Matriz persistentMatriz = em.find(Matriz.class, matriz.getIdmatriz());
             Materiaprima materiaprimaOld = persistentMatriz.getMateriaprima();
             Materiaprima materiaprimaNew = matriz.getMateriaprima();
+            Tipomaterial tipomaterialOld = persistentMatriz.getTipomaterial();
+            Tipomaterial tipomaterialNew = matriz.getTipomaterial();
             List<Pieza> piezaListOld = persistentMatriz.getPiezaList();
             List<Pieza> piezaListNew = matriz.getPiezaList();
             List<Pedidomatriz> pedidomatrizListOld = persistentMatriz.getPedidomatrizList();
@@ -115,6 +129,10 @@ public class MatrizJpaController {
             if (materiaprimaNew != null) {
                 materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
                 matriz.setMateriaprima(materiaprimaNew);
+            }
+            if (tipomaterialNew != null) {
+                tipomaterialNew = em.getReference(tipomaterialNew.getClass(), tipomaterialNew.getIdtipomaterial());
+                matriz.setTipomaterial(tipomaterialNew);
             }
             List<Pieza> attachedPiezaListNew = new ArrayList<Pieza>();
             for (Pieza piezaListNewPiezaToAttach : piezaListNew) {
@@ -138,6 +156,14 @@ public class MatrizJpaController {
             if (materiaprimaNew != null && !materiaprimaNew.equals(materiaprimaOld)) {
                 materiaprimaNew.getMatrizList().add(matriz);
                 materiaprimaNew = em.merge(materiaprimaNew);
+            }
+            if (tipomaterialOld != null && !tipomaterialOld.equals(tipomaterialNew)) {
+                tipomaterialOld.getMatrizList().remove(matriz);
+                tipomaterialOld = em.merge(tipomaterialOld);
+            }
+            if (tipomaterialNew != null && !tipomaterialNew.equals(tipomaterialOld)) {
+                tipomaterialNew.getMatrizList().add(matriz);
+                tipomaterialNew = em.merge(tipomaterialNew);
             }
             for (Pieza piezaListOldPieza : piezaListOld) {
                 if (!piezaListNew.contains(piezaListOldPieza)) {
@@ -206,6 +232,11 @@ public class MatrizJpaController {
             if (materiaprima != null) {
                 materiaprima.getMatrizList().remove(matriz);
                 materiaprima = em.merge(materiaprima);
+            }
+            Tipomaterial tipomaterial = matriz.getTipomaterial();
+            if (tipomaterial != null) {
+                tipomaterial.getMatrizList().remove(matriz);
+                tipomaterial = em.merge(tipomaterial);
             }
             List<Pieza> piezaList = matriz.getPiezaList();
             for (Pieza piezaListPieza : piezaList) {

@@ -39,7 +39,8 @@ public class Tipomaterial implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipomaterial")
     private List<Materiaprima> materiaprimaList;
-
+    @OneToMany(mappedBy = "tipomaterial")
+    private List<Matriz> matrizList;
 
     public Tipomaterial() {
     }
@@ -80,7 +81,13 @@ public class Tipomaterial implements Serializable {
         this.materiaprimaList = materiaprimaList;
     }
 
+    public List<Matriz> getMatrizList() {
+        return matrizList;
+    }
 
+    public void setMatrizList(List<Matriz> matrizList) {
+        this.matrizList = matrizList;
+    }
 
     @Override
     public int hashCode() {

@@ -17,6 +17,7 @@ import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.datos.jpa.entity.Tipomaterial;
 
 /**
@@ -38,6 +39,9 @@ public class TipomaterialJpaController {
         if (tipomaterial.getMateriaprimaList() == null) {
             tipomaterial.setMateriaprimaList(new ArrayList<Materiaprima>());
         }
+        if (tipomaterial.getMatrizList() == null) {
+            tipomaterial.setMatrizList(new ArrayList<Matriz>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,6 +52,12 @@ public class TipomaterialJpaController {
                 attachedMateriaprimaList.add(materiaprimaListMateriaprimaToAttach);
             }
             tipomaterial.setMateriaprimaList(attachedMateriaprimaList);
+            List<Matriz> attachedMatrizList = new ArrayList<Matriz>();
+            for (Matriz matrizListMatrizToAttach : tipomaterial.getMatrizList()) {
+                matrizListMatrizToAttach = em.getReference(matrizListMatrizToAttach.getClass(), matrizListMatrizToAttach.getIdmatriz());
+                attachedMatrizList.add(matrizListMatrizToAttach);
+            }
+            tipomaterial.setMatrizList(attachedMatrizList);
             em.persist(tipomaterial);
             for (Materiaprima materiaprimaListMateriaprima : tipomaterial.getMateriaprimaList()) {
                 Tipomaterial oldTipomaterialOfMateriaprimaListMateriaprima = materiaprimaListMateriaprima.getTipomaterial();
@@ -56,6 +66,15 @@ public class TipomaterialJpaController {
                 if (oldTipomaterialOfMateriaprimaListMateriaprima != null) {
                     oldTipomaterialOfMateriaprimaListMateriaprima.getMateriaprimaList().remove(materiaprimaListMateriaprima);
                     oldTipomaterialOfMateriaprimaListMateriaprima = em.merge(oldTipomaterialOfMateriaprimaListMateriaprima);
+                }
+            }
+            for (Matriz matrizListMatriz : tipomaterial.getMatrizList()) {
+                Tipomaterial oldTipomaterialOfMatrizListMatriz = matrizListMatriz.getTipomaterial();
+                matrizListMatriz.setTipomaterial(tipomaterial);
+                matrizListMatriz = em.merge(matrizListMatriz);
+                if (oldTipomaterialOfMatrizListMatriz != null) {
+                    oldTipomaterialOfMatrizListMatriz.getMatrizList().remove(matrizListMatriz);
+                    oldTipomaterialOfMatrizListMatriz = em.merge(oldTipomaterialOfMatrizListMatriz);
                 }
             }
             em.getTransaction().commit();
@@ -79,6 +98,8 @@ public class TipomaterialJpaController {
             Tipomaterial persistentTipomaterial = em.find(Tipomaterial.class, tipomaterial.getIdtipomaterial());
             List<Materiaprima> materiaprimaListOld = persistentTipomaterial.getMateriaprimaList();
             List<Materiaprima> materiaprimaListNew = tipomaterial.getMateriaprimaList();
+            List<Matriz> matrizListOld = persistentTipomaterial.getMatrizList();
+            List<Matriz> matrizListNew = tipomaterial.getMatrizList();
             List<Materiaprima> attachedMateriaprimaListNew = new ArrayList<Materiaprima>();
             for (Materiaprima materiaprimaListNewMateriaprimaToAttach : materiaprimaListNew) {
                 materiaprimaListNewMateriaprimaToAttach = em.getReference(materiaprimaListNewMateriaprimaToAttach.getClass(), materiaprimaListNewMateriaprimaToAttach.getIdmateriaprima());
@@ -86,6 +107,13 @@ public class TipomaterialJpaController {
             }
             materiaprimaListNew = attachedMateriaprimaListNew;
             tipomaterial.setMateriaprimaList(materiaprimaListNew);
+            List<Matriz> attachedMatrizListNew = new ArrayList<Matriz>();
+            for (Matriz matrizListNewMatrizToAttach : matrizListNew) {
+                matrizListNewMatrizToAttach = em.getReference(matrizListNewMatrizToAttach.getClass(), matrizListNewMatrizToAttach.getIdmatriz());
+                attachedMatrizListNew.add(matrizListNewMatrizToAttach);
+            }
+            matrizListNew = attachedMatrizListNew;
+            tipomaterial.setMatrizList(matrizListNew);
             tipomaterial = em.merge(tipomaterial);
             for (Materiaprima materiaprimaListOldMateriaprima : materiaprimaListOld) {
                 if (!materiaprimaListNew.contains(materiaprimaListOldMateriaprima)) {
@@ -101,6 +129,23 @@ public class TipomaterialJpaController {
                     if (oldTipomaterialOfMateriaprimaListNewMateriaprima != null && !oldTipomaterialOfMateriaprimaListNewMateriaprima.equals(tipomaterial)) {
                         oldTipomaterialOfMateriaprimaListNewMateriaprima.getMateriaprimaList().remove(materiaprimaListNewMateriaprima);
                         oldTipomaterialOfMateriaprimaListNewMateriaprima = em.merge(oldTipomaterialOfMateriaprimaListNewMateriaprima);
+                    }
+                }
+            }
+            for (Matriz matrizListOldMatriz : matrizListOld) {
+                if (!matrizListNew.contains(matrizListOldMatriz)) {
+                    matrizListOldMatriz.setTipomaterial(null);
+                    matrizListOldMatriz = em.merge(matrizListOldMatriz);
+                }
+            }
+            for (Matriz matrizListNewMatriz : matrizListNew) {
+                if (!matrizListOld.contains(matrizListNewMatriz)) {
+                    Tipomaterial oldTipomaterialOfMatrizListNewMatriz = matrizListNewMatriz.getTipomaterial();
+                    matrizListNewMatriz.setTipomaterial(tipomaterial);
+                    matrizListNewMatriz = em.merge(matrizListNewMatriz);
+                    if (oldTipomaterialOfMatrizListNewMatriz != null && !oldTipomaterialOfMatrizListNewMatriz.equals(tipomaterial)) {
+                        oldTipomaterialOfMatrizListNewMatriz.getMatrizList().remove(matrizListNewMatriz);
+                        oldTipomaterialOfMatrizListNewMatriz = em.merge(oldTipomaterialOfMatrizListNewMatriz);
                     }
                 }
             }
@@ -137,6 +182,11 @@ public class TipomaterialJpaController {
             for (Materiaprima materiaprimaListMateriaprima : materiaprimaList) {
                 materiaprimaListMateriaprima.setTipomaterial(null);
                 materiaprimaListMateriaprima = em.merge(materiaprimaListMateriaprima);
+            }
+            List<Matriz> matrizList = tipomaterial.getMatrizList();
+            for (Matriz matrizListMatriz : matrizList) {
+                matrizListMatriz.setTipomaterial(null);
+                matrizListMatriz = em.merge(matrizListMatriz);
             }
             em.remove(tipomaterial);
             em.getTransaction().commit();
