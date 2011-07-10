@@ -17,9 +17,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorMatriz;
-import metalsoft.negocio.produccion.Matriz;
+
 import metalsoft.util.EnumOpcionesABM;
 
 /**
