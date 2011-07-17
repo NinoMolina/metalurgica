@@ -60,7 +60,7 @@ public class GestorEmpresaMantenimiento {
         List<Proveedormantenimientomaquina> lstResult=new LinkedList<Proveedormantenimientomaquina>();
         try {
             Query query = JpaUtil.getNamedQuery("Proveedormantenimientomaquina.findLikeRazonsocial");
-            query.setParameter("Razonsocial", valor+"%");
+            query.setParameter("razonsocial", valor+"%");
             lstResult = query.getResultList();
 
         } catch (Exception ex) {
