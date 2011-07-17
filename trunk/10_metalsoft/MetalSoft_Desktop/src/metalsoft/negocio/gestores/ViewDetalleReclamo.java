@@ -13,9 +13,27 @@ public class ViewDetalleReclamo {
     private int cantidad;
     private long idMateriaPrima;
     String nombreMateriaPrima;
+    private long idPieza;
+    String nombrePieza;
 
 
     public ViewDetalleReclamo() {
+    }
+
+    public long getIdPieza() {
+        return idPieza;
+    }
+
+    public void setIdPieza(long idPieza) {
+        this.idPieza = idPieza;
+    }
+
+    public String getNombrePieza() {
+        return nombrePieza;
+    }
+
+    public void setNombrePieza(String nombrePieza) {
+        this.nombrePieza = nombrePieza;
     }
 
     public int getCantidad() {

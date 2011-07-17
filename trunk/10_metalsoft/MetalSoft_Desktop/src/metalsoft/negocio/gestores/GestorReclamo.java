@@ -2,38 +2,90 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JList;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dao.ReclamoproveedorDAOImpl;
+import metalsoft.datos.dao.TiporeclamoDAOImpl;
+import metalsoft.datos.dbobject.ReclamoproveedorDB;
+import metalsoft.datos.dbobject.TiporeclamoDB;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.PiezaJpaController;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Pieza;
+import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.negocio.almacenamiento.MateriaPrima;
+import metalsoft.negocio.compras.Reclamo;
 import metalsoft.util.ItemCombo;
 
 /**
  *
  * @author Mariana
  */
-public class GestorReclamo implements Comparable  {
+public class GestorReclamo implements IBuscador {
 
-    public GestorReclamo()
-      {}
+    private List<MateriaPrima> materiaprima;
+    private Proveedor prov;
+    private String motivo;
+    private LinkedList<ViewDetalleReclamo> filasDetalle;
+    private String numeroReclamo;
 
+    public GestorReclamo() {
+    }
+    public String getnumero() {
+        return numeroReclamo;
+    }
+
+    public void setnumero(String numero) {
+        numeroReclamo = numero;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public List<MateriaPrima> getMateriaprima() {
+        return materiaprima;
+    }
+
+    public void setMateriaprima(List<MateriaPrima> materiaprima) {
+        this.materiaprima = materiaprima;
+    }
+
+    public Proveedor getProv() {
+        return prov;
+    }
+
+    public void setProv(Proveedor prov) {
+        this.prov = prov;
+    }
+    private List<Proveedor> proveedores;
+
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
 
     public int compareTo(Object o) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
     private List<Pieza> pieza;
 
     public List<Pieza> getPieza() {
         return pieza;
     }
 
-    public void setPieza(List<Pieza>pieza) {
+    public void setPieza(List<Pieza> pieza) {
         this.pieza = pieza;
     }
 
@@ -65,14 +117,13 @@ public class GestorReclamo implements Comparable  {
         }
         combo.setSelectedIndex(0);
     }
-
-        private List<Empresametalurgica> empresa;
+    private List<Empresametalurgica> empresa;
 
     public List<Empresametalurgica> getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(List<Empresametalurgica>empresa) {
+    public void setEmpresa(List<Empresametalurgica> empresa) {
         this.empresa = empresa;
     }
 
@@ -105,4 +156,92 @@ public class GestorReclamo implements Comparable  {
         combo.setSelectedIndex(0);
     }
 
+    private ArrayList crearDetalleReclamo(Reclamo reclamo) {
+        ArrayList arlDetalle = new ArrayList();
+        Iterator<ViewDetalleReclamo> iter = filasDetalle.iterator();
+        while (iter.hasNext()) {
+            // TO-DO
+        }
+        if (!arlDetalle.isEmpty()) {
+            return arlDetalle;
+        } else {
+            return null;
+        }
+    }
+
+    public void setListaDetalle(LinkedList<ViewDetalleReclamo> filas) {
+        filasDetalle = filas;
+    }
+
+    public JList getList(String className) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JComboBox getCombo(String className) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setBusqueda(Object[] obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean registrarReclamo(Integer tipo) {
+        //Registrar reclamo a Proveedor
+        if (tipo == 0) {
+             try {
+            ReclamoproveedorDB reclamo = new ReclamoproveedorDB();
+            reclamo.setNroreclamo(Integer.parseInt((this.getnumero())));
+            TiporeclamoDAOImpl daoTipoReclamo = new TiporeclamoDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            TiporeclamoDB tipoRec = daoTipoReclamo.findByPrimaryKey(1, con);
+            reclamo.setTiporeclamo(tipoRec.getIdtiporeclamo());
+
+            metalsoft.negocio.compras.Proveedor proveedor = new metalsoft.negocio.compras.Proveedor();
+            proveedor.setNroProveedor(Integer.parseInt(prov.getIdproveedor().toString()));
+            reclamo.setEntidad(proveedor.getNroProveedor());
+
+            reclamo.setMotivo(motivo);
+
+            ReclamoproveedorDAOImpl daoReclamo = new ReclamoproveedorDAOImpl();
+            int result = daoReclamo.insert(reclamo, con);
+            if (result < 0) {
+                return false;
+            } else {
+                con.commit();
+            }
+
+            //Registrar los detalles de la compra
+            EstadodetallecompraDAOImpl daoEstadoDetalleCompra = new EstadodetallecompraDAOImpl();
+            EstadodetallecompraDB estadoDetalle = daoEstadoDetalleCompra.findByPrimaryKey(1, con);
+            String idCompra = daoCompra.getUltimoIDCompra(con);
+
+            DetallecompraDAOImpl daoDetalleCompra = new DetallecompraDAOImpl();
+            Iterator<ViewDetalleCompra> iter = filasDetalle.iterator();
+            ViewDetalleCompra datos = null;
+            while (iter.hasNext()) {
+                datos = iter.next();
+                DetallecompraDB detalleCompra = new DetallecompraDB();
+                detalleCompra.setCantidad(datos.getCantidad());
+                detalleCompra.setEstado(estadoDetalle.getIdestado());
+                detalleCompra.setIdcompra(Long.parseLong(idCompra));
+                detalleCompra.setMateriaprima(datos.getIdMateriaPrima());
+                detalleCompra.setPreciohistorico(0);
+                daoDetalleCompra.insert(detalleCompra, con);
+            }
+
+            con.commit();
+            return true;
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        } else {
+            //To-DO
+        }
+
+    }
 }
