@@ -21,7 +21,8 @@ import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Localidad;
-import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
+
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.datos.jpa.entity.Tipodocumento;
 import metalsoft.negocio.gestores.GestorEmpresaMantenimiento;
@@ -43,7 +44,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
     private long idDomicilio;
     private long idResponsable;
     private Responsable responsable;
-    private Proveedor empresa;
+    private Proveedormantenimientomaquina empresa;
     private EnumOpcionesABM opcion;
     private long idEmpresa;
     public ABMEmpresaMantenimiento() {
@@ -105,7 +106,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         setEnableComponents(true);
-        empresa = new Proveedor();
+        empresa = new Proveedormantenimientomaquina();
         limpiarCampos();
         opcion = EnumOpcionesABM.NUEVO;
         long nroCli = gestor.generarNvoNroEmpresa();
@@ -215,7 +216,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         }
     }
 
-    public Proveedor modificarEmpresa() {
+    public Proveedormantenimientomaquina modificarEmpresa() {
 
 
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
@@ -275,7 +276,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         empresa.setMail(mailCli);
         empresa.setRazonsocial(razonCli);
         empresa.setTelefono(telCli);
-        empresa.setCondicion(condIVA);
+        empresa.setCondicioniva(condIVA);
 
         empresa.setResponsable(responsable);
         empresa.setDomicilio(domicilioEmpresa);
@@ -283,9 +284,9 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         return empresa;
     }
 
-    public Proveedor nuevaEmpresa() {
+    public Proveedormantenimientomaquina nuevaEmpresa() {
 
-        empresa = new Proveedor();
+        empresa = new Proveedormantenimientomaquina();
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
         Condicioniva condIVA = gestor.obtenerCondicionIva(idCondIva);
         long idBarrioCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbBarrio().getSelectedItem()).getId());
@@ -340,7 +341,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         empresa.setMail(mailCli);
         empresa.setRazonsocial(razonCli);
         empresa.setTelefono(telCli);
-        empresa.setCondicion(condIVA);
+        empresa.setCondicioniva(condIVA);
 
         empresa.setResponsable(responsable);
         empresa.setDomicilio(domicilioEmpresa);
@@ -636,7 +637,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         txtRazonSocial.setText(empresa.getRazonsocial());
         txtTelefono.setText(empresa.getTelefono());
 
-        setItemComboSeleccionado(cmbCondicionIVA, empresa.getCondicion().getIdcondicioniva());
+        setItemComboSeleccionado(cmbCondicionIVA, empresa.getCondicioniva().getIdcondicioniva());
 
         setDatosDomicilio(beanDomicilioCliente, empresa.getDomicilio());
 
