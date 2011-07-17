@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.presentacion;
 
 import java.sql.Connection;
@@ -23,7 +22,8 @@ import metalsoft.util.ItemCombo;
  * @author Vicky
  */
 public class HiloBuscarEmpresaMantenimiento extends Thread {
-   private ABMEmpresaMantenimiento_Buscar ventana;
+
+    private ABMEmpresaMantenimiento_Buscar ventana;
     private String valor;
 
     @Override
@@ -47,30 +47,26 @@ public class HiloBuscarEmpresaMantenimiento extends Thread {
         this.valor = valor;
     }
 
-    private void buscarEmpresaMantenimiento()
-    {
-        GestorEmpresaMantenimiento gestor=new GestorEmpresaMantenimiento();
+    private void buscarEmpresaMantenimiento() {
+        GestorEmpresaMantenimiento gestor = new GestorEmpresaMantenimiento();
         List<Proveedormantenimientomaquina> m = gestor.buscarProveedormantenimientomaquina(valor);
-        JList list=ventana.getLstLista();
+        JList list = ventana.getLstLista();
         list.removeAll();
         ventana.setProveedormantenimientomaquina(m);
-        cargarLista(list,m);
+        cargarLista(list, m);
 
         //ventana.getBsyBuscar().setBusy(false);
         //ventana.getBsyBuscar().setVisible(false);
     }
 
-
     private void cargarLista(JList list, List<Proveedormantenimientomaquina> matriz) {
 
-        ItemCombo item[]=new ItemCombo[matriz.size()];
-        for(int i=0;i<matriz.size();i++)
-        {
-            ItemCombo x=new ItemCombo();
+        ItemCombo item[] = new ItemCombo[matriz.size()];
+        for (int i = 0; i < matriz.size(); i++) {
+            ItemCombo x = new ItemCombo();
             x.setMostrar(matriz.get(i).getRazonsocial());
-            item[i]=x;
+            item[i] = x;
         }
         list.setListData(item);
     }
-
 }

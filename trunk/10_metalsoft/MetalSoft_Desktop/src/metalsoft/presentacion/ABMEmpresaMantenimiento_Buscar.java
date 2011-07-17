@@ -8,7 +8,6 @@
  *
  * Created on 03/07/2011, 18:37:55
  */
-
 package metalsoft.presentacion;
 
 import java.util.List;
@@ -26,8 +25,8 @@ import metalsoft.util.ItemCombo;
  */
 public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 
-    private GestorEmpresaMantenimiento gestor=null;
-    private ABMEmpresaMantenimiento ventana=null;
+    private GestorEmpresaMantenimiento gestor = null;
+    private ABMEmpresaMantenimiento ventana = null;
     private Timer timer;
     private List<Proveedormantenimientomaquina> prov;
 
@@ -35,6 +34,7 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
     public ABMEmpresaMantenimiento_Buscar() {
         initComponents();
     }
+
     public List<Proveedormantenimientomaquina> getProveedormantenimientomaquina() {
         return prov;
     }
@@ -42,6 +42,7 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
     public void setProveedormantenimientomaquina(List<Proveedormantenimientomaquina> m) {
         this.prov = m;
     }
+
     public GestorEmpresaMantenimiento getGestor() {
         return gestor;
     }
@@ -57,8 +58,8 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
     public void setVentana(ABMEmpresaMantenimiento ventana) {
         this.ventana = ventana;
     }
+
     /** Creates new form ABMEmpresaMantenimiento_Buscar */
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -143,8 +144,8 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdEmpresa(id);
+        Proveedormantenimientomaquina x =prov.get(lstLista.getSelectedIndex());
+        ventana.setIdEmpresa(x.getIdproveedormantenimiento());
         ventana.empresaSeleccionado();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -153,14 +154,16 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMEmpresaMantenimiento_Buscar abm=this;
-            timer=new Timer();
+        if (txtValor.getText().compareTo("") != 0) {
+            final ABMEmpresaMantenimiento_Buscar abm = this;
+            timer = new Timer();
             timer.schedule(new TimerTask() {
+
                 private HiloBuscarEmpresaMantenimiento hiloBuscarEmpresa;
+
                 @Override
                 public void run() {
-                    hiloBuscarEmpresa=new HiloBuscarEmpresaMantenimiento();
+                    hiloBuscarEmpresa = new HiloBuscarEmpresaMantenimiento();
                     hiloBuscarEmpresa.setVentana(abm);
                     hiloBuscarEmpresa.setValor(txtValor.getText());
                     hiloBuscarEmpresa.start();
@@ -186,16 +189,16 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
 }//GEN-LAST:event_txtValorKeyReleased
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ABMEmpresaMantenimiento_Buscar().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JRadioButton jRadioButton1;
@@ -203,5 +206,4 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
 }
