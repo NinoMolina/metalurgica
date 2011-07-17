@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.negocio.gestores.GestorReclamo;
 import metalsoft.negocio.gestores.ViewDetalleReclamo;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
@@ -38,6 +39,8 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
     /** Creates new form GenerarSolicitudReclamo */
     public GenerarSolicitudReclamo() {
         initComponents();
+        addListenerBtnSalir();
+        addListenerBtnGuardar();
         view = new ViewProveedorXMateriaPrima();
         gestor = new GestorReclamo();
         disableComponents();
@@ -86,7 +89,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         this.btnAgregarPieza.setEnabled(false);
         this.btnGuardar1.setEnabled(false);
         this.btnQuitar.setEnabled(false);
-        this.jTextArea1.setEnabled(false);
+        this.txtMotivo.setEnabled(false);
     }
 
     private void enableComponents() {
@@ -96,7 +99,68 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         this.btnAgregarPieza.setEnabled(true);
         this.btnGuardar1.setEnabled(true);
         this.btnQuitar.setEnabled(true);
-        this.jTextArea1.setEnabled(true);
+        this.txtMotivo.setEnabled(true);
+    }
+
+    private void addListenerBtnSalir() {
+        this.btnSalirr1.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void addListenerBtnGuardar() {
+        this.btnGuardar1.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tipo == 0) {
+        boolean validar = this.validarEntidad();
+        if(!validar)
+            return;
+        String motivo = txtMotivo.getText();
+        long idProv = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
+        Proveedor Prov = searchProveedorById(idProv);
+
+        gestor.setMotivo(motivo);
+        gestor.setProv(Prov);
+        gestor.setListaDetalle(filas);
+
+        boolean result = false;
+        result = gestor.registrarReclamo(tipo);
+        
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            disableComponents();
+            } else {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+
+        else {
+        }
+
+    }
+
+
+    private Proveedor searchProveedorById(long id) {
+        for (Proveedor p : gestor.getProveedores()) {
+            if (p.getIdproveedor() == id) {
+                return p;
+            }
+        }
+        return null;
     }
 
     /** This method is called from within the constructor to
@@ -125,7 +189,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         btnAgregarPieza = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMotivo = new javax.swing.JTextArea();
         btnGuardar1 = new metalsoft.beans.BtnGuardar();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
@@ -257,9 +321,9 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
 
         jLabel2.setText("Motivo:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtMotivo.setColumns(20);
+        txtMotivo.setRows(5);
+        jScrollPane2.setViewportView(txtMotivo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -325,6 +389,8 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         cargarComboMateriaprima();
         cargarComboProveedores();
         enableComponents();
+        limpiarTabla();
+        this.txtMotivo.setText("");
         tipo = 0;
     }//GEN-LAST:event_rbMateriaPrimaActionPerformed
 
@@ -342,6 +408,8 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         cargarComboPieza();
         cargarComboEmpresa();
         enableComponents();
+        limpiarTabla();
+        this.txtMotivo.setText("");
         tipo = 1;
     }//GEN-LAST:event_rbPiezaActionPerformed
 
@@ -377,10 +445,10 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JRadioButton rbMateriaPrima;
     private javax.swing.JRadioButton rbPieza;
     private org.jdesktop.swingx.JXTable tblDetalleReclamo;
+    private javax.swing.JTextArea txtMotivo;
     // End of variables declaration//GEN-END:variables
 
     private void agregarDetalleReclamo() {
@@ -399,7 +467,18 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
                 tblDetalleReclamo.updateUI();
             }
         } else {
-            //TO-DO
+            long idPieza = Long.parseLong(((ItemCombo) this.cmbArticulo.getSelectedItem()).getId());
+            String nombrePieza = (((ItemCombo) cmbArticulo.getSelectedItem()).toString());
+            JTextField txtCant = new JTextField("1");
+            Object[] obj = {"Cantidad", txtCant};
+
+            int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+                int cant = Integer.parseInt(txtCant.getText());
+                agregarFila(tipo, idPieza, nombrePieza, cant);
+                tblDetalleReclamo.updateUI();
+            }
         }
     }
 
@@ -411,8 +490,28 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
             datosFila.setIdMateriaPrima(idArticulo);
             datosFila.setCantidad(cant);
         } else {
+            datosFila.setNombrePieza(nombreArticulo);
+            datosFila.setIdPieza(idArticulo);
+            datosFila.setCantidad(cant);
         }
         filas.addLast(datosFila);
+    }
+
+    private void limpiarTabla() {
+        int cantidadFilas = tblDetalleReclamo.getRowCount();
+        for (int i = 0; i < cantidadFilas; i++) {
+            filas.remove(0);
+            tblDetalleReclamo.updateUI();
+        }
+    }
+
+    public boolean validarEntidad() {
+        String entidad = cmbEntidad.getSelectedItem().toString();
+        if (entidad == ("--Seleccionar--")) {
+            JOptionPane.showMessageDialog(this, "Debe Ingresar una Entidad", "Atención", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     public class DetalleOrdenTableModel extends AbstractTableModel {
@@ -423,14 +522,26 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
 
             ViewDetalleReclamo view = filas.get(rowIndex);
 //      Object[] df=filas.get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return view.getNombreMateriaPrima();
-                case 1:
-                    return String.valueOf(view.getCantidad());
-                default:
-                    return null;
+            if (tipo == 0) {
+                switch (columnIndex) {
+                    case 0:
+                        return view.getNombreMateriaPrima();
+                    case 1:
+                        return String.valueOf(view.getCantidad());
+                    default:
+                        return null;
+                }
+            } else {
+                switch (columnIndex) {
+                    case 0:
+                        return view.getNombrePieza();
+                    case 1:
+                        return String.valueOf(view.getCantidad());
+                    default:
+                        return null;
+                }
             }
+
 
         }
 
