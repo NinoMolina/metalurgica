@@ -18,9 +18,9 @@ import metalsoft.datos.exception.LocalidadException;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
-import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.LocalidadJpaController;
 import metalsoft.datos.jpa.controller.ProveedorJpaController;
+import metalsoft.datos.jpa.controller.ProveedormantenimientomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ProvinciaJpaController;
 import metalsoft.datos.jpa.controller.ResponsableJpaController;
 import metalsoft.datos.jpa.controller.RolJpaController;
@@ -33,7 +33,7 @@ import metalsoft.datos.jpa.entity.Localidad;
 import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
-import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.negocio.access.AccessEmpresaMetalurgica;
 import metalsoft.negocio.access.AccessFunctions;
@@ -55,10 +55,10 @@ public class GestorEmpresaMantenimiento {
     public GestorEmpresaMantenimiento() {
     }
 
-    public Proveedor buscarEmpresaMantenimiento(long id)
+    public Proveedormantenimientomaquina buscarEmpresaMantenimiento(long id)
     {
-        ProveedorJpaController controller=new ProveedorJpaController();
-        Proveedor empresa=controller.findProveedor(id);
+        ProveedormantenimientomaquinaJpaController controller=new ProveedormantenimientomaquinaJpaController();
+        Proveedormantenimientomaquina empresa=controller.findProveedormantenimientomaquina(id);
         return empresa;
     }
     public void buscarCondicionIva(JComboBox combo) {
@@ -159,8 +159,8 @@ public class GestorEmpresaMantenimiento {
         }
     }
 
-    public long guardarEmpresaMantenimiento(Proveedor empresa) {
-        ProveedorJpaController controller = new ProveedorJpaController();
+    public long guardarEmpresaMantenimiento(Proveedormantenimientomaquina empresa) {
+        ProveedormantenimientomaquinaJpaController controller = new ProveedormantenimientomaquinaJpaController();
         DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
         ResponsableJpaController controllerResponsable = new ResponsableJpaController();
         try {
@@ -174,11 +174,11 @@ public class GestorEmpresaMantenimiento {
         } catch (Exception ex) {
             Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return empresa.getIdproveedor();
+        return empresa.getIdproveedormantenimiento();
     }
-    public long modificarEmpresaMantenimiento(Proveedor empresa)
+    public long modificarEmpresaMantenimiento(Proveedormantenimientomaquina empresa)
     {
-        ProveedorJpaController controller = new ProveedorJpaController();
+        ProveedormantenimientomaquinaJpaController controller = new ProveedormantenimientomaquinaJpaController();
         DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
         ResponsableJpaController controllerResponsable = new ResponsableJpaController();
         Domicilio domResp=null;
@@ -192,13 +192,13 @@ public class GestorEmpresaMantenimiento {
             controller.edit(empresa);
 
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        return empresa.getIdproveedor();
+        return empresa.getIdproveedormantenimiento();
     }
 
     public Localidad buscarLocalidadDeBarrio(Barrio barrio) {
