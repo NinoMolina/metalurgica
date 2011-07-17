@@ -20,6 +20,7 @@ import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.LocalidadJpaController;
+import metalsoft.datos.jpa.controller.ProveedorJpaController;
 import metalsoft.datos.jpa.controller.ProvinciaJpaController;
 import metalsoft.datos.jpa.controller.ResponsableJpaController;
 import metalsoft.datos.jpa.controller.RolJpaController;
@@ -32,6 +33,7 @@ import metalsoft.datos.jpa.entity.Localidad;
 import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
+import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.negocio.access.AccessEmpresaMetalurgica;
 import metalsoft.negocio.access.AccessFunctions;
@@ -53,10 +55,10 @@ public class GestorEmpresaMantenimiento {
     public GestorEmpresaMantenimiento() {
     }
 
-    public Empresametalurgica buscarEmpresaMetalurgica(long id)
+    public Proveedor buscarEmpresaMantenimiento(long id)
     {
-        EmpresametalurgicaJpaController controller=new EmpresametalurgicaJpaController();
-        Empresametalurgica empresa=controller.findEmpresametalurgica(id);
+        ProveedorJpaController controller=new ProveedorJpaController();
+        Proveedor empresa=controller.findProveedor(id);
         return empresa;
     }
     public void buscarCondicionIva(JComboBox combo) {
@@ -93,7 +95,7 @@ public class GestorEmpresaMantenimiento {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -112,7 +114,7 @@ public class GestorEmpresaMantenimiento {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -132,7 +134,7 @@ public class GestorEmpresaMantenimiento {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -153,12 +155,12 @@ public class GestorEmpresaMantenimiento {
             combo.setSelectedIndex(0);
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public long guardarEmpresaMetalurgica(Empresametalurgica empresa) {
-        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
+    public long guardarEmpresaMantenimiento(Proveedor empresa) {
+        ProveedorJpaController controller = new ProveedorJpaController();
         DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
         ResponsableJpaController controllerResponsable = new ResponsableJpaController();
         try {
@@ -168,15 +170,15 @@ public class GestorEmpresaMantenimiento {
             controller.create(empresa);
 
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return empresa.getIdempresametalurgica();
+        return empresa.getIdproveedor();
     }
-    public long modificarEmpresaMetalurgica(Empresametalurgica empresa)
+    public long modificarEmpresaMantenimiento(Proveedor empresa)
     {
-        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
+        ProveedorJpaController controller = new ProveedorJpaController();
         DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
         ResponsableJpaController controllerResponsable = new ResponsableJpaController();
         Domicilio domResp=null;
@@ -190,13 +192,13 @@ public class GestorEmpresaMantenimiento {
             controller.edit(empresa);
 
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        return empresa.getIdempresametalurgica();
+        return empresa.getIdproveedor();
     }
 
     public Localidad buscarLocalidadDeBarrio(Barrio barrio) {
@@ -211,16 +213,16 @@ public class GestorEmpresaMantenimiento {
         pg=new PostgreSQLManager();
         try {
             cn = pg.concectGetCn();
-            result=AccessFunctions.nvoNroEmpresaMetalurgica(cn);
+            result=AccessFunctions.nvoNroProveedor(cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
