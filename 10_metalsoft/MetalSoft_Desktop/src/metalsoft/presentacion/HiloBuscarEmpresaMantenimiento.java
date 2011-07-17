@@ -28,7 +28,7 @@ public class HiloBuscarEmpresaMantenimiento extends Thread {
 
     @Override
     public void run() {
-        buscarMatriz();
+        buscarEmpresaMantenimiento();
     }
 
     public ABMEmpresaMantenimiento_Buscar getVentana() {
@@ -47,7 +47,7 @@ public class HiloBuscarEmpresaMantenimiento extends Thread {
         this.valor = valor;
     }
 
-    private void buscarMatriz()
+    private void buscarEmpresaMantenimiento()
     {
         GestorEmpresaMantenimiento gestor=new GestorEmpresaMantenimiento();
         List<Proveedormantenimientomaquina> m = gestor.buscarProveedormantenimientomaquina(valor);
