@@ -11,9 +11,12 @@
 
 package metalsoft.presentacion;
 
+import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.negocio.gestores.GestorEmpresaMantenimiento;
 import metalsoft.util.ItemCombo;
 
@@ -26,10 +29,18 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
     private GestorEmpresaMantenimiento gestor=null;
     private ABMEmpresaMantenimiento ventana=null;
     private Timer timer;
+    private List<Proveedormantenimientomaquina> prov;
 
     /** Creates new form ABMProveedor_Buscar */
     public ABMEmpresaMantenimiento_Buscar() {
         initComponents();
+    }
+    public List<Proveedormantenimientomaquina> getProveedormantenimientomaquina() {
+        return prov;
+    }
+
+    public void setProveedormantenimientomaquina(List<Proveedormantenimientomaquina> m) {
+        this.prov = m;
     }
     public GestorEmpresaMantenimiento getGestor() {
         return gestor;
@@ -47,10 +58,7 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
         this.ventana = ventana;
     }
     /** Creates new form ABMEmpresaMantenimiento_Buscar */
-    public ABMEmpresaMantenimiento_Buscar() {
-        initComponents();
-    }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
