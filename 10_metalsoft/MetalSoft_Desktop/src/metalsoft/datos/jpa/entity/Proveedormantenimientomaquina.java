@@ -36,6 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Proveedormantenimientomaquina.findByIdproveedormantenimiento", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.idproveedormantenimiento = :idproveedormantenimiento"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByNroproveedor", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.nroproveedor = :nroproveedor"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByRazonsocial", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.razonsocial = :razonsocial"),
+    @NamedQuery(name = "Proveedormantenimientomaquina.findLikeRazonsocial", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.razonsocial LIKE :razonsocial"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByTelefono", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.telefono = :telefono"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByCelular", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.celular = :celular"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByMail", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.mail = :mail"),
