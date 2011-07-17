@@ -6,24 +6,22 @@
 package metalsoft.negocio.gestores;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.dbobject.LocalidadDB;
+import metalsoft.datos.jpa.JpaUtil;
 
-import metalsoft.datos.exception.BarrioException;
-import metalsoft.datos.exception.LocalidadException;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
 import metalsoft.datos.jpa.controller.LocalidadJpaController;
-import metalsoft.datos.jpa.controller.ProveedorJpaController;
 import metalsoft.datos.jpa.controller.ProveedormantenimientomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ProvinciaJpaController;
 import metalsoft.datos.jpa.controller.ResponsableJpaController;
-import metalsoft.datos.jpa.controller.RolJpaController;
 import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Provincia;
@@ -32,13 +30,10 @@ import metalsoft.datos.jpa.entity.Tipodocumento;
 import metalsoft.datos.jpa.entity.Localidad;
 import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Domicilio;
-import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.datos.jpa.entity.Responsable;
-import metalsoft.negocio.access.AccessEmpresaMetalurgica;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.Parser;
 /**
  *
  * @author Vicky
@@ -60,6 +55,18 @@ public class GestorEmpresaMantenimiento {
         ProveedormantenimientomaquinaJpaController controller=new ProveedormantenimientomaquinaJpaController();
         Proveedormantenimientomaquina empresa=controller.findProveedormantenimientomaquina(id);
         return empresa;
+    }
+    public List<Proveedormantenimientomaquina> buscarProveedormantenimientomaquina(String valor) {
+        List<Proveedormantenimientomaquina> lstResult=new LinkedList<Proveedormantenimientomaquina>();
+        try {
+            Query query = JpaUtil.getNamedQuery("Proveedormantenimientomaquina.findLikeRazonsocial");
+            query.setParameter("Razonsocial", valor+"%");
+            lstResult = query.getResultList();
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lstResult;
     }
     public void buscarCondicionIva(JComboBox combo) {
         try {
