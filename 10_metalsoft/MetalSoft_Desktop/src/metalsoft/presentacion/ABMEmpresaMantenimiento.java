@@ -11,6 +11,25 @@
 
 package metalsoft.presentacion;
 
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import metalsoft.datos.jpa.entity.Barrio;
+import metalsoft.datos.jpa.entity.Condicioniva;
+import metalsoft.datos.jpa.entity.Domicilio;
+import metalsoft.datos.jpa.entity.Localidad;
+import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Responsable;
+import metalsoft.datos.jpa.entity.Tipodocumento;
+import metalsoft.negocio.gestores.GestorEmpresaMantenimiento;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.util.EnumOpcionesABM;
+import metalsoft.util.Fecha;
+import metalsoft.util.ItemCombo;
+
 /**
  *
  * @author Vicky
@@ -18,18 +37,18 @@ package metalsoft.presentacion;
 public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
 
     /** Creates new form ABMEmpresaMantenimiento */
-    private GestorEmpresaMetalurgica gestor;
+    private GestorEmpresaMantenimiento gestor;
     private Domicilio domicilioEmpresa;
     private Domicilio domicilioResponsable;
     private long idDomicilio;
     private long idResponsable;
     private Responsable responsable;
-    private EmpresaMantenimiento empresa;
+    private Proveedor empresa;
     private EnumOpcionesABM opcion;
     private long idEmpresa;
     public ABMEmpresaMantenimiento() {
         initComponents();
-        gestor = new GestorEmpresaMetalurgica();
+        gestor = new GestorEmpresaMantenimiento();
         cargarComboCondIva();
         cargarComboProvincia(beanDomicilioCliente.getCmbProvincia());
         cargarComboProvincia(beanResponsable.getDomicilioResponsable().getCmbProvincia());
@@ -75,7 +94,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this,"Esta seguro que desea dar de baja la empresa?") == JOptionPane.OK_OPTION) {
             opcion = EnumOpcionesABM.ELIMINAR;
             empresa.setFechabaja(Fecha.fechaActualDate());
-            idEmpresa = gestor.modificarEmpresaMetalurgica(empresa);
+            idEmpresa = gestor.modificarEmpresaMantenimiento(empresa);
             JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se dio de baja correctamente");
             limpiarCampos();
             botones.getBtnGuardar().setEnabled(false);
@@ -86,11 +105,11 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         setEnableComponents(true);
-        empresa = new Empresametalurgica();
+        empresa = new Proveedor();
         limpiarCampos();
         opcion = EnumOpcionesABM.NUEVO;
         long nroCli = gestor.generarNvoNroEmpresa();
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPRESA_METALURGICA, nroCli));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROVEEDOR, nroCli));
         txtFechaAlta.setDate(Fecha.fechaActualDate());
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
@@ -134,18 +153,18 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
-        ABMEmpresaMetalurgica_Buscar buscar = null;
+        ABMEmpresaMantenimiento_Buscar buscar = null;
         try {
-            buscar = (ABMEmpresaMetalurgica_Buscar) JFrameManager.crearVentana(ABMEmpresaMetalurgica_Buscar.class.getName());
+            buscar = (ABMEmpresaMantenimiento_Buscar) JFrameManager.crearVentana(ABMEmpresaMantenimiento_Buscar.class.getName());
             buscar.setVentana(this);
             buscar.setGestor(gestor);
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -173,11 +192,11 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         switch (opcion) {
             case NUEVO:
                 empresa = nuevaEmpresa();
-                idEmpresa = gestor.guardarEmpresaMetalurgica(empresa);
+                idEmpresa = gestor.guardarEmpresaMantenimiento(empresa);
                 break;
             case MODIFICAR:
                 empresa = modificarEmpresa();
-                idEmpresa = gestor.modificarEmpresaMetalurgica(empresa);
+                idEmpresa = gestor.modificarEmpresaMantenimiento(empresa);
                 break;
             default:
                 break;
@@ -185,18 +204,18 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         opcion = EnumOpcionesABM.GUARDAR;
 
         if (idEmpresa > 0) {
-            JOptionPane.showMessageDialog(this, "La Empresa Metalurgica se guardó correctamente");
+            JOptionPane.showMessageDialog(this, "La Empresa de Mantenimiento se guardó correctamente");
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
             setEnableComponents(false);
 
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar la Empresa Metalurgica");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la Empresa  de Mantenimiento");
         }
     }
 
-    public Empresametalurgica modificarEmpresa() {
+    public Proveedor modificarEmpresa() {
 
 
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
@@ -248,7 +267,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         String nroCli = String.valueOf(nro);
         String razonCli = txtRazonSocial.getText();
         String telCli = txtTelefono.getText();
-        empresa.setNroempresametalurgica(BigInteger.valueOf(nro));
+        empresa.setNroproveedor(BigInteger.valueOf(nro));
         empresa.setCelular(celCli);
         empresa.setCuit(cuitCli);
         empresa.setFechaalta(fecAltaCli);
@@ -256,7 +275,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         empresa.setMail(mailCli);
         empresa.setRazonsocial(razonCli);
         empresa.setTelefono(telCli);
-        empresa.setCondicioniva(condIVA);
+        empresa.setCondicion(condIVA);
 
         empresa.setResponsable(responsable);
         empresa.setDomicilio(domicilioEmpresa);
@@ -264,9 +283,9 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         return empresa;
     }
 
-    public Empresametalurgica nuevaEmpresa() {
+    public Proveedor nuevaEmpresa() {
 
-        empresa = new Empresametalurgica();
+        empresa = new Proveedor();
         long idCondIva = Long.parseLong(((ItemCombo) cmbCondicionIVA.getSelectedItem()).getId());
         Condicioniva condIVA = gestor.obtenerCondicionIva(idCondIva);
         long idBarrioCliente = Long.parseLong(((ItemCombo) beanDomicilioCliente.getCmbBarrio().getSelectedItem()).getId());
@@ -313,7 +332,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         long nro = NumerosAMostrar.getNumeroLong(lblNroCliente.getText());
         String razonCli = txtRazonSocial.getText();
         String telCli = txtTelefono.getText();
-        empresa.setNroempresametalurgica(BigInteger.valueOf(nro));
+        empresa.setNroproveedor(BigInteger.valueOf(nro));
         empresa.setCelular(celCli);
         empresa.setCuit(cuitCli);
         empresa.setFechaalta(fecAltaCli);
@@ -321,7 +340,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         empresa.setMail(mailCli);
         empresa.setRazonsocial(razonCli);
         empresa.setTelefono(telCli);
-        empresa.setCondicioniva(condIVA);
+        empresa.setCondicion(condIVA);
 
         empresa.setResponsable(responsable);
         empresa.setDomicilio(domicilioEmpresa);
@@ -567,7 +586,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
     }
 
     public void empresaSeleccionado() {
-        empresa = gestor.buscarEmpresaMetalurgica(idEmpresa);
+        empresa = gestor.buscarEmpresaMantenimiento(idEmpresa);
         mostrarDatosCliente();
         domicilioEmpresa = empresa.getDomicilio();
         responsable = empresa.getResponsable();
@@ -613,11 +632,11 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
             txtFechaBaja.setDate(empresa.getFechabaja());
         }
         txtMail.setText(empresa.getMail());
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPRESA_METALURGICA, Integer.parseInt(String.valueOf(empresa.getNroempresametalurgica()))));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROVEEDOR, Integer.parseInt(String.valueOf(empresa.getNroproveedor()))));
         txtRazonSocial.setText(empresa.getRazonsocial());
         txtTelefono.setText(empresa.getTelefono());
 
-        setItemComboSeleccionado(cmbCondicionIVA, empresa.getCondicioniva().getIdcondicioniva());
+        setItemComboSeleccionado(cmbCondicionIVA, empresa.getCondicion().getIdcondicioniva());
 
         setDatosDomicilio(beanDomicilioCliente, empresa.getDomicilio());
 
