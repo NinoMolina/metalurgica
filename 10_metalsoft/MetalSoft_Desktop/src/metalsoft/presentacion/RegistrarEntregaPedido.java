@@ -25,7 +25,7 @@ import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
-import metalsoft.negocio.gestores.IdsEstadoPedido;
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;

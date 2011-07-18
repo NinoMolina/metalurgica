@@ -12,7 +12,7 @@ import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PedidoPKDB;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PedidoDAO;
-import metalsoft.negocio.gestores.IdsEstadoPedido;
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.ventas.Pedido;
 

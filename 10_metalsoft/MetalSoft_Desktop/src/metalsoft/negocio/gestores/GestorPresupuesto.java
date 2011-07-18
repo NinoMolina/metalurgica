@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
