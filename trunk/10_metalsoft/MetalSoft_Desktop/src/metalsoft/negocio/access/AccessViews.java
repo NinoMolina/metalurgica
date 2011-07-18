@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import metalsoft.negocio.gestores.IdsEstadoPedido;
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;

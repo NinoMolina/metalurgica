@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -141,18 +142,21 @@ public class GestorRegistrarLanzamientoProduccion {
                 detalleejecucionplanificacion.setIdetapaproduccion(BigInteger.valueOf(detalleplanificacionproduccion.getIdetapaproduccion().getIdetapaproduccion()));
                 detalleejecucionplanificacion.setOrden(detalleplanificacionproduccion.getOrden());
                 detalleejecucionplanificacion.setPieza(detalleplanificacionproduccion.getIdpieza());
+                // TODO guardar en la base de datos
+
                 /*
                  * Creacion ejecucion etapa produccion
                  */
-                Ejecucionetapaproduccion ejecucionetapaproduccion=new Ejecucionetapaproduccion();
+
+                Ejecucionetapaproduccion ejecucionetapaproduccion = new Ejecucionetapaproduccion();
                 ejecucionetapaproduccion.setEmpleado(detalleplanificacionproduccion.getIdempleado());
                 ejecucionetapaproduccion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
-                long nroEjecucion=generarNvoNroEjecucionEtapa();
+                long nroEjecucion = generarNvoNroEjecucionEtapa();
                 ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
-                EstadoejecetapaprodJpaController estadoEjecEtapaController=new EstadoejecetapaprodJpaController();
-                Estadoejecetapaprod estadoEjecEtapaProd=estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
+                EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController();
+                Estadoejecetapaprod estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
                 ejecucionetapaproduccion.setEstado(estadoEjecEtapaProd);
-
+                // TODO guardar en la base de datos
             }
 
 
@@ -193,9 +197,9 @@ public class GestorRegistrarLanzamientoProduccion {
     }
 
     private long generarNvoNroEjecucionEtapa() {
-        long result=-1;
+        long result = -1;
         try {
-            result=AccessFunctions.nvoNroEjecucionEtapa(new PostgreSQLManager().concectGetCn());
+            result = AccessFunctions.nvoNroEjecucionEtapa(new PostgreSQLManager().concectGetCn());
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -27,6 +27,7 @@ import javax.persistence.EntityManager;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.gestores.estados.IdsEstadoPlanificacionProduccion;
 import metalsoft.util.Fecha;
 
 /**
@@ -90,43 +91,42 @@ public class GestorRegistrarPlanificacionProduccion {
 //        return daoPedido.findById(idpedido, Pedido.class.getSimpleName());
     }
 
-    public boolean guardarPlanificacionProduccion(Planificacionproduccion planificacionproduccion,Set<Detalleplanificacionproduccion> setDetalle) {
+    public boolean guardarPlanificacionProduccion(Planificacionproduccion planificacionproduccion, List<Detalleplanificacionproduccion> lstDetalle) {
         //SETEO A ESTADO RECURSOS ASIGNADOS
-        planificacionproduccion.setIdestado(new Estadoplanificacionproduccion(1L));
+        planificacionproduccion.setIdestado(new Estadoplanificacionproduccion(IdsEstadoPlanificacionProduccion.REC_ASIG));
         PlanificacionproduccionJpaController ctrlPlanificacion = new PlanificacionproduccionJpaController();
-        DetalleplanificacionproduccionJpaController ctrlDetalle=new DetalleplanificacionproduccionJpaController();
-        PedidoJpaController ctrlPedido=new PedidoJpaController();
-        EntityManager em=ctrlDetalle.getEntityManager();
-        boolean result=false;
-        long nvoNroPlanifProd=-1;
-        PostgreSQLManager pg=new PostgreSQLManager();
+        DetalleplanificacionproduccionJpaController ctrlDetalle = new DetalleplanificacionproduccionJpaController();
+        PedidoJpaController ctrlPedido = new PedidoJpaController();
+        EntityManager em = ctrlDetalle.getEntityManager();
+        boolean result = false;
+        long nvoNroPlanifProd = -1;
+        PostgreSQLManager pg = new PostgreSQLManager();
         try {
             em.getTransaction().begin();
-            Connection cn=pg.concectGetCn();
-            nvoNroPlanifProd=AccessFunctions.nvoNroPlanificacionProduccion(cn);
+            Connection cn = pg.concectGetCn();
+            nvoNroPlanifProd = AccessFunctions.nvoNroPlanificacionProduccion(cn);
             planificacionproduccion.setNroplanificacion(BigInteger.valueOf(nvoNroPlanifProd));
             ctrlPlanificacion.create(planificacionproduccion);
-            for (Detalleplanificacionproduccion detalle : setDetalle){
+            for (Detalleplanificacionproduccion detalle : lstDetalle) {
                 detalle.setIdplanificacionproduccion(planificacionproduccion);
                 ctrlDetalle.create(detalle);
             }
 //            planificacionproduccion.setDetalleplanificacionproduccionSet(setDetalle);
 //            ctrlPlanificacion.edit(planificacionproduccion,em);
-            metalsoft.datos.jpa.entity.Pedido ped=planificacionproduccion.getPedido();
+            metalsoft.datos.jpa.entity.Pedido ped = planificacionproduccion.getPedido();
             ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(5L));
-            ctrlPedido.edit(ped,em);
+            ctrlPedido.edit(ped, em);
             em.getTransaction().commit();
-            result=true;
+            result = true;
         } catch (PreexistingEntityException ex) {
-            result=false;
+            result = false;
             Logger.getLogger(GestorRegistrarPlanificacionProduccion.class.getName()).log(Level.SEVERE, null, ex);
             em.getTransaction().rollback();
         } catch (Exception ex) {
-            result=false;
+            result = false;
             Logger.getLogger(GestorRegistrarPlanificacionProduccion.class.getName()).log(Level.SEVERE, null, ex);
             em.getTransaction().rollback();
-        }
-        finally{
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -134,14 +134,13 @@ public class GestorRegistrarPlanificacionProduccion {
             }
         }
         return result;
-        
+
         //falta insertar una nueva disponibilidad del empleado para las tareas
         //asignadas en la planificacion.
         //Tambien hay que ver las fechas de inicio y fin del detalle de planificacion
 
 
     }
-
 
     public List<metalsoft.datos.jpa.entity.Planificacionproduccion> buscarPlanificacionesProduccion() {
         PlanificacionproduccionJpaController ctrl = new PlanificacionproduccionJpaController();

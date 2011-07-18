@@ -236,7 +236,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         int orden = 1;
         ProductoNode prodNodeAnterior = null;
         PiezaNode piezaNodeAnterior = null;
-        Set<Detalleplanificacionproduccion> detalle = new HashSet<Detalleplanificacionproduccion>();
+        List<Detalleplanificacionproduccion> detalle = new ArrayList<Detalleplanificacionproduccion>();
         Planificacionproduccion plan = new Planificacionproduccion();
         Date menor = null, mayor = null;
         /*

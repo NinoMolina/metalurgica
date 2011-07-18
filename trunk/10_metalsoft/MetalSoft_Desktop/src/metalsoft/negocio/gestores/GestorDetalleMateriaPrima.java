@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
