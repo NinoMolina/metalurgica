@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
+import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
@@ -132,6 +134,8 @@ public class GestorRegistrarLanzamientoProduccion {
             lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
             lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
 
+            DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController();
+            EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController();
             Detalleejecucionplanificacion detalleejecucionplanificacion = null;
             for (Detalleplanificacionproduccion detalleplanificacionproduccion : lstDetallePlanificacion) {
                 /*
@@ -139,24 +143,37 @@ public class GestorRegistrarLanzamientoProduccion {
                  */
                 detalleejecucionplanificacion = new Detalleejecucionplanificacion();
                 detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(ejecucion);
-                detalleejecucionplanificacion.setIdetapaproduccion(BigInteger.valueOf(detalleplanificacionproduccion.getIdetapaproduccion().getIdetapaproduccion()));
+                detalleejecucionplanificacion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 detalleejecucionplanificacion.setOrden(detalleplanificacionproduccion.getOrden());
                 detalleejecucionplanificacion.setPieza(detalleplanificacionproduccion.getIdpieza());
-                // TODO guardar en la base de datos
-
+                // TODO asignar una pieza real. Las piezas reales ya estan creadas en la base de datos
+                // hay que asignar una pieza real segun el tipo de pieza a realizar en la etapa.
                 /*
                  * Creacion ejecucion etapa produccion
                  */
-
                 Ejecucionetapaproduccion ejecucionetapaproduccion = new Ejecucionetapaproduccion();
                 ejecucionetapaproduccion.setEmpleado(detalleplanificacionproduccion.getIdempleado());
                 ejecucionetapaproduccion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 long nroEjecucion = generarNvoNroEjecucionEtapa();
                 ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
                 EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController();
-                Estadoejecetapaprod estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
+
+                Estadoejecetapaprod estadoEjecEtapaProd = null;
+                if (detalleplanificacionproduccion.getOrden() == 1) {
+                    detalleejecucionplanificacion.setFechainicio(Fecha.fechaActualDate());
+                    detalleejecucionplanificacion.setHorainicio(Fecha.fechaActualDate());
+                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
+                } else {
+                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
+                }
                 ejecucionetapaproduccion.setEstado(estadoEjecEtapaProd);
-                // TODO guardar en la base de datos
+
+                /*
+                 * guardar en la base de datos
+                 */
+                eepController.create(ejecucionetapaproduccion);
+                detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
+                depController.create(detalleejecucionplanificacion);
             }
 
 

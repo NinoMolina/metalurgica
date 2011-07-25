@@ -13,10 +13,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pieza;
 import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
@@ -38,7 +38,7 @@ public class DetalleejecucionplanificacionJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Detalleejecucionplanificacion detalleejecucionplanificacion) throws PreexistingEntityException, Exception {
+    public void create(Detalleejecucionplanificacion detalleejecucionplanificacion) {
         if (detalleejecucionplanificacion.getDetalleplanificacionproduccionList() == null) {
             detalleejecucionplanificacion.setDetalleplanificacionproduccionList(new ArrayList<Detalleplanificacionproduccion>());
         }
@@ -55,6 +55,11 @@ public class DetalleejecucionplanificacionJpaController {
             if (idejecucionplanificacionproduccion != null) {
                 idejecucionplanificacionproduccion = em.getReference(idejecucionplanificacionproduccion.getClass(), idejecucionplanificacionproduccion.getIdejecucion());
                 detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(idejecucionplanificacionproduccion);
+            }
+            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
+                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccion);
             }
             Pieza pieza = detalleejecucionplanificacion.getPieza();
             if (pieza != null) {
@@ -81,6 +86,10 @@ public class DetalleejecucionplanificacionJpaController {
                 idejecucionplanificacionproduccion.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccion = em.merge(idejecucionplanificacionproduccion);
             }
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                idetapaproduccion = em.merge(idetapaproduccion);
+            }
             if (pieza != null) {
                 pieza.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
                 pieza = em.merge(pieza);
@@ -99,11 +108,6 @@ public class DetalleejecucionplanificacionJpaController {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDetalleejecucionplanificacion(detalleejecucionplanificacion.getId()) != null) {
-                throw new PreexistingEntityException("Detalleejecucionplanificacion " + detalleejecucionplanificacion + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -121,6 +125,8 @@ public class DetalleejecucionplanificacionJpaController {
             Ejecucionetapaproduccion ejecucionetapaNew = detalleejecucionplanificacion.getEjecucionetapa();
             Ejecucionplanificacionproduccion idejecucionplanificacionproduccionOld = persistentDetalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
             Ejecucionplanificacionproduccion idejecucionplanificacionproduccionNew = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
+            Etapadeproduccion idetapaproduccionOld = persistentDetalleejecucionplanificacion.getIdetapaproduccion();
+            Etapadeproduccion idetapaproduccionNew = detalleejecucionplanificacion.getIdetapaproduccion();
             Pieza piezaOld = persistentDetalleejecucionplanificacion.getPieza();
             Pieza piezaNew = detalleejecucionplanificacion.getPieza();
             Piezareal piezarealOld = persistentDetalleejecucionplanificacion.getPiezareal();
@@ -134,6 +140,10 @@ public class DetalleejecucionplanificacionJpaController {
             if (idejecucionplanificacionproduccionNew != null) {
                 idejecucionplanificacionproduccionNew = em.getReference(idejecucionplanificacionproduccionNew.getClass(), idejecucionplanificacionproduccionNew.getIdejecucion());
                 detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(idejecucionplanificacionproduccionNew);
+            }
+            if (idetapaproduccionNew != null) {
+                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
+                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccionNew);
             }
             if (piezaNew != null) {
                 piezaNew = em.getReference(piezaNew.getClass(), piezaNew.getIdpieza());
@@ -166,6 +176,14 @@ public class DetalleejecucionplanificacionJpaController {
             if (idejecucionplanificacionproduccionNew != null && !idejecucionplanificacionproduccionNew.equals(idejecucionplanificacionproduccionOld)) {
                 idejecucionplanificacionproduccionNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccionNew = em.merge(idejecucionplanificacionproduccionNew);
+            }
+            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
+                idetapaproduccionOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                idetapaproduccionOld = em.merge(idetapaproduccionOld);
+            }
+            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
+                idetapaproduccionNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                idetapaproduccionNew = em.merge(idetapaproduccionNew);
             }
             if (piezaOld != null && !piezaOld.equals(piezaNew)) {
                 piezaOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
@@ -238,6 +256,11 @@ public class DetalleejecucionplanificacionJpaController {
             if (idejecucionplanificacionproduccion != null) {
                 idejecucionplanificacionproduccion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccion = em.merge(idejecucionplanificacionproduccion);
+            }
+            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                idetapaproduccion = em.merge(idetapaproduccion);
             }
             Pieza pieza = detalleejecucionplanificacion.getPieza();
             if (pieza != null) {

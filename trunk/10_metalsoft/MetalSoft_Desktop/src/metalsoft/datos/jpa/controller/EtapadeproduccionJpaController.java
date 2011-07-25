@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Unidadmedida;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Piezaxetapadeproduccion;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
 import metalsoft.datos.jpa.entity.Detalleplanprocedimientos;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
@@ -42,7 +42,7 @@ public class EtapadeproduccionJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Etapadeproduccion etapadeproduccion) throws PreexistingEntityException, Exception {
+    public void create(Etapadeproduccion etapadeproduccion) {
         if (etapadeproduccion.getDetalleplanificacionproduccionList() == null) {
             etapadeproduccion.setDetalleplanificacionproduccionList(new ArrayList<Detalleplanificacionproduccion>());
         }
@@ -51,6 +51,9 @@ public class EtapadeproduccionJpaController {
         }
         if (etapadeproduccion.getPiezaxetapadeproduccionList() == null) {
             etapadeproduccion.setPiezaxetapadeproduccionList(new ArrayList<Piezaxetapadeproduccion>());
+        }
+        if (etapadeproduccion.getDetalleejecucionplanificacionList() == null) {
+            etapadeproduccion.setDetalleejecucionplanificacionList(new ArrayList<Detalleejecucionplanificacion>());
         }
         if (etapadeproduccion.getDetallepiezapresupuestoList() == null) {
             etapadeproduccion.setDetallepiezapresupuestoList(new ArrayList<Detallepiezapresupuesto>());
@@ -93,6 +96,12 @@ public class EtapadeproduccionJpaController {
                 attachedPiezaxetapadeproduccionList.add(piezaxetapadeproduccionListPiezaxetapadeproduccionToAttach);
             }
             etapadeproduccion.setPiezaxetapadeproduccionList(attachedPiezaxetapadeproduccionList);
+            List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionList = new ArrayList<Detalleejecucionplanificacion>();
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach : etapadeproduccion.getDetalleejecucionplanificacionList()) {
+                detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach = em.getReference(detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach.getClass(), detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach.getId());
+                attachedDetalleejecucionplanificacionList.add(detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach);
+            }
+            etapadeproduccion.setDetalleejecucionplanificacionList(attachedDetalleejecucionplanificacionList);
             List<Detallepiezapresupuesto> attachedDetallepiezapresupuestoList = new ArrayList<Detallepiezapresupuesto>();
             for (Detallepiezapresupuesto detallepiezapresupuestoListDetallepiezapresupuestoToAttach : etapadeproduccion.getDetallepiezapresupuestoList()) {
                 detallepiezapresupuestoListDetallepiezapresupuestoToAttach = em.getReference(detallepiezapresupuestoListDetallepiezapresupuestoToAttach.getClass(), detallepiezapresupuestoListDetallepiezapresupuestoToAttach.getIddetalle());
@@ -147,6 +156,15 @@ public class EtapadeproduccionJpaController {
                     oldEtapadeproduccionOfPiezaxetapadeproduccionListPiezaxetapadeproduccion = em.merge(oldEtapadeproduccionOfPiezaxetapadeproduccionListPiezaxetapadeproduccion);
                 }
             }
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacion : etapadeproduccion.getDetalleejecucionplanificacionList()) {
+                Etapadeproduccion oldIdetapaproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion = detalleejecucionplanificacionListDetalleejecucionplanificacion.getIdetapaproduccion();
+                detalleejecucionplanificacionListDetalleejecucionplanificacion.setIdetapaproduccion(etapadeproduccion);
+                detalleejecucionplanificacionListDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionListDetalleejecucionplanificacion);
+                if (oldIdetapaproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion != null) {
+                    oldIdetapaproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacionListDetalleejecucionplanificacion);
+                    oldIdetapaproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion = em.merge(oldIdetapaproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion);
+                }
+            }
             for (Detallepiezapresupuesto detallepiezapresupuestoListDetallepiezapresupuesto : etapadeproduccion.getDetallepiezapresupuestoList()) {
                 Etapadeproduccion oldIdetapaOfDetallepiezapresupuestoListDetallepiezapresupuesto = detallepiezapresupuestoListDetallepiezapresupuesto.getIdetapa();
                 detallepiezapresupuestoListDetallepiezapresupuesto.setIdetapa(etapadeproduccion);
@@ -175,11 +193,6 @@ public class EtapadeproduccionJpaController {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findEtapadeproduccion(etapadeproduccion.getIdetapaproduccion()) != null) {
-                throw new PreexistingEntityException("Etapadeproduccion " + etapadeproduccion + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -203,6 +216,8 @@ public class EtapadeproduccionJpaController {
             List<Ejecucionetapaproduccion> ejecucionetapaproduccionListNew = etapadeproduccion.getEjecucionetapaproduccionList();
             List<Piezaxetapadeproduccion> piezaxetapadeproduccionListOld = persistentEtapadeproduccion.getPiezaxetapadeproduccionList();
             List<Piezaxetapadeproduccion> piezaxetapadeproduccionListNew = etapadeproduccion.getPiezaxetapadeproduccionList();
+            List<Detalleejecucionplanificacion> detalleejecucionplanificacionListOld = persistentEtapadeproduccion.getDetalleejecucionplanificacionList();
+            List<Detalleejecucionplanificacion> detalleejecucionplanificacionListNew = etapadeproduccion.getDetalleejecucionplanificacionList();
             List<Detallepiezapresupuesto> detallepiezapresupuestoListOld = persistentEtapadeproduccion.getDetallepiezapresupuestoList();
             List<Detallepiezapresupuesto> detallepiezapresupuestoListNew = etapadeproduccion.getDetallepiezapresupuestoList();
             List<Detalleplanprocedimientos> detalleplanprocedimientosListOld = persistentEtapadeproduccion.getDetalleplanprocedimientosList();
@@ -258,6 +273,13 @@ public class EtapadeproduccionJpaController {
             }
             piezaxetapadeproduccionListNew = attachedPiezaxetapadeproduccionListNew;
             etapadeproduccion.setPiezaxetapadeproduccionList(piezaxetapadeproduccionListNew);
+            List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionListNew = new ArrayList<Detalleejecucionplanificacion>();
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionListNew) {
+                detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach = em.getReference(detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach.getClass(), detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach.getId());
+                attachedDetalleejecucionplanificacionListNew.add(detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach);
+            }
+            detalleejecucionplanificacionListNew = attachedDetalleejecucionplanificacionListNew;
+            etapadeproduccion.setDetalleejecucionplanificacionList(detalleejecucionplanificacionListNew);
             List<Detallepiezapresupuesto> attachedDetallepiezapresupuestoListNew = new ArrayList<Detallepiezapresupuesto>();
             for (Detallepiezapresupuesto detallepiezapresupuestoListNewDetallepiezapresupuestoToAttach : detallepiezapresupuestoListNew) {
                 detallepiezapresupuestoListNewDetallepiezapresupuestoToAttach = em.getReference(detallepiezapresupuestoListNewDetallepiezapresupuestoToAttach.getClass(), detallepiezapresupuestoListNewDetallepiezapresupuestoToAttach.getIddetalle());
@@ -332,6 +354,23 @@ public class EtapadeproduccionJpaController {
                     if (oldEtapadeproduccionOfPiezaxetapadeproduccionListNewPiezaxetapadeproduccion != null && !oldEtapadeproduccionOfPiezaxetapadeproduccionListNewPiezaxetapadeproduccion.equals(etapadeproduccion)) {
                         oldEtapadeproduccionOfPiezaxetapadeproduccionListNewPiezaxetapadeproduccion.getPiezaxetapadeproduccionList().remove(piezaxetapadeproduccionListNewPiezaxetapadeproduccion);
                         oldEtapadeproduccionOfPiezaxetapadeproduccionListNewPiezaxetapadeproduccion = em.merge(oldEtapadeproduccionOfPiezaxetapadeproduccionListNewPiezaxetapadeproduccion);
+                    }
+                }
+            }
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListOldDetalleejecucionplanificacion : detalleejecucionplanificacionListOld) {
+                if (!detalleejecucionplanificacionListNew.contains(detalleejecucionplanificacionListOldDetalleejecucionplanificacion)) {
+                    detalleejecucionplanificacionListOldDetalleejecucionplanificacion.setIdetapaproduccion(null);
+                    detalleejecucionplanificacionListOldDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionListOldDetalleejecucionplanificacion);
+                }
+            }
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacion : detalleejecucionplanificacionListNew) {
+                if (!detalleejecucionplanificacionListOld.contains(detalleejecucionplanificacionListNewDetalleejecucionplanificacion)) {
+                    Etapadeproduccion oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion = detalleejecucionplanificacionListNewDetalleejecucionplanificacion.getIdetapaproduccion();
+                    detalleejecucionplanificacionListNewDetalleejecucionplanificacion.setIdetapaproduccion(etapadeproduccion);
+                    detalleejecucionplanificacionListNewDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionListNewDetalleejecucionplanificacion);
+                    if (oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion != null && !oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion.equals(etapadeproduccion)) {
+                        oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacionListNewDetalleejecucionplanificacion);
+                        oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion = em.merge(oldIdetapaproduccionOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion);
                     }
                 }
             }
@@ -447,6 +486,11 @@ public class EtapadeproduccionJpaController {
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : detalleplanificacionproduccionList) {
                 detalleplanificacionproduccionListDetalleplanificacionproduccion.setIdetapaproduccion(null);
                 detalleplanificacionproduccionListDetalleplanificacionproduccion = em.merge(detalleplanificacionproduccionListDetalleplanificacionproduccion);
+            }
+            List<Detalleejecucionplanificacion> detalleejecucionplanificacionList = etapadeproduccion.getDetalleejecucionplanificacionList();
+            for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacion : detalleejecucionplanificacionList) {
+                detalleejecucionplanificacionListDetalleejecucionplanificacion.setIdetapaproduccion(null);
+                detalleejecucionplanificacionListDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionListDetalleejecucionplanificacion);
             }
             List<Detallepiezapresupuesto> detallepiezapresupuestoList = etapadeproduccion.getDetallepiezapresupuestoList();
             for (Detallepiezapresupuesto detallepiezapresupuestoListDetallepiezapresupuesto : detallepiezapresupuestoList) {
