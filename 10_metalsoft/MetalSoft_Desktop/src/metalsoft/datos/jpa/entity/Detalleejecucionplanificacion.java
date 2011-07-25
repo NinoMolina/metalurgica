@@ -6,18 +6,20 @@
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +33,6 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Detalleejecucionplanificacion.findAll", query = "SELECT d FROM Detalleejecucionplanificacion d"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findById", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.id = :id"),
-    @NamedQuery(name = "Detalleejecucionplanificacion.findByIdetapaproduccion", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.idetapaproduccion = :idetapaproduccion"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByFechainicio", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.fechainicio = :fechainicio"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByFechafin", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.fechafin = :fechafin"),
     @NamedQuery(name = "Detalleejecucionplanificacion.findByHorainicio", query = "SELECT d FROM Detalleejecucionplanificacion d WHERE d.horainicio = :horainicio"),
@@ -41,10 +42,10 @@ public class Detalleejecucionplanificacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleejecucionplanificacion_seq")
+    @SequenceGenerator(name = "detalleejecucionplanificacion_seq", sequenceName = "detalleejecucionplanificacion_iddetalle_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
-    @Column(name = "idetapaproduccion")
-    private BigInteger idetapaproduccion;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.DATE)
     private Date fechainicio;
@@ -61,13 +62,15 @@ public class Detalleejecucionplanificacion implements Serializable {
     private Integer orden;
     @OneToMany(mappedBy = "iddetalleejecucionplanificacion")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-    
     @JoinColumn(name = "ejecucionetapa", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Ejecucionetapaproduccion ejecucionetapa;
     @JoinColumn(name = "idejecucionplanificacionproduccion", referencedColumnName = "idejecucion")
     @ManyToOne(optional = false)
     private Ejecucionplanificacionproduccion idejecucionplanificacionproduccion;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion idetapaproduccion;
     @JoinColumn(name = "pieza", referencedColumnName = "idpieza")
     @ManyToOne
     private Pieza pieza;
@@ -88,14 +91,6 @@ public class Detalleejecucionplanificacion implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public BigInteger getIdetapaproduccion() {
-        return idetapaproduccion;
-    }
-
-    public void setIdetapaproduccion(BigInteger idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
     }
 
     public Date getFechainicio() {
@@ -146,8 +141,6 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-
-
     public Ejecucionetapaproduccion getEjecucionetapa() {
         return ejecucionetapa;
     }
@@ -162,6 +155,14 @@ public class Detalleejecucionplanificacion implements Serializable {
 
     public void setIdejecucionplanificacionproduccion(Ejecucionplanificacionproduccion idejecucionplanificacionproduccion) {
         this.idejecucionplanificacionproduccion = idejecucionplanificacionproduccion;
+    }
+
+    public Etapadeproduccion getIdetapaproduccion() {
+        return idetapaproduccion;
+    }
+
+    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
+        this.idetapaproduccion = idetapaproduccion;
     }
 
     public Pieza getPieza() {

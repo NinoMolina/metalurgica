@@ -13,12 +13,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +45,8 @@ public class Etapadeproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etapadeproduccion_seq")
+    @SequenceGenerator(name = "etapadeproduccio_seq", sequenceName = "etapadeproduccion_idetapaproduccion_seq", allocationSize = 1)
     @Column(name = "idetapaproduccion")
     private Long idetapaproduccion;
     @Column(name = "nroetapaproduccion")
@@ -62,29 +67,24 @@ public class Etapadeproduccion implements Serializable {
     private Date fechacreacion;
     @OneToMany(mappedBy = "idetapaproduccion")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idetapaproduccion")
     private List<Ejecucionetapaproduccion> ejecucionetapaproduccionList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "etapadeproduccion")
     private List<Piezaxetapadeproduccion> piezaxetapadeproduccionList;
-
+    @OneToMany(mappedBy = "idetapaproduccion")
+    private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
     @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
     @ManyToOne
     private Maquina maquina;
     @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidaddemedida;
-
     @OneToMany(mappedBy = "idetapa")
     private List<Detallepiezapresupuesto> detallepiezapresupuestoList;
-
     @OneToMany(mappedBy = "idetapaproduccion")
     private List<Detalleplanprocedimientos> detalleplanprocedimientosList;
-
     @OneToMany(mappedBy = "proceso")
     private List<Detalletrabajotercerizado> detalletrabajotercerizadoList;
-
 
     public Etapadeproduccion() {
     }
@@ -165,13 +165,20 @@ public class Etapadeproduccion implements Serializable {
         this.ejecucionetapaproduccionList = ejecucionetapaproduccionList;
     }
 
-
     public List<Piezaxetapadeproduccion> getPiezaxetapadeproduccionList() {
         return piezaxetapadeproduccionList;
     }
 
     public void setPiezaxetapadeproduccionList(List<Piezaxetapadeproduccion> piezaxetapadeproduccionList) {
         this.piezaxetapadeproduccionList = piezaxetapadeproduccionList;
+    }
+
+    public List<Detalleejecucionplanificacion> getDetalleejecucionplanificacionList() {
+        return detalleejecucionplanificacionList;
+    }
+
+    public void setDetalleejecucionplanificacionList(List<Detalleejecucionplanificacion> detalleejecucionplanificacionList) {
+        this.detalleejecucionplanificacionList = detalleejecucionplanificacionList;
     }
 
     public Maquina getMaquina() {
@@ -198,7 +205,6 @@ public class Etapadeproduccion implements Serializable {
         this.detallepiezapresupuestoList = detallepiezapresupuestoList;
     }
 
-
     public List<Detalleplanprocedimientos> getDetalleplanprocedimientosList() {
         return detalleplanprocedimientosList;
     }
@@ -207,7 +213,6 @@ public class Etapadeproduccion implements Serializable {
         this.detalleplanprocedimientosList = detalleplanprocedimientosList;
     }
 
-
     public List<Detalletrabajotercerizado> getDetalletrabajotercerizadoList() {
         return detalletrabajotercerizadoList;
     }
@@ -215,8 +220,6 @@ public class Etapadeproduccion implements Serializable {
     public void setDetalletrabajotercerizadoList(List<Detalletrabajotercerizado> detalletrabajotercerizadoList) {
         this.detalletrabajotercerizadoList = detalletrabajotercerizadoList;
     }
-
-
 
     @Override
     public int hashCode() {

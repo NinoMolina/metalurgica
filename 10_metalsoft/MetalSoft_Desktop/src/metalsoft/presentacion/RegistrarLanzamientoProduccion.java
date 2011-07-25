@@ -16,6 +16,9 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.GestorRegistrarLanzamientoProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -58,7 +61,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblFechaInicioPrevista.setText("...");
         lblNroPedido.setText("...");
         lblNroPlanifProduccion.setText("...");
-        jdcFechaInicioReal.setDate(null);
+        txtFechaInicioReal.setText("...");
         jdcFehaFiltro.setDate(null);
     }
 
@@ -141,9 +144,9 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblFechaFinPrevista = new javax.swing.JLabel();
         btnVerObservaciones = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jdcFechaInicioReal = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         lblFechaFinRecalculada = new javax.swing.JLabel();
+        txtFechaInicioReal = new javax.swing.JLabel();
         btnLanzarProduccion = new javax.swing.JButton();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
 
@@ -219,14 +222,14 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
 
         jLabel6.setText("Fecha Inicio Real:");
 
-        jdcFechaInicioReal.setEnabled(false);
-        jdcFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12));
-
         jLabel7.setText("Fecha Fin Recalculada:");
 
         lblFechaFinRecalculada.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaFinRecalculada.setForeground(new java.awt.Color(102, 0, 0));
         lblFechaFinRecalculada.setText("...");
+
+        txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtFechaInicioReal.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -253,8 +256,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                                 .addComponent(lblNroPlanifProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jdcFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                                .addGap(3, 3, 3)
+                                .addComponent(txtFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -280,7 +283,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(jLabel5)
                         .addComponent(lblFechaFinPrevista)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -288,9 +291,9 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(lblFechaFinRecalculada))
-                    .addComponent(jdcFechaInicioReal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFechaFinRecalculada)
+                        .addComponent(txtFechaInicioReal)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnVerObservaciones))
         );
 
@@ -344,14 +347,22 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
         try {
             metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa = new Ejecucionplanificacionproduccion();
-            jpa.setFechainicio(fechaActual);
-            jpa.setHorainicio(new Date());
+            jpa.setFechainicio(Fecha.fechaActualDate());
+            jpa.setHorainicio(Fecha.fechaActualDate());
             long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
             jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
+            /*
+             * ######### CREAR EJECUCION DE PLANIFICACION ##########
+             */
             long result = gestor.guardarEjecucionPlanificacion(jpa, viewPedidoSeleccionado.getIdplanificacionproduccion());
+            /*
+             * ######### ACTUALIZAR ESTADO DEL PEDIDO ##########
+             */
             long resultPedido = gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
+
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+                filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
                 setearEnabledComponents(false);
                 limpiarCampos();
             } else {
@@ -368,9 +379,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblFechaInicioPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechainicioprevista()));
         lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         lblNroPlanifProduccion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, viewPedidoSeleccionado.getNroplanificacionproduccion()));
-        fechaActual = Fecha.fechaActualCalendar().getTime();
-        jdcFechaInicioReal.setDate(fechaActual);
-        fechaFinRecalculada = gestor.calcularFechaFin(fechaActual, viewPedidoSeleccionado.getFechainicioprevista(), viewPedidoSeleccionado.getFechafinprevista());
+        txtFechaInicioReal.setText(Fecha.fechaActual());
+        fechaFinRecalculada = gestor.calcularFechaFin(Fecha.fechaActualDate(), viewPedidoSeleccionado.getFechainicioprevista(), viewPedidoSeleccionado.getFechafinprevista());
         lblFechaFinRecalculada.setText(Fecha.parseToString(fechaFinRecalculada));
     }
 
@@ -400,7 +410,6 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcFechaInicioReal;
     private com.toedter.calendar.JDateChooser jdcFehaFiltro;
     private javax.swing.JLabel lblFechaFinPrevista;
     private javax.swing.JLabel lblFechaFinRecalculada;
@@ -408,6 +417,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNroPedido;
     private javax.swing.JLabel lblNroPlanifProduccion;
     private org.jdesktop.swingx.JXTable tblPedidos;
+    private javax.swing.JLabel txtFechaInicioReal;
     // End of variables declaration//GEN-END:variables
 
     class PedidoNoLanzadoTableModel extends AbstractTableModel {
