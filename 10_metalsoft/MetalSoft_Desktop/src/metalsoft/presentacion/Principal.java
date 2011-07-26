@@ -127,6 +127,7 @@ public class Principal extends javax.swing.JFrame {
         mniRegistrarMaquina = new javax.swing.JMenuItem();
         mniRotura = new javax.swing.JMenuItem();
         mniServicio = new javax.swing.JMenuItem();
+        mniEmpresaMantenimiento = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -557,6 +558,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniServicio);
 
+        mniEmpresaMantenimiento.setText("Empresa de Mantenimiento");
+        mniEmpresaMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEmpresaMantenimientoActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniEmpresaMantenimiento);
+
         mbrMenu.add(mnuMantenimiento);
 
         mnuAyuda.setText("Ayuda");
@@ -926,6 +935,19 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
     }//GEN-LAST:event_mniServicioActionPerformed
+
+    private void mniEmpresaMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMantenimientoActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFrameManager.crearVentana(ABMEmpresaMantenimiento.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniEmpresaMantenimientoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -957,6 +979,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCerrarSesion;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
+    private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
