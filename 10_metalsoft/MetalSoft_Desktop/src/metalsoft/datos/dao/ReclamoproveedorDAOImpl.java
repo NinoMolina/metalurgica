@@ -446,4 +446,20 @@ public class ReclamoproveedorDAOImpl implements ReclamoproveedorDAO
 		resultList.toArray( ret );
 		return ret;
 	}
+
+    public String getUltimoIDReclamo(Connection con) throws Exception {
+        PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String SQL_STATEMENT ="Select max (idreclamo) from reclamoproveedor";
+            try {
+                    stmt = con.prepareStatement(SQL_STATEMENT);
+                    rs = stmt.executeQuery();
+                    rs.next();
+                    Object id = rs.getInt("max");
+                    return id.toString();
+            }
+            catch(Exception e){
+                throw new Exception();
+            }
+    }
 }

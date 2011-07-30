@@ -9,11 +9,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dao.DetallereclamoempresametalurgicaDAOImpl;
+import metalsoft.datos.dao.DetallereclamoproveedorDAOImpl;
+import metalsoft.datos.dao.ReclamoempresametalurgicaDAOImpl;
 import metalsoft.datos.dao.ReclamoproveedorDAOImpl;
 import metalsoft.datos.dao.TiporeclamoDAOImpl;
+import metalsoft.datos.dbobject.DetallereclamoempresametalurgicaDB;
+import metalsoft.datos.dbobject.DetallereclamoproveedorDB;
+import metalsoft.datos.dbobject.EstadodetallecompraDB;
+import metalsoft.datos.dbobject.ReclamoempresametalurgicaDB;
 import metalsoft.datos.dbobject.ReclamoproveedorDB;
 import metalsoft.datos.dbobject.TiporeclamoDB;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
@@ -33,12 +42,14 @@ public class GestorReclamo implements IBuscador {
 
     private List<MateriaPrima> materiaprima;
     private Proveedor prov;
+    private Empresametalurgica emp;
     private String motivo;
     private LinkedList<ViewDetalleReclamo> filasDetalle;
     private String numeroReclamo;
 
     public GestorReclamo() {
     }
+
     public String getnumero() {
         return numeroReclamo;
     }
@@ -69,6 +80,10 @@ public class GestorReclamo implements IBuscador {
 
     public void setProv(Proveedor prov) {
         this.prov = prov;
+    }
+
+    public void setEmpMet(Empresametalurgica empMet) {
+        this.emp = empMet;
     }
     private List<Proveedor> proveedores;
 
@@ -133,9 +148,9 @@ public class GestorReclamo implements IBuscador {
     }
 
     private Empresametalurgica searchEmpresaById(long id) {
-        for (Empresametalurgica emp : empresa) {
-            if (emp.getIdempresametalurgica() == id) {
-                return emp;
+        for (Empresametalurgica empMet : empresa) {
+            if (empMet.getIdempresametalurgica() == id) {
+                return empMet;
             }
         }
         return null;
@@ -147,10 +162,10 @@ public class GestorReclamo implements IBuscador {
         empresa = controller.findEmpresametalurgicaEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
-        for (Empresametalurgica emp : empresa) {
+        for (Empresametalurgica empMet : empresa) {
             item = new ItemCombo();
-            item.setId(String.valueOf(emp.getIdempresametalurgica()));
-            item.setMostrar(emp.getRazonsocial());
+            item.setId(String.valueOf(empMet.getIdempresametalurgica()));
+            item.setMostrar(empMet.getRazonsocial());
             combo.addItem(item);
         }
         combo.setSelectedIndex(0);
@@ -188,59 +203,104 @@ public class GestorReclamo implements IBuscador {
     public boolean registrarReclamo(Integer tipo) {
         //Registrar reclamo a Proveedor
         if (tipo == 0) {
-             try {
-            ReclamoproveedorDB reclamo = new ReclamoproveedorDB();
-            reclamo.setNroreclamo(Integer.parseInt((this.getnumero())));
-            TiporeclamoDAOImpl daoTipoReclamo = new TiporeclamoDAOImpl();
-            PostgreSQLManager pg = new PostgreSQLManager();
-            Connection con = null;
-            con = pg.concectGetCn();
-            con.setAutoCommit(false);
-            TiporeclamoDB tipoRec = daoTipoReclamo.findByPrimaryKey(1, con);
-            reclamo.setTiporeclamo(tipoRec.getIdtiporeclamo());
+            try {
+                ReclamoproveedorDB reclamo = new ReclamoproveedorDB();
+                reclamo.setNroreclamo(Integer.parseInt((this.getnumero())));
+                TiporeclamoDAOImpl daoTipoReclamo = new TiporeclamoDAOImpl();
+                PostgreSQLManager pg = new PostgreSQLManager();
+                Connection con = null;
+                con = pg.concectGetCn();
+                con.setAutoCommit(false);
+                TiporeclamoDB tipoRec = daoTipoReclamo.findByPrimaryKey(1, con);
+                reclamo.setTiporeclamo(tipoRec.getIdtiporeclamo());
 
-            metalsoft.negocio.compras.Proveedor proveedor = new metalsoft.negocio.compras.Proveedor();
-            proveedor.setNroProveedor(Integer.parseInt(prov.getIdproveedor().toString()));
-            reclamo.setEntidad(proveedor.getNroProveedor());
+                metalsoft.negocio.compras.Proveedor proveedor = new metalsoft.negocio.compras.Proveedor();
+                proveedor.setNroProveedor(Integer.parseInt(prov.getIdproveedor().toString()));
+                reclamo.setEntidad(proveedor.getNroProveedor());
 
-            reclamo.setMotivo(motivo);
+                reclamo.setMotivo(motivo);
 
-            ReclamoproveedorDAOImpl daoReclamo = new ReclamoproveedorDAOImpl();
-            int result = daoReclamo.insert(reclamo, con);
-            if (result < 0) {
-                return false;
-            } else {
+                ReclamoproveedorDAOImpl daoReclamo = new ReclamoproveedorDAOImpl();
+                int result = daoReclamo.insert(reclamo, con);
+                if (result < 0) {
+                    return false;
+                } else {
+                    con.commit();
+                }
+
+                //Registrar los detalles del reclamo
+                String idReclamo = daoReclamo.getUltimoIDReclamo(con);
+
+                DetallereclamoproveedorDAOImpl daoDetalleReclamoProv = new DetallereclamoproveedorDAOImpl();
+                Iterator<ViewDetalleReclamo> iter = filasDetalle.iterator();
+                ViewDetalleReclamo datos = null;
+                while (iter.hasNext()) {
+                    datos = iter.next();
+                    DetallereclamoproveedorDB detalleReclamoProv = new DetallereclamoproveedorDB();
+                    detalleReclamoProv.setCantidad(datos.getCantidad());
+                    detalleReclamoProv.setDescripcion("descripcion");
+                    // continuar completando con los datos correctos de la BD
+
+                    daoDetalleReclamoProv.insert(detalleReclamoProv, con);
+                }
+
                 con.commit();
+                return true;
+
+            } catch (Exception ex) {
+                Logger.getLogger(GestorReclamo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
-
-            //Registrar los detalles de la compra
-            EstadodetallecompraDAOImpl daoEstadoDetalleCompra = new EstadodetallecompraDAOImpl();
-            EstadodetallecompraDB estadoDetalle = daoEstadoDetalleCompra.findByPrimaryKey(1, con);
-            String idCompra = daoCompra.getUltimoIDCompra(con);
-
-            DetallecompraDAOImpl daoDetalleCompra = new DetallecompraDAOImpl();
-            Iterator<ViewDetalleCompra> iter = filasDetalle.iterator();
-            ViewDetalleCompra datos = null;
-            while (iter.hasNext()) {
-                datos = iter.next();
-                DetallecompraDB detalleCompra = new DetallecompraDB();
-                detalleCompra.setCantidad(datos.getCantidad());
-                detalleCompra.setEstado(estadoDetalle.getIdestado());
-                detalleCompra.setIdcompra(Long.parseLong(idCompra));
-                detalleCompra.setMateriaprima(datos.getIdMateriaPrima());
-                detalleCompra.setPreciohistorico(0);
-                daoDetalleCompra.insert(detalleCompra, con);
-            }
-
-            con.commit();
-            return true;
-
-        } catch (Exception ex) {
-            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
         } else {
-            //To-DO
+            
+            try {
+                ReclamoempresametalurgicaDB reclamo = new ReclamoempresametalurgicaDB();
+                reclamo.setNroreclamo(Integer.parseInt((this.getnumero())));
+                TiporeclamoDAOImpl daoTipoReclamo = new TiporeclamoDAOImpl();
+                PostgreSQLManager pg = new PostgreSQLManager();
+                Connection con = null;
+                con = pg.concectGetCn();
+                con.setAutoCommit(false);
+                TiporeclamoDB tipoRec = daoTipoReclamo.findByPrimaryKey(1, con);
+                reclamo.setTiporeclamo(tipoRec.getIdtiporeclamo());
+
+                metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica empresametalurgica = new metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica();
+                empresametalurgica.setNroEmpresaMetalurgica(Integer.parseInt(this.emp.getIdempresametalurgica().toString()));
+                // Agregar entidad?? Trabajo??? reclamo.setEntidad(empresametalurgica.getNroEmpresaMetalurgica());
+
+                reclamo.setMotivo(motivo);
+
+                ReclamoempresametalurgicaDAOImpl daoReclamoEmp = new ReclamoempresametalurgicaDAOImpl();
+                int result = daoReclamoEmp.insert(reclamo, con);
+                if (result < 0) {
+                    return false;
+                } else {
+                    con.commit();
+                }
+
+                //Registrar los detalles del reclamo
+                String idReclamo = daoReclamoEmp.getUltimoIDReclamo(con);
+
+                DetallereclamoempresametalurgicaDAOImpl daoDetalleReclamoEmp = new DetallereclamoempresametalurgicaDAOImpl();
+                Iterator<ViewDetalleReclamo> iter = filasDetalle.iterator();
+                ViewDetalleReclamo datos = null;
+                while (iter.hasNext()) {
+                    datos = iter.next();
+                    DetallereclamoempresametalurgicaDB detalleReclamoEmp = new  DetallereclamoempresametalurgicaDB();
+                   detalleReclamoEmp.setCantidad(datos.getCantidad());
+                   detalleReclamoEmp.setDescripcion("descripcion");
+                    // continuar completando con los datos correctos de la BD
+
+                    daoDetalleReclamoEmp.insert(detalleReclamoEmp, con);
+                }
+
+                con.commit();
+                return true;
+
+            } catch (Exception ex) {
+                Logger.getLogger(GestorReclamo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
 
     }

@@ -20,6 +20,7 @@ import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.negocio.gestores.GestorReclamo;
 import metalsoft.negocio.gestores.ViewDetalleReclamo;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.util.ItemCombo;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -125,39 +126,54 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (tipo == 0) {
-        boolean validar = this.validarEntidad();
-        if(!validar)
-            return;
-        String motivo = txtMotivo.getText();
-        long idProv = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
-        Proveedor Prov = searchProveedorById(idProv);
 
+        boolean validar = this.validarEntidad();
+        if (!validar) {
+            return;
+        }
+        String motivo = txtMotivo.getText();
+
+        if (tipo == 0) {
+
+            long idProv = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
+            Proveedor Prov = searchProveedorById(idProv);
+            gestor.setProv(Prov);
+        }
+
+        if (tipo == 1) {
+
+            long idEmpMet = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
+            Empresametalurgica empMet = searchEmpresaById(idEmpMet);
+            gestor.setEmpMet(empMet);
+        }
         gestor.setMotivo(motivo);
-        gestor.setProv(Prov);
         gestor.setListaDetalle(filas);
 
         boolean result = false;
         result = gestor.registrarReclamo(tipo);
-        
+
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             disableComponents();
-            } else {
+        } else {
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar", JOptionPane.ERROR_MESSAGE);
         }
-        }
-
-        else {
-        }
-
     }
-
 
     private Proveedor searchProveedorById(long id) {
         for (Proveedor p : gestor.getProveedores()) {
             if (p.getIdproveedor() == id) {
                 return p;
+            }
+        }
+        return null;
+    }
+
+
+    private Empresametalurgica searchEmpresaById(long idEmpMet) {
+         for (Empresametalurgica e : gestor.getEmpresa()) {
+            if (e.getIdempresametalurgica() == idEmpMet) {
+                return e;
             }
         }
         return null;
@@ -513,6 +529,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         }
         return true;
     }
+
 
     public class DetalleOrdenTableModel extends AbstractTableModel {
 
