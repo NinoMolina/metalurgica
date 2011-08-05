@@ -6,3 +6,10 @@ cambiar descripciones CU reg reclamo emp metal. y regist reclamo prov
 
 analisis:
 corregir diag clases CU 9 generar presup
+
+CU 61:
+seleccionamos prov- OC asociadas a ese prov- seleccionamos1_ mostramos detalle- selecciona mat prima a reclamar e ingresa cant.
+
+Hacer mismo cambio en Reclamo a empresa metalurgica-
+
+Agregar a Daig clases "clase estado reclamo"
