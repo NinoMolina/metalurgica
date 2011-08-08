@@ -119,6 +119,7 @@
     <class>metalsoft.datos.jpa.entity.Provincia</class>
     <class>metalsoft.datos.jpa.entity.Reclamoempresamantenimiento</class>
     <class>metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento</class>
+    <class>metalsoft.datos.jpa.entity.Estadoreclamo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/metalsoft"/>
       <property name="javax.persistence.jdbc.password" value="admin"/>

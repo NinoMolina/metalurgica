@@ -16,6 +16,7 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Compra;
+import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Reclamoproveedor;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
 import metalsoft.datos.jpa.entity.Detallereclamoproveedor;
@@ -50,6 +51,11 @@ public class ReclamoproveedorJpaController {
                 compra = em.getReference(compra.getClass(), compra.getIdcompra());
                 reclamoproveedor.setCompra(compra);
             }
+            Estadoreclamo idestadoreclamo = reclamoproveedor.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
+                reclamoproveedor.setIdestadoreclamo(idestadoreclamo);
+            }
             Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
             if (tiporeclamo != null) {
                 tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
@@ -65,6 +71,10 @@ public class ReclamoproveedorJpaController {
             if (compra != null) {
                 compra.getReclamoproveedorList().add(reclamoproveedor);
                 compra = em.merge(compra);
+            }
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoproveedorList().add(reclamoproveedor);
+                idestadoreclamo = em.merge(idestadoreclamo);
             }
             if (tiporeclamo != null) {
                 tiporeclamo.getReclamoproveedorList().add(reclamoproveedor);
@@ -100,6 +110,8 @@ public class ReclamoproveedorJpaController {
             Reclamoproveedor persistentReclamoproveedor = em.find(Reclamoproveedor.class, reclamoproveedor.getIdreclamo());
             Compra compraOld = persistentReclamoproveedor.getCompra();
             Compra compraNew = reclamoproveedor.getCompra();
+            Estadoreclamo idestadoreclamoOld = persistentReclamoproveedor.getIdestadoreclamo();
+            Estadoreclamo idestadoreclamoNew = reclamoproveedor.getIdestadoreclamo();
             Tiporeclamo tiporeclamoOld = persistentReclamoproveedor.getTiporeclamo();
             Tiporeclamo tiporeclamoNew = reclamoproveedor.getTiporeclamo();
             List<Detallereclamoproveedor> detallereclamoproveedorListOld = persistentReclamoproveedor.getDetallereclamoproveedorList();
@@ -120,6 +132,10 @@ public class ReclamoproveedorJpaController {
                 compraNew = em.getReference(compraNew.getClass(), compraNew.getIdcompra());
                 reclamoproveedor.setCompra(compraNew);
             }
+            if (idestadoreclamoNew != null) {
+                idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
+                reclamoproveedor.setIdestadoreclamo(idestadoreclamoNew);
+            }
             if (tiporeclamoNew != null) {
                 tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
                 reclamoproveedor.setTiporeclamo(tiporeclamoNew);
@@ -139,6 +155,14 @@ public class ReclamoproveedorJpaController {
             if (compraNew != null && !compraNew.equals(compraOld)) {
                 compraNew.getReclamoproveedorList().add(reclamoproveedor);
                 compraNew = em.merge(compraNew);
+            }
+            if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
+                idestadoreclamoOld.getReclamoproveedorList().remove(reclamoproveedor);
+                idestadoreclamoOld = em.merge(idestadoreclamoOld);
+            }
+            if (idestadoreclamoNew != null && !idestadoreclamoNew.equals(idestadoreclamoOld)) {
+                idestadoreclamoNew.getReclamoproveedorList().add(reclamoproveedor);
+                idestadoreclamoNew = em.merge(idestadoreclamoNew);
             }
             if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
                 tiporeclamoOld.getReclamoproveedorList().remove(reclamoproveedor);
@@ -203,6 +227,11 @@ public class ReclamoproveedorJpaController {
             if (compra != null) {
                 compra.getReclamoproveedorList().remove(reclamoproveedor);
                 compra = em.merge(compra);
+            }
+            Estadoreclamo idestadoreclamo = reclamoproveedor.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoproveedorList().remove(reclamoproveedor);
+                idestadoreclamo = em.merge(idestadoreclamo);
             }
             Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
             if (tiporeclamo != null) {

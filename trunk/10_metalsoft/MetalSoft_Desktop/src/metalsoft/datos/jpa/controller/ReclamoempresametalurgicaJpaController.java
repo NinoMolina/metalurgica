@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Reclamoempresametalurgica;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -45,6 +46,11 @@ public class ReclamoempresametalurgicaJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Estadoreclamo idestadoreclamo = reclamoempresametalurgica.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
+                reclamoempresametalurgica.setIdestadoreclamo(idestadoreclamo);
+            }
             Tiporeclamo tiporeclamo = reclamoempresametalurgica.getTiporeclamo();
             if (tiporeclamo != null) {
                 tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
@@ -62,6 +68,10 @@ public class ReclamoempresametalurgicaJpaController {
             }
             reclamoempresametalurgica.setDetallereclamoempresametalurgicaList(attachedDetallereclamoempresametalurgicaList);
             em.persist(reclamoempresametalurgica);
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoempresametalurgicaList().add(reclamoempresametalurgica);
+                idestadoreclamo = em.merge(idestadoreclamo);
+            }
             if (tiporeclamo != null) {
                 tiporeclamo.getReclamoempresametalurgicaList().add(reclamoempresametalurgica);
                 tiporeclamo = em.merge(tiporeclamo);
@@ -98,6 +108,8 @@ public class ReclamoempresametalurgicaJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Reclamoempresametalurgica persistentReclamoempresametalurgica = em.find(Reclamoempresametalurgica.class, reclamoempresametalurgica.getIdreclamo());
+            Estadoreclamo idestadoreclamoOld = persistentReclamoempresametalurgica.getIdestadoreclamo();
+            Estadoreclamo idestadoreclamoNew = reclamoempresametalurgica.getIdestadoreclamo();
             Tiporeclamo tiporeclamoOld = persistentReclamoempresametalurgica.getTiporeclamo();
             Tiporeclamo tiporeclamoNew = reclamoempresametalurgica.getTiporeclamo();
             Trabajotercerizado trabajotercerizadoOld = persistentReclamoempresametalurgica.getTrabajotercerizado();
@@ -116,6 +128,10 @@ public class ReclamoempresametalurgicaJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+            if (idestadoreclamoNew != null) {
+                idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
+                reclamoempresametalurgica.setIdestadoreclamo(idestadoreclamoNew);
+            }
             if (tiporeclamoNew != null) {
                 tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
                 reclamoempresametalurgica.setTiporeclamo(tiporeclamoNew);
@@ -132,6 +148,14 @@ public class ReclamoempresametalurgicaJpaController {
             detallereclamoempresametalurgicaListNew = attachedDetallereclamoempresametalurgicaListNew;
             reclamoempresametalurgica.setDetallereclamoempresametalurgicaList(detallereclamoempresametalurgicaListNew);
             reclamoempresametalurgica = em.merge(reclamoempresametalurgica);
+            if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
+                idestadoreclamoOld.getReclamoempresametalurgicaList().remove(reclamoempresametalurgica);
+                idestadoreclamoOld = em.merge(idestadoreclamoOld);
+            }
+            if (idestadoreclamoNew != null && !idestadoreclamoNew.equals(idestadoreclamoOld)) {
+                idestadoreclamoNew.getReclamoempresametalurgicaList().add(reclamoempresametalurgica);
+                idestadoreclamoNew = em.merge(idestadoreclamoNew);
+            }
             if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
                 tiporeclamoOld.getReclamoempresametalurgicaList().remove(reclamoempresametalurgica);
                 tiporeclamoOld = em.merge(tiporeclamoOld);
@@ -198,6 +222,11 @@ public class ReclamoempresametalurgicaJpaController {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            Estadoreclamo idestadoreclamo = reclamoempresametalurgica.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoempresametalurgicaList().remove(reclamoempresametalurgica);
+                idestadoreclamo = em.merge(idestadoreclamo);
             }
             Tiporeclamo tiporeclamo = reclamoempresametalurgica.getTiporeclamo();
             if (tiporeclamo != null) {

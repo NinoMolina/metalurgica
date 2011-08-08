@@ -51,14 +51,14 @@ public class Reclamoproveedor implements Serializable {
     @JoinColumn(name = "compra", referencedColumnName = "idcompra")
     @ManyToOne
     private Compra compra;
-
+    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
+    @ManyToOne
+    private Estadoreclamo idestadoreclamo;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoproveedor")
     private List<Detallereclamoproveedor> detallereclamoproveedorList;
-
 
     public Reclamoproveedor() {
     }
@@ -107,6 +107,14 @@ public class Reclamoproveedor implements Serializable {
         this.compra = compra;
     }
 
+    public Estadoreclamo getIdestadoreclamo() {
+        return idestadoreclamo;
+    }
+
+    public void setIdestadoreclamo(Estadoreclamo idestadoreclamo) {
+        this.idestadoreclamo = idestadoreclamo;
+    }
+
     public Tiporeclamo getTiporeclamo() {
         return tiporeclamo;
     }
@@ -115,7 +123,6 @@ public class Reclamoproveedor implements Serializable {
         this.tiporeclamo = tiporeclamo;
     }
 
-
     public List<Detallereclamoproveedor> getDetallereclamoproveedorList() {
         return detallereclamoproveedorList;
     }
@@ -123,7 +130,6 @@ public class Reclamoproveedor implements Serializable {
     public void setDetallereclamoproveedorList(List<Detallereclamoproveedor> detallereclamoproveedorList) {
         this.detallereclamoproveedorList = detallereclamoproveedorList;
     }
-
 
     @Override
     public int hashCode() {

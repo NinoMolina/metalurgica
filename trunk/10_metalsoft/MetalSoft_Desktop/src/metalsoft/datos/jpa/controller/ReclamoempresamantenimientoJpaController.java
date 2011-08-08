@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,11 @@ public class ReclamoempresamantenimientoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Estadoreclamo idestadoreclamo = reclamoempresamantenimiento.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
+                reclamoempresamantenimiento.setIdestadoreclamo(idestadoreclamo);
+            }
             List<Detallereclamoempresamantenimiento> attachedDetallereclamoempresamantenimientoList = new ArrayList<Detallereclamoempresamantenimiento>();
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListDetallereclamoempresamantenimientoToAttach : reclamoempresamantenimiento.getDetallereclamoempresamantenimientoList()) {
                 detallereclamoempresamantenimientoListDetallereclamoempresamantenimientoToAttach = em.getReference(detallereclamoempresamantenimientoListDetallereclamoempresamantenimientoToAttach.getClass(), detallereclamoempresamantenimientoListDetallereclamoempresamantenimientoToAttach.getIddetalle());
@@ -50,6 +56,10 @@ public class ReclamoempresamantenimientoJpaController {
             }
             reclamoempresamantenimiento.setDetallereclamoempresamantenimientoList(attachedDetallereclamoempresamantenimientoList);
             em.persist(reclamoempresamantenimiento);
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
+                idestadoreclamo = em.merge(idestadoreclamo);
+            }
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento : reclamoempresamantenimiento.getDetallereclamoempresamantenimientoList()) {
                 Reclamoempresamantenimiento oldIdreclamoOfDetallereclamoempresamantenimientoListDetallereclamoempresamantenimiento = detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento.getIdreclamo();
                 detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento.setIdreclamo(reclamoempresamantenimiento);
@@ -78,6 +88,8 @@ public class ReclamoempresamantenimientoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Reclamoempresamantenimiento persistentReclamoempresamantenimiento = em.find(Reclamoempresamantenimiento.class, reclamoempresamantenimiento.getIdreclamo());
+            Estadoreclamo idestadoreclamoOld = persistentReclamoempresamantenimiento.getIdestadoreclamo();
+            Estadoreclamo idestadoreclamoNew = reclamoempresamantenimiento.getIdestadoreclamo();
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoListOld = persistentReclamoempresamantenimiento.getDetallereclamoempresamantenimientoList();
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoListNew = reclamoempresamantenimiento.getDetallereclamoempresamantenimientoList();
             List<String> illegalOrphanMessages = null;
@@ -92,6 +104,10 @@ public class ReclamoempresamantenimientoJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+            if (idestadoreclamoNew != null) {
+                idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
+                reclamoempresamantenimiento.setIdestadoreclamo(idestadoreclamoNew);
+            }
             List<Detallereclamoempresamantenimiento> attachedDetallereclamoempresamantenimientoListNew = new ArrayList<Detallereclamoempresamantenimiento>();
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimientoToAttach : detallereclamoempresamantenimientoListNew) {
                 detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimientoToAttach = em.getReference(detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimientoToAttach.getClass(), detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimientoToAttach.getIddetalle());
@@ -100,6 +116,14 @@ public class ReclamoempresamantenimientoJpaController {
             detallereclamoempresamantenimientoListNew = attachedDetallereclamoempresamantenimientoListNew;
             reclamoempresamantenimiento.setDetallereclamoempresamantenimientoList(detallereclamoempresamantenimientoListNew);
             reclamoempresamantenimiento = em.merge(reclamoempresamantenimiento);
+            if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
+                idestadoreclamoOld.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
+                idestadoreclamoOld = em.merge(idestadoreclamoOld);
+            }
+            if (idestadoreclamoNew != null && !idestadoreclamoNew.equals(idestadoreclamoOld)) {
+                idestadoreclamoNew.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
+                idestadoreclamoNew = em.merge(idestadoreclamoNew);
+            }
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimiento : detallereclamoempresamantenimientoListNew) {
                 if (!detallereclamoempresamantenimientoListOld.contains(detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimiento)) {
                     Reclamoempresamantenimiento oldIdreclamoOfDetallereclamoempresamantenimientoListNewDetallereclamoempresamantenimiento = detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimiento.getIdreclamo();
@@ -150,6 +174,11 @@ public class ReclamoempresamantenimientoJpaController {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            Estadoreclamo idestadoreclamo = reclamoempresamantenimiento.getIdestadoreclamo();
+            if (idestadoreclamo != null) {
+                idestadoreclamo.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
+                idestadoreclamo = em.merge(idestadoreclamo);
             }
             em.remove(reclamoempresamantenimiento);
             em.getTransaction().commit();
