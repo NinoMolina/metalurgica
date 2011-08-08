@@ -13,15 +13,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,8 +39,6 @@ public class Reclamoempresamantenimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reclamoempresamantenimiento_seq")
-    @SequenceGenerator(name = "reclamoreclamoempresamantenimiento_seq", sequenceName = "reclamoreclamoempresamantenimiento_idreclamo_seq", allocationSize = 1)
     @Column(name = "idreclamo")
     private Long idreclamo;
     @Column(name = "nroreclamo")
@@ -53,6 +48,9 @@ public class Reclamoempresamantenimiento implements Serializable {
     @Column(name = "fechareclamo")
     @Temporal(TemporalType.DATE)
     private Date fechareclamo;
+    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
+    @ManyToOne
+    private Estadoreclamo idestadoreclamo;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
@@ -99,6 +97,14 @@ public class Reclamoempresamantenimiento implements Serializable {
 
     public void setFechareclamo(Date fechareclamo) {
         this.fechareclamo = fechareclamo;
+    }
+
+    public Estadoreclamo getIdestadoreclamo() {
+        return idestadoreclamo;
+    }
+
+    public void setIdestadoreclamo(Estadoreclamo idestadoreclamo) {
+        this.idestadoreclamo = idestadoreclamo;
     }
 
     public Tiporeclamo getTiporeclamo() {

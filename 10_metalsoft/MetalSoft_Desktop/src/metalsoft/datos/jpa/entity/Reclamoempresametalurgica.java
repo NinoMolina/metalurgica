@@ -50,15 +50,15 @@ public class Reclamoempresametalurgica implements Serializable {
     private Date fechareclamo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoempresametalurgica")
     private List<Detallereclamoempresametalurgica> detallereclamoempresametalurgicaList;
-
+    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
+    @ManyToOne
+    private Estadoreclamo idestadoreclamo;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
-
     @JoinColumn(name = "trabajotercerizado", referencedColumnName = "idtrabajo")
     @ManyToOne
     private Trabajotercerizado trabajotercerizado;
-
 
     public Reclamoempresametalurgica() {
     }
@@ -107,6 +107,13 @@ public class Reclamoempresametalurgica implements Serializable {
         this.detallereclamoempresametalurgicaList = detallereclamoempresametalurgicaList;
     }
 
+    public Estadoreclamo getIdestadoreclamo() {
+        return idestadoreclamo;
+    }
+
+    public void setIdestadoreclamo(Estadoreclamo idestadoreclamo) {
+        this.idestadoreclamo = idestadoreclamo;
+    }
 
     public Tiporeclamo getTiporeclamo() {
         return tiporeclamo;
@@ -116,7 +123,6 @@ public class Reclamoempresametalurgica implements Serializable {
         this.tiporeclamo = tiporeclamo;
     }
 
-
     public Trabajotercerizado getTrabajotercerizado() {
         return trabajotercerizado;
     }
@@ -124,7 +130,6 @@ public class Reclamoempresametalurgica implements Serializable {
     public void setTrabajotercerizado(Trabajotercerizado trabajotercerizado) {
         this.trabajotercerizado = trabajotercerizado;
     }
-
 
     @Override
     public int hashCode() {

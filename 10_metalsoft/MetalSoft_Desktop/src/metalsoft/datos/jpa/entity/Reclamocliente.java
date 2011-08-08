@@ -50,15 +50,15 @@ public class Reclamocliente implements Serializable {
     private Date fechareclamo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamocliente")
     private List<Detallereclamocliente> detallereclamoclienteList;
-
     @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
     @ManyToOne
     private Cliente cliente;
-
+    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
+    @ManyToOne
+    private Estadoreclamo idestadoreclamo;
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
-
 
     public Reclamocliente() {
     }
@@ -107,13 +107,20 @@ public class Reclamocliente implements Serializable {
         this.detallereclamoclienteList = detallereclamoclienteList;
     }
 
-
     public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Estadoreclamo getIdestadoreclamo() {
+        return idestadoreclamo;
+    }
+
+    public void setIdestadoreclamo(Estadoreclamo idestadoreclamo) {
+        this.idestadoreclamo = idestadoreclamo;
     }
 
     public Tiporeclamo getTiporeclamo() {
@@ -123,7 +130,6 @@ public class Reclamocliente implements Serializable {
     public void setTiporeclamo(Tiporeclamo tiporeclamo) {
         this.tiporeclamo = tiporeclamo;
     }
-
 
     @Override
     public int hashCode() {
