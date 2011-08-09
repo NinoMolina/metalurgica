@@ -13,3 +13,8 @@ seleccionamos prov- OC asociadas a ese prov- seleccionamos1_ mostramos detalle- 
 Hacer mismo cambio en Reclamo a empresa metalurgica-
 
 Agregar a Daig clases "clase estado reclamo"
+
+**Diseño:
+        Secuencia: Aplicacion Patrones
+        Despliegue
+	Cambiar DER 
