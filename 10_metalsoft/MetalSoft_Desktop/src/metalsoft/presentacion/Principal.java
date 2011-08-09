@@ -510,6 +510,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuRRHH);
 
+        mnuTrabajosTercerizados.setText("Trabajos Tercerizados");
+
         mniEmpresaMetalurgica.setText("Empresa Metalúrgica");
         mniEmpresaMetalurgica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
