@@ -216,7 +216,7 @@ public class GestorEmpresaMetalurgica {
             cn = pg.concectGetCn();
             result=AccessFunctions.nvoNroEmpresaMetalurgica(cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorPedidoCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
