@@ -220,16 +220,16 @@ public class GestorEmpresaMantenimiento {
         pg=new PostgreSQLManager();
         try {
             cn = pg.concectGetCn();
-            result=AccessFunctions.nvoNroProveedor(cn);
+            result=AccessFunctions.nvoNroProveedorMantenimiento(cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
