@@ -67,6 +67,7 @@ public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JFrame implements 
         lstLista = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Empresa");
 
         jRadioButton1.setText("Nombre");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
