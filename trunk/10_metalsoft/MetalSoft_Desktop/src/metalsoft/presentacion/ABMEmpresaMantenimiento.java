@@ -720,6 +720,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
         txtFechaBaja = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Empresa de Mantenimiento");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empresa Mantenimiento"));
 

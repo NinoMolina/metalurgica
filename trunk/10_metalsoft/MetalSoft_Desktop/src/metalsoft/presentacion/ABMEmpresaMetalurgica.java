@@ -97,7 +97,8 @@ public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresa Metalurgica");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empresa Metalurgica"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empresa Metalúrgica"));
+        jPanel1.setToolTipText("Empresa Metalúrgica");
 
         jLabel1.setText("Nro. Empresa:");
 
