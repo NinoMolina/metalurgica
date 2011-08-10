@@ -184,7 +184,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (!esValido()) {
-            JOptionPane.showMessageDialog(this, "No estan todos los campos completados");
+            JOptionPane.showMessageDialog(this, "No se han ingresado todos los datos requeridos");
             return;
         }
 
