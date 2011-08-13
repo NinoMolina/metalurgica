@@ -133,7 +133,7 @@ public class EmpleadoDAOImpl implements EmpleadoDAO
 
 				ps.setDate(12,empleado.getFechaegreso());
 				ps.setString(13,empleado.getMotivoegreso());
-                long idcar=empleado.getUsuario();
+                long idcar=empleado.getCargo();
                 if(idcar>0) ps.setLong(14,empleado.getCargo());
                 else ps.setNull(14,java.sql.Types.NULL);
 
