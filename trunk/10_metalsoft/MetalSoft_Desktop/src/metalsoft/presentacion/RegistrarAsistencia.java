@@ -33,13 +33,13 @@ import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorEmpleado;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.rrhh.Domicilio;
-import metalsoft.negocio.rrhh.Empleado;
 import metalsoft.util.Combo;
 import java.util.LinkedList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.AsistenciaDB;
+import metalsoft.datos.jpa.entity.Empleado;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -47,7 +47,7 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
 
     private GestorEmpleado gestor;
     private Empleado empleado;
-    private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
+    private Empleado empleadoDB;
     private EnumOpcionesABM opcion;
     private long idEmpleado;
     private LinkedList<AsistenciaDB> asistenciaDB;
@@ -60,11 +60,11 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
         this.empleado = empleado;
     }
 
-    public EmpleadoDB getEmpleadoDB() {
+    public Empleado getEmpleadoDB() {
         return empleadoDB;
     }
 
-    public void setEmpleadoDB(EmpleadoDB empleadoDB) {
+    public void setEmpleadoDB(Empleado empleadoDB) {
         this.empleadoDB = empleadoDB;
     }
 
@@ -133,18 +133,18 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
     public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
         txtNombreApellido.setText(empleadoDB.getApellido() + ", " + empleadoDB.getNombre());
-        txtLegajo.setText(String.valueOf((int) empleadoDB.getLegajo()));
+        txtLegajo.setText(String.valueOf((int) empleadoDB.getLegajo().longValue()));
         cargarComboCategoria();
         cargarComboCargo();
-        if (empleadoDB.getCargo() < 1) {
+        if (empleadoDB.getCargo() ==null) {
             Combo.setItemComboSeleccionado(cmbCargo, -1);
         } else {
-            Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo());
+            Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo().getIdcargo());
         }
-        if (empleadoDB.getCategoria() < 1) {
+        if (empleadoDB.getCategoria() ==null) {
             Combo.setItemComboSeleccionado(cmbCategoria, -1);
         } else {
-            Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
+            Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria().getIdcategoria());
         }
         AsistenciaDB[] asis = gestor.buscarAsistencia(idEmpleado, Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         if (asis.length > 0) {
