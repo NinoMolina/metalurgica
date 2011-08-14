@@ -451,30 +451,10 @@ public class GestorEmpleado {
         return null;
     }
 
-    public metalsoft.datos.dbobject.EmpleadoDB buscarEmpleadoDB(long id) {
-        PostgreSQLManager pg = new PostgreSQLManager();
-        EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
-        Connection cn = null;
-        metalsoft.datos.dbobject.EmpleadoDB[] array;
-        try {
-            cn = pg.concectGetCn();
-        } catch (Exception ex) {
-            Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Empleado buscarEmpleadoDB(long id) {
+        EmpleadoJpaController empleado=new EmpleadoJpaController();
 
-        try {
-            array = dao.findByIdempleado(id, cn);
-            empleadoDB = array[0];
-        } catch (Exception ex) {
-            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return empleadoDB;
+        return empleado.findEmpleado(id);
     }
 
     public DomicilioDB buscarDomicilioEmpleadoDB(long id) {
@@ -691,30 +671,17 @@ public class GestorEmpleado {
         return localidadDB;
     }
 
-    public int bajaEmpleado(metalsoft.datos.dbobject.EmpleadoDB empleadoDB) {
-        int result = -1;
-        EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
-
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Connection cn = null;
-
-        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        EmpleadoPKDB pk = new EmpleadoPKDB(idEmpleado);
-        try {
-            cn = pg.concectGetCn();
-
-            result = dao.update(pk, empleadoDB, cn);
-
-        } catch (Exception ex) {
-            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public int bajaEmpleado(Empleado empleadoDB) {
+        
+        EmpleadoJpaController controller=new EmpleadoJpaController();
+        try{
+            controller.edit(empleadoDB);
+            return 1;
         }
-        return result;
+        catch(Exception e){
+            return -1;
+        }
+        
     }
 
     public long generarNvoNroEmpleado() {
