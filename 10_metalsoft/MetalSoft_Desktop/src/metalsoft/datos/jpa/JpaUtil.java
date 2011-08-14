@@ -30,6 +30,13 @@ public class JpaUtil {
         return q.getResultList();
     }
 
+    public static List query(String query, String paramName, Object paramValue, Class clase){
+        EntityManager em=JpaUtil.getEntityManager();
+        TypedQuery q=em.createQuery(query, clase);
+        q.setParameter(paramName, paramValue);
+        return q.getResultList();
+    }
+
     public static Query getNamedQuery(String name){
         return getEntityManager().createNamedQuery(name);
     }
