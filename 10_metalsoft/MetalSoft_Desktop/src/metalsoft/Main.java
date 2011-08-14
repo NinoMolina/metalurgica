@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package metalsoft.presentacion;
+package metalsoft;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import metalsoft.presentacion.AbrirSesion;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
 import metalsoft.presentacion.lookandfeel.Skins;
 
