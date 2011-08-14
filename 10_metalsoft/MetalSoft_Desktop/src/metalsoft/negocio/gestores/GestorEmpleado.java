@@ -452,9 +452,9 @@ public class GestorEmpleado {
     }
 
     public Empleado buscarEmpleadoDB(long id) {
-        EmpleadoJpaController empleado=new EmpleadoJpaController();
+        EmpleadoJpaController controller=new EmpleadoJpaController();
 
-        return empleado.findEmpleado(id);
+        return controller.findEmpleado(id);
     }
 
     public DomicilioDB buscarDomicilioEmpleadoDB(long id) {
@@ -815,7 +815,6 @@ public class GestorEmpleado {
         try {
 
             controllerDomicilio.edit(empleado.getDomicilio());
-            controller.edit(empleado);
             Set<Integer> setKeys = mapTurnos.keySet();
             for (Integer key : setKeys) {
                 String valor = mapTurnos.get(key);
@@ -824,11 +823,14 @@ public class GestorEmpleado {
                     ext.setEmpleado(controller.findEmpleado(empleado.getIdempleado()));
                     ext.setTurno(controllerTurno.findTurno(Long.valueOf(String.valueOf(key))));
                     controllerEmpTurno.create(ext);
-                } else if (valor.equals(ELIMINAR)) {
+                }
+                if (valor.equals(ELIMINAR)) {
                     EmpleadoxturnoPK etPK=new EmpleadoxturnoPK(empleado.getIdempleado(), Long.valueOf(String.valueOf(key)));
                     controllerEmpTurno.destroy(etPK);
                 }
             }
+            controller.edit(empleado);
+            
 
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
