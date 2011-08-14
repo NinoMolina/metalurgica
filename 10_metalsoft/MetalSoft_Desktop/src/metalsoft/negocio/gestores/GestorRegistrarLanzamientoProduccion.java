@@ -11,8 +11,10 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
@@ -30,6 +32,8 @@ import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
 import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
+import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
@@ -132,11 +136,15 @@ public class GestorRegistrarLanzamientoProduccion {
 
 
             lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
+            
             lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
 
             DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController();
             EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController();
             Detalleejecucionplanificacion detalleejecucionplanificacion = null;
+
+            Map<Long, Integer> mapIndexPiezaReal = new HashMap<Long, Integer>();
+
             for (Detalleplanificacionproduccion detalleplanificacionproduccion : lstDetallePlanificacion) {
                 /*
                  * Creacion del detalle ejecucion planificacion
@@ -146,8 +154,24 @@ public class GestorRegistrarLanzamientoProduccion {
                 detalleejecucionplanificacion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 detalleejecucionplanificacion.setOrden(detalleplanificacionproduccion.getOrden());
                 detalleejecucionplanificacion.setPieza(detalleplanificacionproduccion.getIdpieza());
-                // TODO asignar una pieza real. Las piezas reales ya estan creadas en la base de datos
-                // hay que asignar una pieza real segun el tipo de pieza a realizar en la etapa.
+                
+                Materiaprima matPrimaPiezaDetallePlanif = detalleplanificacionproduccion.getIdpieza().getMateriaprima();
+                Long idMateriaPrima = matPrimaPiezaDetallePlanif.getIdmateriaprima();
+
+                if(!mapIndexPiezaReal.containsKey(idMateriaPrima)){
+                    mapIndexPiezaReal.put(idMateriaPrima, 0);
+                }
+
+                forDetallempasignada: for(Detallempasignada detallempasignada: lstDetallempasignada){
+                    if(idMateriaPrima == detallempasignada.getIdmateriaprima().getIdmateriaprima()){
+                        List<Mpasignadaxpiezareal> lstMpasignadaxpiezareal = detallempasignada.getMpasignadaxpiezarealList();
+                        Integer index = mapIndexPiezaReal.get(idMateriaPrima);
+                        detalleejecucionplanificacion.setPiezareal(lstMpasignadaxpiezareal.get(index).getIdpiezareal());
+                        mapIndexPiezaReal.put(idMateriaPrima, index + 1);
+                        break forDetallempasignada;
+                    }
+                }
+                
                 /*
                  * Creacion ejecucion etapa produccion
                  */

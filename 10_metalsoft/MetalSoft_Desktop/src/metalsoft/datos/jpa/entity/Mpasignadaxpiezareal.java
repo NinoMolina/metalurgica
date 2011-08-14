@@ -6,7 +6,6 @@
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,12 +24,9 @@ import javax.persistence.Table;
 @Table(name = "mpasignadaxpiezareal")
 @NamedQueries({
     @NamedQuery(name = "Mpasignadaxpiezareal.findAll", query = "SELECT m FROM Mpasignadaxpiezareal m"),
-    @NamedQuery(name = "Mpasignadaxpiezareal.findByIdpiezareal", query = "SELECT m FROM Mpasignadaxpiezareal m WHERE m.idpiezareal = :idpiezareal"),
     @NamedQuery(name = "Mpasignadaxpiezareal.findById", query = "SELECT m FROM Mpasignadaxpiezareal m WHERE m.id = :id")})
 public class Mpasignadaxpiezareal implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "idpiezareal")
-    private BigInteger idpiezareal;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
@@ -38,21 +34,15 @@ public class Mpasignadaxpiezareal implements Serializable {
     @JoinColumn(name = "iddetallempasignada", referencedColumnName = "id")
     @ManyToOne
     private Detallempasignada iddetallempasignada;
-
+    @JoinColumn(name = "idpiezareal", referencedColumnName = "idpiezareal")
+    @ManyToOne
+    private Piezareal idpiezareal;
 
     public Mpasignadaxpiezareal() {
     }
 
     public Mpasignadaxpiezareal(Long id) {
         this.id = id;
-    }
-
-    public BigInteger getIdpiezareal() {
-        return idpiezareal;
-    }
-
-    public void setIdpiezareal(BigInteger idpiezareal) {
-        this.idpiezareal = idpiezareal;
     }
 
     public Long getId() {
@@ -71,6 +61,13 @@ public class Mpasignadaxpiezareal implements Serializable {
         this.iddetallempasignada = iddetallempasignada;
     }
 
+    public Piezareal getIdpiezareal() {
+        return idpiezareal;
+    }
+
+    public void setIdpiezareal(Piezareal idpiezareal) {
+        this.idpiezareal = idpiezareal;
+    }
 
     @Override
     public int hashCode() {
