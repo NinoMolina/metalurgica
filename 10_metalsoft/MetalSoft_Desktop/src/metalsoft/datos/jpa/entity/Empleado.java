@@ -49,7 +49,7 @@ public class Empleado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empleado_seq")
-    @SequenceGenerator(name = "empresametalurgica_seq", sequenceName = "empleado_idempleado_seq", allocationSize = 1)
+    @SequenceGenerator(name = "empleado_seq", sequenceName = "empleado_idempleado_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "idempleado")
     private Long idempleado;
