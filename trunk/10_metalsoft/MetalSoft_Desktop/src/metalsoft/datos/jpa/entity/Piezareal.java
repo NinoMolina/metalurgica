@@ -43,13 +43,13 @@ public class Piezareal implements Serializable {
     @JoinColumn(name = "idcodigobarra", referencedColumnName = "idcodigo")
     @ManyToOne
     private Codigodebarra idcodigobarra;
-
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadopiezareal estado;
-
     @OneToMany(mappedBy = "piezareal")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
+    @OneToMany(mappedBy = "idpiezareal")
+    private List<Mpasignadaxpiezareal> mpasignadaxpiezarealList;
 
     public Piezareal() {
     }
@@ -95,8 +95,6 @@ public class Piezareal implements Serializable {
         this.idcodigobarra = idcodigobarra;
     }
 
-
-
     public Estadopiezareal getEstado() {
         return estado;
     }
@@ -105,13 +103,20 @@ public class Piezareal implements Serializable {
         this.estado = estado;
     }
 
-
     public List<Detalleejecucionplanificacion> getDetalleejecucionplanificacionList() {
         return detalleejecucionplanificacionList;
     }
 
     public void setDetalleejecucionplanificacionList(List<Detalleejecucionplanificacion> detalleejecucionplanificacionList) {
         this.detalleejecucionplanificacionList = detalleejecucionplanificacionList;
+    }
+
+    public List<Mpasignadaxpiezareal> getMpasignadaxpiezarealList() {
+        return mpasignadaxpiezarealList;
+    }
+
+    public void setMpasignadaxpiezarealList(List<Mpasignadaxpiezareal> mpasignadaxpiezarealList) {
+        this.mpasignadaxpiezarealList = mpasignadaxpiezarealList;
     }
 
     @Override

@@ -19,6 +19,7 @@ import metalsoft.datos.jpa.entity.Estadopiezareal;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
 import metalsoft.datos.jpa.entity.Piezareal;
 
 /**
@@ -40,6 +41,9 @@ public class PiezarealJpaController {
         if (piezareal.getDetalleejecucionplanificacionList() == null) {
             piezareal.setDetalleejecucionplanificacionList(new ArrayList<Detalleejecucionplanificacion>());
         }
+        if (piezareal.getMpasignadaxpiezarealList() == null) {
+            piezareal.setMpasignadaxpiezarealList(new ArrayList<Mpasignadaxpiezareal>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -60,6 +64,12 @@ public class PiezarealJpaController {
                 attachedDetalleejecucionplanificacionList.add(detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach);
             }
             piezareal.setDetalleejecucionplanificacionList(attachedDetalleejecucionplanificacionList);
+            List<Mpasignadaxpiezareal> attachedMpasignadaxpiezarealList = new ArrayList<Mpasignadaxpiezareal>();
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezarealToAttach : piezareal.getMpasignadaxpiezarealList()) {
+                mpasignadaxpiezarealListMpasignadaxpiezarealToAttach = em.getReference(mpasignadaxpiezarealListMpasignadaxpiezarealToAttach.getClass(), mpasignadaxpiezarealListMpasignadaxpiezarealToAttach.getId());
+                attachedMpasignadaxpiezarealList.add(mpasignadaxpiezarealListMpasignadaxpiezarealToAttach);
+            }
+            piezareal.setMpasignadaxpiezarealList(attachedMpasignadaxpiezarealList);
             em.persist(piezareal);
             if (idcodigobarra != null) {
                 idcodigobarra.getPiezarealList().add(piezareal);
@@ -76,6 +86,15 @@ public class PiezarealJpaController {
                 if (oldPiezarealOfDetalleejecucionplanificacionListDetalleejecucionplanificacion != null) {
                     oldPiezarealOfDetalleejecucionplanificacionListDetalleejecucionplanificacion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacionListDetalleejecucionplanificacion);
                     oldPiezarealOfDetalleejecucionplanificacionListDetalleejecucionplanificacion = em.merge(oldPiezarealOfDetalleejecucionplanificacionListDetalleejecucionplanificacion);
+                }
+            }
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezareal : piezareal.getMpasignadaxpiezarealList()) {
+                Piezareal oldIdpiezarealOfMpasignadaxpiezarealListMpasignadaxpiezareal = mpasignadaxpiezarealListMpasignadaxpiezareal.getIdpiezareal();
+                mpasignadaxpiezarealListMpasignadaxpiezareal.setIdpiezareal(piezareal);
+                mpasignadaxpiezarealListMpasignadaxpiezareal = em.merge(mpasignadaxpiezarealListMpasignadaxpiezareal);
+                if (oldIdpiezarealOfMpasignadaxpiezarealListMpasignadaxpiezareal != null) {
+                    oldIdpiezarealOfMpasignadaxpiezarealListMpasignadaxpiezareal.getMpasignadaxpiezarealList().remove(mpasignadaxpiezarealListMpasignadaxpiezareal);
+                    oldIdpiezarealOfMpasignadaxpiezarealListMpasignadaxpiezareal = em.merge(oldIdpiezarealOfMpasignadaxpiezarealListMpasignadaxpiezareal);
                 }
             }
             em.getTransaction().commit();
@@ -103,6 +122,8 @@ public class PiezarealJpaController {
             Estadopiezareal estadoNew = piezareal.getEstado();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListOld = persistentPiezareal.getDetalleejecucionplanificacionList();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListNew = piezareal.getDetalleejecucionplanificacionList();
+            List<Mpasignadaxpiezareal> mpasignadaxpiezarealListOld = persistentPiezareal.getMpasignadaxpiezarealList();
+            List<Mpasignadaxpiezareal> mpasignadaxpiezarealListNew = piezareal.getMpasignadaxpiezarealList();
             if (idcodigobarraNew != null) {
                 idcodigobarraNew = em.getReference(idcodigobarraNew.getClass(), idcodigobarraNew.getIdcodigo());
                 piezareal.setIdcodigobarra(idcodigobarraNew);
@@ -118,6 +139,13 @@ public class PiezarealJpaController {
             }
             detalleejecucionplanificacionListNew = attachedDetalleejecucionplanificacionListNew;
             piezareal.setDetalleejecucionplanificacionList(detalleejecucionplanificacionListNew);
+            List<Mpasignadaxpiezareal> attachedMpasignadaxpiezarealListNew = new ArrayList<Mpasignadaxpiezareal>();
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach : mpasignadaxpiezarealListNew) {
+                mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach = em.getReference(mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach.getClass(), mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach.getId());
+                attachedMpasignadaxpiezarealListNew.add(mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach);
+            }
+            mpasignadaxpiezarealListNew = attachedMpasignadaxpiezarealListNew;
+            piezareal.setMpasignadaxpiezarealList(mpasignadaxpiezarealListNew);
             piezareal = em.merge(piezareal);
             if (idcodigobarraOld != null && !idcodigobarraOld.equals(idcodigobarraNew)) {
                 idcodigobarraOld.getPiezarealList().remove(piezareal);
@@ -149,6 +177,23 @@ public class PiezarealJpaController {
                     if (oldPiezarealOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion != null && !oldPiezarealOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion.equals(piezareal)) {
                         oldPiezarealOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacionListNewDetalleejecucionplanificacion);
                         oldPiezarealOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion = em.merge(oldPiezarealOfDetalleejecucionplanificacionListNewDetalleejecucionplanificacion);
+                    }
+                }
+            }
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListOldMpasignadaxpiezareal : mpasignadaxpiezarealListOld) {
+                if (!mpasignadaxpiezarealListNew.contains(mpasignadaxpiezarealListOldMpasignadaxpiezareal)) {
+                    mpasignadaxpiezarealListOldMpasignadaxpiezareal.setIdpiezareal(null);
+                    mpasignadaxpiezarealListOldMpasignadaxpiezareal = em.merge(mpasignadaxpiezarealListOldMpasignadaxpiezareal);
+                }
+            }
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListNewMpasignadaxpiezareal : mpasignadaxpiezarealListNew) {
+                if (!mpasignadaxpiezarealListOld.contains(mpasignadaxpiezarealListNewMpasignadaxpiezareal)) {
+                    Piezareal oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal = mpasignadaxpiezarealListNewMpasignadaxpiezareal.getIdpiezareal();
+                    mpasignadaxpiezarealListNewMpasignadaxpiezareal.setIdpiezareal(piezareal);
+                    mpasignadaxpiezarealListNewMpasignadaxpiezareal = em.merge(mpasignadaxpiezarealListNewMpasignadaxpiezareal);
+                    if (oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal != null && !oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal.equals(piezareal)) {
+                        oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal.getMpasignadaxpiezarealList().remove(mpasignadaxpiezarealListNewMpasignadaxpiezareal);
+                        oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal = em.merge(oldIdpiezarealOfMpasignadaxpiezarealListNewMpasignadaxpiezareal);
                     }
                 }
             }
@@ -195,6 +240,11 @@ public class PiezarealJpaController {
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacion : detalleejecucionplanificacionList) {
                 detalleejecucionplanificacionListDetalleejecucionplanificacion.setPiezareal(null);
                 detalleejecucionplanificacionListDetalleejecucionplanificacion = em.merge(detalleejecucionplanificacionListDetalleejecucionplanificacion);
+            }
+            List<Mpasignadaxpiezareal> mpasignadaxpiezarealList = piezareal.getMpasignadaxpiezarealList();
+            for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezareal : mpasignadaxpiezarealList) {
+                mpasignadaxpiezarealListMpasignadaxpiezareal.setIdpiezareal(null);
+                mpasignadaxpiezarealListMpasignadaxpiezareal = em.merge(mpasignadaxpiezarealListMpasignadaxpiezareal);
             }
             em.remove(piezareal);
             em.getTransaction().commit();
