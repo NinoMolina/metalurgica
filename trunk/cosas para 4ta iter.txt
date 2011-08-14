@@ -3,6 +3,7 @@ Cosas para hacer 4ta iter
 requerim:
 
 cambiar descripciones CU reg reclamo emp metal. y regist reclamo prov
+agregar 4 cu Tipo maquina
 
 analisis:
 corregir diag clases CU 9 generar presup
