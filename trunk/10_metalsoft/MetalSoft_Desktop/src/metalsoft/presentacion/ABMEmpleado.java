@@ -40,7 +40,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private long idDomicilio;
     private long idResponsable;
     private Empleado empleado;
-    private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
+    private Empleado empleadoDB;
     private LinkedList turnos;
     private metalsoft.datos.dbobject.DomicilioDB domicilioResponsableDB;
     private metalsoft.datos.dbobject.UsuarioDB usuarioDB;
@@ -206,12 +206,16 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
         switch (opcion) {
             case NUEVO:
-                idEmpleado = nuevoEmpleado();
+                empleado = nuevoEmpleado();
                 idEmpleado = gestor.guardarEmpleado(empleado,turnos);
+                limpiarCampos();
+                setEnableComponents(false);
                 break;
             case MODIFICAR:
                 idEmpleado = modificarEmpleado();
                 idEmpleado = gestor.modificarEmpleado(empleado,mapTurnos);
+                limpiarCampos();
+                setEnableComponents(false);
                 break;
             default:
                 break;
@@ -258,6 +262,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         chkMañana.setSelected(false);
         chkNoche.setSelected(false);
         chkTarde.setSelected(false);
+        mapTurnos.clear();
         beanResponsable.limpiarCampos();
     }
 
@@ -545,11 +550,11 @@ public class ABMEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_chkMañanaActionPerformed
 
     private void chkNocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNocheActionPerformed
-        // TODO add your handling code here:
-        if(chkTarde.isSelected()==true && !mapTurnos.containsKey(3)){
+        boolean value = chkNoche.isSelected();
+        if(value==true && !mapTurnos.containsKey(3)){
             mapTurnos.put(3,AGREGAR);
         }
-        if(chkTarde.isSelected()==false && mapTurnos.containsKey(3))
+        if(value==false && mapTurnos.containsKey(3))
         {
             mapTurnos.put(3,ELIMINAR);
         }
@@ -591,9 +596,11 @@ public class ABMEmpleado extends javax.swing.JFrame {
 
     public void empleadoSeleccionado() {
         empleadoDB = gestor.buscarEmpleadoDB(idEmpleado);
-        domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio());
-        if (empleadoDB.getUsuario() > 0) {
-            usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario());
+        empleado=empleadoDB;
+        domicilioResponsableDB = gestor.buscarDomicilioEmpleadoDB(empleadoDB.getDomicilio().getIddomicilio());
+        domicilioResponsable=empleado.getDomicilio();
+        if (empleadoDB.getUsuario() !=null) {
+            usuarioDB = gestor.buscarUsuarioDB(empleadoDB.getUsuario().getIdusuario());
         }
         turnos.clear();
         EmpleadoxturnoDB[] ext = gestor.buscarTurnosDB(idEmpleado);
@@ -625,18 +632,20 @@ public class ABMEmpleado extends javax.swing.JFrame {
             dccFechaEgreso.setDate(empleadoDB.getFechaegreso());
         }
 
-        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, empleadoDB.getLegajo()));
+        lblNroCliente.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EMPLEADO, empleadoDB.getLegajo().longValue()));
         txtMotivoEgreso.setText(empleadoDB.getMotivoegreso());
-        txtUsuario.setText(usuarioDB.getUsuario());
-        if (empleadoDB.getCargo() < 1) {
+        if(usuarioDB!= null) {
+            txtUsuario.setText(usuarioDB.getUsuario());
+        }
+        if (empleadoDB.getCargo() == null) {
             Combo.setItemComboSeleccionado(cmbCargo, -1);
         } else {
-            Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo());
+            Combo.setItemComboSeleccionado(cmbCargo, empleadoDB.getCargo().getIdcargo());
         }
-        if (empleadoDB.getCategoria() < 1) {
+        if (empleadoDB.getCategoria() == null) {
             Combo.setItemComboSeleccionado(cmbCategoria, -1);
         } else {
-            Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria());
+            Combo.setItemComboSeleccionado(cmbCategoria, empleadoDB.getCategoria().getIdcategoria());
         }
         Iterator it = turnos.iterator();
 
@@ -689,14 +698,14 @@ public class ABMEmpleado extends javax.swing.JFrame {
         }
     }
 
-    private void setDatosResponsable(metalsoft.datos.dbobject.EmpleadoDB respDB, metalsoft.datos.dbobject.DomicilioDB domRespDB) {
+    private void setDatosResponsable(Empleado respDB, metalsoft.datos.dbobject.DomicilioDB domRespDB) {
         beanResponsable.getTxtApellido().setText(respDB.getApellido());
         beanResponsable.getTxtEmail().setText(respDB.getEmail());
         beanResponsable.getTxtNombre().setText(respDB.getNombre());
         beanResponsable.getTxtNroDoc().setText(String.valueOf(respDB.getNrodocumento()));
         beanResponsable.getTxtTelefono().setText(respDB.getTelefono());
 
-        setItemComboSeleccionado(beanResponsable.getCmbTipoDoc(), respDB.getTipodocumento());
+        setItemComboSeleccionado(beanResponsable.getCmbTipoDoc(), respDB.getTipodocumento().getIdtipodocumento());
 
         metalsoft.beans.Domicilio beanDom = beanResponsable.getDomicilioResponsable();
         setDatosDomicilio(beanDom, domRespDB);
@@ -739,7 +748,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private long nuevoEmpleado() {
+    private Empleado nuevoEmpleado() {
         long idCategoria = Long.parseLong(((ItemCombo) cmbCategoria.getSelectedItem()).getId());
         long idcargo = Long.parseLong(((ItemCombo) cmbCargo.getSelectedItem()).getId());
         empleado=new Empleado();
@@ -806,7 +815,6 @@ public class ABMEmpleado extends javax.swing.JFrame {
         empleado.setFechaingreso(fechaIngreso);
         empleado.setFechaegreso(fechaEgreso);
         domicilioResponsable = crearDomicilio(calle, depto, nroCalle, piso, torre);
-        empleado.setDomicilio(domicilioResponsable);
 
         long nro = gestor.generarNvoNroEmpleado();
         empleado.setLegajo(BigInteger.valueOf(nro));
@@ -821,7 +829,7 @@ public class ABMEmpleado extends javax.swing.JFrame {
         empleado.setCategoria(gestor.findCategoria(idCategoria));
         empleado.setTipodocumento(gestor.findTipoDoc(idTipoDoc));
 
-        return empleado.getIdempleado();
+        return empleado;
     }
 
     private long modificarEmpleado() {
