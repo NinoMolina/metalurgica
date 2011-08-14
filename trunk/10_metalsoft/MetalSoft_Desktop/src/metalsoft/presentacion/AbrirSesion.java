@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import metalsoft.MetalsoftDispatcher;
 import metalsoft.negocio.gestores.GestorIniciarSesion;
 
 /**
@@ -83,10 +84,8 @@ public class AbrirSesion extends javax.swing.JFrame {
         metalsoft.datos.dbobject.UsuarioDB usuario = g.buscarUsuario();
         if (usuario != null) {
             try {
-                Principal p = new Principal(usuario);
                 this.dispose();
-                p.setVisible(true);
-                p.setLocationRelativeTo(null);
+                MetalsoftDispatcher.dispatchUser(usuario);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error al iniciar sesion", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(AbrirSesion.class.getName()).log(Level.SEVERE, null, ex);
