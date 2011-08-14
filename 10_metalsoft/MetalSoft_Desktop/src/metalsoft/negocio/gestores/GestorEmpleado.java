@@ -55,6 +55,7 @@ import metalsoft.datos.jpa.controller.CategoriaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoxturnoJpaController;
+import metalsoft.datos.jpa.controller.LocalidadJpaController;
 import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
 import metalsoft.datos.jpa.controller.TurnoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
@@ -64,6 +65,7 @@ import metalsoft.datos.jpa.entity.Categoria;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Empleadoxturno;
 import metalsoft.datos.jpa.entity.EmpleadoxturnoPK;
+import metalsoft.datos.jpa.entity.Localidad;
 import metalsoft.datos.jpa.entity.Tipodocumento;
 import metalsoft.negocio.rrhh.Asistencia;
 
@@ -874,6 +876,11 @@ public class GestorEmpleado {
     {
         TipodocumentoJpaController td=new TipodocumentoJpaController();
         return td.findTipodocumento(id);
+    }
+    public Localidad findLocalidad(long id)
+    {
+        LocalidadJpaController td=new LocalidadJpaController();
+        return td.findLocalidad(id);
     }
     public Categoria findCategoria(long id)
     {
