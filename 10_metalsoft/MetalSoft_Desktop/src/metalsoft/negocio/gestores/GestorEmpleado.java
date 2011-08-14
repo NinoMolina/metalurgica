@@ -4,10 +4,11 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.lang.String;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -19,7 +20,6 @@ import metalsoft.datos.dbobject.DomicilioDB;
 
 import metalsoft.datos.dbobject.EmpleadoDB;
 import metalsoft.datos.dbobject.EmpleadoPKDB;
-import metalsoft.datos.dbobject.EmpleadoxturnoDB;
 import metalsoft.datos.dbobject.ProvinciaDB;
 import metalsoft.datos.dbobject.TipodocumentoDB;
 import metalsoft.datos.dbobject.TurnoDB;
@@ -37,13 +37,34 @@ import metalsoft.datos.idao.TipodocumentoDAO;
 import metalsoft.datos.idao.TurnoDAO;
 import metalsoft.negocio.access.AccessEmpleado;
 import metalsoft.negocio.access.AccessFunctions;
-import metalsoft.negocio.rrhh.Empleado;
+
 import metalsoft.util.ItemCombo;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import metalsoft.datos.dbobject.AsistenciaDB;
+import metalsoft.datos.dbobject.EmpleadoxturnoDB;
 import metalsoft.datos.idao.AsistenciaDAO;
 import metalsoft.datos.idao.EmpleadoxturnoDAO;
 import metalsoft.datos.idao.UsuarioDAO;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.BarrioJpaController;
+import metalsoft.datos.jpa.controller.CargoJpaController;
+import metalsoft.datos.jpa.controller.CategoriaJpaController;
+import metalsoft.datos.jpa.controller.DomicilioJpaController;
+import metalsoft.datos.jpa.controller.EmpleadoJpaController;
+import metalsoft.datos.jpa.controller.EmpleadoxturnoJpaController;
+import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
+import metalsoft.datos.jpa.controller.TurnoJpaController;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Barrio;
+import metalsoft.datos.jpa.entity.Cargo;
+import metalsoft.datos.jpa.entity.Categoria;
+import metalsoft.datos.jpa.entity.Empleado;
+import metalsoft.datos.jpa.entity.Empleadoxturno;
+import metalsoft.datos.jpa.entity.EmpleadoxturnoPK;
+import metalsoft.datos.jpa.entity.Tipodocumento;
 import metalsoft.negocio.rrhh.Asistencia;
 
 /**
@@ -65,14 +86,17 @@ public class GestorEmpleado {
     private metalsoft.negocio.rrhh.Domicilio domicilio;
     private Empleado empleado;
     private long idDomicilio;
-    private long idBarrio,  idLocalidad,  idProvincia;
+    private long idBarrio, idLocalidad, idProvincia;
     private long idTipoDoc;
     private long idEmpleado;
-    private long idcategoria,  idusuario,  idcargo,  idtipodoc;
+    private long idcategoria, idusuario, idcargo, idtipodoc;
     private LinkedList idturnos;
     private metalsoft.datos.dbobject.EmpleadoDB empleadoDB;
     private metalsoft.datos.dbobject.BarrioDB barrioDB;
     private metalsoft.datos.dbobject.LocalidadDB localidadDB;
+    private final String DEJAR = "dejar";
+    private final String AGREGAR = "agregar";
+    private final String ELIMINAR = "eliminar";
 
     public Empleado getEmpleado() {
         return empleado;
@@ -400,98 +424,7 @@ public class GestorEmpleado {
         return result;
     }
 
-    public long registrarEmpleado(Empleado empleado) {
-        PostgreSQLManager pg = null;
-        Connection cn = null;
-        pg = new PostgreSQLManager();
-        long result = -1;
-        empleadoDB = new metalsoft.datos.dbobject.EmpleadoDB();
-        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-
-        try {
-
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            long idDom = empleado.crearDomicilio(empleado.getDomicilio(), idBarrio, cn);
-            result = AccessEmpleado.insert(empleado, idturnos, idcategoria, idusuario, idcargo, idDom, idtipodoc, cn);
-
-            cn.commit();
-            idEmpleado = result;
-
-        } catch (Exception ex) {
-            try {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return result;
-    }
-
-    public long modificarEmpleado(Empleado empleado) {
-        //Setear todos los camposss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-        long result = -1;
-        EmpleadoDAO dao = new DAOFactoryImpl().createEmpleadoDAO();
-
-        PostgreSQLManager pg = new PostgreSQLManager();
-        Connection cn = null;
-        empleadoDB = new EmpleadoDB();
-        //long idTipoDoc=tiposDoc[indexTipoDoc].getIdtipodocumento();
-        EmpleadoPKDB pk = new EmpleadoPKDB(idEmpleado);
-        try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-
-
-            int idDom = empleado.modificarDomicilio(empleado.getDomicilio(), idDomicilio, idBarrio, cn);
-            empleadoDB.setDomicilio(idDom);
-
-            if (empleado.getFechaIngreso() != null) {
-                empleadoDB.setFechaingreso(new java.sql.Date(empleado.getFechaIngreso().getTime()));
-            } else {
-                empleadoDB.setFechaingreso(null);
-            }
-
-            if (empleado.getFechaEgreso() != null) {
-                empleadoDB.setFechaegreso(new java.sql.Date(empleado.getFechaEgreso().getTime()));
-            } else {
-                empleadoDB.setFechaegreso(null);
-            }
-
-            empleadoDB.setLegajo(empleado.getLegajo());
-
-            empleadoDB.setTelefono(empleado.getTelefono());
-            //deberia autogenerar un usario y contraseña
-            empleadoDB.setUsuario(1);
-
-            result = dao.update(pk, empleadoDB, cn);
-            empleadoDB.setIdempleado(idEmpleado);
-            cn.commit();
-
-        } catch (Exception ex) {
-            try {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return result;
-    }
-
+    
     public void tomarDomicilio(metalsoft.negocio.rrhh.Domicilio dom, long id) {
         domicilio = dom;
         idDomicilio = id;
@@ -615,7 +548,7 @@ public class GestorEmpleado {
 
         try {
             turnosxempleado = dao.findByIdempleado(id, cn);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -627,6 +560,7 @@ public class GestorEmpleado {
         }
         return turnosxempleado;
     }
+
     public AsistenciaDB[] buscarAsistencia(long id, Date fecha) {
         PostgreSQLManager pg = new PostgreSQLManager();
         AsistenciaDAO dao = new DAOFactoryImpl().createAsistenciaDAO();
@@ -652,6 +586,7 @@ public class GestorEmpleado {
         }
         return asistenciaEmpleado;
     }
+
     public AsistenciaDB[] buscarAsistenciaDelDia(Date fecha) {
         PostgreSQLManager pg = new PostgreSQLManager();
         AsistenciaDAO dao = new DAOFactoryImpl().createAsistenciaDAO();
@@ -678,17 +613,16 @@ public class GestorEmpleado {
         return asistenciaEmpleado;
     }
 
-    public long registrarIngresoAsistencia(AsistenciaDB asistencia)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-        pg=new PostgreSQLManager();
-        long result=-1;
+    public long registrarIngresoAsistencia(AsistenciaDB asistencia) {
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        long result = -1;
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=Asistencia.insert(asistencia, cn);
+            result = Asistencia.insert(asistencia, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
@@ -697,9 +631,7 @@ public class GestorEmpleado {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -709,18 +641,16 @@ public class GestorEmpleado {
         return result;
     }
 
-
-    public long registrarEgreso(AsistenciaDB asistencia)
-    {
-        PostgreSQLManager pg=null;
-        Connection cn=null;
-        pg=new PostgreSQLManager();
-        long result=-1;
+    public long registrarEgreso(AsistenciaDB asistencia) {
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        long result = -1;
 
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            result=Asistencia.update(asistencia, cn);
+            result = Asistencia.update(asistencia, cn);
             cn.commit();
         } catch (Exception ex) {
             Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
@@ -729,9 +659,7 @@ public class GestorEmpleado {
             } catch (SQLException ex1) {
                 Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
@@ -848,7 +776,7 @@ public class GestorEmpleado {
     }
 
     public boolean eliminarEmpleado(long id) {
-        ;
+        
         Connection cn = null;
 
         try {
@@ -881,59 +809,85 @@ public class GestorEmpleado {
         }
     }
 
-    public long guardarEmpleado(Empleado empleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
-        PostgreSQLManager pg = null;
-        Connection cn = null;
-        pg = new PostgreSQLManager();
-        long result = -1;
+    public long guardarEmpleado(Empleado empleado, LinkedList idturno) {
+
+        EmpleadoJpaController controller = new EmpleadoJpaController();
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
+        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController();
+        TurnoJpaController controllerTurno = new TurnoJpaController();
 
         try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result = AccessEmpleado.insert(empleado, idturno, idcategoria, idusuario, idcargo, iddomicilio, idtipodoc, cn);
-            cn.commit();
+            controllerDomicilio.create(empleado.getDomicilio());
+            controller.create(empleado);
+            Iterator it = idturno.iterator();
+            while (it.hasNext()) {
+                Empleadoxturno ext = new Empleadoxturno();
+                ext.setEmpleado(controller.findEmpleado(empleado.getIdempleado()));
+                ext.setTurno(controllerTurno.findTurno(Long.valueOf(String.valueOf(it.next()))));
+                controllerEmpTurno.create(ext);
+            }
+
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        return result;
+        return empleado.getIdempleado();
     }
 
-    public long modificarEmpleado(Empleado empleado, long idEmpleado, LinkedList idturno, long idcategoria, long idusuario, long idcargo, long iddomicilio, long idtipodoc) {
-        PostgreSQLManager pg = null;
-        Connection cn = null;
-        pg = new PostgreSQLManager();
-        long result = -1;
+
+    public long modificarEmpleado(Empleado empleado, Map<Integer, String> mapTurnos) {
+
+        EmpleadoJpaController controller = new EmpleadoJpaController();
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
+        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController();
+        TurnoJpaController controllerTurno = new TurnoJpaController();
 
         try {
-            cn = pg.concectGetCn();
-            cn.setAutoCommit(false);
-            result = AccessEmpleado.update(empleado, idturno, idEmpleado, idcategoria, idusuario, idcargo, iddomicilio, idtipodoc, cn);
-            cn.commit();
+
+            controllerDomicilio.edit(empleado.getDomicilio());
+            controller.edit(empleado);
+            Set<Integer> setKeys = mapTurnos.keySet();
+            for (Integer key : setKeys) {
+                String valor = mapTurnos.get(key);
+                if (valor.equals(AGREGAR)) {
+                    Empleadoxturno ext = new Empleadoxturno();
+                    ext.setEmpleado(controller.findEmpleado(empleado.getIdempleado()));
+                    ext.setTurno(controllerTurno.findTurno(Long.valueOf(String.valueOf(key))));
+                    controllerEmpTurno.create(ext);
+                } else if (valor.equals(ELIMINAR)) {
+                    EmpleadoxturnoPK etPK=new EmpleadoxturnoPK(empleado.getIdempleado(), Long.valueOf(String.valueOf(key)));
+                    controllerEmpTurno.destroy(etPK);
+                }
+            }
+
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                cn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(GestorEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
-        return result;
+        return empleado.getIdempleado();
+    }
+    public Tipodocumento findTipoDoc(long id)
+    {
+        TipodocumentoJpaController td=new TipodocumentoJpaController();
+        return td.findTipodocumento(id);
+    }
+    public Categoria findCategoria(long id)
+    {
+        CategoriaJpaController td=new CategoriaJpaController();
+        return td.findCategoria(id);
+    }
+    public Cargo findCargo(long id)
+    {
+        CargoJpaController td=new CargoJpaController();
+        return td.findCargo(id);
+    }
+    public Barrio findBarrio(long id)
+    {
+        BarrioJpaController td=new BarrioJpaController();
+        return td.findBarrio(id);
     }
 }
