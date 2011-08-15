@@ -12,6 +12,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jfree.data.time.Month;
+import org.joda.time.Days;
+import org.joda.time.Instant;
 
 /**
  *
@@ -271,6 +274,19 @@ public class Fecha {
         return calendar.getTime();
     }
 
+    public static int diferenciaEnDiasJoda(Date fechaPrevista, Date fechaActual){
+
+        Instant insFechaPrevista = new Instant(fechaPrevista.getTime());
+        Instant insFechaActual = new Instant(fechaActual.getTime());
+
+        Days d = Days.daysBetween(insFechaActual, insFechaPrevista );
+
+        int days = d.getDays();
+
+        return days;
+
+    }
+
 //    public static int diferenciaEnMinutos(Date fechaInicial, Date fechaFinal) {
 //
 //        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
@@ -329,18 +345,20 @@ public class Fecha {
 //    }
     public static void main(String args[]) {
 
-        String s = fechaActual();
-        Date d = parseToDate(s);
-        java.sql.Date dsql = parseToDateSQL(d);
-        System.out.println(dsql);
-        Date d2 = new Date(dsql.getTime());
+       
 
-        System.out.println(d);
-        Date d3 = new Date(2010, 8, 30, 15, 30, 30);
-        Date d4 = new Date();
-        Date d5 = diferenciaEnHoras(d3, d4);
-        System.out.println(d5);
-
-        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
+//        String s = fechaActual();
+//        Date d = parseToDate(s);
+//        java.sql.Date dsql = parseToDateSQL(d);
+//        System.out.println(dsql);
+//        Date d2 = new Date(dsql.getTime());
+//
+//        System.out.println(d);
+//        Date d3 = new Date(2010, 8, 30, 15, 30, 30);
+//        Date d4 = new Date();
+//        Date d5 = diferenciaEnHoras(d3, d4);
+//        System.out.println(d5);
+//
+//        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
     }
 }
