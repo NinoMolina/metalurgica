@@ -48,6 +48,8 @@ import javax.persistence.TemporalType;
 public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
+    @SequenceGenerator(name = "pedido_seq", sequenceName = "pedido_idpedido_seq", allocationSize = 1)
     @Column(name = "nropedido")
     private long nropedido;
     @Column(name = "fechaconfirmacionpedido")
