@@ -12,10 +12,15 @@ package metalsoft.presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
 import metalsoft.util.Fecha;
@@ -29,9 +34,12 @@ public class Principal extends javax.swing.JFrame {
     private metalsoft.datos.dbobject.UsuarioDB usuario;
     private Rol[] roles;
     private Timer tiempo;
+    private Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas;
+
     /** Creates new form Principal */
     public Principal(metalsoft.datos.dbobject.UsuarioDB usuario) {
         this.usuario = usuario;
+        mapEtapasAtrasadas = new HashMap<Long, Detalleejecucionplanificacion>();
         initComponents();
         iniciarReloj();
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
@@ -42,10 +50,10 @@ public class Principal extends javax.swing.JFrame {
         //this.getContentPane().setBackground();
     }
 
-    private void iniciarReloj(){
-        tiempo = new Timer(1000, new ActionListener(){
+    private void iniciarReloj() {
+        tiempo = new Timer(1000, new ActionListener() {
 
-            public void actionPerformed(ActionEvent evt){
+            public void actionPerformed(ActionEvent evt) {
                 lblReloj.setText(Fecha.fechaHoraMinutoSegundoActual());
             }
         });
@@ -84,7 +92,7 @@ public class Principal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jPanelTransparente2 = new metalsoft.beans.JPanelTransparente();
         btnProduccion = new javax.swing.JButton();
-        btnCalidad = new javax.swing.JButton();
+        btnEtapasAtrasadas = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
@@ -149,7 +157,6 @@ public class Principal extends javax.swing.JFrame {
         pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/background.jpg"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36));
-        jLabel1.setForeground(new java.awt.Color(102, 255, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("MetalSoft");
 
@@ -213,7 +220,8 @@ public class Principal extends javax.swing.JFrame {
 
         btnProduccion.setText("En Producción");
 
-        btnCalidad.setText("En Calidad");
+        btnEtapasAtrasadas.setText("Etapas Atrasadas.");
+        btnEtapasAtrasadas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         btnPedidos.setText("Pedidos");
 
@@ -224,10 +232,10 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanelTransparente2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnCalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanelTransparente2Layout.setVerticalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +244,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
@@ -762,7 +770,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniRegistrarPresupuestoActionPerformed
 
     private void mniEmpresaMetalurgicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMetalurgicaActionPerformed
-          try {
+        try {
             JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -923,28 +931,28 @@ public class Principal extends javax.swing.JFrame {
 
     private void mniRoturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRoturaActionPerformed
         try {
-                JFrameManager.crearVentana(ABMRotura.class.getName());
-            } catch (ClassNotFoundException ex) {
+            JFrameManager.crearVentana(ABMRotura.class.getName());
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_mniRoturaActionPerformed
 
     private void mniServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniServicioActionPerformed
         // TODO add your handling code here:
-         try {
-                JFrameManager.crearVentana(ABMServicioDeMaquina.class.getName());
-            } catch (ClassNotFoundException ex) {
+        try {
+            JFrameManager.crearVentana(ABMServicioDeMaquina.class.getName());
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
     }//GEN-LAST:event_mniServicioActionPerformed
 
     private void mniEmpresaMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpresaMantenimientoActionPerformed
@@ -976,7 +984,7 @@ public class Principal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalidad;
+    private javax.swing.JButton btnEtapasAtrasadas;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JLabel jLabel1;
@@ -1045,5 +1053,31 @@ public class Principal extends javax.swing.JFrame {
     public void obtenerRolUsuario(long idUsuario) {
         roles = Usuario.obtenerRoles(idUsuario);
         setTitle("METALSOFT - INICIO [Rol: " + roles[0].getRol() + "]");
+    }
+
+    public void alertaEtapaNoFinalizada(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
+
+        if (!mapEtapasAtrasadas.containsKey(detalleejecucionplanificacion.getId())) {
+
+            mapEtapasAtrasadas.put(detalleejecucionplanificacion.getId(), detalleejecucionplanificacion);
+
+            String txtBoton = btnEtapasAtrasadas.getText();
+            String parts[] = txtBoton.split(Pattern.quote("."));
+
+            String txtLbl = "";
+
+            if (parts.length == 2) {
+                txtLbl = parts[1].trim();
+            }
+
+            if (txtLbl.equals("")) {
+                btnEtapasAtrasadas.setText("<html>Etapas Atrasadas. <font color=red size=+2>(1)</font></html>");
+            } else {
+                String num = txtLbl.substring(1, txtLbl.length() - 1);
+                int numero = Integer.parseInt(num);
+                btnEtapasAtrasadas.setText("<html>Etapas Atrasadas. <font color=red size=+2>(" + (numero + 1) + ")</font></html>");
+            }
+
+        }
     }
 }

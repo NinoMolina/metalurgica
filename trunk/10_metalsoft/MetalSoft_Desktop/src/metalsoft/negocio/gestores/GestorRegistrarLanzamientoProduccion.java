@@ -8,6 +8,7 @@ import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
+import metalsoft.datos.jpa.controller.DetalleplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
@@ -136,12 +138,14 @@ public class GestorRegistrarLanzamientoProduccion {
 
 
             lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
-            
+
             lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
 
             DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController();
             EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController();
             Detalleejecucionplanificacion detalleejecucionplanificacion = null;
+
+            DetalleplanificacionproduccionJpaController dppController = new DetalleplanificacionproduccionJpaController();
 
             Map<Long, Integer> mapIndexPiezaReal = new HashMap<Long, Integer>();
 
@@ -154,16 +158,17 @@ public class GestorRegistrarLanzamientoProduccion {
                 detalleejecucionplanificacion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 detalleejecucionplanificacion.setOrden(detalleplanificacionproduccion.getOrden());
                 detalleejecucionplanificacion.setPieza(detalleplanificacionproduccion.getIdpieza());
-                
+
                 Materiaprima matPrimaPiezaDetallePlanif = detalleplanificacionproduccion.getIdpieza().getMateriaprima();
                 Long idMateriaPrima = matPrimaPiezaDetallePlanif.getIdmateriaprima();
 
-                if(!mapIndexPiezaReal.containsKey(idMateriaPrima)){
+                if (!mapIndexPiezaReal.containsKey(idMateriaPrima)) {
                     mapIndexPiezaReal.put(idMateriaPrima, 0);
                 }
 
-                forDetallempasignada: for(Detallempasignada detallempasignada: lstDetallempasignada){
-                    if(idMateriaPrima == detallempasignada.getIdmateriaprima().getIdmateriaprima()){
+                forDetallempasignada:
+                for (Detallempasignada detallempasignada : lstDetallempasignada) {
+                    if (idMateriaPrima == detallempasignada.getIdmateriaprima().getIdmateriaprima()) {
                         List<Mpasignadaxpiezareal> lstMpasignadaxpiezareal = detallempasignada.getMpasignadaxpiezarealList();
                         Integer index = mapIndexPiezaReal.get(idMateriaPrima);
                         detalleejecucionplanificacion.setPiezareal(lstMpasignadaxpiezareal.get(index).getIdpiezareal());
@@ -171,7 +176,7 @@ public class GestorRegistrarLanzamientoProduccion {
                         break forDetallempasignada;
                     }
                 }
-                
+
                 /*
                  * Creacion ejecucion etapa produccion
                  */
@@ -184,8 +189,11 @@ public class GestorRegistrarLanzamientoProduccion {
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;
                 if (detalleplanificacionproduccion.getOrden() == 1) {
-                    detalleejecucionplanificacion.setFechainicio(Fecha.fechaActualDate());
-                    detalleejecucionplanificacion.setHorainicio(Fecha.fechaActualDate());
+                    Date fechaActual = Fecha.fechaActualDate();
+                    detalleejecucionplanificacion.setFechainicio(fechaActual);
+                    detalleejecucionplanificacion.setHorainicio(fechaActual);
+                    ejecucionetapaproduccion.setFechainicio(fechaActual);
+                    ejecucionetapaproduccion.setHorainicio(fechaActual);
                     estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
                 } else {
                     estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
@@ -197,7 +205,11 @@ public class GestorRegistrarLanzamientoProduccion {
                  */
                 eepController.create(ejecucionetapaproduccion);
                 detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
+//                List<Detalleplanificacionproduccion> lstDetalleplanificacionproduccion = new ArrayList<Detalleplanificacionproduccion>();
+//                detalleejecucionplanificacion.setDetalleplanificacionproduccionList(lstDetalleplanificacionproduccion);
                 depController.create(detalleejecucionplanificacion);
+                detalleplanificacionproduccion.setIddetalleejecucionplanificacion(detalleejecucionplanificacion);
+                dppController.edit(detalleplanificacionproduccion);
             }
 
 
