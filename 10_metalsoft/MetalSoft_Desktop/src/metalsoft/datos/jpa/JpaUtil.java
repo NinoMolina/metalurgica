@@ -12,6 +12,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Accioncalidad;
+import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 
 /**
  *
@@ -39,5 +41,23 @@ public class JpaUtil {
 
     public static Query getNamedQuery(String name){
         return getEntityManager().createNamedQuery(name);
+    }
+
+    public static List getEjecucionplanificacionproduccionSegunEstado(long idestado){
+        EntityManager em=JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Ejecucionplanificacionproduccion e"
+                + " WHERE e.estado.idestado = :id";
+        Query q=em.createQuery(sql, Ejecucionplanificacionproduccion.class);
+        q.setParameter("id", idestado);
+        return q.getResultList();
+    }
+    
+    public static Detalleplanificacionproduccion getDetalleplanificacionproduccionPorIdDetalleejecucion(long id){
+        EntityManager em=JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Detalleplanificacionproduccion e"
+                + " WHERE e.iddetalleejecucionplanificacion.id = :id";
+        Query q=em.createQuery(sql, Detalleplanificacionproduccion.class);
+        q.setParameter("id", id);
+        return (Detalleplanificacionproduccion) q.getSingleResult();
     }
 }
