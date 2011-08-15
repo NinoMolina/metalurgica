@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Accioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Pedido;
 
 /**
  *
@@ -59,5 +60,12 @@ public class JpaUtil {
         Query q=em.createQuery(sql, Detalleplanificacionproduccion.class);
         q.setParameter("id", id);
         return (Detalleplanificacionproduccion) q.getSingleResult();
+    }
+    public static List getPedidosNoFinalizados(){
+        EntityManager em=JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Pedido e"
+                + " WHERE e.estado.idestado not IN (10,12,15)";
+        Query q=em.createQuery(sql, Pedido.class);
+        return q.getResultList();
     }
 }
