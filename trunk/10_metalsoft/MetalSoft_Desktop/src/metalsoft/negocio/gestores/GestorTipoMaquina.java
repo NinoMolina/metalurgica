@@ -17,7 +17,7 @@ import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.TipomaquinaDAO;
 import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.negocio.mantenimiento.TipoMaquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 /**
  *
  * @author Lorreine Prescott

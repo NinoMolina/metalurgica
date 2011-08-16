@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import metalsoft.negocio.gestores.*;
-import metalsoft.negocio.mantenimiento.TipoMaquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
 import metalsoft.presentacion.lookandfeel.Skins;
 
