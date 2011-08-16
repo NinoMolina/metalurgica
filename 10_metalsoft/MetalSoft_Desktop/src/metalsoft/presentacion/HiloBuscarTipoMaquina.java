@@ -8,7 +8,7 @@ package metalsoft.presentacion;
 import javax.swing.JList;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorTipoMaquina;
-import metalsoft.negocio.mantenimiento.TipoMaquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 /**
  *
  * @author Lorreine Prescott

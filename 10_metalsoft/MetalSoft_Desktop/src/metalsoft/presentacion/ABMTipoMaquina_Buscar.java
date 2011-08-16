@@ -15,7 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import metalsoft.negocio.mantenimiento.TipoMaquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 
 /**
  *
