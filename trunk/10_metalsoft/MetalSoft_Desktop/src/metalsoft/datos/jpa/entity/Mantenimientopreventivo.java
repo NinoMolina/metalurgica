@@ -55,7 +55,7 @@ public class Mantenimientopreventivo implements Serializable {
     private Date horaenviomantenimiento;
     @Column(name = "periodo")
     private String periodo;
-    @Column(name = "nromantenimietno")
+    @Column(name = "nromantenimiento")
     private BigInteger nromantenimietno;
     @Column(name = "fechafinmantenimientoreal")
     @Temporal(TemporalType.DATE)
