@@ -4,10 +4,7 @@ requerim:
 
 cambiar descripciones CU reg reclamo emp metal. y regist reclamo prov
 agregar 4 cu Tipo maquina
-Cambiar CU registrar mantenimiento preventivo: relación 1 a 1 con servicio
-En el envío que pueda seleccionar 1...*mantenimientos
-Ver impacto del cambio en Diag de clases.
-
+Cambiar CU registrar mantenimiento preventivo: falta agregar ingreso duración.
 
 
 analisis:
