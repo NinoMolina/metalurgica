@@ -4,8 +4,13 @@
  */
 package metalsoft;
 
+import java.util.List;
 import metalsoft.datos.dbobject.UsuarioDB;
+import metalsoft.datos.jpa.controller.UsuarioJpaController;
+import metalsoft.datos.jpa.entity.Usuario;
+import metalsoft.datos.jpa.entity.Usuarioxrol;
 import metalsoft.presentacion.Principal;
+import metalsoft.presentacion.PrincipalOperario;
 
 /**
  *
@@ -21,21 +26,45 @@ public class MetalsoftDispatcher {
          * deberian haber terminado.
          */
 
-        Principal p = new Principal(usuario);
+        UsuarioJpaController usuarioController = new UsuarioJpaController();
+        Usuario usuarioJpa = usuarioController.findUsuario(usuario.getIdusuario());
 
-        lanzarHiloAvisoEtapaNoTerminada(p);
-        lanzarHiloEscuchadorFinEtapa();
+        List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();
 
-        p.setVisible(true);
-        p.setLocationRelativeTo(null);
+        if (lstUsuarioXRol.size() == 1) {
+            if (lstUsuarioXRol.get(0).getRol().getRol().equals("OPERARIO")) {
+                PrincipalOperario principalOperario = new PrincipalOperario();
+                principalOperario.setVisible(true);
+                principalOperario.setLocationRelativeTo(null);
+            } else {
+                Principal p = new Principal(usuario);
+
+                lanzarHiloAvisoEtapaNoTerminada(p);
+                lanzarHiloEscuchadorFinEtapa(p);
+
+                p.setVisible(true);
+                p.setLocationRelativeTo(null);
+            }
+        } else {
+            Principal p = new Principal(usuario);
+
+            lanzarHiloAvisoEtapaNoTerminada(p);
+            lanzarHiloEscuchadorFinEtapa(p);
+
+            p.setVisible(true);
+            p.setLocationRelativeTo(null);
+        }
+
+
     }
 
-    private static void lanzarHiloEscuchadorFinEtapa(){
+    private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
         HiloEscuchadorFinEtapa hilo = new HiloEscuchadorFinEtapa();
+        hilo.setVtnPrincipal(vtnPrincipal);
         hilo.start();
     }
 
-    private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal){
+    private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal) {
         HiloAvisoEtapaNoTerminada hilo = new HiloAvisoEtapaNoTerminada();
         hilo.setVtnPrincipal(vtnPrincipal);
         hilo.start();
