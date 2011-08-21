@@ -71,7 +71,7 @@ public class JpaUtil {
     public static List getPedidosNoFinalizadosLIKE(String param){
         EntityManager em=JpaUtil.getEntityManager();
         String sql = "SELECT e FROM Pedido e"
-                + " WHERE e.estado.idestado not IN (10,12,15) and CAST(e.nropedido as VARCHAR) like '" +param+"'";
+                + " WHERE e.estado.idestado not IN (10,12,15) and CAST(e.nropedido as VARCHAR) like '" +param+"%'";
         Query q=em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
