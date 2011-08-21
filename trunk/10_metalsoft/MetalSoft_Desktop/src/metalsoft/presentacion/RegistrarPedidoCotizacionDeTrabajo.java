@@ -8,7 +8,6 @@
  *
  * Created on 14/08/2011, 19:45:11
  */
-
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
@@ -24,8 +23,12 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.EmpresametalurgicaDB;
+import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Responsable;
+import metalsoft.negocio.gestores.GestorEmpresaMetalurgica;
 import metalsoft.negocio.gestores.GestorTrabajoTercerizado;
 import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -45,6 +48,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame implements IBuscador {
 
     private static Timer timer;
+    private EmpresametalurgicaDB[] empresas;
     private HiloBuscarEmpresaMetalurgica hiloBuscarEmpresaMetalurgica;
     private Empresametalurgica[] empresasMetalurgicas;
     private EnumOpcionesABM opcion;
@@ -53,7 +57,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
     private TableCellRender tcrTblDetallePedido;
-        private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
+    private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
 
     public Empresametalurgica[] getEmpresasMetalurgicas() {
         return empresasMetalurgicas;
@@ -79,7 +83,8 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         timer = new Timer();
         bsyBuscar.setVisible(false);
     }
-     private void setearTablas() {
+
+    private void setearTablas() {
         //DETALLE PEDIDO
         tblDetallePedido.setModel(new DetallePedidoCotizacionTableModel());
         tblDetallePedido.setColumnControlVisible(true);
@@ -99,18 +104,20 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
 
-        
+
     }
-     private void setEnabledComponents(boolean b) {
+
+    private void setEnabledComponents(boolean b) {
         beanBtnGuardar.getBtnGuardar().setEnabled(b);
         beanBtnSeleccionarPieza.setEnabled(b);
         beanBtnSeleccionarProducto.setEnabled(b);
     }
+
     private void buscarPedidosNoFinalizados() {
         filasPedidos = gestor.buscarPedidosNoFinalizados();
         LinkedList<ViewPedidoEnListadoProcedimientos> lstView = new LinkedList<ViewPedidoEnListadoProcedimientos>();
         ViewPedidoEnListadoProcedimientos view = null;
-        for(Pedido pedido: filasPedidos){
+        for (Pedido pedido : filasPedidos) {
             view = new ViewPedidoEnListadoProcedimientos();
 
             view.setCliente(pedido.getCliente().getRazonsocial());
@@ -121,7 +128,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             view.setFecharequeridacotizacion(pedido.getFecharequeridacotizacion());
             view.setIdestado(pedido.getEstado().getIdestado());
             view.setIdpedido(pedido.getIdpedido());
-            view.setNropedido((int)pedido.getNropedido());
+            view.setNropedido((int) pedido.getNropedido());
             view.setNropedidocotizacioncliente(pedido.getNropedidocotizacioncliente());
             view.setPrioridad(pedido.getPrioridad().getNombre());
 
@@ -130,6 +137,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         beanTblPedidos.setFilasPedidos(lstView);
         beanTblPedidos.updateTblPedidos();
     }
+
     private void addListeners() {
         addListenerBtnSeleccionarPedido();
         addListenerBtnSeleccionarProducto();
@@ -603,11 +611,17 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbResultadoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResultadoBusquedaActionPerformed
-        //        if(cmbResultadoBusqueda.getSelectedIndex()>=0)
-        //        {
-        //            lblCondIva.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getIva().getNombre());
-        //            lblCuit.setText(clientes[cmbResultadoBusqueda.getSelectedIndex()].getCUIT());
-        //        }
+        if (cmbResultadoBusqueda.getSelectedIndex() >= 0) {
+            GestorEmpresaMetalurgica gestorEmpresa=new GestorEmpresaMetalurgica();
+            
+            lblTelefono.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getTelefono());
+            lblCuit.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getCuit());
+            lblNroEmpresa.setText(String.valueOf(empresas[cmbResultadoBusqueda.getSelectedIndex()].getNroempresametalurgica()));
+            Responsable responsable = (gestorEmpresa.buscarEmpresaMetalurgica(empresas[cmbResultadoBusqueda.getSelectedIndex()].getIdempresametalurgica())).getResponsable();
+            lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
+            Condicioniva condIva = (gestorEmpresa.buscarEmpresaMetalurgica(empresas[cmbResultadoBusqueda.getSelectedIndex()].getIdempresametalurgica())).getCondicioniva();
+            lblcondicionIva.setText(condIva.getNombre());
+        }
 }//GEN-LAST:event_cmbResultadoBusquedaActionPerformed
 
     private void txtRazonSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyReleased
@@ -634,7 +648,6 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
     }
 
-    
     public JLabel getLblCondIva() {
         return lblTelefono;
     }
@@ -670,7 +683,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     public void setTxtRazonSocial(JTextField txtRazonSocial) {
         this.txtRazonSocial = txtRazonSocial;
 }//GEN-LAST:event_txtRazonSocialKeyTyped
- 
+
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         try {
             JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
@@ -684,16 +697,16 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new RegistrarPedidoCotizacionDeTrabajo().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnGuardar beanBtnGuardar;
     private metalsoft.beans.BtnSalirr beanBtnSalir;
@@ -737,16 +750,13 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     // End of variables declaration//GEN-END:variables
 
     public JList getList(String className) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     public JComboBox getCombo(String className) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return cmbResultadoBusqueda;
     }
 
-    public void setBusqueda(Object[] obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 //    public JList getList(String className) {
 //        if (className.compareTo(HiloBuscarProducto.class.getName()) == 0) {
 //            return lstResultadoBusqueda;
@@ -754,74 +764,37 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 //        return null;
 //    }
 //
-//    public void setBusqueda(Object[] obj) {
-//        if (obj instanceof ProductoDB[]) {
-//        }
-//        if (obj instanceof ClienteDB[]) {
-//            if (obj.length > 0) {
-//                ClienteDB cli = (ClienteDB) obj[0];
-//                lblTelefono.setText(cli.getTelefono());
-//                lblCuit.setText(cli.getCuit());
-//            } else {
-//                lblCuit.setText("");
-//                lblTelefono.setText("");
-//            }
-//
-//        }
-//        bsyBuscar.setBusy(false);
-//        bsyBuscar.setVisible(false);
-//        bsyBuscarProducto.setBusy(false);
-//        bsyBuscarProducto.setVisible(false);
-//    }
-//
-//    public JComboBox getCombo(String className) {
-//        if (className.compareTo(HiloBuscarCliente.class.getName()) == 0) {
-//            return cmbResultadoBusqueda;
-//        }
-//        return null;
-//    }
-//
-//    private void cargarComboPrioridad() {
-//        cmbPrioridad.removeAllItems();
-//        gestor.obtenerPrioridades(cmbPrioridad);
-//    }
-//
-//    private void cargarComboEstado() {
-//        cmbEstado.removeAllItems();
-//        gestor.obtenerEstados(cmbEstado);
-//    }
-//
-//    private void setEnableComponents(boolean b) {
-//        txtMotivoCancelacion.setEnabled(b);
-//        txtNroFactura.setEnabled(b);
-//        txtNroPedidoCliente.setEnabled(b);
-//        txtRazonSocial.setEnabled(b);
-//        txtValorBusqueda.setEnabled(b);
-//        beanBtnAgregar.setEnabled(b);
-//        btnNuevoCliente.setEnabled(b);
-//        btnNuevoProducto.setEnabled(b);
-//        beanBtnQuitar.setEnabled(b);
-//        tblDetallePedidoCotizacion.setEnabled(b);
-//        cmbEstado.setEnabled(b);
-//        cmbPrioridad.setEnabled(b);
-//        cmbResultadoBusqueda.setEnabled(b);
-//        dccCancelacion.setEnabled(b);
-//        dccConfirmacionPedido.setEnabled(b);
-//        dccEntregaEstipulada.setEnabled(b);
-//        dccEntregaReal.setEnabled(b);
-//        dccFechaReqCotizacion.setEnabled(b);
-//        dccPedidoCotizacion.setEnabled(b);
-//        rbtNombre.setEnabled(b);
-//        beanBotones.getBtnEliminar().setEnabled(b);
-//        beanBotones.getBtnModificar().setEnabled(b);
-//        beanBotones.getBtnGuardar().setEnabled(b);
-//    }
+    public void setBusqueda(Object[] obj) {
+        GestorEmpresaMetalurgica gestorEmpresa = new GestorEmpresaMetalurgica();
 
-    private int obtenerNuevoNroPedidoCotizacion() {
+        if (obj instanceof EmpresametalurgicaDB[]) {
+            empresas=(EmpresametalurgicaDB[])obj;
+            if (obj.length > 0) {
+                EmpresametalurgicaDB cli = (EmpresametalurgicaDB) obj[0];
+                lblTelefono.setText(cli.getTelefono());
+                lblCuit.setText(cli.getCuit());
+                lblNroEmpresa.setText(String.valueOf(cli.getNroempresametalurgica()));
+                Responsable responsable = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getResponsable();
+                lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
+                Condicioniva condIva = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getCondicioniva();
+                lblcondicionIva.setText(condIva.getNombre());
+            } else {
+                lblTelefono.setText("");
+                lblCuit.setText("");
+                lblNroEmpresa.setText("");
+                lblResponsableEmpresa.setText("");
+                lblcondicionIva.setText("");
+            }
+
+        }
+        bsyBuscar.setBusy(false);
+        bsyBuscar.setVisible(false);
+    }
+
+    private long obtenerNuevoNroPedidoCotizacion() {
         return gestor.generarNumeroPedido();
     }
 
-    
     class PedidoTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nro",
@@ -999,5 +972,4 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
         }
     }
-
 }
