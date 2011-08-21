@@ -322,4 +322,18 @@ public class AccessFunctions {
         }
         return result;
     }
+    public static long nvoNroTrabajoTercerizado(Connection cn)
+    {
+        String query="{ ? = call nvonrotrabajotercerizado(?)}";
+        long result=-1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+            cs.execute();
+            result=cs.getLong(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }
