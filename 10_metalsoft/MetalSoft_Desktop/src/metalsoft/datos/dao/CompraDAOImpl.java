@@ -576,7 +576,7 @@ public class CompraDAOImpl implements CompraDAO
         try
         {
                 ps = con.prepareStatement("UPDATE COMPRA set ESTADO = ? , MOTIVO = ? where idcompra = ?");
-                        ps.setLong(1, 3);
+                        ps.setLong(1, 6);
                         ps.setString(2, text);
                         ps.setLong(3, idOrden);
                         return(ps.executeUpdate());
