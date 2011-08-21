@@ -75,5 +75,26 @@ public class GestorTrabajoTercerizado {
         }
         return list;
     }
+    public long generarNumeroPedido() {
+        long result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroTrabajoTercerizado(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 
 }
