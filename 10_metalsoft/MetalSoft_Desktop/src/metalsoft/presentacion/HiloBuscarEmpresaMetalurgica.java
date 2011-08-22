@@ -89,6 +89,7 @@ public class HiloBuscarEmpresaMetalurgica extends Thread {
     }
     private void cargarCombo(JComboBox combo, metalsoft.datos.dbobject.EmpresametalurgicaDB[] empresasMetalurgicas) {
         ItemCombo item=null;
+        combo.removeAllItems();
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
         for(int i=0;i<empresasMetalurgicas.length;i++)
         {
