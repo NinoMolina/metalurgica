@@ -86,6 +86,11 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         addListeners();
         setearTablas();
         setEnabledComponents(false);
+        beanTblPedidos.getBtnSeleccionarPedido().setEnabled(false);
+        beanBtnGuardar.getBtnGuardar().setEnabled(false);
+        beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+        beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+        btnQuitar.setEnabled(false);
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
         tblPedidoCotizacion.updateUI();
@@ -94,7 +99,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         bsyBuscar1.setVisible(false);
         etapa = null;
         dccPedidoCotizacion.setDate(Fecha.fechaActualDate());
-        long nro=gestor.generarNumeroPedido();
+        long nro = gestor.generarNumeroPedido();
         lblNroTrabajo.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_TRABAJO_TERCERIZADO, nro));
 
     }
@@ -186,21 +191,15 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         boolean result = false;//gestor.guardarEtapasPiezaPresupuesto();
-        Trabajotercerizado trabajo=new Trabajotercerizado();
-        trabajo.setEmpresa(gestor.buscarEmpresa(Long.parseLong(((ItemCombo)cmbResultadoBusqueda.getSelectedItem()).getId())));
-        if(dccPedidoCotizacion.getDate()!=null)
+        Trabajotercerizado trabajo = new Trabajotercerizado();
+        trabajo.setEmpresa(gestor.buscarEmpresa(Long.parseLong(((ItemCombo) cmbResultadoBusqueda.getSelectedItem()).getId())));
+        if (dccPedidoCotizacion.getDate() != null) {
             trabajo.setFechapedidocotizacion(dccPedidoCotizacion.getDate());
+        }
         trabajo.setNrotrabajotercerizado(BigInteger.valueOf(gestor.generarNumeroPedido()));
         trabajo.setPedido(filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow()));
-        LinkedList<Detalletrabajotercerizado> listaDetalle=new LinkedList<Detalletrabajotercerizado>();
-        for(ViewPedidoCotizacion v : filasPedidoCotizacion){
-            Detalletrabajotercerizado de=new Detalletrabajotercerizado();
-            de.setCantidad(v.getCantidad());
-            de.setPieza(BigInteger.valueOf(v.getIdPieza()));
-            de.setProceso(gestor.buscarEtapa(v.getIdetapa()));
-            listaDetalle.add(de);
-        }
-        result=gestor.nuevoPedido(trabajo,listaDetalle);
+
+        result = gestor.nuevoPedido(trabajo, filasPedidoCotizacion);
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
             limpiarCampos();
@@ -226,6 +225,14 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         tblPedidoCotizacion.updateUI();
 
         txtPedidoCotizacion.setText("");
+        lblTelefono.setText("");
+        lblCuit.setText("");
+        lblNroEmpresa.setText("");
+        lblResponsableEmpresa.setText("");
+        lblcondicionIva.setText("");
+        lblNroTrabajo.setText("");
+
+
 
     }
 
@@ -264,10 +271,10 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         buscar.setLocationRelativeTo(null);
         buscar.setVisible(true);
 
-        
+
     }
-    public void cargarListaPedidos()
-    {
+
+    public void cargarListaPedidos() {
         if (etapa != null) {
             ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
 
@@ -288,6 +295,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             etapa = null;
 
             tblPedidoCotizacion.updateUI();
+            btnQuitar.setEnabled(true);
             beanBtnGuardar.getBtnGuardar().setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso para las piezas!");
@@ -392,6 +400,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidoCotizacion = new org.jdesktop.swingx.JXTable();
         btnQuitar = new javax.swing.JButton();
+        NuevoPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -520,7 +529,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
         jLabel11.setText("Nro.Trabajo Tercerizado:");
 
-        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroTrabajo.setText("...");
 
         jLabel2.setText("Fecha Pedido Cotización:");
@@ -672,6 +681,14 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addContainerGap())
         );
 
+        NuevoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/new1.png"))); // NOI18N
+        NuevoPedido.setToolTipText("Nuevo Pedido");
+        NuevoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -679,9 +696,11 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(NuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 941, Short.MAX_VALUE)
+                        .addGap(68, 68, 68)
                         .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -690,7 +709,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -711,8 +730,10 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(beanBtnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(NuevoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -735,16 +756,29 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbResultadoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResultadoBusquedaActionPerformed
-        if (cmbResultadoBusqueda.getSelectedIndex() >= 0) {
-            GestorEmpresaMetalurgica gestorEmpresa = new GestorEmpresaMetalurgica();
 
-            lblTelefono.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getTelefono());
-            lblCuit.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getCuit());
-            lblNroEmpresa.setText(String.valueOf(empresas[cmbResultadoBusqueda.getSelectedIndex()].getNroempresametalurgica()));
-            Responsable responsable = (gestorEmpresa.buscarEmpresaMetalurgica(empresas[cmbResultadoBusqueda.getSelectedIndex()].getIdempresametalurgica())).getResponsable();
-            lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
-            Condicioniva condIva = (gestorEmpresa.buscarEmpresaMetalurgica(empresas[cmbResultadoBusqueda.getSelectedIndex()].getIdempresametalurgica())).getCondicioniva();
-            lblcondicionIva.setText(condIva.getNombre());
+        if (cmbResultadoBusqueda.getItemCount() > 0) {
+            if (Integer.parseInt(((ItemCombo) cmbResultadoBusqueda.getSelectedItem()).getId()) > 0) {
+                int id = Integer.parseInt(((ItemCombo) cmbResultadoBusqueda.getSelectedItem()).getId());
+                GestorEmpresaMetalurgica gestorEmpresa = new GestorEmpresaMetalurgica();
+                Empresametalurgica emp = gestorEmpresa.buscarEmpresaMetalurgica(id);
+
+                lblTelefono.setText(emp.getTelefono());
+                lblCuit.setText(emp.getCuit());
+                lblNroEmpresa.setText(String.valueOf(emp.getNroempresametalurgica()));
+                Responsable responsable = emp.getResponsable();
+                lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
+                Condicioniva condIva = emp.getCondicioniva();
+                lblcondicionIva.setText(condIva.getNombre());
+                beanTblPedidos.getBtnSeleccionarPedido().setEnabled(true);
+            } else {
+                beanTblPedidos.getBtnSeleccionarPedido().setEnabled(false);
+                beanBtnGuardar.getBtnGuardar().setEnabled(false);
+                beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+                beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+                btnQuitar.setEnabled(false);
+                limpiarCampos();
+            }
         }
 }//GEN-LAST:event_cmbResultadoBusquedaActionPerformed
 
@@ -764,6 +798,13 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 }
             }, 1500);
         } else {
+            limpiarCampos();
+            cmbResultadoBusqueda.removeAllItems();
+            beanTblPedidos.getBtnSeleccionarPedido().setEnabled(false);
+            beanBtnGuardar.getBtnGuardar().setEnabled(false);
+            beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+            beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+            btnQuitar.setEnabled(false);
             bsyBuscar.setVisible(false);
             bsyBuscar.setBusy(false);
         }
@@ -858,9 +899,30 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         // TODO add your handling code here:
+
         filasPedidoCotizacion.remove(tblPedidoCotizacion.getSelectedRow());
         tblPedidoCotizacion.updateUI();
+        if (tblPedidoCotizacion.getRowCount() <= 0) {
+            btnQuitar.setEnabled(false);
+            beanBtnGuardar.getBtnGuardar().setEnabled(false);
+        }
+
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void NuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPedidoActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+        long nro = gestor.generarNumeroPedido();
+        lblNroTrabajo.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_TRABAJO_TERCERIZADO, nro));
+        beanTblPedidos.getBtnSeleccionarPedido().setEnabled(false);
+        beanBtnGuardar.getBtnGuardar().setEnabled(false);
+        beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+        beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
+        setEnabledComponents(false);
+        btnQuitar.setEnabled(false);
+        txtRazonSocial.setText("");
+        cmbResultadoBusqueda.removeAllItems();
+    }//GEN-LAST:event_NuevoPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -874,6 +936,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton NuevoPedido;
     private metalsoft.beans.BtnGuardar beanBtnGuardar;
     private metalsoft.beans.BtnSalirr beanBtnSalir;
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarPieza;
@@ -938,14 +1001,14 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         if (obj instanceof EmpresametalurgicaDB[]) {
             empresas = (EmpresametalurgicaDB[]) obj;
             if (obj.length > 0) {
-                EmpresametalurgicaDB cli = (EmpresametalurgicaDB) obj[0];
-                lblTelefono.setText(cli.getTelefono());
-                lblCuit.setText(cli.getCuit());
-                lblNroEmpresa.setText(String.valueOf(cli.getNroempresametalurgica()));
-                Responsable responsable = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getResponsable();
-                lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
-                Condicioniva condIva = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getCondicioniva();
-                lblcondicionIva.setText(condIva.getNombre());
+//                EmpresametalurgicaDB cli = (EmpresametalurgicaDB) obj[0];
+//                lblTelefono.setText(cli.getTelefono());
+//                lblCuit.setText(cli.getCuit());
+//                lblNroEmpresa.setText(String.valueOf(cli.getNroempresametalurgica()));
+//                Responsable responsable = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getResponsable();
+//                lblResponsableEmpresa.setText(responsable.getNombre() + " " + responsable.getApellido());
+//                Condicioniva condIva = (gestorEmpresa.buscarEmpresaMetalurgica(cli.getIdempresametalurgica())).getCondicioniva();
+//                lblcondicionIva.setText(condIva.getNombre());
             } else {
                 lblTelefono.setText("");
                 lblCuit.setText("");
