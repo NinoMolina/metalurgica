@@ -10,6 +10,8 @@
  */
 package metalsoft.presentacion;
 
+import java.math.BigInteger;
+import java.util.AbstractList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -24,10 +26,12 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.jpa.entity.Condicioniva;
+import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Responsable;
+import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.negocio.gestores.GestorEmpresaMetalurgica;
 import metalsoft.negocio.gestores.GestorTrabajoTercerizado;
 import metalsoft.negocio.gestores.IBuscador;
@@ -38,6 +42,7 @@ import metalsoft.negocio.gestores.ViewPedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.Fecha;
+import metalsoft.util.ItemCombo;
 import org.jdesktop.swingx.JXBusyLabel;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -88,6 +93,9 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         bsyBuscar.setVisible(false);
         bsyBuscar1.setVisible(false);
         etapa = null;
+        dccPedidoCotizacion.setDate(Fecha.fechaActualDate());
+        long nro=gestor.generarNumeroPedido();
+        lblNroTrabajo.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_TRABAJO_TERCERIZADO, nro));
 
     }
 
@@ -178,6 +186,21 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         boolean result = false;//gestor.guardarEtapasPiezaPresupuesto();
+        Trabajotercerizado trabajo=new Trabajotercerizado();
+        trabajo.setEmpresa(gestor.buscarEmpresa(Long.parseLong(((ItemCombo)cmbResultadoBusqueda.getSelectedItem()).getId())));
+        if(dccPedidoCotizacion.getDate()!=null)
+            trabajo.setFechapedidocotizacion(dccPedidoCotizacion.getDate());
+        trabajo.setNrotrabajotercerizado(BigInteger.valueOf(gestor.generarNumeroPedido()));
+        trabajo.setPedido(filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow()));
+        LinkedList<Detalletrabajotercerizado> listaDetalle=new LinkedList<Detalletrabajotercerizado>();
+        for(ViewPedidoCotizacion v : filasPedidoCotizacion){
+            Detalletrabajotercerizado de=new Detalletrabajotercerizado();
+            de.setCantidad(v.getCantidad());
+            de.setPieza(BigInteger.valueOf(v.getIdPieza()));
+            de.setProceso(gestor.buscarEtapa(v.getIdetapa()));
+            listaDetalle.add(de);
+        }
+        result=gestor.nuevoPedido(trabajo,listaDetalle);
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
             limpiarCampos();
@@ -265,6 +288,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             etapa = null;
 
             tblPedidoCotizacion.updateUI();
+            beanBtnGuardar.getBtnGuardar().setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso para las piezas!");
         }
@@ -332,7 +356,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         txtRazonSocial = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        btnNuevoCliente = new javax.swing.JButton();
+        btnNuevaEmpresa = new javax.swing.JButton();
         bsyBuscar = new org.jdesktop.swingx.JXBusyLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -346,9 +370,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         lblcondicionIva = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         lblNroTrabajo = new javax.swing.JLabel();
-        dccFechaReqCotizacion = new com.toedter.calendar.JDateChooser();
         dccPedidoCotizacion = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -394,11 +416,11 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
         jLabel15.setText("Empresa:");
 
-        btnNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
-        btnNuevoCliente.setText("Nueva Empresa");
-        btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
+        btnNuevaEmpresa.setText("Nueva Empresa");
+        btnNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoClienteActionPerformed(evt);
+                btnNuevaEmpresaActionPerformed(evt);
             }
         });
 
@@ -428,7 +450,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bsyBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoCliente))
+                    .addComponent(btnNuevaEmpresa))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -483,7 +505,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbResultadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
-                        .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -498,9 +520,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
         jLabel11.setText("Nro.Trabajo Tercerizado:");
 
-        jLabel12.setText("Fecha Req de Cotización:");
-
-        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroTrabajo.setText("...");
 
         jLabel2.setText("Fecha Pedido Cotización:");
@@ -517,25 +537,19 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(327, 327, 327))
+                .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(544, 544, 544))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12)
-                    .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
                         .addComponent(lblNroTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addGap(63, 63, 63))
         );
 
@@ -643,22 +657,19 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnQuitar)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnQuitar)
-                        .addGap(26, 26, 26))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnQuitar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -679,7 +690,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -797,7 +808,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         this.txtRazonSocial = txtRazonSocial;
 }//GEN-LAST:event_txtRazonSocialKeyTyped
 
-    private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
+    private void btnNuevaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaEmpresaActionPerformed
         try {
             JFrameManager.crearVentana(ABMEmpresaMetalurgica.class.getName());
         } catch (ClassNotFoundException ex) {
@@ -807,7 +818,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         } catch (IllegalAccessException ex) {
             Logger.getLogger(RegistrarPedidoCotizacionDeTrabajo.class.getName()).log(Level.SEVERE, null, ex);
         }
-}//GEN-LAST:event_btnNuevoClienteActionPerformed
+}//GEN-LAST:event_btnNuevaEmpresaActionPerformed
 
     private void txtPedidoCotizacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPedidoCotizacionKeyReleased
         // TODO add your handling code here:
@@ -870,15 +881,13 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar1;
-    private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JButton btnNuevaEmpresa;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JComboBox cmbResultadoBusqueda;
-    private com.toedter.calendar.JDateChooser dccFechaReqCotizacion;
     private com.toedter.calendar.JDateChooser dccPedidoCotizacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
