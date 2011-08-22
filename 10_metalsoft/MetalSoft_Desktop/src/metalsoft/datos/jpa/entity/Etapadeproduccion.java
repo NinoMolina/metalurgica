@@ -44,9 +44,9 @@ import javax.persistence.TemporalType;
 public class Etapadeproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etapadeproduccion_seq")
-    @SequenceGenerator(name = "etapadeproduccio_seq", sequenceName = "etapadeproduccion_idetapaproduccion_seq", allocationSize = 1)
+    @SequenceGenerator(name = "etapadeproduccion_seq", sequenceName = "etapadeproduccion_idetapaproduccion_seq", allocationSize = 1)
+    @Basic(optional = false)
     @Column(name = "idetapaproduccion")
     private Long idetapaproduccion;
     @Column(name = "nroetapaproduccion")

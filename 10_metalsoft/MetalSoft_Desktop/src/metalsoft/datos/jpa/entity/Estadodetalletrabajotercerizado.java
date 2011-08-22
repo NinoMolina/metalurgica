@@ -10,10 +10,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +33,8 @@ import javax.persistence.Table;
 public class Estadodetalletrabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estadodetalletrabajotercerizado_seq")
+    @SequenceGenerator(name = "estadodetalletrabajotercerizado_seq", sequenceName = "estadodetalletrabajotercerizado_idestado_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "idestado")
     private Long idestado;
@@ -39,7 +44,6 @@ public class Estadodetalletrabajotercerizado implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private List<Detalletrabajotercerizado> detalletrabajotercerizadoList;
-
 
     public Estadodetalletrabajotercerizado() {
     }
@@ -79,7 +83,6 @@ public class Estadodetalletrabajotercerizado implements Serializable {
     public void setDetalletrabajotercerizadoList(List<Detalletrabajotercerizado> detalletrabajotercerizadoList) {
         this.detalletrabajotercerizadoList = detalletrabajotercerizadoList;
     }
-
 
     @Override
     public int hashCode() {

@@ -46,9 +46,9 @@ import javax.persistence.TemporalType;
 public class Trabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trabajotercerizado_seq")
     @SequenceGenerator(name = "trabajotercerizado_seq", sequenceName = "trabajotercerizado_idtrabajo_seq", allocationSize = 1)
+    @Basic(optional = false)
     @Column(name = "idtrabajo")
     private Long idtrabajo;
     @Column(name = "nrotrabajotercerizado")
@@ -73,24 +73,21 @@ public class Trabajotercerizado implements Serializable {
     private Date fechaenvioaempresa;
     @Column(name = "motivocancelacion")
     private String motivocancelacion;
+    @OneToMany(mappedBy = "trabajotercerizado")
+    private List<Reclamoempresamantenimiento> reclamoempresamantenimientoList;
     @JoinColumn(name = "empresa", referencedColumnName = "idempresametalurgica")
     @ManyToOne
     private Empresametalurgica empresa;
-
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadotrabajotercerizado estado;
-
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-
     @OneToMany(mappedBy = "trabajotercerizado")
     private List<Reclamoempresametalurgica> reclamoempresametalurgicaList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trabajotercerizado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtrabajotercerizado")
     private List<Detalletrabajotercerizado> detalletrabajotercerizadoList;
-
 
     public Trabajotercerizado() {
     }
@@ -171,6 +168,14 @@ public class Trabajotercerizado implements Serializable {
         this.motivocancelacion = motivocancelacion;
     }
 
+    public List<Reclamoempresamantenimiento> getReclamoempresamantenimientoList() {
+        return reclamoempresamantenimientoList;
+    }
+
+    public void setReclamoempresamantenimientoList(List<Reclamoempresamantenimiento> reclamoempresamantenimientoList) {
+        this.reclamoempresamantenimientoList = reclamoempresamantenimientoList;
+    }
+
     public Empresametalurgica getEmpresa() {
         return empresa;
     }
@@ -178,7 +183,6 @@ public class Trabajotercerizado implements Serializable {
     public void setEmpresa(Empresametalurgica empresa) {
         this.empresa = empresa;
     }
-
 
     public Estadotrabajotercerizado getEstado() {
         return estado;
@@ -188,7 +192,6 @@ public class Trabajotercerizado implements Serializable {
         this.estado = estado;
     }
 
-
     public Pedido getPedido() {
         return pedido;
     }
@@ -196,7 +199,6 @@ public class Trabajotercerizado implements Serializable {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
-
 
     public List<Reclamoempresametalurgica> getReclamoempresametalurgicaList() {
         return reclamoempresametalurgicaList;
@@ -213,7 +215,6 @@ public class Trabajotercerizado implements Serializable {
     public void setDetalletrabajotercerizadoList(List<Detalletrabajotercerizado> detalletrabajotercerizadoList) {
         this.detalletrabajotercerizadoList = detalletrabajotercerizadoList;
     }
-
 
     @Override
     public int hashCode() {
