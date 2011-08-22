@@ -8,11 +8,12 @@ package metalsoft.datos.jpa.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -30,8 +31,7 @@ import javax.persistence.TemporalType;
 @Table(name = "detalletrabajotercerizado")
 @NamedQueries({
     @NamedQuery(name = "Detalletrabajotercerizado.findAll", query = "SELECT d FROM Detalletrabajotercerizado d"),
-    @NamedQuery(name = "Detalletrabajotercerizado.findByIddetalle", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.detalletrabajotercerizadoPK.iddetalle = :iddetalle"),
-    @NamedQuery(name = "Detalletrabajotercerizado.findByIdtrabajotercerizado", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.detalletrabajotercerizadoPK.idtrabajotercerizado = :idtrabajotercerizado"),
+    @NamedQuery(name = "Detalletrabajotercerizado.findByIddetalle", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.iddetalle = :iddetalle"),
     @NamedQuery(name = "Detalletrabajotercerizado.findByMontoparcial", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.montoparcial = :montoparcial"),
     @NamedQuery(name = "Detalletrabajotercerizado.findByCantidad", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.cantidad = :cantidad"),
     @NamedQuery(name = "Detalletrabajotercerizado.findByDescripcion", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.descripcion = :descripcion"),
@@ -40,8 +40,12 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detalletrabajotercerizado.findByPieza", query = "SELECT d FROM Detalletrabajotercerizado d WHERE d.pieza = :pieza")})
 public class Detalletrabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DetalletrabajotercerizadoPK detalletrabajotercerizadoPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalletrabajotercerizado_seq")
+    @SequenceGenerator(name = "detalletrabajotercerizado_seq", sequenceName = "detalletrabajotercerizado_iddetalle_seq", allocationSize = 1)
+    @Basic(optional = false)
+    @Column(name = "iddetalle")
+    private Long iddetalle;
     @Column(name = "montoparcial")
     private Double montoparcial;
     @Column(name = "cantidad")
@@ -59,33 +63,26 @@ public class Detalletrabajotercerizado implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadodetalletrabajotercerizado estado;
-
     @JoinColumn(name = "proceso", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion proceso;
-
-    @JoinColumn(name = "idtrabajotercerizado", referencedColumnName = "idtrabajo", insertable = false, updatable = false)
+    @JoinColumn(name = "idtrabajotercerizado", referencedColumnName = "idtrabajo")
     @ManyToOne(optional = false)
-    private Trabajotercerizado trabajotercerizado;
-
+    private Trabajotercerizado idtrabajotercerizado;
 
     public Detalletrabajotercerizado() {
     }
 
-    public Detalletrabajotercerizado(DetalletrabajotercerizadoPK detalletrabajotercerizadoPK) {
-        this.detalletrabajotercerizadoPK = detalletrabajotercerizadoPK;
+    public Detalletrabajotercerizado(Long iddetalle) {
+        this.iddetalle = iddetalle;
     }
 
-    public Detalletrabajotercerizado(long iddetalle, long idtrabajotercerizado) {
-        this.detalletrabajotercerizadoPK = new DetalletrabajotercerizadoPK(iddetalle, idtrabajotercerizado);
+    public Long getIddetalle() {
+        return iddetalle;
     }
 
-    public DetalletrabajotercerizadoPK getDetalletrabajotercerizadoPK() {
-        return detalletrabajotercerizadoPK;
-    }
-
-    public void setDetalletrabajotercerizadoPK(DetalletrabajotercerizadoPK detalletrabajotercerizadoPK) {
-        this.detalletrabajotercerizadoPK = detalletrabajotercerizadoPK;
+    public void setIddetalle(Long iddetalle) {
+        this.iddetalle = iddetalle;
     }
 
     public Double getMontoparcial() {
@@ -144,8 +141,6 @@ public class Detalletrabajotercerizado implements Serializable {
         this.estado = estado;
     }
 
-
-
     public Etapadeproduccion getProceso() {
         return proceso;
     }
@@ -154,22 +149,18 @@ public class Detalletrabajotercerizado implements Serializable {
         this.proceso = proceso;
     }
 
-
-
-    public Trabajotercerizado getTrabajotercerizado() {
-        return trabajotercerizado;
+    public Trabajotercerizado getIdtrabajotercerizado() {
+        return idtrabajotercerizado;
     }
 
-    public void setTrabajotercerizado(Trabajotercerizado trabajotercerizado) {
-        this.trabajotercerizado = trabajotercerizado;
+    public void setIdtrabajotercerizado(Trabajotercerizado idtrabajotercerizado) {
+        this.idtrabajotercerizado = idtrabajotercerizado;
     }
-
-
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detalletrabajotercerizadoPK != null ? detalletrabajotercerizadoPK.hashCode() : 0);
+        hash += (iddetalle != null ? iddetalle.hashCode() : 0);
         return hash;
     }
 
@@ -180,7 +171,7 @@ public class Detalletrabajotercerizado implements Serializable {
             return false;
         }
         Detalletrabajotercerizado other = (Detalletrabajotercerizado) object;
-        if ((this.detalletrabajotercerizadoPK == null && other.detalletrabajotercerizadoPK != null) || (this.detalletrabajotercerizadoPK != null && !this.detalletrabajotercerizadoPK.equals(other.detalletrabajotercerizadoPK))) {
+        if ((this.iddetalle == null && other.iddetalle != null) || (this.iddetalle != null && !this.iddetalle.equals(other.iddetalle))) {
             return false;
         }
         return true;
@@ -188,7 +179,7 @@ public class Detalletrabajotercerizado implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalletrabajotercerizado[detalletrabajotercerizadoPK=" + detalletrabajotercerizadoPK + "]";
+        return "metalsoft.datos.jpa.entity.Detalletrabajotercerizado[iddetalle=" + iddetalle + "]";
     }
 
 }
