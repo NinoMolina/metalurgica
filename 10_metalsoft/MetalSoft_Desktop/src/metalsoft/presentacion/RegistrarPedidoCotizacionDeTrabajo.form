@@ -46,9 +46,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="NuevoPedido" min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="beanBtnGuardar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="941" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                           <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -59,7 +61,7 @@
                               <Component id="jPanel9" max="32767" attributes="1"/>
                           </Group>
                           <Component id="jPanel7" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jPanel5" alignment="0" pref="1055" max="32767" attributes="1"/>
                           <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
                       </Group>
                   </Group>
@@ -85,8 +87,11 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="beanBtnGuardar" min="-2" max="-2" attributes="0"/>
-                      <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="beanBtnSalir" alignment="0" max="32767" attributes="1"/>
+                          <Component id="beanBtnGuardar" alignment="0" max="32767" attributes="1"/>
+                      </Group>
+                      <Component id="NuevoPedido" pref="33" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -571,6 +576,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="NuevoPedido">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/metalsoft/presentacion/img/new1.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Nuevo Pedido"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NuevoPedidoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
