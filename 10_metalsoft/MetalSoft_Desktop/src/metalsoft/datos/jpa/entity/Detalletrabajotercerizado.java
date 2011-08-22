@@ -41,8 +41,6 @@ import javax.persistence.TemporalType;
 public class Detalletrabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalletrabajotercerizado_seq")
-    @SequenceGenerator(name = "detalletrabajotercerizado_seq", sequenceName = "detalletrabajotercerizado_iddetalle_seq", allocationSize = 1)
     protected DetalletrabajotercerizadoPK detalletrabajotercerizadoPK;
     @Column(name = "montoparcial")
     private Double montoparcial;
