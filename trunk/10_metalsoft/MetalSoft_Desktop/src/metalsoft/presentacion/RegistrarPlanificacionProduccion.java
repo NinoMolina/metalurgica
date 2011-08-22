@@ -260,7 +260,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                  * para una etapa de produccion que se ejecute en paralelo con otra
                  */
                 if (prodNodeAnterior != productoNode) {
-                    /*
+                   
+                    orden = 1;
+                    piezaNodeAnterior = piezaNode;
+                    prodNodeAnterior = productoNode;
+
+                } else {
+                     /*
                      * el orden deberia ser por pieza y no por producto porque un producto
                      * puede tener 2 piezas que se pueden ejecutar en paralelo.
                      * Tendria que reiniciar el orden si estoy en el mismo producto y misma pieza.
@@ -270,8 +276,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                         orden = 1;
                         piezaNodeAnterior = piezaNode;
                     }
-                    
-                    prodNodeAnterior = productoNode;
                 }
                 /*
                  * Validacion de fechas
