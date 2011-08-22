@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -26,6 +25,7 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
+import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.negocio.gestores.GestorEmpresaMetalurgica;
@@ -34,6 +34,7 @@ import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
+import metalsoft.negocio.gestores.ViewPedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.Fecha;
@@ -56,8 +57,10 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private List<Pedido> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;
     private LinkedList<ViewDetalleProducto> filasDetalleProducto;
+    private LinkedList<ViewPedidoCotizacion> filasPedidoCotizacion;
     private TableCellRender tcrTblDetallePedido;
     private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
+    private Etapadeproduccion etapa;
 
     public Empresametalurgica[] getEmpresasMetalurgicas() {
         return empresasMetalurgicas;
@@ -70,7 +73,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     /** Creates new form RegistrarPedidoCotizacionDeTrabajo */
     public RegistrarPedidoCotizacionDeTrabajo() {
         initComponents();
-        addListeners();
+        filasPedidoCotizacion = new LinkedList<ViewPedidoCotizacion>();
         gestor = new GestorTrabajoTercerizado();
         tcrTblDetallePedido = new TableCellRender();
         //tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);
@@ -80,8 +83,16 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         setEnabledComponents(false);
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
+        tblPedidoCotizacion.updateUI();
         timer = new Timer();
         bsyBuscar.setVisible(false);
+        bsyBuscar1.setVisible(false);
+        etapa = null;
+
+    }
+
+    public void setEtapa(Etapadeproduccion et) {
+        etapa = et;
     }
 
     private void setearTablas() {
@@ -102,6 +113,16 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         tblDetalleProducto.setShowVerticalLines(false);
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+
+        //PEDIDO DE COTIZACION
+        tblPedidoCotizacion.setModel(new PedidoCotizacionTableModel());
+        tblPedidoCotizacion.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidoCotizacion.setShowHorizontalLines(false);
+        tblPedidoCotizacion.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblPedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
 
 
@@ -173,9 +194,13 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         if (filasDetalleProducto != null) {
             filasDetalleProducto.clear();
         }
+        if (filasPedidoCotizacion != null) {
+            filasPedidoCotizacion.clear();
+        }
 
         tblDetallePedido.updateUI();
         tblDetalleProducto.updateUI();
+        tblPedidoCotizacion.updateUI();
 
         txtPedidoCotizacion.setText("");
 
@@ -208,7 +233,41 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
             return;
         }
-        ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        SeleccionarEtapa buscar = null;
+
+        buscar = new SeleccionarEtapa();
+        buscar.setVentana(this);
+        buscar.setGestorTrabajo(gestor);
+        buscar.setLocationRelativeTo(null);
+        buscar.setVisible(true);
+
+        
+    }
+    public void cargarListaPedidos()
+    {
+        if (etapa != null) {
+            ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+
+            ViewPedidoCotizacion pe = new ViewPedidoCotizacion();
+            pe.setAlto(v.getAlto());
+            pe.setAncho(v.getAncho());
+            pe.setCantidad(v.getCantidadPieza());
+            pe.setDescripcion(v.getDescripcion());
+            pe.setEtapa(etapa.getNombre());
+            pe.setIdDetalle(v.getIdDetalle());
+            pe.setIdPieza(v.getIdPieza());
+            pe.setIdProducto(v.getIdProducto());
+            pe.setIdetapa(etapa.getIdetapaproduccion());
+            pe.setLargo(v.getLargo());
+            pe.setNombrePieza(v.getNombrePieza());
+            pe.setNombreTipoMaterial(v.getNombreTipoMaterial());
+            filasPedidoCotizacion.add(pe);
+            etapa = null;
+
+            tblPedidoCotizacion.updateUI();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso para las piezas!");
+        }
 
     }
 
@@ -296,6 +355,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         jLabel13 = new javax.swing.JLabel();
         txtPedidoCotizacion = new javax.swing.JTextField();
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
+        bsyBuscar1 = new org.jdesktop.swingx.JXBusyLabel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDetalleProducto = new org.jdesktop.swingx.JXTable();
@@ -306,6 +366,10 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         beanBtnSeleccionarProducto = new metalsoft.beans.BtnSeleccionar();
         beanBtnGuardar = new metalsoft.beans.BtnGuardar();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPedidoCotizacion = new org.jdesktop.swingx.JXTable();
+        btnQuitar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -382,7 +446,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblResponsableEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                                .addComponent(lblResponsableEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -391,7 +455,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblcondicionIva, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,14 +493,14 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                     .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(lblCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11))
+                .addGap(12, 12, 12))
         );
 
         jLabel11.setText("Nro.Trabajo Tercerizado:");
 
         jLabel12.setText("Fecha Req de Cotización:");
 
-        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroTrabajo.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroTrabajo.setText("...");
 
         jLabel2.setText("Fecha Pedido Cotización:");
@@ -458,7 +522,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(378, 378, 378))
+                .addGap(327, 327, 327))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,6 +543,12 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
         jLabel13.setText("Nro. de Pedido de Cotización:");
 
+        txtPedidoCotizacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPedidoCotizacionKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -486,23 +556,27 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
+                    .addComponent(beanTblPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bsyBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(txtPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bsyBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanTblPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addGap(11, 11, 11))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Producto"));
@@ -513,18 +587,18 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(beanBtnSeleccionarPieza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                    .addComponent(beanBtnSeleccionarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanBtnSeleccionarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -536,19 +610,55 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                    .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                    .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido de Cotizacion de Trabajo"));
+
+        jScrollPane1.setViewportView(tblPedidoCotizacion);
+
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/quitar.png"))); // NOI18N
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnQuitar)
+                .addContainerGap(441, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnQuitar)
+                        .addGap(26, 26, 26))))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -558,17 +668,19 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 992, Short.MAX_VALUE)
-                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 941, Short.MAX_VALUE)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -583,7 +695,9 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -596,15 +710,14 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -612,8 +725,8 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
 
     private void cmbResultadoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResultadoBusquedaActionPerformed
         if (cmbResultadoBusqueda.getSelectedIndex() >= 0) {
-            GestorEmpresaMetalurgica gestorEmpresa=new GestorEmpresaMetalurgica();
-            
+            GestorEmpresaMetalurgica gestorEmpresa = new GestorEmpresaMetalurgica();
+
             lblTelefono.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getTelefono());
             lblCuit.setText(empresas[cmbResultadoBusqueda.getSelectedIndex()].getCuit());
             lblNroEmpresa.setText(String.valueOf(empresas[cmbResultadoBusqueda.getSelectedIndex()].getNroempresametalurgica()));
@@ -696,6 +809,48 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         }
 }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
+    private void txtPedidoCotizacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPedidoCotizacionKeyReleased
+        // TODO add your handling code here:
+        bsyBuscar1.setVisible(true);
+        bsyBuscar1.setBusy(true);
+        if (txtPedidoCotizacion.getText().compareTo("") != 0) {
+            filasPedidos = gestor.buscarPedidosNoFinalizadosLIKE(txtPedidoCotizacion.getText());
+
+        } else {
+            filasPedidos = gestor.buscarPedidosNoFinalizados();
+        }
+        LinkedList<ViewPedidoEnListadoProcedimientos> lstView = new LinkedList<ViewPedidoEnListadoProcedimientos>();
+        ViewPedidoEnListadoProcedimientos view = null;
+        for (Pedido pedido : filasPedidos) {
+            view = new ViewPedidoEnListadoProcedimientos();
+
+            view.setCliente(pedido.getCliente().getRazonsocial());
+            view.setEspedidoweb(pedido.getEspedidoweb());
+            view.setEstado(pedido.getEstado().getNombre());
+            view.setFechaentregaestipulada(pedido.getFechaentregaestipulada());
+            view.setFechapedidocotizacion(pedido.getFechapedidocotizacion());
+            view.setFecharequeridacotizacion(pedido.getFecharequeridacotizacion());
+            view.setIdestado(pedido.getEstado().getIdestado());
+            view.setIdpedido(pedido.getIdpedido());
+            view.setNropedido((int) pedido.getNropedido());
+            view.setNropedidocotizacioncliente(pedido.getNropedidocotizacioncliente());
+            view.setPrioridad(pedido.getPrioridad().getNombre());
+
+            lstView.addLast(view);
+        }
+        beanTblPedidos.setFilasPedidos(lstView);
+        beanTblPedidos.updateTblPedidos();
+        bsyBuscar1.setVisible(false);
+        bsyBuscar1.setBusy(false);
+
+    }//GEN-LAST:event_txtPedidoCotizacionKeyReleased
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        // TODO add your handling code here:
+        filasPedidoCotizacion.remove(tblPedidoCotizacion.getSelectedRow());
+        tblPedidoCotizacion.updateUI();
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -714,7 +869,9 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarProducto;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar;
+    private org.jdesktop.swingx.JXBusyLabel bsyBuscar1;
     private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JButton btnQuitar;
     private javax.swing.JComboBox cmbResultadoBusqueda;
     private com.toedter.calendar.JDateChooser dccFechaReqCotizacion;
     private com.toedter.calendar.JDateChooser dccPedidoCotizacion;
@@ -731,10 +888,12 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblCuit;
@@ -745,30 +904,30 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
     private javax.swing.JLabel lblcondicionIva;
     private org.jdesktop.swingx.JXTable tblDetallePedido;
     private org.jdesktop.swingx.JXTable tblDetalleProducto;
+    private org.jdesktop.swingx.JXTable tblPedidoCotizacion;
     private javax.swing.JTextField txtPedidoCotizacion;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
 
-    public JList getList(String className) {
+    public JComboBox getCombo(String className) {
+        if (className.compareTo(HiloBuscarEmpresaMetalurgica.class.getName()) == 0) {
+            return cmbResultadoBusqueda;
+        }
         return null;
     }
 
-    public JComboBox getCombo(String className) {
-        return cmbResultadoBusqueda;
+    public JList getList(String className) {
+        if (className.compareTo(HiloBuscarProducto.class.getName()) == 0) {
+            return (JList) filasPedidos;
+        }
+        return null;
     }
 
-//    public JList getList(String className) {
-//        if (className.compareTo(HiloBuscarProducto.class.getName()) == 0) {
-//            return lstResultadoBusqueda;
-//        }
-//        return null;
-//    }
-//
     public void setBusqueda(Object[] obj) {
         GestorEmpresaMetalurgica gestorEmpresa = new GestorEmpresaMetalurgica();
 
         if (obj instanceof EmpresametalurgicaDB[]) {
-            empresas=(EmpresametalurgicaDB[])obj;
+            empresas = (EmpresametalurgicaDB[]) obj;
             if (obj.length > 0) {
                 EmpresametalurgicaDB cli = (EmpresametalurgicaDB) obj[0];
                 lblTelefono.setText(cli.getTelefono());
@@ -957,6 +1116,65 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         public int getRowCount() {
             if (filasDetalleProducto != null) {
                 return filasDetalleProducto.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
+
+    class PedidoCotizacionTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Pieza",
+            "Descripcion",
+            "Cantidad",
+            "Dimensiones",
+            "Material",
+            "Proceso a Realizar"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewPedidoCotizacion view = filasPedidoCotizacion.get(rowIndex);
+//      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return view.getNombrePieza();
+                case 1:
+                    return view.getDescripcion();
+                case 2:
+                    return String.valueOf(view.getCantidad());
+                case 3:
+                    return "Alto: " + view.getAlto() + "\n Ancho: " + view.getAncho() + "\n Largo: " + view.getLargo();
+                case 4:
+                    return view.getNombreTipoMaterial();
+                case 5:
+                    return view.getEtapa();
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasPedidoCotizacion != null) {
+                return filasPedidoCotizacion.size();
             }
             return 0;
         }
