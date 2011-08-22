@@ -23,8 +23,6 @@ public class DetalletrabajotercerizadoPK implements Serializable {
     @Column(name = "iddetalle")
     private long iddetalle;
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalletrabajotercerizado_seq")
-    @SequenceGenerator(name = "detalletrabajotercerizado_seq", sequenceName = "detalletrabajotercerizado_iddetalle_seq", allocationSize = 1)
     @Column(name = "idtrabajotercerizado")
     private long idtrabajotercerizado;
 
