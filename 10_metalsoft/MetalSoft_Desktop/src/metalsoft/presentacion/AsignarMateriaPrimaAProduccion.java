@@ -454,7 +454,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
 }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
     private void btnAsignarMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMPActionPerformed
-        // TODO add your handling code here:
+
         long result = -1;
         long resultCB = -1;
         long idDetalleMPAsignada = -1;
