@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Accioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
 
@@ -76,5 +77,13 @@ public class JpaUtil {
         Query q = em.createNativeQuery(sql, Pedido.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
+    }
+    public static Detalletrabajotercerizado getUltimoDetalleTrabajoTercerizado() {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM detalletrabajotercerizado e "
+                    +"WHERE e.iddetalle=(Select max(d.iddetalle)FROM detalletrabajotercerizado d)";
+        Query q = em.createNativeQuery(sql, Detalletrabajotercerizado.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return (Detalletrabajotercerizado) q.getSingleResult();
     }
 }
