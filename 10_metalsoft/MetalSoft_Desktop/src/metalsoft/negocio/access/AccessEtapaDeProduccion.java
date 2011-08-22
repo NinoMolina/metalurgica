@@ -36,6 +36,18 @@ public class AccessEtapaDeProduccion {
         }
         return x;
     }
+    public static EtapadeproduccionDB[] findAll(Connection cn)
+    {
+        EtapadeproduccionDB[] db=null;
+        EtapadeproduccionDAO dao=new DAOFactoryImpl().createEtapadeproduccionDAO();
+        try {
+            db = dao.findAll(cn);
+        } catch (EtapadeproduccionException ex) {
+            Logger.getLogger(AccessEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return db;
+    }
     public static EtapadeproduccionDB findById(long valor, Connection cn)
     {
         EtapadeproduccionDB x=null;
