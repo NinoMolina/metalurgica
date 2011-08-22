@@ -14,9 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
-import metalsoft.datos.jpa.entity.DetalletrabajotercerizadoPK;
 import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -36,11 +34,7 @@ public class DetalletrabajotercerizadoJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Detalletrabajotercerizado detalletrabajotercerizado) throws PreexistingEntityException, Exception {
-        if (detalletrabajotercerizado.getDetalletrabajotercerizadoPK() == null) {
-            detalletrabajotercerizado.setDetalletrabajotercerizadoPK(new DetalletrabajotercerizadoPK());
-        }
-        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado().getIdtrabajo());
+    public void create(Detalletrabajotercerizado detalletrabajotercerizado) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -55,10 +49,10 @@ public class DetalletrabajotercerizadoJpaController {
                 proceso = em.getReference(proceso.getClass(), proceso.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(proceso);
             }
-            Trabajotercerizado trabajotercerizado = detalletrabajotercerizado.getTrabajotercerizado();
-            if (trabajotercerizado != null) {
-                trabajotercerizado = em.getReference(trabajotercerizado.getClass(), trabajotercerizado.getIdtrabajo());
-                detalletrabajotercerizado.setTrabajotercerizado(trabajotercerizado);
+            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado = em.getReference(idtrabajotercerizado.getClass(), idtrabajotercerizado.getIdtrabajo());
+                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizado);
             }
             em.persist(detalletrabajotercerizado);
             if (estado != null) {
@@ -69,16 +63,11 @@ public class DetalletrabajotercerizadoJpaController {
                 proceso.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
-            if (trabajotercerizado != null) {
-                trabajotercerizado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                trabajotercerizado = em.merge(trabajotercerizado);
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                idtrabajotercerizado = em.merge(idtrabajotercerizado);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDetalletrabajotercerizado(detalletrabajotercerizado.getDetalletrabajotercerizadoPK()) != null) {
-                throw new PreexistingEntityException("Detalletrabajotercerizado " + detalletrabajotercerizado + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -87,18 +76,17 @@ public class DetalletrabajotercerizadoJpaController {
     }
 
     public void edit(Detalletrabajotercerizado detalletrabajotercerizado) throws NonexistentEntityException, Exception {
-        detalletrabajotercerizado.getDetalletrabajotercerizadoPK().setIdtrabajotercerizado(detalletrabajotercerizado.getTrabajotercerizado().getIdtrabajo());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detalletrabajotercerizado persistentDetalletrabajotercerizado = em.find(Detalletrabajotercerizado.class, detalletrabajotercerizado.getDetalletrabajotercerizadoPK());
+            Detalletrabajotercerizado persistentDetalletrabajotercerizado = em.find(Detalletrabajotercerizado.class, detalletrabajotercerizado.getIddetalle());
             Estadodetalletrabajotercerizado estadoOld = persistentDetalletrabajotercerizado.getEstado();
             Estadodetalletrabajotercerizado estadoNew = detalletrabajotercerizado.getEstado();
             Etapadeproduccion procesoOld = persistentDetalletrabajotercerizado.getProceso();
             Etapadeproduccion procesoNew = detalletrabajotercerizado.getProceso();
-            Trabajotercerizado trabajotercerizadoOld = persistentDetalletrabajotercerizado.getTrabajotercerizado();
-            Trabajotercerizado trabajotercerizadoNew = detalletrabajotercerizado.getTrabajotercerizado();
+            Trabajotercerizado idtrabajotercerizadoOld = persistentDetalletrabajotercerizado.getIdtrabajotercerizado();
+            Trabajotercerizado idtrabajotercerizadoNew = detalletrabajotercerizado.getIdtrabajotercerizado();
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 detalletrabajotercerizado.setEstado(estadoNew);
@@ -107,9 +95,9 @@ public class DetalletrabajotercerizadoJpaController {
                 procesoNew = em.getReference(procesoNew.getClass(), procesoNew.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(procesoNew);
             }
-            if (trabajotercerizadoNew != null) {
-                trabajotercerizadoNew = em.getReference(trabajotercerizadoNew.getClass(), trabajotercerizadoNew.getIdtrabajo());
-                detalletrabajotercerizado.setTrabajotercerizado(trabajotercerizadoNew);
+            if (idtrabajotercerizadoNew != null) {
+                idtrabajotercerizadoNew = em.getReference(idtrabajotercerizadoNew.getClass(), idtrabajotercerizadoNew.getIdtrabajo());
+                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizadoNew);
             }
             detalletrabajotercerizado = em.merge(detalletrabajotercerizado);
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
@@ -128,19 +116,19 @@ public class DetalletrabajotercerizadoJpaController {
                 procesoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
                 procesoNew = em.merge(procesoNew);
             }
-            if (trabajotercerizadoOld != null && !trabajotercerizadoOld.equals(trabajotercerizadoNew)) {
-                trabajotercerizadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                trabajotercerizadoOld = em.merge(trabajotercerizadoOld);
+            if (idtrabajotercerizadoOld != null && !idtrabajotercerizadoOld.equals(idtrabajotercerizadoNew)) {
+                idtrabajotercerizadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                idtrabajotercerizadoOld = em.merge(idtrabajotercerizadoOld);
             }
-            if (trabajotercerizadoNew != null && !trabajotercerizadoNew.equals(trabajotercerizadoOld)) {
-                trabajotercerizadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                trabajotercerizadoNew = em.merge(trabajotercerizadoNew);
+            if (idtrabajotercerizadoNew != null && !idtrabajotercerizadoNew.equals(idtrabajotercerizadoOld)) {
+                idtrabajotercerizadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                idtrabajotercerizadoNew = em.merge(idtrabajotercerizadoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                DetalletrabajotercerizadoPK id = detalletrabajotercerizado.getDetalletrabajotercerizadoPK();
+                Long id = detalletrabajotercerizado.getIddetalle();
                 if (findDetalletrabajotercerizado(id) == null) {
                     throw new NonexistentEntityException("The detalletrabajotercerizado with id " + id + " no longer exists.");
                 }
@@ -153,7 +141,7 @@ public class DetalletrabajotercerizadoJpaController {
         }
     }
 
-    public void destroy(DetalletrabajotercerizadoPK id) throws NonexistentEntityException {
+    public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -161,7 +149,7 @@ public class DetalletrabajotercerizadoJpaController {
             Detalletrabajotercerizado detalletrabajotercerizado;
             try {
                 detalletrabajotercerizado = em.getReference(Detalletrabajotercerizado.class, id);
-                detalletrabajotercerizado.getDetalletrabajotercerizadoPK();
+                detalletrabajotercerizado.getIddetalle();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalletrabajotercerizado with id " + id + " no longer exists.", enfe);
             }
@@ -175,10 +163,10 @@ public class DetalletrabajotercerizadoJpaController {
                 proceso.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
-            Trabajotercerizado trabajotercerizado = detalletrabajotercerizado.getTrabajotercerizado();
-            if (trabajotercerizado != null) {
-                trabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                trabajotercerizado = em.merge(trabajotercerizado);
+            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                idtrabajotercerizado = em.merge(idtrabajotercerizado);
             }
             em.remove(detalletrabajotercerizado);
             em.getTransaction().commit();
@@ -213,7 +201,7 @@ public class DetalletrabajotercerizadoJpaController {
         }
     }
 
-    public Detalletrabajotercerizado findDetalletrabajotercerizado(DetalletrabajotercerizadoPK id) {
+    public Detalletrabajotercerizado findDetalletrabajotercerizado(Long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Detalletrabajotercerizado.class, id);
