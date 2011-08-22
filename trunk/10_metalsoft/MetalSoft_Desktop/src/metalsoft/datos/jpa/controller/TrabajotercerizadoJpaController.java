@@ -14,13 +14,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
 import metalsoft.datos.jpa.entity.Pedido;
-import metalsoft.datos.jpa.entity.Reclamoempresametalurgica;
+import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Reclamoempresametalurgica;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 
@@ -39,7 +39,10 @@ public class TrabajotercerizadoJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Trabajotercerizado trabajotercerizado) throws PreexistingEntityException, Exception {
+    public void create(Trabajotercerizado trabajotercerizado) {
+        if (trabajotercerizado.getReclamoempresamantenimientoList() == null) {
+            trabajotercerizado.setReclamoempresamantenimientoList(new ArrayList<Reclamoempresamantenimiento>());
+        }
         if (trabajotercerizado.getReclamoempresametalurgicaList() == null) {
             trabajotercerizado.setReclamoempresametalurgicaList(new ArrayList<Reclamoempresametalurgica>());
         }
@@ -65,6 +68,12 @@ public class TrabajotercerizadoJpaController {
                 pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
                 trabajotercerizado.setPedido(pedido);
             }
+            List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoList = new ArrayList<Reclamoempresamantenimiento>();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimientoToAttach : trabajotercerizado.getReclamoempresamantenimientoList()) {
+                reclamoempresamantenimientoListReclamoempresamantenimientoToAttach = em.getReference(reclamoempresamantenimientoListReclamoempresamantenimientoToAttach.getClass(), reclamoempresamantenimientoListReclamoempresamantenimientoToAttach.getIdreclamo());
+                attachedReclamoempresamantenimientoList.add(reclamoempresamantenimientoListReclamoempresamantenimientoToAttach);
+            }
+            trabajotercerizado.setReclamoempresamantenimientoList(attachedReclamoempresamantenimientoList);
             List<Reclamoempresametalurgica> attachedReclamoempresametalurgicaList = new ArrayList<Reclamoempresametalurgica>();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgicaToAttach : trabajotercerizado.getReclamoempresametalurgicaList()) {
                 reclamoempresametalurgicaListReclamoempresametalurgicaToAttach = em.getReference(reclamoempresametalurgicaListReclamoempresametalurgicaToAttach.getClass(), reclamoempresametalurgicaListReclamoempresametalurgicaToAttach.getIdreclamo());
@@ -73,7 +82,7 @@ public class TrabajotercerizadoJpaController {
             trabajotercerizado.setReclamoempresametalurgicaList(attachedReclamoempresametalurgicaList);
             List<Detalletrabajotercerizado> attachedDetalletrabajotercerizadoList = new ArrayList<Detalletrabajotercerizado>();
             for (Detalletrabajotercerizado detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach : trabajotercerizado.getDetalletrabajotercerizadoList()) {
-                detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach = em.getReference(detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach.getClass(), detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach.getDetalletrabajotercerizadoPK());
+                detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach = em.getReference(detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach.getClass(), detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach.getIddetalle());
                 attachedDetalletrabajotercerizadoList.add(detalletrabajotercerizadoListDetalletrabajotercerizadoToAttach);
             }
             trabajotercerizado.setDetalletrabajotercerizadoList(attachedDetalletrabajotercerizadoList);
@@ -90,6 +99,15 @@ public class TrabajotercerizadoJpaController {
                 pedido.getTrabajotercerizadoList().add(trabajotercerizado);
                 pedido = em.merge(pedido);
             }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : trabajotercerizado.getReclamoempresamantenimientoList()) {
+                Trabajotercerizado oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento = reclamoempresamantenimientoListReclamoempresamantenimiento.getTrabajotercerizado();
+                reclamoempresamantenimientoListReclamoempresamantenimiento.setTrabajotercerizado(trabajotercerizado);
+                reclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListReclamoempresamantenimiento);
+                if (oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento != null) {
+                    oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento.getReclamoempresamantenimientoList().remove(reclamoempresamantenimientoListReclamoempresamantenimiento);
+                    oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento);
+                }
+            }
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgica : trabajotercerizado.getReclamoempresametalurgicaList()) {
                 Trabajotercerizado oldTrabajotercerizadoOfReclamoempresametalurgicaListReclamoempresametalurgica = reclamoempresametalurgicaListReclamoempresametalurgica.getTrabajotercerizado();
                 reclamoempresametalurgicaListReclamoempresametalurgica.setTrabajotercerizado(trabajotercerizado);
@@ -100,20 +118,15 @@ public class TrabajotercerizadoJpaController {
                 }
             }
             for (Detalletrabajotercerizado detalletrabajotercerizadoListDetalletrabajotercerizado : trabajotercerizado.getDetalletrabajotercerizadoList()) {
-                Trabajotercerizado oldTrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado = detalletrabajotercerizadoListDetalletrabajotercerizado.getTrabajotercerizado();
-                detalletrabajotercerizadoListDetalletrabajotercerizado.setTrabajotercerizado(trabajotercerizado);
+                Trabajotercerizado oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado = detalletrabajotercerizadoListDetalletrabajotercerizado.getIdtrabajotercerizado();
+                detalletrabajotercerizadoListDetalletrabajotercerizado.setIdtrabajotercerizado(trabajotercerizado);
                 detalletrabajotercerizadoListDetalletrabajotercerizado = em.merge(detalletrabajotercerizadoListDetalletrabajotercerizado);
-                if (oldTrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado != null) {
-                    oldTrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizadoListDetalletrabajotercerizado);
-                    oldTrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado = em.merge(oldTrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado);
+                if (oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado != null) {
+                    oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizadoListDetalletrabajotercerizado);
+                    oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado = em.merge(oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListDetalletrabajotercerizado);
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findTrabajotercerizado(trabajotercerizado.getIdtrabajo()) != null) {
-                throw new PreexistingEntityException("Trabajotercerizado " + trabajotercerizado + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -133,6 +146,8 @@ public class TrabajotercerizadoJpaController {
             Estadotrabajotercerizado estadoNew = trabajotercerizado.getEstado();
             Pedido pedidoOld = persistentTrabajotercerizado.getPedido();
             Pedido pedidoNew = trabajotercerizado.getPedido();
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoListOld = persistentTrabajotercerizado.getReclamoempresamantenimientoList();
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoListNew = trabajotercerizado.getReclamoempresamantenimientoList();
             List<Reclamoempresametalurgica> reclamoempresametalurgicaListOld = persistentTrabajotercerizado.getReclamoempresametalurgicaList();
             List<Reclamoempresametalurgica> reclamoempresametalurgicaListNew = trabajotercerizado.getReclamoempresametalurgicaList();
             List<Detalletrabajotercerizado> detalletrabajotercerizadoListOld = persistentTrabajotercerizado.getDetalletrabajotercerizadoList();
@@ -143,7 +158,7 @@ public class TrabajotercerizadoJpaController {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Detalletrabajotercerizado " + detalletrabajotercerizadoListOldDetalletrabajotercerizado + " since its trabajotercerizado field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Detalletrabajotercerizado " + detalletrabajotercerizadoListOldDetalletrabajotercerizado + " since its idtrabajotercerizado field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -161,6 +176,13 @@ public class TrabajotercerizadoJpaController {
                 pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
                 trabajotercerizado.setPedido(pedidoNew);
             }
+            List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoListNew = new ArrayList<Reclamoempresamantenimiento>();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach : reclamoempresamantenimientoListNew) {
+                reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach = em.getReference(reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach.getClass(), reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach.getIdreclamo());
+                attachedReclamoempresamantenimientoListNew.add(reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach);
+            }
+            reclamoempresamantenimientoListNew = attachedReclamoempresamantenimientoListNew;
+            trabajotercerizado.setReclamoempresamantenimientoList(reclamoempresamantenimientoListNew);
             List<Reclamoempresametalurgica> attachedReclamoempresametalurgicaListNew = new ArrayList<Reclamoempresametalurgica>();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach : reclamoempresametalurgicaListNew) {
                 reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach = em.getReference(reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach.getClass(), reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach.getIdreclamo());
@@ -170,7 +192,7 @@ public class TrabajotercerizadoJpaController {
             trabajotercerizado.setReclamoempresametalurgicaList(reclamoempresametalurgicaListNew);
             List<Detalletrabajotercerizado> attachedDetalletrabajotercerizadoListNew = new ArrayList<Detalletrabajotercerizado>();
             for (Detalletrabajotercerizado detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach : detalletrabajotercerizadoListNew) {
-                detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach = em.getReference(detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach.getClass(), detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach.getDetalletrabajotercerizadoPK());
+                detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach = em.getReference(detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach.getClass(), detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach.getIddetalle());
                 attachedDetalletrabajotercerizadoListNew.add(detalletrabajotercerizadoListNewDetalletrabajotercerizadoToAttach);
             }
             detalletrabajotercerizadoListNew = attachedDetalletrabajotercerizadoListNew;
@@ -200,6 +222,23 @@ public class TrabajotercerizadoJpaController {
                 pedidoNew.getTrabajotercerizadoList().add(trabajotercerizado);
                 pedidoNew = em.merge(pedidoNew);
             }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListOldReclamoempresamantenimiento : reclamoempresamantenimientoListOld) {
+                if (!reclamoempresamantenimientoListNew.contains(reclamoempresamantenimientoListOldReclamoempresamantenimiento)) {
+                    reclamoempresamantenimientoListOldReclamoempresamantenimiento.setTrabajotercerizado(null);
+                    reclamoempresamantenimientoListOldReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListOldReclamoempresamantenimiento);
+                }
+            }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListNewReclamoempresamantenimiento : reclamoempresamantenimientoListNew) {
+                if (!reclamoempresamantenimientoListOld.contains(reclamoempresamantenimientoListNewReclamoempresamantenimiento)) {
+                    Trabajotercerizado oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento = reclamoempresamantenimientoListNewReclamoempresamantenimiento.getTrabajotercerizado();
+                    reclamoempresamantenimientoListNewReclamoempresamantenimiento.setTrabajotercerizado(trabajotercerizado);
+                    reclamoempresamantenimientoListNewReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListNewReclamoempresamantenimiento);
+                    if (oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento != null && !oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento.equals(trabajotercerizado)) {
+                        oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento.getReclamoempresamantenimientoList().remove(reclamoempresamantenimientoListNewReclamoempresamantenimiento);
+                        oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento = em.merge(oldTrabajotercerizadoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento);
+                    }
+                }
+            }
             for (Reclamoempresametalurgica reclamoempresametalurgicaListOldReclamoempresametalurgica : reclamoempresametalurgicaListOld) {
                 if (!reclamoempresametalurgicaListNew.contains(reclamoempresametalurgicaListOldReclamoempresametalurgica)) {
                     reclamoempresametalurgicaListOldReclamoempresametalurgica.setTrabajotercerizado(null);
@@ -219,12 +258,12 @@ public class TrabajotercerizadoJpaController {
             }
             for (Detalletrabajotercerizado detalletrabajotercerizadoListNewDetalletrabajotercerizado : detalletrabajotercerizadoListNew) {
                 if (!detalletrabajotercerizadoListOld.contains(detalletrabajotercerizadoListNewDetalletrabajotercerizado)) {
-                    Trabajotercerizado oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado = detalletrabajotercerizadoListNewDetalletrabajotercerizado.getTrabajotercerizado();
-                    detalletrabajotercerizadoListNewDetalletrabajotercerizado.setTrabajotercerizado(trabajotercerizado);
+                    Trabajotercerizado oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado = detalletrabajotercerizadoListNewDetalletrabajotercerizado.getIdtrabajotercerizado();
+                    detalletrabajotercerizadoListNewDetalletrabajotercerizado.setIdtrabajotercerizado(trabajotercerizado);
                     detalletrabajotercerizadoListNewDetalletrabajotercerizado = em.merge(detalletrabajotercerizadoListNewDetalletrabajotercerizado);
-                    if (oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado != null && !oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado.equals(trabajotercerizado)) {
-                        oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizadoListNewDetalletrabajotercerizado);
-                        oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado = em.merge(oldTrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado);
+                    if (oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado != null && !oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado.equals(trabajotercerizado)) {
+                        oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizadoListNewDetalletrabajotercerizado);
+                        oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado = em.merge(oldIdtrabajotercerizadoOfDetalletrabajotercerizadoListNewDetalletrabajotercerizado);
                     }
                 }
             }
@@ -263,7 +302,7 @@ public class TrabajotercerizadoJpaController {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Trabajotercerizado (" + trabajotercerizado + ") cannot be destroyed since the Detalletrabajotercerizado " + detalletrabajotercerizadoListOrphanCheckDetalletrabajotercerizado + " in its detalletrabajotercerizadoList field has a non-nullable trabajotercerizado field.");
+                illegalOrphanMessages.add("This Trabajotercerizado (" + trabajotercerizado + ") cannot be destroyed since the Detalletrabajotercerizado " + detalletrabajotercerizadoListOrphanCheckDetalletrabajotercerizado + " in its detalletrabajotercerizadoList field has a non-nullable idtrabajotercerizado field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -282,6 +321,11 @@ public class TrabajotercerizadoJpaController {
             if (pedido != null) {
                 pedido.getTrabajotercerizadoList().remove(trabajotercerizado);
                 pedido = em.merge(pedido);
+            }
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoList = trabajotercerizado.getReclamoempresamantenimientoList();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : reclamoempresamantenimientoList) {
+                reclamoempresamantenimientoListReclamoempresamantenimiento.setTrabajotercerizado(null);
+                reclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListReclamoempresamantenimiento);
             }
             List<Reclamoempresametalurgica> reclamoempresametalurgicaList = trabajotercerizado.getReclamoempresametalurgicaList();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgica : reclamoempresametalurgicaList) {
