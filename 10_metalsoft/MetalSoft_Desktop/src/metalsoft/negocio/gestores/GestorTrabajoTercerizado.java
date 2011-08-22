@@ -142,12 +142,14 @@ public class GestorTrabajoTercerizado {
             emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
             em = getEntityManager();
             em.getTransaction().begin();
-            long c=JpaUtil.getUltimoDetalleTrabajoTercerizado().getDetalletrabajotercerizadoPK().getIddetalle();
+            
             trabajo.setEstado(buscarEstadoGenerado());
             controller.create(trabajo);
+            
+            long c=JpaUtil.getUltimoDetalleTrabajoTercerizado().getDetalletrabajotercerizadoPK().getIddetalle();
             for (ViewPedidoCotizacion v : detalle) {
                 c=c+1;
-                DetalletrabajotercerizadoPK pk=new DetalletrabajotercerizadoPK(c,trabajo.getIdtrabajo());
+                DetalletrabajotercerizadoPK pk=new DetalletrabajotercerizadoPK(c,99);
                 Detalletrabajotercerizado de = new Detalletrabajotercerizado(pk);
                 de.setCantidad(v.getCantidad());
                 de.setPieza(BigInteger.valueOf(v.getIdPieza()));
@@ -159,9 +161,11 @@ public class GestorTrabajoTercerizado {
             em.getTransaction().commit();
 
         } catch (PreexistingEntityException ex) {
+            em.getTransaction().rollback();
             Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } catch (Exception ex) {
+            em.getTransaction().rollback();
             Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
