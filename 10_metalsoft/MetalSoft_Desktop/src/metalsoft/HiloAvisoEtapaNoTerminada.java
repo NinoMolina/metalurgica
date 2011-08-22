@@ -104,7 +104,7 @@ public class HiloAvisoEtapaNoTerminada extends Thread {
 
                                     }
                                 } catch (Exception e) {
-                                    
+                                     e.printStackTrace();
                                 }
                             }
                         }
