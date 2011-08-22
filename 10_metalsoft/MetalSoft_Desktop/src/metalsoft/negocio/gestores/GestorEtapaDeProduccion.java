@@ -201,6 +201,34 @@ public class GestorEtapaDeProduccion {
             }
         }
     }
+    public void obtenerEtapas(JComboBox combo) {
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        EtapadeproduccionDB[] etapas=null;
+        try {
+            pg=new PostgreSQLManager();
+            cn=pg.concectGetCn();
+
+            etapas=AccessEtapaDeProduccion.findAll(cn);
+
+            combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+            for(int i=0;i<etapas.length;i++)
+            {
+                Combo.cargarCombo(combo,String.valueOf(etapas[i].getIdetapaproduccion()),etapas[i].getNombre());
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     public void obternerUnidadMedida(JComboBox combo) {
         PostgreSQLManager pg=null;
