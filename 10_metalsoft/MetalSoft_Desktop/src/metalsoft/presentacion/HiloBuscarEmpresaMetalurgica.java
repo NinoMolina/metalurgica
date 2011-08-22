@@ -10,14 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.access.AccessEmpresaMetalurgica;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.IBuscador;
-import metalsoft.negocio.trabajostercerizados.EmpresaMetalurgica;
 
 /**
  *
