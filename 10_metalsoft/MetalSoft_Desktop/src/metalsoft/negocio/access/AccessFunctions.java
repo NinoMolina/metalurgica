@@ -324,7 +324,7 @@ public class AccessFunctions {
     }
     public static long nvoNroTrabajoTercerizado(Connection cn)
     {
-        String query="{ ? = call nvonrotrabajotercerizado(?)}";
+        String query="{ ? = call nvonrotrabajotercerizado()}";
         long result=-1;
         try {
             CallableStatement cs = cn.prepareCall(query);
