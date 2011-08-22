@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.EtapadeproduccionJpaController;
+import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
@@ -26,6 +28,10 @@ public class GestorTrabajoTercerizado {
     public List<Pedido> buscarPedidosNoFinalizados()
     {
         return JpaUtil.getPedidosNoFinalizados();
+    }
+    public List<Pedido> buscarPedidosNoFinalizadosLIKE(String param)
+    {
+        return JpaUtil.getPedidosNoFinalizadosLIKE(param);
     }
     public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedido(long idPed) {
         PostgreSQLManager pg=new PostgreSQLManager();
@@ -95,6 +101,11 @@ public class GestorTrabajoTercerizado {
             }
         }
         return result;
+    }
+    public Etapadeproduccion buscarEtapa(long id)
+    {
+        EtapadeproduccionJpaController controller=new EtapadeproduccionJpaController();
+        return controller.findEtapadeproduccion(id);
     }
 
 }
