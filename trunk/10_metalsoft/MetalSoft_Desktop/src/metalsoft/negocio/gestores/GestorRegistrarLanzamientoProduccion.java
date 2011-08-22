@@ -5,7 +5,6 @@
 package metalsoft.negocio.gestores;
 
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,6 +42,11 @@ import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionPedido;
 import metalsoft.util.Fecha;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -121,6 +125,8 @@ public class GestorRegistrarLanzamientoProduccion {
 
         List<Detalleplanificacionproduccion> lstDetallePlanificacion = null;
 
+        List<Long> lstIdsEjecucionEtapasAIniciar = new ArrayList<Long>();
+
         try {
             /*
              * Buscar el estado inicial y asignarlo
@@ -188,6 +194,7 @@ public class GestorRegistrarLanzamientoProduccion {
                 EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController();
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;
+                boolean etapaEnEjecucion = false;
                 if (detalleplanificacionproduccion.getOrden() == 1) {
                     Date fechaActual = Fecha.fechaActualDate();
                     detalleejecucionplanificacion.setFechainicio(fechaActual);
@@ -195,6 +202,7 @@ public class GestorRegistrarLanzamientoProduccion {
                     ejecucionetapaproduccion.setFechainicio(fechaActual);
                     ejecucionetapaproduccion.setHorainicio(fechaActual);
                     estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
+                    etapaEnEjecucion = true;
                 } else {
                     estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
                 }
@@ -204,6 +212,9 @@ public class GestorRegistrarLanzamientoProduccion {
                  * guardar en la base de datos
                  */
                 eepController.create(ejecucionetapaproduccion);
+                if (etapaEnEjecucion) {
+                    lstIdsEjecucionEtapasAIniciar.add(ejecucionetapaproduccion.getId());
+                }
                 detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
 //                List<Detalleplanificacionproduccion> lstDetalleplanificacionproduccion = new ArrayList<Detalleplanificacionproduccion>();
 //                detalleejecucionplanificacion.setDetalleplanificacionproduccionList(lstDetalleplanificacionproduccion);
@@ -211,6 +222,8 @@ public class GestorRegistrarLanzamientoProduccion {
                 detalleplanificacionproduccion.setIddetalleejecucionplanificacion(detalleejecucionplanificacion);
                 dppController.edit(detalleplanificacionproduccion);
             }
+
+            imprimirInicioEtapasProduccion(lstIdsEjecucionEtapasAIniciar);
 
 
         } catch (PreexistingEntityException ex) {
@@ -257,5 +270,54 @@ public class GestorRegistrarLanzamientoProduccion {
             Logger.getLogger(GestorRegistrarLanzamientoProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    public static void main(String arg[]) {
+        GestorRegistrarLanzamientoProduccion gestor = new GestorRegistrarLanzamientoProduccion();
+
+        List<Long> lst = new ArrayList<Long>();
+        lst.add(6L);
+        lst.add(7L);
+        lst.add(8L);
+
+        gestor.imprimirInicioEtapasProduccion(lst);
+    }
+
+    private void imprimirInicioEtapasProduccion(List<Long> lstIdsEjecucionEtapasAIniciar) {
+
+        String sourceFile = "D:\\rpt\\RptInicioEjecucionEtapa.jasper";
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            param.put("ID_EJECUCION_ETAPA", lstIdsEjecucionEtapasAIniciar);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("ETAPAS EN EJECUCION - CODIGOS DE BARRA");
+            jviewer.setVisible(true);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
