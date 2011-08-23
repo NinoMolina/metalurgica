@@ -20,7 +20,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -111,8 +110,6 @@ public class GestorRegistrarPlanificacionProduccion {
                 detalle.setIdplanificacionproduccion(planificacionproduccion);
                 ctrlDetalle.create(detalle);
             }
-//            planificacionproduccion.setDetalleplanificacionproduccionSet(setDetalle);
-//            ctrlPlanificacion.edit(planificacionproduccion,em);
             metalsoft.datos.jpa.entity.Pedido ped = planificacionproduccion.getPedido();
             ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(5L));
             ctrlPedido.edit(ped, em);
