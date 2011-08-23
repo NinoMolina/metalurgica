@@ -979,7 +979,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mniTipoMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTipoMaquinaActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             JFrameManager.crearVentana(ABMTipoMaquina.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -992,7 +992,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mniMantenimientoPreventivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMantenimientoPreventivoActionPerformed
         // TODO add your handling code here:
-           try {
+        try {
             JFrameManager.crearVentana(ABMMantenimientoPreventivo.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1080,6 +1080,8 @@ public class Principal extends javax.swing.JFrame {
 
     public void alertaEtapaNoFinalizada(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
 
+        String inicioHtml = "<html>Etapas Atrasadas. <font color=red size=+2>";
+        String finHtml = "</font></html>";
         if (!mapEtapasAtrasadas.containsKey(detalleejecucionplanificacion.getId())) {
 
             mapEtapasAtrasadas.put(detalleejecucionplanificacion.getId(), detalleejecucionplanificacion);
@@ -1094,13 +1096,50 @@ public class Principal extends javax.swing.JFrame {
             }
 
             if (txtLbl.equals("")) {
-                btnEtapasAtrasadas.setText("<html>Etapas Atrasadas. <font color=red size=+2>(1)</font></html>");
+                btnEtapasAtrasadas.setText(inicioHtml + "(1)" + finHtml);
             } else {
-                String num = txtLbl.substring(1, txtLbl.length() - 1);
+                String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
+                System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
                 int numero = Integer.parseInt(num);
-                btnEtapasAtrasadas.setText("<html>Etapas Atrasadas. <font color=red size=+2>(" + (numero + 1) + ")</font></html>");
+                btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
             }
 
         }
+    }
+
+    public void eliminarEtapaNoFinalizada(Long id) {
+        if (mapEtapasAtrasadas.containsKey(id)) {
+            mapEtapasAtrasadas.remove(id);
+            restarEtapaAtrasada();
+        }
+    }
+
+    private void restarEtapaAtrasada() {
+        String inicioHtml = "<html>Etapas Atrasadas. <font color=red size=+2>";
+        String finHtml = "</font></html>";
+
+        String txtBoton = btnEtapasAtrasadas.getText();
+        String parts[] = txtBoton.split(Pattern.quote("."));
+
+        String txtLbl = "";
+
+        if (parts.length == 2) {
+            txtLbl = parts[1].trim();
+        }
+
+        if (!txtLbl.equals("")) {
+            String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
+            System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
+            int numero = Integer.parseInt(num);
+            System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + (numero - 1));
+            if(numero == 1){
+                btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
+            } else {
+                btnEtapasAtrasadas.setText("Etapas Atrasadas.");
+            }
+            
+            
+        }
+
     }
 }
