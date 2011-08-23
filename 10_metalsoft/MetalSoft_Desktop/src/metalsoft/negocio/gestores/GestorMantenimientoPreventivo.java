@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
@@ -96,7 +97,10 @@ public class GestorMantenimientoPreventivo {
         ServicioJpaController controllerServicio = new ServicioJpaController ();
         DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController ();
         try {
-            controllerMaquina.create(mantenimientop.getMaquina());
+      //VERRRRR      Maquina maquina = controllerMaquina.find(mantenimientop.getMaquina());
+              // controllerMaquina.edit(maquina);
+
+      //VERRRRR      controllerMaquina.create(mantenimientop.getMaquina());
             controllerServicio.create(mantenimientop.getDetallemantenimientopreventivo().getServicio());
             controllerDetalle.create(mantenimientop.getDetallemantenimientopreventivo());
             controller.create(mantenimientop);
@@ -121,7 +125,7 @@ public class GestorMantenimientoPreventivo {
         try {
 
             controllerServicio.edit(mantenimientop.getDetallemantenimientopreventivo().getServicio());
-            controllerMaquina.edit(mantenimientop.getMaquina());
+        //VERRRRR    controllerMaquina.edit(mantenimientop.getMaquina());
             controllerDetalle.edit(mantenimientop.getDetallemantenimientopreventivo());
             controller.edit(mantenimientop);
 
@@ -156,5 +160,66 @@ public class GestorMantenimientoPreventivo {
         }
         return result;
     }
+
+       public void obtenerTiposMaquinas(JComboBox combo) {
+        try {
+            List<Tipomaquina> tiposmaquinas = null;
+            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            tiposmaquinas = controller.findTipomaquinaEntities();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Tipomaquina tmaq : tiposmaquinas) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(tmaq.getIdtipomaquina()));
+                item.setMostrar(tmaq.getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+        public void obtenerMaquinas(JComboBox combo, long id) {
+
+        try {
+            List<Maquina> maquinas = null;
+            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            maquinas = controller.findTipomaquina(id).getMaquinaList();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Maquina maq : maquinas) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(maq.getIdmaquina()));
+                item.setMostrar(maq.getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+          public void obtenerServicios(JComboBox combo) {
+        try {
+            List<Servicio> servicios = null;
+            ServicioJpaController controller = new ServicioJpaController();
+            servicios = controller.findServicioEntities();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Servicio serv : servicios) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(serv.getIdservicio()));
+                item.setMostrar(serv.getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 }
