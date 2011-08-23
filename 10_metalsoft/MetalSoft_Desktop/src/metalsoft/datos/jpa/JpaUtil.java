@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import metalsoft.datos.jpa.entity.Accioncalidad;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
@@ -78,12 +78,22 @@ public class JpaUtil {
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
+
     public static Detalletrabajotercerizado getUltimoDetalleTrabajoTercerizado() {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM detalletrabajotercerizado e "
-                    +"WHERE e.iddetalle=(Select max(d.iddetalle)FROM detalletrabajotercerizado d)";
+                + "WHERE e.iddetalle=(Select max(d.iddetalle)FROM detalletrabajotercerizado d)";
         Query q = em.createNativeQuery(sql, Detalletrabajotercerizado.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return (Detalletrabajotercerizado) q.getSingleResult();
+    }
+
+    public static Detalleejecucionplanificacion getDetalleejecucionplanificacionByEjecucionetapa(Long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Detalleejecucionplanificacion e"
+                + " WHERE e.ejecucionetapa.id = :id";
+        Query q = em.createQuery(sql, Detalleejecucionplanificacion.class);
+        q.setParameter("id", id);
+        return (Detalleejecucionplanificacion) q.getSingleResult();
     }
 }
