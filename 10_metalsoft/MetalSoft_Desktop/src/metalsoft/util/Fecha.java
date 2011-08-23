@@ -4,6 +4,7 @@
  */
 package metalsoft.util;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jfree.data.time.Month;
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Instant;
 
@@ -245,6 +246,8 @@ public class Fecha {
     }
 
     public static Date diferenciaEnHoras(Date fechaInicio, Date fechaFin) {
+        System.out.println("Inicio: "+fechaInicio);
+        System.out.println("Fin: "+fechaFin);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(fechaFin);
         calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
@@ -284,6 +287,19 @@ public class Fecha {
         int days = d.getDays();
 
         return days;
+
+    }
+
+    public static Date diferenciaEnHorasJoda(Date fechaFinalizacion, Date fechaActual){
+
+        System.out.println("Finalizacion: "+fechaFinalizacion);
+        System.out.println("Actual: "+fechaActual);
+        DateTime dt=new DateTime(fechaFinalizacion.getTime());
+        DateTime dif = dt.minus(fechaActual.getTime());
+
+        Date result = new Date(dif.getMillis());
+        System.out.println("diferencia: "+result);
+        return result;
 
     }
 
@@ -360,5 +376,33 @@ public class Fecha {
 //        System.out.println(d5);
 //
 //        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
+
+        GregorianCalendar calendar=new GregorianCalendar(2011, 5, 21, 20, 0);
+        Date d3 = calendar.getTime();
+        Date fa = fechaActualDate();
+        Date dif = diferenciaEnHoras(d3, fa);
+        System.out.println(dif.getHours());
+        System.out.println(dif.getMinutes());
+        System.out.println(dif.getSeconds());
+        int difDias = diferenciaEnDias(d3, fa);
+        System.out.println(dif);
+        System.out.println(difDias);
+        System.out.println(difDias * 24);
+
+
+        Time time = new Time(difDias * 24, dif.getMinutes(), dif.getSeconds());
+        System.out.println(time);
+    }
+
+    public static Date setHoraMinutoSegundo(Date fecha, Date hora) {
+        GregorianCalendar gcFechaInicio = new GregorianCalendar();
+
+        gcFechaInicio.setTime(fecha);
+
+        gcFechaInicio.set(Calendar.HOUR_OF_DAY, hora.getHours());
+        gcFechaInicio.set(Calendar.MINUTE, hora.getMinutes());
+        gcFechaInicio.set(Calendar.SECOND, hora.getSeconds());
+
+        return gcFechaInicio.getTime();
     }
 }
