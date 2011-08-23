@@ -54,11 +54,9 @@ public class Ejecucionetapaproduccion implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "totalhorasmaquina")
-    @Temporal(TemporalType.TIME)
-    private Date totalhorasmaquina;
+    private String totalhorasmaquina;
     @Column(name = "totalhorashombre")
-    @Temporal(TemporalType.TIME)
-    private Date totalhorashombre;
+    private String totalhorashombre;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.DATE)
     private Date fechainicio;
@@ -119,19 +117,19 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.nombre = nombre;
     }
 
-    public Date getTotalhorasmaquina() {
+    public String getTotalhorasmaquina() {
         return totalhorasmaquina;
     }
 
-    public void setTotalhorasmaquina(Date totalhorasmaquina) {
+    public void setTotalhorasmaquina(String totalhorasmaquina) {
         this.totalhorasmaquina = totalhorasmaquina;
     }
 
-    public Date getTotalhorashombre() {
+    public String getTotalhorashombre() {
         return totalhorashombre;
     }
 
-    public void setTotalhorashombre(Date totalhorashombre) {
+    public void setTotalhorashombre(String totalhorashombre) {
         this.totalhorashombre = totalhorashombre;
     }
 
