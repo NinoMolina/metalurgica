@@ -9,9 +9,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Time;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
+import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
+import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
+import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.presentacion.Principal;
+import metalsoft.util.Fecha;
 import metalsoft.util.MetalsoftProperties;
 
 /**
@@ -76,7 +87,7 @@ public class HiloEscuchadorFinEtapa extends Thread {
 
         oos = new ObjectOutputStream(clienteSocket.getOutputStream());
         ois = new ObjectInputStream(clienteSocket.getInputStream());
-        String tmp = (String) ois.readObject();
+        String datosRecibidos = (String) ois.readObject();
         /*
          * si coincide con la expresion regular de los codigos de barra proceso los datos
          */
@@ -86,7 +97,7 @@ public class HiloEscuchadorFinEtapa extends Thread {
         Matcher matcher = null;
 
         pattern = Pattern.compile(expresionRegularCodigoBarra);
-        matcher = pattern.matcher(tmp);
+        matcher = pattern.matcher(datosRecibidos);
 
         if (matcher.find()) {
 
@@ -97,6 +108,45 @@ public class HiloEscuchadorFinEtapa extends Thread {
                  * Registrar el fin de la etapa (el id se recibe del cliente) y
                  * dejar
                  */
+                String partes[] = datosRecibidos.split(Pattern.quote("-"));
+                String idEjecEtapa = partes[1];
+                EjecucionetapaproduccionJpaController ejecEtapaController = new EjecucionetapaproduccionJpaController();
+                Ejecucionetapaproduccion ejecucionetapaproduccion = ejecEtapaController.findEjecucionetapaproduccion(Long.parseLong(idEjecEtapa));
+
+                EstadoejecetapaprodJpaController estadoEjecController = new EstadoejecetapaprodJpaController();
+                Estadoejecetapaprod estadoejecetapaprod = estadoEjecController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.FINALIZADA);
+
+                ejecucionetapaproduccion.setEstado(estadoejecetapaprod);
+
+                Date fechaActual = Fecha.fechaActualDate();
+
+                ejecucionetapaproduccion.setFechafin(fechaActual);
+                ejecucionetapaproduccion.setHorafin(fechaActual);
+
+                Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
+                detalleejecucionplanificacion.setFechafin(fechaActual);
+                detalleejecucionplanificacion.setHorafin(fechaActual);
+                DetalleejecucionplanificacionJpaController detalleejecucionplanificacionJpaController = new DetalleejecucionplanificacionJpaController();
+                detalleejecucionplanificacionJpaController.edit(detalleejecucionplanificacion);
+
+                Date fechaInicio = null;
+                fechaInicio = Fecha.setHoraMinutoSegundo(ejecucionetapaproduccion.getFechainicio(), ejecucionetapaproduccion.getHorainicio());
+
+                Date difHoras = Fecha.diferenciaEnHoras(fechaInicio, fechaActual);
+
+                int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaActual);
+
+                int horas = difHoras.getHours();
+                int minutos = difHoras.getMinutes();
+                int segundos = difHoras.getSeconds();
+
+                String totalHrsHombre = String.valueOf((difDias * 24) + horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
+
+                ejecucionetapaproduccion.setTotalhorashombre(totalHrsHombre);
+
+                ejecEtapaController.edit(ejecucionetapaproduccion);
+
+                vtnPrincipal.eliminarEtapaNoFinalizada(detalleejecucionplanificacion.getId());
                 /*
                  * si los datos se procesaron correctamente aviso que todo esta ok
                  */
@@ -106,7 +156,7 @@ public class HiloEscuchadorFinEtapa extends Thread {
                 /*
                  * sino aviso que hubo errores al procesar los datos
                  */
-                oos.writeObject("ERROR");
+                oos.writeObject("ERROR: " + e.getMessage());
                 e.printStackTrace();
             }
 
@@ -117,6 +167,7 @@ public class HiloEscuchadorFinEtapa extends Thread {
              * entonces no se hace nada
              */
             System.out.println("WARNING: Los datos recibidos no coinciden con el patron de fin de etapa esperado.");
+            oos.writeObject("WARNING: Los datos enviados no coinciden con el patron de fin de etapa esperado por el servidor.");
         }
 
     }
