@@ -33,6 +33,7 @@ public class ABMTipoMaquina extends javax.swing.JFrame {
     /** Creates new form ABMTipoMaquina */
     public ABMTipoMaquina() {
         initComponents();
+        addListeners();
     }
    private void addListeners() {
 
