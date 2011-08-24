@@ -44,8 +44,6 @@ public class GestorTipoMaquina {
         } catch (Exception ex) {
             Logger.getLogger(GestorTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
         return tm.getIdtipomaquina();
     }
 
