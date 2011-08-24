@@ -25,6 +25,9 @@ public class NumerosAMostrar {
     public static final int NRO_ORDEN_COMPRA = 13;
     public static final int NRO_PEDIDO_MATRIZ = 14;
     public static final int NRO_TRABAJO_TERCERIZADO = 15;
+    public static final int NRO_EMPRESA_MANTENIMIENTO = 16;
+    public static final int NRO_MANTENIMIENTO_PREVENTIVO = 17;
+    public static final int NRO_MANTENIMIENTO_CORRECTIVO = 18;
 
     public static String getNumeroString(int tiponro, long nro) {
         switch (tiponro) {
@@ -51,13 +54,19 @@ public class NumerosAMostrar {
             case NRO_PROCESO_CALIDAD:
                 return "PRCA-" + String.valueOf(nro);
             case NRO_EMPRESA_METALURGICA:
-                return "EM-" + String.valueOf(nro);
+                return "EMPME-" + String.valueOf(nro);
             case NRO_ORDEN_COMPRA:
                 return "ORD-" + String.valueOf(nro);
             case NRO_PEDIDO_MATRIZ:
                 return "PEDMAT-" + String.valueOf(nro);
             case NRO_TRABAJO_TERCERIZADO:
                 return "TRAB-" + String.valueOf(nro);
+            case NRO_EMPRESA_MANTENIMIENTO:
+                return "EMPMA-" + String.valueOf(nro);
+            case NRO_MANTENIMIENTO_PREVENTIVO:
+                return "MANTPR-" + String.valueOf(nro);
+            case NRO_MANTENIMIENTO_CORRECTIVO:
+                return "MANTCO" + String.valueOf(nro);
             default:
                 return null;
         }
