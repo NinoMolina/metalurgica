@@ -25,6 +25,7 @@ import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
 import metalsoft.negocio.mantenimiento.ServicioMaquina;
 import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Combo;
 
 
@@ -70,12 +71,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cmbTipoMaquina = new javax.swing.JComboBox();
         cmbMaquina = new javax.swing.JComboBox();
-        btnTipoMaquina = new javax.swing.JButton();
-        btnMaquina = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         cmbServicio = new javax.swing.JComboBox();
-        btnServicio = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         txtPeriodo = new javax.swing.JTextField();
@@ -83,7 +81,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         txtfechaMantenimiento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblNroMantenimientoP = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalleMantenimientoPreventivo = new javax.swing.JTable();
@@ -92,6 +90,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         btnQuitar = new javax.swing.JButton();
         beanBtnSeleccionar = new metalsoft.beans.BtnSeleccionar();
+        btnBuscarEmpleado1 = new javax.swing.JButton();
+        btnMaquina = new javax.swing.JButton();
+        btnTipoMaquina1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mantenimiento Preventivo");
@@ -106,13 +107,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
             }
         });
 
-        btnTipoMaquina.setText("Agregar");
-
-        btnMaquina.setText("Agregar");
-
         jLabel3.setText("Servicios de Máquina:");
-
-        btnServicio.setText("Consultar");
 
         jLabel4.setText("Ingrese Período:");
 
@@ -122,7 +117,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
 
         jLabel7.setText("Nro. de Mantenimiento:");
 
-        jLabel8.setText("...");
+        lblNroMantenimientoP.setText("...");
 
         jLabel9.setText("Descripción:");
 
@@ -150,12 +145,56 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarEmpleado1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sea1.png"))); // NOI18N
+        btnBuscarEmpleado1.setText("Consultar");
+        btnBuscarEmpleado1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarEmpleado1ActionPerformed(evt);
+            }
+        });
+
+        btnMaquina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
+        btnMaquina.setText("Agregar");
+        btnMaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaquinaActionPerformed(evt);
+            }
+        });
+
+        btnTipoMaquina1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
+        btnTipoMaquina1.setText("Agregar");
+        btnTipoMaquina1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoMaquina1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel7)
+                        .addGap(7, 7, 7)
+                        .addComponent(lblNroMantenimientoP, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel3)
+                        .addGap(16, 16, 16)
+                        .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarEmpleado1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel4)
@@ -179,87 +218,71 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(146, 146, 146)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTipoMaquina1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel1))
-                                        .addGap(36, 36, 36))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(137, 137, 137)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnQuitar))
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnQuitar))
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(lblNroMantenimientoP))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel1))
+                    .addComponent(btnTipoMaquina1)
+                    .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(btnTipoMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbTipoMaquina, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                            .addComponent(jLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addComponent(btnMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2))
+                            .addComponent(cmbMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnMaquina)))
+                .addGap(11, 11, 11)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbServicio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarEmpleado1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(btnQuitar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitar)
+                        .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,6 +346,10 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
 
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        opcion = EnumOpcionesABM.NUEVO;
+        long nro = obtenerNuevoNroMantenimientoPreventivo();
+        if (nro < 0) {
+        lblNroMantenimientoP.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_PREVENTIVO, nro));
 /*
         mantenimientop = new MantenimientoPreventivo();
         opcion = EnumOpcionesABM.NUEVO;
@@ -334,6 +361,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         botones.getBtnModificar().setEnabled(false);
 
  */
+        } else{
+            JOptionPane.showMessageDialog(this, "No se pudo generar el nro de pedido.");
+        }
     }
 
     private void addListenerBtnGuardar() {
@@ -420,6 +450,34 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarActionPerformed
 
+    private void btnBuscarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleado1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarEmpleado1ActionPerformed
+
+    private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaquinaActionPerformed
+        try {
+            JFrameManager.crearVentana(ABMMaquina.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_btnMaquinaActionPerformed
+
+    private void btnTipoMaquina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoMaquina1ActionPerformed
+          try {
+            JFrameManager.crearVentana(ABMTipoMaquina.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTipoMaquina1ActionPerformed
+
     private void cargarComboTipoMaquina() {
         cmbTipoMaquina.removeAllItems();
         gestor.obtenerTiposMaquinas(cmbTipoMaquina);
@@ -455,10 +513,10 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionar;
     private metalsoft.beans.ABM_Botones botones;
+    private javax.swing.JButton btnBuscarEmpleado1;
     private javax.swing.JButton btnMaquina;
     private javax.swing.JButton btnQuitar;
-    private javax.swing.JButton btnServicio;
-    private javax.swing.JButton btnTipoMaquina;
+    private javax.swing.JButton btnTipoMaquina1;
     private javax.swing.JComboBox cmbMaquina;
     private javax.swing.JComboBox cmbServicio;
     private javax.swing.JComboBox cmbTipoMaquina;
@@ -471,11 +529,11 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblNroMantenimientoP;
     private javax.swing.JTable tblDetalleMantenimientoPreventivo;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtPeriodo;
@@ -506,6 +564,10 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         cargarDatosTreeTable(presupuesto.getDetallepresupuestoList());
  
      */
+    }
+
+     private long obtenerNuevoNroMantenimientoPreventivo() {
+        return gestor.generarNvoNroMantenimientoPreventivo();
     }
 
 }
