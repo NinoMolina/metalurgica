@@ -122,6 +122,7 @@ public class Principal extends javax.swing.JFrame {
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
+        mniCondicionIva = new javax.swing.JMenuItem();
         mnuRRHH = new javax.swing.JMenu();
         mniListadoEmpleados = new javax.swing.JMenuItem();
         mniRegistrarAsistencia = new javax.swing.JMenuItem();
@@ -481,6 +482,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuFinanzas.add(mniCobroPedido);
+
+        mniCondicionIva.setText("Condición Iva");
+        mniCondicionIva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCondicionIvaActionPerformed(evt);
+            }
+        });
+        mnuFinanzas.add(mniCondicionIva);
 
         mbrMenu.add(mnuFinanzas);
 
@@ -1002,6 +1011,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniMantenimientoPreventivoActionPerformed
+
+    private void mniCondicionIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCondicionIvaActionPerformed
+          try {
+            JFrameManager.crearVentana(ABMCondicionIva.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniCondicionIvaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1033,6 +1054,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCerrarSesion;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
+    private javax.swing.JMenuItem mniCondicionIva;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
