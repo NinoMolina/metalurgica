@@ -6,6 +6,7 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,8 +19,10 @@ import metalsoft.datos.dao.CompraDAOImpl;
 import metalsoft.datos.dao.DetallecompraDAOImpl;
 import metalsoft.datos.dao.DetallereclamoempresametalurgicaDAOImpl;
 import metalsoft.datos.dao.DetallereclamoproveedorDAOImpl;
+import metalsoft.datos.dao.DetalletrabajotercerizadoDAOImpl;
 import metalsoft.datos.dao.EmpresametalurgicaDAOImpl;
 import metalsoft.datos.dao.MateriaprimaDAOImpl;
+import metalsoft.datos.dao.PiezaDAOImpl;
 import metalsoft.datos.dao.ProveedorDAOImpl;
 import metalsoft.datos.dao.ReclamoempresametalurgicaDAOImpl;
 import metalsoft.datos.dao.ReclamoproveedorDAOImpl;
@@ -29,9 +32,11 @@ import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.DetallecompraDB;
 import metalsoft.datos.dbobject.DetallereclamoempresametalurgicaDB;
 import metalsoft.datos.dbobject.DetallereclamoproveedorDB;
+import metalsoft.datos.dbobject.DetalletrabajotercerizadoDB;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.dbobject.EstadodetallecompraDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.dbobject.ReclamoempresametalurgicaDB;
 import metalsoft.datos.dbobject.ReclamoproveedorDB;
@@ -39,6 +44,7 @@ import metalsoft.datos.dbobject.TiporeclamoDB;
 import metalsoft.datos.dbobject.TrabajotercerizadoDB;
 import metalsoft.datos.exception.CompraException;
 import metalsoft.datos.exception.DetallecompraException;
+import metalsoft.datos.exception.DetalletrabajotercerizadoException;
 import metalsoft.datos.jpa.controller.CompraJpaController;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.PiezaJpaController;
@@ -264,7 +270,7 @@ public class GestorReclamo implements IBuscador {
                 }
 
                 //Registrar los detalles del reclamo
-                String idReclamo = daoReclamo.getUltimoIDReclamo(con);
+                long idReclamo = Long.parseLong(daoReclamo.getUltimoIDReclamo(con));
 
                 DetallereclamoproveedorDAOImpl daoDetalleReclamoProv = new DetallereclamoproveedorDAOImpl();
                 Iterator<ViewDetalleReclamo> iter = filasDetalle.iterator();
@@ -272,8 +278,13 @@ public class GestorReclamo implements IBuscador {
                 while (iter.hasNext()) {
                     datos = iter.next();
                     DetallereclamoproveedorDB detalleReclamoProv = new DetallereclamoproveedorDB();
+                    detalleReclamoProv.setIddetalle(idReclamo);
                     detalleReclamoProv.setCantidad(datos.getCantidad());
                     detalleReclamoProv.setDescripcion("descripcion");
+                    Date fechaEgreso = new Date(new java.util.Date().getTime());
+                    detalleReclamoProv.setFechaegreso((java.sql.Date) fechaEgreso);
+                    detalleReclamoProv.setIdcompra(datos.getIdCompra());
+                    detalleReclamoProv.setIddetallecompra(datos.getIdDetalle());
                     // continuar completando con los datos correctos de la BD
 
                     daoDetalleReclamoProv.insert(detalleReclamoProv, con);
@@ -441,6 +452,81 @@ public class GestorReclamo implements IBuscador {
             return mp.getNombre();
         } catch (Exception ex) {
             return "";
+        }
+    }
+
+     public long getMateriaprimaByName(String nombreMateriaPrima){
+         try {
+            MateriaprimaDAOImpl daoMateriaPrima = new MateriaprimaDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            MateriaprimaDB[] materias = daoMateriaPrima.findByNombre(nombreMateriaPrima, con);
+            MateriaprimaDB mp = materias[0];
+            return mp.getIdmateriaprima();
+        } catch (Exception ex) {
+            return -1;
+        }
+    }
+
+    public long getIdTrabajoByNumero(long nroTrabajo) {
+        try {
+            TrabajotercerizadoDAOImpl daoTrabajo = new TrabajotercerizadoDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            TrabajotercerizadoDB[] trabajoTercerizado = daoTrabajo.findByNrotrabajotercerizado(nroTrabajo, con);
+            TrabajotercerizadoDB trab = trabajoTercerizado[0];
+            return trab.getIdtrabajo();
+        } catch (Exception ex) {
+            return -1;
+        }
+    }
+
+    public DetalletrabajotercerizadoDB[] getDetalleByIdTrabajo(long idTrabajo) throws DetalletrabajotercerizadoException {
+        try {
+            DetalletrabajotercerizadoDAOImpl daoDetalleTrabajo = new DetalletrabajotercerizadoDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            DetalletrabajotercerizadoDB[] detallesTrabajo = daoDetalleTrabajo.findByIdtrabajotercerizado(idTrabajo, con);
+            return detallesTrabajo;
+        } catch (Exception ex) {
+            throw new DetalletrabajotercerizadoException(ex);
+        }
+    }
+
+    public String getPiezaById(long idPieza) {
+         try {
+            PiezaDAOImpl daoPieza = new PiezaDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            PiezaDB[]piezas = daoPieza.findByIdpieza(idPieza, con);
+            PiezaDB p = piezas[0];
+            return p.getNombre();
+        } catch (Exception ex) {
+            return "";
+        }
+    }
+
+    public long getIdDetalleByMPrimaCantidadAndIdCompra(long idComp, String nombre, int cantidad) {
+        long idMP = this.getMateriaprimaByName(nombre);
+        try {
+            DetallecompraDAOImpl daodetalleCompra = new DetallecompraDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            DetallecompraDB[] detalles = daodetalleCompra.findByMPrimaCantidadAndIdCompra(idComp, idMP, cantidad, con);
+            DetallecompraDB dc = detalles[0];
+            return dc.getIddetalle();
+        } catch (Exception ex) {
+            return -1;
         }
     }
 }

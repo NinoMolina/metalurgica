@@ -16,12 +16,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.DetallecompraDB;
+import metalsoft.datos.dbobject.DetalletrabajotercerizadoDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.exception.DetallecompraException;
+import metalsoft.datos.exception.DetalletrabajotercerizadoException;
 import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.negocio.gestores.GestorReclamo;
@@ -29,6 +32,7 @@ import metalsoft.negocio.gestores.ViewDetalleReclamo;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.negocio.gestores.ViewDetalleCompra;
+import metalsoft.negocio.gestores.ViewDetalleTrabajoTercerizado;
 import metalsoft.util.ItemCombo;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -45,6 +49,9 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
     private int tipo;
     private LinkedList<ViewDetalleReclamo> filas = new LinkedList<ViewDetalleReclamo>();
     private LinkedList<ViewDetalleCompra> filasCompra = new LinkedList<ViewDetalleCompra>();
+    private LinkedList<ViewDetalleTrabajoTercerizado> filasTrabajo = new LinkedList<ViewDetalleTrabajoTercerizado>();
+    long idComp;
+    long idTrabajo;
 
     /** Creates new form GenerarSolicitudReclamo */
     public GenerarSolicitudReclamo() {
@@ -481,34 +488,60 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         if (this.rbMateriaPrima.isSelected() && this.cmbTransaccion.getSelectedIndex() != 0 && this.cmbTransaccion.getSelectedIndex() != -1) {
             Object compra = this.cmbTransaccion.getSelectedItem();
             String nroCompra = compra.toString();
-            long idComp = this.gestor.getIdCompraByNumero(Long.parseLong(nroCompra));
+            idComp = this.gestor.getIdCompraByNumero(Long.parseLong(nroCompra));
             try {
                 DetallecompraDB[] detalle = this.gestor.getDetalleByIdCompra(idComp);
                 for (int i = 0; i < detalle.length; i++) {
                     long idMateriaPrima = detalle[i].getMateriaprima();
                     String nombreMateriaPrima = this.gestor.getMateriaprimaById(idMateriaPrima);
                     int cantidad = detalle[i].getCantidad();
-                    agregarDetalleTransaccion(idMateriaPrima, nombreMateriaPrima, cantidad);
+                    long idDetalle = detalle[i].getIddetalle();
+                    agregarDetalleTransaccion(idMateriaPrima, nombreMateriaPrima, cantidad, idDetalle);
                 }
             } catch (DetallecompraException ex) {
                 Logger.getLogger(GenerarSolicitudReclamo.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (this.rbPieza.isSelected() && this.cmbTransaccion.getSelectedIndex() != 0 && this.cmbTransaccion.getSelectedIndex() != -1) {
+            Object trabajo = this.cmbTransaccion.getSelectedItem();
+            String nroTrabajo = trabajo.toString();
+            idTrabajo = this.gestor.getIdTrabajoByNumero(Long.parseLong(nroTrabajo));
+            try {
+                DetalletrabajotercerizadoDB[] detalle = this.gestor.getDetalleByIdTrabajo(idTrabajo);
+                for (int i = 0; i < detalle.length; i++) {
+                    long idPieza = detalle[i].getPieza();
+                    String nombrePieza = this.gestor.getPiezaById(idPieza);
+                    int cantidad = detalle[i].getCantidad();
+                    long idDetalle = detalle[i].getIddetalle();
+                    agregarDetalleTransaccion(idPieza, nombrePieza, cantidad, idDetalle);
+                }
+            } catch (DetalletrabajotercerizadoException ex) {
+                Logger.getLogger(GenerarSolicitudReclamo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+
     }//GEN-LAST:event_cmbTransaccionActionPerformed
 
-    private void agregarDetalleTransaccion(long id, String nombre, int cantidad) {
+    private void agregarDetalleTransaccion(long id, String nombre, int cantidad, long idDetalle) {
         if (this.rbMateriaPrima.isSelected() && this.cmbTransaccion.getSelectedIndex() != 0 && this.cmbTransaccion.getSelectedIndex() != -1) {
             {
                 ViewDetalleCompra datosFila = new ViewDetalleCompra();
                 datosFila.setNombreMateriaPrima(nombre);
                 datosFila.setIdMateriaPrima(id);
                 datosFila.setCantidad(cantidad);
+                datosFila.setIdDetalleCompra(idDetalle);
                 filasCompra.addLast(datosFila);
             }
-            this.tblDetalleTransaccion.updateUI();
+
+        } else if (this.rbPieza.isSelected() && this.cmbTransaccion.getSelectedIndex() != 0 && this.cmbTransaccion.getSelectedIndex() != -1) {
+            ViewDetalleTrabajoTercerizado datosFila = new ViewDetalleTrabajoTercerizado();
+            datosFila.setNombrePieza(nombre);
+            datosFila.setIdPieza(id);
+            datosFila.setCantidad(cantidad);
+            filasTrabajo.addLast(datosFila);
 
         }
+        this.tblDetalleTransaccion.updateUI();
     }
 
     /**
@@ -519,8 +552,12 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
 
             public void run() {
                 new GenerarSolicitudReclamo().setVisible(true);
+
+
             }
         });
+
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPieza;
@@ -549,54 +586,46 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void agregarDetalleReclamo() {
-        if (this.rbMateriaPrima.isSelected() && this.cmbTransaccion.getSelectedIndex() != 0 && this.cmbTransaccion.getSelectedIndex() != -1) {
-
-            //long idMateriaprima = Long.parseLong(((ItemCombo) this.cmbArticulo.getSelectedItem()).getId());
-            //String nombreMateriaPrima = (((ItemCombo) cmbArticulo.getSelectedItem()).toString());
-            JTextField txtCant = new JTextField("1");
-            Object[] obj = {"Cantidad", txtCant};
-
-            int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
-
+            int fila =  this.tblDetalleTransaccion.getSelectedRow();
+            String nombre = this.tblDetalleTransaccion.getStringAt(fila, 0);
+            String cantidad =this.tblDetalleTransaccion.getStringAt(fila, 1);
+            JTextField txtCant = new JTextField(cantidad.toString());
+            JTextField txtMotivodetalle = new JTextField();
+            Object[] obj = {nombre, "", "Cantidad", txtCant, "Motivo", txtMotivodetalle, ""};
+            int result = JOptionPane.showConfirmDialog(null, obj, "Detalle Reclamo", JOptionPane.OK_CANCEL_OPTION);
+           
             if (result == JOptionPane.OK_OPTION) {
                 int cant = Integer.parseInt(txtCant.getText());
-                //  agregarFila(tipo, idMateriaprima, nombreMateriaPrima, cant);
-                tblDetalleReclamo.updateUI();
-            }
-        } else {
-            //long idPieza = Long.parseLong(((ItemCombo) this.cmbArticulo.getSelectedItem()).getId());
-            //String nombrePieza = (((ItemCombo) cmbArticulo.getSelectedItem()).toString());
-            JTextField txtCant = new JTextField("1");
-            Object[] obj = {"Cantidad", txtCant};
-
-            int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
-
-            if (result == JOptionPane.OK_OPTION) {
-                int cant = Integer.parseInt(txtCant.getText());
-                //agregarFila(tipo, idPieza, nombrePieza, cant);
-                tblDetalleReclamo.updateUI();
-            }
+                String motivoDetalle = txtMotivodetalle.getText();
+                long idDetalleCompra = gestor.getIdDetalleByMPrimaCantidadAndIdCompra(idComp, nombre, Integer.parseInt(cantidad));
+                agregarFila(nombre, cant, motivoDetalle, idDetalleCompra);
         }
+            tblDetalleReclamo.updateUI();
     }
 
-    public void agregarFila(int tipo, long idArticulo, String nombreArticulo, int cant) {
+    public void agregarFila(String nombreArticulo, int cant, String motivo, long idDetalleCompra) {
         //vector de tipo Object que contiene los datos de una fila
         ViewDetalleReclamo datosFila = new ViewDetalleReclamo();
+
         if (tipo == 0) {
             datosFila.setNombreMateriaPrima(nombreArticulo);
-            datosFila.setIdMateriaPrima(idArticulo);
             datosFila.setCantidad(cant);
+            datosFila.setMotivo(motivo);
+            datosFila.setIdCompra(idComp);
+            datosFila.setIdDetalle(idDetalleCompra);
+
         } else {
             datosFila.setNombrePieza(nombreArticulo);
-            datosFila.setIdPieza(idArticulo);
             datosFila.setCantidad(cant);
+            datosFila.setMotivo(motivo);
         }
         filas.addLast(datosFila);
     }
 
     private void limpiarTabla() {
         int cantidadFilas = tblDetalleReclamo.getRowCount();
-        for (int i = 0; i < cantidadFilas; i++) {
+        for (int i = 0; i
+                < cantidadFilas; i++) {
             filas.remove(0);
             tblDetalleReclamo.updateUI();
         }
@@ -604,19 +633,37 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
 
     private void limpiarTablaTransaccion() {
         int cantidadFilas = tblDetalleTransaccion.getRowCount();
-        for (int i = 0; i < cantidadFilas; i++) {
-            filas.remove(0);
-            tblDetalleTransaccion.updateUI();
+        if (this.rbPieza.isSelected()) {
+
+            for (int i = 0; i < cantidadFilas; i++) {
+                filasCompra.remove(0);
+                tblDetalleTransaccion.updateUI();
+            }
+        } else {
+            for (int i = 0; i < cantidadFilas; i++) {
+                filasTrabajo.remove(0);
+                tblDetalleTransaccion.updateUI();
+            }
         }
     }
 
     public boolean validarEntidad() {
         String entidad = cmbEntidad.getSelectedItem().toString();
+
+
         if (entidad == ("--Seleccionar--")) {
             JOptionPane.showMessageDialog(this, "Debe Ingresar una Entidad", "Atención", JOptionPane.INFORMATION_MESSAGE);
+
+
             return false;
+
+
         }
         return true;
+
+
+
+
     }
 
     public class DetalleTransaccionTableModel extends AbstractTableModel {
@@ -636,22 +683,38 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
                         return null;
                 }
             } else {
-                //TODO para piezas
-                return null;
+                ViewDetalleTrabajoTercerizado view = filasTrabajo.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return view.getNombrePieza();
+                    case 1:
+                        return String.valueOf(view.getCantidad());
+                    default:
+                        return null;
+                }
             }
         }
 
         public int getRowCount() {
-            if (filasCompra != null) {
-                return filasCompra.size();
+            if (tipo == 0) {
+                if (filasCompra != null) {
+                    return filasCompra.size();
+                }
+                return 0;
+            } else {
+                if (filasTrabajo != null) {
+                    return filasTrabajo.size();
+                }
+                return 0;
             }
-            return 0;
+
         }
 
         public int getColumnCount() {
             return columnNames.length;
         }
-                /**
+
+        /**
          * Devuelve el nombre de las columnas para mostrar en el encabezado
          * @param column Numero de la columna cuyo nombre se quiere
          * @return Nombre de la columna
@@ -663,62 +726,65 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         }
     }
 
-public class DetalleReclamoTableModel extends AbstractTableModel {
+    public class DetalleReclamoTableModel extends AbstractTableModel {
 
-    String[] columnNames = {"Nombre", "Cantidad", "Motivo"};
+        String[] columnNames = {"Nombre", "Cantidad", "Motivo"};
 
-    public Object getValueAt(int rowIndex, int columnIndex) {
+        public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ViewDetalleReclamo view = filas.get(rowIndex);
+            ViewDetalleReclamo view = filas.get(rowIndex);
 
-        if (tipo == 0) {
-            switch (columnIndex) {
-                case 0:
-                    return view.getNombreMateriaPrima();
-                case 1:
-                    return String.valueOf(view.getCantidad());
-                default:
-                    return null;
+            if (tipo == 0) {
+                switch (columnIndex) {
+                    case 0:
+                        return view.getNombreMateriaPrima();
+                    case 1:
+                        return String.valueOf(view.getCantidad());
+                    case 2:
+                        return String.valueOf(view.getMotivo());
+                    default:
+                        return null;
+                }
+            } else {
+                switch (columnIndex) {
+                    case 0:
+                        return view.getNombrePieza();
+                    case 1:
+                        return String.valueOf(view.getCantidad());
+                    case 2:
+                        return String.valueOf(view.getMotivo());
+                    default:
+                        return null;
+                }
             }
-        } else {
-            switch (columnIndex) {
-                case 0:
-                    return view.getNombrePieza();
-                case 1:
-                    return String.valueOf(view.getCantidad());
-                default:
-                    return null;
-            }
+
+
         }
 
-
-    }
-
-    /**
-     * Retorna la cantidad de columnas que tiene la tabla
-     * @return Numero de filas que contendra la tabla
-     */
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    public int getRowCount() {
-        if (filas != null) {
-            return filas.size();
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
         }
-        return 0;
+
+        public int getRowCount() {
+            if (filas != null) {
+                return filas.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
     }
-
-    /**
-     * Devuelve el nombre de las columnas para mostrar en el encabezado
-     * @param column Numero de la columna cuyo nombre se quiere
-     * @return Nombre de la columna
-     */
-    @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-
-    }
-}
-
 }
