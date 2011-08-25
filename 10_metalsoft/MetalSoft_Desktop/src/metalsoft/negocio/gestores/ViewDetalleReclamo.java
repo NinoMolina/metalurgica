@@ -15,6 +15,10 @@ public class ViewDetalleReclamo {
     String nombreMateriaPrima;
     private long idPieza;
     String nombrePieza;
+    String motivo;
+    private long idCompra;
+    private long idTrabajo;
+    private long idDetalle;
 
 
     public ViewDetalleReclamo() {
@@ -58,5 +62,37 @@ public class ViewDetalleReclamo {
 
     public void setNombreMateriaPrima(String nombreMateriaPrima) {
         this.nombreMateriaPrima = nombreMateriaPrima;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public long getIdCompra() {
+        return idCompra;
+    }
+
+    public void setIdCompra(long idCompra) {
+        this.idCompra = idCompra;
+    }
+
+    public long getIdTrabajo() {
+        return idTrabajo;
+    }
+
+    public void setIdTrabajo(long idTrabajo) {
+        this.idTrabajo = idTrabajo;
+    }
+
+    public long getIdDetalle() {
+        return idDetalle;
+    }
+
+    public void setIdDetalle(long idDetalle) {
+        this.idDetalle = idDetalle;
     }
 }

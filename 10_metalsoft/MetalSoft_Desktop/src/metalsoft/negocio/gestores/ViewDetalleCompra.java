@@ -13,6 +13,7 @@ public class ViewDetalleCompra {
     private int cantidad;
     private long idMateriaPrima;
     String nombreMateriaPrima;
+    private long idDetalleCompra;
 
 
     public ViewDetalleCompra() {
@@ -40,6 +41,14 @@ public class ViewDetalleCompra {
 
     public void setNombreMateriaPrima(String nombreMateriaPrima) {
         this.nombreMateriaPrima = nombreMateriaPrima;
+    }
+
+    public long getIdDetalleCompra() {
+        return idDetalleCompra;
+    }
+
+    public void setIdDetalleCompra(long idDetalleCompra) {
+        this.idDetalleCompra = idDetalleCompra;
     }
 
     
