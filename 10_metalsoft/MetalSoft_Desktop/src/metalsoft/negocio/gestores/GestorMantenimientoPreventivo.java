@@ -222,4 +222,8 @@ public class GestorMantenimientoPreventivo {
     }
 
 
+          public Servicio buscarServicioSeleccionado(long id){
+              ServicioJpaController con= new ServicioJpaController();
+              return con.findServicio(id);
+          }
 }
