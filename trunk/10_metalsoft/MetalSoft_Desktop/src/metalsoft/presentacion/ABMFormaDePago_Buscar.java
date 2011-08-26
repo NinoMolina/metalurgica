@@ -4,44 +4,45 @@
  */
 
 /*
- * ABMCondicionIva_Buscar.java
+ * ABMFormaDePago_Buscar.java
  *
- * Created on 23/08/2011, 23:32:02
+ * Created on 26/08/2011, 01:09:22
  */
 
 package metalsoft.presentacion;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import metalsoft.negocio.ventas.CondicionIva;
+import metalsoft.negocio.ventas.FormaDePago;
 
 
 /**
  *
  * @author Lorreine Prescott
  */
-public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
+public class ABMFormaDePago_Buscar extends javax.swing.JFrame {
 
-     private static Timer timer;
-    private HiloBuscarCondicionIva hiloBuscarCondicionIva;
-    private CondicionIva[] ci;
-    private ABMCondicionIva ventana;
+    private static Timer timer;
+    private HiloBuscarFormaDePago hiloBuscarFormaDePago;
+    private FormaDePago[] fp;
+    private ABMFormaDePago ventana;
 
-
-    /** Creates new form ABMCondicionIva_Buscar */
-    public ABMCondicionIva_Buscar() {
+    /** Creates new form ABMFormaDePago_Buscar */
+    public ABMFormaDePago_Buscar() {
         initComponents();
     }
 
-       public CondicionIva[] getCondicionIva() {
-        return ci;
+      public FormaDePago[] getFormaDePago() {
+        return fp;
     }
 
-    public void setCondicionIva(CondicionIva[] ci) {
-        this.ci = ci;
+    public void setFormaDePago(FormaDePago[] fp) {
+        this.fp = fp;
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -52,15 +53,19 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtValor = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstCondicion = new javax.swing.JList();
-        btnSeleccionar = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        txtValor = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstFormapago = new javax.swing.JList();
+        btnSeleccionar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Buscar Condición Iva");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Forma de Pago");
+
+        jRadioButton1.setText("Nombre");
+
+        jRadioButton2.setText("Todos");
 
         txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,12 +78,7 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
             }
         });
 
-        lstCondicion.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { " " };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(lstCondicion);
+        jScrollPane1.setViewportView(lstFormapago);
 
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,44 +87,42 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton1.setText("Nombre");
-
-        jRadioButton2.setText("Todos");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(192, Short.MAX_VALUE)
-                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jRadioButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                            .addComponent(jRadioButton2)
+                            .addGap(15, 15, 15))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                                .addComponent(txtValor, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                            .addContainerGap()))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSeleccionar)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnSeleccionar)
-                .addGap(11, 11, 11))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,36 +133,37 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-          CondicionIva x=ci[lstCondicion.getSelectedIndex()];
-        ventana.setCondicionIva(x);
+        FormaDePago x=fp[lstFormapago.getSelectedIndex()];
+        ventana.setFormaDePago(x);
         ventana.getTxtNombre().setText(x.getNombre());
         ventana.getTxtDescripcion().setText(x.getDescripcion());
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-              if(txtValor.getText().compareTo("")!=0)
+          if(txtValor.getText().compareTo("")!=0)
         {
-            final ABMCondicionIva_Buscar abm=this;
+            final ABMFormaDePago_Buscar abm=this;
             timer=new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    hiloBuscarCondicionIva=new HiloBuscarCondicionIva();
-                    hiloBuscarCondicionIva.setVentana(abm);
-                    hiloBuscarCondicionIva.setValor(txtValor.getText());
-                    hiloBuscarCondicionIva.start();
+                    hiloBuscarFormaDePago=new HiloBuscarFormaDePago();
+                    hiloBuscarFormaDePago.setVentana(abm);
+                    hiloBuscarFormaDePago.setValor(txtValor.getText());
+                    hiloBuscarFormaDePago.start();
                 }
             }, 1500);
         }
     }//GEN-LAST:event_txtValorKeyReleased
 
-       public JList getLstCondicionIva() {
-        return lstCondicion;
+
+      public JList getLstFormaDePago() {
+        return lstFormapago;
     }
 
-    public void setLstCondicionIva(JList lstCondicion) {
-        this.lstCondicion = lstCondicion;
+    public void setLstFormaDePago(JList listFormapago) {
+        this.lstFormapago = lstFormapago;
     }
 
     public JTextField getTxtValor() {
@@ -181,7 +180,7 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ABMCondicionIva_Buscar().setVisible(true);
+                new ABMFormaDePago_Buscar().setVisible(true);
             }
         });
     }
@@ -191,12 +190,12 @@ public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList lstCondicion;
+    private javax.swing.JList lstFormapago;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
 
-       void setVentanaCondicionIva(ABMCondicionIva aThis) {
+      void setVentanaFormaDePago(ABMFormaDePago aThis) {
         ventana=aThis;
     }
 }
