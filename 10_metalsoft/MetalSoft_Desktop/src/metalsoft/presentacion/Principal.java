@@ -123,6 +123,7 @@ public class Principal extends javax.swing.JFrame {
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
         mniCondicionIva = new javax.swing.JMenuItem();
+        mniFormaDePago = new javax.swing.JMenuItem();
         mnuRRHH = new javax.swing.JMenu();
         mniListadoEmpleados = new javax.swing.JMenuItem();
         mniRegistrarAsistencia = new javax.swing.JMenuItem();
@@ -490,6 +491,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuFinanzas.add(mniCondicionIva);
+
+        mniFormaDePago.setText("Forma de Pago");
+        mniFormaDePago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniFormaDePagoActionPerformed(evt);
+            }
+        });
+        mnuFinanzas.add(mniFormaDePago);
 
         mbrMenu.add(mnuFinanzas);
 
@@ -1023,6 +1032,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCondicionIvaActionPerformed
+
+    private void mniFormaDePagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFormaDePagoActionPerformed
+         try {
+            JFrameManager.crearVentana(ABMFormaDePago.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniFormaDePagoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1059,6 +1080,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
+    private javax.swing.JMenuItem mniFormaDePago;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
