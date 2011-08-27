@@ -230,10 +230,6 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame imple
         lblNroEmpresa.setText("");
         lblResponsableEmpresa.setText("");
         lblcondicionIva.setText("");
-        lblNroTrabajo.setText("");
-
-
-
     }
 
     private void addListenerBtnSalir() {

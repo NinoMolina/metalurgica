@@ -61,7 +61,7 @@
                               <Component id="jPanel9" max="32767" attributes="1"/>
                           </Group>
                           <Component id="jPanel7" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jPanel5" alignment="0" pref="1055" max="32767" attributes="1"/>
+                          <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
                           <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
                       </Group>
                   </Group>
