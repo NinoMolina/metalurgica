@@ -131,6 +131,7 @@ public class Principal extends javax.swing.JFrame {
         registrarEmpleado = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
+        mniCotizacionTrabajo = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
@@ -547,6 +548,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuTrabajosTercerizados.add(mniEmpresaMetalurgica);
+
+        mniCotizacionTrabajo.setText("Pedido de Cotizacion");
+        mniCotizacionTrabajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCotizacionTrabajoActionPerformed(evt);
+            }
+        });
+        mnuTrabajosTercerizados.add(mniCotizacionTrabajo);
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
@@ -1044,6 +1053,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniFormaDePagoActionPerformed
+
+    private void mniCotizacionTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCotizacionTrabajoActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarPedidoCotizacionDeTrabajo.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniCotizacionTrabajoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1076,6 +1097,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
     private javax.swing.JMenuItem mniCondicionIva;
+    private javax.swing.JMenuItem mniCotizacionTrabajo;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
