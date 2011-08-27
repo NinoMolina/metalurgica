@@ -19,13 +19,13 @@ import metalsoft.negocio.rrhh.Domicilio;
 
 public class Proveedor extends PersonaJuridica 
 {
-   private int nroProveedor;
+   private long nroProveedor;
 
-    public int getNroProveedor() {
+    public long getNroProveedor() {
         return nroProveedor;
     }
 
-    public void setNroProveedor(int nroProveedor) {
+    public void setNroProveedor(long nroProveedor) {
         this.nroProveedor = nroProveedor;
     }
 

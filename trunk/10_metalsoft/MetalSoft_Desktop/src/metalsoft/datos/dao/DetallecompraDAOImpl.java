@@ -249,22 +249,22 @@ public class DetallecompraDAOImpl implements DetallecompraDAO
 	}
 
         public DetallecompraDB[] findByMPrimaCantidadAndIdCompra(long idcompra, long materiaprima, int cantidad, Connection con) throws DetallecompraException{
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			String SQL_STATEMENT ="Select iddetalle from detallecompra where idcompra = ? AND materiaprima = ? AND cantidad = ? order by materiaprima";
-			try {
-					stmt = con.prepareStatement(SQL_STATEMENT);
-                                        stmt.setLong( 1, idcompra );
-					stmt.setLong( 2, materiaprima );
-					stmt.setInt(3, cantidad);
-					rs = stmt.executeQuery();
-					return fetchMultiResults(rs);
-			}catch(SQLException sqle){
-					throw new DetallecompraException(sqle);
-			}
-			catch(Exception e){
-					throw new DetallecompraException(e);
-			}
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String SQL_STATEMENT ="Select iddetalle, idcompra, cantidad, materiaprima, preciohistorico, fecharecepcionparcial, estado from detallecompra where idcompra = ? AND materiaprima = ? AND cantidad = ? ";
+		try {
+			stmt = con.prepareStatement(SQL_STATEMENT);
+                        stmt.setLong( 1, idcompra );
+                	stmt.setLong( 2, materiaprima );
+			stmt.setInt( 3, cantidad );
+			rs = stmt.executeQuery();
+			return fetchMultiResults(rs);
+		}catch(SQLException sqle){
+			throw new DetallecompraException(sqle);
+		}
+		catch(Exception e){
+			throw new DetallecompraException(e);
+		}
 			finally{}
 	}
 

@@ -21,13 +21,13 @@ import metalsoft.negocio.compras.Responsable;
 
 public class EmpresaMetalurgica extends PersonaJuridica 
 {
-   private int nroEmpresaMetalugica;
+   private long nroEmpresaMetalugica;
 
-   public int getNroEmpresaMetalurgica (){
+   public long getNroEmpresaMetalurgica (){
        return nroEmpresaMetalugica;
    }
 
-   public void setNroEmpresaMetalurgica(int nroEmpresaMetalugica) {
+   public void setNroEmpresaMetalurgica(long nroEmpresaMetalugica) {
            this.nroEmpresaMetalugica= nroEmpresaMetalugica;
     }
     public PersonaJuridica getThePersonaJuridica() {

@@ -568,4 +568,24 @@ public class DetalletrabajotercerizadoDAOImpl implements Detalletrabajoterceriza
 		resultList.toArray( ret );
 		return ret;
 	}
+
+    public DetalletrabajotercerizadoDB[] findByPiezaCantidadAndIdTrabajo(long idTrabajo, long idPieza, int cantidad, Connection con) throws DetalletrabajotercerizadoException {
+        PreparedStatement stmt = null;
+	ResultSet rs = null;
+	String SQL_STATEMENT ="Select iddetalle, idtrabajotercerizado, montoparcial, cantidad, descripcion, fechaenvioreal, fechaentregareal, pieza, proceso, estado from detalletrabajotercerizado where idtrabajo = ? AND pieza = ? AND cantidad = ? ";
+	try {
+		stmt = con.prepareStatement(SQL_STATEMENT);
+                stmt.setLong( 1, idTrabajo );
+		stmt.setLong( 2, idPieza );
+		stmt.setInt( 3, cantidad );
+		rs = stmt.executeQuery();
+		return fetchMultiResults(rs);
+	}catch(SQLException sqle){
+		throw new DetalletrabajotercerizadoException(sqle);
+	}
+		catch(Exception e){
+	throw new DetalletrabajotercerizadoException(e);
+		}
+	finally{}
+    }
 }

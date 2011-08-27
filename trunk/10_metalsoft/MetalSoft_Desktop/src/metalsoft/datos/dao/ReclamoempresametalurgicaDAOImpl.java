@@ -462,4 +462,20 @@ public class ReclamoempresametalurgicaDAOImpl implements Reclamoempresametalurgi
                 throw new Exception();
             }
     }
+
+    public String getUltimoNumeroReclamoempresa(Connection con) throws Exception {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String SQL_STATEMENT ="SELECT (MAX(nroreclamo) + 1) AS maximo FROM reclamoempresametalurgica";
+            try {
+                    stmt = con.prepareStatement(SQL_STATEMENT);
+                    rs = stmt.executeQuery();
+                    rs.next();
+                    Object id = rs.getInt("maximo");
+                    return id.toString();
+            }
+            catch(Exception e){
+                throw new Exception();
+            }
+    }
 }

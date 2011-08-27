@@ -28,10 +28,11 @@ public class DetallereclamoempresametalurgicaDB implements Serializable
 	private String motivo;
 	private long pieza;
 	private Date fechaegreso;
+        private long iddetalletrabajo;
 
 
 	public DetallereclamoempresametalurgicaDB(){}
-	public DetallereclamoempresametalurgicaDB(long iddetalle ,long idreclamo ,int cantidad ,String descripcion ,String motivo ,long pieza ,Date fechaegreso){
+	public DetallereclamoempresametalurgicaDB(long iddetalle ,long idreclamo ,int cantidad ,String descripcion ,String motivo ,long pieza ,Date fechaegreso, long iddetalletrabajo){
 		this.iddetalle = iddetalle;
 		this.idreclamo = idreclamo;
 		this.cantidad = cantidad;
@@ -39,6 +40,7 @@ public class DetallereclamoempresametalurgicaDB implements Serializable
 		this.motivo = motivo;
 		this.pieza = pieza;
 		this.fechaegreso = fechaegreso;
+                this.iddetalletrabajo = iddetalletrabajo;
 	}
 
 	public void setIddetalle(long iddetalle ){
@@ -83,6 +85,14 @@ public class DetallereclamoempresametalurgicaDB implements Serializable
 	public Date getFechaegreso(){
 		 return(fechaegreso);
 	}
+
+    public long getIddetalletrabajo() {
+        return iddetalletrabajo;
+    }
+
+    public void setIddetalletrabajo(long iddetalletrabajo) {
+        this.iddetalletrabajo = iddetalletrabajo;
+    }
 	public String toString(){
 		StringBuffer ret = new StringBuffer();
 		ret.append("metalsoft.datos.dbobject.Detallereclamoempresametalurgica :");
@@ -93,6 +103,7 @@ public class DetallereclamoempresametalurgicaDB implements Serializable
 		ret.append(", motivo='"+motivo+"'");
 		ret.append(", pieza='"+pieza+"'");
 		ret.append(", fechaegreso='"+fechaegreso+"'");
+                ret.append(", iddetalletrabajo='"+iddetalletrabajo+"'");
 		return ret.toString();
 	}
 }

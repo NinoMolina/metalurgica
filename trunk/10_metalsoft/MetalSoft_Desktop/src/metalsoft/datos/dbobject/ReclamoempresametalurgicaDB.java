@@ -27,6 +27,7 @@ public class ReclamoempresametalurgicaDB implements Serializable
 	private String motivo;
 	private Date fechareclamo;
 	private long trabajotercerizado;
+        private long entidad;
 
 
 	public ReclamoempresametalurgicaDB(){}
@@ -75,6 +76,14 @@ public class ReclamoempresametalurgicaDB implements Serializable
 	public long getTrabajotercerizado(){
 		 return(trabajotercerizado);
 	}
+
+    public long getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(long entidad) {
+        this.entidad = entidad;
+    }
 	public String toString(){
 		StringBuffer ret = new StringBuffer();
 		ret.append("metalsoft.datos.dbobject.Reclamoempresametalurgica :");
