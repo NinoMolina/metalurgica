@@ -22,7 +22,9 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.DetallecompraDB;
 import metalsoft.datos.dbobject.DetalletrabajotercerizadoDB;
+import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.exception.DetallecompraException;
 import metalsoft.datos.exception.DetalletrabajotercerizadoException;
 import metalsoft.datos.jpa.entity.Compra;
@@ -110,6 +112,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         this.btnGuardar1.setEnabled(false);
         this.btnQuitar.setEnabled(false);
         this.txtMotivo.setEnabled(false);
+        this.tblDetalleTransaccion.setEnabled(false);
     }
 
     private void enableComponents() {
@@ -120,6 +123,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         this.btnGuardar1.setEnabled(true);
         this.btnQuitar.setEnabled(true);
         this.txtMotivo.setEnabled(true);
+        this.tblDetalleTransaccion.setEnabled(true);
     }
 
     private void addListenerBtnSalir() {
@@ -155,15 +159,17 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         if (tipo == 0) {
 
             long idProv = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
-            Proveedor Prov = searchProveedorById(idProv);
-            gestor.setProv(Prov);
+            ProveedorDB prov = searchProveedorById(idProv);
+            gestor.setProv(prov);
+            gestor.setIdTransaccion(idComp);
         }
 
         if (tipo == 1) {
 
             long idEmpMet = Long.parseLong(((ItemCombo) cmbEntidad.getSelectedItem()).getId());
-            Empresametalurgica empMet = searchEmpresaById(idEmpMet);
+            EmpresametalurgicaDB empMet = searchEmpresaById(idEmpMet);
             gestor.setEmpMet(empMet);
+            gestor.setIdTransaccion(idTrabajo);
         }
         gestor.setMotivo(motivo);
         gestor.setListaDetalle(filas);
@@ -179,22 +185,14 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
         }
     }
 
-    private Proveedor searchProveedorById(long id) {
-        for (Proveedor p : gestor.getProveedores()) {
-            if (p.getIdproveedor() == id) {
-                return p;
-            }
-        }
-        return null;
+    private ProveedorDB searchProveedorById(long id) {
+        ProveedorDB proveedor= gestor.getProveedorById(id);
+           return proveedor;
     }
 
-    private Empresametalurgica searchEmpresaById(long idEmpMet) {
-        for (Empresametalurgica e : gestor.getEmpresa()) {
-            if (e.getIdempresametalurgica() == idEmpMet) {
-                return e;
-            }
-        }
-        return null;
+    private EmpresametalurgicaDB searchEmpresaById(long idEmpMet) {
+        EmpresametalurgicaDB emp =gestor.getEmpresaById(idEmpMet);
+                return emp;
     }
 
     /** This method is called from within the constructor to
@@ -597,13 +595,20 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
             if (result == JOptionPane.OK_OPTION) {
                 int cant = Integer.parseInt(txtCant.getText());
                 String motivoDetalle = txtMotivodetalle.getText();
+                if (tipo == 0) {
                 long idDetalleCompra = gestor.getIdDetalleByMPrimaCantidadAndIdCompra(idComp, nombre, Integer.parseInt(cantidad));
                 agregarFila(nombre, cant, motivoDetalle, idDetalleCompra);
+                }
+                else{
+                long idDetalleTrabajo = gestor.getIdDetalleByPiezaCantidadAndIdTrabajo(idTrabajo, nombre, Integer.parseInt(cantidad));
+                agregarFila(nombre, cant, motivoDetalle, idDetalleTrabajo);
+                }
+
         }
             tblDetalleReclamo.updateUI();
     }
 
-    public void agregarFila(String nombreArticulo, int cant, String motivo, long idDetalleCompra) {
+    public void agregarFila(String nombreArticulo, int cant, String motivo, long idDetalle) {
         //vector de tipo Object que contiene los datos de una fila
         ViewDetalleReclamo datosFila = new ViewDetalleReclamo();
 
@@ -612,12 +617,14 @@ public class GenerarSolicitudReclamo extends javax.swing.JFrame {
             datosFila.setCantidad(cant);
             datosFila.setMotivo(motivo);
             datosFila.setIdCompra(idComp);
-            datosFila.setIdDetalle(idDetalleCompra);
+            datosFila.setIdDetalle(idDetalle);
 
         } else {
             datosFila.setNombrePieza(nombreArticulo);
             datosFila.setCantidad(cant);
             datosFila.setMotivo(motivo);
+            datosFila.setIdTrabajo(idTrabajo);
+            datosFila.setIdDetalle(idDetalle);
         }
         filas.addLast(datosFila);
     }
