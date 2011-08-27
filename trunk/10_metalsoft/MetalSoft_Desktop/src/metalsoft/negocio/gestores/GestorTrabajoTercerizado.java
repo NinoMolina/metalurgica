@@ -40,11 +40,7 @@ import metalsoft.negocio.access.AccessViews;
  */
 public class GestorTrabajoTercerizado {
 
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
+    
     public List<Pedido> buscarPedidosNoFinalizados() {
         return JpaUtil.getPedidosNoFinalizados();
     }
@@ -137,35 +133,25 @@ public class GestorTrabajoTercerizado {
     public boolean nuevoPedido(metalsoft.datos.jpa.entity.Trabajotercerizado trabajo, LinkedList<ViewPedidoCotizacion> detalle) {
         TrabajotercerizadoJpaController controller = new TrabajotercerizadoJpaController();
         DetalletrabajotercerizadoJpaController controllerDetalle = new DetalletrabajotercerizadoJpaController();
-        EntityManager em = null;
         try {
-            emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
-            em = getEntityManager();
-            em.getTransaction().begin();
             
             trabajo.setEstado(buscarEstadoGenerado());
             controller.create(trabajo);
             
-            long c=JpaUtil.getUltimoDetalleTrabajoTercerizado().getDetalletrabajotercerizadoPK().getIddetalle();
+            //long c=JpaUtil.getUltimoDetalleTrabajoTercerizado().getDetalletrabajotercerizadoPK().getIddetalle();
             for (ViewPedidoCotizacion v : detalle) {
-                c=c+1;
-                DetalletrabajotercerizadoPK pk=new DetalletrabajotercerizadoPK(c,99);
-                Detalletrabajotercerizado de = new Detalletrabajotercerizado(pk);
+                //c=c+1;
+                //DetalletrabajotercerizadoPK pk=new DetalletrabajotercerizadoPK(c,99);
+                Detalletrabajotercerizado de = new Detalletrabajotercerizado();
                 de.setCantidad(v.getCantidad());
                 de.setPieza(BigInteger.valueOf(v.getIdPieza()));
                 de.setProceso(buscarEtapa(v.getIdetapa()));
                 de.setEstado(buscarEstadoGeneradoDetalle());
-                de.setTrabajotercerizado(trabajo);
+                de.setIdtrabajotercerizado(trabajo);
                 controllerDetalle.create(de);
             }
-            em.getTransaction().commit();
 
-        } catch (PreexistingEntityException ex) {
-            em.getTransaction().rollback();
-            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         } catch (Exception ex) {
-            em.getTransaction().rollback();
             Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
