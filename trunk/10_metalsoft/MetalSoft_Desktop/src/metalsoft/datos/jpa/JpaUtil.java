@@ -15,6 +15,7 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Trabajotercerizado;
 
 /**
  *
@@ -96,4 +97,12 @@ public class JpaUtil {
         q.setParameter("id", id);
         return (Detalleejecucionplanificacion) q.getSingleResult();
     }
+    public static List getTrabajosTercerizadosByEstado(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM trabajotercerizado"
+                + " WHERE estado="+id;
+        Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
+        return q.getResultList();
+    }
+   
 }
