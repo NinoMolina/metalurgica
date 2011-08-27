@@ -8,17 +8,16 @@ package metalsoft.datos.jpa.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,8 +40,6 @@ import javax.persistence.TemporalType;
 public class Detalletrabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalletrabajotercerizado_seq")
-    @SequenceGenerator(name = "detalletrabajotercerizado_seq", sequenceName = "detalletrabajotercerizado_iddetalle_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "iddetalle")
     private Long iddetalle;
@@ -60,6 +57,8 @@ public class Detalletrabajotercerizado implements Serializable {
     private Date fechaentregareal;
     @Column(name = "pieza")
     private BigInteger pieza;
+    @OneToMany(mappedBy = "iddetalletrabajo")
+    private List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadodetalletrabajotercerizado estado;
@@ -131,6 +130,14 @@ public class Detalletrabajotercerizado implements Serializable {
 
     public void setPieza(BigInteger pieza) {
         this.pieza = pieza;
+    }
+
+    public List<Detallereclamoempresamantenimiento> getDetallereclamoempresamantenimientoList() {
+        return detallereclamoempresamantenimientoList;
+    }
+
+    public void setDetallereclamoempresamantenimientoList(List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList) {
+        this.detallereclamoempresamantenimientoList = detallereclamoempresamantenimientoList;
     }
 
     public Estadodetalletrabajotercerizado getEstado() {

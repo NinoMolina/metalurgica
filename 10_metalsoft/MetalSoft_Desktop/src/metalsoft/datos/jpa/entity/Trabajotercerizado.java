@@ -13,15 +13,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,12 +39,12 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Trabajotercerizado.findByFechacancelacion", query = "SELECT t FROM Trabajotercerizado t WHERE t.fechacancelacion = :fechacancelacion"),
     @NamedQuery(name = "Trabajotercerizado.findByFechaentregareal", query = "SELECT t FROM Trabajotercerizado t WHERE t.fechaentregareal = :fechaentregareal"),
     @NamedQuery(name = "Trabajotercerizado.findByFechaenvioaempresa", query = "SELECT t FROM Trabajotercerizado t WHERE t.fechaenvioaempresa = :fechaenvioaempresa"),
-    @NamedQuery(name = "Trabajotercerizado.findByMotivocancelacion", query = "SELECT t FROM Trabajotercerizado t WHERE t.motivocancelacion = :motivocancelacion")})
+    @NamedQuery(name = "Trabajotercerizado.findByMotivocancelacion", query = "SELECT t FROM Trabajotercerizado t WHERE t.motivocancelacion = :motivocancelacion"),
+    @NamedQuery(name = "Trabajotercerizado.findByFechadelingresocotizacion", query = "SELECT t FROM Trabajotercerizado t WHERE t.fechadelingresocotizacion = :fechadelingresocotizacion"),
+    @NamedQuery(name = "Trabajotercerizado.findByMontototal", query = "SELECT t FROM Trabajotercerizado t WHERE t.montototal = :montototal")})
 public class Trabajotercerizado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trabajotercerizado_seq")
-    @SequenceGenerator(name = "trabajotercerizado_seq", sequenceName = "trabajotercerizado_idtrabajo_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "idtrabajo")
     private Long idtrabajo;
@@ -73,6 +70,11 @@ public class Trabajotercerizado implements Serializable {
     private Date fechaenvioaempresa;
     @Column(name = "motivocancelacion")
     private String motivocancelacion;
+    @Column(name = "fechadelingresocotizacion")
+    @Temporal(TemporalType.DATE)
+    private Date fechadelingresocotizacion;
+    @Column(name = "montototal")
+    private Double montototal;
     @OneToMany(mappedBy = "trabajotercerizado")
     private List<Reclamoempresamantenimiento> reclamoempresamantenimientoList;
     @JoinColumn(name = "empresa", referencedColumnName = "idempresametalurgica")
@@ -86,6 +88,8 @@ public class Trabajotercerizado implements Serializable {
     private Pedido pedido;
     @OneToMany(mappedBy = "trabajotercerizado")
     private List<Reclamoempresametalurgica> reclamoempresametalurgicaList;
+    @OneToMany(mappedBy = "idtrabajo")
+    private List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtrabajotercerizado")
     private List<Detalletrabajotercerizado> detalletrabajotercerizadoList;
 
@@ -168,6 +172,22 @@ public class Trabajotercerizado implements Serializable {
         this.motivocancelacion = motivocancelacion;
     }
 
+    public Date getFechadelingresocotizacion() {
+        return fechadelingresocotizacion;
+    }
+
+    public void setFechadelingresocotizacion(Date fechadelingresocotizacion) {
+        this.fechadelingresocotizacion = fechadelingresocotizacion;
+    }
+
+    public Double getMontototal() {
+        return montototal;
+    }
+
+    public void setMontototal(Double montototal) {
+        this.montototal = montototal;
+    }
+
     public List<Reclamoempresamantenimiento> getReclamoempresamantenimientoList() {
         return reclamoempresamantenimientoList;
     }
@@ -206,6 +226,14 @@ public class Trabajotercerizado implements Serializable {
 
     public void setReclamoempresametalurgicaList(List<Reclamoempresametalurgica> reclamoempresametalurgicaList) {
         this.reclamoempresametalurgicaList = reclamoempresametalurgicaList;
+    }
+
+    public List<Detallereclamoempresamantenimiento> getDetallereclamoempresamantenimientoList() {
+        return detallereclamoempresamantenimientoList;
+    }
+
+    public void setDetallereclamoempresamantenimientoList(List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList) {
+        this.detallereclamoempresamantenimientoList = detallereclamoempresamantenimientoList;
     }
 
     public List<Detalletrabajotercerizado> getDetalletrabajotercerizadoList() {
