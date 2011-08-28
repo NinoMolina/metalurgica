@@ -12,8 +12,11 @@ package metalsoft.presentacion;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.negocio.gestores.GestorTrabajoTercerizado;
 import metalsoft.util.Fecha;
@@ -29,6 +32,15 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
     private List<Trabajotercerizado> filasTrabajosGenerados;
     private List<Trabajotercerizado> filasTrabajosEnviados;
     private GestorTrabajoTercerizado gestor;
+    private List<Detalletrabajotercerizado> detalle;
+
+    public List<Detalletrabajotercerizado> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(List<Detalletrabajotercerizado> detalle) {
+        this.detalle = detalle;
+    }
 
     /** Creates new form RegistrarIngresoCotizacionTrabajo */
     public RegistrarIngresoCotizacionTrabajo() {
@@ -61,32 +73,48 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
     }
 
     private void btnSeleccionar1BeanActionPerformed(java.awt.event.ActionEvent evt) {
-        String mens = JOptionPane.showInputDialog(this, "Ingrese el monto total de la cotización");
-        Double monto = 0d;
-        long result=0;
-        if (mens.compareTo("") != 0) {
-            try {
-                monto = Double.parseDouble(mens);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar un valor numerico valido");
-                return;
-            }
-            Trabajotercerizado trab = filasTrabajosEnviados.get(tblTrabajosEnviados.getSelectedRow());
+        
+        Trabajotercerizado trab = filasTrabajosEnviados.get(tblTrabajosEnviados.getSelectedRow());
+        ActualizarMontosDetalleTrabajoTercerizado actualizacion = null;
+        try {
+            actualizacion = (ActualizarMontosDetalleTrabajoTercerizado) JFrameManager.crearVentana(ActualizarMontosDetalleTrabajoTercerizado.class.getName());
+            actualizacion.setVentana(this);
+            actualizacion.setGestor(gestor);
+            actualizacion.setTrabajo(trab);
+            actualizacion.setListaDetalle(gestor.buscarDetalleTrabajoTercerizado(trab.getIdtrabajo()));
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void modificarTrabajoTercerizado(Trabajotercerizado trab) {
+        long result = 0;
+        if (detalle != null) {
+            result = gestor.modificarTrabajoTercerizado(trab, detalle);
             trab.setEstado(gestor.buscarEstadoPresupuestado());
             trab.setFechadelingresocotizacion(Fecha.fechaActualDate());
-            trab.setMontototal(monto);
-            result = gestor.modificarTrabajoTercerizado(trab);
-            if(result>0){
+            double monto=0d;
+            if (detalle != null) {
+                for(Detalletrabajotercerizado d : detalle){
+                    monto=+d.getMontoparcial();
+                }
+                result = gestor.modificarTrabajoTercerizado(trab, detalle);
+
+            }
+            if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Los datos se han guardado correctamente!");
-                filasTrabajosEnviados=gestor.obtenerTrabajosEnviados();
+                filasTrabajosEnviados = gestor.obtenerTrabajosEnviados();
                 tblTrabajosEnviados.updateUI();
                 btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Los datos no han podido ser guardados");
             }
-        } else {
-            btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor numerico valido");
         }
     }
 
@@ -227,7 +255,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
