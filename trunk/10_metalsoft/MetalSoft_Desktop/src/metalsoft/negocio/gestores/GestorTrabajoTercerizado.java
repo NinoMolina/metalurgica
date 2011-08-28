@@ -199,6 +199,12 @@ public class GestorTrabajoTercerizado {
         list=JpaUtil.getTrabajosTercerizadosByEstado((long)2);
         return list;
     }
+    public List<Trabajotercerizado> obtenerTrabajosPresupuestados()
+    {
+        List<Trabajotercerizado> list=new LinkedList<Trabajotercerizado>();
+        list=JpaUtil.getTrabajosTercerizadosByEstado((long)3);
+        return list;
+    }
     public long modificarTrabajoTercerizado(Trabajotercerizado trb){
         TrabajotercerizadoJpaController con=new TrabajotercerizadoJpaController();
         try {
