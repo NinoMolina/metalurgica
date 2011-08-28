@@ -104,5 +104,12 @@ public class JpaUtil {
         Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
         return q.getResultList();
     }
+    public static List getDetalleTrabajoTercerizadoByTrabajo(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM detalletrabajotercerizado"
+                + " WHERE idtrabajotercerizado="+id;
+        Query q = em.createNativeQuery(sql, Detalletrabajotercerizado.class);
+        return q.getResultList();
+    }
    
 }
