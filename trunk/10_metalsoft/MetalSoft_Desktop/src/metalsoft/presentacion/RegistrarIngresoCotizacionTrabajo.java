@@ -69,13 +69,24 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
                 monto = Double.parseDouble(mens);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un valor numerico valido");
+                return;
             }
             Trabajotercerizado trab = filasTrabajosEnviados.get(tblTrabajosEnviados.getSelectedRow());
             trab.setEstado(gestor.buscarEstadoPresupuestado());
-            //trab.setfe
+            trab.setFechadelingresocotizacion(Fecha.fechaActualDate());
+            trab.setMontototal(monto);
             result = gestor.modificarTrabajoTercerizado(trab);
+            if(result>0){
+                JOptionPane.showMessageDialog(this, "Los datos se han guardado correctamente!");
+                filasTrabajosEnviados=gestor.obtenerTrabajosEnviados();
+                tblTrabajosEnviados.updateUI();
+                btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+            }else{
+                JOptionPane.showMessageDialog(this, "Los datos no han podido ser guardados");
+            }
         } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Debe ingresar un valor numerico valido");
         }
     }
 
