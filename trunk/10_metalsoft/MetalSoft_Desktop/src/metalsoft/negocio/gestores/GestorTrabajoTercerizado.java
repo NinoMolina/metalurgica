@@ -22,6 +22,7 @@ import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.EstadodetalletrabajotercerizadoJpaController;
 import metalsoft.datos.jpa.controller.EstadotrabajotercerizadoJpaController;
 import metalsoft.datos.jpa.controller.EtapadeproduccionJpaController;
+import metalsoft.datos.jpa.controller.PiezaJpaController;
 import metalsoft.datos.jpa.controller.TrabajotercerizadoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
@@ -32,6 +33,7 @@ import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Pieza;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
@@ -209,5 +211,29 @@ public class GestorTrabajoTercerizado {
             Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
         }
         return trb.getIdtrabajo();
+    }
+    public long modificarTrabajoTercerizado(Trabajotercerizado trb, List<Detalletrabajotercerizado> detalle){
+        TrabajotercerizadoJpaController con=new TrabajotercerizadoJpaController();
+        DetalletrabajotercerizadoJpaController conDe=new DetalletrabajotercerizadoJpaController();
+        try {
+            for(Detalletrabajotercerizado de : detalle){
+                conDe.edit(de);
+            }
+            con.edit(trb);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return trb.getIdtrabajo();
+    }
+    public Pieza buscarPieza(long id){
+        PiezaJpaController con=new PiezaJpaController();
+        return con.findPieza(id);
+    }
+    public List<Detalletrabajotercerizado> buscarDetalleTrabajoTercerizado(long id){
+        return (List<Detalletrabajotercerizado>)JpaUtil.getDetalleTrabajoTercerizadoByTrabajo(id);
     }
 }
