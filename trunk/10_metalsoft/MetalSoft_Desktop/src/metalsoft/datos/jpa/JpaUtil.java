@@ -111,5 +111,11 @@ public class JpaUtil {
         Query q = em.createNativeQuery(sql, Detalletrabajotercerizado.class);
         return q.getResultList();
     }
-   
+   public static List getTrabajosTercerizadosCanCancel() {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM trabajotercerizado"
+                + " WHERE estado IN (1,2,3)";
+        Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
+        return q.getResultList();
+    }
 }
