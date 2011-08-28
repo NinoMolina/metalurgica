@@ -312,6 +312,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Trabajos Tercerizados"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuTrabajosTercerizadosActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniEmpresaMetalurgica">
               <Properties>
@@ -343,6 +346,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniCancelarPedidoDeCotizacion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelar Pedido de Cotizaci&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCancelarPedidoDeCotizacionActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
