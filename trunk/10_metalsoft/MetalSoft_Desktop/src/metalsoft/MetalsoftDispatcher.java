@@ -60,13 +60,15 @@ public class MetalsoftDispatcher {
 
     private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
         HiloEscuchadorFinEtapa hilo = new HiloEscuchadorFinEtapa();
+        Thread thread = new Thread(hilo);
         hilo.setVtnPrincipal(vtnPrincipal);
-        hilo.start();
+        thread.start();
     }
 
     private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal) {
         HiloAvisoEtapaNoTerminada hilo = new HiloAvisoEtapaNoTerminada();
         hilo.setVtnPrincipal(vtnPrincipal);
-        hilo.start();
+        Thread thread = new Thread(hilo);
+        thread.start();
     }
 }
