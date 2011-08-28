@@ -359,7 +359,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
             trab.setEstado(gestor.buscarEstadoConfirmado());
             result=gestor.modificarTrabajoTercerizado(trab);
             if(result>0){
-                JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha confirmado correctamente");
+                JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha cancelado correctamente");
                 listaTrabajos=gestor.obtenerTrabajosPresupuestados();
                 tblTrabajosTercerizados.updateUI();
                 listaDetalle.clear();
@@ -368,7 +368,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
                 btnconfirmar.setEnabled(false);
 
             }else{
-                JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha confirmar");
+                JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha cancelar");
             }
         }
 
