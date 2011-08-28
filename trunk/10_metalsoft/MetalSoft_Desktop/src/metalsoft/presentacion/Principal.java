@@ -132,6 +132,7 @@ public class Principal extends javax.swing.JFrame {
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mniCotizacionTrabajo = new javax.swing.JMenuItem();
+        mniRegistrarIngresoCotizacionTrabajo = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
@@ -556,6 +557,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuTrabajosTercerizados.add(mniCotizacionTrabajo);
+
+        mniRegistrarIngresoCotizacionTrabajo.setText("Registrar Envio/Llegada de Cotizacion");
+        mniRegistrarIngresoCotizacionTrabajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarIngresoCotizacionTrabajoActionPerformed(evt);
+            }
+        });
+        mnuTrabajosTercerizados.add(mniRegistrarIngresoCotizacionTrabajo);
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
@@ -1065,6 +1074,19 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCotizacionTrabajoActionPerformed
+
+    private void mniRegistrarIngresoCotizacionTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarIngresoCotizacionTrabajoActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarIngresoCotizacionTrabajo.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_mniRegistrarIngresoCotizacionTrabajoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1118,6 +1140,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
+    private javax.swing.JMenuItem mniRegistrarIngresoCotizacionTrabajo;
     private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniRotura;
