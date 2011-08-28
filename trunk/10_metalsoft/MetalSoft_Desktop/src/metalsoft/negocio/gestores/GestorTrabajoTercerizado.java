@@ -27,7 +27,6 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
-import metalsoft.datos.jpa.entity.DetalletrabajotercerizadoPK;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
