@@ -134,6 +134,7 @@ public class Principal extends javax.swing.JFrame {
         mniCotizacionTrabajo = new javax.swing.JMenuItem();
         mniRegistrarIngresoCotizacionTrabajo = new javax.swing.JMenuItem();
         mniConfirmarCotizacionDeTrabajosTercerizados = new javax.swing.JMenuItem();
+        mniCancelarPedidoDeCotizacion = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
@@ -542,6 +543,11 @@ public class Principal extends javax.swing.JFrame {
         mbrMenu.add(mnuRRHH);
 
         mnuTrabajosTercerizados.setText("Trabajos Tercerizados");
+        mnuTrabajosTercerizados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTrabajosTercerizadosActionPerformed(evt);
+            }
+        });
 
         mniEmpresaMetalurgica.setText("Empresa Metalúrgica");
         mniEmpresaMetalurgica.addActionListener(new java.awt.event.ActionListener() {
@@ -574,6 +580,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuTrabajosTercerizados.add(mniConfirmarCotizacionDeTrabajosTercerizados);
+
+        mniCancelarPedidoDeCotizacion.setText("Cancelar Pedido de Cotización");
+        mniCancelarPedidoDeCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCancelarPedidoDeCotizacionActionPerformed(evt);
+            }
+        });
+        mnuTrabajosTercerizados.add(mniCancelarPedidoDeCotizacion);
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
@@ -1109,6 +1123,22 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed
+
+    private void mnuTrabajosTercerizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTrabajosTercerizadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuTrabajosTercerizadosActionPerformed
+
+    private void mniCancelarPedidoDeCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCancelarPedidoDeCotizacionActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarCancelacionDeTrabajosTercerizados.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniCancelarPedidoDeCotizacionActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1137,6 +1167,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniAsignarMPAProduccion;
+    private javax.swing.JMenuItem mniCancelarPedidoDeCotizacion;
     private javax.swing.JMenuItem mniCerrarSesion;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
