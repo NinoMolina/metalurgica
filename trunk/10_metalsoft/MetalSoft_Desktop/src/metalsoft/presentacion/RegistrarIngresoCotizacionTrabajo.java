@@ -73,7 +73,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
     }
 
     private void btnSeleccionar1BeanActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
         Trabajotercerizado trab = filasTrabajosEnviados.get(tblTrabajosEnviados.getSelectedRow());
         ActualizarMontosDetalleTrabajoTercerizado actualizacion = null;
         try {
@@ -96,17 +96,18 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
     public void modificarTrabajoTercerizado(Trabajotercerizado trab) {
         long result = 0;
         if (detalle != null) {
-            result = gestor.modificarTrabajoTercerizado(trab, detalle);
+
             trab.setEstado(gestor.buscarEstadoPresupuestado());
             trab.setFechadelingresocotizacion(Fecha.fechaActualDate());
-            double monto=0d;
-            if (detalle != null) {
-                for(Detalletrabajotercerizado d : detalle){
-                    monto=+d.getMontoparcial();
-                }
-                result = gestor.modificarTrabajoTercerizado(trab, detalle);
+            double monto = 0d;
 
+            for (Detalletrabajotercerizado d : detalle) {
+                monto = +d.getMontoparcial();
             }
+            trab.setMontototal(monto);
+            result = gestor.modificarTrabajoTercerizado(trab, detalle);
+
+
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Los datos se han guardado correctamente!");
                 filasTrabajosEnviados = gestor.obtenerTrabajosEnviados();
