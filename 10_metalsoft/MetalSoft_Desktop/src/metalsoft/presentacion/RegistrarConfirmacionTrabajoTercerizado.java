@@ -91,6 +91,8 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
             listaDetalle = gestor.buscarDetalleTrabajoTercerizado(trab.getIdtrabajo());
             tblDetalleTrabajoTercerizado.updateUI();
             btnconfirmar.setEnabled(true);
+        }else{
+            btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
         }
     }
 
