@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.datos.PostgreSQLManager;
 
 /**
  *
@@ -322,6 +323,60 @@ public class AccessFunctions {
         }
         return result;
     }
+
+    public static boolean esUltimaEjecucionEtapaDeProduccion(Long idejecucion) {
+
+        String query="{ ? = call esUltimaEjecucionEtapaDeProduccion(?)}";
+        boolean result=false;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        CallableStatement cs = null;
+        try {
+            cs = pg.concectGetCn().prepareCall(query);
+            cs.setLong(2, idejecucion);
+            cs.registerOutParameter(1, java.sql.Types.BOOLEAN);
+            cs.execute();
+            result=cs.getBoolean(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                cs.close();
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static boolean esUltimaEjecucionEtapaDePieza(long idejecucionproduccion, long idproducto, long idpieza) {
+
+        String query="{ ? = call esUltimaEjecucionEtapaDePieza(?,?,?)}";
+        boolean result=false;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        CallableStatement cs = null;
+        try {
+            cs = pg.concectGetCn().prepareCall(query);
+            cs.setLong(2, idejecucionproduccion);
+            cs.setLong(3, idproducto);
+            cs.setLong(4, idpieza);
+            cs.registerOutParameter(1, java.sql.Types.BOOLEAN);
+            cs.execute();
+            result=cs.getBoolean(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                cs.close();
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+
+    }
+
     public static long nvoNroTrabajoTercerizado(Connection cn)
     {
         String query="{ ? = call nvonrotrabajotercerizado()}";
@@ -350,4 +405,5 @@ public class AccessFunctions {
         }
         return result;
     }
+
 }
