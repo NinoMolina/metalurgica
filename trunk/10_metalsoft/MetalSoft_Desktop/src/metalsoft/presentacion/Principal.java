@@ -133,6 +133,7 @@ public class Principal extends javax.swing.JFrame {
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mniCotizacionTrabajo = new javax.swing.JMenuItem();
         mniRegistrarIngresoCotizacionTrabajo = new javax.swing.JMenuItem();
+        mniConfirmarCotizacionDeTrabajosTercerizados = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
@@ -565,6 +566,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuTrabajosTercerizados.add(mniRegistrarIngresoCotizacionTrabajo);
+
+        mniConfirmarCotizacionDeTrabajosTercerizados.setText("Confirmar Presupuesto");
+        mniConfirmarCotizacionDeTrabajosTercerizados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed(evt);
+            }
+        });
+        mnuTrabajosTercerizados.add(mniConfirmarCotizacionDeTrabajosTercerizados);
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
@@ -1087,6 +1096,19 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_mniRegistrarIngresoCotizacionTrabajoActionPerformed
+
+    private void mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed
+        try {
+            JFrameManager.crearVentana(RegistrarConfirmacionTrabajoTercerizado.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1119,6 +1141,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
     private javax.swing.JMenuItem mniCondicionIva;
+    private javax.swing.JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
