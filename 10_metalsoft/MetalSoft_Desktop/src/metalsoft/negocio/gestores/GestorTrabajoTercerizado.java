@@ -23,6 +23,8 @@ import metalsoft.datos.jpa.controller.EstadodetalletrabajotercerizadoJpaControll
 import metalsoft.datos.jpa.controller.EstadotrabajotercerizadoJpaController;
 import metalsoft.datos.jpa.controller.EtapadeproduccionJpaController;
 import metalsoft.datos.jpa.controller.TrabajotercerizadoJpaController;
+import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
+import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.DetalletrabajotercerizadoPK;
@@ -31,6 +33,7 @@ import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
 
@@ -118,18 +121,39 @@ public class GestorTrabajoTercerizado {
         EtapadeproduccionJpaController controller = new EtapadeproduccionJpaController();
         return controller.findEtapadeproduccion(id);
     }
-
+    //BUSQUEDA DE ESTADOS DE TRABAJO TERCERIZADO
     public Estadotrabajotercerizado buscarEstadoGenerado() {
         EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
         return controller.findEstadotrabajotercerizado((long) 1);
     }
+    public Estadotrabajotercerizado buscarEstadoEnEsperaPresupuesto() {
+        EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
+        return controller.findEstadotrabajotercerizado((long) 2);
+    }
+    public Estadotrabajotercerizado buscarEstadoPresupuestado() {
+        EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
+        return controller.findEstadotrabajotercerizado((long) 3);
+    }
+    public Estadotrabajotercerizado buscarEstadoConfirmado() {
+        EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
+        return controller.findEstadotrabajotercerizado((long) 4);
+    }
+    public Estadotrabajotercerizado buscarEstadoCancelado() {
+        EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
+        return controller.findEstadotrabajotercerizado((long) 5);
+    }
+    public Estadotrabajotercerizado buscarEstadoPlanificadoParaControlDeCalidad() {
+        EstadotrabajotercerizadoJpaController controller = new EstadotrabajotercerizadoJpaController();
+        return controller.findEstadotrabajotercerizado((long) 6);
+    }
 
+    //BUSQUEDA DE ESTADOS DE DETALLES DE TRABAJO TERCERIZADO
     public Estadodetalletrabajotercerizado buscarEstadoGeneradoDetalle() {
         EstadodetalletrabajotercerizadoJpaController controller = new EstadodetalletrabajotercerizadoJpaController();
         return controller.findEstadodetalletrabajotercerizado((long) 1);
     }
 
-
+    //NUEVO PEDIDO DE COTIZACION DE TRABAJO TERCERIZADO
     public boolean nuevoPedido(metalsoft.datos.jpa.entity.Trabajotercerizado trabajo, LinkedList<ViewPedidoCotizacion> detalle) {
         TrabajotercerizadoJpaController controller = new TrabajotercerizadoJpaController();
         DetalletrabajotercerizadoJpaController controllerDetalle = new DetalletrabajotercerizadoJpaController();
@@ -161,5 +185,30 @@ public class GestorTrabajoTercerizado {
     public Empresametalurgica buscarEmpresa(long id) {
         EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
         return controller.findEmpresametalurgica(id);
+    }
+    public List<Trabajotercerizado> obtenerTrabajosGenerados()
+    {
+        List<Trabajotercerizado> list=new LinkedList<Trabajotercerizado>();
+        list=JpaUtil.getTrabajosTercerizadosByEstado((long)1);
+        return list;
+    }
+    public List<Trabajotercerizado> obtenerTrabajosEnviados()
+    {
+        List<Trabajotercerizado> list=new LinkedList<Trabajotercerizado>();
+        list=JpaUtil.getTrabajosTercerizadosByEstado((long)2);
+        return list;
+    }
+    public long modificarTrabajoTercerizado(Trabajotercerizado trb){
+        TrabajotercerizadoJpaController con=new TrabajotercerizadoJpaController();
+        try {
+            con.edit(trb);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorTrabajoTercerizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return trb.getIdtrabajo();
     }
 }
