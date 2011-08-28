@@ -23,7 +23,7 @@ import metalsoft.util.Fecha;
  *
  * @author Nino
  */
-public class HiloAvisoEtapaNoTerminada extends Thread {
+public class HiloAvisoEtapaNoTerminada extends HiloEtapaBase implements Runnable {
 
     private Principal vtnPrincipal;
 
@@ -37,6 +37,15 @@ public class HiloAvisoEtapaNoTerminada extends Thread {
 
     @Override
     public void run() {
+        procesarDatos();
+    }
+
+    private void notificarAlerta(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
+        vtnPrincipal.alertaEtapaNoFinalizada(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
+    }
+
+    @Override
+    public void templatedMethod() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
 
@@ -115,11 +124,6 @@ public class HiloAvisoEtapaNoTerminada extends Thread {
                 }
             }
         }, 0, 30000);
-
-    }
-
-    private void notificarAlerta(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
-        vtnPrincipal.alertaEtapaNoFinalizada(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
     }
 
 }
