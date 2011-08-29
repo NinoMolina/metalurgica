@@ -970,7 +970,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCobroPedidoActionPerformed
 
     private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
-        System.exit(0);
+        //System.exit(0);
+        AbrirSesion p = new AbrirSesion();
+        p.setVisible(true);
+        p.setLocationRelativeTo(null);
+        dispose();
     }//GEN-LAST:event_mniCerrarSesionActionPerformed
 
     private void mniNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNuevoUsuarioActionPerformed
@@ -1063,7 +1067,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniMantenimientoPreventivoActionPerformed
 
     private void mniCondicionIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCondicionIvaActionPerformed
-          try {
+        try {
             JFrameManager.crearVentana(ABMCondicionIva.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1075,7 +1079,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCondicionIvaActionPerformed
 
     private void mniFormaDePagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFormaDePagoActionPerformed
-         try {
+        try {
             JFrameManager.crearVentana(ABMFormaDePago.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1275,13 +1279,13 @@ public class Principal extends javax.swing.JFrame {
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
             int numero = Integer.parseInt(num);
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + (numero - 1));
-            if(numero == 1){
+            if (numero == 1) {
                 btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
             } else {
                 btnEtapasAtrasadas.setText("Etapas Atrasadas.");
             }
-            
-            
+
+
         }
 
     }
