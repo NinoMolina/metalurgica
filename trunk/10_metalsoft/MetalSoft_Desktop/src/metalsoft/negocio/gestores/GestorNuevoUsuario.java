@@ -56,8 +56,21 @@ public class GestorNuevoUsuario {
 
     public void cargarComboRoles(JComboBox combo, long idUsuario) {
         roles = null;
-        RolJpaController controller = new RolJpaController();
         roles = JpaUtil.getRolesNoTieneUsuario(idUsuario);
+        ItemCombo item = null;
+        combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+        for (Rol rol : roles) {
+            item = new ItemCombo();
+            item.setId(String.valueOf(rol.getIdrol()));
+            item.setMostrar(rol.getRol());
+            combo.addItem(item);
+        }
+        combo.setSelectedIndex(0);
+    }
+    public void cargarComboRoles(JComboBox combo) {
+        roles = null;
+        RolJpaController controller = new RolJpaController();
+        roles = controller.findRolEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
         for (Rol rol : roles) {
