@@ -118,4 +118,11 @@ public class JpaUtil {
         Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
         return q.getResultList();
     }
+   public static List getUsuarioXRolByUsuario(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM usuarioxrol"
+                + " WHERE idusuario="+id;
+        Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
+        return q.getResultList();
+    }
 }
