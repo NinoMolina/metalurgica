@@ -84,4 +84,9 @@ public class GestorNuevoUsuario {
         }
         return user.getIdusuario();
     }
+    public Usuario buscarUsuario(long id)
+    {
+        UsuarioJpaController controller = new UsuarioJpaController();
+        return controller.findUsuario(id);
+    }
 }
