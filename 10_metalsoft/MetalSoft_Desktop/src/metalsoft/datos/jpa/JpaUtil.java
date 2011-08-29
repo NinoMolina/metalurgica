@@ -15,7 +15,9 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
+import metalsoft.datos.jpa.entity.Usuarioxrol;
 
 /**
  *
@@ -122,7 +124,14 @@ public class JpaUtil {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM usuarioxrol"
                 + " WHERE idusuario="+id;
-        Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
+        Query q = em.createNativeQuery(sql, Usuarioxrol.class);
         return q.getResultList();
     }
+   public static List getRolesNoTieneUsuario(long id){
+       EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT r.* FROM rol r"
+                    +" WHERE r.idrol NOT IN (SELECT ur.idrol FROM usuarioxrol ur WHERE idusuario="+id+")";
+        Query q = em.createNativeQuery(sql, Rol.class);
+        return q.getResultList();
+   }
 }
