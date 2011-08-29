@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import metalsoft.datos.jpa.controller.RolJpaController;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
 import metalsoft.datos.jpa.controller.UsuarioxrolJpaController;
+import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
+import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Usuario;
@@ -88,5 +90,19 @@ public class GestorNuevoUsuario {
     {
         UsuarioJpaController controller = new UsuarioJpaController();
         return controller.findUsuario(id);
+    }
+    public long modificarUsuario(Usuario user)
+    {
+        UsuarioJpaController controller = new UsuarioJpaController();
+        try {
+            controller.edit(user);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user.getIdusuario();
     }
 }
