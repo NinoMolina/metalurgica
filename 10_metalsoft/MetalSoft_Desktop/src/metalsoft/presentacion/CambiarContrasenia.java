@@ -30,12 +30,14 @@ public class CambiarContrasenia extends javax.swing.JFrame {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        lblusuario.setText(usuario.getUsuario());
     }
 
     public CambiarContrasenia() {
         initComponents();
         addListeners();
         gestor = new GestorNuevoUsuario();
+        
     }
 
     private void addListeners() {
