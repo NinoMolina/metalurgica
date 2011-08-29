@@ -4,11 +4,14 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.RolJpaController;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
 import metalsoft.datos.jpa.controller.UsuarioxrolJpaController;
@@ -18,6 +21,7 @@ import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
+import metalsoft.datos.jpa.entity.UsuarioxrolPK;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -50,16 +54,31 @@ public class GestorNuevoUsuario {
         return null;
     }
 
-    public void cargarComboRoles(JComboBox combo) {
+    public void cargarComboRoles(JComboBox combo, long idUsuario) {
         roles = null;
         RolJpaController controller = new RolJpaController();
-        roles = controller.findRolEntities();
+        roles = JpaUtil.getRolesNoTieneUsuario(idUsuario);
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
         for (Rol rol : roles) {
             item = new ItemCombo();
             item.setId(String.valueOf(rol.getIdrol()));
             item.setMostrar(rol.getRol());
+            combo.addItem(item);
+        }
+        combo.setSelectedIndex(0);
+    }
+
+    public void cargarComboUsuarios(JComboBox combo) {
+        List<Usuario> usuarios = null;
+        UsuarioJpaController controller = new UsuarioJpaController();
+        usuarios = controller.findUsuarioEntities();
+        ItemCombo item = null;
+        combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+        for (Usuario user : usuarios) {
+            item = new ItemCombo();
+            item.setId(String.valueOf(user.getIdusuario()));
+            item.setMostrar(user.getUsuario());
             combo.addItem(item);
         }
         combo.setSelectedIndex(0);
@@ -86,13 +105,67 @@ public class GestorNuevoUsuario {
         }
         return user.getIdusuario();
     }
-    public Usuario buscarUsuario(long id)
-    {
+
+    public long modificarUsuarioXRol(Usuario user, List<Rol> filasRoles) {
+        UsuarioJpaController controller = new UsuarioJpaController();
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        try {
+            List<Usuarioxrol> uxrList = new ArrayList<Usuarioxrol>();
+            for (Rol rol : filasRoles) {
+                Usuarioxrol uxr = new Usuarioxrol();
+                uxr.setRol(rol);
+                uxr.setUsuario(user);
+                if (!existeUsuarioXRol(uxr)) {
+                    controllerUxr.create(uxr);
+                    uxrList.add(uxr);
+                }
+            }
+            user.setUsuarioxrolList(uxrList);
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user.getIdusuario();
+    }
+    public long eliminarUsuarioXRol(Usuario user, List<Rol> filasRoles) {
+        Boolean ban=false;
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        try {
+            List<Usuarioxrol> uxrList = new ArrayList<Usuarioxrol>();
+            for (Rol rol : filasRoles) {
+                Usuarioxrol uxr = new Usuarioxrol();
+                uxr.setRol(rol);
+                uxr.setUsuario(user);
+                if (existeUsuarioXRol(uxr)) {
+                    UsuarioxrolPK pk = new UsuarioxrolPK(uxr.getRol().getIdrol(), uxr.getUsuario().getIdusuario());
+                    controllerUxr.destroy(pk);
+                    ban=uxrList.remove(uxr);
+                }
+            }
+            user.setUsuarioxrolList(uxrList);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user.getIdusuario();
+    }
+    public boolean existeUsuarioXRol(Usuarioxrol uxr) {
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        UsuarioxrolPK pk = new UsuarioxrolPK(uxr.getRol().getIdrol(), uxr.getUsuario().getIdusuario());
+        Usuarioxrol uxrol = controllerUxr.findUsuarioxrol(pk);
+        if (uxrol != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Usuario buscarUsuario(long id) {
         UsuarioJpaController controller = new UsuarioJpaController();
         return controller.findUsuario(id);
     }
-    public long modificarUsuario(Usuario user)
-    {
+
+    public long modificarUsuario(Usuario user) {
         UsuarioJpaController controller = new UsuarioJpaController();
         try {
             controller.edit(user);
@@ -104,5 +177,20 @@ public class GestorNuevoUsuario {
             Logger.getLogger(GestorNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user.getIdusuario();
+    }
+
+    public List<Rol> buscarRolesUsuario(Usuario user) {
+        List<Usuarioxrol> list = JpaUtil.getUsuarioXRolByUsuario(user.getIdusuario());
+        RolJpaController con = new RolJpaController();
+        List<Rol> rolList = new LinkedList<Rol>();
+        for (Usuarioxrol ur : list) {
+            rolList.add(con.findRol(ur.getRol().getIdrol()));
+        }
+        return rolList;
+    }
+
+    public Rol buscarRol(long id) {
+        RolJpaController con = new RolJpaController();
+        return con.findRol(id);
     }
 }
