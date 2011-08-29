@@ -23,6 +23,7 @@ import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
+import metalsoft.negocio.gestores.GestorNuevoUsuario;
 import metalsoft.util.Fecha;
 
 /**
@@ -98,6 +99,7 @@ public class Principal extends javax.swing.JFrame {
         mnuInicio = new javax.swing.JMenu();
         mniNuevoUsuario = new javax.swing.JMenuItem();
         mniCerrarSesion = new javax.swing.JMenuItem();
+        mniCambiarContrasenia = new javax.swing.JMenuItem();
         mnuCompras = new javax.swing.JMenu();
         mniMateriaPrima = new javax.swing.JMenuItem();
         mniRegistrarPresupuesto = new javax.swing.JMenuItem();
@@ -310,6 +312,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuInicio.add(mniCerrarSesion);
+
+        mniCambiarContrasenia.setText("Cambiar Contraseña");
+        mniCambiarContrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCambiarContraseniaActionPerformed(evt);
+            }
+        });
+        mnuInicio.add(mniCambiarContrasenia);
 
         mbrMenu.add(mnuInicio);
 
@@ -1143,6 +1153,21 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCancelarPedidoDeCotizacionActionPerformed
+
+    private void mniCambiarContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCambiarContraseniaActionPerformed
+        CambiarContrasenia v=null;
+        try {
+            v=(CambiarContrasenia) JFrameManager.crearVentana(CambiarContrasenia.class.getName());
+            GestorNuevoUsuario gestor= new GestorNuevoUsuario();
+            v.setUsuario(gestor.buscarUsuario(usuario.getIdusuario()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniCambiarContraseniaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1171,6 +1196,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniAsignarMPAProduccion;
+    private javax.swing.JMenuItem mniCambiarContrasenia;
     private javax.swing.JMenuItem mniCancelarPedidoDeCotizacion;
     private javax.swing.JMenuItem mniCerrarSesion;
     private javax.swing.JMenuItem mniCliente;
