@@ -100,6 +100,7 @@ public class Principal extends javax.swing.JFrame {
         mniNuevoUsuario = new javax.swing.JMenuItem();
         mniCerrarSesion = new javax.swing.JMenuItem();
         mniCambiarContrasenia = new javax.swing.JMenuItem();
+        mniAdministrarUsuarios = new javax.swing.JMenuItem();
         mnuCompras = new javax.swing.JMenu();
         mniMateriaPrima = new javax.swing.JMenuItem();
         mniRegistrarPresupuesto = new javax.swing.JMenuItem();
@@ -320,6 +321,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuInicio.add(mniCambiarContrasenia);
+
+        mniAdministrarUsuarios.setText("Administrar Usuarios");
+        mniAdministrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAdministrarUsuariosActionPerformed(evt);
+            }
+        });
+        mnuInicio.add(mniAdministrarUsuarios);
 
         mbrMenu.add(mnuInicio);
 
@@ -1168,6 +1177,20 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCambiarContraseniaActionPerformed
+
+    private void mniAdministrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdministrarUsuariosActionPerformed
+        
+        try {
+            JFrameManager.crearVentana(AdministrarUsuario.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniAdministrarUsuariosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1195,6 +1218,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuBar mbrMenu;
+    private javax.swing.JMenuItem mniAdministrarUsuarios;
     private javax.swing.JMenuItem mniAsignarMPAProduccion;
     private javax.swing.JMenuItem mniCambiarContrasenia;
     private javax.swing.JMenuItem mniCancelarPedidoDeCotizacion;
