@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
@@ -156,6 +157,14 @@ public class JpaUtil {
         String sql = "SELECT * FROM Factura e"
                 + " WHERE e.fechavencimiento='"+param+"'";
         Query q = em.createNativeQuery(sql, Factura.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
+   public static List getDetalleFacturaByFactura(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM detallefactura e"
+                + " WHERE e.idfactura="+id;
+        Query q = em.createNativeQuery(sql, Detallefactura.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
