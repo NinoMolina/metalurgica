@@ -14,6 +14,7 @@ import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -134,4 +135,12 @@ public class JpaUtil {
         Query q = em.createNativeQuery(sql, Rol.class);
         return q.getResultList();
    }
+   public static List getFacturasByNroLIKE(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Factura e"
+                + " WHERE CAST(e.nrofactura as VARCHAR) LIKE '" + param + "%'";
+        Query q = em.createNativeQuery(sql, Factura.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
 }
