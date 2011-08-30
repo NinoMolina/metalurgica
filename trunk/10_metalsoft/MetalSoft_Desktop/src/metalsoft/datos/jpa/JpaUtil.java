@@ -143,4 +143,20 @@ public class JpaUtil {
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
+   public static List getFacturasByFechaEmision(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Factura e"
+                + " WHERE e.fechaemision='"+param+"'";
+        Query q = em.createNativeQuery(sql, Factura.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
+   public static List getFacturasByFechaVto(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Factura e"
+                + " WHERE e.fechavencimiento='"+param+"'";
+        Query q = em.createNativeQuery(sql, Factura.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
 }
