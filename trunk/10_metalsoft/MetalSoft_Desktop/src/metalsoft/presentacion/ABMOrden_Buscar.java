@@ -35,6 +35,7 @@ public class ABMOrden_Buscar extends javax.swing.JFrame implements IBuscador{
     private static Timer timer;
     private ABMOrdenDeCompra ventana;
     private GestorCompra gestor;
+    private RegistrarIngresoMateriaPrima ventana2;
    
     /** Creates new form ABMOrden_Buscar */
     public ABMOrden_Buscar() {
@@ -155,6 +156,10 @@ public class ABMOrden_Buscar extends javax.swing.JFrame implements IBuscador{
 
     public void setVentana(ABMOrdenDeCompra v) {
         ventana=v;
+    }
+
+    public void setVentana2(RegistrarIngresoMateriaPrima v2) {
+        ventana2=v2;
     }
     /**
     * @param args the command line arguments

@@ -57,6 +57,7 @@ import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.compras.Reclamo;
+import metalsoft.negocio.compras.ReclamoProveedor;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -76,6 +77,7 @@ public class GestorReclamo implements IBuscador {
     private ProveedorDB prove;
     private long idTransaccion;
     private EmpresametalurgicaDB empre;
+    private List<ReclamoProveedor> reclamoProveedor;
 
     public GestorReclamo() {
     }
@@ -647,6 +649,29 @@ public class GestorReclamo implements IBuscador {
             return pi.getIdpieza();
           } catch (Exception ex) {
             return -1;
+        }
+    }
+
+    public void cargarComboReclamoProveedor(JComboBox combo, long idProveedor) {
+        try {
+            reclamoProveedor = null;
+            ReclamoproveedorDAOImpl daoReclamoProveedor = new ReclamoproveedorDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            //ReclamoproveedorDB[] reclamos = daoReclamoProveedor.findByProveedor(idProveedor, con);
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+           // for (ReclamoproveedorDB rec : reclamos) {
+                //item = new ItemCombo();
+                //item.setId(String.valueOf(rec.getIdcompra()));
+                //item.setMostrar(String.valueOf(rec.getNrocompra()));
+                //combo.addItem(item);
+            //}
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReclamo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
