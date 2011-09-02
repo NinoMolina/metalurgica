@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Factura;
+import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.gestores.GestorFactura;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -31,6 +32,8 @@ public class ConsultarFacturas extends javax.swing.JFrame {
     private List<Factura> filasFactura;
     private List<Detallefactura> filasDetalle;
     private GestorFactura gestor;
+    private Pedido pedido;
+    private Double monto=0d;
 
     public ConsultarFacturas() {
         initComponents();
@@ -379,9 +382,10 @@ public class ConsultarFacturas extends javax.swing.JFrame {
         Factura v = filasFactura.get(tblFacturas.getSelectedRow());
         filasDetalle = gestor.buscarDetalleFacturaByFactura(v.getIdfactura());
         tblDetalleFactura.updateUI();
-        Double monto=0d;
+        
         for(Detallefactura de : filasDetalle){
             monto+=de.getMontoparcial();
+            pedido=de.getIdpedido();
         }
         lblmonto.setText(String.valueOf(monto));
         btnVerDetalle.setEnabled(false);
@@ -395,7 +399,7 @@ public class ConsultarFacturas extends javax.swing.JFrame {
     }//GEN-LAST:event_tblFacturasMouseClicked
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-
+        gestor.imprimirFactura(pedido.getIdpedido(),monto);
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     /**
