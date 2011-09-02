@@ -666,7 +666,12 @@ public class RegistrarEntregaPedido extends javax.swing.JFrame {
         btnRegistrarEntrega.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
     private void imprimirFactura(long idformapago, String tipoFactura, java.util.Date fechaVencimiento) {
-        gestor.imprimirFactura(idPedido,idformapago,tipoFactura,fechaVencimiento);
+        double monto=0d;
+        for(ViewDetallePedidoCotizacion de : filasDetalle){
+            monto+=de.getPrecio();
+
+        }
+        gestor.imprimirFactura(idPedido,idformapago,tipoFactura,fechaVencimiento,monto);
     }
 
     private void imprimirRemito() {
