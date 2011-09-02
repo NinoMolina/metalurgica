@@ -13,10 +13,12 @@ import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
@@ -165,6 +167,30 @@ public class JpaUtil {
         String sql = "SELECT * FROM detallefactura e"
                 + " WHERE e.idfactura="+id;
         Query q = em.createNativeQuery(sql, Detallefactura.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
+   public static List getDetalleRemitoByRemito(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM detalleremito e"
+                + " WHERE e.idremito="+id;
+        Query q = em.createNativeQuery(sql, Detalleremito.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
+   public static List getRemitosByNroLIKE(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM remito e"
+                + " WHERE CAST(e.nroremito as VARCHAR) LIKE '" + param + "%'";
+        Query q = em.createNativeQuery(sql, Remito.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
+   public static List getRemitosByFechaEmision(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM remito e"
+                + " WHERE e.fechaemision='"+param+"'";
+        Query q = em.createNativeQuery(sql, Remito.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
