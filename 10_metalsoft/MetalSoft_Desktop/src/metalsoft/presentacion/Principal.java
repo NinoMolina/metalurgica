@@ -127,6 +127,8 @@ public class Principal extends javax.swing.JFrame {
         mniCobroPedido = new javax.swing.JMenuItem();
         mniCondicionIva = new javax.swing.JMenuItem();
         mniFormaDePago = new javax.swing.JMenuItem();
+        mniConsultarFacturas = new javax.swing.JMenuItem();
+        mniConsultarRemitos = new javax.swing.JMenuItem();
         mnuRRHH = new javax.swing.JMenu();
         mniListadoEmpleados = new javax.swing.JMenuItem();
         mniRegistrarAsistencia = new javax.swing.JMenuItem();
@@ -522,6 +524,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuFinanzas.add(mniFormaDePago);
+
+        mniConsultarFacturas.setText("Consultar Facturas");
+        mniConsultarFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultarFacturasActionPerformed(evt);
+            }
+        });
+        mnuFinanzas.add(mniConsultarFacturas);
+
+        mniConsultarRemitos.setText("Consultar Remitos");
+        mniConsultarRemitos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultarRemitosActionPerformed(evt);
+            }
+        });
+        mnuFinanzas.add(mniConsultarRemitos);
 
         mbrMenu.add(mnuFinanzas);
 
@@ -1191,6 +1209,32 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniAdministrarUsuariosActionPerformed
+
+    private void mniConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultarFacturasActionPerformed
+        try {
+            JFrameManager.crearVentana(ConsultarFacturas.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniConsultarFacturasActionPerformed
+
+    private void mniConsultarRemitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultarRemitosActionPerformed
+        try {
+            JFrameManager.crearVentana(ConsultarRemitos.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniConsultarRemitosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1227,6 +1271,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCobroPedido;
     private javax.swing.JMenuItem mniCondicionIva;
     private javax.swing.JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados;
+    private javax.swing.JMenuItem mniConsultarFacturas;
+    private javax.swing.JMenuItem mniConsultarRemitos;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
