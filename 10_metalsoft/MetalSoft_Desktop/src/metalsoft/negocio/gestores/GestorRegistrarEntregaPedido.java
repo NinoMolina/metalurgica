@@ -105,7 +105,7 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public void imprimirFactura(long id, long idformapago, String tipofactura, Date fechaVencimiento) {
+    public void imprimirFactura(long id, long idformapago, String tipofactura, Date fechaVencimiento,double monto) {
 //        URL sourceFile = null;
 //        try {
 //            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
@@ -129,6 +129,7 @@ public class GestorRegistrarEntregaPedido {
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
 
             param.put("ID_PEDIDO", new Long(id));
+            param.put("MONTO", new Double(monto));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
