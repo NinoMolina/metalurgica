@@ -57,7 +57,7 @@ public class ABMServicioDeMaquina extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(ActionEvent e) {
-        // TODO add your handling code here:
+       
         GestorServicioMaquina gestor = new GestorServicioMaquina();
         boolean ok = gestor.eliminarServicioMaquina(servicio);
         if (ok) {
