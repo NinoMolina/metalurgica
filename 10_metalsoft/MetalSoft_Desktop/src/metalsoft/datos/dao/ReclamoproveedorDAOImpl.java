@@ -76,6 +76,19 @@ public class ReclamoproveedorDAOImpl implements ReclamoproveedorDAO
 		catch(Exception e){throw new ReclamoproveedorException(e);}
 	}
 
+        public int updateEstado(ReclamoproveedorDB reclamoproveedor, Connection con)throws ReclamoproveedorException{
+		PreparedStatement ps = null;
+		try
+		{
+			ps = con.prepareStatement("update RECLAMOPROVEEDOR set IDESTADORECLAMO = ? , MOTIVO = ?  where idreclamo = ?");
+				ps.setLong(1,reclamoproveedor.getEstado());
+				ps.setString(2,reclamoproveedor.getMotivo());
+				ps.setLong(3,reclamoproveedor.getIdreclamo());
+				return(ps.executeUpdate());
+		}catch(SQLException sqle){throw new ReclamoproveedorException(sqle);}
+		catch(Exception e){throw new ReclamoproveedorException(e);}
+	}
+
 /**
 * This method inserts data in table RECLAMOPROVEEDOR
 *
@@ -89,12 +102,13 @@ public class ReclamoproveedorDAOImpl implements ReclamoproveedorDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("insert into RECLAMOPROVEEDOR( NRORECLAMO, TIPORECLAMO, MOTIVO, FECHARECLAMO, COMPRA) values (?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into RECLAMOPROVEEDOR( NRORECLAMO, TIPORECLAMO, MOTIVO, FECHARECLAMO, COMPRA, IDESTADORECLAMO) values (?, ?, ?, ?, ?, ?)");
 				ps.setLong(1,reclamoproveedor.getNroreclamo());
 				ps.setLong(2,reclamoproveedor.getTiporeclamo());
 				ps.setString(3,reclamoproveedor.getMotivo());
 				ps.setDate(4,reclamoproveedor.getFechareclamo());
 				ps.setLong(5,reclamoproveedor.getCompra());
+                                ps.setLong(6,reclamoproveedor.getEstado());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new ReclamoproveedorException(sqle);}
@@ -478,4 +492,21 @@ public class ReclamoproveedorDAOImpl implements ReclamoproveedorDAO
                 throw new Exception();
             }
         }
+
+    public ReclamoproveedorDB[] findByComprasProveedor(long idProveedor, Connection con) throws ReclamoproveedorException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_STATEMENT = "Select rp.idreclamo, rp.nroreclamo, rp.tiporeclamo, rp.motivo, rp.fechareclamo, rp.compra from reclamoproveedor rp, compra c, proveedor p where rp.compra = c.idcompra and c.proveedor = p.idproveedor and p.idproveedor = ? and rp.idestadoreclamo =1 order by rp.nroreclamo";
+        try {
+	stmt = con.prepareStatement(SQL_STATEMENT);
+	stmt.setLong( 1, idProveedor );
+	rs = stmt.executeQuery();
+	return fetchMultiResults(rs);
+        } catch (SQLException sqle) {
+            throw new ReclamoproveedorException(sqle);
+        } catch (Exception e) {
+            throw new ReclamoproveedorException(e);
+        } finally {
+        }
+    }
 }

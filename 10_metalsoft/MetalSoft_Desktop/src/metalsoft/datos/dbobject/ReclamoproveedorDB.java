@@ -28,6 +28,7 @@ public class ReclamoproveedorDB implements Serializable {
     private Date fechareclamo;
     private long compra;
     private long entidad;
+    private long estado;
 
     public ReclamoproveedorDB() {
     }
@@ -97,6 +98,14 @@ public class ReclamoproveedorDB implements Serializable {
         return (compra);
     }
 
+    public long getEstado() {
+        return estado;
+    }
+
+    public void setEstado(long estado) {
+        this.estado = estado;
+    }
+
     public String toString() {
         StringBuffer ret = new StringBuffer();
         ret.append("metalsoft.datos.dbobject.Reclamoproveedor :");
@@ -106,6 +115,7 @@ public class ReclamoproveedorDB implements Serializable {
         ret.append(", motivo='" + motivo + "'");
         ret.append(", fechareclamo='" + fechareclamo + "'");
         ret.append(", compra='" + compra + "'");
+        ret.append(", idestadoreclamo='" + estado + "'");
         return ret.toString();
     }
 }
