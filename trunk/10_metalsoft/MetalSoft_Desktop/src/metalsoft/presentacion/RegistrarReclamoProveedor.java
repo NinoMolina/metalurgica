@@ -11,12 +11,21 @@
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.dbobject.DetallereclamoproveedorDB;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
 import metalsoft.datos.dbobject.ProveedorDB;
+import metalsoft.datos.dbobject.ReclamoproveedorDB;
+import metalsoft.datos.exception.DetallereclamoproveedorException;
 import metalsoft.negocio.gestores.GestorReclamo;
 import metalsoft.negocio.gestores.ViewDetalleReclamo;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
@@ -27,23 +36,32 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
     private GestorReclamo gestor;
     private ViewProveedorXMateriaPrima view;
     private LinkedList<ViewDetalleReclamo> filas = new LinkedList<ViewDetalleReclamo>();
+    private long idreclamo;
 
     /** Creates new form RegistrarReclamoProveedor */
     public RegistrarReclamoProveedor() {
         initComponents();
+        this.cmbProveedor.removeAllItems();
+        this.cmbReclamo.removeAllItems();
         addListenerBtnSalir();
         addListenerBtnGuardar();
         view = new ViewProveedorXMateriaPrima();
         gestor = new GestorReclamo();
         cargarComboProveedores();
+        this.tblDetalleReclamo.setEnabled(false);
+        tblDetalleReclamo.setModel(new DetalleReclamoTableModel());
+        tblDetalleReclamo.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDetalleReclamo.updateUI();
+        this.txtMotivo.setEnabled(false);
+        txtMotivo.setText("");
     }
 
-     private void cargarComboProveedores() {
+    private void cargarComboProveedores() {
         cmbProveedor.removeAllItems();
         view.cargarComboProveedor(cmbProveedor);
     }
 
-     private void addListenerBtnSalir() {
+    private void addListenerBtnSalir() {
         this.btnSalirr1.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,13 +84,26 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-
-       //TODO
+        boolean validar = this.validarEntidad();
+        if (!validar) {
+            return;
+        }
+            String motivo = txtMotivo.getText();
+            boolean result = false;
+            result = gestor.modificarReclamo(idreclamo, motivo);
+            this.txtMotivo.setEnabled(false);
+            this.txtMotivo.setText("");
+            this.cmbProveedor.setSelectedIndex(0);
+            if (result) {
+                JOptionPane.showMessageDialog(this, "El reclamo fue enviado al Proveedor!", "Envio", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "El reclamo no pudo ser enviado al Proveedor", "Envio", JOptionPane.ERROR_MESSAGE);
+            }
     }
 
     private ProveedorDB searchProveedorById(long id) {
-        ProveedorDB proveedor= gestor.getProveedorById(id);
-           return proveedor;
+        ProveedorDB proveedor = gestor.getProveedorById(id);
+        return proveedor;
     }
 
     public boolean validarEntidad() {
@@ -86,7 +117,6 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         }
         return true;
     }
-
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -104,7 +134,6 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalleReclamo = new org.jdesktop.swingx.JXTable();
-        btnQuitar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtMotivo = new javax.swing.JTextArea();
@@ -112,7 +141,7 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Reclamo Proveedor");
+        setTitle("Enviar Reclamo Proveedor");
 
         cmbProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,30 +165,20 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         tblDetalleReclamo.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tblDetalleReclamo);
 
-        btnQuitar.setText("Quitar");
-        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
-                    .addComponent(btnQuitar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(btnQuitar))
+                .addContainerGap())
         );
 
         jLabel2.setText("Observaciones:");
@@ -173,21 +192,17 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 526, Short.MAX_VALUE)
-                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -197,12 +212,16 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(cmbReclamo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEntidad))
@@ -212,39 +231,97 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(72, 72, 72))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+        limpiarTabla();
+        txtMotivo.setText("");
+        this.txtMotivo.setEnabled(false);
         this.cmbReclamo.removeAllItems();
-        Object prov = this.cmbProveedor.getSelectedItem();
-        String nombreProveedor = prov.toString();
-        long idProveedor = this.gestor.getIdProveedorByName(nombreProveedor);
-        //gestor.cargarComboReclamoProveedor(cmbReclamo, idProveedor);
+        this.cmbReclamo.setEnabled(true);
+        if (this.cmbProveedor.getSelectedIndex() != 0 && this.cmbProveedor.getSelectedIndex() != -1) {
+            Object prov = this.cmbProveedor.getSelectedItem();
+            String nombreProveedor = prov.toString();
+            long idProveedor = this.gestor.getIdProveedorByName(nombreProveedor);
+            gestor.cargarComboReclamoProveedor(cmbReclamo, idProveedor);
+        }
 }//GEN-LAST:event_cmbProveedorActionPerformed
 
     private void cmbReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbReclamoActionPerformed
-        Object reclamo = this.cmbReclamo.getSelectedItem();
-        String nroReclamo = reclamo.toString();
-
+        if (this.cmbReclamo.getSelectedIndex() != 0 && this.cmbReclamo.getSelectedIndex() != -1) {
+            this.txtMotivo.setEnabled(true);
+            Object reclamo = this.cmbReclamo.getSelectedItem();
+            long nroReclamo = Long.parseLong(reclamo.toString());
+            ReclamoproveedorDB rp = gestor.getReclamoByNroReclamo(nroReclamo);
+            idreclamo = rp.getIdreclamo();
+            try {
+                DetallereclamoproveedorDB[] detalle = this.gestor.getDetalleByIdReclamo(rp.getIdreclamo());
+                for (int i = 0; i < detalle.length; i++) {
+                    String nombreMateriaPrima = detalle[i].getDescripcion();
+                    int cantidad = detalle[i].getCantidad();
+                    long idDetalle = detalle[i].getIddetalle();
+                    String motivo = detalle[i].getMotivo();
+                    agregarFila(nombreMateriaPrima, cantidad, idDetalle, motivo);
+                }
+            } catch (DetallereclamoproveedorException ex) {
+                Logger.getLogger(GenerarSolicitudReclamo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tblDetalleReclamo.updateUI();
+            cmbReclamo.setEnabled(false);
+            txtMotivo.setText("");
     }//GEN-LAST:event_cmbReclamoActionPerformed
+    }
+    public void agregarFila(String nombreArticulo, int cant, long idDetalle, String motivo) {
+        //vector de tipo Object que contiene los datos de una fila
+        ViewDetalleReclamo datosFila = new ViewDetalleReclamo();
 
-    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        int selectedRow = tblDetalleReclamo.getSelectedRow();
-        filas.remove(selectedRow);
-        tblDetalleReclamo.updateUI();
-}//GEN-LAST:event_btnQuitarActionPerformed
+        datosFila.setNombreMateriaPrima(nombreArticulo);
+        datosFila.setCantidad(cant);
+        datosFila.setMotivo(motivo);
+        datosFila.setIdDetalle(idDetalle);
+        
+
+        filas.addLast(datosFila);
+    }
+
+    private void limpiarTabla() {
+        int cantidadFilas = tblDetalleReclamo.getRowCount();
+
+
+        for (int i = 0; i
+                < cantidadFilas; i++) {
+            filas.remove(0);
+            tblDetalleReclamo.updateUI();
+
+
+        }
+    }
+
+    private void setearTablas() {
+        //DETALLE Reclamo
+        tblDetalleReclamo.setModel(new DetalleReclamoTableModel());
+        tblDetalleReclamo.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblDetalleReclamo.setShowHorizontalLines(false);
+        tblDetalleReclamo.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblDetalleReclamo.setHighlighters(new UIColorHighlighter(HighlightPredicate.ODD));
+   }
 
     /**
      * @param args the command line arguments
@@ -254,12 +331,15 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
 
             public void run() {
                 new RegistrarReclamoProveedor().setVisible(true);
+
+
             }
         });
+
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnGuardar btnGuardar1;
-    private javax.swing.JButton btnQuitar;
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private javax.swing.JComboBox cmbProveedor;
     private javax.swing.JComboBox cmbReclamo;
@@ -272,4 +352,51 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXTable tblDetalleReclamo;
     private javax.swing.JTextArea txtMotivo;
     // End of variables declaration//GEN-END:variables
+
+    public class DetalleReclamoTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Nombre", "Cantidad", "Motivo"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewDetalleReclamo view = filas.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return view.getNombreMateriaPrima();
+                case 1:
+                    return String.valueOf(view.getCantidad());
+                case 2:
+                    return String.valueOf(view.getMotivo());
+                default:
+                    return null;
+            }
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filas != null) {
+                return filas.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
 }

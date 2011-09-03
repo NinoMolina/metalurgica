@@ -45,6 +45,7 @@ import metalsoft.datos.dbobject.TiporeclamoDB;
 import metalsoft.datos.dbobject.TrabajotercerizadoDB;
 import metalsoft.datos.exception.CompraException;
 import metalsoft.datos.exception.DetallecompraException;
+import metalsoft.datos.exception.DetallereclamoproveedorException;
 import metalsoft.datos.exception.DetalletrabajotercerizadoException;
 import metalsoft.datos.jpa.controller.CompraJpaController;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
@@ -302,7 +303,7 @@ public class GestorReclamo implements IBuscador {
                 con = pg.concectGetCn();
                 con.setAutoCommit(false);
                 reclamo.setTiporeclamo(1);
-
+                reclamo.setEstado(1);
                 metalsoft.negocio.compras.Proveedor proveedor = new metalsoft.negocio.compras.Proveedor();
                 proveedor.setNroProveedor(prove.getIdproveedor());
                 reclamo.setEntidad(proveedor.getNroProveedor());
@@ -329,7 +330,7 @@ public class GestorReclamo implements IBuscador {
                     DetallereclamoproveedorDB detalleReclamoProv = new DetallereclamoproveedorDB();
                     detalleReclamoProv.setIdreclamo(idReclamo);
                     detalleReclamoProv.setCantidad(datos.getCantidad());
-                    detalleReclamoProv.setDescripcion("descripcion");
+                    detalleReclamoProv.setDescripcion(datos.nombreMateriaPrima);
                     Date fechaEgreso = new Date(new java.util.Date().getTime());
                     detalleReclamoProv.setFechaegreso(fechaEgreso);
                     detalleReclamoProv.setIdcompra(datos.getIdCompra());
@@ -386,7 +387,7 @@ public class GestorReclamo implements IBuscador {
                     DetallereclamoempresametalurgicaDB detalleReclamoEmp = new DetallereclamoempresametalurgicaDB();
                     detalleReclamoEmp.setIdreclamo(idReclamo);
                     detalleReclamoEmp.setCantidad(datos.getCantidad());
-                    detalleReclamoEmp.setDescripcion("descripcion");
+                    detalleReclamoEmp.setDescripcion(datos.nombrePieza);
                     Date fechaEgreso = new Date(new java.util.Date().getTime());
                     detalleReclamoEmp.setFechaegreso(fechaEgreso);
                     detalleReclamoEmp.setIddetalletrabajo(datos.getIdDetalle());
@@ -660,18 +661,71 @@ public class GestorReclamo implements IBuscador {
             Connection con = null;
             con = pg.concectGetCn();
             con.setAutoCommit(false);
-            //ReclamoproveedorDB[] reclamos = daoReclamoProveedor.findByProveedor(idProveedor, con);
+            ReclamoproveedorDB[] reclamos = daoReclamoProveedor.findByComprasProveedor(idProveedor, con);
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
-           // for (ReclamoproveedorDB rec : reclamos) {
-                //item = new ItemCombo();
-                //item.setId(String.valueOf(rec.getIdcompra()));
-                //item.setMostrar(String.valueOf(rec.getNrocompra()));
-                //combo.addItem(item);
-            //}
+           for (ReclamoproveedorDB rec : reclamos) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(rec.getNroreclamo()));
+                item.setMostrar(String.valueOf(rec.getNroreclamo()));
+                combo.addItem(item);
+            }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
             Logger.getLogger(GestorReclamo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ReclamoproveedorDB getReclamoByNroReclamo(long nroReclamo) {
+        try {
+            ReclamoproveedorDAOImpl daoReclamoproveedor = new ReclamoproveedorDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            ReclamoproveedorDB[] reclamos = daoReclamoproveedor.findByNroreclamo(nroReclamo, con);
+            ReclamoproveedorDB recl = reclamos[0];
+            return recl;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public DetallereclamoproveedorDB[] getDetalleByIdReclamo(long idreclamo) throws DetallereclamoproveedorException {
+        try {
+            DetallereclamoproveedorDAOImpl daoDetallereclamoproveedor = new DetallereclamoproveedorDAOImpl();
+            PostgreSQLManager pg = new PostgreSQLManager();
+            Connection con = null;
+            con = pg.concectGetCn();
+            con.setAutoCommit(false);
+            DetallereclamoproveedorDB[] detalleReclamos = daoDetallereclamoproveedor.findByIdreclamo(idreclamo, con);
+            return detalleReclamos;
+        } catch (Exception ex) {
+            throw new DetallereclamoproveedorException(ex);
+        }
+    }
+
+    public boolean modificarReclamo(long idreclamo, String observ) {
+        try {
+                ReclamoproveedorDB reclamo = new ReclamoproveedorDB();
+                PostgreSQLManager pg = new PostgreSQLManager();
+                Connection con = null;
+                con = pg.concectGetCn();
+                con.setAutoCommit(false);
+                reclamo.setIdreclamo(idreclamo);
+                reclamo.setMotivo(observ);
+                reclamo.setEstado(2);
+                ReclamoproveedorDAOImpl daoReclamo = new ReclamoproveedorDAOImpl();
+                int result = daoReclamo.updateEstado(reclamo, con);
+                if (result < 0) {
+                    return false;
+                } else {
+                    con.commit();
+                    return true;
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(GestorReclamo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
     }
 }
