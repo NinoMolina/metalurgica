@@ -43,11 +43,11 @@ public class HiloBuscarTipoDocumento extends Thread {
     private void buscarTipoDocumento()
     {
         GestorTipoDocumento gestor=new GestorTipoDocumento();
-    //    TipoDocumento[] td=gestor.buscarConLIKE(valor);
-    //    JList list=ventana.getLstTipoDocumento();
-    //    list.removeAll();
-    //    ventana.setTipoDocumento(td);
-    //    cargarLista(list,td);
+        TipoDocumento[] td=gestor.buscarConLIKE(valor);
+        JList list=ventana.getLstTipoDocumento();
+        list.removeAll();
+        ventana.setTipoDocumento(td);
+        cargarLista(list,td);
     }
 
      private void cargarLista(JList list, TipoDocumento[] tipodoc) {
@@ -56,7 +56,7 @@ public class HiloBuscarTipoDocumento extends Thread {
         for(int i=0;i<tipodoc.length;i++)
         {
             ItemCombo x=new ItemCombo();
-            x.setMostrar(tipodoc[i].getNombre());
+            x.setMostrar(tipodoc[i].getTipo());
             item[i]=x;
         }
         list.setListData(item);

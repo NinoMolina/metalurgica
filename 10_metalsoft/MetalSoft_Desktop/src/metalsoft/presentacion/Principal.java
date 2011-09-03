@@ -134,6 +134,7 @@ public class Principal extends javax.swing.JFrame {
         mniRegistrarAsistencia = new javax.swing.JMenuItem();
         mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
         registrarEmpleado = new javax.swing.JMenuItem();
+        mniTipoDoc = new javax.swing.JMenuItem();
         mnuTrabajosTercerizados = new javax.swing.JMenu();
         mniEmpresaMetalurgica = new javax.swing.JMenuItem();
         mniCotizacionTrabajo = new javax.swing.JMenuItem();
@@ -576,6 +577,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuRRHH.add(registrarEmpleado);
+
+        mniTipoDoc.setText("Tipo deDocumento");
+        mniTipoDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniTipoDocActionPerformed(evt);
+            }
+        });
+        mnuRRHH.add(mniTipoDoc);
 
         mbrMenu.add(mnuRRHH);
 
@@ -1235,6 +1244,19 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniConsultarRemitosActionPerformed
+
+    private void mniTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTipoDocActionPerformed
+     try {
+            JFrameManager.crearVentana(ABMTipoDocumento.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mniTipoDocActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1299,6 +1321,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniServicio;
+    private javax.swing.JMenuItem mniTipoDoc;
     private javax.swing.JMenuItem mniTipoMaquina;
     private javax.swing.JMenuItem mniTipoMaterial;
     private javax.swing.JMenu mnuAlmacenamiento;
