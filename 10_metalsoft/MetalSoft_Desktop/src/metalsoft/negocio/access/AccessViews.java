@@ -744,6 +744,41 @@ public class AccessViews {
     }
 
     public static LinkedList<ViewPedidoConPlanificacionProduccion> allPedidosConPlanificacionProduccion(Connection cn) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        
+        ViewPedidoConPlanificacionProduccion view = null;
+        LinkedList<ViewPedidoConPlanificacionProduccion> ll = new LinkedList<ViewPedidoConPlanificacionProduccion>();
+        String query = "SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, " +
+                "idpedido,idcliente,idprioridad,presupuesto, idestado " +
+                " FROM viewpedidosconplanificacionproduccion" +
+                " WHERE idestado=1";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidoConPlanificacionProduccion();
+                view.setNropedido(rs.getInt("nropedido"));
+                view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
+                view.setRazonsocial(rs.getString("razonsocial"));
+                view.setPrioridad(rs.getString("prioridad"));
+                //if(rs.getDate("fechaentregaestipulada")!=null)
+                view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdcliente(rs.getLong("idcliente"));
+                view.setIdprioridad(rs.getLong("idprioridad"));
+                view.setIdpresupuesto(rs.getLong("presupuesto"));
+                view.setIdestado(rs.getLong("idestado"));
+
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ll.isEmpty()) {
+            return null;
+        } else {
+            return ll;
+        }
     }
 }
