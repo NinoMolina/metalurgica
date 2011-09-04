@@ -18,6 +18,7 @@ import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.gestores.GestorListadoMateriaPrimaAComprar;
 import metalsoft.negocio.gestores.GestorTrabajoTercerizado;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -42,6 +43,8 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
         filasPedidos = new LinkedList<Pedido>();
         setearTablas();
         gestor = new GestorListadoMateriaPrimaAComprar();
+        bsyBuscar1.setVisible(false);
+        bsyBuscar1.setBusy(false);
     }
 
     private void setearTablas() {
@@ -193,10 +196,10 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnImprimir1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,12 +207,12 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnImprimir1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSalirr1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,7 +301,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
                 //      Object[] df=filas.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return String.valueOf(view.getNropedido());
+                        return "PEDI-"+String.valueOf(view.getNropedido());
                     case 1:
                         return view.getPrioridad().getNombre();
                     case 2:
@@ -310,7 +313,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
                     case 5:
                         return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
                     case 6:
-                        return view.getEstado();
+                        return view.getEstado().getNombre();
                     default:
                         return null;
                 }
@@ -348,8 +351,9 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
 
     class ListadoMateriaPrimaTableModel extends AbstractTableModel {
 
-        String[] columnNames = {"Materia Prima",
-            "Cantidad",
+        String[] columnNames = {"Pieza",
+            "Materia Prima",
+            "Cantidad de Materia Prima",
             "Precio Unitario"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -357,11 +361,13 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
                 Detalleproductopresupuesto view = filasListadoMP.get(rowIndex);
                 //      Object[] df=filas.get(rowIndex);
                 switch (columnIndex) {
-                    case 0:
-                        return view.getIdmateriaprima().getNombre();
+                     case 0:
+                        return view.getIdpieza().getNombre();
                     case 1:
-                        return String.valueOf(view.getCantmateriaprima());
+                        return view.getIdmateriaprima().getNombre();
                     case 2:
+                        return String.valueOf(view.getCantmateriaprima());
+                    case 3:
                         return String.valueOf(view.getPreciomateriaprima());
                     default:
                         return null;
