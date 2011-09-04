@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptListadoMateriaPrimaAcomprar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.x" value="166"/>
+	<property name="ireport.y" value="71"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -43,9 +43,6 @@ GROUP BY mp.nombre,
 	<variable name="total" class="java.lang.Double" resetType="Group" resetGroup="Group3" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
-	</variable>
-	<variable name="iva" class="java.lang.Double">
-		<variableExpression><![CDATA[$P{MONTO}*0.21]]></variableExpression>
 	</variable>
 	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
@@ -150,7 +147,7 @@ GROUP BY mp.nombre,
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement mode="Transparent" x="471" y="2" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{total}]]></textFieldExpression>
 				</textField>
@@ -186,11 +183,11 @@ GROUP BY mp.nombre,
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-1" width="595" height="54" backcolor="#99FF99"/>
 				<staticText>
-					<reportElement x="25" y="6" width="81" height="20"/>
+					<reportElement x="25" y="6" width="116" height="20"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<text><![CDATA[Nro.Pedido:]]></text>
+					<text><![CDATA[Nro.Pedido: PEDI-]]></text>
 				</staticText>
 				<line>
 					<reportElement x="0" y="0" width="595" height="1"/>
@@ -206,16 +203,16 @@ GROUP BY mp.nombre,
 					<reportElement x="0" y="53" width="595" height="1"/>
 				</line>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="106" y="6" width="195" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="143" y="6" width="160" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.Long"><![CDATA[$F{nropedido}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement mode="Transparent" x="77" y="26" width="224" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
-						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
 				</textField>
