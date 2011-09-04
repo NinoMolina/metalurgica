@@ -6,27 +6,18 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
-import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.PiezarealDB;
-import metalsoft.datos.exception.PiezarealException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.PiezarealDAO;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.CodigodebarraJpaController;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Codigodebarra;
-import metalsoft.negocio.access.AccessFunctions;
 //import metalsoft.negocio.access.AccessMateriaPrima;
 import metalsoft.negocio.access.AccessPiezaReal;
 import metalsoft.negocio.produccion.PiezaReal;
-import metalsoft.util.Combo;
-import metalsoft.util.ItemCombo;
 
 /**
  *
@@ -93,7 +84,7 @@ public class GestorPiezaReal {
 
         Codigodebarra codBarra=new Codigodebarra();
         codBarra.setCodigo(piezaReal.getCodigoBarra().getCodigo());
-        CodigodebarraJpaController codigodebarraJpaController=new CodigodebarraJpaController();
+        CodigodebarraJpaController codigodebarraJpaController=new CodigodebarraJpaController(JpaUtil.getEntityManagerFactory());
         codigodebarraJpaController.create(codBarra);
         
         result = AccessPiezaReal.insert(piezaReal, idPieza, idestado, codBarra.getIdcodigo(), cn);

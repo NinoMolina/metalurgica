@@ -4,12 +4,14 @@
  */
 package metalsoft.datos.jpa;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
@@ -18,6 +20,7 @@ import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -29,7 +32,7 @@ import metalsoft.datos.jpa.entity.Usuarioxrol;
  */
 public class JpaUtil {
 
-private static EntityManagerFactory emf = null;
+    private static EntityManagerFactory emf = null;
 
     public static EntityManager getEntityManager() {
         if (emf == null) {
@@ -44,8 +47,8 @@ private static EntityManagerFactory emf = null;
         }
         return emf;
     }
-    
-    public static void main(String arg[]){
+
+    public static void main(String arg[]) {
         BarrioJpaController c = new BarrioJpaController(getEntityManagerFactory());
         c.findBarrio(1l);
     }
@@ -119,42 +122,48 @@ private static EntityManagerFactory emf = null;
         q.setParameter("id", id);
         return (Detalleejecucionplanificacion) q.getSingleResult();
     }
+
     public static List getTrabajosTercerizadosByEstado(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM trabajotercerizado"
-                + " WHERE estado="+id;
+                + " WHERE estado=" + id;
         Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
         return q.getResultList();
     }
+
     public static List getDetalleTrabajoTercerizadoByTrabajo(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM detalletrabajotercerizado"
-                + " WHERE idtrabajotercerizado="+id;
+                + " WHERE idtrabajotercerizado=" + id;
         Query q = em.createNativeQuery(sql, Detalletrabajotercerizado.class);
         return q.getResultList();
     }
-   public static List getTrabajosTercerizadosCanCancel() {
+
+    public static List getTrabajosTercerizadosCanCancel() {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM trabajotercerizado"
                 + " WHERE estado IN (1,2,3)";
         Query q = em.createNativeQuery(sql, Trabajotercerizado.class);
         return q.getResultList();
     }
-   public static List getUsuarioXRolByUsuario(long id) {
+
+    public static List getUsuarioXRolByUsuario(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM usuarioxrol"
-                + " WHERE idusuario="+id;
+                + " WHERE idusuario=" + id;
         Query q = em.createNativeQuery(sql, Usuarioxrol.class);
         return q.getResultList();
     }
-   public static List getRolesNoTieneUsuario(long id){
-       EntityManager em = JpaUtil.getEntityManager();
+
+    public static List getRolesNoTieneUsuario(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT r.* FROM rol r"
-                    +" WHERE r.idrol NOT IN (SELECT ur.idrol FROM usuarioxrol ur WHERE idusuario="+id+")";
+                + " WHERE r.idrol NOT IN (SELECT ur.idrol FROM usuarioxrol ur WHERE idusuario=" + id + ")";
         Query q = em.createNativeQuery(sql, Rol.class);
         return q.getResultList();
-   }
-   public static List getFacturasByNroLIKE(String param) {
+    }
+
+    public static List getFacturasByNroLIKE(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Factura e"
                 + " WHERE CAST(e.nrofactura as VARCHAR) LIKE '" + param + "%'";
@@ -162,39 +171,44 @@ private static EntityManagerFactory emf = null;
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getFacturasByFechaEmision(String param) {
+
+    public static List getFacturasByFechaEmision(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Factura e"
-                + " WHERE e.fechaemision='"+param+"'";
+                + " WHERE e.fechaemision='" + param + "'";
         Query q = em.createNativeQuery(sql, Factura.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getFacturasByFechaVto(String param) {
+
+    public static List getFacturasByFechaVto(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Factura e"
-                + " WHERE e.fechavencimiento='"+param+"'";
+                + " WHERE e.fechavencimiento='" + param + "'";
         Query q = em.createNativeQuery(sql, Factura.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getDetalleFacturaByFactura(long id) {
+
+    public static List getDetalleFacturaByFactura(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM detallefactura e"
-                + " WHERE e.idfactura="+id;
+                + " WHERE e.idfactura=" + id;
         Query q = em.createNativeQuery(sql, Detallefactura.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getDetalleRemitoByRemito(long id) {
+
+    public static List getDetalleRemitoByRemito(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM detalleremito e"
-                + " WHERE e.idremito="+id;
+                + " WHERE e.idremito=" + id;
         Query q = em.createNativeQuery(sql, Detalleremito.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getRemitosByNroLIKE(String param) {
+
+    public static List getRemitosByNroLIKE(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM remito e"
                 + " WHERE CAST(e.nroremito as VARCHAR) LIKE '" + param + "%'";
@@ -202,16 +216,16 @@ private static EntityManagerFactory emf = null;
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
-   public static List getRemitosByFechaEmision(String param) {
+
+    public static List getRemitosByFechaEmision(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM remito e"
-                + " WHERE e.fechaemision='"+param+"'";
+                + " WHERE e.fechaemision='" + param + "'";
         Query q = em.createNativeQuery(sql, Remito.class);
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
 
-	
     public static List<Planificacionproduccion> findPlanificacionProduccionByFechafinprevistaMayorActual(Date fecha) {
         EntityManager em = getEntityManager();
         String query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista > :fechaActual";
@@ -222,4 +236,5 @@ private static EntityManagerFactory emf = null;
         } finally {
             em.close();
         }
+    }
 }

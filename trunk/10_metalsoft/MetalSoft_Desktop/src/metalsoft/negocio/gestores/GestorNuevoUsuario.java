@@ -4,7 +4,6 @@
  */
 package metalsoft.negocio.gestores;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,7 +68,7 @@ public class GestorNuevoUsuario {
     }
     public void cargarComboRoles(JComboBox combo) {
         roles = null;
-        RolJpaController controller = new RolJpaController();
+        RolJpaController controller = new RolJpaController(JpaUtil.getEntityManagerFactory());
         roles = controller.findRolEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -84,7 +83,7 @@ public class GestorNuevoUsuario {
 
     public void cargarComboUsuarios(JComboBox combo) {
         List<Usuario> usuarios = null;
-        UsuarioJpaController controller = new UsuarioJpaController();
+        UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
         usuarios = controller.findUsuarioEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -98,8 +97,8 @@ public class GestorNuevoUsuario {
     }
 
     public long guardarUsuario(Usuario user, List<Rol> filasRoles) {
-        UsuarioJpaController controller = new UsuarioJpaController();
-        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
         try {
             controller.create(user);
             List<Usuarioxrol> uxrList = new ArrayList<Usuarioxrol>();
@@ -120,8 +119,8 @@ public class GestorNuevoUsuario {
     }
 
     public long modificarUsuarioXRol(Usuario user, List<Rol> filasRoles) {
-        UsuarioJpaController controller = new UsuarioJpaController();
-        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
         try {
             List<Usuarioxrol> uxrList = new ArrayList<Usuarioxrol>();
             for (Rol rol : filasRoles) {
@@ -143,7 +142,7 @@ public class GestorNuevoUsuario {
     }
     public long eliminarUsuarioXRol(Usuario user, List<Rol> filasRoles) {
         Boolean ban=false;
-        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
         try {
             List<Usuarioxrol> uxrList = new ArrayList<Usuarioxrol>();
             for (Rol rol : filasRoles) {
@@ -163,7 +162,7 @@ public class GestorNuevoUsuario {
         return user.getIdusuario();
     }
     public boolean existeUsuarioXRol(Usuarioxrol uxr) {
-        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController();
+        UsuarioxrolJpaController controllerUxr = new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
         UsuarioxrolPK pk = new UsuarioxrolPK(uxr.getRol().getIdrol(), uxr.getUsuario().getIdusuario());
         Usuarioxrol uxrol = controllerUxr.findUsuarioxrol(pk);
         if (uxrol != null) {
@@ -174,12 +173,12 @@ public class GestorNuevoUsuario {
     }
 
     public Usuario buscarUsuario(long id) {
-        UsuarioJpaController controller = new UsuarioJpaController();
+        UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
         return controller.findUsuario(id);
     }
 
     public long modificarUsuario(Usuario user) {
-        UsuarioJpaController controller = new UsuarioJpaController();
+        UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
         try {
             controller.edit(user);
         } catch (IllegalOrphanException ex) {
@@ -194,7 +193,7 @@ public class GestorNuevoUsuario {
 
     public List<Rol> buscarRolesUsuario(Usuario user) {
         List<Usuarioxrol> list = JpaUtil.getUsuarioXRolByUsuario(user.getIdusuario());
-        RolJpaController con = new RolJpaController();
+        RolJpaController con = new RolJpaController(JpaUtil.getEntityManagerFactory());
         List<Rol> rolList = new LinkedList<Rol>();
         for (Usuarioxrol ur : list) {
             rolList.add(con.findRol(ur.getRol().getIdrol()));
@@ -203,7 +202,7 @@ public class GestorNuevoUsuario {
     }
 
     public Rol buscarRol(long id) {
-        RolJpaController con = new RolJpaController();
+        RolJpaController con = new RolJpaController(JpaUtil.getEntityManagerFactory());
         return con.findRol(id);
     }
 }
