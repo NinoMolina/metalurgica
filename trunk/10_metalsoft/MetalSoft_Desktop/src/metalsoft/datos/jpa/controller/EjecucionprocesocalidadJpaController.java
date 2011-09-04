@@ -12,13 +12,9 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
-import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad;
-import java.util.ArrayList;
 
 /**
  *
@@ -35,50 +31,22 @@ public class EjecucionprocesocalidadJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Ejecucionprocesocalidad ejecucionprocesocalidad) throws IllegalOrphanException, PreexistingEntityException, Exception {
-        List<String> illegalOrphanMessages = null;
-        Procesocalidad iddetalleejecucionplanificacioncalidadOrphanCheck = ejecucionprocesocalidad.getIddetalleejecucionplanificacioncalidad();
-        if (iddetalleejecucionplanificacioncalidadOrphanCheck != null) {
-            Ejecucionprocesocalidad oldEjecucionprocesocalidadOfIddetalleejecucionplanificacioncalidad = iddetalleejecucionplanificacioncalidadOrphanCheck.getEjecucionprocesocalidad();
-            if (oldEjecucionprocesocalidadOfIddetalleejecucionplanificacioncalidad != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("The Procesocalidad " + iddetalleejecucionplanificacioncalidadOrphanCheck + " already has an item of type Ejecucionprocesocalidad whose iddetalleejecucionplanificacioncalidad column cannot be null. Please make another selection for the iddetalleejecucionplanificacioncalidad field.");
-            }
-        }
-        if (illegalOrphanMessages != null) {
-            throw new IllegalOrphanException(illegalOrphanMessages);
-        }
+    public void create(Ejecucionprocesocalidad ejecucionprocesocalidad) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Procesocalidad iddetalleejecucionplanificacioncalidad = ejecucionprocesocalidad.getIddetalleejecucionplanificacioncalidad();
-            if (iddetalleejecucionplanificacioncalidad != null) {
-                iddetalleejecucionplanificacioncalidad = em.getReference(iddetalleejecucionplanificacioncalidad.getClass(), iddetalleejecucionplanificacioncalidad.getIdprocesocalidad());
-                ejecucionprocesocalidad.setIddetalleejecucionplanificacioncalidad(iddetalleejecucionplanificacioncalidad);
-            }
             Estadoejecucionprocesocalidad estado = ejecucionprocesocalidad.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionprocesocalidad.setEstado(estado);
             }
             em.persist(ejecucionprocesocalidad);
-            if (iddetalleejecucionplanificacioncalidad != null) {
-                iddetalleejecucionplanificacioncalidad.setEjecucionprocesocalidad(ejecucionprocesocalidad);
-                iddetalleejecucionplanificacioncalidad = em.merge(iddetalleejecucionplanificacioncalidad);
-            }
             if (estado != null) {
                 estado.getEjecucionprocesocalidadList().add(ejecucionprocesocalidad);
                 estado = em.merge(estado);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findEjecucionprocesocalidad(ejecucionprocesocalidad.getIdejecucion()) != null) {
-                throw new PreexistingEntityException("Ejecucionprocesocalidad " + ejecucionprocesocalidad + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -86,46 +54,19 @@ public class EjecucionprocesocalidadJpaController implements Serializable {
         }
     }
 
-    public void edit(Ejecucionprocesocalidad ejecucionprocesocalidad) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Ejecucionprocesocalidad ejecucionprocesocalidad) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Ejecucionprocesocalidad persistentEjecucionprocesocalidad = em.find(Ejecucionprocesocalidad.class, ejecucionprocesocalidad.getIdejecucion());
-            Procesocalidad iddetalleejecucionplanificacioncalidadOld = persistentEjecucionprocesocalidad.getIddetalleejecucionplanificacioncalidad();
-            Procesocalidad iddetalleejecucionplanificacioncalidadNew = ejecucionprocesocalidad.getIddetalleejecucionplanificacioncalidad();
             Estadoejecucionprocesocalidad estadoOld = persistentEjecucionprocesocalidad.getEstado();
             Estadoejecucionprocesocalidad estadoNew = ejecucionprocesocalidad.getEstado();
-            List<String> illegalOrphanMessages = null;
-            if (iddetalleejecucionplanificacioncalidadNew != null && !iddetalleejecucionplanificacioncalidadNew.equals(iddetalleejecucionplanificacioncalidadOld)) {
-                Ejecucionprocesocalidad oldEjecucionprocesocalidadOfIddetalleejecucionplanificacioncalidad = iddetalleejecucionplanificacioncalidadNew.getEjecucionprocesocalidad();
-                if (oldEjecucionprocesocalidadOfIddetalleejecucionplanificacioncalidad != null) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("The Procesocalidad " + iddetalleejecucionplanificacioncalidadNew + " already has an item of type Ejecucionprocesocalidad whose iddetalleejecucionplanificacioncalidad column cannot be null. Please make another selection for the iddetalleejecucionplanificacioncalidad field.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            if (iddetalleejecucionplanificacioncalidadNew != null) {
-                iddetalleejecucionplanificacioncalidadNew = em.getReference(iddetalleejecucionplanificacioncalidadNew.getClass(), iddetalleejecucionplanificacioncalidadNew.getIdprocesocalidad());
-                ejecucionprocesocalidad.setIddetalleejecucionplanificacioncalidad(iddetalleejecucionplanificacioncalidadNew);
-            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionprocesocalidad.setEstado(estadoNew);
             }
             ejecucionprocesocalidad = em.merge(ejecucionprocesocalidad);
-            if (iddetalleejecucionplanificacioncalidadOld != null && !iddetalleejecucionplanificacioncalidadOld.equals(iddetalleejecucionplanificacioncalidadNew)) {
-                iddetalleejecucionplanificacioncalidadOld.setEjecucionprocesocalidad(null);
-                iddetalleejecucionplanificacioncalidadOld = em.merge(iddetalleejecucionplanificacioncalidadOld);
-            }
-            if (iddetalleejecucionplanificacioncalidadNew != null && !iddetalleejecucionplanificacioncalidadNew.equals(iddetalleejecucionplanificacioncalidadOld)) {
-                iddetalleejecucionplanificacioncalidadNew.setEjecucionprocesocalidad(ejecucionprocesocalidad);
-                iddetalleejecucionplanificacioncalidadNew = em.merge(iddetalleejecucionplanificacioncalidadNew);
-            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getEjecucionprocesocalidadList().remove(ejecucionprocesocalidad);
                 estadoOld = em.merge(estadoOld);
@@ -162,11 +103,6 @@ public class EjecucionprocesocalidadJpaController implements Serializable {
                 ejecucionprocesocalidad.getIdejecucion();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ejecucionprocesocalidad with id " + id + " no longer exists.", enfe);
-            }
-            Procesocalidad iddetalleejecucionplanificacioncalidad = ejecucionprocesocalidad.getIddetalleejecucionplanificacioncalidad();
-            if (iddetalleejecucionplanificacioncalidad != null) {
-                iddetalleejecucionplanificacioncalidad.setEjecucionprocesocalidad(null);
-                iddetalleejecucionplanificacioncalidad = em.merge(iddetalleejecucionplanificacioncalidad);
             }
             Estadoejecucionprocesocalidad estado = ejecucionprocesocalidad.getEstado();
             if (estado != null) {

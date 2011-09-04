@@ -100,7 +100,7 @@ public class Estadoejecucionprocesocalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad[ idestado=" + idestado + " ]";
+        return "metalsoft.datos.jpa.entity.tmp.Estadoejecucionprocesocalidad[ idestado=" + idestado + " ]";
     }
     
 }
