@@ -78,8 +78,6 @@ public class Procesocalidad implements Serializable {
     private List<Maquinaxprocesocalidad> maquinaxprocesocalidadList;
     @OneToMany(mappedBy = "idprocesocalidad")
     private List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "iddetalleejecucionplanificacioncalidad")
-    private Ejecucionprocesocalidad ejecucionprocesocalidad;
     @OneToMany(mappedBy = "procesocalidad")
     private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
     @OneToMany(mappedBy = "idprocesocalidad")
@@ -194,14 +192,6 @@ public class Procesocalidad implements Serializable {
 
     public void setDetallepiezacalidadpresupuestoList(List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList) {
         this.detallepiezacalidadpresupuestoList = detallepiezacalidadpresupuestoList;
-    }
-
-    public Ejecucionprocesocalidad getEjecucionprocesocalidad() {
-        return ejecucionprocesocalidad;
-    }
-
-    public void setEjecucionprocesocalidad(Ejecucionprocesocalidad ejecucionprocesocalidad) {
-        this.ejecucionprocesocalidad = ejecucionprocesocalidad;
     }
 
     public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {

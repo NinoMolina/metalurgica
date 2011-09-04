@@ -13,9 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
 import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.datos.jpa.entity.Pieza;
@@ -36,16 +34,11 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
         return emf.createEntityManager();
     }
 
-    public void create(Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) throws PreexistingEntityException, Exception {
+    public void create(Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Ejecucionprocesocalidad ejecucionprocesocalidad = detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad();
-            if (ejecucionprocesocalidad != null) {
-                ejecucionprocesocalidad = em.getReference(ejecucionprocesocalidad.getClass(), ejecucionprocesocalidad.getIdejecucion());
-                detalleejecucionplanificacioncalidad.setEjecucionprocesocalidad(ejecucionprocesocalidad);
-            }
             Procesocalidad idprocesocalidad = detalleejecucionplanificacioncalidad.getIdprocesocalidad();
             if (idprocesocalidad != null) {
                 idprocesocalidad = em.getReference(idprocesocalidad.getClass(), idprocesocalidad.getIdprocesocalidad());
@@ -67,10 +60,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
                 detalleejecucionplanificacioncalidad.setIdejecucionplanificacioncalidad(idejecucionplanificacioncalidad);
             }
             em.persist(detalleejecucionplanificacioncalidad);
-            if (ejecucionprocesocalidad != null) {
-                ejecucionprocesocalidad.getDetalleejecucionplanificacioncalidadList().add(detalleejecucionplanificacioncalidad);
-                ejecucionprocesocalidad = em.merge(ejecucionprocesocalidad);
-            }
             if (idprocesocalidad != null) {
                 idprocesocalidad.getDetalleejecucionplanificacioncalidadList().add(detalleejecucionplanificacioncalidad);
                 idprocesocalidad = em.merge(idprocesocalidad);
@@ -88,11 +77,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
                 idejecucionplanificacioncalidad = em.merge(idejecucionplanificacioncalidad);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDetalleejecucionplanificacioncalidad(detalleejecucionplanificacioncalidad.getIddetalle()) != null) {
-                throw new PreexistingEntityException("Detalleejecucionplanificacioncalidad " + detalleejecucionplanificacioncalidad + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -106,8 +90,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
             em = getEntityManager();
             em.getTransaction().begin();
             Detalleejecucionplanificacioncalidad persistentDetalleejecucionplanificacioncalidad = em.find(Detalleejecucionplanificacioncalidad.class, detalleejecucionplanificacioncalidad.getIddetalle());
-            Ejecucionprocesocalidad ejecucionprocesocalidadOld = persistentDetalleejecucionplanificacioncalidad.getEjecucionprocesocalidad();
-            Ejecucionprocesocalidad ejecucionprocesocalidadNew = detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad();
             Procesocalidad idprocesocalidadOld = persistentDetalleejecucionplanificacioncalidad.getIdprocesocalidad();
             Procesocalidad idprocesocalidadNew = detalleejecucionplanificacioncalidad.getIdprocesocalidad();
             Piezareal piezarealOld = persistentDetalleejecucionplanificacioncalidad.getPiezareal();
@@ -116,10 +98,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
             Pieza piezaNew = detalleejecucionplanificacioncalidad.getPieza();
             Ejecucionplanificacioncalidad idejecucionplanificacioncalidadOld = persistentDetalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
             Ejecucionplanificacioncalidad idejecucionplanificacioncalidadNew = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
-            if (ejecucionprocesocalidadNew != null) {
-                ejecucionprocesocalidadNew = em.getReference(ejecucionprocesocalidadNew.getClass(), ejecucionprocesocalidadNew.getIdejecucion());
-                detalleejecucionplanificacioncalidad.setEjecucionprocesocalidad(ejecucionprocesocalidadNew);
-            }
             if (idprocesocalidadNew != null) {
                 idprocesocalidadNew = em.getReference(idprocesocalidadNew.getClass(), idprocesocalidadNew.getIdprocesocalidad());
                 detalleejecucionplanificacioncalidad.setIdprocesocalidad(idprocesocalidadNew);
@@ -137,14 +115,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
                 detalleejecucionplanificacioncalidad.setIdejecucionplanificacioncalidad(idejecucionplanificacioncalidadNew);
             }
             detalleejecucionplanificacioncalidad = em.merge(detalleejecucionplanificacioncalidad);
-            if (ejecucionprocesocalidadOld != null && !ejecucionprocesocalidadOld.equals(ejecucionprocesocalidadNew)) {
-                ejecucionprocesocalidadOld.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidad);
-                ejecucionprocesocalidadOld = em.merge(ejecucionprocesocalidadOld);
-            }
-            if (ejecucionprocesocalidadNew != null && !ejecucionprocesocalidadNew.equals(ejecucionprocesocalidadOld)) {
-                ejecucionprocesocalidadNew.getDetalleejecucionplanificacioncalidadList().add(detalleejecucionplanificacioncalidad);
-                ejecucionprocesocalidadNew = em.merge(ejecucionprocesocalidadNew);
-            }
             if (idprocesocalidadOld != null && !idprocesocalidadOld.equals(idprocesocalidadNew)) {
                 idprocesocalidadOld.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidad);
                 idprocesocalidadOld = em.merge(idprocesocalidadOld);
@@ -205,11 +175,6 @@ public class DetalleejecucionplanificacioncalidadJpaController implements Serial
                 detalleejecucionplanificacioncalidad.getIddetalle();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleejecucionplanificacioncalidad with id " + id + " no longer exists.", enfe);
-            }
-            Ejecucionprocesocalidad ejecucionprocesocalidad = detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad();
-            if (ejecucionprocesocalidad != null) {
-                ejecucionprocesocalidad.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidad);
-                ejecucionprocesocalidad = em.merge(ejecucionprocesocalidad);
             }
             Procesocalidad idprocesocalidad = detalleejecucionplanificacioncalidad.getIdprocesocalidad();
             if (idprocesocalidad != null) {

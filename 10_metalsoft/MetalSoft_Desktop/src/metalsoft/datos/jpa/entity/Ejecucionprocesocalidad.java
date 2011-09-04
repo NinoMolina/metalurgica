@@ -7,9 +7,7 @@ package metalsoft.datos.jpa.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -71,14 +67,9 @@ public class Ejecucionprocesocalidad implements Serializable {
     private String nombre;
     @Column(name = "observacion")
     private String observacion;
-    @JoinColumn(name = "iddetalleejecucionplanificacioncalidad", referencedColumnName = "idprocesocalidad")
-    @OneToOne(optional = false)
-    private Procesocalidad iddetalleejecucionplanificacioncalidad;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecucionprocesocalidad estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionprocesocalidad")
-    private List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList;
 
     public Ejecucionprocesocalidad() {
     }
@@ -159,28 +150,12 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.observacion = observacion;
     }
 
-    public Procesocalidad getIddetalleejecucionplanificacioncalidad() {
-        return iddetalleejecucionplanificacioncalidad;
-    }
-
-    public void setIddetalleejecucionplanificacioncalidad(Procesocalidad iddetalleejecucionplanificacioncalidad) {
-        this.iddetalleejecucionplanificacioncalidad = iddetalleejecucionplanificacioncalidad;
-    }
-
     public Estadoejecucionprocesocalidad getEstado() {
         return estado;
     }
 
     public void setEstado(Estadoejecucionprocesocalidad estado) {
         this.estado = estado;
-    }
-
-    public List<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadList() {
-        return detalleejecucionplanificacioncalidadList;
-    }
-
-    public void setDetalleejecucionplanificacioncalidadList(List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList) {
-        this.detalleejecucionplanificacioncalidadList = detalleejecucionplanificacioncalidadList;
     }
 
     @Override
@@ -205,7 +180,7 @@ public class Ejecucionprocesocalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Ejecucionprocesocalidad[ idejecucion=" + idejecucion + " ]";
+        return "metalsoft.datos.jpa.entity.tmp.Ejecucionprocesocalidad[ idejecucion=" + idejecucion + " ]";
     }
     
 }
