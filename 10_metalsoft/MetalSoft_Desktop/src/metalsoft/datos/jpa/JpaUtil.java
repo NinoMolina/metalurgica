@@ -247,4 +247,12 @@ public class JpaUtil {
 //        Query q = em.createQuery(sql, Pedido.class);
         return q.getResultList();
     }
+    public static List getPedidosByNroLIKE(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Pedido e"
+                + " WHERE CAST(e.nropedido as VARCHAR) LIKE '" + param + "%'";
+        Query q = em.createNativeQuery(sql, Pedido.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
+    }
 }
