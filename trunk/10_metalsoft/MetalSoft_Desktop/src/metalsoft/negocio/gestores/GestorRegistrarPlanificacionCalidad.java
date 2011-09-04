@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.PresupuestoJpaController;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
+import metalsoft.datos.jpa.entity.Presupuesto;
 import metalsoft.negocio.access.AccessViews;
 
 /**
@@ -43,6 +46,11 @@ public class GestorRegistrarPlanificacionCalidad {
 
     public boolean guardarPlanificacionCalidad(Planificacioncalidad plan, List<Detalleplanificacioncalidad> detalle) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public Presupuesto buscarPresupuesto(long idPresupuesto) {
+        PresupuestoJpaController ctrl = new PresupuestoJpaController(JpaUtil.getEntityManagerFactory());
+        return ctrl.findPresupuesto(idPresupuesto);
     }
 
 }
