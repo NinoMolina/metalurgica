@@ -239,7 +239,7 @@ public class JpaUtil {
         }
     }
 
-    public static List getRemitosByFechaEmision(String param) {
+    public static List getListadoMateriaPrimaAcomprar(String param) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT dpp.* FROM detalleproductopresupuesto dpp, detallepresupuesto dpre, detallepedido dped"
                 + " WHERE dpp.iddetallepresupuesto=dpre.iddetalle and dpre.iddetallepedido=dped.iddetalle and dped.idpedido=" + param;
