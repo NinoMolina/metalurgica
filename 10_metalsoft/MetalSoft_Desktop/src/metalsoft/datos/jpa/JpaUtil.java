@@ -15,6 +15,7 @@ import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
@@ -236,5 +237,14 @@ public class JpaUtil {
         } finally {
             em.close();
         }
+    }
+
+    public static List getRemitosByFechaEmision(String param) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT dpp.* FROM detalleproductopresupuesto dpp, detallepresupuesto dpre, detallepedido dped"
+                + " WHERE dpp.iddetallepresupuesto=dpre.iddetalle and dpre.iddetallepedido=dped.iddetalle and dped.idpedido=" + param;
+        Query q = em.createNativeQuery(sql, Detalleproductopresupuesto.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+        return q.getResultList();
     }
 }
