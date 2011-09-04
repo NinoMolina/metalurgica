@@ -8,11 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +31,8 @@ public class Mpasignadaxpiezareal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mpasignadaxpiezareal_seq")
+    @SequenceGenerator(name = "mpasignadaxpiezareal_seq", sequenceName = "mpasignadaxpiezareal_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @JoinColumn(name = "idpiezareal", referencedColumnName = "idpiezareal")

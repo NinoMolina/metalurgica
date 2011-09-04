@@ -9,9 +9,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +45,8 @@ public class Calendario implements Serializable {
     private Integer anio;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "calendario_seq")
+    @SequenceGenerator(name = "calendario_seq", sequenceName = "calendario_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "fecha")
