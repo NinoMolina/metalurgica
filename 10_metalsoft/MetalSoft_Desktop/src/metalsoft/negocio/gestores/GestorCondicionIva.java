@@ -15,6 +15,7 @@ import metalsoft.datos.dbobject.CondicionivaPKDB;
 import metalsoft.datos.exception.CondicionivaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.CondicionivaDAO;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.ventas.CondicionIva;
@@ -34,7 +35,7 @@ public class GestorCondicionIva {
          * JPA
          */
         metalsoft.datos.jpa.entity.Condicioniva ci=new metalsoft.datos.jpa.entity.Condicioniva();
-        CondicionivaJpaController con=new CondicionivaJpaController();
+        CondicionivaJpaController con=new CondicionivaJpaController(JpaUtil.getEntityManagerFactory());
 
         ci.setNombre(nombre);
         ci.setDescripcion(descripcion);

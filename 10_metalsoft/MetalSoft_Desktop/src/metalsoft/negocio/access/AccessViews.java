@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
@@ -740,5 +741,9 @@ public class AccessViews {
         } else {
             return false;
         }
+    }
+
+    public static LinkedList<ViewPedidoConPlanificacionProduccion> allPedidosConPlanificacionProduccion(Connection cn) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

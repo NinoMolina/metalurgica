@@ -12,10 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.dbobject.LocalidadDB;
 
-import metalsoft.datos.exception.BarrioException;
-import metalsoft.datos.exception.LocalidadException;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.controller.CondicionivaJpaController;
 import metalsoft.datos.jpa.controller.DomicilioJpaController;
@@ -23,7 +21,6 @@ import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.LocalidadJpaController;
 import metalsoft.datos.jpa.controller.ProvinciaJpaController;
 import metalsoft.datos.jpa.controller.ResponsableJpaController;
-import metalsoft.datos.jpa.controller.RolJpaController;
 import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Provincia;
@@ -34,10 +31,8 @@ import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Responsable;
-import metalsoft.negocio.access.AccessEmpresaMetalurgica;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.Parser;
 
 /**
  *
@@ -58,14 +53,14 @@ public class GestorEmpresaMetalurgica {
 
     public Empresametalurgica buscarEmpresaMetalurgica(long id)
     {
-        EmpresametalurgicaJpaController controller=new EmpresametalurgicaJpaController();
+        EmpresametalurgicaJpaController controller=new EmpresametalurgicaJpaController(JpaUtil.getEntityManagerFactory());
         Empresametalurgica empresa=controller.findEmpresametalurgica(id);
         return empresa;
     }
     public void buscarCondicionIva(JComboBox combo) {
         try {
             List<Condicioniva> condiciones = null;
-            CondicionivaJpaController controller = new CondicionivaJpaController();
+            CondicionivaJpaController controller = new CondicionivaJpaController(JpaUtil.getEntityManagerFactory());
             condiciones = controller.findCondicionivaEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -84,7 +79,7 @@ public class GestorEmpresaMetalurgica {
     public void obtenerTipoDocumentos(JComboBox combo) {
         try {
             List<Tipodocumento> tipoDocumentos = null;
-            TipodocumentoJpaController controller = new TipodocumentoJpaController();
+            TipodocumentoJpaController controller = new TipodocumentoJpaController(JpaUtil.getEntityManagerFactory());
             tipoDocumentos = controller.findTipodocumentoEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -103,7 +98,7 @@ public class GestorEmpresaMetalurgica {
     public void obtenerProvincias(JComboBox combo) {
         try {
             List<Provincia> provincias = null;
-            ProvinciaJpaController controller = new ProvinciaJpaController();
+            ProvinciaJpaController controller = new ProvinciaJpaController(JpaUtil.getEntityManagerFactory());
             provincias = controller.findProvinciaEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -123,7 +118,7 @@ public class GestorEmpresaMetalurgica {
 
         try {
             List<Localidad> localidades = null;
-            ProvinciaJpaController controller = new ProvinciaJpaController();
+            ProvinciaJpaController controller = new ProvinciaJpaController(JpaUtil.getEntityManagerFactory());
             localidades = controller.findProvincia(id).getLocalidadList();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -143,7 +138,7 @@ public class GestorEmpresaMetalurgica {
 
         try {
             List<Barrio> barrios = null;
-            LocalidadJpaController controller = new LocalidadJpaController();
+            LocalidadJpaController controller = new LocalidadJpaController(JpaUtil.getEntityManagerFactory());
             barrios = controller.findLocalidad(id).getBarrioList();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -161,9 +156,9 @@ public class GestorEmpresaMetalurgica {
     }
 
     public long guardarEmpresaMetalurgica(Empresametalurgica empresa) {
-        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
-        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
-        ResponsableJpaController controllerResponsable = new ResponsableJpaController();
+        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController(JpaUtil.getEntityManagerFactory());
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController(JpaUtil.getEntityManagerFactory());
+        ResponsableJpaController controllerResponsable = new ResponsableJpaController(JpaUtil.getEntityManagerFactory());
         try {
             controllerDomicilio.create(empresa.getResponsable().getDomicilio());
             controllerResponsable.create(empresa.getResponsable());
@@ -179,9 +174,9 @@ public class GestorEmpresaMetalurgica {
     }
     public long modificarEmpresaMetalurgica(Empresametalurgica empresa)
     {
-        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
-        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
-        ResponsableJpaController controllerResponsable = new ResponsableJpaController();
+        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController(JpaUtil.getEntityManagerFactory());
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController(JpaUtil.getEntityManagerFactory());
+        ResponsableJpaController controllerResponsable = new ResponsableJpaController(JpaUtil.getEntityManagerFactory());
         Domicilio domResp=null;
         Responsable resp=null;
         Domicilio domicilio=null;
@@ -230,17 +225,17 @@ public class GestorEmpresaMetalurgica {
     }
     public Condicioniva obtenerCondicionIva(long id)
     {
-        CondicionivaJpaController controller=new CondicionivaJpaController();
+        CondicionivaJpaController controller=new CondicionivaJpaController(JpaUtil.getEntityManagerFactory());
         return controller.findCondicioniva(id);
     }
     public Tipodocumento obtenerTipoDocumento(long id)
     {
-        TipodocumentoJpaController controller=new TipodocumentoJpaController();
+        TipodocumentoJpaController controller=new TipodocumentoJpaController(JpaUtil.getEntityManagerFactory());
         return controller.findTipodocumento(id);
     }
     public Barrio obtenerBarrio(long id)
     {
-        BarrioJpaController controller=new BarrioJpaController();
+        BarrioJpaController controller=new BarrioJpaController(JpaUtil.getEntityManagerFactory());
         return controller.findBarrio(id);
     }
 }
