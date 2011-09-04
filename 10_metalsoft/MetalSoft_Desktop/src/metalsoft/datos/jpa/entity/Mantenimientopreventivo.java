@@ -57,13 +57,16 @@ public class Mantenimientopreventivo implements Serializable {
     @Column(name = "horaenviomantenimiento")
     @Temporal(TemporalType.TIME)
     private Date horaenviomantenimiento;
-    @Column(name = "periodo")
-    private String periodo;
     @Column(name = "nromantenimietno")
     private BigInteger nromantenimietno;
     @Column(name = "fechafinmantenimientoreal")
     @Temporal(TemporalType.DATE)
     private Date fechafinmantenimientoreal;
+    @Column(name = "periodo")
+    private BigInteger periodo;
+    @Column(name = "duraciontotal")
+    @Temporal(TemporalType.TIME)
+    private Date duraciontotal;
     @Column(name = "maquina")
     private BigInteger maquina;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo")
@@ -111,11 +114,19 @@ public class Mantenimientopreventivo implements Serializable {
         this.horaenviomantenimiento = horaenviomantenimiento;
     }
 
-    public String getPeriodo() {
+    public Date getDuraciontotal() {
+        return duraciontotal;
+    }
+
+    public void setDuraciontotal(Date duraciontotal) {
+        this.duraciontotal = duraciontotal;
+    }
+
+    public BigInteger getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(String periodo) {
+    public void setPeriodo(BigInteger periodo) {
         this.periodo = periodo;
     }
 

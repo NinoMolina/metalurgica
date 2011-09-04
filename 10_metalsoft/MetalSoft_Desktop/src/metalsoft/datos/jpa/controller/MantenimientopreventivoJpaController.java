@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
@@ -35,7 +34,7 @@ public class MantenimientopreventivoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Mantenimientopreventivo mantenimientopreventivo) throws PreexistingEntityException, Exception {
+    public void create(Mantenimientopreventivo mantenimientopreventivo) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -65,11 +64,6 @@ public class MantenimientopreventivoJpaController implements Serializable {
                 proveedormantenimiento = em.merge(proveedormantenimiento);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findMantenimientopreventivo(mantenimientopreventivo.getIdmantenimientopreventivo()) != null) {
-                throw new PreexistingEntityException("Mantenimientopreventivo " + mantenimientopreventivo + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
