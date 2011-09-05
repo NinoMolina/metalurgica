@@ -106,6 +106,7 @@ public class Principal extends javax.swing.JFrame {
         mniRegistrarPresupuesto = new javax.swing.JMenuItem();
         mniProveedor = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
         mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
@@ -368,6 +369,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCompras.add(jMenuItem3);
+
+        jMenuItem4.setText("Listado Materia Prima A Comprar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(jMenuItem4);
 
         mbrMenu.add(mnuCompras);
 
@@ -1191,10 +1200,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCancelarPedidoDeCotizacionActionPerformed
 
     private void mniCambiarContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCambiarContraseniaActionPerformed
-        CambiarContrasenia v=null;
+        CambiarContrasenia v = null;
         try {
-            v=(CambiarContrasenia) JFrameManager.crearVentana(CambiarContrasenia.class.getName());
-            GestorNuevoUsuario gestor= new GestorNuevoUsuario();
+            v = (CambiarContrasenia) JFrameManager.crearVentana(CambiarContrasenia.class.getName());
+            GestorNuevoUsuario gestor = new GestorNuevoUsuario();
             v.setUsuario(gestor.buscarUsuario(usuario.getIdusuario()));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1206,7 +1215,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCambiarContraseniaActionPerformed
 
     private void mniAdministrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdministrarUsuariosActionPerformed
-        
+
         try {
             JFrameManager.crearVentana(AdministrarUsuario.class.getName());
 
@@ -1246,7 +1255,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniConsultarRemitosActionPerformed
 
     private void mniTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTipoDocActionPerformed
-     try {
+        try {
             JFrameManager.crearVentana(ABMTipoDocumento.class.getName());
 
         } catch (ClassNotFoundException ex) {
@@ -1257,6 +1266,19 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniTipoDocActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        try {
+            JFrameManager.crearVentana(ConsultarListadoMateriaPrimaAComprar.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1276,6 +1298,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
     private metalsoft.beans.JPanelTransparente jPanelTransparente2;
     private javax.swing.JSeparator jSeparator1;
