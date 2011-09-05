@@ -42,8 +42,6 @@ public class Plano implements Serializable {
     private Integer escala;
     @JoinColumn(name = "imagen")
     private Serializable imagen;
-    @OneToMany(mappedBy = "plano")
-    private List<Pedido> pedidoList;
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
@@ -85,14 +83,6 @@ public class Plano implements Serializable {
 
     public void setImagen(Serializable imagen) {
         this.imagen = imagen;
-    }
-
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
-    }
-
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
     }
 
     public Pedido getPedido() {

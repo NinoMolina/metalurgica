@@ -13,14 +13,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Prioridad;
 import metalsoft.datos.jpa.entity.Presupuesto;
 import metalsoft.datos.jpa.entity.Planrequerimientosmateriaprima;
 import metalsoft.datos.jpa.entity.Planprocesoscalidad;
 import metalsoft.datos.jpa.entity.Planprocedimientos;
-import metalsoft.datos.jpa.entity.Plano;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Estadopedido;
 import metalsoft.datos.jpa.entity.Cliente;
@@ -28,6 +26,7 @@ import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import java.util.ArrayList;
 import java.util.List;
 import metalsoft.datos.jpa.entity.Productoreal;
+import metalsoft.datos.jpa.entity.Plano;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Remito;
@@ -49,7 +48,7 @@ public class PedidoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Pedido pedido) throws PreexistingEntityException, Exception {
+    public void create(Pedido pedido) {
         if (pedido.getPlanificacionproduccionList() == null) {
             pedido.setPlanificacionproduccionList(new ArrayList<Planificacionproduccion>());
         }
@@ -102,11 +101,6 @@ public class PedidoJpaController implements Serializable {
             if (planprocedimientos != null) {
                 planprocedimientos = em.getReference(planprocedimientos.getClass(), planprocedimientos.getIdplanprocedimientos());
                 pedido.setPlanprocedimientos(planprocedimientos);
-            }
-            Plano plano = pedido.getPlano();
-            if (plano != null) {
-                plano = em.getReference(plano.getClass(), plano.getIdplano());
-                pedido.setPlano(plano);
             }
             Factura factura = pedido.getFactura();
             if (factura != null) {
@@ -191,10 +185,6 @@ public class PedidoJpaController implements Serializable {
             if (planprocedimientos != null) {
                 planprocedimientos.getPedidoList().add(pedido);
                 planprocedimientos = em.merge(planprocedimientos);
-            }
-            if (plano != null) {
-                plano.getPedidoList().add(pedido);
-                plano = em.merge(plano);
             }
             if (factura != null) {
                 factura.getPedidoList().add(pedido);
@@ -281,11 +271,6 @@ public class PedidoJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPedido(pedido.getIdpedido()) != null) {
-                throw new PreexistingEntityException("Pedido " + pedido + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -309,8 +294,6 @@ public class PedidoJpaController implements Serializable {
             Planprocesoscalidad planprocesoscalidadNew = pedido.getPlanprocesoscalidad();
             Planprocedimientos planprocedimientosOld = persistentPedido.getPlanprocedimientos();
             Planprocedimientos planprocedimientosNew = pedido.getPlanprocedimientos();
-            Plano planoOld = persistentPedido.getPlano();
-            Plano planoNew = pedido.getPlano();
             Factura facturaOld = persistentPedido.getFactura();
             Factura facturaNew = pedido.getFactura();
             Estadopedido estadoOld = persistentPedido.getEstado();
@@ -364,10 +347,6 @@ public class PedidoJpaController implements Serializable {
             if (planprocedimientosNew != null) {
                 planprocedimientosNew = em.getReference(planprocedimientosNew.getClass(), planprocedimientosNew.getIdplanprocedimientos());
                 pedido.setPlanprocedimientos(planprocedimientosNew);
-            }
-            if (planoNew != null) {
-                planoNew = em.getReference(planoNew.getClass(), planoNew.getIdplano());
-                pedido.setPlano(planoNew);
             }
             if (facturaNew != null) {
                 facturaNew = em.getReference(facturaNew.getClass(), facturaNew.getIdfactura());
@@ -477,14 +456,6 @@ public class PedidoJpaController implements Serializable {
             if (planprocedimientosNew != null && !planprocedimientosNew.equals(planprocedimientosOld)) {
                 planprocedimientosNew.getPedidoList().add(pedido);
                 planprocedimientosNew = em.merge(planprocedimientosNew);
-            }
-            if (planoOld != null && !planoOld.equals(planoNew)) {
-                planoOld.getPedidoList().remove(pedido);
-                planoOld = em.merge(planoOld);
-            }
-            if (planoNew != null && !planoNew.equals(planoOld)) {
-                planoNew.getPedidoList().add(pedido);
-                planoNew = em.merge(planoNew);
             }
             if (facturaOld != null && !facturaOld.equals(facturaNew)) {
                 facturaOld.getPedidoList().remove(pedido);
@@ -704,11 +675,6 @@ public class PedidoJpaController implements Serializable {
             if (planprocedimientos != null) {
                 planprocedimientos.getPedidoList().remove(pedido);
                 planprocedimientos = em.merge(planprocedimientos);
-            }
-            Plano plano = pedido.getPlano();
-            if (plano != null) {
-                plano.getPedidoList().remove(pedido);
-                plano = em.merge(plano);
             }
             Factura factura = pedido.getFactura();
             if (factura != null) {

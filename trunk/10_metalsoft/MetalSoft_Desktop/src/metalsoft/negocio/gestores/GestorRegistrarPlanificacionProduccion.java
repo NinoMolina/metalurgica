@@ -97,7 +97,7 @@ public class GestorRegistrarPlanificacionProduccion {
         PlanificacionproduccionJpaController ctrlPlanificacion = new PlanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
         DetalleplanificacionproduccionJpaController ctrlDetalle = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
         PedidoJpaController ctrlPedido = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
-        EntityManager em = ctrlDetalle.getEntityManager();
+        EntityManager em = JpaUtil.getEntityManager();
         boolean result = false;
         long nvoNroPlanifProd = -1;
         PostgreSQLManager pg = new PostgreSQLManager();

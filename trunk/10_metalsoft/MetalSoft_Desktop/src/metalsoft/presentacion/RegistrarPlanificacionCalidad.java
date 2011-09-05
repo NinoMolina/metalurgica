@@ -25,6 +25,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreePath;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
+import metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto;
 import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
@@ -35,6 +36,7 @@ import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Pieza;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
+import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionCalidad;
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -83,6 +85,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     private final int EMPLEADO = 1;
     private final int MAQUINA = 2;
     private final int EMPLEADO_MAQUINA = 3;
+    private Date fechaFinPrevista;
+    private Date horaFinPrevista;
 
     /** Creates new form RegistrarPlanificacionCalidad */
     public RegistrarPlanificacionCalidad() {
@@ -133,9 +137,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         TreePath tpAnterior = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow() - 1);
         Object objAnterior = tpAnterior.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
-        if (obj instanceof EtapaProduccionNode && objAnterior instanceof EtapaProduccionNode) {
-            EtapaProduccionNode node = (EtapaProduccionNode) obj;
-            EtapaProduccionNode nodeAnterior = (EtapaProduccionNode) objAnterior;
+        if (obj instanceof ProcesoCalidadNode && objAnterior instanceof ProcesoCalidadNode) {
+            ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
+            ProcesoCalidadNode nodeAnterior = (ProcesoCalidadNode) objAnterior;
 //            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
 //            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
             Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
@@ -192,9 +196,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         try {
             Object objSiguiente = tpSiguiente.getLastPathComponent();
             //el nodo seleccionado tiene que ser uno de etapaproduccion
-            if (obj instanceof EtapaProduccionNode && objSiguiente instanceof EtapaProduccionNode) {
-                EtapaProduccionNode node = (EtapaProduccionNode) obj;
-                EtapaProduccionNode nodeSiguiente = (EtapaProduccionNode) objSiguiente;
+            if (obj instanceof ProcesoCalidadNode && objSiguiente instanceof ProcesoCalidadNode) {
+                ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
+                ProcesoCalidadNode nodeSiguiente = (ProcesoCalidadNode) objSiguiente;
                 Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
 //            System.out.println("Node NvoFin: "+fin);
                 nodeSiguiente.setFinEtapa(fin);
@@ -247,8 +251,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             /*
              * obtengo cada una de las etapas de produccion
              */
-            if (obj instanceof EtapaProduccionNode) {
-                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
                 PiezaNode piezaNode = (PiezaNode) node.getParent();
                 ProductoNode productoNode = (ProductoNode) piezaNode.getParent();
 
@@ -297,7 +301,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
                 Producto prod = productoNode.getProducto();
                 Pieza pieza = piezaNode.getPieza();
-                Etapadeproduccion etapa = node.getEtapa();
+                Procesocalidad procesoCalidad = node.getProcesoCalidad();
 
                 /*
                  * por cada etapa de produccion se crea un detalle de planificacion produccion
@@ -367,10 +371,16 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             return;
         }
         viewPedidoSeleccionado = filasPedidosConPlanificacionProduccion.get(tblPedidos.getSelectedRow());
-//        presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
+        presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
         setVisiblePanel(pnlTreeTable.getName());
         setEnabledComponents(true);
         cargarDatosTreeTable(presupuesto.getDetallepresupuestoList());
+    }
+    
+    private void buscarFechaHoraFinProduccionPrevista() {
+        fechaFinPrevista = viewPedidoSeleccionado.getFechafinprevista();
+        Long idPlanificacionProduccion = viewPedidoSeleccionado.getIdplanificacionproduccion();
+        horaFinPrevista = gestor.obtenerHoraFinPrevista(idPlanificacionProduccion);
     }
 
     private void setearTablas() {
@@ -884,7 +894,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         }
         for (Empleado empleado : list) {
             TreePath path = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
-            EtapaProduccionNode node = (EtapaProduccionNode) path.getLastPathComponent();
+            ProcesoCalidadNode node = (ProcesoCalidadNode) path.getLastPathComponent();
             List<Detalleplanificacionproduccion> set = empleado.getDetalleplanificacionproduccionList();
             for (Detalleplanificacionproduccion detalle : set) {
                 GregorianCalendar detalleInicio = new GregorianCalendar();
@@ -917,7 +927,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         }
         Object obj = tp.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
-        if (obj instanceof EtapaProduccionNode) {
+        if (obj instanceof ProcesoCalidadNode) {
             return true;
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción\npara poder asignar");
@@ -925,17 +935,17 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         return false;
     }
 
-    private boolean haySuperposicionEmpleado(EtapaProduccionNode nodeActual) {
+    private boolean haySuperposicionEmpleado(ProcesoCalidadNode nodeActual) {
 
 
         TreePath tp = null;
-        EtapaProduccionNode node = null;
+        ProcesoCalidadNode node = null;
         for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
 
-            if (obj instanceof EtapaProduccionNode) {
-                node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                node = (ProcesoCalidadNode) obj;
 
                 if (nodeActual.equals(node) || node.getEmpleado() == null) {
                     continue;
@@ -954,17 +964,17 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
     }
 
-    private boolean haySuperposicionMaquina(EtapaProduccionNode nodeActual) {
+    private boolean haySuperposicionMaquina(ProcesoCalidadNode nodeActual) {
 
 
         TreePath tp = null;
-        EtapaProduccionNode node = null;
+        ProcesoCalidadNode node = null;
         for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
 
-            if (obj instanceof EtapaProduccionNode) {
-                node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                node = (ProcesoCalidadNode) obj;
 
                 if (nodeActual.equals(node) || node.getMaquina() == null) {
                     continue;
@@ -983,16 +993,16 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
     }
 
-    private boolean haySuperposicionEmpleadoMaquina(EtapaProduccionNode nodeActual) {
+    private boolean haySuperposicionEmpleadoMaquina(ProcesoCalidadNode nodeActual) {
 
         TreePath tp = null;
-        EtapaProduccionNode node = null;
+        ProcesoCalidadNode node = null;
         for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             tp = trtDetalleProcProd.getPathForRow(i);
             Object obj = tp.getLastPathComponent();
 
-            if (obj instanceof EtapaProduccionNode) {
-                node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                node = (ProcesoCalidadNode) obj;
 
                 if (nodeActual.equals(node)) {
                     continue;
@@ -1023,7 +1033,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
     }
 
-    private boolean superposicion(EtapaProduccionNode node, EtapaProduccionNode nodeActual) {
+    private boolean superposicion(ProcesoCalidadNode node, ProcesoCalidadNode nodeActual) {
         Date finNode = node.getFinEtapa();
         Date inicioNode = node.getInicioEtapa();
         Date inicioNodeActual = nodeActual.getInicioEtapa();
@@ -1065,7 +1075,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         return false;
     }
 
-    private boolean haySuperposicionAsignacion(EtapaProduccionNode node, int tipo) {
+    private boolean haySuperposicionAsignacion(ProcesoCalidadNode node, int tipo) {
 
         switch (tipo) {
             case EMPLEADO:
@@ -1085,7 +1095,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         }
         for (Maquina maquina : list) {
             TreePath path = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
-            EtapaProduccionNode node = (EtapaProduccionNode) path.getLastPathComponent();
+            ProcesoCalidadNode node = (ProcesoCalidadNode) path.getLastPathComponent();
             List<Detalleplanificacionproduccion> set = maquina.getDetalleplanificacionproduccionList();
             for (Detalleplanificacionproduccion detalle : set) {
                 GregorianCalendar detalleInicio = new GregorianCalendar();
@@ -1123,6 +1133,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     }
 
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
+        
+        buscarFechaHoraFinProduccionPrevista();
+        
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
@@ -1152,23 +1165,27 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                 prod.setDetalleProductoPresupuesto(detProPre);
                 pieza = new PiezaNode(detProPre.getIdpieza());
                 prod.add(pieza);
-                List<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> setDetPiPre = detProPre.getDetallepiezapresupuestoList();
-                metalsoft.datos.jpa.entity.Detallepiezapresupuesto detPiPre = null;
-                Iterator<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> itDetPiPre = setDetPiPre.iterator();
-                EtapaProduccionNode etapaProd = null;
+                List<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> setDetPiPre = detProPre.getDetallepiezacalidadpresupuestoList();
+                metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto detPiPre = null;
+                Iterator<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> itDetPiPre = setDetPiPre.iterator();
+                ProcesoCalidadNode procesoCalidadNode = null;
                 /*
                  * recorro las piezas de cada producto
                  */
                 while (itDetPiPre.hasNext()) {
                     detPiPre = itDetPiPre.next();
-                    etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
+                    procesoCalidadNode = new ProcesoCalidadNode(detPiPre.getIdprocesocalidad());
 //                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
-                    etapaProd.setDetallePiezaPresupuesto(detPiPre);
+                    procesoCalidadNode.setDetallePiezaCalidadPresupuesto(detPiPre);
                     int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
                     int horaFinJornada = Jornada.HORA_FIN_JORNADA;
                     Date fechaInicio = null;
                     if (finEtapaAnterior == null) {
-                        fechaInicio = Fecha.fechaActualDate();
+                        fechaInicio = fechaFinPrevista;
+                        fechaInicio.setHours(horaFinPrevista.getHours());
+                        fechaInicio.setMinutes(horaFinPrevista.getMinutes());
+                        fechaInicio.setSeconds(horaFinPrevista.getSeconds());
+//                        fechaInicio = Fecha.fechaActualDate();
                     } else {
                         fechaInicio = finEtapaAnterior;
                     }
@@ -1177,10 +1194,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 //                    inicio.setTime(new Date());
                     inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
                     inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
-                    etapaProd.setInicioEtapa(inicio.getTime());
-                    etapaProd.setFinEtapa(fin.getTime());
-                    pieza.add(etapaProd);
+                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionxpieza().getHours(), detPiPre.getDuracionxpieza().getMinutes());
+                    procesoCalidadNode.setInicioEtapa(inicio.getTime());
+                    procesoCalidadNode.setFinEtapa(fin.getTime());
+                    pieza.add(procesoCalidadNode);
                     finEtapaAnterior = fin.getTime();
                 }
 
@@ -1279,10 +1296,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             /*
              * para cada pieza agrego subtareas que en este caso serian las etapas de produccion
              */
-            if (obj instanceof EtapaProduccionNode) {
-                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
                 //                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
-                Task subTaskActual = new Task(node.getEtapa().getNombre(),
+                Task subTaskActual = new Task(node.getProcesoCalidad().getNombre(),
                         node.getInicioEtapa(),
                         node.getFinEtapa());
                 taskActual.addSubtask(subTaskActual);
@@ -1367,9 +1384,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
-        EtapaProduccionNode node = null;
-        if (obj instanceof EtapaProduccionNode) {
-            node = (EtapaProduccionNode) obj;
+        ProcesoCalidadNode node = null;
+        if (obj instanceof ProcesoCalidadNode) {
+            node = (ProcesoCalidadNode) obj;
             /*
              * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
              */
@@ -1392,8 +1409,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
-        if (obj instanceof EtapaProduccionNode) {
-            EtapaProduccionNode node = (EtapaProduccionNode) obj;
+        if (obj instanceof ProcesoCalidadNode) {
+            ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
             node.setMaquina(maquinaSeleccionada);
             /*
              * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
@@ -1465,6 +1482,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
+
+
 
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
@@ -1702,12 +1721,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
         }
     }
 
-    class EtapaProduccionNode extends AbstractMutableTreeTableNode {
+    class ProcesoCalidadNode extends AbstractMutableTreeTableNode {
 
-        private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
+        private metalsoft.datos.jpa.entity.Procesocalidad procesoCalidad;
         private metalsoft.datos.jpa.entity.Maquina maquina;
         private metalsoft.datos.jpa.entity.Empleado empleado;
-        private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
+        private metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto detallePiezaCalidadPresupuesto;
         private Date inicioEtapa, finEtapa;
 
         public Date getFinEtapa() {
@@ -1726,16 +1745,24 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             this.inicioEtapa = inicioEtapa;
         }
 
-        public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
+        public ProcesoCalidadNode(metalsoft.datos.jpa.entity.Procesocalidad procesocalidad) {
+            this.procesoCalidad = procesocalidad;
         }
 
-        public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
-            return detallePiezaPresupuesto;
+        public Detallepiezacalidadpresupuesto getDetallePiezaCalidadPresupuesto() {
+            return detallePiezaCalidadPresupuesto;
         }
 
-        public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
-            this.detallePiezaPresupuesto = detallePiezaPresupuesto;
+        public void setDetallePiezaCalidadPresupuesto(Detallepiezacalidadpresupuesto detallePiezaCalidadPresupuesto) {
+            this.detallePiezaCalidadPresupuesto = detallePiezaCalidadPresupuesto;
+        }
+
+        public Procesocalidad getProcesoCalidad() {
+            return procesoCalidad;
+        }
+
+        public void setProcesoCalidad(Procesocalidad procesoCalidad) {
+            this.procesoCalidad = procesoCalidad;
         }
 
         public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
@@ -1744,14 +1771,6 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
         public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
             this.empleado = empleado;
-        }
-
-        public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
-            return etapa;
-        }
-
-        public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
         }
 
         public metalsoft.datos.jpa.entity.Maquina getMaquina() {
@@ -1766,7 +1785,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             try {
                 switch (i) {
                     case 0:
-                        return etapa.getNombre();
+                        return procesoCalidad.getNombre();
                     case 1:
                         return Fecha.parseToStringFechaHora(getInicioEtapa());
                     case 2:
@@ -1790,8 +1809,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             GregorianCalendar inicio = null;
             TreePath treePath = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getEditingRow());
             Object obj = treePath.getLastPathComponent();
-            if (obj instanceof EtapaProduccionNode) {
-                EtapaProduccionNode node = (EtapaProduccionNode) obj;
+            if (obj instanceof ProcesoCalidadNode) {
+                ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
 
                 switch (column) {
                     case 1:
@@ -1810,8 +1829,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                         inicio.setTime(node.getInicioEtapa());
                         node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA,
                                 Jornada.HORA_FIN_JORNADA, inicio,
-                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours(),
-                                node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes()).getTime());
+                                node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours(),
+                                node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes()).getTime());
                         /*
                          * validar que la nueva fecha y hora no se superponga con alguna de las otras etapas que tenga
                          * la misma maquina y empleado

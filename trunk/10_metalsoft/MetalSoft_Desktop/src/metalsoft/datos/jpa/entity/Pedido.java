@@ -99,9 +99,6 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "planprocedimientos", referencedColumnName = "idplanprocedimientos")
     @ManyToOne
     private Planprocedimientos planprocedimientos;
-    @JoinColumn(name = "plano", referencedColumnName = "idplano")
-    @ManyToOne
-    private Plano plano;
     @JoinColumn(name = "factura", referencedColumnName = "idfactura")
     @ManyToOne
     private Factura factura;
@@ -280,14 +277,6 @@ public class Pedido implements Serializable {
 
     public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
         this.planprocedimientos = planprocedimientos;
-    }
-
-    public Plano getPlano() {
-        return plano;
-    }
-
-    public void setPlano(Plano plano) {
-        this.plano = plano;
     }
 
     public Factura getFactura() {
