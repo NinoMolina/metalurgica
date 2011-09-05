@@ -748,7 +748,7 @@ public class AccessViews {
         ViewPedidoConPlanificacionProduccion view = null;
         LinkedList<ViewPedidoConPlanificacionProduccion> ll = new LinkedList<ViewPedidoConPlanificacionProduccion>();
         String query = "SELECT nropedido,nropedidocotizacioncliente,razonsocial,prioridad,fechaentregaestipulada, " +
-                "idpedido,idcliente,idprioridad,presupuesto, idestado " +
+                "fechafinprevista,idplanificacionproduccion,idpedido,idcliente,idprioridad,presupuesto,idestado " +
                 " FROM viewpedidosconplanificacionproduccion" +
                 " WHERE idestado=1";
         PreparedStatement ps = null;
@@ -762,8 +762,9 @@ public class AccessViews {
                 view.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));
                 view.setRazonsocial(rs.getString("razonsocial"));
                 view.setPrioridad(rs.getString("prioridad"));
-                //if(rs.getDate("fechaentregaestipulada")!=null)
                 view.setFechaentregaestipulada(rs.getDate("fechaentregaestipulada"));
+                view.setFechafinprevista(rs.getDate("fechafinprevista"));
+                view.setIdplanificacionproduccion(rs.getLong("idplanificacionproduccion"));
                 view.setIdpedido(rs.getLong("idpedido"));
                 view.setIdcliente(rs.getLong("idcliente"));
                 view.setIdprioridad(rs.getLong("idprioridad"));

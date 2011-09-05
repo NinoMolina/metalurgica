@@ -17,6 +17,9 @@ public class ViewPedidoConPlanificacionProduccion {
     private String razonsocial;
     private String prioridad;
     private Date fechaentregaestipulada;
+    
+    private Date fechafinprevista;
+    private Long idplanificacionproduccion;
 
     private long idpedido;
     private long idpresupuesto;
@@ -102,5 +105,21 @@ public class ViewPedidoConPlanificacionProduccion {
 
     public void setRazonsocial(String razonsocial) {
         this.razonsocial = razonsocial;
+    }
+
+    public Date getFechafinprevista() {
+        return fechafinprevista;
+    }
+
+    public void setFechafinprevista(Date fechafinprevista) {
+        this.fechafinprevista = fechafinprevista;
+    }
+
+    public Long getIdplanificacionproduccion() {
+        return idplanificacionproduccion;
+    }
+
+    public void setIdplanificacionproduccion(Long idplanificacionproduccion) {
+        this.idplanificacionproduccion = idplanificacionproduccion;
     }
 }
