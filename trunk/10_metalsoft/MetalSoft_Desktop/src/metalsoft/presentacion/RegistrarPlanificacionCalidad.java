@@ -76,7 +76,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     private HashMap<String, JPanel> hashPanels;
     private List<metalsoft.datos.jpa.entity.Empleado> lstEmpleados;
     private List<metalsoft.datos.jpa.entity.Maquina> lstMaquinas;
-    private List<metalsoft.datos.jpa.entity.Planificacionproduccion> lstPlanificacionProduccion;
+    private List<metalsoft.datos.jpa.entity.Planificacioncalidad> lstPlanificacionCalidad;
     private metalsoft.datos.jpa.entity.Maquina maquinaSeleccionada;
     private metalsoft.datos.jpa.entity.Empleado empleadoSeleccionado;
     private Task taskActual;
@@ -312,7 +312,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                 dpp.setHorafin(node.getFinEtapa());
                 dpp.setHorainicio(node.getInicioEtapa());
                 dpp.setEmpleado(emp);
-//                dpp.setIdetapaproduccion(etapa);
+                dpp.setProcesocalidad(procesoCalidad);
                 dpp.setMaquina(maq);
                 dpp.setPieza(pieza);
                 dpp.setProducto(prod);
@@ -1182,10 +1182,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                     Date fechaInicio = null;
                     if (finEtapaAnterior == null) {
                         fechaInicio = fechaFinPrevista;
-                        fechaInicio.setHours(horaFinPrevista.getHours());
-                        fechaInicio.setMinutes(horaFinPrevista.getMinutes());
-                        fechaInicio.setSeconds(horaFinPrevista.getSeconds());
-//                        fechaInicio = Fecha.fechaActualDate();
+                        fechaInicio = Fecha.setHoraMinutoSegundo(fechaInicio, horaFinPrevista);
                     } else {
                         fechaInicio = finEtapaAnterior;
                     }
@@ -1212,7 +1209,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     private void hplAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarEmpleadoActionPerformed
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlEmpleado.getName());
-//            lstEmpleados = gestor.obtenerEmpleados();
+            lstEmpleados = gestor.obtenerEmpleados();
             empleadosNoDisponibles(
                     lstEmpleados);
             tblEmpleado.updateUI();
@@ -1222,7 +1219,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
     private void hplAsignarMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarMaquinasActionPerformed
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlMaquinas.getName());
-//            lstMaquinas = gestor.obtenerMaquinas();
+            lstMaquinas = gestor.obtenerMaquinas();
             maquinasNoDisponibles(
                     lstMaquinas);
             tblMaquinas.updateUI();
@@ -1231,14 +1228,14 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
 
     private void hplVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerDisponibilidadActionPerformed
         pnlDisponibilidad.removeAll();
-//        lstPlanificacionProduccion = gestor.buscarPlanificacionesProduccion();
-        if (lstPlanificacionProduccion == null) {
+        lstPlanificacionCalidad = gestor.buscarPlanificacionesCalidad();
+        if (lstPlanificacionCalidad == null) {
             JOptionPane.showMessageDialog(this, "No existen planificaciones que ocupen fechas posteriores a la actual");
             return;
         }
         TaskSeriesCollection dataset = new TaskSeriesCollection();
         TaskSeries unavailable = new TaskSeries("Etapas Producción");
-        for (metalsoft.datos.jpa.entity.Planificacionproduccion planificacion : lstPlanificacionProduccion) {
+        for (metalsoft.datos.jpa.entity.Planificacioncalidad planificacion : lstPlanificacionCalidad) {
             //creo una nueva tarea a agregar, las tareas son las planificaciones
             Task task = new Task(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, planificacion.getNroplanificacion().longValue()),
                     planificacion.getFechainicioprevista(),
@@ -1246,8 +1243,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
             //agrego la tarea la serie de taras
             unavailable.add(task);
             //busco los detalles, donde saco la etapa a ejecutar.
-            List<metalsoft.datos.jpa.entity.Detalleplanificacionproduccion> setDetalle = planificacion.getDetalleplanificacionproduccionList();
-            for (metalsoft.datos.jpa.entity.Detalleplanificacionproduccion detalle : setDetalle) {
+            List<metalsoft.datos.jpa.entity.Detalleplanificacioncalidad> setDetalle = planificacion.getDetalleplanificacioncalidadList();
+            for (metalsoft.datos.jpa.entity.Detalleplanificacioncalidad detalle : setDetalle) {
                 GregorianCalendar inicio = new GregorianCalendar();
                 inicio.setTime(detalle.getFechainicio());
                 inicio.set(Calendar.HOUR_OF_DAY, detalle.getHorainicio().getHours());
@@ -1261,7 +1258,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                 fin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
                 System.out.println("fin:" + Fecha.parseToString(fin.getTime(), "dd/MM/yyyy hh:mm:ss"));
 
-                Task subTask = new Task(detalle.getIdetapaproduccion().getNombre(),
+                Task subTask = new Task(detalle.getProcesocalidad().getNombre(),
                         inicio.getTime(),
                         fin.getTime());
                 task.addSubtask(subTask);
