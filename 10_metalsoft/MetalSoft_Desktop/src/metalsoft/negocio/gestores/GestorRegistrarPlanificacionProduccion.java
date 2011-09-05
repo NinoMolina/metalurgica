@@ -27,6 +27,7 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.estados.IdsEstadoPlanificacionProduccion;
 import metalsoft.util.Fecha;
 
@@ -112,7 +113,7 @@ public class GestorRegistrarPlanificacionProduccion {
                 ctrlDetalle.create(detalle);
             }
             metalsoft.datos.jpa.entity.Pedido ped = planificacionproduccion.getPedido();
-            ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(5L));
+            ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(IdsEstadoPedido.PLANIFICADO_PRODUCCION));
             ctrlPedido.edit(ped);
             em.getTransaction().commit();
             result = true;

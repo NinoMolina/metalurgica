@@ -374,13 +374,13 @@ public class PedidoJpaController implements Serializable {
             }
             productorealListNew = attachedProductorealListNew;
             pedido.setProductorealList(productorealListNew);
-            List<Plano> attachedPlanoListNew = new ArrayList<Plano>();
-            for (Plano planoListNewPlanoToAttach : planoListNew) {
-                planoListNewPlanoToAttach = em.getReference(planoListNewPlanoToAttach.getClass(), planoListNewPlanoToAttach.getIdplano());
-                attachedPlanoListNew.add(planoListNewPlanoToAttach);
-            }
-            planoListNew = attachedPlanoListNew;
-            pedido.setPlanoList(planoListNew);
+//            List<Plano> attachedPlanoListNew = new ArrayList<Plano>();
+//            for (Plano planoListNewPlanoToAttach : planoListNew) {
+//                planoListNewPlanoToAttach = em.getReference(planoListNewPlanoToAttach.getClass(), planoListNewPlanoToAttach.getIdplano());
+//                attachedPlanoListNew.add(planoListNewPlanoToAttach);
+//            }
+//            planoListNew = attachedPlanoListNew;
+//            pedido.setPlanoList(planoListNew);
             List<Trabajotercerizado> attachedTrabajotercerizadoListNew = new ArrayList<Trabajotercerizado>();
             for (Trabajotercerizado trabajotercerizadoListNewTrabajotercerizadoToAttach : trabajotercerizadoListNew) {
                 trabajotercerizadoListNewTrabajotercerizadoToAttach = em.getReference(trabajotercerizadoListNewTrabajotercerizadoToAttach.getClass(), trabajotercerizadoListNewTrabajotercerizadoToAttach.getIdtrabajo());
@@ -515,23 +515,23 @@ public class PedidoJpaController implements Serializable {
                     }
                 }
             }
-            for (Plano planoListOldPlano : planoListOld) {
-                if (!planoListNew.contains(planoListOldPlano)) {
-                    planoListOldPlano.setPedido(null);
-                    planoListOldPlano = em.merge(planoListOldPlano);
-                }
-            }
-            for (Plano planoListNewPlano : planoListNew) {
-                if (!planoListOld.contains(planoListNewPlano)) {
-                    Pedido oldPedidoOfPlanoListNewPlano = planoListNewPlano.getPedido();
-                    planoListNewPlano.setPedido(pedido);
-                    planoListNewPlano = em.merge(planoListNewPlano);
-                    if (oldPedidoOfPlanoListNewPlano != null && !oldPedidoOfPlanoListNewPlano.equals(pedido)) {
-                        oldPedidoOfPlanoListNewPlano.getPlanoList().remove(planoListNewPlano);
-                        oldPedidoOfPlanoListNewPlano = em.merge(oldPedidoOfPlanoListNewPlano);
-                    }
-                }
-            }
+//            for (Plano planoListOldPlano : planoListOld) {
+//                if (!planoListNew.contains(planoListOldPlano)) {
+//                    planoListOldPlano.setPedido(null);
+//                    planoListOldPlano = em.merge(planoListOldPlano);
+//                }
+//            }
+//            for (Plano planoListNewPlano : planoListNew) {
+//                if (!planoListOld.contains(planoListNewPlano)) {
+//                    Pedido oldPedidoOfPlanoListNewPlano = planoListNewPlano.getPedido();
+//                    planoListNewPlano.setPedido(pedido);
+//                    planoListNewPlano = em.merge(planoListNewPlano);
+//                    if (oldPedidoOfPlanoListNewPlano != null && !oldPedidoOfPlanoListNewPlano.equals(pedido)) {
+//                        oldPedidoOfPlanoListNewPlano.getPlanoList().remove(planoListNewPlano);
+//                        oldPedidoOfPlanoListNewPlano = em.merge(oldPedidoOfPlanoListNewPlano);
+//                    }
+//                }
+//            }
             for (Trabajotercerizado trabajotercerizadoListOldTrabajotercerizado : trabajotercerizadoListOld) {
                 if (!trabajotercerizadoListNew.contains(trabajotercerizadoListOldTrabajotercerizado)) {
                     trabajotercerizadoListOldTrabajotercerizado.setPedido(null);
