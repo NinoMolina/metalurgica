@@ -124,6 +124,7 @@ public class Principal extends javax.swing.JFrame {
         mniTipoMaterial = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
+        mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
         mniCondicionIva = new javax.swing.JMenuItem();
@@ -479,7 +480,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniMatriz);
 
-        jMenuItem2.setText("Registrar Planificación");
+        jMenuItem2.setText("Registrar Planificación Producción");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -506,6 +507,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCalidad.add(mniGenerarDetalleProcedimientosCalidad);
+
+        mniRegistrarPlanificacionCalidad.setText("Registrar Planificación Calidad");
+        mniRegistrarPlanificacionCalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarPlanificacionCalidadActionPerformed(evt);
+            }
+        });
+        mnuCalidad.add(mniRegistrarPlanificacionCalidad);
 
         mbrMenu.add(mnuCalidad);
 
@@ -1279,6 +1288,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+private void mniRegistrarPlanificacionCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarPlanificacionCalidadActionPerformed
+    try {
+        JFrameManager.crearVentana(RegistrarPlanificacionCalidad.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniRegistrarPlanificacionCalidadActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1341,6 +1362,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
     private javax.swing.JMenuItem mniRegistrarIngresoCotizacionTrabajo;
     private javax.swing.JMenuItem mniRegistrarMaquina;
+    private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniServicio;
