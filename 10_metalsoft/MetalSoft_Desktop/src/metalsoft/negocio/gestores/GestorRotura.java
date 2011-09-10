@@ -15,7 +15,6 @@ import metalsoft.datos.dbobject.RoturaPKDB;
 import metalsoft.datos.exception.RoturaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.RoturaDAO;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.RoturaJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.mantenimiento.Rotura;
@@ -35,7 +34,7 @@ public class GestorRotura {
          * JPA
          */
         metalsoft.datos.jpa.entity.Rotura ro=new metalsoft.datos.jpa.entity.Rotura();
-        RoturaJpaController con=new RoturaJpaController(JpaUtil.getEntityManagerFactory());
+        RoturaJpaController con=new RoturaJpaController();
 
         ro.setNombre(nombre);
         ro.setDescripcion(descripcion);

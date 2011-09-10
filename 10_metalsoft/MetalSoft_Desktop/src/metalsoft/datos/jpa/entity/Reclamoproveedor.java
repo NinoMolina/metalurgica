@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -12,15 +13,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,8 +39,6 @@ public class Reclamoproveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reclamoproveedor_seq")
-    @SequenceGenerator(name = "reclamoproveedor_seq", sequenceName = "reclamoproveedor_idreclamo_seq", allocationSize = 1)
     @Column(name = "idreclamo")
     private Long idreclamo;
     @Column(name = "nroreclamo")
@@ -52,15 +48,15 @@ public class Reclamoproveedor implements Serializable {
     @Column(name = "fechareclamo")
     @Temporal(TemporalType.DATE)
     private Date fechareclamo;
-    @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
-    @ManyToOne
-    private Tiporeclamo tiporeclamo;
-    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
-    @ManyToOne
-    private Estadoreclamo idestadoreclamo;
     @JoinColumn(name = "compra", referencedColumnName = "idcompra")
     @ManyToOne
     private Compra compra;
+    @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
+    @ManyToOne
+    private Estadoreclamo idestadoreclamo;
+    @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
+    @ManyToOne
+    private Tiporeclamo tiporeclamo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reclamoproveedor")
     private List<Detallereclamoproveedor> detallereclamoproveedorList;
 
@@ -103,12 +99,12 @@ public class Reclamoproveedor implements Serializable {
         this.fechareclamo = fechareclamo;
     }
 
-    public Tiporeclamo getTiporeclamo() {
-        return tiporeclamo;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setTiporeclamo(Tiporeclamo tiporeclamo) {
-        this.tiporeclamo = tiporeclamo;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
 
     public Estadoreclamo getIdestadoreclamo() {
@@ -119,12 +115,12 @@ public class Reclamoproveedor implements Serializable {
         this.idestadoreclamo = idestadoreclamo;
     }
 
-    public Compra getCompra() {
-        return compra;
+    public Tiporeclamo getTiporeclamo() {
+        return tiporeclamo;
     }
 
-    public void setCompra(Compra compra) {
-        this.compra = compra;
+    public void setTiporeclamo(Tiporeclamo tiporeclamo) {
+        this.tiporeclamo = tiporeclamo;
     }
 
     public List<Detallereclamoproveedor> getDetallereclamoproveedorList() {
@@ -157,7 +153,7 @@ public class Reclamoproveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Reclamoproveedor[ idreclamo=" + idreclamo + " ]";
+        return "metalsoft.datos.jpa.entity.Reclamoproveedor[idreclamo=" + idreclamo + "]";
     }
-    
+
 }

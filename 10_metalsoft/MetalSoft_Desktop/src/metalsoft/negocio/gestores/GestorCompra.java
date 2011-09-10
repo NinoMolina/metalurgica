@@ -24,12 +24,15 @@ import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.DetallecompraDB;
 import metalsoft.datos.dbobject.EstadocompraDB;
 import metalsoft.datos.dbobject.EstadodetallecompraDB;
-import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.idao.CompraDAO;
 import metalsoft.datos.jpa.controller.ProveedorJpaController;
+import metalsoft.datos.jpa.entity.Estadodetallecompra;
 import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.negocio.access.AccessCompra;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.compras.Compra;
+import metalsoft.negocio.compras.EstadoCompra;
 import metalsoft.util.ItemCombo;
 
 /**
@@ -104,7 +107,7 @@ public class GestorCompra implements IBuscador {
 
     public void cargarComboProveedor(JComboBox combo) {
         proveedores = null;
-        ProveedorJpaController controller = new ProveedorJpaController(JpaUtil.getEntityManagerFactory());
+        ProveedorJpaController controller = new ProveedorJpaController();
         proveedores = controller.findProveedorEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));

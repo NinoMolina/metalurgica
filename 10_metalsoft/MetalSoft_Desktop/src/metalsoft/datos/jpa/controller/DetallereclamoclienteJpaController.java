@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,17 +17,17 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallereclamocliente;
 import metalsoft.datos.jpa.entity.DetallereclamoclientePK;
-import metalsoft.datos.jpa.entity.Reclamocliente;
 import metalsoft.datos.jpa.entity.Producto;
+import metalsoft.datos.jpa.entity.Reclamocliente;
 
 /**
  *
  * @author Nino
  */
-public class DetallereclamoclienteJpaController implements Serializable {
+public class DetallereclamoclienteJpaController {
 
-    public DetallereclamoclienteJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetallereclamoclienteJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -43,24 +44,24 @@ public class DetallereclamoclienteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
-            if (reclamocliente != null) {
-                reclamocliente = em.getReference(reclamocliente.getClass(), reclamocliente.getIdreclamo());
-                detallereclamocliente.setReclamocliente(reclamocliente);
-            }
             Producto producto = detallereclamocliente.getProducto();
             if (producto != null) {
                 producto = em.getReference(producto.getClass(), producto.getIdproducto());
                 detallereclamocliente.setProducto(producto);
             }
-            em.persist(detallereclamocliente);
+            Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
             if (reclamocliente != null) {
-                reclamocliente.getDetallereclamoclienteList().add(detallereclamocliente);
-                reclamocliente = em.merge(reclamocliente);
+                reclamocliente = em.getReference(reclamocliente.getClass(), reclamocliente.getIdreclamo());
+                detallereclamocliente.setReclamocliente(reclamocliente);
             }
+            em.persist(detallereclamocliente);
             if (producto != null) {
                 producto.getDetallereclamoclienteList().add(detallereclamocliente);
                 producto = em.merge(producto);
+            }
+            if (reclamocliente != null) {
+                reclamocliente.getDetallereclamoclienteList().add(detallereclamocliente);
+                reclamocliente = em.merge(reclamocliente);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -82,27 +83,19 @@ public class DetallereclamoclienteJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallereclamocliente persistentDetallereclamocliente = em.find(Detallereclamocliente.class, detallereclamocliente.getDetallereclamoclientePK());
-            Reclamocliente reclamoclienteOld = persistentDetallereclamocliente.getReclamocliente();
-            Reclamocliente reclamoclienteNew = detallereclamocliente.getReclamocliente();
             Producto productoOld = persistentDetallereclamocliente.getProducto();
             Producto productoNew = detallereclamocliente.getProducto();
-            if (reclamoclienteNew != null) {
-                reclamoclienteNew = em.getReference(reclamoclienteNew.getClass(), reclamoclienteNew.getIdreclamo());
-                detallereclamocliente.setReclamocliente(reclamoclienteNew);
-            }
+            Reclamocliente reclamoclienteOld = persistentDetallereclamocliente.getReclamocliente();
+            Reclamocliente reclamoclienteNew = detallereclamocliente.getReclamocliente();
             if (productoNew != null) {
                 productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
                 detallereclamocliente.setProducto(productoNew);
             }
+            if (reclamoclienteNew != null) {
+                reclamoclienteNew = em.getReference(reclamoclienteNew.getClass(), reclamoclienteNew.getIdreclamo());
+                detallereclamocliente.setReclamocliente(reclamoclienteNew);
+            }
             detallereclamocliente = em.merge(detallereclamocliente);
-            if (reclamoclienteOld != null && !reclamoclienteOld.equals(reclamoclienteNew)) {
-                reclamoclienteOld.getDetallereclamoclienteList().remove(detallereclamocliente);
-                reclamoclienteOld = em.merge(reclamoclienteOld);
-            }
-            if (reclamoclienteNew != null && !reclamoclienteNew.equals(reclamoclienteOld)) {
-                reclamoclienteNew.getDetallereclamoclienteList().add(detallereclamocliente);
-                reclamoclienteNew = em.merge(reclamoclienteNew);
-            }
             if (productoOld != null && !productoOld.equals(productoNew)) {
                 productoOld.getDetallereclamoclienteList().remove(detallereclamocliente);
                 productoOld = em.merge(productoOld);
@@ -110,6 +103,14 @@ public class DetallereclamoclienteJpaController implements Serializable {
             if (productoNew != null && !productoNew.equals(productoOld)) {
                 productoNew.getDetallereclamoclienteList().add(detallereclamocliente);
                 productoNew = em.merge(productoNew);
+            }
+            if (reclamoclienteOld != null && !reclamoclienteOld.equals(reclamoclienteNew)) {
+                reclamoclienteOld.getDetallereclamoclienteList().remove(detallereclamocliente);
+                reclamoclienteOld = em.merge(reclamoclienteOld);
+            }
+            if (reclamoclienteNew != null && !reclamoclienteNew.equals(reclamoclienteOld)) {
+                reclamoclienteNew.getDetallereclamoclienteList().add(detallereclamocliente);
+                reclamoclienteNew = em.merge(reclamoclienteNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -140,15 +141,15 @@ public class DetallereclamoclienteJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallereclamocliente with id " + id + " no longer exists.", enfe);
             }
-            Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
-            if (reclamocliente != null) {
-                reclamocliente.getDetallereclamoclienteList().remove(detallereclamocliente);
-                reclamocliente = em.merge(reclamocliente);
-            }
             Producto producto = detallereclamocliente.getProducto();
             if (producto != null) {
                 producto.getDetallereclamoclienteList().remove(detallereclamocliente);
                 producto = em.merge(producto);
+            }
+            Reclamocliente reclamocliente = detallereclamocliente.getReclamocliente();
+            if (reclamocliente != null) {
+                reclamocliente.getDetallereclamoclienteList().remove(detallereclamocliente);
+                reclamocliente = em.merge(reclamocliente);
             }
             em.remove(detallereclamocliente);
             em.getTransaction().commit();
@@ -204,5 +205,5 @@ public class DetallereclamoclienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

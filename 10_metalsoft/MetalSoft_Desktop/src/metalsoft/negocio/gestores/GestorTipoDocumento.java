@@ -15,7 +15,6 @@ import metalsoft.datos.dbobject.TipodocumentoPKDB;
 import metalsoft.datos.exception.TipodocumentoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.TipodocumentoDAO;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.rrhh.TipoDocumento;
@@ -35,7 +34,7 @@ public class GestorTipoDocumento {
          * JPA
          */
         metalsoft.datos.jpa.entity.Tipodocumento td=new metalsoft.datos.jpa.entity.Tipodocumento();
-        TipodocumentoJpaController con=new TipodocumentoJpaController(JpaUtil.getEntityManagerFactory());
+        TipodocumentoJpaController con=new TipodocumentoJpaController();
 
         td.setTipo(tipo);
         td.setNombre(nombre);

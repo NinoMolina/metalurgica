@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,8 +16,9 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Planificacioncalidad;
+import metalsoft.datos.jpa.entity.EjecucionplanificacioncalidadPK;
 import metalsoft.datos.jpa.entity.Estadoejecplancalidad;
+import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class EjecucionplanificacioncalidadJpaController implements Serializable {
+public class EjecucionplanificacioncalidadJpaController {
 
-    public EjecucionplanificacioncalidadJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public EjecucionplanificacioncalidadJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -37,18 +39,22 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
     }
 
     public void create(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad) throws IllegalOrphanException, PreexistingEntityException, Exception {
+        if (ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK() == null) {
+            ejecucionplanificacioncalidad.setEjecucionplanificacioncalidadPK(new EjecucionplanificacioncalidadPK());
+        }
         if (ejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList() == null) {
             ejecucionplanificacioncalidad.setDetalleejecucionplanificacioncalidadList(new ArrayList<Detalleejecucionplanificacioncalidad>());
         }
+        ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK().setIdplanificacioncalidad(ejecucionplanificacioncalidad.getPlanificacioncalidad().getIdplanificacion());
         List<String> illegalOrphanMessages = null;
-        Planificacioncalidad idplanificacioncalidadOrphanCheck = ejecucionplanificacioncalidad.getIdplanificacioncalidad();
-        if (idplanificacioncalidadOrphanCheck != null) {
-            Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfIdplanificacioncalidad = idplanificacioncalidadOrphanCheck.getEjecucionplanificacioncalidad();
-            if (oldEjecucionplanificacioncalidadOfIdplanificacioncalidad != null) {
+        Planificacioncalidad planificacioncalidadOrphanCheck = ejecucionplanificacioncalidad.getPlanificacioncalidad();
+        if (planificacioncalidadOrphanCheck != null) {
+            Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfPlanificacioncalidad = planificacioncalidadOrphanCheck.getEjecucionplanificacioncalidad();
+            if (oldEjecucionplanificacioncalidadOfPlanificacioncalidad != null) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("The Planificacioncalidad " + idplanificacioncalidadOrphanCheck + " already has an item of type Ejecucionplanificacioncalidad whose idplanificacioncalidad column cannot be null. Please make another selection for the idplanificacioncalidad field.");
+                illegalOrphanMessages.add("The Planificacioncalidad " + planificacioncalidadOrphanCheck + " already has an item of type Ejecucionplanificacioncalidad whose planificacioncalidad column cannot be null. Please make another selection for the planificacioncalidad field.");
             }
         }
         if (illegalOrphanMessages != null) {
@@ -58,43 +64,43 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Planificacioncalidad idplanificacioncalidad = ejecucionplanificacioncalidad.getIdplanificacioncalidad();
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad = em.getReference(idplanificacioncalidad.getClass(), idplanificacioncalidad.getIdplanificacion());
-                ejecucionplanificacioncalidad.setIdplanificacioncalidad(idplanificacioncalidad);
-            }
             Estadoejecplancalidad estado = ejecucionplanificacioncalidad.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionplanificacioncalidad.setEstado(estado);
             }
+            Planificacioncalidad planificacioncalidad = ejecucionplanificacioncalidad.getPlanificacioncalidad();
+            if (planificacioncalidad != null) {
+                planificacioncalidad = em.getReference(planificacioncalidad.getClass(), planificacioncalidad.getIdplanificacion());
+                ejecucionplanificacioncalidad.setPlanificacioncalidad(planificacioncalidad);
+            }
             List<Detalleejecucionplanificacioncalidad> attachedDetalleejecucionplanificacioncalidadList = new ArrayList<Detalleejecucionplanificacioncalidad>();
             for (Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach : ejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList()) {
-                detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach = em.getReference(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach.getClass(), detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach.getIddetalle());
+                detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach = em.getReference(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach.getClass(), detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach.getDetalleejecucionplanificacioncalidadPK());
                 attachedDetalleejecucionplanificacioncalidadList.add(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidadToAttach);
             }
             ejecucionplanificacioncalidad.setDetalleejecucionplanificacioncalidadList(attachedDetalleejecucionplanificacioncalidadList);
             em.persist(ejecucionplanificacioncalidad);
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
-                idplanificacioncalidad = em.merge(idplanificacioncalidad);
-            }
             if (estado != null) {
                 estado.getEjecucionplanificacioncalidadList().add(ejecucionplanificacioncalidad);
                 estado = em.merge(estado);
             }
+            if (planificacioncalidad != null) {
+                planificacioncalidad.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
+                planificacioncalidad = em.merge(planificacioncalidad);
+            }
             for (Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad : ejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList()) {
-                Ejecucionplanificacioncalidad oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad = detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
-                detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.setIdejecucionplanificacioncalidad(ejecucionplanificacioncalidad);
+                Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad = detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.getEjecucionplanificacioncalidad();
+                detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
                 detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad = em.merge(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad);
-                if (oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad != null) {
-                    oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad);
-                    oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad = em.merge(oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad);
+                if (oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad != null) {
+                    oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad);
+                    oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad = em.merge(oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListDetalleejecucionplanificacioncalidad);
                 }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findEjecucionplanificacioncalidad(ejecucionplanificacioncalidad.getIdejecucion()) != null) {
+            if (findEjecucionplanificacioncalidad(ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK()) != null) {
                 throw new PreexistingEntityException("Ejecucionplanificacioncalidad " + ejecucionplanificacioncalidad + " already exists.", ex);
             }
             throw ex;
@@ -106,25 +112,26 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
     }
 
     public void edit(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad) throws IllegalOrphanException, NonexistentEntityException, Exception {
+        ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK().setIdplanificacioncalidad(ejecucionplanificacioncalidad.getPlanificacioncalidad().getIdplanificacion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Ejecucionplanificacioncalidad persistentEjecucionplanificacioncalidad = em.find(Ejecucionplanificacioncalidad.class, ejecucionplanificacioncalidad.getIdejecucion());
-            Planificacioncalidad idplanificacioncalidadOld = persistentEjecucionplanificacioncalidad.getIdplanificacioncalidad();
-            Planificacioncalidad idplanificacioncalidadNew = ejecucionplanificacioncalidad.getIdplanificacioncalidad();
+            Ejecucionplanificacioncalidad persistentEjecucionplanificacioncalidad = em.find(Ejecucionplanificacioncalidad.class, ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK());
             Estadoejecplancalidad estadoOld = persistentEjecucionplanificacioncalidad.getEstado();
             Estadoejecplancalidad estadoNew = ejecucionplanificacioncalidad.getEstado();
+            Planificacioncalidad planificacioncalidadOld = persistentEjecucionplanificacioncalidad.getPlanificacioncalidad();
+            Planificacioncalidad planificacioncalidadNew = ejecucionplanificacioncalidad.getPlanificacioncalidad();
             List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadListOld = persistentEjecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList();
             List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadListNew = ejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList();
             List<String> illegalOrphanMessages = null;
-            if (idplanificacioncalidadNew != null && !idplanificacioncalidadNew.equals(idplanificacioncalidadOld)) {
-                Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfIdplanificacioncalidad = idplanificacioncalidadNew.getEjecucionplanificacioncalidad();
-                if (oldEjecucionplanificacioncalidadOfIdplanificacioncalidad != null) {
+            if (planificacioncalidadNew != null && !planificacioncalidadNew.equals(planificacioncalidadOld)) {
+                Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfPlanificacioncalidad = planificacioncalidadNew.getEjecucionplanificacioncalidad();
+                if (oldEjecucionplanificacioncalidadOfPlanificacioncalidad != null) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("The Planificacioncalidad " + idplanificacioncalidadNew + " already has an item of type Ejecucionplanificacioncalidad whose idplanificacioncalidad column cannot be null. Please make another selection for the idplanificacioncalidad field.");
+                    illegalOrphanMessages.add("The Planificacioncalidad " + planificacioncalidadNew + " already has an item of type Ejecucionplanificacioncalidad whose planificacioncalidad column cannot be null. Please make another selection for the planificacioncalidad field.");
                 }
             }
             for (Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadListOldDetalleejecucionplanificacioncalidad : detalleejecucionplanificacioncalidadListOld) {
@@ -132,36 +139,28 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Detalleejecucionplanificacioncalidad " + detalleejecucionplanificacioncalidadListOldDetalleejecucionplanificacioncalidad + " since its idejecucionplanificacioncalidad field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Detalleejecucionplanificacioncalidad " + detalleejecucionplanificacioncalidadListOldDetalleejecucionplanificacioncalidad + " since its ejecucionplanificacioncalidad field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (idplanificacioncalidadNew != null) {
-                idplanificacioncalidadNew = em.getReference(idplanificacioncalidadNew.getClass(), idplanificacioncalidadNew.getIdplanificacion());
-                ejecucionplanificacioncalidad.setIdplanificacioncalidad(idplanificacioncalidadNew);
-            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionplanificacioncalidad.setEstado(estadoNew);
             }
+            if (planificacioncalidadNew != null) {
+                planificacioncalidadNew = em.getReference(planificacioncalidadNew.getClass(), planificacioncalidadNew.getIdplanificacion());
+                ejecucionplanificacioncalidad.setPlanificacioncalidad(planificacioncalidadNew);
+            }
             List<Detalleejecucionplanificacioncalidad> attachedDetalleejecucionplanificacioncalidadListNew = new ArrayList<Detalleejecucionplanificacioncalidad>();
             for (Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach : detalleejecucionplanificacioncalidadListNew) {
-                detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach = em.getReference(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach.getClass(), detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach.getIddetalle());
+                detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach = em.getReference(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach.getClass(), detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach.getDetalleejecucionplanificacioncalidadPK());
                 attachedDetalleejecucionplanificacioncalidadListNew.add(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidadToAttach);
             }
             detalleejecucionplanificacioncalidadListNew = attachedDetalleejecucionplanificacioncalidadListNew;
             ejecucionplanificacioncalidad.setDetalleejecucionplanificacioncalidadList(detalleejecucionplanificacioncalidadListNew);
             ejecucionplanificacioncalidad = em.merge(ejecucionplanificacioncalidad);
-            if (idplanificacioncalidadOld != null && !idplanificacioncalidadOld.equals(idplanificacioncalidadNew)) {
-                idplanificacioncalidadOld.setEjecucionplanificacioncalidad(null);
-                idplanificacioncalidadOld = em.merge(idplanificacioncalidadOld);
-            }
-            if (idplanificacioncalidadNew != null && !idplanificacioncalidadNew.equals(idplanificacioncalidadOld)) {
-                idplanificacioncalidadNew.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
-                idplanificacioncalidadNew = em.merge(idplanificacioncalidadNew);
-            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getEjecucionplanificacioncalidadList().remove(ejecucionplanificacioncalidad);
                 estadoOld = em.merge(estadoOld);
@@ -170,14 +169,22 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
                 estadoNew.getEjecucionplanificacioncalidadList().add(ejecucionplanificacioncalidad);
                 estadoNew = em.merge(estadoNew);
             }
+            if (planificacioncalidadOld != null && !planificacioncalidadOld.equals(planificacioncalidadNew)) {
+                planificacioncalidadOld.setEjecucionplanificacioncalidad(null);
+                planificacioncalidadOld = em.merge(planificacioncalidadOld);
+            }
+            if (planificacioncalidadNew != null && !planificacioncalidadNew.equals(planificacioncalidadOld)) {
+                planificacioncalidadNew.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
+                planificacioncalidadNew = em.merge(planificacioncalidadNew);
+            }
             for (Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad : detalleejecucionplanificacioncalidadListNew) {
                 if (!detalleejecucionplanificacioncalidadListOld.contains(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad)) {
-                    Ejecucionplanificacioncalidad oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad = detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
-                    detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.setIdejecucionplanificacioncalidad(ejecucionplanificacioncalidad);
+                    Ejecucionplanificacioncalidad oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad = detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.getEjecucionplanificacioncalidad();
+                    detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.setEjecucionplanificacioncalidad(ejecucionplanificacioncalidad);
                     detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad = em.merge(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad);
-                    if (oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad != null && !oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.equals(ejecucionplanificacioncalidad)) {
-                        oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad);
-                        oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad = em.merge(oldIdejecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad);
+                    if (oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad != null && !oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.equals(ejecucionplanificacioncalidad)) {
+                        oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadList().remove(detalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad);
+                        oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad = em.merge(oldEjecucionplanificacioncalidadOfDetalleejecucionplanificacioncalidadListNewDetalleejecucionplanificacioncalidad);
                     }
                 }
             }
@@ -185,7 +192,7 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = ejecucionplanificacioncalidad.getIdejecucion();
+                EjecucionplanificacioncalidadPK id = ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK();
                 if (findEjecucionplanificacioncalidad(id) == null) {
                     throw new NonexistentEntityException("The ejecucionplanificacioncalidad with id " + id + " no longer exists.");
                 }
@@ -198,7 +205,7 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
         }
     }
 
-    public void destroy(Long id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(EjecucionplanificacioncalidadPK id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -206,7 +213,7 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
             Ejecucionplanificacioncalidad ejecucionplanificacioncalidad;
             try {
                 ejecucionplanificacioncalidad = em.getReference(Ejecucionplanificacioncalidad.class, id);
-                ejecucionplanificacioncalidad.getIdejecucion();
+                ejecucionplanificacioncalidad.getEjecucionplanificacioncalidadPK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ejecucionplanificacioncalidad with id " + id + " no longer exists.", enfe);
             }
@@ -216,20 +223,20 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Ejecucionplanificacioncalidad (" + ejecucionplanificacioncalidad + ") cannot be destroyed since the Detalleejecucionplanificacioncalidad " + detalleejecucionplanificacioncalidadListOrphanCheckDetalleejecucionplanificacioncalidad + " in its detalleejecucionplanificacioncalidadList field has a non-nullable idejecucionplanificacioncalidad field.");
+                illegalOrphanMessages.add("This Ejecucionplanificacioncalidad (" + ejecucionplanificacioncalidad + ") cannot be destroyed since the Detalleejecucionplanificacioncalidad " + detalleejecucionplanificacioncalidadListOrphanCheckDetalleejecucionplanificacioncalidad + " in its detalleejecucionplanificacioncalidadList field has a non-nullable ejecucionplanificacioncalidad field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Planificacioncalidad idplanificacioncalidad = ejecucionplanificacioncalidad.getIdplanificacioncalidad();
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad.setEjecucionplanificacioncalidad(null);
-                idplanificacioncalidad = em.merge(idplanificacioncalidad);
             }
             Estadoejecplancalidad estado = ejecucionplanificacioncalidad.getEstado();
             if (estado != null) {
                 estado.getEjecucionplanificacioncalidadList().remove(ejecucionplanificacioncalidad);
                 estado = em.merge(estado);
+            }
+            Planificacioncalidad planificacioncalidad = ejecucionplanificacioncalidad.getPlanificacioncalidad();
+            if (planificacioncalidad != null) {
+                planificacioncalidad.setEjecucionplanificacioncalidad(null);
+                planificacioncalidad = em.merge(planificacioncalidad);
             }
             em.remove(ejecucionplanificacioncalidad);
             em.getTransaction().commit();
@@ -264,7 +271,7 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
         }
     }
 
-    public Ejecucionplanificacioncalidad findEjecucionplanificacioncalidad(Long id) {
+    public Ejecucionplanificacioncalidad findEjecucionplanificacioncalidad(EjecucionplanificacioncalidadPK id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Ejecucionplanificacioncalidad.class, id);
@@ -285,5 +292,5 @@ public class EjecucionplanificacioncalidadJpaController implements Serializable 
             em.close();
         }
     }
-    
+
 }

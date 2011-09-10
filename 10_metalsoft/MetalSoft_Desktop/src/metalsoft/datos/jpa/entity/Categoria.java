@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -9,10 +10,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +34,8 @@ public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_seq")
+    @SequenceGenerator(name = "categoria_seq", sequenceName = "categoria_idcategoria_seq", allocationSize = 1)
     @Column(name = "idcategoria")
     private Long idcategoria;
     @Column(name = "nombre")
@@ -38,6 +44,7 @@ public class Categoria implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "categoria")
     private List<Empleado> empleadoList;
+
 
     public Categoria() {
     }
@@ -78,6 +85,7 @@ public class Categoria implements Serializable {
         this.empleadoList = empleadoList;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,7 +108,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Categoria[ idcategoria=" + idcategoria + " ]";
+        return "metalsoft.datos.jpa.entity.Categoria[idcategoria=" + idcategoria + "]";
     }
-    
+
 }

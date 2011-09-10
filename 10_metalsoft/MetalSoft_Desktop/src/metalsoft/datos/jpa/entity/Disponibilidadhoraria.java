@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -9,14 +10,11 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +34,6 @@ public class Disponibilidadhoraria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disponibilidadhoraria_seq")
-    @SequenceGenerator(name = "disponibilidadhoraria_seq", sequenceName = "disponibilidadhoraria_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "fecha")
@@ -49,6 +45,7 @@ public class Disponibilidadhoraria implements Serializable {
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
+
 
     public Disponibilidadhoraria() {
     }
@@ -89,6 +86,7 @@ public class Disponibilidadhoraria implements Serializable {
         this.idempleado = idempleado;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,7 +109,7 @@ public class Disponibilidadhoraria implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Disponibilidadhoraria[ id=" + id + " ]";
+        return "metalsoft.datos.jpa.entity.Disponibilidadhoraria[id=" + id + "]";
     }
-    
+
 }

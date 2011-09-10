@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,10 +21,10 @@ import metalsoft.datos.jpa.entity.Calendario;
  *
  * @author Nino
  */
-public class CalendarioJpaController implements Serializable {
+public class CalendarioJpaController {
 
-    public CalendarioJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public CalendarioJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -139,5 +140,5 @@ public class CalendarioJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

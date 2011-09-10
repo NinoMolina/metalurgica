@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,15 +11,12 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -38,32 +36,34 @@ public class Detalleproductopresupuesto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleproductopresupuesto_seq")
-    @SequenceGenerator(name = "detalleproductopresupuesto_seq", sequenceName = "detalleproductopresupuesto_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
     @Column(name = "cantmateriaprima")
     private Integer cantmateriaprima;
     @Column(name = "cantpiezas")
     private Integer cantpiezas;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preciomateriaprima")
     private Double preciomateriaprima;
     @Column(name = "idproveedor")
     private BigInteger idproveedor;
     @OneToMany(mappedBy = "iddetalleproductopresupuesto")
     private List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList;
+
     @OneToMany(mappedBy = "iddetalleproductopresupuesto")
     private List<Detallepiezapresupuesto> detallepiezapresupuestoList;
-    @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
-    @ManyToOne
-    private Pieza idpieza;
-    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
-    @ManyToOne
-    private Materiaprima idmateriaprima;
+
     @JoinColumn(name = "iddetallepresupuesto", referencedColumnName = "iddetalle")
     @ManyToOne
     private Detallepresupuesto iddetallepresupuesto;
+
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima idmateriaprima;
+
+    @JoinColumn(name = "idpieza", referencedColumnName = "idpieza")
+    @ManyToOne
+    private Pieza idpieza;
+
 
     public Detalleproductopresupuesto() {
     }
@@ -120,6 +120,7 @@ public class Detalleproductopresupuesto implements Serializable {
         this.detallepiezacalidadpresupuestoList = detallepiezacalidadpresupuestoList;
     }
 
+
     public List<Detallepiezapresupuesto> getDetallepiezapresupuestoList() {
         return detallepiezapresupuestoList;
     }
@@ -128,13 +129,15 @@ public class Detalleproductopresupuesto implements Serializable {
         this.detallepiezapresupuestoList = detallepiezapresupuestoList;
     }
 
-    public Pieza getIdpieza() {
-        return idpieza;
+
+    public Detallepresupuesto getIddetallepresupuesto() {
+        return iddetallepresupuesto;
     }
 
-    public void setIdpieza(Pieza idpieza) {
-        this.idpieza = idpieza;
+    public void setIddetallepresupuesto(Detallepresupuesto iddetallepresupuesto) {
+        this.iddetallepresupuesto = iddetallepresupuesto;
     }
+
 
     public Materiaprima getIdmateriaprima() {
         return idmateriaprima;
@@ -144,13 +147,17 @@ public class Detalleproductopresupuesto implements Serializable {
         this.idmateriaprima = idmateriaprima;
     }
 
-    public Detallepresupuesto getIddetallepresupuesto() {
-        return iddetallepresupuesto;
+
+
+    public Pieza getIdpieza() {
+        return idpieza;
     }
 
-    public void setIddetallepresupuesto(Detallepresupuesto iddetallepresupuesto) {
-        this.iddetallepresupuesto = iddetallepresupuesto;
+    public void setIdpieza(Pieza idpieza) {
+        this.idpieza = idpieza;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -174,7 +181,7 @@ public class Detalleproductopresupuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleproductopresupuesto[ iddetalle=" + iddetalle + " ]";
+        return "metalsoft.datos.jpa.entity.Detalleproductopresupuesto[iddetalle=" + iddetalle + "]";
     }
-    
+
 }

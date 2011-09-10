@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -11,12 +12,15 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Proveedormantenimientomaquina.findByIdproveedormantenimiento", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.idproveedormantenimiento = :idproveedormantenimiento"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByNroproveedor", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.nroproveedor = :nroproveedor"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByRazonsocial", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.razonsocial = :razonsocial"),
+    @NamedQuery(name = "Proveedormantenimientomaquina.findLikeRazonsocial", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.razonsocial LIKE :razonsocial"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByTelefono", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.telefono = :telefono"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByCelular", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.celular = :celular"),
     @NamedQuery(name = "Proveedormantenimientomaquina.findByMail", query = "SELECT p FROM Proveedormantenimientomaquina p WHERE p.mail = :mail"),
@@ -43,6 +48,8 @@ public class Proveedormantenimientomaquina implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "proveedormantenimientomaquina_seq")
+    @SequenceGenerator(name = "proveedormantenimientomaquina_seq", sequenceName = "proveedormantenimientomaquina_idproveedormantenimiento_seq", allocationSize = 1)
     @Column(name = "idproveedormantenimiento")
     private Long idproveedormantenimiento;
     @Column(name = "nroproveedor")
@@ -67,17 +74,22 @@ public class Proveedormantenimientomaquina implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "proveedormantenimiento")
     private List<Mantenimientocorrectivo> mantenimientocorrectivoList;
+
     @OneToMany(mappedBy = "proveedormantenimiento")
     private List<Mantenimientopreventivo> mantenimientopreventivoList;
-    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
-    @ManyToOne
-    private Responsable responsable;
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio;
+
     @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicioniva;
+
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio;
+
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable;
+
 
     public Proveedormantenimientomaquina() {
     }
@@ -174,6 +186,7 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.mantenimientocorrectivoList = mantenimientocorrectivoList;
     }
 
+
     public List<Mantenimientopreventivo> getMantenimientopreventivoList() {
         return mantenimientopreventivoList;
     }
@@ -182,13 +195,16 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.mantenimientopreventivoList = mantenimientopreventivoList;
     }
 
-    public Responsable getResponsable() {
-        return responsable;
+
+
+    public Condicioniva getCondicioniva() {
+        return condicioniva;
     }
 
-    public void setResponsable(Responsable responsable) {
-        this.responsable = responsable;
+    public void setCondicioniva(Condicioniva condicioniva) {
+        this.condicioniva = condicioniva;
     }
+
 
     public Domicilio getDomicilio() {
         return domicilio;
@@ -198,12 +214,13 @@ public class Proveedormantenimientomaquina implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public Condicioniva getCondicioniva() {
-        return condicioniva;
+
+    public Responsable getResponsable() {
+        return responsable;
     }
 
-    public void setCondicioniva(Condicioniva condicioniva) {
-        this.condicioniva = condicioniva;
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
     }
 
     @Override
@@ -228,7 +245,7 @@ public class Proveedormantenimientomaquina implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Proveedormantenimientomaquina[ idproveedormantenimiento=" + idproveedormantenimiento + " ]";
+        return "metalsoft.datos.jpa.entity.Proveedormantenimientomaquina[idproveedormantenimiento=" + idproveedormantenimiento + "]";
     }
-    
+
 }

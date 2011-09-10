@@ -2,20 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Privilegio;
+import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Rolxprivilegio;
 import metalsoft.datos.jpa.entity.RolxprivilegioPK;
 
@@ -23,10 +24,10 @@ import metalsoft.datos.jpa.entity.RolxprivilegioPK;
  *
  * @author Nino
  */
-public class RolxprivilegioJpaController implements Serializable {
+public class RolxprivilegioJpaController {
 
-    public RolxprivilegioJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public RolxprivilegioJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -38,30 +39,30 @@ public class RolxprivilegioJpaController implements Serializable {
         if (rolxprivilegio.getRolxprivilegioPK() == null) {
             rolxprivilegio.setRolxprivilegioPK(new RolxprivilegioPK());
         }
-        rolxprivilegio.getRolxprivilegioPK().setIdrol(rolxprivilegio.getRol().getIdrol());
         rolxprivilegio.getRolxprivilegioPK().setIdprivilegio(rolxprivilegio.getPrivilegio().getIdprivilegio());
+        rolxprivilegio.getRolxprivilegioPK().setIdrol(rolxprivilegio.getRol().getIdrol());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Rol rol = rolxprivilegio.getRol();
-            if (rol != null) {
-                rol = em.getReference(rol.getClass(), rol.getIdrol());
-                rolxprivilegio.setRol(rol);
-            }
             Privilegio privilegio = rolxprivilegio.getPrivilegio();
             if (privilegio != null) {
                 privilegio = em.getReference(privilegio.getClass(), privilegio.getIdprivilegio());
                 rolxprivilegio.setPrivilegio(privilegio);
             }
-            em.persist(rolxprivilegio);
+            Rol rol = rolxprivilegio.getRol();
             if (rol != null) {
-                rol.getRolxprivilegioList().add(rolxprivilegio);
-                rol = em.merge(rol);
+                rol = em.getReference(rol.getClass(), rol.getIdrol());
+                rolxprivilegio.setRol(rol);
             }
+            em.persist(rolxprivilegio);
             if (privilegio != null) {
                 privilegio.getRolxprivilegioList().add(rolxprivilegio);
                 privilegio = em.merge(privilegio);
+            }
+            if (rol != null) {
+                rol.getRolxprivilegioList().add(rolxprivilegio);
+                rol = em.merge(rol);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,34 +78,26 @@ public class RolxprivilegioJpaController implements Serializable {
     }
 
     public void edit(Rolxprivilegio rolxprivilegio) throws NonexistentEntityException, Exception {
-        rolxprivilegio.getRolxprivilegioPK().setIdrol(rolxprivilegio.getRol().getIdrol());
         rolxprivilegio.getRolxprivilegioPK().setIdprivilegio(rolxprivilegio.getPrivilegio().getIdprivilegio());
+        rolxprivilegio.getRolxprivilegioPK().setIdrol(rolxprivilegio.getRol().getIdrol());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Rolxprivilegio persistentRolxprivilegio = em.find(Rolxprivilegio.class, rolxprivilegio.getRolxprivilegioPK());
-            Rol rolOld = persistentRolxprivilegio.getRol();
-            Rol rolNew = rolxprivilegio.getRol();
             Privilegio privilegioOld = persistentRolxprivilegio.getPrivilegio();
             Privilegio privilegioNew = rolxprivilegio.getPrivilegio();
-            if (rolNew != null) {
-                rolNew = em.getReference(rolNew.getClass(), rolNew.getIdrol());
-                rolxprivilegio.setRol(rolNew);
-            }
+            Rol rolOld = persistentRolxprivilegio.getRol();
+            Rol rolNew = rolxprivilegio.getRol();
             if (privilegioNew != null) {
                 privilegioNew = em.getReference(privilegioNew.getClass(), privilegioNew.getIdprivilegio());
                 rolxprivilegio.setPrivilegio(privilegioNew);
             }
+            if (rolNew != null) {
+                rolNew = em.getReference(rolNew.getClass(), rolNew.getIdrol());
+                rolxprivilegio.setRol(rolNew);
+            }
             rolxprivilegio = em.merge(rolxprivilegio);
-            if (rolOld != null && !rolOld.equals(rolNew)) {
-                rolOld.getRolxprivilegioList().remove(rolxprivilegio);
-                rolOld = em.merge(rolOld);
-            }
-            if (rolNew != null && !rolNew.equals(rolOld)) {
-                rolNew.getRolxprivilegioList().add(rolxprivilegio);
-                rolNew = em.merge(rolNew);
-            }
             if (privilegioOld != null && !privilegioOld.equals(privilegioNew)) {
                 privilegioOld.getRolxprivilegioList().remove(rolxprivilegio);
                 privilegioOld = em.merge(privilegioOld);
@@ -112,6 +105,14 @@ public class RolxprivilegioJpaController implements Serializable {
             if (privilegioNew != null && !privilegioNew.equals(privilegioOld)) {
                 privilegioNew.getRolxprivilegioList().add(rolxprivilegio);
                 privilegioNew = em.merge(privilegioNew);
+            }
+            if (rolOld != null && !rolOld.equals(rolNew)) {
+                rolOld.getRolxprivilegioList().remove(rolxprivilegio);
+                rolOld = em.merge(rolOld);
+            }
+            if (rolNew != null && !rolNew.equals(rolOld)) {
+                rolNew.getRolxprivilegioList().add(rolxprivilegio);
+                rolNew = em.merge(rolNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -142,15 +143,15 @@ public class RolxprivilegioJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The rolxprivilegio with id " + id + " no longer exists.", enfe);
             }
-            Rol rol = rolxprivilegio.getRol();
-            if (rol != null) {
-                rol.getRolxprivilegioList().remove(rolxprivilegio);
-                rol = em.merge(rol);
-            }
             Privilegio privilegio = rolxprivilegio.getPrivilegio();
             if (privilegio != null) {
                 privilegio.getRolxprivilegioList().remove(rolxprivilegio);
                 privilegio = em.merge(privilegio);
+            }
+            Rol rol = rolxprivilegio.getRol();
+            if (rol != null) {
+                rol.getRolxprivilegioList().remove(rolxprivilegio);
+                rol = em.merge(rol);
             }
             em.remove(rolxprivilegio);
             em.getTransaction().commit();
@@ -206,5 +207,5 @@ public class RolxprivilegioJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

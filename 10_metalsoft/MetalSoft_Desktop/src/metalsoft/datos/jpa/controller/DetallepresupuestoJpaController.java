@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,8 +15,8 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallepresupuesto;
-import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.datos.jpa.entity.Presupuesto;
+import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class DetallepresupuestoJpaController implements Serializable {
+public class DetallepresupuestoJpaController {
 
-    public DetallepresupuestoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetallepresupuestoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -43,15 +44,15 @@ public class DetallepresupuestoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Producto idproducto = detallepresupuesto.getIdproducto();
-            if (idproducto != null) {
-                idproducto = em.getReference(idproducto.getClass(), idproducto.getIdproducto());
-                detallepresupuesto.setIdproducto(idproducto);
-            }
             Presupuesto idpresupuesto = detallepresupuesto.getIdpresupuesto();
             if (idpresupuesto != null) {
                 idpresupuesto = em.getReference(idpresupuesto.getClass(), idpresupuesto.getIdpresupuesto());
                 detallepresupuesto.setIdpresupuesto(idpresupuesto);
+            }
+            Producto idproducto = detallepresupuesto.getIdproducto();
+            if (idproducto != null) {
+                idproducto = em.getReference(idproducto.getClass(), idproducto.getIdproducto());
+                detallepresupuesto.setIdproducto(idproducto);
             }
             List<Detalleproductopresupuesto> attachedDetalleproductopresupuestoList = new ArrayList<Detalleproductopresupuesto>();
             for (Detalleproductopresupuesto detalleproductopresupuestoListDetalleproductopresupuestoToAttach : detallepresupuesto.getDetalleproductopresupuestoList()) {
@@ -60,13 +61,13 @@ public class DetallepresupuestoJpaController implements Serializable {
             }
             detallepresupuesto.setDetalleproductopresupuestoList(attachedDetalleproductopresupuestoList);
             em.persist(detallepresupuesto);
-            if (idproducto != null) {
-                idproducto.getDetallepresupuestoList().add(detallepresupuesto);
-                idproducto = em.merge(idproducto);
-            }
             if (idpresupuesto != null) {
                 idpresupuesto.getDetallepresupuestoList().add(detallepresupuesto);
                 idpresupuesto = em.merge(idpresupuesto);
+            }
+            if (idproducto != null) {
+                idproducto.getDetallepresupuestoList().add(detallepresupuesto);
+                idproducto = em.merge(idproducto);
             }
             for (Detalleproductopresupuesto detalleproductopresupuestoListDetalleproductopresupuesto : detallepresupuesto.getDetalleproductopresupuestoList()) {
                 Detallepresupuesto oldIddetallepresupuestoOfDetalleproductopresupuestoListDetalleproductopresupuesto = detalleproductopresupuestoListDetalleproductopresupuesto.getIddetallepresupuesto();
@@ -96,19 +97,19 @@ public class DetallepresupuestoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallepresupuesto persistentDetallepresupuesto = em.find(Detallepresupuesto.class, detallepresupuesto.getIddetalle());
-            Producto idproductoOld = persistentDetallepresupuesto.getIdproducto();
-            Producto idproductoNew = detallepresupuesto.getIdproducto();
             Presupuesto idpresupuestoOld = persistentDetallepresupuesto.getIdpresupuesto();
             Presupuesto idpresupuestoNew = detallepresupuesto.getIdpresupuesto();
+            Producto idproductoOld = persistentDetallepresupuesto.getIdproducto();
+            Producto idproductoNew = detallepresupuesto.getIdproducto();
             List<Detalleproductopresupuesto> detalleproductopresupuestoListOld = persistentDetallepresupuesto.getDetalleproductopresupuestoList();
             List<Detalleproductopresupuesto> detalleproductopresupuestoListNew = detallepresupuesto.getDetalleproductopresupuestoList();
-            if (idproductoNew != null) {
-                idproductoNew = em.getReference(idproductoNew.getClass(), idproductoNew.getIdproducto());
-                detallepresupuesto.setIdproducto(idproductoNew);
-            }
             if (idpresupuestoNew != null) {
                 idpresupuestoNew = em.getReference(idpresupuestoNew.getClass(), idpresupuestoNew.getIdpresupuesto());
                 detallepresupuesto.setIdpresupuesto(idpresupuestoNew);
+            }
+            if (idproductoNew != null) {
+                idproductoNew = em.getReference(idproductoNew.getClass(), idproductoNew.getIdproducto());
+                detallepresupuesto.setIdproducto(idproductoNew);
             }
             List<Detalleproductopresupuesto> attachedDetalleproductopresupuestoListNew = new ArrayList<Detalleproductopresupuesto>();
             for (Detalleproductopresupuesto detalleproductopresupuestoListNewDetalleproductopresupuestoToAttach : detalleproductopresupuestoListNew) {
@@ -118,14 +119,6 @@ public class DetallepresupuestoJpaController implements Serializable {
             detalleproductopresupuestoListNew = attachedDetalleproductopresupuestoListNew;
             detallepresupuesto.setDetalleproductopresupuestoList(detalleproductopresupuestoListNew);
             detallepresupuesto = em.merge(detallepresupuesto);
-            if (idproductoOld != null && !idproductoOld.equals(idproductoNew)) {
-                idproductoOld.getDetallepresupuestoList().remove(detallepresupuesto);
-                idproductoOld = em.merge(idproductoOld);
-            }
-            if (idproductoNew != null && !idproductoNew.equals(idproductoOld)) {
-                idproductoNew.getDetallepresupuestoList().add(detallepresupuesto);
-                idproductoNew = em.merge(idproductoNew);
-            }
             if (idpresupuestoOld != null && !idpresupuestoOld.equals(idpresupuestoNew)) {
                 idpresupuestoOld.getDetallepresupuestoList().remove(detallepresupuesto);
                 idpresupuestoOld = em.merge(idpresupuestoOld);
@@ -133,6 +126,14 @@ public class DetallepresupuestoJpaController implements Serializable {
             if (idpresupuestoNew != null && !idpresupuestoNew.equals(idpresupuestoOld)) {
                 idpresupuestoNew.getDetallepresupuestoList().add(detallepresupuesto);
                 idpresupuestoNew = em.merge(idpresupuestoNew);
+            }
+            if (idproductoOld != null && !idproductoOld.equals(idproductoNew)) {
+                idproductoOld.getDetallepresupuestoList().remove(detallepresupuesto);
+                idproductoOld = em.merge(idproductoOld);
+            }
+            if (idproductoNew != null && !idproductoNew.equals(idproductoOld)) {
+                idproductoNew.getDetallepresupuestoList().add(detallepresupuesto);
+                idproductoNew = em.merge(idproductoNew);
             }
             for (Detalleproductopresupuesto detalleproductopresupuestoListOldDetalleproductopresupuesto : detalleproductopresupuestoListOld) {
                 if (!detalleproductopresupuestoListNew.contains(detalleproductopresupuestoListOldDetalleproductopresupuesto)) {
@@ -180,15 +181,15 @@ public class DetallepresupuestoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallepresupuesto with id " + id + " no longer exists.", enfe);
             }
-            Producto idproducto = detallepresupuesto.getIdproducto();
-            if (idproducto != null) {
-                idproducto.getDetallepresupuestoList().remove(detallepresupuesto);
-                idproducto = em.merge(idproducto);
-            }
             Presupuesto idpresupuesto = detallepresupuesto.getIdpresupuesto();
             if (idpresupuesto != null) {
                 idpresupuesto.getDetallepresupuestoList().remove(detallepresupuesto);
                 idpresupuesto = em.merge(idpresupuesto);
+            }
+            Producto idproducto = detallepresupuesto.getIdproducto();
+            if (idproducto != null) {
+                idproducto.getDetallepresupuestoList().remove(detallepresupuesto);
+                idproducto = em.merge(idproducto);
             }
             List<Detalleproductopresupuesto> detalleproductopresupuestoList = detallepresupuesto.getDetalleproductopresupuestoList();
             for (Detalleproductopresupuesto detalleproductopresupuestoListDetalleproductopresupuesto : detalleproductopresupuestoList) {
@@ -249,5 +250,5 @@ public class DetallepresupuestoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

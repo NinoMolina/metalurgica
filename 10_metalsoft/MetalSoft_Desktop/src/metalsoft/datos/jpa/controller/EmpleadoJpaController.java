@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,19 +15,18 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Empleado;
-import metalsoft.datos.jpa.entity.Usuario;
-import metalsoft.datos.jpa.entity.Tipodocumento;
-import metalsoft.datos.jpa.entity.Domicilio;
-import metalsoft.datos.jpa.entity.Categoria;
 import metalsoft.datos.jpa.entity.Cargo;
+import metalsoft.datos.jpa.entity.Categoria;
+import metalsoft.datos.jpa.entity.Domicilio;
+import metalsoft.datos.jpa.entity.Empleado;
+import metalsoft.datos.jpa.entity.Tipodocumento;
+import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import java.util.ArrayList;
 import java.util.List;
 import metalsoft.datos.jpa.entity.Empleadoxturno;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
-import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Disponibilidadhoraria;
 import metalsoft.datos.jpa.entity.Asistencia;
 
@@ -34,10 +34,10 @@ import metalsoft.datos.jpa.entity.Asistencia;
  *
  * @author Nino
  */
-public class EmpleadoJpaController implements Serializable {
+public class EmpleadoJpaController {
 
-    public EmpleadoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public EmpleadoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -58,9 +58,6 @@ public class EmpleadoJpaController implements Serializable {
         if (empleado.getMantenimientocorrectivoList() == null) {
             empleado.setMantenimientocorrectivoList(new ArrayList<Mantenimientocorrectivo>());
         }
-        if (empleado.getDetalleplanificacioncalidadList() == null) {
-            empleado.setDetalleplanificacioncalidadList(new ArrayList<Detalleplanificacioncalidad>());
-        }
         if (empleado.getDisponibilidadhorariaList() == null) {
             empleado.setDisponibilidadhorariaList(new ArrayList<Disponibilidadhoraria>());
         }
@@ -71,30 +68,30 @@ public class EmpleadoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario = empleado.getUsuario();
-            if (usuario != null) {
-                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
-                empleado.setUsuario(usuario);
-            }
-            Tipodocumento tipodocumento = empleado.getTipodocumento();
-            if (tipodocumento != null) {
-                tipodocumento = em.getReference(tipodocumento.getClass(), tipodocumento.getIdtipodocumento());
-                empleado.setTipodocumento(tipodocumento);
-            }
-            Domicilio domicilio = empleado.getDomicilio();
-            if (domicilio != null) {
-                domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
-                empleado.setDomicilio(domicilio);
+            Cargo cargo = empleado.getCargo();
+            if (cargo != null) {
+                cargo = em.getReference(cargo.getClass(), cargo.getIdcargo());
+                empleado.setCargo(cargo);
             }
             Categoria categoria = empleado.getCategoria();
             if (categoria != null) {
                 categoria = em.getReference(categoria.getClass(), categoria.getIdcategoria());
                 empleado.setCategoria(categoria);
             }
-            Cargo cargo = empleado.getCargo();
-            if (cargo != null) {
-                cargo = em.getReference(cargo.getClass(), cargo.getIdcargo());
-                empleado.setCargo(cargo);
+            Domicilio domicilio = empleado.getDomicilio();
+            if (domicilio != null) {
+                domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
+                empleado.setDomicilio(domicilio);
+            }
+            Tipodocumento tipodocumento = empleado.getTipodocumento();
+            if (tipodocumento != null) {
+                tipodocumento = em.getReference(tipodocumento.getClass(), tipodocumento.getIdtipodocumento());
+                empleado.setTipodocumento(tipodocumento);
+            }
+            Usuario usuario = empleado.getUsuario();
+            if (usuario != null) {
+                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
+                empleado.setUsuario(usuario);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionList = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccionToAttach : empleado.getDetalleplanificacionproduccionList()) {
@@ -120,12 +117,6 @@ public class EmpleadoJpaController implements Serializable {
                 attachedMantenimientocorrectivoList.add(mantenimientocorrectivoListMantenimientocorrectivoToAttach);
             }
             empleado.setMantenimientocorrectivoList(attachedMantenimientocorrectivoList);
-            List<Detalleplanificacioncalidad> attachedDetalleplanificacioncalidadList = new ArrayList<Detalleplanificacioncalidad>();
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach : empleado.getDetalleplanificacioncalidadList()) {
-                detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach = em.getReference(detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach.getClass(), detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach.getIddetalle());
-                attachedDetalleplanificacioncalidadList.add(detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach);
-            }
-            empleado.setDetalleplanificacioncalidadList(attachedDetalleplanificacioncalidadList);
             List<Disponibilidadhoraria> attachedDisponibilidadhorariaList = new ArrayList<Disponibilidadhoraria>();
             for (Disponibilidadhoraria disponibilidadhorariaListDisponibilidadhorariaToAttach : empleado.getDisponibilidadhorariaList()) {
                 disponibilidadhorariaListDisponibilidadhorariaToAttach = em.getReference(disponibilidadhorariaListDisponibilidadhorariaToAttach.getClass(), disponibilidadhorariaListDisponibilidadhorariaToAttach.getId());
@@ -139,25 +130,25 @@ public class EmpleadoJpaController implements Serializable {
             }
             empleado.setAsistenciaList(attachedAsistenciaList);
             em.persist(empleado);
-            if (usuario != null) {
-                usuario.getEmpleadoList().add(empleado);
-                usuario = em.merge(usuario);
-            }
-            if (tipodocumento != null) {
-                tipodocumento.getEmpleadoList().add(empleado);
-                tipodocumento = em.merge(tipodocumento);
-            }
-            if (domicilio != null) {
-                domicilio.getEmpleadoList().add(empleado);
-                domicilio = em.merge(domicilio);
+            if (cargo != null) {
+                cargo.getEmpleadoList().add(empleado);
+                cargo = em.merge(cargo);
             }
             if (categoria != null) {
                 categoria.getEmpleadoList().add(empleado);
                 categoria = em.merge(categoria);
             }
-            if (cargo != null) {
-                cargo.getEmpleadoList().add(empleado);
-                cargo = em.merge(cargo);
+            if (domicilio != null) {
+                domicilio.getEmpleadoList().add(empleado);
+                domicilio = em.merge(domicilio);
+            }
+            if (tipodocumento != null) {
+                tipodocumento.getEmpleadoList().add(empleado);
+                tipodocumento = em.merge(tipodocumento);
+            }
+            if (usuario != null) {
+                usuario.getEmpleadoList().add(empleado);
+                usuario = em.merge(usuario);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : empleado.getDetalleplanificacionproduccionList()) {
                 Empleado oldIdempleadoOfDetalleplanificacionproduccionListDetalleplanificacionproduccion = detalleplanificacionproduccionListDetalleplanificacionproduccion.getIdempleado();
@@ -195,15 +186,6 @@ public class EmpleadoJpaController implements Serializable {
                     oldEmpleadoOfMantenimientocorrectivoListMantenimientocorrectivo = em.merge(oldEmpleadoOfMantenimientocorrectivoListMantenimientocorrectivo);
                 }
             }
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidad : empleado.getDetalleplanificacioncalidadList()) {
-                Empleado oldEmpleadoOfDetalleplanificacioncalidadListDetalleplanificacioncalidad = detalleplanificacioncalidadListDetalleplanificacioncalidad.getEmpleado();
-                detalleplanificacioncalidadListDetalleplanificacioncalidad.setEmpleado(empleado);
-                detalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListDetalleplanificacioncalidad);
-                if (oldEmpleadoOfDetalleplanificacioncalidadListDetalleplanificacioncalidad != null) {
-                    oldEmpleadoOfDetalleplanificacioncalidadListDetalleplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidadListDetalleplanificacioncalidad);
-                    oldEmpleadoOfDetalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(oldEmpleadoOfDetalleplanificacioncalidadListDetalleplanificacioncalidad);
-                }
-            }
             for (Disponibilidadhoraria disponibilidadhorariaListDisponibilidadhoraria : empleado.getDisponibilidadhorariaList()) {
                 Empleado oldIdempleadoOfDisponibilidadhorariaListDisponibilidadhoraria = disponibilidadhorariaListDisponibilidadhoraria.getIdempleado();
                 disponibilidadhorariaListDisponibilidadhoraria.setIdempleado(empleado);
@@ -214,12 +196,12 @@ public class EmpleadoJpaController implements Serializable {
                 }
             }
             for (Asistencia asistenciaListAsistencia : empleado.getAsistenciaList()) {
-                Empleado oldEmpleado1OfAsistenciaListAsistencia = asistenciaListAsistencia.getEmpleado1();
-                asistenciaListAsistencia.setEmpleado1(empleado);
+                Empleado oldEmpleadoOfAsistenciaListAsistencia = asistenciaListAsistencia.getEmpleado();
+                asistenciaListAsistencia.setEmpleado(empleado);
                 asistenciaListAsistencia = em.merge(asistenciaListAsistencia);
-                if (oldEmpleado1OfAsistenciaListAsistencia != null) {
-                    oldEmpleado1OfAsistenciaListAsistencia.getAsistenciaList().remove(asistenciaListAsistencia);
-                    oldEmpleado1OfAsistenciaListAsistencia = em.merge(oldEmpleado1OfAsistenciaListAsistencia);
+                if (oldEmpleadoOfAsistenciaListAsistencia != null) {
+                    oldEmpleadoOfAsistenciaListAsistencia.getAsistenciaList().remove(asistenciaListAsistencia);
+                    oldEmpleadoOfAsistenciaListAsistencia = em.merge(oldEmpleadoOfAsistenciaListAsistencia);
                 }
             }
             em.getTransaction().commit();
@@ -241,16 +223,16 @@ public class EmpleadoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Empleado persistentEmpleado = em.find(Empleado.class, empleado.getIdempleado());
-            Usuario usuarioOld = persistentEmpleado.getUsuario();
-            Usuario usuarioNew = empleado.getUsuario();
-            Tipodocumento tipodocumentoOld = persistentEmpleado.getTipodocumento();
-            Tipodocumento tipodocumentoNew = empleado.getTipodocumento();
-            Domicilio domicilioOld = persistentEmpleado.getDomicilio();
-            Domicilio domicilioNew = empleado.getDomicilio();
-            Categoria categoriaOld = persistentEmpleado.getCategoria();
-            Categoria categoriaNew = empleado.getCategoria();
             Cargo cargoOld = persistentEmpleado.getCargo();
             Cargo cargoNew = empleado.getCargo();
+            Categoria categoriaOld = persistentEmpleado.getCategoria();
+            Categoria categoriaNew = empleado.getCategoria();
+            Domicilio domicilioOld = persistentEmpleado.getDomicilio();
+            Domicilio domicilioNew = empleado.getDomicilio();
+            Tipodocumento tipodocumentoOld = persistentEmpleado.getTipodocumento();
+            Tipodocumento tipodocumentoNew = empleado.getTipodocumento();
+            Usuario usuarioOld = persistentEmpleado.getUsuario();
+            Usuario usuarioNew = empleado.getUsuario();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListOld = persistentEmpleado.getDetalleplanificacionproduccionList();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListNew = empleado.getDetalleplanificacionproduccionList();
             List<Empleadoxturno> empleadoxturnoListOld = persistentEmpleado.getEmpleadoxturnoList();
@@ -259,8 +241,6 @@ public class EmpleadoJpaController implements Serializable {
             List<Ejecucionetapaproduccion> ejecucionetapaproduccionListNew = empleado.getEjecucionetapaproduccionList();
             List<Mantenimientocorrectivo> mantenimientocorrectivoListOld = persistentEmpleado.getMantenimientocorrectivoList();
             List<Mantenimientocorrectivo> mantenimientocorrectivoListNew = empleado.getMantenimientocorrectivoList();
-            List<Detalleplanificacioncalidad> detalleplanificacioncalidadListOld = persistentEmpleado.getDetalleplanificacioncalidadList();
-            List<Detalleplanificacioncalidad> detalleplanificacioncalidadListNew = empleado.getDetalleplanificacioncalidadList();
             List<Disponibilidadhoraria> disponibilidadhorariaListOld = persistentEmpleado.getDisponibilidadhorariaList();
             List<Disponibilidadhoraria> disponibilidadhorariaListNew = empleado.getDisponibilidadhorariaList();
             List<Asistencia> asistenciaListOld = persistentEmpleado.getAsistenciaList();
@@ -279,31 +259,31 @@ public class EmpleadoJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Asistencia " + asistenciaListOldAsistencia + " since its empleado1 field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Asistencia " + asistenciaListOldAsistencia + " since its empleado field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (usuarioNew != null) {
-                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
-                empleado.setUsuario(usuarioNew);
-            }
-            if (tipodocumentoNew != null) {
-                tipodocumentoNew = em.getReference(tipodocumentoNew.getClass(), tipodocumentoNew.getIdtipodocumento());
-                empleado.setTipodocumento(tipodocumentoNew);
-            }
-            if (domicilioNew != null) {
-                domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
-                empleado.setDomicilio(domicilioNew);
+            if (cargoNew != null) {
+                cargoNew = em.getReference(cargoNew.getClass(), cargoNew.getIdcargo());
+                empleado.setCargo(cargoNew);
             }
             if (categoriaNew != null) {
                 categoriaNew = em.getReference(categoriaNew.getClass(), categoriaNew.getIdcategoria());
                 empleado.setCategoria(categoriaNew);
             }
-            if (cargoNew != null) {
-                cargoNew = em.getReference(cargoNew.getClass(), cargoNew.getIdcargo());
-                empleado.setCargo(cargoNew);
+            if (domicilioNew != null) {
+                domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
+                empleado.setDomicilio(domicilioNew);
+            }
+            if (tipodocumentoNew != null) {
+                tipodocumentoNew = em.getReference(tipodocumentoNew.getClass(), tipodocumentoNew.getIdtipodocumento());
+                empleado.setTipodocumento(tipodocumentoNew);
+            }
+            if (usuarioNew != null) {
+                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
+                empleado.setUsuario(usuarioNew);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionListNew = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListNewDetalleplanificacionproduccionToAttach : detalleplanificacionproduccionListNew) {
@@ -333,13 +313,6 @@ public class EmpleadoJpaController implements Serializable {
             }
             mantenimientocorrectivoListNew = attachedMantenimientocorrectivoListNew;
             empleado.setMantenimientocorrectivoList(mantenimientocorrectivoListNew);
-            List<Detalleplanificacioncalidad> attachedDetalleplanificacioncalidadListNew = new ArrayList<Detalleplanificacioncalidad>();
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach : detalleplanificacioncalidadListNew) {
-                detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach = em.getReference(detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach.getClass(), detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach.getIddetalle());
-                attachedDetalleplanificacioncalidadListNew.add(detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach);
-            }
-            detalleplanificacioncalidadListNew = attachedDetalleplanificacioncalidadListNew;
-            empleado.setDetalleplanificacioncalidadList(detalleplanificacioncalidadListNew);
             List<Disponibilidadhoraria> attachedDisponibilidadhorariaListNew = new ArrayList<Disponibilidadhoraria>();
             for (Disponibilidadhoraria disponibilidadhorariaListNewDisponibilidadhorariaToAttach : disponibilidadhorariaListNew) {
                 disponibilidadhorariaListNewDisponibilidadhorariaToAttach = em.getReference(disponibilidadhorariaListNewDisponibilidadhorariaToAttach.getClass(), disponibilidadhorariaListNewDisponibilidadhorariaToAttach.getId());
@@ -355,29 +328,13 @@ public class EmpleadoJpaController implements Serializable {
             asistenciaListNew = attachedAsistenciaListNew;
             empleado.setAsistenciaList(asistenciaListNew);
             empleado = em.merge(empleado);
-            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
-                usuarioOld.getEmpleadoList().remove(empleado);
-                usuarioOld = em.merge(usuarioOld);
+            if (cargoOld != null && !cargoOld.equals(cargoNew)) {
+                cargoOld.getEmpleadoList().remove(empleado);
+                cargoOld = em.merge(cargoOld);
             }
-            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
-                usuarioNew.getEmpleadoList().add(empleado);
-                usuarioNew = em.merge(usuarioNew);
-            }
-            if (tipodocumentoOld != null && !tipodocumentoOld.equals(tipodocumentoNew)) {
-                tipodocumentoOld.getEmpleadoList().remove(empleado);
-                tipodocumentoOld = em.merge(tipodocumentoOld);
-            }
-            if (tipodocumentoNew != null && !tipodocumentoNew.equals(tipodocumentoOld)) {
-                tipodocumentoNew.getEmpleadoList().add(empleado);
-                tipodocumentoNew = em.merge(tipodocumentoNew);
-            }
-            if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
-                domicilioOld.getEmpleadoList().remove(empleado);
-                domicilioOld = em.merge(domicilioOld);
-            }
-            if (domicilioNew != null && !domicilioNew.equals(domicilioOld)) {
-                domicilioNew.getEmpleadoList().add(empleado);
-                domicilioNew = em.merge(domicilioNew);
+            if (cargoNew != null && !cargoNew.equals(cargoOld)) {
+                cargoNew.getEmpleadoList().add(empleado);
+                cargoNew = em.merge(cargoNew);
             }
             if (categoriaOld != null && !categoriaOld.equals(categoriaNew)) {
                 categoriaOld.getEmpleadoList().remove(empleado);
@@ -387,13 +344,29 @@ public class EmpleadoJpaController implements Serializable {
                 categoriaNew.getEmpleadoList().add(empleado);
                 categoriaNew = em.merge(categoriaNew);
             }
-            if (cargoOld != null && !cargoOld.equals(cargoNew)) {
-                cargoOld.getEmpleadoList().remove(empleado);
-                cargoOld = em.merge(cargoOld);
+            if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
+                domicilioOld.getEmpleadoList().remove(empleado);
+                domicilioOld = em.merge(domicilioOld);
             }
-            if (cargoNew != null && !cargoNew.equals(cargoOld)) {
-                cargoNew.getEmpleadoList().add(empleado);
-                cargoNew = em.merge(cargoNew);
+            if (domicilioNew != null && !domicilioNew.equals(domicilioOld)) {
+                domicilioNew.getEmpleadoList().add(empleado);
+                domicilioNew = em.merge(domicilioNew);
+            }
+            if (tipodocumentoOld != null && !tipodocumentoOld.equals(tipodocumentoNew)) {
+                tipodocumentoOld.getEmpleadoList().remove(empleado);
+                tipodocumentoOld = em.merge(tipodocumentoOld);
+            }
+            if (tipodocumentoNew != null && !tipodocumentoNew.equals(tipodocumentoOld)) {
+                tipodocumentoNew.getEmpleadoList().add(empleado);
+                tipodocumentoNew = em.merge(tipodocumentoNew);
+            }
+            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
+                usuarioOld.getEmpleadoList().remove(empleado);
+                usuarioOld = em.merge(usuarioOld);
+            }
+            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
+                usuarioNew.getEmpleadoList().add(empleado);
+                usuarioNew = em.merge(usuarioNew);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListOldDetalleplanificacionproduccion : detalleplanificacionproduccionListOld) {
                 if (!detalleplanificacionproduccionListNew.contains(detalleplanificacionproduccionListOldDetalleplanificacionproduccion)) {
@@ -457,23 +430,6 @@ public class EmpleadoJpaController implements Serializable {
                     }
                 }
             }
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListOldDetalleplanificacioncalidad : detalleplanificacioncalidadListOld) {
-                if (!detalleplanificacioncalidadListNew.contains(detalleplanificacioncalidadListOldDetalleplanificacioncalidad)) {
-                    detalleplanificacioncalidadListOldDetalleplanificacioncalidad.setEmpleado(null);
-                    detalleplanificacioncalidadListOldDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListOldDetalleplanificacioncalidad);
-                }
-            }
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListNewDetalleplanificacioncalidad : detalleplanificacioncalidadListNew) {
-                if (!detalleplanificacioncalidadListOld.contains(detalleplanificacioncalidadListNewDetalleplanificacioncalidad)) {
-                    Empleado oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad = detalleplanificacioncalidadListNewDetalleplanificacioncalidad.getEmpleado();
-                    detalleplanificacioncalidadListNewDetalleplanificacioncalidad.setEmpleado(empleado);
-                    detalleplanificacioncalidadListNewDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListNewDetalleplanificacioncalidad);
-                    if (oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad != null && !oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad.equals(empleado)) {
-                        oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidadListNewDetalleplanificacioncalidad);
-                        oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad = em.merge(oldEmpleadoOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad);
-                    }
-                }
-            }
             for (Disponibilidadhoraria disponibilidadhorariaListOldDisponibilidadhoraria : disponibilidadhorariaListOld) {
                 if (!disponibilidadhorariaListNew.contains(disponibilidadhorariaListOldDisponibilidadhoraria)) {
                     disponibilidadhorariaListOldDisponibilidadhoraria.setIdempleado(null);
@@ -493,12 +449,12 @@ public class EmpleadoJpaController implements Serializable {
             }
             for (Asistencia asistenciaListNewAsistencia : asistenciaListNew) {
                 if (!asistenciaListOld.contains(asistenciaListNewAsistencia)) {
-                    Empleado oldEmpleado1OfAsistenciaListNewAsistencia = asistenciaListNewAsistencia.getEmpleado1();
-                    asistenciaListNewAsistencia.setEmpleado1(empleado);
+                    Empleado oldEmpleadoOfAsistenciaListNewAsistencia = asistenciaListNewAsistencia.getEmpleado();
+                    asistenciaListNewAsistencia.setEmpleado(empleado);
                     asistenciaListNewAsistencia = em.merge(asistenciaListNewAsistencia);
-                    if (oldEmpleado1OfAsistenciaListNewAsistencia != null && !oldEmpleado1OfAsistenciaListNewAsistencia.equals(empleado)) {
-                        oldEmpleado1OfAsistenciaListNewAsistencia.getAsistenciaList().remove(asistenciaListNewAsistencia);
-                        oldEmpleado1OfAsistenciaListNewAsistencia = em.merge(oldEmpleado1OfAsistenciaListNewAsistencia);
+                    if (oldEmpleadoOfAsistenciaListNewAsistencia != null && !oldEmpleadoOfAsistenciaListNewAsistencia.equals(empleado)) {
+                        oldEmpleadoOfAsistenciaListNewAsistencia.getAsistenciaList().remove(asistenciaListNewAsistencia);
+                        oldEmpleadoOfAsistenciaListNewAsistencia = em.merge(oldEmpleadoOfAsistenciaListNewAsistencia);
                     }
                 }
             }
@@ -544,35 +500,35 @@ public class EmpleadoJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Empleado (" + empleado + ") cannot be destroyed since the Asistencia " + asistenciaListOrphanCheckAsistencia + " in its asistenciaList field has a non-nullable empleado1 field.");
+                illegalOrphanMessages.add("This Empleado (" + empleado + ") cannot be destroyed since the Asistencia " + asistenciaListOrphanCheckAsistencia + " in its asistenciaList field has a non-nullable empleado field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Usuario usuario = empleado.getUsuario();
-            if (usuario != null) {
-                usuario.getEmpleadoList().remove(empleado);
-                usuario = em.merge(usuario);
-            }
-            Tipodocumento tipodocumento = empleado.getTipodocumento();
-            if (tipodocumento != null) {
-                tipodocumento.getEmpleadoList().remove(empleado);
-                tipodocumento = em.merge(tipodocumento);
-            }
-            Domicilio domicilio = empleado.getDomicilio();
-            if (domicilio != null) {
-                domicilio.getEmpleadoList().remove(empleado);
-                domicilio = em.merge(domicilio);
+            Cargo cargo = empleado.getCargo();
+            if (cargo != null) {
+                cargo.getEmpleadoList().remove(empleado);
+                cargo = em.merge(cargo);
             }
             Categoria categoria = empleado.getCategoria();
             if (categoria != null) {
                 categoria.getEmpleadoList().remove(empleado);
                 categoria = em.merge(categoria);
             }
-            Cargo cargo = empleado.getCargo();
-            if (cargo != null) {
-                cargo.getEmpleadoList().remove(empleado);
-                cargo = em.merge(cargo);
+            Domicilio domicilio = empleado.getDomicilio();
+            if (domicilio != null) {
+                domicilio.getEmpleadoList().remove(empleado);
+                domicilio = em.merge(domicilio);
+            }
+            Tipodocumento tipodocumento = empleado.getTipodocumento();
+            if (tipodocumento != null) {
+                tipodocumento.getEmpleadoList().remove(empleado);
+                tipodocumento = em.merge(tipodocumento);
+            }
+            Usuario usuario = empleado.getUsuario();
+            if (usuario != null) {
+                usuario.getEmpleadoList().remove(empleado);
+                usuario = em.merge(usuario);
             }
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionList = empleado.getDetalleplanificacionproduccionList();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : detalleplanificacionproduccionList) {
@@ -588,11 +544,6 @@ public class EmpleadoJpaController implements Serializable {
             for (Mantenimientocorrectivo mantenimientocorrectivoListMantenimientocorrectivo : mantenimientocorrectivoList) {
                 mantenimientocorrectivoListMantenimientocorrectivo.setEmpleado(null);
                 mantenimientocorrectivoListMantenimientocorrectivo = em.merge(mantenimientocorrectivoListMantenimientocorrectivo);
-            }
-            List<Detalleplanificacioncalidad> detalleplanificacioncalidadList = empleado.getDetalleplanificacioncalidadList();
-            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidad : detalleplanificacioncalidadList) {
-                detalleplanificacioncalidadListDetalleplanificacioncalidad.setEmpleado(null);
-                detalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListDetalleplanificacioncalidad);
             }
             List<Disponibilidadhoraria> disponibilidadhorariaList = empleado.getDisponibilidadhorariaList();
             for (Disponibilidadhoraria disponibilidadhorariaListDisponibilidadhoraria : disponibilidadhorariaList) {
@@ -653,5 +604,5 @@ public class EmpleadoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

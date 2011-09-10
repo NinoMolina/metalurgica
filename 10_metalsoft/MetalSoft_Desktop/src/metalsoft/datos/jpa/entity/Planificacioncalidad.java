@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -12,8 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,8 +42,6 @@ public class Planificacioncalidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planificacioncalidad_seq")
-    @SequenceGenerator(name = "planificacioncalidad_seq", sequenceName = "planificacioncalidad_idplanificacion_seq", allocationSize = 1)
     @Column(name = "idplanificacion")
     private Long idplanificacion;
     @Column(name = "nroplanificacion")
@@ -61,13 +57,16 @@ public class Planificacioncalidad implements Serializable {
     @Column(name = "fechafinprevista")
     @Temporal(TemporalType.DATE)
     private Date fechafinprevista;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idplanificacioncalidad")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad")
     private Ejecucionplanificacioncalidad ejecucionplanificacioncalidad;
+
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacioncalidad")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planificacioncalidad")
     private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
+
 
     public Planificacioncalidad() {
     }
@@ -132,6 +131,7 @@ public class Planificacioncalidad implements Serializable {
         this.ejecucionplanificacioncalidad = ejecucionplanificacioncalidad;
     }
 
+
     public Pedido getPedido() {
         return pedido;
     }
@@ -140,6 +140,7 @@ public class Planificacioncalidad implements Serializable {
         this.pedido = pedido;
     }
 
+
     public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
         return detalleplanificacioncalidadList;
     }
@@ -147,6 +148,7 @@ public class Planificacioncalidad implements Serializable {
     public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
         this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
     }
+
 
     @Override
     public int hashCode() {
@@ -170,7 +172,7 @@ public class Planificacioncalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Planificacioncalidad[ idplanificacion=" + idplanificacion + " ]";
+        return "metalsoft.datos.jpa.entity.Planificacioncalidad[idplanificacion=" + idplanificacion + "]";
     }
-    
+
 }

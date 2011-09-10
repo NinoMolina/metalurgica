@@ -6,7 +6,6 @@ package metalsoft;
 
 import java.util.List;
 import metalsoft.datos.dbobject.UsuarioDB;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
@@ -27,7 +26,7 @@ public class MetalsoftDispatcher {
          * deberian haber terminado.
          */
 
-        UsuarioJpaController usuarioController = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
+        UsuarioJpaController usuarioController = new UsuarioJpaController();
         Usuario usuarioJpa = usuarioController.findUsuario(usuario.getIdusuario());
 
         List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();

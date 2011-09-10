@@ -2,20 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.math.BigInteger;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -26,44 +24,54 @@ import javax.persistence.Table;
 @Table(name = "detalleproductoreal")
 @NamedQueries({
     @NamedQuery(name = "Detalleproductoreal.findAll", query = "SELECT d FROM Detalleproductoreal d"),
-    @NamedQuery(name = "Detalleproductoreal.findByIddetalle", query = "SELECT d FROM Detalleproductoreal d WHERE d.iddetalle = :iddetalle"),
+    @NamedQuery(name = "Detalleproductoreal.findByIddetalle", query = "SELECT d FROM Detalleproductoreal d WHERE d.detalleproductorealPK.iddetalle = :iddetalle"),
+    @NamedQuery(name = "Detalleproductoreal.findByIdproductoreal", query = "SELECT d FROM Detalleproductoreal d WHERE d.detalleproductorealPK.idproductoreal = :idproductoreal"),
+    @NamedQuery(name = "Detalleproductoreal.findByIdpieza", query = "SELECT d FROM Detalleproductoreal d WHERE d.idpieza = :idpieza"),
     @NamedQuery(name = "Detalleproductoreal.findByCantidadPiezas", query = "SELECT d FROM Detalleproductoreal d WHERE d.cantidadPiezas = :cantidadPiezas"),
-    @NamedQuery(name = "Detalleproductoreal.findByDescripcion", query = "SELECT d FROM Detalleproductoreal d WHERE d.descripcion = :descripcion")})
+    @NamedQuery(name = "Detalleproductoreal.findByDescripcion", query = "SELECT d FROM Detalleproductoreal d WHERE d.descripcion = :descripcion"),
+    @NamedQuery(name = "Detalleproductoreal.findByIdpiezareal", query = "SELECT d FROM Detalleproductoreal d WHERE d.idpiezareal = :idpiezareal")})
 public class Detalleproductoreal implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleproductoreal_seq")
-    @SequenceGenerator(name = "detalleproductoreal_seq", sequenceName = "detalleproductoreal_iddetalle_seq", allocationSize = 1)
-    @Column(name = "iddetalle")
-    private Long iddetalle;
+    @EmbeddedId
+    protected DetalleproductorealPK detalleproductorealPK;
+    @Column(name = "idpieza")
+    private BigInteger idpieza;
     @Column(name = "cantidadPiezas")
     private Integer cantidadPiezas;
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "idproductoreal", referencedColumnName = "idproductoreal")
+    @Column(name = "idpiezareal")
+    private BigInteger idpiezareal;
+    @JoinColumn(name = "idproductoreal", referencedColumnName = "idproductoreal", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Productoreal idproductoreal;
-    @JoinColumn(name = "idpiezareal", referencedColumnName = "idpiezareal")
-    @ManyToOne
-    private Piezareal idpiezareal;
-    @JoinColumn(name = "detalleproducto", referencedColumnName = "iddetalle")
-    @ManyToOne
-    private Detalleproducto detalleproducto;
+    private Productoreal productoreal;
+
 
     public Detalleproductoreal() {
     }
 
-    public Detalleproductoreal(Long iddetalle) {
-        this.iddetalle = iddetalle;
+    public Detalleproductoreal(DetalleproductorealPK detalleproductorealPK) {
+        this.detalleproductorealPK = detalleproductorealPK;
     }
 
-    public Long getIddetalle() {
-        return iddetalle;
+    public Detalleproductoreal(long iddetalle, long idproductoreal) {
+        this.detalleproductorealPK = new DetalleproductorealPK(iddetalle, idproductoreal);
     }
 
-    public void setIddetalle(Long iddetalle) {
-        this.iddetalle = iddetalle;
+    public DetalleproductorealPK getDetalleproductorealPK() {
+        return detalleproductorealPK;
+    }
+
+    public void setDetalleproductorealPK(DetalleproductorealPK detalleproductorealPK) {
+        this.detalleproductorealPK = detalleproductorealPK;
+    }
+
+    public BigInteger getIdpieza() {
+        return idpieza;
+    }
+
+    public void setIdpieza(BigInteger idpieza) {
+        this.idpieza = idpieza;
     }
 
     public Integer getCantidadPiezas() {
@@ -82,34 +90,27 @@ public class Detalleproductoreal implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Productoreal getIdproductoreal() {
-        return idproductoreal;
-    }
-
-    public void setIdproductoreal(Productoreal idproductoreal) {
-        this.idproductoreal = idproductoreal;
-    }
-
-    public Piezareal getIdpiezareal() {
+    public BigInteger getIdpiezareal() {
         return idpiezareal;
     }
 
-    public void setIdpiezareal(Piezareal idpiezareal) {
+    public void setIdpiezareal(BigInteger idpiezareal) {
         this.idpiezareal = idpiezareal;
     }
 
-    public Detalleproducto getDetalleproducto() {
-        return detalleproducto;
+    public Productoreal getProductoreal() {
+        return productoreal;
     }
 
-    public void setDetalleproducto(Detalleproducto detalleproducto) {
-        this.detalleproducto = detalleproducto;
+    public void setProductoreal(Productoreal productoreal) {
+        this.productoreal = productoreal;
     }
+
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (iddetalle != null ? iddetalle.hashCode() : 0);
+        hash += (detalleproductorealPK != null ? detalleproductorealPK.hashCode() : 0);
         return hash;
     }
 
@@ -120,7 +121,7 @@ public class Detalleproductoreal implements Serializable {
             return false;
         }
         Detalleproductoreal other = (Detalleproductoreal) object;
-        if ((this.iddetalle == null && other.iddetalle != null) || (this.iddetalle != null && !this.iddetalle.equals(other.iddetalle))) {
+        if ((this.detalleproductorealPK == null && other.detalleproductorealPK != null) || (this.detalleproductorealPK != null && !this.detalleproductorealPK.equals(other.detalleproductorealPK))) {
             return false;
         }
         return true;
@@ -128,7 +129,7 @@ public class Detalleproductoreal implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleproductoreal[ iddetalle=" + iddetalle + " ]";
+        return "metalsoft.datos.jpa.entity.Detalleproductoreal[detalleproductorealPK=" + detalleproductorealPK + "]";
     }
-    
+
 }

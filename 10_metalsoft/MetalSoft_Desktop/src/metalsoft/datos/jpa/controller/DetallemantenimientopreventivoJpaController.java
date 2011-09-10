@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,18 +18,18 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.DetallemantenimientopreventivoPK;
-import metalsoft.datos.jpa.entity.Servicio;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Servicio;
 import java.util.ArrayList;
 
 /**
  *
  * @author Nino
  */
-public class DetallemantenimientopreventivoJpaController implements Serializable {
+public class DetallemantenimientopreventivoJpaController {
 
-    public DetallemantenimientopreventivoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetallemantenimientopreventivoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -59,24 +60,24 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Servicio servicio = detallemantenimientopreventivo.getServicio();
-            if (servicio != null) {
-                servicio = em.getReference(servicio.getClass(), servicio.getIdservicio());
-                detallemantenimientopreventivo.setServicio(servicio);
-            }
             Mantenimientopreventivo mantenimientopreventivo = detallemantenimientopreventivo.getMantenimientopreventivo();
             if (mantenimientopreventivo != null) {
                 mantenimientopreventivo = em.getReference(mantenimientopreventivo.getClass(), mantenimientopreventivo.getIdmantenimientopreventivo());
                 detallemantenimientopreventivo.setMantenimientopreventivo(mantenimientopreventivo);
             }
-            em.persist(detallemantenimientopreventivo);
+            Servicio servicio = detallemantenimientopreventivo.getServicio();
             if (servicio != null) {
-                servicio.getDetallemantenimientopreventivoList().add(detallemantenimientopreventivo);
-                servicio = em.merge(servicio);
+                servicio = em.getReference(servicio.getClass(), servicio.getIdservicio());
+                detallemantenimientopreventivo.setServicio(servicio);
             }
+            em.persist(detallemantenimientopreventivo);
             if (mantenimientopreventivo != null) {
                 mantenimientopreventivo.setDetallemantenimientopreventivo(detallemantenimientopreventivo);
                 mantenimientopreventivo = em.merge(mantenimientopreventivo);
+            }
+            if (servicio != null) {
+                servicio.getDetallemantenimientopreventivoList().add(detallemantenimientopreventivo);
+                servicio = em.merge(servicio);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -98,10 +99,10 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
             em = getEntityManager();
             em.getTransaction().begin();
             Detallemantenimientopreventivo persistentDetallemantenimientopreventivo = em.find(Detallemantenimientopreventivo.class, detallemantenimientopreventivo.getDetallemantenimientopreventivoPK());
-            Servicio servicioOld = persistentDetallemantenimientopreventivo.getServicio();
-            Servicio servicioNew = detallemantenimientopreventivo.getServicio();
             Mantenimientopreventivo mantenimientopreventivoOld = persistentDetallemantenimientopreventivo.getMantenimientopreventivo();
             Mantenimientopreventivo mantenimientopreventivoNew = detallemantenimientopreventivo.getMantenimientopreventivo();
+            Servicio servicioOld = persistentDetallemantenimientopreventivo.getServicio();
+            Servicio servicioNew = detallemantenimientopreventivo.getServicio();
             List<String> illegalOrphanMessages = null;
             if (mantenimientopreventivoNew != null && !mantenimientopreventivoNew.equals(mantenimientopreventivoOld)) {
                 Detallemantenimientopreventivo oldDetallemantenimientopreventivoOfMantenimientopreventivo = mantenimientopreventivoNew.getDetallemantenimientopreventivo();
@@ -115,23 +116,15 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (servicioNew != null) {
-                servicioNew = em.getReference(servicioNew.getClass(), servicioNew.getIdservicio());
-                detallemantenimientopreventivo.setServicio(servicioNew);
-            }
             if (mantenimientopreventivoNew != null) {
                 mantenimientopreventivoNew = em.getReference(mantenimientopreventivoNew.getClass(), mantenimientopreventivoNew.getIdmantenimientopreventivo());
                 detallemantenimientopreventivo.setMantenimientopreventivo(mantenimientopreventivoNew);
             }
+            if (servicioNew != null) {
+                servicioNew = em.getReference(servicioNew.getClass(), servicioNew.getIdservicio());
+                detallemantenimientopreventivo.setServicio(servicioNew);
+            }
             detallemantenimientopreventivo = em.merge(detallemantenimientopreventivo);
-            if (servicioOld != null && !servicioOld.equals(servicioNew)) {
-                servicioOld.getDetallemantenimientopreventivoList().remove(detallemantenimientopreventivo);
-                servicioOld = em.merge(servicioOld);
-            }
-            if (servicioNew != null && !servicioNew.equals(servicioOld)) {
-                servicioNew.getDetallemantenimientopreventivoList().add(detallemantenimientopreventivo);
-                servicioNew = em.merge(servicioNew);
-            }
             if (mantenimientopreventivoOld != null && !mantenimientopreventivoOld.equals(mantenimientopreventivoNew)) {
                 mantenimientopreventivoOld.setDetallemantenimientopreventivo(null);
                 mantenimientopreventivoOld = em.merge(mantenimientopreventivoOld);
@@ -139,6 +132,14 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
             if (mantenimientopreventivoNew != null && !mantenimientopreventivoNew.equals(mantenimientopreventivoOld)) {
                 mantenimientopreventivoNew.setDetallemantenimientopreventivo(detallemantenimientopreventivo);
                 mantenimientopreventivoNew = em.merge(mantenimientopreventivoNew);
+            }
+            if (servicioOld != null && !servicioOld.equals(servicioNew)) {
+                servicioOld.getDetallemantenimientopreventivoList().remove(detallemantenimientopreventivo);
+                servicioOld = em.merge(servicioOld);
+            }
+            if (servicioNew != null && !servicioNew.equals(servicioOld)) {
+                servicioNew.getDetallemantenimientopreventivoList().add(detallemantenimientopreventivo);
+                servicioNew = em.merge(servicioNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -169,15 +170,15 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallemantenimientopreventivo with id " + id + " no longer exists.", enfe);
             }
-            Servicio servicio = detallemantenimientopreventivo.getServicio();
-            if (servicio != null) {
-                servicio.getDetallemantenimientopreventivoList().remove(detallemantenimientopreventivo);
-                servicio = em.merge(servicio);
-            }
             Mantenimientopreventivo mantenimientopreventivo = detallemantenimientopreventivo.getMantenimientopreventivo();
             if (mantenimientopreventivo != null) {
                 mantenimientopreventivo.setDetallemantenimientopreventivo(null);
                 mantenimientopreventivo = em.merge(mantenimientopreventivo);
+            }
+            Servicio servicio = detallemantenimientopreventivo.getServicio();
+            if (servicio != null) {
+                servicio.getDetallemantenimientopreventivoList().remove(detallemantenimientopreventivo);
+                servicio = em.merge(servicio);
             }
             em.remove(detallemantenimientopreventivo);
             em.getTransaction().commit();
@@ -233,5 +234,5 @@ public class DetallemantenimientopreventivoJpaController implements Serializable
             em.close();
         }
     }
-    
+
 }

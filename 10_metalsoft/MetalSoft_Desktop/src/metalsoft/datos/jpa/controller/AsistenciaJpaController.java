@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,10 +23,10 @@ import metalsoft.datos.jpa.entity.Empleado;
  *
  * @author Nino
  */
-public class AsistenciaJpaController implements Serializable {
+public class AsistenciaJpaController {
 
-    public AsistenciaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public AsistenciaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -37,20 +38,20 @@ public class AsistenciaJpaController implements Serializable {
         if (asistencia.getAsistenciaPK() == null) {
             asistencia.setAsistenciaPK(new AsistenciaPK());
         }
-        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado1().getIdempleado());
+        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado().getIdempleado());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empleado empleado1 = asistencia.getEmpleado1();
-            if (empleado1 != null) {
-                empleado1 = em.getReference(empleado1.getClass(), empleado1.getIdempleado());
-                asistencia.setEmpleado1(empleado1);
+            Empleado empleado = asistencia.getEmpleado();
+            if (empleado != null) {
+                empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
+                asistencia.setEmpleado(empleado);
             }
             em.persist(asistencia);
-            if (empleado1 != null) {
-                empleado1.getAsistenciaList().add(asistencia);
-                empleado1 = em.merge(empleado1);
+            if (empleado != null) {
+                empleado.getAsistenciaList().add(asistencia);
+                empleado = em.merge(empleado);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -66,26 +67,26 @@ public class AsistenciaJpaController implements Serializable {
     }
 
     public void edit(Asistencia asistencia) throws NonexistentEntityException, Exception {
-        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado1().getIdempleado());
+        asistencia.getAsistenciaPK().setEmpleado(asistencia.getEmpleado().getIdempleado());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Asistencia persistentAsistencia = em.find(Asistencia.class, asistencia.getAsistenciaPK());
-            Empleado empleado1Old = persistentAsistencia.getEmpleado1();
-            Empleado empleado1New = asistencia.getEmpleado1();
-            if (empleado1New != null) {
-                empleado1New = em.getReference(empleado1New.getClass(), empleado1New.getIdempleado());
-                asistencia.setEmpleado1(empleado1New);
+            Empleado empleadoOld = persistentAsistencia.getEmpleado();
+            Empleado empleadoNew = asistencia.getEmpleado();
+            if (empleadoNew != null) {
+                empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
+                asistencia.setEmpleado(empleadoNew);
             }
             asistencia = em.merge(asistencia);
-            if (empleado1Old != null && !empleado1Old.equals(empleado1New)) {
-                empleado1Old.getAsistenciaList().remove(asistencia);
-                empleado1Old = em.merge(empleado1Old);
+            if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
+                empleadoOld.getAsistenciaList().remove(asistencia);
+                empleadoOld = em.merge(empleadoOld);
             }
-            if (empleado1New != null && !empleado1New.equals(empleado1Old)) {
-                empleado1New.getAsistenciaList().add(asistencia);
-                empleado1New = em.merge(empleado1New);
+            if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
+                empleadoNew.getAsistenciaList().add(asistencia);
+                empleadoNew = em.merge(empleadoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -116,10 +117,10 @@ public class AsistenciaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The asistencia with id " + id + " no longer exists.", enfe);
             }
-            Empleado empleado1 = asistencia.getEmpleado1();
-            if (empleado1 != null) {
-                empleado1.getAsistenciaList().remove(asistencia);
-                empleado1 = em.merge(empleado1);
+            Empleado empleado = asistencia.getEmpleado();
+            if (empleado != null) {
+                empleado.getAsistenciaList().remove(asistencia);
+                empleado = em.merge(empleado);
             }
             em.remove(asistencia);
             em.getTransaction().commit();
@@ -175,5 +176,5 @@ public class AsistenciaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

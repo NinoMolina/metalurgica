@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -11,15 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,8 +42,6 @@ public class Mantenimientopreventivo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mantenimientopreventivo_seq")
-    @SequenceGenerator(name = "mantenimientopreventivo_seq", sequenceName = "mantenimientopreventivo_idmantenimientopreventivo_seq", allocationSize = 1)
     @Column(name = "idmantenimientopreventivo")
     private Long idmantenimientopreventivo;
     @Column(name = "fechamantenimientoprevisto")
@@ -57,23 +53,22 @@ public class Mantenimientopreventivo implements Serializable {
     @Column(name = "horaenviomantenimiento")
     @Temporal(TemporalType.TIME)
     private Date horaenviomantenimiento;
-    @Column(name = "nromantenimietno")
+    @Column(name = "periodo")
+    private String periodo;
+    @Column(name = "nromantenimiento")
     private BigInteger nromantenimietno;
     @Column(name = "fechafinmantenimientoreal")
     @Temporal(TemporalType.DATE)
     private Date fechafinmantenimientoreal;
-    @Column(name = "periodo")
-    private BigInteger periodo;
-    @Column(name = "duraciontotal")
-    @Temporal(TemporalType.TIME)
-    private Date duraciontotal;
     @Column(name = "maquina")
     private BigInteger maquina;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo")
     private Detallemantenimientopreventivo detallemantenimientopreventivo;
+
     @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
     @ManyToOne
     private Proveedormantenimientomaquina proveedormantenimiento;
+
 
     public Mantenimientopreventivo() {
     }
@@ -114,19 +109,11 @@ public class Mantenimientopreventivo implements Serializable {
         this.horaenviomantenimiento = horaenviomantenimiento;
     }
 
-    public Date getDuraciontotal() {
-        return duraciontotal;
-    }
-
-    public void setDuraciontotal(Date duraciontotal) {
-        this.duraciontotal = duraciontotal;
-    }
-
-    public BigInteger getPeriodo() {
+    public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(BigInteger periodo) {
+    public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
 
@@ -162,6 +149,7 @@ public class Mantenimientopreventivo implements Serializable {
         this.detallemantenimientopreventivo = detallemantenimientopreventivo;
     }
 
+
     public Proveedormantenimientomaquina getProveedormantenimiento() {
         return proveedormantenimiento;
     }
@@ -169,6 +157,7 @@ public class Mantenimientopreventivo implements Serializable {
     public void setProveedormantenimiento(Proveedormantenimientomaquina proveedormantenimiento) {
         this.proveedormantenimiento = proveedormantenimiento;
     }
+
 
     @Override
     public int hashCode() {
@@ -192,7 +181,7 @@ public class Mantenimientopreventivo implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Mantenimientopreventivo[ idmantenimientopreventivo=" + idmantenimientopreventivo + " ]";
+        return "metalsoft.datos.jpa.entity.Mantenimientopreventivo[idmantenimientopreventivo=" + idmantenimientopreventivo + "]";
     }
-    
+
 }

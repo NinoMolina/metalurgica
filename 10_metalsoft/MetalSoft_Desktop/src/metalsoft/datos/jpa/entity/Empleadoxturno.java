@@ -2,15 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -27,12 +31,14 @@ public class Empleadoxturno implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EmpleadoxturnoPK empleadoxturnoPK;
-    @JoinColumn(name = "idturno", referencedColumnName = "idturno", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Turno turno;
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Empleado empleado;
+
+    @JoinColumn(name = "idturno", referencedColumnName = "idturno", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Turno turno;
+
 
     public Empleadoxturno() {
     }
@@ -53,6 +59,15 @@ public class Empleadoxturno implements Serializable {
         this.empleadoxturnoPK = empleadoxturnoPK;
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+
     public Turno getTurno() {
         return turno;
     }
@@ -61,13 +76,6 @@ public class Empleadoxturno implements Serializable {
         this.turno = turno;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
 
     @Override
     public int hashCode() {
@@ -91,7 +99,7 @@ public class Empleadoxturno implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Empleadoxturno[ empleadoxturnoPK=" + empleadoxturnoPK + " ]";
+        return "metalsoft.datos.jpa.entity.Empleadoxturno[empleadoxturnoPK=" + empleadoxturnoPK + "]";
     }
-    
+
 }

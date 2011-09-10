@@ -2,23 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
-import metalsoft.datos.jpa.entity.Piezareal;
-import metalsoft.datos.jpa.entity.Pieza;
-import metalsoft.datos.jpa.entity.Etapadeproduccion;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Etapadeproduccion;
+import metalsoft.datos.jpa.entity.Pieza;
+import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class DetalleejecucionplanificacionJpaController implements Serializable {
+public class DetalleejecucionplanificacionJpaController {
 
-    public DetalleejecucionplanificacionJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetalleejecucionplanificacionJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -38,7 +38,7 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
         return emf.createEntityManager();
     }
 
-    public void create(Detalleejecucionplanificacion detalleejecucionplanificacion) throws PreexistingEntityException, Exception {
+    public void create(Detalleejecucionplanificacion detalleejecucionplanificacion) {
         if (detalleejecucionplanificacion.getDetalleplanificacionproduccionList() == null) {
             detalleejecucionplanificacion.setDetalleplanificacionproduccionList(new ArrayList<Detalleplanificacionproduccion>());
         }
@@ -46,30 +46,30 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Piezareal piezareal = detalleejecucionplanificacion.getPiezareal();
-            if (piezareal != null) {
-                piezareal = em.getReference(piezareal.getClass(), piezareal.getIdpiezareal());
-                detalleejecucionplanificacion.setPiezareal(piezareal);
-            }
-            Pieza pieza = detalleejecucionplanificacion.getPieza();
-            if (pieza != null) {
-                pieza = em.getReference(pieza.getClass(), pieza.getIdpieza());
-                detalleejecucionplanificacion.setPieza(pieza);
-            }
-            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
-            if (idetapaproduccion != null) {
-                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
-                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccion);
+            Ejecucionetapaproduccion ejecucionetapa = detalleejecucionplanificacion.getEjecucionetapa();
+            if (ejecucionetapa != null) {
+                ejecucionetapa = em.getReference(ejecucionetapa.getClass(), ejecucionetapa.getId());
+                detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapa);
             }
             Ejecucionplanificacionproduccion idejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
             if (idejecucionplanificacionproduccion != null) {
                 idejecucionplanificacionproduccion = em.getReference(idejecucionplanificacionproduccion.getClass(), idejecucionplanificacionproduccion.getIdejecucion());
                 detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(idejecucionplanificacionproduccion);
             }
-            Ejecucionetapaproduccion ejecucionetapa = detalleejecucionplanificacion.getEjecucionetapa();
-            if (ejecucionetapa != null) {
-                ejecucionetapa = em.getReference(ejecucionetapa.getClass(), ejecucionetapa.getId());
-                detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapa);
+            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
+                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccion);
+            }
+            Pieza pieza = detalleejecucionplanificacion.getPieza();
+            if (pieza != null) {
+                pieza = em.getReference(pieza.getClass(), pieza.getIdpieza());
+                detalleejecucionplanificacion.setPieza(pieza);
+            }
+            Piezareal piezareal = detalleejecucionplanificacion.getPiezareal();
+            if (piezareal != null) {
+                piezareal = em.getReference(piezareal.getClass(), piezareal.getIdpiezareal());
+                detalleejecucionplanificacion.setPiezareal(piezareal);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionList = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccionToAttach : detalleejecucionplanificacion.getDetalleplanificacionproduccionList()) {
@@ -78,25 +78,25 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
             }
             detalleejecucionplanificacion.setDetalleplanificacionproduccionList(attachedDetalleplanificacionproduccionList);
             em.persist(detalleejecucionplanificacion);
-            if (piezareal != null) {
-                piezareal.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                piezareal = em.merge(piezareal);
-            }
-            if (pieza != null) {
-                pieza.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                pieza = em.merge(pieza);
-            }
-            if (idetapaproduccion != null) {
-                idetapaproduccion.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                idetapaproduccion = em.merge(idetapaproduccion);
+            if (ejecucionetapa != null) {
+                ejecucionetapa.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                ejecucionetapa = em.merge(ejecucionetapa);
             }
             if (idejecucionplanificacionproduccion != null) {
                 idejecucionplanificacionproduccion.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccion = em.merge(idejecucionplanificacionproduccion);
             }
-            if (ejecucionetapa != null) {
-                ejecucionetapa.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                ejecucionetapa = em.merge(ejecucionetapa);
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            if (pieza != null) {
+                pieza.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                pieza = em.merge(pieza);
+            }
+            if (piezareal != null) {
+                piezareal.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                piezareal = em.merge(piezareal);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : detalleejecucionplanificacion.getDetalleplanificacionproduccionList()) {
                 Detalleejecucionplanificacion oldIddetalleejecucionplanificacionOfDetalleplanificacionproduccionListDetalleplanificacionproduccion = detalleplanificacionproduccionListDetalleplanificacionproduccion.getIddetalleejecucionplanificacion();
@@ -108,11 +108,6 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDetalleejecucionplanificacion(detalleejecucionplanificacion.getId()) != null) {
-                throw new PreexistingEntityException("Detalleejecucionplanificacion " + detalleejecucionplanificacion + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -126,37 +121,37 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
             em = getEntityManager();
             em.getTransaction().begin();
             Detalleejecucionplanificacion persistentDetalleejecucionplanificacion = em.find(Detalleejecucionplanificacion.class, detalleejecucionplanificacion.getId());
-            Piezareal piezarealOld = persistentDetalleejecucionplanificacion.getPiezareal();
-            Piezareal piezarealNew = detalleejecucionplanificacion.getPiezareal();
-            Pieza piezaOld = persistentDetalleejecucionplanificacion.getPieza();
-            Pieza piezaNew = detalleejecucionplanificacion.getPieza();
-            Etapadeproduccion idetapaproduccionOld = persistentDetalleejecucionplanificacion.getIdetapaproduccion();
-            Etapadeproduccion idetapaproduccionNew = detalleejecucionplanificacion.getIdetapaproduccion();
-            Ejecucionplanificacionproduccion idejecucionplanificacionproduccionOld = persistentDetalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
-            Ejecucionplanificacionproduccion idejecucionplanificacionproduccionNew = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
             Ejecucionetapaproduccion ejecucionetapaOld = persistentDetalleejecucionplanificacion.getEjecucionetapa();
             Ejecucionetapaproduccion ejecucionetapaNew = detalleejecucionplanificacion.getEjecucionetapa();
+            Ejecucionplanificacionproduccion idejecucionplanificacionproduccionOld = persistentDetalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
+            Ejecucionplanificacionproduccion idejecucionplanificacionproduccionNew = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
+            Etapadeproduccion idetapaproduccionOld = persistentDetalleejecucionplanificacion.getIdetapaproduccion();
+            Etapadeproduccion idetapaproduccionNew = detalleejecucionplanificacion.getIdetapaproduccion();
+            Pieza piezaOld = persistentDetalleejecucionplanificacion.getPieza();
+            Pieza piezaNew = detalleejecucionplanificacion.getPieza();
+            Piezareal piezarealOld = persistentDetalleejecucionplanificacion.getPiezareal();
+            Piezareal piezarealNew = detalleejecucionplanificacion.getPiezareal();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListOld = persistentDetalleejecucionplanificacion.getDetalleplanificacionproduccionList();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListNew = detalleejecucionplanificacion.getDetalleplanificacionproduccionList();
-            if (piezarealNew != null) {
-                piezarealNew = em.getReference(piezarealNew.getClass(), piezarealNew.getIdpiezareal());
-                detalleejecucionplanificacion.setPiezareal(piezarealNew);
-            }
-            if (piezaNew != null) {
-                piezaNew = em.getReference(piezaNew.getClass(), piezaNew.getIdpieza());
-                detalleejecucionplanificacion.setPieza(piezaNew);
-            }
-            if (idetapaproduccionNew != null) {
-                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
-                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccionNew);
+            if (ejecucionetapaNew != null) {
+                ejecucionetapaNew = em.getReference(ejecucionetapaNew.getClass(), ejecucionetapaNew.getId());
+                detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaNew);
             }
             if (idejecucionplanificacionproduccionNew != null) {
                 idejecucionplanificacionproduccionNew = em.getReference(idejecucionplanificacionproduccionNew.getClass(), idejecucionplanificacionproduccionNew.getIdejecucion());
                 detalleejecucionplanificacion.setIdejecucionplanificacionproduccion(idejecucionplanificacionproduccionNew);
             }
-            if (ejecucionetapaNew != null) {
-                ejecucionetapaNew = em.getReference(ejecucionetapaNew.getClass(), ejecucionetapaNew.getId());
-                detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaNew);
+            if (idetapaproduccionNew != null) {
+                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
+                detalleejecucionplanificacion.setIdetapaproduccion(idetapaproduccionNew);
+            }
+            if (piezaNew != null) {
+                piezaNew = em.getReference(piezaNew.getClass(), piezaNew.getIdpieza());
+                detalleejecucionplanificacion.setPieza(piezaNew);
+            }
+            if (piezarealNew != null) {
+                piezarealNew = em.getReference(piezarealNew.getClass(), piezarealNew.getIdpiezareal());
+                detalleejecucionplanificacion.setPiezareal(piezarealNew);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionListNew = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListNewDetalleplanificacionproduccionToAttach : detalleplanificacionproduccionListNew) {
@@ -166,29 +161,13 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
             detalleplanificacionproduccionListNew = attachedDetalleplanificacionproduccionListNew;
             detalleejecucionplanificacion.setDetalleplanificacionproduccionList(detalleplanificacionproduccionListNew);
             detalleejecucionplanificacion = em.merge(detalleejecucionplanificacion);
-            if (piezarealOld != null && !piezarealOld.equals(piezarealNew)) {
-                piezarealOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                piezarealOld = em.merge(piezarealOld);
+            if (ejecucionetapaOld != null && !ejecucionetapaOld.equals(ejecucionetapaNew)) {
+                ejecucionetapaOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                ejecucionetapaOld = em.merge(ejecucionetapaOld);
             }
-            if (piezarealNew != null && !piezarealNew.equals(piezarealOld)) {
-                piezarealNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                piezarealNew = em.merge(piezarealNew);
-            }
-            if (piezaOld != null && !piezaOld.equals(piezaNew)) {
-                piezaOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                piezaOld = em.merge(piezaOld);
-            }
-            if (piezaNew != null && !piezaNew.equals(piezaOld)) {
-                piezaNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                piezaNew = em.merge(piezaNew);
-            }
-            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
-                idetapaproduccionOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                idetapaproduccionOld = em.merge(idetapaproduccionOld);
-            }
-            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
-                idetapaproduccionNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                idetapaproduccionNew = em.merge(idetapaproduccionNew);
+            if (ejecucionetapaNew != null && !ejecucionetapaNew.equals(ejecucionetapaOld)) {
+                ejecucionetapaNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                ejecucionetapaNew = em.merge(ejecucionetapaNew);
             }
             if (idejecucionplanificacionproduccionOld != null && !idejecucionplanificacionproduccionOld.equals(idejecucionplanificacionproduccionNew)) {
                 idejecucionplanificacionproduccionOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
@@ -198,13 +177,29 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
                 idejecucionplanificacionproduccionNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccionNew = em.merge(idejecucionplanificacionproduccionNew);
             }
-            if (ejecucionetapaOld != null && !ejecucionetapaOld.equals(ejecucionetapaNew)) {
-                ejecucionetapaOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                ejecucionetapaOld = em.merge(ejecucionetapaOld);
+            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
+                idetapaproduccionOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                idetapaproduccionOld = em.merge(idetapaproduccionOld);
             }
-            if (ejecucionetapaNew != null && !ejecucionetapaNew.equals(ejecucionetapaOld)) {
-                ejecucionetapaNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
-                ejecucionetapaNew = em.merge(ejecucionetapaNew);
+            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
+                idetapaproduccionNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                idetapaproduccionNew = em.merge(idetapaproduccionNew);
+            }
+            if (piezaOld != null && !piezaOld.equals(piezaNew)) {
+                piezaOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                piezaOld = em.merge(piezaOld);
+            }
+            if (piezaNew != null && !piezaNew.equals(piezaOld)) {
+                piezaNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                piezaNew = em.merge(piezaNew);
+            }
+            if (piezarealOld != null && !piezarealOld.equals(piezarealNew)) {
+                piezarealOld.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                piezarealOld = em.merge(piezarealOld);
+            }
+            if (piezarealNew != null && !piezarealNew.equals(piezarealOld)) {
+                piezarealNew.getDetalleejecucionplanificacionList().add(detalleejecucionplanificacion);
+                piezarealNew = em.merge(piezarealNew);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListOldDetalleplanificacionproduccion : detalleplanificacionproduccionListOld) {
                 if (!detalleplanificacionproduccionListNew.contains(detalleplanificacionproduccionListOldDetalleplanificacionproduccion)) {
@@ -252,30 +247,30 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleejecucionplanificacion with id " + id + " no longer exists.", enfe);
             }
-            Piezareal piezareal = detalleejecucionplanificacion.getPiezareal();
-            if (piezareal != null) {
-                piezareal.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                piezareal = em.merge(piezareal);
-            }
-            Pieza pieza = detalleejecucionplanificacion.getPieza();
-            if (pieza != null) {
-                pieza.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                pieza = em.merge(pieza);
-            }
-            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
-            if (idetapaproduccion != null) {
-                idetapaproduccion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                idetapaproduccion = em.merge(idetapaproduccion);
+            Ejecucionetapaproduccion ejecucionetapa = detalleejecucionplanificacion.getEjecucionetapa();
+            if (ejecucionetapa != null) {
+                ejecucionetapa.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                ejecucionetapa = em.merge(ejecucionetapa);
             }
             Ejecucionplanificacionproduccion idejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
             if (idejecucionplanificacionproduccion != null) {
                 idejecucionplanificacionproduccion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
                 idejecucionplanificacionproduccion = em.merge(idejecucionplanificacionproduccion);
             }
-            Ejecucionetapaproduccion ejecucionetapa = detalleejecucionplanificacion.getEjecucionetapa();
-            if (ejecucionetapa != null) {
-                ejecucionetapa.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
-                ejecucionetapa = em.merge(ejecucionetapa);
+            Etapadeproduccion idetapaproduccion = detalleejecucionplanificacion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            Pieza pieza = detalleejecucionplanificacion.getPieza();
+            if (pieza != null) {
+                pieza.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                pieza = em.merge(pieza);
+            }
+            Piezareal piezareal = detalleejecucionplanificacion.getPiezareal();
+            if (piezareal != null) {
+                piezareal.getDetalleejecucionplanificacionList().remove(detalleejecucionplanificacion);
+                piezareal = em.merge(piezareal);
             }
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionList = detalleejecucionplanificacion.getDetalleplanificacionproduccionList();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : detalleplanificacionproduccionList) {
@@ -336,5 +331,5 @@ public class DetalleejecucionplanificacionJpaController implements Serializable 
             em.close();
         }
     }
-    
+
 }

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -75,24 +76,31 @@ public class Cliente implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidoList;
-    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
-    @ManyToOne
-    private Usuario usuario;
-    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
-    @ManyToOne
-    private Responsable responsable;
-    @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
-    @ManyToOne
-    private Prioridad prioridad;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadocliente estado;
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio;
+    
     @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
     @ManyToOne
     private Condicioniva condicioniva;
+    
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio;
+    
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadocliente estado;
+    
+    @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
+    @ManyToOne
+    private Prioridad prioridad;
+    
+    @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
+    @ManyToOne
+    private Responsable responsable;
+    
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario;
+   
     @OneToMany(mappedBy = "cliente")
     private List<Reclamocliente> reclamoclienteList;
 
@@ -199,20 +207,34 @@ public class Cliente implements Serializable {
         this.pedidoList = pedidoList;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+
+
+    public Condicioniva getCondicioniva() {
+        return condicioniva;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setCondicioniva(Condicioniva condicioniva) {
+        this.condicioniva = condicioniva;
     }
 
-    public Responsable getResponsable() {
-        return responsable;
+
+
+    public Domicilio getDomicilio() {
+        return domicilio;
     }
 
-    public void setResponsable(Responsable responsable) {
-        this.responsable = responsable;
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+
+
+    public Estadocliente getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadocliente estado) {
+        this.estado = estado;
     }
 
     public Prioridad getPrioridad() {
@@ -223,29 +245,26 @@ public class Cliente implements Serializable {
         this.prioridad = prioridad;
     }
 
-    public Estadocliente getEstado() {
-        return estado;
+
+    public Responsable getResponsable() {
+        return responsable;
     }
 
-    public void setEstado(Estadocliente estado) {
-        this.estado = estado;
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
     }
 
-    public Domicilio getDomicilio() {
-        return domicilio;
+
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Condicioniva getCondicioniva() {
-        return condicioniva;
-    }
 
-    public void setCondicioniva(Condicioniva condicioniva) {
-        this.condicioniva = condicioniva;
-    }
 
     public List<Reclamocliente> getReclamoclienteList() {
         return reclamoclienteList;
@@ -254,6 +273,8 @@ public class Cliente implements Serializable {
     public void setReclamoclienteList(List<Reclamocliente> reclamoclienteList) {
         this.reclamoclienteList = reclamoclienteList;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -277,7 +298,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Cliente[ idcliente=" + idcliente + " ]";
+        return "metalsoft.datos.jpa.entity.Cliente[idcliente=" + idcliente + "]";
     }
-    
+
 }
