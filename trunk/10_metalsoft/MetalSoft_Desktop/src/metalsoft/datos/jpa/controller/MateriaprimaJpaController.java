@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,10 +15,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Materiaprima;
-import metalsoft.datos.jpa.entity.Unidadmedida;
-import metalsoft.datos.jpa.entity.Tipomaterial;
 import metalsoft.datos.jpa.entity.Codigodebarra;
+import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Tipomaterial;
+import metalsoft.datos.jpa.entity.Unidadmedida;
 import metalsoft.datos.jpa.entity.Detallecompra;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,10 @@ import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
  *
  * @author Nino
  */
-public class MateriaprimaJpaController implements Serializable {
+public class MateriaprimaJpaController {
 
-    public MateriaprimaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public MateriaprimaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -69,20 +70,20 @@ public class MateriaprimaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Unidadmedida unidadmedida = materiaprima.getUnidadmedida();
-            if (unidadmedida != null) {
-                unidadmedida = em.getReference(unidadmedida.getClass(), unidadmedida.getIdunidadmedida());
-                materiaprima.setUnidadmedida(unidadmedida);
+            Codigodebarra codbarra = materiaprima.getCodbarra();
+            if (codbarra != null) {
+                codbarra = em.getReference(codbarra.getClass(), codbarra.getIdcodigo());
+                materiaprima.setCodbarra(codbarra);
             }
             Tipomaterial tipomaterial = materiaprima.getTipomaterial();
             if (tipomaterial != null) {
                 tipomaterial = em.getReference(tipomaterial.getClass(), tipomaterial.getIdtipomaterial());
                 materiaprima.setTipomaterial(tipomaterial);
             }
-            Codigodebarra codbarra = materiaprima.getCodbarra();
-            if (codbarra != null) {
-                codbarra = em.getReference(codbarra.getClass(), codbarra.getIdcodigo());
-                materiaprima.setCodbarra(codbarra);
+            Unidadmedida unidadmedida = materiaprima.getUnidadmedida();
+            if (unidadmedida != null) {
+                unidadmedida = em.getReference(unidadmedida.getClass(), unidadmedida.getIdunidadmedida());
+                materiaprima.setUnidadmedida(unidadmedida);
             }
             List<Detallecompra> attachedDetallecompraList = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListDetallecompraToAttach : materiaprima.getDetallecompraList()) {
@@ -127,17 +128,17 @@ public class MateriaprimaJpaController implements Serializable {
             }
             materiaprima.setDetalleproductopresupuestoList(attachedDetalleproductopresupuestoList);
             em.persist(materiaprima);
-            if (unidadmedida != null) {
-                unidadmedida.getMateriaprimaList().add(materiaprima);
-                unidadmedida = em.merge(unidadmedida);
+            if (codbarra != null) {
+                codbarra.getMateriaprimaList().add(materiaprima);
+                codbarra = em.merge(codbarra);
             }
             if (tipomaterial != null) {
                 tipomaterial.getMateriaprimaList().add(materiaprima);
                 tipomaterial = em.merge(tipomaterial);
             }
-            if (codbarra != null) {
-                codbarra.getMateriaprimaList().add(materiaprima);
-                codbarra = em.merge(codbarra);
+            if (unidadmedida != null) {
+                unidadmedida.getMateriaprimaList().add(materiaprima);
+                unidadmedida = em.merge(unidadmedida);
             }
             for (Detallecompra detallecompraListDetallecompra : materiaprima.getDetallecompraList()) {
                 Materiaprima oldMateriaprimaOfDetallecompraListDetallecompra = detallecompraListDetallecompra.getMateriaprima();
@@ -221,12 +222,12 @@ public class MateriaprimaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Materiaprima persistentMateriaprima = em.find(Materiaprima.class, materiaprima.getIdmateriaprima());
-            Unidadmedida unidadmedidaOld = persistentMateriaprima.getUnidadmedida();
-            Unidadmedida unidadmedidaNew = materiaprima.getUnidadmedida();
-            Tipomaterial tipomaterialOld = persistentMateriaprima.getTipomaterial();
-            Tipomaterial tipomaterialNew = materiaprima.getTipomaterial();
             Codigodebarra codbarraOld = persistentMateriaprima.getCodbarra();
             Codigodebarra codbarraNew = materiaprima.getCodbarra();
+            Tipomaterial tipomaterialOld = persistentMateriaprima.getTipomaterial();
+            Tipomaterial tipomaterialNew = materiaprima.getTipomaterial();
+            Unidadmedida unidadmedidaOld = persistentMateriaprima.getUnidadmedida();
+            Unidadmedida unidadmedidaNew = materiaprima.getUnidadmedida();
             List<Detallecompra> detallecompraListOld = persistentMateriaprima.getDetallecompraList();
             List<Detallecompra> detallecompraListNew = materiaprima.getDetallecompraList();
             List<Pieza> piezaListOld = persistentMateriaprima.getPiezaList();
@@ -253,17 +254,17 @@ public class MateriaprimaJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (unidadmedidaNew != null) {
-                unidadmedidaNew = em.getReference(unidadmedidaNew.getClass(), unidadmedidaNew.getIdunidadmedida());
-                materiaprima.setUnidadmedida(unidadmedidaNew);
+            if (codbarraNew != null) {
+                codbarraNew = em.getReference(codbarraNew.getClass(), codbarraNew.getIdcodigo());
+                materiaprima.setCodbarra(codbarraNew);
             }
             if (tipomaterialNew != null) {
                 tipomaterialNew = em.getReference(tipomaterialNew.getClass(), tipomaterialNew.getIdtipomaterial());
                 materiaprima.setTipomaterial(tipomaterialNew);
             }
-            if (codbarraNew != null) {
-                codbarraNew = em.getReference(codbarraNew.getClass(), codbarraNew.getIdcodigo());
-                materiaprima.setCodbarra(codbarraNew);
+            if (unidadmedidaNew != null) {
+                unidadmedidaNew = em.getReference(unidadmedidaNew.getClass(), unidadmedidaNew.getIdunidadmedida());
+                materiaprima.setUnidadmedida(unidadmedidaNew);
             }
             List<Detallecompra> attachedDetallecompraListNew = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListNewDetallecompraToAttach : detallecompraListNew) {
@@ -315,13 +316,13 @@ public class MateriaprimaJpaController implements Serializable {
             detalleproductopresupuestoListNew = attachedDetalleproductopresupuestoListNew;
             materiaprima.setDetalleproductopresupuestoList(detalleproductopresupuestoListNew);
             materiaprima = em.merge(materiaprima);
-            if (unidadmedidaOld != null && !unidadmedidaOld.equals(unidadmedidaNew)) {
-                unidadmedidaOld.getMateriaprimaList().remove(materiaprima);
-                unidadmedidaOld = em.merge(unidadmedidaOld);
+            if (codbarraOld != null && !codbarraOld.equals(codbarraNew)) {
+                codbarraOld.getMateriaprimaList().remove(materiaprima);
+                codbarraOld = em.merge(codbarraOld);
             }
-            if (unidadmedidaNew != null && !unidadmedidaNew.equals(unidadmedidaOld)) {
-                unidadmedidaNew.getMateriaprimaList().add(materiaprima);
-                unidadmedidaNew = em.merge(unidadmedidaNew);
+            if (codbarraNew != null && !codbarraNew.equals(codbarraOld)) {
+                codbarraNew.getMateriaprimaList().add(materiaprima);
+                codbarraNew = em.merge(codbarraNew);
             }
             if (tipomaterialOld != null && !tipomaterialOld.equals(tipomaterialNew)) {
                 tipomaterialOld.getMateriaprimaList().remove(materiaprima);
@@ -331,13 +332,13 @@ public class MateriaprimaJpaController implements Serializable {
                 tipomaterialNew.getMateriaprimaList().add(materiaprima);
                 tipomaterialNew = em.merge(tipomaterialNew);
             }
-            if (codbarraOld != null && !codbarraOld.equals(codbarraNew)) {
-                codbarraOld.getMateriaprimaList().remove(materiaprima);
-                codbarraOld = em.merge(codbarraOld);
+            if (unidadmedidaOld != null && !unidadmedidaOld.equals(unidadmedidaNew)) {
+                unidadmedidaOld.getMateriaprimaList().remove(materiaprima);
+                unidadmedidaOld = em.merge(unidadmedidaOld);
             }
-            if (codbarraNew != null && !codbarraNew.equals(codbarraOld)) {
-                codbarraNew.getMateriaprimaList().add(materiaprima);
-                codbarraNew = em.merge(codbarraNew);
+            if (unidadmedidaNew != null && !unidadmedidaNew.equals(unidadmedidaOld)) {
+                unidadmedidaNew.getMateriaprimaList().add(materiaprima);
+                unidadmedidaNew = em.merge(unidadmedidaNew);
             }
             for (Detallecompra detallecompraListOldDetallecompra : detallecompraListOld) {
                 if (!detallecompraListNew.contains(detallecompraListOldDetallecompra)) {
@@ -492,20 +493,20 @@ public class MateriaprimaJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Unidadmedida unidadmedida = materiaprima.getUnidadmedida();
-            if (unidadmedida != null) {
-                unidadmedida.getMateriaprimaList().remove(materiaprima);
-                unidadmedida = em.merge(unidadmedida);
+            Codigodebarra codbarra = materiaprima.getCodbarra();
+            if (codbarra != null) {
+                codbarra.getMateriaprimaList().remove(materiaprima);
+                codbarra = em.merge(codbarra);
             }
             Tipomaterial tipomaterial = materiaprima.getTipomaterial();
             if (tipomaterial != null) {
                 tipomaterial.getMateriaprimaList().remove(materiaprima);
                 tipomaterial = em.merge(tipomaterial);
             }
-            Codigodebarra codbarra = materiaprima.getCodbarra();
-            if (codbarra != null) {
-                codbarra.getMateriaprimaList().remove(materiaprima);
-                codbarra = em.merge(codbarra);
+            Unidadmedida unidadmedida = materiaprima.getUnidadmedida();
+            if (unidadmedida != null) {
+                unidadmedida.getMateriaprimaList().remove(materiaprima);
+                unidadmedida = em.merge(unidadmedida);
             }
             List<Detallecompra> detallecompraList = materiaprima.getDetallecompraList();
             for (Detallecompra detallecompraListDetallecompra : detallecompraList) {
@@ -591,5 +592,5 @@ public class MateriaprimaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

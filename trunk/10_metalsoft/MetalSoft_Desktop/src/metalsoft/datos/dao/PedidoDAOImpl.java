@@ -63,7 +63,7 @@ public class PedidoDAOImpl implements PedidoDAO
 		PreparedStatement ps = null;
 		try
 		{
-			ps = con.prepareStatement("update PEDIDO set NROPEDIDO = ? , FECHACONFIRMACIONPEDIDO = ? , FECHAENTREGAESTIPULADA = ? , FECHAPEDIDOCOTIZACION = ? , FECHACANCELACION = ? , FECHAENTREGAREAL = ? , ESTADO = ? , FACTURA = ? , PRESUPUESTO = ? , FECHAREQUERIDACOTIZACION = ? , MOTIVOCANCELACION = ? , ESPEDIDOWEB = ? , NROPEDIDOCOTIZACIONCLIENTE = ? , FECHAREGPEDCOTIZ = ? , CLIENTE = ? , PLANPROCEDIMIENTOS = ? , PLANREQUERIMIENTOSMATERIAPRIMA = ? , PLANPROCESOSCALIDAD = ? , PRIORIDAD = ?  where idpedido = ?");
+			ps = con.prepareStatement("update PEDIDO set NROPEDIDO = ? , FECHACONFIRMACIONPEDIDO = ? , FECHAENTREGAESTIPULADA = ? , FECHAPEDIDOCOTIZACION = ? , FECHACANCELACION = ? , FECHAENTREGAREAL = ? , ESTADO = ? , FACTURA = ? , PRESUPUESTO = ? , FECHAREQUERIDACOTIZACION = ? , PLANO = ? , MOTIVOCANCELACION = ? , ESPEDIDOWEB = ? , NROPEDIDOCOTIZACIONCLIENTE = ? , FECHAREGPEDCOTIZ = ? , CLIENTE = ? , PLANPROCEDIMIENTOS = ? , PLANREQUERIMIENTOSMATERIAPRIMA = ? , PLANPROCESOSCALIDAD = ? , PRIORIDAD = ?  where idpedido = ?");
 				ps.setLong(1,pedido.getNropedido());
 				ps.setDate(2,pedido.getFechaconfirmacionpedido());
 				ps.setDate(3,pedido.getFechaentregaestipulada());
@@ -76,16 +76,18 @@ public class PedidoDAOImpl implements PedidoDAO
                                 if(pedido.getPresupuesto()==0)ps.setNull(9, java.sql.Types.NULL);
                                 else ps.setLong(9,pedido.getPresupuesto());
 				ps.setDate(10,pedido.getFecharequeridacotizacion());
-				ps.setString(11,pedido.getMotivocancelacion());
-				ps.setBoolean(12,pedido.getEspedidoweb());
-				ps.setInt(13,pedido.getNropedidocotizacioncliente());
-				ps.setDate(14,pedido.getFecharegpedcotiz());
-				ps.setLong(15,pedido.getCliente());
-				ps.setNull(16, java.sql.Types.NULL);
+                                if(pedido.getPlano()==0)ps.setNull(11, java.sql.Types.NULL);
+                                else ps.setLong(11,pedido.getPlano());
+				ps.setString(12,pedido.getMotivocancelacion());
+				ps.setBoolean(13,pedido.getEspedidoweb());
+				ps.setInt(14,pedido.getNropedidocotizacioncliente());
+				ps.setDate(15,pedido.getFecharegpedcotiz());
+				ps.setLong(16,pedido.getCliente());
 				ps.setNull(17, java.sql.Types.NULL);
 				ps.setNull(18, java.sql.Types.NULL);
-				ps.setLong(19,pedido.getPrioridad());
-				ps.setLong(20,pedidopk.getIdpedido());
+				ps.setNull(19, java.sql.Types.NULL);
+				ps.setLong(20,pedido.getPrioridad());
+				ps.setLong(21,pedidopk.getIdpedido());
 
 				return(ps.executeUpdate());
 		}catch(SQLException sqle){throw new PedidoException(sqle);}
@@ -106,7 +108,7 @@ public class PedidoDAOImpl implements PedidoDAO
                 ResultSet rs=null;
 		try
 		{
-			ps = con.prepareStatement("insert into PEDIDO( NROPEDIDO, FECHACONFIRMACIONPEDIDO, FECHAENTREGAESTIPULADA, FECHAPEDIDOCOTIZACION, FECHACANCELACION, FECHAENTREGAREAL, ESTADO, FACTURA, PRESUPUESTO, FECHAREQUERIDACOTIZACION, MOTIVOCANCELACION, ESPEDIDOWEB, NROPEDIDOCOTIZACIONCLIENTE, FECHAREGPEDCOTIZ, CLIENTE, PLANPROCEDIMIENTOS, PLANREQUERIMIENTOSMATERIAPRIMA, PLANPROCESOSCALIDAD, PRIORIDAD) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)RETURNING idpedido");
+			ps = con.prepareStatement("insert into PEDIDO( NROPEDIDO, FECHACONFIRMACIONPEDIDO, FECHAENTREGAESTIPULADA, FECHAPEDIDOCOTIZACION, FECHACANCELACION, FECHAENTREGAREAL, ESTADO, FACTURA, PRESUPUESTO, FECHAREQUERIDACOTIZACION, PLANO, MOTIVOCANCELACION, ESPEDIDOWEB, NROPEDIDOCOTIZACIONCLIENTE, FECHAREGPEDCOTIZ, CLIENTE, PLANPROCEDIMIENTOS, PLANREQUERIMIENTOSMATERIAPRIMA, PLANPROCESOSCALIDAD, PRIORIDAD) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)RETURNING idpedido");
 				ps.setLong(1,pedido.getNropedido());
                                 
                                 if(pedido.getFechaconfirmacionpedido()!=null)
@@ -151,33 +153,38 @@ public class PedidoDAOImpl implements PedidoDAO
                                 else
                                     ps.setNull(10,Types.NULL);
 
-				ps.setString(11,pedido.getMotivocancelacion());
-				ps.setBoolean(12,pedido.getEspedidoweb());
-				ps.setInt(13,pedido.getNropedidocotizacioncliente());
+                                if(pedido.getPlano()>0)
+                                    ps.setLong(11,pedido.getPlano());
+                                else
+                                    ps.setNull(11,Types.NULL);
+
+				ps.setString(12,pedido.getMotivocancelacion());
+				ps.setBoolean(13,pedido.getEspedidoweb());
+				ps.setInt(14,pedido.getNropedidocotizacioncliente());
 
                                 if(pedido.getFecharegpedcotiz()!=null)
-                                    ps.setDate(14,pedido.getFecharegpedcotiz());
+                                    ps.setDate(15,pedido.getFecharegpedcotiz());
                                 else
-                                    ps.setNull(14,Types.NULL);
+                                    ps.setNull(15,Types.NULL);
 
-				ps.setLong(15,pedido.getCliente());
+				ps.setLong(16,pedido.getCliente());
 
                                 if(pedido.getPlanprocedimientos()>0)
-                                    ps.setLong(16,pedido.getPlanprocedimientos());
-                                else
-                                    ps.setNull(16,Types.NULL);
-
-				if(pedido.getPlanrequerimientosmateriaprima()>0)
-                                    ps.setLong(17,pedido.getPlanrequerimientosmateriaprima());
+                                    ps.setLong(17,pedido.getPlanprocedimientos());
                                 else
                                     ps.setNull(17,Types.NULL);
 
-				if(pedido.getPlanprocesoscalidad()>0)
-                                    ps.setLong(18,pedido.getPlanprocesoscalidad());
+				if(pedido.getPlanrequerimientosmateriaprima()>0)
+                                    ps.setLong(18,pedido.getPlanrequerimientosmateriaprima());
                                 else
                                     ps.setNull(18,Types.NULL);
+
+				if(pedido.getPlanprocesoscalidad()>0)
+                                    ps.setLong(19,pedido.getPlanprocesoscalidad());
+                                else
+                                    ps.setNull(19,Types.NULL);
 				
-				ps.setLong(19,pedido.getPrioridad());
+				ps.setLong(20,pedido.getPrioridad());
 
                                 rs=ps.executeQuery();
                                 rs.next();
@@ -196,7 +203,7 @@ public class PedidoDAOImpl implements PedidoDAO
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-	  		final String SQLSTATEMENT = "Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where idpedido = ?";
+	  		final String SQLSTATEMENT = "Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where idpedido = ?";
 	  		stmt=con.prepareStatement(SQLSTATEMENT);
 	  		stmt.setLong(1, idpedido);
 	  		rs = stmt.executeQuery();
@@ -234,7 +241,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByNropedido(long nropedido, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where nropedido = ? order by nropedido";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where nropedido = ? order by nropedido";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, nropedido );
@@ -261,7 +268,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFechaconfirmacionpedido(Date fechaconfirmacionpedido, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaconfirmacionpedido = ? order by fechaconfirmacionpedido";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaconfirmacionpedido = ? order by fechaconfirmacionpedido";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechaconfirmacionpedido );
@@ -288,7 +295,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFechaentregaestipulada(Date fechaentregaestipulada, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaentregaestipulada = ? order by fechaentregaestipulada";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaentregaestipulada = ? order by fechaentregaestipulada";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechaentregaestipulada );
@@ -315,7 +322,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFechapedidocotizacion(Date fechapedidocotizacion, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechapedidocotizacion = ? order by fechapedidocotizacion";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechapedidocotizacion = ? order by fechapedidocotizacion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechapedidocotizacion );
@@ -342,7 +349,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFechacancelacion(Date fechacancelacion, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechacancelacion = ? order by fechacancelacion";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechacancelacion = ? order by fechacancelacion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechacancelacion );
@@ -369,7 +376,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFechaentregareal(Date fechaentregareal, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaentregareal = ? order by fechaentregareal";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fechaentregareal = ? order by fechaentregareal";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fechaentregareal );
@@ -396,7 +403,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByEstado(long estado, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where estado = ? order by estado";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where estado = ? order by estado";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, estado );
@@ -423,7 +430,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFactura(long factura, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where factura = ? order by factura";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where factura = ? order by factura";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, factura );
@@ -450,7 +457,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByPresupuesto(long presupuesto, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where presupuesto = ? order by presupuesto";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where presupuesto = ? order by presupuesto";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, presupuesto );
@@ -477,10 +484,37 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFecharequeridacotizacion(Date fecharequeridacotizacion, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fecharequeridacotizacion = ? order by fecharequeridacotizacion";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fecharequeridacotizacion = ? order by fecharequeridacotizacion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fecharequeridacotizacion );
+					rs = stmt.executeQuery();
+					return fetchMultiResults(rs);
+			}catch(SQLException sqle){
+					throw new PedidoException(sqle);
+			}
+			catch(Exception e){
+					throw new PedidoException(e);
+			}
+			finally{}
+	}
+
+/**
+*
+* Returns all rows from pedido table where PLANO= plano
+*
+* @param   long  plano
+* @param   Connection con
+* @return  Pedido[]
+*/
+
+	public PedidoDB[] findByPlano(long plano, Connection con) throws PedidoException{
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where plano = ? order by plano";
+			try {
+					stmt = con.prepareStatement(SQL_STATEMENT);
+					stmt.setLong( 1, plano );
 					rs = stmt.executeQuery();
 					return fetchMultiResults(rs);
 			}catch(SQLException sqle){
@@ -504,7 +538,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByMotivocancelacion(String motivocancelacion, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where motivocancelacion = ? order by motivocancelacion";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where motivocancelacion = ? order by motivocancelacion";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setString( 1, motivocancelacion );
@@ -531,7 +565,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByEspedidoweb(boolean espedidoweb, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where espedidoweb = ? order by espedidoweb";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where espedidoweb = ? order by espedidoweb";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setBoolean( 1, espedidoweb );
@@ -558,7 +592,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByNropedidocotizacioncliente(int nropedidocotizacioncliente, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where nropedidocotizacioncliente = ? order by nropedidocotizacioncliente";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where nropedidocotizacioncliente = ? order by nropedidocotizacioncliente";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setInt( 1, nropedidocotizacioncliente );
@@ -585,7 +619,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByFecharegpedcotiz(Date fecharegpedcotiz, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fecharegpedcotiz = ? order by fecharegpedcotiz";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where fecharegpedcotiz = ? order by fecharegpedcotiz";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setDate( 1, fecharegpedcotiz );
@@ -612,7 +646,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByIdpedido(long idpedido, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where idpedido = ? order by idpedido";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where idpedido = ? order by idpedido";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, idpedido );
@@ -639,7 +673,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByCliente(long cliente, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where cliente = ? order by cliente";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where cliente = ? order by cliente";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, cliente );
@@ -656,7 +690,7 @@ public class PedidoDAOImpl implements PedidoDAO
     public PedidoDB[] findByClienteAndEstado(long cliente, long estado, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where cliente = ? and estado = ? order by cliente";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where cliente = ? and estado = ? order by cliente";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, cliente );
@@ -684,7 +718,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByPlanprocedimientos(long planprocedimientos, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planprocedimientos = ? order by planprocedimientos";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planprocedimientos = ? order by planprocedimientos";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, planprocedimientos );
@@ -711,7 +745,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByPlanrequerimientosmateriaprima(long planrequerimientosmateriaprima, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planrequerimientosmateriaprima = ? order by planrequerimientosmateriaprima";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planrequerimientosmateriaprima = ? order by planrequerimientosmateriaprima";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, planrequerimientosmateriaprima );
@@ -738,7 +772,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByPlanprocesoscalidad(long planprocesoscalidad, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planprocesoscalidad = ? order by planprocesoscalidad";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where planprocesoscalidad = ? order by planprocesoscalidad";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, planprocesoscalidad );
@@ -765,7 +799,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findByPrioridad(long prioridad, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where prioridad = ? order by prioridad";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido where prioridad = ? order by prioridad";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					stmt.setLong( 1, prioridad );
@@ -791,7 +825,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findAll( Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido";
+			String SQL_STATEMENT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido";
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
 					rs = stmt.executeQuery();
@@ -850,7 +884,7 @@ public class PedidoDAOImpl implements PedidoDAO
 	public PedidoDB[] findExecutingUserWhere(String whereClause, Object[] sqlParams, Connection con) throws PedidoException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String SQL_SELECT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido";
+			String SQL_SELECT ="Select nropedido, fechaconfirmacionpedido, fechaentregaestipulada, fechapedidocotizacion, fechacancelacion, fechaentregareal, estado, factura, presupuesto, fecharequeridacotizacion, plano, motivocancelacion, espedidoweb, nropedidocotizacioncliente, fecharegpedcotiz, idpedido, cliente, planprocedimientos, planrequerimientosmateriaprima, planprocesoscalidad, prioridad from pedido";
 			final String SQL_STATEMENT =SQL_SELECT + " where " + whereClause;
 			try {
 					stmt = con.prepareStatement(SQL_STATEMENT);
@@ -909,6 +943,7 @@ public class PedidoDAOImpl implements PedidoDAO
 		 dto.setFactura(rs.getLong("factura"));
 		 dto.setPresupuesto(rs.getLong("presupuesto"));
 		 dto.setFecharequeridacotizacion(rs.getDate("fecharequeridacotizacion"));
+		 dto.setPlano(rs.getLong("plano"));
 		 dto.setMotivocancelacion(rs.getString("motivocancelacion"));
 		 dto.setEspedidoweb(rs.getBoolean("espedidoweb"));
 		 dto.setNropedidocotizacioncliente(rs.getInt("nropedidocotizacioncliente"));

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -38,6 +39,7 @@ public class Estadoremito implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private List<Remito> remitoList;
+
 
     public Estadoremito() {
     }
@@ -78,6 +80,7 @@ public class Estadoremito implements Serializable {
         this.remitoList = remitoList;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,7 +103,7 @@ public class Estadoremito implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Estadoremito[ idestado=" + idestado + " ]";
+        return "metalsoft.datos.jpa.entity.Estadoremito[idestado=" + idestado + "]";
     }
-    
+
 }

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -29,15 +30,15 @@ public class Proveedorxmateriaprima implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ProveedorxmateriaprimaPK proveedorxmateriaprimaPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precio")
     private Double precio;
-    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Proveedor proveedor;
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Materiaprima materiaprima;
+
+    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Proveedor proveedor;
 
     public Proveedorxmateriaprima() {
     }
@@ -66,6 +67,14 @@ public class Proveedorxmateriaprima implements Serializable {
         this.precio = precio;
     }
 
+    public Materiaprima getMateriaprima() {
+        return materiaprima;
+    }
+
+    public void setMateriaprima(Materiaprima materiaprima) {
+        this.materiaprima = materiaprima;
+    }
+
     public Proveedor getProveedor() {
         return proveedor;
     }
@@ -74,13 +83,7 @@ public class Proveedorxmateriaprima implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Materiaprima getMateriaprima() {
-        return materiaprima;
-    }
 
-    public void setMateriaprima(Materiaprima materiaprima) {
-        this.materiaprima = materiaprima;
-    }
 
     @Override
     public int hashCode() {
@@ -104,7 +107,7 @@ public class Proveedorxmateriaprima implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Proveedorxmateriaprima[ proveedorxmateriaprimaPK=" + proveedorxmateriaprimaPK + " ]";
+        return "metalsoft.datos.jpa.entity.Proveedorxmateriaprima[proveedorxmateriaprimaPK=" + proveedorxmateriaprimaPK + "]";
     }
-    
+
 }

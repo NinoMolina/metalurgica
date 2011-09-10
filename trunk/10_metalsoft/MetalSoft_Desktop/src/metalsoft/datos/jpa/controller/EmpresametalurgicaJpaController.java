@@ -2,21 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Condicioniva;
+import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Responsable;
-import metalsoft.datos.jpa.entity.Domicilio;
-import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class EmpresametalurgicaJpaController implements Serializable {
+public class EmpresametalurgicaJpaController {
 
-    public EmpresametalurgicaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public EmpresametalurgicaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -44,20 +45,20 @@ public class EmpresametalurgicaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Responsable responsable = empresametalurgica.getResponsable();
-            if (responsable != null) {
-                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
-                empresametalurgica.setResponsable(responsable);
+            Condicioniva condicioniva = empresametalurgica.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
+                empresametalurgica.setCondicioniva(condicioniva);
             }
             Domicilio domicilio = empresametalurgica.getDomicilio();
             if (domicilio != null) {
                 domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
                 empresametalurgica.setDomicilio(domicilio);
             }
-            Condicioniva condicioniva = empresametalurgica.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
-                empresametalurgica.setCondicioniva(condicioniva);
+            Responsable responsable = empresametalurgica.getResponsable();
+            if (responsable != null) {
+                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
+                empresametalurgica.setResponsable(responsable);
             }
             List<Trabajotercerizado> attachedTrabajotercerizadoList = new ArrayList<Trabajotercerizado>();
             for (Trabajotercerizado trabajotercerizadoListTrabajotercerizadoToAttach : empresametalurgica.getTrabajotercerizadoList()) {
@@ -66,17 +67,17 @@ public class EmpresametalurgicaJpaController implements Serializable {
             }
             empresametalurgica.setTrabajotercerizadoList(attachedTrabajotercerizadoList);
             em.persist(empresametalurgica);
-            if (responsable != null) {
-                responsable.getEmpresametalurgicaList().add(empresametalurgica);
-                responsable = em.merge(responsable);
+            if (condicioniva != null) {
+                condicioniva.getEmpresametalurgicaList().add(empresametalurgica);
+                condicioniva = em.merge(condicioniva);
             }
             if (domicilio != null) {
                 domicilio.getEmpresametalurgicaList().add(empresametalurgica);
                 domicilio = em.merge(domicilio);
             }
-            if (condicioniva != null) {
-                condicioniva.getEmpresametalurgicaList().add(empresametalurgica);
-                condicioniva = em.merge(condicioniva);
+            if (responsable != null) {
+                responsable.getEmpresametalurgicaList().add(empresametalurgica);
+                responsable = em.merge(responsable);
             }
             for (Trabajotercerizado trabajotercerizadoListTrabajotercerizado : empresametalurgica.getTrabajotercerizadoList()) {
                 Empresametalurgica oldEmpresaOfTrabajotercerizadoListTrabajotercerizado = trabajotercerizadoListTrabajotercerizado.getEmpresa();
@@ -106,25 +107,25 @@ public class EmpresametalurgicaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Empresametalurgica persistentEmpresametalurgica = em.find(Empresametalurgica.class, empresametalurgica.getIdempresametalurgica());
-            Responsable responsableOld = persistentEmpresametalurgica.getResponsable();
-            Responsable responsableNew = empresametalurgica.getResponsable();
-            Domicilio domicilioOld = persistentEmpresametalurgica.getDomicilio();
-            Domicilio domicilioNew = empresametalurgica.getDomicilio();
             Condicioniva condicionivaOld = persistentEmpresametalurgica.getCondicioniva();
             Condicioniva condicionivaNew = empresametalurgica.getCondicioniva();
+            Domicilio domicilioOld = persistentEmpresametalurgica.getDomicilio();
+            Domicilio domicilioNew = empresametalurgica.getDomicilio();
+            Responsable responsableOld = persistentEmpresametalurgica.getResponsable();
+            Responsable responsableNew = empresametalurgica.getResponsable();
             List<Trabajotercerizado> trabajotercerizadoListOld = persistentEmpresametalurgica.getTrabajotercerizadoList();
             List<Trabajotercerizado> trabajotercerizadoListNew = empresametalurgica.getTrabajotercerizadoList();
-            if (responsableNew != null) {
-                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
-                empresametalurgica.setResponsable(responsableNew);
+            if (condicionivaNew != null) {
+                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
+                empresametalurgica.setCondicioniva(condicionivaNew);
             }
             if (domicilioNew != null) {
                 domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
                 empresametalurgica.setDomicilio(domicilioNew);
             }
-            if (condicionivaNew != null) {
-                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
-                empresametalurgica.setCondicioniva(condicionivaNew);
+            if (responsableNew != null) {
+                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
+                empresametalurgica.setResponsable(responsableNew);
             }
             List<Trabajotercerizado> attachedTrabajotercerizadoListNew = new ArrayList<Trabajotercerizado>();
             for (Trabajotercerizado trabajotercerizadoListNewTrabajotercerizadoToAttach : trabajotercerizadoListNew) {
@@ -134,13 +135,13 @@ public class EmpresametalurgicaJpaController implements Serializable {
             trabajotercerizadoListNew = attachedTrabajotercerizadoListNew;
             empresametalurgica.setTrabajotercerizadoList(trabajotercerizadoListNew);
             empresametalurgica = em.merge(empresametalurgica);
-            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
-                responsableOld.getEmpresametalurgicaList().remove(empresametalurgica);
-                responsableOld = em.merge(responsableOld);
+            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
+                condicionivaOld.getEmpresametalurgicaList().remove(empresametalurgica);
+                condicionivaOld = em.merge(condicionivaOld);
             }
-            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
-                responsableNew.getEmpresametalurgicaList().add(empresametalurgica);
-                responsableNew = em.merge(responsableNew);
+            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
+                condicionivaNew.getEmpresametalurgicaList().add(empresametalurgica);
+                condicionivaNew = em.merge(condicionivaNew);
             }
             if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
                 domicilioOld.getEmpresametalurgicaList().remove(empresametalurgica);
@@ -150,13 +151,13 @@ public class EmpresametalurgicaJpaController implements Serializable {
                 domicilioNew.getEmpresametalurgicaList().add(empresametalurgica);
                 domicilioNew = em.merge(domicilioNew);
             }
-            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
-                condicionivaOld.getEmpresametalurgicaList().remove(empresametalurgica);
-                condicionivaOld = em.merge(condicionivaOld);
+            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
+                responsableOld.getEmpresametalurgicaList().remove(empresametalurgica);
+                responsableOld = em.merge(responsableOld);
             }
-            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
-                condicionivaNew.getEmpresametalurgicaList().add(empresametalurgica);
-                condicionivaNew = em.merge(condicionivaNew);
+            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
+                responsableNew.getEmpresametalurgicaList().add(empresametalurgica);
+                responsableNew = em.merge(responsableNew);
             }
             for (Trabajotercerizado trabajotercerizadoListOldTrabajotercerizado : trabajotercerizadoListOld) {
                 if (!trabajotercerizadoListNew.contains(trabajotercerizadoListOldTrabajotercerizado)) {
@@ -204,20 +205,20 @@ public class EmpresametalurgicaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The empresametalurgica with id " + id + " no longer exists.", enfe);
             }
-            Responsable responsable = empresametalurgica.getResponsable();
-            if (responsable != null) {
-                responsable.getEmpresametalurgicaList().remove(empresametalurgica);
-                responsable = em.merge(responsable);
+            Condicioniva condicioniva = empresametalurgica.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva.getEmpresametalurgicaList().remove(empresametalurgica);
+                condicioniva = em.merge(condicioniva);
             }
             Domicilio domicilio = empresametalurgica.getDomicilio();
             if (domicilio != null) {
                 domicilio.getEmpresametalurgicaList().remove(empresametalurgica);
                 domicilio = em.merge(domicilio);
             }
-            Condicioniva condicioniva = empresametalurgica.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva.getEmpresametalurgicaList().remove(empresametalurgica);
-                condicioniva = em.merge(condicioniva);
+            Responsable responsable = empresametalurgica.getResponsable();
+            if (responsable != null) {
+                responsable.getEmpresametalurgicaList().remove(empresametalurgica);
+                responsable = em.merge(responsable);
             }
             List<Trabajotercerizado> trabajotercerizadoList = empresametalurgica.getTrabajotercerizadoList();
             for (Trabajotercerizado trabajotercerizadoListTrabajotercerizado : trabajotercerizadoList) {
@@ -278,5 +279,5 @@ public class EmpresametalurgicaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

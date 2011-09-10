@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -37,12 +38,14 @@ public class Detallereclamocliente implements Serializable {
     private String descripcion;
     @Column(name = "motivo")
     private String motivo;
-    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Reclamocliente reclamocliente;
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
+
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Reclamocliente reclamocliente;
+
 
     public Detallereclamocliente() {
     }
@@ -87,6 +90,15 @@ public class Detallereclamocliente implements Serializable {
         this.motivo = motivo;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+
     public Reclamocliente getReclamocliente() {
         return reclamocliente;
     }
@@ -95,13 +107,6 @@ public class Detallereclamocliente implements Serializable {
         this.reclamocliente = reclamocliente;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
 
     @Override
     public int hashCode() {
@@ -125,7 +130,7 @@ public class Detallereclamocliente implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallereclamocliente[ detallereclamoclientePK=" + detallereclamoclientePK + " ]";
+        return "metalsoft.datos.jpa.entity.Detallereclamocliente[detallereclamoclientePK=" + detallereclamoclientePK + "]";
     }
-    
+
 }

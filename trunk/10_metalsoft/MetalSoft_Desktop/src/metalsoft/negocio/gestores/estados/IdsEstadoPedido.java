@@ -16,7 +16,7 @@ public class IdsEstadoPedido {
     public static final long PEDIDOCONDETALLEDEPROCESOSDECALIDAD = 18;
     public static final long PRESUPUESTADO = 2;
     public static final long CONFIRMADO = 4;
-    public static final long PLANIFICADO_PRODUCCION = 5;
+    public static final long PLANIFICADO = 5;
     public static final long CONMATERIAPRIMAASIGNADA = 3;
     public static final long ENPRODUCCION = 6;
     public static final long ENCALIDAD = 7;
@@ -28,5 +28,4 @@ public class IdsEstadoPedido {
     public static final long CONFACTURAVENCIDA = 13;
     public static final long RECLAMADO = 14;
     public static final long CANCELADO = 15;
-    public static final long PLANIFICADO_CALIDAD = 19;
 }

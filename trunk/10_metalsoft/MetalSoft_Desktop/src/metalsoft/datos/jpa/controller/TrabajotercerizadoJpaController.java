@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,9 +15,9 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Pedido;
-import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
+import metalsoft.datos.jpa.entity.Estadotrabajotercerizado;
+import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ import metalsoft.datos.jpa.entity.Trabajotercerizado;
  *
  * @author Nino
  */
-public class TrabajotercerizadoJpaController implements Serializable {
+public class TrabajotercerizadoJpaController {
 
-    public TrabajotercerizadoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public TrabajotercerizadoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -57,20 +58,20 @@ public class TrabajotercerizadoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pedido pedido = trabajotercerizado.getPedido();
-            if (pedido != null) {
-                pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
-                trabajotercerizado.setPedido(pedido);
+            Empresametalurgica empresa = trabajotercerizado.getEmpresa();
+            if (empresa != null) {
+                empresa = em.getReference(empresa.getClass(), empresa.getIdempresametalurgica());
+                trabajotercerizado.setEmpresa(empresa);
             }
             Estadotrabajotercerizado estado = trabajotercerizado.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 trabajotercerizado.setEstado(estado);
             }
-            Empresametalurgica empresa = trabajotercerizado.getEmpresa();
-            if (empresa != null) {
-                empresa = em.getReference(empresa.getClass(), empresa.getIdempresametalurgica());
-                trabajotercerizado.setEmpresa(empresa);
+            Pedido pedido = trabajotercerizado.getPedido();
+            if (pedido != null) {
+                pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
+                trabajotercerizado.setPedido(pedido);
             }
             List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoList = new ArrayList<Reclamoempresamantenimiento>();
             for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimientoToAttach : trabajotercerizado.getReclamoempresamantenimientoList()) {
@@ -97,17 +98,17 @@ public class TrabajotercerizadoJpaController implements Serializable {
             }
             trabajotercerizado.setDetalletrabajotercerizadoList(attachedDetalletrabajotercerizadoList);
             em.persist(trabajotercerizado);
-            if (pedido != null) {
-                pedido.getTrabajotercerizadoList().add(trabajotercerizado);
-                pedido = em.merge(pedido);
+            if (empresa != null) {
+                empresa.getTrabajotercerizadoList().add(trabajotercerizado);
+                empresa = em.merge(empresa);
             }
             if (estado != null) {
                 estado.getTrabajotercerizadoList().add(trabajotercerizado);
                 estado = em.merge(estado);
             }
-            if (empresa != null) {
-                empresa.getTrabajotercerizadoList().add(trabajotercerizado);
-                empresa = em.merge(empresa);
+            if (pedido != null) {
+                pedido.getTrabajotercerizadoList().add(trabajotercerizado);
+                pedido = em.merge(pedido);
             }
             for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : trabajotercerizado.getReclamoempresamantenimientoList()) {
                 Trabajotercerizado oldTrabajotercerizadoOfReclamoempresamantenimientoListReclamoempresamantenimiento = reclamoempresamantenimientoListReclamoempresamantenimiento.getTrabajotercerizado();
@@ -164,12 +165,12 @@ public class TrabajotercerizadoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Trabajotercerizado persistentTrabajotercerizado = em.find(Trabajotercerizado.class, trabajotercerizado.getIdtrabajo());
-            Pedido pedidoOld = persistentTrabajotercerizado.getPedido();
-            Pedido pedidoNew = trabajotercerizado.getPedido();
-            Estadotrabajotercerizado estadoOld = persistentTrabajotercerizado.getEstado();
-            Estadotrabajotercerizado estadoNew = trabajotercerizado.getEstado();
             Empresametalurgica empresaOld = persistentTrabajotercerizado.getEmpresa();
             Empresametalurgica empresaNew = trabajotercerizado.getEmpresa();
+            Estadotrabajotercerizado estadoOld = persistentTrabajotercerizado.getEstado();
+            Estadotrabajotercerizado estadoNew = trabajotercerizado.getEstado();
+            Pedido pedidoOld = persistentTrabajotercerizado.getPedido();
+            Pedido pedidoNew = trabajotercerizado.getPedido();
             List<Reclamoempresamantenimiento> reclamoempresamantenimientoListOld = persistentTrabajotercerizado.getReclamoempresamantenimientoList();
             List<Reclamoempresamantenimiento> reclamoempresamantenimientoListNew = trabajotercerizado.getReclamoempresamantenimientoList();
             List<Reclamoempresametalurgica> reclamoempresametalurgicaListOld = persistentTrabajotercerizado.getReclamoempresametalurgicaList();
@@ -190,17 +191,17 @@ public class TrabajotercerizadoJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (pedidoNew != null) {
-                pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
-                trabajotercerizado.setPedido(pedidoNew);
+            if (empresaNew != null) {
+                empresaNew = em.getReference(empresaNew.getClass(), empresaNew.getIdempresametalurgica());
+                trabajotercerizado.setEmpresa(empresaNew);
             }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 trabajotercerizado.setEstado(estadoNew);
             }
-            if (empresaNew != null) {
-                empresaNew = em.getReference(empresaNew.getClass(), empresaNew.getIdempresametalurgica());
-                trabajotercerizado.setEmpresa(empresaNew);
+            if (pedidoNew != null) {
+                pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
+                trabajotercerizado.setPedido(pedidoNew);
             }
             List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoListNew = new ArrayList<Reclamoempresamantenimiento>();
             for (Reclamoempresamantenimiento reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach : reclamoempresamantenimientoListNew) {
@@ -231,13 +232,13 @@ public class TrabajotercerizadoJpaController implements Serializable {
             detalletrabajotercerizadoListNew = attachedDetalletrabajotercerizadoListNew;
             trabajotercerizado.setDetalletrabajotercerizadoList(detalletrabajotercerizadoListNew);
             trabajotercerizado = em.merge(trabajotercerizado);
-            if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
-                pedidoOld.getTrabajotercerizadoList().remove(trabajotercerizado);
-                pedidoOld = em.merge(pedidoOld);
+            if (empresaOld != null && !empresaOld.equals(empresaNew)) {
+                empresaOld.getTrabajotercerizadoList().remove(trabajotercerizado);
+                empresaOld = em.merge(empresaOld);
             }
-            if (pedidoNew != null && !pedidoNew.equals(pedidoOld)) {
-                pedidoNew.getTrabajotercerizadoList().add(trabajotercerizado);
-                pedidoNew = em.merge(pedidoNew);
+            if (empresaNew != null && !empresaNew.equals(empresaOld)) {
+                empresaNew.getTrabajotercerizadoList().add(trabajotercerizado);
+                empresaNew = em.merge(empresaNew);
             }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getTrabajotercerizadoList().remove(trabajotercerizado);
@@ -247,13 +248,13 @@ public class TrabajotercerizadoJpaController implements Serializable {
                 estadoNew.getTrabajotercerizadoList().add(trabajotercerizado);
                 estadoNew = em.merge(estadoNew);
             }
-            if (empresaOld != null && !empresaOld.equals(empresaNew)) {
-                empresaOld.getTrabajotercerizadoList().remove(trabajotercerizado);
-                empresaOld = em.merge(empresaOld);
+            if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
+                pedidoOld.getTrabajotercerizadoList().remove(trabajotercerizado);
+                pedidoOld = em.merge(pedidoOld);
             }
-            if (empresaNew != null && !empresaNew.equals(empresaOld)) {
-                empresaNew.getTrabajotercerizadoList().add(trabajotercerizado);
-                empresaNew = em.merge(empresaNew);
+            if (pedidoNew != null && !pedidoNew.equals(pedidoOld)) {
+                pedidoNew.getTrabajotercerizadoList().add(trabajotercerizado);
+                pedidoNew = em.merge(pedidoNew);
             }
             for (Reclamoempresamantenimiento reclamoempresamantenimientoListOldReclamoempresamantenimiento : reclamoempresamantenimientoListOld) {
                 if (!reclamoempresamantenimientoListNew.contains(reclamoempresamantenimientoListOldReclamoempresamantenimiento)) {
@@ -357,20 +358,20 @@ public class TrabajotercerizadoJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Pedido pedido = trabajotercerizado.getPedido();
-            if (pedido != null) {
-                pedido.getTrabajotercerizadoList().remove(trabajotercerizado);
-                pedido = em.merge(pedido);
+            Empresametalurgica empresa = trabajotercerizado.getEmpresa();
+            if (empresa != null) {
+                empresa.getTrabajotercerizadoList().remove(trabajotercerizado);
+                empresa = em.merge(empresa);
             }
             Estadotrabajotercerizado estado = trabajotercerizado.getEstado();
             if (estado != null) {
                 estado.getTrabajotercerizadoList().remove(trabajotercerizado);
                 estado = em.merge(estado);
             }
-            Empresametalurgica empresa = trabajotercerizado.getEmpresa();
-            if (empresa != null) {
-                empresa.getTrabajotercerizadoList().remove(trabajotercerizado);
-                empresa = em.merge(empresa);
+            Pedido pedido = trabajotercerizado.getPedido();
+            if (pedido != null) {
+                pedido.getTrabajotercerizadoList().remove(trabajotercerizado);
+                pedido = em.merge(pedido);
             }
             List<Reclamoempresamantenimiento> reclamoempresamantenimientoList = trabajotercerizado.getReclamoempresamantenimientoList();
             for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : reclamoempresamantenimientoList) {
@@ -441,5 +442,5 @@ public class TrabajotercerizadoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,12 +15,12 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Cliente;
-import metalsoft.datos.jpa.entity.Usuario;
-import metalsoft.datos.jpa.entity.Responsable;
-import metalsoft.datos.jpa.entity.Prioridad;
-import metalsoft.datos.jpa.entity.Estadocliente;
-import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Condicioniva;
+import metalsoft.datos.jpa.entity.Domicilio;
+import metalsoft.datos.jpa.entity.Estadocliente;
+import metalsoft.datos.jpa.entity.Prioridad;
+import metalsoft.datos.jpa.entity.Responsable;
+import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Pedido;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ import metalsoft.datos.jpa.entity.Reclamocliente;
  *
  * @author Nino
  */
-public class ClienteJpaController implements Serializable {
+public class ClienteJpaController {
 
-    public ClienteJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ClienteJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -51,35 +52,35 @@ public class ClienteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario = cliente.getUsuario();
-            if (usuario != null) {
-                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
-                cliente.setUsuario(usuario);
-            }
-            Responsable responsable = cliente.getResponsable();
-            if (responsable != null) {
-                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
-                cliente.setResponsable(responsable);
-            }
-            Prioridad prioridad = cliente.getPrioridad();
-            if (prioridad != null) {
-                prioridad = em.getReference(prioridad.getClass(), prioridad.getIdprioridad());
-                cliente.setPrioridad(prioridad);
-            }
-            Estadocliente estado = cliente.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                cliente.setEstado(estado);
+            Condicioniva condicioniva = cliente.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
+                cliente.setCondicioniva(condicioniva);
             }
             Domicilio domicilio = cliente.getDomicilio();
             if (domicilio != null) {
                 domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
                 cliente.setDomicilio(domicilio);
             }
-            Condicioniva condicioniva = cliente.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
-                cliente.setCondicioniva(condicioniva);
+            Estadocliente estado = cliente.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                cliente.setEstado(estado);
+            }
+            Prioridad prioridad = cliente.getPrioridad();
+            if (prioridad != null) {
+                prioridad = em.getReference(prioridad.getClass(), prioridad.getIdprioridad());
+                cliente.setPrioridad(prioridad);
+            }
+            Responsable responsable = cliente.getResponsable();
+            if (responsable != null) {
+                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
+                cliente.setResponsable(responsable);
+            }
+            Usuario usuario = cliente.getUsuario();
+            if (usuario != null) {
+                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
+                cliente.setUsuario(usuario);
             }
             List<Pedido> attachedPedidoList = new ArrayList<Pedido>();
             for (Pedido pedidoListPedidoToAttach : cliente.getPedidoList()) {
@@ -94,29 +95,29 @@ public class ClienteJpaController implements Serializable {
             }
             cliente.setReclamoclienteList(attachedReclamoclienteList);
             em.persist(cliente);
-            if (usuario != null) {
-                usuario.getClienteList().add(cliente);
-                usuario = em.merge(usuario);
-            }
-            if (responsable != null) {
-                responsable.getClienteList().add(cliente);
-                responsable = em.merge(responsable);
-            }
-            if (prioridad != null) {
-                prioridad.getClienteList().add(cliente);
-                prioridad = em.merge(prioridad);
-            }
-            if (estado != null) {
-                estado.getClienteList().add(cliente);
-                estado = em.merge(estado);
+            if (condicioniva != null) {
+                condicioniva.getClienteList().add(cliente);
+                condicioniva = em.merge(condicioniva);
             }
             if (domicilio != null) {
                 domicilio.getClienteList().add(cliente);
                 domicilio = em.merge(domicilio);
             }
-            if (condicioniva != null) {
-                condicioniva.getClienteList().add(cliente);
-                condicioniva = em.merge(condicioniva);
+            if (estado != null) {
+                estado.getClienteList().add(cliente);
+                estado = em.merge(estado);
+            }
+            if (prioridad != null) {
+                prioridad.getClienteList().add(cliente);
+                prioridad = em.merge(prioridad);
+            }
+            if (responsable != null) {
+                responsable.getClienteList().add(cliente);
+                responsable = em.merge(responsable);
+            }
+            if (usuario != null) {
+                usuario.getClienteList().add(cliente);
+                usuario = em.merge(usuario);
             }
             for (Pedido pedidoListPedido : cliente.getPedidoList()) {
                 Cliente oldClienteOfPedidoListPedido = pedidoListPedido.getCliente();
@@ -155,45 +156,45 @@ public class ClienteJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Cliente persistentCliente = em.find(Cliente.class, cliente.getIdcliente());
-            Usuario usuarioOld = persistentCliente.getUsuario();
-            Usuario usuarioNew = cliente.getUsuario();
-            Responsable responsableOld = persistentCliente.getResponsable();
-            Responsable responsableNew = cliente.getResponsable();
-            Prioridad prioridadOld = persistentCliente.getPrioridad();
-            Prioridad prioridadNew = cliente.getPrioridad();
-            Estadocliente estadoOld = persistentCliente.getEstado();
-            Estadocliente estadoNew = cliente.getEstado();
-            Domicilio domicilioOld = persistentCliente.getDomicilio();
-            Domicilio domicilioNew = cliente.getDomicilio();
             Condicioniva condicionivaOld = persistentCliente.getCondicioniva();
             Condicioniva condicionivaNew = cliente.getCondicioniva();
+            Domicilio domicilioOld = persistentCliente.getDomicilio();
+            Domicilio domicilioNew = cliente.getDomicilio();
+            Estadocliente estadoOld = persistentCliente.getEstado();
+            Estadocliente estadoNew = cliente.getEstado();
+            Prioridad prioridadOld = persistentCliente.getPrioridad();
+            Prioridad prioridadNew = cliente.getPrioridad();
+            Responsable responsableOld = persistentCliente.getResponsable();
+            Responsable responsableNew = cliente.getResponsable();
+            Usuario usuarioOld = persistentCliente.getUsuario();
+            Usuario usuarioNew = cliente.getUsuario();
             List<Pedido> pedidoListOld = persistentCliente.getPedidoList();
             List<Pedido> pedidoListNew = cliente.getPedidoList();
             List<Reclamocliente> reclamoclienteListOld = persistentCliente.getReclamoclienteList();
             List<Reclamocliente> reclamoclienteListNew = cliente.getReclamoclienteList();
-            if (usuarioNew != null) {
-                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
-                cliente.setUsuario(usuarioNew);
-            }
-            if (responsableNew != null) {
-                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
-                cliente.setResponsable(responsableNew);
-            }
-            if (prioridadNew != null) {
-                prioridadNew = em.getReference(prioridadNew.getClass(), prioridadNew.getIdprioridad());
-                cliente.setPrioridad(prioridadNew);
-            }
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                cliente.setEstado(estadoNew);
+            if (condicionivaNew != null) {
+                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
+                cliente.setCondicioniva(condicionivaNew);
             }
             if (domicilioNew != null) {
                 domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
                 cliente.setDomicilio(domicilioNew);
             }
-            if (condicionivaNew != null) {
-                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
-                cliente.setCondicioniva(condicionivaNew);
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                cliente.setEstado(estadoNew);
+            }
+            if (prioridadNew != null) {
+                prioridadNew = em.getReference(prioridadNew.getClass(), prioridadNew.getIdprioridad());
+                cliente.setPrioridad(prioridadNew);
+            }
+            if (responsableNew != null) {
+                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
+                cliente.setResponsable(responsableNew);
+            }
+            if (usuarioNew != null) {
+                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
+                cliente.setUsuario(usuarioNew);
             }
             List<Pedido> attachedPedidoListNew = new ArrayList<Pedido>();
             for (Pedido pedidoListNewPedidoToAttach : pedidoListNew) {
@@ -210,37 +211,13 @@ public class ClienteJpaController implements Serializable {
             reclamoclienteListNew = attachedReclamoclienteListNew;
             cliente.setReclamoclienteList(reclamoclienteListNew);
             cliente = em.merge(cliente);
-            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
-                usuarioOld.getClienteList().remove(cliente);
-                usuarioOld = em.merge(usuarioOld);
+            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
+                condicionivaOld.getClienteList().remove(cliente);
+                condicionivaOld = em.merge(condicionivaOld);
             }
-            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
-                usuarioNew.getClienteList().add(cliente);
-                usuarioNew = em.merge(usuarioNew);
-            }
-            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
-                responsableOld.getClienteList().remove(cliente);
-                responsableOld = em.merge(responsableOld);
-            }
-            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
-                responsableNew.getClienteList().add(cliente);
-                responsableNew = em.merge(responsableNew);
-            }
-            if (prioridadOld != null && !prioridadOld.equals(prioridadNew)) {
-                prioridadOld.getClienteList().remove(cliente);
-                prioridadOld = em.merge(prioridadOld);
-            }
-            if (prioridadNew != null && !prioridadNew.equals(prioridadOld)) {
-                prioridadNew.getClienteList().add(cliente);
-                prioridadNew = em.merge(prioridadNew);
-            }
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getClienteList().remove(cliente);
-                estadoOld = em.merge(estadoOld);
-            }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getClienteList().add(cliente);
-                estadoNew = em.merge(estadoNew);
+            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
+                condicionivaNew.getClienteList().add(cliente);
+                condicionivaNew = em.merge(condicionivaNew);
             }
             if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
                 domicilioOld.getClienteList().remove(cliente);
@@ -250,13 +227,37 @@ public class ClienteJpaController implements Serializable {
                 domicilioNew.getClienteList().add(cliente);
                 domicilioNew = em.merge(domicilioNew);
             }
-            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
-                condicionivaOld.getClienteList().remove(cliente);
-                condicionivaOld = em.merge(condicionivaOld);
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getClienteList().remove(cliente);
+                estadoOld = em.merge(estadoOld);
             }
-            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
-                condicionivaNew.getClienteList().add(cliente);
-                condicionivaNew = em.merge(condicionivaNew);
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getClienteList().add(cliente);
+                estadoNew = em.merge(estadoNew);
+            }
+            if (prioridadOld != null && !prioridadOld.equals(prioridadNew)) {
+                prioridadOld.getClienteList().remove(cliente);
+                prioridadOld = em.merge(prioridadOld);
+            }
+            if (prioridadNew != null && !prioridadNew.equals(prioridadOld)) {
+                prioridadNew.getClienteList().add(cliente);
+                prioridadNew = em.merge(prioridadNew);
+            }
+            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
+                responsableOld.getClienteList().remove(cliente);
+                responsableOld = em.merge(responsableOld);
+            }
+            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
+                responsableNew.getClienteList().add(cliente);
+                responsableNew = em.merge(responsableNew);
+            }
+            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
+                usuarioOld.getClienteList().remove(cliente);
+                usuarioOld = em.merge(usuarioOld);
+            }
+            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
+                usuarioNew.getClienteList().add(cliente);
+                usuarioNew = em.merge(usuarioNew);
             }
             for (Pedido pedidoListOldPedido : pedidoListOld) {
                 if (!pedidoListNew.contains(pedidoListOldPedido)) {
@@ -321,35 +322,35 @@ public class ClienteJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.", enfe);
             }
-            Usuario usuario = cliente.getUsuario();
-            if (usuario != null) {
-                usuario.getClienteList().remove(cliente);
-                usuario = em.merge(usuario);
-            }
-            Responsable responsable = cliente.getResponsable();
-            if (responsable != null) {
-                responsable.getClienteList().remove(cliente);
-                responsable = em.merge(responsable);
-            }
-            Prioridad prioridad = cliente.getPrioridad();
-            if (prioridad != null) {
-                prioridad.getClienteList().remove(cliente);
-                prioridad = em.merge(prioridad);
-            }
-            Estadocliente estado = cliente.getEstado();
-            if (estado != null) {
-                estado.getClienteList().remove(cliente);
-                estado = em.merge(estado);
+            Condicioniva condicioniva = cliente.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva.getClienteList().remove(cliente);
+                condicioniva = em.merge(condicioniva);
             }
             Domicilio domicilio = cliente.getDomicilio();
             if (domicilio != null) {
                 domicilio.getClienteList().remove(cliente);
                 domicilio = em.merge(domicilio);
             }
-            Condicioniva condicioniva = cliente.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva.getClienteList().remove(cliente);
-                condicioniva = em.merge(condicioniva);
+            Estadocliente estado = cliente.getEstado();
+            if (estado != null) {
+                estado.getClienteList().remove(cliente);
+                estado = em.merge(estado);
+            }
+            Prioridad prioridad = cliente.getPrioridad();
+            if (prioridad != null) {
+                prioridad.getClienteList().remove(cliente);
+                prioridad = em.merge(prioridad);
+            }
+            Responsable responsable = cliente.getResponsable();
+            if (responsable != null) {
+                responsable.getClienteList().remove(cliente);
+                responsable = em.merge(responsable);
+            }
+            Usuario usuario = cliente.getUsuario();
+            if (usuario != null) {
+                usuario.getClienteList().remove(cliente);
+                usuario = em.merge(usuario);
             }
             List<Pedido> pedidoList = cliente.getPedidoList();
             for (Pedido pedidoListPedido : pedidoList) {
@@ -415,5 +416,5 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

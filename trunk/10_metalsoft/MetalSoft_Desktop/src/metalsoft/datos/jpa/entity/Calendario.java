@@ -36,6 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Calendario.findByHoradesde", query = "SELECT c FROM Calendario c WHERE c.horadesde = :horadesde"),
     @NamedQuery(name = "Calendario.findByHorahasta", query = "SELECT c FROM Calendario c WHERE c.horahasta = :horahasta")})
 public class Calendario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Column(name = "dia")
     private Integer dia;
@@ -154,7 +155,6 @@ public class Calendario implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Calendario[ id=" + id + " ]";
+        return "metalsoft.datos.jpa.entity.Calendario[id=" + id + "]";
     }
-    
 }

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -54,19 +55,26 @@ public class Domicilio implements Serializable {
     private String torre;
     @OneToMany(mappedBy = "domicilio")
     private List<Responsable> responsableList;
+
     @OneToMany(mappedBy = "domicilio")
     private List<Empresametalurgica> empresametalurgicaList;
+
     @OneToMany(mappedBy = "domicilio")
     private List<Cliente> clienteList;
+
     @OneToMany(mappedBy = "domicilio")
     private List<Proveedor> proveedorList;
+
     @OneToMany(mappedBy = "domicilio")
     private List<Proveedormantenimientomaquina> proveedormantenimientomaquinaList;
+
     @JoinColumn(name = "barrio", referencedColumnName = "idbarrio")
     @ManyToOne
     private Barrio barrio;
+
     @OneToMany(mappedBy = "domicilio")
     private List<Empleado> empleadoList;
+
 
     public Domicilio() {
     }
@@ -131,6 +139,8 @@ public class Domicilio implements Serializable {
         this.responsableList = responsableList;
     }
 
+
+
     public List<Empresametalurgica> getEmpresametalurgicaList() {
         return empresametalurgicaList;
     }
@@ -138,6 +148,7 @@ public class Domicilio implements Serializable {
     public void setEmpresametalurgicaList(List<Empresametalurgica> empresametalurgicaList) {
         this.empresametalurgicaList = empresametalurgicaList;
     }
+
 
     public List<Cliente> getClienteList() {
         return clienteList;
@@ -147,6 +158,7 @@ public class Domicilio implements Serializable {
         this.clienteList = clienteList;
     }
 
+
     public List<Proveedor> getProveedorList() {
         return proveedorList;
     }
@@ -154,6 +166,7 @@ public class Domicilio implements Serializable {
     public void setProveedorList(List<Proveedor> proveedorList) {
         this.proveedorList = proveedorList;
     }
+
 
     public List<Proveedormantenimientomaquina> getProveedormantenimientomaquinaList() {
         return proveedormantenimientomaquinaList;
@@ -163,6 +176,8 @@ public class Domicilio implements Serializable {
         this.proveedormantenimientomaquinaList = proveedormantenimientomaquinaList;
     }
 
+
+
     public Barrio getBarrio() {
         return barrio;
     }
@@ -171,6 +186,7 @@ public class Domicilio implements Serializable {
         this.barrio = barrio;
     }
 
+
     public List<Empleado> getEmpleadoList() {
         return empleadoList;
     }
@@ -178,6 +194,8 @@ public class Domicilio implements Serializable {
     public void setEmpleadoList(List<Empleado> empleadoList) {
         this.empleadoList = empleadoList;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -201,7 +219,7 @@ public class Domicilio implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Domicilio[ iddomicilio=" + iddomicilio + " ]";
+        return "metalsoft.datos.jpa.entity.Domicilio[iddomicilio=" + iddomicilio + "]";
     }
-    
+
 }

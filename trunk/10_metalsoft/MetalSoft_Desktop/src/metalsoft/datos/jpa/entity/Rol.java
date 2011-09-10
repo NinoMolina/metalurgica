@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,10 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +35,8 @@ public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rol_seq")
+    @SequenceGenerator(name = "rol_seq", sequenceName = "rol_idrol_seq", allocationSize = 1)
     @Column(name = "idrol")
     private Long idrol;
     @Column(name = "rol")
@@ -39,8 +45,10 @@ public class Rol implements Serializable {
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
     private List<Usuarioxrol> usuarioxrolList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
     private List<Rolxprivilegio> rolxprivilegioList;
+
 
     public Rol() {
     }
@@ -81,6 +89,7 @@ public class Rol implements Serializable {
         this.usuarioxrolList = usuarioxrolList;
     }
 
+
     public List<Rolxprivilegio> getRolxprivilegioList() {
         return rolxprivilegioList;
     }
@@ -88,6 +97,7 @@ public class Rol implements Serializable {
     public void setRolxprivilegioList(List<Rolxprivilegio> rolxprivilegioList) {
         this.rolxprivilegioList = rolxprivilegioList;
     }
+
 
     @Override
     public int hashCode() {
@@ -111,7 +121,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Rol[ idrol=" + idrol + " ]";
+        return "metalsoft.datos.jpa.entity.Rol[idrol=" + idrol + "]";
     }
-    
+
 }

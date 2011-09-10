@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -35,6 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Matriz.findByIdmatriz", query = "SELECT m FROM Matriz m WHERE m.idmatriz = :idmatriz"),
     @NamedQuery(name = "Matriz.findByCodmatriz", query = "SELECT m FROM Matriz m WHERE m.codmatriz = :codmatriz"),
     @NamedQuery(name = "Matriz.findByNombre", query = "SELECT m FROM Matriz m WHERE m.nombre = :nombre"),
+    @NamedQuery(name = "Matriz.findByNombreLike", query = "SELECT m FROM Matriz m WHERE m.nombre LIKE :nombre"),
     @NamedQuery(name = "Matriz.findByDescripcion", query = "SELECT m FROM Matriz m WHERE m.descripcion = :descripcion"),
     @NamedQuery(name = "Matriz.findByObservaciones", query = "SELECT m FROM Matriz m WHERE m.observaciones = :observaciones"),
     @NamedQuery(name = "Matriz.findByFechacreacion", query = "SELECT m FROM Matriz m WHERE m.fechacreacion = :fechacreacion")})
@@ -59,12 +61,12 @@ public class Matriz implements Serializable {
     private Date fechacreacion;
     @OneToMany(mappedBy = "matriz")
     private List<Pieza> piezaList;
-    @JoinColumn(name = "tipomaterial", referencedColumnName = "idtipomaterial")
-    @ManyToOne
-    private Tipomaterial tipomaterial;
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
+    @JoinColumn(name = "tipomaterial", referencedColumnName = "idtipomaterial")
+    @ManyToOne
+    private Tipomaterial tipomaterial;
     @OneToMany(mappedBy = "idmatriz")
     private List<Pedidomatriz> pedidomatrizList;
 
@@ -131,20 +133,20 @@ public class Matriz implements Serializable {
         this.piezaList = piezaList;
     }
 
-    public Tipomaterial getTipomaterial() {
-        return tipomaterial;
-    }
-
-    public void setTipomaterial(Tipomaterial tipomaterial) {
-        this.tipomaterial = tipomaterial;
-    }
-
     public Materiaprima getMateriaprima() {
         return materiaprima;
     }
 
     public void setMateriaprima(Materiaprima materiaprima) {
         this.materiaprima = materiaprima;
+    }
+
+    public Tipomaterial getTipomaterial() {
+        return tipomaterial;
+    }
+
+    public void setTipomaterial(Tipomaterial tipomaterial) {
+        this.tipomaterial = tipomaterial;
     }
 
     public List<Pedidomatriz> getPedidomatrizList() {
@@ -177,7 +179,7 @@ public class Matriz implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Matriz[ idmatriz=" + idmatriz + " ]";
+        return "metalsoft.datos.jpa.entity.Matriz[idmatriz=" + idmatriz + "]";
     }
-    
+
 }

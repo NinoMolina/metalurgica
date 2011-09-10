@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,8 +16,8 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Compra;
-import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Estadocompra;
+import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Detallecompra;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,10 @@ import metalsoft.datos.jpa.entity.Reclamoproveedor;
  *
  * @author Nino
  */
-public class CompraJpaController implements Serializable {
+public class CompraJpaController {
 
-    public CompraJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public CompraJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -48,15 +49,15 @@ public class CompraJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Proveedor proveedor = compra.getProveedor();
-            if (proveedor != null) {
-                proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
-                compra.setProveedor(proveedor);
-            }
             Estadocompra estado = compra.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 compra.setEstado(estado);
+            }
+            Proveedor proveedor = compra.getProveedor();
+            if (proveedor != null) {
+                proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
+                compra.setProveedor(proveedor);
             }
             List<Detallecompra> attachedDetallecompraList = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListDetallecompraToAttach : compra.getDetallecompraList()) {
@@ -71,13 +72,13 @@ public class CompraJpaController implements Serializable {
             }
             compra.setReclamoproveedorList(attachedReclamoproveedorList);
             em.persist(compra);
-            if (proveedor != null) {
-                proveedor.getCompraList().add(compra);
-                proveedor = em.merge(proveedor);
-            }
             if (estado != null) {
                 estado.getCompraList().add(compra);
                 estado = em.merge(estado);
+            }
+            if (proveedor != null) {
+                proveedor.getCompraList().add(compra);
+                proveedor = em.merge(proveedor);
             }
             for (Detallecompra detallecompraListDetallecompra : compra.getDetallecompraList()) {
                 Compra oldCompraOfDetallecompraListDetallecompra = detallecompraListDetallecompra.getCompra();
@@ -116,10 +117,10 @@ public class CompraJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Compra persistentCompra = em.find(Compra.class, compra.getIdcompra());
-            Proveedor proveedorOld = persistentCompra.getProveedor();
-            Proveedor proveedorNew = compra.getProveedor();
             Estadocompra estadoOld = persistentCompra.getEstado();
             Estadocompra estadoNew = compra.getEstado();
+            Proveedor proveedorOld = persistentCompra.getProveedor();
+            Proveedor proveedorNew = compra.getProveedor();
             List<Detallecompra> detallecompraListOld = persistentCompra.getDetallecompraList();
             List<Detallecompra> detallecompraListNew = compra.getDetallecompraList();
             List<Reclamoproveedor> reclamoproveedorListOld = persistentCompra.getReclamoproveedorList();
@@ -136,13 +137,13 @@ public class CompraJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (proveedorNew != null) {
-                proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
-                compra.setProveedor(proveedorNew);
-            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 compra.setEstado(estadoNew);
+            }
+            if (proveedorNew != null) {
+                proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
+                compra.setProveedor(proveedorNew);
             }
             List<Detallecompra> attachedDetallecompraListNew = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListNewDetallecompraToAttach : detallecompraListNew) {
@@ -159,14 +160,6 @@ public class CompraJpaController implements Serializable {
             reclamoproveedorListNew = attachedReclamoproveedorListNew;
             compra.setReclamoproveedorList(reclamoproveedorListNew);
             compra = em.merge(compra);
-            if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
-                proveedorOld.getCompraList().remove(compra);
-                proveedorOld = em.merge(proveedorOld);
-            }
-            if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
-                proveedorNew.getCompraList().add(compra);
-                proveedorNew = em.merge(proveedorNew);
-            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getCompraList().remove(compra);
                 estadoOld = em.merge(estadoOld);
@@ -174,6 +167,14 @@ public class CompraJpaController implements Serializable {
             if (estadoNew != null && !estadoNew.equals(estadoOld)) {
                 estadoNew.getCompraList().add(compra);
                 estadoNew = em.merge(estadoNew);
+            }
+            if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
+                proveedorOld.getCompraList().remove(compra);
+                proveedorOld = em.merge(proveedorOld);
+            }
+            if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
+                proveedorNew.getCompraList().add(compra);
+                proveedorNew = em.merge(proveedorNew);
             }
             for (Detallecompra detallecompraListNewDetallecompra : detallecompraListNew) {
                 if (!detallecompraListOld.contains(detallecompraListNewDetallecompra)) {
@@ -243,15 +244,15 @@ public class CompraJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Proveedor proveedor = compra.getProveedor();
-            if (proveedor != null) {
-                proveedor.getCompraList().remove(compra);
-                proveedor = em.merge(proveedor);
-            }
             Estadocompra estado = compra.getEstado();
             if (estado != null) {
                 estado.getCompraList().remove(compra);
                 estado = em.merge(estado);
+            }
+            Proveedor proveedor = compra.getProveedor();
+            if (proveedor != null) {
+                proveedor.getCompraList().remove(compra);
+                proveedor = em.merge(proveedor);
             }
             List<Reclamoproveedor> reclamoproveedorList = compra.getReclamoproveedorList();
             for (Reclamoproveedor reclamoproveedorListReclamoproveedor : reclamoproveedorList) {
@@ -312,5 +313,5 @@ public class CompraJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

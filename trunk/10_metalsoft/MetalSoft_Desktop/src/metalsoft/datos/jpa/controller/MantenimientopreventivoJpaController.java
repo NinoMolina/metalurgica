@@ -2,18 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
@@ -23,10 +25,10 @@ import java.util.ArrayList;
  *
  * @author Nino
  */
-public class MantenimientopreventivoJpaController implements Serializable {
+public class MantenimientopreventivoJpaController {
 
-    public MantenimientopreventivoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public MantenimientopreventivoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -34,7 +36,7 @@ public class MantenimientopreventivoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Mantenimientopreventivo mantenimientopreventivo) {
+    public void create(Mantenimientopreventivo mantenimientopreventivo) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -64,6 +66,11 @@ public class MantenimientopreventivoJpaController implements Serializable {
                 proveedormantenimiento = em.merge(proveedormantenimiento);
             }
             em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findMantenimientopreventivo(mantenimientopreventivo.getIdmantenimientopreventivo()) != null) {
+                throw new PreexistingEntityException("Mantenimientopreventivo " + mantenimientopreventivo + " already exists.", ex);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -216,5 +223,5 @@ public class MantenimientopreventivoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -72,7 +73,7 @@ public class DetallereclamoproveedorPK implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.DetallereclamoproveedorPK[ iddetalle=" + iddetalle + ", idreclamo=" + idreclamo + " ]";
+        return "metalsoft.datos.jpa.entity.DetallereclamoproveedorPK[iddetalle=" + iddetalle + ", idreclamo=" + idreclamo + "]";
     }
-    
+
 }

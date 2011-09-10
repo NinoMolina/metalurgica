@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -9,10 +10,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +34,8 @@ public class Servicio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "servicio_seq")
+    @SequenceGenerator(name = "servicio_seq", sequenceName = "servicio_idservicio_seq", allocationSize = 1)
     @Column(name = "idservicio")
     private Long idservicio;
     @Column(name = "nombre")
@@ -38,6 +44,7 @@ public class Servicio implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "servicio")
     private List<Detallemantenimientopreventivo> detallemantenimientopreventivoList;
+
 
     public Servicio() {
     }
@@ -100,7 +107,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Servicio[ idservicio=" + idservicio + " ]";
+        return "metalsoft.datos.jpa.entity.Servicio[idservicio=" + idservicio + "]";
     }
-    
+
 }

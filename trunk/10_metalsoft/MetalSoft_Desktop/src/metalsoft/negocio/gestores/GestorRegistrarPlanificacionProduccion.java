@@ -24,10 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessViews;
-import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.estados.IdsEstadoPlanificacionProduccion;
 import metalsoft.util.Fecha;
 
@@ -61,7 +59,7 @@ public class GestorRegistrarPlanificacionProduccion {
 
     public metalsoft.datos.jpa.entity.Presupuesto buscarPresupuesto(long idPresupuesto) {
 //        JPA*********
-        PresupuestoJpaController ctrl = new PresupuestoJpaController(JpaUtil.getEntityManagerFactory());
+        PresupuestoJpaController ctrl = new PresupuestoJpaController();
         return ctrl.findPresupuesto(idPresupuesto);
 
 
@@ -71,7 +69,7 @@ public class GestorRegistrarPlanificacionProduccion {
     }
 
     public List<metalsoft.datos.jpa.entity.Empleado> obtenerEmpleados() {
-        EmpleadoJpaController ctrl = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+        EmpleadoJpaController ctrl = new EmpleadoJpaController();
         return ctrl.findEmpleadoEntities();
 
 //        Dao<Empleado> daoEmpleado=new DaoEmpleado<Empleado>();
@@ -79,14 +77,14 @@ public class GestorRegistrarPlanificacionProduccion {
     }
 
     public List<metalsoft.datos.jpa.entity.Maquina> obtenerMaquinas() {
-        MaquinaJpaController ctrl = new MaquinaJpaController(JpaUtil.getEntityManagerFactory());
+        MaquinaJpaController ctrl = new MaquinaJpaController();
         return ctrl.findMaquinaEntities();
 //        Dao<Maquina> daoMaquina=new DaoMaquina<Maquina>();
 //        return daoMaquina.findAll(Maquina.class.getSimpleName());
     }
 
     public metalsoft.datos.jpa.entity.Pedido buscarPedido(long idpedido) {
-        PedidoJpaController ctrl = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
+        PedidoJpaController ctrl = new PedidoJpaController();
         return ctrl.findPedido(idpedido);
 //        Dao<Pedido> daoPedido=new DaoPedido<Pedido>();
 //        return daoPedido.findById(idpedido, Pedido.class.getSimpleName());
@@ -95,10 +93,10 @@ public class GestorRegistrarPlanificacionProduccion {
     public boolean guardarPlanificacionProduccion(Planificacionproduccion planificacionproduccion, List<Detalleplanificacionproduccion> lstDetalle) {
         //SETEO A ESTADO RECURSOS ASIGNADOS
         planificacionproduccion.setIdestado(new Estadoplanificacionproduccion(IdsEstadoPlanificacionProduccion.REC_ASIG));
-        PlanificacionproduccionJpaController ctrlPlanificacion = new PlanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-        DetalleplanificacionproduccionJpaController ctrlDetalle = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-        PedidoJpaController ctrlPedido = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
-        EntityManager em = JpaUtil.getEntityManager();
+        PlanificacionproduccionJpaController ctrlPlanificacion = new PlanificacionproduccionJpaController();
+        DetalleplanificacionproduccionJpaController ctrlDetalle = new DetalleplanificacionproduccionJpaController();
+        PedidoJpaController ctrlPedido = new PedidoJpaController();
+        EntityManager em = ctrlDetalle.getEntityManager();
         boolean result = false;
         long nvoNroPlanifProd = -1;
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -113,8 +111,8 @@ public class GestorRegistrarPlanificacionProduccion {
                 ctrlDetalle.create(detalle);
             }
             metalsoft.datos.jpa.entity.Pedido ped = planificacionproduccion.getPedido();
-            ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(IdsEstadoPedido.PLANIFICADO_PRODUCCION));
-            ctrlPedido.edit(ped);
+            ped.setEstado(new metalsoft.datos.jpa.entity.Estadopedido(5L));
+            ctrlPedido.edit(ped, em);
             em.getTransaction().commit();
             result = true;
         } catch (PreexistingEntityException ex) {
@@ -142,6 +140,8 @@ public class GestorRegistrarPlanificacionProduccion {
     }
 
     public List<metalsoft.datos.jpa.entity.Planificacionproduccion> buscarPlanificacionesProduccion() {
-        return (List<metalsoft.datos.jpa.entity.Planificacionproduccion>) JpaUtil.findPlanificacionProduccionByFechafinprevistaMayorActual(Fecha.fechaActualDate());
+        PlanificacionproduccionJpaController ctrl = new PlanificacionproduccionJpaController();
+        System.out.println(Fecha.fechaActualDate());
+        return (List<metalsoft.datos.jpa.entity.Planificacionproduccion>) ctrl.findByFechafinprevistaMayorActual(Fecha.fechaActualDate());
     }
 }

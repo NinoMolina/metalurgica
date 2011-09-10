@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -39,12 +40,14 @@ public class Detalleplanprocedimientos implements Serializable {
     @Column(name = "duracionestimada")
     @Temporal(TemporalType.TIME)
     private Date duracionestimada;
-    @JoinColumn(name = "idplanpprocedimientos", referencedColumnName = "idplanprocedimientos", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Planprocedimientos planprocedimientos;
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion idetapaproduccion;
+
+    @JoinColumn(name = "idplanpprocedimientos", referencedColumnName = "idplanprocedimientos", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Planprocedimientos planprocedimientos;
+
 
     public Detalleplanprocedimientos() {
     }
@@ -81,20 +84,22 @@ public class Detalleplanprocedimientos implements Serializable {
         this.duracionestimada = duracionestimada;
     }
 
-    public Planprocedimientos getPlanprocedimientos() {
-        return planprocedimientos;
-    }
-
-    public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
-        this.planprocedimientos = planprocedimientos;
-    }
-
     public Etapadeproduccion getIdetapaproduccion() {
         return idetapaproduccion;
     }
 
     public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
         this.idetapaproduccion = idetapaproduccion;
+    }
+
+
+
+    public Planprocedimientos getPlanprocedimientos() {
+        return planprocedimientos;
+    }
+
+    public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
+        this.planprocedimientos = planprocedimientos;
     }
 
     @Override
@@ -119,7 +124,7 @@ public class Detalleplanprocedimientos implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleplanprocedimientos[ detalleplanprocedimientosPK=" + detalleplanprocedimientosPK + " ]";
+        return "metalsoft.datos.jpa.entity.Detalleplanprocedimientos[detalleplanprocedimientosPK=" + detalleplanprocedimientosPK + "]";
     }
-    
+
 }

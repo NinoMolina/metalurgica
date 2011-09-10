@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -12,8 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,8 +45,6 @@ public class Procesocalidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "procesocalidad_seq")
-    @SequenceGenerator(name = "procesocalidad_seq", sequenceName = "procesocalidad_idprocesocalidad_seq", allocationSize = 1)
     @Column(name = "idprocesocalidad")
     private Long idprocesocalidad;
     @Column(name = "nombre")
@@ -72,16 +68,22 @@ public class Procesocalidad implements Serializable {
     @JoinColumn(name = "accioncalidad", referencedColumnName = "idaccioncalidad")
     @ManyToOne
     private Accioncalidad accioncalidad;
+
     @OneToMany(mappedBy = "idprocesocalidad")
     private List<Detalleplanprocesoscalidad> detalleplanprocesoscalidadList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "procesocalidad")
     private List<Maquinaxprocesocalidad> maquinaxprocesocalidadList;
+
     @OneToMany(mappedBy = "idprocesocalidad")
     private List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "procesocalidad")
+    private Ejecucionprocesocalidad ejecucionprocesocalidad;
+
     @OneToMany(mappedBy = "procesocalidad")
     private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
-    @OneToMany(mappedBy = "idprocesocalidad")
-    private List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList;
+
 
     public Procesocalidad() {
     }
@@ -170,6 +172,8 @@ public class Procesocalidad implements Serializable {
         this.accioncalidad = accioncalidad;
     }
 
+
+
     public List<Detalleplanprocesoscalidad> getDetalleplanprocesoscalidadList() {
         return detalleplanprocesoscalidadList;
     }
@@ -177,6 +181,8 @@ public class Procesocalidad implements Serializable {
     public void setDetalleplanprocesoscalidadList(List<Detalleplanprocesoscalidad> detalleplanprocesoscalidadList) {
         this.detalleplanprocesoscalidadList = detalleplanprocesoscalidadList;
     }
+
+
 
     public List<Maquinaxprocesocalidad> getMaquinaxprocesocalidadList() {
         return maquinaxprocesocalidadList;
@@ -186,6 +192,7 @@ public class Procesocalidad implements Serializable {
         this.maquinaxprocesocalidadList = maquinaxprocesocalidadList;
     }
 
+
     public List<Detallepiezacalidadpresupuesto> getDetallepiezacalidadpresupuestoList() {
         return detallepiezacalidadpresupuestoList;
     }
@@ -193,6 +200,16 @@ public class Procesocalidad implements Serializable {
     public void setDetallepiezacalidadpresupuestoList(List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList) {
         this.detallepiezacalidadpresupuestoList = detallepiezacalidadpresupuestoList;
     }
+
+
+    public Ejecucionprocesocalidad getEjecucionprocesocalidad() {
+        return ejecucionprocesocalidad;
+    }
+
+    public void setEjecucionprocesocalidad(Ejecucionprocesocalidad ejecucionprocesocalidad) {
+        this.ejecucionprocesocalidad = ejecucionprocesocalidad;
+    }
+
 
     public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
         return detalleplanificacioncalidadList;
@@ -202,13 +219,6 @@ public class Procesocalidad implements Serializable {
         this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
     }
 
-    public List<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadList() {
-        return detalleejecucionplanificacioncalidadList;
-    }
-
-    public void setDetalleejecucionplanificacioncalidadList(List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList) {
-        this.detalleejecucionplanificacioncalidadList = detalleejecucionplanificacioncalidadList;
-    }
 
     @Override
     public int hashCode() {
@@ -232,7 +242,7 @@ public class Procesocalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Procesocalidad[ idprocesocalidad=" + idprocesocalidad + " ]";
+        return "metalsoft.datos.jpa.entity.Procesocalidad[idprocesocalidad=" + idprocesocalidad + "]";
     }
-    
+
 }

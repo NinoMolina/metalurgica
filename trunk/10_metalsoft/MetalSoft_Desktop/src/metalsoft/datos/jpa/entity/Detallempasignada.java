@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -9,15 +10,12 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -34,20 +32,21 @@ public class Detallempasignada implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallempasignada_seq")
-    @SequenceGenerator(name = "detallempasignada_seq", sequenceName = "detallempasignada_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "cantidadmp")
     private Integer cantidadmp;
-    @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
-    @ManyToOne
-    private Planificacionproduccion idplanificacionproduccion;
     @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima idmateriaprima;
+
+    @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
+    @ManyToOne
+    private Planificacionproduccion idplanificacionproduccion;
+
     @OneToMany(mappedBy = "iddetallempasignada")
     private List<Mpasignadaxpiezareal> mpasignadaxpiezarealList;
+
 
     public Detallempasignada() {
     }
@@ -72,14 +71,6 @@ public class Detallempasignada implements Serializable {
         this.cantidadmp = cantidadmp;
     }
 
-    public Planificacionproduccion getIdplanificacionproduccion() {
-        return idplanificacionproduccion;
-    }
-
-    public void setIdplanificacionproduccion(Planificacionproduccion idplanificacionproduccion) {
-        this.idplanificacionproduccion = idplanificacionproduccion;
-    }
-
     public Materiaprima getIdmateriaprima() {
         return idmateriaprima;
     }
@@ -88,6 +79,16 @@ public class Detallempasignada implements Serializable {
         this.idmateriaprima = idmateriaprima;
     }
 
+
+    public Planificacionproduccion getIdplanificacionproduccion() {
+        return idplanificacionproduccion;
+    }
+
+    public void setIdplanificacionproduccion(Planificacionproduccion idplanificacionproduccion) {
+        this.idplanificacionproduccion = idplanificacionproduccion;
+    }
+
+
     public List<Mpasignadaxpiezareal> getMpasignadaxpiezarealList() {
         return mpasignadaxpiezarealList;
     }
@@ -95,6 +96,7 @@ public class Detallempasignada implements Serializable {
     public void setMpasignadaxpiezarealList(List<Mpasignadaxpiezareal> mpasignadaxpiezarealList) {
         this.mpasignadaxpiezarealList = mpasignadaxpiezarealList;
     }
+
 
     @Override
     public int hashCode() {
@@ -118,7 +120,7 @@ public class Detallempasignada implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallempasignada[ id=" + id + " ]";
+        return "metalsoft.datos.jpa.entity.Detallempasignada[id=" + id + "]";
     }
-    
+
 }

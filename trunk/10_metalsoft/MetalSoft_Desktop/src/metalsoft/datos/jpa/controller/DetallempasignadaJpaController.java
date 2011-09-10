@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,8 +15,8 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallempasignada;
-import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class DetallempasignadaJpaController implements Serializable {
+public class DetallempasignadaJpaController {
 
-    public DetallempasignadaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetallempasignadaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -43,15 +44,15 @@ public class DetallempasignadaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Planificacionproduccion idplanificacionproduccion = detallempasignada.getIdplanificacionproduccion();
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion = em.getReference(idplanificacionproduccion.getClass(), idplanificacionproduccion.getIdplanificacionproduccion());
-                detallempasignada.setIdplanificacionproduccion(idplanificacionproduccion);
-            }
             Materiaprima idmateriaprima = detallempasignada.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima = em.getReference(idmateriaprima.getClass(), idmateriaprima.getIdmateriaprima());
                 detallempasignada.setIdmateriaprima(idmateriaprima);
+            }
+            Planificacionproduccion idplanificacionproduccion = detallempasignada.getIdplanificacionproduccion();
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion = em.getReference(idplanificacionproduccion.getClass(), idplanificacionproduccion.getIdplanificacionproduccion());
+                detallempasignada.setIdplanificacionproduccion(idplanificacionproduccion);
             }
             List<Mpasignadaxpiezareal> attachedMpasignadaxpiezarealList = new ArrayList<Mpasignadaxpiezareal>();
             for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezarealToAttach : detallempasignada.getMpasignadaxpiezarealList()) {
@@ -60,13 +61,13 @@ public class DetallempasignadaJpaController implements Serializable {
             }
             detallempasignada.setMpasignadaxpiezarealList(attachedMpasignadaxpiezarealList);
             em.persist(detallempasignada);
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion.getDetallempasignadaList().add(detallempasignada);
-                idplanificacionproduccion = em.merge(idplanificacionproduccion);
-            }
             if (idmateriaprima != null) {
                 idmateriaprima.getDetallempasignadaList().add(detallempasignada);
                 idmateriaprima = em.merge(idmateriaprima);
+            }
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion.getDetallempasignadaList().add(detallempasignada);
+                idplanificacionproduccion = em.merge(idplanificacionproduccion);
             }
             for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezareal : detallempasignada.getMpasignadaxpiezarealList()) {
                 Detallempasignada oldIddetallempasignadaOfMpasignadaxpiezarealListMpasignadaxpiezareal = mpasignadaxpiezarealListMpasignadaxpiezareal.getIddetallempasignada();
@@ -96,19 +97,19 @@ public class DetallempasignadaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallempasignada persistentDetallempasignada = em.find(Detallempasignada.class, detallempasignada.getId());
-            Planificacionproduccion idplanificacionproduccionOld = persistentDetallempasignada.getIdplanificacionproduccion();
-            Planificacionproduccion idplanificacionproduccionNew = detallempasignada.getIdplanificacionproduccion();
             Materiaprima idmateriaprimaOld = persistentDetallempasignada.getIdmateriaprima();
             Materiaprima idmateriaprimaNew = detallempasignada.getIdmateriaprima();
+            Planificacionproduccion idplanificacionproduccionOld = persistentDetallempasignada.getIdplanificacionproduccion();
+            Planificacionproduccion idplanificacionproduccionNew = detallempasignada.getIdplanificacionproduccion();
             List<Mpasignadaxpiezareal> mpasignadaxpiezarealListOld = persistentDetallempasignada.getMpasignadaxpiezarealList();
             List<Mpasignadaxpiezareal> mpasignadaxpiezarealListNew = detallempasignada.getMpasignadaxpiezarealList();
-            if (idplanificacionproduccionNew != null) {
-                idplanificacionproduccionNew = em.getReference(idplanificacionproduccionNew.getClass(), idplanificacionproduccionNew.getIdplanificacionproduccion());
-                detallempasignada.setIdplanificacionproduccion(idplanificacionproduccionNew);
-            }
             if (idmateriaprimaNew != null) {
                 idmateriaprimaNew = em.getReference(idmateriaprimaNew.getClass(), idmateriaprimaNew.getIdmateriaprima());
                 detallempasignada.setIdmateriaprima(idmateriaprimaNew);
+            }
+            if (idplanificacionproduccionNew != null) {
+                idplanificacionproduccionNew = em.getReference(idplanificacionproduccionNew.getClass(), idplanificacionproduccionNew.getIdplanificacionproduccion());
+                detallempasignada.setIdplanificacionproduccion(idplanificacionproduccionNew);
             }
             List<Mpasignadaxpiezareal> attachedMpasignadaxpiezarealListNew = new ArrayList<Mpasignadaxpiezareal>();
             for (Mpasignadaxpiezareal mpasignadaxpiezarealListNewMpasignadaxpiezarealToAttach : mpasignadaxpiezarealListNew) {
@@ -118,14 +119,6 @@ public class DetallempasignadaJpaController implements Serializable {
             mpasignadaxpiezarealListNew = attachedMpasignadaxpiezarealListNew;
             detallempasignada.setMpasignadaxpiezarealList(mpasignadaxpiezarealListNew);
             detallempasignada = em.merge(detallempasignada);
-            if (idplanificacionproduccionOld != null && !idplanificacionproduccionOld.equals(idplanificacionproduccionNew)) {
-                idplanificacionproduccionOld.getDetallempasignadaList().remove(detallempasignada);
-                idplanificacionproduccionOld = em.merge(idplanificacionproduccionOld);
-            }
-            if (idplanificacionproduccionNew != null && !idplanificacionproduccionNew.equals(idplanificacionproduccionOld)) {
-                idplanificacionproduccionNew.getDetallempasignadaList().add(detallempasignada);
-                idplanificacionproduccionNew = em.merge(idplanificacionproduccionNew);
-            }
             if (idmateriaprimaOld != null && !idmateriaprimaOld.equals(idmateriaprimaNew)) {
                 idmateriaprimaOld.getDetallempasignadaList().remove(detallempasignada);
                 idmateriaprimaOld = em.merge(idmateriaprimaOld);
@@ -133,6 +126,14 @@ public class DetallempasignadaJpaController implements Serializable {
             if (idmateriaprimaNew != null && !idmateriaprimaNew.equals(idmateriaprimaOld)) {
                 idmateriaprimaNew.getDetallempasignadaList().add(detallempasignada);
                 idmateriaprimaNew = em.merge(idmateriaprimaNew);
+            }
+            if (idplanificacionproduccionOld != null && !idplanificacionproduccionOld.equals(idplanificacionproduccionNew)) {
+                idplanificacionproduccionOld.getDetallempasignadaList().remove(detallempasignada);
+                idplanificacionproduccionOld = em.merge(idplanificacionproduccionOld);
+            }
+            if (idplanificacionproduccionNew != null && !idplanificacionproduccionNew.equals(idplanificacionproduccionOld)) {
+                idplanificacionproduccionNew.getDetallempasignadaList().add(detallempasignada);
+                idplanificacionproduccionNew = em.merge(idplanificacionproduccionNew);
             }
             for (Mpasignadaxpiezareal mpasignadaxpiezarealListOldMpasignadaxpiezareal : mpasignadaxpiezarealListOld) {
                 if (!mpasignadaxpiezarealListNew.contains(mpasignadaxpiezarealListOldMpasignadaxpiezareal)) {
@@ -180,15 +181,15 @@ public class DetallempasignadaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallempasignada with id " + id + " no longer exists.", enfe);
             }
-            Planificacionproduccion idplanificacionproduccion = detallempasignada.getIdplanificacionproduccion();
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion.getDetallempasignadaList().remove(detallempasignada);
-                idplanificacionproduccion = em.merge(idplanificacionproduccion);
-            }
             Materiaprima idmateriaprima = detallempasignada.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima.getDetallempasignadaList().remove(detallempasignada);
                 idmateriaprima = em.merge(idmateriaprima);
+            }
+            Planificacionproduccion idplanificacionproduccion = detallempasignada.getIdplanificacionproduccion();
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion.getDetallempasignadaList().remove(detallempasignada);
+                idplanificacionproduccion = em.merge(idplanificacionproduccion);
             }
             List<Mpasignadaxpiezareal> mpasignadaxpiezarealList = detallempasignada.getMpasignadaxpiezarealList();
             for (Mpasignadaxpiezareal mpasignadaxpiezarealListMpasignadaxpiezareal : mpasignadaxpiezarealList) {
@@ -249,5 +250,5 @@ public class DetallempasignadaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
