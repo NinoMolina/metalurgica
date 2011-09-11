@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -39,26 +38,23 @@ public class Detallecompra implements Serializable {
     protected DetallecompraPK detallecompraPK;
     @Column(name = "cantidad")
     private Integer cantidad;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preciohistorico")
     private Double preciohistorico;
     @Column(name = "fecharecepcionparcial")
     @Temporal(TemporalType.DATE)
     private Date fecharecepcionparcial;
-    @JoinColumn(name = "idcompra", referencedColumnName = "idcompra", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Compra compra;
-    
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadodetallecompra estado;
-    
     @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
     @ManyToOne
     private Materiaprima materiaprima;
-    
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadodetallecompra estado;
+    @JoinColumn(name = "idcompra", referencedColumnName = "idcompra", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Compra compra;
     @OneToMany(mappedBy = "detallecompra")
     private List<Detallereclamoproveedor> detallereclamoproveedorList;
-    
 
     public Detallecompra() {
     }
@@ -103,14 +99,13 @@ public class Detallecompra implements Serializable {
         this.fecharecepcionparcial = fecharecepcionparcial;
     }
 
-    public Compra getCompra() {
-        return compra;
+    public Materiaprima getMateriaprima() {
+        return materiaprima;
     }
 
-    public void setCompra(Compra compra) {
-        this.compra = compra;
+    public void setMateriaprima(Materiaprima materiaprima) {
+        this.materiaprima = materiaprima;
     }
-
 
     public Estadodetallecompra getEstado() {
         return estado;
@@ -120,16 +115,13 @@ public class Detallecompra implements Serializable {
         this.estado = estado;
     }
 
-
-
-    public Materiaprima getMateriaprima() {
-        return materiaprima;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setMateriaprima(Materiaprima materiaprima) {
-        this.materiaprima = materiaprima;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
-
 
     public List<Detallereclamoproveedor> getDetallereclamoproveedorList() {
         return detallereclamoproveedorList;
@@ -138,7 +130,6 @@ public class Detallecompra implements Serializable {
     public void setDetallereclamoproveedorList(List<Detallereclamoproveedor> detallereclamoproveedorList) {
         this.detallereclamoproveedorList = detallereclamoproveedorList;
     }
-
 
     @Override
     public int hashCode() {
@@ -162,7 +153,7 @@ public class Detallecompra implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallecompra[detallecompraPK=" + detallecompraPK + "]";
+        return "metalsoft.datos.jpa.entity.Detallecompra[ detallecompraPK=" + detallecompraPK + " ]";
     }
-
+    
 }

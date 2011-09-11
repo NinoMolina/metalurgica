@@ -2,32 +2,31 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Detallecompra;
 import metalsoft.datos.jpa.entity.Detallereclamoproveedor;
 import metalsoft.datos.jpa.entity.DetallereclamoproveedorPK;
 import metalsoft.datos.jpa.entity.Reclamoproveedor;
+import metalsoft.datos.jpa.entity.Detallecompra;
 
 /**
  *
  * @author Nino
  */
-public class DetallereclamoproveedorJpaController {
+public class DetallereclamoproveedorJpaController implements Serializable {
 
-    public DetallereclamoproveedorJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallereclamoproveedorJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -44,24 +43,24 @@ public class DetallereclamoproveedorJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detallecompra detallecompra = detallereclamoproveedor.getDetallecompra();
-            if (detallecompra != null) {
-                detallecompra = em.getReference(detallecompra.getClass(), detallecompra.getDetallecompraPK());
-                detallereclamoproveedor.setDetallecompra(detallecompra);
-            }
             Reclamoproveedor reclamoproveedor = detallereclamoproveedor.getReclamoproveedor();
             if (reclamoproveedor != null) {
                 reclamoproveedor = em.getReference(reclamoproveedor.getClass(), reclamoproveedor.getIdreclamo());
                 detallereclamoproveedor.setReclamoproveedor(reclamoproveedor);
             }
-            em.persist(detallereclamoproveedor);
+            Detallecompra detallecompra = detallereclamoproveedor.getDetallecompra();
             if (detallecompra != null) {
-                detallecompra.getDetallereclamoproveedorList().add(detallereclamoproveedor);
-                detallecompra = em.merge(detallecompra);
+                detallecompra = em.getReference(detallecompra.getClass(), detallecompra.getDetallecompraPK());
+                detallereclamoproveedor.setDetallecompra(detallecompra);
             }
+            em.persist(detallereclamoproveedor);
             if (reclamoproveedor != null) {
                 reclamoproveedor.getDetallereclamoproveedorList().add(detallereclamoproveedor);
                 reclamoproveedor = em.merge(reclamoproveedor);
+            }
+            if (detallecompra != null) {
+                detallecompra.getDetallereclamoproveedorList().add(detallereclamoproveedor);
+                detallecompra = em.merge(detallecompra);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -83,27 +82,19 @@ public class DetallereclamoproveedorJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallereclamoproveedor persistentDetallereclamoproveedor = em.find(Detallereclamoproveedor.class, detallereclamoproveedor.getDetallereclamoproveedorPK());
-            Detallecompra detallecompraOld = persistentDetallereclamoproveedor.getDetallecompra();
-            Detallecompra detallecompraNew = detallereclamoproveedor.getDetallecompra();
             Reclamoproveedor reclamoproveedorOld = persistentDetallereclamoproveedor.getReclamoproveedor();
             Reclamoproveedor reclamoproveedorNew = detallereclamoproveedor.getReclamoproveedor();
-            if (detallecompraNew != null) {
-                detallecompraNew = em.getReference(detallecompraNew.getClass(), detallecompraNew.getDetallecompraPK());
-                detallereclamoproveedor.setDetallecompra(detallecompraNew);
-            }
+            Detallecompra detallecompraOld = persistentDetallereclamoproveedor.getDetallecompra();
+            Detallecompra detallecompraNew = detallereclamoproveedor.getDetallecompra();
             if (reclamoproveedorNew != null) {
                 reclamoproveedorNew = em.getReference(reclamoproveedorNew.getClass(), reclamoproveedorNew.getIdreclamo());
                 detallereclamoproveedor.setReclamoproveedor(reclamoproveedorNew);
             }
+            if (detallecompraNew != null) {
+                detallecompraNew = em.getReference(detallecompraNew.getClass(), detallecompraNew.getDetallecompraPK());
+                detallereclamoproveedor.setDetallecompra(detallecompraNew);
+            }
             detallereclamoproveedor = em.merge(detallereclamoproveedor);
-            if (detallecompraOld != null && !detallecompraOld.equals(detallecompraNew)) {
-                detallecompraOld.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
-                detallecompraOld = em.merge(detallecompraOld);
-            }
-            if (detallecompraNew != null && !detallecompraNew.equals(detallecompraOld)) {
-                detallecompraNew.getDetallereclamoproveedorList().add(detallereclamoproveedor);
-                detallecompraNew = em.merge(detallecompraNew);
-            }
             if (reclamoproveedorOld != null && !reclamoproveedorOld.equals(reclamoproveedorNew)) {
                 reclamoproveedorOld.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
                 reclamoproveedorOld = em.merge(reclamoproveedorOld);
@@ -111,6 +102,14 @@ public class DetallereclamoproveedorJpaController {
             if (reclamoproveedorNew != null && !reclamoproveedorNew.equals(reclamoproveedorOld)) {
                 reclamoproveedorNew.getDetallereclamoproveedorList().add(detallereclamoproveedor);
                 reclamoproveedorNew = em.merge(reclamoproveedorNew);
+            }
+            if (detallecompraOld != null && !detallecompraOld.equals(detallecompraNew)) {
+                detallecompraOld.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
+                detallecompraOld = em.merge(detallecompraOld);
+            }
+            if (detallecompraNew != null && !detallecompraNew.equals(detallecompraOld)) {
+                detallecompraNew.getDetallereclamoproveedorList().add(detallereclamoproveedor);
+                detallecompraNew = em.merge(detallecompraNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -141,15 +140,15 @@ public class DetallereclamoproveedorJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallereclamoproveedor with id " + id + " no longer exists.", enfe);
             }
-            Detallecompra detallecompra = detallereclamoproveedor.getDetallecompra();
-            if (detallecompra != null) {
-                detallecompra.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
-                detallecompra = em.merge(detallecompra);
-            }
             Reclamoproveedor reclamoproveedor = detallereclamoproveedor.getReclamoproveedor();
             if (reclamoproveedor != null) {
                 reclamoproveedor.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
                 reclamoproveedor = em.merge(reclamoproveedor);
+            }
+            Detallecompra detallecompra = detallereclamoproveedor.getDetallecompra();
+            if (detallecompra != null) {
+                detallecompra.getDetallereclamoproveedorList().remove(detallereclamoproveedor);
+                detallecompra = em.merge(detallecompra);
             }
             em.remove(detallereclamoproveedor);
             em.getTransaction().commit();
@@ -205,5 +204,5 @@ public class DetallereclamoproveedorJpaController {
             em.close();
         }
     }
-
+    
 }

@@ -2,18 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -31,20 +33,21 @@ public class Detallepedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallepedido_seq")
+    @SequenceGenerator(name = "detallepedido_seq", sequenceName = "detallepedido_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precio")
     private Double precio;
     @Column(name = "cantidad")
     private Integer cantidad;
-    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
-    @ManyToOne(optional = false)
-    private Pedido idpedido;
-
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
-
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne(optional = false)
+    private Pedido idpedido;
 
     public Detallepedido() {
     }
@@ -77,16 +80,6 @@ public class Detallepedido implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Pedido getIdpedido() {
-        return idpedido;
-    }
-
-    public void setIdpedido(Pedido idpedido) {
-        this.idpedido = idpedido;
-    }
-
-
-
     public Producto getProducto() {
         return producto;
     }
@@ -95,7 +88,13 @@ public class Detallepedido implements Serializable {
         this.producto = producto;
     }
 
+    public Pedido getIdpedido() {
+        return idpedido;
+    }
 
+    public void setIdpedido(Pedido idpedido) {
+        this.idpedido = idpedido;
+    }
 
     @Override
     public int hashCode() {
@@ -119,7 +118,7 @@ public class Detallepedido implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallepedido[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detallepedido[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

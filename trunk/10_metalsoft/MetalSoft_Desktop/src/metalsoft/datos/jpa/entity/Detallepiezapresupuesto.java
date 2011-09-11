@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,11 +9,14 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,16 +38,16 @@ public class Detallepiezapresupuesto implements Serializable {
     private Date duracionpiezaxetapa;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallepiezapresupuesto_seq")
+    @SequenceGenerator(name = "detallepiezapresupuesto_seq", sequenceName = "detallepiezapresupuesto_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
-    @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
-    @ManyToOne
-    private Detalleproductopresupuesto iddetalleproductopresupuesto;
-
     @JoinColumn(name = "idetapa", referencedColumnName = "idetapaproduccion")
     @ManyToOne
     private Etapadeproduccion idetapa;
-
+    @JoinColumn(name = "iddetalleproductopresupuesto", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detalleproductopresupuesto iddetalleproductopresupuesto;
 
     public Detallepiezapresupuesto() {
     }
@@ -70,16 +72,6 @@ public class Detallepiezapresupuesto implements Serializable {
         this.iddetalle = iddetalle;
     }
 
-    public Detalleproductopresupuesto getIddetalleproductopresupuesto() {
-        return iddetalleproductopresupuesto;
-    }
-
-    public void setIddetalleproductopresupuesto(Detalleproductopresupuesto iddetalleproductopresupuesto) {
-        this.iddetalleproductopresupuesto = iddetalleproductopresupuesto;
-    }
-
-
-
     public Etapadeproduccion getIdetapa() {
         return idetapa;
     }
@@ -88,7 +80,13 @@ public class Detallepiezapresupuesto implements Serializable {
         this.idetapa = idetapa;
     }
 
+    public Detalleproductopresupuesto getIddetalleproductopresupuesto() {
+        return iddetalleproductopresupuesto;
+    }
 
+    public void setIddetalleproductopresupuesto(Detalleproductopresupuesto iddetalleproductopresupuesto) {
+        this.iddetalleproductopresupuesto = iddetalleproductopresupuesto;
+    }
 
     @Override
     public int hashCode() {
@@ -112,7 +110,7 @@ public class Detallepiezapresupuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallepiezapresupuesto[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detallepiezapresupuesto[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

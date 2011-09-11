@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,9 +14,9 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
-import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
-import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
+import metalsoft.datos.jpa.entity.Etapadeproduccion;
+import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +25,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class DetalletrabajotercerizadoJpaController {
+public class DetalletrabajotercerizadoJpaController implements Serializable {
 
-    public DetalletrabajotercerizadoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetalletrabajotercerizadoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -45,20 +44,20 @@ public class DetalletrabajotercerizadoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Estadodetalletrabajotercerizado estado = detalletrabajotercerizado.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                detalletrabajotercerizado.setEstado(estado);
+            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado = em.getReference(idtrabajotercerizado.getClass(), idtrabajotercerizado.getIdtrabajo());
+                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizado);
             }
             Etapadeproduccion proceso = detalletrabajotercerizado.getProceso();
             if (proceso != null) {
                 proceso = em.getReference(proceso.getClass(), proceso.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(proceso);
             }
-            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
-            if (idtrabajotercerizado != null) {
-                idtrabajotercerizado = em.getReference(idtrabajotercerizado.getClass(), idtrabajotercerizado.getIdtrabajo());
-                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizado);
+            Estadodetalletrabajotercerizado estado = detalletrabajotercerizado.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                detalletrabajotercerizado.setEstado(estado);
             }
             List<Detallereclamoempresamantenimiento> attachedDetallereclamoempresamantenimientoList = new ArrayList<Detallereclamoempresamantenimiento>();
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListDetallereclamoempresamantenimientoToAttach : detalletrabajotercerizado.getDetallereclamoempresamantenimientoList()) {
@@ -67,17 +66,17 @@ public class DetalletrabajotercerizadoJpaController {
             }
             detalletrabajotercerizado.setDetallereclamoempresamantenimientoList(attachedDetallereclamoempresamantenimientoList);
             em.persist(detalletrabajotercerizado);
-            if (estado != null) {
-                estado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                estado = em.merge(estado);
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                idtrabajotercerizado = em.merge(idtrabajotercerizado);
             }
             if (proceso != null) {
                 proceso.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
-            if (idtrabajotercerizado != null) {
-                idtrabajotercerizado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                idtrabajotercerizado = em.merge(idtrabajotercerizado);
+            if (estado != null) {
+                estado.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                estado = em.merge(estado);
             }
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento : detalletrabajotercerizado.getDetallereclamoempresamantenimientoList()) {
                 Detalletrabajotercerizado oldIddetalletrabajoOfDetallereclamoempresamantenimientoListDetallereclamoempresamantenimiento = detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento.getIddetalletrabajo();
@@ -107,25 +106,25 @@ public class DetalletrabajotercerizadoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detalletrabajotercerizado persistentDetalletrabajotercerizado = em.find(Detalletrabajotercerizado.class, detalletrabajotercerizado.getIddetalle());
-            Estadodetalletrabajotercerizado estadoOld = persistentDetalletrabajotercerizado.getEstado();
-            Estadodetalletrabajotercerizado estadoNew = detalletrabajotercerizado.getEstado();
-            Etapadeproduccion procesoOld = persistentDetalletrabajotercerizado.getProceso();
-            Etapadeproduccion procesoNew = detalletrabajotercerizado.getProceso();
             Trabajotercerizado idtrabajotercerizadoOld = persistentDetalletrabajotercerizado.getIdtrabajotercerizado();
             Trabajotercerizado idtrabajotercerizadoNew = detalletrabajotercerizado.getIdtrabajotercerizado();
+            Etapadeproduccion procesoOld = persistentDetalletrabajotercerizado.getProceso();
+            Etapadeproduccion procesoNew = detalletrabajotercerizado.getProceso();
+            Estadodetalletrabajotercerizado estadoOld = persistentDetalletrabajotercerizado.getEstado();
+            Estadodetalletrabajotercerizado estadoNew = detalletrabajotercerizado.getEstado();
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoListOld = persistentDetalletrabajotercerizado.getDetallereclamoempresamantenimientoList();
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoListNew = detalletrabajotercerizado.getDetallereclamoempresamantenimientoList();
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                detalletrabajotercerizado.setEstado(estadoNew);
+            if (idtrabajotercerizadoNew != null) {
+                idtrabajotercerizadoNew = em.getReference(idtrabajotercerizadoNew.getClass(), idtrabajotercerizadoNew.getIdtrabajo());
+                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizadoNew);
             }
             if (procesoNew != null) {
                 procesoNew = em.getReference(procesoNew.getClass(), procesoNew.getIdetapaproduccion());
                 detalletrabajotercerizado.setProceso(procesoNew);
             }
-            if (idtrabajotercerizadoNew != null) {
-                idtrabajotercerizadoNew = em.getReference(idtrabajotercerizadoNew.getClass(), idtrabajotercerizadoNew.getIdtrabajo());
-                detalletrabajotercerizado.setIdtrabajotercerizado(idtrabajotercerizadoNew);
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                detalletrabajotercerizado.setEstado(estadoNew);
             }
             List<Detallereclamoempresamantenimiento> attachedDetallereclamoempresamantenimientoListNew = new ArrayList<Detallereclamoempresamantenimiento>();
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListNewDetallereclamoempresamantenimientoToAttach : detallereclamoempresamantenimientoListNew) {
@@ -135,13 +134,13 @@ public class DetalletrabajotercerizadoJpaController {
             detallereclamoempresamantenimientoListNew = attachedDetallereclamoempresamantenimientoListNew;
             detalletrabajotercerizado.setDetallereclamoempresamantenimientoList(detallereclamoempresamantenimientoListNew);
             detalletrabajotercerizado = em.merge(detalletrabajotercerizado);
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                estadoOld = em.merge(estadoOld);
+            if (idtrabajotercerizadoOld != null && !idtrabajotercerizadoOld.equals(idtrabajotercerizadoNew)) {
+                idtrabajotercerizadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                idtrabajotercerizadoOld = em.merge(idtrabajotercerizadoOld);
             }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                estadoNew = em.merge(estadoNew);
+            if (idtrabajotercerizadoNew != null && !idtrabajotercerizadoNew.equals(idtrabajotercerizadoOld)) {
+                idtrabajotercerizadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                idtrabajotercerizadoNew = em.merge(idtrabajotercerizadoNew);
             }
             if (procesoOld != null && !procesoOld.equals(procesoNew)) {
                 procesoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
@@ -151,13 +150,13 @@ public class DetalletrabajotercerizadoJpaController {
                 procesoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
                 procesoNew = em.merge(procesoNew);
             }
-            if (idtrabajotercerizadoOld != null && !idtrabajotercerizadoOld.equals(idtrabajotercerizadoNew)) {
-                idtrabajotercerizadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                idtrabajotercerizadoOld = em.merge(idtrabajotercerizadoOld);
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                estadoOld = em.merge(estadoOld);
             }
-            if (idtrabajotercerizadoNew != null && !idtrabajotercerizadoNew.equals(idtrabajotercerizadoOld)) {
-                idtrabajotercerizadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
-                idtrabajotercerizadoNew = em.merge(idtrabajotercerizadoNew);
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getDetalletrabajotercerizadoList().add(detalletrabajotercerizado);
+                estadoNew = em.merge(estadoNew);
             }
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListOldDetallereclamoempresamantenimiento : detallereclamoempresamantenimientoListOld) {
                 if (!detallereclamoempresamantenimientoListNew.contains(detallereclamoempresamantenimientoListOldDetallereclamoempresamantenimiento)) {
@@ -205,20 +204,20 @@ public class DetalletrabajotercerizadoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalletrabajotercerizado with id " + id + " no longer exists.", enfe);
             }
-            Estadodetalletrabajotercerizado estado = detalletrabajotercerizado.getEstado();
-            if (estado != null) {
-                estado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                estado = em.merge(estado);
+            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
+            if (idtrabajotercerizado != null) {
+                idtrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                idtrabajotercerizado = em.merge(idtrabajotercerizado);
             }
             Etapadeproduccion proceso = detalletrabajotercerizado.getProceso();
             if (proceso != null) {
                 proceso.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
                 proceso = em.merge(proceso);
             }
-            Trabajotercerizado idtrabajotercerizado = detalletrabajotercerizado.getIdtrabajotercerizado();
-            if (idtrabajotercerizado != null) {
-                idtrabajotercerizado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
-                idtrabajotercerizado = em.merge(idtrabajotercerizado);
+            Estadodetalletrabajotercerizado estado = detalletrabajotercerizado.getEstado();
+            if (estado != null) {
+                estado.getDetalletrabajotercerizadoList().remove(detalletrabajotercerizado);
+                estado = em.merge(estado);
             }
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList = detalletrabajotercerizado.getDetallereclamoempresamantenimientoList();
             for (Detallereclamoempresamantenimiento detallereclamoempresamantenimientoListDetallereclamoempresamantenimiento : detallereclamoempresamantenimientoList) {
@@ -279,5 +278,5 @@ public class DetalletrabajotercerizadoJpaController {
             em.close();
         }
     }
-
+    
 }

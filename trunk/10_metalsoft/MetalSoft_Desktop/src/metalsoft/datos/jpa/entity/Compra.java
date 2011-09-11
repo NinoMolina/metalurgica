@@ -2,15 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -53,7 +49,7 @@ public class Compra implements Serializable {
     @Column(name = "idcompra")
     private Long idcompra;
     @Column(name = "nrocompra")
-    private int nrocompra;
+    private BigInteger nrocompra;
     @Column(name = "fechacompra")
     @Temporal(TemporalType.DATE)
     private Date fechacompra;
@@ -62,25 +58,21 @@ public class Compra implements Serializable {
     private Date vigencia;
     @Column(name = "documentoremito")
     private BigInteger documentoremito;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preciototal")
     private Double preciototal;
     @Column(name = "motivo")
     private String motivo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra")
     private List<Detallecompra> detallecompraList;
-
     @OneToMany(mappedBy = "compra")
     private List<Reclamoproveedor> reclamoproveedorList;
-
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadocompra estado;
-
     @JoinColumn(name = "proveedor", referencedColumnName = "idproveedor")
     @ManyToOne
     private Proveedor proveedor;
-    private ArrayList detalle;
-
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadocompra estado;
 
     public Compra() {
     }
@@ -97,11 +89,11 @@ public class Compra implements Serializable {
         this.idcompra = idcompra;
     }
 
-    public int getNrocompra() {
+    public BigInteger getNrocompra() {
         return nrocompra;
     }
 
-    public void setNrocompra(int nrocompra) {
+    public void setNrocompra(BigInteger nrocompra) {
         this.nrocompra = nrocompra;
     }
 
@@ -153,7 +145,6 @@ public class Compra implements Serializable {
         this.detallecompraList = detallecompraList;
     }
 
-
     public List<Reclamoproveedor> getReclamoproveedorList() {
         return reclamoproveedorList;
     }
@@ -161,18 +152,6 @@ public class Compra implements Serializable {
     public void setReclamoproveedorList(List<Reclamoproveedor> reclamoproveedorList) {
         this.reclamoproveedorList = reclamoproveedorList;
     }
-
-
-
-    public Estadocompra getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadocompra estado) {
-        this.estado = estado;
-    }
-
-
 
     public Proveedor getProveedor() {
         return proveedor;
@@ -182,19 +161,12 @@ public class Compra implements Serializable {
         this.proveedor = proveedor;
     }
 
-     public ArrayList getDetalle() {
-        return detalle;
+    public Estadocompra getEstado() {
+        return estado;
     }
 
-    public void setDetalle(ArrayList detalle) {
-        this.detalle = detalle;
-    }
-
-        public Detallecompra crearDetalleCompra(int cant)
-    {
-        Detallecompra dc=new Detallecompra();
-        dc.setCantidad(cant);
-        return dc;
+    public void setEstado(Estadocompra estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -219,7 +191,7 @@ public class Compra implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Compra[idcompra=" + idcompra + "]";
+        return "metalsoft.datos.jpa.entity.Compra[ idcompra=" + idcompra + " ]";
     }
-
+    
 }

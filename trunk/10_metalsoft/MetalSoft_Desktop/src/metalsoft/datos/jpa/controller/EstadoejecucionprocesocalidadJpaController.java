@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,10 +22,10 @@ import metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad;
  *
  * @author Nino
  */
-public class EstadoejecucionprocesocalidadJpaController {
+public class EstadoejecucionprocesocalidadJpaController implements Serializable {
 
-    public EstadoejecucionprocesocalidadJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public EstadoejecucionprocesocalidadJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -44,7 +43,7 @@ public class EstadoejecucionprocesocalidadJpaController {
             em.getTransaction().begin();
             List<Ejecucionprocesocalidad> attachedEjecucionprocesocalidadList = new ArrayList<Ejecucionprocesocalidad>();
             for (Ejecucionprocesocalidad ejecucionprocesocalidadListEjecucionprocesocalidadToAttach : estadoejecucionprocesocalidad.getEjecucionprocesocalidadList()) {
-                ejecucionprocesocalidadListEjecucionprocesocalidadToAttach = em.getReference(ejecucionprocesocalidadListEjecucionprocesocalidadToAttach.getClass(), ejecucionprocesocalidadListEjecucionprocesocalidadToAttach.getEjecucionprocesocalidadPK());
+                ejecucionprocesocalidadListEjecucionprocesocalidadToAttach = em.getReference(ejecucionprocesocalidadListEjecucionprocesocalidadToAttach.getClass(), ejecucionprocesocalidadListEjecucionprocesocalidadToAttach.getIdejecucion());
                 attachedEjecucionprocesocalidadList.add(ejecucionprocesocalidadListEjecucionprocesocalidadToAttach);
             }
             estadoejecucionprocesocalidad.setEjecucionprocesocalidadList(attachedEjecucionprocesocalidadList);
@@ -81,7 +80,7 @@ public class EstadoejecucionprocesocalidadJpaController {
             List<Ejecucionprocesocalidad> ejecucionprocesocalidadListNew = estadoejecucionprocesocalidad.getEjecucionprocesocalidadList();
             List<Ejecucionprocesocalidad> attachedEjecucionprocesocalidadListNew = new ArrayList<Ejecucionprocesocalidad>();
             for (Ejecucionprocesocalidad ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach : ejecucionprocesocalidadListNew) {
-                ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach = em.getReference(ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach.getClass(), ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach.getEjecucionprocesocalidadPK());
+                ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach = em.getReference(ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach.getClass(), ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach.getIdejecucion());
                 attachedEjecucionprocesocalidadListNew.add(ejecucionprocesocalidadListNewEjecucionprocesocalidadToAttach);
             }
             ejecucionprocesocalidadListNew = attachedEjecucionprocesocalidadListNew;
@@ -192,5 +191,5 @@ public class EstadoejecucionprocesocalidadJpaController {
             em.close();
         }
     }
-
+    
 }

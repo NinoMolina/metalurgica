@@ -2,17 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
+import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ import metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado;
  *
  * @author Nino
  */
-public class EstadodetalletrabajotercerizadoJpaController {
+public class EstadodetalletrabajotercerizadoJpaController implements Serializable {
 
-    public EstadodetalletrabajotercerizadoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public EstadodetalletrabajotercerizadoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -33,7 +33,7 @@ public class EstadodetalletrabajotercerizadoJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Estadodetalletrabajotercerizado estadodetalletrabajotercerizado) {
+    public void create(Estadodetalletrabajotercerizado estadodetalletrabajotercerizado) throws PreexistingEntityException, Exception {
         if (estadodetalletrabajotercerizado.getDetalletrabajotercerizadoList() == null) {
             estadodetalletrabajotercerizado.setDetalletrabajotercerizadoList(new ArrayList<Detalletrabajotercerizado>());
         }
@@ -58,6 +58,11 @@ public class EstadodetalletrabajotercerizadoJpaController {
                 }
             }
             em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findEstadodetalletrabajotercerizado(estadodetalletrabajotercerizado.getIdestado()) != null) {
+                throw new PreexistingEntityException("Estadodetalletrabajotercerizado " + estadodetalletrabajotercerizado + " already exists.", ex);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -186,5 +191,5 @@ public class EstadodetalletrabajotercerizadoJpaController {
             em.close();
         }
     }
-
+    
 }

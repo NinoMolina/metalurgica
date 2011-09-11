@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -48,10 +47,8 @@ public class Barrio implements Serializable {
     @JoinColumn(name = "localidad", referencedColumnName = "idlocalidad")
     @ManyToOne
     private Localidad localidad;
-
     @OneToMany(mappedBy = "barrio")
     private List<Domicilio> domicilioList;
-
 
     public Barrio() {
     }
@@ -92,8 +89,6 @@ public class Barrio implements Serializable {
         this.localidad = localidad;
     }
 
-
-
     public List<Domicilio> getDomicilioList() {
         return domicilioList;
     }
@@ -101,7 +96,6 @@ public class Barrio implements Serializable {
     public void setDomicilioList(List<Domicilio> domicilioList) {
         this.domicilioList = domicilioList;
     }
-
 
     @Override
     public int hashCode() {
@@ -125,7 +119,7 @@ public class Barrio implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Barrio[idbarrio=" + idbarrio + "]";
+        return "metalsoft.datos.jpa.entity.Barrio[ idbarrio=" + idbarrio + " ]";
     }
-
+    
 }

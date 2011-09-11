@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,17 +15,17 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto;
-import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Procesocalidad;
+import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 
 /**
  *
  * @author Nino
  */
-public class DetallepiezacalidadpresupuestoJpaController {
+public class DetallepiezacalidadpresupuestoJpaController implements Serializable {
 
-    public DetallepiezacalidadpresupuestoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallepiezacalidadpresupuestoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -39,24 +38,24 @@ public class DetallepiezacalidadpresupuestoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
-            if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto = em.getReference(iddetalleproductopresupuesto.getClass(), iddetalleproductopresupuesto.getIddetalle());
-                detallepiezacalidadpresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuesto);
-            }
             Procesocalidad idprocesocalidad = detallepiezacalidadpresupuesto.getIdprocesocalidad();
             if (idprocesocalidad != null) {
                 idprocesocalidad = em.getReference(idprocesocalidad.getClass(), idprocesocalidad.getIdprocesocalidad());
                 detallepiezacalidadpresupuesto.setIdprocesocalidad(idprocesocalidad);
             }
-            em.persist(detallepiezacalidadpresupuesto);
+            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
             if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
-                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
+                iddetalleproductopresupuesto = em.getReference(iddetalleproductopresupuesto.getClass(), iddetalleproductopresupuesto.getIddetalle());
+                detallepiezacalidadpresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuesto);
             }
+            em.persist(detallepiezacalidadpresupuesto);
             if (idprocesocalidad != null) {
                 idprocesocalidad.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
                 idprocesocalidad = em.merge(idprocesocalidad);
+            }
+            if (iddetalleproductopresupuesto != null) {
+                iddetalleproductopresupuesto.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
+                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,27 +76,19 @@ public class DetallepiezacalidadpresupuestoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallepiezacalidadpresupuesto persistentDetallepiezacalidadpresupuesto = em.find(Detallepiezacalidadpresupuesto.class, detallepiezacalidadpresupuesto.getIddetalle());
-            Detalleproductopresupuesto iddetalleproductopresupuestoOld = persistentDetallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
-            Detalleproductopresupuesto iddetalleproductopresupuestoNew = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
             Procesocalidad idprocesocalidadOld = persistentDetallepiezacalidadpresupuesto.getIdprocesocalidad();
             Procesocalidad idprocesocalidadNew = detallepiezacalidadpresupuesto.getIdprocesocalidad();
-            if (iddetalleproductopresupuestoNew != null) {
-                iddetalleproductopresupuestoNew = em.getReference(iddetalleproductopresupuestoNew.getClass(), iddetalleproductopresupuestoNew.getIddetalle());
-                detallepiezacalidadpresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuestoNew);
-            }
+            Detalleproductopresupuesto iddetalleproductopresupuestoOld = persistentDetallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
+            Detalleproductopresupuesto iddetalleproductopresupuestoNew = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
             if (idprocesocalidadNew != null) {
                 idprocesocalidadNew = em.getReference(idprocesocalidadNew.getClass(), idprocesocalidadNew.getIdprocesocalidad());
                 detallepiezacalidadpresupuesto.setIdprocesocalidad(idprocesocalidadNew);
             }
+            if (iddetalleproductopresupuestoNew != null) {
+                iddetalleproductopresupuestoNew = em.getReference(iddetalleproductopresupuestoNew.getClass(), iddetalleproductopresupuestoNew.getIddetalle());
+                detallepiezacalidadpresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuestoNew);
+            }
             detallepiezacalidadpresupuesto = em.merge(detallepiezacalidadpresupuesto);
-            if (iddetalleproductopresupuestoOld != null && !iddetalleproductopresupuestoOld.equals(iddetalleproductopresupuestoNew)) {
-                iddetalleproductopresupuestoOld.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
-                iddetalleproductopresupuestoOld = em.merge(iddetalleproductopresupuestoOld);
-            }
-            if (iddetalleproductopresupuestoNew != null && !iddetalleproductopresupuestoNew.equals(iddetalleproductopresupuestoOld)) {
-                iddetalleproductopresupuestoNew.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
-                iddetalleproductopresupuestoNew = em.merge(iddetalleproductopresupuestoNew);
-            }
             if (idprocesocalidadOld != null && !idprocesocalidadOld.equals(idprocesocalidadNew)) {
                 idprocesocalidadOld.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
                 idprocesocalidadOld = em.merge(idprocesocalidadOld);
@@ -105,6 +96,14 @@ public class DetallepiezacalidadpresupuestoJpaController {
             if (idprocesocalidadNew != null && !idprocesocalidadNew.equals(idprocesocalidadOld)) {
                 idprocesocalidadNew.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
                 idprocesocalidadNew = em.merge(idprocesocalidadNew);
+            }
+            if (iddetalleproductopresupuestoOld != null && !iddetalleproductopresupuestoOld.equals(iddetalleproductopresupuestoNew)) {
+                iddetalleproductopresupuestoOld.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
+                iddetalleproductopresupuestoOld = em.merge(iddetalleproductopresupuestoOld);
+            }
+            if (iddetalleproductopresupuestoNew != null && !iddetalleproductopresupuestoNew.equals(iddetalleproductopresupuestoOld)) {
+                iddetalleproductopresupuestoNew.getDetallepiezacalidadpresupuestoList().add(detallepiezacalidadpresupuesto);
+                iddetalleproductopresupuestoNew = em.merge(iddetalleproductopresupuestoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -135,15 +134,15 @@ public class DetallepiezacalidadpresupuestoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallepiezacalidadpresupuesto with id " + id + " no longer exists.", enfe);
             }
-            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
-            if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
-                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
-            }
             Procesocalidad idprocesocalidad = detallepiezacalidadpresupuesto.getIdprocesocalidad();
             if (idprocesocalidad != null) {
                 idprocesocalidad.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
                 idprocesocalidad = em.merge(idprocesocalidad);
+            }
+            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
+            if (iddetalleproductopresupuesto != null) {
+                iddetalleproductopresupuesto.getDetallepiezacalidadpresupuestoList().remove(detallepiezacalidadpresupuesto);
+                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
             em.remove(detallepiezacalidadpresupuesto);
             em.getTransaction().commit();
@@ -199,5 +198,5 @@ public class DetallepiezacalidadpresupuestoJpaController {
             em.close();
         }
     }
-
+    
 }

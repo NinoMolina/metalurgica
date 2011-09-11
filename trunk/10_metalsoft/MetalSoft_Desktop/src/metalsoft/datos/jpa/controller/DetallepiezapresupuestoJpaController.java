@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,17 +15,17 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
-import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
+import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 
 /**
  *
  * @author Nino
  */
-public class DetallepiezapresupuestoJpaController {
+public class DetallepiezapresupuestoJpaController implements Serializable {
 
-    public DetallepiezapresupuestoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallepiezapresupuestoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -39,24 +38,24 @@ public class DetallepiezapresupuestoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezapresupuesto.getIddetalleproductopresupuesto();
-            if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto = em.getReference(iddetalleproductopresupuesto.getClass(), iddetalleproductopresupuesto.getIddetalle());
-                detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuesto);
-            }
             Etapadeproduccion idetapa = detallepiezapresupuesto.getIdetapa();
             if (idetapa != null) {
                 idetapa = em.getReference(idetapa.getClass(), idetapa.getIdetapaproduccion());
                 detallepiezapresupuesto.setIdetapa(idetapa);
             }
-            em.persist(detallepiezapresupuesto);
+            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezapresupuesto.getIddetalleproductopresupuesto();
             if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
-                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
+                iddetalleproductopresupuesto = em.getReference(iddetalleproductopresupuesto.getClass(), iddetalleproductopresupuesto.getIddetalle());
+                detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuesto);
             }
+            em.persist(detallepiezapresupuesto);
             if (idetapa != null) {
                 idetapa.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
                 idetapa = em.merge(idetapa);
+            }
+            if (iddetalleproductopresupuesto != null) {
+                iddetalleproductopresupuesto.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
+                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,27 +76,19 @@ public class DetallepiezapresupuestoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallepiezapresupuesto persistentDetallepiezapresupuesto = em.find(Detallepiezapresupuesto.class, detallepiezapresupuesto.getIddetalle());
-            Detalleproductopresupuesto iddetalleproductopresupuestoOld = persistentDetallepiezapresupuesto.getIddetalleproductopresupuesto();
-            Detalleproductopresupuesto iddetalleproductopresupuestoNew = detallepiezapresupuesto.getIddetalleproductopresupuesto();
             Etapadeproduccion idetapaOld = persistentDetallepiezapresupuesto.getIdetapa();
             Etapadeproduccion idetapaNew = detallepiezapresupuesto.getIdetapa();
-            if (iddetalleproductopresupuestoNew != null) {
-                iddetalleproductopresupuestoNew = em.getReference(iddetalleproductopresupuestoNew.getClass(), iddetalleproductopresupuestoNew.getIddetalle());
-                detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuestoNew);
-            }
+            Detalleproductopresupuesto iddetalleproductopresupuestoOld = persistentDetallepiezapresupuesto.getIddetalleproductopresupuesto();
+            Detalleproductopresupuesto iddetalleproductopresupuestoNew = detallepiezapresupuesto.getIddetalleproductopresupuesto();
             if (idetapaNew != null) {
                 idetapaNew = em.getReference(idetapaNew.getClass(), idetapaNew.getIdetapaproduccion());
                 detallepiezapresupuesto.setIdetapa(idetapaNew);
             }
+            if (iddetalleproductopresupuestoNew != null) {
+                iddetalleproductopresupuestoNew = em.getReference(iddetalleproductopresupuestoNew.getClass(), iddetalleproductopresupuestoNew.getIddetalle());
+                detallepiezapresupuesto.setIddetalleproductopresupuesto(iddetalleproductopresupuestoNew);
+            }
             detallepiezapresupuesto = em.merge(detallepiezapresupuesto);
-            if (iddetalleproductopresupuestoOld != null && !iddetalleproductopresupuestoOld.equals(iddetalleproductopresupuestoNew)) {
-                iddetalleproductopresupuestoOld.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
-                iddetalleproductopresupuestoOld = em.merge(iddetalleproductopresupuestoOld);
-            }
-            if (iddetalleproductopresupuestoNew != null && !iddetalleproductopresupuestoNew.equals(iddetalleproductopresupuestoOld)) {
-                iddetalleproductopresupuestoNew.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
-                iddetalleproductopresupuestoNew = em.merge(iddetalleproductopresupuestoNew);
-            }
             if (idetapaOld != null && !idetapaOld.equals(idetapaNew)) {
                 idetapaOld.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
                 idetapaOld = em.merge(idetapaOld);
@@ -105,6 +96,14 @@ public class DetallepiezapresupuestoJpaController {
             if (idetapaNew != null && !idetapaNew.equals(idetapaOld)) {
                 idetapaNew.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
                 idetapaNew = em.merge(idetapaNew);
+            }
+            if (iddetalleproductopresupuestoOld != null && !iddetalleproductopresupuestoOld.equals(iddetalleproductopresupuestoNew)) {
+                iddetalleproductopresupuestoOld.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
+                iddetalleproductopresupuestoOld = em.merge(iddetalleproductopresupuestoOld);
+            }
+            if (iddetalleproductopresupuestoNew != null && !iddetalleproductopresupuestoNew.equals(iddetalleproductopresupuestoOld)) {
+                iddetalleproductopresupuestoNew.getDetallepiezapresupuestoList().add(detallepiezapresupuesto);
+                iddetalleproductopresupuestoNew = em.merge(iddetalleproductopresupuestoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -135,15 +134,15 @@ public class DetallepiezapresupuestoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallepiezapresupuesto with id " + id + " no longer exists.", enfe);
             }
-            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezapresupuesto.getIddetalleproductopresupuesto();
-            if (iddetalleproductopresupuesto != null) {
-                iddetalleproductopresupuesto.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
-                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
-            }
             Etapadeproduccion idetapa = detallepiezapresupuesto.getIdetapa();
             if (idetapa != null) {
                 idetapa.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
                 idetapa = em.merge(idetapa);
+            }
+            Detalleproductopresupuesto iddetalleproductopresupuesto = detallepiezapresupuesto.getIddetalleproductopresupuesto();
+            if (iddetalleproductopresupuesto != null) {
+                iddetalleproductopresupuesto.getDetallepiezapresupuestoList().remove(detallepiezapresupuesto);
+                iddetalleproductopresupuesto = em.merge(iddetalleproductopresupuesto);
             }
             em.remove(detallepiezapresupuesto);
             em.getTransaction().commit();
@@ -199,5 +198,5 @@ public class DetallepiezapresupuestoJpaController {
             em.close();
         }
     }
-
+    
 }

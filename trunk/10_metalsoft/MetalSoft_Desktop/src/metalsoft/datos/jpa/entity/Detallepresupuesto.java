@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -11,12 +10,15 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -35,25 +37,25 @@ public class Detallepresupuesto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallepresupuesto_seq")
+    @SequenceGenerator(name = "detallepresupuesto_seq", sequenceName = "detallepresupuesto_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
     @Column(name = "iddetallepedido")
     private BigInteger iddetallepedido;
     @Column(name = "cantidad")
     private Integer cantidad;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precio")
     private Double precio;
-    @JoinColumn(name = "idpresupuesto", referencedColumnName = "idpresupuesto")
-    @ManyToOne(optional = false)
-    private Presupuesto idpresupuesto;
-
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto idproducto;
-
+    @JoinColumn(name = "idpresupuesto", referencedColumnName = "idpresupuesto")
+    @ManyToOne(optional = false)
+    private Presupuesto idpresupuesto;
     @OneToMany(mappedBy = "iddetallepresupuesto")
     private List<Detalleproductopresupuesto> detalleproductopresupuestoList;
-
 
     public Detallepresupuesto() {
     }
@@ -94,15 +96,6 @@ public class Detallepresupuesto implements Serializable {
         this.precio = precio;
     }
 
-    public Presupuesto getIdpresupuesto() {
-        return idpresupuesto;
-    }
-
-    public void setIdpresupuesto(Presupuesto idpresupuesto) {
-        this.idpresupuesto = idpresupuesto;
-    }
-
-
     public Producto getIdproducto() {
         return idproducto;
     }
@@ -111,6 +104,13 @@ public class Detallepresupuesto implements Serializable {
         this.idproducto = idproducto;
     }
 
+    public Presupuesto getIdpresupuesto() {
+        return idpresupuesto;
+    }
+
+    public void setIdpresupuesto(Presupuesto idpresupuesto) {
+        this.idpresupuesto = idpresupuesto;
+    }
 
     public List<Detalleproductopresupuesto> getDetalleproductopresupuestoList() {
         return detalleproductopresupuestoList;
@@ -119,7 +119,6 @@ public class Detallepresupuesto implements Serializable {
     public void setDetalleproductopresupuestoList(List<Detalleproductopresupuesto> detalleproductopresupuestoList) {
         this.detalleproductopresupuestoList = detalleproductopresupuestoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -143,7 +142,7 @@ public class Detallepresupuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallepresupuesto[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detallepresupuesto[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

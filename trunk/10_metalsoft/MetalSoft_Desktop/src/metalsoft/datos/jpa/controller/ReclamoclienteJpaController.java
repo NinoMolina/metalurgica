@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,10 +14,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Cliente;
-import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Reclamocliente;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
+import metalsoft.datos.jpa.entity.Estadoreclamo;
+import metalsoft.datos.jpa.entity.Cliente;
 import metalsoft.datos.jpa.entity.Detallereclamocliente;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class ReclamoclienteJpaController {
+public class ReclamoclienteJpaController implements Serializable {
 
-    public ReclamoclienteJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public ReclamoclienteJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -46,20 +45,20 @@ public class ReclamoclienteJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente cliente = reclamocliente.getCliente();
-            if (cliente != null) {
-                cliente = em.getReference(cliente.getClass(), cliente.getIdcliente());
-                reclamocliente.setCliente(cliente);
+            Tiporeclamo tiporeclamo = reclamocliente.getTiporeclamo();
+            if (tiporeclamo != null) {
+                tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
+                reclamocliente.setTiporeclamo(tiporeclamo);
             }
             Estadoreclamo idestadoreclamo = reclamocliente.getIdestadoreclamo();
             if (idestadoreclamo != null) {
                 idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
                 reclamocliente.setIdestadoreclamo(idestadoreclamo);
             }
-            Tiporeclamo tiporeclamo = reclamocliente.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
-                reclamocliente.setTiporeclamo(tiporeclamo);
+            Cliente cliente = reclamocliente.getCliente();
+            if (cliente != null) {
+                cliente = em.getReference(cliente.getClass(), cliente.getIdcliente());
+                reclamocliente.setCliente(cliente);
             }
             List<Detallereclamocliente> attachedDetallereclamoclienteList = new ArrayList<Detallereclamocliente>();
             for (Detallereclamocliente detallereclamoclienteListDetallereclamoclienteToAttach : reclamocliente.getDetallereclamoclienteList()) {
@@ -68,17 +67,17 @@ public class ReclamoclienteJpaController {
             }
             reclamocliente.setDetallereclamoclienteList(attachedDetallereclamoclienteList);
             em.persist(reclamocliente);
-            if (cliente != null) {
-                cliente.getReclamoclienteList().add(reclamocliente);
-                cliente = em.merge(cliente);
+            if (tiporeclamo != null) {
+                tiporeclamo.getReclamoclienteList().add(reclamocliente);
+                tiporeclamo = em.merge(tiporeclamo);
             }
             if (idestadoreclamo != null) {
                 idestadoreclamo.getReclamoclienteList().add(reclamocliente);
                 idestadoreclamo = em.merge(idestadoreclamo);
             }
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoclienteList().add(reclamocliente);
-                tiporeclamo = em.merge(tiporeclamo);
+            if (cliente != null) {
+                cliente.getReclamoclienteList().add(reclamocliente);
+                cliente = em.merge(cliente);
             }
             for (Detallereclamocliente detallereclamoclienteListDetallereclamocliente : reclamocliente.getDetallereclamoclienteList()) {
                 Reclamocliente oldReclamoclienteOfDetallereclamoclienteListDetallereclamocliente = detallereclamoclienteListDetallereclamocliente.getReclamocliente();
@@ -108,12 +107,12 @@ public class ReclamoclienteJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Reclamocliente persistentReclamocliente = em.find(Reclamocliente.class, reclamocliente.getIdreclamo());
-            Cliente clienteOld = persistentReclamocliente.getCliente();
-            Cliente clienteNew = reclamocliente.getCliente();
-            Estadoreclamo idestadoreclamoOld = persistentReclamocliente.getIdestadoreclamo();
-            Estadoreclamo idestadoreclamoNew = reclamocliente.getIdestadoreclamo();
             Tiporeclamo tiporeclamoOld = persistentReclamocliente.getTiporeclamo();
             Tiporeclamo tiporeclamoNew = reclamocliente.getTiporeclamo();
+            Estadoreclamo idestadoreclamoOld = persistentReclamocliente.getIdestadoreclamo();
+            Estadoreclamo idestadoreclamoNew = reclamocliente.getIdestadoreclamo();
+            Cliente clienteOld = persistentReclamocliente.getCliente();
+            Cliente clienteNew = reclamocliente.getCliente();
             List<Detallereclamocliente> detallereclamoclienteListOld = persistentReclamocliente.getDetallereclamoclienteList();
             List<Detallereclamocliente> detallereclamoclienteListNew = reclamocliente.getDetallereclamoclienteList();
             List<String> illegalOrphanMessages = null;
@@ -128,17 +127,17 @@ public class ReclamoclienteJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (clienteNew != null) {
-                clienteNew = em.getReference(clienteNew.getClass(), clienteNew.getIdcliente());
-                reclamocliente.setCliente(clienteNew);
+            if (tiporeclamoNew != null) {
+                tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
+                reclamocliente.setTiporeclamo(tiporeclamoNew);
             }
             if (idestadoreclamoNew != null) {
                 idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
                 reclamocliente.setIdestadoreclamo(idestadoreclamoNew);
             }
-            if (tiporeclamoNew != null) {
-                tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
-                reclamocliente.setTiporeclamo(tiporeclamoNew);
+            if (clienteNew != null) {
+                clienteNew = em.getReference(clienteNew.getClass(), clienteNew.getIdcliente());
+                reclamocliente.setCliente(clienteNew);
             }
             List<Detallereclamocliente> attachedDetallereclamoclienteListNew = new ArrayList<Detallereclamocliente>();
             for (Detallereclamocliente detallereclamoclienteListNewDetallereclamoclienteToAttach : detallereclamoclienteListNew) {
@@ -148,13 +147,13 @@ public class ReclamoclienteJpaController {
             detallereclamoclienteListNew = attachedDetallereclamoclienteListNew;
             reclamocliente.setDetallereclamoclienteList(detallereclamoclienteListNew);
             reclamocliente = em.merge(reclamocliente);
-            if (clienteOld != null && !clienteOld.equals(clienteNew)) {
-                clienteOld.getReclamoclienteList().remove(reclamocliente);
-                clienteOld = em.merge(clienteOld);
+            if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
+                tiporeclamoOld.getReclamoclienteList().remove(reclamocliente);
+                tiporeclamoOld = em.merge(tiporeclamoOld);
             }
-            if (clienteNew != null && !clienteNew.equals(clienteOld)) {
-                clienteNew.getReclamoclienteList().add(reclamocliente);
-                clienteNew = em.merge(clienteNew);
+            if (tiporeclamoNew != null && !tiporeclamoNew.equals(tiporeclamoOld)) {
+                tiporeclamoNew.getReclamoclienteList().add(reclamocliente);
+                tiporeclamoNew = em.merge(tiporeclamoNew);
             }
             if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
                 idestadoreclamoOld.getReclamoclienteList().remove(reclamocliente);
@@ -164,13 +163,13 @@ public class ReclamoclienteJpaController {
                 idestadoreclamoNew.getReclamoclienteList().add(reclamocliente);
                 idestadoreclamoNew = em.merge(idestadoreclamoNew);
             }
-            if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
-                tiporeclamoOld.getReclamoclienteList().remove(reclamocliente);
-                tiporeclamoOld = em.merge(tiporeclamoOld);
+            if (clienteOld != null && !clienteOld.equals(clienteNew)) {
+                clienteOld.getReclamoclienteList().remove(reclamocliente);
+                clienteOld = em.merge(clienteOld);
             }
-            if (tiporeclamoNew != null && !tiporeclamoNew.equals(tiporeclamoOld)) {
-                tiporeclamoNew.getReclamoclienteList().add(reclamocliente);
-                tiporeclamoNew = em.merge(tiporeclamoNew);
+            if (clienteNew != null && !clienteNew.equals(clienteOld)) {
+                clienteNew.getReclamoclienteList().add(reclamocliente);
+                clienteNew = em.merge(clienteNew);
             }
             for (Detallereclamocliente detallereclamoclienteListNewDetallereclamocliente : detallereclamoclienteListNew) {
                 if (!detallereclamoclienteListOld.contains(detallereclamoclienteListNewDetallereclamocliente)) {
@@ -223,20 +222,20 @@ public class ReclamoclienteJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Cliente cliente = reclamocliente.getCliente();
-            if (cliente != null) {
-                cliente.getReclamoclienteList().remove(reclamocliente);
-                cliente = em.merge(cliente);
+            Tiporeclamo tiporeclamo = reclamocliente.getTiporeclamo();
+            if (tiporeclamo != null) {
+                tiporeclamo.getReclamoclienteList().remove(reclamocliente);
+                tiporeclamo = em.merge(tiporeclamo);
             }
             Estadoreclamo idestadoreclamo = reclamocliente.getIdestadoreclamo();
             if (idestadoreclamo != null) {
                 idestadoreclamo.getReclamoclienteList().remove(reclamocliente);
                 idestadoreclamo = em.merge(idestadoreclamo);
             }
-            Tiporeclamo tiporeclamo = reclamocliente.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoclienteList().remove(reclamocliente);
-                tiporeclamo = em.merge(tiporeclamo);
+            Cliente cliente = reclamocliente.getCliente();
+            if (cliente != null) {
+                cliente.getReclamoclienteList().remove(reclamocliente);
+                cliente = em.merge(cliente);
             }
             em.remove(reclamocliente);
             em.getTransaction().commit();
@@ -292,5 +291,5 @@ public class ReclamoclienteJpaController {
             em.close();
         }
     }
-
+    
 }

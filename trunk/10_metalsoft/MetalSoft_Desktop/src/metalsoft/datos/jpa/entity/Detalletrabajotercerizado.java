@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -48,6 +47,7 @@ public class Detalletrabajotercerizado implements Serializable {
     @SequenceGenerator(name = "detalletrabajotercerizado_seq", sequenceName = "detalletrabajotercerizado_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "montoparcial")
     private Double montoparcial;
     @Column(name = "cantidad")
@@ -64,15 +64,15 @@ public class Detalletrabajotercerizado implements Serializable {
     private BigInteger pieza;
     @OneToMany(mappedBy = "iddetalletrabajo")
     private List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoList;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadodetalletrabajotercerizado estado;
-    @JoinColumn(name = "proceso", referencedColumnName = "idetapaproduccion")
-    @ManyToOne
-    private Etapadeproduccion proceso;
     @JoinColumn(name = "idtrabajotercerizado", referencedColumnName = "idtrabajo")
     @ManyToOne(optional = false)
     private Trabajotercerizado idtrabajotercerizado;
+    @JoinColumn(name = "proceso", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion proceso;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadodetalletrabajotercerizado estado;
 
     public Detalletrabajotercerizado() {
     }
@@ -145,12 +145,12 @@ public class Detalletrabajotercerizado implements Serializable {
         this.detallereclamoempresamantenimientoList = detallereclamoempresamantenimientoList;
     }
 
-    public Estadodetalletrabajotercerizado getEstado() {
-        return estado;
+    public Trabajotercerizado getIdtrabajotercerizado() {
+        return idtrabajotercerizado;
     }
 
-    public void setEstado(Estadodetalletrabajotercerizado estado) {
-        this.estado = estado;
+    public void setIdtrabajotercerizado(Trabajotercerizado idtrabajotercerizado) {
+        this.idtrabajotercerizado = idtrabajotercerizado;
     }
 
     public Etapadeproduccion getProceso() {
@@ -161,12 +161,12 @@ public class Detalletrabajotercerizado implements Serializable {
         this.proceso = proceso;
     }
 
-    public Trabajotercerizado getIdtrabajotercerizado() {
-        return idtrabajotercerizado;
+    public Estadodetalletrabajotercerizado getEstado() {
+        return estado;
     }
 
-    public void setIdtrabajotercerizado(Trabajotercerizado idtrabajotercerizado) {
-        this.idtrabajotercerizado = idtrabajotercerizado;
+    public void setEstado(Estadodetalletrabajotercerizado estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -191,7 +191,7 @@ public class Detalletrabajotercerizado implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalletrabajotercerizado[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detalletrabajotercerizado[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

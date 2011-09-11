@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,13 +9,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -34,8 +30,6 @@ public class Estadocliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estadocliente_seq")
-    @SequenceGenerator(name = "estadocliente_seq", sequenceName = "estadocliente_idestado_seq", allocationSize = 1)
     @Column(name = "idestado")
     private Long idestado;
     @Column(name = "nombre")
@@ -44,7 +38,6 @@ public class Estadocliente implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "estado")
     private List<Cliente> clienteList;
-
 
     public Estadocliente() {
     }
@@ -85,7 +78,6 @@ public class Estadocliente implements Serializable {
         this.clienteList = clienteList;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -108,7 +100,7 @@ public class Estadocliente implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Estadocliente[idestado=" + idestado + "]";
+        return "metalsoft.datos.jpa.entity.Estadocliente[ idestado=" + idestado + " ]";
     }
-
+    
 }

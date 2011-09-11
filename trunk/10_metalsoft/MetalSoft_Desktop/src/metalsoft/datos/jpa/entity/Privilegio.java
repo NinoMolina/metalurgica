@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -40,7 +39,6 @@ public class Privilegio implements Serializable {
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "privilegio")
     private List<Rolxprivilegio> rolxprivilegioList;
-
 
     public Privilegio() {
     }
@@ -103,7 +101,7 @@ public class Privilegio implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Privilegio[idprivilegio=" + idprivilegio + "]";
+        return "metalsoft.datos.jpa.entity.Privilegio[ idprivilegio=" + idprivilegio + " ]";
     }
-
+    
 }

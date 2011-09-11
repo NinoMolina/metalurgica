@@ -2,18 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +36,8 @@ public class Detalleproducto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleproducto_seq")
+    @SequenceGenerator(name = "detalleproducto_seq", sequenceName = "detalleproducto_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
     @Column(name = "cantidadpiezas")
@@ -41,10 +47,11 @@ public class Detalleproducto implements Serializable {
     @Basic(optional = false)
     @Column(name = "pieza")
     private long pieza;
+    @OneToMany(mappedBy = "detalleproducto")
+    private List<Detalleproductoreal> detalleproductorealList;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne(optional = false)
     private Producto idproducto;
-
 
     public Detalleproducto() {
     }
@@ -90,6 +97,14 @@ public class Detalleproducto implements Serializable {
         this.pieza = pieza;
     }
 
+    public List<Detalleproductoreal> getDetalleproductorealList() {
+        return detalleproductorealList;
+    }
+
+    public void setDetalleproductorealList(List<Detalleproductoreal> detalleproductorealList) {
+        this.detalleproductorealList = detalleproductorealList;
+    }
+
     public Producto getIdproducto() {
         return idproducto;
     }
@@ -97,7 +112,6 @@ public class Detalleproducto implements Serializable {
     public void setIdproducto(Producto idproducto) {
         this.idproducto = idproducto;
     }
-
 
     @Override
     public int hashCode() {
@@ -121,7 +135,7 @@ public class Detalleproducto implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleproducto[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detalleproducto[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

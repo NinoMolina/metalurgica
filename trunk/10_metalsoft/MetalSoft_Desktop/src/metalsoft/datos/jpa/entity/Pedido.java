@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -80,69 +79,49 @@ public class Pedido implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
-    @SequenceGenerator(name = "pedido_seq", sequenceName = "pedido_idplano_seq", allocationSize = 1)
+    @SequenceGenerator(name = "pedido_seq", sequenceName = "pedido_idpedido_seq", allocationSize = 1)
     @Column(name = "idpedido")
     private Long idpedido;
     @OneToMany(mappedBy = "pedido")
     private List<Planificacionproduccion> planificacionproduccionList;
-
-    @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
-    @ManyToOne
-    private Cliente cliente;
-
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne(optional = false)
-    private Estadopedido estado;
-
-    @JoinColumn(name = "factura", referencedColumnName = "idfactura")
-    @ManyToOne
-    private Factura factura;
-
-    @JoinColumn(name = "plano", referencedColumnName = "idplano")
-    @ManyToOne
-    private Plano plano;
-
-    @JoinColumn(name = "planprocedimientos", referencedColumnName = "idplanprocedimientos")
-    @ManyToOne
-    private Planprocedimientos planprocedimientos;
-
-    @JoinColumn(name = "planprocesoscalidad", referencedColumnName = "idplanprocesoscalidad")
-    @ManyToOne
-    private Planprocesoscalidad planprocesoscalidad;
-
-    @JoinColumn(name = "planrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima")
-    @ManyToOne
-    private Planrequerimientosmateriaprima planrequerimientosmateriaprima;
-
-    @JoinColumn(name = "presupuesto", referencedColumnName = "idpresupuesto")
-    @ManyToOne
-    private Presupuesto presupuesto;
-  
     @JoinColumn(name = "prioridad", referencedColumnName = "idprioridad")
     @ManyToOne(optional = false)
     private Prioridad prioridad;
-
+    @JoinColumn(name = "presupuesto", referencedColumnName = "idpresupuesto")
+    @ManyToOne
+    private Presupuesto presupuesto;
+    @JoinColumn(name = "planrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima")
+    @ManyToOne
+    private Planrequerimientosmateriaprima planrequerimientosmateriaprima;
+    @JoinColumn(name = "planprocesoscalidad", referencedColumnName = "idplanprocesoscalidad")
+    @ManyToOne
+    private Planprocesoscalidad planprocesoscalidad;
+    @JoinColumn(name = "planprocedimientos", referencedColumnName = "idplanprocedimientos")
+    @ManyToOne
+    private Planprocedimientos planprocedimientos;
+    @JoinColumn(name = "factura", referencedColumnName = "idfactura")
+    @ManyToOne
+    private Factura factura;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne(optional = false)
+    private Estadopedido estado;
+    @JoinColumn(name = "cliente", referencedColumnName = "idcliente")
+    @ManyToOne
+    private Cliente cliente;
     @OneToMany(mappedBy = "idpedido")
     private List<Productoreal> productorealList;
-
     @OneToMany(mappedBy = "pedido")
     private List<Plano> planoList;
-
     @OneToMany(mappedBy = "pedido")
     private List<Trabajotercerizado> trabajotercerizadoList;
-
     @OneToMany(mappedBy = "pedido")
     private List<Planificacioncalidad> planificacioncalidadList;
-
     @OneToMany(mappedBy = "pedido")
     private List<Remito> remitoList;
-
     @OneToMany(mappedBy = "idpedido")
     private List<Detallefactura> detallefacturaList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpedido")
     private List<Detallepedido> detallepedidoList;
-
 
     public Pedido() {
     }
@@ -260,71 +239,13 @@ public class Pedido implements Serializable {
         this.planificacionproduccionList = planificacionproduccionList;
     }
 
-
-    public Cliente getCliente() {
-        return cliente;
+    public Prioridad getPrioridad() {
+        return prioridad;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setPrioridad(Prioridad prioridad) {
+        this.prioridad = prioridad;
     }
-
-
-
-    public Estadopedido getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadopedido estado) {
-        this.estado = estado;
-    }
-
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
-
-
-    public Plano getPlano() {
-        return plano;
-    }
-
-    public void setPlano(Plano plano) {
-        this.plano = plano;
-    }
-
-
-
-    public Planprocedimientos getPlanprocedimientos() {
-        return planprocedimientos;
-    }
-
-    public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
-        this.planprocedimientos = planprocedimientos;
-    }
-
-
-    public Planprocesoscalidad getPlanprocesoscalidad() {
-        return planprocesoscalidad;
-    }
-
-    public void setPlanprocesoscalidad(Planprocesoscalidad planprocesoscalidad) {
-        this.planprocesoscalidad = planprocesoscalidad;
-    }
-
-
-    public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima() {
-        return planrequerimientosmateriaprima;
-    }
-
-    public void setPlanrequerimientosmateriaprima(Planrequerimientosmateriaprima planrequerimientosmateriaprima) {
-        this.planrequerimientosmateriaprima = planrequerimientosmateriaprima;
-    }
-
 
     public Presupuesto getPresupuesto() {
         return presupuesto;
@@ -334,15 +255,53 @@ public class Pedido implements Serializable {
         this.presupuesto = presupuesto;
     }
 
-
-    public Prioridad getPrioridad() {
-        return prioridad;
+    public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima() {
+        return planrequerimientosmateriaprima;
     }
 
-    public void setPrioridad(Prioridad prioridad) {
-        this.prioridad = prioridad;
+    public void setPlanrequerimientosmateriaprima(Planrequerimientosmateriaprima planrequerimientosmateriaprima) {
+        this.planrequerimientosmateriaprima = planrequerimientosmateriaprima;
     }
 
+    public Planprocesoscalidad getPlanprocesoscalidad() {
+        return planprocesoscalidad;
+    }
+
+    public void setPlanprocesoscalidad(Planprocesoscalidad planprocesoscalidad) {
+        this.planprocesoscalidad = planprocesoscalidad;
+    }
+
+    public Planprocedimientos getPlanprocedimientos() {
+        return planprocedimientos;
+    }
+
+    public void setPlanprocedimientos(Planprocedimientos planprocedimientos) {
+        this.planprocedimientos = planprocedimientos;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public Estadopedido getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadopedido estado) {
+        this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public List<Productoreal> getProductorealList() {
         return productorealList;
@@ -351,7 +310,6 @@ public class Pedido implements Serializable {
     public void setProductorealList(List<Productoreal> productorealList) {
         this.productorealList = productorealList;
     }
-
 
     public List<Plano> getPlanoList() {
         return planoList;
@@ -369,7 +327,6 @@ public class Pedido implements Serializable {
         this.trabajotercerizadoList = trabajotercerizadoList;
     }
 
-
     public List<Planificacioncalidad> getPlanificacioncalidadList() {
         return planificacioncalidadList;
     }
@@ -377,7 +334,6 @@ public class Pedido implements Serializable {
     public void setPlanificacioncalidadList(List<Planificacioncalidad> planificacioncalidadList) {
         this.planificacioncalidadList = planificacioncalidadList;
     }
-
 
     public List<Remito> getRemitoList() {
         return remitoList;
@@ -395,7 +351,6 @@ public class Pedido implements Serializable {
         this.detallefacturaList = detallefacturaList;
     }
 
-
     public List<Detallepedido> getDetallepedidoList() {
         return detallepedidoList;
     }
@@ -403,7 +358,6 @@ public class Pedido implements Serializable {
     public void setDetallepedidoList(List<Detallepedido> detallepedidoList) {
         this.detallepedidoList = detallepedidoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -427,7 +381,7 @@ public class Pedido implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Pedido[idpedido=" + idpedido + "]";
+        return "metalsoft.datos.jpa.entity.Pedido[ idpedido=" + idpedido + " ]";
     }
-
+    
 }

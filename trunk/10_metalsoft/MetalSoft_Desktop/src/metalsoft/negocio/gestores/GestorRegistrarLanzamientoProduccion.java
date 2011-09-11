@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
 import metalsoft.datos.jpa.controller.DetalleplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
@@ -114,11 +115,11 @@ public class GestorRegistrarLanzamientoProduccion {
 
         long result = -1;
 
-        EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController();
-        PlanificacionproduccionJpaController controllerPlanificacion = new PlanificacionproduccionJpaController();
+        EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+        PlanificacionproduccionJpaController controllerPlanificacion = new PlanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
         Planificacionproduccion planificacionProduccion = null;
 
-        EstadoejecplanifpedidoJpaController controllerEstadoEjecPlanif = new EstadoejecplanifpedidoJpaController();
+        EstadoejecplanifpedidoJpaController controllerEstadoEjecPlanif = new EstadoejecplanifpedidoJpaController(JpaUtil.getEntityManagerFactory());
         Estadoejecplanifpedido estadoEjecucion = null;
 
         List<Detallempasignada> lstDetallempasignada = null;
@@ -147,11 +148,11 @@ public class GestorRegistrarLanzamientoProduccion {
 
             lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
 
-            DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController();
-            EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController();
+            DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController(JpaUtil.getEntityManagerFactory());
+            EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
             Detalleejecucionplanificacion detalleejecucionplanificacion = null;
 
-            DetalleplanificacionproduccionJpaController dppController = new DetalleplanificacionproduccionJpaController();
+            DetalleplanificacionproduccionJpaController dppController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
 
             Map<Long, Integer> mapIndexPiezaReal = new HashMap<Long, Integer>();
 
@@ -191,7 +192,7 @@ public class GestorRegistrarLanzamientoProduccion {
                 ejecucionetapaproduccion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 long nroEjecucion = generarNvoNroEjecucionEtapa();
                 ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
-                EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController();
+                EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;
                 boolean etapaEnEjecucion = false;

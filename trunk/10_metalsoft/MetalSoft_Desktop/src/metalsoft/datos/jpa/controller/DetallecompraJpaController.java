@@ -2,23 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Detallecompra;
 import metalsoft.datos.jpa.entity.DetallecompraPK;
-import metalsoft.datos.jpa.entity.Estadodetallecompra;
 import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Estadodetallecompra;
+import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Detallereclamoproveedor;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class DetallecompraJpaController {
+public class DetallecompraJpaController implements Serializable {
 
-    public DetallecompraJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallecompraJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -50,20 +49,20 @@ public class DetallecompraJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Compra compra = detallecompra.getCompra();
-            if (compra != null) {
-                compra = em.getReference(compra.getClass(), compra.getIdcompra());
-                detallecompra.setCompra(compra);
+            Materiaprima materiaprima = detallecompra.getMateriaprima();
+            if (materiaprima != null) {
+                materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
+                detallecompra.setMateriaprima(materiaprima);
             }
             Estadodetallecompra estado = detallecompra.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 detallecompra.setEstado(estado);
             }
-            Materiaprima materiaprima = detallecompra.getMateriaprima();
-            if (materiaprima != null) {
-                materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
-                detallecompra.setMateriaprima(materiaprima);
+            Compra compra = detallecompra.getCompra();
+            if (compra != null) {
+                compra = em.getReference(compra.getClass(), compra.getIdcompra());
+                detallecompra.setCompra(compra);
             }
             List<Detallereclamoproveedor> attachedDetallereclamoproveedorList = new ArrayList<Detallereclamoproveedor>();
             for (Detallereclamoproveedor detallereclamoproveedorListDetallereclamoproveedorToAttach : detallecompra.getDetallereclamoproveedorList()) {
@@ -72,17 +71,17 @@ public class DetallecompraJpaController {
             }
             detallecompra.setDetallereclamoproveedorList(attachedDetallereclamoproveedorList);
             em.persist(detallecompra);
-            if (compra != null) {
-                compra.getDetallecompraList().add(detallecompra);
-                compra = em.merge(compra);
+            if (materiaprima != null) {
+                materiaprima.getDetallecompraList().add(detallecompra);
+                materiaprima = em.merge(materiaprima);
             }
             if (estado != null) {
                 estado.getDetallecompraList().add(detallecompra);
                 estado = em.merge(estado);
             }
-            if (materiaprima != null) {
-                materiaprima.getDetallecompraList().add(detallecompra);
-                materiaprima = em.merge(materiaprima);
+            if (compra != null) {
+                compra.getDetallecompraList().add(detallecompra);
+                compra = em.merge(compra);
             }
             for (Detallereclamoproveedor detallereclamoproveedorListDetallereclamoproveedor : detallecompra.getDetallereclamoproveedorList()) {
                 Detallecompra oldDetallecompraOfDetallereclamoproveedorListDetallereclamoproveedor = detallereclamoproveedorListDetallereclamoproveedor.getDetallecompra();
@@ -113,25 +112,25 @@ public class DetallecompraJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallecompra persistentDetallecompra = em.find(Detallecompra.class, detallecompra.getDetallecompraPK());
-            Compra compraOld = persistentDetallecompra.getCompra();
-            Compra compraNew = detallecompra.getCompra();
-            Estadodetallecompra estadoOld = persistentDetallecompra.getEstado();
-            Estadodetallecompra estadoNew = detallecompra.getEstado();
             Materiaprima materiaprimaOld = persistentDetallecompra.getMateriaprima();
             Materiaprima materiaprimaNew = detallecompra.getMateriaprima();
+            Estadodetallecompra estadoOld = persistentDetallecompra.getEstado();
+            Estadodetallecompra estadoNew = detallecompra.getEstado();
+            Compra compraOld = persistentDetallecompra.getCompra();
+            Compra compraNew = detallecompra.getCompra();
             List<Detallereclamoproveedor> detallereclamoproveedorListOld = persistentDetallecompra.getDetallereclamoproveedorList();
             List<Detallereclamoproveedor> detallereclamoproveedorListNew = detallecompra.getDetallereclamoproveedorList();
-            if (compraNew != null) {
-                compraNew = em.getReference(compraNew.getClass(), compraNew.getIdcompra());
-                detallecompra.setCompra(compraNew);
+            if (materiaprimaNew != null) {
+                materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
+                detallecompra.setMateriaprima(materiaprimaNew);
             }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 detallecompra.setEstado(estadoNew);
             }
-            if (materiaprimaNew != null) {
-                materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
-                detallecompra.setMateriaprima(materiaprimaNew);
+            if (compraNew != null) {
+                compraNew = em.getReference(compraNew.getClass(), compraNew.getIdcompra());
+                detallecompra.setCompra(compraNew);
             }
             List<Detallereclamoproveedor> attachedDetallereclamoproveedorListNew = new ArrayList<Detallereclamoproveedor>();
             for (Detallereclamoproveedor detallereclamoproveedorListNewDetallereclamoproveedorToAttach : detallereclamoproveedorListNew) {
@@ -141,13 +140,13 @@ public class DetallecompraJpaController {
             detallereclamoproveedorListNew = attachedDetallereclamoproveedorListNew;
             detallecompra.setDetallereclamoproveedorList(detallereclamoproveedorListNew);
             detallecompra = em.merge(detallecompra);
-            if (compraOld != null && !compraOld.equals(compraNew)) {
-                compraOld.getDetallecompraList().remove(detallecompra);
-                compraOld = em.merge(compraOld);
+            if (materiaprimaOld != null && !materiaprimaOld.equals(materiaprimaNew)) {
+                materiaprimaOld.getDetallecompraList().remove(detallecompra);
+                materiaprimaOld = em.merge(materiaprimaOld);
             }
-            if (compraNew != null && !compraNew.equals(compraOld)) {
-                compraNew.getDetallecompraList().add(detallecompra);
-                compraNew = em.merge(compraNew);
+            if (materiaprimaNew != null && !materiaprimaNew.equals(materiaprimaOld)) {
+                materiaprimaNew.getDetallecompraList().add(detallecompra);
+                materiaprimaNew = em.merge(materiaprimaNew);
             }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getDetallecompraList().remove(detallecompra);
@@ -157,13 +156,13 @@ public class DetallecompraJpaController {
                 estadoNew.getDetallecompraList().add(detallecompra);
                 estadoNew = em.merge(estadoNew);
             }
-            if (materiaprimaOld != null && !materiaprimaOld.equals(materiaprimaNew)) {
-                materiaprimaOld.getDetallecompraList().remove(detallecompra);
-                materiaprimaOld = em.merge(materiaprimaOld);
+            if (compraOld != null && !compraOld.equals(compraNew)) {
+                compraOld.getDetallecompraList().remove(detallecompra);
+                compraOld = em.merge(compraOld);
             }
-            if (materiaprimaNew != null && !materiaprimaNew.equals(materiaprimaOld)) {
-                materiaprimaNew.getDetallecompraList().add(detallecompra);
-                materiaprimaNew = em.merge(materiaprimaNew);
+            if (compraNew != null && !compraNew.equals(compraOld)) {
+                compraNew.getDetallecompraList().add(detallecompra);
+                compraNew = em.merge(compraNew);
             }
             for (Detallereclamoproveedor detallereclamoproveedorListOldDetallereclamoproveedor : detallereclamoproveedorListOld) {
                 if (!detallereclamoproveedorListNew.contains(detallereclamoproveedorListOldDetallereclamoproveedor)) {
@@ -211,20 +210,20 @@ public class DetallecompraJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallecompra with id " + id + " no longer exists.", enfe);
             }
-            Compra compra = detallecompra.getCompra();
-            if (compra != null) {
-                compra.getDetallecompraList().remove(detallecompra);
-                compra = em.merge(compra);
+            Materiaprima materiaprima = detallecompra.getMateriaprima();
+            if (materiaprima != null) {
+                materiaprima.getDetallecompraList().remove(detallecompra);
+                materiaprima = em.merge(materiaprima);
             }
             Estadodetallecompra estado = detallecompra.getEstado();
             if (estado != null) {
                 estado.getDetallecompraList().remove(detallecompra);
                 estado = em.merge(estado);
             }
-            Materiaprima materiaprima = detallecompra.getMateriaprima();
-            if (materiaprima != null) {
-                materiaprima.getDetallecompraList().remove(detallecompra);
-                materiaprima = em.merge(materiaprima);
+            Compra compra = detallecompra.getCompra();
+            if (compra != null) {
+                compra.getDetallecompraList().remove(detallecompra);
+                compra = em.merge(compra);
             }
             List<Detallereclamoproveedor> detallereclamoproveedorList = detallecompra.getDetallereclamoproveedorList();
             for (Detallereclamoproveedor detallereclamoproveedorListDetallereclamoproveedor : detallereclamoproveedorList) {
@@ -285,5 +284,5 @@ public class DetallecompraJpaController {
             em.close();
         }
     }
-
+    
 }

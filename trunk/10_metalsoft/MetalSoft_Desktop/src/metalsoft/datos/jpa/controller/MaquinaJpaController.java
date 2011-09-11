@@ -2,36 +2,36 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Estadomaquina;
 import metalsoft.datos.jpa.entity.Maquina;
-import metalsoft.datos.jpa.entity.Marca;
-import metalsoft.datos.jpa.entity.Tipomaquina;
 import metalsoft.datos.jpa.entity.Unidadmedida;
+import metalsoft.datos.jpa.entity.Tipomaquina;
+import metalsoft.datos.jpa.entity.Marca;
+import metalsoft.datos.jpa.entity.Estadomaquina;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 
 /**
  *
  * @author Nino
  */
-public class MaquinaJpaController {
+public class MaquinaJpaController implements Serializable {
 
-    public MaquinaJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public MaquinaJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -43,6 +43,9 @@ public class MaquinaJpaController {
         if (maquina.getDetalleplanificacionproduccionList() == null) {
             maquina.setDetalleplanificacionproduccionList(new ArrayList<Detalleplanificacionproduccion>());
         }
+        if (maquina.getDetalleplanificacioncalidadList() == null) {
+            maquina.setDetalleplanificacioncalidadList(new ArrayList<Detalleplanificacioncalidad>());
+        }
         if (maquina.getEtapadeproduccionList() == null) {
             maquina.setEtapadeproduccionList(new ArrayList<Etapadeproduccion>());
         }
@@ -50,25 +53,25 @@ public class MaquinaJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Estadomaquina estado = maquina.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                maquina.setEstado(estado);
-            }
-            Marca marca = maquina.getMarca();
-            if (marca != null) {
-                marca = em.getReference(marca.getClass(), marca.getIdmarca());
-                maquina.setMarca(marca);
+            Unidadmedida idunidadmedida = maquina.getIdunidadmedida();
+            if (idunidadmedida != null) {
+                idunidadmedida = em.getReference(idunidadmedida.getClass(), idunidadmedida.getIdunidadmedida());
+                maquina.setIdunidadmedida(idunidadmedida);
             }
             Tipomaquina tipomaquina = maquina.getTipomaquina();
             if (tipomaquina != null) {
                 tipomaquina = em.getReference(tipomaquina.getClass(), tipomaquina.getIdtipomaquina());
                 maquina.setTipomaquina(tipomaquina);
             }
-            Unidadmedida idunidadmedida = maquina.getIdunidadmedida();
-            if (idunidadmedida != null) {
-                idunidadmedida = em.getReference(idunidadmedida.getClass(), idunidadmedida.getIdunidadmedida());
-                maquina.setIdunidadmedida(idunidadmedida);
+            Marca marca = maquina.getMarca();
+            if (marca != null) {
+                marca = em.getReference(marca.getClass(), marca.getIdmarca());
+                maquina.setMarca(marca);
+            }
+            Estadomaquina estado = maquina.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                maquina.setEstado(estado);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionList = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccionToAttach : maquina.getDetalleplanificacionproduccionList()) {
@@ -76,6 +79,12 @@ public class MaquinaJpaController {
                 attachedDetalleplanificacionproduccionList.add(detalleplanificacionproduccionListDetalleplanificacionproduccionToAttach);
             }
             maquina.setDetalleplanificacionproduccionList(attachedDetalleplanificacionproduccionList);
+            List<Detalleplanificacioncalidad> attachedDetalleplanificacioncalidadList = new ArrayList<Detalleplanificacioncalidad>();
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach : maquina.getDetalleplanificacioncalidadList()) {
+                detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach = em.getReference(detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach.getClass(), detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach.getIddetalle());
+                attachedDetalleplanificacioncalidadList.add(detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach);
+            }
+            maquina.setDetalleplanificacioncalidadList(attachedDetalleplanificacioncalidadList);
             List<Etapadeproduccion> attachedEtapadeproduccionList = new ArrayList<Etapadeproduccion>();
             for (Etapadeproduccion etapadeproduccionListEtapadeproduccionToAttach : maquina.getEtapadeproduccionList()) {
                 etapadeproduccionListEtapadeproduccionToAttach = em.getReference(etapadeproduccionListEtapadeproduccionToAttach.getClass(), etapadeproduccionListEtapadeproduccionToAttach.getIdetapaproduccion());
@@ -83,21 +92,21 @@ public class MaquinaJpaController {
             }
             maquina.setEtapadeproduccionList(attachedEtapadeproduccionList);
             em.persist(maquina);
-            if (estado != null) {
-                estado.getMaquinaList().add(maquina);
-                estado = em.merge(estado);
-            }
-            if (marca != null) {
-                marca.getMaquinaList().add(maquina);
-                marca = em.merge(marca);
+            if (idunidadmedida != null) {
+                idunidadmedida.getMaquinaList().add(maquina);
+                idunidadmedida = em.merge(idunidadmedida);
             }
             if (tipomaquina != null) {
                 tipomaquina.getMaquinaList().add(maquina);
                 tipomaquina = em.merge(tipomaquina);
             }
-            if (idunidadmedida != null) {
-                idunidadmedida.getMaquinaList().add(maquina);
-                idunidadmedida = em.merge(idunidadmedida);
+            if (marca != null) {
+                marca.getMaquinaList().add(maquina);
+                marca = em.merge(marca);
+            }
+            if (estado != null) {
+                estado.getMaquinaList().add(maquina);
+                estado = em.merge(estado);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : maquina.getDetalleplanificacionproduccionList()) {
                 Maquina oldIdmaquinaOfDetalleplanificacionproduccionListDetalleplanificacionproduccion = detalleplanificacionproduccionListDetalleplanificacionproduccion.getIdmaquina();
@@ -106,6 +115,15 @@ public class MaquinaJpaController {
                 if (oldIdmaquinaOfDetalleplanificacionproduccionListDetalleplanificacionproduccion != null) {
                     oldIdmaquinaOfDetalleplanificacionproduccionListDetalleplanificacionproduccion.getDetalleplanificacionproduccionList().remove(detalleplanificacionproduccionListDetalleplanificacionproduccion);
                     oldIdmaquinaOfDetalleplanificacionproduccionListDetalleplanificacionproduccion = em.merge(oldIdmaquinaOfDetalleplanificacionproduccionListDetalleplanificacionproduccion);
+                }
+            }
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidad : maquina.getDetalleplanificacioncalidadList()) {
+                Maquina oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad = detalleplanificacioncalidadListDetalleplanificacioncalidad.getMaquina();
+                detalleplanificacioncalidadListDetalleplanificacioncalidad.setMaquina(maquina);
+                detalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListDetalleplanificacioncalidad);
+                if (oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad != null) {
+                    oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidadListDetalleplanificacioncalidad);
+                    oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad);
                 }
             }
             for (Etapadeproduccion etapadeproduccionListEtapadeproduccion : maquina.getEtapadeproduccionList()) {
@@ -136,33 +154,35 @@ public class MaquinaJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Maquina persistentMaquina = em.find(Maquina.class, maquina.getIdmaquina());
-            Estadomaquina estadoOld = persistentMaquina.getEstado();
-            Estadomaquina estadoNew = maquina.getEstado();
-            Marca marcaOld = persistentMaquina.getMarca();
-            Marca marcaNew = maquina.getMarca();
-            Tipomaquina tipomaquinaOld = persistentMaquina.getTipomaquina();
-            Tipomaquina tipomaquinaNew = maquina.getTipomaquina();
             Unidadmedida idunidadmedidaOld = persistentMaquina.getIdunidadmedida();
             Unidadmedida idunidadmedidaNew = maquina.getIdunidadmedida();
+            Tipomaquina tipomaquinaOld = persistentMaquina.getTipomaquina();
+            Tipomaquina tipomaquinaNew = maquina.getTipomaquina();
+            Marca marcaOld = persistentMaquina.getMarca();
+            Marca marcaNew = maquina.getMarca();
+            Estadomaquina estadoOld = persistentMaquina.getEstado();
+            Estadomaquina estadoNew = maquina.getEstado();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListOld = persistentMaquina.getDetalleplanificacionproduccionList();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListNew = maquina.getDetalleplanificacionproduccionList();
+            List<Detalleplanificacioncalidad> detalleplanificacioncalidadListOld = persistentMaquina.getDetalleplanificacioncalidadList();
+            List<Detalleplanificacioncalidad> detalleplanificacioncalidadListNew = maquina.getDetalleplanificacioncalidadList();
             List<Etapadeproduccion> etapadeproduccionListOld = persistentMaquina.getEtapadeproduccionList();
             List<Etapadeproduccion> etapadeproduccionListNew = maquina.getEtapadeproduccionList();
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                maquina.setEstado(estadoNew);
-            }
-            if (marcaNew != null) {
-                marcaNew = em.getReference(marcaNew.getClass(), marcaNew.getIdmarca());
-                maquina.setMarca(marcaNew);
+            if (idunidadmedidaNew != null) {
+                idunidadmedidaNew = em.getReference(idunidadmedidaNew.getClass(), idunidadmedidaNew.getIdunidadmedida());
+                maquina.setIdunidadmedida(idunidadmedidaNew);
             }
             if (tipomaquinaNew != null) {
                 tipomaquinaNew = em.getReference(tipomaquinaNew.getClass(), tipomaquinaNew.getIdtipomaquina());
                 maquina.setTipomaquina(tipomaquinaNew);
             }
-            if (idunidadmedidaNew != null) {
-                idunidadmedidaNew = em.getReference(idunidadmedidaNew.getClass(), idunidadmedidaNew.getIdunidadmedida());
-                maquina.setIdunidadmedida(idunidadmedidaNew);
+            if (marcaNew != null) {
+                marcaNew = em.getReference(marcaNew.getClass(), marcaNew.getIdmarca());
+                maquina.setMarca(marcaNew);
+            }
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                maquina.setEstado(estadoNew);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionListNew = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListNewDetalleplanificacionproduccionToAttach : detalleplanificacionproduccionListNew) {
@@ -171,6 +191,13 @@ public class MaquinaJpaController {
             }
             detalleplanificacionproduccionListNew = attachedDetalleplanificacionproduccionListNew;
             maquina.setDetalleplanificacionproduccionList(detalleplanificacionproduccionListNew);
+            List<Detalleplanificacioncalidad> attachedDetalleplanificacioncalidadListNew = new ArrayList<Detalleplanificacioncalidad>();
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach : detalleplanificacioncalidadListNew) {
+                detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach = em.getReference(detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach.getClass(), detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach.getIddetalle());
+                attachedDetalleplanificacioncalidadListNew.add(detalleplanificacioncalidadListNewDetalleplanificacioncalidadToAttach);
+            }
+            detalleplanificacioncalidadListNew = attachedDetalleplanificacioncalidadListNew;
+            maquina.setDetalleplanificacioncalidadList(detalleplanificacioncalidadListNew);
             List<Etapadeproduccion> attachedEtapadeproduccionListNew = new ArrayList<Etapadeproduccion>();
             for (Etapadeproduccion etapadeproduccionListNewEtapadeproduccionToAttach : etapadeproduccionListNew) {
                 etapadeproduccionListNewEtapadeproduccionToAttach = em.getReference(etapadeproduccionListNewEtapadeproduccionToAttach.getClass(), etapadeproduccionListNewEtapadeproduccionToAttach.getIdetapaproduccion());
@@ -179,21 +206,13 @@ public class MaquinaJpaController {
             etapadeproduccionListNew = attachedEtapadeproduccionListNew;
             maquina.setEtapadeproduccionList(etapadeproduccionListNew);
             maquina = em.merge(maquina);
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getMaquinaList().remove(maquina);
-                estadoOld = em.merge(estadoOld);
+            if (idunidadmedidaOld != null && !idunidadmedidaOld.equals(idunidadmedidaNew)) {
+                idunidadmedidaOld.getMaquinaList().remove(maquina);
+                idunidadmedidaOld = em.merge(idunidadmedidaOld);
             }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getMaquinaList().add(maquina);
-                estadoNew = em.merge(estadoNew);
-            }
-            if (marcaOld != null && !marcaOld.equals(marcaNew)) {
-                marcaOld.getMaquinaList().remove(maquina);
-                marcaOld = em.merge(marcaOld);
-            }
-            if (marcaNew != null && !marcaNew.equals(marcaOld)) {
-                marcaNew.getMaquinaList().add(maquina);
-                marcaNew = em.merge(marcaNew);
+            if (idunidadmedidaNew != null && !idunidadmedidaNew.equals(idunidadmedidaOld)) {
+                idunidadmedidaNew.getMaquinaList().add(maquina);
+                idunidadmedidaNew = em.merge(idunidadmedidaNew);
             }
             if (tipomaquinaOld != null && !tipomaquinaOld.equals(tipomaquinaNew)) {
                 tipomaquinaOld.getMaquinaList().remove(maquina);
@@ -203,13 +222,21 @@ public class MaquinaJpaController {
                 tipomaquinaNew.getMaquinaList().add(maquina);
                 tipomaquinaNew = em.merge(tipomaquinaNew);
             }
-            if (idunidadmedidaOld != null && !idunidadmedidaOld.equals(idunidadmedidaNew)) {
-                idunidadmedidaOld.getMaquinaList().remove(maquina);
-                idunidadmedidaOld = em.merge(idunidadmedidaOld);
+            if (marcaOld != null && !marcaOld.equals(marcaNew)) {
+                marcaOld.getMaquinaList().remove(maquina);
+                marcaOld = em.merge(marcaOld);
             }
-            if (idunidadmedidaNew != null && !idunidadmedidaNew.equals(idunidadmedidaOld)) {
-                idunidadmedidaNew.getMaquinaList().add(maquina);
-                idunidadmedidaNew = em.merge(idunidadmedidaNew);
+            if (marcaNew != null && !marcaNew.equals(marcaOld)) {
+                marcaNew.getMaquinaList().add(maquina);
+                marcaNew = em.merge(marcaNew);
+            }
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getMaquinaList().remove(maquina);
+                estadoOld = em.merge(estadoOld);
+            }
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getMaquinaList().add(maquina);
+                estadoNew = em.merge(estadoNew);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListOldDetalleplanificacionproduccion : detalleplanificacionproduccionListOld) {
                 if (!detalleplanificacionproduccionListNew.contains(detalleplanificacionproduccionListOldDetalleplanificacionproduccion)) {
@@ -225,6 +252,23 @@ public class MaquinaJpaController {
                     if (oldIdmaquinaOfDetalleplanificacionproduccionListNewDetalleplanificacionproduccion != null && !oldIdmaquinaOfDetalleplanificacionproduccionListNewDetalleplanificacionproduccion.equals(maquina)) {
                         oldIdmaquinaOfDetalleplanificacionproduccionListNewDetalleplanificacionproduccion.getDetalleplanificacionproduccionList().remove(detalleplanificacionproduccionListNewDetalleplanificacionproduccion);
                         oldIdmaquinaOfDetalleplanificacionproduccionListNewDetalleplanificacionproduccion = em.merge(oldIdmaquinaOfDetalleplanificacionproduccionListNewDetalleplanificacionproduccion);
+                    }
+                }
+            }
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListOldDetalleplanificacioncalidad : detalleplanificacioncalidadListOld) {
+                if (!detalleplanificacioncalidadListNew.contains(detalleplanificacioncalidadListOldDetalleplanificacioncalidad)) {
+                    detalleplanificacioncalidadListOldDetalleplanificacioncalidad.setMaquina(null);
+                    detalleplanificacioncalidadListOldDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListOldDetalleplanificacioncalidad);
+                }
+            }
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListNewDetalleplanificacioncalidad : detalleplanificacioncalidadListNew) {
+                if (!detalleplanificacioncalidadListOld.contains(detalleplanificacioncalidadListNewDetalleplanificacioncalidad)) {
+                    Maquina oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad = detalleplanificacioncalidadListNewDetalleplanificacioncalidad.getMaquina();
+                    detalleplanificacioncalidadListNewDetalleplanificacioncalidad.setMaquina(maquina);
+                    detalleplanificacioncalidadListNewDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListNewDetalleplanificacioncalidad);
+                    if (oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad != null && !oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad.equals(maquina)) {
+                        oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidadListNewDetalleplanificacioncalidad);
+                        oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad = em.merge(oldMaquinaOfDetalleplanificacioncalidadListNewDetalleplanificacioncalidad);
                     }
                 }
             }
@@ -274,30 +318,35 @@ public class MaquinaJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The maquina with id " + id + " no longer exists.", enfe);
             }
-            Estadomaquina estado = maquina.getEstado();
-            if (estado != null) {
-                estado.getMaquinaList().remove(maquina);
-                estado = em.merge(estado);
-            }
-            Marca marca = maquina.getMarca();
-            if (marca != null) {
-                marca.getMaquinaList().remove(maquina);
-                marca = em.merge(marca);
+            Unidadmedida idunidadmedida = maquina.getIdunidadmedida();
+            if (idunidadmedida != null) {
+                idunidadmedida.getMaquinaList().remove(maquina);
+                idunidadmedida = em.merge(idunidadmedida);
             }
             Tipomaquina tipomaquina = maquina.getTipomaquina();
             if (tipomaquina != null) {
                 tipomaquina.getMaquinaList().remove(maquina);
                 tipomaquina = em.merge(tipomaquina);
             }
-            Unidadmedida idunidadmedida = maquina.getIdunidadmedida();
-            if (idunidadmedida != null) {
-                idunidadmedida.getMaquinaList().remove(maquina);
-                idunidadmedida = em.merge(idunidadmedida);
+            Marca marca = maquina.getMarca();
+            if (marca != null) {
+                marca.getMaquinaList().remove(maquina);
+                marca = em.merge(marca);
+            }
+            Estadomaquina estado = maquina.getEstado();
+            if (estado != null) {
+                estado.getMaquinaList().remove(maquina);
+                estado = em.merge(estado);
             }
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionList = maquina.getDetalleplanificacionproduccionList();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : detalleplanificacionproduccionList) {
                 detalleplanificacionproduccionListDetalleplanificacionproduccion.setIdmaquina(null);
                 detalleplanificacionproduccionListDetalleplanificacionproduccion = em.merge(detalleplanificacionproduccionListDetalleplanificacionproduccion);
+            }
+            List<Detalleplanificacioncalidad> detalleplanificacioncalidadList = maquina.getDetalleplanificacioncalidadList();
+            for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidad : detalleplanificacioncalidadList) {
+                detalleplanificacioncalidadListDetalleplanificacioncalidad.setMaquina(null);
+                detalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListDetalleplanificacioncalidad);
             }
             List<Etapadeproduccion> etapadeproduccionList = maquina.getEtapadeproduccionList();
             for (Etapadeproduccion etapadeproduccionListEtapadeproduccion : etapadeproduccionList) {
@@ -358,5 +407,5 @@ public class MaquinaJpaController {
             em.close();
         }
     }
-
+    
 }

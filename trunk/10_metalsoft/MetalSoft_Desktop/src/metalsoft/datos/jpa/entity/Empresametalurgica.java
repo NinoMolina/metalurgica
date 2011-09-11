@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -71,21 +70,17 @@ public class Empresametalurgica implements Serializable {
     private String cuil;
     @Column(name = "cuit")
     private String cuit;
-    @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
-    @ManyToOne
-    private Condicioniva condicioniva;
-
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio;
-
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
-
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio;
+    @JoinColumn(name = "condicioniva", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicioniva;
     @OneToMany(mappedBy = "empresa")
     private List<Trabajotercerizado> trabajotercerizadoList;
-
 
     public Empresametalurgica() {
     }
@@ -174,15 +169,13 @@ public class Empresametalurgica implements Serializable {
         this.cuit = cuit;
     }
 
-    public Condicioniva getCondicioniva() {
-        return condicioniva;
+    public Responsable getResponsable() {
+        return responsable;
     }
 
-    public void setCondicioniva(Condicioniva condicioniva) {
-        this.condicioniva = condicioniva;
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
     }
-
-
 
     public Domicilio getDomicilio() {
         return domicilio;
@@ -192,13 +185,12 @@ public class Empresametalurgica implements Serializable {
         this.domicilio = domicilio;
     }
 
-
-    public Responsable getResponsable() {
-        return responsable;
+    public Condicioniva getCondicioniva() {
+        return condicioniva;
     }
 
-    public void setResponsable(Responsable responsable) {
-        this.responsable = responsable;
+    public void setCondicioniva(Condicioniva condicioniva) {
+        this.condicioniva = condicioniva;
     }
 
     public List<Trabajotercerizado> getTrabajotercerizadoList() {
@@ -208,7 +200,6 @@ public class Empresametalurgica implements Serializable {
     public void setTrabajotercerizadoList(List<Trabajotercerizado> trabajotercerizadoList) {
         this.trabajotercerizadoList = trabajotercerizadoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -232,7 +223,7 @@ public class Empresametalurgica implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Empresametalurgica[idempresametalurgica=" + idempresametalurgica + "]";
+        return "metalsoft.datos.jpa.entity.Empresametalurgica[ idempresametalurgica=" + idempresametalurgica + " ]";
     }
-
+    
 }

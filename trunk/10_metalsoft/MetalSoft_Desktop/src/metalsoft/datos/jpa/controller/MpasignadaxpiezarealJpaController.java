@@ -2,31 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Detallempasignada;
 import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
 import metalsoft.datos.jpa.entity.Piezareal;
+import metalsoft.datos.jpa.entity.Detallempasignada;
 
 /**
  *
  * @author Nino
  */
-public class MpasignadaxpiezarealJpaController {
+public class MpasignadaxpiezarealJpaController implements Serializable {
 
-    public MpasignadaxpiezarealJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public MpasignadaxpiezarealJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -39,24 +38,24 @@ public class MpasignadaxpiezarealJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detallempasignada iddetallempasignada = mpasignadaxpiezareal.getIddetallempasignada();
-            if (iddetallempasignada != null) {
-                iddetallempasignada = em.getReference(iddetallempasignada.getClass(), iddetallempasignada.getId());
-                mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignada);
-            }
             Piezareal idpiezareal = mpasignadaxpiezareal.getIdpiezareal();
             if (idpiezareal != null) {
                 idpiezareal = em.getReference(idpiezareal.getClass(), idpiezareal.getIdpiezareal());
                 mpasignadaxpiezareal.setIdpiezareal(idpiezareal);
             }
-            em.persist(mpasignadaxpiezareal);
+            Detallempasignada iddetallempasignada = mpasignadaxpiezareal.getIddetallempasignada();
             if (iddetallempasignada != null) {
-                iddetallempasignada.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
-                iddetallempasignada = em.merge(iddetallempasignada);
+                iddetallempasignada = em.getReference(iddetallempasignada.getClass(), iddetallempasignada.getId());
+                mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignada);
             }
+            em.persist(mpasignadaxpiezareal);
             if (idpiezareal != null) {
                 idpiezareal.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
                 idpiezareal = em.merge(idpiezareal);
+            }
+            if (iddetallempasignada != null) {
+                iddetallempasignada.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
+                iddetallempasignada = em.merge(iddetallempasignada);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,27 +76,19 @@ public class MpasignadaxpiezarealJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Mpasignadaxpiezareal persistentMpasignadaxpiezareal = em.find(Mpasignadaxpiezareal.class, mpasignadaxpiezareal.getId());
-            Detallempasignada iddetallempasignadaOld = persistentMpasignadaxpiezareal.getIddetallempasignada();
-            Detallempasignada iddetallempasignadaNew = mpasignadaxpiezareal.getIddetallempasignada();
             Piezareal idpiezarealOld = persistentMpasignadaxpiezareal.getIdpiezareal();
             Piezareal idpiezarealNew = mpasignadaxpiezareal.getIdpiezareal();
-            if (iddetallempasignadaNew != null) {
-                iddetallempasignadaNew = em.getReference(iddetallempasignadaNew.getClass(), iddetallempasignadaNew.getId());
-                mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignadaNew);
-            }
+            Detallempasignada iddetallempasignadaOld = persistentMpasignadaxpiezareal.getIddetallempasignada();
+            Detallempasignada iddetallempasignadaNew = mpasignadaxpiezareal.getIddetallempasignada();
             if (idpiezarealNew != null) {
                 idpiezarealNew = em.getReference(idpiezarealNew.getClass(), idpiezarealNew.getIdpiezareal());
                 mpasignadaxpiezareal.setIdpiezareal(idpiezarealNew);
             }
+            if (iddetallempasignadaNew != null) {
+                iddetallempasignadaNew = em.getReference(iddetallempasignadaNew.getClass(), iddetallempasignadaNew.getId());
+                mpasignadaxpiezareal.setIddetallempasignada(iddetallempasignadaNew);
+            }
             mpasignadaxpiezareal = em.merge(mpasignadaxpiezareal);
-            if (iddetallempasignadaOld != null && !iddetallempasignadaOld.equals(iddetallempasignadaNew)) {
-                iddetallempasignadaOld.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
-                iddetallempasignadaOld = em.merge(iddetallempasignadaOld);
-            }
-            if (iddetallempasignadaNew != null && !iddetallempasignadaNew.equals(iddetallempasignadaOld)) {
-                iddetallempasignadaNew.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
-                iddetallempasignadaNew = em.merge(iddetallempasignadaNew);
-            }
             if (idpiezarealOld != null && !idpiezarealOld.equals(idpiezarealNew)) {
                 idpiezarealOld.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
                 idpiezarealOld = em.merge(idpiezarealOld);
@@ -105,6 +96,14 @@ public class MpasignadaxpiezarealJpaController {
             if (idpiezarealNew != null && !idpiezarealNew.equals(idpiezarealOld)) {
                 idpiezarealNew.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
                 idpiezarealNew = em.merge(idpiezarealNew);
+            }
+            if (iddetallempasignadaOld != null && !iddetallempasignadaOld.equals(iddetallempasignadaNew)) {
+                iddetallempasignadaOld.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
+                iddetallempasignadaOld = em.merge(iddetallempasignadaOld);
+            }
+            if (iddetallempasignadaNew != null && !iddetallempasignadaNew.equals(iddetallempasignadaOld)) {
+                iddetallempasignadaNew.getMpasignadaxpiezarealList().add(mpasignadaxpiezareal);
+                iddetallempasignadaNew = em.merge(iddetallempasignadaNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -135,15 +134,15 @@ public class MpasignadaxpiezarealJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The mpasignadaxpiezareal with id " + id + " no longer exists.", enfe);
             }
-            Detallempasignada iddetallempasignada = mpasignadaxpiezareal.getIddetallempasignada();
-            if (iddetallempasignada != null) {
-                iddetallempasignada.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
-                iddetallempasignada = em.merge(iddetallempasignada);
-            }
             Piezareal idpiezareal = mpasignadaxpiezareal.getIdpiezareal();
             if (idpiezareal != null) {
                 idpiezareal.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
                 idpiezareal = em.merge(idpiezareal);
+            }
+            Detallempasignada iddetallempasignada = mpasignadaxpiezareal.getIddetallempasignada();
+            if (iddetallempasignada != null) {
+                iddetallempasignada.getMpasignadaxpiezarealList().remove(mpasignadaxpiezareal);
+                iddetallempasignada = em.merge(iddetallempasignada);
             }
             em.remove(mpasignadaxpiezareal);
             em.getTransaction().commit();
@@ -199,5 +198,5 @@ public class MpasignadaxpiezarealJpaController {
             em.close();
         }
     }
-
+    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,14 +9,11 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -33,8 +29,6 @@ import javax.persistence.SequenceGenerator;
 public class Formadepago implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "formadepago_seq")
-    @SequenceGenerator(name = "formadepago_seq", sequenceName = "formadepago_idformapago_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "idformapago")
     private Long idformapago;
@@ -44,10 +38,8 @@ public class Formadepago implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "formapago")
     private List<Factura> facturaList;
-
     @OneToMany(mappedBy = "formadepago")
     private List<Comprobantepago> comprobantepagoList;
-
 
     public Formadepago() {
     }
@@ -88,7 +80,6 @@ public class Formadepago implements Serializable {
         this.facturaList = facturaList;
     }
 
-
     public List<Comprobantepago> getComprobantepagoList() {
         return comprobantepagoList;
     }
@@ -96,8 +87,6 @@ public class Formadepago implements Serializable {
     public void setComprobantepagoList(List<Comprobantepago> comprobantepagoList) {
         this.comprobantepagoList = comprobantepagoList;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -121,7 +110,7 @@ public class Formadepago implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Formadepago[idformapago=" + idformapago + "]";
+        return "metalsoft.datos.jpa.entity.Formadepago[ idformapago=" + idformapago + " ]";
     }
-
+    
 }

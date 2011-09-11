@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,9 +15,9 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
-import metalsoft.datos.jpa.entity.Empleado;
-import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
+import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
+import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class EjecucionetapaproduccionJpaController {
+public class EjecucionetapaproduccionJpaController implements Serializable {
 
-    public EjecucionetapaproduccionJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public EjecucionetapaproduccionJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -46,20 +45,20 @@ public class EjecucionetapaproduccionJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empleado empleado = ejecucionetapaproduccion.getEmpleado();
-            if (empleado != null) {
-                empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
-                ejecucionetapaproduccion.setEmpleado(empleado);
+            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccion);
             }
             Estadoejecetapaprod estado = ejecucionetapaproduccion.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionetapaproduccion.setEstado(estado);
             }
-            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
-            if (idetapaproduccion != null) {
-                idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
-                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccion);
+            Empleado empleado = ejecucionetapaproduccion.getEmpleado();
+            if (empleado != null) {
+                empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
+                ejecucionetapaproduccion.setEmpleado(empleado);
             }
             List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionList = new ArrayList<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach : ejecucionetapaproduccion.getDetalleejecucionplanificacionList()) {
@@ -68,17 +67,17 @@ public class EjecucionetapaproduccionJpaController {
             }
             ejecucionetapaproduccion.setDetalleejecucionplanificacionList(attachedDetalleejecucionplanificacionList);
             em.persist(ejecucionetapaproduccion);
-            if (empleado != null) {
-                empleado.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
-                empleado = em.merge(empleado);
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
+                idetapaproduccion = em.merge(idetapaproduccion);
             }
             if (estado != null) {
                 estado.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
                 estado = em.merge(estado);
             }
-            if (idetapaproduccion != null) {
-                idetapaproduccion.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
-                idetapaproduccion = em.merge(idetapaproduccion);
+            if (empleado != null) {
+                empleado.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
+                empleado = em.merge(empleado);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacion : ejecucionetapaproduccion.getDetalleejecucionplanificacionList()) {
                 Ejecucionetapaproduccion oldEjecucionetapaOfDetalleejecucionplanificacionListDetalleejecucionplanificacion = detalleejecucionplanificacionListDetalleejecucionplanificacion.getEjecucionetapa();
@@ -108,12 +107,12 @@ public class EjecucionetapaproduccionJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Ejecucionetapaproduccion persistentEjecucionetapaproduccion = em.find(Ejecucionetapaproduccion.class, ejecucionetapaproduccion.getId());
-            Empleado empleadoOld = persistentEjecucionetapaproduccion.getEmpleado();
-            Empleado empleadoNew = ejecucionetapaproduccion.getEmpleado();
-            Estadoejecetapaprod estadoOld = persistentEjecucionetapaproduccion.getEstado();
-            Estadoejecetapaprod estadoNew = ejecucionetapaproduccion.getEstado();
             Etapadeproduccion idetapaproduccionOld = persistentEjecucionetapaproduccion.getIdetapaproduccion();
             Etapadeproduccion idetapaproduccionNew = ejecucionetapaproduccion.getIdetapaproduccion();
+            Estadoejecetapaprod estadoOld = persistentEjecucionetapaproduccion.getEstado();
+            Estadoejecetapaprod estadoNew = ejecucionetapaproduccion.getEstado();
+            Empleado empleadoOld = persistentEjecucionetapaproduccion.getEmpleado();
+            Empleado empleadoNew = ejecucionetapaproduccion.getEmpleado();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListOld = persistentEjecucionetapaproduccion.getDetalleejecucionplanificacionList();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListNew = ejecucionetapaproduccion.getDetalleejecucionplanificacionList();
             List<String> illegalOrphanMessages = null;
@@ -128,17 +127,17 @@ public class EjecucionetapaproduccionJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (empleadoNew != null) {
-                empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
-                ejecucionetapaproduccion.setEmpleado(empleadoNew);
+            if (idetapaproduccionNew != null) {
+                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
+                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccionNew);
             }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionetapaproduccion.setEstado(estadoNew);
             }
-            if (idetapaproduccionNew != null) {
-                idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
-                ejecucionetapaproduccion.setIdetapaproduccion(idetapaproduccionNew);
+            if (empleadoNew != null) {
+                empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
+                ejecucionetapaproduccion.setEmpleado(empleadoNew);
             }
             List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionListNew = new ArrayList<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionListNew) {
@@ -148,13 +147,13 @@ public class EjecucionetapaproduccionJpaController {
             detalleejecucionplanificacionListNew = attachedDetalleejecucionplanificacionListNew;
             ejecucionetapaproduccion.setDetalleejecucionplanificacionList(detalleejecucionplanificacionListNew);
             ejecucionetapaproduccion = em.merge(ejecucionetapaproduccion);
-            if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
-                empleadoOld.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
-                empleadoOld = em.merge(empleadoOld);
+            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
+                idetapaproduccionOld.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
+                idetapaproduccionOld = em.merge(idetapaproduccionOld);
             }
-            if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
-                empleadoNew.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
-                empleadoNew = em.merge(empleadoNew);
+            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
+                idetapaproduccionNew.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
+                idetapaproduccionNew = em.merge(idetapaproduccionNew);
             }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
@@ -164,13 +163,13 @@ public class EjecucionetapaproduccionJpaController {
                 estadoNew.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
                 estadoNew = em.merge(estadoNew);
             }
-            if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
-                idetapaproduccionOld.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
-                idetapaproduccionOld = em.merge(idetapaproduccionOld);
+            if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
+                empleadoOld.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
+                empleadoOld = em.merge(empleadoOld);
             }
-            if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
-                idetapaproduccionNew.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
-                idetapaproduccionNew = em.merge(idetapaproduccionNew);
+            if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
+                empleadoNew.getEjecucionetapaproduccionList().add(ejecucionetapaproduccion);
+                empleadoNew = em.merge(empleadoNew);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacion : detalleejecucionplanificacionListNew) {
                 if (!detalleejecucionplanificacionListOld.contains(detalleejecucionplanificacionListNewDetalleejecucionplanificacion)) {
@@ -223,20 +222,20 @@ public class EjecucionetapaproduccionJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Empleado empleado = ejecucionetapaproduccion.getEmpleado();
-            if (empleado != null) {
-                empleado.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
-                empleado = em.merge(empleado);
+            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
+            if (idetapaproduccion != null) {
+                idetapaproduccion.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
+                idetapaproduccion = em.merge(idetapaproduccion);
             }
             Estadoejecetapaprod estado = ejecucionetapaproduccion.getEstado();
             if (estado != null) {
                 estado.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
                 estado = em.merge(estado);
             }
-            Etapadeproduccion idetapaproduccion = ejecucionetapaproduccion.getIdetapaproduccion();
-            if (idetapaproduccion != null) {
-                idetapaproduccion.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
-                idetapaproduccion = em.merge(idetapaproduccion);
+            Empleado empleado = ejecucionetapaproduccion.getEmpleado();
+            if (empleado != null) {
+                empleado.getEjecucionetapaproduccionList().remove(ejecucionetapaproduccion);
+                empleado = em.merge(empleado);
             }
             em.remove(ejecucionetapaproduccion);
             em.getTransaction().commit();
@@ -292,5 +291,5 @@ public class EjecucionetapaproduccionJpaController {
             em.close();
         }
     }
-
+    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -40,10 +39,8 @@ public class Prioridad implements Serializable {
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prioridad")
     private List<Pedido> pedidoList;
-
     @OneToMany(mappedBy = "prioridad")
     private List<Cliente> clienteList;
-
 
     public Prioridad() {
     }
@@ -84,8 +81,6 @@ public class Prioridad implements Serializable {
         this.pedidoList = pedidoList;
     }
 
-
-
     public List<Cliente> getClienteList() {
         return clienteList;
     }
@@ -93,7 +88,6 @@ public class Prioridad implements Serializable {
     public void setClienteList(List<Cliente> clienteList) {
         this.clienteList = clienteList;
     }
-
 
     @Override
     public int hashCode() {
@@ -117,7 +111,7 @@ public class Prioridad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Prioridad[idprioridad=" + idprioridad + "]";
+        return "metalsoft.datos.jpa.entity.Prioridad[ idprioridad=" + idprioridad + " ]";
     }
-
+    
 }

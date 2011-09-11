@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -39,13 +38,12 @@ public class Tiporeclamo implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tiporeclamo")
     private List<Reclamoproveedor> reclamoproveedorList;
-
+    @OneToMany(mappedBy = "tiporeclamo")
+    private List<Reclamoempresamantenimiento> reclamoempresamantenimientoList;
     @OneToMany(mappedBy = "tiporeclamo")
     private List<Reclamoempresametalurgica> reclamoempresametalurgicaList;
-
     @OneToMany(mappedBy = "tiporeclamo")
     private List<Reclamocliente> reclamoclienteList;
-
 
     public Tiporeclamo() {
     }
@@ -86,7 +84,13 @@ public class Tiporeclamo implements Serializable {
         this.reclamoproveedorList = reclamoproveedorList;
     }
 
+    public List<Reclamoempresamantenimiento> getReclamoempresamantenimientoList() {
+        return reclamoempresamantenimientoList;
+    }
 
+    public void setReclamoempresamantenimientoList(List<Reclamoempresamantenimiento> reclamoempresamantenimientoList) {
+        this.reclamoempresamantenimientoList = reclamoempresamantenimientoList;
+    }
 
     public List<Reclamoempresametalurgica> getReclamoempresametalurgicaList() {
         return reclamoempresametalurgicaList;
@@ -96,7 +100,6 @@ public class Tiporeclamo implements Serializable {
         this.reclamoempresametalurgicaList = reclamoempresametalurgicaList;
     }
 
-
     public List<Reclamocliente> getReclamoclienteList() {
         return reclamoclienteList;
     }
@@ -104,8 +107,6 @@ public class Tiporeclamo implements Serializable {
     public void setReclamoclienteList(List<Reclamocliente> reclamoclienteList) {
         this.reclamoclienteList = reclamoclienteList;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -129,7 +130,7 @@ public class Tiporeclamo implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Tiporeclamo[idtiporeclamo=" + idtiporeclamo + "]";
+        return "metalsoft.datos.jpa.entity.Tiporeclamo[ idtiporeclamo=" + idtiporeclamo + " ]";
     }
-
+    
 }

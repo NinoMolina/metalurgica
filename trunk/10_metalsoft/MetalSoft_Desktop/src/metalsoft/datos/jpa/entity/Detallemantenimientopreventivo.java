@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -40,14 +39,12 @@ public class Detallemantenimientopreventivo implements Serializable {
     private Date duracion;
     @Column(name = "observaciones")
     private String observaciones;
-    @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Mantenimientopreventivo mantenimientopreventivo;
-
     @JoinColumn(name = "servicio", referencedColumnName = "idservicio")
     @ManyToOne
     private Servicio servicio;
-
+    @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Mantenimientopreventivo mantenimientopreventivo;
 
     public Detallemantenimientopreventivo() {
     }
@@ -84,15 +81,6 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Mantenimientopreventivo getMantenimientopreventivo() {
-        return mantenimientopreventivo;
-    }
-
-    public void setMantenimientopreventivo(Mantenimientopreventivo mantenimientopreventivo) {
-        this.mantenimientopreventivo = mantenimientopreventivo;
-    }
-
-
     public Servicio getServicio() {
         return servicio;
     }
@@ -101,6 +89,13 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.servicio = servicio;
     }
 
+    public Mantenimientopreventivo getMantenimientopreventivo() {
+        return mantenimientopreventivo;
+    }
+
+    public void setMantenimientopreventivo(Mantenimientopreventivo mantenimientopreventivo) {
+        this.mantenimientopreventivo = mantenimientopreventivo;
+    }
 
     @Override
     public int hashCode() {
@@ -124,7 +119,7 @@ public class Detallemantenimientopreventivo implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallemantenimientopreventivo[detallemantenimientopreventivoPK=" + detallemantenimientopreventivoPK + "]";
+        return "metalsoft.datos.jpa.entity.Detallemantenimientopreventivo[ detallemantenimientopreventivoPK=" + detallemantenimientopreventivoPK + " ]";
     }
-
+    
 }

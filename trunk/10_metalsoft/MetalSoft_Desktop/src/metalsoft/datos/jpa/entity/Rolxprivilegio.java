@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -28,14 +27,12 @@ public class Rolxprivilegio implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected RolxprivilegioPK rolxprivilegioPK;
-    @JoinColumn(name = "idprivilegio", referencedColumnName = "idprivilegio", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Privilegio privilegio;
-
     @JoinColumn(name = "idrol", referencedColumnName = "idrol", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Rol rol;
-
+    @JoinColumn(name = "idprivilegio", referencedColumnName = "idprivilegio", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Privilegio privilegio;
 
     public Rolxprivilegio() {
     }
@@ -56,14 +53,6 @@ public class Rolxprivilegio implements Serializable {
         this.rolxprivilegioPK = rolxprivilegioPK;
     }
 
-    public Privilegio getPrivilegio() {
-        return privilegio;
-    }
-
-    public void setPrivilegio(Privilegio privilegio) {
-        this.privilegio = privilegio;
-    }
-
     public Rol getRol() {
         return rol;
     }
@@ -72,7 +61,13 @@ public class Rolxprivilegio implements Serializable {
         this.rol = rol;
     }
 
+    public Privilegio getPrivilegio() {
+        return privilegio;
+    }
 
+    public void setPrivilegio(Privilegio privilegio) {
+        this.privilegio = privilegio;
+    }
 
     @Override
     public int hashCode() {
@@ -96,7 +91,7 @@ public class Rolxprivilegio implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Rolxprivilegio[rolxprivilegioPK=" + rolxprivilegioPK + "]";
+        return "metalsoft.datos.jpa.entity.Rolxprivilegio[ rolxprivilegioPK=" + rolxprivilegioPK + " ]";
     }
-
+    
 }

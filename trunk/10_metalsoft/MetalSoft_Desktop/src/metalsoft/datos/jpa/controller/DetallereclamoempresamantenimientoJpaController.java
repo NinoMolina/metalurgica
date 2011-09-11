@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,18 +15,18 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento;
-import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
-import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
+import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
+import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 
 /**
  *
  * @author Nino
  */
-public class DetallereclamoempresamantenimientoJpaController {
+public class DetallereclamoempresamantenimientoJpaController implements Serializable {
 
-    public DetallereclamoempresamantenimientoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallereclamoempresamantenimientoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -40,33 +39,33 @@ public class DetallereclamoempresamantenimientoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detalletrabajotercerizado iddetalletrabajo = detallereclamoempresamantenimiento.getIddetalletrabajo();
-            if (iddetalletrabajo != null) {
-                iddetalletrabajo = em.getReference(iddetalletrabajo.getClass(), iddetalletrabajo.getIddetalle());
-                detallereclamoempresamantenimiento.setIddetalletrabajo(iddetalletrabajo);
+            Trabajotercerizado idtrabajo = detallereclamoempresamantenimiento.getIdtrabajo();
+            if (idtrabajo != null) {
+                idtrabajo = em.getReference(idtrabajo.getClass(), idtrabajo.getIdtrabajo());
+                detallereclamoempresamantenimiento.setIdtrabajo(idtrabajo);
             }
             Reclamoempresamantenimiento idreclamo = detallereclamoempresamantenimiento.getIdreclamo();
             if (idreclamo != null) {
                 idreclamo = em.getReference(idreclamo.getClass(), idreclamo.getIdreclamo());
                 detallereclamoempresamantenimiento.setIdreclamo(idreclamo);
             }
-            Trabajotercerizado idtrabajo = detallereclamoempresamantenimiento.getIdtrabajo();
-            if (idtrabajo != null) {
-                idtrabajo = em.getReference(idtrabajo.getClass(), idtrabajo.getIdtrabajo());
-                detallereclamoempresamantenimiento.setIdtrabajo(idtrabajo);
+            Detalletrabajotercerizado iddetalletrabajo = detallereclamoempresamantenimiento.getIddetalletrabajo();
+            if (iddetalletrabajo != null) {
+                iddetalletrabajo = em.getReference(iddetalletrabajo.getClass(), iddetalletrabajo.getIddetalle());
+                detallereclamoempresamantenimiento.setIddetalletrabajo(iddetalletrabajo);
             }
             em.persist(detallereclamoempresamantenimiento);
-            if (iddetalletrabajo != null) {
-                iddetalletrabajo.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
-                iddetalletrabajo = em.merge(iddetalletrabajo);
+            if (idtrabajo != null) {
+                idtrabajo.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
+                idtrabajo = em.merge(idtrabajo);
             }
             if (idreclamo != null) {
                 idreclamo.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
                 idreclamo = em.merge(idreclamo);
             }
-            if (idtrabajo != null) {
-                idtrabajo.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
-                idtrabajo = em.merge(idtrabajo);
+            if (iddetalletrabajo != null) {
+                iddetalletrabajo.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
+                iddetalletrabajo = em.merge(iddetalletrabajo);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -87,32 +86,32 @@ public class DetallereclamoempresamantenimientoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallereclamoempresamantenimiento persistentDetallereclamoempresamantenimiento = em.find(Detallereclamoempresamantenimiento.class, detallereclamoempresamantenimiento.getIddetalle());
-            Detalletrabajotercerizado iddetalletrabajoOld = persistentDetallereclamoempresamantenimiento.getIddetalletrabajo();
-            Detalletrabajotercerizado iddetalletrabajoNew = detallereclamoempresamantenimiento.getIddetalletrabajo();
-            Reclamoempresamantenimiento idreclamoOld = persistentDetallereclamoempresamantenimiento.getIdreclamo();
-            Reclamoempresamantenimiento idreclamoNew = detallereclamoempresamantenimiento.getIdreclamo();
             Trabajotercerizado idtrabajoOld = persistentDetallereclamoempresamantenimiento.getIdtrabajo();
             Trabajotercerizado idtrabajoNew = detallereclamoempresamantenimiento.getIdtrabajo();
-            if (iddetalletrabajoNew != null) {
-                iddetalletrabajoNew = em.getReference(iddetalletrabajoNew.getClass(), iddetalletrabajoNew.getIddetalle());
-                detallereclamoempresamantenimiento.setIddetalletrabajo(iddetalletrabajoNew);
+            Reclamoempresamantenimiento idreclamoOld = persistentDetallereclamoempresamantenimiento.getIdreclamo();
+            Reclamoempresamantenimiento idreclamoNew = detallereclamoempresamantenimiento.getIdreclamo();
+            Detalletrabajotercerizado iddetalletrabajoOld = persistentDetallereclamoempresamantenimiento.getIddetalletrabajo();
+            Detalletrabajotercerizado iddetalletrabajoNew = detallereclamoempresamantenimiento.getIddetalletrabajo();
+            if (idtrabajoNew != null) {
+                idtrabajoNew = em.getReference(idtrabajoNew.getClass(), idtrabajoNew.getIdtrabajo());
+                detallereclamoempresamantenimiento.setIdtrabajo(idtrabajoNew);
             }
             if (idreclamoNew != null) {
                 idreclamoNew = em.getReference(idreclamoNew.getClass(), idreclamoNew.getIdreclamo());
                 detallereclamoempresamantenimiento.setIdreclamo(idreclamoNew);
             }
-            if (idtrabajoNew != null) {
-                idtrabajoNew = em.getReference(idtrabajoNew.getClass(), idtrabajoNew.getIdtrabajo());
-                detallereclamoempresamantenimiento.setIdtrabajo(idtrabajoNew);
+            if (iddetalletrabajoNew != null) {
+                iddetalletrabajoNew = em.getReference(iddetalletrabajoNew.getClass(), iddetalletrabajoNew.getIddetalle());
+                detallereclamoempresamantenimiento.setIddetalletrabajo(iddetalletrabajoNew);
             }
             detallereclamoempresamantenimiento = em.merge(detallereclamoempresamantenimiento);
-            if (iddetalletrabajoOld != null && !iddetalletrabajoOld.equals(iddetalletrabajoNew)) {
-                iddetalletrabajoOld.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
-                iddetalletrabajoOld = em.merge(iddetalletrabajoOld);
+            if (idtrabajoOld != null && !idtrabajoOld.equals(idtrabajoNew)) {
+                idtrabajoOld.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
+                idtrabajoOld = em.merge(idtrabajoOld);
             }
-            if (iddetalletrabajoNew != null && !iddetalletrabajoNew.equals(iddetalletrabajoOld)) {
-                iddetalletrabajoNew.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
-                iddetalletrabajoNew = em.merge(iddetalletrabajoNew);
+            if (idtrabajoNew != null && !idtrabajoNew.equals(idtrabajoOld)) {
+                idtrabajoNew.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
+                idtrabajoNew = em.merge(idtrabajoNew);
             }
             if (idreclamoOld != null && !idreclamoOld.equals(idreclamoNew)) {
                 idreclamoOld.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
@@ -122,13 +121,13 @@ public class DetallereclamoempresamantenimientoJpaController {
                 idreclamoNew.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
                 idreclamoNew = em.merge(idreclamoNew);
             }
-            if (idtrabajoOld != null && !idtrabajoOld.equals(idtrabajoNew)) {
-                idtrabajoOld.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
-                idtrabajoOld = em.merge(idtrabajoOld);
+            if (iddetalletrabajoOld != null && !iddetalletrabajoOld.equals(iddetalletrabajoNew)) {
+                iddetalletrabajoOld.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
+                iddetalletrabajoOld = em.merge(iddetalletrabajoOld);
             }
-            if (idtrabajoNew != null && !idtrabajoNew.equals(idtrabajoOld)) {
-                idtrabajoNew.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
-                idtrabajoNew = em.merge(idtrabajoNew);
+            if (iddetalletrabajoNew != null && !iddetalletrabajoNew.equals(iddetalletrabajoOld)) {
+                iddetalletrabajoNew.getDetallereclamoempresamantenimientoList().add(detallereclamoempresamantenimiento);
+                iddetalletrabajoNew = em.merge(iddetalletrabajoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -159,20 +158,20 @@ public class DetallereclamoempresamantenimientoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallereclamoempresamantenimiento with id " + id + " no longer exists.", enfe);
             }
-            Detalletrabajotercerizado iddetalletrabajo = detallereclamoempresamantenimiento.getIddetalletrabajo();
-            if (iddetalletrabajo != null) {
-                iddetalletrabajo.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
-                iddetalletrabajo = em.merge(iddetalletrabajo);
+            Trabajotercerizado idtrabajo = detallereclamoempresamantenimiento.getIdtrabajo();
+            if (idtrabajo != null) {
+                idtrabajo.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
+                idtrabajo = em.merge(idtrabajo);
             }
             Reclamoempresamantenimiento idreclamo = detallereclamoempresamantenimiento.getIdreclamo();
             if (idreclamo != null) {
                 idreclamo.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
                 idreclamo = em.merge(idreclamo);
             }
-            Trabajotercerizado idtrabajo = detallereclamoempresamantenimiento.getIdtrabajo();
-            if (idtrabajo != null) {
-                idtrabajo.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
-                idtrabajo = em.merge(idtrabajo);
+            Detalletrabajotercerizado iddetalletrabajo = detallereclamoempresamantenimiento.getIddetalletrabajo();
+            if (iddetalletrabajo != null) {
+                iddetalletrabajo.getDetallereclamoempresamantenimientoList().remove(detallereclamoempresamantenimiento);
+                iddetalletrabajo = em.merge(iddetalletrabajo);
             }
             em.remove(detallereclamoempresamantenimiento);
             em.getTransaction().commit();
@@ -228,5 +227,5 @@ public class DetallereclamoempresamantenimientoJpaController {
             em.close();
         }
     }
-
+    
 }

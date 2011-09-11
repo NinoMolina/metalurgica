@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,14 +9,18 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -38,12 +41,15 @@ public class Pieza implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pieza_seq")
+    @SequenceGenerator(name = "pieza_seq", sequenceName = "pieza_idpieza_seq", allocationSize = 1)
     @Column(name = "idpieza")
     private Long idpieza;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "tipomaterial")
     private BigInteger tipomaterial;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "alto")
     private BigDecimal alto;
     @Column(name = "ancho")
@@ -52,24 +58,25 @@ public class Pieza implements Serializable {
     private BigDecimal largo;
     @OneToMany(mappedBy = "idpieza")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-
-    @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
-    @ManyToOne
-    private Materiaprima materiaprima;
-
-    @JoinColumn(name = "matriz", referencedColumnName = "idmatriz")
-    @ManyToOne
-    private Matriz matriz;
-
     @JoinColumn(name = "unidadmedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidadmedida;
-
+    @JoinColumn(name = "matriz", referencedColumnName = "idmatriz")
+    @ManyToOne
+    private Matriz matriz;
+    @JoinColumn(name = "materiaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima materiaprima;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpieza")
+    private List<Piezareal> piezarealList;
     @OneToMany(mappedBy = "pieza")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
+    @OneToMany(mappedBy = "pieza")
+    private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
+    @OneToMany(mappedBy = "pieza")
+    private List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList;
     @OneToMany(mappedBy = "idpieza")
     private List<Detalleproductopresupuesto> detalleproductopresupuestoList;
-
 
     public Pieza() {
     }
@@ -134,15 +141,13 @@ public class Pieza implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-
-    public Materiaprima getMateriaprima() {
-        return materiaprima;
+    public Unidadmedida getUnidadmedida() {
+        return unidadmedida;
     }
 
-    public void setMateriaprima(Materiaprima materiaprima) {
-        this.materiaprima = materiaprima;
+    public void setUnidadmedida(Unidadmedida unidadmedida) {
+        this.unidadmedida = unidadmedida;
     }
-
 
     public Matriz getMatriz() {
         return matriz;
@@ -152,15 +157,21 @@ public class Pieza implements Serializable {
         this.matriz = matriz;
     }
 
-
-    public Unidadmedida getUnidadmedida() {
-        return unidadmedida;
+    public Materiaprima getMateriaprima() {
+        return materiaprima;
     }
 
-    public void setUnidadmedida(Unidadmedida unidadmedida) {
-        this.unidadmedida = unidadmedida;
+    public void setMateriaprima(Materiaprima materiaprima) {
+        this.materiaprima = materiaprima;
     }
 
+    public List<Piezareal> getPiezarealList() {
+        return piezarealList;
+    }
+
+    public void setPiezarealList(List<Piezareal> piezarealList) {
+        this.piezarealList = piezarealList;
+    }
 
     public List<Detalleejecucionplanificacion> getDetalleejecucionplanificacionList() {
         return detalleejecucionplanificacionList;
@@ -170,6 +181,22 @@ public class Pieza implements Serializable {
         this.detalleejecucionplanificacionList = detalleejecucionplanificacionList;
     }
 
+    public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
+        return detalleplanificacioncalidadList;
+    }
+
+    public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
+        this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
+    }
+
+    public List<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadList() {
+        return detalleejecucionplanificacioncalidadList;
+    }
+
+    public void setDetalleejecucionplanificacioncalidadList(List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList) {
+        this.detalleejecucionplanificacioncalidadList = detalleejecucionplanificacioncalidadList;
+    }
+
     public List<Detalleproductopresupuesto> getDetalleproductopresupuestoList() {
         return detalleproductopresupuestoList;
     }
@@ -177,7 +204,6 @@ public class Pieza implements Serializable {
     public void setDetalleproductopresupuestoList(List<Detalleproductopresupuesto> detalleproductopresupuestoList) {
         this.detalleproductopresupuestoList = detalleproductopresupuestoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -201,7 +227,7 @@ public class Pieza implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Pieza[idpieza=" + idpieza + "]";
+        return "metalsoft.datos.jpa.entity.Pieza[ idpieza=" + idpieza + " ]";
     }
-
+    
 }

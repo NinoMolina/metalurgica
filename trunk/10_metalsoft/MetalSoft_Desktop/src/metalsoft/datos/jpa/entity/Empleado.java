@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -46,11 +45,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Empleado.findByMotivoegreso", query = "SELECT e FROM Empleado e WHERE e.motivoegreso = :motivoegreso")})
 public class Empleado implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
+    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empleado_seq")
     @SequenceGenerator(name = "empleado_seq", sequenceName = "empleado_idempleado_seq", allocationSize = 1)
-    @Basic(optional = false)
     @Column(name = "idempleado")
     private Long idempleado;
     @Column(name = "legajo")
@@ -75,41 +73,33 @@ public class Empleado implements Serializable {
     private String motivoegreso;
     @OneToMany(mappedBy = "idempleado")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
     private List<Empleadoxturno> empleadoxturnoList;
-
     @OneToMany(mappedBy = "empleado")
     private List<Ejecucionetapaproduccion> ejecucionetapaproduccionList;
-
     @OneToMany(mappedBy = "empleado")
     private List<Mantenimientocorrectivo> mantenimientocorrectivoList;
-
+    @OneToMany(mappedBy = "empleado")
+    private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
     @OneToMany(mappedBy = "idempleado")
     private List<Disponibilidadhoraria> disponibilidadhorariaList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado1")
     private List<Asistencia> asistenciaList;
-
-    @JoinColumn(name = "cargo", referencedColumnName = "idcargo")
-    @ManyToOne
-    private Cargo cargo;
-    @JoinColumn(name = "categoria", referencedColumnName = "idcategoria")
-    @ManyToOne
-    private Categoria categoria;
-
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio;
-
-    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
-    @ManyToOne
-    private Tipodocumento tipodocumento;
-
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
-
+    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
+    @ManyToOne
+    private Tipodocumento tipodocumento;
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio;
+    @JoinColumn(name = "categoria", referencedColumnName = "idcategoria")
+    @ManyToOne
+    private Categoria categoria;
+    @JoinColumn(name = "cargo", referencedColumnName = "idcargo")
+    @ManyToOne
+    private Cargo cargo;
 
     public Empleado() {
     }
@@ -206,8 +196,6 @@ public class Empleado implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-   
-
     public List<Empleadoxturno> getEmpleadoxturnoList() {
         return empleadoxturnoList;
     }
@@ -215,8 +203,6 @@ public class Empleado implements Serializable {
     public void setEmpleadoxturnoList(List<Empleadoxturno> empleadoxturnoList) {
         this.empleadoxturnoList = empleadoxturnoList;
     }
-
-    
 
     public List<Ejecucionetapaproduccion> getEjecucionetapaproduccionList() {
         return ejecucionetapaproduccionList;
@@ -226,7 +212,6 @@ public class Empleado implements Serializable {
         this.ejecucionetapaproduccionList = ejecucionetapaproduccionList;
     }
 
-   
     public List<Mantenimientocorrectivo> getMantenimientocorrectivoList() {
         return mantenimientocorrectivoList;
     }
@@ -235,7 +220,14 @@ public class Empleado implements Serializable {
         this.mantenimientocorrectivoList = mantenimientocorrectivoList;
     }
 
-   
+    public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
+        return detalleplanificacioncalidadList;
+    }
+
+    public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
+        this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
+    }
+
     public List<Disponibilidadhoraria> getDisponibilidadhorariaList() {
         return disponibilidadhorariaList;
     }
@@ -244,7 +236,6 @@ public class Empleado implements Serializable {
         this.disponibilidadhorariaList = disponibilidadhorariaList;
     }
 
-   
     public List<Asistencia> getAsistenciaList() {
         return asistenciaList;
     }
@@ -253,17 +244,29 @@ public class Empleado implements Serializable {
         this.asistenciaList = asistenciaList;
     }
 
-    
-
-    public Cargo getCargo() {
-        return cargo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-   
+    public Tipodocumento getTipodocumento() {
+        return tipodocumento;
+    }
+
+    public void setTipodocumento(Tipodocumento tipodocumento) {
+        this.tipodocumento = tipodocumento;
+    }
+
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -273,34 +276,13 @@ public class Empleado implements Serializable {
         this.categoria = categoria;
     }
 
-   
-    public Domicilio getDomicilio() {
-        return domicilio;
+    public Cargo getCargo() {
+        return cargo;
     }
 
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
-
-    
-    public Tipodocumento getTipodocumento() {
-        return tipodocumento;
-    }
-
-    public void setTipodocumento(Tipodocumento tipodocumento) {
-        this.tipodocumento = tipodocumento;
-    }
-
-    
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    
 
     @Override
     public int hashCode() {
@@ -324,7 +306,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Empleado[idempleado=" + idempleado + "]";
+        return "metalsoft.datos.jpa.entity.Empleado[ idempleado=" + idempleado + " ]";
     }
-
+    
 }
