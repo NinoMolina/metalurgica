@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,10 +21,10 @@ import metalsoft.datos.jpa.entity.MaquinaxejecucionetapaproduccionPK;
  *
  * @author Nino
  */
-public class MaquinaxejecucionetapaproduccionJpaController {
+public class MaquinaxejecucionetapaproduccionJpaController implements Serializable {
 
-    public MaquinaxejecucionetapaproduccionJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public MaquinaxejecucionetapaproduccionJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -144,5 +143,5 @@ public class MaquinaxejecucionetapaproduccionJpaController {
             em.close();
         }
     }
-
+    
 }

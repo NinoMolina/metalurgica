@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -35,14 +34,12 @@ public class Detalleremito implements Serializable {
     private Integer cantidad;
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
-    @ManyToOne
-    private Producto producto;
-
     @JoinColumn(name = "idremito", referencedColumnName = "idremito", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Remito remito;
-
+    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto producto;
 
     public Detalleremito() {
     }
@@ -79,14 +76,6 @@ public class Detalleremito implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
     public Remito getRemito() {
         return remito;
     }
@@ -95,6 +84,13 @@ public class Detalleremito implements Serializable {
         this.remito = remito;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 
     @Override
     public int hashCode() {
@@ -118,7 +114,7 @@ public class Detalleremito implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleremito[detalleremitoPK=" + detalleremitoPK + "]";
+        return "metalsoft.datos.jpa.entity.Detalleremito[ detalleremitoPK=" + detalleremitoPK + " ]";
     }
-
+    
 }

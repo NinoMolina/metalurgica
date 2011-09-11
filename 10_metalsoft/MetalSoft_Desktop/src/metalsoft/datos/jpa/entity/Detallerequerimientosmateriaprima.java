@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -36,14 +35,12 @@ public class Detallerequerimientosmateriaprima implements Serializable {
     private Integer cantidadmateriaprima;
     @Column(name = "idpieza")
     private BigInteger idpieza;
-    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
-    @ManyToOne
-    private Materiaprima idmateriaprima;
-
     @JoinColumn(name = "idplanrequerimientosmateriaprima", referencedColumnName = "idplanrequerimientosmateriaprima", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Planrequerimientosmateriaprima planrequerimientosmateriaprima;
-
+    @JoinColumn(name = "idmateriaprima", referencedColumnName = "idmateriaprima")
+    @ManyToOne
+    private Materiaprima idmateriaprima;
 
     public Detallerequerimientosmateriaprima() {
     }
@@ -80,21 +77,20 @@ public class Detallerequerimientosmateriaprima implements Serializable {
         this.idpieza = idpieza;
     }
 
-    public Materiaprima getIdmateriaprima() {
-        return idmateriaprima;
-    }
-
-    public void setIdmateriaprima(Materiaprima idmateriaprima) {
-        this.idmateriaprima = idmateriaprima;
-    }
-
-
     public Planrequerimientosmateriaprima getPlanrequerimientosmateriaprima() {
         return planrequerimientosmateriaprima;
     }
 
     public void setPlanrequerimientosmateriaprima(Planrequerimientosmateriaprima planrequerimientosmateriaprima) {
         this.planrequerimientosmateriaprima = planrequerimientosmateriaprima;
+    }
+
+    public Materiaprima getIdmateriaprima() {
+        return idmateriaprima;
+    }
+
+    public void setIdmateriaprima(Materiaprima idmateriaprima) {
+        this.idmateriaprima = idmateriaprima;
     }
 
     @Override
@@ -119,7 +115,7 @@ public class Detallerequerimientosmateriaprima implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima[detallerequerimientosmateriaprimaPK=" + detallerequerimientosmateriaprimaPK + "]";
+        return "metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima[ detallerequerimientosmateriaprimaPK=" + detallerequerimientosmateriaprimaPK + " ]";
     }
-
+    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -28,14 +27,12 @@ public class Usuarioxrol implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsuarioxrolPK usuarioxrolPK;
-    @JoinColumn(name = "idrol", referencedColumnName = "idrol", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Rol rol;
-
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;
-
+    @JoinColumn(name = "idrol", referencedColumnName = "idrol", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Rol rol;
 
     public Usuarioxrol() {
     }
@@ -56,16 +53,6 @@ public class Usuarioxrol implements Serializable {
         this.usuarioxrolPK = usuarioxrolPK;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -74,7 +61,13 @@ public class Usuarioxrol implements Serializable {
         this.usuario = usuario;
     }
 
+    public Rol getRol() {
+        return rol;
+    }
 
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
     @Override
     public int hashCode() {
@@ -98,7 +91,7 @@ public class Usuarioxrol implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Usuarioxrol[usuarioxrolPK=" + usuarioxrolPK + "]";
+        return "metalsoft.datos.jpa.entity.Usuarioxrol[ usuarioxrolPK=" + usuarioxrolPK + " ]";
     }
-
+    
 }

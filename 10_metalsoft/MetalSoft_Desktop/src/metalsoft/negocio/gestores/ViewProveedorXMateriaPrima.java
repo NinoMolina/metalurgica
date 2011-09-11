@@ -4,16 +4,13 @@
  */
 package metalsoft.negocio.gestores;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import metalsoft.datos.PostgreSQLManager;
-import metalsoft.datos.dbobject.ProveedorxmateriaprimaDB;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.MateriaprimaJpaController;
 import metalsoft.datos.jpa.controller.ProveedorJpaController;
 import metalsoft.datos.jpa.controller.ProveedorxmateriaprimaJpaController;
@@ -181,7 +178,7 @@ public class ViewProveedorXMateriaPrima implements Comparable {
 
     public void cargarComboMateriaprima(JComboBox combo) {
         materiaprima = null;
-        MateriaprimaJpaController controller = new MateriaprimaJpaController();
+        MateriaprimaJpaController controller = new MateriaprimaJpaController(JpaUtil.getEntityManagerFactory());
         materiaprima = controller.findMateriaprimaEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -219,7 +216,7 @@ public class ViewProveedorXMateriaPrima implements Comparable {
 
     public void cargarComboProveedor(JComboBox combo) {
         proveedor = null;
-        ProveedorJpaController controller = new ProveedorJpaController();
+        ProveedorJpaController controller = new ProveedorJpaController(JpaUtil.getEntityManagerFactory());
         proveedor = controller.findProveedorEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -233,7 +230,7 @@ public class ViewProveedorXMateriaPrima implements Comparable {
     }
 
     public long asignarMPProveedor(Proveedorxmateriaprima pxm, long idMP, long idProv) {
-        ProveedorxmateriaprimaJpaController controller = new ProveedorxmateriaprimaJpaController();
+        ProveedorxmateriaprimaJpaController controller = new ProveedorxmateriaprimaJpaController(JpaUtil.getEntityManagerFactory());
          try {
              Materiaprima MP = searchMateriaprimaById(idMP);
              Proveedor Prov = searchProveedorById(idProv);

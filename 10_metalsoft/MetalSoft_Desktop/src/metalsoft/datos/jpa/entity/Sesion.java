@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -10,14 +9,11 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,8 +35,6 @@ public class Sesion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "session_seq")
-    @SequenceGenerator(name = "session_seq", sequenceName = "sesion_idsesion_seq", allocationSize = 1)
     @Column(name = "idsesion")
     private Long idsesion;
     @Column(name = "fechainicio")
@@ -58,7 +52,6 @@ public class Sesion implements Serializable {
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario usuario;
-
 
     public Sesion() {
     }
@@ -115,7 +108,6 @@ public class Sesion implements Serializable {
         this.usuario = usuario;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,7 +130,7 @@ public class Sesion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Sesion[idsesion=" + idsesion + "]";
+        return "metalsoft.datos.jpa.entity.Sesion[ idsesion=" + idsesion + " ]";
     }
-
+    
 }

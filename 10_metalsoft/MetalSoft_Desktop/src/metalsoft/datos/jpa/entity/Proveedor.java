@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -13,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,6 +47,8 @@ public class Proveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "proveedor_seq")
+    @SequenceGenerator(name = "proveedor_seq", sequenceName = "proveedor_idproveedor_seq", allocationSize = 1)
     @Column(name = "idproveedor")
     private Long idproveedor;
     @Column(name = "nroproveedor")
@@ -69,22 +73,17 @@ public class Proveedor implements Serializable {
     private String cuit;
     @OneToMany(mappedBy = "proveedor")
     private List<Compra> compraList;
-
-    @JoinColumn(name = "condicion", referencedColumnName = "idcondicioniva")
-    @ManyToOne
-    private Condicioniva condicion;
-
-    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
-    @ManyToOne
-    private Domicilio domicilio;
-
     @JoinColumn(name = "responsable", referencedColumnName = "idresponsable")
     @ManyToOne
     private Responsable responsable;
-
+    @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
+    @ManyToOne
+    private Domicilio domicilio;
+    @JoinColumn(name = "condicion", referencedColumnName = "idcondicioniva")
+    @ManyToOne
+    private Condicioniva condicion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor")
     private List<Proveedorxmateriaprima> proveedorxmateriaprimaList;
-
 
     public Proveedor() {
     }
@@ -181,15 +180,13 @@ public class Proveedor implements Serializable {
         this.compraList = compraList;
     }
 
-
-    public Condicioniva getCondicion() {
-        return condicion;
+    public Responsable getResponsable() {
+        return responsable;
     }
 
-    public void setCondicion(Condicioniva condicion) {
-        this.condicion = condicion;
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
     }
-
 
     public Domicilio getDomicilio() {
         return domicilio;
@@ -199,15 +196,13 @@ public class Proveedor implements Serializable {
         this.domicilio = domicilio;
     }
 
-
-    public Responsable getResponsable() {
-        return responsable;
+    public Condicioniva getCondicion() {
+        return condicion;
     }
 
-    public void setResponsable(Responsable responsable) {
-        this.responsable = responsable;
+    public void setCondicion(Condicioniva condicion) {
+        this.condicion = condicion;
     }
-
 
     public List<Proveedorxmateriaprima> getProveedorxmateriaprimaList() {
         return proveedorxmateriaprimaList;
@@ -216,7 +211,6 @@ public class Proveedor implements Serializable {
     public void setProveedorxmateriaprimaList(List<Proveedorxmateriaprima> proveedorxmateriaprimaList) {
         this.proveedorxmateriaprimaList = proveedorxmateriaprimaList;
     }
-
 
     @Override
     public int hashCode() {
@@ -240,7 +234,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Proveedor[idproveedor=" + idproveedor + "]";
+        return "metalsoft.datos.jpa.entity.Proveedor[ idproveedor=" + idproveedor + " ]";
     }
-
+    
 }

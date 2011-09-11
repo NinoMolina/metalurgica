@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -40,14 +39,12 @@ public class Detallemantenimientocorrectivo implements Serializable {
     private Date duracion;
     @Column(name = "motivorotura")
     private String motivorotura;
-    @JoinColumn(name = "idmantenimientocorrectivo", referencedColumnName = "idmantenimientocorrectivo", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Mantenimientocorrectivo mantenimientocorrectivo;
-
     @JoinColumn(name = "rotura", referencedColumnName = "idrotura")
     @ManyToOne
     private Rotura rotura;
-
+    @JoinColumn(name = "idmantenimientocorrectivo", referencedColumnName = "idmantenimientocorrectivo", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Mantenimientocorrectivo mantenimientocorrectivo;
 
     public Detallemantenimientocorrectivo() {
     }
@@ -84,16 +81,6 @@ public class Detallemantenimientocorrectivo implements Serializable {
         this.motivorotura = motivorotura;
     }
 
-    public Mantenimientocorrectivo getMantenimientocorrectivo() {
-        return mantenimientocorrectivo;
-    }
-
-    public void setMantenimientocorrectivo(Mantenimientocorrectivo mantenimientocorrectivo) {
-        this.mantenimientocorrectivo = mantenimientocorrectivo;
-    }
-
-
-
     public Rotura getRotura() {
         return rotura;
     }
@@ -102,7 +89,13 @@ public class Detallemantenimientocorrectivo implements Serializable {
         this.rotura = rotura;
     }
 
+    public Mantenimientocorrectivo getMantenimientocorrectivo() {
+        return mantenimientocorrectivo;
+    }
 
+    public void setMantenimientocorrectivo(Mantenimientocorrectivo mantenimientocorrectivo) {
+        this.mantenimientocorrectivo = mantenimientocorrectivo;
+    }
 
     @Override
     public int hashCode() {
@@ -126,7 +119,7 @@ public class Detallemantenimientocorrectivo implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo[detallemantenimientocorrectivoPK=" + detallemantenimientocorrectivoPK + "]";
+        return "metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo[ detallemantenimientocorrectivoPK=" + detallemantenimientocorrectivoPK + " ]";
     }
-
+    
 }

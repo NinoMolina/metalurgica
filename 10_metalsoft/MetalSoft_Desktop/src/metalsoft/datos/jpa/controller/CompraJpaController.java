@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,8 +15,8 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Compra;
-import metalsoft.datos.jpa.entity.Estadocompra;
 import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Estadocompra;
 import metalsoft.datos.jpa.entity.Detallecompra;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import metalsoft.datos.jpa.entity.Reclamoproveedor;
  *
  * @author Nino
  */
-public class CompraJpaController {
+public class CompraJpaController implements Serializable {
 
-    public CompraJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public CompraJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -49,15 +48,15 @@ public class CompraJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Estadocompra estado = compra.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                compra.setEstado(estado);
-            }
             Proveedor proveedor = compra.getProveedor();
             if (proveedor != null) {
                 proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
                 compra.setProveedor(proveedor);
+            }
+            Estadocompra estado = compra.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                compra.setEstado(estado);
             }
             List<Detallecompra> attachedDetallecompraList = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListDetallecompraToAttach : compra.getDetallecompraList()) {
@@ -72,13 +71,13 @@ public class CompraJpaController {
             }
             compra.setReclamoproveedorList(attachedReclamoproveedorList);
             em.persist(compra);
-            if (estado != null) {
-                estado.getCompraList().add(compra);
-                estado = em.merge(estado);
-            }
             if (proveedor != null) {
                 proveedor.getCompraList().add(compra);
                 proveedor = em.merge(proveedor);
+            }
+            if (estado != null) {
+                estado.getCompraList().add(compra);
+                estado = em.merge(estado);
             }
             for (Detallecompra detallecompraListDetallecompra : compra.getDetallecompraList()) {
                 Compra oldCompraOfDetallecompraListDetallecompra = detallecompraListDetallecompra.getCompra();
@@ -117,10 +116,10 @@ public class CompraJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Compra persistentCompra = em.find(Compra.class, compra.getIdcompra());
-            Estadocompra estadoOld = persistentCompra.getEstado();
-            Estadocompra estadoNew = compra.getEstado();
             Proveedor proveedorOld = persistentCompra.getProveedor();
             Proveedor proveedorNew = compra.getProveedor();
+            Estadocompra estadoOld = persistentCompra.getEstado();
+            Estadocompra estadoNew = compra.getEstado();
             List<Detallecompra> detallecompraListOld = persistentCompra.getDetallecompraList();
             List<Detallecompra> detallecompraListNew = compra.getDetallecompraList();
             List<Reclamoproveedor> reclamoproveedorListOld = persistentCompra.getReclamoproveedorList();
@@ -137,13 +136,13 @@ public class CompraJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                compra.setEstado(estadoNew);
-            }
             if (proveedorNew != null) {
                 proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
                 compra.setProveedor(proveedorNew);
+            }
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                compra.setEstado(estadoNew);
             }
             List<Detallecompra> attachedDetallecompraListNew = new ArrayList<Detallecompra>();
             for (Detallecompra detallecompraListNewDetallecompraToAttach : detallecompraListNew) {
@@ -160,14 +159,6 @@ public class CompraJpaController {
             reclamoproveedorListNew = attachedReclamoproveedorListNew;
             compra.setReclamoproveedorList(reclamoproveedorListNew);
             compra = em.merge(compra);
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getCompraList().remove(compra);
-                estadoOld = em.merge(estadoOld);
-            }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getCompraList().add(compra);
-                estadoNew = em.merge(estadoNew);
-            }
             if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
                 proveedorOld.getCompraList().remove(compra);
                 proveedorOld = em.merge(proveedorOld);
@@ -175,6 +166,14 @@ public class CompraJpaController {
             if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
                 proveedorNew.getCompraList().add(compra);
                 proveedorNew = em.merge(proveedorNew);
+            }
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getCompraList().remove(compra);
+                estadoOld = em.merge(estadoOld);
+            }
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getCompraList().add(compra);
+                estadoNew = em.merge(estadoNew);
             }
             for (Detallecompra detallecompraListNewDetallecompra : detallecompraListNew) {
                 if (!detallecompraListOld.contains(detallecompraListNewDetallecompra)) {
@@ -244,15 +243,15 @@ public class CompraJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Estadocompra estado = compra.getEstado();
-            if (estado != null) {
-                estado.getCompraList().remove(compra);
-                estado = em.merge(estado);
-            }
             Proveedor proveedor = compra.getProveedor();
             if (proveedor != null) {
                 proveedor.getCompraList().remove(compra);
                 proveedor = em.merge(proveedor);
+            }
+            Estadocompra estado = compra.getEstado();
+            if (estado != null) {
+                estado.getCompraList().remove(compra);
+                estado = em.merge(estado);
             }
             List<Reclamoproveedor> reclamoproveedorList = compra.getReclamoproveedorList();
             for (Reclamoproveedor reclamoproveedorListReclamoproveedor : reclamoproveedorList) {
@@ -313,5 +312,5 @@ public class CompraJpaController {
             em.close();
         }
     }
-
+    
 }

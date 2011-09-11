@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,17 +16,17 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.DetalleremitoPK;
-import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.datos.jpa.entity.Remito;
+import metalsoft.datos.jpa.entity.Producto;
 
 /**
  *
  * @author Nino
  */
-public class DetalleremitoJpaController {
+public class DetalleremitoJpaController implements Serializable {
 
-    public DetalleremitoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetalleremitoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -44,24 +43,24 @@ public class DetalleremitoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Producto producto = detalleremito.getProducto();
-            if (producto != null) {
-                producto = em.getReference(producto.getClass(), producto.getIdproducto());
-                detalleremito.setProducto(producto);
-            }
             Remito remito = detalleremito.getRemito();
             if (remito != null) {
                 remito = em.getReference(remito.getClass(), remito.getIdremito());
                 detalleremito.setRemito(remito);
             }
-            em.persist(detalleremito);
+            Producto producto = detalleremito.getProducto();
             if (producto != null) {
-                producto.getDetalleremitoList().add(detalleremito);
-                producto = em.merge(producto);
+                producto = em.getReference(producto.getClass(), producto.getIdproducto());
+                detalleremito.setProducto(producto);
             }
+            em.persist(detalleremito);
             if (remito != null) {
                 remito.getDetalleremitoList().add(detalleremito);
                 remito = em.merge(remito);
+            }
+            if (producto != null) {
+                producto.getDetalleremitoList().add(detalleremito);
+                producto = em.merge(producto);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -83,27 +82,19 @@ public class DetalleremitoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detalleremito persistentDetalleremito = em.find(Detalleremito.class, detalleremito.getDetalleremitoPK());
-            Producto productoOld = persistentDetalleremito.getProducto();
-            Producto productoNew = detalleremito.getProducto();
             Remito remitoOld = persistentDetalleremito.getRemito();
             Remito remitoNew = detalleremito.getRemito();
-            if (productoNew != null) {
-                productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
-                detalleremito.setProducto(productoNew);
-            }
+            Producto productoOld = persistentDetalleremito.getProducto();
+            Producto productoNew = detalleremito.getProducto();
             if (remitoNew != null) {
                 remitoNew = em.getReference(remitoNew.getClass(), remitoNew.getIdremito());
                 detalleremito.setRemito(remitoNew);
             }
+            if (productoNew != null) {
+                productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
+                detalleremito.setProducto(productoNew);
+            }
             detalleremito = em.merge(detalleremito);
-            if (productoOld != null && !productoOld.equals(productoNew)) {
-                productoOld.getDetalleremitoList().remove(detalleremito);
-                productoOld = em.merge(productoOld);
-            }
-            if (productoNew != null && !productoNew.equals(productoOld)) {
-                productoNew.getDetalleremitoList().add(detalleremito);
-                productoNew = em.merge(productoNew);
-            }
             if (remitoOld != null && !remitoOld.equals(remitoNew)) {
                 remitoOld.getDetalleremitoList().remove(detalleremito);
                 remitoOld = em.merge(remitoOld);
@@ -111,6 +102,14 @@ public class DetalleremitoJpaController {
             if (remitoNew != null && !remitoNew.equals(remitoOld)) {
                 remitoNew.getDetalleremitoList().add(detalleremito);
                 remitoNew = em.merge(remitoNew);
+            }
+            if (productoOld != null && !productoOld.equals(productoNew)) {
+                productoOld.getDetalleremitoList().remove(detalleremito);
+                productoOld = em.merge(productoOld);
+            }
+            if (productoNew != null && !productoNew.equals(productoOld)) {
+                productoNew.getDetalleremitoList().add(detalleremito);
+                productoNew = em.merge(productoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -141,15 +140,15 @@ public class DetalleremitoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleremito with id " + id + " no longer exists.", enfe);
             }
-            Producto producto = detalleremito.getProducto();
-            if (producto != null) {
-                producto.getDetalleremitoList().remove(detalleremito);
-                producto = em.merge(producto);
-            }
             Remito remito = detalleremito.getRemito();
             if (remito != null) {
                 remito.getDetalleremitoList().remove(detalleremito);
                 remito = em.merge(remito);
+            }
+            Producto producto = detalleremito.getProducto();
+            if (producto != null) {
+                producto.getDetalleremitoList().remove(detalleremito);
+                producto = em.merge(producto);
             }
             em.remove(detalleremito);
             em.getTransaction().commit();
@@ -205,5 +204,5 @@ public class DetalleremitoJpaController {
             em.close();
         }
     }
-
+    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -39,22 +38,19 @@ public class Unidadmedida implements Serializable {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "encm")
     private Double encm;
     @Column(name = "enmm")
     private Double enmm;
     @OneToMany(mappedBy = "unidadmedida")
     private List<Materiaprima> materiaprimaList;
-
     @OneToMany(mappedBy = "unidadmedida")
     private List<Pieza> piezaList;
-
     @OneToMany(mappedBy = "idunidadmedida")
     private List<Maquina> maquinaList;
-
     @OneToMany(mappedBy = "unidaddemedida")
     private List<Etapadeproduccion> etapadeproduccionList;
-
 
     public Unidadmedida() {
     }
@@ -111,7 +107,6 @@ public class Unidadmedida implements Serializable {
         this.materiaprimaList = materiaprimaList;
     }
 
-
     public List<Pieza> getPiezaList() {
         return piezaList;
     }
@@ -119,8 +114,6 @@ public class Unidadmedida implements Serializable {
     public void setPiezaList(List<Pieza> piezaList) {
         this.piezaList = piezaList;
     }
-
-
 
     public List<Maquina> getMaquinaList() {
         return maquinaList;
@@ -130,8 +123,6 @@ public class Unidadmedida implements Serializable {
         this.maquinaList = maquinaList;
     }
 
-
-
     public List<Etapadeproduccion> getEtapadeproduccionList() {
         return etapadeproduccionList;
     }
@@ -139,8 +130,6 @@ public class Unidadmedida implements Serializable {
     public void setEtapadeproduccionList(List<Etapadeproduccion> etapadeproduccionList) {
         this.etapadeproduccionList = etapadeproduccionList;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -164,7 +153,7 @@ public class Unidadmedida implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Unidadmedida[idunidadmedida=" + idunidadmedida + "]";
+        return "metalsoft.datos.jpa.entity.Unidadmedida[ idunidadmedida=" + idunidadmedida + " ]";
     }
-
+    
 }

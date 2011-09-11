@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -13,10 +12,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,11 +40,14 @@ public class Presupuesto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presupuesto_seq")
+    @SequenceGenerator(name = "presupuesto_seq", sequenceName = "presupuesto_idpresupuesto_seq", allocationSize = 1)
     @Column(name = "idpresupuesto")
     private Long idpresupuesto;
     @Column(name = "fechapresupuesto")
     @Temporal(TemporalType.DATE)
     private Date fechapresupuesto;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "montototal")
     private Double montototal;
     @Column(name = "fechavencimiento")
@@ -52,10 +57,8 @@ public class Presupuesto implements Serializable {
     private BigInteger nropresupuesto;
     @OneToMany(mappedBy = "presupuesto")
     private List<Pedido> pedidoList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpresupuesto")
     private List<Detallepresupuesto> detallepresupuestoList;
-
 
     public Presupuesto() {
     }
@@ -112,8 +115,6 @@ public class Presupuesto implements Serializable {
         this.pedidoList = pedidoList;
     }
 
-
-
     public List<Detallepresupuesto> getDetallepresupuestoList() {
         return detallepresupuestoList;
     }
@@ -121,7 +122,6 @@ public class Presupuesto implements Serializable {
     public void setDetallepresupuestoList(List<Detallepresupuesto> detallepresupuestoList) {
         this.detallepresupuestoList = detallepresupuestoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -145,7 +145,7 @@ public class Presupuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Presupuesto[idpresupuesto=" + idpresupuesto + "]";
+        return "metalsoft.datos.jpa.entity.Presupuesto[ idpresupuesto=" + idpresupuesto + " ]";
     }
-
+    
 }

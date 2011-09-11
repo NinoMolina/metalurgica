@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,18 +17,18 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.DetallemantenimientocorrectivoPK;
-import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Rotura;
+import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import java.util.ArrayList;
 
 /**
  *
  * @author Nino
  */
-public class DetallemantenimientocorrectivoJpaController {
+public class DetallemantenimientocorrectivoJpaController implements Serializable {
 
-    public DetallemantenimientocorrectivoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetallemantenimientocorrectivoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -60,24 +59,24 @@ public class DetallemantenimientocorrectivoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Mantenimientocorrectivo mantenimientocorrectivo = detallemantenimientocorrectivo.getMantenimientocorrectivo();
-            if (mantenimientocorrectivo != null) {
-                mantenimientocorrectivo = em.getReference(mantenimientocorrectivo.getClass(), mantenimientocorrectivo.getIdmantenimientocorrectivo());
-                detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivo);
-            }
             Rotura rotura = detallemantenimientocorrectivo.getRotura();
             if (rotura != null) {
                 rotura = em.getReference(rotura.getClass(), rotura.getIdrotura());
                 detallemantenimientocorrectivo.setRotura(rotura);
             }
-            em.persist(detallemantenimientocorrectivo);
+            Mantenimientocorrectivo mantenimientocorrectivo = detallemantenimientocorrectivo.getMantenimientocorrectivo();
             if (mantenimientocorrectivo != null) {
-                mantenimientocorrectivo.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
-                mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
+                mantenimientocorrectivo = em.getReference(mantenimientocorrectivo.getClass(), mantenimientocorrectivo.getIdmantenimientocorrectivo());
+                detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivo);
             }
+            em.persist(detallemantenimientocorrectivo);
             if (rotura != null) {
                 rotura.getDetallemantenimientocorrectivoList().add(detallemantenimientocorrectivo);
                 rotura = em.merge(rotura);
+            }
+            if (mantenimientocorrectivo != null) {
+                mantenimientocorrectivo.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
+                mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -99,10 +98,10 @@ public class DetallemantenimientocorrectivoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallemantenimientocorrectivo persistentDetallemantenimientocorrectivo = em.find(Detallemantenimientocorrectivo.class, detallemantenimientocorrectivo.getDetallemantenimientocorrectivoPK());
-            Mantenimientocorrectivo mantenimientocorrectivoOld = persistentDetallemantenimientocorrectivo.getMantenimientocorrectivo();
-            Mantenimientocorrectivo mantenimientocorrectivoNew = detallemantenimientocorrectivo.getMantenimientocorrectivo();
             Rotura roturaOld = persistentDetallemantenimientocorrectivo.getRotura();
             Rotura roturaNew = detallemantenimientocorrectivo.getRotura();
+            Mantenimientocorrectivo mantenimientocorrectivoOld = persistentDetallemantenimientocorrectivo.getMantenimientocorrectivo();
+            Mantenimientocorrectivo mantenimientocorrectivoNew = detallemantenimientocorrectivo.getMantenimientocorrectivo();
             List<String> illegalOrphanMessages = null;
             if (mantenimientocorrectivoNew != null && !mantenimientocorrectivoNew.equals(mantenimientocorrectivoOld)) {
                 Detallemantenimientocorrectivo oldDetallemantenimientocorrectivoOfMantenimientocorrectivo = mantenimientocorrectivoNew.getDetallemantenimientocorrectivo();
@@ -116,23 +115,15 @@ public class DetallemantenimientocorrectivoJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (mantenimientocorrectivoNew != null) {
-                mantenimientocorrectivoNew = em.getReference(mantenimientocorrectivoNew.getClass(), mantenimientocorrectivoNew.getIdmantenimientocorrectivo());
-                detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivoNew);
-            }
             if (roturaNew != null) {
                 roturaNew = em.getReference(roturaNew.getClass(), roturaNew.getIdrotura());
                 detallemantenimientocorrectivo.setRotura(roturaNew);
             }
+            if (mantenimientocorrectivoNew != null) {
+                mantenimientocorrectivoNew = em.getReference(mantenimientocorrectivoNew.getClass(), mantenimientocorrectivoNew.getIdmantenimientocorrectivo());
+                detallemantenimientocorrectivo.setMantenimientocorrectivo(mantenimientocorrectivoNew);
+            }
             detallemantenimientocorrectivo = em.merge(detallemantenimientocorrectivo);
-            if (mantenimientocorrectivoOld != null && !mantenimientocorrectivoOld.equals(mantenimientocorrectivoNew)) {
-                mantenimientocorrectivoOld.setDetallemantenimientocorrectivo(null);
-                mantenimientocorrectivoOld = em.merge(mantenimientocorrectivoOld);
-            }
-            if (mantenimientocorrectivoNew != null && !mantenimientocorrectivoNew.equals(mantenimientocorrectivoOld)) {
-                mantenimientocorrectivoNew.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
-                mantenimientocorrectivoNew = em.merge(mantenimientocorrectivoNew);
-            }
             if (roturaOld != null && !roturaOld.equals(roturaNew)) {
                 roturaOld.getDetallemantenimientocorrectivoList().remove(detallemantenimientocorrectivo);
                 roturaOld = em.merge(roturaOld);
@@ -140,6 +131,14 @@ public class DetallemantenimientocorrectivoJpaController {
             if (roturaNew != null && !roturaNew.equals(roturaOld)) {
                 roturaNew.getDetallemantenimientocorrectivoList().add(detallemantenimientocorrectivo);
                 roturaNew = em.merge(roturaNew);
+            }
+            if (mantenimientocorrectivoOld != null && !mantenimientocorrectivoOld.equals(mantenimientocorrectivoNew)) {
+                mantenimientocorrectivoOld.setDetallemantenimientocorrectivo(null);
+                mantenimientocorrectivoOld = em.merge(mantenimientocorrectivoOld);
+            }
+            if (mantenimientocorrectivoNew != null && !mantenimientocorrectivoNew.equals(mantenimientocorrectivoOld)) {
+                mantenimientocorrectivoNew.setDetallemantenimientocorrectivo(detallemantenimientocorrectivo);
+                mantenimientocorrectivoNew = em.merge(mantenimientocorrectivoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -170,15 +169,15 @@ public class DetallemantenimientocorrectivoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallemantenimientocorrectivo with id " + id + " no longer exists.", enfe);
             }
-            Mantenimientocorrectivo mantenimientocorrectivo = detallemantenimientocorrectivo.getMantenimientocorrectivo();
-            if (mantenimientocorrectivo != null) {
-                mantenimientocorrectivo.setDetallemantenimientocorrectivo(null);
-                mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
-            }
             Rotura rotura = detallemantenimientocorrectivo.getRotura();
             if (rotura != null) {
                 rotura.getDetallemantenimientocorrectivoList().remove(detallemantenimientocorrectivo);
                 rotura = em.merge(rotura);
+            }
+            Mantenimientocorrectivo mantenimientocorrectivo = detallemantenimientocorrectivo.getMantenimientocorrectivo();
+            if (mantenimientocorrectivo != null) {
+                mantenimientocorrectivo.setDetallemantenimientocorrectivo(null);
+                mantenimientocorrectivo = em.merge(mantenimientocorrectivo);
             }
             em.remove(detallemantenimientocorrectivo);
             em.getTransaction().commit();
@@ -234,5 +233,5 @@ public class DetallemantenimientocorrectivoJpaController {
             em.close();
         }
     }
-
+    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -44,13 +43,10 @@ public class Codigodebarra implements Serializable {
     private String codigo;
     @OneToMany(mappedBy = "codigobarra")
     private List<Productoreal> productorealList;
-
     @OneToMany(mappedBy = "codbarra")
     private List<Materiaprima> materiaprimaList;
-
     @OneToMany(mappedBy = "idcodigobarra")
     private List<Piezareal> piezarealList;
-
 
     public Codigodebarra() {
     }
@@ -91,8 +87,6 @@ public class Codigodebarra implements Serializable {
         this.productorealList = productorealList;
     }
 
-
-
     public List<Materiaprima> getMateriaprimaList() {
         return materiaprimaList;
     }
@@ -101,8 +95,6 @@ public class Codigodebarra implements Serializable {
         this.materiaprimaList = materiaprimaList;
     }
 
-
-
     public List<Piezareal> getPiezarealList() {
         return piezarealList;
     }
@@ -110,8 +102,6 @@ public class Codigodebarra implements Serializable {
     public void setPiezarealList(List<Piezareal> piezarealList) {
         this.piezarealList = piezarealList;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -135,7 +125,7 @@ public class Codigodebarra implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Codigodebarra[idcodigo=" + idcodigo + "]";
+        return "metalsoft.datos.jpa.entity.Codigodebarra[ idcodigo=" + idcodigo + " ]";
     }
-
+    
 }

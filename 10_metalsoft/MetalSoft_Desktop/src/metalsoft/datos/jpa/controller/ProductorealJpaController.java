@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,9 +14,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Codigodebarra;
-import metalsoft.datos.jpa.entity.Estadoproductoreal;
+import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Estadoproductoreal;
+import metalsoft.datos.jpa.entity.Codigodebarra;
 import metalsoft.datos.jpa.entity.Detalleproductoreal;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,10 @@ import metalsoft.datos.jpa.entity.Productoreal;
  *
  * @author Nino
  */
-public class ProductorealJpaController {
+public class ProductorealJpaController implements Serializable {
 
-    public ProductorealJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public ProductorealJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -46,47 +46,56 @@ public class ProductorealJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Codigodebarra codigobarra = productoreal.getCodigobarra();
-            if (codigobarra != null) {
-                codigobarra = em.getReference(codigobarra.getClass(), codigobarra.getIdcodigo());
-                productoreal.setCodigobarra(codigobarra);
-            }
-            Estadoproductoreal estado = productoreal.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                productoreal.setEstado(estado);
+            Producto producto = productoreal.getProducto();
+            if (producto != null) {
+                producto = em.getReference(producto.getClass(), producto.getIdproducto());
+                productoreal.setProducto(producto);
             }
             Pedido idpedido = productoreal.getIdpedido();
             if (idpedido != null) {
                 idpedido = em.getReference(idpedido.getClass(), idpedido.getIdpedido());
                 productoreal.setIdpedido(idpedido);
             }
+            Estadoproductoreal estado = productoreal.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                productoreal.setEstado(estado);
+            }
+            Codigodebarra codigobarra = productoreal.getCodigobarra();
+            if (codigobarra != null) {
+                codigobarra = em.getReference(codigobarra.getClass(), codigobarra.getIdcodigo());
+                productoreal.setCodigobarra(codigobarra);
+            }
             List<Detalleproductoreal> attachedDetalleproductorealList = new ArrayList<Detalleproductoreal>();
             for (Detalleproductoreal detalleproductorealListDetalleproductorealToAttach : productoreal.getDetalleproductorealList()) {
-                detalleproductorealListDetalleproductorealToAttach = em.getReference(detalleproductorealListDetalleproductorealToAttach.getClass(), detalleproductorealListDetalleproductorealToAttach.getDetalleproductorealPK());
+                detalleproductorealListDetalleproductorealToAttach = em.getReference(detalleproductorealListDetalleproductorealToAttach.getClass(), detalleproductorealListDetalleproductorealToAttach.getIddetalle());
                 attachedDetalleproductorealList.add(detalleproductorealListDetalleproductorealToAttach);
             }
             productoreal.setDetalleproductorealList(attachedDetalleproductorealList);
             em.persist(productoreal);
-            if (codigobarra != null) {
-                codigobarra.getProductorealList().add(productoreal);
-                codigobarra = em.merge(codigobarra);
-            }
-            if (estado != null) {
-                estado.getProductorealList().add(productoreal);
-                estado = em.merge(estado);
+            if (producto != null) {
+                producto.getProductorealList().add(productoreal);
+                producto = em.merge(producto);
             }
             if (idpedido != null) {
                 idpedido.getProductorealList().add(productoreal);
                 idpedido = em.merge(idpedido);
             }
+            if (estado != null) {
+                estado.getProductorealList().add(productoreal);
+                estado = em.merge(estado);
+            }
+            if (codigobarra != null) {
+                codigobarra.getProductorealList().add(productoreal);
+                codigobarra = em.merge(codigobarra);
+            }
             for (Detalleproductoreal detalleproductorealListDetalleproductoreal : productoreal.getDetalleproductorealList()) {
-                Productoreal oldProductorealOfDetalleproductorealListDetalleproductoreal = detalleproductorealListDetalleproductoreal.getProductoreal();
-                detalleproductorealListDetalleproductoreal.setProductoreal(productoreal);
+                Productoreal oldIdproductorealOfDetalleproductorealListDetalleproductoreal = detalleproductorealListDetalleproductoreal.getIdproductoreal();
+                detalleproductorealListDetalleproductoreal.setIdproductoreal(productoreal);
                 detalleproductorealListDetalleproductoreal = em.merge(detalleproductorealListDetalleproductoreal);
-                if (oldProductorealOfDetalleproductorealListDetalleproductoreal != null) {
-                    oldProductorealOfDetalleproductorealListDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListDetalleproductoreal);
-                    oldProductorealOfDetalleproductorealListDetalleproductoreal = em.merge(oldProductorealOfDetalleproductorealListDetalleproductoreal);
+                if (oldIdproductorealOfDetalleproductorealListDetalleproductoreal != null) {
+                    oldIdproductorealOfDetalleproductorealListDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListDetalleproductoreal);
+                    oldIdproductorealOfDetalleproductorealListDetalleproductoreal = em.merge(oldIdproductorealOfDetalleproductorealListDetalleproductoreal);
                 }
             }
             em.getTransaction().commit();
@@ -108,12 +117,14 @@ public class ProductorealJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Productoreal persistentProductoreal = em.find(Productoreal.class, productoreal.getIdproductoreal());
-            Codigodebarra codigobarraOld = persistentProductoreal.getCodigobarra();
-            Codigodebarra codigobarraNew = productoreal.getCodigobarra();
-            Estadoproductoreal estadoOld = persistentProductoreal.getEstado();
-            Estadoproductoreal estadoNew = productoreal.getEstado();
+            Producto productoOld = persistentProductoreal.getProducto();
+            Producto productoNew = productoreal.getProducto();
             Pedido idpedidoOld = persistentProductoreal.getIdpedido();
             Pedido idpedidoNew = productoreal.getIdpedido();
+            Estadoproductoreal estadoOld = persistentProductoreal.getEstado();
+            Estadoproductoreal estadoNew = productoreal.getEstado();
+            Codigodebarra codigobarraOld = persistentProductoreal.getCodigobarra();
+            Codigodebarra codigobarraNew = productoreal.getCodigobarra();
             List<Detalleproductoreal> detalleproductorealListOld = persistentProductoreal.getDetalleproductorealList();
             List<Detalleproductoreal> detalleproductorealListNew = productoreal.getDetalleproductorealList();
             List<String> illegalOrphanMessages = null;
@@ -122,47 +133,43 @@ public class ProductorealJpaController {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Detalleproductoreal " + detalleproductorealListOldDetalleproductoreal + " since its productoreal field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Detalleproductoreal " + detalleproductorealListOldDetalleproductoreal + " since its idproductoreal field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (codigobarraNew != null) {
-                codigobarraNew = em.getReference(codigobarraNew.getClass(), codigobarraNew.getIdcodigo());
-                productoreal.setCodigobarra(codigobarraNew);
-            }
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                productoreal.setEstado(estadoNew);
+            if (productoNew != null) {
+                productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
+                productoreal.setProducto(productoNew);
             }
             if (idpedidoNew != null) {
                 idpedidoNew = em.getReference(idpedidoNew.getClass(), idpedidoNew.getIdpedido());
                 productoreal.setIdpedido(idpedidoNew);
             }
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                productoreal.setEstado(estadoNew);
+            }
+            if (codigobarraNew != null) {
+                codigobarraNew = em.getReference(codigobarraNew.getClass(), codigobarraNew.getIdcodigo());
+                productoreal.setCodigobarra(codigobarraNew);
+            }
             List<Detalleproductoreal> attachedDetalleproductorealListNew = new ArrayList<Detalleproductoreal>();
             for (Detalleproductoreal detalleproductorealListNewDetalleproductorealToAttach : detalleproductorealListNew) {
-                detalleproductorealListNewDetalleproductorealToAttach = em.getReference(detalleproductorealListNewDetalleproductorealToAttach.getClass(), detalleproductorealListNewDetalleproductorealToAttach.getDetalleproductorealPK());
+                detalleproductorealListNewDetalleproductorealToAttach = em.getReference(detalleproductorealListNewDetalleproductorealToAttach.getClass(), detalleproductorealListNewDetalleproductorealToAttach.getIddetalle());
                 attachedDetalleproductorealListNew.add(detalleproductorealListNewDetalleproductorealToAttach);
             }
             detalleproductorealListNew = attachedDetalleproductorealListNew;
             productoreal.setDetalleproductorealList(detalleproductorealListNew);
             productoreal = em.merge(productoreal);
-            if (codigobarraOld != null && !codigobarraOld.equals(codigobarraNew)) {
-                codigobarraOld.getProductorealList().remove(productoreal);
-                codigobarraOld = em.merge(codigobarraOld);
+            if (productoOld != null && !productoOld.equals(productoNew)) {
+                productoOld.getProductorealList().remove(productoreal);
+                productoOld = em.merge(productoOld);
             }
-            if (codigobarraNew != null && !codigobarraNew.equals(codigobarraOld)) {
-                codigobarraNew.getProductorealList().add(productoreal);
-                codigobarraNew = em.merge(codigobarraNew);
-            }
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getProductorealList().remove(productoreal);
-                estadoOld = em.merge(estadoOld);
-            }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getProductorealList().add(productoreal);
-                estadoNew = em.merge(estadoNew);
+            if (productoNew != null && !productoNew.equals(productoOld)) {
+                productoNew.getProductorealList().add(productoreal);
+                productoNew = em.merge(productoNew);
             }
             if (idpedidoOld != null && !idpedidoOld.equals(idpedidoNew)) {
                 idpedidoOld.getProductorealList().remove(productoreal);
@@ -172,14 +179,30 @@ public class ProductorealJpaController {
                 idpedidoNew.getProductorealList().add(productoreal);
                 idpedidoNew = em.merge(idpedidoNew);
             }
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getProductorealList().remove(productoreal);
+                estadoOld = em.merge(estadoOld);
+            }
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getProductorealList().add(productoreal);
+                estadoNew = em.merge(estadoNew);
+            }
+            if (codigobarraOld != null && !codigobarraOld.equals(codigobarraNew)) {
+                codigobarraOld.getProductorealList().remove(productoreal);
+                codigobarraOld = em.merge(codigobarraOld);
+            }
+            if (codigobarraNew != null && !codigobarraNew.equals(codigobarraOld)) {
+                codigobarraNew.getProductorealList().add(productoreal);
+                codigobarraNew = em.merge(codigobarraNew);
+            }
             for (Detalleproductoreal detalleproductorealListNewDetalleproductoreal : detalleproductorealListNew) {
                 if (!detalleproductorealListOld.contains(detalleproductorealListNewDetalleproductoreal)) {
-                    Productoreal oldProductorealOfDetalleproductorealListNewDetalleproductoreal = detalleproductorealListNewDetalleproductoreal.getProductoreal();
-                    detalleproductorealListNewDetalleproductoreal.setProductoreal(productoreal);
+                    Productoreal oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal = detalleproductorealListNewDetalleproductoreal.getIdproductoreal();
+                    detalleproductorealListNewDetalleproductoreal.setIdproductoreal(productoreal);
                     detalleproductorealListNewDetalleproductoreal = em.merge(detalleproductorealListNewDetalleproductoreal);
-                    if (oldProductorealOfDetalleproductorealListNewDetalleproductoreal != null && !oldProductorealOfDetalleproductorealListNewDetalleproductoreal.equals(productoreal)) {
-                        oldProductorealOfDetalleproductorealListNewDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListNewDetalleproductoreal);
-                        oldProductorealOfDetalleproductorealListNewDetalleproductoreal = em.merge(oldProductorealOfDetalleproductorealListNewDetalleproductoreal);
+                    if (oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal != null && !oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal.equals(productoreal)) {
+                        oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListNewDetalleproductoreal);
+                        oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal = em.merge(oldIdproductorealOfDetalleproductorealListNewDetalleproductoreal);
                     }
                 }
             }
@@ -218,25 +241,30 @@ public class ProductorealJpaController {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Productoreal (" + productoreal + ") cannot be destroyed since the Detalleproductoreal " + detalleproductorealListOrphanCheckDetalleproductoreal + " in its detalleproductorealList field has a non-nullable productoreal field.");
+                illegalOrphanMessages.add("This Productoreal (" + productoreal + ") cannot be destroyed since the Detalleproductoreal " + detalleproductorealListOrphanCheckDetalleproductoreal + " in its detalleproductorealList field has a non-nullable idproductoreal field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Codigodebarra codigobarra = productoreal.getCodigobarra();
-            if (codigobarra != null) {
-                codigobarra.getProductorealList().remove(productoreal);
-                codigobarra = em.merge(codigobarra);
+            Producto producto = productoreal.getProducto();
+            if (producto != null) {
+                producto.getProductorealList().remove(productoreal);
+                producto = em.merge(producto);
+            }
+            Pedido idpedido = productoreal.getIdpedido();
+            if (idpedido != null) {
+                idpedido.getProductorealList().remove(productoreal);
+                idpedido = em.merge(idpedido);
             }
             Estadoproductoreal estado = productoreal.getEstado();
             if (estado != null) {
                 estado.getProductorealList().remove(productoreal);
                 estado = em.merge(estado);
             }
-            Pedido idpedido = productoreal.getIdpedido();
-            if (idpedido != null) {
-                idpedido.getProductorealList().remove(productoreal);
-                idpedido = em.merge(idpedido);
+            Codigodebarra codigobarra = productoreal.getCodigobarra();
+            if (codigobarra != null) {
+                codigobarra.getProductorealList().remove(productoreal);
+                codigobarra = em.merge(codigobarra);
             }
             em.remove(productoreal);
             em.getTransaction().commit();
@@ -292,5 +320,5 @@ public class ProductorealJpaController {
             em.close();
         }
     }
-
+    
 }

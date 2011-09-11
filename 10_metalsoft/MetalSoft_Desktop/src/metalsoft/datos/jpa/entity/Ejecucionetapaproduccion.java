@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -48,7 +47,7 @@ public class Ejecucionetapaproduccion implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ejecucionetapaproduccion_seq")
-    @SequenceGenerator(name = "ejecucionetapaproduccion_seq", sequenceName = "ejecucionetapaproduccion_idejecucion_seq", allocationSize = 1)
+    @SequenceGenerator(name = "ejecucionetapaproduccion_seq", sequenceName = "ejecucionetapaproduccion_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "nombre")
@@ -74,18 +73,15 @@ public class Ejecucionetapaproduccion implements Serializable {
     @Basic(optional = false)
     @Column(name = "nroejecucion")
     private long nroejecucion;
-    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
-    @ManyToOne
-    private Empleado empleado;
-
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadoejecetapaprod estado;
-
     @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
     @ManyToOne(optional = false)
     private Etapadeproduccion idetapaproduccion;
-
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecetapaprod estado;
+    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
+    @ManyToOne
+    private Empleado empleado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapa")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
 
@@ -181,12 +177,12 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.nroejecucion = nroejecucion;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Etapadeproduccion getIdetapaproduccion() {
+        return idetapaproduccion;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
+        this.idetapaproduccion = idetapaproduccion;
     }
 
     public Estadoejecetapaprod getEstado() {
@@ -197,15 +193,13 @@ public class Ejecucionetapaproduccion implements Serializable {
         this.estado = estado;
     }
 
-
-    public Etapadeproduccion getIdetapaproduccion() {
-        return idetapaproduccion;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
-    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
-
 
     public List<Detalleejecucionplanificacion> getDetalleejecucionplanificacionList() {
         return detalleejecucionplanificacionList;
@@ -237,7 +231,7 @@ public class Ejecucionetapaproduccion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Ejecucionetapaproduccion[id=" + id + "]";
+        return "metalsoft.datos.jpa.entity.Ejecucionetapaproduccion[ id=" + id + " ]";
     }
-
+    
 }

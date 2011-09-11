@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -13,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +40,8 @@ public class Remito implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "remito_seq")
+    @SequenceGenerator(name = "remito_seq", sequenceName = "remito_idremito_seq", allocationSize = 1)
     @Column(name = "idremito")
     private Long idremito;
     @Column(name = "nroremito")
@@ -47,15 +51,12 @@ public class Remito implements Serializable {
     private Date fechaemision;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "remito")
     private List<Detalleremito> detalleremitoList;
-
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadoremito estado;
-
     @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoremito estado;
 
     public Remito() {
     }
@@ -96,18 +97,6 @@ public class Remito implements Serializable {
         this.detalleremitoList = detalleremitoList;
     }
 
-
-
-    public Estadoremito getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadoremito estado) {
-        this.estado = estado;
-    }
-
-
-
     public Pedido getPedido() {
         return pedido;
     }
@@ -116,6 +105,13 @@ public class Remito implements Serializable {
         this.pedido = pedido;
     }
 
+    public Estadoremito getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadoremito estado) {
+        this.estado = estado;
+    }
 
     @Override
     public int hashCode() {
@@ -139,7 +135,7 @@ public class Remito implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Remito[idremito=" + idremito + "]";
+        return "metalsoft.datos.jpa.entity.Remito[ idremito=" + idremito + " ]";
     }
-
+    
 }

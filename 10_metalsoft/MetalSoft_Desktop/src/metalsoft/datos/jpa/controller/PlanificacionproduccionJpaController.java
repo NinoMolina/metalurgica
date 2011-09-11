@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,11 +14,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Estadoplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Estadoplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import metalsoft.datos.jpa.entity.Detallempasignada;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
@@ -29,10 +27,10 @@ import metalsoft.datos.jpa.entity.Planificacionproduccion;
  *
  * @author Nino
  */
-public class PlanificacionproduccionJpaController {
+public class PlanificacionproduccionJpaController implements Serializable {
 
-    public PlanificacionproduccionJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public PlanificacionproduccionJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -54,15 +52,15 @@ public class PlanificacionproduccionJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Estadoplanificacionproduccion idestado = planificacionproduccion.getIdestado();
-            if (idestado != null) {
-                idestado = em.getReference(idestado.getClass(), idestado.getId());
-                planificacionproduccion.setIdestado(idestado);
-            }
             Pedido pedido = planificacionproduccion.getPedido();
             if (pedido != null) {
                 pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
                 planificacionproduccion.setPedido(pedido);
+            }
+            Estadoplanificacionproduccion idestado = planificacionproduccion.getIdestado();
+            if (idestado != null) {
+                idestado = em.getReference(idestado.getClass(), idestado.getId());
+                planificacionproduccion.setIdestado(idestado);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionList = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccionToAttach : planificacionproduccion.getDetalleplanificacionproduccionList()) {
@@ -83,13 +81,13 @@ public class PlanificacionproduccionJpaController {
             }
             planificacionproduccion.setEjecucionplanificacionproduccionList(attachedEjecucionplanificacionproduccionList);
             em.persist(planificacionproduccion);
-            if (idestado != null) {
-                idestado.getPlanificacionproduccionList().add(planificacionproduccion);
-                idestado = em.merge(idestado);
-            }
             if (pedido != null) {
                 pedido.getPlanificacionproduccionList().add(planificacionproduccion);
                 pedido = em.merge(pedido);
+            }
+            if (idestado != null) {
+                idestado.getPlanificacionproduccionList().add(planificacionproduccion);
+                idestado = em.merge(idestado);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListDetalleplanificacionproduccion : planificacionproduccion.getDetalleplanificacionproduccionList()) {
                 Planificacionproduccion oldIdplanificacionproduccionOfDetalleplanificacionproduccionListDetalleplanificacionproduccion = detalleplanificacionproduccionListDetalleplanificacionproduccion.getIdplanificacionproduccion();
@@ -137,10 +135,10 @@ public class PlanificacionproduccionJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Planificacionproduccion persistentPlanificacionproduccion = em.find(Planificacionproduccion.class, planificacionproduccion.getIdplanificacionproduccion());
-            Estadoplanificacionproduccion idestadoOld = persistentPlanificacionproduccion.getIdestado();
-            Estadoplanificacionproduccion idestadoNew = planificacionproduccion.getIdestado();
             Pedido pedidoOld = persistentPlanificacionproduccion.getPedido();
             Pedido pedidoNew = planificacionproduccion.getPedido();
+            Estadoplanificacionproduccion idestadoOld = persistentPlanificacionproduccion.getIdestado();
+            Estadoplanificacionproduccion idestadoNew = planificacionproduccion.getIdestado();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListOld = persistentPlanificacionproduccion.getDetalleplanificacionproduccionList();
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListNew = planificacionproduccion.getDetalleplanificacionproduccionList();
             List<Detallempasignada> detallempasignadaListOld = persistentPlanificacionproduccion.getDetallempasignadaList();
@@ -167,13 +165,13 @@ public class PlanificacionproduccionJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (idestadoNew != null) {
-                idestadoNew = em.getReference(idestadoNew.getClass(), idestadoNew.getId());
-                planificacionproduccion.setIdestado(idestadoNew);
-            }
             if (pedidoNew != null) {
                 pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
                 planificacionproduccion.setPedido(pedidoNew);
+            }
+            if (idestadoNew != null) {
+                idestadoNew = em.getReference(idestadoNew.getClass(), idestadoNew.getId());
+                planificacionproduccion.setIdestado(idestadoNew);
             }
             List<Detalleplanificacionproduccion> attachedDetalleplanificacionproduccionListNew = new ArrayList<Detalleplanificacionproduccion>();
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListNewDetalleplanificacionproduccionToAttach : detalleplanificacionproduccionListNew) {
@@ -197,14 +195,6 @@ public class PlanificacionproduccionJpaController {
             ejecucionplanificacionproduccionListNew = attachedEjecucionplanificacionproduccionListNew;
             planificacionproduccion.setEjecucionplanificacionproduccionList(ejecucionplanificacionproduccionListNew);
             planificacionproduccion = em.merge(planificacionproduccion);
-            if (idestadoOld != null && !idestadoOld.equals(idestadoNew)) {
-                idestadoOld.getPlanificacionproduccionList().remove(planificacionproduccion);
-                idestadoOld = em.merge(idestadoOld);
-            }
-            if (idestadoNew != null && !idestadoNew.equals(idestadoOld)) {
-                idestadoNew.getPlanificacionproduccionList().add(planificacionproduccion);
-                idestadoNew = em.merge(idestadoNew);
-            }
             if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
                 pedidoOld.getPlanificacionproduccionList().remove(planificacionproduccion);
                 pedidoOld = em.merge(pedidoOld);
@@ -212,6 +202,14 @@ public class PlanificacionproduccionJpaController {
             if (pedidoNew != null && !pedidoNew.equals(pedidoOld)) {
                 pedidoNew.getPlanificacionproduccionList().add(planificacionproduccion);
                 pedidoNew = em.merge(pedidoNew);
+            }
+            if (idestadoOld != null && !idestadoOld.equals(idestadoNew)) {
+                idestadoOld.getPlanificacionproduccionList().remove(planificacionproduccion);
+                idestadoOld = em.merge(idestadoOld);
+            }
+            if (idestadoNew != null && !idestadoNew.equals(idestadoOld)) {
+                idestadoNew.getPlanificacionproduccionList().add(planificacionproduccion);
+                idestadoNew = em.merge(idestadoNew);
             }
             for (Detalleplanificacionproduccion detalleplanificacionproduccionListNewDetalleplanificacionproduccion : detalleplanificacionproduccionListNew) {
                 if (!detalleplanificacionproduccionListOld.contains(detalleplanificacionproduccionListNewDetalleplanificacionproduccion)) {
@@ -299,15 +297,15 @@ public class PlanificacionproduccionJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Estadoplanificacionproduccion idestado = planificacionproduccion.getIdestado();
-            if (idestado != null) {
-                idestado.getPlanificacionproduccionList().remove(planificacionproduccion);
-                idestado = em.merge(idestado);
-            }
             Pedido pedido = planificacionproduccion.getPedido();
             if (pedido != null) {
                 pedido.getPlanificacionproduccionList().remove(planificacionproduccion);
                 pedido = em.merge(pedido);
+            }
+            Estadoplanificacionproduccion idestado = planificacionproduccion.getIdestado();
+            if (idestado != null) {
+                idestado.getPlanificacionproduccionList().remove(planificacionproduccion);
+                idestado = em.merge(idestado);
             }
             List<Detallempasignada> detallempasignadaList = planificacionproduccion.getDetallempasignadaList();
             for (Detallempasignada detallempasignadaListDetallempasignada : detallempasignadaList) {
@@ -368,16 +366,5 @@ public class PlanificacionproduccionJpaController {
             em.close();
         }
     }
-
-    public List<Planificacionproduccion> findByFechafinprevistaMayorActual(Date fecha) {
-        EntityManager em = getEntityManager();
-        try {
-            Query q = em.createNamedQuery("Planificacionproduccion.findByFechafinMayorActual");
-            q.setParameter("fechaActual", fecha);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
+    
 }

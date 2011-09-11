@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -42,8 +41,7 @@ public class Asistencia implements Serializable {
     private String observaciones;
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Empleado empleado;
-
+    private Empleado empleado1;
 
     public Asistencia() {
     }
@@ -80,14 +78,13 @@ public class Asistencia implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Empleado getEmpleado1() {
+        return empleado1;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setEmpleado1(Empleado empleado1) {
+        this.empleado1 = empleado1;
     }
-
 
     @Override
     public int hashCode() {
@@ -111,7 +108,7 @@ public class Asistencia implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Asistencia[asistenciaPK=" + asistenciaPK + "]";
+        return "metalsoft.datos.jpa.entity.Asistencia[ asistenciaPK=" + asistenciaPK + " ]";
     }
-
+    
 }

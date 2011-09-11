@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -45,7 +44,7 @@ public class Ejecucionplanificacionproduccion implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ejecucionplanificacionproduccion_seq")
-    @SequenceGenerator(name = "ejecucionplanificacionproduccion_seq", sequenceName = "ejecucionplanificacionproduccion_idejecucion_seq", allocationSize = 1)
+    @SequenceGenerator(name = "ejecucionplanificacionproduccion_seq", sequenceName = "cliente_idejecucion_seq", allocationSize = 1)
     @Column(name = "idejecucion")
     private Long idejecucion;
     @Column(name = "fechainicio")
@@ -64,14 +63,12 @@ public class Ejecucionplanificacionproduccion implements Serializable {
     private BigInteger nroejecucionplanificacion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idejecucionplanificacionproduccion")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadoejecplanifpedido estado;
-
     @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
     @ManyToOne(optional = false)
     private Planificacionproduccion idplanificacionproduccion;
-
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoejecplanifpedido estado;
 
     public Ejecucionplanificacionproduccion() {
     }
@@ -136,14 +133,6 @@ public class Ejecucionplanificacionproduccion implements Serializable {
         this.detalleejecucionplanificacionList = detalleejecucionplanificacionList;
     }
 
-    public Estadoejecplanifpedido getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadoejecplanifpedido estado) {
-        this.estado = estado;
-    }
-
     public Planificacionproduccion getIdplanificacionproduccion() {
         return idplanificacionproduccion;
     }
@@ -152,6 +141,13 @@ public class Ejecucionplanificacionproduccion implements Serializable {
         this.idplanificacionproduccion = idplanificacionproduccion;
     }
 
+    public Estadoejecplanifpedido getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadoejecplanifpedido estado) {
+        this.estado = estado;
+    }
 
     @Override
     public int hashCode() {
@@ -175,7 +171,7 @@ public class Ejecucionplanificacionproduccion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion[idejecucion=" + idejecucion + "]";
+        return "metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion[ idejecucion=" + idejecucion + " ]";
     }
-
+    
 }

@@ -125,7 +125,7 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
                     long idpieza = 0;
                     long idproducto = 0;
 
-                    EjecucionetapaproduccionJpaController ejecEtapaController = new EjecucionetapaproduccionJpaController();
+                    EjecucionetapaproduccionJpaController ejecEtapaController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
                     Ejecucionetapaproduccion ejecucionetapaproduccion = ejecEtapaController.findEjecucionetapaproduccion(Long.parseLong(idEjecEtapa));
 
                     Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
@@ -144,8 +144,19 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
                      */
                     if(!esUltimaEjecucionEtapaDePieza){
                         GestorLanzarProximaEtapa gestorLanzarProximaEtapa = new GestorLanzarProximaEtapa();
-                        gestorLanzarProximaEtapa.lanzarProximaEtapa();
+                        gestorLanzarProximaEtapa.lanzarProximaEtapa(detalleejecucionplanificacion, detalleplanificacionproduccion);
+                    } else {
+                        /*
+                         * armar el producto real
+                         */
                     }
+                    
+                   /*
+                     * ################################################################
+                     * SI ES ULTIMA ETAPA DE PIEZA Y NO ES ULTIMA ETAPA DE PRODUCCION
+                     * QUE HAGO??????????????? armo el producto real?
+                     * ################################################################
+                     */
 
 
                     /*
@@ -158,7 +169,7 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
                          */
                     }
 
-                    EstadoejecetapaprodJpaController estadoEjecController = new EstadoejecetapaprodJpaController();
+                    EstadoejecetapaprodJpaController estadoEjecController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
                     Estadoejecetapaprod estadoejecetapaprod = estadoEjecController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.FINALIZADA);
                     ejecucionetapaproduccion.setEstado(estadoejecetapaprod);
 
@@ -169,7 +180,7 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
                     detalleejecucionplanificacion.setFechafin(fechaActual);
                     detalleejecucionplanificacion.setHorafin(fechaActual);
 
-                    DetalleejecucionplanificacionJpaController detalleejecucionplanificacionJpaController = new DetalleejecucionplanificacionJpaController();
+                    DetalleejecucionplanificacionJpaController detalleejecucionplanificacionJpaController = new DetalleejecucionplanificacionJpaController(JpaUtil.getEntityManagerFactory());
                     detalleejecucionplanificacionJpaController.edit(detalleejecucionplanificacion);
 
                     Date fechaInicio = null;

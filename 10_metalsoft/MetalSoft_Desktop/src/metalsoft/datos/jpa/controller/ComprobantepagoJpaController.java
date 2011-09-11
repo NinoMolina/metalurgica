@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,18 +15,18 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Comprobantepago;
-import metalsoft.datos.jpa.entity.Factura;
-import metalsoft.datos.jpa.entity.Formadepago;
 import metalsoft.datos.jpa.entity.Usuario;
+import metalsoft.datos.jpa.entity.Formadepago;
+import metalsoft.datos.jpa.entity.Factura;
 
 /**
  *
  * @author Nino
  */
-public class ComprobantepagoJpaController {
+public class ComprobantepagoJpaController implements Serializable {
 
-    public ComprobantepagoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public ComprobantepagoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -40,33 +39,33 @@ public class ComprobantepagoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Factura factura = comprobantepago.getFactura();
-            if (factura != null) {
-                factura = em.getReference(factura.getClass(), factura.getIdfactura());
-                comprobantepago.setFactura(factura);
+            Usuario usuario = comprobantepago.getUsuario();
+            if (usuario != null) {
+                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
+                comprobantepago.setUsuario(usuario);
             }
             Formadepago formadepago = comprobantepago.getFormadepago();
             if (formadepago != null) {
                 formadepago = em.getReference(formadepago.getClass(), formadepago.getIdformapago());
                 comprobantepago.setFormadepago(formadepago);
             }
-            Usuario usuario = comprobantepago.getUsuario();
-            if (usuario != null) {
-                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
-                comprobantepago.setUsuario(usuario);
+            Factura factura = comprobantepago.getFactura();
+            if (factura != null) {
+                factura = em.getReference(factura.getClass(), factura.getIdfactura());
+                comprobantepago.setFactura(factura);
             }
             em.persist(comprobantepago);
-            if (factura != null) {
-                factura.getComprobantepagoList().add(comprobantepago);
-                factura = em.merge(factura);
+            if (usuario != null) {
+                usuario.getComprobantepagoList().add(comprobantepago);
+                usuario = em.merge(usuario);
             }
             if (formadepago != null) {
                 formadepago.getComprobantepagoList().add(comprobantepago);
                 formadepago = em.merge(formadepago);
             }
-            if (usuario != null) {
-                usuario.getComprobantepagoList().add(comprobantepago);
-                usuario = em.merge(usuario);
+            if (factura != null) {
+                factura.getComprobantepagoList().add(comprobantepago);
+                factura = em.merge(factura);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -87,32 +86,32 @@ public class ComprobantepagoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Comprobantepago persistentComprobantepago = em.find(Comprobantepago.class, comprobantepago.getIdcomprobantepago());
-            Factura facturaOld = persistentComprobantepago.getFactura();
-            Factura facturaNew = comprobantepago.getFactura();
-            Formadepago formadepagoOld = persistentComprobantepago.getFormadepago();
-            Formadepago formadepagoNew = comprobantepago.getFormadepago();
             Usuario usuarioOld = persistentComprobantepago.getUsuario();
             Usuario usuarioNew = comprobantepago.getUsuario();
-            if (facturaNew != null) {
-                facturaNew = em.getReference(facturaNew.getClass(), facturaNew.getIdfactura());
-                comprobantepago.setFactura(facturaNew);
+            Formadepago formadepagoOld = persistentComprobantepago.getFormadepago();
+            Formadepago formadepagoNew = comprobantepago.getFormadepago();
+            Factura facturaOld = persistentComprobantepago.getFactura();
+            Factura facturaNew = comprobantepago.getFactura();
+            if (usuarioNew != null) {
+                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
+                comprobantepago.setUsuario(usuarioNew);
             }
             if (formadepagoNew != null) {
                 formadepagoNew = em.getReference(formadepagoNew.getClass(), formadepagoNew.getIdformapago());
                 comprobantepago.setFormadepago(formadepagoNew);
             }
-            if (usuarioNew != null) {
-                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
-                comprobantepago.setUsuario(usuarioNew);
+            if (facturaNew != null) {
+                facturaNew = em.getReference(facturaNew.getClass(), facturaNew.getIdfactura());
+                comprobantepago.setFactura(facturaNew);
             }
             comprobantepago = em.merge(comprobantepago);
-            if (facturaOld != null && !facturaOld.equals(facturaNew)) {
-                facturaOld.getComprobantepagoList().remove(comprobantepago);
-                facturaOld = em.merge(facturaOld);
+            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
+                usuarioOld.getComprobantepagoList().remove(comprobantepago);
+                usuarioOld = em.merge(usuarioOld);
             }
-            if (facturaNew != null && !facturaNew.equals(facturaOld)) {
-                facturaNew.getComprobantepagoList().add(comprobantepago);
-                facturaNew = em.merge(facturaNew);
+            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
+                usuarioNew.getComprobantepagoList().add(comprobantepago);
+                usuarioNew = em.merge(usuarioNew);
             }
             if (formadepagoOld != null && !formadepagoOld.equals(formadepagoNew)) {
                 formadepagoOld.getComprobantepagoList().remove(comprobantepago);
@@ -122,13 +121,13 @@ public class ComprobantepagoJpaController {
                 formadepagoNew.getComprobantepagoList().add(comprobantepago);
                 formadepagoNew = em.merge(formadepagoNew);
             }
-            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
-                usuarioOld.getComprobantepagoList().remove(comprobantepago);
-                usuarioOld = em.merge(usuarioOld);
+            if (facturaOld != null && !facturaOld.equals(facturaNew)) {
+                facturaOld.getComprobantepagoList().remove(comprobantepago);
+                facturaOld = em.merge(facturaOld);
             }
-            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
-                usuarioNew.getComprobantepagoList().add(comprobantepago);
-                usuarioNew = em.merge(usuarioNew);
+            if (facturaNew != null && !facturaNew.equals(facturaOld)) {
+                facturaNew.getComprobantepagoList().add(comprobantepago);
+                facturaNew = em.merge(facturaNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -159,20 +158,20 @@ public class ComprobantepagoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The comprobantepago with id " + id + " no longer exists.", enfe);
             }
-            Factura factura = comprobantepago.getFactura();
-            if (factura != null) {
-                factura.getComprobantepagoList().remove(comprobantepago);
-                factura = em.merge(factura);
+            Usuario usuario = comprobantepago.getUsuario();
+            if (usuario != null) {
+                usuario.getComprobantepagoList().remove(comprobantepago);
+                usuario = em.merge(usuario);
             }
             Formadepago formadepago = comprobantepago.getFormadepago();
             if (formadepago != null) {
                 formadepago.getComprobantepagoList().remove(comprobantepago);
                 formadepago = em.merge(formadepago);
             }
-            Usuario usuario = comprobantepago.getUsuario();
-            if (usuario != null) {
-                usuario.getComprobantepagoList().remove(comprobantepago);
-                usuario = em.merge(usuario);
+            Factura factura = comprobantepago.getFactura();
+            if (factura != null) {
+                factura.getComprobantepagoList().remove(comprobantepago);
+                factura = em.merge(factura);
             }
             em.remove(comprobantepago);
             em.getTransaction().commit();
@@ -228,5 +227,5 @@ public class ComprobantepagoJpaController {
             em.close();
         }
     }
-
+    
 }

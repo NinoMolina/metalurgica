@@ -2,21 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Responsable;
 import metalsoft.datos.jpa.entity.Tipodocumento;
+import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,10 @@ import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
  *
  * @author Nino
  */
-public class ResponsableJpaController {
+public class ResponsableJpaController implements Serializable {
 
-    public ResponsableJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public ResponsableJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -56,15 +55,15 @@ public class ResponsableJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Domicilio domicilio = responsable.getDomicilio();
-            if (domicilio != null) {
-                domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
-                responsable.setDomicilio(domicilio);
-            }
             Tipodocumento tipodocumento = responsable.getTipodocumento();
             if (tipodocumento != null) {
                 tipodocumento = em.getReference(tipodocumento.getClass(), tipodocumento.getIdtipodocumento());
                 responsable.setTipodocumento(tipodocumento);
+            }
+            Domicilio domicilio = responsable.getDomicilio();
+            if (domicilio != null) {
+                domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
+                responsable.setDomicilio(domicilio);
             }
             List<Empresametalurgica> attachedEmpresametalurgicaList = new ArrayList<Empresametalurgica>();
             for (Empresametalurgica empresametalurgicaListEmpresametalurgicaToAttach : responsable.getEmpresametalurgicaList()) {
@@ -91,13 +90,13 @@ public class ResponsableJpaController {
             }
             responsable.setProveedormantenimientomaquinaList(attachedProveedormantenimientomaquinaList);
             em.persist(responsable);
-            if (domicilio != null) {
-                domicilio.getResponsableList().add(responsable);
-                domicilio = em.merge(domicilio);
-            }
             if (tipodocumento != null) {
                 tipodocumento.getResponsableList().add(responsable);
                 tipodocumento = em.merge(tipodocumento);
+            }
+            if (domicilio != null) {
+                domicilio.getResponsableList().add(responsable);
+                domicilio = em.merge(domicilio);
             }
             for (Empresametalurgica empresametalurgicaListEmpresametalurgica : responsable.getEmpresametalurgicaList()) {
                 Responsable oldResponsableOfEmpresametalurgicaListEmpresametalurgica = empresametalurgicaListEmpresametalurgica.getResponsable();
@@ -154,10 +153,10 @@ public class ResponsableJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Responsable persistentResponsable = em.find(Responsable.class, responsable.getIdresponsable());
-            Domicilio domicilioOld = persistentResponsable.getDomicilio();
-            Domicilio domicilioNew = responsable.getDomicilio();
             Tipodocumento tipodocumentoOld = persistentResponsable.getTipodocumento();
             Tipodocumento tipodocumentoNew = responsable.getTipodocumento();
+            Domicilio domicilioOld = persistentResponsable.getDomicilio();
+            Domicilio domicilioNew = responsable.getDomicilio();
             List<Empresametalurgica> empresametalurgicaListOld = persistentResponsable.getEmpresametalurgicaList();
             List<Empresametalurgica> empresametalurgicaListNew = responsable.getEmpresametalurgicaList();
             List<Cliente> clienteListOld = persistentResponsable.getClienteList();
@@ -166,13 +165,13 @@ public class ResponsableJpaController {
             List<Proveedor> proveedorListNew = responsable.getProveedorList();
             List<Proveedormantenimientomaquina> proveedormantenimientomaquinaListOld = persistentResponsable.getProveedormantenimientomaquinaList();
             List<Proveedormantenimientomaquina> proveedormantenimientomaquinaListNew = responsable.getProveedormantenimientomaquinaList();
-            if (domicilioNew != null) {
-                domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
-                responsable.setDomicilio(domicilioNew);
-            }
             if (tipodocumentoNew != null) {
                 tipodocumentoNew = em.getReference(tipodocumentoNew.getClass(), tipodocumentoNew.getIdtipodocumento());
                 responsable.setTipodocumento(tipodocumentoNew);
+            }
+            if (domicilioNew != null) {
+                domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
+                responsable.setDomicilio(domicilioNew);
             }
             List<Empresametalurgica> attachedEmpresametalurgicaListNew = new ArrayList<Empresametalurgica>();
             for (Empresametalurgica empresametalurgicaListNewEmpresametalurgicaToAttach : empresametalurgicaListNew) {
@@ -203,14 +202,6 @@ public class ResponsableJpaController {
             proveedormantenimientomaquinaListNew = attachedProveedormantenimientomaquinaListNew;
             responsable.setProveedormantenimientomaquinaList(proveedormantenimientomaquinaListNew);
             responsable = em.merge(responsable);
-            if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
-                domicilioOld.getResponsableList().remove(responsable);
-                domicilioOld = em.merge(domicilioOld);
-            }
-            if (domicilioNew != null && !domicilioNew.equals(domicilioOld)) {
-                domicilioNew.getResponsableList().add(responsable);
-                domicilioNew = em.merge(domicilioNew);
-            }
             if (tipodocumentoOld != null && !tipodocumentoOld.equals(tipodocumentoNew)) {
                 tipodocumentoOld.getResponsableList().remove(responsable);
                 tipodocumentoOld = em.merge(tipodocumentoOld);
@@ -218,6 +209,14 @@ public class ResponsableJpaController {
             if (tipodocumentoNew != null && !tipodocumentoNew.equals(tipodocumentoOld)) {
                 tipodocumentoNew.getResponsableList().add(responsable);
                 tipodocumentoNew = em.merge(tipodocumentoNew);
+            }
+            if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
+                domicilioOld.getResponsableList().remove(responsable);
+                domicilioOld = em.merge(domicilioOld);
+            }
+            if (domicilioNew != null && !domicilioNew.equals(domicilioOld)) {
+                domicilioNew.getResponsableList().add(responsable);
+                domicilioNew = em.merge(domicilioNew);
             }
             for (Empresametalurgica empresametalurgicaListOldEmpresametalurgica : empresametalurgicaListOld) {
                 if (!empresametalurgicaListNew.contains(empresametalurgicaListOldEmpresametalurgica)) {
@@ -316,15 +315,15 @@ public class ResponsableJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The responsable with id " + id + " no longer exists.", enfe);
             }
-            Domicilio domicilio = responsable.getDomicilio();
-            if (domicilio != null) {
-                domicilio.getResponsableList().remove(responsable);
-                domicilio = em.merge(domicilio);
-            }
             Tipodocumento tipodocumento = responsable.getTipodocumento();
             if (tipodocumento != null) {
                 tipodocumento.getResponsableList().remove(responsable);
                 tipodocumento = em.merge(tipodocumento);
+            }
+            Domicilio domicilio = responsable.getDomicilio();
+            if (domicilio != null) {
+                domicilio.getResponsableList().remove(responsable);
+                domicilio = em.merge(domicilio);
             }
             List<Empresametalurgica> empresametalurgicaList = responsable.getEmpresametalurgicaList();
             for (Empresametalurgica empresametalurgicaListEmpresametalurgica : empresametalurgicaList) {
@@ -400,5 +399,5 @@ public class ResponsableJpaController {
             em.close();
         }
     }
-
+    
 }

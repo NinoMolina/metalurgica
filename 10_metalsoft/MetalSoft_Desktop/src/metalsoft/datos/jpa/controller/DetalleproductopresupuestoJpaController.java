@@ -2,22 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Detallepresupuesto;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
-import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Pieza;
+import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Detallepresupuesto;
 import metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
  *
  * @author Nino
  */
-public class DetalleproductopresupuestoJpaController {
+public class DetalleproductopresupuestoJpaController implements Serializable {
 
-    public DetalleproductopresupuestoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public DetalleproductopresupuestoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -49,20 +48,20 @@ public class DetalleproductopresupuestoJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detallepresupuesto iddetallepresupuesto = detalleproductopresupuesto.getIddetallepresupuesto();
-            if (iddetallepresupuesto != null) {
-                iddetallepresupuesto = em.getReference(iddetallepresupuesto.getClass(), iddetallepresupuesto.getIddetalle());
-                detalleproductopresupuesto.setIddetallepresupuesto(iddetallepresupuesto);
+            Pieza idpieza = detalleproductopresupuesto.getIdpieza();
+            if (idpieza != null) {
+                idpieza = em.getReference(idpieza.getClass(), idpieza.getIdpieza());
+                detalleproductopresupuesto.setIdpieza(idpieza);
             }
             Materiaprima idmateriaprima = detalleproductopresupuesto.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima = em.getReference(idmateriaprima.getClass(), idmateriaprima.getIdmateriaprima());
                 detalleproductopresupuesto.setIdmateriaprima(idmateriaprima);
             }
-            Pieza idpieza = detalleproductopresupuesto.getIdpieza();
-            if (idpieza != null) {
-                idpieza = em.getReference(idpieza.getClass(), idpieza.getIdpieza());
-                detalleproductopresupuesto.setIdpieza(idpieza);
+            Detallepresupuesto iddetallepresupuesto = detalleproductopresupuesto.getIddetallepresupuesto();
+            if (iddetallepresupuesto != null) {
+                iddetallepresupuesto = em.getReference(iddetallepresupuesto.getClass(), iddetallepresupuesto.getIddetalle());
+                detalleproductopresupuesto.setIddetallepresupuesto(iddetallepresupuesto);
             }
             List<Detallepiezacalidadpresupuesto> attachedDetallepiezacalidadpresupuestoList = new ArrayList<Detallepiezacalidadpresupuesto>();
             for (Detallepiezacalidadpresupuesto detallepiezacalidadpresupuestoListDetallepiezacalidadpresupuestoToAttach : detalleproductopresupuesto.getDetallepiezacalidadpresupuestoList()) {
@@ -77,17 +76,17 @@ public class DetalleproductopresupuestoJpaController {
             }
             detalleproductopresupuesto.setDetallepiezapresupuestoList(attachedDetallepiezapresupuestoList);
             em.persist(detalleproductopresupuesto);
-            if (iddetallepresupuesto != null) {
-                iddetallepresupuesto.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
-                iddetallepresupuesto = em.merge(iddetallepresupuesto);
+            if (idpieza != null) {
+                idpieza.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
+                idpieza = em.merge(idpieza);
             }
             if (idmateriaprima != null) {
                 idmateriaprima.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
                 idmateriaprima = em.merge(idmateriaprima);
             }
-            if (idpieza != null) {
-                idpieza.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
-                idpieza = em.merge(idpieza);
+            if (iddetallepresupuesto != null) {
+                iddetallepresupuesto.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
+                iddetallepresupuesto = em.merge(iddetallepresupuesto);
             }
             for (Detallepiezacalidadpresupuesto detallepiezacalidadpresupuestoListDetallepiezacalidadpresupuesto : detalleproductopresupuesto.getDetallepiezacalidadpresupuestoList()) {
                 Detalleproductopresupuesto oldIddetalleproductopresupuestoOfDetallepiezacalidadpresupuestoListDetallepiezacalidadpresupuesto = detallepiezacalidadpresupuestoListDetallepiezacalidadpresupuesto.getIddetalleproductopresupuesto();
@@ -126,27 +125,27 @@ public class DetalleproductopresupuestoJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Detalleproductopresupuesto persistentDetalleproductopresupuesto = em.find(Detalleproductopresupuesto.class, detalleproductopresupuesto.getIddetalle());
-            Detallepresupuesto iddetallepresupuestoOld = persistentDetalleproductopresupuesto.getIddetallepresupuesto();
-            Detallepresupuesto iddetallepresupuestoNew = detalleproductopresupuesto.getIddetallepresupuesto();
-            Materiaprima idmateriaprimaOld = persistentDetalleproductopresupuesto.getIdmateriaprima();
-            Materiaprima idmateriaprimaNew = detalleproductopresupuesto.getIdmateriaprima();
             Pieza idpiezaOld = persistentDetalleproductopresupuesto.getIdpieza();
             Pieza idpiezaNew = detalleproductopresupuesto.getIdpieza();
+            Materiaprima idmateriaprimaOld = persistentDetalleproductopresupuesto.getIdmateriaprima();
+            Materiaprima idmateriaprimaNew = detalleproductopresupuesto.getIdmateriaprima();
+            Detallepresupuesto iddetallepresupuestoOld = persistentDetalleproductopresupuesto.getIddetallepresupuesto();
+            Detallepresupuesto iddetallepresupuestoNew = detalleproductopresupuesto.getIddetallepresupuesto();
             List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoListOld = persistentDetalleproductopresupuesto.getDetallepiezacalidadpresupuestoList();
             List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoListNew = detalleproductopresupuesto.getDetallepiezacalidadpresupuestoList();
             List<Detallepiezapresupuesto> detallepiezapresupuestoListOld = persistentDetalleproductopresupuesto.getDetallepiezapresupuestoList();
             List<Detallepiezapresupuesto> detallepiezapresupuestoListNew = detalleproductopresupuesto.getDetallepiezapresupuestoList();
-            if (iddetallepresupuestoNew != null) {
-                iddetallepresupuestoNew = em.getReference(iddetallepresupuestoNew.getClass(), iddetallepresupuestoNew.getIddetalle());
-                detalleproductopresupuesto.setIddetallepresupuesto(iddetallepresupuestoNew);
+            if (idpiezaNew != null) {
+                idpiezaNew = em.getReference(idpiezaNew.getClass(), idpiezaNew.getIdpieza());
+                detalleproductopresupuesto.setIdpieza(idpiezaNew);
             }
             if (idmateriaprimaNew != null) {
                 idmateriaprimaNew = em.getReference(idmateriaprimaNew.getClass(), idmateriaprimaNew.getIdmateriaprima());
                 detalleproductopresupuesto.setIdmateriaprima(idmateriaprimaNew);
             }
-            if (idpiezaNew != null) {
-                idpiezaNew = em.getReference(idpiezaNew.getClass(), idpiezaNew.getIdpieza());
-                detalleproductopresupuesto.setIdpieza(idpiezaNew);
+            if (iddetallepresupuestoNew != null) {
+                iddetallepresupuestoNew = em.getReference(iddetallepresupuestoNew.getClass(), iddetallepresupuestoNew.getIddetalle());
+                detalleproductopresupuesto.setIddetallepresupuesto(iddetallepresupuestoNew);
             }
             List<Detallepiezacalidadpresupuesto> attachedDetallepiezacalidadpresupuestoListNew = new ArrayList<Detallepiezacalidadpresupuesto>();
             for (Detallepiezacalidadpresupuesto detallepiezacalidadpresupuestoListNewDetallepiezacalidadpresupuestoToAttach : detallepiezacalidadpresupuestoListNew) {
@@ -163,13 +162,13 @@ public class DetalleproductopresupuestoJpaController {
             detallepiezapresupuestoListNew = attachedDetallepiezapresupuestoListNew;
             detalleproductopresupuesto.setDetallepiezapresupuestoList(detallepiezapresupuestoListNew);
             detalleproductopresupuesto = em.merge(detalleproductopresupuesto);
-            if (iddetallepresupuestoOld != null && !iddetallepresupuestoOld.equals(iddetallepresupuestoNew)) {
-                iddetallepresupuestoOld.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
-                iddetallepresupuestoOld = em.merge(iddetallepresupuestoOld);
+            if (idpiezaOld != null && !idpiezaOld.equals(idpiezaNew)) {
+                idpiezaOld.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
+                idpiezaOld = em.merge(idpiezaOld);
             }
-            if (iddetallepresupuestoNew != null && !iddetallepresupuestoNew.equals(iddetallepresupuestoOld)) {
-                iddetallepresupuestoNew.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
-                iddetallepresupuestoNew = em.merge(iddetallepresupuestoNew);
+            if (idpiezaNew != null && !idpiezaNew.equals(idpiezaOld)) {
+                idpiezaNew.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
+                idpiezaNew = em.merge(idpiezaNew);
             }
             if (idmateriaprimaOld != null && !idmateriaprimaOld.equals(idmateriaprimaNew)) {
                 idmateriaprimaOld.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
@@ -179,13 +178,13 @@ public class DetalleproductopresupuestoJpaController {
                 idmateriaprimaNew.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
                 idmateriaprimaNew = em.merge(idmateriaprimaNew);
             }
-            if (idpiezaOld != null && !idpiezaOld.equals(idpiezaNew)) {
-                idpiezaOld.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
-                idpiezaOld = em.merge(idpiezaOld);
+            if (iddetallepresupuestoOld != null && !iddetallepresupuestoOld.equals(iddetallepresupuestoNew)) {
+                iddetallepresupuestoOld.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
+                iddetallepresupuestoOld = em.merge(iddetallepresupuestoOld);
             }
-            if (idpiezaNew != null && !idpiezaNew.equals(idpiezaOld)) {
-                idpiezaNew.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
-                idpiezaNew = em.merge(idpiezaNew);
+            if (iddetallepresupuestoNew != null && !iddetallepresupuestoNew.equals(iddetallepresupuestoOld)) {
+                iddetallepresupuestoNew.getDetalleproductopresupuestoList().add(detalleproductopresupuesto);
+                iddetallepresupuestoNew = em.merge(iddetallepresupuestoNew);
             }
             for (Detallepiezacalidadpresupuesto detallepiezacalidadpresupuestoListOldDetallepiezacalidadpresupuesto : detallepiezacalidadpresupuestoListOld) {
                 if (!detallepiezacalidadpresupuestoListNew.contains(detallepiezacalidadpresupuestoListOldDetallepiezacalidadpresupuesto)) {
@@ -250,20 +249,20 @@ public class DetalleproductopresupuestoJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleproductopresupuesto with id " + id + " no longer exists.", enfe);
             }
-            Detallepresupuesto iddetallepresupuesto = detalleproductopresupuesto.getIddetallepresupuesto();
-            if (iddetallepresupuesto != null) {
-                iddetallepresupuesto.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
-                iddetallepresupuesto = em.merge(iddetallepresupuesto);
+            Pieza idpieza = detalleproductopresupuesto.getIdpieza();
+            if (idpieza != null) {
+                idpieza.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
+                idpieza = em.merge(idpieza);
             }
             Materiaprima idmateriaprima = detalleproductopresupuesto.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
                 idmateriaprima = em.merge(idmateriaprima);
             }
-            Pieza idpieza = detalleproductopresupuesto.getIdpieza();
-            if (idpieza != null) {
-                idpieza.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
-                idpieza = em.merge(idpieza);
+            Detallepresupuesto iddetallepresupuesto = detalleproductopresupuesto.getIddetallepresupuesto();
+            if (iddetallepresupuesto != null) {
+                iddetallepresupuesto.getDetalleproductopresupuestoList().remove(detalleproductopresupuesto);
+                iddetallepresupuesto = em.merge(iddetallepresupuesto);
             }
             List<Detallepiezacalidadpresupuesto> detallepiezacalidadpresupuestoList = detalleproductopresupuesto.getDetallepiezacalidadpresupuestoList();
             for (Detallepiezacalidadpresupuesto detallepiezacalidadpresupuestoListDetallepiezacalidadpresupuesto : detallepiezacalidadpresupuestoList) {
@@ -329,5 +328,5 @@ public class DetalleproductopresupuestoJpaController {
             em.close();
         }
     }
-
+    
 }

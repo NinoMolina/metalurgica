@@ -19,7 +19,6 @@ import metalsoft.datos.dbobject.CategoriaDB;
 import metalsoft.datos.dbobject.DomicilioDB;
 
 import metalsoft.datos.dbobject.EmpleadoDB;
-import metalsoft.datos.dbobject.EmpleadoPKDB;
 import metalsoft.datos.dbobject.ProvinciaDB;
 import metalsoft.datos.dbobject.TipodocumentoDB;
 import metalsoft.datos.dbobject.TurnoDB;
@@ -30,7 +29,6 @@ import metalsoft.datos.idao.BarrioDAO;
 import metalsoft.datos.idao.CargoDAO;
 import metalsoft.datos.idao.CategoriaDAO;
 import metalsoft.datos.idao.DomicilioDAO;
-import metalsoft.datos.idao.EmpleadoDAO;
 import metalsoft.datos.idao.LocalidadDAO;
 import metalsoft.datos.idao.ProvinciaDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
@@ -40,7 +38,6 @@ import metalsoft.negocio.access.AccessFunctions;
 
 import metalsoft.util.ItemCombo;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import metalsoft.datos.dbobject.AsistenciaDB;
@@ -452,7 +449,7 @@ public class GestorEmpleado {
     }
 
     public Empleado buscarEmpleadoDB(long id) {
-        EmpleadoJpaController controller=new EmpleadoJpaController();
+        EmpleadoJpaController controller=new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
 
         return controller.findEmpleado(id);
     }
@@ -673,7 +670,7 @@ public class GestorEmpleado {
 
     public int bajaEmpleado(Empleado empleadoDB) {
         
-        EmpleadoJpaController controller=new EmpleadoJpaController();
+        EmpleadoJpaController controller=new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
         try{
             controller.edit(empleadoDB);
             return 1;
@@ -780,10 +777,10 @@ public class GestorEmpleado {
 
     public long guardarEmpleado(Empleado empleado, LinkedList idturno) {
 
-        EmpleadoJpaController controller = new EmpleadoJpaController();
-        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
-        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController();
-        TurnoJpaController controllerTurno = new TurnoJpaController();
+        EmpleadoJpaController controller = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController(JpaUtil.getEntityManagerFactory());
+        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController(JpaUtil.getEntityManagerFactory());
+        TurnoJpaController controllerTurno = new TurnoJpaController(JpaUtil.getEntityManagerFactory());
 
         try {
             controllerDomicilio.create(empleado.getDomicilio());
@@ -807,10 +804,10 @@ public class GestorEmpleado {
 
     public long modificarEmpleado(Empleado empleado, Map<Integer, String> mapTurnos) {
 
-        EmpleadoJpaController controller = new EmpleadoJpaController();
-        DomicilioJpaController controllerDomicilio = new DomicilioJpaController();
-        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController();
-        TurnoJpaController controllerTurno = new TurnoJpaController();
+        EmpleadoJpaController controller = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+        DomicilioJpaController controllerDomicilio = new DomicilioJpaController(JpaUtil.getEntityManagerFactory());
+        EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController(JpaUtil.getEntityManagerFactory());
+        TurnoJpaController controllerTurno = new TurnoJpaController(JpaUtil.getEntityManagerFactory());
 
         try {
 
@@ -843,27 +840,27 @@ public class GestorEmpleado {
     }
     public Tipodocumento findTipoDoc(long id)
     {
-        TipodocumentoJpaController td=new TipodocumentoJpaController();
+        TipodocumentoJpaController td=new TipodocumentoJpaController(JpaUtil.getEntityManagerFactory());
         return td.findTipodocumento(id);
     }
     public Localidad findLocalidad(long id)
     {
-        LocalidadJpaController td=new LocalidadJpaController();
+        LocalidadJpaController td=new LocalidadJpaController(JpaUtil.getEntityManagerFactory());
         return td.findLocalidad(id);
     }
     public Categoria findCategoria(long id)
     {
-        CategoriaJpaController td=new CategoriaJpaController();
+        CategoriaJpaController td=new CategoriaJpaController(JpaUtil.getEntityManagerFactory());
         return td.findCategoria(id);
     }
     public Cargo findCargo(long id)
     {
-        CargoJpaController td=new CargoJpaController();
+        CargoJpaController td=new CargoJpaController(JpaUtil.getEntityManagerFactory());
         return td.findCargo(id);
     }
     public Barrio findBarrio(long id)
     {
-        BarrioJpaController td=new BarrioJpaController();
+        BarrioJpaController td=new BarrioJpaController(JpaUtil.getEntityManagerFactory());
         return td.findBarrio(id);
     }
 }

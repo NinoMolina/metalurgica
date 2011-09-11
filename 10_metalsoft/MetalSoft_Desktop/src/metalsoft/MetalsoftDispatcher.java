@@ -6,6 +6,7 @@ package metalsoft;
 
 import java.util.List;
 import metalsoft.datos.dbobject.UsuarioDB;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
@@ -26,7 +27,7 @@ public class MetalsoftDispatcher {
          * deberian haber terminado.
          */
 
-        UsuarioJpaController usuarioController = new UsuarioJpaController();
+        UsuarioJpaController usuarioController = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
         Usuario usuarioJpa = usuarioController.findUsuario(usuario.getIdusuario());
 
         List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();
@@ -39,8 +40,8 @@ public class MetalsoftDispatcher {
             } else {
                 Principal p = new Principal(usuario);
 
-                lanzarHiloAvisoEtapaNoTerminada(p);
-                lanzarHiloEscuchadorFinEtapa(p);
+//                lanzarHiloAvisoEtapaNoTerminada(p);
+//                lanzarHiloEscuchadorFinEtapa(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
@@ -48,8 +49,8 @@ public class MetalsoftDispatcher {
         } else {
             Principal p = new Principal(usuario);
 
-            lanzarHiloAvisoEtapaNoTerminada(p);
-            lanzarHiloEscuchadorFinEtapa(p);
+//            lanzarHiloAvisoEtapaNoTerminada(p);
+//            lanzarHiloEscuchadorFinEtapa(p);
 
             p.setVisible(true);
             p.setLocationRelativeTo(null);

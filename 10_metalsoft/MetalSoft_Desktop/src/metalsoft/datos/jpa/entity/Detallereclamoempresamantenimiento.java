@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -51,15 +50,15 @@ public class Detallereclamoempresamantenimiento implements Serializable {
     @Column(name = "fechaegreso")
     @Temporal(TemporalType.DATE)
     private Date fechaegreso;
-    @JoinColumn(name = "iddetalletrabajo", referencedColumnName = "iddetalle")
-    @ManyToOne
-    private Detalletrabajotercerizado iddetalletrabajo;
-    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo")
-    @ManyToOne(optional = false)
-    private Reclamoempresamantenimiento idreclamo;
     @JoinColumn(name = "idtrabajo", referencedColumnName = "idtrabajo")
     @ManyToOne
     private Trabajotercerizado idtrabajo;
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo")
+    @ManyToOne(optional = false)
+    private Reclamoempresamantenimiento idreclamo;
+    @JoinColumn(name = "iddetalletrabajo", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detalletrabajotercerizado iddetalletrabajo;
 
     public Detallereclamoempresamantenimiento() {
     }
@@ -116,12 +115,12 @@ public class Detallereclamoempresamantenimiento implements Serializable {
         this.fechaegreso = fechaegreso;
     }
 
-    public Detalletrabajotercerizado getIddetalletrabajo() {
-        return iddetalletrabajo;
+    public Trabajotercerizado getIdtrabajo() {
+        return idtrabajo;
     }
 
-    public void setIddetalletrabajo(Detalletrabajotercerizado iddetalletrabajo) {
-        this.iddetalletrabajo = iddetalletrabajo;
+    public void setIdtrabajo(Trabajotercerizado idtrabajo) {
+        this.idtrabajo = idtrabajo;
     }
 
     public Reclamoempresamantenimiento getIdreclamo() {
@@ -132,12 +131,12 @@ public class Detallereclamoempresamantenimiento implements Serializable {
         this.idreclamo = idreclamo;
     }
 
-    public Trabajotercerizado getIdtrabajo() {
-        return idtrabajo;
+    public Detalletrabajotercerizado getIddetalletrabajo() {
+        return iddetalletrabajo;
     }
 
-    public void setIdtrabajo(Trabajotercerizado idtrabajo) {
-        this.idtrabajo = idtrabajo;
+    public void setIddetalletrabajo(Detalletrabajotercerizado iddetalletrabajo) {
+        this.iddetalletrabajo = iddetalletrabajo;
     }
 
     @Override
@@ -162,7 +161,7 @@ public class Detallereclamoempresamantenimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento[iddetalle=" + iddetalle + "]";
+        return "metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento[ iddetalle=" + iddetalle + " ]";
     }
-
+    
 }

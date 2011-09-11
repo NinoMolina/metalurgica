@@ -10,10 +10,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
-import java.math.BigInteger;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Servicio;
@@ -21,8 +21,6 @@ import metalsoft.datos.jpa.entity.Tipomaquina;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
-import metalsoft.negocio.gestores.Parser;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
 import metalsoft.datos.jpa.controller.MantenimientopreventivoJpaController;
 import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
@@ -47,7 +45,7 @@ public class GestorMantenimientoPreventivo {
 
         public Mantenimientopreventivo buscarMantenimientoPreventivo(long id)
     {
-        MantenimientopreventivoJpaController controller=new MantenimientopreventivoJpaController();
+        MantenimientopreventivoJpaController controller=new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
         Mantenimientopreventivo mantenimientop =controller.findMantenimientopreventivo(id);
         return mantenimientop;
     }
@@ -55,7 +53,7 @@ public class GestorMantenimientoPreventivo {
     public void buscarTipoMaquina(JComboBox combo) {
         try {
             List<Tipomaquina> tiposmaquinas = null;
-            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            TipomaquinaJpaController controller = new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
             tiposmaquinas = controller.findTipomaquinaEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -75,7 +73,7 @@ public class GestorMantenimientoPreventivo {
 
         try {
             List<Maquina> maquinas = null;
-            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            TipomaquinaJpaController controller = new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
             maquinas = controller.findTipomaquina(id).getMaquinaList();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -92,10 +90,10 @@ public class GestorMantenimientoPreventivo {
     }
 
           public long guardarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop) {
-        MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController();
-        MaquinaJpaController controllerMaquina = new MaquinaJpaController ();
-        ServicioJpaController controllerServicio = new ServicioJpaController ();
-        DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController ();
+        MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        MaquinaJpaController controllerMaquina = new MaquinaJpaController (JpaUtil.getEntityManagerFactory());
+        ServicioJpaController controllerServicio = new ServicioJpaController (JpaUtil.getEntityManagerFactory());
+        DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController (JpaUtil.getEntityManagerFactory());
         try {
       //VERRRRR      Maquina maquina = controllerMaquina.find(mantenimientop.getMaquina());
               // controllerMaquina.edit(maquina);
@@ -116,10 +114,10 @@ public class GestorMantenimientoPreventivo {
 
           public long modificarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop)
     {
-        MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController();
-        ServicioJpaController controllerServicio = new ServicioJpaController();
-        DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController();
-        MaquinaJpaController controllerMaquina = new MaquinaJpaController();
+        MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        ServicioJpaController controllerServicio = new ServicioJpaController(JpaUtil.getEntityManagerFactory());
+        DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        MaquinaJpaController controllerMaquina = new MaquinaJpaController(JpaUtil.getEntityManagerFactory());
         Maquina maq=null;
         Servicio serv=null;
         try {
@@ -164,7 +162,7 @@ public class GestorMantenimientoPreventivo {
        public void obtenerTiposMaquinas(JComboBox combo) {
         try {
             List<Tipomaquina> tiposmaquinas = null;
-            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            TipomaquinaJpaController controller = new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
             tiposmaquinas = controller.findTipomaquinaEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -185,7 +183,7 @@ public class GestorMantenimientoPreventivo {
 
         try {
             List<Maquina> maquinas = null;
-            TipomaquinaJpaController controller = new TipomaquinaJpaController();
+            TipomaquinaJpaController controller = new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
             maquinas = controller.findTipomaquina(id).getMaquinaList();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -205,7 +203,7 @@ public class GestorMantenimientoPreventivo {
           public void obtenerServicios(JComboBox combo) {
         try {
             List<Servicio> servicios = null;
-            ServicioJpaController controller = new ServicioJpaController();
+            ServicioJpaController controller = new ServicioJpaController(JpaUtil.getEntityManagerFactory());
             servicios = controller.findServicioEntities();
             ItemCombo item = null;
             combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -223,13 +221,7 @@ public class GestorMantenimientoPreventivo {
 
 
           public Servicio buscarServicioSeleccionado(long id){
-              ServicioJpaController con= new ServicioJpaController();
+              ServicioJpaController con= new ServicioJpaController(JpaUtil.getEntityManagerFactory());
               return con.findServicio(id);
           }
-
-          public Maquina obtenerMaquina(long id)
-    {
-        MaquinaJpaController controller=new MaquinaJpaController();
-        return controller.findMaquina(id);
-    }
 }

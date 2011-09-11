@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -44,9 +43,9 @@ import javax.persistence.TemporalType;
 public class Etapadeproduccion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etapadeproduccion_seq")
     @SequenceGenerator(name = "etapadeproduccion_seq", sequenceName = "etapadeproduccion_idetapaproduccion_seq", allocationSize = 1)
-    @Basic(optional = false)
     @Column(name = "idetapaproduccion")
     private Long idetapaproduccion;
     @Column(name = "nroetapaproduccion")
@@ -73,12 +72,12 @@ public class Etapadeproduccion implements Serializable {
     private List<Piezaxetapadeproduccion> piezaxetapadeproduccionList;
     @OneToMany(mappedBy = "idetapaproduccion")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
-    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
-    @ManyToOne
-    private Maquina maquina;
     @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidaddemedida;
+    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
+    @ManyToOne
+    private Maquina maquina;
     @OneToMany(mappedBy = "idetapa")
     private List<Detallepiezapresupuesto> detallepiezapresupuestoList;
     @OneToMany(mappedBy = "idetapaproduccion")
@@ -181,20 +180,20 @@ public class Etapadeproduccion implements Serializable {
         this.detalleejecucionplanificacionList = detalleejecucionplanificacionList;
     }
 
-    public Maquina getMaquina() {
-        return maquina;
-    }
-
-    public void setMaquina(Maquina maquina) {
-        this.maquina = maquina;
-    }
-
     public Unidadmedida getUnidaddemedida() {
         return unidaddemedida;
     }
 
     public void setUnidaddemedida(Unidadmedida unidaddemedida) {
         this.unidaddemedida = unidaddemedida;
+    }
+
+    public Maquina getMaquina() {
+        return maquina;
+    }
+
+    public void setMaquina(Maquina maquina) {
+        this.maquina = maquina;
     }
 
     public List<Detallepiezapresupuesto> getDetallepiezapresupuestoList() {
@@ -243,7 +242,7 @@ public class Etapadeproduccion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Etapadeproduccion[idetapaproduccion=" + idetapaproduccion + "]";
+        return "metalsoft.datos.jpa.entity.Etapadeproduccion[ idetapaproduccion=" + idetapaproduccion + " ]";
     }
-
+    
 }

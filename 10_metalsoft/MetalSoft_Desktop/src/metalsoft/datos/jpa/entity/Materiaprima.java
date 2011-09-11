@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -67,6 +66,7 @@ public class Materiaprima implements Serializable {
     private BigInteger stock;
     @Column(name = "descripcion")
     private String descripcion;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "alto")
     private BigDecimal alto;
     @Column(name = "largo")
@@ -81,37 +81,27 @@ public class Materiaprima implements Serializable {
     private BigInteger nromateriaprima;
     @OneToMany(mappedBy = "materiaprima")
     private List<Detallecompra> detallecompraList;
-
-    @JoinColumn(name = "codbarra", referencedColumnName = "idcodigo")
-    @ManyToOne
-    private Codigodebarra codbarra;
-
-    @JoinColumn(name = "tipomaterial", referencedColumnName = "idtipomaterial")
-    @ManyToOne
-    private Tipomaterial tipomaterial;
-
     @JoinColumn(name = "unidadmedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidadmedida;
-
+    @JoinColumn(name = "tipomaterial", referencedColumnName = "idtipomaterial")
+    @ManyToOne
+    private Tipomaterial tipomaterial;
+    @JoinColumn(name = "codbarra", referencedColumnName = "idcodigo")
+    @ManyToOne
+    private Codigodebarra codbarra;
     @OneToMany(mappedBy = "materiaprima")
     private List<Pieza> piezaList;
-
     @OneToMany(mappedBy = "idmateriaprima")
     private List<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaList;
-
     @OneToMany(mappedBy = "materiaprima")
     private List<Matriz> matrizList;
-
     @OneToMany(mappedBy = "idmateriaprima")
     private List<Detallempasignada> detallempasignadaList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaprima")
     private List<Proveedorxmateriaprima> proveedorxmateriaprimaList;
- 
     @OneToMany(mappedBy = "idmateriaprima")
     private List<Detalleproductopresupuesto> detalleproductopresupuestoList;
-
 
     public Materiaprima() {
     }
@@ -224,17 +214,13 @@ public class Materiaprima implements Serializable {
         this.detallecompraList = detallecompraList;
     }
 
-
-
-    public Codigodebarra getCodbarra() {
-        return codbarra;
+    public Unidadmedida getUnidadmedida() {
+        return unidadmedida;
     }
 
-    public void setCodbarra(Codigodebarra codbarra) {
-        this.codbarra = codbarra;
+    public void setUnidadmedida(Unidadmedida unidadmedida) {
+        this.unidadmedida = unidadmedida;
     }
-
-
 
     public Tipomaterial getTipomaterial() {
         return tipomaterial;
@@ -244,17 +230,13 @@ public class Materiaprima implements Serializable {
         this.tipomaterial = tipomaterial;
     }
 
-
-
-    public Unidadmedida getUnidadmedida() {
-        return unidadmedida;
+    public Codigodebarra getCodbarra() {
+        return codbarra;
     }
 
-    public void setUnidadmedida(Unidadmedida unidadmedida) {
-        this.unidadmedida = unidadmedida;
+    public void setCodbarra(Codigodebarra codbarra) {
+        this.codbarra = codbarra;
     }
-
-
 
     public List<Pieza> getPiezaList() {
         return piezaList;
@@ -264,8 +246,6 @@ public class Materiaprima implements Serializable {
         this.piezaList = piezaList;
     }
 
-
-
     public List<Detallerequerimientosmateriaprima> getDetallerequerimientosmateriaprimaList() {
         return detallerequerimientosmateriaprimaList;
     }
@@ -273,7 +253,6 @@ public class Materiaprima implements Serializable {
     public void setDetallerequerimientosmateriaprimaList(List<Detallerequerimientosmateriaprima> detallerequerimientosmateriaprimaList) {
         this.detallerequerimientosmateriaprimaList = detallerequerimientosmateriaprimaList;
     }
-
 
     public List<Matriz> getMatrizList() {
         return matrizList;
@@ -283,7 +262,6 @@ public class Materiaprima implements Serializable {
         this.matrizList = matrizList;
     }
 
-
     public List<Detallempasignada> getDetallempasignadaList() {
         return detallempasignadaList;
     }
@@ -291,7 +269,6 @@ public class Materiaprima implements Serializable {
     public void setDetallempasignadaList(List<Detallempasignada> detallempasignadaList) {
         this.detallempasignadaList = detallempasignadaList;
     }
-
 
     public List<Proveedorxmateriaprima> getProveedorxmateriaprimaList() {
         return proveedorxmateriaprimaList;
@@ -301,7 +278,6 @@ public class Materiaprima implements Serializable {
         this.proveedorxmateriaprimaList = proveedorxmateriaprimaList;
     }
 
-
     public List<Detalleproductopresupuesto> getDetalleproductopresupuestoList() {
         return detalleproductopresupuestoList;
     }
@@ -309,7 +285,6 @@ public class Materiaprima implements Serializable {
     public void setDetalleproductopresupuestoList(List<Detalleproductopresupuesto> detalleproductopresupuestoList) {
         this.detalleproductopresupuestoList = detalleproductopresupuestoList;
     }
-
 
     @Override
     public int hashCode() {
@@ -333,7 +308,7 @@ public class Materiaprima implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Materiaprima[idmateriaprima=" + idmateriaprima + "]";
+        return "metalsoft.datos.jpa.entity.Materiaprima[ idmateriaprima=" + idmateriaprima + " ]";
     }
-
+    
 }

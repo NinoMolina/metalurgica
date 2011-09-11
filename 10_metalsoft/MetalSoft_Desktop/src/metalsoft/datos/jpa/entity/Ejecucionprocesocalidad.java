@@ -2,22 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,59 +30,60 @@ import javax.persistence.TemporalType;
 @Table(name = "ejecucionprocesocalidad")
 @NamedQueries({
     @NamedQuery(name = "Ejecucionprocesocalidad.findAll", query = "SELECT e FROM Ejecucionprocesocalidad e"),
-    @NamedQuery(name = "Ejecucionprocesocalidad.findByIdejecucion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.ejecucionprocesocalidadPK.idejecucion = :idejecucion"),
-    @NamedQuery(name = "Ejecucionprocesocalidad.findByIdprocesocalidad", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.ejecucionprocesocalidadPK.idprocesocalidad = :idprocesocalidad"),
-    @NamedQuery(name = "Ejecucionprocesocalidad.findByDuracionreal", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.duracionreal = :duracionreal"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByIdejecucion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.idejecucion = :idejecucion"),
     @NamedQuery(name = "Ejecucionprocesocalidad.findByResultado", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.resultado = :resultado"),
-    @NamedQuery(name = "Ejecucionprocesocalidad.findByNroejecucion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.nroejecucion = :nroejecucion")})
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByNroejecucion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.nroejecucion = :nroejecucion"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByFechafin", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.fechafin = :fechafin"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByFechainicio", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.fechainicio = :fechainicio"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByHorainicio", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.horainicio = :horainicio"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByHorafin", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.horafin = :horafin"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByNombre", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Ejecucionprocesocalidad.findByObservacion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.observacion = :observacion")})
 public class Ejecucionprocesocalidad implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EjecucionprocesocalidadPK ejecucionprocesocalidadPK;
-    @Column(name = "duracionreal")
-    @Temporal(TemporalType.TIME)
-    private Date duracionreal;
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ejecucionprocesocalidad_seq")
+    @SequenceGenerator(name = "ejecucionprocesocalidad_seq", sequenceName = "ejecucionprocesocalidad_idejecucion_seq", allocationSize = 1)
+    @Column(name = "idejecucion")
+    private Long idejecucion;
     @Column(name = "resultado")
     private String resultado;
     @Column(name = "nroejecucion")
     private BigInteger nroejecucion;
+    @Column(name = "fechafin")
+    @Temporal(TemporalType.DATE)
+    private Date fechafin;
+    @Column(name = "fechainicio")
+    @Temporal(TemporalType.DATE)
+    private Date fechainicio;
+    @Column(name = "horainicio")
+    @Temporal(TemporalType.TIME)
+    private Date horainicio;
+    @Column(name = "horafin")
+    @Temporal(TemporalType.TIME)
+    private Date horafin;
+    @Column(name = "nombre")
+    private String nombre;
+    @Column(name = "observacion")
+    private String observacion;
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecucionprocesocalidad estado;
 
-    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Procesocalidad procesocalidad;
-
-    @OneToMany(mappedBy = "ejecucionprocesocalidad")
-    private List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList;
-   
-
     public Ejecucionprocesocalidad() {
     }
 
-    public Ejecucionprocesocalidad(EjecucionprocesocalidadPK ejecucionprocesocalidadPK) {
-        this.ejecucionprocesocalidadPK = ejecucionprocesocalidadPK;
+    public Ejecucionprocesocalidad(Long idejecucion) {
+        this.idejecucion = idejecucion;
     }
 
-    public Ejecucionprocesocalidad(long idejecucion, long idprocesocalidad) {
-        this.ejecucionprocesocalidadPK = new EjecucionprocesocalidadPK(idejecucion, idprocesocalidad);
+    public Long getIdejecucion() {
+        return idejecucion;
     }
 
-    public EjecucionprocesocalidadPK getEjecucionprocesocalidadPK() {
-        return ejecucionprocesocalidadPK;
-    }
-
-    public void setEjecucionprocesocalidadPK(EjecucionprocesocalidadPK ejecucionprocesocalidadPK) {
-        this.ejecucionprocesocalidadPK = ejecucionprocesocalidadPK;
-    }
-
-    public Date getDuracionreal() {
-        return duracionreal;
-    }
-
-    public void setDuracionreal(Date duracionreal) {
-        this.duracionreal = duracionreal;
+    public void setIdejecucion(Long idejecucion) {
+        this.idejecucion = idejecucion;
     }
 
     public String getResultado() {
@@ -101,6 +102,54 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.nroejecucion = nroejecucion;
     }
 
+    public Date getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(Date fechafin) {
+        this.fechafin = fechafin;
+    }
+
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public Date getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(Date horainicio) {
+        this.horainicio = horainicio;
+    }
+
+    public Date getHorafin() {
+        return horafin;
+    }
+
+    public void setHorafin(Date horafin) {
+        this.horafin = horafin;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
     public Estadoejecucionprocesocalidad getEstado() {
         return estado;
     }
@@ -109,29 +158,10 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.estado = estado;
     }
 
-
-    public Procesocalidad getProcesocalidad() {
-        return procesocalidad;
-    }
-
-    public void setProcesocalidad(Procesocalidad procesocalidad) {
-        this.procesocalidad = procesocalidad;
-    }
-
-
-    public List<Detalleejecucionplanificacioncalidad> getDetalleejecucionplanificacioncalidadList() {
-        return detalleejecucionplanificacioncalidadList;
-    }
-
-    public void setDetalleejecucionplanificacioncalidadList(List<Detalleejecucionplanificacioncalidad> detalleejecucionplanificacioncalidadList) {
-        this.detalleejecucionplanificacioncalidadList = detalleejecucionplanificacioncalidadList;
-    }
-
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ejecucionprocesocalidadPK != null ? ejecucionprocesocalidadPK.hashCode() : 0);
+        hash += (idejecucion != null ? idejecucion.hashCode() : 0);
         return hash;
     }
 
@@ -142,7 +172,7 @@ public class Ejecucionprocesocalidad implements Serializable {
             return false;
         }
         Ejecucionprocesocalidad other = (Ejecucionprocesocalidad) object;
-        if ((this.ejecucionprocesocalidadPK == null && other.ejecucionprocesocalidadPK != null) || (this.ejecucionprocesocalidadPK != null && !this.ejecucionprocesocalidadPK.equals(other.ejecucionprocesocalidadPK))) {
+        if ((this.idejecucion == null && other.idejecucion != null) || (this.idejecucion != null && !this.idejecucion.equals(other.idejecucion))) {
             return false;
         }
         return true;
@@ -150,7 +180,7 @@ public class Ejecucionprocesocalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Ejecucionprocesocalidad[ejecucionprocesocalidadPK=" + ejecucionprocesocalidadPK + "]";
+        return "metalsoft.datos.jpa.entity.tmp.Ejecucionprocesocalidad[ idejecucion=" + idejecucion + " ]";
     }
-
+    
 }

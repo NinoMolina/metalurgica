@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,10 +14,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Condicioniva;
-import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Responsable;
+import metalsoft.datos.jpa.entity.Domicilio;
+import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Compra;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,10 @@ import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
  *
  * @author Nino
  */
-public class ProveedorJpaController {
+public class ProveedorJpaController implements Serializable {
 
-    public ProveedorJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public ProveedorJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -50,20 +49,20 @@ public class ProveedorJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Condicioniva condicion = proveedor.getCondicion();
-            if (condicion != null) {
-                condicion = em.getReference(condicion.getClass(), condicion.getIdcondicioniva());
-                proveedor.setCondicion(condicion);
+            Responsable responsable = proveedor.getResponsable();
+            if (responsable != null) {
+                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
+                proveedor.setResponsable(responsable);
             }
             Domicilio domicilio = proveedor.getDomicilio();
             if (domicilio != null) {
                 domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
                 proveedor.setDomicilio(domicilio);
             }
-            Responsable responsable = proveedor.getResponsable();
-            if (responsable != null) {
-                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
-                proveedor.setResponsable(responsable);
+            Condicioniva condicion = proveedor.getCondicion();
+            if (condicion != null) {
+                condicion = em.getReference(condicion.getClass(), condicion.getIdcondicioniva());
+                proveedor.setCondicion(condicion);
             }
             List<Compra> attachedCompraList = new ArrayList<Compra>();
             for (Compra compraListCompraToAttach : proveedor.getCompraList()) {
@@ -78,17 +77,17 @@ public class ProveedorJpaController {
             }
             proveedor.setProveedorxmateriaprimaList(attachedProveedorxmateriaprimaList);
             em.persist(proveedor);
-            if (condicion != null) {
-                condicion.getProveedorList().add(proveedor);
-                condicion = em.merge(condicion);
+            if (responsable != null) {
+                responsable.getProveedorList().add(proveedor);
+                responsable = em.merge(responsable);
             }
             if (domicilio != null) {
                 domicilio.getProveedorList().add(proveedor);
                 domicilio = em.merge(domicilio);
             }
-            if (responsable != null) {
-                responsable.getProveedorList().add(proveedor);
-                responsable = em.merge(responsable);
+            if (condicion != null) {
+                condicion.getProveedorList().add(proveedor);
+                condicion = em.merge(condicion);
             }
             for (Compra compraListCompra : proveedor.getCompraList()) {
                 Proveedor oldProveedorOfCompraListCompra = compraListCompra.getProveedor();
@@ -127,12 +126,12 @@ public class ProveedorJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Proveedor persistentProveedor = em.find(Proveedor.class, proveedor.getIdproveedor());
-            Condicioniva condicionOld = persistentProveedor.getCondicion();
-            Condicioniva condicionNew = proveedor.getCondicion();
-            Domicilio domicilioOld = persistentProveedor.getDomicilio();
-            Domicilio domicilioNew = proveedor.getDomicilio();
             Responsable responsableOld = persistentProveedor.getResponsable();
             Responsable responsableNew = proveedor.getResponsable();
+            Domicilio domicilioOld = persistentProveedor.getDomicilio();
+            Domicilio domicilioNew = proveedor.getDomicilio();
+            Condicioniva condicionOld = persistentProveedor.getCondicion();
+            Condicioniva condicionNew = proveedor.getCondicion();
             List<Compra> compraListOld = persistentProveedor.getCompraList();
             List<Compra> compraListNew = proveedor.getCompraList();
             List<Proveedorxmateriaprima> proveedorxmateriaprimaListOld = persistentProveedor.getProveedorxmateriaprimaList();
@@ -149,17 +148,17 @@ public class ProveedorJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (condicionNew != null) {
-                condicionNew = em.getReference(condicionNew.getClass(), condicionNew.getIdcondicioniva());
-                proveedor.setCondicion(condicionNew);
+            if (responsableNew != null) {
+                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
+                proveedor.setResponsable(responsableNew);
             }
             if (domicilioNew != null) {
                 domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
                 proveedor.setDomicilio(domicilioNew);
             }
-            if (responsableNew != null) {
-                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
-                proveedor.setResponsable(responsableNew);
+            if (condicionNew != null) {
+                condicionNew = em.getReference(condicionNew.getClass(), condicionNew.getIdcondicioniva());
+                proveedor.setCondicion(condicionNew);
             }
             List<Compra> attachedCompraListNew = new ArrayList<Compra>();
             for (Compra compraListNewCompraToAttach : compraListNew) {
@@ -176,13 +175,13 @@ public class ProveedorJpaController {
             proveedorxmateriaprimaListNew = attachedProveedorxmateriaprimaListNew;
             proveedor.setProveedorxmateriaprimaList(proveedorxmateriaprimaListNew);
             proveedor = em.merge(proveedor);
-            if (condicionOld != null && !condicionOld.equals(condicionNew)) {
-                condicionOld.getProveedorList().remove(proveedor);
-                condicionOld = em.merge(condicionOld);
+            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
+                responsableOld.getProveedorList().remove(proveedor);
+                responsableOld = em.merge(responsableOld);
             }
-            if (condicionNew != null && !condicionNew.equals(condicionOld)) {
-                condicionNew.getProveedorList().add(proveedor);
-                condicionNew = em.merge(condicionNew);
+            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
+                responsableNew.getProveedorList().add(proveedor);
+                responsableNew = em.merge(responsableNew);
             }
             if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
                 domicilioOld.getProveedorList().remove(proveedor);
@@ -192,13 +191,13 @@ public class ProveedorJpaController {
                 domicilioNew.getProveedorList().add(proveedor);
                 domicilioNew = em.merge(domicilioNew);
             }
-            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
-                responsableOld.getProveedorList().remove(proveedor);
-                responsableOld = em.merge(responsableOld);
+            if (condicionOld != null && !condicionOld.equals(condicionNew)) {
+                condicionOld.getProveedorList().remove(proveedor);
+                condicionOld = em.merge(condicionOld);
             }
-            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
-                responsableNew.getProveedorList().add(proveedor);
-                responsableNew = em.merge(responsableNew);
+            if (condicionNew != null && !condicionNew.equals(condicionOld)) {
+                condicionNew.getProveedorList().add(proveedor);
+                condicionNew = em.merge(condicionNew);
             }
             for (Compra compraListOldCompra : compraListOld) {
                 if (!compraListNew.contains(compraListOldCompra)) {
@@ -268,20 +267,20 @@ public class ProveedorJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Condicioniva condicion = proveedor.getCondicion();
-            if (condicion != null) {
-                condicion.getProveedorList().remove(proveedor);
-                condicion = em.merge(condicion);
+            Responsable responsable = proveedor.getResponsable();
+            if (responsable != null) {
+                responsable.getProveedorList().remove(proveedor);
+                responsable = em.merge(responsable);
             }
             Domicilio domicilio = proveedor.getDomicilio();
             if (domicilio != null) {
                 domicilio.getProveedorList().remove(proveedor);
                 domicilio = em.merge(domicilio);
             }
-            Responsable responsable = proveedor.getResponsable();
-            if (responsable != null) {
-                responsable.getProveedorList().remove(proveedor);
-                responsable = em.merge(responsable);
+            Condicioniva condicion = proveedor.getCondicion();
+            if (condicion != null) {
+                condicion.getProveedorList().remove(proveedor);
+                condicion = em.merge(condicion);
             }
             List<Compra> compraList = proveedor.getCompraList();
             for (Compra compraListCompra : compraList) {
@@ -342,5 +341,5 @@ public class ProveedorJpaController {
             em.close();
         }
     }
-
+    
 }

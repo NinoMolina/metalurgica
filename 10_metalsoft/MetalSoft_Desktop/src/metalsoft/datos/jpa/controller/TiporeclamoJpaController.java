@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.datos.jpa.controller;
 
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,6 +16,7 @@ import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Reclamoproveedor;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 import metalsoft.datos.jpa.entity.Reclamoempresametalurgica;
 import metalsoft.datos.jpa.entity.Reclamocliente;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
@@ -25,10 +25,10 @@ import metalsoft.datos.jpa.entity.Tiporeclamo;
  *
  * @author Nino
  */
-public class TiporeclamoJpaController {
+public class TiporeclamoJpaController implements Serializable {
 
-    public TiporeclamoJpaController() {
-        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
+    public TiporeclamoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
@@ -39,6 +39,9 @@ public class TiporeclamoJpaController {
     public void create(Tiporeclamo tiporeclamo) throws PreexistingEntityException, Exception {
         if (tiporeclamo.getReclamoproveedorList() == null) {
             tiporeclamo.setReclamoproveedorList(new ArrayList<Reclamoproveedor>());
+        }
+        if (tiporeclamo.getReclamoempresamantenimientoList() == null) {
+            tiporeclamo.setReclamoempresamantenimientoList(new ArrayList<Reclamoempresamantenimiento>());
         }
         if (tiporeclamo.getReclamoempresametalurgicaList() == null) {
             tiporeclamo.setReclamoempresametalurgicaList(new ArrayList<Reclamoempresametalurgica>());
@@ -56,6 +59,12 @@ public class TiporeclamoJpaController {
                 attachedReclamoproveedorList.add(reclamoproveedorListReclamoproveedorToAttach);
             }
             tiporeclamo.setReclamoproveedorList(attachedReclamoproveedorList);
+            List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoList = new ArrayList<Reclamoempresamantenimiento>();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimientoToAttach : tiporeclamo.getReclamoempresamantenimientoList()) {
+                reclamoempresamantenimientoListReclamoempresamantenimientoToAttach = em.getReference(reclamoempresamantenimientoListReclamoempresamantenimientoToAttach.getClass(), reclamoempresamantenimientoListReclamoempresamantenimientoToAttach.getIdreclamo());
+                attachedReclamoempresamantenimientoList.add(reclamoempresamantenimientoListReclamoempresamantenimientoToAttach);
+            }
+            tiporeclamo.setReclamoempresamantenimientoList(attachedReclamoempresamantenimientoList);
             List<Reclamoempresametalurgica> attachedReclamoempresametalurgicaList = new ArrayList<Reclamoempresametalurgica>();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgicaToAttach : tiporeclamo.getReclamoempresametalurgicaList()) {
                 reclamoempresametalurgicaListReclamoempresametalurgicaToAttach = em.getReference(reclamoempresametalurgicaListReclamoempresametalurgicaToAttach.getClass(), reclamoempresametalurgicaListReclamoempresametalurgicaToAttach.getIdreclamo());
@@ -76,6 +85,15 @@ public class TiporeclamoJpaController {
                 if (oldTiporeclamoOfReclamoproveedorListReclamoproveedor != null) {
                     oldTiporeclamoOfReclamoproveedorListReclamoproveedor.getReclamoproveedorList().remove(reclamoproveedorListReclamoproveedor);
                     oldTiporeclamoOfReclamoproveedorListReclamoproveedor = em.merge(oldTiporeclamoOfReclamoproveedorListReclamoproveedor);
+                }
+            }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : tiporeclamo.getReclamoempresamantenimientoList()) {
+                Tiporeclamo oldTiporeclamoOfReclamoempresamantenimientoListReclamoempresamantenimiento = reclamoempresamantenimientoListReclamoempresamantenimiento.getTiporeclamo();
+                reclamoempresamantenimientoListReclamoempresamantenimiento.setTiporeclamo(tiporeclamo);
+                reclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListReclamoempresamantenimiento);
+                if (oldTiporeclamoOfReclamoempresamantenimientoListReclamoempresamantenimiento != null) {
+                    oldTiporeclamoOfReclamoempresamantenimientoListReclamoempresamantenimiento.getReclamoempresamantenimientoList().remove(reclamoempresamantenimientoListReclamoempresamantenimiento);
+                    oldTiporeclamoOfReclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(oldTiporeclamoOfReclamoempresamantenimientoListReclamoempresamantenimiento);
                 }
             }
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgica : tiporeclamo.getReclamoempresametalurgicaList()) {
@@ -117,6 +135,8 @@ public class TiporeclamoJpaController {
             Tiporeclamo persistentTiporeclamo = em.find(Tiporeclamo.class, tiporeclamo.getIdtiporeclamo());
             List<Reclamoproveedor> reclamoproveedorListOld = persistentTiporeclamo.getReclamoproveedorList();
             List<Reclamoproveedor> reclamoproveedorListNew = tiporeclamo.getReclamoproveedorList();
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoListOld = persistentTiporeclamo.getReclamoempresamantenimientoList();
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoListNew = tiporeclamo.getReclamoempresamantenimientoList();
             List<Reclamoempresametalurgica> reclamoempresametalurgicaListOld = persistentTiporeclamo.getReclamoempresametalurgicaList();
             List<Reclamoempresametalurgica> reclamoempresametalurgicaListNew = tiporeclamo.getReclamoempresametalurgicaList();
             List<Reclamocliente> reclamoclienteListOld = persistentTiporeclamo.getReclamoclienteList();
@@ -128,6 +148,13 @@ public class TiporeclamoJpaController {
             }
             reclamoproveedorListNew = attachedReclamoproveedorListNew;
             tiporeclamo.setReclamoproveedorList(reclamoproveedorListNew);
+            List<Reclamoempresamantenimiento> attachedReclamoempresamantenimientoListNew = new ArrayList<Reclamoempresamantenimiento>();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach : reclamoempresamantenimientoListNew) {
+                reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach = em.getReference(reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach.getClass(), reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach.getIdreclamo());
+                attachedReclamoempresamantenimientoListNew.add(reclamoempresamantenimientoListNewReclamoempresamantenimientoToAttach);
+            }
+            reclamoempresamantenimientoListNew = attachedReclamoempresamantenimientoListNew;
+            tiporeclamo.setReclamoempresamantenimientoList(reclamoempresamantenimientoListNew);
             List<Reclamoempresametalurgica> attachedReclamoempresametalurgicaListNew = new ArrayList<Reclamoempresametalurgica>();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach : reclamoempresametalurgicaListNew) {
                 reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach = em.getReference(reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach.getClass(), reclamoempresametalurgicaListNewReclamoempresametalurgicaToAttach.getIdreclamo());
@@ -157,6 +184,23 @@ public class TiporeclamoJpaController {
                     if (oldTiporeclamoOfReclamoproveedorListNewReclamoproveedor != null && !oldTiporeclamoOfReclamoproveedorListNewReclamoproveedor.equals(tiporeclamo)) {
                         oldTiporeclamoOfReclamoproveedorListNewReclamoproveedor.getReclamoproveedorList().remove(reclamoproveedorListNewReclamoproveedor);
                         oldTiporeclamoOfReclamoproveedorListNewReclamoproveedor = em.merge(oldTiporeclamoOfReclamoproveedorListNewReclamoproveedor);
+                    }
+                }
+            }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListOldReclamoempresamantenimiento : reclamoempresamantenimientoListOld) {
+                if (!reclamoempresamantenimientoListNew.contains(reclamoempresamantenimientoListOldReclamoempresamantenimiento)) {
+                    reclamoempresamantenimientoListOldReclamoempresamantenimiento.setTiporeclamo(null);
+                    reclamoempresamantenimientoListOldReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListOldReclamoempresamantenimiento);
+                }
+            }
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListNewReclamoempresamantenimiento : reclamoempresamantenimientoListNew) {
+                if (!reclamoempresamantenimientoListOld.contains(reclamoempresamantenimientoListNewReclamoempresamantenimiento)) {
+                    Tiporeclamo oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento = reclamoempresamantenimientoListNewReclamoempresamantenimiento.getTiporeclamo();
+                    reclamoempresamantenimientoListNewReclamoempresamantenimiento.setTiporeclamo(tiporeclamo);
+                    reclamoempresamantenimientoListNewReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListNewReclamoempresamantenimiento);
+                    if (oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento != null && !oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento.equals(tiporeclamo)) {
+                        oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento.getReclamoempresamantenimientoList().remove(reclamoempresamantenimientoListNewReclamoempresamantenimiento);
+                        oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento = em.merge(oldTiporeclamoOfReclamoempresamantenimientoListNewReclamoempresamantenimiento);
                     }
                 }
             }
@@ -228,6 +272,11 @@ public class TiporeclamoJpaController {
                 reclamoproveedorListReclamoproveedor.setTiporeclamo(null);
                 reclamoproveedorListReclamoproveedor = em.merge(reclamoproveedorListReclamoproveedor);
             }
+            List<Reclamoempresamantenimiento> reclamoempresamantenimientoList = tiporeclamo.getReclamoempresamantenimientoList();
+            for (Reclamoempresamantenimiento reclamoempresamantenimientoListReclamoempresamantenimiento : reclamoempresamantenimientoList) {
+                reclamoempresamantenimientoListReclamoempresamantenimiento.setTiporeclamo(null);
+                reclamoempresamantenimientoListReclamoempresamantenimiento = em.merge(reclamoempresamantenimientoListReclamoempresamantenimiento);
+            }
             List<Reclamoempresametalurgica> reclamoempresametalurgicaList = tiporeclamo.getReclamoempresametalurgicaList();
             for (Reclamoempresametalurgica reclamoempresametalurgicaListReclamoempresametalurgica : reclamoempresametalurgicaList) {
                 reclamoempresametalurgicaListReclamoempresametalurgica.setTiporeclamo(null);
@@ -292,5 +341,5 @@ public class TiporeclamoJpaController {
             em.close();
         }
     }
-
+    
 }
