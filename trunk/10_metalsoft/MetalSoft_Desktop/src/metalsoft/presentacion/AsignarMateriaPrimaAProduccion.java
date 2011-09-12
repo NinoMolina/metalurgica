@@ -478,7 +478,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
                     PiezaReal piezaReal = new PiezaReal();
                     piezaReal.setNroPieza((int)AccessFunctions.nvoNroPiezaReal(cn));
                     CodigoDeBarra cb = new CodigoDeBarra();
-                    cb.setCodigo(BarCodeUtil.generarCodigo(String.valueOf(piezaReal.getNroPieza())));
+                    cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL,String.valueOf(piezaReal.getNroPieza())));
                     piezaReal.setCodigoBarra(cb);
 
                     PlanificacionproduccionDB plan = gestor.buscarPlanificacionPorPedido(idPedido, cn);
