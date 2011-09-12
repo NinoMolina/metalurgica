@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.access;
 
+import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -433,6 +434,29 @@ public class AccessFunctions {
             result = cs.getLong(1);
         } catch (SQLException ex) {
             Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static long nvoNroProductoReal() {
+        String query = "{ ? = call nvonroproductoreal()}";
+        long result = -1;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        CallableStatement cs = null;
+        try {
+            cs = pg.concectGetCn().prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result = cs.getLong(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return result;
     }
