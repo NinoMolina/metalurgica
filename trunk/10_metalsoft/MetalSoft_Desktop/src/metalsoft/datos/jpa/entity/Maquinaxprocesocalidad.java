@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -41,6 +42,7 @@ public class Maquinaxprocesocalidad implements Serializable {
     @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Procesocalidad procesocalidad;
+
 
     public Maquinaxprocesocalidad() {
     }
@@ -85,6 +87,7 @@ public class Maquinaxprocesocalidad implements Serializable {
         this.procesocalidad = procesocalidad;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,7 +110,7 @@ public class Maquinaxprocesocalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Maquinaxprocesocalidad[ maquinaxprocesocalidadPK=" + maquinaxprocesocalidadPK + " ]";
+        return "metalsoft.datos.jpa.entity.Maquinaxprocesocalidad[maquinaxprocesocalidadPK=" + maquinaxprocesocalidadPK + "]";
     }
-    
+
 }

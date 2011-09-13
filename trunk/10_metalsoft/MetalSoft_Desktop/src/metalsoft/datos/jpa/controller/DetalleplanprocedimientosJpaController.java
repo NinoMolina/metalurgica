@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,17 +17,17 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleplanprocedimientos;
 import metalsoft.datos.jpa.entity.DetalleplanprocedimientosPK;
-import metalsoft.datos.jpa.entity.Planprocedimientos;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
+import metalsoft.datos.jpa.entity.Planprocedimientos;
 
 /**
  *
  * @author Nino
  */
-public class DetalleplanprocedimientosJpaController implements Serializable {
+public class DetalleplanprocedimientosJpaController {
 
-    public DetalleplanprocedimientosJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetalleplanprocedimientosJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -43,24 +44,24 @@ public class DetalleplanprocedimientosJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Planprocedimientos planprocedimientos = detalleplanprocedimientos.getPlanprocedimientos();
-            if (planprocedimientos != null) {
-                planprocedimientos = em.getReference(planprocedimientos.getClass(), planprocedimientos.getIdplanprocedimientos());
-                detalleplanprocedimientos.setPlanprocedimientos(planprocedimientos);
-            }
             Etapadeproduccion idetapaproduccion = detalleplanprocedimientos.getIdetapaproduccion();
             if (idetapaproduccion != null) {
                 idetapaproduccion = em.getReference(idetapaproduccion.getClass(), idetapaproduccion.getIdetapaproduccion());
                 detalleplanprocedimientos.setIdetapaproduccion(idetapaproduccion);
             }
-            em.persist(detalleplanprocedimientos);
+            Planprocedimientos planprocedimientos = detalleplanprocedimientos.getPlanprocedimientos();
             if (planprocedimientos != null) {
-                planprocedimientos.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
-                planprocedimientos = em.merge(planprocedimientos);
+                planprocedimientos = em.getReference(planprocedimientos.getClass(), planprocedimientos.getIdplanprocedimientos());
+                detalleplanprocedimientos.setPlanprocedimientos(planprocedimientos);
             }
+            em.persist(detalleplanprocedimientos);
             if (idetapaproduccion != null) {
                 idetapaproduccion.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
                 idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            if (planprocedimientos != null) {
+                planprocedimientos.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
+                planprocedimientos = em.merge(planprocedimientos);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -82,27 +83,19 @@ public class DetalleplanprocedimientosJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Detalleplanprocedimientos persistentDetalleplanprocedimientos = em.find(Detalleplanprocedimientos.class, detalleplanprocedimientos.getDetalleplanprocedimientosPK());
-            Planprocedimientos planprocedimientosOld = persistentDetalleplanprocedimientos.getPlanprocedimientos();
-            Planprocedimientos planprocedimientosNew = detalleplanprocedimientos.getPlanprocedimientos();
             Etapadeproduccion idetapaproduccionOld = persistentDetalleplanprocedimientos.getIdetapaproduccion();
             Etapadeproduccion idetapaproduccionNew = detalleplanprocedimientos.getIdetapaproduccion();
-            if (planprocedimientosNew != null) {
-                planprocedimientosNew = em.getReference(planprocedimientosNew.getClass(), planprocedimientosNew.getIdplanprocedimientos());
-                detalleplanprocedimientos.setPlanprocedimientos(planprocedimientosNew);
-            }
+            Planprocedimientos planprocedimientosOld = persistentDetalleplanprocedimientos.getPlanprocedimientos();
+            Planprocedimientos planprocedimientosNew = detalleplanprocedimientos.getPlanprocedimientos();
             if (idetapaproduccionNew != null) {
                 idetapaproduccionNew = em.getReference(idetapaproduccionNew.getClass(), idetapaproduccionNew.getIdetapaproduccion());
                 detalleplanprocedimientos.setIdetapaproduccion(idetapaproduccionNew);
             }
+            if (planprocedimientosNew != null) {
+                planprocedimientosNew = em.getReference(planprocedimientosNew.getClass(), planprocedimientosNew.getIdplanprocedimientos());
+                detalleplanprocedimientos.setPlanprocedimientos(planprocedimientosNew);
+            }
             detalleplanprocedimientos = em.merge(detalleplanprocedimientos);
-            if (planprocedimientosOld != null && !planprocedimientosOld.equals(planprocedimientosNew)) {
-                planprocedimientosOld.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
-                planprocedimientosOld = em.merge(planprocedimientosOld);
-            }
-            if (planprocedimientosNew != null && !planprocedimientosNew.equals(planprocedimientosOld)) {
-                planprocedimientosNew.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
-                planprocedimientosNew = em.merge(planprocedimientosNew);
-            }
             if (idetapaproduccionOld != null && !idetapaproduccionOld.equals(idetapaproduccionNew)) {
                 idetapaproduccionOld.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
                 idetapaproduccionOld = em.merge(idetapaproduccionOld);
@@ -110,6 +103,14 @@ public class DetalleplanprocedimientosJpaController implements Serializable {
             if (idetapaproduccionNew != null && !idetapaproduccionNew.equals(idetapaproduccionOld)) {
                 idetapaproduccionNew.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
                 idetapaproduccionNew = em.merge(idetapaproduccionNew);
+            }
+            if (planprocedimientosOld != null && !planprocedimientosOld.equals(planprocedimientosNew)) {
+                planprocedimientosOld.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
+                planprocedimientosOld = em.merge(planprocedimientosOld);
+            }
+            if (planprocedimientosNew != null && !planprocedimientosNew.equals(planprocedimientosOld)) {
+                planprocedimientosNew.getDetalleplanprocedimientosList().add(detalleplanprocedimientos);
+                planprocedimientosNew = em.merge(planprocedimientosNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -140,15 +141,15 @@ public class DetalleplanprocedimientosJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleplanprocedimientos with id " + id + " no longer exists.", enfe);
             }
-            Planprocedimientos planprocedimientos = detalleplanprocedimientos.getPlanprocedimientos();
-            if (planprocedimientos != null) {
-                planprocedimientos.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
-                planprocedimientos = em.merge(planprocedimientos);
-            }
             Etapadeproduccion idetapaproduccion = detalleplanprocedimientos.getIdetapaproduccion();
             if (idetapaproduccion != null) {
                 idetapaproduccion.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
                 idetapaproduccion = em.merge(idetapaproduccion);
+            }
+            Planprocedimientos planprocedimientos = detalleplanprocedimientos.getPlanprocedimientos();
+            if (planprocedimientos != null) {
+                planprocedimientos.getDetalleplanprocedimientosList().remove(detalleplanprocedimientos);
+                planprocedimientos = em.merge(planprocedimientos);
             }
             em.remove(detalleplanprocedimientos);
             em.getTransaction().commit();
@@ -204,5 +205,5 @@ public class DetalleplanprocedimientosJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

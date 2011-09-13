@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -43,12 +44,16 @@ public class Condicioniva implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "condicioniva")
     private List<Empresametalurgica> empresametalurgicaList;
+
     @OneToMany(mappedBy = "condicioniva")
     private List<Cliente> clienteList;
+
     @OneToMany(mappedBy = "condicion")
     private List<Proveedor> proveedorList;
+
     @OneToMany(mappedBy = "condicioniva")
     private List<Proveedormantenimientomaquina> proveedormantenimientomaquinaList;
+   
 
     public Condicioniva() {
     }
@@ -89,6 +94,7 @@ public class Condicioniva implements Serializable {
         this.empresametalurgicaList = empresametalurgicaList;
     }
 
+
     public List<Cliente> getClienteList() {
         return clienteList;
     }
@@ -96,6 +102,8 @@ public class Condicioniva implements Serializable {
     public void setClienteList(List<Cliente> clienteList) {
         this.clienteList = clienteList;
     }
+
+
 
     public List<Proveedor> getProveedorList() {
         return proveedorList;
@@ -105,6 +113,8 @@ public class Condicioniva implements Serializable {
         this.proveedorList = proveedorList;
     }
 
+
+
     public List<Proveedormantenimientomaquina> getProveedormantenimientomaquinaList() {
         return proveedormantenimientomaquinaList;
     }
@@ -112,6 +122,7 @@ public class Condicioniva implements Serializable {
     public void setProveedormantenimientomaquinaList(List<Proveedormantenimientomaquina> proveedormantenimientomaquinaList) {
         this.proveedormantenimientomaquinaList = proveedormantenimientomaquinaList;
     }
+
 
     @Override
     public int hashCode() {
@@ -135,7 +146,7 @@ public class Condicioniva implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Condicioniva[ idcondicioniva=" + idcondicioniva + " ]";
+        return "metalsoft.datos.jpa.entity.Condicioniva[idcondicioniva=" + idcondicioniva + "]";
     }
-    
+
 }

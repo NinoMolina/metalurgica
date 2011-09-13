@@ -2,34 +2,33 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Producto;
-import metalsoft.datos.jpa.entity.Procesocalidad;
+import metalsoft.datos.jpa.entity.DetalleplanificacioncalidadPK;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
-import metalsoft.datos.jpa.entity.Pieza;
-import metalsoft.datos.jpa.entity.Maquina;
-import metalsoft.datos.jpa.entity.Empleado;
+import metalsoft.datos.jpa.entity.Procesocalidad;
 
 /**
  *
  * @author Nino
  */
-public class DetalleplanificacioncalidadJpaController implements Serializable {
+public class DetalleplanificacioncalidadJpaController {
 
-    public DetalleplanificacioncalidadJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetalleplanificacioncalidadJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -38,68 +37,45 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
     }
 
     public void create(Detalleplanificacioncalidad detalleplanificacioncalidad) throws PreexistingEntityException, Exception {
+        if (detalleplanificacioncalidad.getDetalleplanificacioncalidadPK() == null) {
+            detalleplanificacioncalidad.setDetalleplanificacioncalidadPK(new DetalleplanificacioncalidadPK());
+        }
+        detalleplanificacioncalidad.getDetalleplanificacioncalidadPK().setIdplanificacioncalidad(detalleplanificacioncalidad.getPlanificacioncalidad().getIdplanificacion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Producto producto = detalleplanificacioncalidad.getProducto();
-            if (producto != null) {
-                producto = em.getReference(producto.getClass(), producto.getIdproducto());
-                detalleplanificacioncalidad.setProducto(producto);
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = detalleplanificacioncalidad.getDetalleejecucionplanificacioncalidad();
+            if (detalleejecucionplanificacioncalidad != null) {
+                detalleejecucionplanificacioncalidad = em.getReference(detalleejecucionplanificacioncalidad.getClass(), detalleejecucionplanificacioncalidad.getDetalleejecucionplanificacioncalidadPK());
+                detalleplanificacioncalidad.setDetalleejecucionplanificacioncalidad(detalleejecucionplanificacioncalidad);
+            }
+            Planificacioncalidad planificacioncalidad = detalleplanificacioncalidad.getPlanificacioncalidad();
+            if (planificacioncalidad != null) {
+                planificacioncalidad = em.getReference(planificacioncalidad.getClass(), planificacioncalidad.getIdplanificacion());
+                detalleplanificacioncalidad.setPlanificacioncalidad(planificacioncalidad);
             }
             Procesocalidad procesocalidad = detalleplanificacioncalidad.getProcesocalidad();
             if (procesocalidad != null) {
                 procesocalidad = em.getReference(procesocalidad.getClass(), procesocalidad.getIdprocesocalidad());
                 detalleplanificacioncalidad.setProcesocalidad(procesocalidad);
             }
-            Planificacioncalidad idplanificacioncalidad = detalleplanificacioncalidad.getIdplanificacioncalidad();
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad = em.getReference(idplanificacioncalidad.getClass(), idplanificacioncalidad.getIdplanificacion());
-                detalleplanificacioncalidad.setIdplanificacioncalidad(idplanificacioncalidad);
-            }
-            Pieza pieza = detalleplanificacioncalidad.getPieza();
-            if (pieza != null) {
-                pieza = em.getReference(pieza.getClass(), pieza.getIdpieza());
-                detalleplanificacioncalidad.setPieza(pieza);
-            }
-            Maquina maquina = detalleplanificacioncalidad.getMaquina();
-            if (maquina != null) {
-                maquina = em.getReference(maquina.getClass(), maquina.getIdmaquina());
-                detalleplanificacioncalidad.setMaquina(maquina);
-            }
-            Empleado empleado = detalleplanificacioncalidad.getEmpleado();
-            if (empleado != null) {
-                empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
-                detalleplanificacioncalidad.setEmpleado(empleado);
-            }
             em.persist(detalleplanificacioncalidad);
-            if (producto != null) {
-                producto.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                producto = em.merge(producto);
+            if (detalleejecucionplanificacioncalidad != null) {
+                detalleejecucionplanificacioncalidad.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
+                detalleejecucionplanificacioncalidad = em.merge(detalleejecucionplanificacioncalidad);
+            }
+            if (planificacioncalidad != null) {
+                planificacioncalidad.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
+                planificacioncalidad = em.merge(planificacioncalidad);
             }
             if (procesocalidad != null) {
                 procesocalidad.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
                 procesocalidad = em.merge(procesocalidad);
             }
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                idplanificacioncalidad = em.merge(idplanificacioncalidad);
-            }
-            if (pieza != null) {
-                pieza.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                pieza = em.merge(pieza);
-            }
-            if (maquina != null) {
-                maquina.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                maquina = em.merge(maquina);
-            }
-            if (empleado != null) {
-                empleado.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                empleado = em.merge(empleado);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findDetalleplanificacioncalidad(detalleplanificacioncalidad.getIddetalle()) != null) {
+            if (findDetalleplanificacioncalidad(detalleplanificacioncalidad.getDetalleplanificacioncalidadPK()) != null) {
                 throw new PreexistingEntityException("Detalleplanificacioncalidad " + detalleplanificacioncalidad + " already exists.", ex);
             }
             throw ex;
@@ -111,55 +87,46 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
     }
 
     public void edit(Detalleplanificacioncalidad detalleplanificacioncalidad) throws NonexistentEntityException, Exception {
+        detalleplanificacioncalidad.getDetalleplanificacioncalidadPK().setIdplanificacioncalidad(detalleplanificacioncalidad.getPlanificacioncalidad().getIdplanificacion());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Detalleplanificacioncalidad persistentDetalleplanificacioncalidad = em.find(Detalleplanificacioncalidad.class, detalleplanificacioncalidad.getIddetalle());
-            Producto productoOld = persistentDetalleplanificacioncalidad.getProducto();
-            Producto productoNew = detalleplanificacioncalidad.getProducto();
+            Detalleplanificacioncalidad persistentDetalleplanificacioncalidad = em.find(Detalleplanificacioncalidad.class, detalleplanificacioncalidad.getDetalleplanificacioncalidadPK());
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadOld = persistentDetalleplanificacioncalidad.getDetalleejecucionplanificacioncalidad();
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidadNew = detalleplanificacioncalidad.getDetalleejecucionplanificacioncalidad();
+            Planificacioncalidad planificacioncalidadOld = persistentDetalleplanificacioncalidad.getPlanificacioncalidad();
+            Planificacioncalidad planificacioncalidadNew = detalleplanificacioncalidad.getPlanificacioncalidad();
             Procesocalidad procesocalidadOld = persistentDetalleplanificacioncalidad.getProcesocalidad();
             Procesocalidad procesocalidadNew = detalleplanificacioncalidad.getProcesocalidad();
-            Planificacioncalidad idplanificacioncalidadOld = persistentDetalleplanificacioncalidad.getIdplanificacioncalidad();
-            Planificacioncalidad idplanificacioncalidadNew = detalleplanificacioncalidad.getIdplanificacioncalidad();
-            Pieza piezaOld = persistentDetalleplanificacioncalidad.getPieza();
-            Pieza piezaNew = detalleplanificacioncalidad.getPieza();
-            Maquina maquinaOld = persistentDetalleplanificacioncalidad.getMaquina();
-            Maquina maquinaNew = detalleplanificacioncalidad.getMaquina();
-            Empleado empleadoOld = persistentDetalleplanificacioncalidad.getEmpleado();
-            Empleado empleadoNew = detalleplanificacioncalidad.getEmpleado();
-            if (productoNew != null) {
-                productoNew = em.getReference(productoNew.getClass(), productoNew.getIdproducto());
-                detalleplanificacioncalidad.setProducto(productoNew);
+            if (detalleejecucionplanificacioncalidadNew != null) {
+                detalleejecucionplanificacioncalidadNew = em.getReference(detalleejecucionplanificacioncalidadNew.getClass(), detalleejecucionplanificacioncalidadNew.getDetalleejecucionplanificacioncalidadPK());
+                detalleplanificacioncalidad.setDetalleejecucionplanificacioncalidad(detalleejecucionplanificacioncalidadNew);
+            }
+            if (planificacioncalidadNew != null) {
+                planificacioncalidadNew = em.getReference(planificacioncalidadNew.getClass(), planificacioncalidadNew.getIdplanificacion());
+                detalleplanificacioncalidad.setPlanificacioncalidad(planificacioncalidadNew);
             }
             if (procesocalidadNew != null) {
                 procesocalidadNew = em.getReference(procesocalidadNew.getClass(), procesocalidadNew.getIdprocesocalidad());
                 detalleplanificacioncalidad.setProcesocalidad(procesocalidadNew);
             }
-            if (idplanificacioncalidadNew != null) {
-                idplanificacioncalidadNew = em.getReference(idplanificacioncalidadNew.getClass(), idplanificacioncalidadNew.getIdplanificacion());
-                detalleplanificacioncalidad.setIdplanificacioncalidad(idplanificacioncalidadNew);
-            }
-            if (piezaNew != null) {
-                piezaNew = em.getReference(piezaNew.getClass(), piezaNew.getIdpieza());
-                detalleplanificacioncalidad.setPieza(piezaNew);
-            }
-            if (maquinaNew != null) {
-                maquinaNew = em.getReference(maquinaNew.getClass(), maquinaNew.getIdmaquina());
-                detalleplanificacioncalidad.setMaquina(maquinaNew);
-            }
-            if (empleadoNew != null) {
-                empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
-                detalleplanificacioncalidad.setEmpleado(empleadoNew);
-            }
             detalleplanificacioncalidad = em.merge(detalleplanificacioncalidad);
-            if (productoOld != null && !productoOld.equals(productoNew)) {
-                productoOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                productoOld = em.merge(productoOld);
+            if (detalleejecucionplanificacioncalidadOld != null && !detalleejecucionplanificacioncalidadOld.equals(detalleejecucionplanificacioncalidadNew)) {
+                detalleejecucionplanificacioncalidadOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
+                detalleejecucionplanificacioncalidadOld = em.merge(detalleejecucionplanificacioncalidadOld);
             }
-            if (productoNew != null && !productoNew.equals(productoOld)) {
-                productoNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                productoNew = em.merge(productoNew);
+            if (detalleejecucionplanificacioncalidadNew != null && !detalleejecucionplanificacioncalidadNew.equals(detalleejecucionplanificacioncalidadOld)) {
+                detalleejecucionplanificacioncalidadNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
+                detalleejecucionplanificacioncalidadNew = em.merge(detalleejecucionplanificacioncalidadNew);
+            }
+            if (planificacioncalidadOld != null && !planificacioncalidadOld.equals(planificacioncalidadNew)) {
+                planificacioncalidadOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
+                planificacioncalidadOld = em.merge(planificacioncalidadOld);
+            }
+            if (planificacioncalidadNew != null && !planificacioncalidadNew.equals(planificacioncalidadOld)) {
+                planificacioncalidadNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
+                planificacioncalidadNew = em.merge(planificacioncalidadNew);
             }
             if (procesocalidadOld != null && !procesocalidadOld.equals(procesocalidadNew)) {
                 procesocalidadOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
@@ -169,43 +136,11 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
                 procesocalidadNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
                 procesocalidadNew = em.merge(procesocalidadNew);
             }
-            if (idplanificacioncalidadOld != null && !idplanificacioncalidadOld.equals(idplanificacioncalidadNew)) {
-                idplanificacioncalidadOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                idplanificacioncalidadOld = em.merge(idplanificacioncalidadOld);
-            }
-            if (idplanificacioncalidadNew != null && !idplanificacioncalidadNew.equals(idplanificacioncalidadOld)) {
-                idplanificacioncalidadNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                idplanificacioncalidadNew = em.merge(idplanificacioncalidadNew);
-            }
-            if (piezaOld != null && !piezaOld.equals(piezaNew)) {
-                piezaOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                piezaOld = em.merge(piezaOld);
-            }
-            if (piezaNew != null && !piezaNew.equals(piezaOld)) {
-                piezaNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                piezaNew = em.merge(piezaNew);
-            }
-            if (maquinaOld != null && !maquinaOld.equals(maquinaNew)) {
-                maquinaOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                maquinaOld = em.merge(maquinaOld);
-            }
-            if (maquinaNew != null && !maquinaNew.equals(maquinaOld)) {
-                maquinaNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                maquinaNew = em.merge(maquinaNew);
-            }
-            if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
-                empleadoOld.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                empleadoOld = em.merge(empleadoOld);
-            }
-            if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
-                empleadoNew.getDetalleplanificacioncalidadList().add(detalleplanificacioncalidad);
-                empleadoNew = em.merge(empleadoNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = detalleplanificacioncalidad.getIddetalle();
+                DetalleplanificacioncalidadPK id = detalleplanificacioncalidad.getDetalleplanificacioncalidadPK();
                 if (findDetalleplanificacioncalidad(id) == null) {
                     throw new NonexistentEntityException("The detalleplanificacioncalidad with id " + id + " no longer exists.");
                 }
@@ -218,7 +153,7 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(DetalleplanificacioncalidadPK id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -226,39 +161,24 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
             Detalleplanificacioncalidad detalleplanificacioncalidad;
             try {
                 detalleplanificacioncalidad = em.getReference(Detalleplanificacioncalidad.class, id);
-                detalleplanificacioncalidad.getIddetalle();
+                detalleplanificacioncalidad.getDetalleplanificacioncalidadPK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detalleplanificacioncalidad with id " + id + " no longer exists.", enfe);
             }
-            Producto producto = detalleplanificacioncalidad.getProducto();
-            if (producto != null) {
-                producto.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                producto = em.merge(producto);
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = detalleplanificacioncalidad.getDetalleejecucionplanificacioncalidad();
+            if (detalleejecucionplanificacioncalidad != null) {
+                detalleejecucionplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
+                detalleejecucionplanificacioncalidad = em.merge(detalleejecucionplanificacioncalidad);
+            }
+            Planificacioncalidad planificacioncalidad = detalleplanificacioncalidad.getPlanificacioncalidad();
+            if (planificacioncalidad != null) {
+                planificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
+                planificacioncalidad = em.merge(planificacioncalidad);
             }
             Procesocalidad procesocalidad = detalleplanificacioncalidad.getProcesocalidad();
             if (procesocalidad != null) {
                 procesocalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
                 procesocalidad = em.merge(procesocalidad);
-            }
-            Planificacioncalidad idplanificacioncalidad = detalleplanificacioncalidad.getIdplanificacioncalidad();
-            if (idplanificacioncalidad != null) {
-                idplanificacioncalidad.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                idplanificacioncalidad = em.merge(idplanificacioncalidad);
-            }
-            Pieza pieza = detalleplanificacioncalidad.getPieza();
-            if (pieza != null) {
-                pieza.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                pieza = em.merge(pieza);
-            }
-            Maquina maquina = detalleplanificacioncalidad.getMaquina();
-            if (maquina != null) {
-                maquina.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                maquina = em.merge(maquina);
-            }
-            Empleado empleado = detalleplanificacioncalidad.getEmpleado();
-            if (empleado != null) {
-                empleado.getDetalleplanificacioncalidadList().remove(detalleplanificacioncalidad);
-                empleado = em.merge(empleado);
             }
             em.remove(detalleplanificacioncalidad);
             em.getTransaction().commit();
@@ -293,7 +213,7 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
         }
     }
 
-    public Detalleplanificacioncalidad findDetalleplanificacioncalidad(Long id) {
+    public Detalleplanificacioncalidad findDetalleplanificacioncalidad(DetalleplanificacioncalidadPK id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Detalleplanificacioncalidad.class, id);
@@ -314,5 +234,5 @@ public class DetalleplanificacioncalidadJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

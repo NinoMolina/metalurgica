@@ -2,31 +2,32 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Empleadoxturno;
 import metalsoft.datos.jpa.entity.EmpleadoxturnoPK;
 import metalsoft.datos.jpa.entity.Turno;
-import metalsoft.datos.jpa.entity.Empleado;
 
 /**
  *
  * @author Nino
  */
-public class EmpleadoxturnoJpaController implements Serializable {
+public class EmpleadoxturnoJpaController {
 
-    public EmpleadoxturnoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public EmpleadoxturnoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -44,24 +45,24 @@ public class EmpleadoxturnoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Turno turno = empleadoxturno.getTurno();
-            if (turno != null) {
-                turno = em.getReference(turno.getClass(), turno.getIdturno());
-                empleadoxturno.setTurno(turno);
-            }
             Empleado empleado = empleadoxturno.getEmpleado();
             if (empleado != null) {
                 empleado = em.getReference(empleado.getClass(), empleado.getIdempleado());
                 empleadoxturno.setEmpleado(empleado);
             }
-            em.persist(empleadoxturno);
+            Turno turno = empleadoxturno.getTurno();
             if (turno != null) {
-                turno.getEmpleadoxturnoList().add(empleadoxturno);
-                turno = em.merge(turno);
+                turno = em.getReference(turno.getClass(), turno.getIdturno());
+                empleadoxturno.setTurno(turno);
             }
+            em.persist(empleadoxturno);
             if (empleado != null) {
                 empleado.getEmpleadoxturnoList().add(empleadoxturno);
                 empleado = em.merge(empleado);
+            }
+            if (turno != null) {
+                turno.getEmpleadoxturnoList().add(empleadoxturno);
+                turno = em.merge(turno);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -84,27 +85,19 @@ public class EmpleadoxturnoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Empleadoxturno persistentEmpleadoxturno = em.find(Empleadoxturno.class, empleadoxturno.getEmpleadoxturnoPK());
-            Turno turnoOld = persistentEmpleadoxturno.getTurno();
-            Turno turnoNew = empleadoxturno.getTurno();
             Empleado empleadoOld = persistentEmpleadoxturno.getEmpleado();
             Empleado empleadoNew = empleadoxturno.getEmpleado();
-            if (turnoNew != null) {
-                turnoNew = em.getReference(turnoNew.getClass(), turnoNew.getIdturno());
-                empleadoxturno.setTurno(turnoNew);
-            }
+            Turno turnoOld = persistentEmpleadoxturno.getTurno();
+            Turno turnoNew = empleadoxturno.getTurno();
             if (empleadoNew != null) {
                 empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getIdempleado());
                 empleadoxturno.setEmpleado(empleadoNew);
             }
+            if (turnoNew != null) {
+                turnoNew = em.getReference(turnoNew.getClass(), turnoNew.getIdturno());
+                empleadoxturno.setTurno(turnoNew);
+            }
             empleadoxturno = em.merge(empleadoxturno);
-            if (turnoOld != null && !turnoOld.equals(turnoNew)) {
-                turnoOld.getEmpleadoxturnoList().remove(empleadoxturno);
-                turnoOld = em.merge(turnoOld);
-            }
-            if (turnoNew != null && !turnoNew.equals(turnoOld)) {
-                turnoNew.getEmpleadoxturnoList().add(empleadoxturno);
-                turnoNew = em.merge(turnoNew);
-            }
             if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
                 empleadoOld.getEmpleadoxturnoList().remove(empleadoxturno);
                 empleadoOld = em.merge(empleadoOld);
@@ -112,6 +105,14 @@ public class EmpleadoxturnoJpaController implements Serializable {
             if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
                 empleadoNew.getEmpleadoxturnoList().add(empleadoxturno);
                 empleadoNew = em.merge(empleadoNew);
+            }
+            if (turnoOld != null && !turnoOld.equals(turnoNew)) {
+                turnoOld.getEmpleadoxturnoList().remove(empleadoxturno);
+                turnoOld = em.merge(turnoOld);
+            }
+            if (turnoNew != null && !turnoNew.equals(turnoOld)) {
+                turnoNew.getEmpleadoxturnoList().add(empleadoxturno);
+                turnoNew = em.merge(turnoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -142,15 +143,15 @@ public class EmpleadoxturnoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The empleadoxturno with id " + id + " no longer exists.", enfe);
             }
-            Turno turno = empleadoxturno.getTurno();
-            if (turno != null) {
-                turno.getEmpleadoxturnoList().remove(empleadoxturno);
-                turno = em.merge(turno);
-            }
             Empleado empleado = empleadoxturno.getEmpleado();
             if (empleado != null) {
                 empleado.getEmpleadoxturnoList().remove(empleadoxturno);
                 empleado = em.merge(empleado);
+            }
+            Turno turno = empleadoxturno.getTurno();
+            if (turno != null) {
+                turno.getEmpleadoxturnoList().remove(empleadoxturno);
+                turno = em.merge(turno);
             }
             em.remove(empleadoxturno);
             em.getTransaction().commit();
@@ -206,5 +207,5 @@ public class EmpleadoxturnoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

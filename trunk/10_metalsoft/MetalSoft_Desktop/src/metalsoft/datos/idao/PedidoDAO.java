@@ -32,6 +32,7 @@ public interface PedidoDAO
 	public PedidoDB[] findByFactura(long factura,Connection con) throws PedidoException;
 	public PedidoDB[] findByPresupuesto(long presupuesto,Connection con) throws PedidoException;
 	public PedidoDB[] findByFecharequeridacotizacion(Date fecharequeridacotizacion,Connection con) throws PedidoException;
+	public PedidoDB[] findByPlano(long plano,Connection con) throws PedidoException;
 	public PedidoDB[] findByMotivocancelacion(String motivocancelacion,Connection con) throws PedidoException;
 	public PedidoDB[] findByEspedidoweb(boolean espedidoweb,Connection con) throws PedidoException;
 	public PedidoDB[] findByNropedidocotizacioncliente(int nropedidocotizacioncliente,Connection con) throws PedidoException;

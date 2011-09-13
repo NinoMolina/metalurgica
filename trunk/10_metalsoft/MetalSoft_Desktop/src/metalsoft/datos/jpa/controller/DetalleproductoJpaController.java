@@ -2,11 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,18 +17,15 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleproducto;
 import metalsoft.datos.jpa.entity.Producto;
-import metalsoft.datos.jpa.entity.Detalleproductoreal;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author Nino
  */
-public class DetalleproductoJpaController implements Serializable {
+public class DetalleproductoJpaController {
 
-    public DetalleproductoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetalleproductoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -35,9 +34,6 @@ public class DetalleproductoJpaController implements Serializable {
     }
 
     public void create(Detalleproducto detalleproducto) throws PreexistingEntityException, Exception {
-        if (detalleproducto.getDetalleproductorealList() == null) {
-            detalleproducto.setDetalleproductorealList(new ArrayList<Detalleproductoreal>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -47,25 +43,10 @@ public class DetalleproductoJpaController implements Serializable {
                 idproducto = em.getReference(idproducto.getClass(), idproducto.getIdproducto());
                 detalleproducto.setIdproducto(idproducto);
             }
-            List<Detalleproductoreal> attachedDetalleproductorealList = new ArrayList<Detalleproductoreal>();
-            for (Detalleproductoreal detalleproductorealListDetalleproductorealToAttach : detalleproducto.getDetalleproductorealList()) {
-                detalleproductorealListDetalleproductorealToAttach = em.getReference(detalleproductorealListDetalleproductorealToAttach.getClass(), detalleproductorealListDetalleproductorealToAttach.getIddetalle());
-                attachedDetalleproductorealList.add(detalleproductorealListDetalleproductorealToAttach);
-            }
-            detalleproducto.setDetalleproductorealList(attachedDetalleproductorealList);
             em.persist(detalleproducto);
             if (idproducto != null) {
                 idproducto.getDetalleproductoList().add(detalleproducto);
                 idproducto = em.merge(idproducto);
-            }
-            for (Detalleproductoreal detalleproductorealListDetalleproductoreal : detalleproducto.getDetalleproductorealList()) {
-                Detalleproducto oldDetalleproductoOfDetalleproductorealListDetalleproductoreal = detalleproductorealListDetalleproductoreal.getDetalleproducto();
-                detalleproductorealListDetalleproductoreal.setDetalleproducto(detalleproducto);
-                detalleproductorealListDetalleproductoreal = em.merge(detalleproductorealListDetalleproductoreal);
-                if (oldDetalleproductoOfDetalleproductorealListDetalleproductoreal != null) {
-                    oldDetalleproductoOfDetalleproductorealListDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListDetalleproductoreal);
-                    oldDetalleproductoOfDetalleproductorealListDetalleproductoreal = em.merge(oldDetalleproductoOfDetalleproductorealListDetalleproductoreal);
-                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -88,19 +69,10 @@ public class DetalleproductoJpaController implements Serializable {
             Detalleproducto persistentDetalleproducto = em.find(Detalleproducto.class, detalleproducto.getIddetalle());
             Producto idproductoOld = persistentDetalleproducto.getIdproducto();
             Producto idproductoNew = detalleproducto.getIdproducto();
-            List<Detalleproductoreal> detalleproductorealListOld = persistentDetalleproducto.getDetalleproductorealList();
-            List<Detalleproductoreal> detalleproductorealListNew = detalleproducto.getDetalleproductorealList();
             if (idproductoNew != null) {
                 idproductoNew = em.getReference(idproductoNew.getClass(), idproductoNew.getIdproducto());
                 detalleproducto.setIdproducto(idproductoNew);
             }
-            List<Detalleproductoreal> attachedDetalleproductorealListNew = new ArrayList<Detalleproductoreal>();
-            for (Detalleproductoreal detalleproductorealListNewDetalleproductorealToAttach : detalleproductorealListNew) {
-                detalleproductorealListNewDetalleproductorealToAttach = em.getReference(detalleproductorealListNewDetalleproductorealToAttach.getClass(), detalleproductorealListNewDetalleproductorealToAttach.getIddetalle());
-                attachedDetalleproductorealListNew.add(detalleproductorealListNewDetalleproductorealToAttach);
-            }
-            detalleproductorealListNew = attachedDetalleproductorealListNew;
-            detalleproducto.setDetalleproductorealList(detalleproductorealListNew);
             detalleproducto = em.merge(detalleproducto);
             if (idproductoOld != null && !idproductoOld.equals(idproductoNew)) {
                 idproductoOld.getDetalleproductoList().remove(detalleproducto);
@@ -109,23 +81,6 @@ public class DetalleproductoJpaController implements Serializable {
             if (idproductoNew != null && !idproductoNew.equals(idproductoOld)) {
                 idproductoNew.getDetalleproductoList().add(detalleproducto);
                 idproductoNew = em.merge(idproductoNew);
-            }
-            for (Detalleproductoreal detalleproductorealListOldDetalleproductoreal : detalleproductorealListOld) {
-                if (!detalleproductorealListNew.contains(detalleproductorealListOldDetalleproductoreal)) {
-                    detalleproductorealListOldDetalleproductoreal.setDetalleproducto(null);
-                    detalleproductorealListOldDetalleproductoreal = em.merge(detalleproductorealListOldDetalleproductoreal);
-                }
-            }
-            for (Detalleproductoreal detalleproductorealListNewDetalleproductoreal : detalleproductorealListNew) {
-                if (!detalleproductorealListOld.contains(detalleproductorealListNewDetalleproductoreal)) {
-                    Detalleproducto oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal = detalleproductorealListNewDetalleproductoreal.getDetalleproducto();
-                    detalleproductorealListNewDetalleproductoreal.setDetalleproducto(detalleproducto);
-                    detalleproductorealListNewDetalleproductoreal = em.merge(detalleproductorealListNewDetalleproductoreal);
-                    if (oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal != null && !oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal.equals(detalleproducto)) {
-                        oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal.getDetalleproductorealList().remove(detalleproductorealListNewDetalleproductoreal);
-                        oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal = em.merge(oldDetalleproductoOfDetalleproductorealListNewDetalleproductoreal);
-                    }
-                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -160,11 +115,6 @@ public class DetalleproductoJpaController implements Serializable {
             if (idproducto != null) {
                 idproducto.getDetalleproductoList().remove(detalleproducto);
                 idproducto = em.merge(idproducto);
-            }
-            List<Detalleproductoreal> detalleproductorealList = detalleproducto.getDetalleproductorealList();
-            for (Detalleproductoreal detalleproductorealListDetalleproductoreal : detalleproductorealList) {
-                detalleproductorealListDetalleproductoreal.setDetalleproducto(null);
-                detalleproductorealListDetalleproductoreal = em.merge(detalleproductorealListDetalleproductoreal);
             }
             em.remove(detalleproducto);
             em.getTransaction().commit();
@@ -220,5 +170,5 @@ public class DetalleproductoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

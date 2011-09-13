@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -42,7 +43,7 @@ public class Detalleejecucionplanificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleejecucionplanificacion_seq")
-    @SequenceGenerator(name = "detalleejecucionplanificacion_seq", sequenceName = "detalleejecucionplanificacion_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "detalleejecucionplanificacion_seq", sequenceName = "detalleejecucionplanificacion_iddetalle_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "fechainicio")
@@ -61,21 +62,21 @@ public class Detalleejecucionplanificacion implements Serializable {
     private Integer orden;
     @OneToMany(mappedBy = "iddetalleejecucionplanificacion")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-    @JoinColumn(name = "piezareal", referencedColumnName = "idpiezareal")
-    @ManyToOne
-    private Piezareal piezareal;
-    @JoinColumn(name = "pieza", referencedColumnName = "idpieza")
-    @ManyToOne
-    private Pieza pieza;
-    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
-    @ManyToOne
-    private Etapadeproduccion idetapaproduccion;
-    @JoinColumn(name = "idejecucionplanificacionproduccion", referencedColumnName = "idejecucion")
-    @ManyToOne(optional = false)
-    private Ejecucionplanificacionproduccion idejecucionplanificacionproduccion;
     @JoinColumn(name = "ejecucionetapa", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Ejecucionetapaproduccion ejecucionetapa;
+    @JoinColumn(name = "idejecucionplanificacionproduccion", referencedColumnName = "idejecucion")
+    @ManyToOne(optional = false)
+    private Ejecucionplanificacionproduccion idejecucionplanificacionproduccion;
+    @JoinColumn(name = "idetapaproduccion", referencedColumnName = "idetapaproduccion")
+    @ManyToOne
+    private Etapadeproduccion idetapaproduccion;
+    @JoinColumn(name = "pieza", referencedColumnName = "idpieza")
+    @ManyToOne
+    private Pieza pieza;
+    @JoinColumn(name = "piezareal", referencedColumnName = "idpiezareal")
+    @ManyToOne
+    private Piezareal piezareal;
 
     public Detalleejecucionplanificacion() {
     }
@@ -140,28 +141,12 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-    public Piezareal getPiezareal() {
-        return piezareal;
+    public Ejecucionetapaproduccion getEjecucionetapa() {
+        return ejecucionetapa;
     }
 
-    public void setPiezareal(Piezareal piezareal) {
-        this.piezareal = piezareal;
-    }
-
-    public Pieza getPieza() {
-        return pieza;
-    }
-
-    public void setPieza(Pieza pieza) {
-        this.pieza = pieza;
-    }
-
-    public Etapadeproduccion getIdetapaproduccion() {
-        return idetapaproduccion;
-    }
-
-    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
-        this.idetapaproduccion = idetapaproduccion;
+    public void setEjecucionetapa(Ejecucionetapaproduccion ejecucionetapa) {
+        this.ejecucionetapa = ejecucionetapa;
     }
 
     public Ejecucionplanificacionproduccion getIdejecucionplanificacionproduccion() {
@@ -172,12 +157,28 @@ public class Detalleejecucionplanificacion implements Serializable {
         this.idejecucionplanificacionproduccion = idejecucionplanificacionproduccion;
     }
 
-    public Ejecucionetapaproduccion getEjecucionetapa() {
-        return ejecucionetapa;
+    public Etapadeproduccion getIdetapaproduccion() {
+        return idetapaproduccion;
     }
 
-    public void setEjecucionetapa(Ejecucionetapaproduccion ejecucionetapa) {
-        this.ejecucionetapa = ejecucionetapa;
+    public void setIdetapaproduccion(Etapadeproduccion idetapaproduccion) {
+        this.idetapaproduccion = idetapaproduccion;
+    }
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
+
+    public Piezareal getPiezareal() {
+        return piezareal;
+    }
+
+    public void setPiezareal(Piezareal piezareal) {
+        this.piezareal = piezareal;
     }
 
     @Override
@@ -202,7 +203,7 @@ public class Detalleejecucionplanificacion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleejecucionplanificacion[ id=" + id + " ]";
+        return "metalsoft.datos.jpa.entity.Detalleejecucionplanificacion[id=" + id + "]";
     }
-    
+
 }

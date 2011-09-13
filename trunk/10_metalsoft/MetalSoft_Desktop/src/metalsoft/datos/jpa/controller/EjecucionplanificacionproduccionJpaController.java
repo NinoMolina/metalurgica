@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,8 +16,8 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
-import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
+import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class EjecucionplanificacionproduccionJpaController implements Serializable {
+public class EjecucionplanificacionproduccionJpaController {
 
-    public EjecucionplanificacionproduccionJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public EjecucionplanificacionproduccionJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -44,15 +45,15 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion = em.getReference(idplanificacionproduccion.getClass(), idplanificacionproduccion.getIdplanificacionproduccion());
-                ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccion);
-            }
             Estadoejecplanifpedido estado = ejecucionplanificacionproduccion.getEstado();
             if (estado != null) {
                 estado = em.getReference(estado.getClass(), estado.getIdestado());
                 ejecucionplanificacionproduccion.setEstado(estado);
+            }
+            Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion = em.getReference(idplanificacionproduccion.getClass(), idplanificacionproduccion.getIdplanificacionproduccion());
+                ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccion);
             }
             List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionList = new ArrayList<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacionToAttach : ejecucionplanificacionproduccion.getDetalleejecucionplanificacionList()) {
@@ -61,13 +62,13 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             }
             ejecucionplanificacionproduccion.setDetalleejecucionplanificacionList(attachedDetalleejecucionplanificacionList);
             em.persist(ejecucionplanificacionproduccion);
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
-                idplanificacionproduccion = em.merge(idplanificacionproduccion);
-            }
             if (estado != null) {
                 estado.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
                 estado = em.merge(estado);
+            }
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
+                idplanificacionproduccion = em.merge(idplanificacionproduccion);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListDetalleejecucionplanificacion : ejecucionplanificacionproduccion.getDetalleejecucionplanificacionList()) {
                 Ejecucionplanificacionproduccion oldIdejecucionplanificacionproduccionOfDetalleejecucionplanificacionListDetalleejecucionplanificacion = detalleejecucionplanificacionListDetalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
@@ -97,10 +98,10 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             em = getEntityManager();
             em.getTransaction().begin();
             Ejecucionplanificacionproduccion persistentEjecucionplanificacionproduccion = em.find(Ejecucionplanificacionproduccion.class, ejecucionplanificacionproduccion.getIdejecucion());
-            Planificacionproduccion idplanificacionproduccionOld = persistentEjecucionplanificacionproduccion.getIdplanificacionproduccion();
-            Planificacionproduccion idplanificacionproduccionNew = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
             Estadoejecplanifpedido estadoOld = persistentEjecucionplanificacionproduccion.getEstado();
             Estadoejecplanifpedido estadoNew = ejecucionplanificacionproduccion.getEstado();
+            Planificacionproduccion idplanificacionproduccionOld = persistentEjecucionplanificacionproduccion.getIdplanificacionproduccion();
+            Planificacionproduccion idplanificacionproduccionNew = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListOld = persistentEjecucionplanificacionproduccion.getDetalleejecucionplanificacionList();
             List<Detalleejecucionplanificacion> detalleejecucionplanificacionListNew = ejecucionplanificacionproduccion.getDetalleejecucionplanificacionList();
             List<String> illegalOrphanMessages = null;
@@ -115,13 +116,13 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (idplanificacionproduccionNew != null) {
-                idplanificacionproduccionNew = em.getReference(idplanificacionproduccionNew.getClass(), idplanificacionproduccionNew.getIdplanificacionproduccion());
-                ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccionNew);
-            }
             if (estadoNew != null) {
                 estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
                 ejecucionplanificacionproduccion.setEstado(estadoNew);
+            }
+            if (idplanificacionproduccionNew != null) {
+                idplanificacionproduccionNew = em.getReference(idplanificacionproduccionNew.getClass(), idplanificacionproduccionNew.getIdplanificacionproduccion());
+                ejecucionplanificacionproduccion.setIdplanificacionproduccion(idplanificacionproduccionNew);
             }
             List<Detalleejecucionplanificacion> attachedDetalleejecucionplanificacionListNew = new ArrayList<Detalleejecucionplanificacion>();
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacionToAttach : detalleejecucionplanificacionListNew) {
@@ -131,14 +132,6 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             detalleejecucionplanificacionListNew = attachedDetalleejecucionplanificacionListNew;
             ejecucionplanificacionproduccion.setDetalleejecucionplanificacionList(detalleejecucionplanificacionListNew);
             ejecucionplanificacionproduccion = em.merge(ejecucionplanificacionproduccion);
-            if (idplanificacionproduccionOld != null && !idplanificacionproduccionOld.equals(idplanificacionproduccionNew)) {
-                idplanificacionproduccionOld.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
-                idplanificacionproduccionOld = em.merge(idplanificacionproduccionOld);
-            }
-            if (idplanificacionproduccionNew != null && !idplanificacionproduccionNew.equals(idplanificacionproduccionOld)) {
-                idplanificacionproduccionNew.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
-                idplanificacionproduccionNew = em.merge(idplanificacionproduccionNew);
-            }
             if (estadoOld != null && !estadoOld.equals(estadoNew)) {
                 estadoOld.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
                 estadoOld = em.merge(estadoOld);
@@ -146,6 +139,14 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             if (estadoNew != null && !estadoNew.equals(estadoOld)) {
                 estadoNew.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
                 estadoNew = em.merge(estadoNew);
+            }
+            if (idplanificacionproduccionOld != null && !idplanificacionproduccionOld.equals(idplanificacionproduccionNew)) {
+                idplanificacionproduccionOld.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
+                idplanificacionproduccionOld = em.merge(idplanificacionproduccionOld);
+            }
+            if (idplanificacionproduccionNew != null && !idplanificacionproduccionNew.equals(idplanificacionproduccionOld)) {
+                idplanificacionproduccionNew.getEjecucionplanificacionproduccionList().add(ejecucionplanificacionproduccion);
+                idplanificacionproduccionNew = em.merge(idplanificacionproduccionNew);
             }
             for (Detalleejecucionplanificacion detalleejecucionplanificacionListNewDetalleejecucionplanificacion : detalleejecucionplanificacionListNew) {
                 if (!detalleejecucionplanificacionListOld.contains(detalleejecucionplanificacionListNewDetalleejecucionplanificacion)) {
@@ -198,15 +199,15 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
-            if (idplanificacionproduccion != null) {
-                idplanificacionproduccion.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
-                idplanificacionproduccion = em.merge(idplanificacionproduccion);
-            }
             Estadoejecplanifpedido estado = ejecucionplanificacionproduccion.getEstado();
             if (estado != null) {
                 estado.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
                 estado = em.merge(estado);
+            }
+            Planificacionproduccion idplanificacionproduccion = ejecucionplanificacionproduccion.getIdplanificacionproduccion();
+            if (idplanificacionproduccion != null) {
+                idplanificacionproduccion.getEjecucionplanificacionproduccionList().remove(ejecucionplanificacionproduccion);
+                idplanificacionproduccion = em.merge(idplanificacionproduccion);
             }
             em.remove(ejecucionplanificacionproduccion);
             em.getTransaction().commit();
@@ -262,5 +263,5 @@ public class EjecucionplanificacionproduccionJpaController implements Serializab
             em.close();
         }
     }
-    
+
 }

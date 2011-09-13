@@ -15,7 +15,6 @@ import metalsoft.datos.dbobject.TipomaquinaPKDB;
 import metalsoft.datos.exception.TipomaquinaException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.TipomaquinaDAO;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.mantmaquinarias.TipoMaquina;
@@ -34,7 +33,7 @@ public class GestorTipoMaquina {
          * JPA
          */
         metalsoft.datos.jpa.entity.Tipomaquina tm=new metalsoft.datos.jpa.entity.Tipomaquina();
-        TipomaquinaJpaController con=new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
+        TipomaquinaJpaController con=new TipomaquinaJpaController();
 
         tm.setNombre(nombre);
         tm.setDescripcion(descripcion);

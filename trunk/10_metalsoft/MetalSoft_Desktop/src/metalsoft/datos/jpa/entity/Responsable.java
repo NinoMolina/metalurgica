@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -55,20 +56,26 @@ public class Responsable implements Serializable {
     private Integer nrodocumento;
     @Column(name = "fax")
     private String fax;
-    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
-    @ManyToOne
-    private Tipodocumento tipodocumento;
     @JoinColumn(name = "domicilio", referencedColumnName = "iddomicilio")
     @ManyToOne
     private Domicilio domicilio;
+
+    @JoinColumn(name = "tipodocumento", referencedColumnName = "idtipodocumento")
+    @ManyToOne
+    private Tipodocumento tipodocumento;
+
     @OneToMany(mappedBy = "responsable")
     private List<Empresametalurgica> empresametalurgicaList;
+
     @OneToMany(mappedBy = "responsable")
     private List<Cliente> clienteList;
+
     @OneToMany(mappedBy = "responsable")
     private List<Proveedor> proveedorList;
+
     @OneToMany(mappedBy = "responsable")
     private List<Proveedormantenimientomaquina> proveedormantenimientomaquinaList;
+
 
     public Responsable() {
     }
@@ -133,14 +140,6 @@ public class Responsable implements Serializable {
         this.fax = fax;
     }
 
-    public Tipodocumento getTipodocumento() {
-        return tipodocumento;
-    }
-
-    public void setTipodocumento(Tipodocumento tipodocumento) {
-        this.tipodocumento = tipodocumento;
-    }
-
     public Domicilio getDomicilio() {
         return domicilio;
     }
@@ -149,6 +148,15 @@ public class Responsable implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public Tipodocumento getTipodocumento() {
+        return tipodocumento;
+    }
+
+    public void setTipodocumento(Tipodocumento tipodocumento) {
+        this.tipodocumento = tipodocumento;
+    }
+
+
     public List<Empresametalurgica> getEmpresametalurgicaList() {
         return empresametalurgicaList;
     }
@@ -156,6 +164,7 @@ public class Responsable implements Serializable {
     public void setEmpresametalurgicaList(List<Empresametalurgica> empresametalurgicaList) {
         this.empresametalurgicaList = empresametalurgicaList;
     }
+
 
     public List<Cliente> getClienteList() {
         return clienteList;
@@ -181,6 +190,7 @@ public class Responsable implements Serializable {
         this.proveedormantenimientomaquinaList = proveedormantenimientomaquinaList;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -203,7 +213,7 @@ public class Responsable implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Responsable[ idresponsable=" + idresponsable + " ]";
+        return "metalsoft.datos.jpa.entity.Responsable[idresponsable=" + idresponsable + "]";
     }
-    
+
 }

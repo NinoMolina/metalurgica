@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -44,16 +45,22 @@ public class Usuario implements Serializable {
     private String clave;
     @OneToMany(mappedBy = "usuario")
     private List<Cliente> clienteList;
+
     @OneToMany(mappedBy = "usuario")
     private List<Factura> facturaList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Usuarioxrol> usuarioxrolList;
+
     @OneToMany(mappedBy = "usuario")
     private List<Sesion> sesionList;
+
     @OneToMany(mappedBy = "usuario")
     private List<Empleado> empleadoList;
+
     @OneToMany(mappedBy = "usuario")
     private List<Comprobantepago> comprobantepagoList;
+
 
     public Usuario() {
     }
@@ -94,6 +101,7 @@ public class Usuario implements Serializable {
         this.clienteList = clienteList;
     }
 
+
     public List<Factura> getFacturaList() {
         return facturaList;
     }
@@ -101,6 +109,7 @@ public class Usuario implements Serializable {
     public void setFacturaList(List<Factura> facturaList) {
         this.facturaList = facturaList;
     }
+
 
     public List<Usuarioxrol> getUsuarioxrolList() {
         return usuarioxrolList;
@@ -110,6 +119,8 @@ public class Usuario implements Serializable {
         this.usuarioxrolList = usuarioxrolList;
     }
 
+
+
     public List<Sesion> getSesionList() {
         return sesionList;
     }
@@ -117,6 +128,8 @@ public class Usuario implements Serializable {
     public void setSesionList(List<Sesion> sesionList) {
         this.sesionList = sesionList;
     }
+
+
 
     public List<Empleado> getEmpleadoList() {
         return empleadoList;
@@ -126,6 +139,8 @@ public class Usuario implements Serializable {
         this.empleadoList = empleadoList;
     }
 
+
+
     public List<Comprobantepago> getComprobantepagoList() {
         return comprobantepagoList;
     }
@@ -133,6 +148,7 @@ public class Usuario implements Serializable {
     public void setComprobantepagoList(List<Comprobantepago> comprobantepagoList) {
         this.comprobantepagoList = comprobantepagoList;
     }
+
 
     @Override
     public int hashCode() {
@@ -156,7 +172,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Usuario[ idusuario=" + idusuario + " ]";
+        return "metalsoft.datos.jpa.entity.Usuario[idusuario=" + idusuario + "]";
     }
-    
+
 }

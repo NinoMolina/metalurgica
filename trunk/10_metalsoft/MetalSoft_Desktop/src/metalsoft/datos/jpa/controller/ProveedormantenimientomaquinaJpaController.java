@@ -2,21 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Condicioniva;
+import metalsoft.datos.jpa.entity.Domicilio;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.datos.jpa.entity.Responsable;
-import metalsoft.datos.jpa.entity.Domicilio;
-import metalsoft.datos.jpa.entity.Condicioniva;
 import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,10 @@ import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
  *
  * @author Nino
  */
-public class ProveedormantenimientomaquinaJpaController implements Serializable {
+public class ProveedormantenimientomaquinaJpaController {
 
-    public ProveedormantenimientomaquinaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ProveedormantenimientomaquinaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -48,20 +49,20 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Responsable responsable = proveedormantenimientomaquina.getResponsable();
-            if (responsable != null) {
-                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
-                proveedormantenimientomaquina.setResponsable(responsable);
+            Condicioniva condicioniva = proveedormantenimientomaquina.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
+                proveedormantenimientomaquina.setCondicioniva(condicioniva);
             }
             Domicilio domicilio = proveedormantenimientomaquina.getDomicilio();
             if (domicilio != null) {
                 domicilio = em.getReference(domicilio.getClass(), domicilio.getIddomicilio());
                 proveedormantenimientomaquina.setDomicilio(domicilio);
             }
-            Condicioniva condicioniva = proveedormantenimientomaquina.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva = em.getReference(condicioniva.getClass(), condicioniva.getIdcondicioniva());
-                proveedormantenimientomaquina.setCondicioniva(condicioniva);
+            Responsable responsable = proveedormantenimientomaquina.getResponsable();
+            if (responsable != null) {
+                responsable = em.getReference(responsable.getClass(), responsable.getIdresponsable());
+                proveedormantenimientomaquina.setResponsable(responsable);
             }
             List<Mantenimientocorrectivo> attachedMantenimientocorrectivoList = new ArrayList<Mantenimientocorrectivo>();
             for (Mantenimientocorrectivo mantenimientocorrectivoListMantenimientocorrectivoToAttach : proveedormantenimientomaquina.getMantenimientocorrectivoList()) {
@@ -76,17 +77,17 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
             }
             proveedormantenimientomaquina.setMantenimientopreventivoList(attachedMantenimientopreventivoList);
             em.persist(proveedormantenimientomaquina);
-            if (responsable != null) {
-                responsable.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
-                responsable = em.merge(responsable);
+            if (condicioniva != null) {
+                condicioniva.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
+                condicioniva = em.merge(condicioniva);
             }
             if (domicilio != null) {
                 domicilio.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
                 domicilio = em.merge(domicilio);
             }
-            if (condicioniva != null) {
-                condicioniva.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
-                condicioniva = em.merge(condicioniva);
+            if (responsable != null) {
+                responsable.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
+                responsable = em.merge(responsable);
             }
             for (Mantenimientocorrectivo mantenimientocorrectivoListMantenimientocorrectivo : proveedormantenimientomaquina.getMantenimientocorrectivoList()) {
                 Proveedormantenimientomaquina oldProveedormantenimientoOfMantenimientocorrectivoListMantenimientocorrectivo = mantenimientocorrectivoListMantenimientocorrectivo.getProveedormantenimiento();
@@ -125,27 +126,27 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
             em = getEntityManager();
             em.getTransaction().begin();
             Proveedormantenimientomaquina persistentProveedormantenimientomaquina = em.find(Proveedormantenimientomaquina.class, proveedormantenimientomaquina.getIdproveedormantenimiento());
-            Responsable responsableOld = persistentProveedormantenimientomaquina.getResponsable();
-            Responsable responsableNew = proveedormantenimientomaquina.getResponsable();
-            Domicilio domicilioOld = persistentProveedormantenimientomaquina.getDomicilio();
-            Domicilio domicilioNew = proveedormantenimientomaquina.getDomicilio();
             Condicioniva condicionivaOld = persistentProveedormantenimientomaquina.getCondicioniva();
             Condicioniva condicionivaNew = proveedormantenimientomaquina.getCondicioniva();
+            Domicilio domicilioOld = persistentProveedormantenimientomaquina.getDomicilio();
+            Domicilio domicilioNew = proveedormantenimientomaquina.getDomicilio();
+            Responsable responsableOld = persistentProveedormantenimientomaquina.getResponsable();
+            Responsable responsableNew = proveedormantenimientomaquina.getResponsable();
             List<Mantenimientocorrectivo> mantenimientocorrectivoListOld = persistentProveedormantenimientomaquina.getMantenimientocorrectivoList();
             List<Mantenimientocorrectivo> mantenimientocorrectivoListNew = proveedormantenimientomaquina.getMantenimientocorrectivoList();
             List<Mantenimientopreventivo> mantenimientopreventivoListOld = persistentProveedormantenimientomaquina.getMantenimientopreventivoList();
             List<Mantenimientopreventivo> mantenimientopreventivoListNew = proveedormantenimientomaquina.getMantenimientopreventivoList();
-            if (responsableNew != null) {
-                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
-                proveedormantenimientomaquina.setResponsable(responsableNew);
+            if (condicionivaNew != null) {
+                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
+                proveedormantenimientomaquina.setCondicioniva(condicionivaNew);
             }
             if (domicilioNew != null) {
                 domicilioNew = em.getReference(domicilioNew.getClass(), domicilioNew.getIddomicilio());
                 proveedormantenimientomaquina.setDomicilio(domicilioNew);
             }
-            if (condicionivaNew != null) {
-                condicionivaNew = em.getReference(condicionivaNew.getClass(), condicionivaNew.getIdcondicioniva());
-                proveedormantenimientomaquina.setCondicioniva(condicionivaNew);
+            if (responsableNew != null) {
+                responsableNew = em.getReference(responsableNew.getClass(), responsableNew.getIdresponsable());
+                proveedormantenimientomaquina.setResponsable(responsableNew);
             }
             List<Mantenimientocorrectivo> attachedMantenimientocorrectivoListNew = new ArrayList<Mantenimientocorrectivo>();
             for (Mantenimientocorrectivo mantenimientocorrectivoListNewMantenimientocorrectivoToAttach : mantenimientocorrectivoListNew) {
@@ -162,13 +163,13 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
             mantenimientopreventivoListNew = attachedMantenimientopreventivoListNew;
             proveedormantenimientomaquina.setMantenimientopreventivoList(mantenimientopreventivoListNew);
             proveedormantenimientomaquina = em.merge(proveedormantenimientomaquina);
-            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
-                responsableOld.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
-                responsableOld = em.merge(responsableOld);
+            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
+                condicionivaOld.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
+                condicionivaOld = em.merge(condicionivaOld);
             }
-            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
-                responsableNew.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
-                responsableNew = em.merge(responsableNew);
+            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
+                condicionivaNew.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
+                condicionivaNew = em.merge(condicionivaNew);
             }
             if (domicilioOld != null && !domicilioOld.equals(domicilioNew)) {
                 domicilioOld.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
@@ -178,13 +179,13 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
                 domicilioNew.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
                 domicilioNew = em.merge(domicilioNew);
             }
-            if (condicionivaOld != null && !condicionivaOld.equals(condicionivaNew)) {
-                condicionivaOld.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
-                condicionivaOld = em.merge(condicionivaOld);
+            if (responsableOld != null && !responsableOld.equals(responsableNew)) {
+                responsableOld.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
+                responsableOld = em.merge(responsableOld);
             }
-            if (condicionivaNew != null && !condicionivaNew.equals(condicionivaOld)) {
-                condicionivaNew.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
-                condicionivaNew = em.merge(condicionivaNew);
+            if (responsableNew != null && !responsableNew.equals(responsableOld)) {
+                responsableNew.getProveedormantenimientomaquinaList().add(proveedormantenimientomaquina);
+                responsableNew = em.merge(responsableNew);
             }
             for (Mantenimientocorrectivo mantenimientocorrectivoListOldMantenimientocorrectivo : mantenimientocorrectivoListOld) {
                 if (!mantenimientocorrectivoListNew.contains(mantenimientocorrectivoListOldMantenimientocorrectivo)) {
@@ -249,20 +250,20 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The proveedormantenimientomaquina with id " + id + " no longer exists.", enfe);
             }
-            Responsable responsable = proveedormantenimientomaquina.getResponsable();
-            if (responsable != null) {
-                responsable.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
-                responsable = em.merge(responsable);
+            Condicioniva condicioniva = proveedormantenimientomaquina.getCondicioniva();
+            if (condicioniva != null) {
+                condicioniva.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
+                condicioniva = em.merge(condicioniva);
             }
             Domicilio domicilio = proveedormantenimientomaquina.getDomicilio();
             if (domicilio != null) {
                 domicilio.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
                 domicilio = em.merge(domicilio);
             }
-            Condicioniva condicioniva = proveedormantenimientomaquina.getCondicioniva();
-            if (condicioniva != null) {
-                condicioniva.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
-                condicioniva = em.merge(condicioniva);
+            Responsable responsable = proveedormantenimientomaquina.getResponsable();
+            if (responsable != null) {
+                responsable.getProveedormantenimientomaquinaList().remove(proveedormantenimientomaquina);
+                responsable = em.merge(responsable);
             }
             List<Mantenimientocorrectivo> mantenimientocorrectivoList = proveedormantenimientomaquina.getMantenimientocorrectivoList();
             for (Mantenimientocorrectivo mantenimientocorrectivoListMantenimientocorrectivo : mantenimientocorrectivoList) {
@@ -328,5 +329,5 @@ public class ProveedormantenimientomaquinaJpaController implements Serializable 
             em.close();
         }
     }
-    
+
 }

@@ -27,6 +27,7 @@ import metalsoft.datos.dao.PiezaDAOImpl;
 import metalsoft.datos.dao.ProveedorDAOImpl;
 import metalsoft.datos.dao.ReclamoempresametalurgicaDAOImpl;
 import metalsoft.datos.dao.ReclamoproveedorDAOImpl;
+import metalsoft.datos.dao.TiporeclamoDAOImpl;
 import metalsoft.datos.dao.TrabajotercerizadoDAOImpl;
 import metalsoft.datos.dbobject.CompraDB;
 import metalsoft.datos.dbobject.DetallecompraDB;
@@ -34,18 +35,22 @@ import metalsoft.datos.dbobject.DetallereclamoempresametalurgicaDB;
 import metalsoft.datos.dbobject.DetallereclamoproveedorDB;
 import metalsoft.datos.dbobject.DetalletrabajotercerizadoDB;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
+import metalsoft.datos.dbobject.EstadodetallecompraDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.dbobject.ReclamoempresametalurgicaDB;
 import metalsoft.datos.dbobject.ReclamoproveedorDB;
+import metalsoft.datos.dbobject.TiporeclamoDB;
 import metalsoft.datos.dbobject.TrabajotercerizadoDB;
+import metalsoft.datos.exception.CompraException;
 import metalsoft.datos.exception.DetallecompraException;
 import metalsoft.datos.exception.DetallereclamoproveedorException;
 import metalsoft.datos.exception.DetalletrabajotercerizadoException;
-import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.CompraJpaController;
 import metalsoft.datos.jpa.controller.EmpresametalurgicaJpaController;
 import metalsoft.datos.jpa.controller.PiezaJpaController;
+import metalsoft.datos.jpa.controller.TrabajotercerizadoJpaController;
 import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Empresametalurgica;
 import metalsoft.datos.jpa.entity.Pieza;
@@ -206,7 +211,7 @@ public class GestorReclamo implements IBuscador {
 
     public void cargarComboPieza(JComboBox combo) {
         pieza = null;
-        PiezaJpaController controller = new PiezaJpaController(JpaUtil.getEntityManagerFactory());
+        PiezaJpaController controller = new PiezaJpaController();
         pieza = controller.findPiezaEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
@@ -244,7 +249,7 @@ public class GestorReclamo implements IBuscador {
 
     public void cargarComboEmpresa(JComboBox combo) {
         empresa = null;
-        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController(JpaUtil.getEntityManagerFactory());
+        EmpresametalurgicaJpaController controller = new EmpresametalurgicaJpaController();
         empresa = controller.findEmpresametalurgicaEntities();
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));

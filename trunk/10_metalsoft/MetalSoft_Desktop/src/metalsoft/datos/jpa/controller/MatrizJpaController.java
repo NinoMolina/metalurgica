@@ -2,20 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Matriz;
 import metalsoft.datos.jpa.entity.Tipomaterial;
-import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Pieza;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,10 @@ import metalsoft.datos.jpa.entity.Pedidomatriz;
  *
  * @author Nino
  */
-public class MatrizJpaController implements Serializable {
+public class MatrizJpaController {
 
-    public MatrizJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public MatrizJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -47,15 +48,16 @@ public class MatrizJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tipomaterial tipomaterial = matriz.getTipomaterial();
-            if (tipomaterial != null) {
-                tipomaterial = em.getReference(tipomaterial.getClass(), tipomaterial.getIdtipomaterial());
-                matriz.setTipomaterial(tipomaterial);
-            }
             Materiaprima materiaprima = matriz.getMateriaprima();
             if (materiaprima != null) {
                 materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
                 matriz.setMateriaprima(materiaprima);
+            }
+            
+            Tipomaterial tipomaterial = matriz.getTipomaterial();
+            if (tipomaterial != null) {
+                tipomaterial = em.getReference(tipomaterial.getClass(), tipomaterial.getIdtipomaterial());
+                matriz.setTipomaterial(tipomaterial);
             }
             List<Pieza> attachedPiezaList = new ArrayList<Pieza>();
             for (Pieza piezaListPiezaToAttach : matriz.getPiezaList()) {
@@ -70,13 +72,14 @@ public class MatrizJpaController implements Serializable {
             }
             matriz.setPedidomatrizList(attachedPedidomatrizList);
             em.persist(matriz);
-            if (tipomaterial != null) {
-                tipomaterial.getMatrizList().add(matriz);
-                tipomaterial = em.merge(tipomaterial);
-            }
             if (materiaprima != null) {
                 materiaprima.getMatrizList().add(matriz);
                 materiaprima = em.merge(materiaprima);
+            }
+            
+            if (tipomaterial != null) {
+                tipomaterial.getMatrizList().add(matriz);
+                tipomaterial = em.merge(tipomaterial);
             }
             for (Pieza piezaListPieza : matriz.getPiezaList()) {
                 Matriz oldMatrizOfPiezaListPieza = piezaListPieza.getMatriz();
@@ -115,21 +118,21 @@ public class MatrizJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Matriz persistentMatriz = em.find(Matriz.class, matriz.getIdmatriz());
-            Tipomaterial tipomaterialOld = persistentMatriz.getTipomaterial();
-            Tipomaterial tipomaterialNew = matriz.getTipomaterial();
             Materiaprima materiaprimaOld = persistentMatriz.getMateriaprima();
             Materiaprima materiaprimaNew = matriz.getMateriaprima();
+            Tipomaterial tipomaterialOld = persistentMatriz.getTipomaterial();
+            Tipomaterial tipomaterialNew = matriz.getTipomaterial();
             List<Pieza> piezaListOld = persistentMatriz.getPiezaList();
             List<Pieza> piezaListNew = matriz.getPiezaList();
             List<Pedidomatriz> pedidomatrizListOld = persistentMatriz.getPedidomatrizList();
             List<Pedidomatriz> pedidomatrizListNew = matriz.getPedidomatrizList();
-            if (tipomaterialNew != null) {
-                tipomaterialNew = em.getReference(tipomaterialNew.getClass(), tipomaterialNew.getIdtipomaterial());
-                matriz.setTipomaterial(tipomaterialNew);
-            }
             if (materiaprimaNew != null) {
                 materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
                 matriz.setMateriaprima(materiaprimaNew);
+            }
+            if (tipomaterialNew != null) {
+                tipomaterialNew = em.getReference(tipomaterialNew.getClass(), tipomaterialNew.getIdtipomaterial());
+                matriz.setTipomaterial(tipomaterialNew);
             }
             List<Pieza> attachedPiezaListNew = new ArrayList<Pieza>();
             for (Pieza piezaListNewPiezaToAttach : piezaListNew) {
@@ -146,14 +149,6 @@ public class MatrizJpaController implements Serializable {
             pedidomatrizListNew = attachedPedidomatrizListNew;
             matriz.setPedidomatrizList(pedidomatrizListNew);
             matriz = em.merge(matriz);
-            if (tipomaterialOld != null && !tipomaterialOld.equals(tipomaterialNew)) {
-                tipomaterialOld.getMatrizList().remove(matriz);
-                tipomaterialOld = em.merge(tipomaterialOld);
-            }
-            if (tipomaterialNew != null && !tipomaterialNew.equals(tipomaterialOld)) {
-                tipomaterialNew.getMatrizList().add(matriz);
-                tipomaterialNew = em.merge(tipomaterialNew);
-            }
             if (materiaprimaOld != null && !materiaprimaOld.equals(materiaprimaNew)) {
                 materiaprimaOld.getMatrizList().remove(matriz);
                 materiaprimaOld = em.merge(materiaprimaOld);
@@ -161,6 +156,14 @@ public class MatrizJpaController implements Serializable {
             if (materiaprimaNew != null && !materiaprimaNew.equals(materiaprimaOld)) {
                 materiaprimaNew.getMatrizList().add(matriz);
                 materiaprimaNew = em.merge(materiaprimaNew);
+            }
+            if (tipomaterialOld != null && !tipomaterialOld.equals(tipomaterialNew)) {
+                tipomaterialOld.getMatrizList().remove(matriz);
+                tipomaterialOld = em.merge(tipomaterialOld);
+            }
+            if (tipomaterialNew != null && !tipomaterialNew.equals(tipomaterialOld)) {
+                tipomaterialNew.getMatrizList().add(matriz);
+                tipomaterialNew = em.merge(tipomaterialNew);
             }
             for (Pieza piezaListOldPieza : piezaListOld) {
                 if (!piezaListNew.contains(piezaListOldPieza)) {
@@ -225,15 +228,15 @@ public class MatrizJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The matriz with id " + id + " no longer exists.", enfe);
             }
-            Tipomaterial tipomaterial = matriz.getTipomaterial();
-            if (tipomaterial != null) {
-                tipomaterial.getMatrizList().remove(matriz);
-                tipomaterial = em.merge(tipomaterial);
-            }
             Materiaprima materiaprima = matriz.getMateriaprima();
             if (materiaprima != null) {
                 materiaprima.getMatrizList().remove(matriz);
                 materiaprima = em.merge(materiaprima);
+            }
+            Tipomaterial tipomaterial = matriz.getTipomaterial();
+            if (tipomaterial != null) {
+                tipomaterial.getMatrizList().remove(matriz);
+                tipomaterial = em.merge(tipomaterial);
             }
             List<Pieza> piezaList = matriz.getPiezaList();
             for (Pieza piezaListPieza : piezaList) {
@@ -299,5 +302,5 @@ public class MatrizJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

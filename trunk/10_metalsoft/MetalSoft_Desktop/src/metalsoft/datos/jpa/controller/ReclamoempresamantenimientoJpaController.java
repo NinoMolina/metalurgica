@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,22 +15,20 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
-import metalsoft.datos.jpa.entity.Trabajotercerizado;
-import metalsoft.datos.jpa.entity.Tiporeclamo;
 import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento;
 import java.util.ArrayList;
 import java.util.List;
+import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 
 /**
  *
  * @author Nino
  */
-public class ReclamoempresamantenimientoJpaController implements Serializable {
+public class ReclamoempresamantenimientoJpaController {
 
-    public ReclamoempresamantenimientoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ReclamoempresamantenimientoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -45,16 +44,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Trabajotercerizado trabajotercerizado = reclamoempresamantenimiento.getTrabajotercerizado();
-            if (trabajotercerizado != null) {
-                trabajotercerizado = em.getReference(trabajotercerizado.getClass(), trabajotercerizado.getIdtrabajo());
-                reclamoempresamantenimiento.setTrabajotercerizado(trabajotercerizado);
-            }
-            Tiporeclamo tiporeclamo = reclamoempresamantenimiento.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
-                reclamoempresamantenimiento.setTiporeclamo(tiporeclamo);
-            }
             Estadoreclamo idestadoreclamo = reclamoempresamantenimiento.getIdestadoreclamo();
             if (idestadoreclamo != null) {
                 idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
@@ -67,14 +56,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             }
             reclamoempresamantenimiento.setDetallereclamoempresamantenimientoList(attachedDetallereclamoempresamantenimientoList);
             em.persist(reclamoempresamantenimiento);
-            if (trabajotercerizado != null) {
-                trabajotercerizado.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
-                trabajotercerizado = em.merge(trabajotercerizado);
-            }
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
-                tiporeclamo = em.merge(tiporeclamo);
-            }
             if (idestadoreclamo != null) {
                 idestadoreclamo.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
                 idestadoreclamo = em.merge(idestadoreclamo);
@@ -107,10 +88,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Reclamoempresamantenimiento persistentReclamoempresamantenimiento = em.find(Reclamoempresamantenimiento.class, reclamoempresamantenimiento.getIdreclamo());
-            Trabajotercerizado trabajotercerizadoOld = persistentReclamoempresamantenimiento.getTrabajotercerizado();
-            Trabajotercerizado trabajotercerizadoNew = reclamoempresamantenimiento.getTrabajotercerizado();
-            Tiporeclamo tiporeclamoOld = persistentReclamoempresamantenimiento.getTiporeclamo();
-            Tiporeclamo tiporeclamoNew = reclamoempresamantenimiento.getTiporeclamo();
             Estadoreclamo idestadoreclamoOld = persistentReclamoempresamantenimiento.getIdestadoreclamo();
             Estadoreclamo idestadoreclamoNew = reclamoempresamantenimiento.getIdestadoreclamo();
             List<Detallereclamoempresamantenimiento> detallereclamoempresamantenimientoListOld = persistentReclamoempresamantenimiento.getDetallereclamoempresamantenimientoList();
@@ -127,14 +104,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (trabajotercerizadoNew != null) {
-                trabajotercerizadoNew = em.getReference(trabajotercerizadoNew.getClass(), trabajotercerizadoNew.getIdtrabajo());
-                reclamoempresamantenimiento.setTrabajotercerizado(trabajotercerizadoNew);
-            }
-            if (tiporeclamoNew != null) {
-                tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
-                reclamoempresamantenimiento.setTiporeclamo(tiporeclamoNew);
-            }
             if (idestadoreclamoNew != null) {
                 idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
                 reclamoempresamantenimiento.setIdestadoreclamo(idestadoreclamoNew);
@@ -147,22 +116,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             detallereclamoempresamantenimientoListNew = attachedDetallereclamoempresamantenimientoListNew;
             reclamoempresamantenimiento.setDetallereclamoempresamantenimientoList(detallereclamoempresamantenimientoListNew);
             reclamoempresamantenimiento = em.merge(reclamoempresamantenimiento);
-            if (trabajotercerizadoOld != null && !trabajotercerizadoOld.equals(trabajotercerizadoNew)) {
-                trabajotercerizadoOld.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
-                trabajotercerizadoOld = em.merge(trabajotercerizadoOld);
-            }
-            if (trabajotercerizadoNew != null && !trabajotercerizadoNew.equals(trabajotercerizadoOld)) {
-                trabajotercerizadoNew.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
-                trabajotercerizadoNew = em.merge(trabajotercerizadoNew);
-            }
-            if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
-                tiporeclamoOld.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
-                tiporeclamoOld = em.merge(tiporeclamoOld);
-            }
-            if (tiporeclamoNew != null && !tiporeclamoNew.equals(tiporeclamoOld)) {
-                tiporeclamoNew.getReclamoempresamantenimientoList().add(reclamoempresamantenimiento);
-                tiporeclamoNew = em.merge(tiporeclamoNew);
-            }
             if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
                 idestadoreclamoOld.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
                 idestadoreclamoOld = em.merge(idestadoreclamoOld);
@@ -221,16 +174,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Trabajotercerizado trabajotercerizado = reclamoempresamantenimiento.getTrabajotercerizado();
-            if (trabajotercerizado != null) {
-                trabajotercerizado.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
-                trabajotercerizado = em.merge(trabajotercerizado);
-            }
-            Tiporeclamo tiporeclamo = reclamoempresamantenimiento.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoempresamantenimientoList().remove(reclamoempresamantenimiento);
-                tiporeclamo = em.merge(tiporeclamo);
             }
             Estadoreclamo idestadoreclamo = reclamoempresamantenimiento.getIdestadoreclamo();
             if (idestadoreclamo != null) {
@@ -291,5 +234,5 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -15,7 +15,6 @@ import metalsoft.datos.dbobject.ServicioPKDB;
 import metalsoft.datos.exception.ServicioException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.ServicioDAO;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.mantenimiento.ServicioMaquina;
@@ -34,7 +33,7 @@ public class GestorServicioMaquina {
          * JPA
          */
         metalsoft.datos.jpa.entity.Servicio sm=new metalsoft.datos.jpa.entity.Servicio();
-        ServicioJpaController con=new ServicioJpaController(JpaUtil.getEntityManagerFactory());
+        ServicioJpaController con=new ServicioJpaController();
 
         sm.setNombre(nombre);
         sm.setDescripcion(descripcion);

@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -38,8 +39,8 @@ public class Comprobantepago implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comprobantepago_seq")
-    @SequenceGenerator(name = "comprobantepago_seq", sequenceName = "comprobantepago_idcomprobantepago_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comporbantepago_seq")
+    @SequenceGenerator(name = "comporbantepago_seq", sequenceName = "comprobantepago_idcomprobantepago_seq", allocationSize = 1)
     @Column(name = "idcomprobantepago")
     private Long idcomprobantepago;
     @Column(name = "nrocomprobantepago")
@@ -47,18 +48,20 @@ public class Comprobantepago implements Serializable {
     @Column(name = "fechaemision")
     @Temporal(TemporalType.DATE)
     private Date fechaemision;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "monto")
     private Double monto;
-    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
-    @ManyToOne
-    private Usuario usuario;
-    @JoinColumn(name = "formadepago", referencedColumnName = "idformapago")
-    @ManyToOne
-    private Formadepago formadepago;
     @JoinColumn(name = "factura", referencedColumnName = "idfactura")
     @ManyToOne
     private Factura factura;
+
+    @JoinColumn(name = "formadepago", referencedColumnName = "idformapago")
+    @ManyToOne
+    private Formadepago formadepago;
+
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario;
+
 
     public Comprobantepago() {
     }
@@ -99,13 +102,14 @@ public class Comprobantepago implements Serializable {
         this.monto = monto;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Factura getFactura() {
+        return factura;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
+
 
     public Formadepago getFormadepago() {
         return formadepago;
@@ -115,13 +119,15 @@ public class Comprobantepago implements Serializable {
         this.formadepago = formadepago;
     }
 
-    public Factura getFactura() {
-        return factura;
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setFactura(Factura factura) {
-        this.factura = factura;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
+
 
     @Override
     public int hashCode() {
@@ -145,7 +151,7 @@ public class Comprobantepago implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Comprobantepago[ idcomprobantepago=" + idcomprobantepago + " ]";
+        return "metalsoft.datos.jpa.entity.Comprobantepago[idcomprobantepago=" + idcomprobantepago + "]";
     }
-    
+
 }

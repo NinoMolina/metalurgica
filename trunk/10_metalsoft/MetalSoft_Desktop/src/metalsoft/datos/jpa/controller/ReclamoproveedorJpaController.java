@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,10 +15,10 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Compra;
+import metalsoft.datos.jpa.entity.Estadoreclamo;
 import metalsoft.datos.jpa.entity.Reclamoproveedor;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
-import metalsoft.datos.jpa.entity.Estadoreclamo;
-import metalsoft.datos.jpa.entity.Compra;
 import metalsoft.datos.jpa.entity.Detallereclamoproveedor;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,10 @@ import java.util.List;
  *
  * @author Nino
  */
-public class ReclamoproveedorJpaController implements Serializable {
+public class ReclamoproveedorJpaController {
 
-    public ReclamoproveedorJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ReclamoproveedorJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -45,20 +46,20 @@ public class ReclamoproveedorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
-                reclamoproveedor.setTiporeclamo(tiporeclamo);
+            Compra compra = reclamoproveedor.getCompra();
+            if (compra != null) {
+                compra = em.getReference(compra.getClass(), compra.getIdcompra());
+                reclamoproveedor.setCompra(compra);
             }
             Estadoreclamo idestadoreclamo = reclamoproveedor.getIdestadoreclamo();
             if (idestadoreclamo != null) {
                 idestadoreclamo = em.getReference(idestadoreclamo.getClass(), idestadoreclamo.getIdestadoreclamo());
                 reclamoproveedor.setIdestadoreclamo(idestadoreclamo);
             }
-            Compra compra = reclamoproveedor.getCompra();
-            if (compra != null) {
-                compra = em.getReference(compra.getClass(), compra.getIdcompra());
-                reclamoproveedor.setCompra(compra);
+            Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
+            if (tiporeclamo != null) {
+                tiporeclamo = em.getReference(tiporeclamo.getClass(), tiporeclamo.getIdtiporeclamo());
+                reclamoproveedor.setTiporeclamo(tiporeclamo);
             }
             List<Detallereclamoproveedor> attachedDetallereclamoproveedorList = new ArrayList<Detallereclamoproveedor>();
             for (Detallereclamoproveedor detallereclamoproveedorListDetallereclamoproveedorToAttach : reclamoproveedor.getDetallereclamoproveedorList()) {
@@ -67,17 +68,17 @@ public class ReclamoproveedorJpaController implements Serializable {
             }
             reclamoproveedor.setDetallereclamoproveedorList(attachedDetallereclamoproveedorList);
             em.persist(reclamoproveedor);
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoproveedorList().add(reclamoproveedor);
-                tiporeclamo = em.merge(tiporeclamo);
+            if (compra != null) {
+                compra.getReclamoproveedorList().add(reclamoproveedor);
+                compra = em.merge(compra);
             }
             if (idestadoreclamo != null) {
                 idestadoreclamo.getReclamoproveedorList().add(reclamoproveedor);
                 idestadoreclamo = em.merge(idestadoreclamo);
             }
-            if (compra != null) {
-                compra.getReclamoproveedorList().add(reclamoproveedor);
-                compra = em.merge(compra);
+            if (tiporeclamo != null) {
+                tiporeclamo.getReclamoproveedorList().add(reclamoproveedor);
+                tiporeclamo = em.merge(tiporeclamo);
             }
             for (Detallereclamoproveedor detallereclamoproveedorListDetallereclamoproveedor : reclamoproveedor.getDetallereclamoproveedorList()) {
                 Reclamoproveedor oldReclamoproveedorOfDetallereclamoproveedorListDetallereclamoproveedor = detallereclamoproveedorListDetallereclamoproveedor.getReclamoproveedor();
@@ -107,12 +108,12 @@ public class ReclamoproveedorJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Reclamoproveedor persistentReclamoproveedor = em.find(Reclamoproveedor.class, reclamoproveedor.getIdreclamo());
-            Tiporeclamo tiporeclamoOld = persistentReclamoproveedor.getTiporeclamo();
-            Tiporeclamo tiporeclamoNew = reclamoproveedor.getTiporeclamo();
-            Estadoreclamo idestadoreclamoOld = persistentReclamoproveedor.getIdestadoreclamo();
-            Estadoreclamo idestadoreclamoNew = reclamoproveedor.getIdestadoreclamo();
             Compra compraOld = persistentReclamoproveedor.getCompra();
             Compra compraNew = reclamoproveedor.getCompra();
+            Estadoreclamo idestadoreclamoOld = persistentReclamoproveedor.getIdestadoreclamo();
+            Estadoreclamo idestadoreclamoNew = reclamoproveedor.getIdestadoreclamo();
+            Tiporeclamo tiporeclamoOld = persistentReclamoproveedor.getTiporeclamo();
+            Tiporeclamo tiporeclamoNew = reclamoproveedor.getTiporeclamo();
             List<Detallereclamoproveedor> detallereclamoproveedorListOld = persistentReclamoproveedor.getDetallereclamoproveedorList();
             List<Detallereclamoproveedor> detallereclamoproveedorListNew = reclamoproveedor.getDetallereclamoproveedorList();
             List<String> illegalOrphanMessages = null;
@@ -127,17 +128,17 @@ public class ReclamoproveedorJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (tiporeclamoNew != null) {
-                tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
-                reclamoproveedor.setTiporeclamo(tiporeclamoNew);
+            if (compraNew != null) {
+                compraNew = em.getReference(compraNew.getClass(), compraNew.getIdcompra());
+                reclamoproveedor.setCompra(compraNew);
             }
             if (idestadoreclamoNew != null) {
                 idestadoreclamoNew = em.getReference(idestadoreclamoNew.getClass(), idestadoreclamoNew.getIdestadoreclamo());
                 reclamoproveedor.setIdestadoreclamo(idestadoreclamoNew);
             }
-            if (compraNew != null) {
-                compraNew = em.getReference(compraNew.getClass(), compraNew.getIdcompra());
-                reclamoproveedor.setCompra(compraNew);
+            if (tiporeclamoNew != null) {
+                tiporeclamoNew = em.getReference(tiporeclamoNew.getClass(), tiporeclamoNew.getIdtiporeclamo());
+                reclamoproveedor.setTiporeclamo(tiporeclamoNew);
             }
             List<Detallereclamoproveedor> attachedDetallereclamoproveedorListNew = new ArrayList<Detallereclamoproveedor>();
             for (Detallereclamoproveedor detallereclamoproveedorListNewDetallereclamoproveedorToAttach : detallereclamoproveedorListNew) {
@@ -147,13 +148,13 @@ public class ReclamoproveedorJpaController implements Serializable {
             detallereclamoproveedorListNew = attachedDetallereclamoproveedorListNew;
             reclamoproveedor.setDetallereclamoproveedorList(detallereclamoproveedorListNew);
             reclamoproveedor = em.merge(reclamoproveedor);
-            if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
-                tiporeclamoOld.getReclamoproveedorList().remove(reclamoproveedor);
-                tiporeclamoOld = em.merge(tiporeclamoOld);
+            if (compraOld != null && !compraOld.equals(compraNew)) {
+                compraOld.getReclamoproveedorList().remove(reclamoproveedor);
+                compraOld = em.merge(compraOld);
             }
-            if (tiporeclamoNew != null && !tiporeclamoNew.equals(tiporeclamoOld)) {
-                tiporeclamoNew.getReclamoproveedorList().add(reclamoproveedor);
-                tiporeclamoNew = em.merge(tiporeclamoNew);
+            if (compraNew != null && !compraNew.equals(compraOld)) {
+                compraNew.getReclamoproveedorList().add(reclamoproveedor);
+                compraNew = em.merge(compraNew);
             }
             if (idestadoreclamoOld != null && !idestadoreclamoOld.equals(idestadoreclamoNew)) {
                 idestadoreclamoOld.getReclamoproveedorList().remove(reclamoproveedor);
@@ -163,13 +164,13 @@ public class ReclamoproveedorJpaController implements Serializable {
                 idestadoreclamoNew.getReclamoproveedorList().add(reclamoproveedor);
                 idestadoreclamoNew = em.merge(idestadoreclamoNew);
             }
-            if (compraOld != null && !compraOld.equals(compraNew)) {
-                compraOld.getReclamoproveedorList().remove(reclamoproveedor);
-                compraOld = em.merge(compraOld);
+            if (tiporeclamoOld != null && !tiporeclamoOld.equals(tiporeclamoNew)) {
+                tiporeclamoOld.getReclamoproveedorList().remove(reclamoproveedor);
+                tiporeclamoOld = em.merge(tiporeclamoOld);
             }
-            if (compraNew != null && !compraNew.equals(compraOld)) {
-                compraNew.getReclamoproveedorList().add(reclamoproveedor);
-                compraNew = em.merge(compraNew);
+            if (tiporeclamoNew != null && !tiporeclamoNew.equals(tiporeclamoOld)) {
+                tiporeclamoNew.getReclamoproveedorList().add(reclamoproveedor);
+                tiporeclamoNew = em.merge(tiporeclamoNew);
             }
             for (Detallereclamoproveedor detallereclamoproveedorListNewDetallereclamoproveedor : detallereclamoproveedorListNew) {
                 if (!detallereclamoproveedorListOld.contains(detallereclamoproveedorListNewDetallereclamoproveedor)) {
@@ -222,20 +223,20 @@ public class ReclamoproveedorJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
-            if (tiporeclamo != null) {
-                tiporeclamo.getReclamoproveedorList().remove(reclamoproveedor);
-                tiporeclamo = em.merge(tiporeclamo);
+            Compra compra = reclamoproveedor.getCompra();
+            if (compra != null) {
+                compra.getReclamoproveedorList().remove(reclamoproveedor);
+                compra = em.merge(compra);
             }
             Estadoreclamo idestadoreclamo = reclamoproveedor.getIdestadoreclamo();
             if (idestadoreclamo != null) {
                 idestadoreclamo.getReclamoproveedorList().remove(reclamoproveedor);
                 idestadoreclamo = em.merge(idestadoreclamo);
             }
-            Compra compra = reclamoproveedor.getCompra();
-            if (compra != null) {
-                compra.getReclamoproveedorList().remove(reclamoproveedor);
-                compra = em.merge(compra);
+            Tiporeclamo tiporeclamo = reclamoproveedor.getTiporeclamo();
+            if (tiporeclamo != null) {
+                tiporeclamo.getReclamoproveedorList().remove(reclamoproveedor);
+                tiporeclamo = em.merge(tiporeclamo);
             }
             em.remove(reclamoproveedor);
             em.getTransaction().commit();
@@ -291,5 +292,5 @@ public class ReclamoproveedorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

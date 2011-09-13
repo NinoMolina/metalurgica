@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,17 +17,17 @@ import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima;
 import metalsoft.datos.jpa.entity.DetallerequerimientosmateriaprimaPK;
-import metalsoft.datos.jpa.entity.Planrequerimientosmateriaprima;
 import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Planrequerimientosmateriaprima;
 
 /**
  *
  * @author Nino
  */
-public class DetallerequerimientosmateriaprimaJpaController implements Serializable {
+public class DetallerequerimientosmateriaprimaJpaController {
 
-    public DetallerequerimientosmateriaprimaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public DetallerequerimientosmateriaprimaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -43,24 +44,24 @@ public class DetallerequerimientosmateriaprimaJpaController implements Serializa
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Planrequerimientosmateriaprima planrequerimientosmateriaprima = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
-            if (planrequerimientosmateriaprima != null) {
-                planrequerimientosmateriaprima = em.getReference(planrequerimientosmateriaprima.getClass(), planrequerimientosmateriaprima.getIdplanrequerimientosmateriaprima());
-                detallerequerimientosmateriaprima.setPlanrequerimientosmateriaprima(planrequerimientosmateriaprima);
-            }
             Materiaprima idmateriaprima = detallerequerimientosmateriaprima.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima = em.getReference(idmateriaprima.getClass(), idmateriaprima.getIdmateriaprima());
                 detallerequerimientosmateriaprima.setIdmateriaprima(idmateriaprima);
             }
-            em.persist(detallerequerimientosmateriaprima);
+            Planrequerimientosmateriaprima planrequerimientosmateriaprima = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
             if (planrequerimientosmateriaprima != null) {
-                planrequerimientosmateriaprima.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
-                planrequerimientosmateriaprima = em.merge(planrequerimientosmateriaprima);
+                planrequerimientosmateriaprima = em.getReference(planrequerimientosmateriaprima.getClass(), planrequerimientosmateriaprima.getIdplanrequerimientosmateriaprima());
+                detallerequerimientosmateriaprima.setPlanrequerimientosmateriaprima(planrequerimientosmateriaprima);
             }
+            em.persist(detallerequerimientosmateriaprima);
             if (idmateriaprima != null) {
                 idmateriaprima.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
                 idmateriaprima = em.merge(idmateriaprima);
+            }
+            if (planrequerimientosmateriaprima != null) {
+                planrequerimientosmateriaprima.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
+                planrequerimientosmateriaprima = em.merge(planrequerimientosmateriaprima);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -82,27 +83,19 @@ public class DetallerequerimientosmateriaprimaJpaController implements Serializa
             em = getEntityManager();
             em.getTransaction().begin();
             Detallerequerimientosmateriaprima persistentDetallerequerimientosmateriaprima = em.find(Detallerequerimientosmateriaprima.class, detallerequerimientosmateriaprima.getDetallerequerimientosmateriaprimaPK());
-            Planrequerimientosmateriaprima planrequerimientosmateriaprimaOld = persistentDetallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
-            Planrequerimientosmateriaprima planrequerimientosmateriaprimaNew = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
             Materiaprima idmateriaprimaOld = persistentDetallerequerimientosmateriaprima.getIdmateriaprima();
             Materiaprima idmateriaprimaNew = detallerequerimientosmateriaprima.getIdmateriaprima();
-            if (planrequerimientosmateriaprimaNew != null) {
-                planrequerimientosmateriaprimaNew = em.getReference(planrequerimientosmateriaprimaNew.getClass(), planrequerimientosmateriaprimaNew.getIdplanrequerimientosmateriaprima());
-                detallerequerimientosmateriaprima.setPlanrequerimientosmateriaprima(planrequerimientosmateriaprimaNew);
-            }
+            Planrequerimientosmateriaprima planrequerimientosmateriaprimaOld = persistentDetallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
+            Planrequerimientosmateriaprima planrequerimientosmateriaprimaNew = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
             if (idmateriaprimaNew != null) {
                 idmateriaprimaNew = em.getReference(idmateriaprimaNew.getClass(), idmateriaprimaNew.getIdmateriaprima());
                 detallerequerimientosmateriaprima.setIdmateriaprima(idmateriaprimaNew);
             }
+            if (planrequerimientosmateriaprimaNew != null) {
+                planrequerimientosmateriaprimaNew = em.getReference(planrequerimientosmateriaprimaNew.getClass(), planrequerimientosmateriaprimaNew.getIdplanrequerimientosmateriaprima());
+                detallerequerimientosmateriaprima.setPlanrequerimientosmateriaprima(planrequerimientosmateriaprimaNew);
+            }
             detallerequerimientosmateriaprima = em.merge(detallerequerimientosmateriaprima);
-            if (planrequerimientosmateriaprimaOld != null && !planrequerimientosmateriaprimaOld.equals(planrequerimientosmateriaprimaNew)) {
-                planrequerimientosmateriaprimaOld.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
-                planrequerimientosmateriaprimaOld = em.merge(planrequerimientosmateriaprimaOld);
-            }
-            if (planrequerimientosmateriaprimaNew != null && !planrequerimientosmateriaprimaNew.equals(planrequerimientosmateriaprimaOld)) {
-                planrequerimientosmateriaprimaNew.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
-                planrequerimientosmateriaprimaNew = em.merge(planrequerimientosmateriaprimaNew);
-            }
             if (idmateriaprimaOld != null && !idmateriaprimaOld.equals(idmateriaprimaNew)) {
                 idmateriaprimaOld.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
                 idmateriaprimaOld = em.merge(idmateriaprimaOld);
@@ -110,6 +103,14 @@ public class DetallerequerimientosmateriaprimaJpaController implements Serializa
             if (idmateriaprimaNew != null && !idmateriaprimaNew.equals(idmateriaprimaOld)) {
                 idmateriaprimaNew.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
                 idmateriaprimaNew = em.merge(idmateriaprimaNew);
+            }
+            if (planrequerimientosmateriaprimaOld != null && !planrequerimientosmateriaprimaOld.equals(planrequerimientosmateriaprimaNew)) {
+                planrequerimientosmateriaprimaOld.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
+                planrequerimientosmateriaprimaOld = em.merge(planrequerimientosmateriaprimaOld);
+            }
+            if (planrequerimientosmateriaprimaNew != null && !planrequerimientosmateriaprimaNew.equals(planrequerimientosmateriaprimaOld)) {
+                planrequerimientosmateriaprimaNew.getDetallerequerimientosmateriaprimaList().add(detallerequerimientosmateriaprima);
+                planrequerimientosmateriaprimaNew = em.merge(planrequerimientosmateriaprimaNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -140,15 +141,15 @@ public class DetallerequerimientosmateriaprimaJpaController implements Serializa
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallerequerimientosmateriaprima with id " + id + " no longer exists.", enfe);
             }
-            Planrequerimientosmateriaprima planrequerimientosmateriaprima = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
-            if (planrequerimientosmateriaprima != null) {
-                planrequerimientosmateriaprima.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
-                planrequerimientosmateriaprima = em.merge(planrequerimientosmateriaprima);
-            }
             Materiaprima idmateriaprima = detallerequerimientosmateriaprima.getIdmateriaprima();
             if (idmateriaprima != null) {
                 idmateriaprima.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
                 idmateriaprima = em.merge(idmateriaprima);
+            }
+            Planrequerimientosmateriaprima planrequerimientosmateriaprima = detallerequerimientosmateriaprima.getPlanrequerimientosmateriaprima();
+            if (planrequerimientosmateriaprima != null) {
+                planrequerimientosmateriaprima.getDetallerequerimientosmateriaprimaList().remove(detallerequerimientosmateriaprima);
+                planrequerimientosmateriaprima = em.merge(planrequerimientosmateriaprima);
             }
             em.remove(detallerequerimientosmateriaprima);
             em.getTransaction().commit();
@@ -204,5 +205,5 @@ public class DetallerequerimientosmateriaprimaJpaController implements Serializa
             em.close();
         }
     }
-    
+
 }

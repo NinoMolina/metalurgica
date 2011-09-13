@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -32,19 +33,20 @@ public class Detallefactura implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DetallefacturaPK detallefacturaPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "montoparcial")
     private Double montoparcial;
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "iddetallepedido")
     private BigInteger iddetallepedido;
-    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
-    @ManyToOne
-    private Pedido idpedido;
     @JoinColumn(name = "idfactura", referencedColumnName = "idfactura", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Factura factura;
+
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido idpedido;
+
 
     public Detallefactura() {
     }
@@ -89,20 +91,21 @@ public class Detallefactura implements Serializable {
         this.iddetallepedido = iddetallepedido;
     }
 
-    public Pedido getIdpedido() {
-        return idpedido;
-    }
-
-    public void setIdpedido(Pedido idpedido) {
-        this.idpedido = idpedido;
-    }
-
     public Factura getFactura() {
         return factura;
     }
 
     public void setFactura(Factura factura) {
         this.factura = factura;
+    }
+
+
+    public Pedido getIdpedido() {
+        return idpedido;
+    }
+
+    public void setIdpedido(Pedido idpedido) {
+        this.idpedido = idpedido;
     }
 
     @Override
@@ -127,7 +130,7 @@ public class Detallefactura implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallefactura[ detallefacturaPK=" + detallefacturaPK + " ]";
+        return "metalsoft.datos.jpa.entity.Detallefactura[detallefacturaPK=" + detallefacturaPK + "]";
     }
-    
+
 }
