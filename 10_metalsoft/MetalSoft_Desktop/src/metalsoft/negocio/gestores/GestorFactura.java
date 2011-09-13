@@ -7,6 +7,7 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,17 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.DetallepedidoJpaController;
+import metalsoft.datos.jpa.controller.FacturaJpaController;
+import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detallepedido;
 import metalsoft.datos.jpa.entity.Factura;
+import metalsoft.datos.jpa.entity.Pedido;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
 
@@ -32,7 +40,7 @@ public class GestorFactura {
 
     }
     public Detallepedido buscarDetallePedido(long id){
-        DetallepedidoJpaController con=new DetallepedidoJpaController(JpaUtil.getEntityManagerFactory());
+        DetallepedidoJpaController con=new DetallepedidoJpaController();
         return con.findDetallepedido(id);
     }
     public List<Factura> buscarFacturasByNroLike(String param){

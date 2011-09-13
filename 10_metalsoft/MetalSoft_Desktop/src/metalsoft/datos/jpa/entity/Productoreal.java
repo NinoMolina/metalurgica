@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -12,15 +13,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,13 +34,13 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Productoreal.findByIdproductoreal", query = "SELECT p FROM Productoreal p WHERE p.idproductoreal = :idproductoreal"),
     @NamedQuery(name = "Productoreal.findByNroproducto", query = "SELECT p FROM Productoreal p WHERE p.nroproducto = :nroproducto"),
     @NamedQuery(name = "Productoreal.findByFechaterminacion", query = "SELECT p FROM Productoreal p WHERE p.fechaterminacion = :fechaterminacion"),
-    @NamedQuery(name = "Productoreal.findByFechainicioproduccion", query = "SELECT p FROM Productoreal p WHERE p.fechainicioproduccion = :fechainicioproduccion")})
+    @NamedQuery(name = "Productoreal.findByFechainicioproduccion", query = "SELECT p FROM Productoreal p WHERE p.fechainicioproduccion = :fechainicioproduccion"),
+    @NamedQuery(name = "Productoreal.findByIdpieza", query = "SELECT p FROM Productoreal p WHERE p.idpieza = :idpieza"),
+    @NamedQuery(name = "Productoreal.findByIdpiezareal", query = "SELECT p FROM Productoreal p WHERE p.idpiezareal = :idpiezareal")})
 public class Productoreal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productoreal_seq")
-    @SequenceGenerator(name = "productoreal_seq", sequenceName = "productoreal_idproductoreal_seq", allocationSize = 1)
     @Column(name = "idproductoreal")
     private Long idproductoreal;
     @Column(name = "nroproducto")
@@ -53,20 +51,25 @@ public class Productoreal implements Serializable {
     @Column(name = "fechainicioproduccion")
     @Temporal(TemporalType.DATE)
     private Date fechainicioproduccion;
-    @JoinColumn(name = "producto", referencedColumnName = "idproducto")
-    @ManyToOne
-    private Producto producto;
-    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
-    @ManyToOne
-    private Pedido idpedido;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadoproductoreal estado;
+    @Column(name = "idpieza")
+    private BigInteger idpieza;
+    @Column(name = "idpiezareal")
+    private BigInteger idpiezareal;
     @JoinColumn(name = "codigobarra", referencedColumnName = "idcodigo")
     @ManyToOne
     private Codigodebarra codigobarra;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproductoreal")
+
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadoproductoreal estado;
+
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido idpedido;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoreal")
     private List<Detalleproductoreal> detalleproductorealList;
+
 
     public Productoreal() {
     }
@@ -107,28 +110,20 @@ public class Productoreal implements Serializable {
         this.fechainicioproduccion = fechainicioproduccion;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public BigInteger getIdpieza() {
+        return idpieza;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setIdpieza(BigInteger idpieza) {
+        this.idpieza = idpieza;
     }
 
-    public Pedido getIdpedido() {
-        return idpedido;
+    public BigInteger getIdpiezareal() {
+        return idpiezareal;
     }
 
-    public void setIdpedido(Pedido idpedido) {
-        this.idpedido = idpedido;
-    }
-
-    public Estadoproductoreal getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadoproductoreal estado) {
-        this.estado = estado;
+    public void setIdpiezareal(BigInteger idpiezareal) {
+        this.idpiezareal = idpiezareal;
     }
 
     public Codigodebarra getCodigobarra() {
@@ -139,6 +134,26 @@ public class Productoreal implements Serializable {
         this.codigobarra = codigobarra;
     }
 
+
+    public Estadoproductoreal getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadoproductoreal estado) {
+        this.estado = estado;
+    }
+
+
+
+    public Pedido getIdpedido() {
+        return idpedido;
+    }
+
+    public void setIdpedido(Pedido idpedido) {
+        this.idpedido = idpedido;
+    }
+
+
     public List<Detalleproductoreal> getDetalleproductorealList() {
         return detalleproductorealList;
     }
@@ -146,6 +161,7 @@ public class Productoreal implements Serializable {
     public void setDetalleproductorealList(List<Detalleproductoreal> detalleproductorealList) {
         this.detalleproductorealList = detalleproductorealList;
     }
+
 
     @Override
     public int hashCode() {
@@ -169,7 +185,7 @@ public class Productoreal implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Productoreal[ idproductoreal=" + idproductoreal + " ]";
+        return "metalsoft.datos.jpa.entity.Productoreal[idproductoreal=" + idproductoreal + "]";
     }
-    
+
 }

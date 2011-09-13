@@ -38,8 +38,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Planificacionproduccion.findByFechacreacion", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechacreacion = :fechacreacion"),
     @NamedQuery(name = "Planificacionproduccion.findByObservaciones", query = "SELECT p FROM Planificacionproduccion p WHERE p.observaciones = :observaciones"),
     @NamedQuery(name = "Planificacionproduccion.findByFechainicioprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechainicioprevista = :fechainicioprevista"),
-    @NamedQuery(name = "Planificacionproduccion.findByFechafinprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista = :fechafinprevista")})
+    @NamedQuery(name = "Planificacionproduccion.findByFechafinprevista", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista = :fechafinprevista"),
+    @NamedQuery(name = "Planificacionproduccion.findByFechafinMayorActual", query = "SELECT p FROM Planificacionproduccion p WHERE p.fechafinprevista > :fechaActual")})
 public class Planificacionproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -62,12 +64,12 @@ public class Planificacionproduccion implements Serializable {
     private Date fechafinprevista;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
-    @ManyToOne
-    private Pedido pedido;
     @JoinColumn(name = "idestado", referencedColumnName = "id")
     @ManyToOne
     private Estadoplanificacionproduccion idestado;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido;
     @OneToMany(mappedBy = "idplanificacionproduccion")
     private List<Detallempasignada> detallempasignadaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanificacionproduccion")
@@ -136,20 +138,20 @@ public class Planificacionproduccion implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
     public Estadoplanificacionproduccion getIdestado() {
         return idestado;
     }
 
     public void setIdestado(Estadoplanificacionproduccion idestado) {
         this.idestado = idestado;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public List<Detallempasignada> getDetallempasignadaList() {
@@ -190,7 +192,6 @@ public class Planificacionproduccion implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Planificacionproduccion[ idplanificacionproduccion=" + idplanificacionproduccion + " ]";
+        return "metalsoft.datos.jpa.entity.Planificacionproduccion[idplanificacionproduccion=" + idplanificacionproduccion + "]";
     }
-    
 }

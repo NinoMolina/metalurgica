@@ -2,20 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Materiaprima;
+import metalsoft.datos.jpa.entity.Proveedor;
 import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.datos.jpa.entity.ProveedorxmateriaprimaPK;
 
@@ -23,10 +24,10 @@ import metalsoft.datos.jpa.entity.ProveedorxmateriaprimaPK;
  *
  * @author Nino
  */
-public class ProveedorxmateriaprimaJpaController implements Serializable {
+public class ProveedorxmateriaprimaJpaController {
 
-    public ProveedorxmateriaprimaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ProveedorxmateriaprimaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -38,30 +39,30 @@ public class ProveedorxmateriaprimaJpaController implements Serializable {
         if (proveedorxmateriaprima.getProveedorxmateriaprimaPK() == null) {
             proveedorxmateriaprima.setProveedorxmateriaprimaPK(new ProveedorxmateriaprimaPK());
         }
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
         proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima().getIdmateriaprima());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Proveedor proveedor = proveedorxmateriaprima.getProveedor();
-            if (proveedor != null) {
-                proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
-                proveedorxmateriaprima.setProveedor(proveedor);
-            }
             Materiaprima materiaprima = proveedorxmateriaprima.getMateriaprima();
             if (materiaprima != null) {
                 materiaprima = em.getReference(materiaprima.getClass(), materiaprima.getIdmateriaprima());
                 proveedorxmateriaprima.setMateriaprima(materiaprima);
             }
-            em.persist(proveedorxmateriaprima);
+            Proveedor proveedor = proveedorxmateriaprima.getProveedor();
             if (proveedor != null) {
-                proveedor.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
-                proveedor = em.merge(proveedor);
+                proveedor = em.getReference(proveedor.getClass(), proveedor.getIdproveedor());
+                proveedorxmateriaprima.setProveedor(proveedor);
             }
+            em.persist(proveedorxmateriaprima);
             if (materiaprima != null) {
                 materiaprima.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
                 materiaprima = em.merge(materiaprima);
+            }
+            if (proveedor != null) {
+                proveedor.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
+                proveedor = em.merge(proveedor);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -77,34 +78,26 @@ public class ProveedorxmateriaprimaJpaController implements Serializable {
     }
 
     public void edit(Proveedorxmateriaprima proveedorxmateriaprima) throws NonexistentEntityException, Exception {
-        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
         proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdmateriaprima(proveedorxmateriaprima.getMateriaprima().getIdmateriaprima());
+        proveedorxmateriaprima.getProveedorxmateriaprimaPK().setIdproveedor(proveedorxmateriaprima.getProveedor().getIdproveedor());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Proveedorxmateriaprima persistentProveedorxmateriaprima = em.find(Proveedorxmateriaprima.class, proveedorxmateriaprima.getProveedorxmateriaprimaPK());
-            Proveedor proveedorOld = persistentProveedorxmateriaprima.getProveedor();
-            Proveedor proveedorNew = proveedorxmateriaprima.getProveedor();
             Materiaprima materiaprimaOld = persistentProveedorxmateriaprima.getMateriaprima();
             Materiaprima materiaprimaNew = proveedorxmateriaprima.getMateriaprima();
-            if (proveedorNew != null) {
-                proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
-                proveedorxmateriaprima.setProveedor(proveedorNew);
-            }
+            Proveedor proveedorOld = persistentProveedorxmateriaprima.getProveedor();
+            Proveedor proveedorNew = proveedorxmateriaprima.getProveedor();
             if (materiaprimaNew != null) {
                 materiaprimaNew = em.getReference(materiaprimaNew.getClass(), materiaprimaNew.getIdmateriaprima());
                 proveedorxmateriaprima.setMateriaprima(materiaprimaNew);
             }
+            if (proveedorNew != null) {
+                proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdproveedor());
+                proveedorxmateriaprima.setProveedor(proveedorNew);
+            }
             proveedorxmateriaprima = em.merge(proveedorxmateriaprima);
-            if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
-                proveedorOld.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
-                proveedorOld = em.merge(proveedorOld);
-            }
-            if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
-                proveedorNew.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
-                proveedorNew = em.merge(proveedorNew);
-            }
             if (materiaprimaOld != null && !materiaprimaOld.equals(materiaprimaNew)) {
                 materiaprimaOld.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
                 materiaprimaOld = em.merge(materiaprimaOld);
@@ -112,6 +105,14 @@ public class ProveedorxmateriaprimaJpaController implements Serializable {
             if (materiaprimaNew != null && !materiaprimaNew.equals(materiaprimaOld)) {
                 materiaprimaNew.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
                 materiaprimaNew = em.merge(materiaprimaNew);
+            }
+            if (proveedorOld != null && !proveedorOld.equals(proveedorNew)) {
+                proveedorOld.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
+                proveedorOld = em.merge(proveedorOld);
+            }
+            if (proveedorNew != null && !proveedorNew.equals(proveedorOld)) {
+                proveedorNew.getProveedorxmateriaprimaList().add(proveedorxmateriaprima);
+                proveedorNew = em.merge(proveedorNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -142,15 +143,15 @@ public class ProveedorxmateriaprimaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The proveedorxmateriaprima with id " + id + " no longer exists.", enfe);
             }
-            Proveedor proveedor = proveedorxmateriaprima.getProveedor();
-            if (proveedor != null) {
-                proveedor.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
-                proveedor = em.merge(proveedor);
-            }
             Materiaprima materiaprima = proveedorxmateriaprima.getMateriaprima();
             if (materiaprima != null) {
                 materiaprima.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
                 materiaprima = em.merge(materiaprima);
+            }
+            Proveedor proveedor = proveedorxmateriaprima.getProveedor();
+            if (proveedor != null) {
+                proveedor.getProveedorxmateriaprimaList().remove(proveedorxmateriaprima);
+                proveedor = em.merge(proveedor);
             }
             em.remove(proveedorxmateriaprima);
             em.getTransaction().commit();
@@ -206,5 +207,5 @@ public class ProveedorxmateriaprimaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

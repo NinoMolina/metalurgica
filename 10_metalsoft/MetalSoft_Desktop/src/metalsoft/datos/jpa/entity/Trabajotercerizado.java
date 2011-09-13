@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -77,20 +78,19 @@ public class Trabajotercerizado implements Serializable {
     @Column(name = "fechadelingresocotizacion")
     @Temporal(TemporalType.DATE)
     private Date fechadelingresocotizacion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "montototal")
     private Double montototal;
     @OneToMany(mappedBy = "trabajotercerizado")
     private List<Reclamoempresamantenimiento> reclamoempresamantenimientoList;
-    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
-    @ManyToOne
-    private Pedido pedido;
-    @JoinColumn(name = "estado", referencedColumnName = "idestado")
-    @ManyToOne
-    private Estadotrabajotercerizado estado;
     @JoinColumn(name = "empresa", referencedColumnName = "idempresametalurgica")
     @ManyToOne
     private Empresametalurgica empresa;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadotrabajotercerizado estado;
+    @JoinColumn(name = "pedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido;
     @OneToMany(mappedBy = "trabajotercerizado")
     private List<Reclamoempresametalurgica> reclamoempresametalurgicaList;
     @OneToMany(mappedBy = "idtrabajo")
@@ -201,12 +201,12 @@ public class Trabajotercerizado implements Serializable {
         this.reclamoempresamantenimientoList = reclamoempresamantenimientoList;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public Empresametalurgica getEmpresa() {
+        return empresa;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setEmpresa(Empresametalurgica empresa) {
+        this.empresa = empresa;
     }
 
     public Estadotrabajotercerizado getEstado() {
@@ -217,12 +217,12 @@ public class Trabajotercerizado implements Serializable {
         this.estado = estado;
     }
 
-    public Empresametalurgica getEmpresa() {
-        return empresa;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setEmpresa(Empresametalurgica empresa) {
-        this.empresa = empresa;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public List<Reclamoempresametalurgica> getReclamoempresametalurgicaList() {
@@ -271,7 +271,7 @@ public class Trabajotercerizado implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Trabajotercerizado[ idtrabajo=" + idtrabajo + " ]";
+        return "metalsoft.datos.jpa.entity.Trabajotercerizado[idtrabajo=" + idtrabajo + "]";
     }
-    
+
 }

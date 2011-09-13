@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,11 +15,11 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
-import metalsoft.datos.jpa.entity.Factura;
-import metalsoft.datos.jpa.entity.Usuario;
-import metalsoft.datos.jpa.entity.Tipoiva;
-import metalsoft.datos.jpa.entity.Formadepago;
 import metalsoft.datos.jpa.entity.Estadofactura;
+import metalsoft.datos.jpa.entity.Factura;
+import metalsoft.datos.jpa.entity.Formadepago;
+import metalsoft.datos.jpa.entity.Tipoiva;
+import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Pedido;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ import metalsoft.datos.jpa.entity.Comprobantepago;
  *
  * @author Nino
  */
-public class FacturaJpaController implements Serializable {
+public class FacturaJpaController {
 
-    public FacturaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public FacturaJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -54,25 +55,25 @@ public class FacturaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario = factura.getUsuario();
-            if (usuario != null) {
-                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
-                factura.setUsuario(usuario);
-            }
-            Tipoiva tipoiva = factura.getTipoiva();
-            if (tipoiva != null) {
-                tipoiva = em.getReference(tipoiva.getClass(), tipoiva.getIdtipoiva());
-                factura.setTipoiva(tipoiva);
+            Estadofactura estado = factura.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                factura.setEstado(estado);
             }
             Formadepago formapago = factura.getFormapago();
             if (formapago != null) {
                 formapago = em.getReference(formapago.getClass(), formapago.getIdformapago());
                 factura.setFormapago(formapago);
             }
-            Estadofactura estado = factura.getEstado();
-            if (estado != null) {
-                estado = em.getReference(estado.getClass(), estado.getIdestado());
-                factura.setEstado(estado);
+            Tipoiva tipoiva = factura.getTipoiva();
+            if (tipoiva != null) {
+                tipoiva = em.getReference(tipoiva.getClass(), tipoiva.getIdtipoiva());
+                factura.setTipoiva(tipoiva);
+            }
+            Usuario usuario = factura.getUsuario();
+            if (usuario != null) {
+                usuario = em.getReference(usuario.getClass(), usuario.getIdusuario());
+                factura.setUsuario(usuario);
             }
             List<Pedido> attachedPedidoList = new ArrayList<Pedido>();
             for (Pedido pedidoListPedidoToAttach : factura.getPedidoList()) {
@@ -93,21 +94,21 @@ public class FacturaJpaController implements Serializable {
             }
             factura.setComprobantepagoList(attachedComprobantepagoList);
             em.persist(factura);
-            if (usuario != null) {
-                usuario.getFacturaList().add(factura);
-                usuario = em.merge(usuario);
-            }
-            if (tipoiva != null) {
-                tipoiva.getFacturaList().add(factura);
-                tipoiva = em.merge(tipoiva);
+            if (estado != null) {
+                estado.getFacturaList().add(factura);
+                estado = em.merge(estado);
             }
             if (formapago != null) {
                 formapago.getFacturaList().add(factura);
                 formapago = em.merge(formapago);
             }
-            if (estado != null) {
-                estado.getFacturaList().add(factura);
-                estado = em.merge(estado);
+            if (tipoiva != null) {
+                tipoiva.getFacturaList().add(factura);
+                tipoiva = em.merge(tipoiva);
+            }
+            if (usuario != null) {
+                usuario.getFacturaList().add(factura);
+                usuario = em.merge(usuario);
             }
             for (Pedido pedidoListPedido : factura.getPedidoList()) {
                 Factura oldFacturaOfPedidoListPedido = pedidoListPedido.getFactura();
@@ -155,14 +156,14 @@ public class FacturaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Factura persistentFactura = em.find(Factura.class, factura.getIdfactura());
-            Usuario usuarioOld = persistentFactura.getUsuario();
-            Usuario usuarioNew = factura.getUsuario();
-            Tipoiva tipoivaOld = persistentFactura.getTipoiva();
-            Tipoiva tipoivaNew = factura.getTipoiva();
-            Formadepago formapagoOld = persistentFactura.getFormapago();
-            Formadepago formapagoNew = factura.getFormapago();
             Estadofactura estadoOld = persistentFactura.getEstado();
             Estadofactura estadoNew = factura.getEstado();
+            Formadepago formapagoOld = persistentFactura.getFormapago();
+            Formadepago formapagoNew = factura.getFormapago();
+            Tipoiva tipoivaOld = persistentFactura.getTipoiva();
+            Tipoiva tipoivaNew = factura.getTipoiva();
+            Usuario usuarioOld = persistentFactura.getUsuario();
+            Usuario usuarioNew = factura.getUsuario();
             List<Pedido> pedidoListOld = persistentFactura.getPedidoList();
             List<Pedido> pedidoListNew = factura.getPedidoList();
             List<Detallefactura> detallefacturaListOld = persistentFactura.getDetallefacturaList();
@@ -181,21 +182,21 @@ public class FacturaJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (usuarioNew != null) {
-                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
-                factura.setUsuario(usuarioNew);
-            }
-            if (tipoivaNew != null) {
-                tipoivaNew = em.getReference(tipoivaNew.getClass(), tipoivaNew.getIdtipoiva());
-                factura.setTipoiva(tipoivaNew);
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                factura.setEstado(estadoNew);
             }
             if (formapagoNew != null) {
                 formapagoNew = em.getReference(formapagoNew.getClass(), formapagoNew.getIdformapago());
                 factura.setFormapago(formapagoNew);
             }
-            if (estadoNew != null) {
-                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
-                factura.setEstado(estadoNew);
+            if (tipoivaNew != null) {
+                tipoivaNew = em.getReference(tipoivaNew.getClass(), tipoivaNew.getIdtipoiva());
+                factura.setTipoiva(tipoivaNew);
+            }
+            if (usuarioNew != null) {
+                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getIdusuario());
+                factura.setUsuario(usuarioNew);
             }
             List<Pedido> attachedPedidoListNew = new ArrayList<Pedido>();
             for (Pedido pedidoListNewPedidoToAttach : pedidoListNew) {
@@ -219,21 +220,13 @@ public class FacturaJpaController implements Serializable {
             comprobantepagoListNew = attachedComprobantepagoListNew;
             factura.setComprobantepagoList(comprobantepagoListNew);
             factura = em.merge(factura);
-            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
-                usuarioOld.getFacturaList().remove(factura);
-                usuarioOld = em.merge(usuarioOld);
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getFacturaList().remove(factura);
+                estadoOld = em.merge(estadoOld);
             }
-            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
-                usuarioNew.getFacturaList().add(factura);
-                usuarioNew = em.merge(usuarioNew);
-            }
-            if (tipoivaOld != null && !tipoivaOld.equals(tipoivaNew)) {
-                tipoivaOld.getFacturaList().remove(factura);
-                tipoivaOld = em.merge(tipoivaOld);
-            }
-            if (tipoivaNew != null && !tipoivaNew.equals(tipoivaOld)) {
-                tipoivaNew.getFacturaList().add(factura);
-                tipoivaNew = em.merge(tipoivaNew);
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getFacturaList().add(factura);
+                estadoNew = em.merge(estadoNew);
             }
             if (formapagoOld != null && !formapagoOld.equals(formapagoNew)) {
                 formapagoOld.getFacturaList().remove(factura);
@@ -243,13 +236,21 @@ public class FacturaJpaController implements Serializable {
                 formapagoNew.getFacturaList().add(factura);
                 formapagoNew = em.merge(formapagoNew);
             }
-            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
-                estadoOld.getFacturaList().remove(factura);
-                estadoOld = em.merge(estadoOld);
+            if (tipoivaOld != null && !tipoivaOld.equals(tipoivaNew)) {
+                tipoivaOld.getFacturaList().remove(factura);
+                tipoivaOld = em.merge(tipoivaOld);
             }
-            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
-                estadoNew.getFacturaList().add(factura);
-                estadoNew = em.merge(estadoNew);
+            if (tipoivaNew != null && !tipoivaNew.equals(tipoivaOld)) {
+                tipoivaNew.getFacturaList().add(factura);
+                tipoivaNew = em.merge(tipoivaNew);
+            }
+            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
+                usuarioOld.getFacturaList().remove(factura);
+                usuarioOld = em.merge(usuarioOld);
+            }
+            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
+                usuarioNew.getFacturaList().add(factura);
+                usuarioNew = em.merge(usuarioNew);
             }
             for (Pedido pedidoListOldPedido : pedidoListOld) {
                 if (!pedidoListNew.contains(pedidoListOldPedido)) {
@@ -336,25 +337,25 @@ public class FacturaJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Usuario usuario = factura.getUsuario();
-            if (usuario != null) {
-                usuario.getFacturaList().remove(factura);
-                usuario = em.merge(usuario);
-            }
-            Tipoiva tipoiva = factura.getTipoiva();
-            if (tipoiva != null) {
-                tipoiva.getFacturaList().remove(factura);
-                tipoiva = em.merge(tipoiva);
+            Estadofactura estado = factura.getEstado();
+            if (estado != null) {
+                estado.getFacturaList().remove(factura);
+                estado = em.merge(estado);
             }
             Formadepago formapago = factura.getFormapago();
             if (formapago != null) {
                 formapago.getFacturaList().remove(factura);
                 formapago = em.merge(formapago);
             }
-            Estadofactura estado = factura.getEstado();
-            if (estado != null) {
-                estado.getFacturaList().remove(factura);
-                estado = em.merge(estado);
+            Tipoiva tipoiva = factura.getTipoiva();
+            if (tipoiva != null) {
+                tipoiva.getFacturaList().remove(factura);
+                tipoiva = em.merge(tipoiva);
+            }
+            Usuario usuario = factura.getUsuario();
+            if (usuario != null) {
+                usuario.getFacturaList().remove(factura);
+                usuario = em.merge(usuario);
             }
             List<Pedido> pedidoList = factura.getPedidoList();
             for (Pedido pedidoListPedido : pedidoList) {
@@ -420,5 +421,5 @@ public class FacturaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

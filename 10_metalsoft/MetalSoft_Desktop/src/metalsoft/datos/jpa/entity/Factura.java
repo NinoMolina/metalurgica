@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -12,15 +13,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,8 +41,6 @@ public class Factura implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "factura_seq")
-    @SequenceGenerator(name = "factura_seq", sequenceName = "factura_idfactura_seq", allocationSize = 1)
     @Column(name = "idfactura")
     private Long idfactura;
     @Column(name = "nrofactura")
@@ -62,22 +58,29 @@ public class Factura implements Serializable {
     private String tipofactura;
     @OneToMany(mappedBy = "factura")
     private List<Pedido> pedidoList;
-    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
-    @ManyToOne
-    private Usuario usuario;
-    @JoinColumn(name = "tipoiva", referencedColumnName = "idtipoiva")
-    @ManyToOne
-    private Tipoiva tipoiva;
-    @JoinColumn(name = "formapago", referencedColumnName = "idformapago")
-    @ManyToOne
-    private Formadepago formapago;
+
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadofactura estado;
+
+    @JoinColumn(name = "formapago", referencedColumnName = "idformapago")
+    @ManyToOne
+    private Formadepago formapago;
+
+    @JoinColumn(name = "tipoiva", referencedColumnName = "idtipoiva")
+    @ManyToOne
+    private Tipoiva tipoiva;
+
+    @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario usuario;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
     private List<Detallefactura> detallefacturaList;
+
     @OneToMany(mappedBy = "factura")
     private List<Comprobantepago> comprobantepagoList;
+
 
     public Factura() {
     }
@@ -142,29 +145,6 @@ public class Factura implements Serializable {
         this.pedidoList = pedidoList;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Tipoiva getTipoiva() {
-        return tipoiva;
-    }
-
-    public void setTipoiva(Tipoiva tipoiva) {
-        this.tipoiva = tipoiva;
-    }
-
-    public Formadepago getFormapago() {
-        return formapago;
-    }
-
-    public void setFormapago(Formadepago formapago) {
-        this.formapago = formapago;
-    }
 
     public Estadofactura getEstado() {
         return estado;
@@ -174,6 +154,35 @@ public class Factura implements Serializable {
         this.estado = estado;
     }
 
+
+    public Formadepago getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(Formadepago formapago) {
+        this.formapago = formapago;
+    }
+
+
+    public Tipoiva getTipoiva() {
+        return tipoiva;
+    }
+
+    public void setTipoiva(Tipoiva tipoiva) {
+        this.tipoiva = tipoiva;
+    }
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+
     public List<Detallefactura> getDetallefacturaList() {
         return detallefacturaList;
     }
@@ -182,6 +191,8 @@ public class Factura implements Serializable {
         this.detallefacturaList = detallefacturaList;
     }
 
+
+
     public List<Comprobantepago> getComprobantepagoList() {
         return comprobantepagoList;
     }
@@ -189,6 +200,7 @@ public class Factura implements Serializable {
     public void setComprobantepagoList(List<Comprobantepago> comprobantepagoList) {
         this.comprobantepagoList = comprobantepagoList;
     }
+
 
     @Override
     public int hashCode() {
@@ -212,7 +224,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Factura[ idfactura=" + idfactura + " ]";
+        return "metalsoft.datos.jpa.entity.Factura[idfactura=" + idfactura + "]";
     }
-    
+
 }

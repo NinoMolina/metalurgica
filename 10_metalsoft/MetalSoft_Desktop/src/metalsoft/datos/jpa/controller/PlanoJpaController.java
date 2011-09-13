@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.controller;
 
-import java.io.Serializable;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,16 +15,18 @@ import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Pedido;
+import java.util.ArrayList;
+import java.util.List;
 import metalsoft.datos.jpa.entity.Plano;
 
 /**
  *
  * @author Nino
  */
-public class PlanoJpaController implements Serializable {
+public class PlanoJpaController {
 
-    public PlanoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public PlanoJpaController() {
+        emf = Persistence.createEntityManagerFactory("MetalSoft_Desktop_PU");
     }
     private EntityManagerFactory emf = null;
 
@@ -33,6 +35,9 @@ public class PlanoJpaController implements Serializable {
     }
 
     public void create(Plano plano) throws PreexistingEntityException, Exception {
+        if (plano.getPedidoList() == null) {
+            plano.setPedidoList(new ArrayList<Pedido>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -42,10 +47,30 @@ public class PlanoJpaController implements Serializable {
                 pedido = em.getReference(pedido.getClass(), pedido.getIdpedido());
                 plano.setPedido(pedido);
             }
+            List<Pedido> attachedPedidoList = new ArrayList<Pedido>();
+            for (Pedido pedidoListPedidoToAttach : plano.getPedidoList()) {
+                pedidoListPedidoToAttach = em.getReference(pedidoListPedidoToAttach.getClass(), pedidoListPedidoToAttach.getIdpedido());
+                attachedPedidoList.add(pedidoListPedidoToAttach);
+            }
+            plano.setPedidoList(attachedPedidoList);
             em.persist(plano);
             if (pedido != null) {
-                pedido.getPlanoList().add(plano);
+                Plano oldPlanoOfPedido = pedido.getPlano();
+                if (oldPlanoOfPedido != null) {
+                    oldPlanoOfPedido.setPedido(null);
+                    oldPlanoOfPedido = em.merge(oldPlanoOfPedido);
+                }
+                pedido.setPlano(plano);
                 pedido = em.merge(pedido);
+            }
+            for (Pedido pedidoListPedido : plano.getPedidoList()) {
+                Plano oldPlanoOfPedidoListPedido = pedidoListPedido.getPlano();
+                pedidoListPedido.setPlano(plano);
+                pedidoListPedido = em.merge(pedidoListPedido);
+                if (oldPlanoOfPedidoListPedido != null) {
+                    oldPlanoOfPedidoListPedido.getPedidoList().remove(pedidoListPedido);
+                    oldPlanoOfPedidoListPedido = em.merge(oldPlanoOfPedidoListPedido);
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -68,18 +93,49 @@ public class PlanoJpaController implements Serializable {
             Plano persistentPlano = em.find(Plano.class, plano.getIdplano());
             Pedido pedidoOld = persistentPlano.getPedido();
             Pedido pedidoNew = plano.getPedido();
+            List<Pedido> pedidoListOld = persistentPlano.getPedidoList();
+            List<Pedido> pedidoListNew = plano.getPedidoList();
             if (pedidoNew != null) {
                 pedidoNew = em.getReference(pedidoNew.getClass(), pedidoNew.getIdpedido());
                 plano.setPedido(pedidoNew);
             }
+            List<Pedido> attachedPedidoListNew = new ArrayList<Pedido>();
+            for (Pedido pedidoListNewPedidoToAttach : pedidoListNew) {
+                pedidoListNewPedidoToAttach = em.getReference(pedidoListNewPedidoToAttach.getClass(), pedidoListNewPedidoToAttach.getIdpedido());
+                attachedPedidoListNew.add(pedidoListNewPedidoToAttach);
+            }
+            pedidoListNew = attachedPedidoListNew;
+            plano.setPedidoList(pedidoListNew);
             plano = em.merge(plano);
             if (pedidoOld != null && !pedidoOld.equals(pedidoNew)) {
-                pedidoOld.getPlanoList().remove(plano);
+                pedidoOld.setPlano(null);
                 pedidoOld = em.merge(pedidoOld);
             }
             if (pedidoNew != null && !pedidoNew.equals(pedidoOld)) {
-                pedidoNew.getPlanoList().add(plano);
+                Plano oldPlanoOfPedido = pedidoNew.getPlano();
+                if (oldPlanoOfPedido != null) {
+                    oldPlanoOfPedido.setPedido(null);
+                    oldPlanoOfPedido = em.merge(oldPlanoOfPedido);
+                }
+                pedidoNew.setPlano(plano);
                 pedidoNew = em.merge(pedidoNew);
+            }
+            for (Pedido pedidoListOldPedido : pedidoListOld) {
+                if (!pedidoListNew.contains(pedidoListOldPedido)) {
+                    pedidoListOldPedido.setPlano(null);
+                    pedidoListOldPedido = em.merge(pedidoListOldPedido);
+                }
+            }
+            for (Pedido pedidoListNewPedido : pedidoListNew) {
+                if (!pedidoListOld.contains(pedidoListNewPedido)) {
+                    Plano oldPlanoOfPedidoListNewPedido = pedidoListNewPedido.getPlano();
+                    pedidoListNewPedido.setPlano(plano);
+                    pedidoListNewPedido = em.merge(pedidoListNewPedido);
+                    if (oldPlanoOfPedidoListNewPedido != null && !oldPlanoOfPedidoListNewPedido.equals(plano)) {
+                        oldPlanoOfPedidoListNewPedido.getPedidoList().remove(pedidoListNewPedido);
+                        oldPlanoOfPedidoListNewPedido = em.merge(oldPlanoOfPedidoListNewPedido);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -112,8 +168,13 @@ public class PlanoJpaController implements Serializable {
             }
             Pedido pedido = plano.getPedido();
             if (pedido != null) {
-                pedido.getPlanoList().remove(plano);
+                pedido.setPlano(null);
                 pedido = em.merge(pedido);
+            }
+            List<Pedido> pedidoList = plano.getPedidoList();
+            for (Pedido pedidoListPedido : pedidoList) {
+                pedidoListPedido.setPlano(null);
+                pedidoListPedido = em.merge(pedidoListPedido);
             }
             em.remove(plano);
             em.getTransaction().commit();
@@ -169,5 +230,5 @@ public class PlanoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

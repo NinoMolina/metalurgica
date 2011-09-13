@@ -15,7 +15,6 @@ import metalsoft.datos.dbobject.FormadepagoPKDB;
 import metalsoft.datos.exception.FormadepagoException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.FormadepagoDAO;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.FormadepagoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.negocio.ventas.FormaDePago;
@@ -36,7 +35,7 @@ public class GestorFormaDePago {
          * JPA
          */
         metalsoft.datos.jpa.entity.Formadepago fp=new metalsoft.datos.jpa.entity.Formadepago();
-        FormadepagoJpaController con=new FormadepagoJpaController(JpaUtil.getEntityManagerFactory());
+        FormadepagoJpaController con=new FormadepagoJpaController();
 
         fp.setNombre(nombre);
         fp.setDescripcion(descripcion);

@@ -10,16 +10,13 @@ package metalsoft.util;
  */
 public class BarCodeUtil {
 
-    public static final String COD_PRODUCTO_REAL = "1";
-    public static final String COD_EJECUCION_ETAPA_PRODUCCION = "2";
-    public static final String COD_PIEZA_REAL = "3";
-    
-    public static final String TAG_COMIENZO = "mscb";
-    
-    public static String generarCodigo(String COD,String valor) {
+    public static final String TAG_COMIENZO = "<$cod>";
+    public static final String TAG_FINAL = "</$cod>";
+
+    public static String generarCodigo(String valor) {
         String cod = "";
 
-        cod = TAG_COMIENZO + "-" + COD + "-" + valor;
+        cod = TAG_COMIENZO + valor + TAG_FINAL;
 
         return cod;
     }

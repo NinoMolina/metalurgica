@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -55,20 +56,23 @@ public class Maquina implements Serializable {
     private Date tiempocapacidadproduccion;
     @OneToMany(mappedBy = "idmaquina")
     private List<Detalleplanificacionproduccion> detalleplanificacionproduccionList;
-    @JoinColumn(name = "idunidadmedida", referencedColumnName = "idunidadmedida")
-    @ManyToOne
-    private Unidadmedida idunidadmedida;
-    @JoinColumn(name = "tipomaquina", referencedColumnName = "idtipomaquina")
-    @ManyToOne
-    private Tipomaquina tipomaquina;
-    @JoinColumn(name = "marca", referencedColumnName = "idmarca")
-    @ManyToOne
-    private Marca marca;
+
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadomaquina estado;
-    @OneToMany(mappedBy = "maquina")
-    private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
+
+    @JoinColumn(name = "marca", referencedColumnName = "idmarca")
+    @ManyToOne
+    private Marca marca;
+
+    @JoinColumn(name = "tipomaquina", referencedColumnName = "idtipomaquina")
+    @ManyToOne
+    private Tipomaquina tipomaquina;
+
+    @JoinColumn(name = "idunidadmedida", referencedColumnName = "idunidadmedida")
+    @ManyToOne
+    private Unidadmedida idunidadmedida;
+
     @OneToMany(mappedBy = "maquina")
     private List<Etapadeproduccion> etapadeproduccionList;
 
@@ -135,29 +139,6 @@ public class Maquina implements Serializable {
         this.detalleplanificacionproduccionList = detalleplanificacionproduccionList;
     }
 
-    public Unidadmedida getIdunidadmedida() {
-        return idunidadmedida;
-    }
-
-    public void setIdunidadmedida(Unidadmedida idunidadmedida) {
-        this.idunidadmedida = idunidadmedida;
-    }
-
-    public Tipomaquina getTipomaquina() {
-        return tipomaquina;
-    }
-
-    public void setTipomaquina(Tipomaquina tipomaquina) {
-        this.tipomaquina = tipomaquina;
-    }
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
 
     public Estadomaquina getEstado() {
         return estado;
@@ -167,13 +148,33 @@ public class Maquina implements Serializable {
         this.estado = estado;
     }
 
-    public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
-        return detalleplanificacioncalidadList;
+
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
-        this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
+
+
+    public Tipomaquina getTipomaquina() {
+        return tipomaquina;
+    }
+
+    public void setTipomaquina(Tipomaquina tipomaquina) {
+        this.tipomaquina = tipomaquina;
+    }
+
+
+    public Unidadmedida getIdunidadmedida() {
+        return idunidadmedida;
+    }
+
+    public void setIdunidadmedida(Unidadmedida idunidadmedida) {
+        this.idunidadmedida = idunidadmedida;
+    }
+
 
     public List<Etapadeproduccion> getEtapadeproduccionList() {
         return etapadeproduccionList;
@@ -205,7 +206,7 @@ public class Maquina implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Maquina[ idmaquina=" + idmaquina + " ]";
+        return "metalsoft.datos.jpa.entity.Maquina[idmaquina=" + idmaquina + "]";
     }
-    
+
 }

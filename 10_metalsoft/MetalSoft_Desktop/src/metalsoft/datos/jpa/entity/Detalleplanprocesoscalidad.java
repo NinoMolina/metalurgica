@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -39,12 +40,14 @@ public class Detalleplanprocesoscalidad implements Serializable {
     @Column(name = "duracionestimada")
     @Temporal(TemporalType.TIME)
     private Date duracionestimada;
-    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
-    @ManyToOne
-    private Procesocalidad idprocesocalidad;
     @JoinColumn(name = "idplanprocesoscalidad", referencedColumnName = "idplanprocesoscalidad", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Planprocesoscalidad planprocesoscalidad;
+
+    @JoinColumn(name = "idprocesocalidad", referencedColumnName = "idprocesocalidad")
+    @ManyToOne
+    private Procesocalidad idprocesocalidad;
+
 
     public Detalleplanprocesoscalidad() {
     }
@@ -81,20 +84,21 @@ public class Detalleplanprocesoscalidad implements Serializable {
         this.duracionestimada = duracionestimada;
     }
 
-    public Procesocalidad getIdprocesocalidad() {
-        return idprocesocalidad;
-    }
-
-    public void setIdprocesocalidad(Procesocalidad idprocesocalidad) {
-        this.idprocesocalidad = idprocesocalidad;
-    }
-
     public Planprocesoscalidad getPlanprocesoscalidad() {
         return planprocesoscalidad;
     }
 
     public void setPlanprocesoscalidad(Planprocesoscalidad planprocesoscalidad) {
         this.planprocesoscalidad = planprocesoscalidad;
+    }
+
+
+    public Procesocalidad getIdprocesocalidad() {
+        return idprocesocalidad;
+    }
+
+    public void setIdprocesocalidad(Procesocalidad idprocesocalidad) {
+        this.idprocesocalidad = idprocesocalidad;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class Detalleplanprocesoscalidad implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detalleplanprocesoscalidad[ detalleplanprocesoscalidadPK=" + detalleplanprocesoscalidadPK + " ]";
+        return "metalsoft.datos.jpa.entity.Detalleplanprocesoscalidad[detalleplanprocesoscalidadPK=" + detalleplanprocesoscalidadPK + "]";
     }
-    
+
 }

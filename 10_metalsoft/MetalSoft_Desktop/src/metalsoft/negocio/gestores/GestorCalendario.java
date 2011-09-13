@@ -5,6 +5,7 @@
 package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -12,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.CalendarioDB;
-import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.CalendarioJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Calendario;
@@ -51,7 +51,7 @@ public class GestorCalendario {
         //poner not null en el campo fecha en la bd
         //o buscar la fecha a guardar para ver si ya existe
 
-        CalendarioJpaController controller=new CalendarioJpaController(JpaUtil.getEntityManagerFactory());
+        CalendarioJpaController controller=new CalendarioJpaController();
         try {
             controller.create(cal);
         } catch (PreexistingEntityException ex) {

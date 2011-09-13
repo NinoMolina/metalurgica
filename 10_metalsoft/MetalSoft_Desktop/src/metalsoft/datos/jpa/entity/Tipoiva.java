@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -9,13 +10,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -33,8 +31,6 @@ public class Tipoiva implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipoiva_seq")
-    @SequenceGenerator(name = "tipoiva_seq", sequenceName = "tipoiva_idtipoiva_seq", allocationSize = 1)
     @Column(name = "idtipoiva")
     private Long idtipoiva;
     @Column(name = "nombre")
@@ -43,6 +39,7 @@ public class Tipoiva implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipoiva")
     private List<Factura> facturaList;
+
 
     public Tipoiva() {
     }
@@ -83,6 +80,7 @@ public class Tipoiva implements Serializable {
         this.facturaList = facturaList;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -105,7 +103,7 @@ public class Tipoiva implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Tipoiva[ idtipoiva=" + idtipoiva + " ]";
+        return "metalsoft.datos.jpa.entity.Tipoiva[idtipoiva=" + idtipoiva + "]";
     }
-    
+
 }

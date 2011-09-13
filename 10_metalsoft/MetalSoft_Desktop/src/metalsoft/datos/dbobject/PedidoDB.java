@@ -31,6 +31,7 @@ public class PedidoDB implements Serializable
 	private long factura;
 	private long presupuesto;
 	private Date fecharequeridacotizacion;
+	private long plano;
 	private String motivocancelacion;
 	private boolean espedidoweb;
 	private int nropedidocotizacioncliente;
@@ -44,7 +45,7 @@ public class PedidoDB implements Serializable
 
 
 	public PedidoDB(){}
-	public PedidoDB(long nropedido ,Date fechaconfirmacionpedido ,Date fechaentregaestipulada ,Date fechapedidocotizacion ,Date fechacancelacion ,Date fechaentregareal ,long estado ,long factura ,long presupuesto ,Date fecharequeridacotizacion ,String motivocancelacion ,boolean espedidoweb ,int nropedidocotizacioncliente ,Date fecharegpedcotiz ,long idpedido ,long cliente ,long planprocedimientos ,long planrequerimientosmateriaprima ,long planprocesoscalidad ,long prioridad){
+	public PedidoDB(long nropedido ,Date fechaconfirmacionpedido ,Date fechaentregaestipulada ,Date fechapedidocotizacion ,Date fechacancelacion ,Date fechaentregareal ,long estado ,long factura ,long presupuesto ,Date fecharequeridacotizacion ,long plano ,String motivocancelacion ,boolean espedidoweb ,int nropedidocotizacioncliente ,Date fecharegpedcotiz ,long idpedido ,long cliente ,long planprocedimientos ,long planrequerimientosmateriaprima ,long planprocesoscalidad ,long prioridad){
 		this.nropedido = nropedido;
 		this.fechaconfirmacionpedido = fechaconfirmacionpedido;
 		this.fechaentregaestipulada = fechaentregaestipulada;
@@ -55,6 +56,7 @@ public class PedidoDB implements Serializable
 		this.factura = factura;
 		this.presupuesto = presupuesto;
 		this.fecharequeridacotizacion = fecharequeridacotizacion;
+		this.plano = plano;
 		this.motivocancelacion = motivocancelacion;
 		this.espedidoweb = espedidoweb;
 		this.nropedidocotizacioncliente = nropedidocotizacioncliente;
@@ -126,6 +128,12 @@ public class PedidoDB implements Serializable
 	}
 	public Date getFecharequeridacotizacion(){
 		 return(fecharequeridacotizacion);
+	}
+	public void setPlano(long plano ){
+		 this.plano =plano;
+	}
+	public long getPlano(){
+		 return(plano);
 	}
 	public void setMotivocancelacion(String motivocancelacion ){
 		 this.motivocancelacion =motivocancelacion;
@@ -200,6 +208,7 @@ public class PedidoDB implements Serializable
 		ret.append(", factura='"+factura+"'");
 		ret.append(", presupuesto='"+presupuesto+"'");
 		ret.append(", fecharequeridacotizacion='"+fecharequeridacotizacion+"'");
+		ret.append(", plano='"+plano+"'");
 		ret.append(", motivocancelacion='"+motivocancelacion+"'");
 		ret.append(", espedidoweb='"+espedidoweb+"'");
 		ret.append(", nropedidocotizacioncliente='"+nropedidocotizacioncliente+"'");

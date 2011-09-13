@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
@@ -45,14 +46,16 @@ public class Detallereclamoproveedor implements Serializable {
     @Column(name = "fechaegreso")
     @Temporal(TemporalType.DATE)
     private Date fechaegreso;
-    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Reclamoproveedor reclamoproveedor;
     @JoinColumns({
         @JoinColumn(name = "idcompra", referencedColumnName = "idcompra"),
         @JoinColumn(name = "iddetallecompra", referencedColumnName = "iddetalle")})
     @ManyToOne
     private Detallecompra detallecompra;
+
+    @JoinColumn(name = "idreclamo", referencedColumnName = "idreclamo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Reclamoproveedor reclamoproveedor;
+
 
     public Detallereclamoproveedor() {
     }
@@ -105,6 +108,15 @@ public class Detallereclamoproveedor implements Serializable {
         this.fechaegreso = fechaegreso;
     }
 
+    public Detallecompra getDetallecompra() {
+        return detallecompra;
+    }
+
+    public void setDetallecompra(Detallecompra detallecompra) {
+        this.detallecompra = detallecompra;
+    }
+
+
     public Reclamoproveedor getReclamoproveedor() {
         return reclamoproveedor;
     }
@@ -113,13 +125,7 @@ public class Detallereclamoproveedor implements Serializable {
         this.reclamoproveedor = reclamoproveedor;
     }
 
-    public Detallecompra getDetallecompra() {
-        return detallecompra;
-    }
 
-    public void setDetallecompra(Detallecompra detallecompra) {
-        this.detallecompra = detallecompra;
-    }
 
     @Override
     public int hashCode() {
@@ -143,7 +149,7 @@ public class Detallereclamoproveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallereclamoproveedor[ detallereclamoproveedorPK=" + detallereclamoproveedorPK + " ]";
+        return "metalsoft.datos.jpa.entity.Detallereclamoproveedor[detallereclamoproveedorPK=" + detallereclamoproveedorPK + "]";
     }
-    
+
 }
