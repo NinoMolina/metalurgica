@@ -8,13 +8,77 @@
                 xmlns:ace="http://www.icefaces.org/icefaces/components"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-    <ice:form>
-        <ice:menuBar orientation="horizontal" id="menubar" styleClass="iceMnuBar" value="MenuBar">
+    <!-- main menu declaration  -->
+    <h:form>
+        <ice:panelGroup styleClass="menuBarContainer">
+            <ice:menuBar id="menuBar"
+                         orientation="horizontal">
 
-            <ice:menuItem value="menu 1"/>
-            <ice:menuItem value="menu 2"/> 
+                <!-- File menu -->
+                <ice:menuItem value="Menu 1"
+                              id="file">
+                    <ice:menuItem id="open"
+                                  value="open"
+                                  action="#{rolController.irAIndex}">
+                    </ice:menuItem>
+                    <ice:menuItem id="save"
+                                  value="Save">
+                        <f:param name="myParam"
+                                 value="Save"/>
+                    </ice:menuItem>
+                    <ice:menuItemSeparator/>
+                    <ice:menuItem id="print"
+                                  value="Print">
+                        <f:param name="myParam"
+                                 value="Print"/>
+                    </ice:menuItem>    
 
-        </ice:menuBar>
-    </ice:form>
+                </ice:menuItem>
+
+                <!-- Edit menu -->
+                <ice:menuItem value="Pedidos de Cotización"
+                              id="pedidos" onclick="return false;">
+                    <ice:menuItem id="misPedidos"
+                                  value="Mis Pedidos"
+                                  action="#{pedidosControlador.misPedidos}">
+                    </ice:menuItem>
+                    <ice:menuItem id="copy"
+                                  value="Copy">
+                    </ice:menuItem>
+                    <ice:menuItem id="paste"
+                                  value="Paste">
+                    </ice:menuItem>
+                </ice:menuItem>
+
+                <!-- View menu -->
+                <ice:menuItem value="View"
+                              id="view" onclick="return false;">
+                    <ice:menuItem id="zoom_in"
+                                  value="Zoom In">
+                    </ice:menuItem>
+                    <ice:menuItem id="zoom_out"
+                                  value="Zoom Out">
+                    </ice:menuItem>
+                    <ice:menuItem id="fit_in_window"
+                                  value="Fit In Window">
+                    </ice:menuItem>
+                    <ice:menuItem id="actual_size"
+                                  value="Actual Size">
+                    </ice:menuItem>
+                </ice:menuItem>
+
+                <!-- Help Menu -->
+                <ice:menuItem value="Help"
+                              id="help" onclick="return false;">
+                    <!-- Example of using the menu item to open a new window.
+                        Note that the attributes of 'link' and 'action*' are mutually exclusive.
+                    -->
+                    <ice:menuItem id="docs"
+                                  value="Documentation"/>
+                </ice:menuItem>
+
+            </ice:menuBar>
+        </ice:panelGroup>
+    </h:form>
 </ui:composition>
 

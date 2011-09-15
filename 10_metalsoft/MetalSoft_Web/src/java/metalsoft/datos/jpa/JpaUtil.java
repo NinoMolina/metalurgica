@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallefactura;
+import metalsoft.datos.jpa.entity.Detallepedido;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Detalleremito;
@@ -367,6 +368,30 @@ public class JpaUtil {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Pedido e"
                 + " WHERE CAST(e.nropedido as VARCHAR) LIKE '" + param + "%'";
+        try {
+            Query q = em.createNativeQuery(sql, Pedido.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    public static List getDetallePedidoByPedido(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM detallePedido e"
+                + " WHERE e.idpedido=" + id;
+        try {
+            Query q = em.createNativeQuery(sql, Detallepedido.class);
+//        Query q = em.createQuery(sql, Pedido.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    public static List getPedidosByCliente(long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Pedido e"
+                + " WHERE e.cliente=" + id;
         try {
             Query q = em.createNativeQuery(sql, Pedido.class);
 //        Query q = em.createQuery(sql, Pedido.class);
