@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="MetalSoft_WebPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+<!--    <non-jta-data-source>java:comp/env/ds/metalsoft</non-jta-data-source>-->
+    <class>metalsoft.datos.jpa.entity.Accioncalidad</class>
+    <class>metalsoft.datos.jpa.entity.Asistencia</class>
+    <class>metalsoft.datos.jpa.entity.Barrio</class>
+    <class>metalsoft.datos.jpa.entity.Calendario</class>
+    <class>metalsoft.datos.jpa.entity.Cargo</class>
+    <class>metalsoft.datos.jpa.entity.Categoria</class>
+    <class>metalsoft.datos.jpa.entity.Cliente</class>
+    <class>metalsoft.datos.jpa.entity.Codigodebarra</class>
+    <class>metalsoft.datos.jpa.entity.Compra</class>
+    <class>metalsoft.datos.jpa.entity.Comprobantepago</class>
+    <class>metalsoft.datos.jpa.entity.Condicioniva</class>
+    <class>metalsoft.datos.jpa.entity.Detallecompra</class>
+    <class>metalsoft.datos.jpa.entity.Detalleejecucionplanificacion</class>
+    <class>metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad</class>
+    <class>metalsoft.datos.jpa.entity.Detallefactura</class>
+    <class>metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo</class>
+    <class>metalsoft.datos.jpa.entity.Detallemantenimientopreventivo</class>
+    <class>metalsoft.datos.jpa.entity.Detallempasignada</class>
+    <class>metalsoft.datos.jpa.entity.Detallepedido</class>
+    <class>metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto</class>
+    <class>metalsoft.datos.jpa.entity.Detallepiezapresupuesto</class>
+    <class>metalsoft.datos.jpa.entity.Detalleplanificacioncalidad</class>
+    <class>metalsoft.datos.jpa.entity.Detalleplanificacionproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Detalleplanprocedimientos</class>
+    <class>metalsoft.datos.jpa.entity.Detalleplanprocesoscalidad</class>
+    <class>metalsoft.datos.jpa.entity.Detallepresupuesto</class>
+    <class>metalsoft.datos.jpa.entity.Detalleproducto</class>
+    <class>metalsoft.datos.jpa.entity.Detalleproductopresupuesto</class>
+    <class>metalsoft.datos.jpa.entity.Detalleproductoreal</class>
+    <class>metalsoft.datos.jpa.entity.Detallereclamocliente</class>
+    <class>metalsoft.datos.jpa.entity.Detallereclamoempresamantenimiento</class>
+    <class>metalsoft.datos.jpa.entity.Detallereclamoempresametalurgica</class>
+    <class>metalsoft.datos.jpa.entity.Detallereclamoproveedor</class>
+    <class>metalsoft.datos.jpa.entity.Detalleremito</class>
+    <class>metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima</class>
+    <class>metalsoft.datos.jpa.entity.Detalletrabajotercerizado</class>
+    <class>metalsoft.datos.jpa.entity.Disponibilidadhoraria</class>
+    <class>metalsoft.datos.jpa.entity.Domicilio</class>
+    <class>metalsoft.datos.jpa.entity.Ejecucionetapaproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad</class>
+    <class>metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Ejecucionprocesocalidad</class>
+    <class>metalsoft.datos.jpa.entity.Empleado</class>
+    <class>metalsoft.datos.jpa.entity.Empleadoxturno</class>
+    <class>metalsoft.datos.jpa.entity.Empresametalurgica</class>
+    <class>metalsoft.datos.jpa.entity.Estadocliente</class>
+    <class>metalsoft.datos.jpa.entity.Estadocompra</class>
+    <class>metalsoft.datos.jpa.entity.Estadodetallecompra</class>
+    <class>metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado</class>
+    <class>metalsoft.datos.jpa.entity.Estadoejecetapaprod</class>
+    <class>metalsoft.datos.jpa.entity.Estadoejecplancalidad</class>
+    <class>metalsoft.datos.jpa.entity.Estadoejecplanifpedido</class>
+    <class>metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad</class>
+    <class>metalsoft.datos.jpa.entity.Estadofactura</class>
+    <class>metalsoft.datos.jpa.entity.Estadomaquina</class>
+    <class>metalsoft.datos.jpa.entity.Estadopedido</class>
+    <class>metalsoft.datos.jpa.entity.Estadopiezareal</class>
+    <class>metalsoft.datos.jpa.entity.Estadoplanificacionproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Estadoproductoreal</class>
+    <class>metalsoft.datos.jpa.entity.Estadoreclamo</class>
+    <class>metalsoft.datos.jpa.entity.Estadoremito</class>
+    <class>metalsoft.datos.jpa.entity.Estadotrabajotercerizado</class>
+    <class>metalsoft.datos.jpa.entity.Etapadeproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Factura</class>
+    <class>metalsoft.datos.jpa.entity.Formadepago</class>
+    <class>metalsoft.datos.jpa.entity.Localidad</class>
+    <class>metalsoft.datos.jpa.entity.Mantenimientocorrectivo</class>
+    <class>metalsoft.datos.jpa.entity.Mantenimientopreventivo</class>
+    <class>metalsoft.datos.jpa.entity.Maquina</class>
+    <class>metalsoft.datos.jpa.entity.Maquinaxejecucionetapaproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Maquinaxprocesocalidad</class>
+    <class>metalsoft.datos.jpa.entity.Marca</class>
+    <class>metalsoft.datos.jpa.entity.Materiaprima</class>
+    <class>metalsoft.datos.jpa.entity.Matriz</class>
+    <class>metalsoft.datos.jpa.entity.Mpasignadaxpiezareal</class>
+    <class>metalsoft.datos.jpa.entity.Pedido</class>
+    <class>metalsoft.datos.jpa.entity.Pedidomatriz</class>
+    <class>metalsoft.datos.jpa.entity.Pieza</class>
+    <class>metalsoft.datos.jpa.entity.Piezareal</class>
+    <class>metalsoft.datos.jpa.entity.Piezaxetapadeproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Planificacioncalidad</class>
+    <class>metalsoft.datos.jpa.entity.Planificacionproduccion</class>
+    <class>metalsoft.datos.jpa.entity.Plano</class>
+    <class>metalsoft.datos.jpa.entity.Planprocedimientos</class>
+    <class>metalsoft.datos.jpa.entity.Planprocesoscalidad</class>
+    <class>metalsoft.datos.jpa.entity.Planrequerimientosmateriaprima</class>
+    <class>metalsoft.datos.jpa.entity.Presupuesto</class>
+    <class>metalsoft.datos.jpa.entity.Prioridad</class>
+    <class>metalsoft.datos.jpa.entity.Privilegio</class>
+    <class>metalsoft.datos.jpa.entity.Procesocalidad</class>
+    <class>metalsoft.datos.jpa.entity.Producto</class>
+    <class>metalsoft.datos.jpa.entity.Productoreal</class>
+    <class>metalsoft.datos.jpa.entity.Proveedor</class>
+    <class>metalsoft.datos.jpa.entity.Proveedormantenimientomaquina</class>
+    <class>metalsoft.datos.jpa.entity.Proveedorxmateriaprima</class>
+    <class>metalsoft.datos.jpa.entity.Provincia</class>
+    <class>metalsoft.datos.jpa.entity.Prueba</class>
+    <class>metalsoft.datos.jpa.entity.Reclamocliente</class>
+    <class>metalsoft.datos.jpa.entity.Reclamoempresamantenimiento</class>
+    <class>metalsoft.datos.jpa.entity.Reclamoempresametalurgica</class>
+    <class>metalsoft.datos.jpa.entity.Reclamoproveedor</class>
+    <class>metalsoft.datos.jpa.entity.Remito</class>
+    <class>metalsoft.datos.jpa.entity.Responsable</class>
+    <class>metalsoft.datos.jpa.entity.Rol</class>
+    <class>metalsoft.datos.jpa.entity.Rolxprivilegio</class>
+    <class>metalsoft.datos.jpa.entity.Rotura</class>
+    <class>metalsoft.datos.jpa.entity.Servicio</class>
+    <class>metalsoft.datos.jpa.entity.Sesion</class>
+    <class>metalsoft.datos.jpa.entity.Tipodocumento</class>
+    <class>metalsoft.datos.jpa.entity.Tipoiva</class>
+    <class>metalsoft.datos.jpa.entity.Tipomaquina</class>
+    <class>metalsoft.datos.jpa.entity.Tipomaterial</class>
+    <class>metalsoft.datos.jpa.entity.Tiporeclamo</class>
+    <class>metalsoft.datos.jpa.entity.Trabajotercerizado</class>
+    <class>metalsoft.datos.jpa.entity.Turno</class>
+    <class>metalsoft.datos.jpa.entity.Unidadmedida</class>
+    <class>metalsoft.datos.jpa.entity.Usuario</class>
+    <class>metalsoft.datos.jpa.entity.Usuarioxrol</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/metalsoft"/>
+      <property name="javax.persistence.jdbc.password" value="admin"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
+    </properties>
+<!--        <properties>
+            <property name="javax.persistence.jtaDataSource" value="metalsoft_jndi"/>
+        </properties>-->
+<!--    <properties>
+        <property name="eclipselink.session.customizer" value="org.eclipse.persistence.example.unified.integration.JPAEclipseLinkSessionCustomizer"/>        
+        <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.PostgreSQLPlatform"/>            
+        <property name="javax.persistence.nonJtaDataSource" value="java:comp/env/ds/metalsoft"/>
+        <property name="eclipselink.logging.level" value="FINEST"/>
+    </properties>-->
+<!--    <properties />-->
+  </persistence-unit>
+</persistence>
