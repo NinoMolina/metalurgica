@@ -40,8 +40,8 @@ public class MetalsoftDispatcher {
             } else {
                 Principal p = new Principal(usuario);
 
-//                lanzarHiloAvisoEtapaNoTerminada(p);
-//                lanzarHiloEscuchadorFinEtapa(p);
+                lanzarHiloAvisoEtapaNoTerminada(p);
+                lanzarHiloEscuchadorFinEtapa(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
@@ -49,8 +49,8 @@ public class MetalsoftDispatcher {
         } else {
             Principal p = new Principal(usuario);
 
-//            lanzarHiloAvisoEtapaNoTerminada(p);
-//            lanzarHiloEscuchadorFinEtapa(p);
+            lanzarHiloAvisoEtapaNoTerminada(p);
+            lanzarHiloEscuchadorFinEtapa(p);
 
             p.setVisible(true);
             p.setLocationRelativeTo(null);
