@@ -4,32 +4,22 @@
  */
 package metalsoft.web.controlador;
 
-import com.icesoft.faces.component.ext.RowSelectorEvent;
-import java.util.AbstractList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.ListDataModel;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Pedido;
-import metalsoft.web.vista.ListaPedidosCotizacionVista;
 import metalsoft.web.vista.PedidoCotizacionVista;
-import com.icesoft.faces.component.ext.RowSelector;
-
-import javax.faces.component.html.HtmlDataTable;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.ListDataModel;
 import metalsoft.datos.jpa.controller.EstadopedidoJpaController;
 import metalsoft.datos.jpa.entity.Detallepedido;
+import metalsoft.web.vista.SesionVista;
 
 /**
  *
@@ -42,7 +32,8 @@ public class PedidosCotizacionControlador {
     /** Creates a new instance of PedidosCotizacionControlador */
     @ManagedProperty(value = "#{pedidoVista}")
     private PedidoCotizacionVista pedidoVista;
-    private long idCliente = 5;
+    @ManagedProperty(value = "#{sesionVista}")
+    private SesionVista sesionVista;
     private String entroAListener = "";
 
     public PedidosCotizacionControlador() {
@@ -53,19 +44,22 @@ public class PedidosCotizacionControlador {
 
         pedidoVista.limpiarCampos();
 
-        List<Pedido> list = JpaUtil.getPedidosByCliente(idCliente);
+        List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
 
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
         return "gestionPedidos";
     }
+    
+    public String todosLosPedidos() {
 
-    public long getIdCliente() {
-        return idCliente;
-    }
+        pedidoVista.limpiarCampos();
 
-    public void setIdCliente(long idCliente) {
-        this.idCliente = idCliente;
+        List<Pedido> list = JpaUtil.getPedidosNoFinalizados();
+
+        pedidoVista.setPedidosVista(new ListDataModel(list));
+
+        return "gestionPedidos";
     }
 
     public PedidoCotizacionVista getPedidoVista() {
@@ -74,6 +68,14 @@ public class PedidosCotizacionControlador {
 
     public void setPedidoVista(PedidoCotizacionVista pedidoVista) {
         this.pedidoVista = pedidoVista;
+    }
+
+    public SesionVista getSesionVista() {
+        return sesionVista;
+    }
+
+    public void setSesionVista(SesionVista sesionVista) {
+        this.sesionVista = sesionVista;
     }
 
     public String getEntroAListener() {
@@ -88,12 +90,12 @@ public class PedidosCotizacionControlador {
 
         pedidoVista.setPedido(pedidoVista.getPedidosVista().getRowData());
 
-        pedidoVista.setDetallePedido(JpaUtil.getDetallePedidoByPedido(pedidoVista.getPedido().getIdpedido()));
+        pedidoVista.setDetallePedido(new ListDataModel(JpaUtil.getDetallePedidoByPedido(pedidoVista.getPedido().getIdpedido())));
 
         pedidoVista.setSelected(true);
         if (pedidoVista.getPedido().getEstado().getIdestado() == 2) {
             pedidoVista.setActivarBoton(true);
-        }else{
+        } else {
             pedidoVista.setActivarBoton(false);
         }
 
@@ -103,13 +105,18 @@ public class PedidosCotizacionControlador {
     public String confirmarPedido() {
         EstadopedidoJpaController conPedido = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
         pedidoVista.getPedido().setEstado(conPedido.findEstadopedido(4L));
-        Pedido p=pedidoVista.getPedido();
+        Pedido p = pedidoVista.getPedido();
         PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
         try {
             controller.edit(p);
-            entroAListener = "El Pedido ha sido confirmadop "+p.getEstado().getNombre();
-            List<Pedido> list = JpaUtil.getPedidosByCliente(idCliente);
+            entroAListener = "El Pedido ha sido " + p.getEstado().getNombre();
+            List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
             pedidoVista.setPedidosVista(new ListDataModel(list));
+            if (pedidoVista.getPedido().getEstado().getIdestado() == 2) {
+                pedidoVista.setActivarBoton(true);
+            } else {
+                pedidoVista.setActivarBoton(false);
+            }
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(PedidosCotizacionControlador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {

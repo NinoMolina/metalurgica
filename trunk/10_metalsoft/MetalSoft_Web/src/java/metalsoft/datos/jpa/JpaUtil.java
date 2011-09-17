@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
+import metalsoft.datos.jpa.entity.Cliente;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detallepedido;
@@ -376,6 +377,7 @@ public class JpaUtil {
             em.close();
         }
     }
+
     public static List getDetallePedidoByPedido(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM detallePedido e"
@@ -388,6 +390,7 @@ public class JpaUtil {
             em.close();
         }
     }
+
     public static List getPedidosByCliente(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Pedido e"
@@ -396,6 +399,35 @@ public class JpaUtil {
             Query q = em.createNativeQuery(sql, Pedido.class);
 //        Query q = em.createQuery(sql, Pedido.class);
             return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List getRolByUsuario(Long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select r.*"
+                + " from rol r,	usuario u, usuarioxrol ur"
+                + " WHERE u.idusuario=ur.idusuario"
+                + " AND ur.idrol=r.idrol"
+                + " AND u.idusuario=" + id;
+        try {
+            Query q = em.createNativeQuery(sql, Rol.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static Cliente getClienteByUsuario(Long id) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT c.*"
+                + " FROM  usuario u, cliente c"
+                + " WHERE u.idusuario=c.usuario"
+                + " AND u.idusuario=" + id;
+        try {
+            Query q = em.createNativeQuery(sql, Cliente.class);
+            return (Cliente) q.getSingleResult();
         } finally {
             em.close();
         }
