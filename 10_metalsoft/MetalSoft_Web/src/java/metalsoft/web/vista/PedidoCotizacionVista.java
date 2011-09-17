@@ -4,6 +4,7 @@
  */
 package metalsoft.web.vista;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,16 +21,23 @@ import metalsoft.datos.jpa.entity.Pedido;
 public class PedidoCotizacionVista {
 
     private Pedido pedido;
-    private List<Detallepedido> detallePedido;
+    private ListDataModel<Detallepedido> detallePedido;
     private boolean selected = false;
-    private boolean edit;
-    private long id;
     protected ListDataModel<Pedido> pedidosVista;
     private boolean activarBoton = false;
 
     /** Creates a new instance of PedidoCotizacion */
     public PedidoCotizacionVista() {
         pedido = new Pedido();
+    }
+
+    public void limpiarCampos() {
+
+        pedido=new Pedido();
+        detallePedido=new ListDataModel<Detallepedido>();
+        selected = false;
+        pedidosVista=new ListDataModel<Pedido>();
+        activarBoton = false;
     }
 
     public Pedido getPedido() {
@@ -48,28 +56,12 @@ public class PedidoCotizacionVista {
         this.selected = selected;
     }
 
-    public List<Detallepedido> getDetallePedido() {
+    public ListDataModel<Detallepedido> getDetallePedido() {
         return detallePedido;
     }
 
-    public void setDetallePedido(List<Detallepedido> detallePedido) {
+    public void setDetallePedido(ListDataModel<Detallepedido> detallePedido) {
         this.detallePedido = detallePedido;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public ListDataModel<Pedido> getPedidosVista() {
@@ -80,10 +72,6 @@ public class PedidoCotizacionVista {
         this.pedidosVista = pedidosVista;
     }
 
-    public void limpiarCampos() {
-        
-    }
-
     public boolean isActivarBoton() {
         return activarBoton;
     }
@@ -91,6 +79,4 @@ public class PedidoCotizacionVista {
     public void setActivarBoton(boolean activarBoton) {
         this.activarBoton = activarBoton;
     }
-    
-    
 }
