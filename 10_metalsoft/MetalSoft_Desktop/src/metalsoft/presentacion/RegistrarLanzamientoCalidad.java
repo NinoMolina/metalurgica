@@ -4,9 +4,9 @@
  */
 
 /*
- * RegistrarLanzamientoProduccion.java
+ * RegistrarLanzamientoCalidad.java
  *
- * Created on 18/10/2010, 07:33:44
+ * Created on 17/09/2011, 20:45:38
  */
 package metalsoft.presentacion;
 
@@ -16,10 +16,10 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
-import metalsoft.negocio.gestores.GestorRegistrarLanzamientoProduccion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
+import metalsoft.negocio.gestores.GestorLanzarCalidad;
 import metalsoft.negocio.gestores.NumerosAMostrar;
-import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
+import metalsoft.negocio.gestores.ViewPedidosConProduccionFinalizada;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -28,27 +28,39 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
+public class RegistrarLanzamientoCalidad extends javax.swing.JFrame {
 
-    /** Creates new form RegistrarLanzamientoProduccion */
-    private LinkedList<ViewPedidosConMPAsignada> filasPedidosConMPAsignada = new LinkedList<ViewPedidosConMPAsignada>();
-    private GestorRegistrarLanzamientoProduccion gestor;
-    private ViewPedidosConMPAsignada viewPedidoSeleccionado;
+    /** Creates new form RegistrarLanzamientoCalidad */
+    private GestorLanzarCalidad gestor;
+    private LinkedList<ViewPedidosConProduccionFinalizada> filasPedidosConProduccionFinalizada = new LinkedList<ViewPedidosConProduccionFinalizada>();
+    private ViewPedidosConProduccionFinalizada viewPedidoSeleccionado;
     private Date fechaActual;
     private Date fechaFinRecalculada;
 
-    public RegistrarLanzamientoProduccion() {
+    public RegistrarLanzamientoCalidad() {
         initComponents();
-        gestor = new GestorRegistrarLanzamientoProduccion();
+        gestor = new GestorLanzarCalidad();
         limpiarCampos();
         setearEnabledComponents(false);
-        buscarPedidosConMPAsignada();
+        buscarPedidosConProduccionFinalizada();
         setearTablaPedidos();
         addListeners();
     }
 
+    private void setearTablaPedidos() {
+        tblPedidos.setModel(new PedidoNoLanzadoTableModel());
+        tblPedidos.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidos.setShowHorizontalLines(false);
+        tblPedidos.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblPedidos.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+        tblPedidos.updateUI();
+    }
+
     private void setearEnabledComponents(boolean b) {
-        btnLanzarProduccion.setEnabled(b);
+        btnLanzarCalidad.setEnabled(b);
         btnVerObservaciones.setEnabled(b);
     }
 
@@ -81,9 +93,19 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
             return;
         }
-        viewPedidoSeleccionado = filasPedidosConMPAsignada.get(tblPedidos.getSelectedRow());
+        viewPedidoSeleccionado = filasPedidosConProduccionFinalizada.get(tblPedidos.getSelectedRow());
         setearDatosPedidoSeleccionado();
         setearEnabledComponents(true);
+    }
+
+    private void setearDatosPedidoSeleccionado() {
+        lblFechaFinPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechafinprevista()));
+        lblFechaInicioPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechainicioprevista()));
+        lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
+        lblNroPlanifProduccion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_CALIDAD, viewPedidoSeleccionado.getNroplanificacionproduccion()));
+        txtFechaInicioReal.setText(Fecha.fechaActual());
+        fechaFinRecalculada = gestor.calcularFechaFin(Fecha.fechaActualDate(), viewPedidoSeleccionado.getFechainicioprevista(), viewPedidoSeleccionado.getFechafinprevista());
+        lblFechaFinRecalculada.setText(Fecha.parseToString(fechaFinRecalculada));
     }
 
     private void addListenerBtnSalir() {
@@ -97,22 +119,6 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
-    }
-
-    private void buscarPedidosConMPAsignada() {
-        filasPedidosConMPAsignada = gestor.buscarPedidosConMPAsignada();
-    }
-
-    private void setearTablaPedidos() {
-        tblPedidos.setModel(new PedidoNoLanzadoTableModel());
-        tblPedidos.setColumnControlVisible(true);
-        /* On supprime les traits des lignes et des colonnes */
-        tblPedidos.setShowHorizontalLines(false);
-        tblPedidos.setShowVerticalLines(false);
-        /* On dit de surligner une ligne sur deux */
-        tblPedidos.setHighlighters(
-                new UIColorHighlighter(HighlightPredicate.ODD));
-        tblPedidos.updateUI();
     }
 
     /** This method is called from within the constructor to
@@ -144,11 +150,11 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lblFechaFinRecalculada = new javax.swing.JLabel();
         txtFechaInicioReal = new javax.swing.JLabel();
-        btnLanzarProduccion = new javax.swing.JButton();
+        btnLanzarCalidad = new javax.swing.JButton();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Lanzar Producción");
+        setTitle("Registrar Lanzamiento Procesos de Calidad");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos listos para lanzar"));
 
@@ -165,7 +171,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,7 +206,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblNroPedido.setText("...");
 
-        lblNroPlanifProduccion.setFont(new java.awt.Font("Tahoma", 1, 12));
+        lblNroPlanifProduccion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNroPlanifProduccion.setText("...");
 
         lblFechaInicioPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
@@ -225,7 +231,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         lblFechaFinRecalculada.setForeground(new java.awt.Color(102, 0, 0));
         lblFechaFinRecalculada.setText("...");
 
-        txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12));
         txtFechaInicioReal.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -250,11 +256,11 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNroPlanifProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                .addComponent(lblNroPlanifProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(3, 3, 3)
-                                .addComponent(txtFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+                                .addComponent(txtFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -266,7 +272,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                         .addGap(10, 10, 10))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnVerObservaciones)
-                        .addContainerGap(530, Short.MAX_VALUE))))
+                        .addContainerGap(577, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,11 +300,11 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                 .addComponent(btnVerObservaciones))
         );
 
-        btnLanzarProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
-        btnLanzarProduccion.setText("Lanzar Producción");
-        btnLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
+        btnLanzarCalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
+        btnLanzarCalidad.setText("Lanzar Calidad");
+        btnLanzarCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLanzarProduccionActionPerformed(evt);
+                btnLanzarCalidadActionPerformed(evt);
             }
         });
 
@@ -306,19 +312,21 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLanzarProduccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
+                        .addComponent(btnLanzarCalidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
                         .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 455, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,75 +335,89 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLanzarProduccion))
+                    .addComponent(btnLanzarCalidad))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVerObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerObservacionesActionPerformed
-        JTextArea txtObs = new JTextArea(viewPedidoSeleccionado.getObservaciones());
-        txtObs.setEditable(false);
-        Object[] obj = {"Observaciones:", txtObs};
-        JOptionPane.showMessageDialog(this, obj, "Observaciones Planificación", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnVerObservacionesActionPerformed
+private void btnVerObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerObservacionesActionPerformed
+    JTextArea txtObs = new JTextArea(viewPedidoSeleccionado.getObservaciones());
+    txtObs.setEditable(false);
+    Object[] obj = {"Observaciones:", txtObs};
+    JOptionPane.showMessageDialog(this, obj, "Observaciones Planificación", JOptionPane.INFORMATION_MESSAGE);
+}//GEN-LAST:event_btnVerObservacionesActionPerformed
 
-    private void btnLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProduccionActionPerformed
-        try {
-            metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa = new Ejecucionplanificacionproduccion();
-            jpa.setFechainicio(Fecha.fechaActualDate());
-            jpa.setHorainicio(Fecha.fechaActualDate());
-            long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
-            jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
-            /*
-             * ######### CREAR EJECUCION DE PLANIFICACION ##########
-             */
-            long result = gestor.guardarEjecucionPlanificacion(jpa, viewPedidoSeleccionado.getIdplanificacionproduccion());
-            /*
-             * ######### ACTUALIZAR ESTADO DEL PEDIDO ##########
-             */
-            long resultPedido = gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
+private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCalidadActionPerformed
+    try {
+        Ejecucionplanificacioncalidad ejecucionPlanificacionCalidad = new Ejecucionplanificacioncalidad();
+        ejecucionPlanificacionCalidad.setFechainicio(Fecha.fechaActualDate());
+        ejecucionPlanificacionCalidad.setHorainicio(Fecha.fechaActualDate());
+        long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionCalidad();
+        ejecucionPlanificacionCalidad.setNroejecucionplanificacioncalidad(BigInteger.valueOf(nroejecucion));
+        /*
+         * ######### CREAR EJECUCION DE CALIDAD ##########
+         */
+        long result = gestor.guardarEjecucionPlanificacion(ejecucionPlanificacionCalidad, viewPedidoSeleccionado.getIdplanificacioncalidad());
+        /*
+         * ######### ACTUALIZAR ESTADO DEL PEDIDO ##########
+         */
+        gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
 
-            if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
-                filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
-                setearEnabledComponents(false);
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!\n"+ex.getMessage());
-            ex.printStackTrace();
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+            filasPedidosConProduccionFinalizada.remove(tblPedidos.getSelectedRow());
+            setearEnabledComponents(false);
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
         }
-
-    }//GEN-LAST:event_btnLanzarProduccionActionPerformed
-    private void setearDatosPedidoSeleccionado() {
-        lblFechaFinPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechafinprevista()));
-        lblFechaInicioPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechainicioprevista()));
-        lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
-        lblNroPlanifProduccion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, viewPedidoSeleccionado.getNroplanificacionproduccion()));
-        txtFechaInicioReal.setText(Fecha.fechaActual());
-        fechaFinRecalculada = gestor.calcularFechaFin(Fecha.fechaActualDate(), viewPedidoSeleccionado.getFechainicioprevista(), viewPedidoSeleccionado.getFechafinprevista());
-        lblFechaFinRecalculada.setText(Fecha.parseToString(fechaFinRecalculada));
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!\n" + ex.getMessage());
+        ex.printStackTrace();
     }
+}//GEN-LAST:event_btnLanzarCalidadActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RegistrarLanzamientoCalidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegistrarLanzamientoCalidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegistrarLanzamientoCalidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RegistrarLanzamientoCalidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new RegistrarLanzamientoProduccion().setVisible(true);
+                new RegistrarLanzamientoCalidad().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSalirr beanBtnSalir;
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarPedido;
-    private javax.swing.JButton btnLanzarProduccion;
+    private javax.swing.JButton btnLanzarCalidad;
     private javax.swing.JButton btnVerObservaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -417,20 +439,24 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
     private javax.swing.JLabel txtFechaInicioReal;
     // End of variables declaration//GEN-END:variables
 
+    private void buscarPedidosConProduccionFinalizada() {
+        filasPedidosConProduccionFinalizada = gestor.buscarPedidosConProduccionFinalizada();
+    }
+
     class PedidoNoLanzadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {
-            "nropedido",
-            "nroplanificacionproduccion",
-            "fechacreacion",
-            "fechainicioprevista",
-            "fechafinprevista",
-            "observaciones"
+            "NroPedido",
+            "NroPlanificacionCalidad",
+            "FechaCreacion",
+            "FechaInicioPrevista",
+            "FechaFinPrevista",
+            "Observaciones"
         };
 
         public int getRowCount() {
-            if (filasPedidosConMPAsignada != null) {
-                return filasPedidosConMPAsignada.size();
+            if (filasPedidosConProduccionFinalizada != null) {
+                return filasPedidosConProduccionFinalizada.size();
             } else {
                 return 0;
             }
@@ -450,13 +476,13 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
-            ViewPedidosConMPAsignada view = filasPedidosConMPAsignada.get(rowIndex);
+            ViewPedidosConProduccionFinalizada view = filasPedidosConProduccionFinalizada.get(rowIndex);
 
             switch (columnIndex) {
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, view.getNroplanificacionproduccion());
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_CALIDAD, view.getNroplanificacionproduccion());
                 case 2:
                     return Fecha.parseToString(view.getFechacreacion());
                 case 3:
