@@ -33,7 +33,7 @@ public class GestorReportes {
 
     public void ReporteClientes(){
 
-        String sourceFile = "L:\\rpt\\reporteClientesMetalsfot.jasper";
+        String sourceFile = "L:\\rpt\\reporteClientesMetalsoft.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
