@@ -28,6 +28,7 @@ public class NumerosAMostrar {
     public static final int NRO_EMPRESA_MANTENIMIENTO = 16;
     public static final int NRO_MANTENIMIENTO_PREVENTIVO = 17;
     public static final int NRO_MANTENIMIENTO_CORRECTIVO = 18;
+    public static final int NRO_PLANIF_CALIDAD = 19;
 
     public static String getNumeroString(int tiponro, long nro) {
         switch (tiponro) {
@@ -48,7 +49,7 @@ public class NumerosAMostrar {
             case NRO_MAQUINA:
                 return "MAQ-" + String.valueOf(nro);
             case NRO_PLANIF_PRODUCCION:
-                return "PLAN-" + String.valueOf(nro);
+                return "PLANPROD-" + String.valueOf(nro);
             case NRO_ETAPA_PRODUCCION:
                 return "ETPR-" + String.valueOf(nro);
             case NRO_PROCESO_CALIDAD:
@@ -66,7 +67,9 @@ public class NumerosAMostrar {
             case NRO_MANTENIMIENTO_PREVENTIVO:
                 return "MANTPR-" + String.valueOf(nro);
             case NRO_MANTENIMIENTO_CORRECTIVO:
-                return "MANTCO" + String.valueOf(nro);
+                return "MANTCO-" + String.valueOf(nro);
+            case NRO_PLANIF_CALIDAD:
+                return "PLANCAL-" + String.valueOf(nro);
             default:
                 return null;
         }
