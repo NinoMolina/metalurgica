@@ -8,13 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
-import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
@@ -26,13 +24,13 @@ import metalsoft.negocio.gestores.ViewPedidoNoConfirmado;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
 import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
 import metalsoft.negocio.gestores.ViewPedidosConMPAsignada;
+import metalsoft.negocio.gestores.ViewPedidosConProduccionFinalizada;
 import metalsoft.negocio.gestores.ViewPlanificacion;
 import metalsoft.negocio.gestores.ViewProcesoCalidad;
 import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.negocio.gestores.viewAsignarMateriaPrima;
-import metalsoft.util.Fecha;
 
 /**
  *
@@ -781,5 +779,35 @@ public class AccessViews {
         } else {
             return ll;
         }
+    }
+
+    public static LinkedList<ViewPedidosConProduccionFinalizada> listPedidosConProduccionFinalizada(Connection cn) {
+        ViewPedidosConProduccionFinalizada view = null;
+        LinkedList<ViewPedidosConProduccionFinalizada> ll = new LinkedList<ViewPedidosConProduccionFinalizada>();
+        String query = "SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacioncalidad,idplanificacionproduccion,idejecplanifproduccion" +
+                " FROM viewpedidosproduccionfin";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPedidosConProduccionFinalizada();
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setIdplanificacionproduccion(rs.getLong("idplanificacionproduccion"));
+                view.setIdejecplanifproduccion(rs.getLong("idejecplanifproduccion"));
+                view.setIdplanificacioncalidad(rs.getLong("idplanificacioncalidad"));
+                view.setFechacreacion(rs.getDate("fechacreacion"));
+                view.setFechainicioprevista(rs.getDate("fechainicioprevista"));
+                view.setFechafinprevista(rs.getDate("fechafinprevista"));
+                view.setNropedido(rs.getLong("nropedido"));
+                view.setNroplanificacionproduccion(rs.getLong("nroplanificacionproduccion"));
+                view.setObservaciones(rs.getString("Observaciones"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
     }
 }
