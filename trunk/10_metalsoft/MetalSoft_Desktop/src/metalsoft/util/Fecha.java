@@ -124,7 +124,6 @@ public class Fecha {
         try {
             f = formato.parse(fecha);
         } catch (ParseException ex) {
-           
         }
         return f;
     }
@@ -246,8 +245,8 @@ public class Fecha {
     }
 
     public static Date diferenciaEnHoras(Date fechaInicio, Date fechaFin) {
-        System.out.println("Inicio: "+fechaInicio);
-        System.out.println("Fin: "+fechaFin);
+        System.out.println("Inicio: " + fechaInicio);
+        System.out.println("Fin: " + fechaFin);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(fechaFin);
         calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
@@ -277,12 +276,12 @@ public class Fecha {
         return calendar.getTime();
     }
 
-    public static int diferenciaEnDiasJoda(Date fechaPrevista, Date fechaActual){
+    public static int diferenciaEnDiasJoda(Date fechaPrevista, Date fechaActual) {
 
         Instant insFechaPrevista = new Instant(fechaPrevista.getTime());
         Instant insFechaActual = new Instant(fechaActual.getTime());
 
-        Days d = Days.daysBetween(insFechaActual, insFechaPrevista );
+        Days d = Days.daysBetween(insFechaActual, insFechaPrevista);
 
         int days = d.getDays();
 
@@ -290,15 +289,15 @@ public class Fecha {
 
     }
 
-    public static Date diferenciaEnHorasJoda(Date fechaFinalizacion, Date fechaActual){
+    public static Date diferenciaEnHorasJoda(Date fechaFinalizacion, Date fechaActual) {
 
-        System.out.println("Finalizacion: "+fechaFinalizacion);
-        System.out.println("Actual: "+fechaActual);
-        DateTime dt=new DateTime(fechaFinalizacion.getTime());
+        System.out.println("Finalizacion: " + fechaFinalizacion);
+        System.out.println("Actual: " + fechaActual);
+        DateTime dt = new DateTime(fechaFinalizacion.getTime());
         DateTime dif = dt.minus(fechaActual.getTime());
 
         Date result = new Date(dif.getMillis());
-        System.out.println("diferencia: "+result);
+        System.out.println("diferencia: " + result);
         return result;
 
     }
@@ -361,7 +360,7 @@ public class Fecha {
 //    }
     public static void main(String args[]) {
 
-       
+
 
 //        String s = fechaActual();
 //        Date d = parseToDate(s);
@@ -377,7 +376,7 @@ public class Fecha {
 //
 //        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
 
-        GregorianCalendar calendar=new GregorianCalendar(2011, 5, 21, 20, 0);
+        GregorianCalendar calendar = new GregorianCalendar(2011, 5, 21, 20, 0);
         Date d3 = calendar.getTime();
         Date fa = fechaActualDate();
         Date dif = diferenciaEnHoras(d3, fa);
@@ -404,5 +403,23 @@ public class Fecha {
         gcFechaInicio.set(Calendar.SECOND, hora.getSeconds());
 
         return gcFechaInicio.getTime();
+    }
+
+    public static Date calcularFechaFin(Date fechaActual, Date fechaInicioPrevista, Date fechafinprevista) {
+        GregorianCalendar inicio = (GregorianCalendar) Fecha.parseToCalendar(fechaInicioPrevista);
+//        System.out.println(Fecha.parseToString(inicio.getTime()));
+        GregorianCalendar fin = (GregorianCalendar) Fecha.parseToCalendar(fechafinprevista);
+//        System.out.println(Fecha.parseToString(fin.getTime()));
+        int year = fin.get(Calendar.YEAR) - inicio.get(Calendar.YEAR);
+        int month = fin.get(Calendar.MONTH) - inicio.get(Calendar.MONTH);
+        int day = fin.get(Calendar.DATE) - inicio.get(Calendar.DATE);
+        inicio.add(Calendar.YEAR, year);
+        GregorianCalendar actual = (GregorianCalendar) Fecha.parseToCalendar(fechaActual);
+//        System.out.println(Fecha.parseToString(actual.getTime()));
+        actual.add(Calendar.YEAR, year);
+        actual.add(Calendar.MONTH, month);
+        actual.add(Calendar.DATE, day);
+//        System.out.println(Fecha.parseToString(actual.getTime()));
+        return actual.getTime();
     }
 }
