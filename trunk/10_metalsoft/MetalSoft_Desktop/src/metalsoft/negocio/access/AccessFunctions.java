@@ -4,7 +4,6 @@
  */
 package metalsoft.negocio.access;
 
-import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -457,6 +456,34 @@ public class AccessFunctions {
             } catch (SQLException ex) {
                 Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        return result;
+    }
+
+    public static long nvoNroEjecucionPlanificacionCalidad(Connection cn) {
+        String query = "{ ? = call nvonroejecplanifcalidad()}";
+        long result = -1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result = cs.getLong(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static long nvoNroEjecucionProcesoCalidad(Connection cn) {
+        String query = "{ ? = call nvonroejecprocalidad()}";
+        long result = -1;
+        try {
+            CallableStatement cs = cn.prepareCall(query);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
+            cs.execute();
+            result = cs.getLong(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
