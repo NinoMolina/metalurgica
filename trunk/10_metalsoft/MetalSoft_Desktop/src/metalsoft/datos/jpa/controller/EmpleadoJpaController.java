@@ -13,7 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Tipodocumento;
@@ -45,7 +44,7 @@ public class EmpleadoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Empleado empleado) throws PreexistingEntityException, Exception {
+    public void create(Empleado empleado) {
         if (empleado.getDetalleplanificacionproduccionList() == null) {
             empleado.setDetalleplanificacionproduccionList(new ArrayList<Detalleplanificacionproduccion>());
         }
@@ -66,6 +65,9 @@ public class EmpleadoJpaController implements Serializable {
         }
         if (empleado.getAsistenciaList() == null) {
             empleado.setAsistenciaList(new ArrayList<Asistencia>());
+        }
+        if (empleado.getEjecucionprocesocalidadList() == null) {
+            empleado.setEjecucionprocesocalidadList(new ArrayList<Ejecucionetapaproduccion>());
         }
         EntityManager em = null;
         try {
@@ -138,6 +140,12 @@ public class EmpleadoJpaController implements Serializable {
                 attachedAsistenciaList.add(asistenciaListAsistenciaToAttach);
             }
             empleado.setAsistenciaList(attachedAsistenciaList);
+            List<Ejecucionetapaproduccion> attachedEjecucionprocesocalidadList = new ArrayList<Ejecucionetapaproduccion>();
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListEjecucionetapaproduccionToAttach : empleado.getEjecucionprocesocalidadList()) {
+                ejecucionprocesocalidadListEjecucionetapaproduccionToAttach = em.getReference(ejecucionprocesocalidadListEjecucionetapaproduccionToAttach.getClass(), ejecucionprocesocalidadListEjecucionetapaproduccionToAttach.getId());
+                attachedEjecucionprocesocalidadList.add(ejecucionprocesocalidadListEjecucionetapaproduccionToAttach);
+            }
+            empleado.setEjecucionprocesocalidadList(attachedEjecucionprocesocalidadList);
             em.persist(empleado);
             if (usuario != null) {
                 usuario.getEmpleadoList().add(empleado);
@@ -222,12 +230,16 @@ public class EmpleadoJpaController implements Serializable {
                     oldEmpleado1OfAsistenciaListAsistencia = em.merge(oldEmpleado1OfAsistenciaListAsistencia);
                 }
             }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findEmpleado(empleado.getIdempleado()) != null) {
-                throw new PreexistingEntityException("Empleado " + empleado + " already exists.", ex);
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListEjecucionetapaproduccion : empleado.getEjecucionprocesocalidadList()) {
+                Empleado oldEmpleadoOfEjecucionprocesocalidadListEjecucionetapaproduccion = ejecucionprocesocalidadListEjecucionetapaproduccion.getEmpleado();
+                ejecucionprocesocalidadListEjecucionetapaproduccion.setEmpleado(empleado);
+                ejecucionprocesocalidadListEjecucionetapaproduccion = em.merge(ejecucionprocesocalidadListEjecucionetapaproduccion);
+                if (oldEmpleadoOfEjecucionprocesocalidadListEjecucionetapaproduccion != null) {
+                    oldEmpleadoOfEjecucionprocesocalidadListEjecucionetapaproduccion.getEjecucionprocesocalidadList().remove(ejecucionprocesocalidadListEjecucionetapaproduccion);
+                    oldEmpleadoOfEjecucionprocesocalidadListEjecucionetapaproduccion = em.merge(oldEmpleadoOfEjecucionprocesocalidadListEjecucionetapaproduccion);
+                }
             }
-            throw ex;
+            em.getTransaction().commit();
         } finally {
             if (em != null) {
                 em.close();
@@ -265,6 +277,8 @@ public class EmpleadoJpaController implements Serializable {
             List<Disponibilidadhoraria> disponibilidadhorariaListNew = empleado.getDisponibilidadhorariaList();
             List<Asistencia> asistenciaListOld = persistentEmpleado.getAsistenciaList();
             List<Asistencia> asistenciaListNew = empleado.getAsistenciaList();
+            List<Ejecucionetapaproduccion> ejecucionprocesocalidadListOld = persistentEmpleado.getEjecucionprocesocalidadList();
+            List<Ejecucionetapaproduccion> ejecucionprocesocalidadListNew = empleado.getEjecucionprocesocalidadList();
             List<String> illegalOrphanMessages = null;
             for (Empleadoxturno empleadoxturnoListOldEmpleadoxturno : empleadoxturnoListOld) {
                 if (!empleadoxturnoListNew.contains(empleadoxturnoListOldEmpleadoxturno)) {
@@ -354,6 +368,13 @@ public class EmpleadoJpaController implements Serializable {
             }
             asistenciaListNew = attachedAsistenciaListNew;
             empleado.setAsistenciaList(asistenciaListNew);
+            List<Ejecucionetapaproduccion> attachedEjecucionprocesocalidadListNew = new ArrayList<Ejecucionetapaproduccion>();
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListNewEjecucionetapaproduccionToAttach : ejecucionprocesocalidadListNew) {
+                ejecucionprocesocalidadListNewEjecucionetapaproduccionToAttach = em.getReference(ejecucionprocesocalidadListNewEjecucionetapaproduccionToAttach.getClass(), ejecucionprocesocalidadListNewEjecucionetapaproduccionToAttach.getId());
+                attachedEjecucionprocesocalidadListNew.add(ejecucionprocesocalidadListNewEjecucionetapaproduccionToAttach);
+            }
+            ejecucionprocesocalidadListNew = attachedEjecucionprocesocalidadListNew;
+            empleado.setEjecucionprocesocalidadList(ejecucionprocesocalidadListNew);
             empleado = em.merge(empleado);
             if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
                 usuarioOld.getEmpleadoList().remove(empleado);
@@ -502,6 +523,23 @@ public class EmpleadoJpaController implements Serializable {
                     }
                 }
             }
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListOldEjecucionetapaproduccion : ejecucionprocesocalidadListOld) {
+                if (!ejecucionprocesocalidadListNew.contains(ejecucionprocesocalidadListOldEjecucionetapaproduccion)) {
+                    ejecucionprocesocalidadListOldEjecucionetapaproduccion.setEmpleado(null);
+                    ejecucionprocesocalidadListOldEjecucionetapaproduccion = em.merge(ejecucionprocesocalidadListOldEjecucionetapaproduccion);
+                }
+            }
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListNewEjecucionetapaproduccion : ejecucionprocesocalidadListNew) {
+                if (!ejecucionprocesocalidadListOld.contains(ejecucionprocesocalidadListNewEjecucionetapaproduccion)) {
+                    Empleado oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion = ejecucionprocesocalidadListNewEjecucionetapaproduccion.getEmpleado();
+                    ejecucionprocesocalidadListNewEjecucionetapaproduccion.setEmpleado(empleado);
+                    ejecucionprocesocalidadListNewEjecucionetapaproduccion = em.merge(ejecucionprocesocalidadListNewEjecucionetapaproduccion);
+                    if (oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion != null && !oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion.equals(empleado)) {
+                        oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion.getEjecucionprocesocalidadList().remove(ejecucionprocesocalidadListNewEjecucionetapaproduccion);
+                        oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion = em.merge(oldEmpleadoOfEjecucionprocesocalidadListNewEjecucionetapaproduccion);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -598,6 +636,11 @@ public class EmpleadoJpaController implements Serializable {
             for (Disponibilidadhoraria disponibilidadhorariaListDisponibilidadhoraria : disponibilidadhorariaList) {
                 disponibilidadhorariaListDisponibilidadhoraria.setIdempleado(null);
                 disponibilidadhorariaListDisponibilidadhoraria = em.merge(disponibilidadhorariaListDisponibilidadhoraria);
+            }
+            List<Ejecucionetapaproduccion> ejecucionprocesocalidadList = empleado.getEjecucionprocesocalidadList();
+            for (Ejecucionetapaproduccion ejecucionprocesocalidadListEjecucionetapaproduccion : ejecucionprocesocalidadList) {
+                ejecucionprocesocalidadListEjecucionetapaproduccion.setEmpleado(null);
+                ejecucionprocesocalidadListEjecucionetapaproduccion = em.merge(ejecucionprocesocalidadListEjecucionetapaproduccion);
             }
             em.remove(empleado);
             em.getTransaction().commit();
