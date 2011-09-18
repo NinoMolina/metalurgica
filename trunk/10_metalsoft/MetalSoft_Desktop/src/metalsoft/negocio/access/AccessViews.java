@@ -8,11 +8,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.negocio.gestores.ViewDetallePedidoReal;
 import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
+import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
@@ -31,6 +34,7 @@ import metalsoft.negocio.gestores.ViewProcesoCalidadXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 import metalsoft.negocio.gestores.ViewProveedorXMateriaPrima;
 import metalsoft.negocio.gestores.viewAsignarMateriaPrima;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -809,5 +813,39 @@ public class AccessViews {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ll;
+    }
+
+    public static LinkedList<ViewDetallePedidoReal> listDetallePedidoReal(long idPed, Connection cn) {
+        ViewDetallePedidoReal view = null;
+        LinkedList<ViewDetallePedidoReal> ll = new LinkedList<ViewDetallePedidoReal>();
+        String query = "SELECT pr.codigobarra, pr.nroproducto, pr.idproductoreal, dp.cantidad, dp.iddetalle, dp.precio, pro.nombre, dp.idpedido " +
+                "FROM pedido p, productoreal pr, detallepedido dp, producto pro " +
+                "WHERE pr.idpedido = p.idpedido and dp.idpedido = p.idpedido and dp.producto = pro.idproducto and pr.producto = pro.idproducto and p.idpedido = " + idPed;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = cn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewDetallePedidoReal();
+                view.setCantidad(rs.getInt("cantidad"));
+                view.setCodigoBarra(rs.getString("codigobarra"));
+                view.setIdDetalle(rs.getInt("iddetalle"));
+                view.setIdPedido(rs.getInt("idpedido"));
+                view.setIdProducto(rs.getInt("idproductoreal"));
+                view.setNombreProducto(rs.getString("nombre"));
+                view.setNumeroProducto(rs.getInt("nroproducto"));
+                view.setPrecio(rs.getDouble("precio"));
+
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ll.isEmpty()) {
+            return null;
+        } else {
+            return ll;
+        }
     }
 }
