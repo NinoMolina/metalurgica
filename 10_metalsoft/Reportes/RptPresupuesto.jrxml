@@ -30,7 +30,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{subtotal}+$V{iva}]]></variableExpression>
+		<variableExpression><![CDATA[new Double($V{subtotal}+$V{iva})]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="iva" class="java.lang.Double">
@@ -39,7 +39,6 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
 	</variable>
-	<variable name="variable1" class="java.lang.Float" resetType="Group" resetGroup="Totales" calculation="Sum"/>
 	<group name="Totales">
 		<groupFooter>
 			<band height="63">
