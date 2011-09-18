@@ -75,21 +75,7 @@ public class GestorRegistrarLanzamientoProduccion {
     }
 
     public Date calcularFechaFin(Date fechaActual, Date fechaInicioPrevista, Date fechafinprevista) {
-        GregorianCalendar inicio = (GregorianCalendar) Fecha.parseToCalendar(fechaInicioPrevista);
-//        System.out.println(Fecha.parseToString(inicio.getTime()));
-        GregorianCalendar fin = (GregorianCalendar) Fecha.parseToCalendar(fechafinprevista);
-//        System.out.println(Fecha.parseToString(fin.getTime()));
-        int year = fin.get(Calendar.YEAR) - inicio.get(Calendar.YEAR);
-        int month = fin.get(Calendar.MONTH) - inicio.get(Calendar.MONTH);
-        int day = fin.get(Calendar.DATE) - inicio.get(Calendar.DATE);
-        inicio.add(Calendar.YEAR, year);
-        GregorianCalendar actual = (GregorianCalendar) Fecha.parseToCalendar(fechaActual);
-//        System.out.println(Fecha.parseToString(actual.getTime()));
-        actual.add(Calendar.YEAR, year);
-        actual.add(Calendar.MONTH, month);
-        actual.add(Calendar.DATE, day);
-//        System.out.println(Fecha.parseToString(actual.getTime()));
-        return actual.getTime();
+        return Fecha.calcularFechaFin(fechaActual, fechaInicioPrevista, fechafinprevista);
     }
 
     public long generarNvoNroEjecucionPlanificacionProduccion() {
