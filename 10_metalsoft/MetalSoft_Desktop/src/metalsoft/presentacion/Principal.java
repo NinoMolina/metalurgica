@@ -154,6 +154,8 @@ public class Principal extends javax.swing.JFrame {
         mniEmpresaMantenimiento = new javax.swing.JMenuItem();
         mniTipoMaquina = new javax.swing.JMenuItem();
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
+        mnuReportes = new javax.swing.JMenu();
+        mniReporteClientes = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -308,7 +310,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -737,6 +739,18 @@ public class Principal extends javax.swing.JFrame {
         mnuMantenimiento.add(mniMantenimientoPreventivo);
 
         mbrMenu.add(mnuMantenimiento);
+
+        mnuReportes.setText("Reportes");
+
+        mniReporteClientes.setText("Clientes Empresa");
+        mniReporteClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReporteClientesActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniReporteClientes);
+
+        mbrMenu.add(mnuReportes);
 
         mnuAyuda.setText("Ayuda");
         mbrMenu.add(mnuAyuda);
@@ -1331,6 +1345,20 @@ private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniLanzarCalidadActionPerformed
+
+private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReporteClientesActionPerformed
+
+      try {
+            JFrameManager.crearVentana(Reportes.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_mniReporteClientesActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1397,6 +1425,7 @@ private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
+    private javax.swing.JMenuItem mniReporteClientes;
     private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniServicio;
     private javax.swing.JMenuItem mniTipoDoc;
@@ -1411,6 +1440,7 @@ private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenu mnuMantenimiento;
     private javax.swing.JMenu mnuProduccion;
     private javax.swing.JMenu mnuRRHH;
+    private javax.swing.JMenu mnuReportes;
     private javax.swing.JMenu mnuTrabajosTercerizados;
     private javax.swing.JMenu mnuVentas;
     private metalsoft.beans.JPanelBackground pnlImagen;
