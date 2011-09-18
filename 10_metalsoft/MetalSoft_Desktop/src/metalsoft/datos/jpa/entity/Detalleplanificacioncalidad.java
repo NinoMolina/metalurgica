@@ -5,7 +5,6 @@
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -38,6 +37,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detalleplanificacioncalidad.findByHorafin", query = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.horafin = :horafin"),
     @NamedQuery(name = "Detalleplanificacioncalidad.findByOrden", query = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.orden = :orden")})
 public class Detalleplanificacioncalidad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -45,8 +45,6 @@ public class Detalleplanificacioncalidad implements Serializable {
     @SequenceGenerator(name = "detalleplanificacioncalidad_seq", sequenceName = "detalleplanificacioncalidad_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
-    @Column(name = "iddetalleejecucionplanificacioncalidad")
-    private BigInteger iddetalleejecucionplanificacioncalidad;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.DATE)
     private Date fechainicio;
@@ -79,6 +77,9 @@ public class Detalleplanificacioncalidad implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
+    @JoinColumn(name = "iddetalleejecucionplanificacioncalidad", referencedColumnName = "iddetalle")
+    @ManyToOne
+    private Detalleejecucionplanificacioncalidad iddetalleejecucionplanificacioncalidad;
 
     public Detalleplanificacioncalidad() {
     }
@@ -93,14 +94,6 @@ public class Detalleplanificacioncalidad implements Serializable {
 
     public void setIddetalle(Long iddetalle) {
         this.iddetalle = iddetalle;
-    }
-
-    public BigInteger getIddetalleejecucionplanificacioncalidad() {
-        return iddetalleejecucionplanificacioncalidad;
-    }
-
-    public void setIddetalleejecucionplanificacioncalidad(BigInteger iddetalleejecucionplanificacioncalidad) {
-        this.iddetalleejecucionplanificacioncalidad = iddetalleejecucionplanificacioncalidad;
     }
 
     public Date getFechainicio() {
@@ -191,6 +184,14 @@ public class Detalleplanificacioncalidad implements Serializable {
         this.empleado = empleado;
     }
 
+    public Detalleejecucionplanificacioncalidad getIddetalleejecucionplanificacioncalidad() {
+        return iddetalleejecucionplanificacioncalidad;
+    }
+
+    public void setIddetalleejecucionplanificacioncalidad(Detalleejecucionplanificacioncalidad iddetalleejecucionplanificacioncalidad) {
+        this.iddetalleejecucionplanificacioncalidad = iddetalleejecucionplanificacioncalidad;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -215,5 +216,4 @@ public class Detalleplanificacioncalidad implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Detalleplanificacioncalidad[ iddetalle=" + iddetalle + " ]";
     }
-    
 }

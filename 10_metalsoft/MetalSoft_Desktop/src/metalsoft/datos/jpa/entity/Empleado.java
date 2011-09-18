@@ -44,6 +44,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Empleado.findByFechaegreso", query = "SELECT e FROM Empleado e WHERE e.fechaegreso = :fechaegreso"),
     @NamedQuery(name = "Empleado.findByMotivoegreso", query = "SELECT e FROM Empleado e WHERE e.motivoegreso = :motivoegreso")})
 public class Empleado implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -77,6 +78,8 @@ public class Empleado implements Serializable {
     private List<Empleadoxturno> empleadoxturnoList;
     @OneToMany(mappedBy = "empleado")
     private List<Ejecucionetapaproduccion> ejecucionetapaproduccionList;
+    @OneToMany(mappedBy = "empleado")
+    private List<Ejecucionetapaproduccion> ejecucionprocesocalidadList;
     @OneToMany(mappedBy = "empleado")
     private List<Mantenimientocorrectivo> mantenimientocorrectivoList;
     @OneToMany(mappedBy = "empleado")
@@ -284,6 +287,14 @@ public class Empleado implements Serializable {
         this.cargo = cargo;
     }
 
+    public List<Ejecucionetapaproduccion> getEjecucionprocesocalidadList() {
+        return ejecucionprocesocalidadList;
+    }
+
+    public void setEjecucionprocesocalidadList(List<Ejecucionetapaproduccion> ejecucionprocesocalidadList) {
+        this.ejecucionprocesocalidadList = ejecucionprocesocalidadList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -308,5 +319,4 @@ public class Empleado implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Empleado[ idempleado=" + idempleado + " ]";
     }
-    
 }
