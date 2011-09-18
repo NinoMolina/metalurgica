@@ -6,6 +6,7 @@ package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,6 +38,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detalleejecucionplanificacioncalidad.findByFechafin", query = "SELECT d FROM Detalleejecucionplanificacioncalidad d WHERE d.fechafin = :fechafin"),
     @NamedQuery(name = "Detalleejecucionplanificacioncalidad.findByHorafin", query = "SELECT d FROM Detalleejecucionplanificacioncalidad d WHERE d.horafin = :horafin")})
 public class Detalleejecucionplanificacioncalidad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -72,6 +75,8 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
     @JoinColumn(name = "idejecucionplanificacioncalidad", referencedColumnName = "idejecucion")
     @ManyToOne(optional = false)
     private Ejecucionplanificacioncalidad idejecucionplanificacioncalidad;
+    @OneToMany(mappedBy = "iddetalleejecucionplanificacioncalidad")
+    private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
 
     public Detalleejecucionplanificacioncalidad() {
     }
@@ -168,6 +173,14 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
         this.idejecucionplanificacioncalidad = idejecucionplanificacioncalidad;
     }
 
+    public List<Detalleplanificacioncalidad> getDetalleplanificacioncalidadList() {
+        return detalleplanificacioncalidadList;
+    }
+
+    public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
+        this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -192,5 +205,4 @@ public class Detalleejecucionplanificacioncalidad implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad[ iddetalle=" + iddetalle + " ]";
     }
-    
 }

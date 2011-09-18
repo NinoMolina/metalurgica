@@ -40,6 +40,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ejecucionprocesocalidad.findByNombre", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.nombre = :nombre"),
     @NamedQuery(name = "Ejecucionprocesocalidad.findByObservacion", query = "SELECT e FROM Ejecucionprocesocalidad e WHERE e.observacion = :observacion")})
 public class Ejecucionprocesocalidad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -70,6 +71,9 @@ public class Ejecucionprocesocalidad implements Serializable {
     @JoinColumn(name = "estado", referencedColumnName = "idestado")
     @ManyToOne
     private Estadoejecucionprocesocalidad estado;
+    @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
+    @ManyToOne
+    private Empleado empleado;
 
     public Ejecucionprocesocalidad() {
     }
@@ -158,6 +162,14 @@ public class Ejecucionprocesocalidad implements Serializable {
         this.estado = estado;
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -182,5 +194,4 @@ public class Ejecucionprocesocalidad implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.tmp.Ejecucionprocesocalidad[ idejecucion=" + idejecucion + " ]";
     }
-    
 }
