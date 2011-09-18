@@ -19,27 +19,8 @@
                 <ice:column>
                     <ice:dataTable id="pedidosList"
                                    var="pedido"   
-                                   value="#{pedidoVista.pedidosVista}"
+                                   value="#{pedidoVista.pedidosVista}" 
                                    columnClasses="tableCol">
-                        <ice:columnGroup>
-                            <ice:column>
-                                <h:outputText value="#{msgs.cabeceranombre}" />
-                            </ice:column>
-                            <ice:column>
-                                <h:outputText value="#{msgs.cabeceraapellido}" />
-                            </ice:column>
-                            <ice:column>
-                                <h:outputText value="#{msgs.cabeceraemail}" />
-                            </ice:column>
-                            <ice:column>
-                                <h:outputText value="#{msgs.cabeceratelefono}" />
-                            </ice:column>
-                            <ice:column>
-                                <h:outputText value="#{msgs.cabeceraacciones}" />
-                                <h:commandButton image="/imagenes/page_add.png"
-                                                 action="#{alumnosListener.nuevoAlumno}" />
-                            </ice:column>
-                        </ice:columnGroup>
                         <ice:column>
                             <f:facet name="header" >
                                 <ice:outputText id="column1"

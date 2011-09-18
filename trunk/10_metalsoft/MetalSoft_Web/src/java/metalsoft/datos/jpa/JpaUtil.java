@@ -432,4 +432,15 @@ public class JpaUtil {
             em.close();
         }
     }
+    public static String getNvoNumPedido() {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT *"
+                + " FROM  nvonropedido";
+        try {
+            Query q = em.createNativeQuery(sql, String.class);
+            return String.valueOf(q.getSingleResult());
+        } finally {
+            em.close();
+        }
+    }
 }

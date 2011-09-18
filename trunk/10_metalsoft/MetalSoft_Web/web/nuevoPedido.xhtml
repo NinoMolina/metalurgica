@@ -10,11 +10,67 @@
                 template="./template/metalsoftTemplate.xhtml">
 
     <ui:define name="title">
-        title
+        Nuevo Pedido de Cotización
     </ui:define>
 
     <ui:define name="content">
-        content
+        <h:form>
+            <h:panelGrid>
+                Número de Pedido:
+                <ice:outputText id="nropedido" value="#{nuevoPedidoVista.nroAMostrar}"/>
+                
+                Fecha de Pedido:
+                <ice:inputText id="fechaPedidoCotizacion"/>
+                lang.NullPointerException
+	at org.icefaces.impl.event.WindowAndViewIDSetup$1.encode(WindowAndViewIDSetup.java:91)
+                Ingrese Fecha de Necesidad de Cotización:
+                <ice:inputText id="fechaNecesidadDeCotizacion"/>
+                
+                Seleccionar Producto:
+                <ice:selectOneMenu id="cmbproducto" value="#{nuevoPedidoVista.productoSeleccionado.idproducto}">
+                    <f:selectItems value="#{nuevoPedidoVista.listProductos}" var="producto"
+                                   itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}"/>
+                </ice:selectOneMenu>
+                
+                Ingrese Cantidad:
+                <ice:inputText id="cantidad" value="#{nuevoPedidoVista.cantidadSeleccionada}"/>
+                
+                <h:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos()}"/>
+                
+                Ingrese Planos:
+                <ice:inputText id="Plano"/>
+
+                <h:panelGrid columns="2">
+                    <ice:column>
+                        <ice:outputLabel id="results"
+                                         value="Detalle de pedido" rendered="#{nuevoPedidoVista.seleccionoProducto}" />
+                        <ice:dataTable id="selectedRows" 
+                                       var="detalle"
+                                       value="#{nuevoPedidoVista.listDetalles}"
+                                       rows="15" 
+                                       columnClasses="tableCol" rendered="#{nuevoPedidoVista.seleccionoProducto}" >
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="selectedColumn1"
+                                                    value="Producto" style="color: #000000"/>
+                                </f:facet>
+                                <ice:outputText id="nombreProducto"
+                                                value="#{detalle.producto.nombre}"/>
+                            </ice:column>
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="cantidad"
+                                                    value="Cantidad" style="color: #000000"/>
+                                </f:facet>
+                                <ice:outputText id="selectedLastName"
+                                                value="#{detalle.cantidad}"/>
+                            </ice:column>
+                        </ice:dataTable>
+
+                    </ice:column>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 
 </ui:composition>
