@@ -5,6 +5,7 @@
 package metalsoft.datos.jpa;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,6 +28,7 @@ import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
+import metalsoft.negocio.gestores.ViewPedidoConCalidad;
 
 /**
  *
