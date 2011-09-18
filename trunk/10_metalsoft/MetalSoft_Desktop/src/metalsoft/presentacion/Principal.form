@@ -268,6 +268,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniRegistrarPlanificacionCalidadActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniLanzarCalidad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lanzar Calidad"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniLanzarCalidadActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuFinanzas">
@@ -712,14 +720,22 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnPedidos" alignment="0" pref="142" max="32767" attributes="1"/>
-                          <Component id="btnProduccion" alignment="0" pref="142" max="32767" attributes="1"/>
-                          <Component id="btnEtapasAtrasadas" alignment="0" min="-2" pref="167" max="-2" attributes="1"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnPedidos" alignment="0" pref="142" max="32767" attributes="1"/>
+                                  <Component id="btnProduccion" alignment="0" pref="142" max="32767" attributes="1"/>
+                                  <Component id="btnEtapasAtrasadas" alignment="0" min="-2" pref="167" max="-2" attributes="1"/>
+                              </Group>
+                              <EmptySpace pref="50" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnLanzarProcesoCalidad" pref="167" max="32767" attributes="1"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="50" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -731,7 +747,9 @@
                       <Component id="btnProduccion" min="-2" pref="46" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEtapasAtrasadas" min="-2" pref="45" max="-2" attributes="1"/>
-                      <EmptySpace pref="122" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnLanzarProcesoCalidad" min="-2" pref="46" max="-2" attributes="0"/>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -751,6 +769,11 @@
             <Component class="javax.swing.JButton" name="btnPedidos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pedidos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnLanzarProcesoCalidad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lanzar Proceso Calidad"/>
               </Properties>
             </Component>
           </SubComponents>

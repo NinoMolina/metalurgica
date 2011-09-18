@@ -95,6 +95,7 @@ public class Principal extends javax.swing.JFrame {
         btnProduccion = new javax.swing.JButton();
         btnEtapasAtrasadas = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnLanzarProcesoCalidad = new javax.swing.JButton();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mniNuevoUsuario = new javax.swing.JMenuItem();
@@ -125,6 +126,7 @@ public class Principal extends javax.swing.JFrame {
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
+        mniLanzarCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
         mniCondicionIva = new javax.swing.JMenuItem();
@@ -240,17 +242,24 @@ public class Principal extends javax.swing.JFrame {
 
         btnPedidos.setText("Pedidos");
 
+        btnLanzarProcesoCalidad.setText("Lanzar Proceso Calidad");
+
         javax.swing.GroupLayout jPanelTransparente2Layout = new javax.swing.GroupLayout(jPanelTransparente2);
         jPanelTransparente2.setLayout(jPanelTransparente2Layout);
         jPanelTransparente2Layout.setHorizontalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTransparente2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTransparente2Layout.createSequentialGroup()
+                        .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(50, Short.MAX_VALUE))
+                    .addGroup(jPanelTransparente2Layout.createSequentialGroup()
+                        .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                        .addGap(50, 50, 50))))
         );
         jPanelTransparente2Layout.setVerticalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +269,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
@@ -515,6 +526,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCalidad.add(mniRegistrarPlanificacionCalidad);
+
+        mniLanzarCalidad.setText("Lanzar Calidad");
+        mniLanzarCalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLanzarCalidadActionPerformed(evt);
+            }
+        });
+        mnuCalidad.add(mniLanzarCalidad);
 
         mbrMenu.add(mnuCalidad);
 
@@ -1300,11 +1319,24 @@ private void mniRegistrarPlanificacionCalidadActionPerformed(java.awt.event.Acti
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniRegistrarPlanificacionCalidadActionPerformed
+
+private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLanzarCalidadActionPerformed
+    try {
+        JFrameManager.crearVentana(RegistrarLanzamientoCalidad.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniLanzarCalidadActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEtapasAtrasadas;
+    private javax.swing.JButton btnLanzarProcesoCalidad;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JLabel jLabel1;
@@ -1347,6 +1379,7 @@ private void mniRegistrarPlanificacionCalidadActionPerformed(java.awt.event.Acti
     private javax.swing.JMenuItem mniFormaDePago;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
+    private javax.swing.JMenuItem mniLanzarCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
     private javax.swing.JMenuItem mniListadoEmpleados;
     private javax.swing.JMenuItem mniMantenimientoPreventivo;
