@@ -156,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
-        mniReclamos = new javax.swing.JMenuItem();
+        mniReportesReclamos = new javax.swing.JMenuItem();
         mniReportePedidos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
@@ -752,8 +752,13 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuReportes.add(mniReporteClientes);
 
-        mniReclamos.setText("Reclamos");
-        mnuReportes.add(mniReclamos);
+        mniReportesReclamos.setText("Reclamos");
+        mniReportesReclamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReportesReclamosActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniReportesReclamos);
 
         mniReportePedidos.setText("Pedidos");
         mniReportePedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -1386,6 +1391,20 @@ private void mniReportePedidosActionPerformed(java.awt.event.ActionEvent evt) {/
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_mniReportePedidosActionPerformed
+
+private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReportesReclamosActionPerformed
+
+     try {
+            JFrameManager.crearVentana(ReportesReclamos.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_mniReportesReclamosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1445,7 +1464,6 @@ private void mniReportePedidosActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
-    private javax.swing.JMenuItem mniReclamos;
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
@@ -1455,6 +1473,7 @@ private void mniReportePedidosActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniReporteClientes;
     private javax.swing.JMenuItem mniReportePedidos;
+    private javax.swing.JMenuItem mniReportesReclamos;
     private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniServicio;
     private javax.swing.JMenuItem mniTipoDoc;
