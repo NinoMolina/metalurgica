@@ -36,7 +36,13 @@
                     <f:convertDateTime pattern="MM/dd/yyyy"
                                        timeZone="#{nuevoPedidoControlador.timeZone}"/>
                 </ice:selectInputDate>
-
+                
+                Seleccionar Prioridad:
+                <ice:selectOneMenu id="cmbprioridad" value="#{nuevoPedidoVista.prioridadSeleccionada.idprioridad}">
+                    <f:selectItems value="#{nuevoPedidoVista.listPrioridades}" var="prioridad"
+                                   itemLabel="#{prioridad.nombre}" itemValue="#{prioridad.idprioridad}"/>
+                </ice:selectOneMenu>
+                
                 Seleccionar Producto:
                 <ice:selectOneMenu id="cmbproducto" value="#{nuevoPedidoVista.productoSeleccionado.idproducto}">
                     <f:selectItems value="#{nuevoPedidoVista.listProductos}" var="producto"
