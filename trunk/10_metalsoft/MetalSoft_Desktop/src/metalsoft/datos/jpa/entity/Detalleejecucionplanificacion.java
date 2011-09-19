@@ -42,7 +42,7 @@ public class Detalleejecucionplanificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleejecucionplanificacion_seq")
-    @SequenceGenerator(name = "detalleejecucionplanificacion_seq", sequenceName = "detalleejecucionplanificacion_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "detalleejecucionplanificacion_seq", sequenceName = "detalleejecucionplanificacion_iddetalle_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "fechainicio")
