@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
@@ -14,10 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.EstadopedidoJpaController;
+import metalsoft.datos.jpa.controller.EstadoproductorealJpaController;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
+import metalsoft.datos.jpa.controller.ProductorealJpaController;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Productoreal;
 import metalsoft.negocio.access.AccessViews;
 
 /**
@@ -42,7 +45,7 @@ public class GestorArmadoPedido {
         try {
             cn = pg.concectGetCn();
             list = AccessViews.listDetallePedidoReal(idPed, cn);
-          } catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(GestorArmadoPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -54,9 +57,21 @@ public class GestorArmadoPedido {
         return list;
     }
 
-    public long modificarPedido(Pedido ped) {
-        PedidoJpaController con=new  PedidoJpaController(JpaUtil.getEntityManagerFactory());
+    public long modificarPedido(Pedido ped, LinkedList<ViewDetallePedidoReal> filas) {
+        PedidoJpaController con = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
+        ProductorealJpaController conProducto = new ProductorealJpaController(JpaUtil.getEntityManagerFactory());
+        EstadoproductorealJpaController estadoProducto = new EstadoproductorealJpaController(JpaUtil.getEntityManagerFactory());
         try {
+            List<Productoreal> list = new LinkedList<Productoreal>();
+            for (ViewDetallePedidoReal p : filas) {
+                list.add(conProducto.findProductoreal(p.getIdProducto()));
+            }
+            for (Productoreal p : list) {
+                p.setEstado(estadoProducto.findEstadoproductoreal(2L));
+                conProducto.edit(p);
+            }
+            EstadopedidoJpaController estado = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
+            ped.setEstado(estado.findEstadopedido(8L));
             con.edit(ped);
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(GestorArmadoPedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,5 +82,4 @@ public class GestorArmadoPedido {
         }
         return ped.getIdpedido();
     }
-
 }
