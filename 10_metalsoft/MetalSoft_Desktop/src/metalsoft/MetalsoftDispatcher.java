@@ -5,6 +5,7 @@
 package metalsoft;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import metalsoft.datos.dbobject.UsuarioDB;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
@@ -33,30 +34,25 @@ public class MetalsoftDispatcher {
         List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();
 
         if (lstUsuarioXRol.size() == 1) {
-            if (lstUsuarioXRol.get(0).getRol().getRol().equals("OPERARIO")) {
+            String rol = lstUsuarioXRol.get(0).getRol().getRol();
+            if (rol.equals("OPERARIO")) {
                 PrincipalOperario principalOperario = new PrincipalOperario();
                 principalOperario.setVisible(true);
                 principalOperario.setLocationRelativeTo(null);
-            } else {
+            } else if (rol.equals("ADMIN")) {
                 Principal p = new Principal(usuario);
 
                 lanzarHiloAvisoEtapaNoTerminada(p);
                 lanzarHiloEscuchadorFinEtapa(p);
+                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
+                lanzarHiloEscuchadorFinProcesoCalidad(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
             }
-        } else {
-            Principal p = new Principal(usuario);
-
-            lanzarHiloAvisoEtapaNoTerminada(p);
-            lanzarHiloEscuchadorFinEtapa(p);
-
-            p.setVisible(true);
-            p.setLocationRelativeTo(null);
         }
-
-
     }
 
     private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
@@ -68,6 +64,20 @@ public class MetalsoftDispatcher {
 
     private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal) {
         HiloAvisoEtapaNoTerminada hilo = new HiloAvisoEtapaNoTerminada();
+        hilo.setVtnPrincipal(vtnPrincipal);
+        Thread thread = new Thread(hilo);
+        thread.start();
+    }
+
+    private static void lanzarHiloAvisoProcesoCalidadNoTerminado(Principal vtnPrincipal) {
+        HiloAvisoProcesoCalidadNoTerminado hilo = new HiloAvisoProcesoCalidadNoTerminado();
+        hilo.setVtnPrincipal(vtnPrincipal);
+        Thread thread = new Thread(hilo);
+        thread.start();
+    }
+
+    private static void lanzarHiloEscuchadorFinProcesoCalidad(Principal vtnPrincipal) {
+        HiloEscuchadorFinProcesoCalidad hilo = new HiloEscuchadorFinProcesoCalidad();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();

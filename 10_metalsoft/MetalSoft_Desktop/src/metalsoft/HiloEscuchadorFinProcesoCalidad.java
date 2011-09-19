@@ -13,21 +13,21 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import metalsoft.datos.jpa.JpaUtil;
-import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
-import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
-import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
-import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
-import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
-import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
-import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
-import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
-import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
-import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
+import metalsoft.datos.jpa.controller.DetalleejecucionplanificacioncalidadJpaController;
+import metalsoft.datos.jpa.controller.EjecucionplanificacioncalidadJpaController;
+import metalsoft.datos.jpa.controller.EjecucionprocesocalidadJpaController;
+import metalsoft.datos.jpa.controller.EstadoejecplancalidadJpaController;
+import metalsoft.datos.jpa.controller.EstadoejecucionprocesocalidadJpaController;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
+import metalsoft.datos.jpa.entity.Estadoejecplancalidad;
+import metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad;
 import metalsoft.negocio.access.AccessFunctions;
-import metalsoft.negocio.gestores.GestorLanzarProximaEtapa;
-import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
-import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanifPedido;
+import metalsoft.negocio.gestores.GestorLanzarProximoProcesoCalidad;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionCalidad;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionProcesoCalidad;
 import metalsoft.presentacion.Principal;
 import metalsoft.util.Fecha;
 import metalsoft.util.MetalsoftProperties;
@@ -36,7 +36,7 @@ import metalsoft.util.MetalsoftProperties;
  *
  * @author Nino
  */
-public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
+public class HiloEscuchadorFinProcesoCalidad extends HiloEtapaBase implements Runnable {
 
     private Principal vtnPrincipal;
     private ServerSocket serverSocket = null;
@@ -47,12 +47,10 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
 
     @Override
     public void run() {
-
-
         while (true) {
             try {
                 if (serverSocket == null) {
-                    String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
+                    String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
                     serverSocket = new ServerSocket(Integer.parseInt(puertoString));
                 }
                 clienteSocket = serverSocket.accept();
@@ -86,11 +84,6 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
                 }
             }
         }
-
-    }
-
-    void setVtnPrincipal(Principal vtnPrincipal) {
-        this.vtnPrincipal = vtnPrincipal;
     }
 
     @Override
@@ -113,7 +106,7 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
 
                     partes = datosRecibidos.split(Pattern.quote("-"));
 
-                    procesarFinEjecucionEtapaProduccion();
+                    procesarFinEjecucionProcesoCalidad();
 
                 } catch (Exception e) {
                     /*
@@ -135,36 +128,36 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
         }
     }
 
-    private void procesarFinEjecucionEtapaProduccion() throws Exception {
-        String idEjecEtapa = partes[2];
+    private void procesarFinEjecucionProcesoCalidad() throws Exception {
+        String idEjecProcesoCalidad = partes[2];
 
-        boolean esUltimaEjecucionEtapaDeProduccion = false;
-        boolean esUltimaEjecucionEtapaDePieza = true;
+        boolean esUltimaEjecucionProcesoCalida = false;
+        boolean esUltimaEjecucionProcesoDePieza = true;
 
-        long idejecucionproduccion = 0;
+        long idejecucionplanificacioncalidad = 0;
         long idpieza = 0;
         long idproducto = 0;
 
-        EjecucionetapaproduccionJpaController ejecEtapaController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
-        Ejecucionetapaproduccion ejecucionetapaproduccion = ejecEtapaController.findEjecucionetapaproduccion(Long.parseLong(idEjecEtapa));
+        EjecucionprocesocalidadJpaController ejecProcesoCalidadController = new EjecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        Ejecucionprocesocalidad ejecucionprocesocalidad = ejecProcesoCalidadController.findEjecucionprocesocalidad(Long.parseLong(idEjecProcesoCalidad));
 
-        Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
+        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = JpaUtil.getDetalleejecucionplanificacioncalidadByEjecucionProcesoCalidad(ejecucionprocesocalidad.getIdejecucion());
 
-        idejecucionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion();
-        idpieza = detalleejecucionplanificacion.getPieza().getIdpieza();
-        Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(detalleejecucionplanificacion.getId());
-        idproducto = detalleplanificacionproduccion.getIdproducto().getIdproducto();
+        idejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad().getIdejecucion();
+        idpieza = detalleejecucionplanificacioncalidad.getPieza().getIdpieza();
+        Detalleplanificacioncalidad detalleplanificacioncalidad = JpaUtil.getDetalleplanificacioncalidadPorIdDetalleejecucion(detalleejecucionplanificacioncalidad.getIddetalle());
+        idproducto = detalleplanificacioncalidad.getProducto().getIdproducto();
 
-        esUltimaEjecucionEtapaDePieza = AccessFunctions.esUltimaEjecucionEtapaDePieza(idejecucionproduccion, idproducto, idpieza);
-        esUltimaEjecucionEtapaDeProduccion = AccessFunctions.esUltimaEjecucionEtapaDeProduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
+        esUltimaEjecucionProcesoDePieza = AccessFunctions.esUltimaEjecucionProcesoCalidadDePieza(idejecucionplanificacioncalidad, idproducto, idpieza);
+        esUltimaEjecucionProcesoCalida = AccessFunctions.esUltimaEjecucionProcesoCalidadDeCalidad(detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad().getIdejecucion());
 
         /*
          * si no es la ultima etapa de una pieza tengo que
          * lanzar la etapa que sigue segun el orden
          */
-        if (!esUltimaEjecucionEtapaDePieza) {
-            GestorLanzarProximaEtapa gestorLanzarProximaEtapa = new GestorLanzarProximaEtapa();
-            gestorLanzarProximaEtapa.lanzarProximaEtapa(detalleejecucionplanificacion, detalleplanificacionproduccion);
+        if (!esUltimaEjecucionProcesoDePieza) {
+            GestorLanzarProximoProcesoCalidad gestorLanzarProximoProcesoCalidad = new GestorLanzarProximoProcesoCalidad();
+            gestorLanzarProximoProcesoCalidad.lanzarProximoProceso(detalleejecucionplanificacioncalidad, detalleplanificacioncalidad);
         } else {
             /*
              * armar el producto real
@@ -204,55 +197,62 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
          * si es la ultima etapa de la produccion tengo que registrar
          * la finalizacion de la linea de produccion
          */
-        if (esUltimaEjecucionEtapaDeProduccion) {
+        if (esUltimaEjecucionProcesoCalida) {
             /*
              * registrar que se completo la produccion
              */
 
-            EstadoejecplanifpedidoJpaController estadoejecplanifpedidoJpaController = new EstadoejecplanifpedidoJpaController(JpaUtil.getEntityManagerFactory());
-            Estadoejecplanifpedido estadoejecplanifpedido = estadoejecplanifpedidoJpaController.findEstadoejecplanifpedido(IdsEstadoEjecucionPlanifPedido.FINALIZADA);
+            EstadoejecplancalidadJpaController estadoejecplancalidadJpaController = new EstadoejecplancalidadJpaController(JpaUtil.getEntityManagerFactory());
+            Estadoejecplancalidad estadoejecplancalidad = estadoejecplancalidadJpaController.findEstadoejecplancalidad(IdsEstadoEjecucionPlanificacionCalidad.FINALIZADA);
 
-            Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
-            ejecucionplanificacionproduccion.setEstado(estadoejecplanifpedido);
-            ejecucionplanificacionproduccion.setFechafin(Fecha.fechaActualDate());
-            ejecucionplanificacionproduccion.setHorafin(Fecha.fechaActualDate());
+            Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
+            ejecucionplanificacioncalidad.setEstado(estadoejecplancalidad);
+            ejecucionplanificacioncalidad.setFechafin(Fecha.fechaActualDate());
+            ejecucionplanificacioncalidad.setHorafin(Fecha.fechaActualDate());
 
-            EjecucionplanificacionproduccionJpaController ejecucionplanificacionproduccionJpaController = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-            ejecucionplanificacionproduccionJpaController.edit(ejecucionplanificacionproduccion);
+            EjecucionplanificacioncalidadJpaController ejecucionplanificacioncalidadJpaController = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+            ejecucionplanificacioncalidadJpaController.edit(ejecucionplanificacioncalidad);
         }
 
-        EstadoejecetapaprodJpaController estadoEjecController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
-        Estadoejecetapaprod estadoejecetapaprod = estadoEjecController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.FINALIZADA);
-        ejecucionetapaproduccion.setEstado(estadoejecetapaprod);
+        EstadoejecucionprocesocalidadJpaController estadoEjecProcesoCalidadController = new EstadoejecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        Estadoejecucionprocesocalidad estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.FINALIZADA);
+        ejecucionprocesocalidad.setEstado(estadoejecucionprocesocalidad);
 
         Date fechaActual = Fecha.fechaActualDate();
-        ejecucionetapaproduccion.setFechafin(fechaActual);
-        ejecucionetapaproduccion.setHorafin(fechaActual);
+        ejecucionprocesocalidad.setFechafin(fechaActual);
+        ejecucionprocesocalidad.setHorafin(fechaActual);
 
-        detalleejecucionplanificacion.setFechafin(fechaActual);
-        detalleejecucionplanificacion.setHorafin(fechaActual);
+        detalleejecucionplanificacioncalidad.setFechafin(fechaActual);
+        detalleejecucionplanificacioncalidad.setHorafin(fechaActual);
 
-        DetalleejecucionplanificacionJpaController detalleejecucionplanificacionJpaController = new DetalleejecucionplanificacionJpaController(JpaUtil.getEntityManagerFactory());
-        detalleejecucionplanificacionJpaController.edit(detalleejecucionplanificacion);
+        DetalleejecucionplanificacioncalidadJpaController detalleejecucionplanificacioncalidadJpaController = new DetalleejecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+        detalleejecucionplanificacioncalidadJpaController.edit(detalleejecucionplanificacioncalidad);
 
-        Date fechaInicio = null;
-        fechaInicio = Fecha.setHoraMinutoSegundo(ejecucionetapaproduccion.getFechainicio(), ejecucionetapaproduccion.getHorainicio());
-        Date difHoras = Fecha.diferenciaEnHoras(fechaInicio, fechaActual);
-        int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaActual);
-        int horas = difHoras.getHours();
-        int minutos = difHoras.getMinutes();
-        int segundos = difHoras.getSeconds();
-        String totalHrsHombre = String.valueOf((difDias * 24) + horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
+//        Date fechaInicio = null;
+//        fechaInicio = Fecha.setHoraMinutoSegundo(ejecucionprocesocalidad.getFechainicio(), ejecucionprocesocalidad.getHorainicio());
+//        Date difHoras = Fecha.diferenciaEnHoras(fechaInicio, fechaActual);
+//        int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaActual);
+//        int horas = difHoras.getHours();
+//        int minutos = difHoras.getMinutes();
+//        int segundos = difHoras.getSeconds();
+//        String totalHrsHombre = String.valueOf((difDias * 24) + horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
+//        ejecucionprocesocalidad.setTotalhorashombre(totalHrsHombre);
 
-        ejecucionetapaproduccion.setTotalhorashombre(totalHrsHombre);
+        ejecProcesoCalidadController.edit(ejecucionprocesocalidad);
 
-        ejecEtapaController.edit(ejecucionetapaproduccion);
-
-        vtnPrincipal.eliminarEtapaNoFinalizada(detalleejecucionplanificacion.getId());
+        vtnPrincipal.eliminarProcesoCalidadNoFinalizado(detalleejecucionplanificacioncalidad.getIddetalle());
         /*
          * si los datos se procesaron correctamente aviso que todo esta ok
          */
         System.out.println("INFO: Se procesaron los datos recibidos.");
         oos.writeObject("OK");
+    }
+
+    public Principal getVtnPrincipal() {
+        return vtnPrincipal;
+    }
+
+    public void setVtnPrincipal(Principal vtnPrincipal) {
+        this.vtnPrincipal = vtnPrincipal;
     }
 }
