@@ -26,8 +26,8 @@
                 <ice:inputText value="#{contactView.telefono}"/>
 
                 Ingrese su Consulta:
-                <ice:inputText value="#{contactView.descripcion}"/>
-
+                <ice:inputTextarea value="#{contactView.descripcion}"/>
+                
                 <h:commandButton value="Enviar Consulta" style="background-color: darkseagreen" action="#{pedidosControlador.confirmarPedido}"/> 
             </ice:panelGrid>
         </h:form>
