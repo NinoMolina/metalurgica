@@ -13,6 +13,7 @@ public class BarCodeUtil {
     public static final String COD_PRODUCTO_REAL = "1";
     public static final String COD_EJECUCION_ETAPA_PRODUCCION = "2";
     public static final String COD_PIEZA_REAL = "3";
+    public static final String COD_EJECUCION_PROCESO_CALIDAD = "4";
     
     public static final String TAG_COMIENZO = "mscb";
     
