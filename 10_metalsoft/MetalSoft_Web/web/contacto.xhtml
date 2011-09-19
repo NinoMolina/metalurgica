@@ -15,8 +15,18 @@
 
     <ui:define name="content">
         Ingrese su nombre:
-        <ice:inputText value=""/>
+        <ice:inputText value="#{contactView.nombreContacto}"/>
         
+        Ingrese su e-mail asi podremos comunicarnos con ud:
+        <ice:inputText value="#{contactView.mail}"/>
+        
+        Ingrese su número de telefono:
+        <ice:inputText value="#{contactView.telefono}"/>
+        
+        Ingrese su Consulta:
+        <ice:inputText value="#{contactView.descripcion}"/>
+        
+        <h:commandButton value="Enviar Consulta" style="background-color: darkseagreen" action="#{pedidosControlador.confirmarPedido}"/> 
     </ui:define>
 
 </ui:composition>
