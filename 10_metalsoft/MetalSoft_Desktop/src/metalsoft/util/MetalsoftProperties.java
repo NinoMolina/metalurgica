@@ -23,6 +23,8 @@ public class MetalsoftProperties {
     public static final String PUERTO_FIN_ETAPA = "puerto.fin.etapa";
     public static final String EXPRESION_REGULAR_CODIGO_BARRA = "expresion.regular.codigo.barra";
     public static final String IP_FIN_ETAPA = "ip.fin.etapa";
+    public static final String IP_FIN_PROCESO_CALIDAD = "ip.fin.proceso.calidad";
+    public static final String PUERTO_FIN_PROCESO_CALIDAD = "puerto.fin.proceso.calidad";
 
     static {
         FileInputStream file = null;
