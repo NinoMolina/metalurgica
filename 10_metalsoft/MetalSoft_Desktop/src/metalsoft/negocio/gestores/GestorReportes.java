@@ -101,9 +101,10 @@ public class GestorReportes {
         }
     }
 
-    public void ReportePedidos() {
 
-        String sourceFile = "L:\\rpt\\reportePedidos.jasper";
+    public void ReportePedidos(Date fechaDesde, Date fechaHasta) {
+
+          String sourceFile = "L:\\rpt\\reportePedidos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -116,6 +117,9 @@ public class GestorReportes {
             cn = pg.concectGetCn();
 
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            param.put("FECHA_DESDE", (fechaDesde));
+            param.put("FECHA_HASTA",(fechaHasta));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
@@ -135,6 +139,7 @@ public class GestorReportes {
             }
         }
 
-           }
+
+    }
 
 }
