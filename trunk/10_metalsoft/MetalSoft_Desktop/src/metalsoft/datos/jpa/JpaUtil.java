@@ -14,11 +14,14 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detallefactura;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Pedido;
@@ -372,6 +375,45 @@ public class JpaUtil {
         try {
             Query q = em.createNativeQuery(sql, Pedido.class);
 //        Query q = em.createQuery(sql, Pedido.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static Detalleejecucionplanificacioncalidad getDetalleejecucionplanificacioncalidadByEjecucionProcesoCalidad(Long idejecucion) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Detalleejecucionplanificacioncalidad e"
+                + " WHERE e.ejecucionprocesocalidad.idejecucion = :id";
+        try {
+            Query q = em.createQuery(sql, Detalleejecucionplanificacioncalidad.class);
+            q.setParameter("id", idejecucion);
+            return (Detalleejecucionplanificacioncalidad) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static Detalleplanificacioncalidad getDetalleplanificacioncalidadPorIdDetalleejecucion(Long iddetalle) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Detalleplanificacioncalidad e"
+                + " WHERE e.iddetalleejecucionplanificacioncalidad.iddetalle = :id";
+        Query q = em.createQuery(sql, Detalleplanificacioncalidad.class);
+        try {
+            q.setParameter("id", iddetalle);
+            return (Detalleplanificacioncalidad) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Ejecucionplanificacioncalidad> getEjecucionplanificacioncalidadSegunEstado(long idestado) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Ejecucionplanificacioncalidad e"
+                + " WHERE e.estado.idestado = :id";
+        try {
+            Query q = em.createQuery(sql, Ejecucionplanificacioncalidad.class);
+            q.setParameter("id", idestado);
             return q.getResultList();
         } finally {
             em.close();
