@@ -47,7 +47,7 @@ public class ReportesPedidos extends javax.swing.JFrame {
         dccFechaDesde = new com.toedter.calendar.JDateChooser();
         dccFechaHasta = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte de Pedidos");
 
         btnReportesClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icono_impresora.png"))); // NOI18N
