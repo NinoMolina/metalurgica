@@ -156,6 +156,7 @@ public class Principal extends javax.swing.JFrame {
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
+        mniReclamos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -749,6 +750,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuReportes.add(mniReporteClientes);
+
+        mniReclamos.setText("Reclamos");
+        mnuReportes.add(mniReclamos);
 
         mbrMenu.add(mnuReportes);
 
@@ -1418,6 +1422,7 @@ private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniReclamos;
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
