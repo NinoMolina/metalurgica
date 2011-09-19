@@ -157,6 +157,7 @@ public class Principal extends javax.swing.JFrame {
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
         mniReclamos = new javax.swing.JMenuItem();
+        mniReportePedidos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -753,6 +754,14 @@ public class Principal extends javax.swing.JFrame {
 
         mniReclamos.setText("Reclamos");
         mnuReportes.add(mniReclamos);
+
+        mniReportePedidos.setText("Pedidos");
+        mniReportePedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReportePedidosActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniReportePedidos);
 
         mbrMenu.add(mnuReportes);
 
@@ -1363,6 +1372,20 @@ private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_mniReporteClientesActionPerformed
+
+private void mniReportePedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReportePedidosActionPerformed
+
+     try {
+            JFrameManager.crearVentana(ReportesPedidos.class.getName());
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_mniReportePedidosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1431,6 +1454,7 @@ private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniReporteClientes;
+    private javax.swing.JMenuItem mniReportePedidos;
     private javax.swing.JMenuItem mniRotura;
     private javax.swing.JMenuItem mniServicio;
     private javax.swing.JMenuItem mniTipoDoc;
