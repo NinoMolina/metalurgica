@@ -109,14 +109,19 @@ public class RegistrarArmadoPedido extends javax.swing.JFrame implements IBuscad
    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
             if (pedidosSinArmar1.getTblPedidos().getSelectedRow() > -1) {
                 long result = 0;
-                Pedido ped = filasPedidos.get(pedidosSinArmar1.getTblPedidos().getSelectedRow());
-
-                result = gestor.modificarPedido(ped);
+                Pedido ped = filasPedidos.get(pedidosSinArmar1.getTblPedidos().getSelectedRow());                
+                result = gestor.modificarPedido(ped, filasDetallePedido);
                 if (result > 0) {
-                    JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha confirmado correctamente");
+                    JOptionPane.showMessageDialog(this, "El armado del Pedido se ha finalizado correctamente");
+                    filasDetallePedido.clear();
+                    this.tblDetallePedido.updateUI();
+//                    filasPedidos.remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
+                    pedidosSinArmar1.getFilasPedidos().remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
+                    pedidosSinArmar1.updateTblPedidos();
+                    this.tblDetallePedido.setEnabled(false);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha confirmar");
+                    JOptionPane.showMessageDialog(this, "El armado del Pedido NO se ha finalizado correctamente");
                 }
             }
     }
@@ -358,7 +363,8 @@ public class RegistrarArmadoPedido extends javax.swing.JFrame implements IBuscad
     }
 
     private void limpiarCampos() {
-        this.tcrTblDetallePedido.updateUI();
+        this.tblDetallePedido.setEnabled(true);
+        this.tblDetallePedido.updateUI();
     }
 
     class DetallePedidoConCalidadTableModel extends AbstractTableModel {
