@@ -34,7 +34,8 @@
                     </ice:menuItem>
                     <ice:menuItem id="nuevoPedido"
                                   value="Nuevo Pedido"
-                                  action="#{nuevoPedidoControlador.irANuevoPedido}">
+                                  action="#{nuevoPedidoControlador.irANuevoPedido}"
+                                  rendered="#{sesionVista.esCliente}">
                     </ice:menuItem>
                 </ice:menuItem>
 
