@@ -487,4 +487,54 @@ public class AccessFunctions {
         }
         return result;
     }
+
+    public static boolean esUltimaEjecucionProcesoCalidadDePieza(long idejecucionplanificacioncalidad, long idproducto, long idpieza) {
+        String query = "{ ? = call esUltimaEjecProcCalidadDePieza(?,?,?)}";
+        boolean result = false;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        CallableStatement cs = null;
+        try {
+            cs = pg.concectGetCn().prepareCall(query);
+            cs.setLong(2, idejecucionplanificacioncalidad);
+            cs.setLong(3, idproducto);
+            cs.setLong(4, idpieza);
+            cs.registerOutParameter(1, java.sql.Types.BOOLEAN);
+            cs.execute();
+            result = cs.getBoolean(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static boolean esUltimaEjecucionProcesoCalidadDeCalidad(Long idejecucion) {
+        String query = "{ ? = call esUltimaEjecProcCalidadDeCalidad(?)}";
+        boolean result = false;
+        PostgreSQLManager pg = new PostgreSQLManager();
+        CallableStatement cs = null;
+        try {
+            cs = pg.concectGetCn().prepareCall(query);
+            cs.setLong(2, idejecucion);
+            cs.registerOutParameter(1, java.sql.Types.BOOLEAN);
+            cs.execute();
+            result = cs.getBoolean(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 }
