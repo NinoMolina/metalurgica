@@ -36,6 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detalleplanificacionproduccion.findByHorafin", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.horafin = :horafin"),
     @NamedQuery(name = "Detalleplanificacionproduccion.findByOrden", query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.orden = :orden")})
 public class Detalleplanificacionproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -57,6 +58,8 @@ public class Detalleplanificacionproduccion implements Serializable {
     private Date horafin;
     @Column(name = "orden")
     private Integer orden;
+    @Column(name = "indexproducto")
+    private Integer indexproducto;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto idproducto;
@@ -132,6 +135,14 @@ public class Detalleplanificacionproduccion implements Serializable {
 
     public void setOrden(Integer orden) {
         this.orden = orden;
+    }
+
+    public Integer getIndexproducto() {
+        return indexproducto;
+    }
+
+    public void setIndexproducto(Integer indexproducto) {
+        this.indexproducto = indexproducto;
     }
 
     public Producto getIdproducto() {
@@ -214,5 +225,4 @@ public class Detalleplanificacionproduccion implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Detalleplanificacionproduccion[ id=" + id + " ]";
     }
-    
 }

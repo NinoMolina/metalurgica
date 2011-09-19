@@ -27,9 +27,10 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Detalleproductoreal.findAll", query = "SELECT d FROM Detalleproductoreal d"),
     @NamedQuery(name = "Detalleproductoreal.findByIddetalle", query = "SELECT d FROM Detalleproductoreal d WHERE d.iddetalle = :iddetalle"),
-    @NamedQuery(name = "Detalleproductoreal.findByCantidadPiezas", query = "SELECT d FROM Detalleproductoreal d WHERE d.cantidadPiezas = :cantidadPiezas"),
+//    @NamedQuery(name = "Detalleproductoreal.findByCantidadPiezas", query = "SELECT d FROM Detalleproductoreal d WHERE d.cantidadPiezas = :cantidadPiezas"),
     @NamedQuery(name = "Detalleproductoreal.findByDescripcion", query = "SELECT d FROM Detalleproductoreal d WHERE d.descripcion = :descripcion")})
 public class Detalleproductoreal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -37,8 +38,8 @@ public class Detalleproductoreal implements Serializable {
     @SequenceGenerator(name = "detalleproductoreal_seq", sequenceName = "detalleproductoreal_iddetalle_seq", allocationSize = 1)
     @Column(name = "iddetalle")
     private Long iddetalle;
-    @Column(name = "cantidadPiezas")
-    private Integer cantidadPiezas;
+//    @Column(name = "cantidadPiezas")
+//    private Integer cantidadPiezas;
     @Column(name = "descripcion")
     private String descripcion;
     @JoinColumn(name = "idproductoreal", referencedColumnName = "idproductoreal")
@@ -66,14 +67,13 @@ public class Detalleproductoreal implements Serializable {
         this.iddetalle = iddetalle;
     }
 
-    public Integer getCantidadPiezas() {
-        return cantidadPiezas;
-    }
-
-    public void setCantidadPiezas(Integer cantidadPiezas) {
-        this.cantidadPiezas = cantidadPiezas;
-    }
-
+//    public Integer getCantidadPiezas() {
+//        return cantidadPiezas;
+//    }
+//
+//    public void setCantidadPiezas(Integer cantidadPiezas) {
+//        this.cantidadPiezas = cantidadPiezas;
+//    }
     public String getDescripcion() {
         return descripcion;
     }
@@ -130,5 +130,4 @@ public class Detalleproductoreal implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Detalleproductoreal[ iddetalle=" + iddetalle + " ]";
     }
-    
 }

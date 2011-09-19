@@ -47,7 +47,7 @@ public class Ejecucionetapaproduccion implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ejecucionetapaproduccion_seq")
-    @SequenceGenerator(name = "ejecucionetapaproduccion_seq", sequenceName = "ejecucionetapaproduccion_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "ejecucionetapaproduccion_seq", sequenceName = "ejecucionetapaproduccion_idejecucion_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "nombre")
