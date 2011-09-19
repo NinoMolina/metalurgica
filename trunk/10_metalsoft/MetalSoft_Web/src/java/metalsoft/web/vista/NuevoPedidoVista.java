@@ -4,10 +4,15 @@
  */
 package metalsoft.web.vista;
 
+import com.icesoft.faces.context.effects.Effect;
+import com.icesoft.faces.context.effects.Highlight;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.ListDataModel;
 import metalsoft.datos.jpa.entity.Detallepedido;
 import metalsoft.datos.jpa.entity.Pedido;
@@ -17,7 +22,7 @@ import metalsoft.datos.jpa.entity.Producto;
  *
  * @author Vicky
  */
-@ManagedBean(name="nuevoPedidoVista")
+@ManagedBean(name = "nuevoPedidoVista")
 @SessionScoped
 public class NuevoPedidoVista {
 
@@ -26,15 +31,25 @@ public class NuevoPedidoVista {
     private Producto productoSeleccionado;
     private ListDataModel<Detallepedido> listDetalles;
     private List<Detallepedido> listPrevisoriaDetalles;
-    private boolean seleccionoProducto=false;
+    private boolean seleccionoProducto = false;
     private int cantidadSeleccionada;
     private int nroAMostrar;
+    private Date fechaNecesidad = new Date();
+    private Date fechaPedido = new Date();
+    private Effect valueChangeEffect2;
+    private boolean activarBoton=false;
+    private String mensValidacion="";
     /** Creates a new instance of nuevoPedidoVista */
     public NuevoPedidoVista() {
-        pedido=new Pedido();
-        listProductos=new LinkedList<Producto>();
-        productoSeleccionado=new Producto();
-        listPrevisoriaDetalles=new LinkedList<Detallepedido>();
+        pedido = new Pedido();
+        fechaNecesidad = new GregorianCalendar().getTime();
+        fechaPedido = new GregorianCalendar().getTime();
+        listProductos = new LinkedList<Producto>();
+        productoSeleccionado = new Producto();
+        listPrevisoriaDetalles = new LinkedList<Detallepedido>();
+        valueChangeEffect2 = new Highlight("#fda505");
+        valueChangeEffect2.setFired(true);
+        mensValidacion="";
     }
 
     public Pedido getPedido() {
@@ -99,6 +114,50 @@ public class NuevoPedidoVista {
 
     public void setNroAMostrar(int nroAMostrar) {
         this.nroAMostrar = nroAMostrar;
+    }
+
+    public Date getFechaNecesidad() {
+        return fechaNecesidad;
+    }
+
+    public void setFechaNecesidad(Date fechaNecesidad) {
+        this.fechaNecesidad = fechaNecesidad;
+    }
+
+    public Effect getValueChangeEffect2() {
+        return valueChangeEffect2;
+    }
+
+    public void setValueChangeEffect2(Effect valueChangeEffect2) {
+        this.valueChangeEffect2 = valueChangeEffect2;
+    }
+
+    public void effect2ChangeListener(ValueChangeEvent event) {
+        valueChangeEffect2.setFired(false);
+    }
+
+    public Date getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(Date fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    public boolean isActivarBoton() {
+        return activarBoton;
+    }
+
+    public void setActivarBoton(boolean activarBoton) {
+        this.activarBoton = activarBoton;
+    }
+
+    public String getMensValidacion() {
+        return mensValidacion;
+    }
+
+    public void setMensValidacion(String mensValidacion) {
+        this.mensValidacion = mensValidacion;
     }
     
 }
