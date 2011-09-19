@@ -596,6 +596,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanelTransparente2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jPanelTransparente3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -610,7 +612,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanelTransparente2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jPanelTransparente2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanelTransparente3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -751,22 +756,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="btnPedidos" alignment="0" pref="142" max="32767" attributes="1"/>
-                                  <Component id="btnProduccion" alignment="0" pref="142" max="32767" attributes="1"/>
-                                  <Component id="btnEtapasAtrasadas" alignment="0" min="-2" pref="167" max="-2" attributes="1"/>
-                              </Group>
-                              <EmptySpace pref="50" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnLanzarProcesoCalidad" pref="167" max="32767" attributes="1"/>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnPedidos" alignment="0" pref="207" max="32767" attributes="1"/>
+                          <Component id="btnProduccion" alignment="0" pref="207" max="32767" attributes="1"/>
+                          <Component id="btnEtapasAtrasadas" alignment="0" pref="207" max="32767" attributes="1"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -778,9 +775,7 @@
                       <Component id="btnProduccion" min="-2" pref="46" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEtapasAtrasadas" min="-2" pref="45" max="-2" attributes="1"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnLanzarProcesoCalidad" min="-2" pref="46" max="-2" attributes="0"/>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace pref="123" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -802,10 +797,61 @@
                 <Property name="text" type="java.lang.String" value="Pedidos"/>
               </Properties>
             </Component>
+          </SubComponents>
+        </Container>
+        <Container class="metalsoft.beans.JPanelTransparente" name="jPanelTransparente3">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="0" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="--------">
+                  <Color PropertyName="color" blue="0" green="cc" red="ff" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+            <Property name="tran" type="float" value="0.1"/>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnLanzarProcesoCalidad" alignment="0" pref="207" max="32767" attributes="1"/>
+                          <Component id="btnProcesosCalidadAtrasados" alignment="0" pref="207" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnLanzarProcesoCalidad" min="-2" pref="46" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnProcesosCalidadAtrasados" min="-2" pref="45" max="-2" attributes="1"/>
+                      <EmptySpace pref="187" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
             <Component class="javax.swing.JButton" name="btnLanzarProcesoCalidad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lanzar Proceso Calidad"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnProcesosCalidadAtrasados">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Procesos Calidad Atrasados."/>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadAtrasadosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
@@ -36,11 +38,13 @@ public class Principal extends javax.swing.JFrame {
     private Rol[] roles;
     private Timer tiempo;
     private Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas;
+    private Map<Long, Detalleejecucionplanificacioncalidad> mapProcesosCalidadAtrasados;
 
     /** Creates new form Principal */
     public Principal(metalsoft.datos.dbobject.UsuarioDB usuario) {
         this.usuario = usuario;
         mapEtapasAtrasadas = new HashMap<Long, Detalleejecucionplanificacion>();
+        mapProcesosCalidadAtrasados = new HashMap<Long, Detalleejecucionplanificacioncalidad>();
         initComponents();
         iniciarReloj();
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
@@ -95,7 +99,9 @@ public class Principal extends javax.swing.JFrame {
         btnProduccion = new javax.swing.JButton();
         btnEtapasAtrasadas = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        jPanelTransparente3 = new metalsoft.beans.JPanelTransparente();
         btnLanzarProcesoCalidad = new javax.swing.JButton();
+        btnProcesosCalidadAtrasados = new javax.swing.JButton();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mniNuevoUsuario = new javax.swing.JMenuItem();
@@ -246,8 +252,6 @@ public class Principal extends javax.swing.JFrame {
 
         btnPedidos.setText("Pedidos");
 
-        btnLanzarProcesoCalidad.setText("Lanzar Proceso Calidad");
-
         javax.swing.GroupLayout jPanelTransparente2Layout = new javax.swing.GroupLayout(jPanelTransparente2);
         jPanelTransparente2.setLayout(jPanelTransparente2Layout);
         jPanelTransparente2Layout.setHorizontalGroup(
@@ -255,15 +259,10 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanelTransparente2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelTransparente2Layout.createSequentialGroup()
-                        .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                            .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                            .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(50, Short.MAX_VALUE))
-                    .addGroup(jPanelTransparente2Layout.createSequentialGroup()
-                        .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                        .addGap(50, 50, 50))))
+                    .addComponent(btnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(btnProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelTransparente2Layout.setVerticalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,9 +272,41 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(123, Short.MAX_VALUE))
+        );
+
+        jPanelTransparente3.setBackground(new java.awt.Color(0, 255, 255));
+        jPanelTransparente3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "--------", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
+        jPanelTransparente3.setTran(0.1F);
+
+        btnLanzarProcesoCalidad.setText("Lanzar Proceso Calidad");
+
+        btnProcesosCalidadAtrasados.setText("Procesos Calidad Atrasados.");
+        btnProcesosCalidadAtrasados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnProcesosCalidadAtrasados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesosCalidadAtrasadosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTransparente3Layout = new javax.swing.GroupLayout(jPanelTransparente3);
+        jPanelTransparente3.setLayout(jPanelTransparente3Layout);
+        jPanelTransparente3Layout.setHorizontalGroup(
+            jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelTransparente3Layout.setVerticalGroup(
+            jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTransparente3Layout.createSequentialGroup()
                 .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
@@ -297,7 +328,9 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)))
                     .addGroup(pnlImagenLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlImagenLayout.setVerticalGroup(
@@ -308,7 +341,9 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1364,46 +1399,48 @@ private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
     }
 }//GEN-LAST:event_mniLanzarCalidadActionPerformed
 
+private void btnProcesosCalidadAtrasadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasadosActionPerformed
+}//GEN-LAST:event_btnProcesosCalidadAtrasadosActionPerformed
 private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReporteClientesActionPerformed
 
-      try {
-            JFrameManager.crearVentana(Reportes.class.getName());
+    try {
+        JFrameManager.crearVentana(Reportes.class.getName());
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_mniReporteClientesActionPerformed
 
 private void mniReportePedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReportePedidosActionPerformed
 
-     try {
-            JFrameManager.crearVentana(ReportesPedidos.class.getName());
+    try {
+        JFrameManager.crearVentana(ReportesPedidos.class.getName());
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_mniReportePedidosActionPerformed
 
 private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReportesReclamosActionPerformed
 
-     try {
-            JFrameManager.crearVentana(ReportesReclamos.class.getName());
+    try {
+        JFrameManager.crearVentana(ReportesReclamos.class.getName());
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_mniReportesReclamosActionPerformed
     /**
      * @param args the command line arguments
@@ -1412,6 +1449,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JButton btnEtapasAtrasadas;
     private javax.swing.JButton btnLanzarProcesoCalidad;
     private javax.swing.JButton btnPedidos;
+    private javax.swing.JButton btnProcesosCalidadAtrasados;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1428,6 +1466,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem jMenuItem4;
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
     private metalsoft.beans.JPanelTransparente jPanelTransparente2;
+    private metalsoft.beans.JPanelTransparente jPanelTransparente3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblReloj;
@@ -1536,6 +1575,42 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }
 
+    public void eliminarProcesoCalidadNoFinalizado(Long id) {
+        if (mapProcesosCalidadAtrasados.containsKey(id)) {
+            mapProcesosCalidadAtrasados.remove(id);
+            restarProcesoCalidadAtrasado();
+        }
+    }
+
+    private void restarProcesoCalidadAtrasado() {
+        String inicioHtml = "<html>Procesos Calidad Atrasados. <font color=red size=+2>";
+        String finHtml = "</font></html>";
+
+        String txtBoton = btnProcesosCalidadAtrasados.getText();
+        String parts[] = txtBoton.split(Pattern.quote("."));
+
+        String txtLbl = "";
+
+        if (parts.length == 2) {
+            txtLbl = parts[1].trim();
+        }
+
+        if (!txtLbl.equals("")) {
+            String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
+            System.out.println("Principal.alertaProcesoCalidadNoFinalizado.nro: " + num);
+            int numero = Integer.parseInt(num);
+            System.out.println("Principal.alertaProcesoCalidadNoFinalizado.nro: " + (numero - 1));
+            if ((numero - 1) == 0) {
+                btnProcesosCalidadAtrasados.setText("Procesos Calidad Atrasados.");
+            } else {
+                btnProcesosCalidadAtrasados.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
+            }
+
+
+        }
+
+    }
+
     private void restarEtapaAtrasada() {
         String inicioHtml = "<html>Etapas Atrasadas. <font color=red size=+2>";
         String finHtml = "</font></html>";
@@ -1554,7 +1629,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
             int numero = Integer.parseInt(num);
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + (numero - 1));
-            if ((numero-1) == 0) {
+            if ((numero - 1) == 0) {
                 btnEtapasAtrasadas.setText("Etapas Atrasadas.");
             } else {
                 btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
@@ -1563,5 +1638,35 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
 
         }
 
+    }
+
+    public void alertaProcesoCalidadNoFinalizado(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad, Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) {
+
+        String inicioHtml = "<html>Procesos Calidad Atrasados. <font color=red size=+2>";
+        String finHtml = "</font></html>";
+
+        if (!mapProcesosCalidadAtrasados.containsKey(detalleejecucionplanificacioncalidad.getIddetalle())) {
+
+            mapProcesosCalidadAtrasados.put(detalleejecucionplanificacioncalidad.getIddetalle(), detalleejecucionplanificacioncalidad);
+
+            String txtBoton = btnProcesosCalidadAtrasados.getText();
+            String parts[] = txtBoton.split(Pattern.quote("."));
+
+            String txtLbl = "";
+
+            if (parts.length == 2) {
+                txtLbl = parts[1].trim();
+            }
+
+            if (txtLbl.equals("")) {
+                btnProcesosCalidadAtrasados.setText(inicioHtml + "(1)" + finHtml);
+            } else {
+                String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
+                System.out.println("Principal.alertaProcesoCalidadNoFinalizado.nro: " + num);
+                int numero = Integer.parseInt(num);
+                btnProcesosCalidadAtrasados.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
+            }
+
+        }
     }
 }
