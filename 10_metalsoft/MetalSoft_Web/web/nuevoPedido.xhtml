@@ -16,27 +16,38 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid>
-                Número de Pedido:
-                <ice:outputText id="nropedido" value="#{nuevoPedidoVista.nroAMostrar}"/>
-                
+                Número de Pedido: <ice:outputText id="nropedido" value="PED-#{nuevoPedidoVista.nroAMostrar}"/>
+
                 Fecha de Pedido:
-                <ice:inputText id="fechaPedidoCotizacion"/>
-                lang.NullPointerException
-	at org.icefaces.impl.event.WindowAndViewIDSetup$1.encode(WindowAndViewIDSetup.java:91)
+                <ice:selectInputDate id="popupDatePttrn2" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
+                                     value="#{nuevoPedidoVista.fechaPedido}"
+                                     title=""
+                                     renderAsPopup="true"
+                                     disabled="true">
+                    <f:convertDateTime pattern="MM/dd/yyyy"
+                                       timeZone="#{nuevoPedidoControlador.timeZone}"/>
+                </ice:selectInputDate>
                 Ingrese Fecha de Necesidad de Cotización:
-                <ice:inputText id="fechaNecesidadDeCotizacion"/>
-                
+                <ice:selectInputDate id="popupDatePttrn1" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
+                                     value="#{nuevoPedidoVista.fechaNecesidad}"
+                                     valueChangeListener="#{nuevoPedidoControlador.effect2ChangeListener}"
+                                     title=""
+                                     renderAsPopup="true">
+                    <f:convertDateTime pattern="MM/dd/yyyy"
+                                       timeZone="#{nuevoPedidoControlador.timeZone}"/>
+                </ice:selectInputDate>
+
                 Seleccionar Producto:
                 <ice:selectOneMenu id="cmbproducto" value="#{nuevoPedidoVista.productoSeleccionado.idproducto}">
                     <f:selectItems value="#{nuevoPedidoVista.listProductos}" var="producto"
                                    itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}"/>
                 </ice:selectOneMenu>
-                
+
                 Ingrese Cantidad:
                 <ice:inputText id="cantidad" value="#{nuevoPedidoVista.cantidadSeleccionada}"/>
-                
+
                 <h:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos()}"/>
-                
+
                 Ingrese Planos:
                 <ice:inputText id="Plano"/>
 
@@ -69,6 +80,8 @@
 
                     </ice:column>
                 </h:panelGrid>
+                <h:commandButton value="Guardar Pedido" style="background-color: darkseagreen" action="#{nuevoPedidoControlador.guardarPedido}"/>
+                <ice:outputText value="#{nuevoPedidoVista.mensValidacion}" style="font-style: italic; color: #D20005"/>
             </h:panelGrid>
         </h:form>
     </ui:define>
