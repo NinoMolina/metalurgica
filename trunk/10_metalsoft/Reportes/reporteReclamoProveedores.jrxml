@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClientesMetalsfot" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="198"/>
+	<parameter name="FECHA_DESDE" class="java.lang.String"/>
+	<parameter name="FECHA_HASTA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     rp."nroreclamo",
+     p."razonsocial",
+     rp."fechareclamo",
+     c."nrocompra" AS c_nrocompra,
+     rp."motivo" AS rp_motivo,
+     er."nombre" AS er_nombre
+FROM
+     "reclamoproveedor" rp,
+     "compra" c,
+     "proveedor" p,
+     "estadoreclamo" er
+WHERE
+     rp.compra = c.idcompra
+     and c.proveedor = p.idproveedor
+     and rp.idestadoreclamo = er.idestadoreclamo]]>
+	</queryString>
+	<field name="nroreclamo" class="java.lang.Long"/>
+	<field name="razonsocial" class="java.lang.String"/>
+	<field name="fechareclamo" class="java.sql.Date"/>
+	<field name="c_nrocompra" class="java.lang.Long"/>
+	<field name="rp_motivo" class="java.lang.String"/>
+	<field name="er_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="180" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="275" height="120"/>
+				<imageExpression class="java.lang.String"><![CDATA["L:\\UTN\\5to Año\\Proyecto Final\\Metalurgica\\07_Fotos Metalúrgica\\logo_anima_empresa2.gif"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="275" y="0" width="280" height="120"/>
+				<imageExpression class="java.lang.String"><![CDATA["L:\\UTN\\5to Año\\Proyecto Final\\Metalurgica\\07_Fotos Metalúrgica\\logo.animado.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="120" width="275" height="60" forecolor="#003300" backcolor="#ECEC95"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tornería, Rectificados y Afilados.
+Construcción de Herramientas en gral.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="120" width="119" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha del Reporte:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="394" y="120" width="161" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Reclamos a Proveedores]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="66" height="31"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de
+   Reclamo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="30" width="125" height="31"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="30" width="86" height="31"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Reclamo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="30" width="117" height="31"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="30" width="77" height="31"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden de Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="30" width="84" height="31"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado del Reclamo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="61" width="555" height="1" forecolor="#000066"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="46" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$P{FECHA_DESDE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="208" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$P{FECHA_HASTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="66" y="16" width="125" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="41" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="394" y="16" width="77" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{c_nrocompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="16" width="84" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="16" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rp_motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="16" width="84" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fechareclamo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="16" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{nroreclamo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="305" y="0" width="158" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Número Total de Reclamos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="463" y="0" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="483" y="0" width="72" height="20" backcolor="#CCFFCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="483" height="20" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
