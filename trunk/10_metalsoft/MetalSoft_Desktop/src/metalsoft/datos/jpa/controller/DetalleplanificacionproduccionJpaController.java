@@ -13,7 +13,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
@@ -38,7 +37,7 @@ public class DetalleplanificacionproduccionJpaController implements Serializable
         return emf.createEntityManager();
     }
 
-    public void create(Detalleplanificacionproduccion detalleplanificacionproduccion) throws PreexistingEntityException, Exception {
+    public void create(Detalleplanificacionproduccion detalleplanificacionproduccion) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -108,11 +107,6 @@ public class DetalleplanificacionproduccionJpaController implements Serializable
                 iddetalleejecucionplanificacion = em.merge(iddetalleejecucionplanificacion);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDetalleplanificacionproduccion(detalleplanificacionproduccion.getId()) != null) {
-                throw new PreexistingEntityException("Detalleplanificacionproduccion " + detalleplanificacionproduccion + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
