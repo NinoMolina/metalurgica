@@ -121,7 +121,7 @@ public class ReportesPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReportesClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesClientesActionPerformed
-        if (dccFechaDesde.getCalendar()== null || dccFechaHasta.getDate()== null){
+        if (dccFechaDesde.getDate()== null || dccFechaHasta.getDate()== null){
             JOptionPane.showMessageDialog(this, "Debe ingresar las fechas!");
             return;
         }
