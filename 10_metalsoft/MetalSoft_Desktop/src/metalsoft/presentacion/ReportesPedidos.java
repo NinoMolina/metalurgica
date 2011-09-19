@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import java.util.Date;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorReportes;
 
@@ -22,6 +23,8 @@ import metalsoft.negocio.gestores.GestorReportes;
 public class ReportesPedidos extends javax.swing.JFrame {
 
     private GestorReportes gestor =new GestorReportes();
+    private Date fechaDesde;
+    private Date fechaHasta;
 
     /** Creates new form ReportesPedidos */
     public ReportesPedidos() {
@@ -123,7 +126,10 @@ public class ReportesPedidos extends javax.swing.JFrame {
             return;
         }
         else
-            gestor.ReportePedidos();
+            fechaDesde= dccFechaDesde.getDate();
+            fechaHasta= dccFechaHasta.getDate();
+
+            gestor.ReportePedidos(fechaDesde,fechaHasta);
                    
 }//GEN-LAST:event_btnReportesClientesActionPerformed
 
