@@ -38,15 +38,8 @@ public class RolController {
     }
     
     public String irAIndex(){
-        
-        rolVista.limpiarCampos();
-        
-        RolJpaController con=new RolJpaController(JpaUtil.getEntityManagerFactory());
-        Rol rolEntity=con.findRol(1L);
-        
-        rolVista.setRol(rolEntity);
-        
-        return "index";
+               
+        return "principal";
     }
     
     public String guardar(){
