@@ -37,7 +37,14 @@ public class HiloAvisoEtapaNoTerminada extends HiloEtapaBase implements Runnable
 
     @Override
     public void run() {
-        procesarDatos();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                procesarDatos();
+            }
+        }, 0, 30000);
     }
 
     private void notificarAlerta(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
@@ -46,79 +53,73 @@ public class HiloAvisoEtapaNoTerminada extends HiloEtapaBase implements Runnable
 
     @Override
     public void templatedMethod() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
 
-            @Override
-            public void run() {
-                try {
+        try {
 
-                    List<Ejecucionplanificacionproduccion> lstEjecucionplanificacionproduccion = null;
-                    lstEjecucionplanificacionproduccion = JpaUtil.getEjecucionplanificacionproduccionSegunEstado(IdsEstadoEjecucionPlanificacionPedido.ENEJECUCION);
+            List<Ejecucionplanificacionproduccion> lstEjecucionplanificacionproduccion = null;
+            lstEjecucionplanificacionproduccion = JpaUtil.getEjecucionplanificacionproduccionSegunEstado(IdsEstadoEjecucionPlanificacionPedido.ENEJECUCION);
 
-                    for (Ejecucionplanificacionproduccion ejecucionplanificacionproduccion : lstEjecucionplanificacionproduccion) {
+            for (Ejecucionplanificacionproduccion ejecucionplanificacionproduccion : lstEjecucionplanificacionproduccion) {
 
-                        List<Detalleejecucionplanificacion> lstDetalleejecucionplanificacion = ejecucionplanificacionproduccion.getDetalleejecucionplanificacionList();
+                List<Detalleejecucionplanificacion> lstDetalleejecucionplanificacion = ejecucionplanificacionproduccion.getDetalleejecucionplanificacionList();
 
-                        for (Detalleejecucionplanificacion detalleejecucionplanificacion : lstDetalleejecucionplanificacion) {
+                for (Detalleejecucionplanificacion detalleejecucionplanificacion : lstDetalleejecucionplanificacion) {
 
-                            Long idEstadoEjecEtapa = detalleejecucionplanificacion.getEjecucionetapa().getEstado().getIdestado();
+                    Long idEstadoEjecEtapa = detalleejecucionplanificacion.getEjecucionetapa().getEstado().getIdestado();
 
-                            if (idEstadoEjecEtapa == IdsEstadoEjecucionEtapaProduccion.ENEJECUCION) {
+                    if (idEstadoEjecEtapa == IdsEstadoEjecucionEtapaProduccion.ENEJECUCION) {
 
-                                Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(detalleejecucionplanificacion.getId());
+                        Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(detalleejecucionplanificacion.getId());
 
-                                Date fechaFinEsperada = detalleplanificacionproduccion.getFechafin();
-                                Date horaFinEsperada = detalleplanificacionproduccion.getHorafin();
+                        Date fechaFinEsperada = detalleplanificacionproduccion.getFechafin();
+                        Date horaFinEsperada = detalleplanificacionproduccion.getHorafin();
 
-                                Date fechaActual = Fecha.fechaActualDate();
+                        Date fechaActual = Fecha.fechaActualDate();
 
-                                int difDias = Fecha.diferenciaEnDiasJoda(fechaFinEsperada, fechaActual);
+                        int difDias = Fecha.diferenciaEnDiasJoda(fechaFinEsperada, fechaActual);
 
-                                if (difDias < 0) {
+                        if (difDias < 0) {
+                            notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
+                            System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
+                            System.out.println("dias");
+                        } else if (difDias == 0) {
+                            /*
+                             * Comparo horas del dia
+                             */
+                            GregorianCalendar calHoraFinEsperada = new GregorianCalendar();
+                            calHoraFinEsperada.setTime(horaFinEsperada);
+
+                            GregorianCalendar calHoraActual = new GregorianCalendar();
+                            calHoraActual.setTime(fechaActual);
+
+                            int horaFin = calHoraFinEsperada.get(Calendar.HOUR_OF_DAY);
+                            int horaActual = calHoraActual.get(Calendar.HOUR_OF_DAY);
+
+                            if (horaFin < horaActual) {
+                                notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
+                                System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
+                                System.out.println("horas");
+                            } else if (horaFin == horaActual) {
+                                /*
+                                 * Comparo minutos de la hora
+                                 */
+                                int minutoFin = calHoraFinEsperada.get(Calendar.MINUTE);
+                                int minutoActual = calHoraActual.get(Calendar.MINUTE);
+
+                                if (minutoFin < minutoActual) {
                                     notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
                                     System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
-                                    System.out.println("dias");
-                                } else if (difDias == 0) {
-                                    /*
-                                     * Comparo horas del dia
-                                     */
-                                    GregorianCalendar calHoraFinEsperada = new GregorianCalendar();
-                                    calHoraFinEsperada.setTime(horaFinEsperada);
-
-                                    GregorianCalendar calHoraActual = new GregorianCalendar();
-                                    calHoraActual.setTime(fechaActual);
-
-                                    int horaFin = calHoraFinEsperada.get(Calendar.HOUR_OF_DAY);
-                                    int horaActual = calHoraActual.get(Calendar.HOUR_OF_DAY);
-
-                                    if (horaFin < horaActual) {
-                                        notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
-                                        System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
-                                        System.out.println("horas");
-                                    } else if (horaFin == horaActual) {
-                                        /*
-                                         * Comparo minutos de la hora
-                                         */
-                                        int minutoFin = calHoraFinEsperada.get(Calendar.MINUTE);
-                                        int minutoActual = calHoraActual.get(Calendar.MINUTE);
-
-                                        if (minutoFin < minutoActual) {
-                                            notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
-                                            System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
-                                            System.out.println("minutos");
-                                        }
-                                    }
-
+                                    System.out.println("minutos");
                                 }
                             }
+
                         }
                     }
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
             }
-        }, 0, 30000);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
