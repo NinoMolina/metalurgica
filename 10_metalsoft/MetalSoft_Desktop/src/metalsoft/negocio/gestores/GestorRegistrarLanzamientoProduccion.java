@@ -4,13 +4,13 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.math.BigInteger;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,17 +19,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.CodigodebarraJpaController;
 import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
 import metalsoft.datos.jpa.controller.DetalleplanificacionproduccionJpaController;
+import metalsoft.datos.jpa.controller.DetalleproductorealJpaController;
 import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
 import metalsoft.datos.jpa.controller.PlanificacionproduccionJpaController;
+import metalsoft.datos.jpa.controller.ProductorealJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Codigodebarra;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detallempasignada;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Detalleproductoreal;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
@@ -37,11 +42,13 @@ import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
+import metalsoft.datos.jpa.entity.Productoreal;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessViews;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionPedido;
+import metalsoft.util.BarCodeUtil;
 import metalsoft.util.Fecha;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -140,9 +147,32 @@ public class GestorRegistrarLanzamientoProduccion {
 
             DetalleplanificacionproduccionJpaController dppController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
 
+            /*
+             * map que va guardando el ultimo indice accedido para cada pieza real segun materia prima
+             */
             Map<Long, Integer> mapIndexPiezaReal = new HashMap<Long, Integer>();
+            Map<String, Productoreal> mapProductoReal = new HashMap<String, Productoreal>();
 
             for (Detalleplanificacionproduccion detalleplanificacionproduccion : lstDetallePlanificacion) {
+
+                Long idProducto = detalleplanificacionproduccion.getIdproducto().getIdproducto();
+                Integer indexProducto = detalleplanificacionproduccion.getIndexproducto();
+                String key = String.valueOf(idProducto) + String.valueOf(indexProducto);
+
+                Productoreal productoreal = null;
+
+                if (!mapProductoReal.containsKey(key)) {
+                    productoreal = new Productoreal();
+                    productoreal.setDetalleproductorealList(new ArrayList<Detalleproductoreal>());
+                    productoreal.setProducto(detalleplanificacionproduccion.getIdproducto());
+                    productoreal.setIdpedido(detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido());
+                    productoreal.setNroproducto(BigInteger.valueOf(AccessFunctions.nvoNroProductoReal()));
+                    Codigodebarra codigodebarra = new Codigodebarra();
+                    codigodebarra.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PRODUCTO_REAL, String.valueOf(productoreal.getNroproducto())));
+                    productoreal.setCodigobarra(codigodebarra);
+                    mapProductoReal.put(key, productoreal);
+                }
+
                 /*
                  * Creacion del detalle ejecucion planificacion
                  */
@@ -169,6 +199,13 @@ public class GestorRegistrarLanzamientoProduccion {
                         break forDetallempasignada;
                     }
                 }
+
+                productoreal = mapProductoReal.get(key);
+                Detalleproductoreal detalleproductoreal = new Detalleproductoreal();
+                detalleproductoreal.setIdpiezareal(detalleejecucionplanificacion.getPiezareal());
+                detalleproductoreal.setIdproductoreal(productoreal);
+                productoreal.getDetalleproductorealList().add(detalleproductoreal);
+                mapProductoReal.put(key, productoreal);
 
                 /*
                  * Creacion ejecucion etapa produccion
@@ -208,6 +245,33 @@ public class GestorRegistrarLanzamientoProduccion {
                 depController.create(detalleejecucionplanificacion);
                 detalleplanificacionproduccion.setIddetalleejecucionplanificacion(detalleejecucionplanificacion);
                 dppController.edit(detalleplanificacionproduccion);
+            }
+
+
+            ProductorealJpaController productorealJpaController = new ProductorealJpaController(JpaUtil.getEntityManagerFactory());
+            DetalleproductorealJpaController detalleproductorealJpaController = new DetalleproductorealJpaController(JpaUtil.getEntityManagerFactory());
+            CodigodebarraJpaController codigodebarraJpaController = new CodigodebarraJpaController(JpaUtil.getEntityManagerFactory());
+            Collection<Productoreal> lstProductoReal = mapProductoReal.values();
+
+            for (Productoreal productoreal : lstProductoReal) {
+
+                List<Detalleproductoreal> lstDetalle = productoreal.getDetalleproductorealList();
+
+                codigodebarraJpaController.create(productoreal.getCodigobarra());
+                
+                productoreal.setDetalleproductorealList(null);
+                
+                productorealJpaController.create(productoreal);
+                
+                productoreal.setDetalleproductorealList(lstDetalle);
+                
+                for (Detalleproductoreal detalleproductoreal : lstDetalle) {
+                    detalleproductoreal.setIdproductoreal(productoreal);
+                    detalleproductorealJpaController.create(detalleproductoreal);
+                }
+
+
+
             }
 
             imprimirInicioEtapasProduccion(lstIdsEjecucionEtapasAIniciar);
