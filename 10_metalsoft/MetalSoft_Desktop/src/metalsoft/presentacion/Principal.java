@@ -25,6 +25,7 @@ import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
+import metalsoft.negocio.compras.ReclamoProveedor;
 import metalsoft.negocio.gestores.GestorNuevoUsuario;
 import metalsoft.util.Fecha;
 
@@ -114,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
         mniProveedor = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        mniReclamoProveedor = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
         mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
@@ -129,6 +131,7 @@ public class Principal extends javax.swing.JFrame {
         mniMatriz = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         mniTipoMaterial = new javax.swing.JMenuItem();
+        mniArmadoPedido = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
@@ -153,6 +156,7 @@ public class Principal extends javax.swing.JFrame {
         mniCancelarPedidoDeCotizacion = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
+        mniGenerarSolicitud = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
         mniRegistrarMaquina = new javax.swing.JMenuItem();
         mniRotura = new javax.swing.JMenuItem();
@@ -429,6 +433,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(jMenuItem4);
 
+        mniReclamoProveedor.setText("Reclamo Proveedor");
+        mniReclamoProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReclamoProveedorActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(mniReclamoProveedor);
+
         mbrMenu.add(mnuCompras);
 
         mnuVentas.setText("Ventas");
@@ -496,8 +508,6 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuVentas);
 
-        mnuProduccion.setText("Producción");
-
         jMenuItem1.setText("Generar Detalle Etapas Producción");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,6 +555,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuProduccion.add(mniTipoMaterial);
+
+        mniArmadoPedido.setText("Registrar Armado pedido");
+        mniArmadoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniArmadoPedidoActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniArmadoPedido);
 
         mbrMenu.add(mnuProduccion);
 
@@ -722,6 +740,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuAlmacenamiento.add(mniAsignarMPAProduccion);
+
+        mniGenerarSolicitud.setText("Generar Solicitud de Reclamo");
+        mniGenerarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniGenerarSolicitudActionPerformed(evt);
+            }
+        });
+        mnuAlmacenamiento.add(mniGenerarSolicitud);
 
         mbrMenu.add(mnuAlmacenamiento);
 
@@ -1442,6 +1468,45 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniReportesReclamosActionPerformed
+
+private void mniGenerarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGenerarSolicitudActionPerformed
+    try {
+        JFrameManager.crearVentana(GenerarSolicitudReclamo.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniGenerarSolicitudActionPerformed
+
+private void mniReclamoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReclamoProveedorActionPerformed
+   try {
+        JFrameManager.crearVentana(ReclamoProveedor.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniReclamoProveedorActionPerformed
+
+private void mniArmadoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniArmadoPedidoActionPerformed
+    try {
+        JFrameManager.crearVentana(RegistrarArmadoPedido.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniArmadoPedidoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1474,6 +1539,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuBar mbrMenu;
     private javax.swing.JMenuItem mniAdministrarUsuarios;
+    private javax.swing.JMenuItem mniArmadoPedido;
     private javax.swing.JMenuItem mniAsignarMPAProduccion;
     private javax.swing.JMenuItem mniCambiarContrasenia;
     private javax.swing.JMenuItem mniCancelarPedidoDeCotizacion;
@@ -1492,6 +1558,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem mniFormaDePago;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
+    private javax.swing.JMenuItem mniGenerarSolicitud;
     private javax.swing.JMenuItem mniLanzarCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
     private javax.swing.JMenuItem mniListadoEmpleados;
@@ -1503,6 +1570,7 @@ private void mniReportesReclamosActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniReclamoProveedor;
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
