@@ -17,7 +17,7 @@ import metalsoft.web.vista.HelpVista;
 @RequestScoped
 public class HelpControlador {
     
-    @ManagedProperty(value="helpVista")
+    @ManagedProperty(value="#{helpVista}")
     private HelpVista helpVista;
 
     /** Creates a new instance of HelpControlador */
