@@ -85,7 +85,7 @@ Construcción de Herramientas en gral.
 	<columnHeader>
 		<band height="69" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="30" width="66" height="31"/>
+				<reportElement x="0" y="30" width="56" height="31"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -93,42 +93,42 @@ Construcción de Herramientas en gral.
    Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="30" width="93" height="31"/>
+				<reportElement x="56" y="30" width="93" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Razón Social]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="159" y="30" width="118" height="31"/>
+				<reportElement x="149" y="31" width="102" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Responsable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="30" width="94" height="31"/>
+				<reportElement x="251" y="30" width="91" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Domicilio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="30" width="56" height="31"/>
+				<reportElement x="342" y="30" width="56" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="30" width="48" height="31"/>
+				<reportElement x="398" y="31" width="48" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Celular]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="498" y="30" width="57" height="31"/>
+				<reportElement x="446" y="30" width="109" height="31"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -145,37 +145,37 @@ Construcción de Herramientas en gral.
 	<detail>
 		<band height="48" splitType="Stretch">
 			<textField>
-				<reportElement x="2" y="16" width="64" height="20"/>
-				<textElement textAlignment="Left"/>
+				<reportElement x="2" y="16" width="54" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nrocliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="66" y="16" width="93" height="20"/>
+				<reportElement x="56" y="16" width="93" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="159" y="16" width="118" height="20"/>
+				<reportElement x="149" y="16" width="102" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre} + " " + $F{apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="277" y="16" width="91" height="20"/>
+				<reportElement x="251" y="16" width="91" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{calle} + " " + $F{numerocalle}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="16" width="59" height="20"/>
+				<reportElement x="342" y="16" width="59" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="435" y="16" width="48" height="20"/>
+				<reportElement x="401" y="16" width="48" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{celular}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="501" y="16" width="54" height="20"/>
+				<reportElement x="446" y="16" width="109" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{mail}]]></textFieldExpression>
 			</textField>
