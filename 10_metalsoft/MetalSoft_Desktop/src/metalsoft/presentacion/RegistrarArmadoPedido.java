@@ -180,7 +180,7 @@ public class RegistrarArmadoPedido extends javax.swing.JFrame implements IBuscad
         btnGuardar1 = new metalsoft.beans.BtnGuardar();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Armado Pedido");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Actuales"));

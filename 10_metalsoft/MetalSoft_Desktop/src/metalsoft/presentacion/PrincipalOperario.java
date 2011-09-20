@@ -15,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.regex.Pattern;
+import metalsoft.negocio.produccion.CodigoDeBarra;
 import metalsoft.util.MetalsoftProperties;
 
 /**
@@ -99,8 +101,21 @@ public class PrincipalOperario extends javax.swing.JFrame {
         ObjectOutputStream oos = null;
         try {
             System.out.println("INFO: Conectando con el servidor...");
-            String ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_ETAPA);
-            String puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
+            
+            String codigoBarra = txtCodigoBarras.getText();
+            
+            String parts[] = codigoBarra.split(Pattern.quote("-"));
+            
+            String ip = null;
+            String puerto = null;
+            
+            if(parts[1].equals("4")){
+                ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_PROCESO_CALIDAD);
+                puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
+            } else if(parts[1].equals("2")){
+                ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_ETAPA);
+                puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
+            }
 
             cliente = new Socket(ip, Integer.parseInt(puerto));
 
