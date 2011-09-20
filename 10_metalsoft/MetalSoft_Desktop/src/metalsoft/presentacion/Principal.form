@@ -80,6 +80,9 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCompras">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Compras"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniMateriaPrima">
               <Properties>
@@ -198,6 +201,9 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuProduccion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Produccion"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
@@ -258,6 +264,9 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCalidad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Calidad"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniGenerarDetalleProcedimientosCalidad">
               <Properties>
