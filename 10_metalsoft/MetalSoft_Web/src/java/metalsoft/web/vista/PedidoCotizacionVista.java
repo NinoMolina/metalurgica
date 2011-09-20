@@ -25,6 +25,7 @@ public class PedidoCotizacionVista {
     private boolean selected = false;
     protected ListDataModel<Pedido> pedidosVista;
     private boolean activarBoton = false;
+    private boolean activarBotonCancelar = false;
 
     /** Creates a new instance of PedidoCotizacion */
     public PedidoCotizacionVista() {
@@ -38,6 +39,7 @@ public class PedidoCotizacionVista {
         selected = false;
         pedidosVista=new ListDataModel<Pedido>();
         activarBoton = false;
+        activarBotonCancelar = false;
     }
 
     public Pedido getPedido() {
@@ -79,4 +81,13 @@ public class PedidoCotizacionVista {
     public void setActivarBoton(boolean activarBoton) {
         this.activarBoton = activarBoton;
     }
+
+    public boolean isActivarBotonCancelar() {
+        return activarBotonCancelar;
+    }
+
+    public void setActivarBotonCancelar(boolean activarBotonCancelar) {
+        this.activarBotonCancelar = activarBotonCancelar;
+    }
+    
 }
