@@ -67,7 +67,7 @@ public class GestorArmadoPedido {
                 list.add(conProducto.findProductoreal(p.getIdProducto()));
             }
             for (Productoreal p : list) {
-                p.setEstado(estadoProducto.findEstadoproductoreal(2L));
+                p.setEstado(estadoProducto.findEstadoproductoreal(4L));
                 conProducto.edit(p);
             }
             EstadopedidoJpaController estado = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
