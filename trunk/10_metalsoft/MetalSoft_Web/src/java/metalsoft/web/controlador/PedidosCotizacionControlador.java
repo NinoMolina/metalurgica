@@ -50,7 +50,7 @@ public class PedidosCotizacionControlador {
 
         return "gestionPedidos";
     }
-    
+
     public String todosLosPedidos() {
 
         pedidoVista.limpiarCampos();
@@ -98,6 +98,11 @@ public class PedidosCotizacionControlador {
         } else {
             pedidoVista.setActivarBoton(false);
         }
+        if (pedidoVista.getPedido().getEstado().getIdestado() == 2 || pedidoVista.getPedido().getEstado().getIdestado() == 1) {
+            pedidoVista.setActivarBotonCancelar(true);
+        } else {
+            pedidoVista.setActivarBotonCancelar(false);
+        }
 
         return null;
     }
@@ -116,6 +121,31 @@ public class PedidosCotizacionControlador {
                 pedidoVista.setActivarBoton(true);
             } else {
                 pedidoVista.setActivarBoton(false);
+            }
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(PedidosCotizacionControlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PedidosCotizacionControlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(PedidosCotizacionControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public String cancelarPedido() {
+        EstadopedidoJpaController conPedido = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
+        pedidoVista.getPedido().setEstado(conPedido.findEstadopedido(15L));
+        Pedido p = pedidoVista.getPedido();
+        PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
+        try {
+            controller.edit(p);
+            entroAListener = "El Pedido ha sido " + p.getEstado().getNombre();
+            List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
+            pedidoVista.setPedidosVista(new ListDataModel(list));
+            if (pedidoVista.getPedido().getEstado().getIdestado() == 2 || pedidoVista.getPedido().getEstado().getIdestado() == 1) {
+                pedidoVista.setActivarBotonCancelar(true);
+            } else {
+                pedidoVista.setActivarBotonCancelar(false);
             }
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(PedidosCotizacionControlador.class.getName()).log(Level.SEVERE, null, ex);
