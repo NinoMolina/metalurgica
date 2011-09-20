@@ -201,11 +201,11 @@ public class AccessFunctions {
     }
 
     public static long nvoNroMateriaPrima(Connection cn) {
-        String query = "{ ? = call nvonromateriaprima(?)}";
+        String query = "{ ? = call nvonromateriaprima()}";
         long result = -1;
         try {
             CallableStatement cs = cn.prepareCall(query);
-            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
             cs.execute();
             result = cs.getLong(1);
         } catch (SQLException ex) {
@@ -319,7 +319,7 @@ public class AccessFunctions {
 
     public static boolean esUltimaEjecucionEtapaDeProduccion(Long idejecucion) {
 
-        String query = "{ ? = call esUltimaEjecucionEtapaDeProduccion(?)}";
+        String query = "{ ? = call esulejecetapaprod(?)}";
         boolean result = false;
         PostgreSQLManager pg = new PostgreSQLManager();
         CallableStatement cs = null;
@@ -344,7 +344,7 @@ public class AccessFunctions {
 
     public static boolean esUltimaEjecucionEtapaDePieza(long idejecucionproduccion, long idproducto, long idpieza) {
 
-        String query = "{ ? = call esUltimaEjecucionEtapaDePieza(?,?,?)}";
+        String query = "{ ? = call esulejecetapadepieza(?,?,?)}";
         boolean result = false;
         PostgreSQLManager pg = new PostgreSQLManager();
         CallableStatement cs = null;
@@ -489,7 +489,7 @@ public class AccessFunctions {
     }
 
     public static boolean esUltimaEjecucionProcesoCalidadDePieza(long idejecucionplanificacioncalidad, long idproducto, long idpieza) {
-        String query = "{ ? = call esUltimaEjecProcCalidadDePieza(?,?,?)}";
+        String query = "{ ? = call esulejecprocalpieza(?,?,?)}";
         boolean result = false;
         PostgreSQLManager pg = new PostgreSQLManager();
         CallableStatement cs = null;
@@ -515,7 +515,7 @@ public class AccessFunctions {
     }
 
     public static boolean esUltimaEjecucionProcesoCalidadDeCalidad(Long idejecucion) {
-        String query = "{ ? = call esUltimaEjecProcCalidadDeCalidad(?)}";
+        String query = "{ ? = call esulejecprocalcalidad(?)}";
         boolean result = false;
         PostgreSQLManager pg = new PostgreSQLManager();
         CallableStatement cs = null;

@@ -140,7 +140,7 @@ public class RegistrarReclamoProveedor extends javax.swing.JFrame {
         btnGuardar1 = new metalsoft.beans.BtnGuardar();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Enviar Reclamo Proveedor");
 
         cmbProveedor.addActionListener(new java.awt.event.ActionListener() {

@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -259,19 +260,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                  * para una etapa de produccion que se ejecute en paralelo con otra
                  */
                 if (prodNodeAnterior != productoNode) {
-                   
+
                     orden = 1;
                     piezaNodeAnterior = piezaNode;
                     prodNodeAnterior = productoNode;
 
                 } else {
-                     /*
+                    /*
                      * el orden deberia ser por pieza y no por producto porque un producto
                      * puede tener 2 piezas que se pueden ejecutar en paralelo.
                      * Tendria que reiniciar el orden si estoy en el mismo producto y misma pieza.
                      * agregar if (piezaNodoAnterior == piezaNodo)
                      */
-                    if (piezaNodeAnterior != piezaNode){
+                    if (piezaNodeAnterior != piezaNode) {
                         orden = 1;
                         piezaNodeAnterior = piezaNode;
                     }
@@ -314,6 +315,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 dpp.setIdproducto(prod);
                 dpp.setIdplanificacionproduccion(plan);
                 dpp.setOrden(orden);
+                dpp.setIndexproducto(productoNode.getIndexProducto());
                 detalle.add(dpp);
 
                 orden++;
@@ -1361,9 +1363,20 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
+        Map<Long, Integer> mapIndexProducto = new HashMap<Long, Integer>();
+        
         while (it.hasNext()) {
             dp = it.next();
+            
+            if(!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())){
+                mapIndexProducto.put(dp.getIdproducto().getIdproducto(), 0);
+            } else {
+                Integer index = mapIndexProducto.get(dp.getIdproducto().getIdproducto());
+                mapIndexProducto.put(dp.getIdproducto().getIdproducto(), index + 1);
+            }
+            
             prod = new ProductoNode(dp.getIdproducto());
+            prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
             raiz.add(prod);
             List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
             Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
@@ -1650,6 +1663,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         private metalsoft.datos.jpa.entity.Producto producto;
         private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
+        private Integer indexProducto = 1;
 
         public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
             this.producto = producto;
@@ -1681,6 +1695,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
         public void setProducto(Producto producto) {
             this.producto = producto;
+        }
+
+        public Integer getIndexProducto() {
+            return indexProducto;
+        }
+
+        public void setIndexProducto(Integer indexProducto) {
+            this.indexProducto = indexProducto;
         }
     }
 

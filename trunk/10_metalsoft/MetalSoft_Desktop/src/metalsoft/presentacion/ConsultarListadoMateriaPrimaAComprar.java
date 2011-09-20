@@ -128,7 +128,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
         btnImprimir1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Listado de Materia Prima a comprar segun Pedido");
+        setTitle("Listado de Materia Prima a Comprar");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Pedido"));
 
@@ -272,7 +272,6 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarProducto;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar1;
-    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnImprimir1;
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private javax.swing.JLabel jLabel13;

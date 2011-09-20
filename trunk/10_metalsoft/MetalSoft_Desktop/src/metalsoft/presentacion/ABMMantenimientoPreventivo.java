@@ -118,7 +118,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento Preventivo");
 
         jLabel1.setText("Tipos de Máquina:");

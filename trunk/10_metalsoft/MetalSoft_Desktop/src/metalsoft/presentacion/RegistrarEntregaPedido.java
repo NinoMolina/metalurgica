@@ -10,10 +10,7 @@
  */
 package metalsoft.presentacion;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-import java.sql.Date;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +25,6 @@ import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
-import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.util.Combo;

@@ -25,7 +25,6 @@ import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
-import metalsoft.negocio.compras.ReclamoProveedor;
 import metalsoft.negocio.gestores.GestorNuevoUsuario;
 import metalsoft.util.Fecha;
 
@@ -116,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         mniReclamoProveedor = new javax.swing.JMenuItem();
+        mniOrdenDeCompra = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mniCliente = new javax.swing.JMenuItem();
         mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
@@ -440,6 +440,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCompras.add(mniReclamoProveedor);
+
+        mniOrdenDeCompra.setText("Orden de Compra");
+        mniOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniOrdenDeCompraActionPerformed(evt);
+            }
+        });
+        mnuCompras.add(mniOrdenDeCompra);
 
         mbrMenu.add(mnuCompras);
 
@@ -1485,8 +1493,8 @@ private void mniGenerarSolicitudActionPerformed(java.awt.event.ActionEvent evt) 
 }//GEN-LAST:event_mniGenerarSolicitudActionPerformed
 
 private void mniReclamoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReclamoProveedorActionPerformed
-   try {
-        JFrameManager.crearVentana(ReclamoProveedor.class.getName());
+    try {
+        JFrameManager.crearVentana(RegistrarReclamoProveedor.class.getName());
 
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1509,6 +1517,19 @@ private void mniArmadoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//G
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniArmadoPedidoActionPerformed
+
+private void mniOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniOrdenDeCompraActionPerformed
+    try {
+        JFrameManager.crearVentana(ABMOrdenDeCompra.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniOrdenDeCompraActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1568,6 +1589,7 @@ private void mniArmadoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniNuevoUsuario;
+    private javax.swing.JMenuItem mniOrdenDeCompra;
     private javax.swing.JMenuItem mniPieza;
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;

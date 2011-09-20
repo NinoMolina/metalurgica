@@ -33,7 +33,7 @@ public class GestorReportes {
 
     public void ReporteClientes(){
 
-        String sourceFile = "L:\\rpt\\reporteClientesMetalsoft.jasper";
+        String sourceFile = "D:\\rpt\\reporteClientesMetalsoft.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -68,7 +68,7 @@ public class GestorReportes {
 
     public void ReporteClientesMorosos() {
 
-        String sourceFile = "L:\\rpt\\reporteClientesMorosos.jasper";
+        String sourceFile = "D:\\rpt\\reporteClientesMorosos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -104,7 +104,7 @@ public class GestorReportes {
 
     public void ReportePedidos(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reportePedidos.jasper";
+        String sourceFile = "D:\\rpt\\reportePedidos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -143,7 +143,7 @@ public class GestorReportes {
 
     public void ReporteProveedores(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
+        String sourceFile = "D:\\rpt\\reporteReclamoProveedores.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -183,7 +183,7 @@ public class GestorReportes {
 
     public void ReporteEmpresasMetalurgicas(Date fechaDesde, Date fechaHasta) {
 
-   String sourceFile = "L:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
+   String sourceFile = "D:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
