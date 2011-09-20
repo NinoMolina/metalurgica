@@ -4,9 +4,6 @@
  */
 package metalsoft.web.controlador;
 
-import com.icesoft.faces.context.effects.Effect;
-import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -14,9 +11,9 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.DetallepedidoJpaController;
 import metalsoft.datos.jpa.controller.EstadopedidoJpaController;
@@ -26,6 +23,7 @@ import metalsoft.datos.jpa.controller.ProductoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallepedido;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Prioridad;
 import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.web.vista.NuevoPedidoVista;
 import metalsoft.web.vista.SesionVista;
@@ -42,6 +40,10 @@ public class NuevoPedidoControlador {
     private NuevoPedidoVista nvoPedidoVista;
     @ManagedProperty(value = "#{sesionVista}")
     private SesionVista sesionVista;
+    
+    @ManagedProperty(value = "#{pedidosControlador}")
+    private PedidosCotizacionControlador pedidoControlados;
+    private String algo;
 
     /** Creates a new instance of nuevoPedidoControlador */
     public NuevoPedidoControlador() {
@@ -50,24 +52,45 @@ public class NuevoPedidoControlador {
     public void seleccionarPlano() {
     }
 
-    public void agregarProductos() {
-        nvoPedidoVista.setSeleccionoProducto(true);
+    public String getAlgo() {
+        return "ALGO";
+    }
+
+    public void setAlgo(String algo) {
+        this.algo = algo;
+    }
+
+    public String agregarProductos() {
         ProductoJpaController con = new ProductoJpaController(JpaUtil.getEntityManagerFactory());
         Producto prod = con.findProducto(nvoPedidoVista.getProductoSeleccionado().getIdproducto());
+        for (Detallepedido det : nvoPedidoVista.getListPrevisoriaDetalles()) {
+            if (prod.getIdproducto() == det.getProducto().getIdproducto()) {
+                nvoPedidoVista.setMostrarMensaje(true);
+                return null;
+            }
+        }
         int cant = nvoPedidoVista.getCantidadSeleccionada();
         Detallepedido detalle = new Detallepedido();
         detalle.setCantidad(cant);
         detalle.setProducto(prod);
         nvoPedidoVista.getListPrevisoriaDetalles().add(detalle);
         nvoPedidoVista.setListDetalles(new ListDataModel<Detallepedido>(nvoPedidoVista.getListPrevisoriaDetalles()));
+        return null;
     }
 
-    public NuevoPedidoVista getNvoPedidoVista() {
-        return nvoPedidoVista;
+    public String cambiarMensaje() {
+        nvoPedidoVista.setMostrarMensaje(false);
+        return null;
     }
 
-    public void setNvoPedidoVista(NuevoPedidoVista nvoPedidoVista) {
-        this.nvoPedidoVista = nvoPedidoVista;
+    public String quitarProductos() {
+        if (!nvoPedidoVista.getListPrevisoriaDetalles().isEmpty()) {
+            nvoPedidoVista.setDetalleSeleccionado(nvoPedidoVista.getListDetalles().getRowData());
+            nvoPedidoVista.getListPrevisoriaDetalles().remove(nvoPedidoVista.getDetalleSeleccionado());
+            nvoPedidoVista.setListDetalles(new ListDataModel<Detallepedido>(nvoPedidoVista.getListPrevisoriaDetalles()));
+            return null;
+        }
+        return null;
     }
 
     public String irANuevoPedido() {
@@ -75,6 +98,8 @@ public class NuevoPedidoControlador {
         List<Producto> list = contoller.findProductoEntities();
         PedidoJpaController conPed = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
         List<Pedido> listPedidos = conPed.findPedidoEntities();
+        PrioridadJpaController conPri=new PrioridadJpaController(JpaUtil.getEntityManagerFactory());
+        nvoPedidoVista.setListPrioridades(conPri.findPrioridadEntities());
         int max = 0;
         for (Pedido p : listPedidos) {
             if (max < p.getNropedido()) {
@@ -102,8 +127,8 @@ public class NuevoPedidoControlador {
             try {
                 PedidoJpaController conPed = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
                 DetallepedidoJpaController conDetalle = new DetallepedidoJpaController(JpaUtil.getEntityManagerFactory());
-                EstadopedidoJpaController conEstadoPed=new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
-                PrioridadJpaController conPrioridad=new PrioridadJpaController(JpaUtil.getEntityManagerFactory());
+                EstadopedidoJpaController conEstadoPed = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
+                PrioridadJpaController conPrioridad = new PrioridadJpaController(JpaUtil.getEntityManagerFactory());
                 em = conPed.getEntityManager();
                 em.getTransaction().begin();
                 Pedido ped = new Pedido();
@@ -127,18 +152,11 @@ public class NuevoPedidoControlador {
             } catch (Exception ex) {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return "gestionPedidos";
-        }else{
+            
+            return pedidoControlados.todosLosPedidos();
+        } else {
             return null;
         }
-    }
-
-    public SesionVista getSesionVista() {
-        return sesionVista;
-    }
-
-    public void setSesionVista(SesionVista sesionVista) {
-        this.sesionVista = sesionVista;
     }
 
     public boolean validacionCampos() {
@@ -149,4 +167,29 @@ public class NuevoPedidoControlador {
             return false;
         }
     }
+
+    public NuevoPedidoVista getNvoPedidoVista() {
+        return nvoPedidoVista;
+    }
+
+    public void setNvoPedidoVista(NuevoPedidoVista nvoPedidoVista) {
+        this.nvoPedidoVista = nvoPedidoVista;
+    }
+
+    public SesionVista getSesionVista() {
+        return sesionVista;
+    }
+
+    public void setSesionVista(SesionVista sesionVista) {
+        this.sesionVista = sesionVista;
+    }
+
+    public PedidosCotizacionControlador getPedidoControlados() {
+        return pedidoControlados;
+    }
+
+    public void setPedidoControlados(PedidosCotizacionControlador pedidoControlados) {
+        this.pedidoControlados = pedidoControlados;
+    }
+    
 }
