@@ -30,19 +30,18 @@
                 Ingrese Fecha de Necesidad de Cotización:
                 <ice:selectInputDate id="popupDatePttrn1" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
                                      value="#{nuevoPedidoVista.fechaNecesidad}"
-                                     valueChangeListener="#{nuevoPedidoControlador.effect2ChangeListener}"
                                      title=""
                                      renderAsPopup="true">
                     <f:convertDateTime pattern="MM/dd/yyyy"
                                        timeZone="#{nuevoPedidoControlador.timeZone}"/>
                 </ice:selectInputDate>
-                
+
                 Seleccionar Prioridad:
                 <ice:selectOneMenu id="cmbprioridad" value="#{nuevoPedidoVista.prioridadSeleccionada.idprioridad}">
                     <f:selectItems value="#{nuevoPedidoVista.listPrioridades}" var="prioridad"
                                    itemLabel="#{prioridad.nombre}" itemValue="#{prioridad.idprioridad}"/>
                 </ice:selectOneMenu>
-                
+
                 Seleccionar Producto:
                 <ice:selectOneMenu id="cmbproducto" value="#{nuevoPedidoVista.productoSeleccionado.idproducto}">
                     <f:selectItems value="#{nuevoPedidoVista.listProductos}" var="producto"
@@ -52,7 +51,7 @@
                 Ingrese Cantidad:
                 <ice:inputText id="cantidad" value="#{nuevoPedidoVista.cantidadSeleccionada}"/>
 
-                <h:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos()}"/>
+                <h:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos}"/>
 
                 Ingrese Planos:
                 <ice:inputText id="Plano"/>
@@ -60,12 +59,12 @@
                 <h:panelGrid columns="2">
                     <ice:column>
                         <ice:outputLabel id="results"
-                                         value="Detalle de pedido" rendered="#{nuevoPedidoVista.seleccionoProducto}" />
+                                         value="Detalle de pedido" />
                         <ice:dataTable id="selectedRows" 
                                        var="detalle"
                                        value="#{nuevoPedidoVista.listDetalles}"
                                        rows="15" 
-                                       columnClasses="tableCol" rendered="#{nuevoPedidoVista.seleccionoProducto}" >
+                                       columnClasses="tableCol" >
                             <ice:column>
                                 <f:facet name="header">
                                     <ice:outputText id="selectedColumn1"
@@ -82,8 +81,37 @@
                                 <ice:outputText id="selectedLastName"
                                                 value="#{detalle.cantidad}"/>
                             </ice:column>
+                            <ice:column>
+                            <f:facet name="header" >
+                                <ice:outputText id="column4"
+                                                value="Seleccionar" style="color: #000000"/>
+                            </f:facet>
+                                <ice:commandButton image="/imagenes/Quitar.gif" action="#{nuevoPedidoControlador.quitarProductos}" />
+                        </ice:column>
                         </ice:dataTable>
-
+                        
+                        <!-- Modal Panel Popup -->
+                        <ice:panelPopup id="modalPnlPop"
+                                        draggable="false" modal="true"
+                                        visible="#{nuevoPedidoVista.mostrarMensaje}"
+                                        autoCentre="true"
+                                        styleClass="corePopup">
+                            <f:facet name="header">
+                                <ice:panelGroup styleClass="popupHeaderWrapper">
+                                    <ice:outputText
+                                        value="ATECIÓN"
+                                        styleClass="popupHeaderText"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelGroup styleClass="popupBody">
+                                    <ice:outputText value="Este Producto ya esta en la lista."/><br/>
+                                    <ice:commandButton id="modalPnlCloseButton" type="submit"
+                                                       value="Aceptar"
+                                                       action="#{nuevoPedidoControlador.cambiarMensaje}"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                        </ice:panelPopup>
                     </ice:column>
                 </h:panelGrid>
                 <h:commandButton value="Guardar Pedido" style="background-color: darkseagreen" action="#{nuevoPedidoControlador.guardarPedido}"/>
