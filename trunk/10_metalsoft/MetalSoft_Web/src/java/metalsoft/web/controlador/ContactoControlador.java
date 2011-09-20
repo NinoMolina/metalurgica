@@ -100,7 +100,6 @@ public class ContactoControlador {
             contactoView.limpiarCampos();
             return null;
         } else {
-            contactoView.setMensajeEnviado("Su consulta NO ha podido ser enviada");
             contactoView.setMostrarMensaje(true);
             return null;
         }
