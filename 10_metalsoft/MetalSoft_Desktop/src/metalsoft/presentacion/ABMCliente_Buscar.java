@@ -185,6 +185,7 @@ public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador {
             ventanaRegistrarEntregaPedido.setIdCliente(id);
             ventanaRegistrarEntregaPedido.clienteSeleccionado();
         }
+        this.dispose();
 
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
