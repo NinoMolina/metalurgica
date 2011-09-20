@@ -391,6 +391,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuInicio);
 
+        mnuCompras.setText("Compras");
+
         mniMateriaPrima.setText("Materia Prima");
         mniMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -506,6 +508,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuVentas);
 
+        mnuProduccion.setText("Produccion");
+
         jMenuItem1.setText("Generar Detalle Etapas Producción");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,6 +567,8 @@ public class Principal extends javax.swing.JFrame {
         mnuProduccion.add(mniArmadoPedido);
 
         mbrMenu.add(mnuProduccion);
+
+        mnuCalidad.setText("Calidad");
 
         mniGenerarDetalleProcedimientosCalidad.setText("Generar Detalle Procedimientos Calidad");
         mniGenerarDetalleProcedimientosCalidad.addActionListener(new java.awt.event.ActionListener() {
