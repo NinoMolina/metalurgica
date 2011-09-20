@@ -20,6 +20,7 @@ public class ContactoView {
     private String telefono = "";
     private String descripcion = "";
     private String mensajeEnviado="";
+    private boolean mostrarMensaje=false;
 
     /** Creates a new instance of contactoView */
     public ContactoView() {
@@ -65,11 +66,20 @@ public class ContactoView {
         this.mensajeEnviado = mensajeEnviado;
     }
 
+    public boolean isMostrarMensaje() {
+        return mostrarMensaje;
+    }
+
+    public void setMostrarMensaje(boolean mostrarMensaje) {
+        this.mostrarMensaje = mostrarMensaje;
+    }
+
     public void limpiarCampos() {
         nombreContacto = "";
         mail = "";
         telefono = "";
         descripcion = "";
         mensajeEnviado="";
+        mostrarMensaje=false;
     }
 }

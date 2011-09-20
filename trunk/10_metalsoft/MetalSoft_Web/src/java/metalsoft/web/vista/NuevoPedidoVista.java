@@ -34,7 +34,7 @@ public class NuevoPedidoVista {
     private Prioridad prioridadSeleccionada;
     private ListDataModel<Detallepedido> listDetalles;
     private List<Detallepedido> listPrevisoriaDetalles;
-    private boolean seleccionoProducto = false;
+    private boolean mostrarMensaje = false;
     private int cantidadSeleccionada;
     private int nroAMostrar;
     private Date fechaNecesidad = new Date();
@@ -42,6 +42,7 @@ public class NuevoPedidoVista {
     private Effect valueChangeEffect2;
     private boolean activarBoton=false;
     private String mensValidacion="";
+    private Detallepedido detalleSeleccionado;
     /** Creates a new instance of nuevoPedidoVista */
     public NuevoPedidoVista() {
         pedido = new Pedido();
@@ -55,6 +56,7 @@ public class NuevoPedidoVista {
         valueChangeEffect2 = new Highlight("#fda505");
         valueChangeEffect2.setFired(true);
         mensValidacion="";
+        detalleSeleccionado=null;
     }
 
     public Pedido getPedido() {
@@ -89,13 +91,14 @@ public class NuevoPedidoVista {
         this.listDetalles = listDetalles;
     }
 
-    public boolean isSeleccionoProducto() {
-        return seleccionoProducto;
+    public boolean isMostrarMensaje() {
+        return mostrarMensaje;
     }
 
-    public void setSeleccionoProducto(boolean seleccionoProducto) {
-        this.seleccionoProducto = seleccionoProducto;
+    public void setMostrarMensaje(boolean mostrarMensaje) {
+        this.mostrarMensaje = mostrarMensaje;
     }
+
 
     public int getCantidadSeleccionada() {
         return cantidadSeleccionada;
@@ -180,18 +183,26 @@ public class NuevoPedidoVista {
     public void setPrioridadSeleccionada(Prioridad prioridadSeleccionada) {
         this.prioridadSeleccionada = prioridadSeleccionada;
     }
+
+    public Detallepedido getDetalleSeleccionado() {
+        return detalleSeleccionado;
+    }
+
+    public void setDetalleSeleccionado(Detallepedido detalleSeleccionado) {
+        this.detalleSeleccionado = detalleSeleccionado;
+    }
     
     public void limpiarCampos(){
         pedido = new Pedido();
         fechaNecesidad = new GregorianCalendar().getTime();
         fechaPedido = new GregorianCalendar().getTime();
-        listProductos = new LinkedList<Producto>();
+        listProductos.clear();
         productoSeleccionado = new Producto();
-        listPrioridades=new LinkedList<Prioridad>();
         prioridadSeleccionada=new Prioridad();
-        listPrevisoriaDetalles = new LinkedList<Detallepedido>();
+        listPrevisoriaDetalles.clear();
         valueChangeEffect2 = new Highlight("#fda505");
         valueChangeEffect2.setFired(true);
         mensValidacion="";
+        detalleSeleccionado=null;
     }
 }
