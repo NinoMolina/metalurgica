@@ -143,7 +143,7 @@ public class GestorReportes {
 
     public void ReporteProveedores(Date fechaDesde, Date fechaHasta) {
 
-         String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
+        String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -182,7 +182,40 @@ public class GestorReportes {
     }
 
     public void ReporteEmpresasMetalurgicas(Date fechaDesde, Date fechaHasta) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 
+   String sourceFile = "L:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            param.put("FECHA_DESDE", (fechaDesde));
+            param.put("FECHA_HASTA",(fechaHasta));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Empresas Metalúrgicas");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
