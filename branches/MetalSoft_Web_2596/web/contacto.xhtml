@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                template="./template/metalsoftTemplate.xhtml">
+
+    <ui:define name="title">
+        contacto
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <ice:panelGrid>
+                Ingrese su nombre:
+                <ice:inputText value="#{contactView.nombreContacto}" size="100"/>
+
+                Ingrese su e-mail asi podremos comunicarnos con ud:
+                <ice:inputText value="#{contactView.mail}" size="100"/>
+
+                Ingrese su número de telefono:
+                <ice:inputText value="#{contactView.telefono}" size="100" />
+
+                Ingrese su Consulta:
+                <ice:inputTextarea value="#{contactView.descripcion}" style=" width: 500px; height: 200px"/>
+                
+                <h:commandButton value="Enviar Consulta" style="background-color: darkseagreen" action="#{contactoControlador.enviarConsulta}"/> 
+            
+                <!-- Modal Panel Popup -->
+                        <ice:panelPopup id="modalPnlPop"
+                                        draggable="false" modal="true"
+                                        visible="#{contactView.mostrarMensaje}"
+                                        autoCentre="true"
+                                        styleClass="corePopup">
+                            <f:facet name="header">
+                                <ice:panelGroup styleClass="popupHeaderWrapper">
+                                    <ice:outputText
+                                        value="ATENCIÓN"
+                                        styleClass="popupHeaderText"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="body">
+                                <ice:panelGroup styleClass="popupBody">
+                                    <ice:outputText value="#{contactView.mensajeEnviado}"/><br/>
+                                    <ice:commandButton id="modalPnlCloseButton" type="submit"
+                                                       value="Aceptar"
+                                                       action="#{contactoControlador.cerrarMensaje}"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                        </ice:panelPopup>
+            </ice:panelGrid>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
