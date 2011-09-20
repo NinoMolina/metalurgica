@@ -51,6 +51,7 @@ public class ReportesReclamos extends javax.swing.JFrame {
         btnReportesClientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reportes de Reclamos");
 
         buttonGroup1.add(btnReclamosProveedores);
         btnReclamosProveedores.setText("Reclamos a Proveedores");
@@ -156,7 +157,7 @@ public class ReportesReclamos extends javax.swing.JFrame {
             gestor.ReporteProveedores(fechaDesde,fechaHasta);
         }
        else
-           if (btnReclamosProveedores.isSelected()){
+           if (btnReclamosEmpresasM.isSelected()){
 
             if (dccFechaDesde.getDate()== null || dccFechaHasta.getDate()== null){
             JOptionPane.showMessageDialog(this, "Debe ingresar las fechas!");
