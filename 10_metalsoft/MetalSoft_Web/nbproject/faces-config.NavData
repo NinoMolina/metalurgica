@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="nuevoPedido.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="contacto.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="iniciarSesion.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="principal.xhtml" x="302" y="241" zoom="false"/>
+        <Node id="template/menu.xhtml" x="689" y="303" zoom="true"/>
+        <Node id="template/footer.xhtml" x="620" y="60" zoom="false"/>
+        <Node id="template/header.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="template/metalsoftTemplate.xhtml" x="626" y="196" zoom="true"/>
+        <Node id="gestionPedidos.xhtml" x="40" y="185" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations">
+        <Node id="template/content.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="true"/>
+    </Scope>
+</Scene>
