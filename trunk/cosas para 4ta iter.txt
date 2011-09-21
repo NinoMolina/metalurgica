@@ -2,22 +2,15 @@ Cosas para hacer 4ta iter
 
 requerim:
 
-cambiar descripciones CU reg reclamo emp metal. y regist reclamo prov
 agregar 4 cu Tipo maquina
-Cambiar CU registrar mantenimiento preventivo: falta agregar ingreso duración.
-
+agregar 4 cu turno
 
 analisis:
 corregir diag clases CU 9 generar presup
 
-CU 61:
-seleccionamos prov- OC asociadas a ese prov- seleccionamos1_ mostramos detalle- selecciona mat prima a reclamar e ingresa cant.
-
-Hacer mismo cambio en Reclamo a empresa metalurgica-
-
-Agregar a Daig clases "clase estado reclamo"
 
 **Diseño:
-        Secuencia: Aplicacion Patrones
         Despliegue
 	Cambiar DER 
+
+**Implementación: Cambiar del menu ABM tipo de Máquina ( está en mantenimiento, pasar a Producción)
