@@ -4,6 +4,8 @@ requerim:
 
 agregar 4 cu Tipo maquina
 agregar 4 cu turno
+corregir descripción reporte de ausentismo (es por fecha. NO por período)
+
 
 analisis:
 corregir diag clases CU 9 generar presup
