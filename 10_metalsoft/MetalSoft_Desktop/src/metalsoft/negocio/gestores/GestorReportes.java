@@ -33,7 +33,7 @@ public class GestorReportes {
 
     public void ReporteClientes(){
 
-        String sourceFile = "D:\\rpt\\reporteClientesMetalsoft.jasper";
+        String sourceFile = "L:\\rpt\\reporteClientesMetalsoft.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -68,7 +68,7 @@ public class GestorReportes {
 
     public void ReporteClientesMorosos() {
 
-        String sourceFile = "D:\\rpt\\reporteClientesMorosos.jasper";
+        String sourceFile = "L:\\rpt\\reporteClientesMorosos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -104,7 +104,7 @@ public class GestorReportes {
 
     public void ReportePedidos(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "D:\\rpt\\reportePedidos.jasper";
+        String sourceFile = "L:\\rpt\\reportePedidos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -143,7 +143,7 @@ public class GestorReportes {
 
     public void ReporteProveedores(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "D:\\rpt\\reporteReclamoProveedores.jasper";
+        String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -183,7 +183,7 @@ public class GestorReportes {
 
     public void ReporteEmpresasMetalurgicas(Date fechaDesde, Date fechaHasta) {
 
-   String sourceFile = "D:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
+    String sourceFile = "L:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
@@ -204,6 +204,48 @@ public class GestorReportes {
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setTitle("Reporte Empresas Metalúrgicas");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+
+   
+    
+
+    public void ReporteAusentismo(Date fecha) {
+
+        String sourceFile = "L:\\rpt\\reporteAusentismo.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            param.put("FECHA", (fecha));
+
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Ausentismo");
             jviewer.setVisible(true);
 
 
