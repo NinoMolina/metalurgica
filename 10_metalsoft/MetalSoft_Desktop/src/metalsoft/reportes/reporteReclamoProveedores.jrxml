@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteReclamoProveedores" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="18"/>
-	<property name="ireport.y" value="205"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="228"/>
 	<parameter name="FECHA_DESDE" class="java.util.Date"/>
 	<parameter name="FECHA_HASTA" class="java.util.Date"/>
 	<queryString>
@@ -27,7 +27,7 @@ WHERE
 	</queryString>
 	<field name="nroreclamo" class="java.lang.Long"/>
 	<field name="razonsocial" class="java.lang.String"/>
-	<field name="fechareclamo" class="java.sql.Date"/>
+	<field name="fechareclamo" class="java.util.Date"/>
 	<field name="c_nrocompra" class="java.lang.Long"/>
 	<field name="rp_motivo" class="java.lang.String"/>
 	<field name="er_nombre" class="java.lang.String"/>
@@ -137,14 +137,14 @@ Construcción de Herramientas en gral.
 				<textElement>
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression class="java.sql.Time"><![CDATA[$P{FECHA_DESDE}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{FECHA_DESDE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/dd/yyyy">
 				<reportElement x="455" y="10" width="100" height="20"/>
 				<textElement>
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression class="java.sql.Time"><![CDATA[$P{FECHA_HASTA}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{FECHA_HASTA}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="394" y="10" width="61" height="20" forecolor="#000066"/>
@@ -184,27 +184,27 @@ Construcción de Herramientas en gral.
 			</line>
 			<textField>
 				<reportElement x="394" y="16" width="77" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.Long"><![CDATA[$F{c_nrocompra}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="471" y="16" width="84" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{er_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="277" y="16" width="117" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{rp_motivo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="191" y="16" width="84" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{fechareclamo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="16" width="66" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.Long"><![CDATA[$F{nroreclamo}]]></textFieldExpression>
 			</textField>
 		</band>
