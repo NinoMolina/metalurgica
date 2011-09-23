@@ -168,6 +168,7 @@ public class Principal extends javax.swing.JFrame {
         mniReporteClientes = new javax.swing.JMenuItem();
         mniReportesReclamos = new javax.swing.JMenuItem();
         mniReportePedidos = new javax.swing.JMenuItem();
+        mniReporteAusentismo = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -838,6 +839,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuReportes.add(mniReportePedidos);
+
+        mniReporteAusentismo.setText("Ausentismo");
+        mniReporteAusentismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReporteAusentismoActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniReporteAusentismo);
 
         mbrMenu.add(mnuReportes);
 
@@ -1530,6 +1539,19 @@ private void mniOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniOrdenDeCompraActionPerformed
+
+private void mniReporteAusentismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReporteAusentismoActionPerformed
+    try {
+        JFrameManager.crearVentana(ReporteAusentismo.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniReporteAusentismoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1602,6 +1624,7 @@ private void mniOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
+    private javax.swing.JMenuItem mniReporteAusentismo;
     private javax.swing.JMenuItem mniReporteClientes;
     private javax.swing.JMenuItem mniReportePedidos;
     private javax.swing.JMenuItem mniReportesReclamos;
