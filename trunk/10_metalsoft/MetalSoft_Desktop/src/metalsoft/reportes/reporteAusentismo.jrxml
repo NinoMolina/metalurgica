@@ -93,7 +93,7 @@ Construcción de Herramientas en gral.
 				</textElement>
 				<text><![CDATA[Empleado]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="170" y="16" width="95" height="19"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isItalic="true"/>
