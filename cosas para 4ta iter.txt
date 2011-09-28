@@ -1,18 +1,44 @@
 Cosas para hacer 4ta iter
 
-requerim:
-
-agregar 4 cu Tipo maquina
-agregar 4 cu turno
-corregir descripción reporte de ausentismo (es por fecha. NO por período)
+requerim: CU nuevos 
 
 
-analisis:
-corregir diag clases CU 9 generar presup
+**Analisis: imprimir: Vistas 
 
 
 **Diseño:
-        Despliegue
-	Cambiar DER 
+Imprimir Der (5ta iter)
+
+
+
+
+Manuales de procedimientos y usuarios
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 **Implementación: Cambiar del menu ABM tipo de Máquina ( está en mantenimiento, pasar a Producción)
