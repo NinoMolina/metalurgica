@@ -168,6 +168,7 @@ public class AdministrarUsuario extends javax.swing.JFrame {
         btnSalir = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administrar Usuarios");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
