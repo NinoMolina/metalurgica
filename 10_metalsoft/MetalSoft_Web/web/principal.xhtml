@@ -16,16 +16,20 @@
     <ui:define name="content">
         <h:form>
 
-            <h:panelGrid>
-                
-            <h:outputText value="La organización bajo estudio es una industria que se dedica a la fabricación y venta de diferentes 
-            tipos de piezas metalúrgicas , control de calidad de las mismas y administración del personal. 
-            Las piezas son fabricadas a pedido de los clientes de la organización, que van desde empresas de 
-            importante envergadura hasta clientes particulares."
-                    style="color: #ffffff"/>
-            <h:outputText value="*Razón Social: CANOVAS Y BARALE S.R.L" style="color: #ffffff"/>
-            <h:outputText value="*Rubro: Industria Metalúrgica" style="color: #ffffff"/>
-            <h:outputText value="*Ubicación: Calle Pellegrini 1146, B° San Vicente." style="color: #ffffff"/>
+            <h:panelGrid columns="2">
+                <h:column>
+                    <h:outputText value="La organización bajo estudio es una industria que se dedica a la fabricación y venta de diferentes 
+                                  tipos de piezas metalúrgicas , control de calidad de las mismas y administración del personal. 
+                                  Las piezas son fabricadas a pedido de los clientes de la organización, que van desde empresas de 
+                                  importante envergadura hasta clientes particulares."
+                                  style="color: #ffffff"/>
+                    <h:outputText value="*Razón Social: CANOVAS Y BARALE S.R.L" style="color: #ffffff"/>
+                    <h:outputText value="*Rubro: Industria Metalúrgica" style="color: #ffffff"/>
+                    <h:outputText value="*Ubicación: Calle Pellegrini 1146, B° San Vicente." style="color: #ffffff"/>
+                </h:column>
+                <h:column>
+                    <ice:graphicImage url="/imagenes/IngresoMetalurgica.JPG"/>
+                </h:column>
             </h:panelGrid>
         </h:form>
     </ui:define>
