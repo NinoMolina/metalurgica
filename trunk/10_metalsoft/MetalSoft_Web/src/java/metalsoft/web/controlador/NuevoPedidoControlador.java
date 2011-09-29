@@ -43,21 +43,12 @@ public class NuevoPedidoControlador {
     
     @ManagedProperty(value = "#{pedidosControlador}")
     private PedidosCotizacionControlador pedidoControlados;
-    private String algo;
 
     /** Creates a new instance of nuevoPedidoControlador */
     public NuevoPedidoControlador() {
     }
 
     public void seleccionarPlano() {
-    }
-
-    public String getAlgo() {
-        return "ALGO";
-    }
-
-    public void setAlgo(String algo) {
-        this.algo = algo;
     }
 
     public String agregarProductos() {
@@ -98,8 +89,6 @@ public class NuevoPedidoControlador {
         List<Producto> list = contoller.findProductoEntities();
         PedidoJpaController conPed = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
         List<Pedido> listPedidos = conPed.findPedidoEntities();
-        PrioridadJpaController conPri=new PrioridadJpaController(JpaUtil.getEntityManagerFactory());
-        nvoPedidoVista.setListPrioridades(conPri.findPrioridadEntities());
         int max = 0;
         for (Pedido p : listPedidos) {
             if (max < p.getNropedido()) {
@@ -139,7 +128,7 @@ public class NuevoPedidoControlador {
                 ped.setFecharequeridacotizacion(nvoPedidoVista.getFechaNecesidad());
                 ped.setEspedidoweb(true);
                 ped.setEstado(conEstadoPed.findEstadopedido(1L));
-                ped.setPrioridad(conPrioridad.findPrioridad(nvoPedidoVista.getPrioridadSeleccionada().getIdprioridad()));
+                ped.setPrioridad(conPrioridad.findPrioridad(3L));
                 conPed.create(ped);
                 for (Detallepedido de : nvoPedidoVista.getListPrevisoriaDetalles()) {
                     de.setIdpedido(ped);
