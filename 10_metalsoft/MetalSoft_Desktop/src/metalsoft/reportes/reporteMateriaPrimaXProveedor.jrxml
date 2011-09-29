@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteAusentismo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="260"/>
+	<property name="ireport.y" value="238"/>
 	<parameter name="MATERIA_PRIMA" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select pro.razonsocial, mat.nombre, promat.precio
@@ -68,7 +68,7 @@ Construcción de Herramientas en gral.
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
 				<textElement textAlignment="Center">
-					<font size="24" isBold="true" isItalic="true" isUnderline="true"/>
+					<font size="20" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de Materia Prima por Proveedor]]></text>
 			</staticText>
@@ -80,14 +80,14 @@ Construcción de Herramientas en gral.
 				<reportElement x="0" y="36" width="555" height="1" forecolor="#000066"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="56" width="146" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Center">
+				<reportElement mode="Opaque" x="0" y="56" width="157" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Left">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Proveedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="146" y="56" width="129" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="103" y="56" width="172" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -114,25 +114,32 @@ Construcción de Herramientas en gral.
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="21" y="1" width="100" height="13"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="160" y="0" width="100" height="14"/>
-				<textElement/>
+				<reportElement mode="Opaque" x="179" y="0" width="96" height="14" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="146" height="13" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="146" y="0" width="33" height="13" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="158" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="103" y="0" width="360" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Número Total de Pedidos:]]></text>
+				<text><![CDATA[Número de Proveedores que suministran la materia prima:]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="463" y="0" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>

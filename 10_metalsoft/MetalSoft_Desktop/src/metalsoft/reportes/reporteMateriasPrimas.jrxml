@@ -221,11 +221,11 @@ Medida]]></text>
 	<columnFooter>
 		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="158" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="265" y="0" width="198" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Número Total de Reclamos:]]></text>
+				<text><![CDATA[Número Total de Materias Primas:]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="463" y="0" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
