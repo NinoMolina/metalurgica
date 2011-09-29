@@ -42,7 +42,7 @@ public class Reportes extends javax.swing.JFrame {
         btnClientesMorosos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reportes");
+        setTitle(" Reportes Clientes");
 
         btnReportesClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icono_impresora.png"))); // NOI18N
         btnReportesClientes.setText("Imprimir Reporte");
