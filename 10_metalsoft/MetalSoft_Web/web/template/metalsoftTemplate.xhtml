@@ -19,22 +19,22 @@
         <h:body style="background-image: url(./imagenes/background.jpg)">
             <table cellspacing="1px" style="width: 100%; height: 100%">
                 <tr>
-                    <td id="top">
+                    <td id="top" style="background-image: url(./imagenes/background.jpg)">
                         <ui:include src="header.xhtml"/>
                     </td>
                 </tr>
                 <tr>
-                    <td id="menu">
+                    <td id="menu"  style="background-image: url(./imagenes/background.jpg)">
                         <ui:include src="menu.xhtml"/>
                     </td>
                 </tr>
-                <tr>
-                    <td id="content">
+                <tr >
+                    <td id="content" style="background-image: url(./imagenes/background.jpg)" valign="middle">
                         <ui:insert name="content"/>
                     </td>
                 </tr>
-                <tr align="">
-                    <td id="bottom" >
+                <tr style="bottom: 0">
+                    <td id="bottom" style="bottom: 0; margin-bottom: 1px">
                         <ui:include src="footer.xhtml" />
                     </td>
                 </tr>
