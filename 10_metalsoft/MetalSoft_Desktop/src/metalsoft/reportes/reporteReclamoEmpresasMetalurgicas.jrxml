@@ -75,7 +75,7 @@ Construcción de Herramientas en gral.
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
 				<textElement textAlignment="Center">
-					<font size="24" isBold="true" isItalic="true" isUnderline="true"/>
+					<font size="20" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de Reclamos a Empresas Metalúrgicas]]></text>
 			</staticText>
@@ -212,7 +212,7 @@ Construcción de Herramientas en gral.
 	<columnFooter>
 		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="158" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="277" y="0" width="186" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
