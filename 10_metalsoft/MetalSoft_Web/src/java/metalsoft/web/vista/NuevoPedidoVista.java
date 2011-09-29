@@ -30,8 +30,6 @@ public class NuevoPedidoVista {
     private Pedido pedido;
     private List<Producto> listProductos;
     private Producto productoSeleccionado;
-    private List<Prioridad> listPrioridades;
-    private Prioridad prioridadSeleccionada;
     private ListDataModel<Detallepedido> listDetalles;
     private List<Detallepedido> listPrevisoriaDetalles;
     private boolean mostrarMensaje = false;
@@ -50,8 +48,6 @@ public class NuevoPedidoVista {
         fechaPedido = new GregorianCalendar().getTime();
         listProductos = new LinkedList<Producto>();
         productoSeleccionado = new Producto();
-        listPrioridades=new LinkedList<Prioridad>();
-        prioridadSeleccionada=new Prioridad();
         listPrevisoriaDetalles = new LinkedList<Detallepedido>();
         valueChangeEffect2 = new Highlight("#fda505");
         valueChangeEffect2.setFired(true);
@@ -168,22 +164,6 @@ public class NuevoPedidoVista {
         this.mensValidacion = mensValidacion;
     }
 
-    public List<Prioridad> getListPrioridades() {
-        return listPrioridades;
-    }
-
-    public void setListPrioridades(List<Prioridad> listPrioridades) {
-        this.listPrioridades = listPrioridades;
-    }
-
-    public Prioridad getPrioridadSeleccionada() {
-        return prioridadSeleccionada;
-    }
-
-    public void setPrioridadSeleccionada(Prioridad prioridadSeleccionada) {
-        this.prioridadSeleccionada = prioridadSeleccionada;
-    }
-
     public Detallepedido getDetalleSeleccionado() {
         return detalleSeleccionado;
     }
@@ -198,7 +178,6 @@ public class NuevoPedidoVista {
         fechaPedido = new GregorianCalendar().getTime();
         listProductos.clear();
         productoSeleccionado = new Producto();
-        prioridadSeleccionada=new Prioridad();
         listPrevisoriaDetalles.clear();
         valueChangeEffect2 = new Highlight("#fda505");
         valueChangeEffect2.setFired(true);
