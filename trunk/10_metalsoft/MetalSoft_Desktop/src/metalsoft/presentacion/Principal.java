@@ -851,6 +851,11 @@ public class Principal extends javax.swing.JFrame {
         mnuReportes.add(mniReporteAusentismo);
 
         mniProveedores.setText("Proveedores");
+        mniProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProveedoresActionPerformed(evt);
+            }
+        });
         mnuReportes.add(mniProveedores);
 
         mniMPrima.setText("Materia Prima");
@@ -1578,6 +1583,20 @@ private void mniMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniMPrimaActionPerformed
+
+private void mniProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProveedoresActionPerformed
+
+      try {
+        JFrameManager.crearVentana(ReportesProveedores.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniProveedoresActionPerformed
     /**
      * @param args the command line arguments
      */
