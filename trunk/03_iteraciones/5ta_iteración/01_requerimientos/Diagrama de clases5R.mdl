@@ -30128,7 +30128,7 @@
 		zoom       	85
 		max_height 	28350
 		max_width  	21600
-		origin_x   	23573
+		origin_x   	17838
 		origin_y   	0
 		items      	(list diagram_item_list
 		    (object NoteView @436
@@ -30297,24 +30297,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5CE9202EA"
-			compartment 	(object Compartment
-			    Parent_View 	@441
-			    location   	(171, 226)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	9
-			    max_width  	427
-			    justify    	1)
 			width      	448
 			height     	556
 			annotation 	8
@@ -30345,24 +30327,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5CE9A01E3"
-			compartment 	(object Compartment
-			    Parent_View 	@442
-			    location   	(943, 226)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	12
-			    max_width  	400
-			    justify    	1)
 			width      	390
 			height     	700
 			annotation 	8
@@ -30435,7 +30399,7 @@
 				supplier   	@441
 				vertices   	(list Points
 				    (747, 299)
-				    (610, 333))
+				    (610, 334))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::CondicionIva" @447
 			ShowCompartmentStereotypes 	TRUE
@@ -30463,24 +30427,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE6DA90251"
-			compartment 	(object Compartment
-			    Parent_View 	@447
-			    location   	(4518, 1085)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	381
-			    justify    	1)
 			width      	362
 			height     	412
 			annotation 	8
@@ -30511,24 +30457,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BFB632F02B5"
-			compartment 	(object Compartment
-			    Parent_View 	@448
-			    location   	(4094, 886)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	381
-			    justify    	1)
 			width      	374
 			height     	412
 			annotation 	8
@@ -30559,24 +30487,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5CEB403DC"
-			compartment 	(object Compartment
-			    Parent_View 	@449
-			    location   	(1526, 227)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	400
-			    justify    	1)
 			width      	400
 			height     	460
 			annotation 	8
@@ -30615,7 +30525,7 @@
 				supplier   	@449
 				vertices   	(list Points
 				    (1420, 404)
-				    (1516, 385))
+				    (1516, 384))
 				line_style 	0
 				label      	(object SegLabel @452
 				    Parent_View 	@451
@@ -30648,7 +30558,7 @@
 				supplier   	@442
 				vertices   	(list Points
 				    (1420, 404)
-				    (1324, 424))
+				    (1324, 422))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$163" @454
 			location   	(1420, 404)
@@ -30684,7 +30594,7 @@
 				supplier   	@442
 				vertices   	(list Points
 				    (1420, 404)
-				    (1324, 424))
+				    (1324, 422))
 				line_style 	0
 				label      	(object SegLabel @456
 				    Parent_View 	@455
@@ -30717,7 +30627,7 @@
 				supplier   	@449
 				vertices   	(list Points
 				    (1420, 404)
-				    (1516, 385))
+				    (1516, 384))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::compras::PersonaJuridica" @458
 			ShowCompartmentStereotypes 	TRUE
@@ -30745,24 +30655,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE6A08030F"
-			compartment 	(object Compartment
-			    Parent_View 	@458
-			    location   	(5055, 160)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	17
-			    max_width  	540
-			    justify    	1)
 			width      	540
 			height     	938
 			annotation 	8
@@ -30801,7 +30693,7 @@
 				supplier   	@447
 				vertices   	(list Points
 				    (4958, 893)
-				    (4871, 985))
+				    (4871, 984))
 				line_style 	0
 				label      	(object SegLabel @461
 				    Parent_View 	@460
@@ -30834,7 +30726,7 @@
 				supplier   	@458
 				vertices   	(list Points
 				    (4958, 893)
-				    (5045, 802))
+				    (5045, 800))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$117" @463
 			location   	(4752, 766)
@@ -30931,24 +30823,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5CE820219"
-			compartment 	(object Compartment
-			    Parent_View 	@467
-			    location   	(3494, 1154)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	9
-			    max_width  	419
-			    justify    	1)
 			width      	416
 			height     	548
 			annotation 	8
@@ -30979,24 +30853,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5CE9E0150"
-			compartment 	(object Compartment
-			    Parent_View 	@468
-			    location   	(3120, 157)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	17
-			    max_width  	492
-			    justify    	1)
 			width      	522
 			height     	941
 			annotation 	8
@@ -31165,24 +31021,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0ECE0001EB"
-			compartment 	(object Compartment
-			    Parent_View 	@477
-			    location   	(1534, 817)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	12
-			    max_width  	642
-			    justify    	1)
 			width      	781
 			height     	703
 			annotation 	8
@@ -31231,7 +31069,7 @@
 				supplier   	@467
 				vertices   	(list Points
 				    (2894, 1199)
-				    (3484, 1286))
+				    (3484, 1285))
 				line_style 	0
 				label      	(object SegLabel @481
 				    Parent_View 	@480
@@ -31300,7 +31138,7 @@
 				supplier   	@468
 				vertices   	(list Points
 				    (2707, 760)
-				    (3110, 611))
+				    (3110, 610))
 				line_style 	0
 				label      	(object SegLabel @485
 				    Parent_View 	@484
@@ -31333,7 +31171,7 @@
 				supplier   	@477
 				vertices   	(list Points
 				    (2707, 760)
-				    (2305, 910))
+				    (2305, 909))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::ReclamoCliente" @487
 			ShowCompartmentStereotypes 	TRUE
@@ -31553,24 +31391,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0D1CE0398"
-			compartment 	(object Compartment
-			    Parent_View 	@491
-			    location   	(14251, 2732)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	485
-			    justify    	1)
 			width      	506
 			height     	362
 			annotation 	8
@@ -31609,7 +31429,7 @@
 				supplier   	@491
 				vertices   	(list Points
 				    (14418, 2014)
-				    (14477, 2620))
+				    (14476, 2620))
 				line_style 	0
 				label      	(object SegLabel @494
 				    Parent_View 	@493
@@ -31766,24 +31586,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0D1280149"
-			compartment 	(object Compartment
-			    Parent_View 	@498
-			    location   	(13067, 1953)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	610
-			    justify    	1)
 			width      	632
 			height     	410
 			annotation 	8
@@ -31931,24 +31733,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5ECF701B6"
-			compartment 	(object Compartment
-			    Parent_View 	@504
-			    location   	(12149, 4415)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	537
-			    justify    	1)
 			width      	558
 			height     	412
 			annotation 	8
@@ -32261,7 +32045,7 @@
 				supplier   	@509
 				vertices   	(list Points
 				    (10501, 5992)
-				    (10554, 6583))
+				    (10553, 6583))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::ProductoReal" @514
 			ShowCompartmentStereotypes 	TRUE
@@ -32345,7 +32129,7 @@
 				supplier   	@489
 				vertices   	(list Points
 				    (6581, 3051)
-				    (6622, 2977))
+				    (6620, 2977))
 				line_style 	0
 				label      	(object SegLabel @517
 				    Parent_View 	@516
@@ -32378,7 +32162,7 @@
 				supplier   	@514
 				vertices   	(list Points
 				    (6581, 3051)
-				    (6541, 3126))
+				    (6540, 3126))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::Prioridad" @519
 			ShowCompartmentStereotypes 	TRUE
@@ -32406,24 +32190,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C27FCF403CC"
-			compartment 	(object Compartment
-			    Parent_View 	@519
-			    location   	(10286, 3570)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	259
-			    justify    	1)
 			width      	274
 			height     	362
 			annotation 	8
@@ -32454,24 +32220,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BC246130298"
-			compartment 	(object Compartment
-			    Parent_View 	@520
-			    location   	(13970, 2046)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	362
-			    justify    	1)
 			width      	380
 			height     	410
 			annotation 	8
@@ -32647,7 +32395,7 @@
 				supplier   	@524
 				vertices   	(list Points
 				    (7835, 557)
-				    (8195, 679))
+				    (8195, 678))
 				line_style 	0
 				label      	(object SegLabel @528
 				    Parent_View 	@527
@@ -32800,7 +32548,7 @@
 				supplier   	@530
 				vertices   	(list Points
 				    (8375, 4124)
-				    (7902, 3910))
+				    (7902, 3909))
 				line_style 	0
 				label      	(object SegLabel @533
 				    Parent_View 	@532
@@ -33093,7 +32841,7 @@
 				supplier   	@530
 				vertices   	(list Points
 				    (7336, 4162)
-				    (7463, 4032))
+				    (7463, 4031))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$306" @548
 			location   	(8028, 4538)
@@ -33231,7 +32979,7 @@
 				supplier   	@535
 				vertices   	(list Points
 				    (6635, 4057)
-				    (6690, 4145))
+				    (6690, 4147))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::Plano" @556
 			ShowCompartmentStereotypes 	TRUE
@@ -33634,7 +33382,7 @@
 				supplier   	@497
 				vertices   	(list Points
 				    (9787, 1787)
-				    (9882, 1931))
+				    (9881, 1931))
 				line_style 	0
 				label      	(object SegLabel @569
 				    Parent_View 	@568
@@ -33772,7 +33520,7 @@
 				supplier   	@566
 				vertices   	(list Points
 				    (8947, 1021)
-				    (9162, 1134))
+				    (9162, 1133))
 				line_style 	0
 				label      	(object SegLabel @577
 				    Parent_View 	@576
@@ -33805,7 +33553,7 @@
 				supplier   	@524
 				vertices   	(list Points
 				    (8947, 1021)
-				    (8732, 909))
+				    (8732, 908))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::calidad::EstadoEjecPlanCalidad" @579
 			ShowCompartmentStereotypes 	TRUE
@@ -33833,24 +33581,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0AD7CB00E3"
-			compartment 	(object Compartment
-			    Parent_View 	@579
-			    location   	(10377, 8808)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	493
-			    justify    	1)
 			width      	514
 			height     	362
 			annotation 	8
@@ -33881,24 +33611,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE713690089"
-			compartment 	(object Compartment
-			    Parent_View 	@580
-			    location   	(4949, 6179)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	504
-			    justify    	1)
 			width      	524
 			height     	362
 			annotation 	8
@@ -33929,24 +33641,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE61CE600FA"
-			compartment 	(object Compartment
-			    Parent_View 	@581
-			    location   	(3248, 3816)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	381
-			    justify    	1)
 			width      	400
 			height     	362
 			annotation 	8
@@ -33977,24 +33671,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0D1CD0030"
-			compartment 	(object Compartment
-			    Parent_View 	@582
-			    location   	(11708, 2117)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	718
-			    justify    	1)
 			width      	738
 			height     	410
 			annotation 	8
@@ -34066,7 +33742,7 @@
 				supplier   	@503
 				vertices   	(list Points
 				    (12142, 1800)
-				    (12179, 1596))
+				    (12180, 1596))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::DetalleProductoReal" @587
 			ShowCompartmentStereotypes 	TRUE
@@ -34094,24 +33770,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C1705BE017B"
-			compartment 	(object Compartment
-			    Parent_View 	@587
-			    location   	(5144, 3611)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	441
-			    justify    	1)
 			width      	462
 			height     	458
 			annotation 	8
@@ -34183,7 +33841,7 @@
 				supplier   	@514
 				vertices   	(list Points
 				    (5809, 3643)
-				    (6021, 3603))
+				    (6021, 3602))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::CodigoDeBarra" @592
 			ShowCompartmentStereotypes 	TRUE
@@ -34211,24 +33869,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE631AD01C0"
-			compartment 	(object Compartment
-			    Parent_View 	@592
-			    location   	(5386, 2465)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	369
-			    justify    	1)
 			width      	368
 			height     	410
 			annotation 	8
@@ -34267,7 +33907,7 @@
 				supplier   	@592
 				vertices   	(list Points
 				    (5869, 2961)
-				    (5717, 2764))
+				    (5718, 2764))
 				line_style 	0
 				label      	(object SegLabel @595
 				    Parent_View 	@594
@@ -34300,7 +33940,7 @@
 				supplier   	@514
 				vertices   	(list Points
 				    (5869, 2961)
-				    (6021, 3159))
+				    (6021, 3158))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::trabajostercerizados::EstadoDetalleTrabajoTercerizado" @597
 			ShowCompartmentStereotypes 	TRUE
@@ -34376,24 +34016,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5E5F4013C"
-			compartment 	(object Compartment
-			    Parent_View 	@598
-			    location   	(12518, 2785)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	25
-			    max_width  	677
-			    justify    	1)
 			width      	698
 			height     	1324
 			annotation 	8
@@ -34432,7 +34054,7 @@
 				supplier   	@504
 				vertices   	(list Points
 				    (12551, 4150)
-				    (12493, 4303))
+				    (12494, 4303))
 				line_style 	0
 				label      	(object SegLabel @601
 				    Parent_View 	@600
@@ -34465,7 +34087,7 @@
 				supplier   	@598
 				vertices   	(list Points
 				    (12551, 4150)
-				    (12609, 3998))
+				    (12607, 3998))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$74" @603
 			location   	(11334, 1603)
@@ -34564,24 +34186,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5BEEE0007"
-			compartment 	(object Compartment
-			    Parent_View 	@607
-			    location   	(4746, 8369)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	375
-			    justify    	1)
 			width      	392
 			height     	412
 			annotation 	8
@@ -34638,7 +34242,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(9362, 7903)
+			location   	(9415, 7885)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -34650,7 +34254,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@609
-			    location   	(9195, 7734)
+			    location   	(9248, 7716)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	334
@@ -34662,7 +34266,7 @@
 			quidu      	"4BE5825802A4"
 			compartment 	(object Compartment
 			    Parent_View 	@609
-			    location   	(9195, 7833)
+			    location   	(9248, 7815)
 			    font       	(object Font
 				size       	9
 				face       	"Arial"
@@ -34845,7 +34449,7 @@
 				supplier   	@508
 				vertices   	(list Points
 				    (9362, 4995)
-				    (9335, 4890))
+				    (9334, 4890))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::EstadoCliente" @616
 			ShowCompartmentStereotypes 	TRUE
@@ -34998,7 +34602,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (11177, 6653)
-				    (11197, 6431))
+				    (11195, 6431))
 				line_style 	0
 				label      	(object SegLabel @621
 				    Parent_View 	@620
@@ -35055,7 +34659,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (10184, 4921)
-				    (10733, 4776))
+				    (10733, 4777))
 				line_style 	0
 				label      	(object SegLabel @624
 				    Parent_View 	@623
@@ -35158,7 +34762,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (8967, 5087)
-				    (10733, 4739))
+				    (10733, 4738))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$304" @630
 			location   	(10181, 4559)
@@ -35194,7 +34798,7 @@
 				supplier   	@508
 				vertices   	(list Points
 				    (10181, 4559)
-				    (9629, 4533))
+				    (9629, 4532))
 				line_style 	0
 				label      	(object SegLabel @632
 				    Parent_View 	@631
@@ -35227,7 +34831,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (10181, 4559)
-				    (10733, 4585))
+				    (10733, 4586))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$57" @634
 			location   	(10693, 6472)
@@ -35263,7 +34867,7 @@
 				supplier   	@509
 				vertices   	(list Points
 				    (10693, 6472)
-				    (10654, 6583))
+				    (10653, 6583))
 				line_style 	0
 				label      	(object SegLabel @636
 				    Parent_View 	@635
@@ -35296,7 +34900,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (10693, 6472)
-				    (10733, 6362))
+				    (10733, 6357))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$202" @638
 			location   	(8667, 3778)
@@ -35332,7 +34936,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (8667, 3778)
-				    (10733, 4421))
+				    (10733, 4422))
 				line_style 	0
 				label      	(object SegLabel @640
 				    Parent_View 	@639
@@ -35402,7 +35006,7 @@
 				supplier   	@519
 				vertices   	(list Points
 				    (10642, 3877)
-				    (10551, 3783))
+				    (10551, 3782))
 				line_style 	0
 				label      	(object SegLabel @644
 				    Parent_View 	@643
@@ -35435,7 +35039,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (10642, 3877)
-				    (10733, 3972))
+				    (10733, 3971))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$31" @646
 			location   	(9593, 3521)
@@ -35541,7 +35145,7 @@
 				supplier   	@598
 				vertices   	(list Points
 				    (12242, 3859)
-				    (12508, 3633))
+				    (12508, 3631))
 				line_style 	0
 				label      	(object SegLabel @652
 				    Parent_View 	@651
@@ -35574,7 +35178,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (12242, 3859)
-				    (11976, 4086))
+				    (11976, 4084))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::compras::Reclamo" @654
 			ShowCompartmentStereotypes 	TRUE
@@ -35770,7 +35374,7 @@
 				supplier   	@654
 				vertices   	(list Points
 				    (13898, 637)
-				    (13733, 624))
+				    (13733, 623))
 				line_style 	0)))
 		    (object InheritView "" @664
 			stereotype 	TRUE
@@ -35930,7 +35534,7 @@
 				supplier   	@654
 				vertices   	(list Points
 				    (12956, 482)
-				    (13100, 519))
+				    (13100, 518))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$72" @674
 			location   	(12776, 1812)
@@ -36000,7 +35604,7 @@
 				supplier   	@598
 				vertices   	(list Points
 				    (12776, 1812)
-				    (12821, 2673))
+				    (12822, 2673))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::Presupuesto" @678
 			ShowCompartmentStereotypes 	TRUE
@@ -36084,7 +35688,7 @@
 				supplier   	@530
 				vertices   	(list Points
 				    (7715, 4851)
-				    (7689, 4040))
+				    (7690, 4040))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$313" @681
 				Parent_View 	@679
@@ -36196,7 +35800,7 @@
 				supplier   	@678
 				vertices   	(list Points
 				    (8391, 5265)
-				    (8415, 5456))
+				    (8413, 5456))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$330" @687
 			location   	(9632, 4934)
@@ -36398,7 +36002,7 @@
 				supplier   	@692
 				vertices   	(list Points
 				    (6387, 4354)
-				    (6084, 4244))
+				    (6084, 4242))
 				line_style 	0
 				label      	(object SegLabel @695
 				    Parent_View 	@694
@@ -36459,24 +36063,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE624150054"
-			compartment 	(object Compartment
-			    Parent_View 	@697
-			    location   	(5341, 1240)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	12
-			    max_width  	569
-			    justify    	1)
 			width      	584
 			height     	698
 			annotation 	8
@@ -36515,7 +36101,7 @@
 				supplier   	@691
 				vertices   	(list Points
 				    (5959, 1104)
-				    (6002, 1056))
+				    (6002, 1055))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$189" @700
 				Parent_View 	@698
@@ -36527,7 +36113,7 @@
 				supplier   	@697
 				vertices   	(list Points
 				    (5959, 1104)
-				    (5916, 1152))
+				    (5916, 1150))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$242" @701
 			location   	(7076, 2429)
@@ -36823,7 +36409,7 @@
 				supplier   	@705
 				vertices   	(list Points
 				    (8410, 2663)
-				    (8105, 2177))
+				    (8105, 2179))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$263" @716
 				Parent_View 	@714
@@ -36970,7 +36556,7 @@
 				supplier   	@559
 				vertices   	(list Points
 				    (7314, 1448)
-				    (7244, 1423))
+				    (7244, 1422))
 				line_style 	0
 				label      	(object SegLabel @724
 				    Parent_View 	@723
@@ -37003,7 +36589,7 @@
 				supplier   	@705
 				vertices   	(list Points
 				    (7314, 1448)
-				    (7384, 1473))
+				    (7384, 1472))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$300" @726
 			location   	(7141, 1062)
@@ -37039,7 +36625,7 @@
 				supplier   	@560
 				vertices   	(list Points
 				    (7141, 1062)
-				    (6898, 846))
+				    (6898, 845))
 				line_style 	0
 				label      	(object SegLabel @728
 				    Parent_View 	@727
@@ -37108,7 +36694,7 @@
 				supplier   	@705
 				vertices   	(list Points
 				    (8633, 1440)
-				    (8105, 1535))
+				    (8105, 1536))
 				line_style 	0
 				label      	(object SegLabel @732
 				    Parent_View 	@731
@@ -37141,7 +36727,7 @@
 				supplier   	@566
 				vertices   	(list Points
 				    (8633, 1440)
-				    (9162, 1346))
+				    (9162, 1344))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::calidad::EjecucionPlanificacionCalidad" @734
 			ShowCompartmentStereotypes 	TRUE
@@ -37169,24 +36755,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE71F0500B6"
-			compartment 	(object Compartment
-			    Parent_View 	@734
-			    location   	(8954, 8553)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	14
-			    max_width  	875
-			    justify    	1)
 			width      	896
 			height     	794
 			annotation 	8
@@ -37258,7 +36826,7 @@
 				supplier   	@734
 				vertices   	(list Points
 				    (10104, 8860)
-				    (9841, 8852))
+				    (9841, 8851))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::EjecucionPlanificacionProduccion" @739
 			ShowCompartmentStereotypes 	TRUE
@@ -37342,7 +36910,7 @@
 				supplier   	@580
 				vertices   	(list Points
 				    (5535, 6066)
-				    (5464, 6104))
+				    (5464, 6102))
 				line_style 	0
 				label      	(object SegLabel @742
 				    Parent_View 	@741
@@ -37375,7 +36943,7 @@
 				supplier   	@739
 				vertices   	(list Points
 				    (5535, 6066)
-				    (5607, 6028))
+				    (5607, 6025))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::PiezaReal" @744
 			ShowCompartmentStereotypes 	TRUE
@@ -37403,24 +36971,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0ABAF60022"
-			compartment 	(object Compartment
-			    Parent_View 	@744
-			    location   	(3794, 3129)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	8
-			    max_width  	569
-			    justify    	1)
 			width      	586
 			height     	506
 			annotation 	8
@@ -37492,7 +37042,7 @@
 				supplier   	@744
 				vertices   	(list Points
 				    (3719, 3614)
-				    (3813, 3524))
+				    (3810, 3524))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$250" @749
 			location   	(8061, 3068)
@@ -37669,7 +37219,7 @@
 				supplier   	@592
 				vertices   	(list Points
 				    (4873, 2887)
-				    (5376, 2647))
+				    (5376, 2646))
 				line_style 	0
 				label      	(object SegLabel @759
 				    Parent_View 	@758
@@ -37819,7 +37369,7 @@
 				supplier   	@761
 				vertices   	(list Points
 				    (9552, 2591)
-				    (9666, 2724))
+				    (9665, 2724))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$68" @766
 			location   	(11473, 2739)
@@ -37918,24 +37468,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE782F03D1"
-			compartment 	(object Compartment
-			    Parent_View 	@770
-			    location   	(2714, 3935)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	10
-			    max_width  	359
-			    justify    	1)
 			width      	362
 			height     	604
 			annotation 	8
@@ -38041,7 +37573,7 @@
 				supplier   	@734
 				vertices   	(list Points
 				    (7726, 7555)
-				    (8944, 8492))
+				    (8944, 8493))
 				line_style 	0
 				label      	(object SegLabel @776
 				    Parent_View 	@775
@@ -38104,24 +37636,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5BC630244"
-			compartment 	(object Compartment
-			    Parent_View 	@778
-			    location   	(5988, 8241)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	10
-			    max_width  	434
-			    justify    	1)
 			width      	454
 			height     	604
 			annotation 	8
@@ -38160,7 +37674,7 @@
 				supplier   	@607
 				vertices   	(list Points
 				    (5553, 8448)
-				    (5129, 8459))
+				    (5129, 8458))
 				line_style 	0
 				label      	(object SegLabel @781
 				    Parent_View 	@780
@@ -38221,24 +37735,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5C7510129"
-			compartment 	(object Compartment
-			    Parent_View 	@783
-			    location   	(4143, 7898)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	11
-			    max_width  	460
-			    justify    	1)
 			width      	480
 			height     	650
 			annotation 	8
@@ -38247,7 +37743,7 @@
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
-			location   	(9913, 7477)
+			location   	(10036, 7542)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -38259,7 +37755,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@784
-			    location   	(9621, 7212)
+			    location   	(9744, 7277)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	584
@@ -38271,7 +37767,7 @@
 			quidu      	"4BE5B9140344"
 			compartment 	(object Compartment
 			    Parent_View 	@784
-			    location   	(9621, 7311)
+			    location   	(9744, 7376)
 			    font       	(object Font
 				size       	9
 				face       	"Arial"
@@ -38292,7 +37788,7 @@
 			annotation 	8
 			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$16" @785
-			location   	(9574, 7736)
+			location   	(9662, 7746)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -38308,7 +37804,7 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "theFormaDePago" @786
 				Parent_View 	@785
-				location   	(2127, 4308)
+				location   	(2215, 4318)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -38324,12 +37820,12 @@
 				client     	@785
 				supplier   	@609
 				vertices   	(list Points
-				    (9574, 7736)
-				    (9538, 7764))
+				    (9662, 7746)
+				    (9591, 7786))
 				line_style 	0
 				label      	(object SegLabel @787
 				    Parent_View 	@786
-				    location   	(9537, 7706)
+				    location   	(9619, 7716)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -38350,15 +37846,15 @@
 				    orientation 	1))
 			    (object RoleView "$UNNAMED$17" @788
 				Parent_View 	@785
-				location   	(2127, 4308)
+				location   	(2215, 4318)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BE5BADF0346"
 				client     	@785
 				supplier   	@784
 				vertices   	(list Points
-				    (9574, 7736)
-				    (9611, 7708))
+				    (9662, 7746)
+				    (9734, 7707))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::Factura" @789
 			ShowCompartmentStereotypes 	TRUE
@@ -38442,7 +37938,7 @@
 				supplier   	@608
 				vertices   	(list Points
 				    (11872, 7245)
-				    (11915, 6984))
+				    (11914, 6984))
 				line_style 	0
 				label      	(object SegLabel @792
 				    Parent_View 	@791
@@ -38475,10 +37971,10 @@
 				supplier   	@789
 				vertices   	(list Points
 				    (11872, 7245)
-				    (11830, 7506))
+				    (11829, 7506))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$3" @794
-			location   	(10483, 8063)
+			location   	(10509, 8053)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -38494,7 +37990,7 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "theFormaDePago" @795
 				Parent_View 	@794
-				location   	(3792, 4100)
+				location   	(3818, 4090)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -38510,12 +38006,12 @@
 				client     	@794
 				supplier   	@609
 				vertices   	(list Points
-				    (10483, 8063)
-				    (9538, 7927))
+				    (10509, 8053)
+				    (9591, 7911))
 				line_style 	0
 				label      	(object SegLabel @796
 				    Parent_View 	@795
-				    location   	(9777, 7909)
+				    location   	(9824, 7895)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -38536,15 +38032,15 @@
 				    orientation 	1))
 			    (object RoleView "$UNNAMED$4" @797
 				Parent_View 	@794
-				location   	(3792, 4100)
+				location   	(3818, 4090)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BE5829F009D"
 				client     	@794
 				supplier   	@789
 				vertices   	(list Points
-				    (10483, 8063)
-				    (11428, 8199))
+				    (10509, 8053)
+				    (11428, 8196))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$11" @798
 			location   	(12088, 7706)
@@ -38580,7 +38076,7 @@
 				supplier   	@610
 				vertices   	(list Points
 				    (12088, 7706)
-				    (12182, 7573))
+				    (12180, 7573))
 				line_style 	0
 				label      	(object SegLabel @800
 				    Parent_View 	@799
@@ -38613,10 +38109,10 @@
 				supplier   	@789
 				vertices   	(list Points
 				    (12088, 7706)
-				    (11995, 7839))
+				    (11995, 7836))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$155" @802
-			location   	(10821, 7862)
+			location   	(10882, 7893)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -38632,7 +38128,7 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "theComprobantePago" @803
 				Parent_View 	@802
-				location   	(1996, 2535)
+				location   	(2057, 2566)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -38648,12 +38144,12 @@
 				client     	@802
 				supplier   	@784
 				vertices   	(list Points
-				    (10821, 7862)
-				    (10214, 7605))
+				    (10882, 7893)
+				    (10337, 7666))
 				line_style 	0
 				label      	(object SegLabel @804
 				    Parent_View 	@803
-				    location   	(10242, 7660)
+				    location   	(10361, 7719)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -38674,15 +38170,15 @@
 				    orientation 	0))
 			    (object RoleView "$UNNAMED$156" @805
 				Parent_View 	@802
-				location   	(1996, 2535)
+				location   	(2057, 2566)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4C0E9F8E025B"
 				client     	@802
 				supplier   	@789
 				vertices   	(list Points
-				    (10821, 7862)
-				    (11428, 8120))
+				    (10882, 7893)
+				    (11428, 8121))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$5" @806
 			location   	(10190, 6888)
@@ -38823,7 +38319,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (11585, 6968)
-				    (11533, 6431))
+				    (11531, 6431))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::Cliente" @814
 			ShowCompartmentStereotypes 	TRUE
@@ -38898,7 +38394,7 @@
 				supplier   	@616
 				vertices   	(list Points
 				    (11375, 864)
-				    (11557, 705))
+				    (11557, 704))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$82" @817
 				Parent_View 	@815
@@ -38919,7 +38415,7 @@
 				supplier   	@814
 				vertices   	(list Points
 				    (11375, 864)
-				    (11194, 1024))
+				    (11194, 1022))
 				line_style 	0
 				label      	(object SegLabel @818
 				    Parent_View 	@817
@@ -38976,7 +38472,7 @@
 				supplier   	@617
 				vertices   	(list Points
 				    (11009, 2492)
-				    (11059, 2802))
+				    (11058, 2802))
 				line_style 	0
 				label      	(object SegLabel @821
 				    Parent_View 	@820
@@ -39009,7 +38505,7 @@
 				supplier   	@814
 				vertices   	(list Points
 				    (11009, 2492)
-				    (10959, 2182))
+				    (10958, 2182))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$344" @823
 			location   	(12147, 967)
@@ -39045,7 +38541,7 @@
 				supplier   	@654
 				vertices   	(list Points
 				    (12147, 967)
-				    (13100, 691))
+				    (13100, 690))
 				line_style 	0
 				label      	(object SegLabel @825
 				    Parent_View 	@824
@@ -39078,7 +38574,7 @@
 				supplier   	@814
 				vertices   	(list Points
 				    (12147, 967)
-				    (11194, 1244))
+				    (11194, 1243))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::PlanificacionProduccion" @827
 			ShowCompartmentStereotypes 	TRUE
@@ -39172,7 +38668,7 @@
 				supplier   	@739
 				vertices   	(list Points
 				    (6104, 5307)
-				    (6083, 5398))
+				    (6082, 5398))
 				line_style 	0
 				label      	(object SegLabel @831
 				    Parent_View 	@830
@@ -39205,7 +38701,7 @@
 				supplier   	@827
 				vertices   	(list Points
 				    (6104, 5307)
-				    (6125, 5216))
+				    (6124, 5216))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::calidad::AccionCalidad" @833
 			ShowCompartmentStereotypes 	TRUE
@@ -39233,24 +38729,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE879ED02A9"
-			compartment 	(object Compartment
-			    Parent_View 	@833
-			    location   	(5590, 6585)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	335
-			    justify    	1)
 			width      	356
 			height     	362
 			annotation 	8
@@ -39346,7 +38824,7 @@
 				supplier   	@835
 				vertices   	(list Points
 				    (8736, 6485)
-				    (8837, 6718))
+				    (8836, 6718))
 				line_style 	0
 				label      	(object SegLabel @838
 				    Parent_View 	@837
@@ -39463,7 +38941,7 @@
 				supplier   	@840
 				vertices   	(list Points
 				    (8982, 5953)
-				    (9212, 5998))
+				    (9212, 5997))
 				line_style 	0
 				label      	(object SegLabel @843
 				    Parent_View 	@842
@@ -39533,24 +39011,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D2320005"
-			compartment 	(object Compartment
-			    Parent_View 	@845
-			    location   	(4085, 1616)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	22
-			    max_width  	742
-			    justify    	1)
 			width      	756
 			height     	1180
 			annotation 	8
@@ -39589,7 +39049,7 @@
 				supplier   	@691
 				vertices   	(list Points
 				    (5316, 1097)
-				    (6002, 904))
+				    (6002, 905))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$187" @848
 				Parent_View 	@846
@@ -39661,7 +39121,7 @@
 				    label      	"1"
 				    pctDist    	-2.035217
 				    height     	2715
-				    orientation 	0))
+				    orientation 	1))
 			    (object RoleView "$UNNAMED$341" @852
 				Parent_View 	@849
 				location   	(3786, 2159)
@@ -39708,7 +39168,7 @@
 				supplier   	@744
 				vertices   	(list Points
 				    (4211, 2851)
-				    (4158, 3017))
+				    (4157, 3017))
 				line_style 	0
 				label      	(object SegLabel @855
 				    Parent_View 	@854
@@ -39741,7 +39201,7 @@
 				supplier   	@845
 				vertices   	(list Points
 				    (4211, 2851)
-				    (4265, 2685))
+				    (4263, 2685))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$85" @857
 			location   	(5081, 1762)
@@ -39777,7 +39237,7 @@
 				supplier   	@697
 				vertices   	(list Points
 				    (5081, 1762)
-				    (5331, 1632))
+				    (5331, 1629))
 				line_style 	0
 				label      	(object SegLabel @859
 				    Parent_View 	@858
@@ -39810,7 +39270,7 @@
 				supplier   	@845
 				vertices   	(list Points
 				    (5081, 1762)
-				    (4832, 1893))
+				    (4832, 1892))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$380" @861
 			location   	(6108, 1846)
@@ -39879,7 +39339,7 @@
 				supplier   	@845
 				vertices   	(list Points
 				    (6108, 1846)
-				    (4832, 2037))
+				    (4832, 2036))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$176" @865
 			location   	(7196, 2581)
@@ -40065,7 +39525,7 @@
 				supplier   	@705
 				vertices   	(list Points
 				    (6851, 2223)
-				    (7384, 1852))
+				    (7384, 1850))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::calidad::EstadoEjecucionProcesoCalidad" @874
 			ShowCompartmentStereotypes 	TRUE
@@ -40093,24 +39553,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C1854A30083"
-			compartment 	(object Compartment
-			    Parent_View 	@874
-			    location   	(8187, 8918)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	653
-			    justify    	1)
 			width      	666
 			height     	362
 			annotation 	8
@@ -40141,24 +39583,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0AD61B0341"
-			compartment 	(object Compartment
-			    Parent_View 	@875
-			    location   	(7942, 8384)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	739
-			    justify    	1)
 			width      	760
 			height     	458
 			annotation 	8
@@ -40329,24 +39753,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE7136602B8"
-			compartment 	(object Compartment
-			    Parent_View 	@884
-			    location   	(2479, 6146)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	462
-			    justify    	1)
 			width      	480
 			height     	362
 			annotation 	8
@@ -40377,24 +39783,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0AC22D0358"
-			compartment 	(object Compartment
-			    Parent_View 	@885
-			    location   	(4155, 5539)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	8
-			    max_width  	1030
-			    justify    	1)
 			width      	1050
 			height     	506
 			annotation 	8
@@ -40433,7 +39821,7 @@
 				supplier   	@885
 				vertices   	(list Points
 				    (5401, 5758)
-				    (5196, 5736))
+				    (5196, 5735))
 				line_style 	0
 				label      	(object SegLabel @888
 				    Parent_View 	@887
@@ -40466,7 +39854,7 @@
 				supplier   	@739
 				vertices   	(list Points
 				    (5401, 5758)
-				    (5607, 5780))
+				    (5607, 5779))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$143" @890
 			location   	(4373, 4475)
@@ -40502,7 +39890,7 @@
 				supplier   	@744
 				vertices   	(list Points
 				    (4373, 4475)
-				    (4139, 3524))
+				    (4138, 3524))
 				line_style 	0
 				label      	(object SegLabel @892
 				    Parent_View 	@891
@@ -40606,7 +39994,7 @@
 				supplier   	@885
 				vertices   	(list Points
 				    (7040, 3639)
-				    (4960, 5427))
+				    (4964, 5427))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::mantmaquinarias::DetalleMantenimientoPreventivo" @898
 			ShowCompartmentStereotypes 	TRUE
@@ -40634,24 +40022,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE77D703C2"
-			compartment 	(object Compartment
-			    Parent_View 	@898
-			    location   	(2913, 2923)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	8
-			    max_width  	655
-			    justify    	1)
 			width      	676
 			height     	508
 			annotation 	8
@@ -40690,7 +40060,7 @@
 				supplier   	@770
 				vertices   	(list Points
 				    (3070, 3571)
-				    (2986, 3823))
+				    (2985, 3823))
 				line_style 	0
 				label      	(object SegLabel @901
 				    Parent_View 	@900
@@ -40723,7 +40093,7 @@
 				supplier   	@898
 				vertices   	(list Points
 				    (3070, 3571)
-				    (3155, 3320))
+				    (3154, 3320))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::mantmaquinarias::EstadoMantenimientoPreventivo" @903
 			ShowCompartmentStereotypes 	TRUE
@@ -40751,24 +40121,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4CB374D6025B"
-			compartment 	(object Compartment
-			    Parent_View 	@903
-			    location   	(2050, 1925)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	13434879
-			    anchor     	2
-			    nlines     	4
-			    max_width  	275
-			    justify    	1)
 			width      	596
 			height     	316
 			annotation 	8
@@ -40799,24 +40151,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D1EB00E3"
-			compartment 	(object Compartment
-			    Parent_View 	@904
-			    location   	(1177, 5531)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	259
-			    justify    	1)
 			width      	274
 			height     	458
 			annotation 	8
@@ -40847,24 +40181,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D206024E"
-			compartment 	(object Compartment
-			    Parent_View 	@905
-			    location   	(260, 4603)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	259
-			    justify    	1)
 			width      	274
 			height     	362
 			annotation 	8
@@ -40904,24 +40220,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0EC3410059"
-			compartment 	(object Compartment
-			    Parent_View 	@907
-			    location   	(566, 5246)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	259
-			    justify    	1)
 			width      	274
 			height     	362
 			annotation 	8
@@ -41147,24 +40445,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE5BB3702A7"
-			compartment 	(object Compartment
-			    Parent_View 	@918
-			    location   	(5250, 7628)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	13
-			    max_width  	387
-			    justify    	1)
 			width      	396
 			height     	748
 			annotation 	8
@@ -41236,7 +40516,7 @@
 				supplier   	@918
 				vertices   	(list Points
 				    (5807, 8150)
-				    (5637, 8031))
+				    (5637, 8030))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$29" @923
 			location   	(4927, 7996)
@@ -41272,7 +40552,7 @@
 				supplier   	@918
 				vertices   	(list Points
 				    (4927, 7996)
-				    (5240, 7931))
+				    (5240, 7930))
 				line_style 	0
 				label      	(object SegLabel @925
 				    Parent_View 	@924
@@ -41308,7 +40588,7 @@
 				    (4614, 8061))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$20" @927
-			location   	(7650, 7899)
+			location   	(7711, 7901)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -41324,7 +40604,7 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "theUsuario" @928
 				Parent_View 	@927
-				location   	(203, 4471)
+				location   	(264, 4473)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -41340,12 +40620,12 @@
 				client     	@927
 				supplier   	@918
 				vertices   	(list Points
-				    (7650, 7899)
+				    (7711, 7901)
 				    (5637, 7891))
 				line_style 	0
 				label      	(object SegLabel @929
 				    Parent_View 	@928
-				    location   	(5686, 7881)
+				    location   	(5687, 7881)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -41366,16 +40646,17 @@
 				    orientation 	1))
 			    (object RoleView "$UNNAMED$21" @930
 				Parent_View 	@927
-				location   	(203, 4471)
+				location   	(264, 4473)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4BE5BB6F03CF"
 				client     	@927
 				supplier   	@784
 				vertices   	(list Points
-				    (7650, 7899)
-				    (8519, 7903)
-				    (9611, 7567))
+				    (7711, 7901)
+				    (8518, 7905)
+				    (9180, 7651)
+				    (9734, 7579))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$51" @931
 			location   	(8532, 8062)
@@ -41444,7 +40725,7 @@
 				supplier   	@789
 				vertices   	(list Points
 				    (8532, 8062)
-				    (11428, 8224))
+				    (11428, 8223))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$26" @935
 			location   	(9990, 6804)
@@ -41544,24 +40825,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0AB87A0054"
-			compartment 	(object Compartment
-			    Parent_View 	@939
-			    location   	(4619, 4097)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	14
-			    max_width  	908
-			    justify    	1)
 			width      	928
 			height     	796
 			annotation 	8
@@ -41633,7 +40896,7 @@
 				supplier   	@827
 				vertices   	(list Points
 				    (5662, 4704)
-				    (5787, 4772))
+				    (5787, 4771))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$135" @944
 			location   	(4788, 3335)
@@ -41669,7 +40932,7 @@
 				supplier   	@845
 				vertices   	(list Points
 				    (4788, 3335)
-				    (4613, 2685))
+				    (4612, 2685))
 				line_style 	0
 				label      	(object SegLabel @946
 				    Parent_View 	@945
@@ -41771,7 +41034,7 @@
 				supplier   	@939
 				vertices   	(list Points
 				    (4848, 5104)
-				    (4948, 4782))
+				    (4947, 4782))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::rrhh::DisponibilidadHoraria" @952
 			ShowCompartmentStereotypes 	TRUE
@@ -41799,24 +41062,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C7453A002CE"
-			compartment 	(object Compartment
-			    Parent_View 	@952
-			    location   	(23, 4051)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	534
-			    justify    	1)
 			width      	520
 			height     	458
 			annotation 	8
@@ -41847,24 +41092,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D1E60242"
-			compartment 	(object Compartment
-			    Parent_View 	@953
-			    location   	(123, 3368)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	325
-			    justify    	1)
 			width      	324
 			height     	458
 			annotation 	8
@@ -41895,24 +41122,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D25002C1"
-			compartment 	(object Compartment
-			    Parent_View 	@954
-			    location   	(2508, 2284)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	388
-			    justify    	1)
 			width      	380
 			height     	460
 			annotation 	8
@@ -41943,24 +41152,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE62140020C"
-			compartment 	(object Compartment
-			    Parent_View 	@955
-			    location   	(1943, 2375)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	6
-			    max_width  	381
-			    justify    	1)
 			width      	374
 			height     	412
 			annotation 	8
@@ -41991,24 +41182,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4C0AA7F7034D"
-			compartment 	(object Compartment
-			    Parent_View 	@956
-			    location   	(1699, 4271)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	259
-			    justify    	1)
 			width      	318
 			height     	362
 			annotation 	8
@@ -42095,7 +41268,7 @@
 				supplier   	@833
 				vertices   	(list Points
 				    (6260, 6604)
-				    (5937, 6636))
+				    (5937, 6635))
 				line_style 	0
 				label      	(object SegLabel @960
 				    Parent_View 	@959
@@ -42268,7 +41441,7 @@
 				supplier   	@909
 				vertices   	(list Points
 				    (7351, 6633)
-				    (7519, 6666))
+				    (7519, 6664))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::ventas::EtapaDeProduccion" @970
 			ShowCompartmentStereotypes 	TRUE
@@ -42296,24 +41469,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D23802D8"
-			compartment 	(object Compartment
-			    Parent_View 	@970
-			    location   	(2393, 4722)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	18
-			    max_width  	879
-			    justify    	1)
 			width      	900
 			height     	988
 			annotation 	8
@@ -42352,7 +41507,7 @@
 				supplier   	@970
 				vertices   	(list Points
 				    (6575, 7565)
-				    (3284, 5401))
+				    (3284, 5400))
 				line_style 	0)
 			    (object RoleView "$UNNAMED$233" @973
 				Parent_View 	@971
@@ -42466,7 +41621,7 @@
 				supplier   	@939
 				vertices   	(list Points
 				    (3946, 4745)
-				    (4609, 4532))
+				    (4609, 4531))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$334" @979
 			location   	(4271, 3870)
@@ -42502,7 +41657,7 @@
 				supplier   	@970
 				vertices   	(list Points
 				    (4271, 3870)
-				    (3284, 4717))
+				    (3284, 4715))
 				line_style 	0
 				label      	(object SegLabel @981
 				    Parent_View 	@980
@@ -42609,7 +41764,7 @@
 				    label      	"1"
 				    pctDist    	-1.766182
 				    height     	1162
-				    orientation 	0))))
+				    orientation 	1))))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::calidad::EjecucionProcesoCalidad" @987
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
@@ -42636,24 +41791,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE71F120046"
-			compartment 	(object Compartment
-			    Parent_View 	@987
-			    location   	(6762, 8412)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	17
-			    max_width  	790
-			    justify    	1)
 			width      	802
 			height     	938
 			annotation 	8
@@ -42725,7 +41862,7 @@
 				supplier   	@987
 				vertices   	(list Points
 				    (7866, 8882)
-				    (7555, 8832))
+				    (7555, 8833))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$151" @992
 			location   	(7743, 8632)
@@ -42761,7 +41898,7 @@
 				supplier   	@987
 				vertices   	(list Points
 				    (7743, 8632)
-				    (7555, 8676))
+				    (7555, 8674))
 				line_style 	0
 				label      	(object SegLabel @994
 				    Parent_View 	@993
@@ -42794,7 +41931,7 @@
 				supplier   	@875
 				vertices   	(list Points
 				    (7743, 8632)
-				    (7932, 8589))
+				    (7932, 8588))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$111" @996
 			location   	(7025, 7717)
@@ -42863,7 +42000,7 @@
 				supplier   	@957
 				vertices   	(list Points
 				    (7025, 7717)
-				    (6955, 7134))
+				    (6954, 7134))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::produccion::EjecucionEtapaDeProduccion" @1000
 			ShowCompartmentStereotypes 	TRUE
@@ -42891,24 +42028,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE7ABB0127"
-			compartment 	(object Compartment
-			    Parent_View 	@1000
-			    location   	(3236, 6186)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	16
-			    max_width  	615
-			    justify    	1)
 			width      	632
 			height     	890
 			annotation 	8
@@ -42947,7 +42066,7 @@
 				supplier   	@884
 				vertices   	(list Points
 				    (3088, 6353)
-				    (2950, 6303))
+				    (2950, 6302))
 				line_style 	0
 				label      	(object SegLabel @1003
 				    Parent_View 	@1002
@@ -42980,7 +42099,7 @@
 				supplier   	@1000
 				vertices   	(list Points
 				    (3088, 6353)
-				    (3226, 6404))
+				    (3226, 6402))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$141" @1005
 			location   	(4093, 6108)
@@ -43016,7 +42135,7 @@
 				supplier   	@1000
 				vertices   	(list Points
 				    (4093, 6108)
-				    (3859, 6283))
+				    (3859, 6281))
 				line_style 	0
 				label      	(object SegLabel @1007
 				    Parent_View 	@1006
@@ -43049,7 +42168,7 @@
 				supplier   	@885
 				vertices   	(list Points
 				    (4093, 6108)
-				    (4327, 5934))
+				    (4324, 5934))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$216" @1009
 			location   	(3199, 5836)
@@ -43106,7 +42225,7 @@
 				supplier   	@970
 				vertices   	(list Points
 				    (3199, 5836)
-				    (3081, 5599))
+				    (3080, 5599))
 				line_style 	0
 				label      	(object SegLabel @1012
 				    Parent_View 	@1011
@@ -43155,24 +42274,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BBE77AA00B0"
-			compartment 	(object Compartment
-			    Parent_View 	@1013
-			    location   	(3185, 1720)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	20
-			    max_width  	809
-			    justify    	1)
 			width      	830
 			height     	1084
 			annotation 	8
@@ -43211,7 +42312,7 @@
 				supplier   	@898
 				vertices   	(list Points
 				    (3360, 2752)
-				    (3337, 2811))
+				    (3336, 2811))
 				line_style 	0
 				label      	(object SegLabel @1016
 				    Parent_View 	@1015
@@ -43244,7 +42345,7 @@
 				supplier   	@1013
 				vertices   	(list Points
 				    (3360, 2752)
-				    (3383, 2693))
+				    (3381, 2693))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$291" @1018
 			location   	(2906, 2051)
@@ -43280,7 +42381,7 @@
 				supplier   	@903
 				vertices   	(list Points
 				    (2906, 2051)
-				    (2637, 2013))
+				    (2637, 2012))
 				line_style 	0
 				label      	(object SegLabel @1020
 				    Parent_View 	@1019
@@ -43313,7 +42414,7 @@
 				supplier   	@1013
 				vertices   	(list Points
 				    (2906, 2051)
-				    (3175, 2090))
+				    (3175, 2089))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::mantmaquinarias::Empresa de Mantenimiento" @1022
 			ShowCompartmentStereotypes 	TRUE
@@ -43341,24 +42442,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0B19B00CA"
-			compartment 	(object Compartment
-			    Parent_View 	@1022
-			    location   	(216, 948)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	546
-			    justify    	1)
 			width      	566
 			height     	462
 			annotation 	8
@@ -43430,7 +42513,7 @@
 				supplier   	@1013
 				vertices   	(list Points
 				    (1974, 1585)
-				    (3175, 2005))
+				    (3175, 2004))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::rrhh::Empleado" @1027
 			ShowCompartmentStereotypes 	TRUE
@@ -43458,24 +42541,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D1FA037A"
-			compartment 	(object Compartment
-			    Parent_View 	@1027
-			    location   	(714, 3755)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	23
-			    max_width  	713
-			    justify    	1)
 			width      	734
 			height     	1228
 			annotation 	8
@@ -43514,7 +42579,7 @@
 				supplier   	@904
 				vertices   	(list Points
 				    (1218, 5145)
-				    (1264, 5419))
+				    (1263, 5419))
 				line_style 	0
 				label      	(object SegLabel @1030
 				    Parent_View 	@1029
@@ -43547,7 +42612,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (1218, 5145)
-				    (1173, 4872))
+				    (1172, 4872))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$314" @1032
 			location   	(614, 4533)
@@ -43583,7 +42648,7 @@
 				supplier   	@905
 				vertices   	(list Points
 				    (614, 4533)
-				    (525, 4588))
+				    (525, 4587))
 				line_style 	0
 				label      	(object SegLabel @1034
 				    Parent_View 	@1033
@@ -43616,7 +42681,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (614, 4533)
-				    (704, 4479))
+				    (704, 4477))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$174" @1036
 			location   	(804, 5003)
@@ -43652,7 +42717,7 @@
 				supplier   	@907
 				vertices   	(list Points
 				    (804, 5003)
-				    (757, 5134))
+				    (756, 5134))
 				line_style 	0
 				label      	(object SegLabel @1038
 				    Parent_View 	@1037
@@ -43685,7 +42750,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (804, 5003)
-				    (851, 4872))
+				    (849, 4872))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$220" @1040
 			location   	(3931, 7160)
@@ -43792,7 +42857,7 @@
 				supplier   	@918
 				vertices   	(list Points
 				    (2640, 7157)
-				    (5240, 7837))
+				    (5240, 7838))
 				line_style 	0
 				label      	(object SegLabel @1046
 				    Parent_View 	@1045
@@ -43944,7 +43009,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (619, 4205)
-				    (704, 4215))
+				    (704, 4214))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$285" @1055
 			location   	(571, 3772)
@@ -44013,7 +43078,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (571, 3772)
-				    (704, 3902))
+				    (704, 3901))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$224" @1059
 			location   	(4321, 6294)
@@ -44121,7 +43186,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (2221, 5609)
-				    (1439, 4688))
+				    (1439, 4689))
 				line_style 	0
 				label      	(object SegLabel @1065
 				    Parent_View 	@1064
@@ -44184,24 +43249,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BB7D249033A"
-			compartment 	(object Compartment
-			    Parent_View 	@1067
-			    location   	(1598, 2916)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	23
-			    max_width  	986
-			    justify    	1)
 			width      	1006
 			height     	1228
 			annotation 	8
@@ -44240,7 +43287,7 @@
 				supplier   	@954
 				vertices   	(list Points
 				    (2501, 2718)
-				    (2552, 2633))
+				    (2550, 2633))
 				line_style 	0
 				label      	(object SegLabel @1070
 				    Parent_View 	@1069
@@ -44273,7 +43320,7 @@
 				supplier   	@1067
 				vertices   	(list Points
 				    (2501, 2718)
-				    (2450, 2804))
+				    (2449, 2804))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$83" @1072
 			location   	(2111, 2740)
@@ -44309,7 +43356,7 @@
 				supplier   	@955
 				vertices   	(list Points
 				    (2111, 2740)
-				    (2114, 2676))
+				    (2112, 2676))
 				line_style 	0
 				label      	(object SegLabel @1074
 				    Parent_View 	@1073
@@ -44342,7 +43389,7 @@
 				supplier   	@1067
 				vertices   	(list Points
 				    (2111, 2740)
-				    (2109, 2804))
+				    (2108, 2804))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$121" @1076
 			location   	(1911, 4096)
@@ -44378,7 +43425,7 @@
 				supplier   	@956
 				vertices   	(list Points
 				    (1911, 4096)
-				    (1895, 4159))
+				    (1894, 4159))
 				line_style 	0
 				label      	(object SegLabel @1078
 				    Parent_View 	@1077
@@ -44411,7 +43458,7 @@
 				supplier   	@1067
 				vertices   	(list Points
 				    (1911, 4096)
-				    (1928, 4033))
+				    (1926, 4033))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$113" @1080
 			location   	(3096, 7022)
@@ -44527,7 +43574,7 @@
 				supplier   	@1067
 				vertices   	(list Points
 				    (2488, 4321)
-				    (2362, 4033))
+				    (2361, 4033))
 				line_style 	0
 				label      	(object SegLabel @1086
 				    Parent_View 	@1085
@@ -44560,7 +43607,7 @@
 				supplier   	@970
 				vertices   	(list Points
 				    (2488, 4321)
-				    (2615, 4610))
+				    (2614, 4610))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$226" @1088
 			location   	(2936, 7966)
@@ -44738,7 +43785,7 @@
 				supplier   	@1013
 				vertices   	(list Points
 				    (2885, 2745)
-				    (3175, 2500))
+				    (3175, 2498))
 				line_style 	0
 				label      	(object SegLabel @1098
 				    Parent_View 	@1097
@@ -44771,7 +43818,7 @@
 				supplier   	@1067
 				vertices   	(list Points
 				    (2885, 2745)
-				    (2595, 2990))
+				    (2595, 2988))
 				line_style 	0)))
 		    (object ClassView "Class" "Logical View::metalsoft::negocio::mantmaquinarias::MantenimientoCorrectivo" @1100
 			ShowCompartmentStereotypes 	TRUE
@@ -44799,24 +43846,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0AA8E0376"
-			compartment 	(object Compartment
-			    Parent_View 	@1100
-			    location   	(320, 1555)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	15
-			    max_width  	809
-			    justify    	1)
 			width      	830
 			height     	844
 			annotation 	8
@@ -44888,7 +43917,7 @@
 				supplier   	@1100
 				vertices   	(list Points
 				    (578, 1371)
-				    (600, 1443))
+				    (599, 1443))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$394" @1105
 			location   	(883, 2965)
@@ -44924,7 +43953,7 @@
 				supplier   	@1027
 				vertices   	(list Points
 				    (883, 2965)
-				    (982, 3643))
+				    (980, 3643))
 				line_style 	0
 				label      	(object SegLabel @1107
 				    Parent_View 	@1106
@@ -44993,7 +44022,7 @@
 				supplier   	@1100
 				vertices   	(list Points
 				    (1342, 2567)
-				    (1096, 2288))
+				    (1097, 2288))
 				line_style 	0
 				label      	(object SegLabel @1111
 				    Parent_View 	@1110
@@ -45054,24 +44083,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0AAAD020C"
-			compartment 	(object Compartment
-			    Parent_View 	@1113
-			    location   	(539, 3343)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	5
-			    max_width  	275
-			    justify    	1)
 			width      	318
 			height     	362
 			annotation 	8
@@ -45102,24 +44113,6 @@
 			line_color 	10485760
 			fill_color 	16777175
 			quidu      	"4BE0AA9E01F6"
-			compartment 	(object Compartment
-			    Parent_View 	@1114
-			    location   	(462, 2532)
-			    font       	(object Font
-				size       	9
-				face       	"Arial"
-				bold       	FALSE
-				italics    	FALSE
-				underline  	FALSE
-				strike     	FALSE
-				color      	0
-				default_color 	TRUE)
-			    icon_style 	"Icon"
-			    fill_color 	16777215
-			    anchor     	2
-			    nlines     	7
-			    max_width  	644
-			    justify    	1)
 			width      	664
 			height     	458
 			annotation 	8
@@ -45158,7 +44151,7 @@
 				supplier   	@1114
 				vertices   	(list Points
 				    (761, 2354)
-				    (767, 2420))
+				    (766, 2420))
 				line_style 	0
 				label      	(object SegLabel @1117
 				    Parent_View 	@1116
@@ -45191,7 +44184,7 @@
 				supplier   	@1100
 				vertices   	(list Points
 				    (761, 2354)
-				    (756, 2288))
+				    (755, 2288))
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$294" @1119
 			location   	(733, 3055)
@@ -45260,7 +44253,7 @@
 				supplier   	@1114
 				vertices   	(list Points
 				    (733, 3055)
-				    (755, 2879))
+				    (754, 2879))
 				line_style 	0)))
 		    (object InheritView "" @1123
 			stereotype 	TRUE
@@ -45320,7 +44313,37 @@
 			    (6305, 104)
 			    (5586, 403))
 			line_style 	0)
-		    (object ClassView "Class" "Logical View::ReclamoEmpresaDeMAntenimiento" @1128
+		    (object ClassView "Class" "Logical View::Detalle ReclamoEmpresaMAntenimiento" @1128
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(14974, 652)
+			font       	(object Font
+			    size       	9
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@1128
+			    location   	(14606, 603)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	736
+			    justify    	0
+			    label      	"Detalle ReclamoEmpresaMAntenimiento")
+			icon_style 	"Icon"
+			line_color 	10485760
+			fill_color 	16777175
+			quidu      	"4CBD6D66032D"
+			width      	754
+			height     	120
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::ReclamoEmpresaDeMAntenimiento" @1129
 			ShowCompartmentStereotypes 	TRUE
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
@@ -45335,7 +44358,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@1128
+			    Parent_View 	@1129
 			    location   	(14073, 86)
 			    fill_color 	13434879
 			    nlines     	1
@@ -45347,7 +44370,7 @@
 			fill_color 	16777175
 			quidu      	"4CBD6CFF00B7"
 			compartment 	(object Compartment
-			    Parent_View 	@1128
+			    Parent_View 	@1129
 			    location   	(14073, 145)
 			    font       	(object Font
 				size       	9
@@ -45368,48 +44391,18 @@
 			height     	274
 			annotation 	8
 			autoResize 	TRUE)
-		    (object InheritView "" @1129
+		    (object InheritView "" @1130
 			stereotype 	TRUE
 			line_color 	10485760
 			quidu      	"4CBD6D4C0315"
 			client     	@654
-			supplier   	@1128
+			supplier   	@1129
 			vertices   	(list Points
 			    (13733, 487)
 			    (14133, 348))
 			line_style 	0)
-		    (object ClassView "Class" "Logical View::Detalle ReclamoEmpresaMAntenimiento" @1130
-			ShowCompartmentStereotypes 	TRUE
-			IncludeAttribute 	TRUE
-			IncludeOperation 	TRUE
-			location   	(14974, 652)
-			font       	(object Font
-			    size       	9
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			label      	(object ItemLabel
-			    Parent_View 	@1130
-			    location   	(14593, 603)
-			    fill_color 	13434879
-			    nlines     	1
-			    max_width  	762
-			    justify    	0
-			    label      	"Detalle ReclamoEmpresaMAntenimiento")
-			icon_style 	"Icon"
-			line_color 	10485760
-			fill_color 	16777175
-			quidu      	"4CBD6D66032D"
-			width      	780
-			height     	122
-			annotation 	8
-			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$297" @1131
-			location   	(14789, 469)
+			location   	(14790, 469)
 			font       	(object Font
 			    size       	9
 			    face       	"Arial"
@@ -45425,7 +44418,7 @@
 			roleview_list 	(list RoleViews
 			    (object RoleView "$UNNAMED$298" @1132
 				Parent_View 	@1131
-				location   	(260, 276)
+				location   	(261, 276)
 				font       	(object Font
 				    size       	9
 				    face       	"Arial"
@@ -45439,14 +44432,14 @@
 				line_color 	3342489
 				quidu      	"4CBD6D8803B6"
 				client     	@1131
-				supplier   	@1130
+				supplier   	@1128
 				vertices   	(list Points
-				    (14789, 469)
-				    (14912, 590))
+				    (14790, 469)
+				    (14913, 591))
 				line_style 	0
 				label      	(object SegLabel @1133
 				    Parent_View 	@1132
-				    location   	(14938, 541)
+				    location   	(14939, 542)
 				    font       	(object Font
 					size       	9
 					face       	"Arial"
@@ -45467,24 +44460,24 @@
 				    orientation 	0))
 			    (object RoleView "$UNNAMED$299" @1134
 				Parent_View 	@1131
-				location   	(260, 276)
+				location   	(261, 276)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4CBD6D8803BC"
 				client     	@1131
-				supplier   	@1128
+				supplier   	@1129
 				vertices   	(list Points
-				    (14789, 469)
+				    (14790, 469)
 				    (14667, 348))
 				line_style 	0)))
 		    (object InheritView "" @1135
 			stereotype 	TRUE
 			line_color 	10485760
 			quidu      	"4CBD6DDD03A9"
-			client     	@1130
+			client     	@1128
 			supplier   	@520
 			vertices   	(list Points
-			    (14969, 713)
+			    (14969, 712)
 			    (14916, 1573)
 			    (14341, 1998))
 			line_style 	0)))))
@@ -50022,7 +49015,7 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"ClassPath"
-			value      	"")
+			value      	";C:\\Program Files (x86)\\Java\\jdk1.6.0_24\\jre\\lib\\rt.jar;C:\\Program Files (x86)\\Java\\jdk1.6.0_24\\lib\\dt.jar;C:\\Program Files (x86)\\Java\\jdk1.6.0_24\\lib\\tools.jar")
 		    (object Attribute
 			tool       	"Java"
 			name       	"ReferenceClasspath"
