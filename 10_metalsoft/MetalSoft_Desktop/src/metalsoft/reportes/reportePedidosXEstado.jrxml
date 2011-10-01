@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePedidosXEstado" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="359"/>
+	<property name="ireport.y" value="408"/>
 	<parameter name="Fecha_Desde" class="java.util.Date"/>
 	<parameter name="Fecha_Hasta" class="java.util.Date"/>
 	<queryString>
@@ -14,10 +14,14 @@ and pe.fechapedidocotizacion < $P{Fecha_Hasta}
 group by epe.nombre]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
-	<field name="count" class="java.lang.Long"/>
+	<field name="count" class="java.lang.Integer"/>
 	<variable name="SUM_TOTAL" class="java.lang.Double" resetType="None" incrementType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{count}]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sum" class="java.lang.String"/>
+	<variable name="TotalPedidos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -149,22 +153,7 @@ Construcción de Herramientas en gral.
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="41" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="158" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Número Total de Pedidos:]]></text>
-			</staticText>
-			<textField>
-				<reportElement mode="Opaque" x="194" y="0" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Center">
-					<font size="16" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUM_TOTAL}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="41" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
@@ -184,7 +173,7 @@ Construcción de Herramientas en gral.
 		<band height="200" splitType="Stretch">
 			<pie3DChart>
 				<chart>
-					<reportElement x="0" y="89" width="555" height="111"/>
+					<reportElement x="11" y="0" width="555" height="184"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -199,6 +188,20 @@ Construcción de Herramientas en gral.
 					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
 				</pie3DPlot>
 			</pie3DChart>
+			<textField>
+				<reportElement mode="Opaque" x="413" y="184" width="142" height="16" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{TotalPedidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="255" y="184" width="158" height="16" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Número Total de Pedidos:]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
