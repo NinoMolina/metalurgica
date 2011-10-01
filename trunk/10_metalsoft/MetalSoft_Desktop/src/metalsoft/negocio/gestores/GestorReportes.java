@@ -299,4 +299,83 @@ public class GestorReportes {
         }
 
     }
+
+    public void ReporteMateriasPrimas() {
+
+         String sourceFile = "L:\\rpt\\reporteMateriasPrimas.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Materias Primas en Stock");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+    }
+
+ 
+
+    public void ReporteMateriaPrimaXProveedor(String materiaprima) {
+
+         String sourceFile = "L:\\rpt\\reporteMateriaPrimaXProveedor.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            param.put("MATERIA_PRIMA", (materiaprima));
+
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Materia Prima por Proveedor");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    
 }
