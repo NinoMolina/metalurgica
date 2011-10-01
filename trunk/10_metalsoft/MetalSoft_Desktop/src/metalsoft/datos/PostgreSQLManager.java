@@ -25,7 +25,7 @@ public class PostgreSQLManager {
 
     private int connectionMode=SINGLECONNECTIONMODE;
     private String driverName = "org.postgresql.Driver";
-    private String url = "jdbc:postgresql://10.0.0.7:5432/metalsoft";
+    private String url = "jdbc:postgresql://localhost:5432/metalsoft";
     private String usr = "admin";
     private String pwd = "admin";
     private String resourceName = "jdbc/_PostgreSQL";

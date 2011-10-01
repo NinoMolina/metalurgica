@@ -121,7 +121,7 @@
     <class>metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado</class>
     <class>metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://10.0.0.7:5432/metalsoft"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/metalsoft"/>
       <property name="javax.persistence.jdbc.password" value="admin"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.user" value="admin"/>
