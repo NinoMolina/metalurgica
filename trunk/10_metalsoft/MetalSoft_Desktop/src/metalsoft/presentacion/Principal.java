@@ -169,6 +169,8 @@ public class Principal extends javax.swing.JFrame {
         mniReportesReclamos = new javax.swing.JMenuItem();
         mniReportePedidos = new javax.swing.JMenuItem();
         mniReporteAusentismo = new javax.swing.JMenuItem();
+        mniProveedores = new javax.swing.JMenuItem();
+        mniMPrima = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -847,6 +849,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuReportes.add(mniReporteAusentismo);
+
+        mniProveedores.setText("Proveedores");
+        mnuReportes.add(mniProveedores);
+
+        mniMPrima.setText("Materia Prima");
+        mniMPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMPrimaActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniMPrima);
 
         mbrMenu.add(mnuReportes);
 
@@ -1552,6 +1565,19 @@ private void mniReporteAusentismoActionPerformed(java.awt.event.ActionEvent evt)
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniReporteAusentismoActionPerformed
+
+private void mniMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMPrimaActionPerformed
+    try {
+        JFrameManager.crearVentana(ReportesMateriasPrimas.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniMPrimaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1607,6 +1633,7 @@ private void mniReporteAusentismoActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JMenuItem mniLanzarCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
     private javax.swing.JMenuItem mniListadoEmpleados;
+    private javax.swing.JMenuItem mniMPrima;
     private javax.swing.JMenuItem mniMantenimientoPreventivo;
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;
@@ -1616,6 +1643,7 @@ private void mniReporteAusentismoActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JMenuItem mniPresupuesto;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
+    private javax.swing.JMenuItem mniProveedores;
     private javax.swing.JMenuItem mniReclamoProveedor;
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
