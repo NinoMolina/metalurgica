@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    
-    
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>/WEB-INF/faces-config.xml</param-value>
     </context-param>
-    
-    <persistence-context-ref>
-        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
-        <persistence-unit-name>MetalSoft_WebPU</persistence-unit-name>
-    </persistence-context-ref>
-    
-<!--    <resource-ref>
-        <description>DB Connection</description>
-        <res-ref-name>ds/metalsoft</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-    </resource-ref>-->
-    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -43,6 +28,52 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+<!--    RICHFACES-->
+<!--    <filter>
+        <display-name>RichFaces Filter</display-name>
+        <filter-name>richfaces</filter-name>
+        <filter-class>org.ajax4jsf.Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>richfaces</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>-->
+<!--    <context-param>
+        <param-name>org.richfaces.skin</param-name>
+        <param-value>emeraldTown</param-value>-->
+<!--      DEFAULT-->
+<!--      plain-->
+<!--      emeraldTown-->
+<!--      blueSky-->
+<!--      wine-->
+<!--      japanCherry-->
+<!--      ruby-->
+<!--      classic-->
+<!--      deepMarine-->
+<!--    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinning</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinningClasses</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <mime-mapping>
+        <extension>ecss</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>-->
+    
+<!--    END RICHFACES-->
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -57,17 +88,15 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>Resource Servlet</servlet-name>
         <url-pattern>/xmlhttp/*</url-pattern>
     </servlet-mapping>
-<!--    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>-->
     <welcome-file-list>
         <welcome-file>principal.jsf</welcome-file>
     </welcome-file-list>
+    <persistence-context-ref>
+        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
+        <persistence-unit-name>MetalSoft_WebPU</persistence-unit-name>
+    </persistence-context-ref>
 </web-app>
