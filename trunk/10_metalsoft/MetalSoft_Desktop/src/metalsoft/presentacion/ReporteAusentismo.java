@@ -44,7 +44,7 @@ public class ReporteAusentismo extends javax.swing.JFrame {
         dccFecha = new com.toedter.calendar.JDateChooser();
         btnReportesClientes = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte Ausentismo");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Inasistencia"));
