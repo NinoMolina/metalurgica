@@ -4,13 +4,17 @@
  */
 package metalsoft.web.controlador;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
@@ -27,6 +31,11 @@ import metalsoft.datos.jpa.entity.Prioridad;
 import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.web.vista.NuevoPedidoVista;
 import metalsoft.web.vista.SesionVista;
+import org.icefaces.component.fileentry.FileEntry;
+import org.icefaces.component.fileentry.FileEntryEvent;
+import org.icefaces.component.fileentry.FileEntryLoader;
+import org.icefaces.component.fileentry.FileEntryResults;
+import org.icefaces.component.fileentry.FileEntryResults.FileInfo;
 
 /**
  *
@@ -43,6 +52,9 @@ public class NuevoPedidoControlador {
     
     @ManagedProperty(value = "#{pedidosControlador}")
     private PedidosCotizacionControlador pedidoControlados;
+    
+    // file upload completed percent (Progress)
+    private int fileProgress;
 
     /** Creates a new instance of nuevoPedidoControlador */
     public NuevoPedidoControlador() {
@@ -180,5 +192,43 @@ public class NuevoPedidoControlador {
     public void setPedidoControlados(PedidosCotizacionControlador pedidoControlados) {
         this.pedidoControlados = pedidoControlados;
     }
-    
+   
+    public void listener(FileEntryEvent event) {
+        FileEntry fileEntry = (FileEntry) event.getSource();
+        FileEntryResults results = fileEntry.getResults();
+        this.nvoPedidoVista.setSeleccionoPlano(true);
+        for (FileEntryResults.FileInfo fileInfo : results.getFiles()) {
+            if (fileInfo.isSaved()) {
+//                System.out.println(fileInfo.getFileName());
+                this.nvoPedidoVista.setPlanoSeleccionado(fileInfo);
+                
+                synchronized (this.nvoPedidoVista.getFileList()) {
+                    this.nvoPedidoVista.getFileList().add(this.nvoPedidoVista.getPlanoSeleccionado());
+                    //this.nvoPedidoVista.setMensSubePlano("No hay plano seleccionado");
+                }
+            }
+        }
+    }
+
+    public void removeUploadedFile(ActionEvent event) {
+        // Get the inventory item ID from the context.
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map map = context.getExternalContext().getRequestParameterMap();
+        String fileName = (String) map.get("fileName");
+
+        synchronized (this.nvoPedidoVista.getFileList()) {
+            FileInfo inputFileData;
+            for (int i = 0; i < this.nvoPedidoVista.getFileList().size(); i++) {
+                inputFileData = (FileInfo) this.nvoPedidoVista.getFileList().get(i);
+                // remove our file
+                if (inputFileData.getFile().getName().equals(fileName)) {
+                    this.nvoPedidoVista.getFileList().remove(i);
+                    if(this.nvoPedidoVista.getFileList().isEmpty()){
+                        this.nvoPedidoVista.setSeleccionoPlano(false);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 }
