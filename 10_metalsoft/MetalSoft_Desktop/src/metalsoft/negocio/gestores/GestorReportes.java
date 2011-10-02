@@ -602,5 +602,111 @@ public class GestorReportes {
         }
     }
 
+    public void ReporteEmpleadosCompleto() {
+
+        String sourceFile = "L:\\rpt\\reporteEmpleados.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Completo de Empleados");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void ReporteEmpleadosXCargo() {
+
+        String sourceFile = "L:\\rpt\\reporteEmpleadosXCargo.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte de Empleados por Cargo");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
+    public void ReporteEmpleadosXCategoria() {
+
+        String sourceFile = "L:\\rpt\\reporteEmpleadosXCategoria.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte de Empleados por Categoría");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     
 }
