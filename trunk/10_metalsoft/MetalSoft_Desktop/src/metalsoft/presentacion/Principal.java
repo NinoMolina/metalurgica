@@ -886,6 +886,11 @@ public class Principal extends javax.swing.JFrame {
         mnuReportes.add(mniTrabajosTercerizados);
 
         mniEmpleados.setText("Empleados");
+        mniEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEmpleadosActionPerformed(evt);
+            }
+        });
         mnuReportes.add(mniEmpleados);
 
         mbrMenu.add(mnuReportes);
@@ -1647,6 +1652,20 @@ private void mniTrabajosTercerizadosActionPerformed(java.awt.event.ActionEvent e
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniTrabajosTercerizadosActionPerformed
+
+private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpleadosActionPerformed
+
+     try {
+        JFrameManager.crearVentana(ReportesEmpleados.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniEmpleadosActionPerformed
     /**
      * @param args the command line arguments
      */
