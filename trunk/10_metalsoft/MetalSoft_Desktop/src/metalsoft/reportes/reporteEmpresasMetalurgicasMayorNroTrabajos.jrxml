@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteProveedoresMayorNroCompras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="297"/>
+	<property name="ireport.y" value="510"/>
 	<parameter name="Fecha_Desde" class="java.util.Date"/>
 	<parameter name="Fecha_Hasta" class="java.util.Date"/>
 	<queryString>
@@ -180,7 +180,7 @@ Construcción de Herramientas en gral.
 	<summary>
 		<band height="400" splitType="Stretch">
 			<pie3DChart>
-				<chart theme="aegean">
+				<chart theme="default.spring">
 					<reportElement x="0" y="0" width="555" height="320"/>
 					<chartTitle/>
 					<chartSubtitle/>
@@ -189,7 +189,7 @@ Construcción de Herramientas en gral.
 				<pieDataset>
 					<keyExpression><![CDATA[$F{razonsocial}]]></keyExpression>
 					<valueExpression><![CDATA[$F{count}]]></valueExpression>
-					<labelExpression><![CDATA[ $F{razonsocial} + '= '+ $F{count}]]></labelExpression>
+					<labelExpression><![CDATA[$F{razonsocial} + '= '+ $F{count}]]></labelExpression>
 				</pieDataset>
 				<pie3DPlot isCircular="false">
 					<plot/>
