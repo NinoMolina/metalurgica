@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,6 +34,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Disponibilidadhoraria.findByFecha", query = "SELECT d FROM Disponibilidadhoraria d WHERE d.fecha = :fecha"),
     @NamedQuery(name = "Disponibilidadhoraria.findByTiempodisponible", query = "SELECT d FROM Disponibilidadhoraria d WHERE d.tiempodisponible = :tiempodisponible")})
 public class Disponibilidadhoraria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,10 +44,18 @@ public class Disponibilidadhoraria implements Serializable {
     private Long id;
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
+    @OrderBy
     private Date fecha;
     @Column(name = "tiempodisponible")
     @Temporal(TemporalType.TIME)
     private Date tiempodisponible;
+    @Column(name = "horainicio")
+    @Temporal(TemporalType.TIME)
+    @OrderBy
+    private Date horainicio;
+    @Column(name = "horafin")
+    @Temporal(TemporalType.TIME)
+    private Date horafin;
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
@@ -75,6 +85,22 @@ public class Disponibilidadhoraria implements Serializable {
 
     public Date getTiempodisponible() {
         return tiempodisponible;
+    }
+
+    public Date getHorafin() {
+        return horafin;
+    }
+
+    public void setHorafin(Date horafin) {
+        this.horafin = horafin;
+    }
+
+    public Date getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(Date horainicio) {
+        this.horainicio = horainicio;
     }
 
     public void setTiempodisponible(Date tiempodisponible) {
@@ -113,5 +139,4 @@ public class Disponibilidadhoraria implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Disponibilidadhoraria[ id=" + id + " ]";
     }
-    
 }

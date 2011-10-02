@@ -137,7 +137,7 @@ public class Calculos {
         return duracionestimada;
     }
 
-    public static GregorianCalendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio) {
+    public static Calendar calcularFechaInicio(int horaInicioJornada, int horaFinJornada, Calendar inicio) {
         if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
             inicio.set(Calendar.MINUTE, 0);
@@ -173,7 +173,7 @@ public class Calculos {
         return fin;
     }
 
-    public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar inicio, int horas, int minutos) {
+    public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, Calendar inicio, int horas, int minutos) {
         GregorianCalendar fin = new GregorianCalendar();
         fin.setTime(inicio.getTime());
         fin.add(Calendar.HOUR_OF_DAY, horas);

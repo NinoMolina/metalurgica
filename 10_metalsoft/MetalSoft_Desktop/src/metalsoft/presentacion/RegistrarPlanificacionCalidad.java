@@ -1186,7 +1186,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
                     } else {
                         fechaInicio = finEtapaAnterior;
                     }
-                    GregorianCalendar inicio = new GregorianCalendar();
+                    Calendar inicio = new GregorianCalendar();
                     inicio.setTime(fechaInicio);
 //                    inicio.setTime(new Date());
                     inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);

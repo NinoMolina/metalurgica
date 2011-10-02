@@ -275,6 +275,14 @@ public class Fecha {
         calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
         return calendar.getTime();
     }
+    
+    public static Date diferenciaEnMinutosHoras(Date fechaInicio, Date fechaFin) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(fechaFin);
+        calendar.add(Calendar.MINUTE, -fechaInicio.getMinutes());
+        calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
+        return calendar.getTime();
+    }
 
     public static int diferenciaEnDiasJoda(Date fechaPrevista, Date fechaActual) {
 
@@ -376,21 +384,47 @@ public class Fecha {
 //
 //        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
 
-        GregorianCalendar calendar = new GregorianCalendar(2011, 5, 21, 20, 0);
+        GregorianCalendar calendar = new GregorianCalendar(2011, 9, 2, 4, 0);
         Date d3 = calendar.getTime();
         Date fa = fechaActualDate();
-        Date dif = diferenciaEnHoras(d3, fa);
+        Date dif = diferenciaEnMinutosHoras(d3, fa);
+
         System.out.println(dif.getHours());
         System.out.println(dif.getMinutes());
         System.out.println(dif.getSeconds());
-        int difDias = diferenciaEnDias(d3, fa);
-        System.out.println(dif);
-        System.out.println(difDias);
-        System.out.println(difDias * 24);
-
-
-        Time time = new Time(difDias * 24, dif.getMinutes(), dif.getSeconds());
-        System.out.println(time);
+        
+//        int difDias = diferenciaEnDias(d3, fa);
+//        System.out.println(dif);
+//        System.out.println(difDias);
+//        System.out.println(difDias * 24);
+//
+//
+//        Time time = new Time(difDias * 24, dif.getMinutes(), dif.getSeconds());
+//        System.out.println(time);
+        
+//        GregorianCalendar calendar = new GregorianCalendar(2011, 9, 2, 20, 0);
+//        Date d3 = calendar.getTime();
+//        System.out.println(d3);
+//        System.out.println(fechaActualDate());
+//        int dif = diferenciaEnDias(d3, fechaActualDate());
+//        System.out.println(dif);
+        
+        
+    }
+    
+    public static boolean esMismaFecha(Date a, Date b){
+        Calendar calA = new GregorianCalendar();
+        Calendar calB = new GregorianCalendar();
+        
+        calA.setTime(a);
+        calB.setTime(b);
+        
+        if(calA.get(Calendar.YEAR) == calB.get(Calendar.YEAR) && 
+                calA.get(Calendar.MONTH) == calB.get(Calendar.MONTH) && 
+                calA.get(Calendar.DAY_OF_MONTH) == calB.get(Calendar.DAY_OF_MONTH)){
+            return true;
+        }
+        return false;
     }
 
     public static Date setHoraMinutoSegundo(Date fecha, Date hora) {
@@ -421,5 +455,13 @@ public class Fecha {
         actual.add(Calendar.DATE, day);
 //        System.out.println(Fecha.parseToString(actual.getTime()));
         return actual.getTime();
+    }
+    
+    public static Date dateWithSpecificValues(Date fecha, int horas, int minutos, int segundos){
+        Date d = new Date(fecha.getTime());
+        d.setHours(horas);
+        d.setMinutes(minutos);
+        d.setSeconds(segundos);
+        return d;
     }
 }
