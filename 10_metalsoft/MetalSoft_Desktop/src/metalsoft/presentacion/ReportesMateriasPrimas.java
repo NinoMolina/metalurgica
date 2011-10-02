@@ -46,7 +46,7 @@ public class ReportesMateriasPrimas extends javax.swing.JFrame {
         txtMateriaPrima = new javax.swing.JTextField();
         btnReportesClientes = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte de Materias Primas");
 
         buttonGroup1.add(btnMPsXProveedor);
