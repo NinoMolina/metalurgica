@@ -172,6 +172,8 @@ public class Principal extends javax.swing.JFrame {
         mniProveedores = new javax.swing.JMenuItem();
         mniMPrima = new javax.swing.JMenuItem();
         mniCobros = new javax.swing.JMenuItem();
+        mniTrabajosTercerizados = new javax.swing.JMenuItem();
+        mniEmpleados = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -874,6 +876,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuReportes.add(mniCobros);
+
+        mniTrabajosTercerizados.setText("Trabajos Tercerizados");
+        mniTrabajosTercerizados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniTrabajosTercerizadosActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniTrabajosTercerizados);
+
+        mniEmpleados.setText("Empleados");
+        mnuReportes.add(mniEmpleados);
 
         mbrMenu.add(mnuReportes);
 
@@ -1620,6 +1633,20 @@ private void mniCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
 }//GEN-LAST:event_mniCobrosActionPerformed
+
+private void mniTrabajosTercerizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTrabajosTercerizadosActionPerformed
+
+    try {
+        JFrameManager.crearVentana(ReportesTrabajosTercerizados.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniTrabajosTercerizadosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1665,6 +1692,7 @@ private void mniCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JMenuItem mniConsultarFacturas;
     private javax.swing.JMenuItem mniConsultarRemitos;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
+    private javax.swing.JMenuItem mniEmpleados;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
@@ -1704,6 +1732,7 @@ private void mniCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JMenuItem mniTipoDoc;
     private javax.swing.JMenuItem mniTipoMaquina;
     private javax.swing.JMenuItem mniTipoMaterial;
+    private javax.swing.JMenuItem mniTrabajosTercerizados;
     private javax.swing.JMenu mnuAlmacenamiento;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenu mnuCalidad;
