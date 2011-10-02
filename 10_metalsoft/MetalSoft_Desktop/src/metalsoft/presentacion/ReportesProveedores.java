@@ -50,7 +50,7 @@ public class ReportesProveedores extends javax.swing.JFrame {
         dccFechaDesde = new com.toedter.calendar.JDateChooser();
         dccFechaHasta = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes Proveedores");
 
         buttonGroup1.add(btnProvMayorCantReclamos);
