@@ -16,9 +16,9 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid>
-                Número de Pedido: <ice:outputText id="nropedido" value="PED-#{nuevoPedidoVista.nroAMostrar}"/>
+                <ice:outputText style="color: #FFFFFF" value="Número de Pedido:"/> <ice:outputText id="nropedido" style="color: #FFFFFF" value="PED-#{nuevoPedidoVista.nroAMostrar}"/>
 
-                Fecha de Pedido:
+                <ice:outputText value="Fecha de Pedido:" style="color: #FFFFFF"/>
                 <ice:selectInputDate id="popupDatePttrn2" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
                                      value="#{nuevoPedidoVista.fechaPedido}"
                                      title=""
@@ -27,7 +27,7 @@
                     <f:convertDateTime pattern="dd/MM/yyyy"
                                        timeZone="#{nuevoPedidoControlador.timeZone}"/>
                 </ice:selectInputDate>
-                Ingrese Fecha de Necesidad de Cotización:
+                <ice:outputText value="Ingrese Fecha de Necesidad de Cotización:" style="color: #FFFFFF"/>
                 <ice:selectInputDate id="popupDatePttrn1" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
                                      value="#{nuevoPedidoVista.fechaNecesidad}"
                                      title=""
@@ -36,24 +36,21 @@
                                        timeZone="#{nuevoPedidoControlador.timeZone}"/>
                 </ice:selectInputDate>
 
-                Seleccionar Producto:
+                <ice:outputText style="color: #FFFFFF" value="Seleccionar Producto:"/>
                 <ice:selectOneMenu id="cmbproducto" value="#{nuevoPedidoVista.productoSeleccionado.idproducto}">
                     <f:selectItems value="#{nuevoPedidoVista.listProductos}" var="producto"
                                    itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}"/>
                 </ice:selectOneMenu>
 
-                Ingrese Cantidad:
+                <ice:outputText style="color: #FFFFFF" value="Ingrese Cantidad:"/>
                 <ice:inputText id="cantidad" value="#{nuevoPedidoVista.cantidadSeleccionada}"/>
 
-                <h:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos}"/>
-
-                Ingrese Planos:
-                <ice:inputText id="Plano"/>
-
+                <ice:commandButton id="btnAgregar" value="Agregar" action="#{nuevoPedidoControlador.agregarProductos}"/>
                 <h:panelGrid columns="2">
                     <ice:column>
                         <ice:outputLabel id="results"
-                                         value="Detalle de pedido" />
+                                         value="Detalle de pedido" 
+                                         style="color: #FFFFFF"/>
                         <ice:dataTable id="selectedRows" 
                                        var="detalle"
                                        value="#{nuevoPedidoVista.listDetalles}"
@@ -76,14 +73,70 @@
                                                 value="#{detalle.cantidad}"/>
                             </ice:column>
                             <ice:column>
-                            <f:facet name="header" >
-                                <ice:outputText id="column4"
-                                                value="Seleccionar" style="color: #000000"/>
-                            </f:facet>
+                                <f:facet name="header" >
+                                    <ice:outputText id="column4"
+                                                    value="Seleccionar" style="color: #000000"/>
+                                </f:facet>
                                 <ice:commandButton image="/imagenes/Quitar.gif" action="#{nuevoPedidoControlador.quitarProductos}" />
-                        </ice:column>
+                            </ice:column>
                         </ice:dataTable>
                         
+                <ice:outputText style="color: #FFFFFF" value="Seleccione el Plano y luego cárguelo:"/>
+                <!-- file upload usage with progress callback. -->
+                <ace:fileEntry id="fileEntryBuzon"
+                               useOriginalFilename="true"
+                               useSessionSubdir="true"
+                               absolutePath="/Documentos/files"
+                               style="color: #FFFFFF"
+                               
+                               fileEntryListener="#{nuevoPedidoControlador.listener}" >
+                    
+                    <h:commandButton value="Cargar Archivo Seleccionada"
+                                     styleClass="boton-cargar-imagen" />
+                </ace:fileEntry>
+                <!-- progress bar, percent value is upated via progressListener-->
+
+<!--                <ice:outputProgress value="#{inputFileController.fileProgress}"
+                                    styleClass="uploadProgressBar"/>-->
+                <ice:dataTable
+                    width="450px"
+                    value="#{nuevoPedidoVista.fileList}"
+                    var="file">
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputLabel
+                                value="Nombre"/>
+                        </f:facet>
+                        <ice:outputText value="#{file.fileName}"/>
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputLabel
+                                value="Medida"/>
+                        </f:facet>
+                        <ice:outputText value="#{file.size}"/>
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText
+                                value="Tipo de Contenido"/>
+                        </f:facet>
+                        <ice:outputText value="#{file.contentType}"/>
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText
+                                value="Borrar"/>
+                        </f:facet>
+                        <ice:commandLink
+                            value="Quitar"
+                            actionListener="#{nuevoPedidoControlador.removeUploadedFile}">
+                            <f:param name="fileName" value="#{file.fileName}"/>
+                        </ice:commandLink>
+                    </ice:column>
+                </ice:dataTable>
+
+
                         <!-- Modal Panel Popup -->
                         <ice:panelPopup id="modalPnlPop"
                                         draggable="false" modal="true"
@@ -108,7 +161,7 @@
                         </ice:panelPopup>
                     </ice:column>
                 </h:panelGrid>
-                <h:commandButton value="Guardar Pedido" style="background-color: darkseagreen" action="#{nuevoPedidoControlador.guardarPedido}"/>
+                <h:commandButton value="Guardar Pedido" action="#{nuevoPedidoControlador.guardarPedido}"/>
                 <ice:outputText value="#{nuevoPedidoVista.mensValidacion}" style="font-style: italic; color: #D20005"/>
             </h:panelGrid>
         </h:form>
