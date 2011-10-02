@@ -597,6 +597,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Empleados"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEmpleadosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
