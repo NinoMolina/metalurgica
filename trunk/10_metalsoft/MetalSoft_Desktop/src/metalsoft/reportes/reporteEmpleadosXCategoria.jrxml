@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteMateriaPrimaXProveedor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCobros" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="408"/>
-	<parameter name="MATERIA_PRIMA" class="java.lang.String"/>
+	<property name="ireport.y" value="606"/>
 	<queryString>
-		<![CDATA[select pro.razonsocial, mat.nombre, promat.precio
-from proveedor pro, materiaprima mat, proveedorxmateriaprima promat
-where pro.idproveedor = promat.idproveedor and mat.idmateriaprima = promat.idmateriaprima
-and mat.nombre = $P{MATERIA_PRIMA}
-order by promat.precio]]>
+		<![CDATA[select cat.nombre, count(*)
+from empleado emp, categoria cat
+where emp.categoria = cat.idcategoria
+group by cat.nombre]]>
 	</queryString>
-	<field name="razonsocial" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
-	<field name="precio" class="java.lang.Double"/>
+	<field name="count" class="java.lang.Integer"/>
+	<variable name="SUM_TOTAL" class="java.lang.Double" resetType="None" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sum" class="java.lang.String"/>
+	<variable name="TotalPedidos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -68,45 +73,31 @@ Construcción de Herramientas en gral.
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
 				<textElement textAlignment="Center">
-					<font size="20" isBold="true" isItalic="true" isUnderline="true"/>
+					<font size="18" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Reporte de Materia Prima por Proveedor]]></text>
+				<text><![CDATA[Reporte de Empleados por Categorías]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="76" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="36" width="555" height="1" forecolor="#000066"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="56" width="157" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Left">
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Proveedor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="103" y="56" width="172" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="0" y="16" width="146" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Precio]]></text>
+				<text><![CDATA[Categoría]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="16" width="103" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+				<reportElement mode="Opaque" x="146" y="16" width="160" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Materia Prima:]]></text>
+				<text><![CDATA[Cantidad de Empleados]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="115" y="16" width="100" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnHeader>
 	<detail>
@@ -118,41 +109,19 @@ Construcción de Herramientas en gral.
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement mode="Opaque" x="179" y="0" width="96" height="14" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{precio}]]></textFieldExpression>
+				<reportElement x="0" y="1" width="146" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="146" height="13" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
+			<textField pattern="###0">
+				<reportElement x="146" y="1" width="160" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{count}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="146" y="0" width="33" height="13" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Right">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[$]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="41" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Opaque" x="103" y="0" width="360" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Número de Proveedores que suministran la materia prima:]]></text>
-			</staticText>
-			<textField>
-				<reportElement mode="Opaque" x="463" y="0" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
-				<textElement textAlignment="Center">
-					<font size="16" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="41" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
@@ -169,32 +138,47 @@ Construcción de Herramientas en gral.
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="200" splitType="Stretch">
-			<bar3DChart>
+		<band height="400" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="413" y="384" width="142" height="16" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{TotalPedidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="255" y="384" width="158" height="16" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Número Total de Empleados:]]></text>
+			</staticText>
+			<stackedBar3DChart>
 				<chart theme="aegean">
-					<reportElement x="11" y="0" width="544" height="200"/>
-					<chartTitle/>
+					<reportElement x="0" y="0" width="555" height="371"/>
+					<chartTitle position="Top"/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA[$F{razonsocial}]]></seriesExpression>
-						<categoryExpression><![CDATA[""]]></categoryExpression>
-						<valueExpression><![CDATA[$F{precio}]]></valueExpression>
+						<seriesExpression><![CDATA[$F{nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nombre}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count}]]></valueExpression>
+						<labelExpression><![CDATA[$F{nombre} + '= ' + $F{count}]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
-				<bar3DPlot isShowLabels="true">
+				<bar3DPlot>
 					<plot/>
 					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
-					<categoryAxisLabelExpression><![CDATA["Proveedores"]]></categoryAxisLabelExpression>
+					<categoryAxisLabelExpression><![CDATA['Categorías']]></categoryAxisLabelExpression>
 					<categoryAxisFormat>
 						<axisFormat>
 							<labelFont/>
 							<tickLabelFont/>
 						</axisFormat>
 					</categoryAxisFormat>
-					<valueAxisLabelExpression><![CDATA["Precio"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA['Empleados']]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat>
 							<labelFont/>
@@ -202,7 +186,7 @@ Construcción de Herramientas en gral.
 						</axisFormat>
 					</valueAxisFormat>
 				</bar3DPlot>
-			</bar3DChart>
+			</stackedBar3DChart>
 		</band>
 	</summary>
 </jasperReport>
