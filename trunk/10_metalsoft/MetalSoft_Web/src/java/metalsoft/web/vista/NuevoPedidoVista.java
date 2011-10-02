@@ -6,6 +6,9 @@ package metalsoft.web.vista;
 
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.Highlight;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -18,6 +21,8 @@ import metalsoft.datos.jpa.entity.Detallepedido;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Prioridad;
 import metalsoft.datos.jpa.entity.Producto;
+import org.icefaces.component.fileentry.FileEntry;
+import org.icefaces.component.fileentry.FileEntryResults.FileInfo;
 
 /**
  *
@@ -41,6 +46,11 @@ public class NuevoPedidoVista {
     private boolean activarBoton=false;
     private String mensValidacion="";
     private Detallepedido detalleSeleccionado;
+    private FileInfo planoSeleccionado;
+    private boolean seleccionoPlano=false;
+    private final List<FileInfo> fileList =
+            Collections.synchronizedList(new ArrayList());
+    private String mensSubePlano;
     /** Creates a new instance of nuevoPedidoVista */
     public NuevoPedidoVista() {
         pedido = new Pedido();
@@ -53,6 +63,7 @@ public class NuevoPedidoVista {
         valueChangeEffect2.setFired(true);
         mensValidacion="";
         detalleSeleccionado=null;
+        mensSubePlano="No hay plano seleccionado";
     }
 
     public Pedido getPedido() {
@@ -171,6 +182,34 @@ public class NuevoPedidoVista {
     public void setDetalleSeleccionado(Detallepedido detalleSeleccionado) {
         this.detalleSeleccionado = detalleSeleccionado;
     }
+
+    public FileInfo getPlanoSeleccionado() {
+        return planoSeleccionado;
+    }
+
+    public void setPlanoSeleccionado(FileInfo planoSeleccionado) {
+        this.planoSeleccionado = planoSeleccionado;
+    }
+
+    public boolean isSeleccionoPlano() {
+        return seleccionoPlano;
+    }
+
+    public void setSeleccionoPlano(boolean seleccionoPlano) {
+        this.seleccionoPlano = seleccionoPlano;
+    }
+
+    public List<FileInfo> getFileList() {
+        return fileList;
+    }
+
+    public String getMensSubePlano() {
+        return mensSubePlano;
+    }
+
+    public void setMensSubePlano(String mensSubePlano) {
+        this.mensSubePlano = mensSubePlano;
+    }
     
     public void limpiarCampos(){
         pedido = new Pedido();
@@ -183,5 +222,8 @@ public class NuevoPedidoVista {
         valueChangeEffect2.setFired(true);
         mensValidacion="";
         detalleSeleccionado=null;
+        seleccionoPlano=false;
+        fileList.clear();
+        mensSubePlano="No hay plano seleccionado";
     }
 }
