@@ -171,6 +171,7 @@ public class Principal extends javax.swing.JFrame {
         mniReporteAusentismo = new javax.swing.JMenuItem();
         mniProveedores = new javax.swing.JMenuItem();
         mniMPrima = new javax.swing.JMenuItem();
+        mniCobros = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -865,6 +866,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuReportes.add(mniMPrima);
+
+        mniCobros.setText("Cobros");
+        mniCobros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCobrosActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniCobros);
 
         mbrMenu.add(mnuReportes);
 
@@ -1597,6 +1606,20 @@ private void mniProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GE
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniProveedoresActionPerformed
+
+private void mniCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCobrosActionPerformed
+   try {
+        JFrameManager.crearVentana(ReportesCobros.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+}//GEN-LAST:event_mniCobrosActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1636,6 +1659,7 @@ private void mniProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem mniCerrarSesion;
     private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniCobroPedido;
+    private javax.swing.JMenuItem mniCobros;
     private javax.swing.JMenuItem mniCondicionIva;
     private javax.swing.JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados;
     private javax.swing.JMenuItem mniConsultarFacturas;
