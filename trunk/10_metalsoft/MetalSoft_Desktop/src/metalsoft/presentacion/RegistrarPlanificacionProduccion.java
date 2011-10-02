@@ -36,6 +36,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreePath;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Disponibilidadhoraria;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionProduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoNoPlanificado;
@@ -917,12 +918,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-                if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
-                } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
-                } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                if (node.getInicioEtapa() != null) {
+                    if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    }
                 }
             }
         }
@@ -970,6 +973,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             }
 
         }
+
+        setInicioEtapaProduccion(node);
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
     private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
@@ -1364,17 +1369,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
         Map<Long, Integer> mapIndexProducto = new HashMap<Long, Integer>();
-        
+
         while (it.hasNext()) {
             dp = it.next();
-            
-            if(!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())){
+
+            if (!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())) {
                 mapIndexProducto.put(dp.getIdproducto().getIdproducto(), 0);
             } else {
                 Integer index = mapIndexProducto.get(dp.getIdproducto().getIdproducto());
                 mapIndexProducto.put(dp.getIdproducto().getIdproducto(), index + 1);
             }
-            
+
             prod = new ProductoNode(dp.getIdproducto());
             prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
             raiz.add(prod);
@@ -1400,26 +1405,25 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                 while (itDetPiPre.hasNext()) {
                     detPiPre = itDetPiPre.next();
                     etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
-//                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
                     etapaProd.setDetallePiezaPresupuesto(detPiPre);
-                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
-                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-                    Date fechaInicio = null;
-                    if (finEtapaAnterior == null) {
-                        fechaInicio = Fecha.fechaActualDate();
-                    } else {
-                        fechaInicio = finEtapaAnterior;
-                    }
-                    GregorianCalendar inicio = new GregorianCalendar();
-                    inicio.setTime(fechaInicio);
-//                    inicio.setTime(new Date());
-                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
-                    etapaProd.setInicioEtapa(inicio.getTime());
-                    etapaProd.setFinEtapa(fin.getTime());
+//                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
+//                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
+//                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
+//                    Date fechaInicio = null;
+//                    if (finEtapaAnterior == null) {
+//                        fechaInicio = Fecha.fechaActualDate();
+//                    } else {
+//                        fechaInicio = finEtapaAnterior;
+//                    }
+//                    GregorianCalendar inicio = new GregorianCalendar();
+//                    inicio.setTime(fechaInicio);
+//                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+//                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
+//                    etapaProd.setInicioEtapa(inicio.getTime());
+//                    etapaProd.setFinEtapa(fin.getTime());
                     pieza.add(etapaProd);
-                    finEtapaAnterior = fin.getTime();
+//                    finEtapaAnterior = fin.getTime();
                 }
 
                 finEtapaAnterior = null;
@@ -1488,7 +1492,172 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    // End of variables declaration
+    private void setInicioEtapaProduccion(EtapaProduccionNode node) {
+        Empleado empleado = node.getEmpleado();
+        Maquina maquina = node.getMaquina();
+
+        int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
+        int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
+
+        Date inicioEtapaEmpleado = obtenerFechaDisponibilidadEmpleado(empleado, horas, minutos);
+
+        node.setInicioEtapa(inicioEtapaEmpleado);
+        Calendar inicioEtapa = new GregorianCalendar();
+        inicioEtapa.setTime(inicioEtapaEmpleado);
+        node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+
+    }
+
+    private Date obtenerFechaDisponibilidadEmpleado(Empleado empleado, int horas, int minutos) {
+
+        Date resultado = null;
+
+        List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
+
+        /*
+         * quiere decir que no esta ocupado
+         */
+        if (lstDisponibilidad == null || lstDisponibilidad.isEmpty()) {
+            
+            return Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+        }
+
+
+        Disponibilidadhoraria ultimaDisp = null;
+        Date dif = null;
+        boolean hayDisponibilidad = false;
+        Date fechaActual = Fecha.fechaActualDate();
+        for (Disponibilidadhoraria disponibilidadhoraria : lstDisponibilidad) {
+            Date fechaFinDisp = (Date) disponibilidadhoraria.getFecha().clone();
+            fechaFinDisp.setHours(disponibilidadhoraria.getHorafin().getHours());
+            fechaFinDisp.setMinutes(disponibilidadhoraria.getHorafin().getMinutes());
+            Date fechaInicioDisp = (Date) disponibilidadhoraria.getFecha().clone();
+            fechaInicioDisp.setHours(disponibilidadhoraria.getHorainicio().getHours());
+            fechaInicioDisp.setMinutes(disponibilidadhoraria.getHorainicio().getMinutes());
+
+            if (Fecha.esMismaFecha(fechaActual, fechaInicioDisp) && fechaActual.getHours() < fechaInicioDisp.getHours() && ultimaDisp == null) {
+                Date difFechaActual = Fecha.diferenciaEnMinutosHoras(fechaActual, fechaInicioDisp);
+                if (difFechaActual.getHours() > horas) {
+                    resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+                    hayDisponibilidad = true;
+                    break;
+                } else if (difFechaActual.getHours() == horas && difFechaActual.getMinutes() > fechaActual.getMinutes()) {
+                    resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+                    hayDisponibilidad = true;
+                    break;
+                }
+            } else if (ultimaDisp != null) {
+
+                if (Fecha.esMismaFecha(ultimaDisp.getFecha(), disponibilidadhoraria.getFecha())) {
+                    /*
+                     * comparar la hora de fin de la disponibilidad anterior con la 
+                     * hora de inicio de la actual,
+                     * si la diferencia es mayor a la que necesito entonces asigno 
+                     * la hora fin de la anterior como inicio de etapa
+                     */
+
+                    Date dispAnt = new Date();
+                    dispAnt.setHours(ultimaDisp.getHorafin().getHours());
+                    dispAnt.setMinutes(ultimaDisp.getHorafin().getMinutes());
+                    dispAnt.setSeconds(0);
+
+                    Date disp = new Date();
+                    disp.setHours(disponibilidadhoraria.getHorainicio().getHours());
+                    disp.setMinutes(disponibilidadhoraria.getHorainicio().getMinutes());
+                    disp.setSeconds(0);
+
+                    dif = Fecha.diferenciaEnMinutosHoras(dispAnt, disp);
+
+                    if (horas < dif.getHours()) {
+                        resultado = dispAnt;
+                        hayDisponibilidad = true;
+                        break;
+                    } else if(horas == dif.getHours() && minutos <= dif.getMinutes()){
+                        resultado = dispAnt;
+                        hayDisponibilidad = true;
+                        break;
+                    }
+
+
+                } else {
+                    /*
+                     * pase al dia siguiente, 
+                     */
+
+                    /* 
+                     * ver si tengo la diferencia necesaria entre la hora de fin de la del dia
+                     * anterior con respecto a la hora de fin de jornada. Si es asi asigno la hora
+                     * de fin de la anterior como inicio etapa.
+                     */
+
+                    if (ultimaDisp.getHorafin().getHours() < Jornada.HORA_FIN_JORNADA) {
+                        Date dispAnt = new Date();
+                        dispAnt.setHours(ultimaDisp.getHorafin().getHours());
+                        dispAnt.setMinutes(ultimaDisp.getHorafin().getMinutes());
+                        dispAnt.setSeconds(0);
+
+                        Date finJornada = new Date();
+                        finJornada.setHours(Jornada.HORA_FIN_JORNADA);
+                        finJornada.setMinutes(0);
+                        finJornada.setSeconds(0);
+
+                        dif = Fecha.diferenciaEnMinutosHoras(dispAnt, finJornada);
+
+                        if (horas <= dif.getHours() && minutos <= dif.getMinutes()) {
+                            resultado = dispAnt;
+                            hayDisponibilidad = true;
+                            break;
+                        }
+                    }
+                    /* ver si tengo la diferencia necesaria entre la hora de
+                     * inicio de jornada y la hora de inicio. si es asi asigno la hora de inicio de jornada como
+                     * inicio de etapa.
+                     */
+
+                    /*
+                     * si no encontre disponibilidad en la anterior
+                     */
+                    if (!hayDisponibilidad) {
+
+                        if (fechaInicioDisp.getHours() > Jornada.HORA_INICIO_JORNADA) {
+                            Date horaDisp = new Date();
+                            horaDisp.setHours(fechaInicioDisp.getHours());
+                            horaDisp.setMinutes(fechaInicioDisp.getMinutes());
+                            horaDisp.setSeconds(0);
+
+                            Date inicioJornada = new Date();
+                            inicioJornada.setHours(Jornada.HORA_INICIO_JORNADA);
+                            inicioJornada.setMinutes(0);
+                            inicioJornada.setSeconds(0);
+
+                            dif = Fecha.diferenciaEnMinutosHoras(inicioJornada, fechaInicioDisp);
+
+                            if (horas <= dif.getHours() && minutos <= dif.getMinutes()) {
+                                resultado = inicioJornada;
+                                hayDisponibilidad = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            ultimaDisp = disponibilidadhoraria;
+        }//fin for disponibilidades
+
+        if (!hayDisponibilidad) {
+            /*
+             * asignar la hora fin de la ultima disp.
+             */
+
+            resultado = Fecha.dateWithSpecificValues(ultimaDisp.getFecha(), ultimaDisp.getHorafin().getHours(), ultimaDisp.getHorafin().getMinutes(), 0);
+        }
+
+        return resultado;
+    }
+
+// End of variables declaration
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {

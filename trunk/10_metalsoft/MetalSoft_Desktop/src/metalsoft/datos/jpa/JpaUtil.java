@@ -21,8 +21,10 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
+import metalsoft.datos.jpa.entity.Disponibilidadhoraria;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
@@ -32,6 +34,8 @@ import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
 import metalsoft.negocio.gestores.ViewPedidoConCalidad;
+import metalsoft.util.Fecha;
+import org.eclipse.persistence.internal.jpa.querydef.CriteriaBuilderImpl;
 
 /**
  *
@@ -414,6 +418,27 @@ public class JpaUtil {
         try {
             Query q = em.createQuery(sql, Ejecucionplanificacioncalidad.class);
             q.setParameter("id", idestado);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Disponibilidadhoraria> getDisponibilidadEmpleado(Empleado empleado) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+//        String sql = "SELECT e FROM Disponibilidadhoraria e"
+//                + " WHERE e.idempleado.idempleado = :id"
+//                + " AND e.fecha >= :fecha"
+//                + " ORDER BY e.fecha, e.horainicio";
+        String sql = "SELECT * FROM disponibilidadhoraria e"
+                + " WHERE e.idempleado = " + empleado.getIdempleado() 
+                + " AND e.fecha >= CURRENT_DATE"
+                +" ORDER BY e.fecha, e.horainicio";
+        try {
+            Query q = em.createNativeQuery(sql, Disponibilidadhoraria.class);
+//            q.setParameter("id", empleado.getIdempleado());
+//            q.setParameter("fecha", Fecha.fechaActualDate());
             return q.getResultList();
         } finally {
             em.close();

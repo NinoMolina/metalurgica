@@ -73,7 +73,8 @@ public class HiloAvisoEtapaNoTerminada extends HiloEtapaBase implements Runnable
 
                         Date fechaFinEsperada = detalleplanificacionproduccion.getFechafin();
                         Date horaFinEsperada = detalleplanificacionproduccion.getHorafin();
-
+                        System.out.println(fechaFinEsperada);
+                        System.out.println(horaFinEsperada);
                         Date fechaActual = Fecha.fechaActualDate();
 
                         int difDias = Fecha.diferenciaEnDiasJoda(fechaFinEsperada, fechaActual);
