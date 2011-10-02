@@ -16,19 +16,19 @@
     <ui:define name="content">
         <h:form>
             <ice:panelGrid>
-                Ingrese su nombre:
+                <ice:outputText value="Ingrese su nombre:" style="color: #FFFFFF"/>                
                 <ice:inputText value="#{contactView.nombreContacto}" size="100"/>
 
-                Ingrese su e-mail asi podremos comunicarnos con ud:
+                <ice:outputText value="Ingrese su e-mail asi podremos comunicarnos con ud:" style="color: #FFFFFF"/>
                 <ice:inputText value="#{contactView.mail}" size="100"/>
 
-                Ingrese su número de telefono:
+                <ice:outputText value="Ingrese su número de telefono:" style="color: #FFFFFF"/>
                 <ice:inputText value="#{contactView.telefono}" size="100" />
 
-                Ingrese su Consulta:
+                <ice:outputText value="Ingrese su Consulta:" style="color: #FFFFFF"/>
                 <ice:inputTextarea value="#{contactView.descripcion}" style=" width: 500px; height: 200px"/>
                 
-                <h:commandButton value="Enviar Consulta" style="background-color: darkseagreen" action="#{contactoControlador.enviarConsulta}"/> 
+                <ice:commandButton value="Enviar Consulta" action="#{contactoControlador.enviarConsulta}"/> 
             
                 <!-- Modal Panel Popup -->
                         <ice:panelPopup id="modalPnlPop"

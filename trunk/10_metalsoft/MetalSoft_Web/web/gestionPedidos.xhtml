@@ -84,9 +84,9 @@
 
                 </ice:column>
             </h:panelGrid>
-            <h:commandButton value="Confirmar" style="background-color: darkseagreen" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
-            <h:commandButton value="Cancelar" style="background-color: darkseagreen" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
-            <h:outputText value="#{pedidosControlador.entroAListener}"/>
+            <ice:commandButton value="Confirmar" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
+            <ice:commandButton value="Cancelar" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
+            <ice:outputText value="#{pedidosControlador.entroAListener}"/>
         </h:form>
     </ui:define>
 </ui:composition>
