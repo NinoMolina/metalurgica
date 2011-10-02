@@ -529,5 +529,78 @@ public class GestorReportes {
         }
     }
 
+    public void ReporteVolumenReclamoXEmpresaMetalurgica() {
+
+         String sourceFile = "L:\\rpt\\reporteVolumenReclamosXEmpresaM.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Cantidad de Reclamos por Empresa Metalúrgica");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void ReporteEmpresasMetalurgicasMayorNroCompras(Date fechaDesde, Date fechaHasta) {
+
+        String sourceFile = "L:\\rpt\\reporteEmpresasMetalurgicasMayorNroTrabajos.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+
+            param.put("Fecha_Desde", (fechaDesde));
+            param.put("Fecha_Hasta",(fechaHasta));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setTitle("Reporte Empresas Metalúrgicas con mayor volumen de Trabajos");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     
 }
