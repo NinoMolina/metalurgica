@@ -154,6 +154,9 @@ public class Calculos {
     }
 
     public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
+        
+//        fin.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+        
         if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
             int hora = fin.get(Calendar.HOUR_OF_DAY);
             int horaAM = (horaFinJornada - 12);

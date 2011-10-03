@@ -86,6 +86,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private final int EMPLEADO = 1;
     private final int MAQUINA = 2;
     private final int EMPLEADO_MAQUINA = 3;
+    private Map<Long, List<EtapaProduccionNode>> mapAsignacionActualEmpleados;
 
     public RegistrarPlanificacionProduccion() {
         initComponents();
@@ -102,6 +103,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         listColumnNamesTreeTable.add("Máquinas");
         setearTablas();
         gestor = new GestorRegistrarPlanificacionProduccion();
+        mapAsignacionActualEmpleados = new HashMap<Long, List<EtapaProduccionNode>>();
         filasPedidosNoPlanificados = new LinkedList<ViewPedidoNoPlanificado>();
         buscarPedidosNoPlanificados();
         iniciarTreeTable();
@@ -958,23 +960,52 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
         EtapaProduccionNode node = null;
+//        Empleado empAnterior = null;
+//        Date inicioEtapaAnterior = null;
+//        Date finEtapaAnterior = null;
         if (obj instanceof EtapaProduccionNode) {
             node = (EtapaProduccionNode) obj;
+
+
             /*
              * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
              */
+//            empAnterior = node.getEmpleado();
+//            inicioEtapaAnterior = node.getInicioEtapa();
+//            finEtapaAnterior = node.getFinEtapa();
+
             node.setEmpleado(empleadoSeleccionado);
+
+            setInicioFinEtapaProduccion(node);
 
             boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
             if (superposicion) {
-                node.setEmpleado(null);
-                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
-                return;
+
+//                node.setEmpleado(empAnterior);
+//                node.setInicioEtapa(inicioEtapaAnterior);
+//                node.setFinEtapa(finEtapaAnterior);
+//                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
+//                return;
+
+                Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                node.setInicioEtapa(fechaDispEmpleado);
+                Calendar inicioEtapa = new GregorianCalendar();
+                inicioEtapa.setTime(fechaDispEmpleado);
+                int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
+                int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
+                node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+            }
+
+            if (mapAsignacionActualEmpleados.containsKey(empleadoSeleccionado.getIdempleado())) {
+                mapAsignacionActualEmpleados.get(empleadoSeleccionado.getIdempleado()).add(node);
+            } else {
+                List<EtapaProduccionNode> lst = new ArrayList<EtapaProduccionNode>();
+                lst.add(node);
+                mapAsignacionActualEmpleados.put(empleadoSeleccionado.getIdempleado(), lst);
             }
 
         }
 
-        setInicioEtapaProduccion(node);
         setVisiblePanel(pnlTreeTable.getName());
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
     private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
@@ -1492,14 +1523,99 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    private void setInicioEtapaProduccion(EtapaProduccionNode node) {
+    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, EtapaProduccionNode node) {
+        Date resultado = null;
+
+        int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
+        int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
+
+        List<EtapaProduccionNode> lstEtapasNode = mapAsignacionActualEmpleados.get(empleado.getIdempleado());
+
+        List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstEtapasNode);
+
+        resultado = obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos);
+
+        return resultado;
+    }
+
+    private List<Disponibilidadhoraria> crearListDisponibilidadHoraria(List<EtapaProduccionNode> lstNode) {
+
+        List<Disponibilidadhoraria> lstDisp = new ArrayList<Disponibilidadhoraria>();
+
+        Disponibilidadhoraria disponibilidadhoraria = null;
+
+        for (EtapaProduccionNode node : lstNode) {
+
+            disponibilidadhoraria = new Disponibilidadhoraria();
+
+            disponibilidadhoraria.setFecha(node.getInicioEtapa());
+            disponibilidadhoraria.setHorainicio(node.getInicioEtapa());
+
+            Date horaFinDisponibilidad = null;
+            Date fechaInicio = node.getInicioEtapa();
+            
+            int difDias = Fecha.diferenciaEnDias(node.getInicioEtapa(), node.getFinEtapa());
+            
+            if (difDias != 0) {
+                horaFinDisponibilidad = fechaInicio;
+                horaFinDisponibilidad.setHours(Jornada.HORA_FIN_JORNADA);
+                horaFinDisponibilidad.setMinutes(0);
+                horaFinDisponibilidad.setSeconds(0);
+
+                disponibilidadhoraria.setHorafin(horaFinDisponibilidad);
+
+                lstDisp.add(disponibilidadhoraria);
+
+                for (int i = 0; i < difDias; i++) {
+                    Disponibilidadhoraria disphoraria = new Disponibilidadhoraria();
+
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.setTime(fechaInicio);
+
+                    Date newFechaInicio = Fecha.addDias(calendar, i + 1).getTime();
+                    Date newFechaFin = (Date) newFechaInicio.clone();
+
+                    disphoraria.setFecha(newFechaInicio);
+
+                    newFechaInicio.setHours(Jornada.HORA_INICIO_JORNADA);
+                    newFechaInicio.setMinutes(0);
+                    newFechaInicio.setSeconds(0);
+
+                    disphoraria.setHorainicio(newFechaInicio);
+
+                    if ((i + 1) == difDias) {
+                        disphoraria.setHorafin(node.getFinEtapa());
+                    } else {
+                        newFechaFin.setHours(Jornada.HORA_FIN_JORNADA);
+                        newFechaFin.setMinutes(0);
+                        newFechaFin.setSeconds(0);
+
+                        disphoraria.setHorafin(newFechaFin);
+                    }
+
+                    lstDisp.add(disphoraria);
+
+                }
+            } else {
+                disponibilidadhoraria.setHorafin(node.getFinEtapa());
+                lstDisp.add(disponibilidadhoraria);
+            }
+        }
+
+        return (lstDisp.isEmpty() ? null : lstDisp);
+
+    }
+
+    private void setInicioFinEtapaProduccion(EtapaProduccionNode node) {
         Empleado empleado = node.getEmpleado();
         Maquina maquina = node.getMaquina();
 
         int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
         int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
 
-        Date inicioEtapaEmpleado = obtenerFechaDisponibilidadEmpleado(empleado, horas, minutos);
+        List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
+
+        Date inicioEtapaEmpleado = obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos);
 
         node.setInicioEtapa(inicioEtapaEmpleado);
         Calendar inicioEtapa = new GregorianCalendar();
@@ -1508,17 +1624,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
 
     }
 
-    private Date obtenerFechaDisponibilidadEmpleado(Empleado empleado, int horas, int minutos) {
+    private Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos) {
 
         Date resultado = null;
-
-        List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
 
         /*
          * quiere decir que no esta ocupado
          */
         if (lstDisponibilidad == null || lstDisponibilidad.isEmpty()) {
-            
+
             return Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
         }
 
@@ -1526,11 +1640,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
         Disponibilidadhoraria ultimaDisp = null;
         Date dif = null;
         boolean hayDisponibilidad = false;
+        
         Date fechaActual = Fecha.fechaActualDate();
+        
         for (Disponibilidadhoraria disponibilidadhoraria : lstDisponibilidad) {
+            
             Date fechaFinDisp = (Date) disponibilidadhoraria.getFecha().clone();
             fechaFinDisp.setHours(disponibilidadhoraria.getHorafin().getHours());
             fechaFinDisp.setMinutes(disponibilidadhoraria.getHorafin().getMinutes());
+            
             Date fechaInicioDisp = (Date) disponibilidadhoraria.getFecha().clone();
             fechaInicioDisp.setHours(disponibilidadhoraria.getHorainicio().getHours());
             fechaInicioDisp.setMinutes(disponibilidadhoraria.getHorainicio().getMinutes());
@@ -1556,28 +1674,55 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
                      * la hora fin de la anterior como inicio de etapa
                      */
 
-                    Date dispAnt = new Date();
+                    Date dispAnt = ultimaDisp.getFecha();
                     dispAnt.setHours(ultimaDisp.getHorafin().getHours());
                     dispAnt.setMinutes(ultimaDisp.getHorafin().getMinutes());
                     dispAnt.setSeconds(0);
 
-                    Date disp = new Date();
+                    Date disp = disponibilidadhoraria.getFecha();
                     disp.setHours(disponibilidadhoraria.getHorainicio().getHours());
                     disp.setMinutes(disponibilidadhoraria.getHorainicio().getMinutes());
                     disp.setSeconds(0);
 
-                    dif = Fecha.diferenciaEnMinutosHoras(dispAnt, disp);
+                    boolean calcularDif = false;
+                    /*
+                     * si la fecha fin anterior es mayor a la actual. calcular
+                     */
+                    if (dispAnt.compareTo(fechaActual) > 0) {
 
-                    if (horas < dif.getHours()) {
-                        resultado = dispAnt;
-                        hayDisponibilidad = true;
-                        break;
-                    } else if(horas == dif.getHours() && minutos <= dif.getMinutes()){
-                        resultado = dispAnt;
-                        hayDisponibilidad = true;
-                        break;
+                        calcularDif = true;
+
+                    } /*
+                     * si la fecha fin anterior no es mayor a la fecha actual entonces ver si la
+                     * fecha inicio disp actual es mayor a la fecha actual. si es asi asignar como fecha fin
+                     * de disp anterior la fecha actual y calcular la dif
+                     */ else if (disp.compareTo(fechaActual) > 0) {
+
+                        calcularDif = true;
+                        dispAnt = fechaActual;
+
                     }
 
+                    /*
+                     * si no se entro en alguno de los if anteriores es porque son fechas anteriores a la actual
+                     * y no lo puedo asignar por mas que tenga disponibilidad.
+                     */
+
+
+                    if (calcularDif) {
+                        dif = Fecha.diferenciaEnMinutosHoras(dispAnt, disp);
+
+                        if (horas < dif.getHours()) {
+                            resultado = dispAnt;
+                            hayDisponibilidad = true;
+                            break;
+                        } else if (horas == dif.getHours() && minutos <= dif.getMinutes()) {
+                            resultado = dispAnt;
+                            hayDisponibilidad = true;
+                            break;
+                        }
+
+                    }
 
                 } else {
                     /*
@@ -1650,8 +1795,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
             /*
              * asignar la hora fin de la ultima disp.
              */
-
-            resultado = Fecha.dateWithSpecificValues(ultimaDisp.getFecha(), ultimaDisp.getHorafin().getHours(), ultimaDisp.getHorafin().getMinutes(), 0);
+            Calendar calInicio = new GregorianCalendar();
+            calInicio.setTime(Fecha.dateWithSpecificValues(ultimaDisp.getFecha(), ultimaDisp.getHorafin().getHours(), ultimaDisp.getHorafin().getMinutes(), 0));
+            resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, calInicio).getTime();
         }
 
         return resultado;

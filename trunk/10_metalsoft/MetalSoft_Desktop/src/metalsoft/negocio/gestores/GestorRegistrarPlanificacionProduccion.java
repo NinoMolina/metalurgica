@@ -160,7 +160,7 @@ public class GestorRegistrarPlanificacionProduccion {
                         newFechaInicio.setMinutes(0);
                         newFechaInicio.setSeconds(0);
                         
-                        disponibilidadhoraria.setHorainicio(fechaInicio);
+                        disponibilidadhoraria.setHorainicio(newFechaInicio);
                         
                         if ((i + 1) == difDias) {
                             disponibilidadhoraria.setHorafin(detalle.getHorafin());
@@ -175,6 +175,9 @@ public class GestorRegistrarPlanificacionProduccion {
                         ctrlDisponibilidad.create(disponibilidadhoraria);
 
                     }
+                } else {
+                    disponibilidadhoraria.setHorafin(detalle.getHorafin());
+                    ctrlDisponibilidad.create(disponibilidadhoraria);
                 }
 
             }
