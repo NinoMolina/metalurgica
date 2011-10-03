@@ -132,6 +132,7 @@ public class GestorRegistrarPlanificacionProduccion {
                 disponibilidadhoraria.setFecha(detalle.getFechainicio());
                 disponibilidadhoraria.setHorainicio(detalle.getHorainicio());
 
+
                 Date horaFinDisponibilidad = null;
                 int difDias = Fecha.diferenciaEnDias(detalle.getFechainicio(), detalle.getFechafin());
                 Date fechaInicio = detalle.getFechainicio();
@@ -142,41 +143,46 @@ public class GestorRegistrarPlanificacionProduccion {
                     horaFinDisponibilidad.setSeconds(0);
 
                     disponibilidadhoraria.setHorafin(horaFinDisponibilidad);
+                    
+                    disponibilidadhoraria.setIdempleado(detalle.getIdempleado());
 
                     ctrlDisponibilidad.create(disponibilidadhoraria);
 
                     for (int i = 0; i < difDias; i++) {
                         disponibilidadhoraria = new Disponibilidadhoraria();
-                        
+
                         Calendar calendar = new GregorianCalendar();
                         calendar.setTime(fechaInicio);
-                        
+
                         Date newFechaInicio = Fecha.addDias(calendar, i + 1).getTime();
                         Date newFechaFin = (Date) newFechaInicio.clone();
-                        
+
                         disponibilidadhoraria.setFecha(newFechaInicio);
-                        
+
                         newFechaInicio.setHours(Jornada.HORA_INICIO_JORNADA);
                         newFechaInicio.setMinutes(0);
                         newFechaInicio.setSeconds(0);
-                        
+
                         disponibilidadhoraria.setHorainicio(newFechaInicio);
-                        
+
                         if ((i + 1) == difDias) {
                             disponibilidadhoraria.setHorafin(detalle.getHorafin());
-                        } else { 
+                        } else {
                             newFechaFin.setHours(Jornada.HORA_FIN_JORNADA);
                             newFechaFin.setMinutes(0);
                             newFechaFin.setSeconds(0);
-                            
+
                             disponibilidadhoraria.setHorafin(newFechaFin);
                         }
+
+                        disponibilidadhoraria.setIdempleado(detalle.getIdempleado());
                         
                         ctrlDisponibilidad.create(disponibilidadhoraria);
 
                     }
                 } else {
                     disponibilidadhoraria.setHorafin(detalle.getHorafin());
+                    disponibilidadhoraria.setIdempleado(detalle.getIdempleado());
                     ctrlDisponibilidad.create(disponibilidadhoraria);
                 }
 
