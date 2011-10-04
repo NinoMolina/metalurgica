@@ -144,6 +144,7 @@ public class ConsultarRemitos extends javax.swing.JFrame {
             }
         });
 
+        btnVerDetalle.setBackground(new java.awt.Color(204, 255, 204));
         btnVerDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/detalle.gif"))); // NOI18N
         btnVerDetalle.setText("Ver Detalle");
         btnVerDetalle.addActionListener(new java.awt.event.ActionListener() {
