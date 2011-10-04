@@ -116,7 +116,8 @@ public class ConsultarFacturas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblmonto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consultar Facturas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Facturas"));
 
@@ -207,7 +208,7 @@ public class ConsultarFacturas extends javax.swing.JFrame {
 
         jLabel1.setText("Monto Total Factura:");
 
-        lblmonto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblmonto.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
