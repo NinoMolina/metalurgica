@@ -327,6 +327,7 @@ public class ABMPieza extends javax.swing.JFrame {
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administrar Pieza");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Pieza"));
 
