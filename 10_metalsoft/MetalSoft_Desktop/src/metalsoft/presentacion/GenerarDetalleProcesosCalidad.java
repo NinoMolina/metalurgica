@@ -381,6 +381,8 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements
 
         jScrollPane6.setViewportView(tblDetallePedido);
 
+        beanBtnSeleccionarProducto.setBackground(new java.awt.Color(204, 255, 204));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
