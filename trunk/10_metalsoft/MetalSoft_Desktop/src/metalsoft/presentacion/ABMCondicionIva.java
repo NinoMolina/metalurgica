@@ -34,6 +34,10 @@ public class ABMCondicionIva extends javax.swing.JFrame {
     public ABMCondicionIva() {
         initComponents();
         addListeners();
+        setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListeners() {
@@ -76,6 +80,10 @@ public class ABMCondicionIva extends javax.swing.JFrame {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void addListenerBtnGuardar() {
@@ -98,12 +106,18 @@ public class ABMCondicionIva extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         GestorCondicionIva gestor = new GestorCondicionIva();
+
         boolean ok = gestor.modificarCondicionIva(condicion, txtNombre.getText(), txtDescripcion.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+            setEnableComponents(true);
+            botones.getBtnGuardar().setEnabled(true);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
         }
+
     }
 
     private void addListenerBtnBuscar() {
@@ -120,6 +134,9 @@ public class ABMCondicionIva extends javax.swing.JFrame {
         try {
             buscar = (ABMCondicionIva_Buscar) JFrameManager.crearVentana(ABMCondicionIva_Buscar.class.getName());
             buscar.setVentanaCondicionIva(this);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMCondicionIva.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -149,6 +166,10 @@ public class ABMCondicionIva extends javax.swing.JFrame {
         long id = gestor.guardarCondicionIva(txtNombre.getText(), txtDescripcion.getText());
         if (id > -1) {
             JOptionPane.showMessageDialog(this, "Se guardó la siguiente Condición Iva: " + txtNombre.getText());
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
+            setEnableComponents(false);
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
@@ -275,5 +296,10 @@ public class ABMCondicionIva extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void setEnableComponents(boolean b) {
+        this.txtDescripcion.setEnabled(b);
+        this.txtNombre.setEnabled(b);
+    }
 
 }
