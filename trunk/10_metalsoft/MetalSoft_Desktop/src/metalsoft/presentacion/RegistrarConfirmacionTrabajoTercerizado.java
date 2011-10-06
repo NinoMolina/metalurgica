@@ -145,7 +145,8 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
         btnconfirmar = new javax.swing.JButton();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Confirmación Trabajo Tercerizado");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar el ingreso de los Pedidos de Cotizacion de Trabajo enviados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
