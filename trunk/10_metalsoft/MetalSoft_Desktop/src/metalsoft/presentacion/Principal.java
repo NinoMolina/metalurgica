@@ -96,12 +96,21 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jPanelTransparente2 = new metalsoft.beans.JPanelTransparente();
-        btnProduccion = new javax.swing.JButton();
         btnEtapasAtrasadas = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnProduccion = new javax.swing.JButton();
         jPanelTransparente3 = new metalsoft.beans.JPanelTransparente();
-        btnLanzarProcesoCalidad = new javax.swing.JButton();
         btnProcesosCalidadAtrasados = new javax.swing.JButton();
+        btnProcesosCalidadAtrasados3 = new javax.swing.JButton();
+        btnProcesosCalidadAtrasados2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanelTransparente4 = new metalsoft.beans.JPanelTransparente();
+        btnLanzarProcesoCalidad1 = new javax.swing.JButton();
+        btnProcesosCalidadAtrasados1 = new javax.swing.JButton();
+        btnLanzarProcesoCalidad2 = new javax.swing.JButton();
+        btnEtapasAtrasadas1 = new javax.swing.JButton();
+        btnProduccion1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mniNuevoUsuario = new javax.swing.JMenuItem();
@@ -174,6 +183,7 @@ public class Principal extends javax.swing.JFrame {
         mniCobros = new javax.swing.JMenuItem();
         mniTrabajosTercerizados = new javax.swing.JMenuItem();
         mniEmpleados = new javax.swing.JMenuItem();
+        mniMantenimientos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -191,9 +201,9 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(new java.awt.Color(240, 240, 240));
 
-        pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/background.jpg"))); // NOI18N
+        pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/FondoMetalsoft.jpg"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36));
+        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("MetalSoft");
 
@@ -233,7 +243,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addGap(10, 10, 10)
-                .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -252,50 +262,88 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanelTransparente2.setBackground(new java.awt.Color(0, 255, 255));
-        jPanelTransparente2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "--------", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
+        jPanelTransparente2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        jPanelTransparente2.setPreferredSize(new java.awt.Dimension(450, 200));
         jPanelTransparente2.setTran(0.1F);
 
-        btnProduccion.setText("En Producción");
+        btnEtapasAtrasadas.setBackground(new java.awt.Color(255, 255, 255));
+        btnEtapasAtrasadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcobros.png"))); // NOI18N
+        btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cobros", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEtapasAtrasadasActionPerformed(evt);
+            }
+        });
 
-        btnEtapasAtrasadas.setText("Etapas Atrasadas.");
-        btnEtapasAtrasadas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPedidos.setBackground(new java.awt.Color(255, 255, 255));
+        btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fpedido.png"))); // NOI18N
+        btnPedidos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidosActionPerformed(evt);
+            }
+        });
 
-        btnPedidos.setText("Pedidos");
+        btnProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcliente.png"))); // NOI18N
+        btnProduccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Cliente"));
+        btnProduccion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProduccion.setPreferredSize(new java.awt.Dimension(191, 181));
 
         javax.swing.GroupLayout jPanelTransparente2Layout = new javax.swing.GroupLayout(jPanelTransparente2);
         jPanelTransparente2.setLayout(jPanelTransparente2Layout);
         jPanelTransparente2Layout.setHorizontalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTransparente2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(btnProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(26, 26, 26)
+                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanelTransparente2Layout.setVerticalGroup(
             jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTransparente2Layout.createSequentialGroup()
-                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
         );
 
         jPanelTransparente3.setBackground(new java.awt.Color(0, 255, 255));
-        jPanelTransparente3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "--------", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
+        jPanelTransparente3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        jPanelTransparente3.setPreferredSize(new java.awt.Dimension(450, 200));
         jPanelTransparente3.setTran(0.1F);
 
-        btnLanzarProcesoCalidad.setText("Lanzar Proceso Calidad");
-
-        btnProcesosCalidadAtrasados.setText("Procesos Calidad Atrasados.");
-        btnProcesosCalidadAtrasados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnProcesosCalidadAtrasados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock5501471.jpg"))); // NOI18N
+        btnProcesosCalidadAtrasados.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Producción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProcesosCalidadAtrasados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProcesosCalidadAtrasados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProcesosCalidadAtrasadosActionPerformed(evt);
+            }
+        });
+
+        btnProcesosCalidadAtrasados3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fproduccion.png"))); // NOI18N
+        btnProcesosCalidadAtrasados3.setBorder(javax.swing.BorderFactory.createTitledBorder("En Producción"));
+        btnProcesosCalidadAtrasados3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProcesosCalidadAtrasados3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesosCalidadAtrasados3ActionPerformed(evt);
+            }
+        });
+
+        btnProcesosCalidadAtrasados2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7140471.jpg"))); // NOI18N
+        btnProcesosCalidadAtrasados2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProcesosCalidadAtrasados2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProcesosCalidadAtrasados2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesosCalidadAtrasados2ActionPerformed(evt);
             }
         });
 
@@ -304,20 +352,91 @@ public class Principal extends javax.swing.JFrame {
         jPanelTransparente3Layout.setHorizontalGroup(
             jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(btnProcesosCalidadAtrasados3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnProcesosCalidadAtrasados2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         jPanelTransparente3Layout.setVerticalGroup(
             jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTransparente3Layout.createSequentialGroup()
-                .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesosCalidadAtrasados3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesosCalidadAtrasados2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/f3.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cerrar Sesión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
+
+        jPanelTransparente4.setBackground(new java.awt.Color(0, 255, 255));
+        jPanelTransparente4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        jPanelTransparente4.setPreferredSize(new java.awt.Dimension(450, 200));
+        jPanelTransparente4.setTran(0.1F);
+
+        btnLanzarProcesoCalidad1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcalidad2.png"))); // NOI18N
+        btnLanzarProcesoCalidad1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Control", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnLanzarProcesoCalidad1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        btnProcesosCalidadAtrasados1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcalidad.png"))); // NOI18N
+        btnProcesosCalidadAtrasados1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procesos Atrasados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProcesosCalidadAtrasados1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProcesosCalidadAtrasados1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesosCalidadAtrasados1ActionPerformed(evt);
+            }
+        });
+
+        btnLanzarProcesoCalidad2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fEncalidad.png"))); // NOI18N
+        btnLanzarProcesoCalidad2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "En calidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnLanzarProcesoCalidad2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelTransparente4Layout = new javax.swing.GroupLayout(jPanelTransparente4);
+        jPanelTransparente4.setLayout(jPanelTransparente4Layout);
+        jPanelTransparente4Layout.setHorizontalGroup(
+            jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(btnLanzarProcesoCalidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnLanzarProcesoCalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btnProcesosCalidadAtrasados1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        jPanelTransparente4Layout.setVerticalGroup(
+            jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTransparente4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLanzarProcesoCalidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLanzarProcesoCalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesosCalidadAtrasados1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        btnEtapasAtrasadas1.setBackground(new java.awt.Color(255, 255, 255));
+        btnEtapasAtrasadas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock4378131.jpg"))); // NOI18N
+        btnEtapasAtrasadas1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEtapasAtrasadas1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEtapasAtrasadas1.setPreferredSize(new java.awt.Dimension(190, 180));
+        btnEtapasAtrasadas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEtapasAtrasadas1ActionPerformed(evt);
+            }
+        });
+
+        btnProduccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock4270980.jpg"))); // NOI18N
+        btnProduccion1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Presupuesto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProduccion1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProduccion1.setPreferredSize(new java.awt.Dimension(191, 181));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fmtsoft.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
         pnlImagen.setLayout(pnlImagenLayout);
@@ -329,19 +448,33 @@ public class Principal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanelTransparente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                        .addGap(572, 572, 572)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)))
-                    .addGroup(pnlImagenLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlImagenLayout.createSequentialGroup()
+                        .addComponent(btnProduccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122)
+                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(117, 117, 117)
+                        .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE))
+                    .addGroup(pnlImagenLayout.createSequentialGroup()
+                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                        .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(96, 96, 96)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 885, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36))
         );
         pnlImagenLayout.setVerticalGroup(
             pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,15 +483,27 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanelTransparente1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnProduccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlImagenLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(27, 27, 27))))
         );
 
         mnuInicio.setText("Inicio");
@@ -893,6 +1038,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuReportes.add(mniEmpleados);
 
+        mniMantenimientos.setText("Mantenimientos");
+        mniMantenimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMantenimientosActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniMantenimientos);
+
         mbrMenu.add(mnuReportes);
 
         mnuAyuda.setText("Ayuda");
@@ -908,7 +1061,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1666,18 +1819,64 @@ private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniEmpleadosActionPerformed
+
+private void mniMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMantenimientosActionPerformed
+
+     try {
+        JFrameManager.crearVentana(ReportesMaquinas.class.getName());
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniMantenimientosActionPerformed
+
+private void btnProcesosCalidadAtrasados1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasados1ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnProcesosCalidadAtrasados1ActionPerformed
+
+private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnPedidosActionPerformed
+
+private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadasActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnEtapasAtrasadasActionPerformed
+
+private void btnProcesosCalidadAtrasados2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasados2ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnProcesosCalidadAtrasados2ActionPerformed
+
+private void btnProcesosCalidadAtrasados3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasados3ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnProcesosCalidadAtrasados3ActionPerformed
+
+private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadas1ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnEtapasAtrasadas1ActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEtapasAtrasadas;
-    private javax.swing.JButton btnLanzarProcesoCalidad;
+    private javax.swing.JButton btnEtapasAtrasadas1;
+    private javax.swing.JButton btnLanzarProcesoCalidad1;
+    private javax.swing.JButton btnLanzarProcesoCalidad2;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProcesosCalidadAtrasados;
+    private javax.swing.JButton btnProcesosCalidadAtrasados1;
+    private javax.swing.JButton btnProcesosCalidadAtrasados2;
+    private javax.swing.JButton btnProcesosCalidadAtrasados3;
     private javax.swing.JButton btnProduccion;
+    private javax.swing.JButton btnProduccion1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1691,6 +1890,7 @@ private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
     private metalsoft.beans.JPanelTransparente jPanelTransparente2;
     private metalsoft.beans.JPanelTransparente jPanelTransparente3;
+    private metalsoft.beans.JPanelTransparente jPanelTransparente4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblReloj;
@@ -1725,6 +1925,7 @@ private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenuItem mniListadoEmpleados;
     private javax.swing.JMenuItem mniMPrima;
     private javax.swing.JMenuItem mniMantenimientoPreventivo;
+    private javax.swing.JMenuItem mniMantenimientos;
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniNuevoUsuario;
