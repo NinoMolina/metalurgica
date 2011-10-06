@@ -83,6 +83,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
 
         jScrollPane1.setViewportView(lstLista);
 
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/seleccionar.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,9 +103,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements I
                         .add(81, 81, 81))
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, txtValor)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(btnSeleccionar)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
