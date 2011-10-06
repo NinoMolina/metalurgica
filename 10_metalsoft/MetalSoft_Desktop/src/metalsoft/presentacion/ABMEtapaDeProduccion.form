@@ -30,10 +30,10 @@
                       <Component id="btnnuevo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnModificar" min="-2" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="btnBuscar" min="-2" max="-2" attributes="1"/>
-                      <EmptySpace pref="65" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnguardar" min="-2" max="-2" attributes="1"/>
+                      <EmptySpace pref="81" max="32767" attributes="0"/>
+                      <Component id="btnBuscar" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSalir" min="-2" pref="57" max="-2" attributes="1"/>
                   </Group>
@@ -50,13 +50,13 @@
               <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnguardar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btnnuevo" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnModificar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="btnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnguardar" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -132,7 +132,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtNroEtapa" pref="262" max="32767" attributes="0"/>
+                          <Component id="txtNroEtapa" pref="276" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -148,7 +148,7 @@
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtFechaCreacion" pref="241" max="32767" attributes="0"/>
+                          <Component id="txtFechaCreacion" pref="255" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -160,7 +160,7 @@
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtduracion" pref="136" max="32767" attributes="0"/>
+                          <Component id="txtduracion" pref="150" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -169,8 +169,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txthorasmaquina" pref="259" max="32767" attributes="0"/>
-                              <Component id="txthorashombre" alignment="0" pref="259" max="32767" attributes="0"/>
+                              <Component id="txthorasmaquina" pref="273" max="32767" attributes="0"/>
+                              <Component id="txthorashombre" alignment="0" pref="273" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
