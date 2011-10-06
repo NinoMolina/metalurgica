@@ -160,7 +160,8 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
         btnSeleccionar1 = new metalsoft.beans.BtnSeleccionar();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Regitrar Envio / Llegada de Cotizacion");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enviar Pedidos De Cotizacion de Trabajo a Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
