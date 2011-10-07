@@ -16,16 +16,16 @@
     <ui:define name="content">
         <h:form>
             <ice:panelGrid>
-                <ice:outputText value="Ingrese su nombre:" style="color: #FFFFFF"/>                
-                <ice:inputText value="#{contactView.nombreContacto}" size="100"/>
+                <ice:outputText value="*Ingrese su nombre:" style="color: #FFFFFF"/>                
+                <ice:inputText value="#{contactView.nombreContacto}" size="75"/>
 
-                <ice:outputText value="Ingrese su e-mail asi podremos comunicarnos con ud:" style="color: #FFFFFF"/>
-                <ice:inputText value="#{contactView.mail}" size="100"/>
+                <ice:outputText value="*Ingrese su e-mail asi podremos comunicarnos con ud:" style="color: #FFFFFF"/>
+                <ice:inputText value="#{contactView.mail}" size="75"/>
 
-                <ice:outputText value="Ingrese su número de telefono:" style="color: #FFFFFF"/>
-                <ice:inputText value="#{contactView.telefono}" size="100" />
+                <ice:outputText value="*Ingrese su número de telefono:" style="color: #FFFFFF"/>
+                <ice:inputText value="#{contactView.telefono}" size="75" />
 
-                <ice:outputText value="Ingrese su Consulta:" style="color: #FFFFFF"/>
+                <ice:outputText value="*Ingrese su Consulta:" style="color: #FFFFFF"/>
                 <ice:inputTextarea value="#{contactView.descripcion}" style=" width: 500px; height: 200px"/>
                 
                 <ice:commandButton value="Enviar Consulta" action="#{contactoControlador.enviarConsulta}"/> 
