@@ -110,7 +110,6 @@ public class Principal extends javax.swing.JFrame {
         btnLanzarProcesoCalidad2 = new javax.swing.JButton();
         btnEtapasAtrasadas1 = new javax.swing.JButton();
         btnProduccion1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
         mniNuevoUsuario = new javax.swing.JMenuItem();
@@ -205,7 +204,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("MetalSoft");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.animado2a.gif"))); // NOI18N
 
         jPanelTransparente1.setBackground(new java.awt.Color(153, 255, 153));
         jPanelTransparente1.setTran(0.25F);
@@ -436,8 +435,6 @@ public class Principal extends javax.swing.JFrame {
         btnProduccion1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProduccion1.setPreferredSize(new java.awt.Dimension(191, 181));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fmtsoft.png"))); // NOI18N
-
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
         pnlImagen.setLayout(pnlImagenLayout);
         pnlImagenLayout.setHorizontalGroup(
@@ -446,35 +443,30 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlImagenLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanelTransparente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelTransparente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlImagenLayout.createSequentialGroup()
+                                .addComponent(btnProduccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(122, 122, 122)
+                                .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(117, 117, 117)
+                                .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE))
+                            .addGroup(pnlImagenLayout.createSequentialGroup()
+                                .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                                .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(96, 96, 96)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlImagenLayout.createSequentialGroup()
-                        .addComponent(btnProduccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122)
-                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117)
-                        .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE))
-                    .addGroup(pnlImagenLayout.createSequentialGroup()
-                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
-                        .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(96, 96, 96)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 885, Short.MAX_VALUE)
+                .addContainerGap(974, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36))
+                .addGap(41, 41, 41))
         );
         pnlImagenLayout.setVerticalGroup(
             pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,14 +488,9 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlImagenLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(27, 27, 27))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         mnuInicio.setText("Inicio");
@@ -1876,7 +1863,6 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
