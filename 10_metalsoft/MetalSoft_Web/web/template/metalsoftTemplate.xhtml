@@ -8,11 +8,11 @@
     <f:view>
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--            <link href="resources/css/default.css" rel="stylesheet" type="text/css" />-->
+            <!--            <link href="resources/css/default.css" rel="stylesheet" type="text/css" />-->
             <link href="resources/css/tableLayout.css" rel="stylesheet" type="text/css" />
             <link href="./xmlhttp/css/xp/xp.css" rel="stylesheet" type="text/css"/>
-<!--            <link href="./xmlhttp/css/royale/royale.css" rel="stylesheet" type="text/css"/>
-             <link href="./xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>-->
+            <!--            <link href="./xmlhttp/css/royale/royale.css" rel="stylesheet" type="text/css"/>
+                         <link href="./xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>-->
             <title><ui:insert name="title" /></title>
         </h:head>
 
@@ -26,16 +26,23 @@
                 <tr>
                     <td id="menu"  style="background-image: url(./imagenes/background.jpg)">
                         <ui:include src="menu.xhtml"/>
-                        
+
                     </td>
                 </tr>
                 <tr >
-                    <td id="content" style="background-image: url(./imagenes/background.jpg); position:absolute " valign="middle">
+                    <td id="content" style="background-image: url(./imagenes/background.jpg); position:absolute " >
                         <ui:insert name="content"/>
                     </td>
                 </tr>
                 <tr >
-                    <td id="bottom" style="background-image: url(./imagenes/img01.jpg)">
+                    <td id="bottom" style="height:30px;
+                        bottom: 1%;
+                        color: #FFF;
+                        clear:both;
+                        width:100%;
+                        padding:10px;
+                        position:fixed;
+                        background-image: url(./imagenes/img01.jpg)">
                         <ui:include src="footer.xhtml" />
                     </td>
                 </tr>
