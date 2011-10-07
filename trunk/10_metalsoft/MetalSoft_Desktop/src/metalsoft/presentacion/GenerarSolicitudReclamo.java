@@ -43,7 +43,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Mariana
  */
-public class GenerarSolicitudReclamo extends javax.swing.JFrame {
+public class GenerarSolicitudReclamo extends javax.swing.JDialog {
 
     private ViewProveedorXMateriaPrima view;
     private GestorReclamo gestor;

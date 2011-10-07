@@ -22,7 +22,7 @@ import metalsoft.negocio.ventas.CondicionIva;
  *
  * @author Lorreine Prescott
  */
-public class ABMCondicionIva_Buscar extends javax.swing.JFrame {
+public class ABMCondicionIva_Buscar extends javax.swing.JDialog {
 
      private static Timer timer;
     private HiloBuscarCondicionIva hiloBuscarCondicionIva;

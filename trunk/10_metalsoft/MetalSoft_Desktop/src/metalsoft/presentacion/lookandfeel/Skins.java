@@ -10,7 +10,6 @@ import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
 import com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -82,9 +81,7 @@ public enum Skins {
     public static LookAndFeel getPgs(){
         return new PgsLookAndFeel();
     }
-    public static LookAndFeel getSeaglass(){
-        return new SeaGlassLookAndFeel();
-    }
+
     public static LookAndFeel getAutumn() {
         return new SubstanceAutumnLookAndFeel();
     }
@@ -276,10 +273,6 @@ public enum Skins {
 
     public static LookAndFeel getNimROD() {
         return new NimRODLookAndFeel();
-    }
-
-    public static LookAndFeel getNimbus() {
-        return new NimbusLookAndFeel();
     }
 
     public static LookAndFeel getWindows() {

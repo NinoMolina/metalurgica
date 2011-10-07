@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import metalsoft.Main;
 
 /**
  *
@@ -130,7 +131,11 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
-
+       if(evt.getKeyCode() == 0x70)
+        {
+            String path = "C:\\metalsoft\\Ayuda\\metalsoft_tmphhp\\GettingStarted.html";
+            Main.ejecutarAyuda(path);
+        }
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
     private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased

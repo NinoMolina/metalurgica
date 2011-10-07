@@ -22,7 +22,7 @@ import metalsoft.negocio.rrhh.TipoDocumento;
  *
  * @author Lorreine Prescott
  */
-public class ABMTipoDocumento_Buscar extends javax.swing.JFrame {
+public class ABMTipoDocumento_Buscar extends javax.swing.JDialog {
 
      private static Timer timer;
     private HiloBuscarTipoDocumento hiloBuscarTipoDocumento;

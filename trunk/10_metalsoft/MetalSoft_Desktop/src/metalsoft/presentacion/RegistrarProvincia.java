@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Nino
  */
-public class RegistrarProvincia extends javax.swing.JFrame {
+public class RegistrarProvincia extends javax.swing.JDialog {
 
     /** Creates new form RegistrarProvincia */
     public RegistrarProvincia() {

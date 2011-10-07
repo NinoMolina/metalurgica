@@ -35,7 +35,7 @@ import metalsoft.util.Fecha;
  *
  * @author Nino
  */
-public class RegistrarDiaNoLaboral extends javax.swing.JFrame {
+public class RegistrarDiaNoLaboral extends javax.swing.JDialog {
 
     private GregorianCalendar fechaActual;
     private GestorCalendario gestor;

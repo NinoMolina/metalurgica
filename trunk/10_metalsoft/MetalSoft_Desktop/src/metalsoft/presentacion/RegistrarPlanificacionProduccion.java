@@ -65,7 +65,7 @@ import org.joda.time.Interval;
  *
  * @author Nino
  */
-public class RegistrarPlanificacionProduccion extends javax.swing.JFrame {
+public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
     /** Creates new form RegistrarPlanificacionProduccion */
     private LinkedList<ViewPedidoNoPlanificado> filasPedidosNoPlanificados;

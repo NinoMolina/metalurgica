@@ -205,4 +205,9 @@ public class GestorNuevoUsuario {
         RolJpaController con = new RolJpaController(JpaUtil.getEntityManagerFactory());
         return con.findRol(id);
     }
+
+    public Usuario getusuarioByDatos(String nombre, String apellido, String tipoDocumento, String documento) {
+//         return JpaUtil.getUsuarioByDatos(nombre, apellido, tipoDocumento, documento);
+        return null;
+    }
 }

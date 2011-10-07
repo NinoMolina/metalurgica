@@ -34,9 +34,6 @@ public class LookAndFeelManager {
                 case MULTI:
                     UIManager.setLookAndFeel(Skins.getMulti());
                     break;
-                case NIMBUS:
-                    UIManager.setLookAndFeel(Skins.getNimbus());
-                    break;
                 case NIMROD:
                     UIManager.setLookAndFeel(Skins.getNimROD());
                     break;
@@ -57,9 +54,6 @@ public class LookAndFeelManager {
                     break;
                 case SYSTEM:
                     UIManager.setLookAndFeel(Skins.getSystem());
-                    break;
-                case SEAGLASS:
-                    UIManager.setLookAndFeel(Skins.getSeaglass());
                     break;
                 case PGS:
                     UIManager.setLookAndFeel(Skins.getPgs());

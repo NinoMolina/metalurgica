@@ -43,7 +43,7 @@ import metalsoft.datos.jpa.entity.Empleado;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
-public class RegistrarAsistencia extends javax.swing.JFrame {
+public class RegistrarAsistencia extends javax.swing.JDialog {
 
     private GestorEmpleado gestor;
     private Empleado empleado;

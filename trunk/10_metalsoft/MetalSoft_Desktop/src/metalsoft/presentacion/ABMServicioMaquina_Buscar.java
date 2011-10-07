@@ -21,7 +21,7 @@ import metalsoft.negocio.mantenimiento.ServicioMaquina;
  *
  * @author Lorreine Prescott
  */
-public class ABMServicioMaquina_Buscar extends javax.swing.JFrame {
+public class ABMServicioMaquina_Buscar extends javax.swing.JDialog {
 
       private static Timer timer;
     private HiloBuscarServicioMaquina hiloBuscarServicioMaquina;

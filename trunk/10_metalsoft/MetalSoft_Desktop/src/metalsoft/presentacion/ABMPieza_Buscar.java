@@ -28,7 +28,7 @@ import metalsoft.negocio.ventas.Pieza;
  *
  * @author Vicky
  */
-public class ABMPieza_Buscar extends javax.swing.JFrame implements IBuscador {
+public class ABMPieza_Buscar extends javax.swing.JDialog implements IBuscador {
 
     private GestorPieza gestor = null;
     private static Timer timer;

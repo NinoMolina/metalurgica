@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMEmpleado_Buscar extends javax.swing.JFrame {
+public class ABMEmpleado_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMEmpleado_Buscar */
     public ABMEmpleado_Buscar() {

@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Nino
  */
-public class ClienteMoroso extends javax.swing.JFrame {
+public class ClienteMoroso extends javax.swing.JDialog {
 
     /** Creates new form ClienteMoroso */
     public ClienteMoroso() {

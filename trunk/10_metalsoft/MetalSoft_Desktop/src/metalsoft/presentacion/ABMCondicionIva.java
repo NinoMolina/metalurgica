@@ -26,7 +26,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Lorreine Prescott
  */
-public class ABMCondicionIva extends javax.swing.JFrame {
+public class ABMCondicionIva extends javax.swing.JDialog {
 
     private CondicionIva condicion;
 
@@ -301,5 +301,4 @@ public class ABMCondicionIva extends javax.swing.JFrame {
         this.txtDescripcion.setEnabled(b);
         this.txtNombre.setEnabled(b);
     }
-
 }

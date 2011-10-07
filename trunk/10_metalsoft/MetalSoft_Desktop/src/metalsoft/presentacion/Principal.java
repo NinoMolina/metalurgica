@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import metalsoft.Main;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
@@ -27,6 +28,7 @@ import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
 import metalsoft.negocio.gestores.GestorNuevoUsuario;
 import metalsoft.util.Fecha;
+import sun.awt.SunToolkit;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Principal extends javax.swing.JFrame {
     private Timer tiempo;
     private Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas;
     private Map<Long, Detalleejecucionplanificacioncalidad> mapProcesosCalidadAtrasados;
+    private static Principal vtnPrincipal = null;
 
     /** Creates new form Principal */
     public Principal(metalsoft.datos.dbobject.UsuarioDB usuario) {
@@ -53,6 +56,15 @@ public class Principal extends javax.swing.JFrame {
         lblRol.setText(roles[0].getRol());
         lblUsuario.setText(usuario.getUsuario());
         //this.getContentPane().setBackground();
+        vtnPrincipal = this;
+    }
+
+    public static Principal getVtnPrincipal() {
+        return vtnPrincipal;
+    }
+
+    public static void setVtnPrincipal(Principal vtnPrincipal) {
+        Principal.vtnPrincipal = vtnPrincipal;
     }
 
     private void iniciarReloj() {
@@ -151,7 +163,6 @@ public class Principal extends javax.swing.JFrame {
         mniConsultarFacturas = new javax.swing.JMenuItem();
         mniConsultarRemitos = new javax.swing.JMenuItem();
         mnuRRHH = new javax.swing.JMenu();
-        mniListadoEmpleados = new javax.swing.JMenuItem();
         mniRegistrarAsistencia = new javax.swing.JMenuItem();
         mniRegistrarDiaNoLaboral = new javax.swing.JMenuItem();
         registrarEmpleado = new javax.swing.JMenuItem();
@@ -202,7 +213,7 @@ public class Principal extends javax.swing.JFrame {
 
         pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/FondoMetalsoft.jpg"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 36));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.animado2a.gif"))); // NOI18N
 
@@ -788,14 +799,6 @@ public class Principal extends javax.swing.JFrame {
 
         mnuRRHH.setText("RRHH");
 
-        mniListadoEmpleados.setText("Listado Empleados");
-        mniListadoEmpleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniListadoEmpleadosActionPerformed(evt);
-            }
-        });
-        mnuRRHH.add(mniListadoEmpleados);
-
         mniRegistrarAsistencia.setText("Registrar Asistencia");
         mniRegistrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1036,6 +1039,11 @@ public class Principal extends javax.swing.JFrame {
         mbrMenu.add(mnuReportes);
 
         mnuAyuda.setText("Ayuda");
+        mnuAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuAyudaMouseClicked(evt);
+            }
+        });
         mbrMenu.add(mnuAyuda);
 
         setJMenuBar(mbrMenu);
@@ -1053,9 +1061,6 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mniListadoEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoEmpleadosActionPerformed
-    }//GEN-LAST:event_mniListadoEmpleadosActionPerformed
 
     private void mniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteActionPerformed
         try {
@@ -1753,7 +1758,7 @@ private void mniMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void mniProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProveedoresActionPerformed
 
-      try {
+    try {
         JFrameManager.crearVentana(ReportesProveedores.class.getName());
 
     } catch (ClassNotFoundException ex) {
@@ -1766,7 +1771,7 @@ private void mniProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_mniProveedoresActionPerformed
 
 private void mniCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCobrosActionPerformed
-   try {
+    try {
         JFrameManager.crearVentana(ReportesCobros.class.getName());
 
     } catch (ClassNotFoundException ex) {
@@ -1795,7 +1800,7 @@ private void mniTrabajosTercerizadosActionPerformed(java.awt.event.ActionEvent e
 
 private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEmpleadosActionPerformed
 
-     try {
+    try {
         JFrameManager.crearVentana(ReportesEmpleados.class.getName());
 
     } catch (ClassNotFoundException ex) {
@@ -1806,6 +1811,13 @@ private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniEmpleadosActionPerformed
+
+
+private void mnuAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuAyudaMouseClicked
+    String path = "C:\\metalsoft\\Ayuda\\metalsoft_tmphhp\\Welcome.html";
+    Main.ejecutarAyuda(path);
+}//GEN-LAST:event_mnuAyudaMouseClicked
+
 
 private void mniMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMantenimientosActionPerformed
 
@@ -1844,6 +1856,7 @@ private void btnProcesosCalidadAtrasados3ActionPerformed(java.awt.event.ActionEv
 private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadas1ActionPerformed
     // TODO add your handling code here:
 }//GEN-LAST:event_btnEtapasAtrasadas1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1908,7 +1921,6 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem mniGenerarSolicitud;
     private javax.swing.JMenuItem mniLanzarCalidad;
     private javax.swing.JMenuItem mniLanzarProduccion;
-    private javax.swing.JMenuItem mniListadoEmpleados;
     private javax.swing.JMenuItem mniMPrima;
     private javax.swing.JMenuItem mniMantenimientoPreventivo;
     private javax.swing.JMenuItem mniMantenimientos;

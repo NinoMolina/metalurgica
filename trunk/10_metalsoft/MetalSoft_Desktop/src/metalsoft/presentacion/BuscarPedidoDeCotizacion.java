@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Vicky
  */
-public class BuscarPedidoDeCotizacion extends javax.swing.JFrame {
+public class BuscarPedidoDeCotizacion extends javax.swing.JDialog {
 
     /** Creates new form BuscarPedidoDeCotizacion */
     public BuscarPedidoDeCotizacion() {

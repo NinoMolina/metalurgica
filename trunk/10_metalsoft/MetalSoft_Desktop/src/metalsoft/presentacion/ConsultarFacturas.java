@@ -26,7 +26,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class ConsultarFacturas extends javax.swing.JFrame {
+public class ConsultarFacturas extends javax.swing.JDialog {
 
     /** Creates new form ConsultarFacturas */
     private List<Factura> filasFactura;

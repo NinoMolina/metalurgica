@@ -35,7 +35,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky and Nino
  */
-public class RegistrarPresupuesto extends javax.swing.JFrame {
+public class RegistrarPresupuesto extends javax.swing.JDialog {
 
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewEtapasXPiezaPresupuesto> filasEtapasXPiezaPresupuesto;

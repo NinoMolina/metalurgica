@@ -28,7 +28,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class RegistrarLanzamientoProduccion extends javax.swing.JFrame {
+public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
 
     /** Creates new form RegistrarLanzamientoProduccion */
     private LinkedList<ViewPedidosConMPAsignada> filasPedidosConMPAsignada = new LinkedList<ViewPedidosConMPAsignada>();

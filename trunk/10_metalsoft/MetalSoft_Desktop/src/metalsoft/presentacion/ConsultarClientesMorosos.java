@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Nino
  */
-public class ConsultarClientesMorosos extends javax.swing.JFrame {
+public class ConsultarClientesMorosos extends javax.swing.JDialog {
 
     /** Creates new form ConsultarClientesMorosos */
     public ConsultarClientesMorosos() {

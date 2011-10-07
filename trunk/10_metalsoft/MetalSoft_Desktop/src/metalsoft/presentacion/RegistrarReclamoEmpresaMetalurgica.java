@@ -21,7 +21,7 @@ import metalsoft.negocio.gestores.ViewDetalleReclamo;
  *
  * @author Mariana
  */
-public class RegistrarReclamoEmpresaMetalurgica extends javax.swing.JFrame {
+public class RegistrarReclamoEmpresaMetalurgica extends javax.swing.JDialog {
     private GestorReclamo gestor;
     private LinkedList<ViewDetalleReclamo> filas = new LinkedList<ViewDetalleReclamo>();
 

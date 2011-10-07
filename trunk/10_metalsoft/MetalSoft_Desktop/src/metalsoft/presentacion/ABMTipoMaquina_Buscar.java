@@ -21,7 +21,7 @@ import metalsoft.negocio.mantmaquinarias.TipoMaquina;
  *
  * @author Lorreine Prescott
  */
-public class ABMTipoMaquina_Buscar extends javax.swing.JFrame {
+public class ABMTipoMaquina_Buscar extends javax.swing.JDialog {
 
     private static Timer timer;
     private HiloBuscarTipoMaquina hiloBuscarTipoMaquina;

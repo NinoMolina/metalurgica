@@ -41,7 +41,7 @@ import org.jdesktop.swingx.JXBusyLabel;
  *
  * @author Vicky
  */
-public class ABMPedidoPresupuesto extends javax.swing.JFrame implements IBuscador {
+public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscador {
 
     private static Timer timer;
     private GestorPedidoCotizacion gestor;

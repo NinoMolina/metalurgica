@@ -18,7 +18,7 @@ import metalsoft.negocio.gestores.GestorReportes;
  *
  * @author Lorreine Prescott
  */
-public class ReportesMateriasPrimas extends javax.swing.JFrame {
+public class ReportesMateriasPrimas extends javax.swing.JDialog {
 
      private GestorReportes gestor =new GestorReportes();
      private String materiaprima;

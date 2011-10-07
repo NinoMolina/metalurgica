@@ -29,7 +29,7 @@ import metalsoft.util.Combo;
  *
  * @author Vicky
  */
-public class ABMCliente extends javax.swing.JFrame implements IDomiciliable, IResponsable {
+public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IResponsable {
 
     private GestorCliente gestor;
     private Domicilio domicilioCliente;

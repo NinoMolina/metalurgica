@@ -29,7 +29,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class RegistrarPedidoMatriz extends javax.swing.JFrame {
+public class RegistrarPedidoMatriz extends javax.swing.JDialog {
 
     /** Creates new form RegistrarPedidoMatriz */
     private Matriz matriz;

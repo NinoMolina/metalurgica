@@ -65,7 +65,7 @@ import org.joda.time.Interval;
  *
  * @author Nino
  */
-public class RegistrarPlanificacionCalidad extends javax.swing.JFrame {
+public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     private LinkedList<ViewPedidoConPlanificacionProduccion> filasPedidosConPlanificacionProduccion;
     private GestorRegistrarPlanificacionCalidad gestor;

@@ -28,7 +28,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class RegistrarLanzamientoCalidad extends javax.swing.JFrame {
+public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
 
     /** Creates new form RegistrarLanzamientoCalidad */
     private GestorLanzarCalidad gestor;

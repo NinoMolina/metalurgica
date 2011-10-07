@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Vicky
  */
-public class ConsultarPrecioMateriaPrima extends javax.swing.JFrame {
+public class ConsultarPrecioMateriaPrima extends javax.swing.JDialog {
 
     /** Creates new form ConsultarPrecioMateriaPrima */
     public ConsultarPrecioMateriaPrima() {

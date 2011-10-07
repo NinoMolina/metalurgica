@@ -42,7 +42,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class AsignarMateriaPrimaAProduccion extends javax.swing.JFrame {
+public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
 
     private LinkedList<ViewPlanificacion> filasPedidos;
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;

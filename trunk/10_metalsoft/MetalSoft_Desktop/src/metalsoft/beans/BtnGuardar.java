@@ -5,6 +5,7 @@
 
 package metalsoft.beans;
 
+import java.awt.Color;
 import javax.swing.JButton;
 
 
@@ -43,8 +44,14 @@ public class BtnGuardar extends javax.swing.JPanel implements java.beans.Customi
 
         btnGuardar = new javax.swing.JButton();
 
+        btnGuardar.setForeground(new java.awt.Color(51, 153, 0));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/save1.png"))); // NOI18N
         btnGuardar.setToolTipText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -57,6 +64,10 @@ public class BtnGuardar extends javax.swing.JPanel implements java.beans.Customi
             .add(btnGuardar)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

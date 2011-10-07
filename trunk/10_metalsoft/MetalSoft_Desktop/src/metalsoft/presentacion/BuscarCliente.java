@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Vicky
  */
-public class BuscarCliente extends javax.swing.JFrame {
+public class BuscarCliente extends javax.swing.JDialog {
 
     /** Creates new form BuscarCliente */
     public BuscarCliente() {

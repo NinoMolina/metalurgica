@@ -34,7 +34,7 @@ import org.jfree.data.time.Month;
  *
  * @author Nino
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class NewJFrame extends javax.swing.JDialog {
 
     /** Creates new form NewJFrame */
     public NewJFrame() {
