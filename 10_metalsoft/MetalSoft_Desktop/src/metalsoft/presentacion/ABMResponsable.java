@@ -26,7 +26,7 @@ import metalsoft.negocio.ventas.CondicionIva;
  *
  * @author Nino
  */
-public class ABMResponsable extends javax.swing.JFrame implements IDomiciliable{
+public class ABMResponsable extends javax.swing.JDialog implements IDomiciliable{
     private GestorCliente gestor;
     private Responsable responsable;
     private metalsoft.datos.dbobject.ResponsableDB responsableDB;

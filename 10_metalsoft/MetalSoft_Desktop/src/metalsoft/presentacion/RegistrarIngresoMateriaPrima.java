@@ -22,7 +22,7 @@ import metalsoft.negocio.gestores.ViewDetalleCompra;
  *
  * @author Mariana
  */
-public class RegistrarIngresoMateriaPrima extends javax.swing.JFrame {
+public class RegistrarIngresoMateriaPrima extends javax.swing.JDialog {
     private GestorCompra gestor;
     private LinkedList<ViewDetalleCompra> filas = new LinkedList<ViewDetalleCompra>();
 

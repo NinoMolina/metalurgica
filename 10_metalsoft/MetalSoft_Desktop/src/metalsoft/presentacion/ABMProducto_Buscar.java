@@ -24,7 +24,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Nino
  */
-public class ABMProducto_Buscar extends javax.swing.JFrame implements IBuscador{
+public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador{
 
     /** Creates new form AMBProducto_Buscar */
     private ABMProducto ventana;

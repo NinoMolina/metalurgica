@@ -27,7 +27,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Lorreine Prescott
  */
-public class ABMFormaDePago extends javax.swing.JFrame {
+public class ABMFormaDePago extends javax.swing.JDialog {
 
 
     private FormaDePago formaPago;

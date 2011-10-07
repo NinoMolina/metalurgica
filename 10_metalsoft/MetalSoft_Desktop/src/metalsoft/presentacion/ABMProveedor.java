@@ -30,7 +30,7 @@ import metalsoft.negocio.ventas.CondicionIva;
  *
  * @author Vicky
  */
-public class ABMProveedor extends javax.swing.JFrame {
+public class ABMProveedor extends javax.swing.JDialog {
 
     private GestorProveedor gestor;
     private Domicilio domicilioCliente;

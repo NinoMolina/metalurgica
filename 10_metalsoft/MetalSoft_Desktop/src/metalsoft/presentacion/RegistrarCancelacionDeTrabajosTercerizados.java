@@ -24,7 +24,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JFrame {
+public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDialog {
 
     private List<Detalletrabajotercerizado> listaDetalle;
     private List<Trabajotercerizado> listaTrabajos;
@@ -32,6 +32,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JFra
 
     /** Creates new form RegistrarCancelacionDeTrabajosTercerizados */
     public RegistrarCancelacionDeTrabajosTercerizados() {
+
         initComponents();
         gestor = new GestorTrabajoTercerizado();
         listaTrabajos = gestor.obtenerTrabajosACancelar();

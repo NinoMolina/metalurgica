@@ -44,7 +44,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class ABMProducto extends javax.swing.JFrame {
+public class ABMProducto extends javax.swing.JDialog {
 
     private GestorProducto gestor;
     private ProductoDB productoDB;

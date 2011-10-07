@@ -24,7 +24,7 @@ import metalsoft.negocio.gestores.IBuscador;
  *
  * @author Vicky
  */
-public class ABMProveedor_Buscar extends javax.swing.JFrame  implements IBuscador{
+public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscador{
     private GestorProveedor gestor=null;
     private ABMProveedor ventana=null;
     private Timer timer;

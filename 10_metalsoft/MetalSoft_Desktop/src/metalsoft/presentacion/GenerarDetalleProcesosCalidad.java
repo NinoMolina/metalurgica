@@ -33,7 +33,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class GenerarDetalleProcesosCalidad extends javax.swing.JFrame implements IBuscadorView {
+public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implements IBuscadorView {
 
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
     private LinkedList<ViewDetallePedidoCotizacion> filasDetallePedido;

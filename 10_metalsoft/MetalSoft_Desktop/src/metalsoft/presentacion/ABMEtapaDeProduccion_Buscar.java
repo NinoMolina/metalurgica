@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMEtapaDeProduccion_Buscar extends javax.swing.JFrame implements IBuscador{
+public class ABMEtapaDeProduccion_Buscar extends javax.swing.JDialog implements IBuscador{
 
     private ABMEtapaDeProduccion ventana;
     private Timer timer;

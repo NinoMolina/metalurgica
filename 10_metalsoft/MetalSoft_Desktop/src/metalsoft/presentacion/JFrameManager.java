@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.presentacion;
 
-import javax.swing.JFrame;
+import java.awt.Dialog;
+import java.awt.Window;
 
 /**
  *
@@ -13,19 +13,19 @@ import javax.swing.JFrame;
  */
 public class JFrameManager {
 
-    public static void centrarVentana(JFrame v)
-    {
-        v.setLocationRelativeTo(null);
+    public static void centrarVentana(Dialog v) {
+        v.setModal(true);
+        v.setLocationRelativeTo(Principal.getVtnPrincipal());
     }
-    public static JFrame crearVentana(String clase) throws ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-        JFrame v=(JFrame) Class.forName(clase).newInstance();
-        mostrarVentana(v);
+
+    public static Window crearVentana(String clase) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Dialog v = (Dialog) Class.forName(clase).newInstance();
         centrarVentana(v);
+        mostrarVentana(v);
         return v;
     }
-    public static void mostrarVentana(JFrame v)
-    {
+
+    public static void mostrarVentana(Window v) {
         v.setVisible(true);
     }
 }

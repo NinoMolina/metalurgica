@@ -25,7 +25,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class RegistrarConfirmacionPedido extends javax.swing.JFrame {
+public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
 
     /** Creates new form RegistrarConfirmacionPedido */
     private LinkedList<ViewPedidoNoConfirmado> filasPedidosNoConfirmados;

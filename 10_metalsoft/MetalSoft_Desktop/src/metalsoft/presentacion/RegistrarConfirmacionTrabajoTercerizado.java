@@ -11,6 +11,7 @@
 package metalsoft.presentacion;
 
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
@@ -24,7 +25,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame {
+public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog {
 
     /** Creates new form RegistrarConfirmacionTrabajoTercerizado */
     private List<Detalletrabajotercerizado> listaDetalle;
@@ -32,6 +33,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
     private GestorTrabajoTercerizado gestor;
 
     public RegistrarConfirmacionTrabajoTercerizado() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorTrabajoTercerizado();
         listaTrabajos = gestor.obtenerTrabajosPresupuestados();
@@ -91,7 +93,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
             listaDetalle = gestor.buscarDetalleTrabajoTercerizado(trab.getIdtrabajo());
             tblDetalleTrabajoTercerizado.updateUI();
             btnconfirmar.setEnabled(true);
-        }else{
+        } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
         }
     }
@@ -349,43 +351,30 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JFrame 
 }//GEN-LAST:event_tblTrabajosTercerizadosMouseClicked
 
     private void tblDetalleTrabajoTercerizadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleTrabajoTercerizadoMouseClicked
-        
 }//GEN-LAST:event_tblDetalleTrabajoTercerizadoMouseClicked
 
     private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
         if (tblTrabajosTercerizados.getSelectedRow() > -1) {
-            long result=0;
+            long result = 0;
             Trabajotercerizado trab = listaTrabajos.get(tblTrabajosTercerizados.getSelectedRow());
             trab.setFechaconfirmaciontrabajo(Fecha.fechaActualDate());
             trab.setEstado(gestor.buscarEstadoConfirmado());
-            result=gestor.modificarTrabajoTercerizado(trab);
-            if(result>0){
+            result = gestor.modificarTrabajoTercerizado(trab);
+            if (result > 0) {
                 JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha cancelado correctamente");
-                listaTrabajos=gestor.obtenerTrabajosPresupuestados();
+                listaTrabajos = gestor.obtenerTrabajosPresupuestados();
                 tblTrabajosTercerizados.updateUI();
                 listaDetalle.clear();
                 tblDetalleTrabajoTercerizado.updateUI();
                 btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
                 btnconfirmar.setEnabled(false);
 
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha cancelar");
             }
         }
 
     }//GEN-LAST:event_btnconfirmarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new RegistrarConfirmacionTrabajoTercerizado().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private metalsoft.beans.BtnSeleccionar btnSeleccionar1;

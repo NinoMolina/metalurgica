@@ -27,7 +27,7 @@ import metalsoft.negocio.gestores.ViewDetalleProducto;
  *
  * @author Vicky
  */
-public class GenerarCodigoBarra extends javax.swing.JFrame {
+public class GenerarCodigoBarra extends javax.swing.JDialog {
 
     private long idProducto;
     private long idPieza;

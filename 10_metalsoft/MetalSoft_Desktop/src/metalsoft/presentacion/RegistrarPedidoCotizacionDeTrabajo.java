@@ -51,7 +51,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JFrame implements IBuscador {
+public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog implements IBuscador {
 
     private static Timer timer;
     private EmpresametalurgicaDB[] empresas;

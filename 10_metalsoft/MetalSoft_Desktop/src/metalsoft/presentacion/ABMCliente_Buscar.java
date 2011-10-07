@@ -23,7 +23,7 @@ import metalsoft.negocio.gestores.IBuscador;
  *
  * @author Nino
  */
-public class ABMCliente_Buscar extends javax.swing.JFrame implements IBuscador {
+public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador {
 
     private GestorCliente gestor = null;
     private ABMCliente ventana = null;

@@ -22,7 +22,7 @@ import metalsoft.negocio.produccion.TipoMaterial;
  *
  * @author Nino
  */
-public class ABMTipoMaterial_Buscar extends javax.swing.JFrame {
+public class ABMTipoMaterial_Buscar extends javax.swing.JDialog {
     private static Timer timer;
     private HiloBuscarTipoMaterial hiloBuscarTipomaterial;
     private TipoMaterial[] tm;

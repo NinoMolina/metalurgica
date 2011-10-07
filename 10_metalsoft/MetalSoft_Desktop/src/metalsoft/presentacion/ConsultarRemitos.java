@@ -27,7 +27,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class ConsultarRemitos extends javax.swing.JFrame {
+public class ConsultarRemitos extends javax.swing.JDialog {
 
     private List<Remito> filasRemito;
     private List<Detalleremito> filasDetalle;

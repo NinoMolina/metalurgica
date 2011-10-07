@@ -21,7 +21,7 @@ import metalsoft.util.Fecha;
  *
  * @author Lorreine Prescott
  */
-public class ReporteAusentismo extends javax.swing.JFrame {
+public class ReporteAusentismo extends javax.swing.JDialog {
 
       private GestorReportes gestor = new GestorReportes();
       private Date fecha;

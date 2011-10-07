@@ -27,7 +27,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JFrame {
+public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
 
     private List<Trabajotercerizado> filasTrabajosGenerados;
     private List<Trabajotercerizado> filasTrabajosEnviados;

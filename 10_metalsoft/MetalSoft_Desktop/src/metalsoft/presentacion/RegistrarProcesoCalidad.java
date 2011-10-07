@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Nino
  */
-public class RegistrarProcesoCalidad extends javax.swing.JFrame {
+public class RegistrarProcesoCalidad extends javax.swing.JDialog {
 
     /** Creates new form RegistrarProcesoCalidad */
     public RegistrarProcesoCalidad() {

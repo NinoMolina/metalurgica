@@ -30,7 +30,7 @@ import metalsoft.util.Fecha;
  *
  * @author Vicky
  */
-public class ABMEtapaDeProduccion extends javax.swing.JFrame {
+public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
     private GestorEtapaDeProduccion gestor;
     private EtapadeproduccionDB etapaDeProduccionDB;

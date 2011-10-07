@@ -18,7 +18,7 @@ import metalsoft.negocio.gestores.ViewProductoPresupuesto;
  *
  * @author Nino
  */
-public class RegistrarPresupuest_VerDetalle extends javax.swing.JFrame {
+public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
         private LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
     /** Creates new form RegistrarPresupuest_VerDetalle */
     public RegistrarPresupuest_VerDetalle(LinkedList<ViewProductoPresupuesto> list) {

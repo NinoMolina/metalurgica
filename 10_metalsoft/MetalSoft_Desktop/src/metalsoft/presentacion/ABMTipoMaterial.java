@@ -23,7 +23,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Nino
  */
-public class ABMTipoMaterial extends javax.swing.JFrame {
+public class ABMTipoMaterial extends javax.swing.JDialog {
     private TipoMaterial tipoMaterial;
     /** Creates new form ABMTipoMaterial */
     public ABMTipoMaterial() {

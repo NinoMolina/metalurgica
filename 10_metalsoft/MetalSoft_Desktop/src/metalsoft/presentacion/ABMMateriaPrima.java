@@ -28,7 +28,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMMateriaPrima extends javax.swing.JFrame {
+public class ABMMateriaPrima extends javax.swing.JDialog {
     private GestorMateriaPrima gestor;
     private MateriaprimaDB materiaPrimaDB;
     private long idMateriaPrima=-1;

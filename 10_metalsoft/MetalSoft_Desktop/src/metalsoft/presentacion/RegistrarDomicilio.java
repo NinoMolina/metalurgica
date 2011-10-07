@@ -23,7 +23,7 @@ import metalsoft.negocio.rrhh.Localidad;
  *
  * @author Nino
  */
-public class RegistrarDomicilio extends javax.swing.JFrame {
+public class RegistrarDomicilio extends javax.swing.JDialog {
     private GestorCliente gestor=null;
     private IDomiciliable ventana=null;
     private boolean devolverObjeto=false;

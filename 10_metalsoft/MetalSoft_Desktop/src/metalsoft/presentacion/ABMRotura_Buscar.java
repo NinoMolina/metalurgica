@@ -21,7 +21,7 @@ import metalsoft.negocio.mantenimiento.Rotura;
  *
  * @author Lorreine Prescott
  */
-public class ABMRotura_Buscar extends javax.swing.JFrame {
+public class ABMRotura_Buscar extends javax.swing.JDialog {
 
     private static Timer timer;
     private HiloBuscarRotura hiloBuscarRotura;

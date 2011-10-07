@@ -25,7 +25,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JFrame {
+public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JDialog {
 
     private Trabajotercerizado trabajo;
     private List<Detalletrabajotercerizado> listaDetalle;

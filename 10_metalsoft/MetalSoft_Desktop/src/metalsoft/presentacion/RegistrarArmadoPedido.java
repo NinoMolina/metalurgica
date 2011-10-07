@@ -29,7 +29,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Mariana
  */
-public class RegistrarArmadoPedido extends javax.swing.JFrame implements IBuscador {
+public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBuscador {
 
     private List<Pedido> filasPedidos;
     private GestorArmadoPedido gestor;

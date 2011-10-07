@@ -18,7 +18,7 @@ import metalsoft.negocio.gestores.GestorNuevoUsuario;
  *
  * @author Vicky
  */
-public class CambiarContrasenia extends javax.swing.JFrame {
+public class CambiarContrasenia extends javax.swing.JDialog {
 
     /** Creates new form CambiarContrasenia */
     private Usuario usuario;

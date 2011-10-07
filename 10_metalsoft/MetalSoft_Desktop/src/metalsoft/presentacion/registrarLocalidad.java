@@ -15,7 +15,7 @@ package metalsoft.presentacion;
  *
  * @author Vicky
  */
-public class registrarLocalidad extends javax.swing.JFrame {
+public class registrarLocalidad extends javax.swing.JDialog {
 
     /** Creates new form registrarLocalidad */
     public registrarLocalidad() {

@@ -25,7 +25,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Lorreine Prescott
  */
-public class ABMRotura extends javax.swing.JFrame {
+public class ABMRotura extends javax.swing.JDialog {
 
     private Rotura rotura;
 

@@ -17,7 +17,7 @@ import metalsoft.negocio.gestores.GestorParadaDeMaquina;
  *
  * @author Vicky
  */
-public class RegistrarParadaDeMaquina extends javax.swing.JFrame {
+public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
 
     /** Creates new form RegistrarParadaDeMaquina */
     private GestorParadaDeMaquina gestor;

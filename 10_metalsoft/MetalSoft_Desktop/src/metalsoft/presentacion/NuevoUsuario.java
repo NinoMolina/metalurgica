@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import metalsoft.Main;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Usuario;
@@ -31,7 +32,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class NuevoUsuario extends javax.swing.JFrame {
+public class NuevoUsuario extends javax.swing.JDialog {
 
     private GestorNuevoUsuario gestor;
     private List<Rol> filasRoles;
@@ -163,6 +164,11 @@ public class NuevoUsuario extends javax.swing.JFrame {
                 txtUsuarioFocusLost(evt);
             }
         });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Roles"));
 
@@ -263,6 +269,14 @@ public class NuevoUsuario extends javax.swing.JFrame {
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
         new VerificarUsuario().start();
     }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        if(evt.getKeyCode() == 0x70)
+        {
+            String path = "C:\\metalsoft\\Ayuda\\metalsoft_tmphhp\\IntroducingYourProduct.html";
+            Main.ejecutarAyuda(path);
+        }
+    }//GEN-LAST:event_txtUsuarioKeyReleased
 
     /**
      * @param args the command line arguments

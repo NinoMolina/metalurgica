@@ -4,6 +4,8 @@
  */
 package metalsoft;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import metalsoft.presentacion.AbrirSesion;
@@ -36,6 +38,19 @@ public class Main {
 //        Walkthrough w = new Walkthrough();
 //        w.setVisible(true);
             }
+
         });
     }
+    
+    public static void ejecutarAyuda(String ruta){
+        Runtime run = Runtime.getRuntime();
+        Process pro = null;
+        try {
+            pro = run.exec("hh.exe " + ruta);
+            }
+        catch (Exception e){
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        }
 }

@@ -33,7 +33,7 @@ import metalsoft.util.Fecha;
  *
  * @author Vicky
  */
-public class ABMEmpleado extends javax.swing.JFrame {
+public class ABMEmpleado extends javax.swing.JDialog {
 
     private GestorEmpleado gestor;
     private Domicilio domicilioResponsable;

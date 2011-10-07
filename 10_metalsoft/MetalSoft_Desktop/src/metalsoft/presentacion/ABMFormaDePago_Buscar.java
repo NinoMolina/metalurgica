@@ -23,7 +23,7 @@ import metalsoft.negocio.ventas.FormaDePago;
  *
  * @author Lorreine Prescott
  */
-public class ABMFormaDePago_Buscar extends javax.swing.JFrame {
+public class ABMFormaDePago_Buscar extends javax.swing.JDialog {
 
     private static Timer timer;
     private HiloBuscarFormaDePago hiloBuscarFormaDePago;

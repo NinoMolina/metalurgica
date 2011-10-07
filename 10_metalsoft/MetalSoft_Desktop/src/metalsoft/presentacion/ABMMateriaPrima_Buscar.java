@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMMateriaPrima_Buscar extends javax.swing.JFrame {
+public class ABMMateriaPrima_Buscar extends javax.swing.JDialog {
 
     private ABMMateriaPrima ventana;
     private Timer timer;

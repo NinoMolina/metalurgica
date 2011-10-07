@@ -41,7 +41,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Lorreine Prescott
  */
-public class ABMMantenimientoPreventivo extends javax.swing.JFrame {
+public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
     private MantenimientoPreventivo mantenimientop;
     private GestorMantenimientoPreventivo gestor;

@@ -20,7 +20,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class SeleccionarEtapa extends javax.swing.JFrame {
+public class SeleccionarEtapa extends javax.swing.JDialog {
 
     /** Creates new form SeleccionarEtapa */
     private GestorEtapaDeProduccion gestor;

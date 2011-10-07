@@ -31,7 +31,7 @@ import metalsoft.util.Combo;
  *
  * @author Nino
  */
-public class SeleccionarProveedor extends javax.swing.JFrame {
+public class SeleccionarProveedor extends javax.swing.JDialog {
 
     /** Creates new form SeleccionarProveedor */
     private LinkedList<ViewProveedorXMateriaPrima> filasProveedorXMateriaPrima;

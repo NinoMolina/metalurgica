@@ -27,7 +27,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Lorreine Prescott
  */
-public class ABMTipoMaquina extends javax.swing.JFrame {
+public class ABMTipoMaquina extends javax.swing.JDialog {
 
     private TipoMaquina tmaquina;
     /** Creates new form ABMTipoMaquina */

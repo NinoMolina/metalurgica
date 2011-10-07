@@ -31,7 +31,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Mariana
  */
-public class RegistrarReclamoProveedor extends javax.swing.JFrame {
+public class RegistrarReclamoProveedor extends javax.swing.JDialog {
 
     private GestorReclamo gestor;
     private ViewProveedorXMateriaPrima view;

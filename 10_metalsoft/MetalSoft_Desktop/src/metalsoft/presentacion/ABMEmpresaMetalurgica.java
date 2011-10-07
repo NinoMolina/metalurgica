@@ -34,7 +34,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMEmpresaMetalurgica extends javax.swing.JFrame {
+public class ABMEmpresaMetalurgica extends javax.swing.JDialog {
 
     /** Creates new form ABMEmpresaMetalurgica */
     private GestorEmpresaMetalurgica gestor;

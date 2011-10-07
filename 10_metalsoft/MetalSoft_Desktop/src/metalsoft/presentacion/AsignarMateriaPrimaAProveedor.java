@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Mariana
  */
-public class AsignarMateriaPrimaAProveedor extends javax.swing.JFrame {
+public class AsignarMateriaPrimaAProveedor extends javax.swing.JDialog {
 
     private ViewProveedorXMateriaPrima view;
 

@@ -42,10 +42,10 @@ public class MetalsoftDispatcher {
             } else if (rol.equals("ADMIN")) {
                 Principal p = new Principal(usuario);
 
-                lanzarHiloAvisoEtapaNoTerminada(p);
-                lanzarHiloEscuchadorFinEtapa(p);
-                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
-                lanzarHiloEscuchadorFinProcesoCalidad(p);
+//                lanzarHiloAvisoEtapaNoTerminada(p);
+//                lanzarHiloEscuchadorFinEtapa(p);
+//                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
+//                lanzarHiloEscuchadorFinProcesoCalidad(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);

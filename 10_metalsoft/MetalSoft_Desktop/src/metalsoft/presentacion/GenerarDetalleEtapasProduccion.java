@@ -35,7 +35,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class GenerarDetalleEtapasProduccion extends javax.swing.JFrame implements IBuscadorView {
+public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implements IBuscadorView {
 
     /** Creates new form GenerarListadoProcedimientosCotización */
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;

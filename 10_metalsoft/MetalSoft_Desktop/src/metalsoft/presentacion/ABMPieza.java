@@ -25,7 +25,7 @@ import metalsoft.util.EnumOpcionesABM;
  *
  * @author Vicky
  */
-public class ABMPieza extends javax.swing.JFrame {
+public class ABMPieza extends javax.swing.JDialog {
 
     private GestorPieza gestorPieza;
     private metalsoft.datos.dbobject.PiezaDB piezaDB;

@@ -44,7 +44,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMMaquina extends javax.swing.JFrame {
+public class ABMMaquina extends javax.swing.JDialog {
 
     private GestorMaquina gestor;
     private MaquinaDB maquinaDB;

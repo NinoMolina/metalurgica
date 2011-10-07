@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JFrame {
+public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JDialog {
 
     private GestorEmpresaMantenimiento gestor = null;
     private ABMEmpresaMantenimiento ventana = null;

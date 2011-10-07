@@ -27,7 +27,7 @@ import metalsoft.presentacion.lookandfeel.Skins;
  *
  * @author Lorreine Prescott
  */
-public class ABMTipoDocumento extends javax.swing.JFrame {
+public class ABMTipoDocumento extends javax.swing.JDialog {
 
     private TipoDocumento tipodoc;
 

@@ -31,7 +31,7 @@ import metalsoft.negocio.access.AccessCompra;
  *
  * @author Mariana
  */
-public class ABMOrden_Buscar extends javax.swing.JFrame implements IBuscador{
+public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
     private static Timer timer;
     private ABMOrdenDeCompra ventana;
     private GestorCompra gestor;

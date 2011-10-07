@@ -29,7 +29,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class AdministrarUsuario extends javax.swing.JFrame {
+public class AdministrarUsuario extends javax.swing.JDialog {
 
     private GestorNuevoUsuario gestor;
     private List<Rol> filasRolesModificar;

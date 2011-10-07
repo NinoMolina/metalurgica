@@ -10,7 +10,6 @@
  */
 package metalsoft.presentacion;
 
-import com.sun.servicetag.RegistrationData;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +23,7 @@ import metalsoft.negocio.gestores.GestorMatriz;
  *
  * @author Mariana
  */
-public class ABMMatriz_Buscar extends javax.swing.JFrame {
+public class ABMMatriz_Buscar extends javax.swing.JDialog {
 
     private static Timer timer;
     private HiloBuscarMatriz hiloBuscarMatriz;

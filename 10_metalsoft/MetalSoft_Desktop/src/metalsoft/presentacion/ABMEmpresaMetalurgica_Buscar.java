@@ -24,7 +24,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Vicky
  */
-public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JFrame implements IBuscador {
+public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JDialog implements IBuscador {
     private GestorEmpresaMetalurgica gestor=null;
     private ABMEmpresaMetalurgica ventana=null;
     private Timer timer;

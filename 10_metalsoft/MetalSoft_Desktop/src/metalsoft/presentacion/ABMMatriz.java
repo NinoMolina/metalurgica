@@ -27,7 +27,7 @@ import metalsoft.util.EnumOpcionesABM;
  *
  * @author Mariana
  */
-public class ABMMatriz extends javax.swing.JFrame {
+public class ABMMatriz extends javax.swing.JDialog {
 
     private Matriz matriz;
     private GestorMatriz gestor;

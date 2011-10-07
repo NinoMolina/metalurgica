@@ -84,7 +84,7 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
                 .add(btnModificar)
                 .add(3, 3, 3)
                 .add(btnEliminar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 103, Short.MAX_VALUE)
                 .add(btnBuscar)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnSalir)
