@@ -271,6 +271,7 @@ public class ABMMaquina extends javax.swing.JDialog {
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administrar Máquina");
 
         jLabel1.setText("Nombre:");
 

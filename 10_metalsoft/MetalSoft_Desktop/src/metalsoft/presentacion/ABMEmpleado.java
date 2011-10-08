@@ -350,6 +350,7 @@ public class ABMEmpleado extends javax.swing.JDialog {
         botones = new metalsoft.beans.ABM_Botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administrar Empleado");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrar Empleado"));
 

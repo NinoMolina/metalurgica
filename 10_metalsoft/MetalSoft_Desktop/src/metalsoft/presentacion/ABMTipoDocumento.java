@@ -36,6 +36,10 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
+        setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
       private void addListeners() {
@@ -63,6 +67,9 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
         boolean ok = gestor.eliminarTipoDocumento(tipodoc);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
@@ -78,6 +85,15 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+    }
+
+     public void setEnableComponents(boolean b) {
+        this.txtTipo.setEnabled(b);
+        txtNombre.setEnabled(b);
     }
 
     private void addListenerBtnGuardar() {
@@ -99,10 +115,15 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        GestorTipoDocumento gestor = new GestorTipoDocumento();
+        GestorTipoDocumento gestor = new GestorTipoDocumento();        
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
         boolean ok = gestor.modificarTipoDocumento(tipodoc, txtTipo.getText(), txtNombre.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
+
         } else {
             JOptionPane.showMessageDialog(this, "La modificación NO se pudo realizar..");
         }
@@ -122,6 +143,9 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
         try {
             buscar = (ABMTipoDocumento_Buscar) JFrameManager.crearVentana(ABMTipoDocumento_Buscar.class.getName());
             buscar.setVentanaTipoDocumento(this);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMTipoDocumento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -151,6 +175,9 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
         long id = gestor.guardarTipoDocumento(txtTipo.getText(), txtNombre.getText());
         if (id > -1) {
             JOptionPane.showMessageDialog(this, "Se guardó el siguiente Tipo de Documento: " + txtTipo.getText());
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
