@@ -36,6 +36,7 @@ public class ABMMatriz extends javax.swing.JDialog {
     /** Creates new form ABMTipoMaterial */
     /** Creates new form ABMMatriz */
     public ABMMatriz() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         gestor = new GestorMatriz();
