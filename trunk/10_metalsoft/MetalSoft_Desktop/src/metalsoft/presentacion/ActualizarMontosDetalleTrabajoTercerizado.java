@@ -51,6 +51,7 @@ public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JDial
 
     /** Creates new form ActualizarMontosDetalleTrabajoTercerizado */
     public ActualizarMontosDetalleTrabajoTercerizado() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         tblDetalleTrabajoTercerizado.setModel(new DetalleTableModel());

@@ -19,6 +19,7 @@ public class ConsultarPrecioMateriaPrima extends javax.swing.JDialog {
 
     /** Creates new form ConsultarPrecioMateriaPrima */
     public ConsultarPrecioMateriaPrima() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

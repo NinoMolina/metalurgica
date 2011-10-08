@@ -32,6 +32,7 @@ public class ABMCondicionIva extends javax.swing.JDialog {
 
     /** Creates new form ABMCondicionIva */
     public ABMCondicionIva() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         setEnableComponents(false);

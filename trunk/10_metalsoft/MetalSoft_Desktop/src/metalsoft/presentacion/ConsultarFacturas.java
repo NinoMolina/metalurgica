@@ -36,6 +36,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
     private Double monto=0d;
 
     public ConsultarFacturas() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorFactura();
         addListeners();

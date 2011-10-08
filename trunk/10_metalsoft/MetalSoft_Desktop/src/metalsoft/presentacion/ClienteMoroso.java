@@ -19,6 +19,7 @@ public class ClienteMoroso extends javax.swing.JDialog {
 
     /** Creates new form ClienteMoroso */
     public ClienteMoroso() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

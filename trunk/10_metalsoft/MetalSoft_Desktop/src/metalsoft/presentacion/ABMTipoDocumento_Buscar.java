@@ -31,6 +31,7 @@ public class ABMTipoDocumento_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMTipoDocumento_Buscar */
     public ABMTipoDocumento_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

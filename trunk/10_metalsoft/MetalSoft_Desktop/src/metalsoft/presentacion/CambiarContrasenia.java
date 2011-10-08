@@ -34,6 +34,7 @@ public class CambiarContrasenia extends javax.swing.JDialog {
     }
 
     public CambiarContrasenia() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         gestor = new GestorNuevoUsuario();

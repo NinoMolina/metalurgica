@@ -37,6 +37,7 @@ public class ABMResponsable extends javax.swing.JDialog implements IDomiciliable
     private boolean devolverObjeto=false;
     /** Creates new form ABMResponable */
     public ABMResponsable() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListenerBtnGuardar();
         addListenerBtnSalir();

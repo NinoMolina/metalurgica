@@ -65,6 +65,7 @@ public class GenerarCodigoBarra extends javax.swing.JDialog {
     }
     /** Creates new form GenerarCodigoBarra */
     public GenerarCodigoBarra() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         btnBuscar.setEnabled(false);
         btnGenerarCodigo.setEnabled(false);

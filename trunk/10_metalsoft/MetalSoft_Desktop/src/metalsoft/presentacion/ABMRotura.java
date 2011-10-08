@@ -31,6 +31,7 @@ public class ABMRotura extends javax.swing.JDialog {
 
     /** Creates new form ABMRotura */
     public ABMRotura() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
     }

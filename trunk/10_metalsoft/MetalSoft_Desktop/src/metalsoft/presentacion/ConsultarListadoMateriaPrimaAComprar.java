@@ -37,6 +37,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
     private Pedido pedido;
 
     public ConsultarListadoMateriaPrimaAComprar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         filasListadoMP = new LinkedList<Detalleproductopresupuesto>();

@@ -35,6 +35,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
     private Pedido pedido;
     /** Creates new form ConsultarRemitos */
     public ConsultarRemitos() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorRemito();
         addListeners();

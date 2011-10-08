@@ -57,6 +57,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
 
     /** Creates new form GenerarSolicitudReclamo */
     public GenerarSolicitudReclamo() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListenerBtnSalir();
         addListenerBtnGuardar();

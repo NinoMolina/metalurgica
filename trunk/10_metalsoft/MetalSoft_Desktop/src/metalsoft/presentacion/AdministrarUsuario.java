@@ -47,6 +47,7 @@ public class AdministrarUsuario extends javax.swing.JDialog {
 
     /** Creates new form AdministrarUsuario */
     public AdministrarUsuario() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorNuevoUsuario();
         filasRolesEliminar = new LinkedList<Rol>();

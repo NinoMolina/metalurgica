@@ -32,6 +32,7 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
     private TipoMaquina tmaquina;
     /** Creates new form ABMTipoMaquina */
     public ABMTipoMaquina() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
     }

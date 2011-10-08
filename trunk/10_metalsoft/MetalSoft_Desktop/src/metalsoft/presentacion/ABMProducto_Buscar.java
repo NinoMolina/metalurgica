@@ -31,6 +31,7 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
     private Timer timer;
     private GestorProducto gestor;
     public ABMProducto_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

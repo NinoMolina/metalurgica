@@ -19,6 +19,7 @@ public class BuscarCliente extends javax.swing.JDialog {
 
     /** Creates new form BuscarCliente */
     public BuscarCliente() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

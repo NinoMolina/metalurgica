@@ -53,6 +53,7 @@ public class ABMEmpleado extends javax.swing.JDialog {
 
     /** Creates new form ABMEmpleado */
     public ABMEmpleado() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         mapTurnos=new HashMap<Integer, String>();
         gestor = new GestorEmpleado();

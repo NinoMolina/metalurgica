@@ -62,6 +62,7 @@ public class ABMMaquina_Buscar extends javax.swing.JDialog {
     }
     /** Creates new form ABMMaquina_Buscar */
     public ABMMaquina_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

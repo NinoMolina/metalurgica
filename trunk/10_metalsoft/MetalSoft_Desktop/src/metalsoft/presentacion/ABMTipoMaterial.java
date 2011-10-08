@@ -27,6 +27,7 @@ public class ABMTipoMaterial extends javax.swing.JDialog {
     private TipoMaterial tipoMaterial;
     /** Creates new form ABMTipoMaterial */
     public ABMTipoMaterial() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

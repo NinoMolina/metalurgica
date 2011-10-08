@@ -32,7 +32,7 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
     private ServicioMaquina servicio;
     /** Creates new form ABMServicioDeMaquina */
     public ABMServicioDeMaquina() {
-
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
     }

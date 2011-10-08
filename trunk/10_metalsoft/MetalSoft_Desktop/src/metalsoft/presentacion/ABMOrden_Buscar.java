@@ -39,6 +39,7 @@ public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
    
     /** Creates new form ABMOrden_Buscar */
     public ABMOrden_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
              }
 

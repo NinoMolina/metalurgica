@@ -39,6 +39,7 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JDialog implements 
     }
     /** Creates new form ABMEtapaDeProduccion_Buscar */
     public ABMEtapaDeProduccion_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

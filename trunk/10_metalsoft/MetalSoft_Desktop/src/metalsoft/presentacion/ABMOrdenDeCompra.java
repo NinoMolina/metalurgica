@@ -58,6 +58,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     /** Creates new form ABMOrdenDeCompra */
     public ABMOrdenDeCompra() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListenerBtnNuevo();
         addListenerBtnGuardar();
