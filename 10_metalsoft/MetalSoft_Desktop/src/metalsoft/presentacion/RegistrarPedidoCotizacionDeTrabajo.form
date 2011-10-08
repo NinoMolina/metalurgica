@@ -23,9 +23,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="1"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,25 +50,23 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <Component id="jPanel10" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel9" min="-2" max="-2" attributes="1"/>
+                      </Group>
+                      <Component id="jPanel7" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jPanel5" alignment="0" pref="1070" max="32767" attributes="1"/>
+                      <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
+                      <Group type="102" alignment="0" attributes="1">
                           <Component id="NuevoPedido" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="beanBtnGuardar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                          <EmptySpace pref="894" max="32767" attributes="0"/>
                           <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
-                          <Group type="102" alignment="0" attributes="1">
-                              <Component id="jPanel10" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel9" max="32767" attributes="1"/>
-                          </Group>
-                          <Component id="jPanel7" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
-                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -89,11 +88,9 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="beanBtnSalir" alignment="0" max="32767" attributes="1"/>
-                          <Component id="beanBtnGuardar" alignment="0" max="32767" attributes="1"/>
-                      </Group>
-                      <Component id="NuevoPedido" pref="33" max="32767" attributes="1"/>
+                      <Component id="beanBtnGuardar" pref="44" max="32767" attributes="1"/>
+                      <Component id="beanBtnSalir" min="-2" max="-2" attributes="1"/>
+                      <Component id="NuevoPedido" alignment="0" min="-2" max="-2" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -164,7 +161,7 @@
                               <Component id="lblcondicionIva" min="-2" pref="262" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -312,7 +309,7 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dccPedidoCotizacion" min="-2" pref="101" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="544" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="559" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -371,7 +368,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="beanTblPedidos" alignment="0" pref="1023" max="32767" attributes="0"/>
+                          <Component id="beanTblPedidos" alignment="0" pref="1038" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -434,7 +431,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane4" alignment="0" pref="531" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" pref="558" max="32767" attributes="0"/>
                           <Component id="beanBtnSeleccionarPieza" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -444,7 +441,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jScrollPane4" pref="79" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="50" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="beanBtnSeleccionarPieza" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -482,7 +479,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="454" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="442" max="32767" attributes="0"/>
                           <Component id="beanBtnSeleccionarProducto" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -492,7 +489,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jScrollPane5" pref="79" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="50" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="beanBtnSeleccionarProducto" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -536,7 +533,7 @@
                       <Component id="jScrollPane1" min="-2" pref="613" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnQuitar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="323" max="32767" attributes="0"/>
+                      <EmptySpace pref="338" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
