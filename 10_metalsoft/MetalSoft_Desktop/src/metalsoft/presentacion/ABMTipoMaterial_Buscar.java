@@ -29,6 +29,7 @@ public class ABMTipoMaterial_Buscar extends javax.swing.JDialog {
     private ABMTipoMaterial ventana;
     /** Creates new form ABMTipoMaterial_Buscar */
     public ABMTipoMaterial_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

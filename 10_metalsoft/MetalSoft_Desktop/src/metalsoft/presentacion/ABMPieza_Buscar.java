@@ -102,6 +102,7 @@ public class ABMPieza_Buscar extends javax.swing.JDialog implements IBuscador {
 
     /** Creates new form ABMPieza_Buscar */
     public ABMPieza_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

@@ -47,6 +47,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
     private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
 
     public GenerarDetalleMateriaPrima() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         tcrTblDetallePedido = new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);

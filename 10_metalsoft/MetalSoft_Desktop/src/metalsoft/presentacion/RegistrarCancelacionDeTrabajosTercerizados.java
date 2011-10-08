@@ -32,7 +32,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
 
     /** Creates new form RegistrarCancelacionDeTrabajosTercerizados */
     public RegistrarCancelacionDeTrabajosTercerizados() {
-
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorTrabajoTercerizado();
         listaTrabajos = gestor.obtenerTrabajosACancelar();

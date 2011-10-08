@@ -34,6 +34,7 @@ public class ABMMatriz_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMMatriz_Buscar */
     public ABMMatriz_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

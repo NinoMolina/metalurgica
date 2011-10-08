@@ -32,6 +32,7 @@ public class ABMCondicionIva_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMCondicionIva_Buscar */
     public ABMCondicionIva_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

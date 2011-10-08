@@ -39,6 +39,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
     }
     /** Creates new form ABMProveedor_Buscar */
     public ABMProveedor_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
     public GestorProveedor getGestor() {

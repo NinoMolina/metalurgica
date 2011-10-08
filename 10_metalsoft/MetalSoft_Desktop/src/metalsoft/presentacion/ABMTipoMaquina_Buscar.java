@@ -30,6 +30,7 @@ public class ABMTipoMaquina_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMTipoMaquina_Buscar */
     public ABMTipoMaquina_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

@@ -33,6 +33,7 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
 
     /** Creates new form ABMTipoDocumento */
     public ABMTipoDocumento() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
     }

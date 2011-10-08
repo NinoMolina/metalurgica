@@ -30,6 +30,7 @@ public class ABMServicioMaquina_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMRotura_Buscar */
      public ABMServicioMaquina_Buscar() {
+         super(Principal.getVtnPrincipal());
         initComponents();
     }
 

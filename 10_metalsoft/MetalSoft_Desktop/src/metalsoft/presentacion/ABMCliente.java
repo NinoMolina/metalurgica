@@ -46,6 +46,7 @@ public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IR
 
     /** Creates new form ABMCliente */
     public ABMCliente() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorCliente();
         cargarComboCondIva();

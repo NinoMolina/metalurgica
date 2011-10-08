@@ -27,6 +27,7 @@ public class ABMEmpleado_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMEmpleado_Buscar */
     public ABMEmpleado_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
     private ABMEmpleado ventana;

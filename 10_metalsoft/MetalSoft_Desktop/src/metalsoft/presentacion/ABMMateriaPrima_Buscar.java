@@ -32,6 +32,7 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMMateriaPrima_Buscar */
     public ABMMateriaPrima_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

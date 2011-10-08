@@ -32,6 +32,7 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
 
     /** Creates new form ABMCliente_Buscar */
     public ABMCliente_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

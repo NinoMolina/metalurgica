@@ -90,6 +90,7 @@ public class ABMPieza extends javax.swing.JDialog {
 
     /** Creates new form ABMPieza */
     public ABMPieza() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         gestorPieza = new GestorPieza();

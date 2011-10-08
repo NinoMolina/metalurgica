@@ -19,6 +19,7 @@ public class ConsultarClientesMorosos extends javax.swing.JDialog {
 
     /** Creates new form ConsultarClientesMorosos */
     public ConsultarClientesMorosos() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

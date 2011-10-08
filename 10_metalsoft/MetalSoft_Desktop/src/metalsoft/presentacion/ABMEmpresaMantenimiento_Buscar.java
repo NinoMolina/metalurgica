@@ -32,6 +32,7 @@ public class ABMEmpresaMantenimiento_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMProveedor_Buscar */
     public ABMEmpresaMantenimiento_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

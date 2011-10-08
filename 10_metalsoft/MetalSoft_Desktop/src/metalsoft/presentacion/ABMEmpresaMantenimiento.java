@@ -48,6 +48,7 @@ public class ABMEmpresaMantenimiento extends javax.swing.JDialog {
     private EnumOpcionesABM opcion;
     private long idEmpresa;
     public ABMEmpresaMantenimiento() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorEmpresaMantenimiento();
         cargarComboCondIva();

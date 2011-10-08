@@ -29,6 +29,7 @@ public class AsignarMateriaPrimaAProveedor extends javax.swing.JDialog {
 
     /** Creates new form AsignarMateriaPrimaAProveedor */
     public AsignarMateriaPrimaAProveedor() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         view = new ViewProveedorXMateriaPrima();
         cargarComboMateriaprima();

@@ -47,6 +47,7 @@ public class ABMProveedor extends javax.swing.JDialog {
 
     /** Creates new form ABMProveedor */
     public ABMProveedor() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorProveedor();
         dccFechaBaja.setDate(null);

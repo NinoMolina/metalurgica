@@ -31,6 +31,7 @@ public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JDialog implements
     
     /** Creates new form ABMProveedor_Buscar */
     public ABMEmpresaMetalurgica_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
     public GestorEmpresaMetalurgica getGestor() {

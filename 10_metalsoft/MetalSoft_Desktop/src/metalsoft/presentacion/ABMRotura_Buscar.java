@@ -29,6 +29,7 @@ public class ABMRotura_Buscar extends javax.swing.JDialog {
     private ABMRotura ventana;
     /** Creates new form ABMRotura_Buscar */
      public ABMRotura_Buscar() {
+         super(Principal.getVtnPrincipal());
         initComponents();
     }
 

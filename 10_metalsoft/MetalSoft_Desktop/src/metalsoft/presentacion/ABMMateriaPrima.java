@@ -35,6 +35,7 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     private EnumOpcionesABM opcion;
     /** Creates new form ABMMateriaPrima */
     public ABMMateriaPrima() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor=new GestorMateriaPrima();
         addListenerBtnNuevo();

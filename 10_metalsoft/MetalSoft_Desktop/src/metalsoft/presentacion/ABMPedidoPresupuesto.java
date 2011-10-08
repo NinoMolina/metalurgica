@@ -55,6 +55,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
 
     /** Creates new form ABMPedidoCotizacion */
     public ABMPedidoPresupuesto() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         gestor = new GestorPedidoCotizacion();

@@ -47,6 +47,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
 
     /** Creates new form GenerarListadoProcedimientosCalidad */
     public GenerarDetalleProcesosCalidad() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         tcrTblDetallePedido = new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);

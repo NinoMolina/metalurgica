@@ -53,6 +53,7 @@ public class ABMMaquina extends javax.swing.JDialog {
 
     /** Creates new form ABMMaquina */
     public ABMMaquina() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorMaquina();
         addListenerBtnNuevo();

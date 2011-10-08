@@ -38,6 +38,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private EnumOpcionesABM opcion;
     /** Creates new form ABMEtapaDeProduccion */
     public ABMEtapaDeProduccion() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor=new GestorEtapaDeProduccion();
         cargarComboMaquina();

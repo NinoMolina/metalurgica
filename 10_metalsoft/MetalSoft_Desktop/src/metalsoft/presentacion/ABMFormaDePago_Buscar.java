@@ -32,6 +32,7 @@ public class ABMFormaDePago_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMFormaDePago_Buscar */
     public ABMFormaDePago_Buscar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

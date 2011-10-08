@@ -56,6 +56,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
 
     /** Creates new form AsignarMateriaPrimaAProduccion */
     public AsignarMateriaPrimaAProduccion() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         setearTablas();
         lblNroPresupuesto.setVisible(false);

@@ -59,7 +59,7 @@ public class ABMProducto extends javax.swing.JDialog {
 
     /** Creates new form Producto */
     public ABMProducto() {
-
+        super(Principal.getVtnPrincipal());
         initComponents();
         setearTablas();
         addListenerBtnNuevo();

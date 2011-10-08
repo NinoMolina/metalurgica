@@ -34,6 +34,7 @@ public class ABMFormaDePago extends javax.swing.JDialog {
 
     /** Creates new form ABMFormaDePago */
     public ABMFormaDePago() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
     }

@@ -54,6 +54,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
     /** Creates new form ABMMantenimientoPreventivo */
     public ABMMantenimientoPreventivo() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestorserv = new GestorServicioMaquina();
         gestor = new GestorMantenimientoPreventivo();

@@ -48,6 +48,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JDialog {
     private long idEmpresa;
 
     public ABMEmpresaMetalurgica() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorEmpresaMetalurgica();
         cargarComboCondIva();
