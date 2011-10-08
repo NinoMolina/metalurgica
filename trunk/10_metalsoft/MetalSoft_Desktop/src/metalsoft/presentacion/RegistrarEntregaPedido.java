@@ -53,6 +53,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
     /** Creates new form RegistrarEntregaPedido */
     public RegistrarEntregaPedido() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         setearTablas();
         gestorCliente = new GestorCliente();

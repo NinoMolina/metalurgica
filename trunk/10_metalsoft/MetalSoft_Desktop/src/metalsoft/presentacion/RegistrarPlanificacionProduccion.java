@@ -92,6 +92,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private Map<Long, List<EtapaProduccionNode>> mapAsignacionActualEmpleados;
 
     public RegistrarPlanificacionProduccion() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         iniciarPaneles();

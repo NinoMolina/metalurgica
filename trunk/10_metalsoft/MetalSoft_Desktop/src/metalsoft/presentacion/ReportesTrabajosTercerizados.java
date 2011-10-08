@@ -27,6 +27,7 @@ public class ReportesTrabajosTercerizados extends javax.swing.JDialog {
 
     /** Creates new form ReportesTrabajosTercerizados */
     public ReportesTrabajosTercerizados() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         jPanel1.setVisible(false);
     }

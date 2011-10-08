@@ -36,6 +36,7 @@ public class RegistrarPedidoMatriz extends javax.swing.JDialog {
     private GestorPedidoMatriz gestor;
     private GestorMatriz gestorMatriz;
     public RegistrarPedidoMatriz() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         gestorMatriz=new GestorMatriz();

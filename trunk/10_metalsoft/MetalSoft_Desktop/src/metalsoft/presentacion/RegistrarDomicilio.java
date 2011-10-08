@@ -29,6 +29,7 @@ public class RegistrarDomicilio extends javax.swing.JDialog {
     private boolean devolverObjeto=false;
     /** Creates new form RegistrarDomicilio */
     public RegistrarDomicilio() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

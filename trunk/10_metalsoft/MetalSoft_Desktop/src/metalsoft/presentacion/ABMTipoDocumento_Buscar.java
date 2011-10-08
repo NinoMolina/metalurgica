@@ -60,7 +60,7 @@ public class ABMTipoDocumento_Buscar extends javax.swing.JDialog {
         lstTipoDoc = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Tipo de Documento");
 
         jRadioButton1.setText("Tipo");

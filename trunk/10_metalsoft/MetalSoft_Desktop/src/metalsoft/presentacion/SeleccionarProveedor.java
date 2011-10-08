@@ -45,6 +45,7 @@ public class SeleccionarProveedor extends javax.swing.JDialog {
     
     public SeleccionarProveedor(long idMP, RegistrarPresupuesto context)
     {
+        super(Principal.getVtnPrincipal());
         initComponents();
         this.idMateriaPrima=idMP;
         this.context=context;

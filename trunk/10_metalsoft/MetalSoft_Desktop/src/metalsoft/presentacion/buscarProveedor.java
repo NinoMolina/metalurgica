@@ -19,6 +19,7 @@ public class buscarProveedor extends javax.swing.JDialog {
 
     /** Creates new form buscarProveedor */
     public buscarProveedor() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

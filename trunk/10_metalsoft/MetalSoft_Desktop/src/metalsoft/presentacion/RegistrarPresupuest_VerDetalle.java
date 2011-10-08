@@ -22,6 +22,7 @@ public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
         private LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
     /** Creates new form RegistrarPresupuest_VerDetalle */
     public RegistrarPresupuest_VerDetalle(LinkedList<ViewProductoPresupuesto> list) {
+        super(Principal.getVtnPrincipal());
         initComponents();
         filasProductoPresupuesto=list;
         addListeners();

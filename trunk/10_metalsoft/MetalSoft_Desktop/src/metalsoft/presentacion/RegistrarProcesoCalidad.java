@@ -19,6 +19,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
 
     /** Creates new form RegistrarProcesoCalidad */
     public RegistrarProcesoCalidad() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

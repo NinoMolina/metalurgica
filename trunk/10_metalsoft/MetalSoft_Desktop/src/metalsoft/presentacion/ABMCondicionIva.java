@@ -216,7 +216,7 @@ public class ABMCondicionIva extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Condición Iva");
 
         jLabel1.setText("Nombre:");

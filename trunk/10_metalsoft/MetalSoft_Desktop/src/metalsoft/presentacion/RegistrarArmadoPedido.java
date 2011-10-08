@@ -39,6 +39,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
 
     /** Creates new form RegistrarArmadoPedido */
     public RegistrarArmadoPedido() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorArmadoPedido();
         tcrTblDetallePedido = new TableCellRender();

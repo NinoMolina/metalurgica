@@ -77,6 +77,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
 
     /** Creates new form RegistrarPedidoCotizacionDeTrabajo */
     public RegistrarPedidoCotizacionDeTrabajo() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         filasPedidoCotizacion = new LinkedList<ViewPedidoCotizacion>();
         gestor = new GestorTrabajoTercerizado();

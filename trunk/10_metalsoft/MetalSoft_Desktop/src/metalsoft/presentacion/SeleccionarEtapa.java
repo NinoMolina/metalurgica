@@ -44,6 +44,7 @@ public class SeleccionarEtapa extends javax.swing.JDialog {
     }
 
     public SeleccionarEtapa() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorEtapaDeProduccion();
         cargarComboProcesos();

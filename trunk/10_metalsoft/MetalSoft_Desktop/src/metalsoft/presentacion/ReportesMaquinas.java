@@ -15,10 +15,11 @@ package metalsoft.presentacion;
  *
  * @author Lorreine Prescott
  */
-public class ReportesMaquinas extends javax.swing.JFrame {
+public class ReportesMaquinas extends javax.swing.JDialog {
 
     /** Creates new form ReportesMaquinas */
     public ReportesMaquinas() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

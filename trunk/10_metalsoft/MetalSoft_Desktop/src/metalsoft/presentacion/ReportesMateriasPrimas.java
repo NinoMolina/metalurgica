@@ -25,6 +25,7 @@ public class ReportesMateriasPrimas extends javax.swing.JDialog {
 
     /** Creates new form ReportesMateriasPrimas */
     public ReportesMateriasPrimas() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         jPanel1.setVisible(false);
     }

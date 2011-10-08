@@ -28,6 +28,7 @@ public class ReportesPedidos extends javax.swing.JDialog {
 
     /** Creates new form ReportesPedidos */
     public ReportesPedidos() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

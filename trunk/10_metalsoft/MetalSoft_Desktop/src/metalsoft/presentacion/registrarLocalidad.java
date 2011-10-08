@@ -19,6 +19,7 @@ public class registrarLocalidad extends javax.swing.JDialog {
 
     /** Creates new form registrarLocalidad */
     public registrarLocalidad() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 
