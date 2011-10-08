@@ -35,6 +35,10 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
+        setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
    private void addListeners() {
 
@@ -61,6 +65,9 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
         boolean ok = gestor.eliminarTipoMaquina(tmaquina);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
@@ -76,6 +83,15 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+    }
+
+        public void setEnableComponents(boolean b) {
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
     }
 
     private void addListenerBtnGuardar() {
@@ -98,6 +114,10 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         GestorTipoMaquina gestor = new GestorTipoMaquina();
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
         boolean ok = gestor.modificarTipoMaquina(tmaquina, txtNombre.getText(), txtDescripcion.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
@@ -120,6 +140,9 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
         try {
             buscar = (ABMTipoMaquina_Buscar) JFrameManager.crearVentana(ABMTipoMaquina_Buscar.class.getName());
             buscar.setVentanaTipoMaquina(this);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -148,6 +171,9 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
         long id = gestor.guardarTipoMaquina(txtNombre.getText(), txtDescripcion.getText());
         if (id > -1) {
             JOptionPane.showMessageDialog(this, "Se guardó el siguiente Tipo de Máquina: " + txtNombre.getText());
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }

@@ -35,6 +35,10 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
+        setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
      private void addListeners() {
@@ -62,6 +66,9 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
         boolean ok = gestor.eliminarServicioMaquina(servicio);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
@@ -77,6 +84,15 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+    }
+
+    public void setEnableComponents(boolean b) {
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
     }
 
     private void addListenerBtnGuardar() {
@@ -99,6 +115,10 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         GestorServicioMaquina gestor = new GestorServicioMaquina();
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
         boolean ok = gestor.modificarServicioMaquina(servicio, txtNombre.getText(), txtDescripcion.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
@@ -121,6 +141,9 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
         try {
             buscar = (ABMServicioMaquina_Buscar) JFrameManager.crearVentana(ABMServicioMaquina_Buscar.class.getName());
             buscar.setVentanaServicioMaquina(this);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -150,6 +173,9 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
         long id = gestor.guardarServicioMaquina(txtNombre.getText(), txtDescripcion.getText());
         if (id > -1) {
             JOptionPane.showMessageDialog(this, "Se guardó el siguiente Servicio de Máquina: " + txtNombre.getText());
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
