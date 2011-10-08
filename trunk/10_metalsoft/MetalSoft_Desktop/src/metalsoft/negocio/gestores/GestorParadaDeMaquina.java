@@ -8,9 +8,11 @@ package metalsoft.negocio.gestores;
 import java.util.List;
 import javax.swing.JComboBox;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.RoturaJpaController;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Rotura;
@@ -49,4 +51,8 @@ public class GestorParadaDeMaquina {
         }
     }
     
+    public List<Ejecucionplanificacionproduccion> obtenerListaPedidos(){
+        List<Ejecucionplanificacionproduccion> list=JpaUtil.getEjecucionplanificacionproduccionSegunEstado(1);
+        return list;
+    }
 }
