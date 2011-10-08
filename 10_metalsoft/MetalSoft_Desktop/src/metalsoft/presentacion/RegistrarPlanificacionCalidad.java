@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -26,12 +28,11 @@ import javax.swing.tree.TreePath;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto;
-import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
+import metalsoft.datos.jpa.entity.Disponibilidadhoraria;
 import metalsoft.datos.jpa.entity.Empleado;
-import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Pieza;
@@ -70,7 +71,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private LinkedList<ViewPedidoConPlanificacionProduccion> filasPedidosConPlanificacionProduccion;
     private GestorRegistrarPlanificacionCalidad gestor;
     private metalsoft.datos.jpa.entity.Presupuesto presupuesto;
-    private int columnCountTreeTable = 3;
+    private int columnCountTreeTable = 5;
     private ViewPedidoConPlanificacionProduccion viewPedidoSeleccionado;
     private ArrayList<String> listColumnNamesTreeTable;
     private HashMap<String, JPanel> hashPanels;
@@ -87,6 +88,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private final int EMPLEADO_MAQUINA = 3;
     private Date fechaFinPrevista;
     private Date horaFinPrevista;
+    private Map<Long, List<ProcesoCalidadNode>> mapAsignacionActualEmpleados;
 
     /** Creates new form RegistrarPlanificacionCalidad */
     public RegistrarPlanificacionCalidad() {
@@ -104,6 +106,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         listColumnNamesTreeTable.add("Máquinas");
         setearTablas();
         gestor = new GestorRegistrarPlanificacionCalidad();
+        mapAsignacionActualEmpleados = new HashMap<Long, List<ProcesoCalidadNode>>();
         filasPedidosConPlanificacionProduccion = new LinkedList<ViewPedidoConPlanificacionProduccion>();
         buscarPedidosConPlanificacionProduccion();
         iniciarTreeTable();
@@ -376,7 +379,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         setEnabledComponents(true);
         cargarDatosTreeTable(presupuesto.getDetallepresupuestoList());
     }
-    
+
     private void buscarFechaHoraFinProduccionPrevista() {
         fechaFinPrevista = viewPedidoSeleccionado.getFechafinprevista();
         Long idPlanificacionProduccion = viewPedidoSeleccionado.getIdplanificacionproduccion();
@@ -907,12 +910,14 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-                if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
-                } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
-                } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
-                    hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                if (node.getInicioEtapa() != null) {
+                    if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
+                        hashEmpleadoNoDisponible.put(empleado.getIdempleado(), empleado);
+                    }
                 }
             }
         }
@@ -1133,9 +1138,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     }
 
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
-        
+
         buscarFechaHoraFinProduccionPrevista();
-        
+
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
@@ -1177,25 +1182,25 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     procesoCalidadNode = new ProcesoCalidadNode(detPiPre.getIdprocesocalidad());
 //                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
                     procesoCalidadNode.setDetallePiezaCalidadPresupuesto(detPiPre);
-                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
-                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-                    Date fechaInicio = null;
-                    if (finEtapaAnterior == null) {
-                        fechaInicio = fechaFinPrevista;
-                        fechaInicio = Fecha.setHoraMinutoSegundo(fechaInicio, horaFinPrevista);
-                    } else {
-                        fechaInicio = finEtapaAnterior;
-                    }
-                    Calendar inicio = new GregorianCalendar();
-                    inicio.setTime(fechaInicio);
-//                    inicio.setTime(new Date());
-                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionxpieza().getHours(), detPiPre.getDuracionxpieza().getMinutes());
-                    procesoCalidadNode.setInicioEtapa(inicio.getTime());
-                    procesoCalidadNode.setFinEtapa(fin.getTime());
+//                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
+//                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
+//                    Date fechaInicio = null;
+//                    if (finEtapaAnterior == null) {
+//                        fechaInicio = fechaFinPrevista;
+//                        fechaInicio = Fecha.setHoraMinutoSegundo(fechaInicio, horaFinPrevista);
+//                    } else {
+//                        fechaInicio = finEtapaAnterior;
+//                    }
+//                    Calendar inicio = new GregorianCalendar();
+//                    inicio.setTime(fechaInicio);
+////                    inicio.setTime(new Date());
+//                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
+//                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionxpieza().getHours(), detPiPre.getDuracionxpieza().getMinutes());
+//                    procesoCalidadNode.setInicioEtapa(inicio.getTime());
+//                    procesoCalidadNode.setFinEtapa(fin.getTime());
                     pieza.add(procesoCalidadNode);
-                    finEtapaAnterior = fin.getTime();
+//                    finEtapaAnterior = fin.getTime();
                 }
 
                 finEtapaAnterior = null;
@@ -1339,22 +1344,41 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         //validar que disp horaria no sea null
         try {
             //            lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
-            List<metalsoft.datos.jpa.entity.Disponibilidadhoraria> disp = empleadoSeleccionado.getDisponibilidadhorariaList();
+            List<metalsoft.datos.jpa.entity.Disponibilidadhoraria> disp = JpaUtil.getDisponibilidadEmpleado(empleadoSeleccionado);
             TaskSeriesCollection dataset = new TaskSeriesCollection();
             TaskSeries unavailable = new TaskSeries("Ocupación");
             for (metalsoft.datos.jpa.entity.Disponibilidadhoraria dispHoraria : disp) {
                 //creo una nueva tarea
                 Date fecha = dispHoraria.getFecha();
-                Task task = new Task(Fecha.parseToString(fecha),
-                        new GregorianCalendar(2010, 11, 1, 0, 0, 0).getTime(),
-                        new GregorianCalendar(2010, 11, 1, Jornada.HORAS_JORNADA, 0, 0).getTime());
-                //agrego la tarea la serie de taras
-                unavailable.add(task);
+
+                Calendar c1 = new GregorianCalendar();
+                c1.setTime(dispHoraria.getFecha());
+
+                Task task = unavailable.get(Fecha.parseToString(fecha));
+                if (task == null) {
+                    task = new Task(Fecha.parseToString(fecha),
+                            new GregorianCalendar(c1.get(Calendar.YEAR),
+                            c1.get(Calendar.MONTH),
+                            c1.get(Calendar.DAY_OF_MONTH), Jornada.HORA_INICIO_JORNADA, 0, 0).getTime(),
+                            new GregorianCalendar(c1.get(Calendar.YEAR),
+                            c1.get(Calendar.MONTH),
+                            c1.get(Calendar.DAY_OF_MONTH), Jornada.HORA_FIN_JORNADA, 0, 0).getTime());
+                    //agrego la tarea la serie de taras
+                    unavailable.add(task);
+                }
+                
                 task.addSubtask(new Task("",
-                        new GregorianCalendar(2010, 11, 1, 0, 0, 0).getTime(),
-                        new GregorianCalendar(2010, 11, 1,
-                        Jornada.HORAS_JORNADA - dispHoraria.getTiempodisponible().getHours(),
-                        60 - dispHoraria.getTiempodisponible().getMinutes(), 0).getTime()));
+                        new GregorianCalendar(c1.get(Calendar.YEAR),
+                        c1.get(Calendar.MONTH),
+                        c1.get(Calendar.DAY_OF_MONTH),
+                        dispHoraria.getHorainicio().getHours(),
+                        dispHoraria.getHorainicio().getMinutes(),
+                        dispHoraria.getHorainicio().getSeconds()).getTime(),
+                        new GregorianCalendar(c1.get(Calendar.YEAR),
+                        c1.get(Calendar.MONTH),
+                        c1.get(Calendar.DAY_OF_MONTH), dispHoraria.getHorafin().getHours(),
+                        dispHoraria.getHorafin().getMinutes(),
+                        dispHoraria.getHorafin().getSeconds()).getTime()));
             }
             dataset.add(unavailable);
             // title, domain axis, range axis, dataset, legend, tooltip, urls
@@ -1381,7 +1405,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
+
         ProcesoCalidadNode node = null;
+
         if (obj instanceof ProcesoCalidadNode) {
             node = (ProcesoCalidadNode) obj;
             /*
@@ -1389,16 +1415,151 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
              */
             node.setEmpleado(empleadoSeleccionado);
 
+            setInicioFinEtapaProduccion(node);
+
             boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
             if (superposicion) {
-                node.setEmpleado(null);
-                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
-                return;
+//                node.setEmpleado(null);
+//                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
+//                return;
+
+                Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                node.setInicioEtapa(fechaDispEmpleado);
+                Calendar inicioEtapa = new GregorianCalendar();
+                inicioEtapa.setTime(fechaDispEmpleado);
+                int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
+                int minutos = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes();
+                node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
             }
+
+
+            if (mapAsignacionActualEmpleados.containsKey(empleadoSeleccionado.getIdempleado())) {
+                mapAsignacionActualEmpleados.get(empleadoSeleccionado.getIdempleado()).add(node);
+            } else {
+                List<ProcesoCalidadNode> lst = new ArrayList<ProcesoCalidadNode>();
+                lst.add(node);
+                mapAsignacionActualEmpleados.put(empleadoSeleccionado.getIdempleado(), lst);
+            }
+
+            eliminarNodeDeOtrosEmpleados(mapAsignacionActualEmpleados, empleadoSeleccionado, node);
 
         }
         setVisiblePanel(pnlTreeTable.getName());
 }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
+
+    private void eliminarNodeDeOtrosEmpleados(Map<Long, List<ProcesoCalidadNode>> mapAsignacionActualEmpleados, Empleado empleadoSeleccionado, ProcesoCalidadNode node) {
+        Set<Long> keys = mapAsignacionActualEmpleados.keySet();
+        List<ProcesoCalidadNode> lstNode = null;
+        for (Long key : keys) {
+            if (key != empleadoSeleccionado.getIdempleado()) {
+                lstNode = mapAsignacionActualEmpleados.get(key);
+                if (lstNode.contains(node)) {
+                    lstNode.remove(node);
+                }
+            }
+        }
+    }
+
+    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, ProcesoCalidadNode node) {
+        Date resultado = null;
+
+        int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
+        int minutos = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes();
+
+        List<ProcesoCalidadNode> lstProcesoNode = mapAsignacionActualEmpleados.get(empleado.getIdempleado());
+
+        List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstProcesoNode);
+
+        resultado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos);
+
+        return resultado;
+    }
+
+    private List<Disponibilidadhoraria> crearListDisponibilidadHoraria(List<ProcesoCalidadNode> lstNode) {
+
+        List<Disponibilidadhoraria> lstDisp = new ArrayList<Disponibilidadhoraria>();
+
+        Disponibilidadhoraria disponibilidadhoraria = null;
+
+        for (ProcesoCalidadNode node : lstNode) {
+
+            disponibilidadhoraria = new Disponibilidadhoraria();
+
+            disponibilidadhoraria.setFecha(node.getInicioEtapa());
+            disponibilidadhoraria.setHorainicio(node.getInicioEtapa());
+
+            Date horaFinDisponibilidad = null;
+            Date fechaInicio = node.getInicioEtapa();
+
+            int difDias = Fecha.diferenciaEnDias(node.getInicioEtapa(), node.getFinEtapa());
+
+            if (difDias != 0) {
+                horaFinDisponibilidad = fechaInicio;
+                horaFinDisponibilidad.setHours(Jornada.HORA_FIN_JORNADA);
+                horaFinDisponibilidad.setMinutes(0);
+                horaFinDisponibilidad.setSeconds(0);
+
+                disponibilidadhoraria.setHorafin(horaFinDisponibilidad);
+
+                lstDisp.add(disponibilidadhoraria);
+
+                for (int i = 0; i < difDias; i++) {
+                    Disponibilidadhoraria disphoraria = new Disponibilidadhoraria();
+
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.setTime(fechaInicio);
+
+                    Date newFechaInicio = Fecha.addDias(calendar, i + 1).getTime();
+                    Date newFechaFin = (Date) newFechaInicio.clone();
+
+                    disphoraria.setFecha(newFechaInicio);
+
+                    newFechaInicio.setHours(Jornada.HORA_INICIO_JORNADA);
+                    newFechaInicio.setMinutes(0);
+                    newFechaInicio.setSeconds(0);
+
+                    disphoraria.setHorainicio(newFechaInicio);
+
+                    if ((i + 1) == difDias) {
+                        disphoraria.setHorafin(node.getFinEtapa());
+                    } else {
+                        newFechaFin.setHours(Jornada.HORA_FIN_JORNADA);
+                        newFechaFin.setMinutes(0);
+                        newFechaFin.setSeconds(0);
+
+                        disphoraria.setHorafin(newFechaFin);
+                    }
+
+                    lstDisp.add(disphoraria);
+
+                }
+            } else {
+                disponibilidadhoraria.setHorafin(node.getFinEtapa());
+                lstDisp.add(disponibilidadhoraria);
+            }
+        }
+
+        return (lstDisp.isEmpty() ? null : lstDisp);
+
+    }
+
+    private void setInicioFinEtapaProduccion(ProcesoCalidadNode node) {
+        Empleado empleado = node.getEmpleado();
+        Maquina maquina = node.getMaquina();
+
+        int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
+        int minutos = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes();
+
+        List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
+
+        Date inicioEtapaEmpleado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos);
+
+        node.setInicioEtapa(inicioEtapaEmpleado);
+        Calendar inicioEtapa = new GregorianCalendar();
+        inicioEtapa.setTime(inicioEtapaEmpleado);
+        node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+
+    }
 
     private void btnAsignarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMaquinaActionPerformed
         maquinaSeleccionada = (metalsoft.datos.jpa.entity.Maquina) lstMaquinas.get(tblMaquinas.getSelectedRow());
@@ -1479,8 +1640,6 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
-
-
 
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
