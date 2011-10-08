@@ -232,6 +232,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
         jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Generar Solicitud de Reclamo");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccion Entidad"));
 
