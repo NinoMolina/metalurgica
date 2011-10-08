@@ -86,6 +86,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
 
     /** Creates new form RegistrarAsistencia */
     public RegistrarAsistencia() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         setearTablas();
         btnIngreso.setVisible(false);

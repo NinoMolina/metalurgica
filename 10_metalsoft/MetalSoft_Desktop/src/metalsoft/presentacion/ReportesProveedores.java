@@ -27,6 +27,7 @@ public class ReportesProveedores extends javax.swing.JDialog {
 
     /** Creates new form ReportesProveedores */
     public ReportesProveedores() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         jPanel1.setVisible(false);
     }

@@ -28,6 +28,7 @@ public class ReportesReclamos extends javax.swing.JDialog {
 
     /** Creates new form ReportesReclamos */
     public ReportesReclamos() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

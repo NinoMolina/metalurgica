@@ -58,7 +58,7 @@ public class ABMRotura_Buscar extends javax.swing.JDialog {
         lstRotura = new javax.swing.JList();
         txtValor = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Rotura");
 
         jRadioButton1.setText("Nombre");

@@ -22,6 +22,7 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
     /** Creates new form RegistrarParadaDeMaquina */
     private GestorParadaDeMaquina gestor;
     public RegistrarParadaDeMaquina() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor= new GestorParadaDeMaquina();
         addListeners();

@@ -38,6 +38,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
     private Date fechaFinRecalculada;
 
     public RegistrarLanzamientoProduccion() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorRegistrarLanzamientoProduccion();
         limpiarCampos();

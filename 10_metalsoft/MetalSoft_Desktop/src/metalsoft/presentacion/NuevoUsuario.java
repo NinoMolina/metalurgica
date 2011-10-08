@@ -39,6 +39,7 @@ public class NuevoUsuario extends javax.swing.JDialog {
 
     /** Creates new form NuevoUsuario */
     public NuevoUsuario() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorNuevoUsuario();
         filasRoles = new ArrayList<Rol>();

@@ -24,6 +24,7 @@ public class ReportesEmpleados extends javax.swing.JDialog {
 
     /** Creates new form ReportesEmpleados */
     public ReportesEmpleados() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

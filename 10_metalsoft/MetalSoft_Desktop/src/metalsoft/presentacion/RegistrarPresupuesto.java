@@ -54,6 +54,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
 
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         setearTablas();

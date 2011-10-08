@@ -44,6 +44,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
 
     /** Creates new form RegistrarIngresoCotizacionTrabajo */
     public RegistrarIngresoCotizacionTrabajo() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorTrabajoTercerizado();
 //        filasTrabajosGenerados=new LinkedList<Trabajotercerizado>();

@@ -28,6 +28,7 @@ public class RegistrarIngresoMateriaPrima extends javax.swing.JDialog {
 
     /** Creates new form RegistrarIngresoMateriaPrima */
     public RegistrarIngresoMateriaPrima() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         this.gestor= new GestorCompra();
 

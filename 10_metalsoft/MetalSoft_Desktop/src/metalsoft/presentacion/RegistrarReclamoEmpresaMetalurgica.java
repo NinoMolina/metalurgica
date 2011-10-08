@@ -27,6 +27,7 @@ public class RegistrarReclamoEmpresaMetalurgica extends javax.swing.JDialog {
 
     /** Creates new form RegistrarReclamoEmpresaMetalurgica */
     public RegistrarReclamoEmpresaMetalurgica() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListenerBtnSalir();
         addListenerBtnGuardar();

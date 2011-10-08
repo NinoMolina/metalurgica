@@ -68,7 +68,7 @@ public class ABMServicioMaquina_Buscar extends javax.swing.JDialog {
         lstRotura.setRows(5);
         jScrollPane1.setViewportView(lstRotura);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Servicio de Máquina");
 
         jRadioButton1.setText("Nombre");

@@ -92,6 +92,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     /** Creates new form RegistrarPlanificacionCalidad */
     public RegistrarPlanificacionCalidad() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         iniciarPaneles();

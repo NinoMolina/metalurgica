@@ -40,6 +40,7 @@ public class RegistrarReclamoProveedor extends javax.swing.JDialog {
 
     /** Creates new form RegistrarReclamoProveedor */
     public RegistrarReclamoProveedor() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         this.cmbProveedor.removeAllItems();
         this.cmbReclamo.removeAllItems();

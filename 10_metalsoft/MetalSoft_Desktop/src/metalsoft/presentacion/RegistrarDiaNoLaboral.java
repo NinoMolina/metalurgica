@@ -44,6 +44,7 @@ public class RegistrarDiaNoLaboral extends javax.swing.JDialog {
 
     /** Creates new form Calendario */
     public RegistrarDiaNoLaboral() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListenerComboMonth();
         addListenerSpinnerYear();

@@ -60,7 +60,7 @@ public class ABMCondicionIva_Buscar extends javax.swing.JDialog {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Condición Iva");
 
         txtValor.addActionListener(new java.awt.event.ActionListener() {

@@ -32,6 +32,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     private ViewPedidoNoConfirmado viewPedidoSeleccionado;
     private GestorRegistrarPedidoConfirmado gestor;
     public RegistrarConfirmacionPedido() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
         setearTablas();

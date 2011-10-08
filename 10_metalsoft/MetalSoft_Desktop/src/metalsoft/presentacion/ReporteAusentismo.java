@@ -28,6 +28,7 @@ public class ReporteAusentismo extends javax.swing.JDialog {
 
     /** Creates new form ReporteAusentismo */
     public ReporteAusentismo() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

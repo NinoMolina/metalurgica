@@ -47,6 +47,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
 
     /** Creates new form RegistrarCobroPedido */
     public RegistrarCobroPedido() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         setearTablas();
         gestorPedido = new GestorPedidoCotizacion();

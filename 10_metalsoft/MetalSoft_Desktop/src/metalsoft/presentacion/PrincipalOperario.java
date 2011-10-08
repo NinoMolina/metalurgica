@@ -27,6 +27,7 @@ public class PrincipalOperario extends javax.swing.JDialog {
 
     /** Creates new form PrincipalOperario */
     public PrincipalOperario() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 
