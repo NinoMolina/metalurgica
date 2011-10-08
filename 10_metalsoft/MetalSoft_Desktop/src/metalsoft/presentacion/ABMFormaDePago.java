@@ -37,6 +37,10 @@ public class ABMFormaDePago extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
+        setEnableComponents(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     /** This method is called from within the constructor to
@@ -76,39 +80,38 @@ public class ABMFormaDePago extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel2)
-                        .addGap(18, 77, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -172,6 +175,9 @@ public class ABMFormaDePago extends javax.swing.JDialog {
         boolean ok = gestor.eliminarFormaDePago(formaPago);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
@@ -187,6 +193,15 @@ public class ABMFormaDePago extends javax.swing.JDialog {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+    }
+
+        public void setEnableComponents(boolean b) {
+        txtDescripcion.setEnabled(b);
+        txtNombre.setEnabled(b);
     }
 
     private void addListenerBtnGuardar() {
@@ -209,6 +224,10 @@ public class ABMFormaDePago extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         GestorFormaDePago gestor = new GestorFormaDePago();
+        setEnableComponents(true);
+        botones.getBtnGuardar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
         boolean ok = gestor.modificarFormaDePago(formaPago, txtNombre.getText(), txtDescripcion.getText());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Modificación Realizada!");
@@ -231,6 +250,9 @@ public class ABMFormaDePago extends javax.swing.JDialog {
         try {
             buscar = (ABMFormaDePago_Buscar) JFrameManager.crearVentana(ABMFormaDePago_Buscar.class.getName());
             buscar.setVentanaFormaDePago(this);
+            botones.getBtnModificar().setEnabled(true);
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMFormaDePago.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -259,6 +281,9 @@ public class ABMFormaDePago extends javax.swing.JDialog {
         long id = gestor.guardarFormaDePago(txtNombre.getText(), txtDescripcion.getText());
         if (id > -1) {
             JOptionPane.showMessageDialog(this, "Se guardó la siguiente Forma de Pago: " + txtNombre.getText());
+            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnModificar().setEnabled(false);
+            botones.getBtnEliminar().setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
