@@ -445,15 +445,4 @@ public class JpaUtil {
         }
     }
     
-    public static List getEjecucionPlanificacionProduccionByEstado(String param) {
-        EntityManager em = JpaUtil.getEntityManager();
-        String sql = "SELECT * FROM ejecucionplanificacionproduccion e"
-                + " WHERE e.estado=" + param;
-        try {
-            Query q = em.createNativeQuery(sql, Ejecucionplanificacionproduccion.class);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
 }
