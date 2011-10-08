@@ -329,6 +329,7 @@ public class GestorRegistrarEntregaPedido {
         DetallefacturaDB db = new DetallefacturaDB();
         Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
         ViewDetallePedidoCotizacion view = null;
+        Double montoTotal = 0d;
         while (iter.hasNext()) {
             view = iter.next();
 
@@ -337,10 +338,16 @@ public class GestorRegistrarEntregaPedido {
             db.setIdfactura(result);
             db.setIdpedido(idPedido);
             db.setMontoparcial(view.getCantidad() * view.getPrecio());
+            
+            montoTotal += db.getMontoparcial();
+            
             resultDetalle = AccessFactura.insertDetalleFactura(db, cn);
         }
+        
         facturaDB.setIdfactura(result);
         facturaDB.setNrofactura(result);
+        facturaDB.setMontototal(montoTotal);
+        
         AccessFactura.update(facturaDB, cn);
 
         //tiene que devolver 1 cuando se guarda correctamente

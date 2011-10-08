@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -24,6 +25,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
@@ -42,6 +44,7 @@ import metalsoft.datos.jpa.entity.Producto;
 import metalsoft.negocio.gestores.GestorRegistrarPlanificacionCalidad;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
+import metalsoft.presentacion.RegistrarPlanificacionProduccion.EtapaProduccionNode;
 import metalsoft.util.Calculos;
 import metalsoft.util.Fecha;
 import metalsoft.util.Jornada;
@@ -56,6 +59,8 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
@@ -1233,57 +1238,11 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 }//GEN-LAST:event_hplAsignarMaquinasActionPerformed
 
     private void hplVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplVerDisponibilidadActionPerformed
+
+
         pnlDisponibilidad.removeAll();
-        lstPlanificacionCalidad = gestor.buscarPlanificacionesCalidad();
-        if (lstPlanificacionCalidad == null) {
-            JOptionPane.showMessageDialog(this, "No existen planificaciones que ocupen fechas posteriores a la actual");
-            return;
-        }
         TaskSeriesCollection dataset = new TaskSeriesCollection();
-        TaskSeries unavailable = new TaskSeries("Etapas Producción");
-        for (metalsoft.datos.jpa.entity.Planificacioncalidad planificacion : lstPlanificacionCalidad) {
-            //creo una nueva tarea a agregar, las tareas son las planificaciones
-            Task task = new Task(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, planificacion.getNroplanificacion().longValue()),
-                    planificacion.getFechainicioprevista(),
-                    planificacion.getFechafinprevista());
-            //agrego la tarea la serie de taras
-            unavailable.add(task);
-            //busco los detalles, donde saco la etapa a ejecutar.
-            List<metalsoft.datos.jpa.entity.Detalleplanificacioncalidad> setDetalle = planificacion.getDetalleplanificacioncalidadList();
-            for (metalsoft.datos.jpa.entity.Detalleplanificacioncalidad detalle : setDetalle) {
-                GregorianCalendar inicio = new GregorianCalendar();
-                inicio.setTime(detalle.getFechainicio());
-                inicio.set(Calendar.HOUR_OF_DAY, detalle.getHorainicio().getHours());
-                inicio.set(Calendar.MINUTE, detalle.getHorainicio().getMinutes());
-                inicio.set(Calendar.SECOND, detalle.getHorainicio().getSeconds());
-                System.out.println("inicio:" + Fecha.parseToString(inicio.getTime(), "dd/MM/yyyy hh:mm:ss"));
-                GregorianCalendar fin = new GregorianCalendar();
-                fin.setTime(detalle.getFechafin());
-                fin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
-                fin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
-                fin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-                System.out.println("fin:" + Fecha.parseToString(fin.getTime(), "dd/MM/yyyy hh:mm:ss"));
-
-                Task subTask = new Task(detalle.getProcesocalidad().getNombre(),
-                        inicio.getTime(),
-                        fin.getTime());
-                task.addSubtask(subTask);
-            }
-        }
-        //        PLANIFICACION ACTUAL  *********************************************
-        taskActual = null;
-        GregorianCalendar fechaInicio = (GregorianCalendar) Fecha.fechaActualCalendar();
-        fechaInicio.set(Calendar.HOUR_OF_DAY, Jornada.HORA_INICIO_JORNADA);
-        fechaInicio.set(Calendar.MINUTE, 0);
-        fechaInicio.set(Calendar.SECOND, 0);
-
-        GregorianCalendar fechaFin = (GregorianCalendar) Fecha.fechaActualCalendar();
-        //        fechaFin.add(Calendar.DAY_OF_MONTH, 3);
-        fechaFin.set(Calendar.HOUR_OF_DAY, Jornada.HORA_FIN_JORNADA);
-        fechaFin.set(Calendar.MINUTE, 0);
-        fechaFin.set(Calendar.SECOND, 0);
-
-
+        TaskSeries unavailable = new TaskSeries("Procesos de Calidad");
 
         for (int i = 0; i < trtDetalleProcProd.getRowCount(); i++) {
             TreePath tp = trtDetalleProcProd.getPathForRow(i);
@@ -1291,40 +1250,117 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             // si es una pieza entonces genero una nueva tarea para que se muestre en el grafico
             if (obj instanceof PiezaNode) {
                 PiezaNode piezaNode = (PiezaNode) obj;
-                taskActual = new Task("NP-" + piezaNode.getPieza().getNombre(),
-                        fechaInicio.getTime(), fechaFin.getTime());
+
+                Date minDatePieza = null;
+                Date maxDatePieza = null;
+
+                Task taskActual = null;
+
+                List<MutableTreeTableNode> lstChildrens = piezaNode.getChildren();
+                List<Task> lstSubTasks = new ArrayList<Task>();
+                for (MutableTreeTableNode mutableTreeTableNode : lstChildrens) {
+                    /*
+                     * para cada pieza agrego subtareas que en este caso serian las etapas de produccion
+                     */
+                    if (mutableTreeTableNode instanceof EtapaProduccionNode) {
+                        ProcesoCalidadNode node = (ProcesoCalidadNode) mutableTreeTableNode;
+
+                        if (node.getInicioEtapa() != null) {
+
+                            Task subTaskActual = null;
+
+                            int difDias = Fecha.diferenciaEnDias(node.getInicioEtapa(), node.getFinEtapa());
+
+                            if (difDias != 0) {
+                                Date fechaFin = (Date) node.getInicioEtapa().clone();
+                                fechaFin.setHours(Jornada.HORA_FIN_JORNADA);
+                                fechaFin.setMinutes(0);
+                                fechaFin.setSeconds(0);
+
+                                subTaskActual = new Task(node.getProcesoCalidad().getNombre(),
+                                        node.getInicioEtapa(),
+                                        fechaFin);
+
+                                lstSubTasks.add(subTaskActual);
+
+                                for (int j = 0; j < difDias; j++) {
+
+                                    Calendar calendar = new GregorianCalendar();
+                                    calendar.setTime(node.getInicioEtapa());
+
+                                    Date newFechaInicio = Fecha.addDias(calendar, j + 1).getTime();
+                                    newFechaInicio.setHours(Jornada.HORA_INICIO_JORNADA);
+                                    newFechaInicio.setMinutes(0);
+                                    newFechaInicio.setSeconds(0);
+
+                                    Date newFechaFin = (Date) newFechaInicio.clone();
+
+                                    if ((j + 1) == difDias) {
+                                        newFechaFin = node.getFinEtapa();
+                                    } else {
+                                        newFechaFin.setHours(Jornada.HORA_FIN_JORNADA);
+                                        newFechaFin.setMinutes(0);
+                                        newFechaFin.setSeconds(0);
+                                    }
+
+                                    subTaskActual = new Task(node.getProcesoCalidad().getNombre(), newFechaInicio, newFechaFin);
+
+                                    lstSubTasks.add(subTaskActual);
+                                }
+                            } else {
+                                subTaskActual = new Task(node.getProcesoCalidad().getNombre(), node.getInicioEtapa(), node.getFinEtapa());
+                                lstSubTasks.add(subTaskActual);
+                            }
+
+//                            lstSubTasks.add(subTaskActual);
+
+                            if (minDatePieza == null) {
+                                minDatePieza = node.getInicioEtapa();
+                            } else {
+                                if (minDatePieza.compareTo(node.getInicioEtapa()) > 0) {
+                                    minDatePieza = node.getInicioEtapa();
+                                }
+                            }
+                            if (maxDatePieza == null) {
+                                maxDatePieza = node.getFinEtapa();
+                            } else {
+                                if (maxDatePieza.compareTo(node.getFinEtapa()) < 0) {
+                                    maxDatePieza = node.getFinEtapa();
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
+                if (minDatePieza != null && maxDatePieza != null) {
+                    taskActual = new Task(piezaNode.getPieza().getNombre(), minDatePieza, maxDatePieza);
+                    for (Task task : lstSubTasks) {
+                        taskActual.addSubtask(task);
+                    }
+                } else {
+                    taskActual = new Task(piezaNode.getPieza().getNombre(), Fecha.fechaActualDate(), Fecha.fechaActualDate());
+                }
                 //agrego la tarea la serie de taras
                 unavailable.add(taskActual);
-            }
-            /*
-             * para cada pieza agrego subtareas que en este caso serian las etapas de produccion
-             */
-            if (obj instanceof ProcesoCalidadNode) {
-                ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
-                //                entity.Detallepiezapresupuesto detallePiPre = node.getDetallePiezaPresupuesto();
-                Task subTaskActual = new Task(node.getProcesoCalidad().getNombre(),
-                        node.getInicioEtapa(),
-                        node.getFinEtapa());
-                taskActual.addSubtask(subTaskActual);
-            }
+            }//fin if piezaNode
         }
 
         dataset.add(unavailable);
-        // title, domain axis, range axis, dataset, legend, tooltip, urls
-        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Producciones", "Time", dataset, true, true, false);
-        ChartPanel chartPanel = new ChartPanel(chart);
+// title, domain axis, range axis, dataset, legend, tooltip, urls
+        JFreeChart chart = ChartFactory.createGanttChart("Control de Calidad", "Piezas", "Fecha", dataset, true, true, false);
+        final CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        //      plot.getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
+        final CategoryItemRenderer renderer = plot.getRenderer();
+        renderer.setSeriesPaint(0, Color.green);
+
+        final ChartPanel chartPanel = new ChartPanel(chart);
+
         chart.setBorderVisible(true);
         chartPanel.setBounds(0, 0, pnlDisponibilidad.getWidth(), pnlDisponibilidad.getHeight());
         pnlDisponibilidad.add(chartPanel);
-        //        this.getContentPane().add(chartPanel);
-        //        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //        setBounds(50, 50, 800, 200);
 
-        //        JFrame frame = new JFrame("MeetNow!");
-        //        frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
-        //        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //        frame.setBounds(50, 50, 800, 800);
-        //        frame.setVisible(true);
         setVisiblePanel(pnlDisponibilidad.getName());
 }//GEN-LAST:event_hplVerDisponibilidadActionPerformed
 
@@ -1367,7 +1403,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     //agrego la tarea la serie de taras
                     unavailable.add(task);
                 }
-                
+
                 task.addSubtask(new Task("",
                         new GregorianCalendar(c1.get(Calendar.YEAR),
                         c1.get(Calendar.MONTH),
@@ -1416,13 +1452,53 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
              */
             node.setEmpleado(empleadoSeleccionado);
 
-            setInicioFinEtapaProduccion(node);
+            TreeNode parent = node.getParent();
+
+            int indexNodeActual = parent.getIndex(node);
+            int indexNodeAnterior = indexNodeActual - 1;
+
+            TreeNode anterior = null;
+
+            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+
+            if (indexNodeActual > 0) {
+                anterior = parent.getChildAt(indexNodeAnterior);
+                if (anterior instanceof ProcesoCalidadNode) {
+                    ProcesoCalidadNode nodeAnt = (ProcesoCalidadNode) anterior;
+                    if (nodeAnt.getInicioEtapa() != null) {
+                        fechaInicial = nodeAnt.getFinEtapa();
+                    }
+                }
+            }
+
+            int childCount = parent.getChildCount();
+            /*
+             * si tengo mas de un elemento y no es el ultimo nodo
+             */
+            if (childCount > 1 && (indexNodeActual + 1) != childCount) {
+                /*
+                 * recorro a partir del siguiente nodo y me fijo si tiene el mismo empleado.
+                 * si lo tiene lo saco
+                 */
+                for (int i = indexNodeActual + 1; i < childCount; i++) {
+                    ProcesoCalidadNode nodeSig = (ProcesoCalidadNode) parent.getChildAt(i);
+                    if (nodeSig.getEmpleado() != null) {
+//                        if (nodeSig.getEmpleado().getIdempleado() == node.getEmpleado().getIdempleado()) {
+                        if (mapAsignacionActualEmpleados.containsKey(nodeSig.getEmpleado().getIdempleado())) {
+                            mapAsignacionActualEmpleados.get(nodeSig.getEmpleado().getIdempleado()).remove(nodeSig);
+                        }
+                        nodeSig.setEmpleado(null);
+                        nodeSig.setInicioEtapa(null);
+                        nodeSig.setFinEtapa(null);
+//                        }
+                    }
+                }
+            }
+
+            setInicioFinEtapaProduccion(node, fechaInicial);
 
             boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
             if (superposicion) {
-//                node.setEmpleado(null);
-//                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
-//                return;
 
                 Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
                 node.setInicioEtapa(fechaDispEmpleado);
@@ -1471,7 +1547,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstProcesoNode);
 
-        resultado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos);
+        resultado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, Fecha.fechaActualDate());
 
         return resultado;
     }
@@ -1544,7 +1620,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     }
 
-    private void setInicioFinEtapaProduccion(ProcesoCalidadNode node) {
+    private void setInicioFinEtapaProduccion(ProcesoCalidadNode node, Date fechaInicial) {
         Empleado empleado = node.getEmpleado();
         Maquina maquina = node.getMaquina();
 
@@ -1553,7 +1629,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
 
-        Date inicioEtapaEmpleado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos);
+        Date inicioEtapaEmpleado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos, fechaInicial);
 
         node.setInicioEtapa(inicioEtapaEmpleado);
         Calendar inicioEtapa = new GregorianCalendar();

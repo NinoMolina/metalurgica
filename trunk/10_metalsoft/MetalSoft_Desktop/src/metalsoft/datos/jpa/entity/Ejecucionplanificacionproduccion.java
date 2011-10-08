@@ -40,6 +40,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ejecucionplanificacionproduccion.findByHorafin", query = "SELECT e FROM Ejecucionplanificacionproduccion e WHERE e.horafin = :horafin"),
     @NamedQuery(name = "Ejecucionplanificacionproduccion.findByNroejecucionplanificacion", query = "SELECT e FROM Ejecucionplanificacionproduccion e WHERE e.nroejecucionplanificacion = :nroejecucionplanificacion")})
 public class Ejecucionplanificacionproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,6 +62,8 @@ public class Ejecucionplanificacionproduccion implements Serializable {
     private Date horafin;
     @Column(name = "nroejecucionplanificacion")
     private BigInteger nroejecucionplanificacion;
+    @Column(name = "novedades")
+    private String novedades;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idejecucionplanificacionproduccion")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
     @JoinColumn(name = "idplanificacionproduccion", referencedColumnName = "idplanificacionproduccion")
@@ -149,6 +152,14 @@ public class Ejecucionplanificacionproduccion implements Serializable {
         this.estado = estado;
     }
 
+    public String getNovedades() {
+        return novedades;
+    }
+
+    public void setNovedades(String novedades) {
+        this.novedades = novedades;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -173,5 +184,4 @@ public class Ejecucionplanificacionproduccion implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion[ idejecucion=" + idejecucion + " ]";
     }
-    
 }
