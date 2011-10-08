@@ -40,6 +40,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Factura.findByFechavencimiento", query = "SELECT f FROM Factura f WHERE f.fechavencimiento = :fechavencimiento"),
     @NamedQuery(name = "Factura.findByTipofactura", query = "SELECT f FROM Factura f WHERE f.tipofactura = :tipofactura")})
 public class Factura implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -60,6 +61,8 @@ public class Factura implements Serializable {
     private Date fechavencimiento;
     @Column(name = "tipofactura")
     private String tipofactura;
+    @Column(name = "montototal")
+    private Double montototal;
     @OneToMany(mappedBy = "factura")
     private List<Pedido> pedidoList;
     @JoinColumn(name = "usuario", referencedColumnName = "idusuario")
@@ -190,6 +193,14 @@ public class Factura implements Serializable {
         this.comprobantepagoList = comprobantepagoList;
     }
 
+    public Double getMontototal() {
+        return montototal;
+    }
+
+    public void setMontototal(Double montototal) {
+        this.montototal = montototal;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -214,5 +225,4 @@ public class Factura implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Factura[ idfactura=" + idfactura + " ]";
     }
-    
 }

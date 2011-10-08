@@ -35,6 +35,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
@@ -947,7 +948,24 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         Object obj = tp.getLastPathComponent();
         //el nodo seleccionado tiene que ser uno de etapaproduccion
         if (obj instanceof EtapaProduccionNode) {
-            return true;
+
+            EtapaProduccionNode node = (EtapaProduccionNode) obj;
+            TreeNode parent = node.getParent();
+            int indexNode = parent.getIndex(node);
+            int indexNodeAnt = indexNode - 1;
+
+            if (indexNode == 0) {
+                return true;
+            } else {
+                EtapaProduccionNode nodeAnt = (EtapaProduccionNode) parent.getChildAt(indexNodeAnt);
+                if (nodeAnt.getInicioEtapa() != null) {
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Primero debe seleccionar un empleado para la etapa anterior (" + nodeAnt.getEtapa().getNombre() + ").");
+                    return false;
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción\npara poder asignar");
         }
@@ -963,10 +981,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
+        
         EtapaProduccionNode node = null;
-//        Empleado empAnterior = null;
-//        Date inicioEtapaAnterior = null;
-//        Date finEtapaAnterior = null;
+        
         if (obj instanceof EtapaProduccionNode) {
             node = (EtapaProduccionNode) obj;
 
@@ -974,22 +991,56 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             /*
              * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
              */
-//            empAnterior = node.getEmpleado();
-//            inicioEtapaAnterior = node.getInicioEtapa();
-//            finEtapaAnterior = node.getFinEtapa();
 
             node.setEmpleado(empleadoSeleccionado);
 
-            setInicioFinEtapaProduccion(node);
+            TreeNode parent = node.getParent();
+
+            int indexNodeActual = parent.getIndex(node);
+            int indexNodeAnterior = indexNodeActual - 1;
+
+            TreeNode anterior = null;
+
+            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+
+            if (indexNodeActual > 0) {
+                anterior = parent.getChildAt(indexNodeAnterior);
+                if (anterior instanceof EtapaProduccionNode) {
+                    EtapaProduccionNode nodeAnt = (EtapaProduccionNode) anterior;
+                    if (nodeAnt.getInicioEtapa() != null) {
+                        fechaInicial = nodeAnt.getFinEtapa();
+                    }
+                }
+            }
+
+            int childCount = parent.getChildCount();
+            /*
+             * si tengo mas de un elemento y no es el ultimo nodo
+             */
+            if (childCount > 1 && (indexNodeActual + 1) != childCount) {
+                /*
+                 * recorro a partir del siguiente nodo y me fijo si tiene el mismo empleado.
+                 * si lo tiene lo saco
+                 */
+                for (int i = indexNodeActual + 1; i < childCount; i++) {
+                    EtapaProduccionNode nodeSig = (EtapaProduccionNode) parent.getChildAt(i);
+                    if (nodeSig.getEmpleado() != null) {
+//                        if (nodeSig.getEmpleado().getIdempleado() == node.getEmpleado().getIdempleado()) {
+                        if (mapAsignacionActualEmpleados.containsKey(nodeSig.getEmpleado().getIdempleado())) {
+                            mapAsignacionActualEmpleados.get(nodeSig.getEmpleado().getIdempleado()).remove(nodeSig);
+                        }
+                        nodeSig.setEmpleado(null);
+                        nodeSig.setInicioEtapa(null);
+                        nodeSig.setFinEtapa(null);
+//                        }
+                    }
+                }
+            }
+
+            setInicioFinEtapaProduccion(node, fechaInicial);
 
             boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
             if (superposicion) {
-
-//                node.setEmpleado(empAnterior);
-//                node.setInicioEtapa(inicioEtapaAnterior);
-//                node.setFinEtapa(finEtapaAnterior);
-//                JOptionPane.showMessageDialog(this, "El empleado ya esta asignado a otra etapa de produccion dentro del horario de la etapa actual");
-//                return;
 
                 Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
                 node.setInicioEtapa(fechaDispEmpleado);
@@ -1431,7 +1482,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
-        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Producciones", "Time", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Piezas", "Fecha", dataset, true, true, false);
         final CategoryPlot plot = (CategoryPlot) chart.getPlot();
         //      plot.getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
         final CategoryItemRenderer renderer = plot.getRenderer();
@@ -1656,12 +1707,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstEtapasNode);
 
-        resultado = obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos);
+        resultado = obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, Fecha.fechaActualDate());
 
         return resultado;
     }
 
-    private List<Disponibilidadhoraria> crearListDisponibilidadHoraria(List<EtapaProduccionNode> lstNode) {
+    private List<Disponibilidadhoraria> crearListDisponibilidadHoraria(final List<EtapaProduccionNode> lstNode) {
 
         List<Disponibilidadhoraria> lstDisp = new ArrayList<Disponibilidadhoraria>();
 
@@ -1671,13 +1722,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
             disponibilidadhoraria = new Disponibilidadhoraria();
 
-            disponibilidadhoraria.setFecha(node.getInicioEtapa());
-            disponibilidadhoraria.setHorainicio(node.getInicioEtapa());
+            Date fechaInicio = (Date) node.getInicioEtapa().clone();
+            Date fechaFin = (Date) node.getFinEtapa().clone();
+
+            disponibilidadhoraria.setFecha(fechaInicio);
+            disponibilidadhoraria.setHorainicio(fechaInicio);
 
             Date horaFinDisponibilidad = null;
-            Date fechaInicio = node.getInicioEtapa();
 
-            int difDias = Fecha.diferenciaEnDias(node.getInicioEtapa(), node.getFinEtapa());
+            int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaFin);
 
             if (difDias != 0) {
                 horaFinDisponibilidad = fechaInicio;
@@ -1720,7 +1773,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
                 }
             } else {
-                disponibilidadhoraria.setHorafin(node.getFinEtapa());
+                disponibilidadhoraria.setHorafin(fechaFin);
                 lstDisp.add(disponibilidadhoraria);
             }
         }
@@ -1729,7 +1782,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
     }
 
-    private void setInicioFinEtapaProduccion(EtapaProduccionNode node) {
+    private void setInicioFinEtapaProduccion(EtapaProduccionNode node, Date fechaInicial) {
         Empleado empleado = node.getEmpleado();
         Maquina maquina = node.getMaquina();
 
@@ -1738,7 +1791,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisponibilidad = JpaUtil.getDisponibilidadEmpleado(empleado);
 
-        Date inicioEtapaEmpleado = obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos);
+        Date inicioEtapaEmpleado = obtenerFechaDisponibilidadEmpleado(lstDisponibilidad, horas, minutos, fechaInicial);
 
         node.setInicioEtapa(inicioEtapaEmpleado);
         Calendar inicioEtapa = new GregorianCalendar();
@@ -1747,7 +1800,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
     }
 
-    public static Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos) {
+    public static Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos, Date fechaActual) {
 
         Date resultado = null;
 
@@ -1756,7 +1809,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
          */
         if (lstDisponibilidad == null || lstDisponibilidad.isEmpty()) {
 
-            return Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+//            return Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+            return fechaActual;
         }
 
 
@@ -1764,7 +1818,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         Date dif = null;
         boolean hayDisponibilidad = false;
 
-        Date fechaActual = Fecha.fechaActualDate();
+//        Date fechaActual = Fecha.fechaActualDate();
 
         for (Disponibilidadhoraria disponibilidadhoraria : lstDisponibilidad) {
 

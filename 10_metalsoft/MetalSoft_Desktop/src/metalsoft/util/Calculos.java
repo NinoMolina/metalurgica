@@ -142,7 +142,7 @@ public class Calculos {
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
             inicio.set(Calendar.MINUTE, 0);
         }
-        if (horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
+        if (horaFinJornada < sumar(inicio.get(Calendar.HOUR_OF_DAY), minutosEnProporcion(inicio.get(Calendar.MINUTE)))) {
             inicio.add(Calendar.DAY_OF_YEAR, 1);
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
             inicio.set(Calendar.MINUTE, 0);
@@ -153,35 +153,57 @@ public class Calculos {
         return inicio;
     }
 
+    public static float minutosEnProporcion(int minutos) {
+        return (float) (minutos / 60f);
+    }
+
+    public static float restar(float a, float b) {
+        return a - b;
+    }
+
+    public static float sumar(float a, float b) {
+        return a + b;
+    }
+
     public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, GregorianCalendar fin) {
-        
+
 //        fin.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-        
+        System.out.println("Horas de fin: " + fin.get(Calendar.HOUR_OF_DAY));
+        System.out.println("Hora inicio jornada: " + horaInicioJornada);
+        System.out.println("Hora fin jornada: " + horaFinJornada);
         if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY)) {
+            System.out.println("if(horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY))");
             int hora = fin.get(Calendar.HOUR_OF_DAY);
             int horaAM = (horaFinJornada - 12);
             int dif = horaAM - hora;
             int horasfaltantes = dif >= 0 ? 12 - dif : 12 + Math.abs(dif);
             fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
         }
-        if (horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+        if (horaFinJornada < sumar(fin.get(Calendar.HOUR_OF_DAY), minutosEnProporcion(fin.get(Calendar.MINUTE)))) {
+            System.out.println("if(horaFinJornada < fin.get(Calendar.HOUR_OF_DAY))");
+//            System.out.println("Horas de fin: " + fin.get(Calendar.HOUR_OF_DAY));
             int dif = fin.get(Calendar.HOUR_OF_DAY) - horaFinJornada;
             int horasfaltantes = dif;
             fin.add(Calendar.DAY_OF_YEAR, 1);
             fin.set(Calendar.HOUR_OF_DAY, horaInicioJornada + horasfaltantes);
         }
         if (horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY)) {
+            System.out.println("if(horaInicioJornada > fin.get(Calendar.HOUR_OF_DAY) || horaFinJornada < fin.get(Calendar.HOUR_OF_DAY))");
+            //            System.out.println("Horas de fin: " + fin.get(Calendar.HOUR_OF_DAY));
             fin = calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
         }
         return fin;
     }
 
     public static GregorianCalendar calcularFechaFin(int horaInicioJornada, int horaFinJornada, Calendar inicio, int horas, int minutos) {
+        System.out.println("calcularFechaFin(int horaInicioJornada, int horaFinJornada, Calendar inicio, int horas, int minutos) - INICIO: " + inicio.getTime());
         GregorianCalendar fin = new GregorianCalendar();
         fin.setTime(inicio.getTime());
         fin.add(Calendar.HOUR_OF_DAY, horas);
         fin.add(Calendar.MINUTE, minutos);
+        System.out.println("calcularFechaFin(int horaInicioJornada, int horaFinJornada, Calendar inicio, int horas, int minutos): ADD HORAS MINUTOS: " + fin.getTime());
         fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, fin);
+        System.out.println("calcularFechaFin(int horaInicioJornada, int horaFinJornada, Calendar inicio, int horas, int minutos) - FIN: " + fin.getTime());
         return fin;
     }
 }
