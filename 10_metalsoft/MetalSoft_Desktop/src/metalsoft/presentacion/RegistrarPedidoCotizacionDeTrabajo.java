@@ -164,7 +164,10 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
             view.setIdestado(pedido.getEstado().getIdestado());
             view.setIdpedido(pedido.getIdpedido());
             view.setNropedido((int) pedido.getNropedido());
-            view.setNropedidocotizacioncliente(pedido.getNropedidocotizacioncliente());
+            if(pedido.getNropedidocotizacioncliente()!=null)
+                view.setNropedidocotizacioncliente(pedido.getNropedidocotizacioncliente());
+            else 
+                view.setNropedidocotizacioncliente(0);
             view.setPrioridad(pedido.getPrioridad().getNombre());
 
             lstView.addLast(view);
@@ -1037,29 +1040,32 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            Pedido view = filasPedidos.get(rowIndex);
-            //      Object[] df=filas.get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
-                case 1:
-                    return view.getNropedidocotizacioncliente();
-                case 2:
-                    return view.getPrioridad();
-                case 3:
-                    return view.getCliente();
-                case 4:
-                    return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
-                case 5:
-                    return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
-                case 6:
-                    return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
-                case 7:
-                    return view.getEstado();
-                default:
-                    return null;
+            if (!filasPedidos.isEmpty()) {
+                Pedido view = filasPedidos.get(rowIndex);
+                //      Object[] df=filas.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
+                    case 1:
+                        return view.getNropedidocotizacioncliente();
+                    case 2:
+                        return view.getPrioridad();
+                    case 3:
+                        return view.getCliente();
+                    case 4:
+                        return Fecha.parseToString(view.getFechapedidocotizacion().getTime());
+                    case 5:
+                        return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
+                    case 6:
+                        return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                    case 7:
+                        return view.getEstado();
+                    default:
+                        return null;
+                }
+            } else {
+                return null;
             }
-
         }
 
         /**
