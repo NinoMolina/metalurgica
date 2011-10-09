@@ -6,12 +6,16 @@
 package metalsoft.negocio.gestores;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.RoturaJpaController;
+import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
+import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Maquina;
@@ -54,5 +58,22 @@ public class GestorParadaDeMaquina {
     public List<Ejecucionplanificacionproduccion> obtenerListaPedidos(){
         List<Ejecucionplanificacionproduccion> list=JpaUtil.getEjecucionplanificacionproduccionSegunEstado(1);
         return list;
+    }
+    
+    public boolean guardadParadaDeMaquina(Ejecucionplanificacionproduccion v){
+        EjecucionplanificacionproduccionJpaController con=new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+        try {
+            con.edit(v);
+            return true;
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(GestorParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(GestorParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 }
