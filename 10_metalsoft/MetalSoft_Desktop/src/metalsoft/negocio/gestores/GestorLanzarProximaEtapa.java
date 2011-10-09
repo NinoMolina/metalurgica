@@ -48,7 +48,6 @@ public class GestorLanzarProximaEtapa {
 //            Logger.getLogger(GestorLanzarProximaEtapa.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    
     public void lanzarProximaEtapa(Detalleejecucionplanificacion detalleejecucionplanificacion, Detalleplanificacionproduccion detalleplanificacionproduccion) throws Exception {
 
         List<Detalleejecucionplanificacion> lstDetallejecucion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getDetalleejecucionplanificacionList();
@@ -67,12 +66,14 @@ public class GestorLanzarProximaEtapa {
 
                 lanzarEjecucionEtapa(detalleejec);
 
+                break;
+
             }
 
         }
     }
 
-    private void lanzarEjecucionEtapa(Detalleejecucionplanificacion detalleejecucionplanificacion) throws Exception {
+    public void lanzarEjecucionEtapa(Detalleejecucionplanificacion detalleejecucionplanificacion) throws Exception {
 
         DetalleejecucionplanificacionJpaController detalleejecucionplanificacionJpaController = new DetalleejecucionplanificacionJpaController(JpaUtil.getEntityManagerFactory());
         EjecucionetapaproduccionJpaController ejecucionetapaproduccionJpaController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
@@ -100,7 +101,6 @@ public class GestorLanzarProximaEtapa {
         String sourceFile = "D:\\rpt\\RptSiguienteEjecucionEtapa.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
         System.out.println(sourceFile);
-        JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
         JasperReport masterReport = null;
@@ -111,17 +111,26 @@ public class GestorLanzarProximaEtapa {
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
             param.put("ID_EJECUCION_ETAPA", id);
 
-            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+            final JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
 //            boolean dialogoImpresion = false;
 //            JasperPrintManager.printReport(jasperPrint, dialogoImpresion);
 
-            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
-            jviewer.setTitle("EJECUCION ETAPA - CODIGO DE BARRA");
-            jviewer.setVisible(true);
+            java.awt.EventQueue.invokeLater(new Runnable() {
+
+                public void run() {
+                    try {
+                        JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                        jviewer.setTitle("EJECUCION ETAPA - CODIGO DE BARRA");
+                        jviewer.setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
         } catch (Exception ex) {
-            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             try {
                 pg.disconnect();

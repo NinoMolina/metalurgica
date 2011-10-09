@@ -28,7 +28,6 @@ import metalsoft.negocio.adminusuarios.Rol;
 import metalsoft.negocio.adminusuarios.Usuario;
 import metalsoft.negocio.gestores.GestorNuevoUsuario;
 import metalsoft.util.Fecha;
-import sun.awt.SunToolkit;
 
 /**
  *

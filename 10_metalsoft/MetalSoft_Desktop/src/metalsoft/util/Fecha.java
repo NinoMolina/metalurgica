@@ -391,9 +391,11 @@ public class Fecha {
 //
 //        System.out.println(parseToDate(new java.sql.Date(new Date().getTime()).getTime(), HORA_MINUTO_SEGUNDO));
 
-        GregorianCalendar calendar = new GregorianCalendar(2011, 9, 2, 4, 0);
+        GregorianCalendar calendar = new GregorianCalendar(2011, 9, 9, 15, 0);
         Date d3 = calendar.getTime();
+        System.out.println(d3);
         Date fa = fechaActualDate();
+        System.out.println(fa);
         Date dif = diferenciaEnMinutosHoras(d3, fa);
 
         System.out.println(dif.getHours());

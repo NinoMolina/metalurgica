@@ -5,13 +5,13 @@
 package metalsoft.datos.jpa;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import metalsoft.datos.dbobject.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
@@ -33,9 +33,6 @@ import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
-import metalsoft.negocio.gestores.ViewPedidoConCalidad;
-import metalsoft.util.Fecha;
-import org.eclipse.persistence.internal.jpa.querydef.CriteriaBuilderImpl;
 
 /**
  *
@@ -432,9 +429,9 @@ public class JpaUtil {
 //                + " AND e.fecha >= :fecha"
 //                + " ORDER BY e.fecha, e.horainicio";
         String sql = "SELECT * FROM disponibilidadhoraria e"
-                + " WHERE e.idempleado = " + empleado.getIdempleado() 
+                + " WHERE e.idempleado = " + empleado.getIdempleado()
                 + " AND e.fecha >= CURRENT_DATE"
-                +" ORDER BY e.fecha, e.horainicio";
+                + " ORDER BY e.fecha, e.horainicio";
         try {
             Query q = em.createNativeQuery(sql, Disponibilidadhoraria.class);
 //            q.setParameter("id", empleado.getIdempleado());
@@ -445,4 +442,16 @@ public class JpaUtil {
         }
     }
     
+    public static List<metalsoft.datos.jpa.entity.Ejecucionetapaproduccion> getEjecucionetapaproduccionByEstado(Long estado){
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Ejecucionetapaproduccion e"
+                + " WHERE e.estado.idestado = :id";
+        try {
+            Query q = em.createQuery(sql, Ejecucionetapaproduccion.class);
+            q.setParameter("id", estado);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
