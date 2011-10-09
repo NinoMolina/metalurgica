@@ -23,11 +23,11 @@ import metalsoft.util.MetalsoftProperties;
  *
  * @author Nino
  */
-public class PrincipalOperario extends javax.swing.JDialog {
+public class PrincipalOperario extends javax.swing.JFrame {
 
     /** Creates new form PrincipalOperario */
     public PrincipalOperario() {
-        super(Principal.getVtnPrincipal());
+//        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

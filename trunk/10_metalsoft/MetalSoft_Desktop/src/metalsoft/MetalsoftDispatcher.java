@@ -42,10 +42,11 @@ public class MetalsoftDispatcher {
             } else if (rol.equals("ADMIN")) {
                 Principal p = new Principal(usuario);
 
-//                lanzarHiloAvisoEtapaNoTerminada(p);
-//                lanzarHiloEscuchadorFinEtapa(p);
-//                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
-//                lanzarHiloEscuchadorFinProcesoCalidad(p);
+                lanzarHiloAvisoEtapaNoTerminada(p);
+                lanzarHiloEscuchadorFinEtapa(p);
+                lanzarHiloAvisoEtapaListaParaIniciar(p);
+                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
+                lanzarHiloEscuchadorFinProcesoCalidad(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
@@ -78,6 +79,13 @@ public class MetalsoftDispatcher {
 
     private static void lanzarHiloEscuchadorFinProcesoCalidad(Principal vtnPrincipal) {
         HiloEscuchadorFinProcesoCalidad hilo = new HiloEscuchadorFinProcesoCalidad();
+        hilo.setVtnPrincipal(vtnPrincipal);
+        Thread thread = new Thread(hilo);
+        thread.start();
+    }
+
+    private static void lanzarHiloAvisoEtapaListaParaIniciar(Principal vtnPrincipal) {
+        HiloAvisoEtapaListaParaIniciar hilo = new HiloAvisoEtapaListaParaIniciar();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();

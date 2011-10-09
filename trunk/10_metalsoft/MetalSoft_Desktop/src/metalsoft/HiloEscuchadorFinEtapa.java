@@ -163,8 +163,8 @@ public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
          * lanzar la etapa que sigue segun el orden
          */
         if (!esUltimaEjecucionEtapaDePieza) {
-            GestorLanzarProximaEtapa gestorLanzarProximaEtapa = new GestorLanzarProximaEtapa();
-            gestorLanzarProximaEtapa.lanzarProximaEtapa(detalleejecucionplanificacion, detalleplanificacionproduccion);
+//            GestorLanzarProximaEtapa gestorLanzarProximaEtapa = new GestorLanzarProximaEtapa();
+//            gestorLanzarProximaEtapa.lanzarProximaEtapa(detalleejecucionplanificacion, detalleplanificacionproduccion);
         } else {
             /*
              * armar el producto real
