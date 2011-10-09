@@ -4,7 +4,6 @@
  */
 package metalsoft.util;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +56,13 @@ public class Fecha {
     public static String fechaHoraMinutoSegundoActual() {
         Date fecha = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
+        return formato.format(fecha);
+    }
+    
+    public static String fechaHomaMinutoSegundoActualParaNovedades() {
+        Date fecha = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 
         return formato.format(fecha);
     }
@@ -370,6 +376,7 @@ public class Fecha {
 
 
 
+        System.out.println(fechaHomaMinutoSegundoActualParaNovedades());
 //        String s = fechaActual();
 //        Date d = parseToDate(s);
 //        java.sql.Date dsql = parseToDateSQL(d);
