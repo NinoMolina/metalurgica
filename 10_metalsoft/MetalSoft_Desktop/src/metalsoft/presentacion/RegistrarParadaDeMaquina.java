@@ -390,9 +390,9 @@ private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 case 1:
                     return "PLAN-" + String.valueOf(view.getIdplanificacionproduccion().getNroplanificacion());
                 case 2:
-                    return String.valueOf(view.getFechainicio());
+                    return Fecha.parseToString(view.getFechainicio());
                 case 3:
-                    return String.valueOf(view.getHorainicio());
+                    return Fecha.parseToHourMinuteSecond(view.getHorainicio());
                 case 4:
                     if (view.getFechafin() == null) {
                         return "";
