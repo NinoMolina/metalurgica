@@ -141,6 +141,7 @@ public class NuevoPedidoControlador {
                 ped.setEspedidoweb(true);
                 ped.setEstado(conEstadoPed.findEstadopedido(1L));
                 ped.setPrioridad(conPrioridad.findPrioridad(3L));
+                ped.setNropedidocotizacioncliente(0);
                 conPed.create(ped);
                 for (Detallepedido de : nvoPedidoVista.getListPrevisoriaDetalles()) {
                     de.setIdpedido(ped);
