@@ -5,7 +5,6 @@
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -31,12 +28,12 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Detallemantenimientopreventivo.findByDuracion", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.duracion = :duracion"),
     @NamedQuery(name = "Detallemantenimientopreventivo.findByObservaciones", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.observaciones = :observaciones")})
 public class Detallemantenimientopreventivo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DetallemantenimientopreventivoPK detallemantenimientopreventivoPK;
     @Column(name = "duracion")
-    @Temporal(TemporalType.TIME)
-    private Date duracion;
+    private Integer duracion;
     @Column(name = "observaciones")
     private String observaciones;
     @JoinColumn(name = "servicio", referencedColumnName = "idservicio")
@@ -65,11 +62,11 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.detallemantenimientopreventivoPK = detallemantenimientopreventivoPK;
     }
 
-    public Date getDuracion() {
+    public Integer getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Date duracion) {
+    public void setDuracion(Integer duracion) {
         this.duracion = duracion;
     }
 
@@ -121,5 +118,4 @@ public class Detallemantenimientopreventivo implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Detallemantenimientopreventivo[ detallemantenimientopreventivoPK=" + detallemantenimientopreventivoPK + " ]";
     }
-    
 }

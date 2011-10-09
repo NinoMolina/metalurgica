@@ -41,6 +41,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Mantenimientopreventivo.findByFechafinmantenimientoreal", query = "SELECT m FROM Mantenimientopreventivo m WHERE m.fechafinmantenimientoreal = :fechafinmantenimientoreal"),
     @NamedQuery(name = "Mantenimientopreventivo.findByMaquina", query = "SELECT m FROM Mantenimientopreventivo m WHERE m.maquina = :maquina")})
 public class Mantenimientopreventivo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -65,8 +66,7 @@ public class Mantenimientopreventivo implements Serializable {
     @Column(name = "periodo")
     private BigInteger periodo;
     @Column(name = "duraciontotal")
-    @Temporal(TemporalType.TIME)
-    private Date duraciontotal;
+    private Integer duraciontotal;
     @Column(name = "maquina")
     private BigInteger maquina;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo")
@@ -114,11 +114,11 @@ public class Mantenimientopreventivo implements Serializable {
         this.horaenviomantenimiento = horaenviomantenimiento;
     }
 
-    public Date getDuraciontotal() {
+    public Integer getDuraciontotal() {
         return duraciontotal;
     }
 
-    public void setDuraciontotal(Date duraciontotal) {
+    public void setDuraciontotal(Integer duraciontotal) {
         this.duraciontotal = duraciontotal;
     }
 
@@ -194,5 +194,4 @@ public class Mantenimientopreventivo implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Mantenimientopreventivo[ idmantenimientopreventivo=" + idmantenimientopreventivo + " ]";
     }
-    
 }

@@ -247,6 +247,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         List<Detalleplanificacionproduccion> detalle = new ArrayList<Detalleplanificacionproduccion>();
         Planificacionproduccion plan = new Planificacionproduccion();
         Date menor = null, mayor = null;
+        Detalleplanificacionproduccion detAnterior = null;
+        boolean setDetAnterior = false;
         /*
          * recorro los nodos del arbol jtree
          */
@@ -272,6 +274,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                     orden = 1;
                     piezaNodeAnterior = piezaNode;
                     prodNodeAnterior = productoNode;
+                    setDetAnterior = true;
 
                 } else {
                     /*
@@ -283,6 +286,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                     if (piezaNodeAnterior != piezaNode) {
                         orden = 1;
                         piezaNodeAnterior = piezaNode;
+                        setDetAnterior = true;
                     }
                 }
                 /*
@@ -324,7 +328,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 dpp.setIdplanificacionproduccion(plan);
                 dpp.setOrden(orden);
                 dpp.setIndexproducto(productoNode.getIndexProducto());
+                
+                if(setDetAnterior){
+                    dpp.setDetalleanterior(null);
+                    setDetAnterior = false;
+                } else {
+                    dpp.setDetalleanterior(detAnterior.getId());
+                }
+                detAnterior = dpp;
+
                 detalle.add(dpp);
+                
 
                 orden++;
             }

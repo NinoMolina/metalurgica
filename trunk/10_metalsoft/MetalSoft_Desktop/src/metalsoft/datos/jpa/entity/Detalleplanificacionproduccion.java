@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -81,6 +82,8 @@ public class Detalleplanificacionproduccion implements Serializable {
     @JoinColumn(name = "iddetalleejecucionplanificacion", referencedColumnName = "id")
     @ManyToOne
     private Detalleejecucionplanificacion iddetalleejecucionplanificacion;
+    @Column(name = "detalleanterior")
+    private Long detalleanterior;
 
     public Detalleplanificacionproduccion() {
     }
@@ -199,6 +202,14 @@ public class Detalleplanificacionproduccion implements Serializable {
 
     public void setIddetalleejecucionplanificacion(Detalleejecucionplanificacion iddetalleejecucionplanificacion) {
         this.iddetalleejecucionplanificacion = iddetalleejecucionplanificacion;
+    }
+
+    public Long getDetalleanterior() {
+        return detalleanterior;
+    }
+
+    public void setDetalleanterior(Long detalleanterior) {
+        this.detalleanterior = detalleanterior;
     }
 
     @Override
