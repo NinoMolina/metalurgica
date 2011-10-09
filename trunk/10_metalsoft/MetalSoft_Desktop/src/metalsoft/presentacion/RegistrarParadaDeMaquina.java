@@ -8,14 +8,19 @@
  *
  * Created on 04/09/2011, 20:14:17
  */
-
 package metalsoft.presentacion;
 
+import common.Logger;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.GestorParadaDeMaquina;
+import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -29,20 +34,27 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
     /** Creates new form RegistrarParadaDeMaquina */
     private GestorParadaDeMaquina gestor;
     private List<Ejecucionplanificacionproduccion> listaPedidos;
+
     public RegistrarParadaDeMaquina() {
         super(Principal.getVtnPrincipal());
         initComponents();
-        gestor= new GestorParadaDeMaquina();
+        gestor = new GestorParadaDeMaquina();
         addListeners();
         setearTablas();
         cargarCombos();
-        listaPedidos=gestor.obtenerListaPedidos();
+        btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+        btnGuardar1.getBtnGuardar().setEnabled(false);
+        listaPedidos = gestor.obtenerListaPedidos();
+        lblnro.setText("...");
     }
-    private void addListeners(){
+
+    private void addListeners() {
         addListenerBtnSalir();
         addListenerBtnGuardar();
         addListenerBtnSeleccionar();
+        addListenerBtnAgregar();
     }
+
     private void addListenerBtnSalir() {
         btnSalirr1.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
 
@@ -55,6 +67,30 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
+    private void addListenerBtnAgregar() {
+        btnAgregar1.getBtnAgregar().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            JFrameManager.crearVentana(ABMRotura.class.getName());
+            cmbRoturas.removeAllItems();
+            gestor.cargarComboRoturas(cmbRoturas);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RegistrarParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegistrarParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegistrarParadaDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     private void addListenerBtnGuardar() {
         btnGuardar1.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
 
@@ -69,20 +105,51 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
             return;
         }
-        if(((ItemCombo)cmbMaquinas.getSelectedItem()).getId().equals("-1")){
+        if (((ItemCombo) cmbMaquinas.getSelectedItem()).getId().equals("-1")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una máquina!");
             return;
         }
-        if(((ItemCombo)cmbEmpleados.getSelectedItem()).getId().equals("-1")){
+        if (((ItemCombo) cmbEmpleados.getSelectedItem()).getId().equals("-1")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado Responsable!");
             return;
         }
-        if(((ItemCombo)cmbRoturas.getSelectedItem()).getId().equals("-1")){
+        if (((ItemCombo) cmbRoturas.getSelectedItem()).getId().equals("-1")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una rotura!");
             return;
         }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        String novedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades()
+                + " --> PARADA DE MÁQUINA: Se ha registrado la parada de la máquina " + ((ItemCombo) cmbMaquinas.getSelectedItem()).getMostrar().toUpperCase()
+                + " pudiendo ser la causa " + ((ItemCombo) cmbRoturas.getSelectedItem()).getMostrar().toUpperCase()
+                + ", mientras el empleado " + ((ItemCombo) cmbEmpleados.getSelectedItem()).getMostrar().toUpperCase() + " se encontraba a cargo.";
+        novedad += "\n\n";
+        Ejecucionplanificacionproduccion v = listaPedidos.get(tblPedidos.getSelectedRow());
+        if(v.getNovedades()==null)
+            v.setNovedades(novedad);
+        else
+            v.setNovedades(v.getNovedades() + novedad);
+        boolean result = gestor.guardadParadaDeMaquina(v);
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Se ha registrado la parada de la máquina");
+            cmbEmpleados.setSelectedIndex(0);
+            cmbRoturas.setSelectedIndex(0);
+            cmbMaquinas.setSelectedIndex(0);
+            btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+            btnGuardar1.getBtnGuardar().setEnabled(false);
+            lblnro.setText("...");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido registrar la parada de la máquina");
+            cmbEmpleados.setSelectedIndex(0);
+            cmbRoturas.setSelectedIndex(0);
+            cmbMaquinas.setSelectedIndex(0);
+            btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+            btnGuardar1.getBtnGuardar().setEnabled(false);
+            lblnro.setText("...");
+        }
         //guardo las novedades en la ejecucion.
     }
+
     private void addListenerBtnSeleccionar() {
         btnSeleccionar1.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
 
@@ -98,16 +165,16 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
             return;
         }
         Ejecucionplanificacionproduccion v = listaPedidos.get(tblPedidos.getSelectedRow());
-        
+        lblnro.setText("EJEC-"+v.getNroejecucionplanificacion());
     }
-    
-    public void cargarCombos(){
+
+    public void cargarCombos() {
         gestor.cargarComboEmpleado(cmbEmpleados);
         gestor.cargarComboMaquinas(cmbMaquinas);
         gestor.cargarComboRoturas(cmbRoturas);
     }
 
-     private void setearTablas() {
+    private void setearTablas() {
         // PEDIDO
         tblPedidos.setModel(new PedidosEnProduccionTableModel());
         tblPedidos.setColumnControlVisible(true);
@@ -140,6 +207,9 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
         btnSeleccionar1 = new metalsoft.beans.BtnSeleccionar();
+        btnAgregar1 = new metalsoft.beans.BtnAgregar();
+        jLabel4 = new javax.swing.JLabel();
+        lblnro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Parada de Máquina");
@@ -154,6 +224,11 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos en Producción"));
 
+        tblPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPedidos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -174,16 +249,17 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
                 .addComponent(btnSeleccionar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Pedido Seleccionado:");
+
+        lblnro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblnro.setText("...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(503, Short.MAX_VALUE)
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -199,8 +275,21 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbRoturas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(324, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83)
+                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblnro)
+                        .addGap(88, 88, 88))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,19 +298,27 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cmbMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblnro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cmbRoturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbRoturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -239,18 +336,24 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+private void tblPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidosMouseClicked
+    btnSeleccionar1.getBtnSeleccionar().setEnabled(true);
+    btnGuardar1.getBtnGuardar().setEnabled(true);
+}//GEN-LAST:event_tblPedidosMouseClicked
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new RegistrarParadaDeMaquina().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private metalsoft.beans.BtnAgregar btnAgregar1;
     private metalsoft.beans.BtnGuardar btnGuardar1;
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private metalsoft.beans.BtnSeleccionar btnSeleccionar1;
@@ -260,9 +363,11 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblnro;
     private org.jdesktop.swingx.JXTable tblPedidos;
     // End of variables declaration//GEN-END:variables
 
@@ -277,20 +382,23 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            Ejecucionplanificacionproduccion view = (Ejecucionplanificacionproduccion)listaPedidos.get(rowIndex);
+            Ejecucionplanificacionproduccion view = (Ejecucionplanificacionproduccion) listaPedidos.get(rowIndex);
 //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return "EJEC-"+ String.valueOf(view.getNroejecucionplanificacion());
+                    return "EJEC-" + String.valueOf(view.getNroejecucionplanificacion());
                 case 1:
-                    return "PLAN-"+ String.valueOf(view.getIdplanificacionproduccion().getNroplanificacion());
+                    return "PLAN-" + String.valueOf(view.getIdplanificacionproduccion().getNroplanificacion());
                 case 2:
                     return String.valueOf(view.getFechainicio());
                 case 3:
                     return String.valueOf(view.getHorainicio());
                 case 4:
-                    if(view.getFechafin()==null)return "";
-                    else return String.valueOf(view.getFechafin());
+                    if (view.getFechafin() == null) {
+                        return "";
+                    } else {
+                        return String.valueOf(view.getFechafin());
+                    }
                 case 5:
                     return view.getEstado().getNombre();
                 default:
