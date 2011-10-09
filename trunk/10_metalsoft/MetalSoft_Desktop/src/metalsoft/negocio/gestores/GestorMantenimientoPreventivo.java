@@ -21,7 +21,6 @@ import metalsoft.datos.jpa.entity.Servicio;
 import metalsoft.datos.jpa.entity.Tipomaquina;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.negocio.access.AccessFunctions;
-import metalsoft.negocio.mantmaquinarias.MantenimientoPreventivo;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
@@ -30,6 +29,7 @@ import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.DetallemantenimientopreventivoJpaController;
+import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 
 
 /**
@@ -95,44 +95,38 @@ public class GestorMantenimientoPreventivo {
         }
     }
 
-          public long guardarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop) {
+          public long guardarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop, List<Detallemantenimientopreventivo> lista) {
         MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
-        MaquinaJpaController controllerMaquina = new MaquinaJpaController (JpaUtil.getEntityManagerFactory());
-        ServicioJpaController controllerServicio = new ServicioJpaController (JpaUtil.getEntityManagerFactory());
         DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController (JpaUtil.getEntityManagerFactory());
         try {
-      //VERRRRR      Maquina maquina = controllerMaquina.find(mantenimientop.getMaquina());
-              // controllerMaquina.edit(maquina);
-
-      //VERRRRR      controllerMaquina.create(mantenimientop.getMaquina());
-            controllerServicio.create(mantenimientop.getDetallemantenimientopreventivo().getServicio());
-            controllerDetalle.create(mantenimientop.getDetallemantenimientopreventivo());
             controller.create(mantenimientop);
+            for(Detallemantenimientopreventivo de : lista){
+                de.setMantenimientopreventivo(mantenimientop);
+                controllerDetalle.create(de);
+            }
 
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         } catch (Exception ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
         return mantenimientop.getIdmantenimientopreventivo();
     }
 
 
-          public long modificarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop)
+          public long modificarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop, List<Detallemantenimientopreventivo> lista)
     {
         MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
-        ServicioJpaController controllerServicio = new ServicioJpaController(JpaUtil.getEntityManagerFactory());
         DetallemantenimientopreventivoJpaController controllerDetalle = new DetallemantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
-        MaquinaJpaController controllerMaquina = new MaquinaJpaController(JpaUtil.getEntityManagerFactory());
-        Maquina maq=null;
-        Servicio serv=null;
+        
         try {
-
-            controllerServicio.edit(mantenimientop.getDetallemantenimientopreventivo().getServicio());
-        //VERRRRR    controllerMaquina.edit(mantenimientop.getMaquina());
-            controllerDetalle.edit(mantenimientop.getDetallemantenimientopreventivo());
             controller.edit(mantenimientop);
-
+            for(Detallemantenimientopreventivo de : lista){
+                de.setMantenimientopreventivo(mantenimientop);
+                controllerDetalle.edit(de);
+            }
         }catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
@@ -237,7 +231,7 @@ public class GestorMantenimientoPreventivo {
         return controller.findMaquina(id);
     }
 
-    public boolean eliminarMantenimientoPreventivo(MantenimientoPreventivo mantenimientop) {
+    public boolean eliminarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
