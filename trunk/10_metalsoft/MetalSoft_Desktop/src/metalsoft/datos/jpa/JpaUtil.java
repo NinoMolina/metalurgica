@@ -470,4 +470,18 @@ public class JpaUtil {
             em.close();
         }
     }
+    
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoPorNroLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "WHERE CAST(m.nromantenimietno as VARCHAR) LIKE '" + nro + "%'";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
