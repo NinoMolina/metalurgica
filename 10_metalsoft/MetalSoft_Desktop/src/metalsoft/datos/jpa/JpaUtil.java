@@ -26,6 +26,7 @@ import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Factura;
+import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
@@ -441,14 +442,29 @@ public class JpaUtil {
             em.close();
         }
     }
-    
-    public static List<metalsoft.datos.jpa.entity.Ejecucionetapaproduccion> getEjecucionetapaproduccionByEstado(Long estado){
+
+    public static List<metalsoft.datos.jpa.entity.Ejecucionetapaproduccion> getEjecucionetapaproduccionByEstado(Long estado) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT e FROM Ejecucionetapaproduccion e"
                 + " WHERE e.estado.idestado = :id";
         try {
             Query q = em.createQuery(sql, Ejecucionetapaproduccion.class);
             q.setParameter("id", estado);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Mantenimientopreventivo> getDisponibilidadEmpleado(String inicio, String fin) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "where m.fechamantenimientoprevisto>='" + inicio + "' "
+                + "and m.fechamantenimientoprevisto<='" + fin + "' ";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
             return q.getResultList();
         } finally {
             em.close();
