@@ -48,6 +48,8 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     private Servicio servicio;
     private EnumOpcionesABM opcion;
     private LinkedList<Detallemantenimientopreventivo> filasservicios;
+    private LinkedList<Detallemantenimientopreventivo> detalleAgregar;
+    private LinkedList<Detallemantenimientopreventivo> detalleQuitar;
     private long idMantenimientoPreventivo;
 
     /** Creates new form ABMMantenimientoPreventivo */
@@ -64,6 +66,8 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         botones.getBtnGuardar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
         filasservicios = new LinkedList<Detallemantenimientopreventivo>();
+        detalleAgregar = new LinkedList<Detallemantenimientopreventivo>();
+        detalleQuitar = new LinkedList<Detallemantenimientopreventivo>();
 
         tblServicios.setModel(new ServicioTableModel());
         tblServicios.setColumnControlVisible(true);
@@ -112,8 +116,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         tblServicios = new org.jdesktop.swingx.JXTable();
         btnCalcularMantenimiento = new javax.swing.JButton();
         lblFecha = new javax.swing.JLabel();
-        txtDuracionTotal = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
@@ -182,8 +184,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                 btnCalcularMantenimientoActionPerformed(evt);
             }
         });
-
-        jLabel8.setText("Duración Total:");
 
         jLabel12.setText("Observaciones:");
 
@@ -259,21 +259,11 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(btnCalcularMantenimiento))
-                    .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(73, 73, 73)
-                                .addComponent(txtDuracionTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(13, 13, 13)
-                                .addComponent(txtfechaMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addGap(13, 13, 13)
+                        .addComponent(txtfechaMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,8 +274,13 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(beanBtnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(101, 101, 101))
+                        .addComponent(beanBtnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +349,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                     .addComponent(lblduracionMantenimiento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -370,12 +365,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtfechaMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtDuracionTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -415,14 +407,12 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
 
-        boolean ok = gestor.eliminarMantenimientoPreventivo(mantenimientop);
+        boolean ok = gestor.eliminarMantenimiento(mantenimientop);
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
         } else {
             JOptionPane.showMessageDialog(this, "La eliminación NO se pudo realizar..");
         }
-
-
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,7 +423,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
             mantenimientop = new Mantenimientopreventivo();
             lblFecha.setText(String.valueOf(Fecha.fechaActual()));
             HabilitarComponentes();
-            botones.getBtnGuardar().setEnabled(false);
+            botones.getBtnGuardar().setEnabled(true);
             botones.getBtnEliminar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
 
@@ -465,7 +455,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.MODIFICAR;
-
+        HabilitarComponentes();
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnModificar().setEnabled(false);
         botones.getBtnEliminar().setEnabled(false);
@@ -481,23 +471,20 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        /*
+
         opcion = EnumOpcionesABM.BUSCAR;
-        ABMEmpresaMetalurgica_Buscar buscar = null;
+        ABMMantenimientoPreventivo_Buscar buscar = null;
         try {
-        buscar = (ABMEmpresaMetalurgica_Buscar) JFrameManager.crearVentana(ABMEmpresaMetalurgica_Buscar.class.getName());
-        buscar.setVentana(this);
-        buscar.setGestor(gestor);
-        
+            buscar = (ABMMantenimientoPreventivo_Buscar) JFrameManager.crearVentana(ABMMantenimientoPreventivo_Buscar.class.getName());
+            buscar.setVentana(this);
+
         } catch (ClassNotFoundException ex) {
-        Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-        Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-        Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         */
     }
 
     private void addListenerBtnSalir() {
@@ -528,7 +515,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                 break;
             case MODIFICAR:
                 mantenimientop = modificarMantenimientoPreventivo();
-                idMantenimientoPreventivo = gestor.modificarMantenimientoPreventivo(mantenimientop, filasservicios);
+                idMantenimientoPreventivo = gestor.modificarMantenimientoPreventivo(mantenimientop, detalleAgregar, detalleQuitar);
                 break;
             default:
                 break;
@@ -586,10 +573,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe ingresar el período!");
             return;
         }
-        if (txtDuracion.getText().compareTo("") == 0) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar la duración!");
-            return;
-        }
 
         Calendar calendario = Calendar.getInstance();
         calendario.add(Calendar.DATE, Integer.parseInt(txtPeriodo.getText()));
@@ -621,6 +604,14 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                 cmbTipoMaquinaActionPerformed(evt);
             }
         });
+    }
+
+    public Mantenimientopreventivo getMantenimientop() {
+        return mantenimientop;
+    }
+
+    public void setMantenimientop(Mantenimientopreventivo mantenimientop) {
+        this.mantenimientop = mantenimientop;
     }
 
     /**
@@ -655,7 +646,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -666,7 +656,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     private javax.swing.JLabel lblduracionMantenimiento;
     private org.jdesktop.swingx.JXTable tblServicios;
     private javax.swing.JTextField txtDuracion;
-    private javax.swing.JTextField txtDuracionTotal;
     private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtPeriodo;
     private javax.swing.JTextField txtfechaMantenimiento;
@@ -682,24 +671,45 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     }
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {
-        long id = Long.parseLong(((ItemCombo) cmbServicio.getSelectedItem()).getId());
-        if (id == -1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un servicio..!");
-            return;
-        }
-        Detallemantenimientopreventivo detalle = new Detallemantenimientopreventivo();
-        detalle.setServicio(gestor.buscarServicioSeleccionado(Long.parseLong(((ItemCombo) cmbServicio.getSelectedItem()).getId())));
-        detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
-        detalle.setObservaciones(txtObservaciones.getText());
+        if (opcion.equals(EnumOpcionesABM.NUEVO)) {
+            Detallemantenimientopreventivo detalle = new Detallemantenimientopreventivo();
+            detalle.setServicio(gestor.buscarServicioSeleccionado(Long.parseLong(((ItemCombo) cmbServicio.getSelectedItem()).getId())));
+            detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
+            detalle.setObservaciones(txtObservaciones.getText());
 
-        filasservicios.add(detalle);
-        tblServicios.updateUI();
+            filasservicios.add(detalle);
+            tblServicios.updateUI();
 
-        int sumaTotal = 0;
-        for (Detallemantenimientopreventivo de : filasservicios) {
-            sumaTotal += de.getDuracion();
+            int sumaTotal = 0;
+            for (Detallemantenimientopreventivo de : filasservicios) {
+                sumaTotal += de.getDuracion();
+            }
+            lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
         }
-        lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
+        if (opcion.equals(EnumOpcionesABM.MODIFICAR)) {
+
+            long id = Long.parseLong(((ItemCombo) cmbServicio.getSelectedItem()).getId());
+            if (id == -1) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un servicio..!");
+                return;
+            }
+            Detallemantenimientopreventivo detalle = new Detallemantenimientopreventivo();
+            detalle.setServicio(gestor.buscarServicioSeleccionado(Long.parseLong(((ItemCombo) cmbServicio.getSelectedItem()).getId())));
+            detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
+            detalle.setObservaciones(txtObservaciones.getText());
+
+            if(filasservicios.get(tblServicios.getSelectedRow()).getDetallemantenimientopreventivoPK()==null){
+                detalleAgregar.add(detalle);
+            }
+            filasservicios.add(detalle);
+            tblServicios.updateUI();
+            int sumaTotal = 0;
+            for (Detallemantenimientopreventivo de : filasservicios) {
+                sumaTotal += de.getDuracion();
+            }
+            lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
+        }
+
         txtDuracion.setText("");
         txtObservaciones.setText("");
     }
@@ -734,7 +744,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         return mantenimientop;
     }
 
-    
     private void addListenerBtnQuitar() {
         beanBtnQuitar.getBtnQuitar().addActionListener(new java.awt.event.ActionListener() {
 
@@ -745,10 +754,23 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     }
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {
-        filasservicios.remove(tblServicios.getSelectedRow());
-        tblServicios.updateUI();
-        if (tblServicios.getRowCount() <= 0) {
-            beanBtnQuitar.getBtnQuitar().setEnabled(false);
+        if (opcion.equals(EnumOpcionesABM.NUEVO)) {
+            filasservicios.remove(tblServicios.getSelectedRow());
+            tblServicios.updateUI();
+            if (tblServicios.getRowCount() <= 0) {
+                beanBtnQuitar.getBtnQuitar().setEnabled(false);
+            }
+        }
+        if (opcion.equals(EnumOpcionesABM.MODIFICAR)) {
+            filasservicios.remove(tblServicios.getSelectedRow());
+            tblServicios.updateUI();
+            if(filasservicios.get(tblServicios.getSelectedRow()).getDetallemantenimientopreventivoPK()!=null){
+                detalleQuitar.remove(tblServicios.getSelectedRow());
+            }
+            
+            if (tblServicios.getRowCount() <= 0) {
+                beanBtnQuitar.getBtnQuitar().setEnabled(false);
+            }
         }
     }
 
@@ -786,6 +808,20 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         return result;
     }
 
+    public void cargarDatosMantenimientoSeleccionado() {
+        InhabilitarComponentes();
+        botones.getBtnEliminar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(true);
+        lblNroMantenimientoP.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_PREVENTIVO, mantenimientop.getNromantenimietno().longValue()));
+        Maquina maq = gestor.obtenerMaquina(mantenimientop.getMaquina().longValue());
+        setItemComboSeleccionado(cmbMaquina, maq.getIdmaquina());
+        setItemComboSeleccionado(cmbTipoMaquina, maq.getTipomaquina().getIdtipomaquina());
+        filasservicios = (LinkedList<Detallemantenimientopreventivo>) gestor.obtenerDetalleDeMantenimiento(String.valueOf(mantenimientop.getIdmantenimientopreventivo()));
+        txtPeriodo.setText(String.valueOf(mantenimientop.getPeriodo()));
+        lblduracionMantenimiento.setText(String.valueOf(mantenimientop.getDuraciontotal()));
+        txtfechaMantenimiento.setText(Fecha.parseToString(mantenimientop.getFechamantenimientoprevisto(), "dd/MM/yyyy"));
+    }
+
     public Mantenimientopreventivo nuevoMantenimientoPreventivo() {
 
         mantenimientop = new Mantenimientopreventivo();
@@ -812,7 +848,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         btnTipoMaquina1.setEnabled(false);
         btnMaquina.setEnabled(false);
         txtDuracion.setEnabled(false);
-        txtDuracionTotal.setEnabled(false);
         txtPeriodo.setEnabled(false);
         txtfechaMantenimiento.setEnabled(false);
         tblServicios.setEnabled(false);
@@ -828,7 +863,6 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         btnTipoMaquina1.setEnabled(true);
         btnMaquina.setEnabled(true);
         txtDuracion.setEnabled(true);
-        txtDuracionTotal.setEnabled(true);
         txtPeriodo.setEnabled(true);
         txtfechaMantenimiento.setEnabled(true);
         tblServicios.setEnabled(true);
@@ -836,7 +870,19 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         beanBtnQuitar.setEnabled(true);
         beanBtnSeleccionar.setEnabled(true);
     }
-    
+
+    private void setItemComboSeleccionado(JComboBox cmb, long id) {
+        int length = cmb.getItemCount();
+        ItemCombo item = null;
+        for (int i = 0; i < length; i++) {
+            item = (ItemCombo) cmb.getItemAt(i);
+            if (Long.parseLong(item.getId()) == id) {
+                cmb.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
     class ServicioTableModel extends AbstractTableModel {
 
         String[] columnName = {"Nombre", "Descripción", "Duración", "Observaciones"};

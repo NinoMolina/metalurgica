@@ -94,27 +94,13 @@
                       <EmptySpace min="18" pref="18" max="18" attributes="0"/>
                       <Component id="btnCalcularMantenimiento" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="botones" min="-2" pref="562" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="40" pref="40" max="40" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                              <Component id="txtDuracionTotal" min="-2" pref="190" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="13" pref="13" max="13" attributes="0"/>
-                              <Component id="txtfechaMantenimiento" min="-2" pref="190" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="13" pref="13" max="13" attributes="0"/>
+                      <Component id="txtfechaMantenimiento" min="-2" pref="190" max="-2" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator2" min="-2" pref="554" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="40" pref="40" max="40" attributes="0"/>
@@ -130,7 +116,14 @@
                       <Component id="beanBtnQuitar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="botones" min="-2" pref="562" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator2" min="-2" pref="554" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -220,7 +213,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="12" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="11" pref="11" max="11" attributes="0"/>
@@ -241,13 +234,9 @@
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <Component id="txtfechaMantenimiento" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtDuracionTotal" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="botones" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -396,13 +385,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblFecha">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtDuracionTotal">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Duraci&#xf3;n Total:"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
