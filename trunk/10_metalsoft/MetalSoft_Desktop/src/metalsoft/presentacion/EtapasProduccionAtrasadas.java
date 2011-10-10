@@ -12,17 +12,28 @@ package metalsoft.presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
+import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
+import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -38,6 +49,7 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
     private JButton btnNovedades;
     private static EtapasProduccionAtrasadas instance;
     private static List<Detalleejecucionplanificacion> filasEtapasAtrasadas;
+    private JButton btnSalir;
 
     public EtapasProduccionAtrasadas() {
         super(Principal.getVtnPrincipal());
@@ -70,12 +82,20 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
         tblEtapasAtrasadas = new org.jdesktop.swingx.JXTable();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
         btnNovedades1 = new metalsoft.beans.BtnNovedades();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNovedades = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Etapas de Producción Atrasadas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas de Producción Atrasadas"));
 
+        tblEtapasAtrasadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEtapasAtrasadasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEtapasAtrasadas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -94,17 +114,40 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Novedades de Producción"));
+
+        txtNovedades.setColumns(20);
+        txtNovedades.setRows(5);
+        jScrollPane2.setViewportView(txtNovedades);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNovedades1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 806, Short.MAX_VALUE)
+                        .addComponent(btnNovedades1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 783, Short.MAX_VALUE)
                         .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -114,29 +157,48 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNovedades1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovedades1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEtapasAtrasadasMouseClicked
+    int row = tblEtapasAtrasadas.getSelectedRow();
+    int col = tblEtapasAtrasadas.getSelectedColumn();
+
+    if (row >= 0) {
+        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
+        EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+        Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = controller.findEjecucionplanificacionproduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
+        txtNovedades.setText(ejecucionplanificacionproduccion.getNovedades());
+//                    System.out.println(System.getProperty("line.separator").toString());
+    }
+}//GEN-LAST:event_tblEtapasAtrasadasMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnNovedades btnNovedades1;
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private org.jdesktop.swingx.JXTable tblEtapasAtrasadas;
+    private javax.swing.JTextArea txtNovedades;
     // End of variables declaration//GEN-END:variables
 
     private void addListeners() {
         addListenerBtnNovedades();
+        addListenerBtnSalir();
     }
 
     private void addListenerBtnNovedades() {
         btnNovedades = btnNovedades1.getBtn();
-        btnNovedades.setText("Ver Novedades");
+        btnNovedades.setText("Agregar Novedades");
         btnNovedades.addActionListener(new ActionListener() {
 
             @Override
@@ -147,6 +209,35 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
     }
 
     private void btnNovedadesActionPerformed(ActionEvent e) {
+        if (tblEtapasAtrasadas.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción");
+            return;
+        }
+
+        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
+        Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
+
+
+        JTextArea txtNuevaNovedad = new JTextArea(10, 50);
+        Object[] obj = {"Novedades:", txtNuevaNovedad};
+
+        int res = JOptionPane.showConfirmDialog(null, obj, "Agregar Novedades", JOptionPane.OK_CANCEL_OPTION);
+
+        if (res == JOptionPane.OK_OPTION) {
+            String nuevaNovedad = txtNuevaNovedad.getText();
+            nuevaNovedad = "<html>" + Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": <b>" + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + "</b></html>: " + nuevaNovedad;
+            nuevaNovedad += System.getProperty("line.separator") + System.getProperty("line.separator");
+            ejecucionplanificacionproduccion.setNovedades(ejecucionplanificacionproduccion.getNovedades() + nuevaNovedad);
+            
+            EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+            try {
+                controller.edit(ejecucionplanificacionproduccion);
+                txtNovedades.append(nuevaNovedad);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo agregar las novedades.");
+            } 
+        }
+
     }
 
     public static void setEtapasAtrasadas(Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas) {
@@ -169,6 +260,21 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
         /* On dit de surligner une ligne sur deux */
         tblEtapasAtrasadas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+    }
+
+    private void addListenerBtnSalir() {
+        btnSalir = btnSalirr1.getBtnSalir();
+        btnSalir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnSalirActionPerformed(e);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(ActionEvent e) {
+        this.dispose();
     }
 
     class EtapaAtrasadaTableModel extends AbstractTableModel {
