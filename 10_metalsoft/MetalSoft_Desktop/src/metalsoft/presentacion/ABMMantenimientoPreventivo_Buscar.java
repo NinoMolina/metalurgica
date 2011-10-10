@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -34,6 +35,8 @@ public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
         addListeners();
         gestor = new GestorMantenimientoPreventivo();
         filasMan = new LinkedList<Mantenimientopreventivo>();
+        txtFechaAlta.setDate(new Date());
+        txtFechaBaja.setDate(new Date());
         txtFechaAlta.setEnabled(false);
         txtFechaBaja.setEnabled(false);
         txtNro.setEnabled(true);
