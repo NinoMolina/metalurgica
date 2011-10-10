@@ -456,7 +456,7 @@ public class JpaUtil {
         }
     }
 
-    public static List<Mantenimientopreventivo> getDisponibilidadEmpleado(String inicio, String fin) {
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoPorFecha(String inicio, String fin) {
 
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
