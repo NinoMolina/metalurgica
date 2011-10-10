@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Instant;
+import org.joda.time.Interval;
 
 /**
  *
@@ -472,5 +473,42 @@ public class Fecha {
         d.setMinutes(minutos);
         d.setSeconds(segundos);
         return d;
+    }
+    
+    public static boolean superposicion(Date inicioIntervalo1, Date finIntervalo1, Date inicioIntervalo2, Date finIntervalo2){
+        /*
+         * intervalo del nodo que se esta recorriendo
+         */
+        Interval interval = new Interval(inicioIntervalo1.getTime(), finIntervalo1.getTime());
+        /*
+         * instante inicial y final del nodo actual
+         * si alguno de estos instantes es contenido por el nodo recorrido entonces
+         * hay superposicion
+         */
+
+        Instant insInicial = new Instant(inicioIntervalo2.getTime());
+        Instant insFinal = new Instant(finIntervalo2.getTime());
+
+        if (interval.contains(insInicial)) {
+            return true;
+        }
+
+        if (interval.contains(insFinal)) {
+            return true;
+        }
+
+        /*
+         * puede que el nodo actual contenga el nodo que se esta recorriendo con lo
+         * cual la fecha inicio y fin del nodo actual no estaran dentro del intervalo del
+         * nodo recorrido pero puede haber superposicion.
+         * para eso veo si el intervalo del nodo actual contiene al del nodo que se esta
+         * recorriendo
+         */
+        Interval intervalNodoActual = new Interval(inicioIntervalo2.getTime(), finIntervalo2.getTime());
+        if (intervalNodoActual.contains(interval)) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -36,7 +36,7 @@ import metalsoft.util.MetalsoftProperties;
  *
  * @author Nino
  */
-public class HiloEscuchadorFinEtapa extends HiloEtapaBase implements Runnable {
+public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
     private ServerSocket serverSocket = null;
