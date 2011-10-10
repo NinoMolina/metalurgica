@@ -9,7 +9,7 @@ package metalsoft;
  *
  * @author Nino
  */
-public abstract class HiloEtapaBase {
+public abstract class HiloSyncBase {
 
     public synchronized void procesarDatos(){
         templatedMethod();

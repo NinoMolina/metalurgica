@@ -328,8 +328,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 dpp.setIdplanificacionproduccion(plan);
                 dpp.setOrden(orden);
                 dpp.setIndexproducto(productoNode.getIndexProducto());
-                
-                if(setDetAnterior){
+
+                if (setDetAnterior) {
                     dpp.setDetalleanterior(null);
                     setDetAnterior = false;
                 } else {
@@ -338,7 +338,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 detAnterior = dpp;
 
                 detalle.add(dpp);
-                
+
 
                 orden++;
             }
@@ -665,10 +665,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         pnlTreeTableLayout.setVerticalGroup(
             pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTreeTableLayout.createSequentialGroup()
-                .addGroup(pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(276, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
 
         pnl.add(pnlTreeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 340));
@@ -995,9 +994,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
-        
+
         EtapaProduccionNode node = null;
-        
+
         if (obj instanceof EtapaProduccionNode) {
             node = (EtapaProduccionNode) obj;
 
@@ -1051,18 +1050,46 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 }
             }
 
-            setInicioFinEtapaProduccion(node, fechaInicial);
 
-            boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
-            if (superposicion) {
+//            Date fechaInicioDispBaseDeDatos = null;
+            Date fechaFinDispBaseDeDatos = null;
+//            Date fechaInicioDispSuperposicion = null;
+            Date fechaFinDispSuperposicion = null;
 
-                Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
-                node.setInicioEtapa(fechaDispEmpleado);
-                Calendar inicioEtapa = new GregorianCalendar();
-                inicioEtapa.setTime(fechaDispEmpleado);
-                int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
-                int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
-                node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+            boolean continuarBuscando = true;
+
+            while (continuarBuscando) {
+
+                setInicioFinEtapaProduccion(node, fechaInicial);
+//                fechaInicioDispBaseDeDatos = node.getInicioEtapa();
+                fechaFinDispBaseDeDatos = node.getFinEtapa();
+
+                boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
+                if (superposicion) {
+
+                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                    node.setInicioEtapa(fechaDispEmpleado);
+                    Calendar inicioEtapa = new GregorianCalendar();
+                    inicioEtapa.setTime(fechaDispEmpleado);
+                    int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
+                    int minutos = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getMinutes();
+                    node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+
+//                    fechaInicioDispSuperposicion = node.getInicioEtapa();
+                    fechaFinDispSuperposicion = node.getFinEtapa();
+                    /*
+                     * si la fecha de superposicion final es mayor a la fecha fin de disp de base de datos
+                     * tendria que buscar otro intervalo en la base.
+                     */
+                    if (fechaFinDispSuperposicion.compareTo(fechaFinDispBaseDeDatos) <= 0) {
+                        continuarBuscando = false;
+                    } else {
+                        fechaInicial = fechaFinDispSuperposicion;
+                    }
+                } else {
+                    continuarBuscando = false;
+                }
+
             }
 
             if (mapAsignacionActualEmpleados.containsKey(empleadoSeleccionado.getIdempleado())) {
@@ -1257,40 +1284,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         Date inicioNodeActual = nodeActual.getInicioEtapa();
         Date finNodeActual = nodeActual.getFinEtapa();
 
-        /*
-         * intervalo del nodo que se esta recorriendo
-         */
-        Interval interval = new Interval(inicioNode.getTime(), finNode.getTime());
-        /*
-         * instante inicial y final del nodo actual
-         * si alguno de estos instantes es contenido por el nodo recorrido entonces
-         * hay superposicion
-         */
+        return Fecha.superposicion(inicioNode, finNode, inicioNodeActual, finNodeActual);
 
-        Instant insInicial = new Instant(inicioNodeActual.getTime());
-        Instant insFinal = new Instant(finNodeActual.getTime());
-
-        if (interval.contains(insInicial)) {
-            return true;
-        }
-
-        if (interval.contains(insFinal)) {
-            return true;
-        }
-
-        /*
-         * puede que el nodo actual contenga el nodo que se esta recorriendo con lo
-         * cual la fecha inicio y fin del nodo actual no estaran dentro del intervalo del
-         * nodo recorrido pero puede haber superposicion.
-         * para eso veo si el intervalo del nodo actual contiene al del nodo que se esta
-         * recorriendo
-         */
-        Interval intervalNodoActual = new Interval(nodeActual.getInicioEtapa().getTime(), nodeActual.getFinEtapa().getTime());
-        if (intervalNodoActual.contains(interval)) {
-            return true;
-        }
-
-        return false;
     }
 
     private boolean haySuperposicionAsignacion(EtapaProduccionNode node, int tipo) {

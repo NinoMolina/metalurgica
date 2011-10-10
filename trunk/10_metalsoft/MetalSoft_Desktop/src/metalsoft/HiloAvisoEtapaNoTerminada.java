@@ -23,7 +23,7 @@ import metalsoft.util.Fecha;
  *
  * @author Nino
  */
-public class HiloAvisoEtapaNoTerminada extends HiloEtapaBase implements Runnable {
+public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
 

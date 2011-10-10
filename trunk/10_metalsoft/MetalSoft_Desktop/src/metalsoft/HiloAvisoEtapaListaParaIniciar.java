@@ -38,7 +38,7 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
             public void run() {
                 procesarDatos();
             }
-        }, 0, 3000);
+        }, 0, 30000);
 
     }
 
@@ -51,12 +51,13 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
          * -Si la etapa esta en fecha y hora ver si la etapa anterior esta 
          * en estado finalizado. Si no esta finalizada no se puede iniciar la proxima etapa
          */
-
+        System.out.println("HiloAvisoEtapaListaParaIniciar: Procesando datos...");
         try {
             List<Ejecucionetapaproduccion> lstEjecucionEtapaProduccion = JpaUtil.getEjecucionetapaproduccionByEstado(IdsEstadoEjecucionEtapaProduccion.GENERADA);
 
             for (Ejecucionetapaproduccion ejecucionetapaproduccion : lstEjecucionEtapaProduccion) {
 
+                System.out.println("HiloAvisoEtapaListaParaIniciar: Analizando ejecucion etapa " + ejecucionetapaproduccion.getId());
                 Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
                 Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(detalleejecucionplanificacion.getId());
                 Date fechaInicio = detalleplanificacionproduccion.getFechainicio();
@@ -115,6 +116,7 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
             /*
              * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
              */
+            System.out.println("HiloAvisoEtapaListaParaIniciar: etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
             gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
         } else {
             /*
@@ -129,6 +131,7 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
                 /*
                  * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
                  */
+                System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId());
                 gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
             }
         }
