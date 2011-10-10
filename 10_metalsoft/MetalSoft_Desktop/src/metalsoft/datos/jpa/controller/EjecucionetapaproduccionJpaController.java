@@ -13,7 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
@@ -37,7 +36,7 @@ public class EjecucionetapaproduccionJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Ejecucionetapaproduccion ejecucionetapaproduccion) throws PreexistingEntityException, Exception {
+    public void create(Ejecucionetapaproduccion ejecucionetapaproduccion) {
         if (ejecucionetapaproduccion.getDetalleejecucionplanificacionList() == null) {
             ejecucionetapaproduccion.setDetalleejecucionplanificacionList(new ArrayList<Detalleejecucionplanificacion>());
         }
@@ -89,11 +88,6 @@ public class EjecucionetapaproduccionJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findEjecucionetapaproduccion(ejecucionetapaproduccion.getId()) != null) {
-                throw new PreexistingEntityException("Ejecucionetapaproduccion " + ejecucionetapaproduccion + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

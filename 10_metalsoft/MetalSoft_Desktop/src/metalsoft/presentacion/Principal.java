@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import metalsoft.Main;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
@@ -107,19 +108,19 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jPanelTransparente2 = new metalsoft.beans.JPanelTransparente();
-        btnEtapasAtrasadas = new javax.swing.JButton();
+        btnCobros = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         btnProduccion = new javax.swing.JButton();
         jPanelTransparente3 = new metalsoft.beans.JPanelTransparente();
         btnProcesosCalidadAtrasados = new javax.swing.JButton();
         btnProcesosCalidadAtrasados3 = new javax.swing.JButton();
-        btnProcesosCalidadAtrasados2 = new javax.swing.JButton();
+        btnEtapasAtrasadas = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanelTransparente4 = new metalsoft.beans.JPanelTransparente();
         btnLanzarProcesoCalidad1 = new javax.swing.JButton();
         btnProcesosCalidadAtrasados1 = new javax.swing.JButton();
         btnLanzarProcesoCalidad2 = new javax.swing.JButton();
-        btnEtapasAtrasadas1 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         btnProduccion1 = new javax.swing.JButton();
         mbrMenu = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
@@ -275,13 +276,13 @@ public class Principal extends javax.swing.JFrame {
         jPanelTransparente2.setPreferredSize(new java.awt.Dimension(450, 200));
         jPanelTransparente2.setTran(0.1F);
 
-        btnEtapasAtrasadas.setBackground(new java.awt.Color(255, 255, 255));
-        btnEtapasAtrasadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcobros.png"))); // NOI18N
-        btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cobros", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
+        btnCobros.setBackground(new java.awt.Color(255, 255, 255));
+        btnCobros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcobros.png"))); // NOI18N
+        btnCobros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cobros", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnCobros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCobros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEtapasAtrasadasActionPerformed(evt);
+                btnCobrosActionPerformed(evt);
             }
         });
 
@@ -310,7 +311,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCobros, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanelTransparente2Layout.setVerticalGroup(
@@ -319,7 +320,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCobros, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70))
         );
@@ -347,12 +348,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnProcesosCalidadAtrasados2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7140471.jpg"))); // NOI18N
-        btnProcesosCalidadAtrasados2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        btnProcesosCalidadAtrasados2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnProcesosCalidadAtrasados2.addActionListener(new java.awt.event.ActionListener() {
+        btnEtapasAtrasadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7140471.jpg"))); // NOI18N
+        btnEtapasAtrasadas.setText("<html><font color=red size=+2></font></html>");
+        btnEtapasAtrasadas.setActionCommand("<html><b><u>T</u>wo</b><br>lines</html>");
+        btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcesosCalidadAtrasados2ActionPerformed(evt);
+                btnEtapasAtrasadasActionPerformed(evt);
             }
         });
 
@@ -366,7 +369,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btnProcesosCalidadAtrasados3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(btnProcesosCalidadAtrasados2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
         jPanelTransparente3Layout.setVerticalGroup(
@@ -376,7 +379,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcesosCalidadAtrasados3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcesosCalidadAtrasados2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -429,14 +432,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        btnEtapasAtrasadas1.setBackground(new java.awt.Color(255, 255, 255));
-        btnEtapasAtrasadas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock4378131.jpg"))); // NOI18N
-        btnEtapasAtrasadas1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        btnEtapasAtrasadas1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEtapasAtrasadas1.setPreferredSize(new java.awt.Dimension(190, 180));
-        btnEtapasAtrasadas1.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setBackground(new java.awt.Color(255, 255, 255));
+        btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock4378131.jpg"))); // NOI18N
+        btnReportes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReportes.setPreferredSize(new java.awt.Dimension(190, 180));
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEtapasAtrasadas1ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
 
@@ -465,7 +468,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addGap(122, 122, 122)
                                 .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(117, 117, 117)
-                                .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE))
+                                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE))
                             .addGroup(pnlImagenLayout.createSequentialGroup()
                                 .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
@@ -495,7 +498,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnProduccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEtapasAtrasadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1811,16 +1814,14 @@ private void mniEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 }//GEN-LAST:event_mniEmpleadosActionPerformed
 
-
 private void mnuAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuAyudaMouseClicked
     String path = "C:\\metalsoft\\Ayuda\\metalsoft_tmphhp\\Welcome.html";
     Main.ejecutarAyuda(path);
 }//GEN-LAST:event_mnuAyudaMouseClicked
 
-
 private void mniMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMantenimientosActionPerformed
 
-     try {
+    try {
         JFrameManager.crearVentana(ReportesMaquinas.class.getName());
 
     } catch (ClassNotFoundException ex) {
@@ -1840,37 +1841,46 @@ private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // TODO add your handling code here:
 }//GEN-LAST:event_btnPedidosActionPerformed
 
-private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadasActionPerformed
+private void btnCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrosActionPerformed
     // TODO add your handling code here:
-}//GEN-LAST:event_btnEtapasAtrasadasActionPerformed
+}//GEN-LAST:event_btnCobrosActionPerformed
 
-private void btnProcesosCalidadAtrasados2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasados2ActionPerformed
-    // TODO add your handling code here:
-}//GEN-LAST:event_btnProcesosCalidadAtrasados2ActionPerformed
+private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadasActionPerformed
+    try {
+        mapEtapasAtrasadas.put(36L, JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(36L));
+        EtapasProduccionAtrasadas.setEtapasAtrasadas(mapEtapasAtrasadas);
+        JFrameManager.crearVentana(EtapasProduccionAtrasadas.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_btnEtapasAtrasadasActionPerformed
 
 private void btnProcesosCalidadAtrasados3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadAtrasados3ActionPerformed
     // TODO add your handling code here:
 }//GEN-LAST:event_btnProcesosCalidadAtrasados3ActionPerformed
 
-private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadas1ActionPerformed
+private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
     // TODO add your handling code here:
-}//GEN-LAST:event_btnEtapasAtrasadas1ActionPerformed
-
+}//GEN-LAST:event_btnReportesActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnEtapasAtrasadas;
-    private javax.swing.JButton btnEtapasAtrasadas1;
     private javax.swing.JButton btnLanzarProcesoCalidad1;
     private javax.swing.JButton btnLanzarProcesoCalidad2;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProcesosCalidadAtrasados;
     private javax.swing.JButton btnProcesosCalidadAtrasados1;
-    private javax.swing.JButton btnProcesosCalidadAtrasados2;
     private javax.swing.JButton btnProcesosCalidadAtrasados3;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JButton btnProduccion1;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1973,28 +1983,23 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
 
     public void alertaEtapaNoFinalizada(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
 
-        String inicioHtml = "<html>Etapas Atrasadas. <font color=red size=+2>";
+        String inicioHtml = "<html><font color=red size=+2>";
         String finHtml = "</font></html>";
+        int lengthInicio = (inicioHtml + finHtml).length();
+
         if (!mapEtapasAtrasadas.containsKey(detalleejecucionplanificacion.getId())) {
 
             mapEtapasAtrasadas.put(detalleejecucionplanificacion.getId(), detalleejecucionplanificacion);
 
-            String txtBoton = btnEtapasAtrasadas.getText();
-            String parts[] = txtBoton.split(Pattern.quote("."));
+            String txtBoton = btnCobros.getText();
 
-            String txtLbl = "";
-
-            if (parts.length == 2) {
-                txtLbl = parts[1].trim();
-            }
-
-            if (txtLbl.equals("")) {
-                btnEtapasAtrasadas.setText(inicioHtml + "(1)" + finHtml);
+            if (lengthInicio == txtBoton.length()) {
+                btnCobros.setText(inicioHtml + "(1)" + finHtml);
             } else {
                 String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
                 System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
                 int numero = Integer.parseInt(num);
-                btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
+                btnCobros.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
             }
 
         }
@@ -2015,19 +2020,13 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
     }
 
     private void restarProcesoCalidadAtrasado() {
-        String inicioHtml = "<html>Procesos Calidad Atrasados. <font color=red size=+2>";
+        String inicioHtml = "<html><font color=red size=+2>";
         String finHtml = "</font></html>";
+        int lengthInicio = (inicioHtml + finHtml).length();
 
         String txtBoton = btnProcesosCalidadAtrasados.getText();
-        String parts[] = txtBoton.split(Pattern.quote("."));
 
-        String txtLbl = "";
-
-        if (parts.length == 2) {
-            txtLbl = parts[1].trim();
-        }
-
-        if (!txtLbl.equals("")) {
+        if (lengthInicio != txtBoton.length()) {
             String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
             System.out.println("Principal.alertaProcesoCalidadNoFinalizado.nro: " + num);
             int numero = Integer.parseInt(num);
@@ -2038,33 +2037,26 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
                 btnProcesosCalidadAtrasados.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
             }
 
-
         }
 
     }
 
     private void restarEtapaAtrasada() {
-        String inicioHtml = "<html>Etapas Atrasadas. <font color=red size=+2>";
+        String inicioHtml = "<html><font color=red size=+2>";
         String finHtml = "</font></html>";
+        int lengthInicio = (inicioHtml + finHtml).length();
 
-        String txtBoton = btnEtapasAtrasadas.getText();
-        String parts[] = txtBoton.split(Pattern.quote("."));
+        String txtBoton = btnCobros.getText();
 
-        String txtLbl = "";
-
-        if (parts.length == 2) {
-            txtLbl = parts[1].trim();
-        }
-
-        if (!txtLbl.equals("")) {
+        if (lengthInicio != txtBoton.length()) {
             String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
             int numero = Integer.parseInt(num);
             System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + (numero - 1));
             if ((numero - 1) == 0) {
-                btnEtapasAtrasadas.setText("Etapas Atrasadas.");
+                btnCobros.setText("Etapas Atrasadas.");
             } else {
-                btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
+                btnCobros.setText(inicioHtml + "(" + (numero - 1) + ")" + finHtml);
             }
 
 
@@ -2074,23 +2066,17 @@ private void btnEtapasAtrasadas1ActionPerformed(java.awt.event.ActionEvent evt) 
 
     public void alertaProcesoCalidadNoFinalizado(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad, Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) {
 
-        String inicioHtml = "<html>Procesos Calidad Atrasados. <font color=red size=+2>";
+        String inicioHtml = "<html><font color=red size=+2>";
         String finHtml = "</font></html>";
+        int lengthInicio = (inicioHtml + finHtml).length();
 
         if (!mapProcesosCalidadAtrasados.containsKey(detalleejecucionplanificacioncalidad.getIddetalle())) {
 
             mapProcesosCalidadAtrasados.put(detalleejecucionplanificacioncalidad.getIddetalle(), detalleejecucionplanificacioncalidad);
 
             String txtBoton = btnProcesosCalidadAtrasados.getText();
-            String parts[] = txtBoton.split(Pattern.quote("."));
 
-            String txtLbl = "";
-
-            if (parts.length == 2) {
-                txtLbl = parts[1].trim();
-            }
-
-            if (txtLbl.equals("")) {
+            if (lengthInicio == txtBoton.length()) {
                 btnProcesosCalidadAtrasados.setText(inicioHtml + "(1)" + finHtml);
             } else {
                 String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);

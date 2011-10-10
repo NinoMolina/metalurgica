@@ -43,6 +43,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ejecucionetapaproduccion.findByObservaciones", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.observaciones = :observaciones"),
     @NamedQuery(name = "Ejecucionetapaproduccion.findByNroejecucion", query = "SELECT e FROM Ejecucionetapaproduccion e WHERE e.nroejecucion = :nroejecucion")})
 public class Ejecucionetapaproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -82,6 +83,9 @@ public class Ejecucionetapaproduccion implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
+    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
+    @ManyToOne
+    private Maquina maquina;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ejecucionetapa")
     private List<Detalleejecucionplanificacion> detalleejecucionplanificacionList;
 
@@ -95,6 +99,14 @@ public class Ejecucionetapaproduccion implements Serializable {
     public Ejecucionetapaproduccion(Long id, long nroejecucion) {
         this.id = id;
         this.nroejecucion = nroejecucion;
+    }
+
+    public Maquina getMaquina() {
+        return maquina;
+    }
+
+    public void setMaquina(Maquina maquina) {
+        this.maquina = maquina;
     }
 
     public Long getId() {
@@ -233,5 +245,4 @@ public class Ejecucionetapaproduccion implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Ejecucionetapaproduccion[ id=" + id + " ]";
     }
-    
 }
