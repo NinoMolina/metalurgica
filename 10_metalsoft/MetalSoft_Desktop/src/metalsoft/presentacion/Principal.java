@@ -10,13 +10,14 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import metalsoft.Main;
@@ -79,7 +80,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
-
+        
     }
 
     /** This method is called from within the constructor to
@@ -113,8 +114,30 @@ public class Principal extends javax.swing.JFrame {
         btnProduccion = new javax.swing.JButton();
         jPanelTransparente3 = new metalsoft.beans.JPanelTransparente();
         btnProcesosCalidadAtrasados = new javax.swing.JButton();
-        btnProcesosCalidadAtrasados3 = new javax.swing.JButton();
-        btnEtapasAtrasadas = new javax.swing.JButton();
+        btnProcesosCalidadAtrasados3 = new javax.swing.JButton() {
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fproduccion.png")), 0, 0, getWidth(), getHeight(), this);
+                    setContentAreaFilled(false);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        };
+        btnEtapasAtrasadas = new javax.swing.JButton() {
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/canstock7140471.jpg")), 0, 0, getWidth(), getHeight(), this);
+                    setContentAreaFilled(false);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        };
         jButton1 = new javax.swing.JButton();
         jPanelTransparente4 = new metalsoft.beans.JPanelTransparente();
         btnLanzarProcesoCalidad1 = new javax.swing.JButton();
@@ -339,7 +362,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnProcesosCalidadAtrasados3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fproduccion.png"))); // NOI18N
         btnProcesosCalidadAtrasados3.setBorder(javax.swing.BorderFactory.createTitledBorder("En Producción"));
         btnProcesosCalidadAtrasados3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProcesosCalidadAtrasados3.addActionListener(new java.awt.event.ActionListener() {
@@ -348,9 +370,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnEtapasAtrasadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7140471.jpg"))); // NOI18N
         btnEtapasAtrasadas.setText("<html><font color=red size=+2></font></html>");
-        btnEtapasAtrasadas.setActionCommand("<html><b><u>T</u>wo</b><br>lines</html>");
+        btnEtapasAtrasadas.setActionCommand("");
         btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
@@ -1991,15 +2012,15 @@ private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
             mapEtapasAtrasadas.put(detalleejecucionplanificacion.getId(), detalleejecucionplanificacion);
 
-            String txtBoton = btnCobros.getText();
+            String txtBoton = btnEtapasAtrasadas.getText();
 
             if (lengthInicio == txtBoton.length()) {
-                btnCobros.setText(inicioHtml + "(1)" + finHtml);
+                btnEtapasAtrasadas.setText(inicioHtml + "(1)" + finHtml);
             } else {
                 String num = txtBoton.substring(inicioHtml.length() + 1, txtBoton.length() - finHtml.length() - 1);
                 System.out.println("Principal.alertaEtapaNoFinalizada.nro: " + num);
                 int numero = Integer.parseInt(num);
-                btnCobros.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
+                btnEtapasAtrasadas.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
             }
 
         }
