@@ -12,27 +12,20 @@ package metalsoft.presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
-import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
-import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
@@ -225,17 +218,17 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
         if (res == JOptionPane.OK_OPTION) {
             String nuevaNovedad = txtNuevaNovedad.getText();
-            nuevaNovedad = "<html>" + Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": <b>" + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + "</b></html>: " + nuevaNovedad;
+            nuevaNovedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + ": " + nuevaNovedad;
             nuevaNovedad += System.getProperty("line.separator") + System.getProperty("line.separator");
             ejecucionplanificacionproduccion.setNovedades(ejecucionplanificacionproduccion.getNovedades() + nuevaNovedad);
-            
+
             EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
             try {
                 controller.edit(ejecucionplanificacionproduccion);
                 txtNovedades.append(nuevaNovedad);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "No se pudo agregar las novedades.");
-            } 
+            }
         }
 
     }
