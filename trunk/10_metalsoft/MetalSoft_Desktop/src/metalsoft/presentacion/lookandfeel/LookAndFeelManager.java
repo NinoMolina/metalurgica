@@ -6,6 +6,7 @@ package metalsoft.presentacion.lookandfeel;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -168,6 +169,18 @@ public class LookAndFeelManager {
                     break;
                 case Twilight:
                     UIManager.setLookAndFeel(Skins.getTwilight());
+                    break;
+                case NIMBUS:
+                    try {
+                        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                            if ("Nimbus".equals(info.getName())) {
+                                UIManager.setLookAndFeel(info.getClassName());
+                                break;
+                            }
+                        }
+                    } catch (Exception e) {
+                        UIManager.setLookAndFeel(Skins.getSystem());
+                    }
                     break;
                 default:
                     UIManager.setLookAndFeel(Skins.getSystem());

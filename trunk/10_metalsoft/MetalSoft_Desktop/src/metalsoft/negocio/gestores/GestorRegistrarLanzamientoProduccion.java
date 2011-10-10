@@ -215,6 +215,8 @@ public class GestorRegistrarLanzamientoProduccion {
                 ejecucionetapaproduccion.setIdetapaproduccion(detalleplanificacionproduccion.getIdetapaproduccion());
                 long nroEjecucion = generarNvoNroEjecucionEtapa();
                 ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
+                ejecucionetapaproduccion.setMaquina(detalleplanificacionproduccion.getIdmaquina());
+                
                 EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;

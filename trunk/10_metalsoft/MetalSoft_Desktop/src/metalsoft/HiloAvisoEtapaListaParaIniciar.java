@@ -39,7 +39,7 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
                 procesarDatos();
             }
         }, 0, 3000);
-        
+
     }
 
     private void procesarDatos() {
@@ -68,6 +68,7 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
 
                 Date fechaMayor = null;
                 Date fechaMenor = null;
+
                 if (Fecha.diferenciaEnDias(fechaActual, fechaInicio) == 0) {
                     if (fechaActual.compareTo(fechaInicio) < 0) {
                         fechaMayor = fechaInicio;
@@ -86,30 +87,15 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
                          * es una etapa en tiempo para lanzar, ver si tiene etapa anterior y si esta finalizada
                          */
 
-                        Long idDetAnt = detalleplanificacionproduccion.getDetalleanterior();
+                        comprobarEstadoEtapaAnteriorYLanzar(detalleplanificacionproduccion, detalleejecucionplanificacion);
 
-                        if (idDetAnt == null) {
-                            /*
-                             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
-                             */
-                            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
-                        } else {
-                            /*
-                             * no es la primera de la pieza, ver si la anterior esta finalizada
-                             */
-
-                            DetalleplanificacionproduccionJpaController detalleplanificacionproduccionJpaController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-                            Detalleplanificacionproduccion detalleplanificacionproduccionAnterior = detalleplanificacionproduccionJpaController.findDetalleplanificacionproduccion(idDetAnt);
-                            Long idEstadoEjecucionAnterior = detalleplanificacionproduccionAnterior.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
-
-                            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
-                                /*
-                                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
-                                 */
-                                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
-                            }
-                        }
                     }
+                } else if (Fecha.diferenciaEnDias(fechaActual, fechaInicio) < 0) {
+                    /*
+                     * es una etapa que tiene fecha de inicio anterior a la fecha actual.
+                     * hay que comprobar si se puede lanzar.
+                     */
+                    comprobarEstadoEtapaAnteriorYLanzar(detalleplanificacionproduccion, detalleejecucionplanificacion);
                 }
 
             }
@@ -120,5 +106,31 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
 
     public void setVtnPrincipal(Principal vtnPrincipal) {
         this.vtnPrincipal = vtnPrincipal;
+    }
+
+    private void comprobarEstadoEtapaAnteriorYLanzar(Detalleplanificacionproduccion detalleplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) throws Exception {
+        Long idDetAnt = detalleplanificacionproduccion.getDetalleanterior();
+
+        if (idDetAnt == null) {
+            /*
+             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
+             */
+            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+        } else {
+            /*
+             * no es la primera de la pieza, ver si la anterior esta finalizada
+             */
+
+            DetalleplanificacionproduccionJpaController detalleplanificacionproduccionJpaController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+            Detalleplanificacionproduccion detalleplanificacionproduccionAnterior = detalleplanificacionproduccionJpaController.findDetalleplanificacionproduccion(idDetAnt);
+            Long idEstadoEjecucionAnterior = detalleplanificacionproduccionAnterior.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
+
+            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
+                /*
+                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
+                 */
+                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+            }
+        }
     }
 }
