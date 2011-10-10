@@ -1868,7 +1868,6 @@ private void btnCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadasActionPerformed
     try {
-        mapEtapasAtrasadas.put(36L, JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(36L));
         EtapasProduccionAtrasadas.setEtapasAtrasadas(mapEtapasAtrasadas);
         JFrameManager.crearVentana(EtapasProduccionAtrasadas.class.getName());
     } catch (ClassNotFoundException ex) {

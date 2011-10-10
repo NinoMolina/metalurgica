@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
@@ -110,7 +111,9 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Novedades de Producción"));
 
         txtNovedades.setColumns(20);
+        txtNovedades.setLineWrap(true);
         txtNovedades.setRows(5);
+        txtNovedades.setWrapStyleWord(true);
         jScrollPane2.setViewportView(txtNovedades);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -212,7 +215,11 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
 
         JTextArea txtNuevaNovedad = new JTextArea(10, 50);
-        Object[] obj = {"Novedades:", txtNuevaNovedad};
+        txtNuevaNovedad.setLineWrap(true);
+        txtNuevaNovedad.setWrapStyleWord(true);
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(txtNuevaNovedad);
+        Object[] obj = {"Novedades:", scroll};
 
         int res = JOptionPane.showConfirmDialog(null, obj, "Agregar Novedades", JOptionPane.OK_CANCEL_OPTION);
 
