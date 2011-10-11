@@ -34,6 +34,7 @@ import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
+import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
 
 /**
@@ -498,5 +499,20 @@ public class JpaUtil {
         } finally {
             em.close();
         }
+    }
+
+    public static  List<Usuario> getUsuarioByDatos(String nombre, String apellido, int documento) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT u.* "
+            + "FROM usuario u, empleado em "
+            + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '"+ nombre+"' AND "
+            +"em.apellido LIKE '"+apellido+"' AND em.nrodocumento="+ documento;
+        try {
+            Query q = em.createNativeQuery(sql, Usuario.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+
     }
 }

@@ -5,11 +5,15 @@
 package metalsoft.beans;
 
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import metalsoft.Main;
+import metalsoft.presentacion.JFrameManager;
+import metalsoft.presentacion.OlvidarUsuario;
 
 /**
  *
@@ -44,6 +48,10 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
         lblMensaje = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblContraseña = new javax.swing.JLabel();
 
         jLabel1.setText("Usuario");
 
@@ -80,46 +88,101 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel4.setText("¿Olvidó su Usuario? Haga click");
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(0, 0, 102));
+        lblUsuario.setText("AQUI");
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel5.setText("¿Olvidó su Contraseña? Haga click");
+
+        lblContraseña.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        lblContraseña.setForeground(new java.awt.Color(0, 0, 102));
+        lblContraseña.setText("AQUI");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel2)
-                    .add(jLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(lblMensaje, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtClave, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtUsuario, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(btnIniciar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 28, Short.MAX_VALUE)
-                        .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(82, 82, 82)
+                                .add(jLabel4)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblUsuario))
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .add(btnIniciar)
+                                    .add(74, 74, 74)
+                                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                    .add(58, 58, 58)
+                                    .add(jLabel5)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(lblContraseña))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel1)
+                                .add(26, 26, 26)
+                                .add(txtUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 194, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel2)
+                                .add(18, 18, 18)
+                                .add(txtClave, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .add(35, 35, 35)
                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(32, 32, 32)
+                .add(lblMensaje, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(txtUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(txtClave, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(lblMensaje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnIniciar)
-                    .add(btnSalir)))
-            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel1)
+                            .add(txtUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(layout.createSequentialGroup()
+                                .add(lblMensaje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(8, 8, 8))
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(lblUsuario)
+                                    .add(jLabel4))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2)
+                            .add(txtClave, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel5)
+                            .add(lblContraseña))
+                        .add(29, 29, 29)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(btnSalir)
+                            .add(btnIniciar))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -141,6 +204,18 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
 
     }//GEN-LAST:event_txtClaveKeyReleased
+
+    private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
+        try {
+            JFrameManager.crearVentana(OlvidarUsuario.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblUsuarioMouseClicked
 
     public JButton getBtnIniciar() {
         return btnIniciar;
@@ -187,7 +262,11 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblMensaje;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

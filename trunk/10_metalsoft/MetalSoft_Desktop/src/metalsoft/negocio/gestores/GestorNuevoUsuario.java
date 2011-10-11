@@ -206,8 +206,8 @@ public class GestorNuevoUsuario {
         return con.findRol(id);
     }
 
-    public Usuario getusuarioByDatos(String nombre, String apellido, String tipoDocumento, String documento) {
-//         return JpaUtil.getUsuarioByDatos(nombre, apellido, tipoDocumento, documento);
-        return null;
+
+    public List<Usuario> getusuarioByDatos(String nombre, String apellido, int documento) {
+         return JpaUtil.getUsuarioByDatos(nombre, apellido, documento);
     }
 }
