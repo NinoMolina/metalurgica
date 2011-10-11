@@ -17,15 +17,16 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
 import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
  * @author Vicky
  */
 public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
-
     /** Creates new form ABMMantenimientoPreventivo_Buscar */
-    private ABMMantenimientoPreventivo ventana;
+    private static ABMMantenimientoPreventivo ventana;
     private GestorMantenimientoPreventivo gestor;
     private List<Mantenimientopreventivo> filasMan;
 
@@ -41,6 +42,12 @@ public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
         txtFechaBaja.setEnabled(false);
         txtNro.setEnabled(true);
         rbNro.setSelected(true);
+        
+        tblMantenimiento.setModel(new ServicioTableModel());
+        tblMantenimiento.setColumnControlVisible(true);
+        tblMantenimiento.setShowHorizontalLines(false);
+        tblMantenimiento.setShowVerticalLines(false);
+        tblMantenimiento.setHighlighters(new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
     private void addListeners() {
@@ -79,12 +86,12 @@ public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
         this.dispose();
     }
 
-    public ABMMantenimientoPreventivo getVentana() {
+    public static ABMMantenimientoPreventivo getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMMantenimientoPreventivo ventana) {
-        this.ventana = ventana;
+    public static void setVentana(ABMMantenimientoPreventivo vent) {
+        ventana = vent;
     }
 
     /** This method is called from within the constructor to
@@ -123,6 +130,11 @@ public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
             }
         });
 
+        txtNro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNroActionPerformed(evt);
+            }
+        });
         txtNro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNroKeyReleased(evt);
@@ -257,6 +269,10 @@ private void txtNroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
     filasMan=gestor.buscarPorNro(txtNro.getText());
     tblMantenimiento.updateUI();
 }//GEN-LAST:event_txtNroKeyReleased
+
+private void txtNroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNroActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_txtNroActionPerformed
 
     /**
      * @param args the command line arguments
