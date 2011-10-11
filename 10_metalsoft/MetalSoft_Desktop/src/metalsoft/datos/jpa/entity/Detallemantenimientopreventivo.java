@@ -5,14 +5,17 @@
 package metalsoft.datos.jpa.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,51 +26,41 @@ import javax.persistence.Table;
 @Table(name = "detallemantenimientopreventivo")
 @NamedQueries({
     @NamedQuery(name = "Detallemantenimientopreventivo.findAll", query = "SELECT d FROM Detallemantenimientopreventivo d"),
-    @NamedQuery(name = "Detallemantenimientopreventivo.findByIdmantenimientopreventivo", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.detallemantenimientopreventivoPK.idmantenimientopreventivo = :idmantenimientopreventivo"),
-    @NamedQuery(name = "Detallemantenimientopreventivo.findByIddetalle", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.detallemantenimientopreventivoPK.iddetalle = :iddetalle"),
-    @NamedQuery(name = "Detallemantenimientopreventivo.findByDuracion", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.duracion = :duracion"),
-    @NamedQuery(name = "Detallemantenimientopreventivo.findByObservaciones", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.observaciones = :observaciones")})
+    @NamedQuery(name = "Detallemantenimientopreventivo.findByIddetalle", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.iddetalle = :iddetalle"),
+    @NamedQuery(name = "Detallemantenimientopreventivo.findByObservaciones", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.observaciones = :observaciones"),
+    @NamedQuery(name = "Detallemantenimientopreventivo.findByDuracion", query = "SELECT d FROM Detallemantenimientopreventivo d WHERE d.duracion = :duracion")})
 public class Detallemantenimientopreventivo implements Serializable {
-
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DetallemantenimientopreventivoPK detallemantenimientopreventivoPK;
-    @Column(name = "duracion")
-    private Integer duracion;
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallemantenimientopreventivo_seq")
+    @SequenceGenerator(name = "detallemantenimientopreventivo_seq", sequenceName = "detallemantenimientopreventivo_iddetalle_seq", allocationSize = 1)
+    @Column(name = "iddetalle")
+    private Long iddetalle;
     @Column(name = "observaciones")
     private String observaciones;
+    @Column(name = "duracion")
+    private Integer duracion;
     @JoinColumn(name = "servicio", referencedColumnName = "idservicio")
     @ManyToOne
     private Servicio servicio;
-    @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Mantenimientopreventivo mantenimientopreventivo;
+    @JoinColumn(name = "idmantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo")
+    @ManyToOne(optional = false)
+    private Mantenimientopreventivo idmantenimientopreventivo;
 
     public Detallemantenimientopreventivo() {
     }
 
-    public Detallemantenimientopreventivo(DetallemantenimientopreventivoPK detallemantenimientopreventivoPK) {
-        this.detallemantenimientopreventivoPK = detallemantenimientopreventivoPK;
+    public Detallemantenimientopreventivo(Long iddetalle) {
+        this.iddetalle = iddetalle;
     }
 
-    public Detallemantenimientopreventivo(long idmantenimientopreventivo, long iddetalle) {
-        this.detallemantenimientopreventivoPK = new DetallemantenimientopreventivoPK(idmantenimientopreventivo, iddetalle);
+    public Long getIddetalle() {
+        return iddetalle;
     }
 
-    public DetallemantenimientopreventivoPK getDetallemantenimientopreventivoPK() {
-        return detallemantenimientopreventivoPK;
-    }
-
-    public void setDetallemantenimientopreventivoPK(DetallemantenimientopreventivoPK detallemantenimientopreventivoPK) {
-        this.detallemantenimientopreventivoPK = detallemantenimientopreventivoPK;
-    }
-
-    public Integer getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(Integer duracion) {
-        this.duracion = duracion;
+    public void setIddetalle(Long iddetalle) {
+        this.iddetalle = iddetalle;
     }
 
     public String getObservaciones() {
@@ -78,6 +71,14 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
+    }
+
     public Servicio getServicio() {
         return servicio;
     }
@@ -86,18 +87,18 @@ public class Detallemantenimientopreventivo implements Serializable {
         this.servicio = servicio;
     }
 
-    public Mantenimientopreventivo getMantenimientopreventivo() {
-        return mantenimientopreventivo;
+    public Mantenimientopreventivo getIdmantenimientopreventivo() {
+        return idmantenimientopreventivo;
     }
 
-    public void setMantenimientopreventivo(Mantenimientopreventivo mantenimientopreventivo) {
-        this.mantenimientopreventivo = mantenimientopreventivo;
+    public void setIdmantenimientopreventivo(Mantenimientopreventivo idmantenimientopreventivo) {
+        this.idmantenimientopreventivo = idmantenimientopreventivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detallemantenimientopreventivoPK != null ? detallemantenimientopreventivoPK.hashCode() : 0);
+        hash += (iddetalle != null ? iddetalle.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +109,7 @@ public class Detallemantenimientopreventivo implements Serializable {
             return false;
         }
         Detallemantenimientopreventivo other = (Detallemantenimientopreventivo) object;
-        if ((this.detallemantenimientopreventivoPK == null && other.detallemantenimientopreventivoPK != null) || (this.detallemantenimientopreventivoPK != null && !this.detallemantenimientopreventivoPK.equals(other.detallemantenimientopreventivoPK))) {
+        if ((this.iddetalle == null && other.iddetalle != null) || (this.iddetalle != null && !this.iddetalle.equals(other.iddetalle))) {
             return false;
         }
         return true;
@@ -116,6 +117,7 @@ public class Detallemantenimientopreventivo implements Serializable {
 
     @Override
     public String toString() {
-        return "metalsoft.datos.jpa.entity.Detallemantenimientopreventivo[ detallemantenimientopreventivoPK=" + detallemantenimientopreventivoPK + " ]";
+        return "javaapplication2.Detallemantenimientopreventivo[ iddetalle=" + iddetalle + " ]";
     }
+    
 }

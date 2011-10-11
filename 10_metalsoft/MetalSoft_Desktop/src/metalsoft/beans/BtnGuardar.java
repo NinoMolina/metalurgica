@@ -44,6 +44,8 @@ public class BtnGuardar extends javax.swing.JPanel implements java.beans.Customi
 
         btnGuardar = new javax.swing.JButton();
 
+        setLayout(new java.awt.BorderLayout());
+
         btnGuardar.setForeground(new java.awt.Color(51, 153, 0));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/save1.png"))); // NOI18N
         btnGuardar.setToolTipText("Guardar");
@@ -52,17 +54,7 @@ public class BtnGuardar extends javax.swing.JPanel implements java.beans.Customi
                 btnGuardarActionPerformed(evt);
             }
         });
-
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(btnGuardar)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(btnGuardar)
-        );
+        add(btnGuardar, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

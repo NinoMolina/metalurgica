@@ -670,18 +670,18 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnProduccion1" min="-2" pref="190" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                                   <Component id="jPanelTransparente2" min="-2" pref="455" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                                  <Component id="btnReportes" pref="190" max="32767" attributes="1"/>
+                                  <Component id="btnReportes" pref="294" max="32767" attributes="1"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jPanelTransparente3" min="-2" pref="455" max="-2" attributes="0"/>
-                                  <EmptySpace pref="164" max="32767" attributes="0"/>
+                                  <Component id="jPanelTransparente3" min="-2" pref="546" max="-2" attributes="0"/>
+                                  <EmptySpace pref="177" max="32767" attributes="0"/>
                                   <Component id="jPanelTransparente4" min="-2" pref="455" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -969,14 +969,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnProcesosCalidadAtrasados" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnProcesosCalidadAtrasados3" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEtapasAtrasadas" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnEtapasListasParaLanzar" min="-2" pref="115" max="-2" attributes="1"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -985,9 +987,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnProcesosCalidadAtrasados" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
                           <Component id="btnProcesosCalidadAtrasados3" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
-                          <Component id="btnEtapasAtrasadas" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Component id="btnProcesosCalidadAtrasados" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="btnEtapasAtrasadas" alignment="3" min="-2" pref="130" max="-2" attributes="1"/>
+                              <Component id="btnEtapasListasParaLanzar" alignment="3" min="-2" pref="130" max="-2" attributes="1"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
@@ -1043,6 +1048,24 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton() {&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock7140471.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnEtapasListasParaLanzar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=green size=+2&gt;&lt;/font&gt;&lt;/html&gt;"/>
+                <Property name="actionCommand" type="java.lang.String" value=""/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="2" title="Etapas A Lanzar"/>
+                  </Border>
+                </Property>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEtapasListasParaLanzarActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton() {&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;//        try {&#xa;//            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock7140471.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;//            setContentAreaFilled(false);&#xa;//        } catch (Exception e) {&#xa;//        }&#xa;        super.paint(g);&#xa;    }&#xa;}"/>
               </AuxValues>
             </Component>
           </SubComponents>

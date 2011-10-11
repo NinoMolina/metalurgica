@@ -98,13 +98,9 @@ public class GestorMantenimientoPreventivo {
         try {
             controller.create(mantenimientop);
             for (Detallemantenimientopreventivo de : lista) {
-                de.setMantenimientopreventivo(mantenimientop);
+                de.setIdmantenimientopreventivo(mantenimientop);
                 controllerDetalle.create(de);
             }
-
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
         } catch (Exception ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
@@ -119,12 +115,12 @@ public class GestorMantenimientoPreventivo {
         try {
             controller.edit(mantenimientop);
             for (Detallemantenimientopreventivo de : listaAgregar) {
-                de.setMantenimientopreventivo(mantenimientop);
+                de.setIdmantenimientopreventivo(mantenimientop);
                 controllerDetalle.create(de);
             }
             for (Detallemantenimientopreventivo de : listaQuitar) {
-                de.setMantenimientopreventivo(mantenimientop);
-                controllerDetalle.destroy(de.getDetallemantenimientopreventivoPK());
+                de.setIdmantenimientopreventivo(mantenimientop);
+                controllerDetalle.destroy(de.getIddetalle());
             }
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);

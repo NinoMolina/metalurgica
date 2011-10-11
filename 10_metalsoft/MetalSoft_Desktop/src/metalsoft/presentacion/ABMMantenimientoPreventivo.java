@@ -698,7 +698,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
             detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
             detalle.setObservaciones(txtObservaciones.getText());
 
-            if(filasservicios.get(tblServicios.getSelectedRow()).getDetallemantenimientopreventivoPK()==null){
+            if(filasservicios.get(tblServicios.getSelectedRow()).getIddetalle()==null){
                 detalleAgregar.add(detalle);
             }
             filasservicios.add(detalle);
@@ -764,7 +764,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         if (opcion.equals(EnumOpcionesABM.MODIFICAR)) {
             filasservicios.remove(tblServicios.getSelectedRow());
             tblServicios.updateUI();
-            if(filasservicios.get(tblServicios.getSelectedRow()).getDetallemantenimientopreventivoPK()!=null){
+            if(filasservicios.get(tblServicios.getSelectedRow()).getIddetalle()!=null){
                 detalleQuitar.remove(tblServicios.getSelectedRow());
             }
             

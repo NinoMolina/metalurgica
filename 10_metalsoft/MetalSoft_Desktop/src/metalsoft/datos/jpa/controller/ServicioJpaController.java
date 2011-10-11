@@ -43,7 +43,7 @@ public class ServicioJpaController implements Serializable {
             em.getTransaction().begin();
             List<Detallemantenimientopreventivo> attachedDetallemantenimientopreventivoList = new ArrayList<Detallemantenimientopreventivo>();
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach : servicio.getDetallemantenimientopreventivoList()) {
-                detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getDetallemantenimientopreventivoPK());
+                detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getIddetalle());
                 attachedDetallemantenimientopreventivoList.add(detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach);
             }
             servicio.setDetallemantenimientopreventivoList(attachedDetallemantenimientopreventivoList);
@@ -80,7 +80,7 @@ public class ServicioJpaController implements Serializable {
             List<Detallemantenimientopreventivo> detallemantenimientopreventivoListNew = servicio.getDetallemantenimientopreventivoList();
             List<Detallemantenimientopreventivo> attachedDetallemantenimientopreventivoListNew = new ArrayList<Detallemantenimientopreventivo>();
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach : detallemantenimientopreventivoListNew) {
-                detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getDetallemantenimientopreventivoPK());
+                detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getIddetalle());
                 attachedDetallemantenimientopreventivoListNew.add(detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach);
             }
             detallemantenimientopreventivoListNew = attachedDetallemantenimientopreventivoListNew;
