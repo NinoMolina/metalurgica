@@ -82,6 +82,7 @@ public class ABMMaquina_Buscar extends javax.swing.JDialog {
         btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Maquina");
 
         jRadioButton1.setText("Nombre");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -130,6 +130,7 @@ public class ABMPieza_Buscar extends javax.swing.JDialog implements IBuscador {
         btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Pieza");
 
         jRadioButton1.setText("Nombre");
 
