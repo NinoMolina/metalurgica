@@ -80,7 +80,7 @@ public class Fecha {
         if (fecha == null) {
             return "";
         }
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return formato.format(fecha);
     }
 

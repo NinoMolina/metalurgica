@@ -119,7 +119,7 @@ public class GestorRegistrarLanzamientoProduccion {
 
         List<Detalleplanificacionproduccion> lstDetallePlanificacion = null;
 
-        List<Long> lstIdsEjecucionEtapasAIniciar = new ArrayList<Long>();
+//        List<Long> lstIdsEjecucionEtapasAIniciar = new ArrayList<Long>();
 
         try {
             /*
@@ -220,27 +220,27 @@ public class GestorRegistrarLanzamientoProduccion {
                 EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;
-                boolean etapaEnEjecucion = false;
-                if (detalleplanificacionproduccion.getOrden() == 1) {
+//                boolean etapaEnEjecucion = false;
+//                if (detalleplanificacionproduccion.getOrden() == 1) {
                     Date fechaActual = Fecha.fechaActualDate();
                     detalleejecucionplanificacion.setFechainicio(fechaActual);
                     detalleejecucionplanificacion.setHorainicio(fechaActual);
                     ejecucionetapaproduccion.setFechainicio(fechaActual);
                     ejecucionetapaproduccion.setHorainicio(fechaActual);
-                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
-                    etapaEnEjecucion = true;
-                } else {
+//                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
+//                    etapaEnEjecucion = true;
+//                } else {
                     estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
-                }
+//                }
                 ejecucionetapaproduccion.setEstado(estadoEjecEtapaProd);
 
                 /*
                  * guardar en la base de datos
                  */
                 eepController.create(ejecucionetapaproduccion);
-                if (etapaEnEjecucion) {
-                    lstIdsEjecucionEtapasAIniciar.add(ejecucionetapaproduccion.getId());
-                }
+//                if (etapaEnEjecucion) {
+//                    lstIdsEjecucionEtapasAIniciar.add(ejecucionetapaproduccion.getId());
+//                }
                 detalleejecucionplanificacion.setEjecucionetapa(ejecucionetapaproduccion);
 //                List<Detalleplanificacionproduccion> lstDetalleplanificacionproduccion = new ArrayList<Detalleplanificacionproduccion>();
 //                detalleejecucionplanificacion.setDetalleplanificacionproduccionList(lstDetalleplanificacionproduccion);
@@ -276,7 +276,7 @@ public class GestorRegistrarLanzamientoProduccion {
 
             }
 
-            imprimirInicioEtapasProduccion(lstIdsEjecucionEtapasAIniciar);
+//            imprimirInicioEtapasProduccion(lstIdsEjecucionEtapasAIniciar);
 
 
         } catch (PreexistingEntityException ex) {
