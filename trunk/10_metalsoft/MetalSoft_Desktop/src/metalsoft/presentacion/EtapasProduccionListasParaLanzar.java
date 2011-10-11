@@ -10,6 +10,24 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.negocio.gestores.GestorLanzarProximaEtapa;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+
 /**
  *
  * @author Nino
@@ -17,9 +35,62 @@ package metalsoft.presentacion;
 public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
 
     /** Creates new form EtapasProduccionListasParaLanzar */
+    private static List<Detalleplanificacionproduccion> filasEtapas;
+    private static Principal vtnPrincipal;
+    private JButton btnSalir;
+    private GestorLanzarProximaEtapa gestor;
+
     public EtapasProduccionListasParaLanzar() {
         super(Principal.getVtnPrincipal());
+        gestor = new GestorLanzarProximaEtapa();
         initComponents();
+        addListeners();
+        setearTablas();
+    }
+
+    public static void setVtnPrincipal(Principal vtnPrincipal) {
+        EtapasProduccionListasParaLanzar.vtnPrincipal = vtnPrincipal;
+    }
+
+    private void addListeners() {
+        addListenerBtnSalir();
+    }
+
+    private void setearTablas() {
+        tblEtapasDeProduccion.setModel(new EtapaProduccionALanzarTableModel());
+        tblEtapasDeProduccion.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblEtapasDeProduccion.setShowHorizontalLines(false);
+        tblEtapasDeProduccion.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblEtapasDeProduccion.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+    }
+
+    private void addListenerBtnSalir() {
+        btnSalir = btnSalirr1.getBtnSalir();
+        btnSalir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnSalirActionPerformed(e);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+    public static void setEtapasALanzar(Map<Long, Detalleplanificacionproduccion> mapEtapasALanzar) {
+        Collection<Detalleplanificacionproduccion> collection = mapEtapasALanzar.values();
+        Iterator<Detalleplanificacionproduccion> it = collection.iterator();
+        Detalleplanificacionproduccion detalleplanificacionproduccion = null;
+        filasEtapas = new ArrayList<Detalleplanificacionproduccion>();
+        while (it.hasNext()) {
+            detalleplanificacionproduccion = it.next();
+            filasEtapas.add(detalleplanificacionproduccion);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -33,7 +104,7 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jXTable1 = new org.jdesktop.swingx.JXTable();
+        tblEtapasDeProduccion = new org.jdesktop.swingx.JXTable();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
         btnLanzarEtapaDeProduccion = new javax.swing.JButton();
 
@@ -42,22 +113,22 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas de Producción Listas para Lanzar"));
 
-        jScrollPane1.setViewportView(jXTable1);
+        jScrollPane1.setViewportView(tblEtapasDeProduccion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btnLanzarEtapaDeProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
@@ -72,59 +143,53 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLanzarEtapaDeProduccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 543, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 713, Short.MAX_VALUE)
                         .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLanzarEtapaDeProduccion))
-                .addContainerGap(186, Short.MAX_VALUE))
+                    .addComponent(btnLanzarEtapaDeProduccion)
+                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarEtapaDeProduccionActionPerformed
-//        try {
-//            metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion jpa = new Ejecucionplanificacionproduccion();
-//            jpa.setFechainicio(Fecha.fechaActualDate());
-//            jpa.setHorainicio(Fecha.fechaActualDate());
-//            long nroejecucion = gestor.generarNvoNroEjecucionPlanificacionProduccion();
-//            jpa.setNroejecucionplanificacion(BigInteger.valueOf(nroejecucion));
-//            /*
-//             * ######### CREAR EJECUCION DE PLANIFICACION ##########
-//             */
-//            long result = gestor.guardarEjecucionPlanificacion(jpa, viewPedidoSeleccionado.getIdplanificacionproduccion());
-//            /*
-//             * ######### ACTUALIZAR ESTADO DEL PEDIDO ##########
-//             */
-//            long resultPedido = gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
-//
-//            if (result > 0) {
-//                JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
-//                filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
-//                setearEnabledComponents(false);
-//                limpiarCampos();
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!\n"+ex.getMessage());
-//            ex.printStackTrace();
-//        }
+
+    if (tblEtapasDeProduccion.getSelectedRow() < 0) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una etapa de producción a lanzar");
+        return;
+    }
+
+    Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(tblEtapasDeProduccion.getSelectedRow());
+    try {
+        gestor.lanzarEjecucionEtapa(detalleplanificacionproduccion.getIddetalleejecucionplanificacion());
+        filasEtapas.remove(tblEtapasDeProduccion.getSelectedRow());
+        tblEtapasDeProduccion.updateUI();
+        /*
+         * quitar de las etapas a lanzar del boton de la ventana principal
+         */
+        
+        vtnPrincipal.eliminarEtapaALanzar(detalleplanificacionproduccion.getId());
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "No se pudo lanzar la etapa de producción!");
+        ex.printStackTrace();
+    }
+
 }//GEN-LAST:event_btnLanzarEtapaDeProduccionActionPerformed
 
     /**
@@ -167,6 +232,93 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXTable jXTable1;
+    private org.jdesktop.swingx.JXTable tblEtapasDeProduccion;
     // End of variables declaration//GEN-END:variables
+
+    class EtapaProduccionALanzarTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Nro",
+            "Etapa",
+            "Inicio Planif.",
+            "Fin Planif.",
+            "Empleado",
+            "Máquina",
+            "Pieza",
+            "Producto",
+            "Pedido",
+            "Cliente"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getNroejecucion());
+                case 1:
+                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getIdetapaproduccion().getNombre();
+                case 2:
+                    Date fechaInicioPlanif = detalleplanificacionproduccion.getFechainicio();
+                    Date horaInicioPlanif = detalleplanificacionproduccion.getHorainicio();
+                    fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
+                    fechaInicioPlanif.setMinutes(horaInicioPlanif.getMinutes());
+                    fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
+
+                    return Fecha.parseToStringFechaHora(fechaInicioPlanif);
+                case 3:
+                    Date fechaFinPlanif = detalleplanificacionproduccion.getFechafin();
+                    Date horaFinPlanif = detalleplanificacionproduccion.getHorafin();
+                    fechaFinPlanif.setHours(horaFinPlanif.getHours());
+                    fechaFinPlanif.setMinutes(horaFinPlanif.getMinutes());
+                    fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
+
+                    return Fecha.parseToStringFechaHora(fechaFinPlanif);
+                case 4:
+                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getNombre() + " " + detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getApellido();
+                case 5:
+                    if (detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina() == null) {
+                        return "";
+                    } else {
+                        return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina().getNombre();
+                    }
+
+                case 6:
+                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getPieza().getNombre();
+                case 7:
+                    return detalleplanificacionproduccion.getIdproducto().getNombre();
+                case 8:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
+                case 9:
+                    return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
+                default:
+                    return null;
+            }
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasEtapas != null) {
+                return filasEtapas.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
 }
