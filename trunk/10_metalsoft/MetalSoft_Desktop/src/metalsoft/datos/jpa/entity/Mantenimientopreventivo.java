@@ -7,6 +7,7 @@ package metalsoft.datos.jpa.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -69,8 +70,8 @@ public class Mantenimientopreventivo implements Serializable {
     private Integer duraciontotal;
     @Column(name = "maquina")
     private BigInteger maquina;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientopreventivo")
-    private Detallemantenimientopreventivo detallemantenimientopreventivo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idmantenimientopreventivo")
+    private List<Detallemantenimientopreventivo> detallemantenimientopreventivoList;
     @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
     @ManyToOne
     private Proveedormantenimientomaquina proveedormantenimiento;
@@ -154,12 +155,12 @@ public class Mantenimientopreventivo implements Serializable {
         this.maquina = maquina;
     }
 
-    public Detallemantenimientopreventivo getDetallemantenimientopreventivo() {
-        return detallemantenimientopreventivo;
+    public List<Detallemantenimientopreventivo> getDetallemantenimientopreventivoList() {
+        return detallemantenimientopreventivoList;
     }
 
-    public void setDetallemantenimientopreventivo(Detallemantenimientopreventivo detallemantenimientopreventivo) {
-        this.detallemantenimientopreventivo = detallemantenimientopreventivo;
+    public void setDetallemantenimientopreventivoList(List<Detallemantenimientopreventivo> detallemantenimientopreventivoList) {
+        this.detallemantenimientopreventivoList = detallemantenimientopreventivoList;
     }
 
     public Proveedormantenimientomaquina getProveedormantenimiento() {

@@ -117,7 +117,8 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
              * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
              */
             System.out.println("HiloAvisoEtapaListaParaIniciar: etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
-            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+            vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
+//            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
         } else {
             /*
              * no es la primera de la pieza, ver si la anterior esta finalizada
@@ -132,7 +133,8 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
                  * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
                  */
                 System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId());
-                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+                vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
+//                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
             }
         }
     }
