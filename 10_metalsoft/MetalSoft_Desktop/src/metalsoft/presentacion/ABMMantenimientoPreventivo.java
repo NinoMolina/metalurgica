@@ -18,11 +18,12 @@ import java.util.logging.Logger;
 import metalsoft.util.ItemCombo;
 import java.lang.Object;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Maquina;
@@ -31,7 +32,6 @@ import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
 import metalsoft.negocio.gestores.GestorServicioMaquina;
 
 import metalsoft.negocio.gestores.NumerosAMostrar;
-import metalsoft.util.Combo;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -47,9 +47,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
     private Maquina maquina;
     private Servicio servicio;
     private EnumOpcionesABM opcion;
-    private LinkedList<Detallemantenimientopreventivo> filasservicios;
-    private LinkedList<Detallemantenimientopreventivo> detalleAgregar;
-    private LinkedList<Detallemantenimientopreventivo> detalleQuitar;
+    private List<Detallemantenimientopreventivo> filasservicios;
+    private List<Detallemantenimientopreventivo> detalleAgregar;
+    private List<Detallemantenimientopreventivo> detalleQuitar;
     private long idMantenimientoPreventivo;
 
     /** Creates new form ABMMantenimientoPreventivo */
@@ -65,9 +65,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnGuardar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
-        filasservicios = new LinkedList<Detallemantenimientopreventivo>();
-        detalleAgregar = new LinkedList<Detallemantenimientopreventivo>();
-        detalleQuitar = new LinkedList<Detallemantenimientopreventivo>();
+        filasservicios = new ArrayList<Detallemantenimientopreventivo>();
+        detalleAgregar = new ArrayList<Detallemantenimientopreventivo>();
+        detalleQuitar = new ArrayList<Detallemantenimientopreventivo>();
 
         tblServicios.setModel(new ServicioTableModel());
         tblServicios.setColumnControlVisible(true);
@@ -421,7 +421,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         if (nro > 0) {
             lblNroMantenimientoP.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_PREVENTIVO, nro));
             mantenimientop = new Mantenimientopreventivo();
-            lblFecha.setText(String.valueOf(Fecha.fechaActual()));
+            limpiarComponentes();
             HabilitarComponentes();
             botones.getBtnGuardar().setEnabled(true);
             botones.getBtnEliminar().setEnabled(false);
@@ -475,8 +475,9 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMMantenimientoPreventivo_Buscar buscar = null;
         try {
+            limpiarComponentes();
+            ABMMantenimientoPreventivo_Buscar.setVentana(this);
             buscar = (ABMMantenimientoPreventivo_Buscar) JFrameManager.crearVentana(ABMMantenimientoPreventivo_Buscar.class.getName());
-            buscar.setVentana(this);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
@@ -508,26 +509,25 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
         idMantenimientoPreventivo = -1;
 
-        switch (opcion) {
-            case NUEVO:
-                mantenimientop = nuevoMantenimientoPreventivo();
-                idMantenimientoPreventivo = gestor.guardarMantenimientoPreventivo(mantenimientop, filasservicios);
-                break;
-            case MODIFICAR:
-                mantenimientop = modificarMantenimientoPreventivo();
-                idMantenimientoPreventivo = gestor.modificarMantenimientoPreventivo(mantenimientop, detalleAgregar, detalleQuitar);
-                break;
-            default:
-                break;
+        if (opcion == EnumOpcionesABM.NUEVO) {
+            mantenimientop = nuevoMantenimientoPreventivo();
+            idMantenimientoPreventivo = gestor.guardarMantenimientoPreventivo(mantenimientop, filasservicios);
+        }
+        if (opcion == EnumOpcionesABM.MODIFICAR) {
+            mantenimientop = modificarMantenimientoPreventivo();
+            idMantenimientoPreventivo = gestor.modificarMantenimientoPreventivo(mantenimientop, detalleAgregar, detalleQuitar);
+
         }
         opcion = EnumOpcionesABM.GUARDAR;
 
         if (idMantenimientoPreventivo > 0) {
             JOptionPane.showMessageDialog(this, "El Mantenimiento Preventivo se guardó correctamente");
+            InhabilitarComponentes();
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
-
+            botones.getBtnNuevo().setEnabled(true);
+            botones.getBtnBuscar().setEnabled(true);
 
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el Mantenimiento Preventivo");
@@ -685,6 +685,8 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
                 sumaTotal += de.getDuracion();
             }
             lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
+            txtDuracion.setText("");
+            txtObservaciones.setText("");
         }
         if (opcion.equals(EnumOpcionesABM.MODIFICAR)) {
 
@@ -698,20 +700,25 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
             detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
             detalle.setObservaciones(txtObservaciones.getText());
 
+<<<<<<< .mine
+=======
             if(filasservicios.get(tblServicios.getSelectedRow()).getIddetalle()==null){
                 detalleAgregar.add(detalle);
             }
+>>>>>>> .r2828
             filasservicios.add(detalle);
             tblServicios.updateUI();
+            detalleAgregar.add(detalle);
             int sumaTotal = 0;
             for (Detallemantenimientopreventivo de : filasservicios) {
                 sumaTotal += de.getDuracion();
             }
+            txtDuracion.setText("");
+            txtObservaciones.setText("");
             lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
         }
 
-        txtDuracion.setText("");
-        txtObservaciones.setText("");
+
     }
 
     private long obtenerNuevoNroMantenimientoPreventivo() {
@@ -762,15 +769,33 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
             }
         }
         if (opcion.equals(EnumOpcionesABM.MODIFICAR)) {
+            Detallemantenimientopreventivo seleccion = null;
+            seleccion = filasservicios.get(tblServicios.getSelectedRow());
             filasservicios.remove(tblServicios.getSelectedRow());
             tblServicios.updateUI();
+<<<<<<< .mine
+
+=======
             if(filasservicios.get(tblServicios.getSelectedRow()).getIddetalle()!=null){
                 detalleQuitar.remove(tblServicios.getSelectedRow());
             }
             
+>>>>>>> .r2828
             if (tblServicios.getRowCount() <= 0) {
                 beanBtnQuitar.getBtnQuitar().setEnabled(false);
             }
+
+            if (seleccion.getDetallemantenimientopreventivoPK() != null) {
+                detalleQuitar.add(seleccion);
+            }
+
+            for (Detallemantenimientopreventivo deta : detalleAgregar) {
+                if (seleccion == deta) {
+                    detalleAgregar.remove(deta);
+                    return;
+                }
+            }
+
         }
     }
 
@@ -788,16 +813,14 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         if (cmbTipoMaquina.getSelectedIndex() < 0) {
             result = false;
         }
-        if (cmbMaquina.getSelectedIndex() <= 0) {
+        if (cmbMaquina.getSelectedIndex() < 0) {
             result = false;
         }
 
         if (txtPeriodo.getText().compareTo("") == 0) {
             result = false;
         }
-        if (txtDuracion.getText().compareTo("") == 0) {
-            result = false;
-        }
+
         if (txtfechaMantenimiento.getText().compareTo("") == 0) {
             result = false;
         }
@@ -814,9 +837,12 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         botones.getBtnModificar().setEnabled(true);
         lblNroMantenimientoP.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_PREVENTIVO, mantenimientop.getNromantenimietno().longValue()));
         Maquina maq = gestor.obtenerMaquina(mantenimientop.getMaquina().longValue());
-        setItemComboSeleccionado(cmbMaquina, maq.getIdmaquina());
+
         setItemComboSeleccionado(cmbTipoMaquina, maq.getTipomaquina().getIdtipomaquina());
-        filasservicios = (LinkedList<Detallemantenimientopreventivo>) gestor.obtenerDetalleDeMantenimiento(String.valueOf(mantenimientop.getIdmantenimientopreventivo()));
+        gestor.obtenerMaquinas(cmbMaquina, maq.getTipomaquina().getIdtipomaquina());
+        setItemComboSeleccionado(cmbMaquina, maq.getIdmaquina());
+        filasservicios = gestor.obtenerDetalleDeMantenimiento(String.valueOf(mantenimientop.getIdmantenimientopreventivo()));
+        tblServicios.updateUI();
         txtPeriodo.setText(String.valueOf(mantenimientop.getPeriodo()));
         lblduracionMantenimiento.setText(String.valueOf(mantenimientop.getDuraciontotal()));
         txtfechaMantenimiento.setText(Fecha.parseToString(mantenimientop.getFechamantenimientoprevisto(), "dd/MM/yyyy"));
@@ -869,6 +895,20 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         btnCalcularMantenimiento.setEnabled(true);
         beanBtnQuitar.setEnabled(true);
         beanBtnSeleccionar.setEnabled(true);
+    }
+
+    private void limpiarComponentes() {
+
+        setItemComboSeleccionado(cmbServicio, -1);
+        setItemComboSeleccionado(cmbTipoMaquina, -1);
+        txtDuracion.setText("");
+        txtPeriodo.setText("");
+        txtfechaMantenimiento.setText("");
+        lblNroMantenimientoP.setText("...");
+        filasservicios.clear();
+        detalleAgregar.clear();
+        detalleQuitar.clear();
+        tblServicios.updateUI();
     }
 
     private void setItemComboSeleccionado(JComboBox cmb, long id) {
