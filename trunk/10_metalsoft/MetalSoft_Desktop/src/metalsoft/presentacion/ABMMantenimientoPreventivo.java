@@ -473,6 +473,14 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
 
         boolean ok = gestor.eliminarMantenimiento(mantenimientop);
+        limpiarComponentes();
+        InhabilitarComponentes();
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
+        botones.getBtnNuevo().setEnabled(true);
+        botones.getBtnBuscar().setEnabled(true);
+                
         if (ok) {
             JOptionPane.showMessageDialog(this, "Eliminación Realizada");
         } else {
