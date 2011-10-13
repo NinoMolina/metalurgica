@@ -531,4 +531,18 @@ public class JpaUtil {
         }
 
     }
+    
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoHastaFechaActual(String fecha) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "where m.fechamantenimientoprevisto<='" + fecha + "' ";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
