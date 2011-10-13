@@ -38,6 +38,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Reclamoempresamantenimiento.findByMotivo", query = "SELECT r FROM Reclamoempresamantenimiento r WHERE r.motivo = :motivo"),
     @NamedQuery(name = "Reclamoempresamantenimiento.findByFechareclamo", query = "SELECT r FROM Reclamoempresamantenimiento r WHERE r.fechareclamo = :fechareclamo")})
 public class Reclamoempresamantenimiento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -58,6 +59,12 @@ public class Reclamoempresamantenimiento implements Serializable {
     @JoinColumn(name = "tiporeclamo", referencedColumnName = "idtiporeclamo")
     @ManyToOne
     private Tiporeclamo tiporeclamo;
+    @JoinColumn(name = "mantenimientocorrectivo", referencedColumnName = "idmantenimientocorrectivo")
+    @ManyToOne
+    private Mantenimientocorrectivo mantenimientocorrectivo;
+    @JoinColumn(name = "mantenimientopreventivo", referencedColumnName = "idmantenimientopreventivo")
+    @ManyToOne
+    private Mantenimientopreventivo mantenimientopreventivo;
     @JoinColumn(name = "idestadoreclamo", referencedColumnName = "idestadoreclamo")
     @ManyToOne
     private Estadoreclamo idestadoreclamo;
@@ -155,9 +162,24 @@ public class Reclamoempresamantenimiento implements Serializable {
         return true;
     }
 
+    public Mantenimientocorrectivo getMantenimientocorrectivo() {
+        return mantenimientocorrectivo;
+    }
+
+    public void setMantenimientocorrectivo(Mantenimientocorrectivo mantenimientocorrectivo) {
+        this.mantenimientocorrectivo = mantenimientocorrectivo;
+    }
+
+    public Mantenimientopreventivo getMantenimientopreventivo() {
+        return mantenimientopreventivo;
+    }
+
+    public void setMantenimientopreventivo(Mantenimientopreventivo mantenimientopreventivo) {
+        this.mantenimientopreventivo = mantenimientopreventivo;
+    }
+
     @Override
     public String toString() {
         return "metalsoft.datos.jpa.entity.Reclamoempresamantenimiento[ idreclamo=" + idreclamo + " ]";
     }
-    
 }

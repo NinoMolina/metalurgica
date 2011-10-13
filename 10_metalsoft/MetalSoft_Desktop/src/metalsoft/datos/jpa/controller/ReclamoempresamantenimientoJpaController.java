@@ -13,7 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Reclamoempresamantenimiento;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Tiporeclamo;
@@ -37,7 +36,7 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Reclamoempresamantenimiento reclamoempresamantenimiento) throws PreexistingEntityException, Exception {
+    public void create(Reclamoempresamantenimiento reclamoempresamantenimiento) {
         if (reclamoempresamantenimiento.getDetallereclamoempresamantenimientoList() == null) {
             reclamoempresamantenimiento.setDetallereclamoempresamantenimientoList(new ArrayList<Detallereclamoempresamantenimiento>());
         }
@@ -89,11 +88,6 @@ public class ReclamoempresamantenimientoJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findReclamoempresamantenimiento(reclamoempresamantenimiento.getIdreclamo()) != null) {
-                throw new PreexistingEntityException("Reclamoempresamantenimiento " + reclamoempresamantenimiento + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
