@@ -234,7 +234,12 @@ public class GestorMantenimientoPreventivo {
 
     public boolean eliminarMantenimiento(Mantenimientopreventivo man) {
         MantenimientopreventivoJpaController con = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        DetallemantenimientopreventivoJpaController deCon=new DetallemantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
         try {
+            List<Detallemantenimientopreventivo> ListDet=this.obtenerDetalleDeMantenimiento(String.valueOf(man.getIdmantenimientopreventivo()));
+            for(Detallemantenimientopreventivo de : ListDet){
+                deCon.destroy(de.getIddetalle());
+            }
             con.destroy(man.getIdmantenimientopreventivo());
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
