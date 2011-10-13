@@ -386,7 +386,6 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEtapasAtrasadas.setText("<html><font color=red size=+2></font></html>");
-        btnEtapasAtrasadas.setActionCommand("");
         btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
@@ -396,7 +395,6 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEtapasListasParaLanzar.setText("<html><font color=green size=+2></font></html>");
-        btnEtapasListasParaLanzar.setActionCommand("");
         btnEtapasListasParaLanzar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas A Lanzar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEtapasListasParaLanzar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasListasParaLanzar.addActionListener(new java.awt.event.ActionListener() {
@@ -496,6 +494,11 @@ public class Principal extends javax.swing.JFrame {
         btnProduccion1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Presupuesto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnProduccion1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProduccion1.setPreferredSize(new java.awt.Dimension(191, 181));
+        btnProduccion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProduccion1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
         pnlImagen.setLayout(pnlImagenLayout);
@@ -1926,6 +1929,10 @@ private void btnEtapasListasParaLanzarActionPerformed(java.awt.event.ActionEvent
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnEtapasListasParaLanzarActionPerformed
+
+private void btnProduccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProduccion1ActionPerformed
+     new BotonRapidoPresupuesto().setVisible(true);
+}//GEN-LAST:event_btnProduccion1ActionPerformed
     /**
      * @param args the command line arguments
      */

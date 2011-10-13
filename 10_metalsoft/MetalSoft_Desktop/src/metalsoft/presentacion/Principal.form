@@ -1031,7 +1031,6 @@
             <Component class="javax.swing.JButton" name="btnEtapasAtrasadas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=red size=+2&gt;&lt;/font&gt;&lt;/html&gt;"/>
-                <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder justification="2" title="Etapas Atrasadas"/>
@@ -1049,7 +1048,6 @@
             <Component class="javax.swing.JButton" name="btnEtapasListasParaLanzar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=green size=+2&gt;&lt;/font&gt;&lt;/html&gt;"/>
-                <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder justification="2" title="Etapas A Lanzar"/>
@@ -1209,6 +1207,9 @@
               <Dimension value="[191, 181]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProduccion1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
