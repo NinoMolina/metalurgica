@@ -59,6 +59,8 @@ public class Detalleplanificacioncalidad implements Serializable {
     private Date horafin;
     @Column(name = "orden")
     private Integer orden;
+    @Column(name = "detalleanterior")
+    private Long detalleanterior;
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
@@ -86,6 +88,14 @@ public class Detalleplanificacioncalidad implements Serializable {
 
     public Detalleplanificacioncalidad(Long iddetalle) {
         this.iddetalle = iddetalle;
+    }
+
+    public Long getDetalleanterior() {
+        return detalleanterior;
+    }
+
+    public void setDetalleanterior(Long detalleanterior) {
+        this.detalleanterior = detalleanterior;
     }
 
     public Long getIddetalle() {

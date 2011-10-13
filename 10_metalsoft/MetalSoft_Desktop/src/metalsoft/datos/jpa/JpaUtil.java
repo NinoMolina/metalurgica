@@ -25,6 +25,7 @@ import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
 import metalsoft.datos.jpa.entity.Disponibilidadhoraria;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
@@ -472,7 +473,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoPorNroLIKE(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -486,7 +487,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Detallemantenimientopreventivo> getDetalleMantenimientopreventivo(String id) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -500,6 +501,21 @@ public class JpaUtil {
             em.close();
         }
     }
+
+    public static List<Ejecucionprocesocalidad> getEjecucionprocesocalidadByEstado(Long estado) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT e FROM Ejecucionprocesocalidad e"
+                + " WHERE e.estado.idestado = :id";
+        try {
+            Query q = em.createQuery(sql, Ejecucionprocesocalidad.class);
+            q.setParameter("id", estado);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+
+    }
+
 
     public static  List<Usuario> getUsuarioByDatos(String nombre, String apellido, int documento) {
         EntityManager em = JpaUtil.getEntityManager();

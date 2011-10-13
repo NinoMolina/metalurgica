@@ -80,10 +80,17 @@ public class GestorRegistrarPlanificacionCalidad {
             ctrlPlanificacion.create(planificacionCalidad);
             
             Disponibilidadhoraria disponibilidadhoraria = null;
-            
+            Detalleplanificacioncalidad detAnterior = null;
             for (Detalleplanificacioncalidad detalle : lstDetalle) {
                 detalle.setIdplanificacioncalidad(planificacionCalidad);
+                if(detalle.getOrden() == 1){
+                    detalle.setDetalleanterior(null);
+                } else {
+                    detalle.setDetalleanterior(detAnterior.getIddetalle());
+                }
                 ctrlDetalle.create(detalle);
+                
+                detAnterior = detalle;
                 
                 //insertar una nueva disponibilidad del empleado para las tareas
                 //asignadas en la planificacion.
