@@ -4,6 +4,7 @@
  */
 package metalsoft.beans;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import metalsoft.Main;
 import metalsoft.presentacion.JFrameManager;
+import metalsoft.presentacion.OlvidarContraseña;
 import metalsoft.presentacion.OlvidarUsuario;
 
 /**
@@ -53,6 +55,12 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
         jLabel5 = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
 
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
+
         jLabel1.setText("Usuario");
 
         jLabel2.setText("Contraseña");
@@ -88,7 +96,7 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 12));
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("¿Olvidó su Usuario? Haga click");
 
@@ -100,14 +108,29 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
                 lblUsuarioMouseClicked(evt);
             }
         });
+        lblUsuario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseMoved(evt);
+            }
+        });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 2, 12));
         jLabel5.setForeground(new java.awt.Color(0, 0, 102));
         jLabel5.setText("¿Olvidó su Contraseña? Haga click");
 
         lblContraseña.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         lblContraseña.setForeground(new java.awt.Color(0, 0, 102));
         lblContraseña.setText("AQUI");
+        lblContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblContraseñaMouseClicked(evt);
+            }
+        });
+        lblContraseña.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblContraseñaMouseMoved(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -116,24 +139,21 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(82, 82, 82)
-                                .add(jLabel4)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblUsuario))
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .add(btnIniciar)
-                                    .add(74, 74, 74)
-                                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                    .add(58, 58, 58)
-                                    .add(jLabel5)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(lblContraseña))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(82, 82, 82)
+                        .add(jLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblUsuario))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(btnIniciar)
+                            .add(74, 74, 74)
+                            .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                            .add(58, 58, 58)
+                            .add(jLabel5)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(lblContraseña)))
                     .add(layout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -205,6 +225,27 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
 
     }//GEN-LAST:event_txtClaveKeyReleased
 
+    private void lblContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblContraseñaMouseClicked
+        try {
+            JFrameManager.crearVentana(OlvidarContraseña.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblContraseñaMouseClicked
+
+    private void lblUsuarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseMoved
+     this.lblUsuario.setForeground(Color.cyan);
+    }//GEN-LAST:event_lblUsuarioMouseMoved
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+         this.lblUsuario.setForeground(Color.BLUE);
+         this.lblContraseña.setForeground(Color.blue);
+    }//GEN-LAST:event_formMouseMoved
+
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         try {
             JFrameManager.crearVentana(OlvidarUsuario.class.getName());
@@ -216,6 +257,10 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
             Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lblUsuarioMouseClicked
+
+    private void lblContraseñaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblContraseñaMouseMoved
+        this.lblContraseña.setForeground(Color.cyan);
+    }//GEN-LAST:event_lblContraseñaMouseMoved
 
     public JButton getBtnIniciar() {
         return btnIniciar;

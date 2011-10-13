@@ -4,9 +4,9 @@
  */
 
 /*
- * OlvidarUsuario.java
+ * OlvidarContraseña.java
  *
- * Created on 01/10/2011, 12:55:26
+ * Created on 12/10/2011, 18:49:16
  */
 
 package metalsoft.presentacion;
@@ -23,13 +23,14 @@ import metalsoft.negocio.gestores.GestorNuevoUsuario;
  *
  * @author Mariana
  */
-public class OlvidarUsuario extends javax.swing.JDialog {
+public class OlvidarContraseña extends javax.swing.JDialog{
 
     private GestorCliente gestor;
     private GestorNuevoUsuario gestorUsuario;
 
-    /** Creates new form OlvidarUsuario */
-    public OlvidarUsuario() {
+
+    /** Creates new form OlvidarContraseña */
+    public OlvidarContraseña() {
         super(Principal.getVtnPrincipal());
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
@@ -53,16 +54,18 @@ public class OlvidarUsuario extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
-        txtNroDocumento = new javax.swing.JTextField();
-        btnConsultar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         cmbTipoDoc = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        txtNroDocumento = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
+        btnConsultar = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Recuperar Contraseña");
@@ -70,28 +73,38 @@ public class OlvidarUsuario extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Nombre:");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Apellido:");
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Tipo Documento:");
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Nro Documento:");
-
-        jLabel5.setText("Usuario:");
-
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Apellido:");
+
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoActionPerformed(evt);
             }
         });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Tipo Documento:");
+
+        cmbTipoDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoDocActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Nro Documento:");
+
+        jLabel5.setText("Usuario:");
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(204, 204, 255));
+        lblUsuario.setText("contraseña");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,15 +113,7 @@ public class OlvidarUsuario extends javax.swing.JDialog {
             }
         });
 
-        cmbTipoDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTipoDocActionPerformed(evt);
-            }
-        });
-
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblUsuario.setForeground(new java.awt.Color(204, 204, 255));
-        lblUsuario.setText("usuario");
+        jLabel6.setText("Contraseña:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,27 +121,28 @@ public class OlvidarUsuario extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnConsultar)
-                            .addComponent(cmbTipoDoc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtApellido)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(txtNroDocumento)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblUsuario)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel5))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(cmbTipoDoc, javax.swing.GroupLayout.Alignment.LEADING, 0, 184, Short.MAX_VALUE)
+                    .addComponent(txtNroDocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(btnConsultar, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(49, 49, 49))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuario)
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,12 +164,16 @@ public class OlvidarUsuario extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(txtNroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btnConsultar)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
                     .addComponent(lblUsuario))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,11 +181,11 @@ public class OlvidarUsuario extends javax.swing.JDialog {
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+}//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
+}//GEN-LAST:event_txtApellidoActionPerformed
 
     private void cmbTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDocActionPerformed
         // TODO add your handling code here:
@@ -185,12 +195,13 @@ public class OlvidarUsuario extends javax.swing.JDialog {
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String tipoDocumento = cmbTipoDoc.getSelectedItem().toString();
+        String usuario = txtUsuario.getText();
         int documento = Integer.parseInt(txtNroDocumento.getText());
-        List<Usuario> listaUsuario = gestorUsuario.getusuarioByDatos(nombre, apellido, documento);
-        String usuario = listaUsuario.get(0).getUsuario();
-        this.lblUsuario.setText(usuario);
+        List<Usuario> listaUsuario = gestorUsuario.getclaveByDatos(nombre, apellido, documento, usuario);
+        String clave = listaUsuario.get(0).getClave();
+        this.lblUsuario.setText(clave);
         this.lblUsuario.setForeground(Color.red);
-    }//GEN-LAST:event_btnConsultarActionPerformed
+}//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -198,7 +209,7 @@ public class OlvidarUsuario extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OlvidarUsuario().setVisible(true);
+                new OlvidarContraseña().setVisible(true);
             }
         });
     }
@@ -211,10 +222,12 @@ public class OlvidarUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNroDocumento;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
 }
