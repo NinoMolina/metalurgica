@@ -515,4 +515,20 @@ public class JpaUtil {
         }
 
     }
+
+    public static List<Usuario> getClaveByDatos(String nombre, String apellido, int documento, String usuario) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT u.* "
+            + "FROM usuario u, empleado em "
+            + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '"+ nombre+"' AND "
+            +"em.apellido LIKE '"+apellido+"' AND em.nrodocumento="+ documento+" AND "
+            +"u.usuario LIKE '"+usuario+"'";
+        try {
+            Query q = em.createNativeQuery(sql, Usuario.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+
+    }
 }

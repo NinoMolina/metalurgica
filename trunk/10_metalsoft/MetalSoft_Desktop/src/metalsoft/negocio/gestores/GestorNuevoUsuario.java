@@ -210,4 +210,8 @@ public class GestorNuevoUsuario {
     public List<Usuario> getusuarioByDatos(String nombre, String apellido, int documento) {
          return JpaUtil.getUsuarioByDatos(nombre, apellido, documento);
     }
+
+    public List<Usuario> getclaveByDatos(String nombre, String apellido, int documento, String usuario) {
+        return JpaUtil.getClaveByDatos(nombre, apellido, documento, usuario);
+    }
 }
