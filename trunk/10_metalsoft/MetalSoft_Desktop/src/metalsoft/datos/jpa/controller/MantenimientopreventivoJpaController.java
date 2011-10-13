@@ -15,6 +15,7 @@ import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
+import metalsoft.datos.jpa.entity.Estadomantpreventivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,11 @@ public class MantenimientopreventivoJpaController implements Serializable {
                 proveedormantenimiento = em.getReference(proveedormantenimiento.getClass(), proveedormantenimiento.getIdproveedormantenimiento());
                 mantenimientopreventivo.setProveedormantenimiento(proveedormantenimiento);
             }
+            Estadomantpreventivo estado = mantenimientopreventivo.getEstado();
+            if (estado != null) {
+                estado = em.getReference(estado.getClass(), estado.getIdestado());
+                mantenimientopreventivo.setEstado(estado);
+            }
             List<Detallemantenimientopreventivo> attachedDetallemantenimientopreventivoList = new ArrayList<Detallemantenimientopreventivo>();
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach : mantenimientopreventivo.getDetallemantenimientopreventivoList()) {
                 detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListDetallemantenimientopreventivoToAttach.getIddetalle());
@@ -57,6 +63,10 @@ public class MantenimientopreventivoJpaController implements Serializable {
             if (proveedormantenimiento != null) {
                 proveedormantenimiento.getMantenimientopreventivoList().add(mantenimientopreventivo);
                 proveedormantenimiento = em.merge(proveedormantenimiento);
+            }
+            if (estado != null) {
+                estado.getMantenimientopreventivoList().add(mantenimientopreventivo);
+                estado = em.merge(estado);
             }
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListDetallemantenimientopreventivo : mantenimientopreventivo.getDetallemantenimientopreventivoList()) {
                 Mantenimientopreventivo oldIdmantenimientopreventivoOfDetallemantenimientopreventivoListDetallemantenimientopreventivo = detallemantenimientopreventivoListDetallemantenimientopreventivo.getIdmantenimientopreventivo();
@@ -83,6 +93,8 @@ public class MantenimientopreventivoJpaController implements Serializable {
             Mantenimientopreventivo persistentMantenimientopreventivo = em.find(Mantenimientopreventivo.class, mantenimientopreventivo.getIdmantenimientopreventivo());
             Proveedormantenimientomaquina proveedormantenimientoOld = persistentMantenimientopreventivo.getProveedormantenimiento();
             Proveedormantenimientomaquina proveedormantenimientoNew = mantenimientopreventivo.getProveedormantenimiento();
+            Estadomantpreventivo estadoOld = persistentMantenimientopreventivo.getEstado();
+            Estadomantpreventivo estadoNew = mantenimientopreventivo.getEstado();
             List<Detallemantenimientopreventivo> detallemantenimientopreventivoListOld = persistentMantenimientopreventivo.getDetallemantenimientopreventivoList();
             List<Detallemantenimientopreventivo> detallemantenimientopreventivoListNew = mantenimientopreventivo.getDetallemantenimientopreventivoList();
             List<String> illegalOrphanMessages = null;
@@ -101,6 +113,10 @@ public class MantenimientopreventivoJpaController implements Serializable {
                 proveedormantenimientoNew = em.getReference(proveedormantenimientoNew.getClass(), proveedormantenimientoNew.getIdproveedormantenimiento());
                 mantenimientopreventivo.setProveedormantenimiento(proveedormantenimientoNew);
             }
+            if (estadoNew != null) {
+                estadoNew = em.getReference(estadoNew.getClass(), estadoNew.getIdestado());
+                mantenimientopreventivo.setEstado(estadoNew);
+            }
             List<Detallemantenimientopreventivo> attachedDetallemantenimientopreventivoListNew = new ArrayList<Detallemantenimientopreventivo>();
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach : detallemantenimientopreventivoListNew) {
                 detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach = em.getReference(detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getClass(), detallemantenimientopreventivoListNewDetallemantenimientopreventivoToAttach.getIddetalle());
@@ -116,6 +132,14 @@ public class MantenimientopreventivoJpaController implements Serializable {
             if (proveedormantenimientoNew != null && !proveedormantenimientoNew.equals(proveedormantenimientoOld)) {
                 proveedormantenimientoNew.getMantenimientopreventivoList().add(mantenimientopreventivo);
                 proveedormantenimientoNew = em.merge(proveedormantenimientoNew);
+            }
+            if (estadoOld != null && !estadoOld.equals(estadoNew)) {
+                estadoOld.getMantenimientopreventivoList().remove(mantenimientopreventivo);
+                estadoOld = em.merge(estadoOld);
+            }
+            if (estadoNew != null && !estadoNew.equals(estadoOld)) {
+                estadoNew.getMantenimientopreventivoList().add(mantenimientopreventivo);
+                estadoNew = em.merge(estadoNew);
             }
             for (Detallemantenimientopreventivo detallemantenimientopreventivoListNewDetallemantenimientopreventivo : detallemantenimientopreventivoListNew) {
                 if (!detallemantenimientopreventivoListOld.contains(detallemantenimientopreventivoListNewDetallemantenimientopreventivo)) {
@@ -172,6 +196,11 @@ public class MantenimientopreventivoJpaController implements Serializable {
             if (proveedormantenimiento != null) {
                 proveedormantenimiento.getMantenimientopreventivoList().remove(mantenimientopreventivo);
                 proveedormantenimiento = em.merge(proveedormantenimiento);
+            }
+            Estadomantpreventivo estado = mantenimientopreventivo.getEstado();
+            if (estado != null) {
+                estado.getMantenimientopreventivoList().remove(mantenimientopreventivo);
+                estado = em.merge(estado);
             }
             em.remove(mantenimientopreventivo);
             em.getTransaction().commit();

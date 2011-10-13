@@ -75,6 +75,9 @@ public class Mantenimientopreventivo implements Serializable {
     @JoinColumn(name = "proveedormantenimiento", referencedColumnName = "idproveedormantenimiento")
     @ManyToOne
     private Proveedormantenimientomaquina proveedormantenimiento;
+    @JoinColumn(name = "estado", referencedColumnName = "idestado")
+    @ManyToOne
+    private Estadomantpreventivo estado;
 
     public Mantenimientopreventivo() {
     }
@@ -169,6 +172,14 @@ public class Mantenimientopreventivo implements Serializable {
 
     public void setProveedormantenimiento(Proveedormantenimientomaquina proveedormantenimiento) {
         this.proveedormantenimiento = proveedormantenimiento;
+    }
+
+    public Estadomantpreventivo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadomantpreventivo estado) {
+        this.estado = estado;
     }
 
     @Override
