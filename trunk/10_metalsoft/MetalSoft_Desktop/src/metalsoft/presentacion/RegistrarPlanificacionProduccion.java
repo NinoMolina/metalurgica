@@ -1118,45 +1118,64 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             List<metalsoft.datos.jpa.entity.Disponibilidadhoraria> disp = JpaUtil.getDisponibilidadEmpleado(empleadoSeleccionado);
             TaskSeriesCollection dataset = new TaskSeriesCollection();
             TaskSeries unavailable = new TaskSeries("Ocupación");
+
+            Calendar fechaActual = Fecha.fechaActualCalendar();
+
             for (metalsoft.datos.jpa.entity.Disponibilidadhoraria dispHoraria : disp) {
                 //creo una nueva tarea
                 Date fecha = dispHoraria.getFecha();
 
-                Calendar c1 = new GregorianCalendar();
-                c1.setTime(dispHoraria.getFecha());
-
                 Task task = unavailable.get(Fecha.parseToString(fecha));
                 if (task == null) {
                     task = new Task(Fecha.parseToString(fecha),
-                            new GregorianCalendar(c1.get(Calendar.YEAR),
-                            c1.get(Calendar.MONTH),
-                            c1.get(Calendar.DAY_OF_MONTH), Jornada.HORA_INICIO_JORNADA, 0, 0).getTime(),
-                            new GregorianCalendar(c1.get(Calendar.YEAR),
-                            c1.get(Calendar.MONTH),
-                            c1.get(Calendar.DAY_OF_MONTH), Jornada.HORA_FIN_JORNADA, 0, 0).getTime());
+                            new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+                            fechaActual.get(Calendar.MONTH),
+                            fechaActual.get(Calendar.DAY_OF_MONTH), Jornada.HORA_INICIO_JORNADA, 0, 0).getTime(),
+                            new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+                            fechaActual.get(Calendar.MONTH),
+                            fechaActual.get(Calendar.DAY_OF_MONTH), Jornada.HORA_FIN_JORNADA, 0, 0).getTime());
                     //agrego la tarea la serie de taras
                     unavailable.add(task);
                 }
 
                 task.addSubtask(new Task("",
-                        new GregorianCalendar(c1.get(Calendar.YEAR),
-                        c1.get(Calendar.MONTH),
-                        c1.get(Calendar.DAY_OF_MONTH),
+                        new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+                        fechaActual.get(Calendar.MONTH),
+                        fechaActual.get(Calendar.DAY_OF_MONTH),
                         dispHoraria.getHorainicio().getHours(),
                         dispHoraria.getHorainicio().getMinutes(),
                         dispHoraria.getHorainicio().getSeconds()).getTime(),
-                        new GregorianCalendar(c1.get(Calendar.YEAR),
-                        c1.get(Calendar.MONTH),
-                        c1.get(Calendar.DAY_OF_MONTH), dispHoraria.getHorafin().getHours(),
+                        new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+                        fechaActual.get(Calendar.MONTH),
+                        fechaActual.get(Calendar.DAY_OF_MONTH), dispHoraria.getHorafin().getHours(),
                         dispHoraria.getHorafin().getMinutes(),
                         dispHoraria.getHorafin().getSeconds()).getTime()));
             }
+
+//            if(unavailable.isEmpty()){
+//                Task task = new Task("", new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+//                            fechaActual.get(Calendar.MONTH),
+//                            fechaActual.get(Calendar.DAY_OF_MONTH), Jornada.HORA_INICIO_JORNADA, 0, 0).getTime(),
+//                            new GregorianCalendar(fechaActual.get(Calendar.YEAR),
+//                            fechaActual.get(Calendar.MONTH),
+//                            fechaActual.get(Calendar.DAY_OF_MONTH), Jornada.HORA_FIN_JORNADA, 0, 0).getTime());
+//                task.setPercentComplete(1);
+//                unavailable.add(task);
+//            }
+
             dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
             JFreeChart chart = ChartFactory.createGanttChart("", "Días", "Horas", dataset, true, true, false);
+            
+            final CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            final CategoryItemRenderer renderer = plot.getRenderer();
+            renderer.setSeriesPaint(0, Color.ORANGE);
+            
             ChartPanel chartPanel = new ChartPanel(chart);
+            
             chart.setBorderVisible(true);
             chartPanel.setBounds(10, 15, pnlDispHoraria.getWidth() - 20, pnlDispHoraria.getHeight() - 30);
+            
             pnlDispHoraria.removeAll();
             pnlDispHoraria.add(chartPanel);
             pnlDispHoraria.updateUI();

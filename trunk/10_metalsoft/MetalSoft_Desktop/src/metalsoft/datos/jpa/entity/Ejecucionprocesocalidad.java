@@ -74,12 +74,23 @@ public class Ejecucionprocesocalidad implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
+    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
+    @ManyToOne
+    private Maquina maquina;
 
     public Ejecucionprocesocalidad() {
     }
 
     public Ejecucionprocesocalidad(Long idejecucion) {
         this.idejecucion = idejecucion;
+    }
+
+    public Maquina getMaquina() {
+        return maquina;
+    }
+
+    public void setMaquina(Maquina maquina) {
+        this.maquina = maquina;
     }
 
     public Long getIdejecucion() {

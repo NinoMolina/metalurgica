@@ -47,6 +47,7 @@ public class MetalsoftDispatcher {
                 lanzarHiloAvisoEtapaListaParaIniciar(p);
                 lanzarHiloAvisoProcesoCalidadNoTerminado(p);
                 lanzarHiloEscuchadorFinProcesoCalidad(p);
+                lanzarHiloAvisoProcesoCalidadListoParaLanzar(p);
 
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
@@ -86,6 +87,13 @@ public class MetalsoftDispatcher {
 
     private static void lanzarHiloAvisoEtapaListaParaIniciar(Principal vtnPrincipal) {
         HiloAvisoEtapaListaParaIniciar hilo = new HiloAvisoEtapaListaParaIniciar();
+        hilo.setVtnPrincipal(vtnPrincipal);
+        Thread thread = new Thread(hilo);
+        thread.start();
+    }
+
+    private static void lanzarHiloAvisoProcesoCalidadListoParaLanzar(Principal vtnPrincipal) {
+        HiloAvisoProcesoCalidadListoParaIniciar hilo = new HiloAvisoProcesoCalidadListoParaIniciar();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();

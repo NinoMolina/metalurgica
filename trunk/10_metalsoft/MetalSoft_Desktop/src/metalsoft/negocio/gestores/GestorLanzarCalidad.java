@@ -123,11 +123,9 @@ public class GestorLanzarCalidad {
         EstadoejecplancalidadJpaController controllerEstadoEjecCalidad = new EstadoejecplancalidadJpaController(JpaUtil.getEntityManagerFactory());
         Estadoejecplancalidad estadoEjecucion = null;
 
-        List<Detallempasignada> lstDetallempasignada = null;
-
         List<Detalleplanificacioncalidad> lstDetallePlanificacion = null;
 
-        List<Long> lstIdsEjecucionProcesosAIniciar = new ArrayList<Long>();
+//        List<Long> lstIdsEjecucionProcesosAIniciar = new ArrayList<Long>();
 
         try {
             /*
@@ -167,24 +165,25 @@ public class GestorLanzarCalidad {
                  */
                 Ejecucionprocesocalidad ejecucionprocesocalidad = new Ejecucionprocesocalidad();
                 ejecucionprocesocalidad.setEmpleado(detalleplanificacioncalidad.getEmpleado());
+                ejecucionprocesocalidad.setMaquina(detalleplanificacioncalidad.getMaquina());
                 long nroEjecucion = generarNvoNroEjecucionProcesoCalidad();
                 ejecucionprocesocalidad.setNroejecucion(BigInteger.valueOf(nroEjecucion));
 
                 EstadoejecucionprocesocalidadJpaController estadoEjecProcesoCalidadController = new EstadoejecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
 
                 Estadoejecucionprocesocalidad estadoejecucionprocesocalidad = null;
-                boolean procesoEnEjecucion = false;
-                if (detalleplanificacioncalidad.getOrden() == 1) {
+//                boolean procesoEnEjecucion = false;
+//                if (detalleplanificacioncalidad.getOrden() == 1) {
                     Date fechaActual = Fecha.fechaActualDate();
                     detalleejecucionplanificacioncalidad.setFechainicio(fechaActual);
                     detalleejecucionplanificacioncalidad.setHorainicio(fechaActual);
                     ejecucionprocesocalidad.setFechainicio(fechaActual);
                     ejecucionprocesocalidad.setHorainicio(fechaActual);
-                    estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.ENEJECUCION);
-                    procesoEnEjecucion = true;
-                } else {
+//                    estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.ENEJECUCION);
+//                    procesoEnEjecucion = true;
+//                } else {
                     estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.GENERADA);
-                }
+//                }
                 ejecucionprocesocalidad.setEstado(estadoejecucionprocesocalidad);
 
                 /*
@@ -192,9 +191,9 @@ public class GestorLanzarCalidad {
                  */
                 ejecProcesoCalidadController.create(ejecucionprocesocalidad);
 
-                if (procesoEnEjecucion) {
-                    lstIdsEjecucionProcesosAIniciar.add(ejecucionprocesocalidad.getIdejecucion());
-                }
+//                if (procesoEnEjecucion) {
+//                    lstIdsEjecucionProcesosAIniciar.add(ejecucionprocesocalidad.getIdejecucion());
+//                }
 
                 detalleejecucionplanificacioncalidad.setEjecucionprocesocalidad(ejecucionprocesocalidad);
 
@@ -203,7 +202,7 @@ public class GestorLanzarCalidad {
                 detallePlanificacionCalidadController.edit(detalleplanificacioncalidad);
             }
 
-            imprimirInicioProcesoCalidad(lstIdsEjecucionProcesosAIniciar);
+//            imprimirInicioProcesoCalidad(lstIdsEjecucionProcesosAIniciar);
 
 
         } catch (PreexistingEntityException ex) {

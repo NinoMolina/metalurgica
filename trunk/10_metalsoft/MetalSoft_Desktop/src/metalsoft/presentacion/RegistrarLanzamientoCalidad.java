@@ -367,7 +367,7 @@ private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
         gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
 
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+            JOptionPane.showMessageDialog(this, "Ya se ha lanzado el control de calidad!\nLos datos se guardaron CORRECTAMENTE!");
             filasPedidosConProduccionFinalizada.remove(tblPedidos.getSelectedRow());
             setearEnabledComponents(false);
             limpiarCampos();

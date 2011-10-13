@@ -670,16 +670,16 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="btnProduccion1" min="-2" pref="190" max="-2" attributes="1"/>
+                                          <Component id="btnPresupuesto" min="-2" pref="190" max="-2" attributes="1"/>
                                           <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                                           <Component id="jPanelTransparente2" min="-2" pref="455" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                                           <Component id="btnReportes" pref="294" max="32767" attributes="1"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="jPanelTransparente3" min="-2" pref="546" max="-2" attributes="0"/>
-                                          <EmptySpace pref="177" max="32767" attributes="0"/>
-                                          <Component id="jPanelTransparente4" min="-2" pref="455" max="-2" attributes="0"/>
+                                          <EmptySpace pref="86" max="32767" attributes="0"/>
+                                          <Component id="jPanelTransparente4" min="-2" pref="546" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
@@ -713,7 +713,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnProduccion1" alignment="1" min="-2" pref="175" max="-2" attributes="1"/>
+                      <Component id="btnPresupuesto" alignment="1" min="-2" pref="175" max="-2" attributes="1"/>
                       <Component id="jPanelTransparente2" alignment="1" min="-2" pref="200" max="-2" attributes="1"/>
                       <Component id="btnReportes" alignment="1" min="-2" pref="175" max="-2" attributes="1"/>
                   </Group>
@@ -867,7 +867,7 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="btnPedidos" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="btnProduccion" min="-2" pref="115" max="-2" attributes="1"/>
+                      <Component id="btnNuevoCliente" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="btnCobros" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -879,7 +879,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnProduccion" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Component id="btnNuevoCliente" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
                           <Component id="btnCobros" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
                           <Component id="btnPedidos" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
                       </Group>
@@ -927,7 +927,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidosActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnProduccion">
+            <Component class="javax.swing.JButton" name="btnNuevoCliente">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/fcliente.png"/>
@@ -969,9 +969,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnProcesosCalidadAtrasados" min="-2" pref="115" max="-2" attributes="1"/>
+                      <Component id="btnEjecutarProduccion" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnProcesosCalidadAtrasados3" min="-2" pref="115" max="-2" attributes="1"/>
+                      <Component id="btnProduccionEnEjecucion" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEtapasAtrasadas" min="-2" pref="115" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -985,10 +985,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnProcesosCalidadAtrasados" alignment="0" pref="130" max="32767" attributes="1"/>
+                          <Component id="btnEjecutarProduccion" alignment="0" pref="130" max="32767" attributes="1"/>
                           <Component id="btnEtapasAtrasadas" alignment="0" pref="130" max="32767" attributes="1"/>
                           <Component id="btnEtapasListasParaLanzar" alignment="0" pref="130" max="32767" attributes="1"/>
-                          <Component id="btnProcesosCalidadAtrasados3" alignment="0" max="32767" attributes="1"/>
+                          <Component id="btnProduccionEnEjecucion" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
@@ -996,7 +996,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnProcesosCalidadAtrasados">
+            <Component class="javax.swing.JButton" name="btnEjecutarProduccion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/canstock5501471.jpg"/>
@@ -1009,10 +1009,10 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadAtrasadosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEjecutarProduccionActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnProcesosCalidadAtrasados3">
+            <Component class="javax.swing.JButton" name="btnProduccionEnEjecucion">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -1022,7 +1022,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadAtrasados3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProduccionEnEjecucionActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton() {&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fproduccion.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}"/>
@@ -1101,13 +1101,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="btnLanzarProcesoCalidad1" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
-                      <Component id="btnLanzarProcesoCalidad2" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="btnProcesosCalidadAtrasados1" min="-2" pref="115" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnLanzarProcesoCalidad" min="-2" pref="115" max="-2" attributes="1"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnControlesCalidadEnEjecucion" min="-2" pref="115" max="-2" attributes="1"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnProcesosCalidadAtrasados" min="-2" pref="115" max="-2" attributes="1"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnProcesosCalidadListosParaLanzar" min="-2" pref="115" max="-2" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1116,9 +1118,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnLanzarProcesoCalidad1" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="btnLanzarProcesoCalidad2" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="btnProcesosCalidadAtrasados1" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Component id="btnProcesosCalidadListosParaLanzar" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Component id="btnProcesosCalidadAtrasados" alignment="0" min="-2" pref="130" max="-2" attributes="1"/>
+                          <Component id="btnControlesCalidadEnEjecucion" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnLanzarProcesoCalidad" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
@@ -1126,7 +1129,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnLanzarProcesoCalidad1">
+            <Component class="javax.swing.JButton" name="btnLanzarProcesoCalidad">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/fcalidad2.png"/>
@@ -1139,11 +1142,9 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnProcesosCalidadAtrasados1">
+            <Component class="javax.swing.JButton" name="btnProcesosCalidadAtrasados">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/fcalidad.png"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=red size=+2&gt;&lt;/font&gt;&lt;/html&gt;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder justification="2" title="Procesos Atrasados"/>
@@ -1152,10 +1153,13 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadAtrasados1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadAtrasadosActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fcalidad.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
+              </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLanzarProcesoCalidad2">
+            <Component class="javax.swing.JButton" name="btnControlesCalidadEnEjecucion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/fEncalidad.png"/>
@@ -1167,6 +1171,23 @@
                 </Property>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnProcesosCalidadListosParaLanzar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=green size=+2&gt;&lt;/font&gt;&lt;/html&gt;"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="2" title="Procesos A Lanzar"/>
+                  </Border>
+                </Property>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadListosParaLanzarActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;//        try {&#xa;//            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fcalidad.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;//            setContentAreaFilled(false);&#xa;//        } catch (Exception e) {&#xa;//        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -1192,7 +1213,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnProduccion1">
+        <Component class="javax.swing.JButton" name="btnPresupuesto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/canstock4270980.jpg"/>

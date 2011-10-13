@@ -6,6 +6,7 @@ package metalsoft;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import metalsoft.presentacion.AbrirSesion;
@@ -25,6 +26,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
+//                JDialog.setDefaultLookAndFeelDecorated(true);
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 LookAndFeelManager.setLookAndFeel(Skins.Moderate);
                 AbrirSesion p = new AbrirSesion();

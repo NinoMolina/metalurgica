@@ -156,8 +156,8 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
          * lanzar la etapa que sigue segun el orden
          */
         if (!esUltimaEjecucionProcesoDePieza) {
-            GestorLanzarProximoProcesoCalidad gestorLanzarProximoProcesoCalidad = new GestorLanzarProximoProcesoCalidad();
-            gestorLanzarProximoProcesoCalidad.lanzarProximoProceso(detalleejecucionplanificacioncalidad, detalleplanificacioncalidad);
+//            GestorLanzarProximoProcesoCalidad gestorLanzarProximoProcesoCalidad = new GestorLanzarProximoProcesoCalidad();
+//            gestorLanzarProximoProcesoCalidad.lanzarProximoProceso(detalleejecucionplanificacioncalidad, detalleplanificacioncalidad);
         } else {
             /*
              * armar el producto real

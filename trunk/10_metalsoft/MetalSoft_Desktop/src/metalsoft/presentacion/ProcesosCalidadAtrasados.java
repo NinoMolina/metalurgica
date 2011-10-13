@@ -4,9 +4,9 @@
  */
 
 /*
- * EtapasProduccionAtrasadas.java
+ * ProcesosCalidadAtrasados.java
  *
- * Created on 09/10/2011, 19:24:02
+ * Created on 12/10/2011, 20:55:11
  */
 package metalsoft.presentacion;
 
@@ -24,10 +24,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
-import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
-import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
-import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.controller.EjecucionplanificacioncalidadJpaController;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -37,31 +37,31 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
+public class ProcesosCalidadAtrasados extends javax.swing.JDialog {
 
-    /** Creates new form EtapasProduccionAtrasadas */
+    /** Creates new form ProcesosCalidadAtrasados */
     private JButton btnNovedades;
-    private static EtapasProduccionAtrasadas instance;
-    private static List<Detalleejecucionplanificacion> filasEtapasAtrasadas;
+    private static ProcesosCalidadAtrasados instance;
+    private static List<Detalleejecucionplanificacioncalidad> filasProcesosAtrasados;
     private JButton btnSalir;
 
-    public EtapasProduccionAtrasadas() {
+    public ProcesosCalidadAtrasados() {
         super(Principal.getVtnPrincipal());
-//        filasEtapasAtrasadas = new ArrayList<Detalleejecucionplanificacion>();
         initComponents();
         addListeners();
         setearTablas();
         instance = this;
     }
 
-    public static EtapasProduccionAtrasadas getInstance() {
+    public static ProcesosCalidadAtrasados getInstance() {
         return instance;
     }
 
-    public static void setInstance(EtapasProduccionAtrasadas instance) {
-        EtapasProduccionAtrasadas.instance = instance;
+    public static void setInstance(ProcesosCalidadAtrasados instance) {
+        ProcesosCalidadAtrasados.instance = instance;
     }
 
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -71,44 +71,19 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEtapasAtrasadas = new org.jdesktop.swingx.JXTable();
-        btnSalirr1 = new metalsoft.beans.BtnSalirr();
         btnNovedades1 = new metalsoft.beans.BtnNovedades();
+        btnSalirr1 = new metalsoft.beans.BtnSalirr();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtNovedades = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProcesosAtrasados = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Etapas de Producción Atrasadas");
+        setTitle("Procesos de Calidad Atrasados");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas de Producción Atrasadas"));
-
-        tblEtapasAtrasadas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEtapasAtrasadasMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblEtapasAtrasadas);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Novedades de Producción"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Novedades"));
 
         txtNovedades.setColumns(20);
         txtNovedades.setLineWrap(true);
@@ -122,13 +97,38 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Procesos de Calidad Atrasados"));
+
+        tblProcesosAtrasados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProcesosAtrasadosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProcesosAtrasados);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -136,6 +136,7 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1021, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -143,12 +144,13 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNovedades1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 763, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 775, Short.MAX_VALUE)
                         .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 523, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,18 +166,18 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEtapasAtrasadasMouseClicked
-    int row = tblEtapasAtrasadas.getSelectedRow();
-    int col = tblEtapasAtrasadas.getSelectedColumn();
+private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProcesosAtrasadosMouseClicked
+    int row = tblProcesosAtrasados.getSelectedRow();
 
     if (row >= 0) {
-        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
-        EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-        Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = controller.findEjecucionplanificacionproduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
-        txtNovedades.setText(ejecucionplanificacionproduccion.getNovedades());
-//                    System.out.println(System.getProperty("line.separator").toString());
+        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
+        EjecucionplanificacioncalidadJpaController controller = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+        Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = controller.findEjecucionplanificacioncalidad(detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion());
+        txtNovedades.setText(ejecucionplanificacioncalidad.getNovedades());
     }
-}//GEN-LAST:event_tblEtapasAtrasadasMouseClicked
+}//GEN-LAST:event_tblProcesosAtrasadosMouseClicked
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnNovedades btnNovedades1;
     private metalsoft.beans.BtnSalirr btnSalirr1;
@@ -183,7 +185,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private org.jdesktop.swingx.JXTable tblEtapasAtrasadas;
+    private org.jdesktop.swingx.JXTable tblProcesosAtrasados;
     private javax.swing.JTextArea txtNovedades;
     // End of variables declaration//GEN-END:variables
 
@@ -205,13 +207,13 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
     }
 
     private void btnNovedadesActionPerformed(ActionEvent e) {
-        if (tblEtapasAtrasadas.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción");
+        if (tblProcesosAtrasados.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Proceso de Calidad");
             return;
         }
 
-        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
-        Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
+        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
+        Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
 
 
         JTextArea txtNuevaNovedad = new JTextArea(10, 50);
@@ -225,13 +227,13 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
         if (res == JOptionPane.OK_OPTION) {
             String nuevaNovedad = txtNuevaNovedad.getText();
-            nuevaNovedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + ": " + nuevaNovedad;
+            nuevaNovedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getNroejecucion().longValue()) + ": " + nuevaNovedad;
             nuevaNovedad += System.getProperty("line.separator") + System.getProperty("line.separator");
-            ejecucionplanificacionproduccion.setNovedades(ejecucionplanificacionproduccion.getNovedades() + nuevaNovedad);
+            ejecucionplanificacioncalidad.setNovedades(ejecucionplanificacioncalidad.getNovedades() + nuevaNovedad);
 
-            EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+            EjecucionplanificacioncalidadJpaController controller = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
             try {
-                controller.edit(ejecucionplanificacionproduccion);
+                controller.edit(ejecucionplanificacioncalidad);
                 txtNovedades.append(nuevaNovedad);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "No se pudo agregar las novedades.");
@@ -240,25 +242,25 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
     }
 
-    public static void setEtapasAtrasadas(Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas) {
-        Collection<Detalleejecucionplanificacion> collection = mapEtapasAtrasadas.values();
-        Iterator<Detalleejecucionplanificacion> it = collection.iterator();
-        Detalleejecucionplanificacion detalleejecucionplanificacion = null;
-        filasEtapasAtrasadas = new ArrayList<Detalleejecucionplanificacion>();
+    public static void setProcesosAtrasados(Map<Long, Detalleejecucionplanificacioncalidad> mapProcesosAtrasados) {
+        Collection<Detalleejecucionplanificacioncalidad> collection = mapProcesosAtrasados.values();
+        Iterator<Detalleejecucionplanificacioncalidad> it = collection.iterator();
+        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = null;
+        filasProcesosAtrasados = new ArrayList<Detalleejecucionplanificacioncalidad>();
         while (it.hasNext()) {
-            detalleejecucionplanificacion = it.next();
-            filasEtapasAtrasadas.add(detalleejecucionplanificacion);
+            detalleejecucionplanificacioncalidad = it.next();
+            filasProcesosAtrasados.add(detalleejecucionplanificacioncalidad);
         }
     }
 
     private void setearTablas() {
-        tblEtapasAtrasadas.setModel(new EtapaAtrasadaTableModel());
-        tblEtapasAtrasadas.setColumnControlVisible(true);
+        tblProcesosAtrasados.setModel(new ProcesoAtrasadoTableModel());
+        tblProcesosAtrasados.setColumnControlVisible(true);
         /* On supprime les traits des lignes et des colonnes */
-        tblEtapasAtrasadas.setShowHorizontalLines(false);
-        tblEtapasAtrasadas.setShowVerticalLines(false);
+        tblProcesosAtrasados.setShowHorizontalLines(false);
+        tblProcesosAtrasados.setShowVerticalLines(false);
         /* On dit de surligner une ligne sur deux */
-        tblEtapasAtrasadas.setHighlighters(
+        tblProcesosAtrasados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
@@ -277,7 +279,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         this.dispose();
     }
 
-    class EtapaAtrasadaTableModel extends AbstractTableModel {
+    class ProcesoAtrasadoTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nro",
             "Etapa",
@@ -293,17 +295,17 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            Detalleejecucionplanificacion d = filasEtapasAtrasadas.get(rowIndex);
-            Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(d.getId());
+            Detalleejecucionplanificacioncalidad d = filasProcesosAtrasados.get(rowIndex);
+            Detalleplanificacioncalidad detalleplanificacioncalidad = JpaUtil.getDetalleplanificacioncalidadPorIdDetalleejecucion(d.getIddetalle());
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, d.getEjecucionetapa().getNroejecucion());
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, d.getEjecucionprocesocalidad().getNroejecucion().longValue());
                 case 1:
-                    return d.getIdetapaproduccion().getNombre();
+                    return d.getIdprocesocalidad().getNombre();
                 case 2:
-                    Date fechaInicioPlanif = detalleplanificacionproduccion.getFechainicio();
-                    Date horaInicioPlanif = detalleplanificacionproduccion.getHorainicio();
+                    Date fechaInicioPlanif = detalleplanificacioncalidad.getFechainicio();
+                    Date horaInicioPlanif = detalleplanificacioncalidad.getHorainicio();
                     fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
                     fechaInicioPlanif.setMinutes(horaInicioPlanif.getMinutes());
                     fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
@@ -317,30 +319,30 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
                     return Fecha.parseToStringFechaHora(fechaInicioReal);
                 case 4:
-                    Date fechaFinPlanif = detalleplanificacionproduccion.getFechafin();
-                    Date horaFinPlanif = detalleplanificacionproduccion.getHorafin();
+                    Date fechaFinPlanif = detalleplanificacioncalidad.getFechafin();
+                    Date horaFinPlanif = detalleplanificacioncalidad.getHorafin();
                     fechaFinPlanif.setHours(horaFinPlanif.getHours());
                     fechaFinPlanif.setMinutes(horaFinPlanif.getMinutes());
                     fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
 
                     return Fecha.parseToStringFechaHora(fechaFinPlanif);
                 case 5:
-                    return d.getEjecucionetapa().getEmpleado().getNombre() + " " + d.getEjecucionetapa().getEmpleado().getApellido();
+                    return d.getEjecucionprocesocalidad().getEmpleado().getNombre() + " " + d.getEjecucionprocesocalidad().getEmpleado().getApellido();
                 case 6:
-                    if (d.getEjecucionetapa().getMaquina() == null) {
+                    if (d.getEjecucionprocesocalidad().getMaquina() == null) {
                         return "";
                     } else {
-                        return d.getEjecucionetapa().getMaquina().getNombre();
+                        return d.getEjecucionprocesocalidad().getMaquina().getNombre();
                     }
 
                 case 7:
                     return d.getPieza().getNombre();
                 case 8:
-                    return detalleplanificacionproduccion.getIdproducto().getNombre();
+                    return detalleplanificacioncalidad.getProducto().getNombre();
                 case 9:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacioncalidad.getIdplanificacioncalidad().getPedido().getNropedido());
                 case 10:
-                    return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
+                    return detalleplanificacioncalidad.getIdplanificacioncalidad().getPedido().getCliente().getRazonsocial();
                 default:
                     return null;
             }
@@ -355,8 +357,8 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         }
 
         public int getRowCount() {
-            if (filasEtapasAtrasadas != null) {
-                return filasEtapasAtrasadas.size();
+            if (filasProcesosAtrasados != null) {
+                return filasProcesosAtrasados.size();
             }
             return 0;
         }
@@ -372,4 +374,5 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
         }
     }
+    
 }
