@@ -30,7 +30,10 @@ import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.DetallemantenimientopreventivoJpaController;
+import metalsoft.datos.jpa.controller.ProveedormantenimientomaquinaJpaController;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -170,6 +173,25 @@ public class GestorMantenimientoPreventivo {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void obtenerProveedoresMantenimiento(JComboBox combo) {
+        try {
+            List<Proveedormantenimientomaquina> proveedores = null;
+            ProveedormantenimientomaquinaJpaController controller = new ProveedormantenimientomaquinaJpaController(JpaUtil.getEntityManagerFactory());
+            proveedores = controller.findProveedormantenimientomaquinaEntities();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Proveedormantenimientomaquina prov : proveedores) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(prov.getIdproveedormantenimiento()));
+                item.setMostrar(prov.getRazonsocial());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void obtenerMaquinas(JComboBox combo, long id) {
 
@@ -249,5 +271,31 @@ public class GestorMantenimientoPreventivo {
             return false;
         }
         return true;
+    }
+    
+    public List<Mantenimientopreventivo> buscarMantenimientosHastaFechaActual() {
+        String fecha=Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy");
+        return JpaUtil.getMantenimientopreventivoHastaFechaActual(fecha);
+    }
+    
+    public Proveedormantenimientomaquina getProveedorById(long id){
+        ProveedormantenimientomaquinaJpaController con = new ProveedormantenimientomaquinaJpaController(JpaUtil.getEntityManagerFactory());
+        return con.findProveedormantenimientomaquina(id);
+    }
+    
+    public long registrarEnvioMantenimientoPreventivo(Mantenimientopreventivo man) {
+        MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        
+        try {
+            controller.edit(man);
+            
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return man.getIdmantenimientopreventivo();
     }
 }
