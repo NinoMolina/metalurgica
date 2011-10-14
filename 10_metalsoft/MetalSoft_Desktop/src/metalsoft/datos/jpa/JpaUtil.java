@@ -523,8 +523,9 @@ public class JpaUtil {
 
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
-                + "from mantenimientopreventivo m "
-                + "WHERE CAST(m.maquina as VARCHAR) LIKE '" + nro + "%' "
+                + "from mantenimientopreventivo m, maquina maq "
+                + "WHERE maq.idmaquina=m.maquina "
+                + "CAST(maq.idmaquina as VARCHAR) LIKE '" + nro + "%' "
                 + "AND m.estado >= 2";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
@@ -537,9 +538,10 @@ public class JpaUtil {
     public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroProveedorLIKE(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
-        String sql = "Select * "
-                + "from mantenimientopreventivo m "
-                + "WHERE CAST(m.proveedormantenimiento as VARCHAR) LIKE '" + nro + "%' "
+        String sql = "Select m.* "
+                + "from mantenimientopreventivo m, proveedormantenimientomaquina p "
+                + "WHERE m.proveedormantenimiento=p.idproveedormantenimiento "
+                + "AND CAST(p.nroproveedor as VARCHAR) LIKE '" + nro + "%' "
                 + "AND m.estado >= 2";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
