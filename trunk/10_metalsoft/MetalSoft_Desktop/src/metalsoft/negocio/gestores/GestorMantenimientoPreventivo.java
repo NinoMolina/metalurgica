@@ -212,6 +212,26 @@ public class GestorMantenimientoPreventivo {
             Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void obtenerMaquinas(JComboBox combo) {
+
+        try {
+            List<Maquina> maquinas = null;
+            MaquinaJpaController controller = new MaquinaJpaController(JpaUtil.getEntityManagerFactory());
+            maquinas = controller.findMaquinaEntities();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Maquina maq : maquinas) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(maq.getIdmaquina()));
+                item.setMostrar(maq.getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void obtenerServicios(JComboBox combo) {
         try {
@@ -297,5 +317,22 @@ public class GestorMantenimientoPreventivo {
             return -1;
         }
         return man.getIdmantenimientopreventivo();
+    }
+    
+    //buscar mantenimientos enviados
+    public List<Mantenimientopreventivo> buscarEnviadosEntreFechas(String inicio, String fin) {
+        return JpaUtil.getMantenimientopreventivoEnviadoPorFecha(inicio, fin);
+    }
+
+    public List<Mantenimientopreventivo> buscarEnviadosPorNro(String nro) {
+        return JpaUtil.getMantenimientopreventivoEnviadoPorNroLIKE(nro);
+    }
+    
+    public List<Mantenimientopreventivo> buscarEnviadosPorProveedor(String nro) {
+        return JpaUtil.getMantenimientopreventivoEnviadoPorNroProveedorLIKE(nro);
+    }
+
+    public List<Mantenimientopreventivo> buscarEnviadosPorMaquina(String nro) {
+        return JpaUtil.getMantenimientopreventivoEnviadoPorNroMaquinaLIKE(nro);
     }
 }
