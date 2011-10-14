@@ -488,6 +488,67 @@ public class JpaUtil {
         }
     }
 
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorFecha(String inicio, String fin) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "where m.fechaenviomantenimiento>='" + inicio + "' "
+                + "and m.fechaenviomantenimiento<='" + fin + "' "
+                + "AND m.estado >= 2";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "WHERE CAST(m.nromantenimietno as VARCHAR) LIKE '" + nro + "%' "
+                + "AND m.estado >= 2";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroMaquinaLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "WHERE CAST(m.maquina as VARCHAR) LIKE '" + nro + "%' "
+                + "AND m.estado >= 2";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroProveedorLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientopreventivo m "
+                + "WHERE CAST(m.proveedormantenimiento as VARCHAR) LIKE '" + nro + "%' "
+                + "AND m.estado >= 2";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
     public static List<Detallemantenimientopreventivo> getDetalleMantenimientopreventivo(String id) {
 
         EntityManager em = JpaUtil.getEntityManager();
