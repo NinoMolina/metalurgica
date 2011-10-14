@@ -120,6 +120,7 @@
     <class>metalsoft.datos.jpa.entity.Accioncalidad</class>
     <class>metalsoft.datos.jpa.entity.Estadodetalletrabajotercerizado</class>
     <class>metalsoft.datos.jpa.entity.Detallerequerimientosmateriaprima</class>
+    <class>metalsoft.datos.jpa.entity.Estadomantpreventivo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/metalsoft"/>
       <property name="javax.persistence.jdbc.password" value="admin"/>
