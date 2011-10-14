@@ -15,10 +15,11 @@ package metalsoft.presentacion;
  *
  * @author Lorreine Prescott
  */
-public class BotonRapidoPresupuesto extends javax.swing.JFrame {
+public class BotonRapidoPresupuesto extends javax.swing.JDialog {
 
     /** Creates new form BotonRapidoPresupuesto */
     public BotonRapidoPresupuesto() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 
