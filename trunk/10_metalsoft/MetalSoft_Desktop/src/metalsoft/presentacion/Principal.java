@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.sound.midi.SysexMessage;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import metalsoft.Main;
@@ -419,7 +418,6 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEtapasAtrasadas.setText("<html><font color=red size=+2></font></html>");
-        btnEtapasAtrasadas.setActionCommand("");
         btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
@@ -429,7 +427,6 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEtapasListasParaLanzar.setText("<html><font color=green size=+2></font></html>");
-        btnEtapasListasParaLanzar.setActionCommand("");
         btnEtapasListasParaLanzar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas A Lanzar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEtapasListasParaLanzar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasListasParaLanzar.addActionListener(new java.awt.event.ActionListener() {
@@ -541,6 +538,11 @@ public class Principal extends javax.swing.JFrame {
         btnPresupuesto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Presupuesto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnPresupuesto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPresupuesto.setPreferredSize(new java.awt.Dimension(191, 181));
+        btnPresupuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPresupuestoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlImagenLayout = new javax.swing.GroupLayout(pnlImagen);
         pnlImagen.setLayout(pnlImagenLayout);
@@ -1984,6 +1986,19 @@ private void btnEtapasListasParaLanzarActionPerformed(java.awt.event.ActionEvent
 private void btnProcesosCalidadListosParaLanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadListosParaLanzarActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_btnProcesosCalidadListosParaLanzarActionPerformed
+
+private void btnPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoActionPerformed
+
+    try{
+        JFrameManager.crearVentana(BotonRapidoPresupuesto.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_btnPresupuestoActionPerformed
     /**
      * @param args the command line arguments
      */
