@@ -125,8 +125,12 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         this.cmbProveedor.setSelectedIndex(0);
         limpiarTablaDetalleOrden();
         opcion = EnumOpcionesABM.NUEVO;
-        String numOrden = gestor.generarNuevoNumeroOrden();
-        this.txtNroOrden.setText(numOrden);
+        int numOrden=Integer.parseInt(gestor.generarNuevoNumeroOrden());
+        if (numOrden==0){
+            numOrden ++;
+        }
+        String orden = "" +numOrden;
+        this.txtNroOrden.setText(orden);
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
@@ -160,7 +164,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         return null;
     }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {        
         boolean validarProveedor = validar();
         if(!validarProveedor)
             return;
@@ -192,6 +196,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar", JOptionPane.ERROR_MESSAGE);
         }
+        this.txtNroOrden.setText("");
     }
 
     private void addListenerBtnModificar() {
