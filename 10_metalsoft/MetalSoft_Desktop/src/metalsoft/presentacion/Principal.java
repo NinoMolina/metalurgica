@@ -253,6 +253,8 @@ public class Principal extends javax.swing.JFrame {
         mniEmpresaMantenimiento = new javax.swing.JMenuItem();
         mniTipoMaquina = new javax.swing.JMenuItem();
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
+        mniRegistrarEnvioManPrev = new javax.swing.JMenuItem();
+        mniConsultarEnviosManPrev = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
         mniReportesReclamos = new javax.swing.JMenuItem();
@@ -1047,6 +1049,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuMantenimiento.add(mniMantenimientoPreventivo);
+
+        mniRegistrarEnvioManPrev.setText("Enviar Mantenimiento Preventivo");
+        mniRegistrarEnvioManPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarEnvioManPrevActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniRegistrarEnvioManPrev);
+
+        mniConsultarEnviosManPrev.setText("Consultar Mantenimientos Preventivos enviados");
+        mniConsultarEnviosManPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultarEnviosManPrevActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniConsultarEnviosManPrev);
 
         mbrMenu.add(mnuMantenimiento);
 
@@ -2009,6 +2027,31 @@ private void btnPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GE
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnPresupuestoActionPerformed
+
+private void mniRegistrarEnvioManPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarEnvioManPrevActionPerformed
+
+    try {
+        JFrameManager.crearVentana(RegistrarEnvioMantenimientoPreventivo.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniRegistrarEnvioManPrevActionPerformed
+
+private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultarEnviosManPrevActionPerformed
+    try {
+        JFrameManager.crearVentana(ConsultarEnvioMantenimientoPreventivo.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniConsultarEnviosManPrevActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -2061,6 +2104,7 @@ private void btnPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem mniCobros;
     private javax.swing.JMenuItem mniCondicionIva;
     private javax.swing.JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados;
+    private javax.swing.JMenuItem mniConsultarEnviosManPrev;
     private javax.swing.JMenuItem mniConsultarFacturas;
     private javax.swing.JMenuItem mniConsultarRemitos;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
@@ -2091,6 +2135,7 @@ private void btnPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem mniRegistrarAsistencia;
     private javax.swing.JMenuItem mniRegistrarConfirmacionPedido;
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
+    private javax.swing.JMenuItem mniRegistrarEnvioManPrev;
     private javax.swing.JMenuItem mniRegistrarIngresoCotizacionTrabajo;
     private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
