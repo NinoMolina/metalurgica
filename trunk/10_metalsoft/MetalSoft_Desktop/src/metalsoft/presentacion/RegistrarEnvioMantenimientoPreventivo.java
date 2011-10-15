@@ -383,7 +383,7 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         long result = 0;
         Mantenimientopreventivo man = listaMantenimientos.get(tblMantenimientos.getSelectedRow());
         man.setFechaenviomantenimiento(Fecha.parseToDate(Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy")));
-        
+        man.setEstado(gestor.buscarEstadoByID(2));
         Date hms=Fecha.fechaActualDate();
             
         man.setHoraenviomantenimiento(hms);
