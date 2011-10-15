@@ -35,7 +35,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
     private List<Detallemantenimientopreventivo> listaDetalle;
     private List<Mantenimientopreventivo> listaMantenimientos;
     private GestorMantenimientoPreventivo gestor;
-    
+
     public ConsultarEnvioMantenimientoPreventivo() {
         super(Principal.getVtnPrincipal());
         initComponents();
@@ -53,12 +53,12 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         cmbProveedores.removeAllItems();
         gestor.obtenerProveedoresMantenimiento(cmbProveedores);
     }
-    
+
     public void cargarComboMaquinas() {
         cmbProveedores.removeAllItems();
         gestor.obtenerMaquinas(cmbmaquina);
     }
-    
+
     private void setearTablas() {
         //Detalle 
         tblDetalleMantenimiento.setModel(new DetalleTableModel());
@@ -123,6 +123,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -474,14 +475,13 @@ private void tblMantenimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     // TODO add your handling code here:
     if (tblMantenimientos.getSelectedRow() > -1) {
         btnSeleccionar1.getBtnSeleccionar().setEnabled(true);
-        if(!((ItemCombo)cmbProveedores.getSelectedItem()).getId().equals("-1")){
+        if (!((ItemCombo) cmbProveedores.getSelectedItem()).getId().equals("-1")) {
             btnconfirmar.setEnabled(true);
         }
     }
 }//GEN-LAST:event_tblMantenimientosMouseClicked
 
 private void tblDetalleMantenimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMantenimientoMouseClicked
-
 }//GEN-LAST:event_tblDetalleMantenimientoMouseClicked
 
 private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
@@ -489,11 +489,11 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         long result = 0;
         Mantenimientopreventivo man = listaMantenimientos.get(tblMantenimientos.getSelectedRow());
         man.setFechaenviomantenimiento(Fecha.parseToDate(Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy")));
-        
-        Date hms=Fecha.fechaActualDate();
-            
+
+        Date hms = Fecha.fechaActualDate();
+
         man.setHoraenviomantenimiento(hms);
-        Proveedormantenimientomaquina pro=gestor.getProveedorById(Long.parseLong(((ItemCombo)cmbProveedores.getSelectedItem()).getId()));
+        Proveedormantenimientomaquina pro = gestor.getProveedorById(Long.parseLong(((ItemCombo) cmbProveedores.getSelectedItem()).getId()));
         man.setProveedormantenimiento(pro);
         result = gestor.registrarEnvioMantenimientoPreventivo(man);
         if (result > 0) {
@@ -528,7 +528,7 @@ private void txtNroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void txtNroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroKeyReleased
 // TODO add your handling code here:
-    listaMantenimientos=gestor.buscarPorNro(txtNro.getText());
+    listaMantenimientos = gestor.buscarPorNro(txtNro.getText());
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtNroKeyReleased
 
@@ -540,34 +540,34 @@ private void rbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     txtNro.setText("");
     cmbProveedores.setEnabled(false);
     cmbmaquina.setEnabled(false);
-    String inicio=Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
-    String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos=gestor.buscarEntreFechas(inicio, fin);
+    String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
+    String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
+    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_rbFechaActionPerformed
 
 private void txtFechaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaAltaActionPerformed
 // TODO add your handling code here:
-    String inicio=Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
-    String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos=gestor.buscarEntreFechas(inicio, fin);
+    String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
+    String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
+    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtFechaAltaActionPerformed
 
 private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaBajaActionPerformed
 // TODO add your handling code here:
-    String inicio=Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
-    String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos=gestor.buscarEntreFechas(inicio, fin);
+    String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
+    String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
+    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtFechaBajaActionPerformed
 
 private void cmbProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedoresActionPerformed
 // TODO add your handling code here:
-    if (tblMantenimientos.getSelectedRow() > -1) {
-        if(!((ItemCombo)cmbProveedores.getSelectedItem()).getId().equals("-1")){
-            btnconfirmar.setEnabled(true);
-        }
+    String nro = ((ItemCombo) cmbProveedores.getSelectedItem()).getId();
+    if (!nro.equals("-1")) {
+        listaMantenimientos = gestor.buscarEnviadosPorProveedor(nro);
+        tblMantenimientos.updateUI();
     }
 }//GEN-LAST:event_cmbProveedoresActionPerformed
 
@@ -592,8 +592,11 @@ private void rbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_rbProveedorActionPerformed
 
 private void cmbmaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbmaquinaActionPerformed
-// TODO add your handling code here:
-
+    String nro = ((ItemCombo) cmbmaquina.getSelectedItem()).getId();
+    if (!nro.equals("-1")) {
+        listaMantenimientos = gestor.buscarEnviadosPorMaquina(nro);
+        tblMantenimientos.updateUI();
+    }
 }//GEN-LAST:event_cmbmaquinaActionPerformed
 
     /**
@@ -667,7 +670,8 @@ private void cmbmaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private org.jdesktop.swingx.JXDatePicker txtFechaBaja;
     private javax.swing.JTextField txtNro;
     // End of variables declaration//GEN-END:variables
-class MantenimientoPreventivoTableModel extends AbstractTableModel {
+
+    class MantenimientoPreventivoTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nro. Mantenimiento", "Fecha Prevista", "Maquina", "Proveedor", "Período", "Duración horas"};
 
