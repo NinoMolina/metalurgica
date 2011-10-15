@@ -21,7 +21,9 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JViewport;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
@@ -30,6 +32,7 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
+import metalsoft.util.JTableUtils;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -73,7 +76,24 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEtapasAtrasadas = new org.jdesktop.swingx.JXTable();
+        tblEtapasAtrasadas = new org.jdesktop.swingx.JXTable() {
+
+            public boolean getScrollableTracksViewportWidth() {
+
+                if (autoResizeMode != AUTO_RESIZE_OFF) {
+
+                    if (getParent() instanceof JViewport) {
+
+                        return (((JViewport) getParent()).getWidth() > getPreferredSize().width);
+
+                    }
+
+                }
+
+                return false;
+
+            }
+        };
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
         btnNovedades1 = new metalsoft.beans.BtnNovedades();
         jPanel2 = new javax.swing.JPanel();
@@ -260,6 +280,8 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         /* On dit de surligner une ligne sur deux */
         tblEtapasAtrasadas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+//        tblEtapasAtrasadas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        JTableUtils.packColumns(tblEtapasAtrasadas);
     }
 
     private void addListenerBtnSalir() {
