@@ -96,6 +96,9 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEtapasAtrasadasMouseClicked"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new org.jdesktop.swingx.JXTable() {&#xa;&#xa;    public boolean getScrollableTracksViewportWidth() {&#xa;&#xa;        if (autoResizeMode != AUTO_RESIZE_OFF) {&#xa;&#xa;            if (getParent() instanceof JViewport) {&#xa;&#xa;                return (((JViewport) getParent()).getWidth() &gt; getPreferredSize().width);&#xa;&#xa;            }&#xa;&#xa;        }&#xa;&#xa;        return false;&#xa;&#xa;    }&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
