@@ -887,6 +887,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         mantenimientop.setPeriodo(BigInteger.valueOf(Long.parseLong(periodo)));
         mantenimientop.setDuraciontotal(duracion);
         mantenimientop.setFechamantenimientoprevisto(fechaProxMantenimiento);
+        mantenimientop.setEstado(gestor.buscarEstadoByID(1));
         return mantenimientop;
     }
 
