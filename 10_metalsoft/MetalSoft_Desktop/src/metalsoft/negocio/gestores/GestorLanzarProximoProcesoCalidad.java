@@ -56,7 +56,7 @@ public class GestorLanzarProximoProcesoCalidad {
         }
     }
 
-    private void lanzarEjecucionProcesoCalidad(Detalleejecucionplanificacioncalidad detalleEjecPlanifCalidad) throws Exception {
+    public void lanzarEjecucionProcesoCalidad(Detalleejecucionplanificacioncalidad detalleEjecPlanifCalidad) throws Exception {
         
         DetalleejecucionplanificacioncalidadJpaController detalleejecucionplanificacioncalidadJpaController = new DetalleejecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
         EjecucionprocesocalidadJpaController ejecucionprocesocalidadJpaController = new EjecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());

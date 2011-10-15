@@ -1984,12 +1984,22 @@ private void btnEtapasListasParaLanzarActionPerformed(java.awt.event.ActionEvent
 }//GEN-LAST:event_btnEtapasListasParaLanzarActionPerformed
 
 private void btnProcesosCalidadListosParaLanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosCalidadListosParaLanzarActionPerformed
-// TODO add your handling code here:
+    try {
+        ProcesosCalidadListosParaLanzar.setProcesosALanzar(mapProcesosListosParaLanzar);
+        ProcesosCalidadListosParaLanzar.setVtnPrincipal(vtnPrincipal);
+        JFrameManager.crearVentana(ProcesosCalidadListosParaLanzar.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnProcesosCalidadListosParaLanzarActionPerformed
 
 private void btnPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoActionPerformed
 
-    try{
+    try {
         JFrameManager.crearVentana(BotonRapidoPresupuesto.class.getName());
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

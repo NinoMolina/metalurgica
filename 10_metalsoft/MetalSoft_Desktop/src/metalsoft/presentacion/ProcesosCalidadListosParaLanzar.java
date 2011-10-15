@@ -10,15 +10,88 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
+import metalsoft.negocio.gestores.GestorLanzarProximoProcesoCalidad;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+
 /**
  *
  * @author Nino
  */
-public class ProcesosCalidadListosParaLanzar extends javax.swing.JFrame {
+public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
 
     /** Creates new form ProcesosCalidadListosParaLanzar */
+    private static List<Detalleplanificacioncalidad> filasProcesosCalidad;
+    private static Principal vtnPrincipal;
+    private JButton btnSalir;
+    private GestorLanzarProximoProcesoCalidad gestor;
+
     public ProcesosCalidadListosParaLanzar() {
+        super(Principal.getVtnPrincipal());
         initComponents();
+        gestor = new GestorLanzarProximoProcesoCalidad();
+        initComponents();
+        addListeners();
+        setearTablas();
+    }
+
+    public static void setVtnPrincipal(Principal vtnPrincipal) {
+        ProcesosCalidadListosParaLanzar.vtnPrincipal = vtnPrincipal;
+    }
+
+    private void addListeners() {
+        addListenerBtnSalir();
+    }
+
+    private void setearTablas() {
+        tblProcesosDeCalidad.setModel(new ProcesoCalidadALanzarTableModel());
+        tblProcesosDeCalidad.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblProcesosDeCalidad.setShowHorizontalLines(false);
+        tblProcesosDeCalidad.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblProcesosDeCalidad.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+    }
+
+    private void addListenerBtnSalir() {
+        btnSalir = btnSalirr1.getBtnSalir();
+        btnSalir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnSalirActionPerformed(e);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+    public static void setProcesosALanzar(Map<Long, Detalleplanificacioncalidad> mapProcesosALanzar) {
+        Collection<Detalleplanificacioncalidad> collection = mapProcesosALanzar.values();
+        Iterator<Detalleplanificacioncalidad> it = collection.iterator();
+        Detalleplanificacioncalidad detalleplanificacioncalidad = null;
+        filasProcesosCalidad = new ArrayList<Detalleplanificacioncalidad>();
+        while (it.hasNext()) {
+            detalleplanificacioncalidad = it.next();
+            filasProcesosCalidad.add(detalleplanificacioncalidad);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -30,57 +103,189 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProcesosDeCalidad = new org.jdesktop.swingx.JXTable();
+        btnEjecutarProcesoCalidad = new javax.swing.JButton();
+        btnSalirr1 = new metalsoft.beans.BtnSalirr();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Procesos de Calidad Listos para Ejecutar");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Procesos de Calidad Listos para Ejecutar"));
+
+        jScrollPane1.setViewportView(tblProcesosDeCalidad);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnEjecutarProcesoCalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
+        btnEjecutarProcesoCalidad.setText("Ejecutar Proceso de Calidad");
+        btnEjecutarProcesoCalidad.setActionCommand("Ejecutar Proceso de Calidad");
+        btnEjecutarProcesoCalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarProcesoCalidadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 984, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEjecutarProcesoCalidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 712, Short.MAX_VALUE)
+                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 344, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEjecutarProcesoCalidad)
+                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProcesosCalidadListosParaLanzar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProcesosCalidadListosParaLanzar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProcesosCalidadListosParaLanzar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProcesosCalidadListosParaLanzar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+private void btnEjecutarProcesoCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarProcesoCalidadActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new ProcesosCalidadListosParaLanzar().setVisible(true);
-            }
-        });
+    if (tblProcesosDeCalidad.getSelectedRow() < 0) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso de calidad a lanzar");
+        return;
     }
+
+    Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(tblProcesosDeCalidad.getSelectedRow());
+    try {
+        gestor.lanzarEjecucionProcesoCalidad(detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad());
+        filasProcesosCalidad.remove(tblProcesosDeCalidad.getSelectedRow());
+        tblProcesosDeCalidad.updateUI();
+        /*
+         * quitar de las etapas a lanzar del boton de la ventana principal
+         */
+
+        vtnPrincipal.eliminarProcesoALanzar(detalleplanificacioncalidad.getIddetalle());
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "No se pudo lanzar el proceso de calidad!");
+        ex.printStackTrace();
+    }
+}//GEN-LAST:event_btnEjecutarProcesoCalidadActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEjecutarProcesoCalidad;
+    private metalsoft.beans.BtnSalirr btnSalirr1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private org.jdesktop.swingx.JXTable tblProcesosDeCalidad;
     // End of variables declaration//GEN-END:variables
+
+    class ProcesoCalidadALanzarTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Nro",
+            "Proceso Calidad",
+            "Inicio Planif.",
+            "Fin Planif.",
+            "Empleado",
+            "Máquina",
+            "Pieza",
+            "Producto",
+            "Pedido",
+            "Cliente"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getNroejecucion().longValue());
+                case 1:
+                    return detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getIdprocesocalidad().getNombre();
+                case 2:
+                    Date fechaInicioPlanif = detalleplanificacioncalidad.getFechainicio();
+                    Date horaInicioPlanif = detalleplanificacioncalidad.getHorainicio();
+                    fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
+                    fechaInicioPlanif.setMinutes(horaInicioPlanif.getMinutes());
+                    fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
+
+                    return Fecha.parseToStringFechaHora(fechaInicioPlanif);
+                case 3:
+                    Date fechaFinPlanif = detalleplanificacioncalidad.getFechafin();
+                    Date horaFinPlanif = detalleplanificacioncalidad.getHorafin();
+                    fechaFinPlanif.setHours(horaFinPlanif.getHours());
+                    fechaFinPlanif.setMinutes(horaFinPlanif.getMinutes());
+                    fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
+
+                    return Fecha.parseToStringFechaHora(fechaFinPlanif);
+                case 4:
+                    return detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getEmpleado().getNombre() + " " + detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getEmpleado().getApellido();
+                case 5:
+                    if (detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getMaquina() == null) {
+                        return "";
+                    } else {
+                        return detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getMaquina().getNombre();
+                    }
+
+                case 6:
+                    return detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad().getPieza().getNombre();
+                case 7:
+                    return detalleplanificacioncalidad.getProducto().getNombre();
+                case 8:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacioncalidad.getIdplanificacioncalidad().getPedido().getNropedido());
+                case 9:
+                    return detalleplanificacioncalidad.getIdplanificacioncalidad().getPedido().getCliente().getRazonsocial();
+                default:
+                    return null;
+            }
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasProcesosCalidad != null) {
+                return filasProcesosCalidad.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
 }
