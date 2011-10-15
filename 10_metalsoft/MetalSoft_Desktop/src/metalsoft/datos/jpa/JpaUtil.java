@@ -616,7 +616,8 @@ public class JpaUtil {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
                 + "from mantenimientopreventivo m "
-                + "where m.fechamantenimientoprevisto<='" + fecha + "' ";
+                + "where m.fechamantenimientoprevisto<='" + fecha + "' "
+                + "AND m.estado = 1";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
             return q.getResultList();
