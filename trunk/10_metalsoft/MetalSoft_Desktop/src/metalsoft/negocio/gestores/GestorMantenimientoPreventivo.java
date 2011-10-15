@@ -30,8 +30,10 @@ import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.DetallemantenimientopreventivoJpaController;
+import metalsoft.datos.jpa.controller.EstadomantpreventivoJpaController;
 import metalsoft.datos.jpa.controller.ProveedormantenimientomaquinaJpaController;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Estadomantpreventivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.util.Fecha;
 
@@ -298,6 +300,11 @@ public class GestorMantenimientoPreventivo {
         return JpaUtil.getMantenimientopreventivoHastaFechaActual(fecha);
     }
     
+    public List<Mantenimientopreventivo> buscarMantenimientosEnviadosHastaFechaActual() {
+        String fecha=Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy");
+        return JpaUtil.getMantenimientopreventivoEnviadoHastaFechaActual(fecha);
+    }
+    
     public Proveedormantenimientomaquina getProveedorById(long id){
         ProveedormantenimientomaquinaJpaController con = new ProveedormantenimientomaquinaJpaController(JpaUtil.getEntityManagerFactory());
         return con.findProveedormantenimientomaquina(id);
@@ -334,5 +341,10 @@ public class GestorMantenimientoPreventivo {
 
     public List<Mantenimientopreventivo> buscarEnviadosPorMaquina(String nro) {
         return JpaUtil.getMantenimientopreventivoEnviadoPorNroMaquinaLIKE(nro);
+    }
+    
+    public Estadomantpreventivo buscarEstadoByID(long id){
+        EstadomantpreventivoJpaController con = new EstadomantpreventivoJpaController(JpaUtil.getEntityManagerFactory());
+        return con.findEstadomantpreventivo(id);
     }
 }
