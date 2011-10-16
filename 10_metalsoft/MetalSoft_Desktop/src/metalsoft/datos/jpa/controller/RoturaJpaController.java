@@ -12,7 +12,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
-import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class RoturaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Rotura rotura) throws PreexistingEntityException, Exception {
+    public void create(Rotura rotura) {
         if (rotura.getDetallemantenimientocorrectivoList() == null) {
             rotura.setDetallemantenimientocorrectivoList(new ArrayList<Detallemantenimientocorrectivo>());
         }
@@ -43,7 +42,7 @@ public class RoturaJpaController implements Serializable {
             em.getTransaction().begin();
             List<Detallemantenimientocorrectivo> attachedDetallemantenimientocorrectivoList = new ArrayList<Detallemantenimientocorrectivo>();
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach : rotura.getDetallemantenimientocorrectivoList()) {
-                detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach.getDetallemantenimientocorrectivoPK());
+                detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach.getIddetalle());
                 attachedDetallemantenimientocorrectivoList.add(detallemantenimientocorrectivoListDetallemantenimientocorrectivoToAttach);
             }
             rotura.setDetallemantenimientocorrectivoList(attachedDetallemantenimientocorrectivoList);
@@ -58,11 +57,6 @@ public class RoturaJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findRotura(rotura.getIdrotura()) != null) {
-                throw new PreexistingEntityException("Rotura " + rotura + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -80,7 +74,7 @@ public class RoturaJpaController implements Serializable {
             List<Detallemantenimientocorrectivo> detallemantenimientocorrectivoListNew = rotura.getDetallemantenimientocorrectivoList();
             List<Detallemantenimientocorrectivo> attachedDetallemantenimientocorrectivoListNew = new ArrayList<Detallemantenimientocorrectivo>();
             for (Detallemantenimientocorrectivo detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach : detallemantenimientocorrectivoListNew) {
-                detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach.getDetallemantenimientocorrectivoPK());
+                detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach = em.getReference(detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach.getClass(), detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach.getIddetalle());
                 attachedDetallemantenimientocorrectivoListNew.add(detallemantenimientocorrectivoListNewDetallemantenimientocorrectivoToAttach);
             }
             detallemantenimientocorrectivoListNew = attachedDetallemantenimientocorrectivoListNew;

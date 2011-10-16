@@ -7,6 +7,7 @@ package metalsoft.datos.jpa.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,6 +41,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Mantenimientocorrectivo.findByFechafinmantenimientoreal", query = "SELECT m FROM Mantenimientocorrectivo m WHERE m.fechafinmantenimientoreal = :fechafinmantenimientoreal"),
     @NamedQuery(name = "Mantenimientocorrectivo.findByMaquina", query = "SELECT m FROM Mantenimientocorrectivo m WHERE m.maquina = :maquina")})
 public class Mantenimientocorrectivo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -68,8 +70,8 @@ public class Mantenimientocorrectivo implements Serializable {
     @JoinColumn(name = "empleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado empleado;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mantenimientocorrectivo")
-    private Detallemantenimientocorrectivo detallemantenimientocorrectivo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idmantenimientocorrectivo")
+    private List<Detallemantenimientocorrectivo> detallemantenimientocorrectivoList;
 
     public Mantenimientocorrectivo() {
     }
@@ -150,12 +152,12 @@ public class Mantenimientocorrectivo implements Serializable {
         this.empleado = empleado;
     }
 
-    public Detallemantenimientocorrectivo getDetallemantenimientocorrectivo() {
-        return detallemantenimientocorrectivo;
+    public List<Detallemantenimientocorrectivo> getDetallemantenimientocorrectivoList() {
+        return detallemantenimientocorrectivoList;
     }
 
-    public void setDetallemantenimientocorrectivo(Detallemantenimientocorrectivo detallemantenimientocorrectivo) {
-        this.detallemantenimientocorrectivo = detallemantenimientocorrectivo;
+    public void setDetallemantenimientocorrectivoList(List<Detallemantenimientocorrectivo> detallemantenimientocorrectivoList) {
+        this.detallemantenimientocorrectivoList = detallemantenimientocorrectivoList;
     }
 
     @Override
@@ -182,5 +184,4 @@ public class Mantenimientocorrectivo implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Mantenimientocorrectivo[ idmantenimientocorrectivo=" + idmantenimientocorrectivo + " ]";
     }
-    
 }
