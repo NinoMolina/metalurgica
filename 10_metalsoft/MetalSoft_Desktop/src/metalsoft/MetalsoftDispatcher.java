@@ -55,6 +55,76 @@ public class MetalsoftDispatcher {
                 JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
             }
         }
+
+
+//        boolean lanzarHiloAvisoEtapaNoTerminada = false;
+//        boolean lanzarHiloEscuchadorFinEtapa = false;
+//        boolean lanzarHiloAvisoEtapaListaParaIniciar = false;
+//        boolean lanzarHiloAvisoProcesoCalidadNoTerminado = false;
+//        boolean lanzarHiloEscuchadorFinProcesoCalidad = false;
+//        boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar = false;
+//
+//        boolean usuarioConRol = false;
+//        for (Usuarioxrol usuarioxrol : lstUsuarioXRol) {
+//            String rol = usuarioxrol.getRol().getRol();
+//            if (rol.equals("OPERARIO")) {
+//                PrincipalOperario principalOperario = new PrincipalOperario();
+//                principalOperario.setVisible(true);
+//                principalOperario.setLocationRelativeTo(null);
+//
+//                usuarioConRol = true;
+//            } else if (rol.equals("ADMIN")) {
+//
+//                usuarioConRol = true;
+//
+//                lanzarHiloAvisoEtapaNoTerminada = true;
+//                lanzarHiloEscuchadorFinEtapa = true;
+//                lanzarHiloAvisoEtapaListaParaIniciar = true;
+//                lanzarHiloAvisoProcesoCalidadNoTerminado = true;
+//                lanzarHiloEscuchadorFinProcesoCalidad = true;
+//                lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
+//            }
+//        }
+//
+//        if (usuarioConRol) {
+//            Principal p = new Principal(usuario);
+//            p.setVisible(true);
+//            p.setLocationRelativeTo(null);
+//            lanzarHilos(lanzarHiloAvisoEtapaNoTerminada, lanzarHiloEscuchadorFinEtapa, lanzarHiloAvisoEtapaListaParaIniciar, lanzarHiloAvisoProcesoCalidadNoTerminado, lanzarHiloEscuchadorFinProcesoCalidad, lanzarHiloAvisoProcesoCalidadListoParaLanzar, p);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
+//        }
+
+
+
+    }
+
+    private static void lanzarHilos(boolean lanzarHiloAvisoEtapaNoTerminada,
+            boolean lanzarHiloEscuchadorFinEtapa,
+            boolean lanzarHiloAvisoEtapaListaParaIniciar,
+            boolean lanzarHiloAvisoProcesoCalidadNoTerminado,
+            boolean lanzarHiloEscuchadorFinProcesoCalidad,
+            boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar, Principal vtnPrincipal) {
+
+        if (lanzarHiloAvisoEtapaListaParaIniciar) {
+            lanzarHiloAvisoEtapaListaParaIniciar(vtnPrincipal);
+        }
+        if (lanzarHiloAvisoEtapaNoTerminada) {
+            lanzarHiloAvisoEtapaNoTerminada(vtnPrincipal);
+        }
+        if (lanzarHiloAvisoProcesoCalidadListoParaLanzar) {
+            lanzarHiloAvisoProcesoCalidadListoParaLanzar(vtnPrincipal);
+        }
+        if (lanzarHiloAvisoProcesoCalidadNoTerminado) {
+            lanzarHiloAvisoProcesoCalidadNoTerminado(vtnPrincipal);
+        }
+        if (lanzarHiloEscuchadorFinEtapa) {
+            lanzarHiloEscuchadorFinEtapa(vtnPrincipal);
+        }
+        if (lanzarHiloEscuchadorFinProcesoCalidad) {
+            lanzarHiloEscuchadorFinProcesoCalidad(vtnPrincipal);
+        }
+
     }
 
     private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
