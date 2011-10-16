@@ -525,7 +525,7 @@ public class JpaUtil {
         String sql = "Select * "
                 + "from mantenimientopreventivo m, maquina maq "
                 + "WHERE maq.idmaquina=m.maquina "
-                + "CAST(maq.idmaquina as VARCHAR) LIKE '" + nro + "%' "
+                + "AND CAST(maq.idmaquina as VARCHAR) LIKE '" + nro + "%' "
                 + "AND m.estado >= 2";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
