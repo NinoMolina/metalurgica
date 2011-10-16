@@ -29,6 +29,7 @@ import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
 import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Factura;
+import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
@@ -649,6 +650,83 @@ public class JpaUtil {
                 + "AND m.estado >= 2";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoHastaFechaActual(String fecha) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientocorrectivo m "
+                + "where m.fechaenviomantenimiento<='" + fecha + "' ";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoPorFecha(String inicio, String fin) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientocorrectivo m "
+                + "where m.fechaenviomantenimiento>='" + inicio + "' "
+                + "and m.fechaenviomantenimiento<='" + fin + "' "
+                + "AND NOT m.fechaenviomantenimiento ISNULL";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoPorNroLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientocorrectivo m "
+                + "WHERE CAST(m.nromantenimientocorrectivo as VARCHAR) LIKE '" + nro + "%' "
+                + "AND NOT m.fechaenviomantenimiento ISNULL";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoPorNroMaquinaLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from mantenimientocorrectivo m, maquina maq "
+                + "WHERE maq.idmaquina=m.maquina "
+                + "AND CAST(maq.idmaquina as VARCHAR) LIKE '" + nro + "%' "
+                + "and NOT m.fechaenviomantenimiento ISNULL";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoPorNroProveedorLIKE(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select m.* "
+                + "from mantenimientopreventivo m, proveedormantenimientomaquina p "
+                + "WHERE m.proveedormantenimiento=p.idproveedormantenimiento "
+                + "AND CAST(p.nroproveedor as VARCHAR) LIKE '" + nro + "%' "
+                + "AND NOT m.fechaenviomantenimiento ISNULL";
+        try {
+            Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
             return q.getResultList();
         } finally {
             em.close();
