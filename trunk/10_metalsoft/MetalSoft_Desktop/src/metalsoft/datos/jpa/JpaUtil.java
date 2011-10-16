@@ -4,6 +4,7 @@
  */
 package metalsoft.datos.jpa;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -636,6 +637,19 @@ public class JpaUtil {
         try {
             Query q = em.createNativeQuery(sql, Mantenimientopreventivo.class);
             return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static BigInteger getUltimoNroMantenimientoCorrectivo() {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT max(m.nromantenimientocorrectivo) "
+                + "FROM mantenimientocorrectivo m";
+        try {
+            Query q = em.createNativeQuery(sql, BigInteger.class);
+            return (BigInteger)q.getSingleResult();
         } finally {
             em.close();
         }
