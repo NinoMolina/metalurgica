@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.DetallemantenimientocorrectivoJpaController;
 import metalsoft.datos.jpa.controller.exceptions.IllegalOrphanException;
 import metalsoft.datos.jpa.controller.exceptions.NonexistentEntityException;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
@@ -30,11 +31,18 @@ import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
 import metalsoft.datos.jpa.controller.MaquinaJpaController;
 import metalsoft.datos.jpa.controller.DetallemantenimientopreventivoJpaController;
+import metalsoft.datos.jpa.controller.EmpleadoJpaController;
 import metalsoft.datos.jpa.controller.EstadomantpreventivoJpaController;
+import metalsoft.datos.jpa.controller.MantenimientocorrectivoJpaController;
 import metalsoft.datos.jpa.controller.ProveedormantenimientomaquinaJpaController;
+import metalsoft.datos.jpa.controller.RoturaJpaController;
+import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Estadomantpreventivo;
+import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
+import metalsoft.datos.jpa.entity.Rotura;
 import metalsoft.util.Fecha;
 
 /**
@@ -112,6 +120,22 @@ public class GestorMantenimientoPreventivo {
         }
         return mantenimientop.getIdmantenimientopreventivo();
     }
+    
+    public long guardarMantenimientoCorrectivo(Mantenimientocorrectivo mantenimientop, List<Detallemantenimientocorrectivo> lista) {
+        MantenimientocorrectivoJpaController controller = new MantenimientocorrectivoJpaController(JpaUtil.getEntityManagerFactory());
+        DetallemantenimientocorrectivoJpaController controllerDetalle = new DetallemantenimientocorrectivoJpaController(JpaUtil.getEntityManagerFactory());
+        try {
+            controller.create(mantenimientop);
+            for (Detallemantenimientocorrectivo de : lista) {
+                //de.setIdmantenimientopreventivo(mantenimientop);
+                controllerDetalle.create(de);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return mantenimientop.getIdmantenimientocorrectivo();
+    }
 
     public long modificarMantenimientoPreventivo(Mantenimientopreventivo mantenimientop, List<Detallemantenimientopreventivo> listaAgregar, List<Detallemantenimientopreventivo> listaQuitar) {
         MantenimientopreventivoJpaController controller = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
@@ -155,6 +179,11 @@ public class GestorMantenimientoPreventivo {
             }
         }
         return result;
+    }
+    public long nuevoNroMantenimientoCorrectivo(){
+//        MantenimientocorrectivoJpaController con=new MantenimientocorrectivoJpaController(JpaUtil.getEntityManagerFactory());
+//        List<Mantenimientocorrectivo> lis=con.findMantenimientocorrectivoEntities();
+        return AccessFunctions.nvoNroMantenimientoCorrectivo();
     }
 
     public void obtenerTiposMaquinas(JComboBox combo) {
@@ -346,5 +375,27 @@ public class GestorMantenimientoPreventivo {
     public Estadomantpreventivo buscarEstadoByID(long id){
         EstadomantpreventivoJpaController con = new EstadomantpreventivoJpaController(JpaUtil.getEntityManagerFactory());
         return con.findEstadomantpreventivo(id);
+    }
+    
+    public void cargarComboRoturas(JComboBox combo){
+        RoturaJpaController con=new RoturaJpaController(JpaUtil.getEntityManagerFactory());
+        List<Rotura> list=con.findRoturaEntities();
+        combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+        for(Rotura m : list){
+            combo.addItem(new ItemCombo(String.valueOf(m.getIdrotura()),m.getNombre()));
+        }
+    }
+    public void cargarComboEmpleado(JComboBox combo){
+        EmpleadoJpaController con=new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+        List<Empleado> list=con.findEmpleadoEntities();
+        combo.addItem(new ItemCombo("-1","--Seleccionar--"));
+        for(Empleado m : list){
+            combo.addItem(new ItemCombo(String.valueOf(m.getIdempleado()),m.getNombre()));
+        }
+    }
+    
+    public Rotura getRoturaById(long id){
+        RoturaJpaController con=new RoturaJpaController(JpaUtil.getEntityManagerFactory());
+        return con.findRotura(id);
     }
 }
