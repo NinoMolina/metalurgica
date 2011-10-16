@@ -107,7 +107,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
             lblDuracionTotal.setText(String.valueOf(man.getDuraciontotal()));
             lblMaquina.setText(gestor.obtenerMaquina(man.getMaquina().longValue()).getNombre());
             lblNroMantenimiento.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_PREVENTIVO, man.getNromantenimietno().longValue()));
-            dccFechaEnvio.setDate(null);
+            dccFechaEnvio.setDate(man.getFechaenviomantenimiento());
             dccFechaPrevista.setDate(man.getFechamantenimientoprevisto());
             lblPeriodo.setText(String.valueOf(man.getPeriodo() + " días"));
             listaDetalle = gestor.obtenerDetalleDeMantenimiento(String.valueOf(man.getIdmantenimientopreventivo()));
