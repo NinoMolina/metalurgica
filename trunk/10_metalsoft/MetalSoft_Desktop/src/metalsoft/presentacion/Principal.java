@@ -19,8 +19,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.Timer;
 import metalsoft.Main;
+import metalsoft.beans.JPanelTransparente;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
@@ -118,11 +122,11 @@ public class Principal extends javax.swing.JFrame {
         lblRol = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jPanelTransparente2 = new metalsoft.beans.JPanelTransparente();
+        pnlVentas = new metalsoft.beans.JPanelTransparente();
         btnCobros = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         btnNuevoCliente = new javax.swing.JButton();
-        jPanelTransparente3 = new metalsoft.beans.JPanelTransparente();
+        pnlProduccion = new metalsoft.beans.JPanelTransparente();
         btnEjecutarProduccion = new javax.swing.JButton();
         btnProduccionEnEjecucion = new javax.swing.JButton() {
 
@@ -161,7 +165,7 @@ public class Principal extends javax.swing.JFrame {
             }
         };
         jButton1 = new javax.swing.JButton();
-        jPanelTransparente4 = new metalsoft.beans.JPanelTransparente();
+        pnlCalidad = new metalsoft.beans.JPanelTransparente();
         btnLanzarProcesoCalidad = new javax.swing.JButton();
         btnProcesosCalidadAtrasados = new javax.swing.JButton(){
 
@@ -343,10 +347,10 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTransparente2.setBackground(new java.awt.Color(0, 255, 255));
-        jPanelTransparente2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
-        jPanelTransparente2.setPreferredSize(new java.awt.Dimension(450, 200));
-        jPanelTransparente2.setTran(0.1F);
+        pnlVentas.setBackground(new java.awt.Color(0, 255, 255));
+        pnlVentas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        pnlVentas.setPreferredSize(new java.awt.Dimension(450, 200));
+        pnlVentas.setTran(0.1F);
 
         btnCobros.setBackground(new java.awt.Color(255, 255, 255));
         btnCobros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcobros.png"))); // NOI18N
@@ -373,11 +377,11 @@ public class Principal extends javax.swing.JFrame {
         btnNuevoCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNuevoCliente.setPreferredSize(new java.awt.Dimension(191, 181));
 
-        javax.swing.GroupLayout jPanelTransparente2Layout = new javax.swing.GroupLayout(jPanelTransparente2);
-        jPanelTransparente2.setLayout(jPanelTransparente2Layout);
-        jPanelTransparente2Layout.setHorizontalGroup(
-            jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTransparente2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
+        pnlVentas.setLayout(pnlVentasLayout);
+        pnlVentasLayout.setHorizontalGroup(
+            pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVentasLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -386,21 +390,21 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnCobros, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-        jPanelTransparente2Layout.setVerticalGroup(
-            jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTransparente2Layout.createSequentialGroup()
+        pnlVentasLayout.setVerticalGroup(
+            pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelTransparente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCobros, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70))
         );
 
-        jPanelTransparente3.setBackground(new java.awt.Color(0, 255, 255));
-        jPanelTransparente3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
-        jPanelTransparente3.setPreferredSize(new java.awt.Dimension(450, 200));
-        jPanelTransparente3.setTran(0.1F);
+        pnlProduccion.setBackground(new java.awt.Color(0, 255, 255));
+        pnlProduccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        pnlProduccion.setPreferredSize(new java.awt.Dimension(450, 200));
+        pnlProduccion.setTran(0.1F);
 
         btnEjecutarProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock5501471.jpg"))); // NOI18N
         btnEjecutarProduccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Producción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -437,11 +441,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelTransparente3Layout = new javax.swing.GroupLayout(jPanelTransparente3);
-        jPanelTransparente3.setLayout(jPanelTransparente3Layout);
-        jPanelTransparente3Layout.setHorizontalGroup(
-            jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTransparente3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlProduccionLayout = new javax.swing.GroupLayout(pnlProduccion);
+        pnlProduccion.setLayout(pnlProduccionLayout);
+        pnlProduccionLayout.setHorizontalGroup(
+            pnlProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProduccionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEjecutarProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -452,11 +456,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnEtapasListasParaLanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanelTransparente3Layout.setVerticalGroup(
-            jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTransparente3Layout.createSequentialGroup()
+        pnlProduccionLayout.setVerticalGroup(
+            pnlProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProduccionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelTransparente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEjecutarProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE)
                     .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                     .addComponent(btnEtapasListasParaLanzar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
@@ -467,10 +471,10 @@ public class Principal extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/f3.png"))); // NOI18N
         jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cerrar Sesión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
 
-        jPanelTransparente4.setBackground(new java.awt.Color(0, 255, 255));
-        jPanelTransparente4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
-        jPanelTransparente4.setPreferredSize(new java.awt.Dimension(450, 200));
-        jPanelTransparente4.setTran(0.1F);
+        pnlCalidad.setBackground(new java.awt.Color(0, 255, 255));
+        pnlCalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(204, 255, 255))); // NOI18N
+        pnlCalidad.setPreferredSize(new java.awt.Dimension(450, 200));
+        pnlCalidad.setTran(0.1F);
 
         btnLanzarProcesoCalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fcalidad2.png"))); // NOI18N
         btnLanzarProcesoCalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Control", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -498,11 +502,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelTransparente4Layout = new javax.swing.GroupLayout(jPanelTransparente4);
-        jPanelTransparente4.setLayout(jPanelTransparente4Layout);
-        jPanelTransparente4Layout.setHorizontalGroup(
-            jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTransparente4Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlCalidadLayout = new javax.swing.GroupLayout(pnlCalidad);
+        pnlCalidad.setLayout(pnlCalidadLayout);
+        pnlCalidadLayout.setHorizontalGroup(
+            pnlCalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCalidadLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLanzarProcesoCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -513,11 +517,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnProcesosCalidadListosParaLanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanelTransparente4Layout.setVerticalGroup(
-            jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTransparente4Layout.createSequentialGroup()
+        pnlCalidadLayout.setVerticalGroup(
+            pnlCalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCalidadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelTransparente4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProcesosCalidadListosParaLanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcesosCalidadAtrasados, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnControlesCalidadEnEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -563,13 +567,13 @@ public class Principal extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlImagenLayout.createSequentialGroup()
                                         .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(122, 122, 122)
-                                        .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(117, 117, 117)
                                         .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlImagenLayout.createSequentialGroup()
-                                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pnlProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                                        .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(pnlCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(96, 96, 96)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -587,13 +591,13 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jPanelTransparente4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanelTransparente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlCalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelTransparente2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2052,9 +2056,6 @@ private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniConsultarEnviosManPrevActionPerformed
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2084,9 +2085,6 @@ private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
-    private metalsoft.beans.JPanelTransparente jPanelTransparente2;
-    private metalsoft.beans.JPanelTransparente jPanelTransparente3;
-    private metalsoft.beans.JPanelTransparente jPanelTransparente4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblReloj;
@@ -2162,7 +2160,10 @@ private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenu mnuReportes;
     private javax.swing.JMenu mnuTrabajosTercerizados;
     private javax.swing.JMenu mnuVentas;
+    private metalsoft.beans.JPanelTransparente pnlCalidad;
     private metalsoft.beans.JPanelBackground pnlImagen;
+    private metalsoft.beans.JPanelTransparente pnlProduccion;
+    private metalsoft.beans.JPanelTransparente pnlVentas;
     private javax.swing.JMenuItem registrarEmpleado;
     // End of variables declaration//GEN-END:variables
 
@@ -2372,5 +2373,688 @@ private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent
                 btnProcesosCalidadListosParaLanzar.setText(inicioHtml + "(" + (numero + 1) + ")" + finHtml);
             }
         }
+    }
+
+    /*
+     * ################################ GETERS AND SETERS ################################
+     */
+    public JButton getBtnCobros() {
+        return btnCobros;
+    }
+
+    public void setBtnCobros(JButton btnCobros) {
+        this.btnCobros = btnCobros;
+    }
+
+    public JButton getBtnControlesCalidadEnEjecucion() {
+        return btnControlesCalidadEnEjecucion;
+    }
+
+    public void setBtnControlesCalidadEnEjecucion(JButton btnControlesCalidadEnEjecucion) {
+        this.btnControlesCalidadEnEjecucion = btnControlesCalidadEnEjecucion;
+    }
+
+    public JButton getBtnEjecutarProduccion() {
+        return btnEjecutarProduccion;
+    }
+
+    public void setBtnEjecutarProduccion(JButton btnEjecutarProduccion) {
+        this.btnEjecutarProduccion = btnEjecutarProduccion;
+    }
+
+    public JButton getBtnEtapasAtrasadas() {
+        return btnEtapasAtrasadas;
+    }
+
+    public void setBtnEtapasAtrasadas(JButton btnEtapasAtrasadas) {
+        this.btnEtapasAtrasadas = btnEtapasAtrasadas;
+    }
+
+    public JButton getBtnEtapasListasParaLanzar() {
+        return btnEtapasListasParaLanzar;
+    }
+
+    public void setBtnEtapasListasParaLanzar(JButton btnEtapasListasParaLanzar) {
+        this.btnEtapasListasParaLanzar = btnEtapasListasParaLanzar;
+    }
+
+    public JButton getBtnLanzarProcesoCalidad() {
+        return btnLanzarProcesoCalidad;
+    }
+
+    public void setBtnLanzarProcesoCalidad(JButton btnLanzarProcesoCalidad) {
+        this.btnLanzarProcesoCalidad = btnLanzarProcesoCalidad;
+    }
+
+    public JButton getBtnNuevoCliente() {
+        return btnNuevoCliente;
+    }
+
+    public void setBtnNuevoCliente(JButton btnNuevoCliente) {
+        this.btnNuevoCliente = btnNuevoCliente;
+    }
+
+    public JButton getBtnPedidos() {
+        return btnPedidos;
+    }
+
+    public void setBtnPedidos(JButton btnPedidos) {
+        this.btnPedidos = btnPedidos;
+    }
+
+    public JButton getBtnPresupuesto() {
+        return btnPresupuesto;
+    }
+
+    public void setBtnPresupuesto(JButton btnPresupuesto) {
+        this.btnPresupuesto = btnPresupuesto;
+    }
+
+    public JButton getBtnProcesosCalidadAtrasados() {
+        return btnProcesosCalidadAtrasados;
+    }
+
+    public void setBtnProcesosCalidadAtrasados(JButton btnProcesosCalidadAtrasados) {
+        this.btnProcesosCalidadAtrasados = btnProcesosCalidadAtrasados;
+    }
+
+    public JButton getBtnProcesosCalidadListosParaLanzar() {
+        return btnProcesosCalidadListosParaLanzar;
+    }
+
+    public void setBtnProcesosCalidadListosParaLanzar(JButton btnProcesosCalidadListosParaLanzar) {
+        this.btnProcesosCalidadListosParaLanzar = btnProcesosCalidadListosParaLanzar;
+    }
+
+    public JButton getBtnProduccionEnEjecucion() {
+        return btnProduccionEnEjecucion;
+    }
+
+    public void setBtnProduccionEnEjecucion(JButton btnProduccionEnEjecucion) {
+        this.btnProduccionEnEjecucion = btnProduccionEnEjecucion;
+    }
+
+    public JButton getBtnReportes() {
+        return btnReportes;
+    }
+
+    public void setBtnReportes(JButton btnReportes) {
+        this.btnReportes = btnReportes;
+    }
+
+    public JMenuItem getMniAdministrarUsuarios() {
+        return mniAdministrarUsuarios;
+    }
+
+    public void setMniAdministrarUsuarios(JMenuItem mniAdministrarUsuarios) {
+        this.mniAdministrarUsuarios = mniAdministrarUsuarios;
+    }
+
+    public JMenuItem getMniArmadoPedido() {
+        return mniArmadoPedido;
+    }
+
+    public void setMniArmadoPedido(JMenuItem mniArmadoPedido) {
+        this.mniArmadoPedido = mniArmadoPedido;
+    }
+
+    public JMenuItem getMniAsignarMPAProduccion() {
+        return mniAsignarMPAProduccion;
+    }
+
+    public void setMniAsignarMPAProduccion(JMenuItem mniAsignarMPAProduccion) {
+        this.mniAsignarMPAProduccion = mniAsignarMPAProduccion;
+    }
+
+    public JMenuItem getMniCambiarContrasenia() {
+        return mniCambiarContrasenia;
+    }
+
+    public void setMniCambiarContrasenia(JMenuItem mniCambiarContrasenia) {
+        this.mniCambiarContrasenia = mniCambiarContrasenia;
+    }
+
+    public JMenuItem getMniCancelarPedidoDeCotizacion() {
+        return mniCancelarPedidoDeCotizacion;
+    }
+
+    public void setMniCancelarPedidoDeCotizacion(JMenuItem mniCancelarPedidoDeCotizacion) {
+        this.mniCancelarPedidoDeCotizacion = mniCancelarPedidoDeCotizacion;
+    }
+
+    public JMenuItem getMniCerrarSesion() {
+        return mniCerrarSesion;
+    }
+
+    public void setMniCerrarSesion(JMenuItem mniCerrarSesion) {
+        this.mniCerrarSesion = mniCerrarSesion;
+    }
+
+    public JMenuItem getMniCliente() {
+        return mniCliente;
+    }
+
+    public void setMniCliente(JMenuItem mniCliente) {
+        this.mniCliente = mniCliente;
+    }
+
+    public JMenuItem getMniCobroPedido() {
+        return mniCobroPedido;
+    }
+
+    public void setMniCobroPedido(JMenuItem mniCobroPedido) {
+        this.mniCobroPedido = mniCobroPedido;
+    }
+
+    public JMenuItem getMniCobros() {
+        return mniCobros;
+    }
+
+    public void setMniCobros(JMenuItem mniCobros) {
+        this.mniCobros = mniCobros;
+    }
+
+    public JMenuItem getMniCondicionIva() {
+        return mniCondicionIva;
+    }
+
+    public void setMniCondicionIva(JMenuItem mniCondicionIva) {
+        this.mniCondicionIva = mniCondicionIva;
+    }
+
+    public JMenuItem getMniConfirmarCotizacionDeTrabajosTercerizados() {
+        return mniConfirmarCotizacionDeTrabajosTercerizados;
+    }
+
+    public void setMniConfirmarCotizacionDeTrabajosTercerizados(JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados) {
+        this.mniConfirmarCotizacionDeTrabajosTercerizados = mniConfirmarCotizacionDeTrabajosTercerizados;
+    }
+
+    public JMenuItem getMniConsultarEnviosManPrev() {
+        return mniConsultarEnviosManPrev;
+    }
+
+    public void setMniConsultarEnviosManPrev(JMenuItem mniConsultarEnviosManPrev) {
+        this.mniConsultarEnviosManPrev = mniConsultarEnviosManPrev;
+    }
+
+    public JMenuItem getMniConsultarFacturas() {
+        return mniConsultarFacturas;
+    }
+
+    public void setMniConsultarFacturas(JMenuItem mniConsultarFacturas) {
+        this.mniConsultarFacturas = mniConsultarFacturas;
+    }
+
+    public JMenuItem getMniConsultarRemitos() {
+        return mniConsultarRemitos;
+    }
+
+    public void setMniConsultarRemitos(JMenuItem mniConsultarRemitos) {
+        this.mniConsultarRemitos = mniConsultarRemitos;
+    }
+
+    public JMenuItem getMniCotizacionTrabajo() {
+        return mniCotizacionTrabajo;
+    }
+
+    public void setMniCotizacionTrabajo(JMenuItem mniCotizacionTrabajo) {
+        this.mniCotizacionTrabajo = mniCotizacionTrabajo;
+    }
+
+    public JMenuItem getMniEmpleados() {
+        return mniEmpleados;
+    }
+
+    public void setMniEmpleados(JMenuItem mniEmpleados) {
+        this.mniEmpleados = mniEmpleados;
+    }
+
+    public JMenuItem getMniEmpresaMantenimiento() {
+        return mniEmpresaMantenimiento;
+    }
+
+    public void setMniEmpresaMantenimiento(JMenuItem mniEmpresaMantenimiento) {
+        this.mniEmpresaMantenimiento = mniEmpresaMantenimiento;
+    }
+
+    public JMenuItem getMniEmpresaMetalurgica() {
+        return mniEmpresaMetalurgica;
+    }
+
+    public void setMniEmpresaMetalurgica(JMenuItem mniEmpresaMetalurgica) {
+        this.mniEmpresaMetalurgica = mniEmpresaMetalurgica;
+    }
+
+    public JMenuItem getMniEntregaPedido() {
+        return mniEntregaPedido;
+    }
+
+    public void setMniEntregaPedido(JMenuItem mniEntregaPedido) {
+        this.mniEntregaPedido = mniEntregaPedido;
+    }
+
+    public JMenuItem getMniEtapaDeProduccion() {
+        return mniEtapaDeProduccion;
+    }
+
+    public void setMniEtapaDeProduccion(JMenuItem mniEtapaDeProduccion) {
+        this.mniEtapaDeProduccion = mniEtapaDeProduccion;
+    }
+
+    public JMenuItem getMniFormaDePago() {
+        return mniFormaDePago;
+    }
+
+    public void setMniFormaDePago(JMenuItem mniFormaDePago) {
+        this.mniFormaDePago = mniFormaDePago;
+    }
+
+    public JMenuItem getMniGenerarDetalleMateriaPrima() {
+        return mniGenerarDetalleMateriaPrima;
+    }
+
+    public void setMniGenerarDetalleMateriaPrima(JMenuItem mniGenerarDetalleMateriaPrima) {
+        this.mniGenerarDetalleMateriaPrima = mniGenerarDetalleMateriaPrima;
+    }
+
+    public JMenuItem getMniGenerarDetalleProcedimientosCalidad() {
+        return mniGenerarDetalleProcedimientosCalidad;
+    }
+
+    public void setMniGenerarDetalleProcedimientosCalidad(JMenuItem mniGenerarDetalleProcedimientosCalidad) {
+        this.mniGenerarDetalleProcedimientosCalidad = mniGenerarDetalleProcedimientosCalidad;
+    }
+
+    public JMenuItem getMniGenerarSolicitud() {
+        return mniGenerarSolicitud;
+    }
+
+    public void setMniGenerarSolicitud(JMenuItem mniGenerarSolicitud) {
+        this.mniGenerarSolicitud = mniGenerarSolicitud;
+    }
+
+    public JMenuItem getMniLanzarCalidad() {
+        return mniLanzarCalidad;
+    }
+
+    public void setMniLanzarCalidad(JMenuItem mniLanzarCalidad) {
+        this.mniLanzarCalidad = mniLanzarCalidad;
+    }
+
+    public JMenuItem getMniLanzarProduccion() {
+        return mniLanzarProduccion;
+    }
+
+    public void setMniLanzarProduccion(JMenuItem mniLanzarProduccion) {
+        this.mniLanzarProduccion = mniLanzarProduccion;
+    }
+
+    public JMenuItem getMniMPrima() {
+        return mniMPrima;
+    }
+
+    public void setMniMPrima(JMenuItem mniMPrima) {
+        this.mniMPrima = mniMPrima;
+    }
+
+    public JMenuItem getMniMantenimientoPreventivo() {
+        return mniMantenimientoPreventivo;
+    }
+
+    public void setMniMantenimientoPreventivo(JMenuItem mniMantenimientoPreventivo) {
+        this.mniMantenimientoPreventivo = mniMantenimientoPreventivo;
+    }
+
+    public JMenuItem getMniMantenimientos() {
+        return mniMantenimientos;
+    }
+
+    public void setMniMantenimientos(JMenuItem mniMantenimientos) {
+        this.mniMantenimientos = mniMantenimientos;
+    }
+
+    public JMenuItem getMniMateriaPrima() {
+        return mniMateriaPrima;
+    }
+
+    public void setMniMateriaPrima(JMenuItem mniMateriaPrima) {
+        this.mniMateriaPrima = mniMateriaPrima;
+    }
+
+    public JMenuItem getMniMatriz() {
+        return mniMatriz;
+    }
+
+    public void setMniMatriz(JMenuItem mniMatriz) {
+        this.mniMatriz = mniMatriz;
+    }
+
+    public JMenuItem getMniNuevoUsuario() {
+        return mniNuevoUsuario;
+    }
+
+    public void setMniNuevoUsuario(JMenuItem mniNuevoUsuario) {
+        this.mniNuevoUsuario = mniNuevoUsuario;
+    }
+
+    public JMenuItem getMniOrdenDeCompra() {
+        return mniOrdenDeCompra;
+    }
+
+    public void setMniOrdenDeCompra(JMenuItem mniOrdenDeCompra) {
+        this.mniOrdenDeCompra = mniOrdenDeCompra;
+    }
+
+    public JMenuItem getMniPieza() {
+        return mniPieza;
+    }
+
+    public void setMniPieza(JMenuItem mniPieza) {
+        this.mniPieza = mniPieza;
+    }
+
+    public JMenuItem getMniPresupuesto() {
+        return mniPresupuesto;
+    }
+
+    public void setMniPresupuesto(JMenuItem mniPresupuesto) {
+        this.mniPresupuesto = mniPresupuesto;
+    }
+
+    public JMenuItem getMniProducto() {
+        return mniProducto;
+    }
+
+    public void setMniProducto(JMenuItem mniProducto) {
+        this.mniProducto = mniProducto;
+    }
+
+    public JMenuItem getMniProveedor() {
+        return mniProveedor;
+    }
+
+    public void setMniProveedor(JMenuItem mniProveedor) {
+        this.mniProveedor = mniProveedor;
+    }
+
+    public JMenuItem getMniProveedores() {
+        return mniProveedores;
+    }
+
+    public void setMniProveedores(JMenuItem mniProveedores) {
+        this.mniProveedores = mniProveedores;
+    }
+
+    public JMenuItem getMniReclamoProveedor() {
+        return mniReclamoProveedor;
+    }
+
+    public void setMniReclamoProveedor(JMenuItem mniReclamoProveedor) {
+        this.mniReclamoProveedor = mniReclamoProveedor;
+    }
+
+    public JMenuItem getMniRegistrarAsistencia() {
+        return mniRegistrarAsistencia;
+    }
+
+    public void setMniRegistrarAsistencia(JMenuItem mniRegistrarAsistencia) {
+        this.mniRegistrarAsistencia = mniRegistrarAsistencia;
+    }
+
+    public JMenuItem getMniRegistrarConfirmacionPedido() {
+        return mniRegistrarConfirmacionPedido;
+    }
+
+    public void setMniRegistrarConfirmacionPedido(JMenuItem mniRegistrarConfirmacionPedido) {
+        this.mniRegistrarConfirmacionPedido = mniRegistrarConfirmacionPedido;
+    }
+
+    public JMenuItem getMniRegistrarDiaNoLaboral() {
+        return mniRegistrarDiaNoLaboral;
+    }
+
+    public void setMniRegistrarDiaNoLaboral(JMenuItem mniRegistrarDiaNoLaboral) {
+        this.mniRegistrarDiaNoLaboral = mniRegistrarDiaNoLaboral;
+    }
+
+    public JMenuItem getMniRegistrarEnvioManPrev() {
+        return mniRegistrarEnvioManPrev;
+    }
+
+    public void setMniRegistrarEnvioManPrev(JMenuItem mniRegistrarEnvioManPrev) {
+        this.mniRegistrarEnvioManPrev = mniRegistrarEnvioManPrev;
+    }
+
+    public JMenuItem getMniRegistrarIngresoCotizacionTrabajo() {
+        return mniRegistrarIngresoCotizacionTrabajo;
+    }
+
+    public void setMniRegistrarIngresoCotizacionTrabajo(JMenuItem mniRegistrarIngresoCotizacionTrabajo) {
+        this.mniRegistrarIngresoCotizacionTrabajo = mniRegistrarIngresoCotizacionTrabajo;
+    }
+
+    public JMenuItem getMniRegistrarMaquina() {
+        return mniRegistrarMaquina;
+    }
+
+    public void setMniRegistrarMaquina(JMenuItem mniRegistrarMaquina) {
+        this.mniRegistrarMaquina = mniRegistrarMaquina;
+    }
+
+    public JMenuItem getMniRegistrarPlanificacionCalidad() {
+        return mniRegistrarPlanificacionCalidad;
+    }
+
+    public void setMniRegistrarPlanificacionCalidad(JMenuItem mniRegistrarPlanificacionCalidad) {
+        this.mniRegistrarPlanificacionCalidad = mniRegistrarPlanificacionCalidad;
+    }
+
+    public JMenuItem getMniRegistrarPresupuesto() {
+        return mniRegistrarPresupuesto;
+    }
+
+    public void setMniRegistrarPresupuesto(JMenuItem mniRegistrarPresupuesto) {
+        this.mniRegistrarPresupuesto = mniRegistrarPresupuesto;
+    }
+
+    public JMenuItem getMniReporteAusentismo() {
+        return mniReporteAusentismo;
+    }
+
+    public void setMniReporteAusentismo(JMenuItem mniReporteAusentismo) {
+        this.mniReporteAusentismo = mniReporteAusentismo;
+    }
+
+    public JMenuItem getMniReporteClientes() {
+        return mniReporteClientes;
+    }
+
+    public void setMniReporteClientes(JMenuItem mniReporteClientes) {
+        this.mniReporteClientes = mniReporteClientes;
+    }
+
+    public JMenuItem getMniReportePedidos() {
+        return mniReportePedidos;
+    }
+
+    public void setMniReportePedidos(JMenuItem mniReportePedidos) {
+        this.mniReportePedidos = mniReportePedidos;
+    }
+
+    public JMenuItem getMniReportesReclamos() {
+        return mniReportesReclamos;
+    }
+
+    public void setMniReportesReclamos(JMenuItem mniReportesReclamos) {
+        this.mniReportesReclamos = mniReportesReclamos;
+    }
+
+    public JMenuItem getMniRotura() {
+        return mniRotura;
+    }
+
+    public void setMniRotura(JMenuItem mniRotura) {
+        this.mniRotura = mniRotura;
+    }
+
+    public JMenuItem getMniServicio() {
+        return mniServicio;
+    }
+
+    public void setMniServicio(JMenuItem mniServicio) {
+        this.mniServicio = mniServicio;
+    }
+
+    public JMenuItem getMniTipoDoc() {
+        return mniTipoDoc;
+    }
+
+    public void setMniTipoDoc(JMenuItem mniTipoDoc) {
+        this.mniTipoDoc = mniTipoDoc;
+    }
+
+    public JMenuItem getMniTipoMaquina() {
+        return mniTipoMaquina;
+    }
+
+    public void setMniTipoMaquina(JMenuItem mniTipoMaquina) {
+        this.mniTipoMaquina = mniTipoMaquina;
+    }
+
+    public JMenuItem getMniTipoMaterial() {
+        return mniTipoMaterial;
+    }
+
+    public void setMniTipoMaterial(JMenuItem mniTipoMaterial) {
+        this.mniTipoMaterial = mniTipoMaterial;
+    }
+
+    public JMenuItem getMniTrabajosTercerizados() {
+        return mniTrabajosTercerizados;
+    }
+
+    public void setMniTrabajosTercerizados(JMenuItem mniTrabajosTercerizados) {
+        this.mniTrabajosTercerizados = mniTrabajosTercerizados;
+    }
+
+    public JMenu getMnuAlmacenamiento() {
+        return mnuAlmacenamiento;
+    }
+
+    public void setMnuAlmacenamiento(JMenu mnuAlmacenamiento) {
+        this.mnuAlmacenamiento = mnuAlmacenamiento;
+    }
+
+    public JMenu getMnuAyuda() {
+        return mnuAyuda;
+    }
+
+    public void setMnuAyuda(JMenu mnuAyuda) {
+        this.mnuAyuda = mnuAyuda;
+    }
+
+    public JMenu getMnuCalidad() {
+        return mnuCalidad;
+    }
+
+    public void setMnuCalidad(JMenu mnuCalidad) {
+        this.mnuCalidad = mnuCalidad;
+    }
+
+    public JMenu getMnuCompras() {
+        return mnuCompras;
+    }
+
+    public void setMnuCompras(JMenu mnuCompras) {
+        this.mnuCompras = mnuCompras;
+    }
+
+    public JMenu getMnuFinanzas() {
+        return mnuFinanzas;
+    }
+
+    public void setMnuFinanzas(JMenu mnuFinanzas) {
+        this.mnuFinanzas = mnuFinanzas;
+    }
+
+    public JMenu getMnuInicio() {
+        return mnuInicio;
+    }
+
+    public void setMnuInicio(JMenu mnuInicio) {
+        this.mnuInicio = mnuInicio;
+    }
+
+    public JMenu getMnuMantenimiento() {
+        return mnuMantenimiento;
+    }
+
+    public void setMnuMantenimiento(JMenu mnuMantenimiento) {
+        this.mnuMantenimiento = mnuMantenimiento;
+    }
+
+    public JMenu getMnuProduccion() {
+        return mnuProduccion;
+    }
+
+    public void setMnuProduccion(JMenu mnuProduccion) {
+        this.mnuProduccion = mnuProduccion;
+    }
+
+    public JMenu getMnuRRHH() {
+        return mnuRRHH;
+    }
+
+    public void setMnuRRHH(JMenu mnuRRHH) {
+        this.mnuRRHH = mnuRRHH;
+    }
+
+    public JMenu getMnuReportes() {
+        return mnuReportes;
+    }
+
+    public void setMnuReportes(JMenu mnuReportes) {
+        this.mnuReportes = mnuReportes;
+    }
+
+    public JMenu getMnuTrabajosTercerizados() {
+        return mnuTrabajosTercerizados;
+    }
+
+    public void setMnuTrabajosTercerizados(JMenu mnuTrabajosTercerizados) {
+        this.mnuTrabajosTercerizados = mnuTrabajosTercerizados;
+    }
+
+    public JMenu getMnuVentas() {
+        return mnuVentas;
+    }
+
+    public void setMnuVentas(JMenu mnuVentas) {
+        this.mnuVentas = mnuVentas;
+    }
+
+    public JPanelTransparente getPnlCalidad() {
+        return pnlCalidad;
+    }
+
+    public void setPnlCalidad(JPanelTransparente pnlCalidad) {
+        this.pnlCalidad = pnlCalidad;
+    }
+
+    public JPanelTransparente getPnlProduccion() {
+        return pnlProduccion;
+    }
+
+    public void setPnlProduccion(JPanelTransparente pnlProduccion) {
+        this.pnlProduccion = pnlProduccion;
+    }
+
+    public JPanelTransparente getPnlVentas() {
+        return pnlVentas;
+    }
+
+    public void setPnlVentas(JPanelTransparente pnlVentas) {
+        this.pnlVentas = pnlVentas;
     }
 }
