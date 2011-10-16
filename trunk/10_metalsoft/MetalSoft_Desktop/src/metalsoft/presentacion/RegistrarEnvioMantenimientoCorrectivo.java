@@ -52,7 +52,7 @@ public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         gestor.cargarComboEmpleado(cmbEmpleados);
         gestor.cargarComboRoturas(cmbrotura);
         addListeners();
-        
+
         beanBtnSeleccionar.getBtnSeleccionar().setText("Agregar al detalle");
         filasDetalle = new ArrayList<Detallemantenimientocorrectivo>();
 
@@ -72,7 +72,7 @@ public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         addListenerBtnSeleccionar();
         addListenerBtnQuitar();
     }
-    
+
     private void addListenerBtnSalir() {
         btnSalirr1.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
 
@@ -447,6 +447,12 @@ public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
 private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaquinaActionPerformed
     try {
         JFrameManager.crearVentana(ABMMaquina.class.getName());
+        cmbMaquina.removeAllItems();
+        if (cmbTipoMaquina.getSelectedIndex() > 0) {
+            String indexString = ((ItemCombo) cmbTipoMaquina.getSelectedItem()).getId();
+            int index = Integer.parseInt(indexString);
+            gestor.obtenerMaquinas(cmbMaquina, index);
+        }
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
@@ -459,6 +465,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void btnTipoMaquina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoMaquina1ActionPerformed
     try {
         JFrameManager.crearVentana(ABMTipoMaquina.class.getName());
+        cargarComboTipoMaquina();
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
@@ -494,7 +501,7 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     if (validarDatos()) {
         long result = 0;
         Mantenimientocorrectivo man = new Mantenimientocorrectivo();
-        
+
         result = gestor.guardarMantenimientoCorrectivo(man, filasDetalle);
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "El mantenimiento correctivo se ha guardado correctamente");
@@ -508,16 +515,17 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_btnconfirmarActionPerformed
 
 private void btnRoturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoturaActionPerformed
-        try {
-            // TODO add your handling code here:
-                JFrameManager.crearVentana(ABMRotura.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        // TODO add your handling code here:
+        JFrameManager.crearVentana(ABMRotura.class.getName());
+        gestor.cargarComboRoturas(cmbrotura);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(RegistrarEnvioMantenimientoCorrectivo.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnRoturaActionPerformed
 
 private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
@@ -525,8 +533,8 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     limpiarComponentes();
     HabilitarComponentes();
 }//GEN-LAST:event_btnnuevoActionPerformed
-    
-private void InhabilitarComponentes() {
+
+    private void InhabilitarComponentes() {
         cmbTipoMaquina.setEnabled(false);
         cmbMaquina.setEnabled(false);
         cmbProveedores.setEnabled(false);
@@ -570,7 +578,7 @@ private void InhabilitarComponentes() {
         filasDetalle.clear();
         tblDetalle.updateUI();
     }
-    
+
     private void setItemComboSeleccionado(JComboBox cmb, long id) {
         int length = cmb.getItemCount();
         ItemCombo item = null;
@@ -582,8 +590,8 @@ private void InhabilitarComponentes() {
             }
         }
     }
-    
-private void addListenerCmbTipoMaquina() {
+
+    private void addListenerCmbTipoMaquina() {
         cmbTipoMaquina.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,15 +613,15 @@ private void addListenerCmbTipoMaquina() {
 
         Detallemantenimientocorrectivo detalle = new Detallemantenimientocorrectivo();
         detalle.setRotura(gestor.getRoturaById(Long.parseLong(((ItemCombo) cmbrotura.getSelectedItem()).getId())));
-        //detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
+        detalle.setDuracion(Integer.valueOf(txtDuracion.getText()));
         detalle.setMotivorotura(txtObservaciones.getText());
-
+        
         filasDetalle.add(detalle);
         tblDetalle.updateUI();
 
         int sumaTotal = 0;
         for (Detallemantenimientocorrectivo de : filasDetalle) {
-            //sumaTotal += de.getDuracion();
+            sumaTotal += de.getDuracion();
         }
         lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
         txtDuracion.setText("");
@@ -675,7 +683,7 @@ private void addListenerCmbTipoMaquina() {
         }
         int sumaTotal = 0;
         for (Detallemantenimientocorrectivo de : filasDetalle) {
-            //sumaTotal += de.getDuracion();
+            sumaTotal += de.getDuracion();
         }
         lblduracionMantenimiento.setText(String.valueOf(sumaTotal));
     }
@@ -686,7 +694,7 @@ private void addListenerCmbTipoMaquina() {
 
         long nro = NumerosAMostrar.getNumeroLong(lblNroMantenimientoP.getText());
         long idMaquina = Long.parseLong(((ItemCombo) cmbMaquina.getSelectedItem()).getId());
-        
+
         mantenimientop.setFechaenviomantenimiento(Fecha.parseToDate(Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy")));
         Date hms = Fecha.fechaActualDate();
         mantenimientop.setHoraenviomantenimiento(hms);
@@ -694,7 +702,7 @@ private void addListenerCmbTipoMaquina() {
         mantenimientop.setProveedormantenimiento(pro);
         mantenimientop.setNromantenimientocorrectivo(BigInteger.valueOf(nro));
         mantenimientop.setMaquina(BigInteger.valueOf(idMaquina));
-        
+
         return mantenimientop;
     }
 
