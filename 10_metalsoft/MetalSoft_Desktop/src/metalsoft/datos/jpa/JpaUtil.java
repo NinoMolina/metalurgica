@@ -4,7 +4,6 @@
  */
 package metalsoft.datos.jpa;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -504,7 +503,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroLIKE(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -519,7 +518,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroMaquinaLIKE(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -535,7 +534,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoPorNroProveedorLIKE(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -551,7 +550,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Detallemantenimientopreventivo> getDetalleMantenimientopreventivo(String id) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -580,13 +579,12 @@ public class JpaUtil {
 
     }
 
-
-    public static  List<Usuario> getUsuarioByDatos(String nombre, String apellido, int documento) {
+    public static List<Usuario> getUsuarioByDatos(String nombre, String apellido, int documento) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT u.* "
-            + "FROM usuario u, empleado em "
-            + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '"+ nombre+"' AND "
-            +"em.apellido LIKE '"+apellido+"' AND em.nrodocumento="+ documento;
+                + "FROM usuario u, empleado em "
+                + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '" + nombre + "' AND "
+                + "em.apellido LIKE '" + apellido + "' AND em.nrodocumento=" + documento;
         try {
             Query q = em.createNativeQuery(sql, Usuario.class);
             return q.getResultList();
@@ -599,10 +597,10 @@ public class JpaUtil {
     public static List<Usuario> getClaveByDatos(String nombre, String apellido, int documento, String usuario) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT u.* "
-            + "FROM usuario u, empleado em "
-            + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '"+ nombre+"' AND "
-            +"em.apellido LIKE '"+apellido+"' AND em.nrodocumento="+ documento+" AND "
-            +"u.usuario LIKE '"+usuario+"'";
+                + "FROM usuario u, empleado em "
+                + "WHERE u.idusuario=em.usuario AND em.nombre LIKE '" + nombre + "' AND "
+                + "em.apellido LIKE '" + apellido + "' AND em.nrodocumento=" + documento + " AND "
+                + "u.usuario LIKE '" + usuario + "'";
         try {
             Query q = em.createNativeQuery(sql, Usuario.class);
             return q.getResultList();
@@ -611,7 +609,7 @@ public class JpaUtil {
         }
 
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoHastaFechaActual(String fecha) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -626,7 +624,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientopreventivo> getMantenimientopreventivoEnviadoHastaFechaActual(String fecha) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -641,5 +639,4 @@ public class JpaUtil {
             em.close();
         }
     }
-    
 }
