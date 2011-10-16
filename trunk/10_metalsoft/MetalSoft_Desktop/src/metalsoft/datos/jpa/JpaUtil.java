@@ -16,6 +16,7 @@ import metalsoft.datos.jpa.controller.BarrioJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detallefactura;
+import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
@@ -559,6 +560,20 @@ public class JpaUtil {
                 + "WHERE m.idmantenimientopreventivo=" + id;
         try {
             Query q = em.createNativeQuery(sql, Detallemantenimientopreventivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Detallemantenimientocorrectivo> getDetalleMantenimientocorrectivo(String id) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "from detallemantenimientocorrectivo m "
+                + "WHERE m.idmantenimientocorrectivo=" + id;
+        try {
+            Query q = em.createNativeQuery(sql, Detallemantenimientocorrectivo.class);
             return q.getResultList();
         } finally {
             em.close();
