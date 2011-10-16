@@ -642,16 +642,4 @@ public class JpaUtil {
         }
     }
     
-    public static BigInteger getUltimoNroMantenimientoCorrectivo() {
-
-        EntityManager em = JpaUtil.getEntityManager();
-        String sql = "SELECT max(m.nromantenimientocorrectivo) "
-                + "FROM mantenimientocorrectivo m";
-        try {
-            Query q = em.createNativeQuery(sql, BigInteger.class);
-            return (BigInteger)q.getSingleResult();
-        } finally {
-            em.close();
-        }
-    }
 }
