@@ -40,13 +40,20 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorMantenimientoPreventivo();
-        listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
-        tblMantenimientos.updateUI();
-        cargarComboProveedor();
+        txtFechaAlta.setDate(Fecha.fechaActualDate());
+        txtFechaBaja.setDate(Fecha.fechaActualDate());
         addListeners();
         setearTablas();
-        btnconfirmar.setEnabled(false);
         btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
+        txtFechaAlta.setEnabled(false);
+        txtFechaBaja.setEnabled(false);
+        txtNro.setEnabled(true);
+        txtNro.setText("");
+        cmbProveedores.setEnabled(false);
+        cmbmaquina.setEnabled(false);
+        rbNro.setSelected(true);
+        cargarComboMaquinas();
+        cargarComboProveedor();
     }
 
     public void cargarComboProveedor() {
@@ -55,7 +62,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
     }
 
     public void cargarComboMaquinas() {
-        cmbProveedores.removeAllItems();
+        cmbmaquina.removeAllItems();
         gestor.obtenerMaquinas(cmbmaquina);
     }
 
@@ -105,7 +112,6 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
             lblPeriodo.setText(String.valueOf(man.getPeriodo() + " días"));
             listaDetalle = gestor.obtenerDetalleDeMantenimiento(String.valueOf(man.getIdmantenimientopreventivo()));
             tblDetalleMantenimiento.updateUI();
-            btnconfirmar.setEnabled(false);
         } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
         }
@@ -154,7 +160,6 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalleMantenimiento = new org.jdesktop.swingx.JXTable();
-        btnconfirmar = new javax.swing.JButton();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
         jPanel3 = new javax.swing.JPanel();
         rbNro = new javax.swing.JRadioButton();
@@ -168,7 +173,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         rbProveedor = new javax.swing.JRadioButton();
         cmbProveedores = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mantenimientos Preventivos Encontrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
@@ -300,14 +305,6 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btnconfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/seleccionar.png"))); // NOI18N
-        btnconfirmar.setText("Registrar Envío");
-        btnconfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnconfirmarActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Mantenimientos Preventivos Enviados por:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
@@ -445,10 +442,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnconfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -462,9 +456,7 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnconfirmar))
+                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -473,44 +465,14 @@ public class ConsultarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
 
 private void tblMantenimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMantenimientosMouseClicked
     // TODO add your handling code here:
-    if (tblMantenimientos.getSelectedRow() > -1) {
+    if (tblMantenimientos.getSelectedRow() >= 0) {
         btnSeleccionar1.getBtnSeleccionar().setEnabled(true);
-        if (!((ItemCombo) cmbProveedores.getSelectedItem()).getId().equals("-1")) {
-            btnconfirmar.setEnabled(true);
-        }
     }
+
 }//GEN-LAST:event_tblMantenimientosMouseClicked
 
 private void tblDetalleMantenimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMantenimientoMouseClicked
 }//GEN-LAST:event_tblDetalleMantenimientoMouseClicked
-
-private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
-    if (tblMantenimientos.getSelectedRow() > -1) {
-        long result = 0;
-        Mantenimientopreventivo man = listaMantenimientos.get(tblMantenimientos.getSelectedRow());
-        man.setFechaenviomantenimiento(Fecha.parseToDate(Fecha.parseToString(Fecha.fechaActualDate(), "dd/MM/yyyy")));
-
-        Date hms = Fecha.fechaActualDate();
-
-        man.setHoraenviomantenimiento(hms);
-        Proveedormantenimientomaquina pro = gestor.getProveedorById(Long.parseLong(((ItemCombo) cmbProveedores.getSelectedItem()).getId()));
-        man.setProveedormantenimiento(pro);
-        result = gestor.registrarEnvioMantenimientoPreventivo(man);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha cancelado correctamente");
-            dccFechaEnvio.setDate(Fecha.fechaActualDate());
-            listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
-            tblMantenimientos.updateUI();
-            listaDetalle.clear();
-            tblDetalleMantenimiento.updateUI();
-            btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
-            btnconfirmar.setEnabled(false);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha cancelar");
-        }
-    }
-}//GEN-LAST:event_btnconfirmarActionPerformed
 
 private void rbNroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNroActionPerformed
 // TODO add your handling code here:
@@ -528,7 +490,7 @@ private void txtNroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void txtNroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroKeyReleased
 // TODO add your handling code here:
-    listaMantenimientos = gestor.buscarPorNro(txtNro.getText());
+    listaMantenimientos = gestor.buscarEnviadosPorNro(txtNro.getText());
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtNroKeyReleased
 
@@ -540,17 +502,19 @@ private void rbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     txtNro.setText("");
     cmbProveedores.setEnabled(false);
     cmbmaquina.setEnabled(false);
-    String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
-    String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
-    tblMantenimientos.updateUI();
+    if (txtFechaAlta.getDate() != null && txtFechaBaja.getDate() != null) {
+        String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
+        String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
+        listaMantenimientos = gestor.buscarEnviadosEntreFechas(inicio, fin);
+        tblMantenimientos.updateUI();
+    }
 }//GEN-LAST:event_rbFechaActionPerformed
 
 private void txtFechaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaAltaActionPerformed
 // TODO add your handling code here:
     String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
     String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
+    listaMantenimientos = gestor.buscarEnviadosEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtFechaAltaActionPerformed
 
@@ -558,16 +522,18 @@ private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 // TODO add your handling code here:
     String inicio = Fecha.parseToString(txtFechaAlta.getDate(), "dd/MM/yyyy");
     String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
-    listaMantenimientos = gestor.buscarEntreFechas(inicio, fin);
+    listaMantenimientos = gestor.buscarEnviadosEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
 }//GEN-LAST:event_txtFechaBajaActionPerformed
 
 private void cmbProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedoresActionPerformed
 // TODO add your handling code here:
-    String nro = ((ItemCombo) cmbProveedores.getSelectedItem()).getId();
-    if (!nro.equals("-1")) {
-        listaMantenimientos = gestor.buscarEnviadosPorProveedor(nro);
-        tblMantenimientos.updateUI();
+    if (cmbProveedores.getSelectedIndex() > 0) {
+        String nro = ((ItemCombo) cmbProveedores.getSelectedItem()).getId();
+        if (!nro.equals("-1")) {
+            listaMantenimientos = gestor.buscarEnviadosPorProveedor(nro);
+            tblMantenimientos.updateUI();
+        }
     }
 }//GEN-LAST:event_cmbProveedoresActionPerformed
 
@@ -592,10 +558,12 @@ private void rbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_rbProveedorActionPerformed
 
 private void cmbmaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbmaquinaActionPerformed
-    String nro = ((ItemCombo) cmbmaquina.getSelectedItem()).getId();
-    if (!nro.equals("-1")) {
-        listaMantenimientos = gestor.buscarEnviadosPorMaquina(nro);
-        tblMantenimientos.updateUI();
+    if (cmbmaquina.getSelectedIndex() > 0){
+        String nro = ((ItemCombo) cmbmaquina.getSelectedItem()).getId();
+        if (!nro.equals("-1")) {
+            listaMantenimientos = gestor.buscarEnviadosPorMaquina(nro);
+            tblMantenimientos.updateUI();
+        }
     }
 }//GEN-LAST:event_cmbmaquinaActionPerformed
 
@@ -637,7 +605,6 @@ private void cmbmaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private metalsoft.beans.BtnSeleccionar btnSeleccionar1;
-    private javax.swing.JButton btnconfirmar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbProveedores;
     private javax.swing.JComboBox cmbmaquina;
