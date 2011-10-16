@@ -127,7 +127,7 @@ public class GestorMantenimientoPreventivo {
         try {
             controller.create(mantenimientop);
             for (Detallemantenimientocorrectivo de : lista) {
-                //de.setIdmantenimientopreventivo(mantenimientop);
+                de.setIdmantenimientocorrectivo(mantenimientop);
                 controllerDetalle.create(de);
             }
         } catch (Exception ex) {
@@ -181,8 +181,6 @@ public class GestorMantenimientoPreventivo {
         return result;
     }
     public long nuevoNroMantenimientoCorrectivo(){
-//        MantenimientocorrectivoJpaController con=new MantenimientocorrectivoJpaController(JpaUtil.getEntityManagerFactory());
-//        List<Mantenimientocorrectivo> lis=con.findMantenimientocorrectivoEntities();
         return AccessFunctions.nvoNroMantenimientoCorrectivo();
     }
 
@@ -378,6 +376,7 @@ public class GestorMantenimientoPreventivo {
     }
     
     public void cargarComboRoturas(JComboBox combo){
+        combo.removeAllItems();
         RoturaJpaController con=new RoturaJpaController(JpaUtil.getEntityManagerFactory());
         List<Rotura> list=con.findRoturaEntities();
         combo.addItem(new ItemCombo("-1","--Seleccionar--"));
@@ -386,6 +385,7 @@ public class GestorMantenimientoPreventivo {
         }
     }
     public void cargarComboEmpleado(JComboBox combo){
+        combo.removeAllItems();
         EmpleadoJpaController con=new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
         List<Empleado> list=con.findEmpleadoEntities();
         combo.addItem(new ItemCombo("-1","--Seleccionar--"));
