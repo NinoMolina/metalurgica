@@ -24,7 +24,7 @@ import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
 import metalsoft.datos.jpa.entity.Rotura;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
+import metalsoft.negocio.gestores.GestorMantenimiento;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -37,14 +37,14 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  */
 public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
 
-    private GestorMantenimientoPreventivo gestor;
+    private GestorMantenimiento gestor;
     private List<Detallemantenimientocorrectivo> filasDetalle;
 
     /** Creates new form RegistrarEnvioMantenimientoCorrectivo */
     public RegistrarEnvioMantenimientoCorrectivo() {
         super(Principal.getVtnPrincipal());
         initComponents();
-        gestor = new GestorMantenimientoPreventivo();
+        gestor = new GestorMantenimiento();
         long nro = obtenerNuevoNroMantenimientoCorrectivo();
         lblNroMantenimientoP.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MANTENIMIENTO_CORRECTIVO, nro));
         cargarComboProveedor();
