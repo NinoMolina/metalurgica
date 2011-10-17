@@ -25,7 +25,7 @@ import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.Parser;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
+import metalsoft.negocio.gestores.GestorMantenimiento;
 import metalsoft.datos.jpa.controller.MantenimientopreventivoJpaController;
 import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.controller.ServicioJpaController;
@@ -49,14 +49,14 @@ import metalsoft.util.Fecha;
  *
  * @author Lorreine Prescott
  */
-public class GestorMantenimientoPreventivo {
+public class GestorMantenimiento {
 
     private long IdMantenimientoPreventivo;
     private long Idtipomaquina;
     private long Idmaquina;
     private long Idservicio;
 
-    public GestorMantenimientoPreventivo() {
+    public GestorMantenimiento() {
         
     }
 
@@ -81,7 +81,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -101,7 +101,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,7 +115,7 @@ public class GestorMantenimientoPreventivo {
                 controllerDetalle.create(de);
             }
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         return mantenimientop.getIdmantenimientopreventivo();
@@ -131,7 +131,7 @@ public class GestorMantenimientoPreventivo {
                 controllerDetalle.create(de);
             }
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         return mantenimientop.getIdmantenimientocorrectivo();
@@ -152,10 +152,10 @@ public class GestorMantenimientoPreventivo {
                 controllerDetalle.destroy(de.getIddetalle());
             }
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         return mantenimientop.getIdmantenimientopreventivo();
@@ -170,12 +170,12 @@ public class GestorMantenimientoPreventivo {
             cn = pg.concectGetCn();
             result = AccessFunctions.nvoNroMantenimientoPreventivo(cn);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 pg.disconnect();
             } catch (SQLException ex) {
-                Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
@@ -199,7 +199,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -218,7 +218,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -238,7 +238,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -258,7 +258,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -277,7 +277,7 @@ public class GestorMantenimientoPreventivo {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -302,6 +302,10 @@ public class GestorMantenimientoPreventivo {
     public List<Detallemantenimientopreventivo> obtenerDetalleDeMantenimiento(String id) {
         return JpaUtil.getDetalleMantenimientopreventivo(id);
     }
+    
+    public List<Detallemantenimientocorrectivo> obtenerDetalleDeMantenimientoCorrectivo(String id) {
+        return JpaUtil.getDetalleMantenimientocorrectivo(id);
+    }
 
     public boolean eliminarMantenimiento(Mantenimientopreventivo man) {
         MantenimientopreventivoJpaController con = new MantenimientopreventivoJpaController(JpaUtil.getEntityManagerFactory());
@@ -313,10 +317,10 @@ public class GestorMantenimientoPreventivo {
             }
             con.destroy(man.getIdmantenimientopreventivo());
         } catch (IllegalOrphanException ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -344,10 +348,10 @@ public class GestorMantenimientoPreventivo {
             controller.edit(man);
             
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimientoPreventivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         return man.getIdmantenimientopreventivo();
@@ -397,5 +401,22 @@ public class GestorMantenimientoPreventivo {
     public Rotura getRoturaById(long id){
         RoturaJpaController con=new RoturaJpaController(JpaUtil.getEntityManagerFactory());
         return con.findRotura(id);
+    }
+    
+    //buscar mantenimientos correctivos enviados
+    public List<Mantenimientocorrectivo> buscarCorrectivosEnviadosEntreFechas(String inicio, String fin) {
+        return JpaUtil.getMantenimientocorrectivoEnviadoPorFecha(inicio, fin);
+    }
+
+    public List<Mantenimientocorrectivo> buscarCorrectivosEnviadosPorNro(String nro) {
+        return JpaUtil.getMantenimientocorrectivoEnviadoPorNroLIKE(nro);
+    }
+    
+    public List<Mantenimientocorrectivo> buscarCorrectivosEnviadosPorProveedor(String nro) {
+        return JpaUtil.getMantenimientocorrectivoEnviadoPorNroProveedorLIKE(nro);
+    }
+
+    public List<Mantenimientocorrectivo> buscarCorrectivosEnviadosPorMaquina(String nro) {
+        return JpaUtil.getMantenimientocorrectivoEnviadoPorNroMaquinaLIKE(nro);
     }
 }
