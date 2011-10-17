@@ -23,7 +23,7 @@ import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Proveedormantenimientomaquina;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
+import metalsoft.negocio.gestores.GestorMantenimiento;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -39,12 +39,12 @@ public class RegistrarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
     /** Creates new form RegistrarEnvioMantenimientoPreventivo */
     private List<Detallemantenimientopreventivo> listaDetalle;
     private List<Mantenimientopreventivo> listaMantenimientos;
-    private GestorMantenimientoPreventivo gestor;
+    private GestorMantenimiento gestor;
 
     public RegistrarEnvioMantenimientoPreventivo() {
         super(Principal.getVtnPrincipal());
         initComponents();
-        gestor = new GestorMantenimientoPreventivo();
+        gestor = new GestorMantenimiento();
         listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
         tblMantenimientos.updateUI();
         cargarComboProveedor();

@@ -28,7 +28,7 @@ import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Maquina;
 import metalsoft.datos.jpa.entity.Servicio;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
+import metalsoft.negocio.gestores.GestorMantenimiento;
 import metalsoft.negocio.gestores.GestorServicioMaquina;
 
 import metalsoft.negocio.gestores.NumerosAMostrar;
@@ -42,7 +42,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
 
     private Mantenimientopreventivo mantenimientop;
-    private GestorMantenimientoPreventivo gestor;
+    private GestorMantenimiento gestor;
     private GestorServicioMaquina gestorserv;
     private Maquina maquina;
     private Servicio servicio;
@@ -57,7 +57,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         gestorserv = new GestorServicioMaquina();
-        gestor = new GestorMantenimientoPreventivo();
+        gestor = new GestorMantenimiento();
         cargarComboTipoMaquina();
         cargarComboServicios();
         addListeners();

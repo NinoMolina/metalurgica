@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
-import metalsoft.negocio.gestores.GestorMantenimientoPreventivo;
+import metalsoft.negocio.gestores.GestorMantenimiento;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -27,14 +27,14 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
     /** Creates new form ABMMantenimientoPreventivo_Buscar */
     private static ABMMantenimientoPreventivo ventana;
-    private GestorMantenimientoPreventivo gestor;
+    private GestorMantenimiento gestor;
     private List<Mantenimientopreventivo> filasMan;
 
     public ABMMantenimientoPreventivo_Buscar() {
         super(Principal.getVtnPrincipal());
         initComponents();
         addListeners();
-        gestor = new GestorMantenimientoPreventivo();
+        gestor = new GestorMantenimiento();
         filasMan = new LinkedList<Mantenimientopreventivo>();
         txtFechaAlta.setDate(new Date());
         txtFechaBaja.setDate(new Date());
