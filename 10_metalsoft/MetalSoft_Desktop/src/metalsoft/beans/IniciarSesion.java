@@ -100,7 +100,7 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 12));
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel4.setText("¿Olvidó su Usuario? Haga click");
+        jLabel4.setText("¿Olvidó su Usuario?      Haga click");
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 3, 14));
         lblUsuario.setForeground(new java.awt.Color(0, 0, 102));
@@ -143,8 +143,9 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
                     .add(layout.createSequentialGroup()
                         .add(57, 57, 57)
                         .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(lblUsuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                     .add(layout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -164,9 +165,9 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
                                 .add(btnIniciar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                             .add(layout.createSequentialGroup()
-                                .add(jLabel5)
+                                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblContraseña, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))))
+                                .add(lblContraseña, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)))))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(41, 41, 41)
@@ -200,8 +201,8 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
                                 .add(8, 8, 8))
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(lblUsuario)
-                                    .add(jLabel4))
+                                    .add(jLabel4)
+                                    .add(lblUsuario))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel2)
