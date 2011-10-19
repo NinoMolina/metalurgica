@@ -6,8 +6,13 @@ package metalsoft.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.infonode.docking.util.PropertiesUtil;
 
 /**
  *
@@ -17,6 +22,7 @@ public class MetalsoftProperties {
 
     private static Properties properties;
     private static final String pathName = "metalsoft-config.properties";
+    private static FileInputStream fis;
     /*
      * public fields
      */
@@ -31,11 +37,10 @@ public class MetalsoftProperties {
     public static final String MINUTOS_ENTRE_ETAPAS = "minutos.entre.etapas";
 
     static {
-        FileInputStream file = null;
         try {
-            file = new FileInputStream(pathName);
+            fis = new FileInputStream(pathName);
             properties = new Properties();
-            properties.load(file);
+            properties.load(fis);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException e) {
@@ -53,5 +58,34 @@ public class MetalsoftProperties {
 
     public static void setProperties(Properties properties) {
         MetalsoftProperties.properties = properties;
+    }
+
+    public static void savePropertyValue(String propName, String value) {
+        properties.setProperty(propName, value);
+        try {
+            RandomAccessFile raf = new RandomAccessFile(pathName, "rw");
+            System.out.println("FP: " + raf.getFilePointer());
+            while (raf.getFilePointer() < raf.length()) {
+                System.out.println("FP: " + raf.getFilePointer());
+                String line = raf.readLine();
+                if (line != null && !"".equals(line)) {
+                    String parts[] = line.split("=");
+                    if (parts.length > 1) {
+                        String key = parts[0];
+                        if (key.equals(propName)) {
+                            System.out.println("LINE: " + line.length());
+                            raf.seek(raf.getFilePointer() - line.length() - 1);
+                            System.out.println("FP: " + raf.getFilePointer());
+                            raf.writeBytes(propName + "=" + value + System.getProperty("line.separator"));
+//                            raf.writeBytes(System.getProperty("line.separator"));
+                            System.out.println("FP: " + raf.getFilePointer());
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MetalsoftProperties.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -9,8 +9,10 @@ import javax.swing.JOptionPane;
 import metalsoft.datos.dbobject.UsuarioDB;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
+import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
+import metalsoft.negocio.gestores.IdsRol;
 import metalsoft.presentacion.Principal;
 import metalsoft.presentacion.PrincipalOperario;
 
@@ -33,68 +35,116 @@ public class MetalsoftDispatcher {
 
         List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();
 
-        if (lstUsuarioXRol.size() == 1) {
-            String rol = lstUsuarioXRol.get(0).getRol().getRol();
-            if (rol.equals("OPERARIO")) {
-                PrincipalOperario principalOperario = new PrincipalOperario();
-                principalOperario.setVisible(true);
-                principalOperario.setLocationRelativeTo(null);
-            } else if (rol.equals("ADMIN")) {
-                Principal p = new Principal(usuario);
-
-                lanzarHiloAvisoEtapaNoTerminada(p);
-                lanzarHiloEscuchadorFinEtapa(p);
-                lanzarHiloAvisoEtapaListaParaIniciar(p);
-                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
-                lanzarHiloEscuchadorFinProcesoCalidad(p);
-                lanzarHiloAvisoProcesoCalidadListoParaLanzar(p);
-
-                p.setVisible(true);
-                p.setLocationRelativeTo(null);
-            } else {
-                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
-            }
-        }
-
-
-//        boolean lanzarHiloAvisoEtapaNoTerminada = false;
-//        boolean lanzarHiloEscuchadorFinEtapa = false;
-//        boolean lanzarHiloAvisoEtapaListaParaIniciar = false;
-//        boolean lanzarHiloAvisoProcesoCalidadNoTerminado = false;
-//        boolean lanzarHiloEscuchadorFinProcesoCalidad = false;
-//        boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar = false;
-//
-//        boolean usuarioConRol = false;
-//        for (Usuarioxrol usuarioxrol : lstUsuarioXRol) {
-//            String rol = usuarioxrol.getRol().getRol();
+//        if (lstUsuarioXRol.size() == 1) {
+//            String rol = lstUsuarioXRol.get(0).getRol().getRol();
 //            if (rol.equals("OPERARIO")) {
 //                PrincipalOperario principalOperario = new PrincipalOperario();
 //                principalOperario.setVisible(true);
 //                principalOperario.setLocationRelativeTo(null);
-//
-//                usuarioConRol = true;
 //            } else if (rol.equals("ADMIN")) {
+//                Principal p = new Principal(usuario);
 //
-//                usuarioConRol = true;
+//                lanzarHiloAvisoEtapaNoTerminada(p);
+//                lanzarHiloEscuchadorFinEtapa(p);
+//                lanzarHiloAvisoEtapaListaParaIniciar(p);
+//                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
+//                lanzarHiloEscuchadorFinProcesoCalidad(p);
+//                lanzarHiloAvisoProcesoCalidadListoParaLanzar(p);
 //
-//                lanzarHiloAvisoEtapaNoTerminada = true;
-//                lanzarHiloEscuchadorFinEtapa = true;
-//                lanzarHiloAvisoEtapaListaParaIniciar = true;
-//                lanzarHiloAvisoProcesoCalidadNoTerminado = true;
-//                lanzarHiloEscuchadorFinProcesoCalidad = true;
-//                lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
+//                p.setVisible(true);
+//                p.setLocationRelativeTo(null);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
 //            }
 //        }
-//
-//        if (usuarioConRol) {
-//            Principal p = new Principal(usuario);
-//            p.setVisible(true);
-//            p.setLocationRelativeTo(null);
-//            lanzarHilos(lanzarHiloAvisoEtapaNoTerminada, lanzarHiloEscuchadorFinEtapa, lanzarHiloAvisoEtapaListaParaIniciar, lanzarHiloAvisoProcesoCalidadNoTerminado, lanzarHiloEscuchadorFinProcesoCalidad, lanzarHiloAvisoProcesoCalidadListoParaLanzar, p);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
-//        }
 
+        if (true) {
+
+            boolean lanzarHiloAvisoEtapaNoTerminada = false;
+            boolean lanzarHiloEscuchadorFinEtapa = false;
+            boolean lanzarHiloAvisoEtapaListaParaIniciar = false;
+            boolean lanzarHiloAvisoProcesoCalidadNoTerminado = false;
+            boolean lanzarHiloEscuchadorFinProcesoCalidad = false;
+            boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar = false;
+
+            boolean usuarioConRol = false;
+
+            Principal p = new Principal(usuario);
+
+            for (Usuarioxrol usuarioxrol : lstUsuarioXRol) {
+                Rol rol = usuarioxrol.getRol();
+                if (rol.getIdrol() == IdsRol.ADMIN) {
+
+                    usuarioConRol = true;
+
+                    lanzarHiloAvisoEtapaNoTerminada = true;
+                    lanzarHiloEscuchadorFinEtapa = true;
+                    lanzarHiloAvisoEtapaListaParaIniciar = true;
+                    lanzarHiloAvisoProcesoCalidadNoTerminado = true;
+                    lanzarHiloEscuchadorFinProcesoCalidad = true;
+                    lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.OPERARIO_PRODUCCION) {
+//                    PrincipalOperario principalOperario = new PrincipalOperario();
+//                    principalOperario.setVisible(true);
+//                    principalOperario.setLocationRelativeTo(null);
+
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.OPERARIO_CALIDAD) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_PRODUCCION) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_CALIDAD) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_ALMACENAMIENTO) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_COMPRAS) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_VENTAS) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_MANTENIMIENTO) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+                if (rol.getIdrol() == IdsRol.RESP_RRHH) {
+                    usuarioConRol = true;
+
+                    habilitarComponentesSegunRol(rol.getIdrol(), p);
+                }
+            }
+
+            if (usuarioConRol) {
+                p.setVisible(true);
+                p.setLocationRelativeTo(null);
+                lanzarHilos(lanzarHiloAvisoEtapaNoTerminada, lanzarHiloEscuchadorFinEtapa, lanzarHiloAvisoEtapaListaParaIniciar, lanzarHiloAvisoProcesoCalidadNoTerminado, lanzarHiloEscuchadorFinProcesoCalidad, lanzarHiloAvisoProcesoCalidadListoParaLanzar, p);
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
+            }
+        }
 
 
     }
@@ -167,5 +217,49 @@ public class MetalsoftDispatcher {
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
+    }
+
+    private static void habilitarComponentesSegunRol(Long idrol, Principal vtnPrincipal) {
+
+        switch (idrol.intValue()) {
+            case (int) IdsRol.ADMIN:
+                vtnPrincipal.setVisibleComponents(true);
+                break;
+            case (int) IdsRol.CLIENTE:
+                break;
+            case (int) IdsRol.OPERARIO_CALIDAD:
+                vtnPrincipal.getPnlRegistrarFinalizacion().setVisible(true);
+                break;
+            case (int) IdsRol.OPERARIO_PRODUCCION:
+                vtnPrincipal.getPnlRegistrarFinalizacion().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_ALMACENAMIENTO:
+                vtnPrincipal.getMnuAlmacenamiento().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_CALIDAD:
+                vtnPrincipal.getMnuCalidad().setVisible(true);
+                vtnPrincipal.getPnlCalidad().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_COMPRAS:
+                vtnPrincipal.getMnuCompras().setVisible(true);
+                vtnPrincipal.getMnuTrabajosTercerizados().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_PRODUCCION:
+                vtnPrincipal.getMnuProduccion().setVisible(true);
+                vtnPrincipal.getPnlProduccion().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_VENTAS:
+                vtnPrincipal.getMnuVentas().setVisible(true);
+                vtnPrincipal.getPnlVentas().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_MANTENIMIENTO:
+                vtnPrincipal.getMnuMantenimiento().setVisible(true);
+                break;
+            case (int) IdsRol.RESP_RRHH:
+                vtnPrincipal.getMnuRRHH().setVisible(true);
+                break;
+            default:
+                break;
+        }
     }
 }
