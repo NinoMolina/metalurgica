@@ -391,7 +391,7 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         man.setProveedormantenimiento(pro);
         result = gestor.registrarEnvioMantenimientoPreventivo(man);
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha cancelado correctamente");
+            JOptionPane.showMessageDialog(this, "El envío se ha registrado correctamente");
             dccFechaEnvio.setDate(Fecha.fechaActualDate());
             listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
             tblMantenimientos.updateUI();
@@ -401,7 +401,7 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             btnconfirmar.setEnabled(false);
 
         } else {
-            JOptionPane.showMessageDialog(this, "El trabajo tercerizado NO se ha cancelar");
+            JOptionPane.showMessageDialog(this, "El envío no ha podido ser enviado");
         }
     }
 }//GEN-LAST:event_btnconfirmarActionPerformed
