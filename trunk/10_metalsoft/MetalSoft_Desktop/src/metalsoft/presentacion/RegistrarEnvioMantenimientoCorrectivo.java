@@ -142,6 +142,7 @@ public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         btnnuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Envío de Mantenimiento Correctivo");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione los datos del Mantenimiento Correctivo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
