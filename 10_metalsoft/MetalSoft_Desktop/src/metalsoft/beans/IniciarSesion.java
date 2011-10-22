@@ -28,8 +28,8 @@ public class IniciarSesion extends javax.swing.JPanel implements java.beans.Cust
     /** Creates new customizer IniciarSesion */
     public IniciarSesion() {
         initComponents();
-        btnIniciar.setBackground(Color.getHSBColor(120,140,115));
-        btnSalir.setBackground(Color.getHSBColor(120,140,115));
+//        btnIniciar.setBackground(Color.getHSBColor(120,140,115));
+//        btnSalir.setBackground(Color.getHSBColor(120,140,115));
     }
 
     public void setObject(Object bean) {

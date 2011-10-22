@@ -20,12 +20,12 @@ public class ABM_Botones extends javax.swing.JPanel implements java.beans.Custom
     /** Creates new customizer ABM_Botones */
     public ABM_Botones() {
         initComponents();
-       btnBuscar.setBackground(Color.getHSBColor(120,140,115));
-       btnEliminar.setBackground(Color.getHSBColor(120,140,115));
-       btnGuardar.setBackground(Color.getHSBColor(120,140,115));
-       btnModificar.setBackground(Color.getHSBColor(120,140,115));
-       btnNuevo.setBackground(Color.getHSBColor(120,140,115));
-       btnSalir.setBackground(Color.getHSBColor(120,140,115));
+//       btnBuscar.setBackground(Color.getHSBColor(120,140,115));
+//       btnEliminar.setBackground(Color.getHSBColor(120,140,115));
+//       btnGuardar.setBackground(Color.getHSBColor(120,140,115));
+//       btnModificar.setBackground(Color.getHSBColor(120,140,115));
+//       btnNuevo.setBackground(Color.getHSBColor(120,140,115));
+//       btnSalir.setBackground(Color.getHSBColor(120,140,115));
     }
 
     public void setObject(Object bean) {
