@@ -135,7 +135,18 @@ public class Principal extends javax.swing.JFrame {
         btnPedidos = new javax.swing.JButton();
         btnNuevoCliente = new javax.swing.JButton();
         pnlProduccion = new metalsoft.beans.JPanelTransparente();
-        btnEjecutarProduccion = new javax.swing.JButton();
+        btnEjecutarProduccion = new javax.swing.JButton(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/canstock5501471.jpg")), 0, 0, getWidth(), getHeight(), this);
+                    setContentAreaFilled(false);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        };
         btnProduccionEnEjecucion = new javax.swing.JButton() {
 
             @Override
@@ -328,7 +339,7 @@ public class Principal extends javax.swing.JFrame {
         lblUsuario.setForeground(new java.awt.Color(227, 233, 255));
         lblUsuario.setText("...");
 
-        lblRol.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblRol.setFont(new java.awt.Font("Calibri", 1, 18));
         lblRol.setForeground(new java.awt.Color(227, 233, 255));
         lblRol.setText("...");
 
@@ -421,7 +432,6 @@ public class Principal extends javax.swing.JFrame {
         pnlProduccion.setPreferredSize(new java.awt.Dimension(450, 200));
         pnlProduccion.setTran(0.1F);
 
-        btnEjecutarProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock5501471.jpg"))); // NOI18N
         btnEjecutarProduccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Producción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnEjecutarProduccion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEjecutarProduccion.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +486,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnlProduccionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEjecutarProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(btnEjecutarProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                     .addComponent(btnEtapasAtrasadas, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                     .addComponent(btnEtapasListasParaLanzar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                     .addComponent(btnProduccionEnEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -581,7 +591,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         txtComunicacion.setColumns(20);
-        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 18));
         txtComunicacion.setRows(5);
         txtComunicacion.setOpaque(false);
         jScrollPane1.setViewportView(txtComunicacion);
@@ -593,11 +603,11 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnlRegistrarFinalizacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRegistrarFinalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                     .addGroup(pnlRegistrarFinalizacionLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEnviarFinalizacion)))
                 .addContainerGap())
@@ -634,12 +644,13 @@ public class Principal extends javax.swing.JFrame {
                                     .addGroup(pnlImagenLayout.createSequentialGroup()
                                         .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pnlRegistrarFinalizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)))
+                                        .addComponent(pnlRegistrarFinalizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)))
                                 .addGap(30, 30, 30)
                                 .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
                         .addComponent(jLabel1)
