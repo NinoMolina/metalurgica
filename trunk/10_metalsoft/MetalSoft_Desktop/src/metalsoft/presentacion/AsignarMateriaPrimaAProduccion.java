@@ -38,6 +38,7 @@ import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+import org.jdesktop.swingx.table.ColumnControlButton;
 
 /**
  *
@@ -59,7 +60,6 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
     public AsignarMateriaPrimaAProduccion() {
         super(Principal.getVtnPrincipal());
         initComponents();
-        setearTablas();
         lblNroPresupuesto.setVisible(false);
         gestor = new GestorPlanificacion();
         gestorPresupuesto = new GestorPresupuesto();
@@ -72,6 +72,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
         setEnableFalse();
         btnSeleccionarProveedor.setEnabled(false);
         btnAsignarMP.setEnabled(false);
+        setearTablas();
     }
 
     private void setearTablas() {
@@ -81,6 +82,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true);
+        tblPedidos.packAll();
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -90,6 +93,8 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMatPrimaXPieza.setShowHorizontalLines(false);
         tblMatPrimaXPieza.setShowVerticalLines(false);
+        tblMatPrimaXPieza.setHorizontalScrollEnabled(true);
+        tblMatPrimaXPieza.packAll();
         /* On dit de surligner une ligne sur deux */
         tblMatPrimaXPieza.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -110,6 +115,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
     private void cargarTablaMatPrima() {
         filasMateriaPrimaXPiezaPresupuesto = gestorPresupuesto.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
+        tblMatPrimaXPieza.packAll();
 
     }
 

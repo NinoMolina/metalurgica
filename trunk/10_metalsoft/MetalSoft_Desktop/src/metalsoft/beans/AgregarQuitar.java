@@ -20,8 +20,8 @@ public class AgregarQuitar extends javax.swing.JPanel implements java.beans.Cust
     /** Creates new customizer AgregarQuitar */
     public AgregarQuitar() {
         initComponents();
-        btnAgregar.setBackground(Color.getHSBColor(120,140,115));
-        btnQuitar.setBackground(Color.getHSBColor(120,140,115));
+//        btnAgregar.setBackground(Color.getHSBColor(120,140,115));
+//        btnQuitar.setBackground(Color.getHSBColor(120,140,115));
     }
 
     public JButton getBtnAgregar() {
