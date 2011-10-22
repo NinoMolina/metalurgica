@@ -387,7 +387,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {
         if (tblPedidos.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido.");
             return;
         }
         viewPedidoSeleccionado = filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
@@ -1166,16 +1166,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
             JFreeChart chart = ChartFactory.createGanttChart("", "Días", "Horas", dataset, true, true, false);
-            
+
             final CategoryPlot plot = (CategoryPlot) chart.getPlot();
             final CategoryItemRenderer renderer = plot.getRenderer();
             renderer.setSeriesPaint(0, Color.ORANGE);
-            
+
             ChartPanel chartPanel = new ChartPanel(chart);
-            
+
             chart.setBorderVisible(true);
             chartPanel.setBounds(10, 15, pnlDispHoraria.getWidth() - 20, pnlDispHoraria.getHeight() - 30);
-            
+
             pnlDispHoraria.removeAll();
             pnlDispHoraria.add(chartPanel);
             pnlDispHoraria.updateUI();
@@ -1606,39 +1606,49 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         while (it.hasNext()) {
             dp = it.next();
 
-            if (!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())) {
-                mapIndexProducto.put(dp.getIdproducto().getIdproducto(), 0);
-            } else {
-                Integer index = mapIndexProducto.get(dp.getIdproducto().getIdproducto());
-                mapIndexProducto.put(dp.getIdproducto().getIdproducto(), index + 1);
-            }
 
-            prod = new ProductoNode(dp.getIdproducto());
-            prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
-            raiz.add(prod);
-            List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
-            Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
-            PiezaNode pieza = null;
-            metalsoft.datos.jpa.entity.Detalleproductopresupuesto detProPre = null;
-            /*
-             * recorro los productos del detalle
-             */
-            while (itDetProPre.hasNext()) {
-                detProPre = itDetProPre.next();
-                prod.setDetalleProductoPresupuesto(detProPre);
-                pieza = new PiezaNode(detProPre.getIdpieza());
-                prod.add(pieza);
-                List<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> setDetPiPre = detProPre.getDetallepiezapresupuestoList();
-                metalsoft.datos.jpa.entity.Detallepiezapresupuesto detPiPre = null;
-                Iterator<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> itDetPiPre = setDetPiPre.iterator();
-                EtapaProduccionNode etapaProd = null;
+            int cantProductos = dp.getCantidad();
+
+            for (int i = 0; i < cantProductos; i++) {
+                if (!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())) {
+                    mapIndexProducto.put(dp.getIdproducto().getIdproducto(), 0);
+                } else {
+                    Integer index = mapIndexProducto.get(dp.getIdproducto().getIdproducto());
+                    mapIndexProducto.put(dp.getIdproducto().getIdproducto(), index + 1);
+                }
+                prod = new ProductoNode(dp.getIdproducto());
+                prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
+                raiz.add(prod);
+
+                List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
+                Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
+                PiezaNode pieza = null;
+                metalsoft.datos.jpa.entity.Detalleproductopresupuesto detProPre = null;
                 /*
-                 * recorro las piezas de cada producto
+                 * recorro los productos del detalle
                  */
-                while (itDetPiPre.hasNext()) {
-                    detPiPre = itDetPiPre.next();
-                    etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
-                    etapaProd.setDetallePiezaPresupuesto(detPiPre);
+                while (itDetProPre.hasNext()) {
+                    detProPre = itDetProPre.next();
+                    prod.setDetalleProductoPresupuesto(detProPre);
+
+                    int cantPiezas = detProPre.getCantpiezas();
+                    int indexPieza = 0;
+                    for (int j = 0; j < cantPiezas; j++) {
+                        pieza = new PiezaNode(detProPre.getIdpieza());
+                        pieza.setIndexPieza(indexPieza);
+                        indexPieza++;
+                        prod.add(pieza);
+                        List<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> setDetPiPre = detProPre.getDetallepiezapresupuestoList();
+                        metalsoft.datos.jpa.entity.Detallepiezapresupuesto detPiPre = null;
+                        Iterator<metalsoft.datos.jpa.entity.Detallepiezapresupuesto> itDetPiPre = setDetPiPre.iterator();
+                        EtapaProduccionNode etapaProd = null;
+                        /*
+                         * recorro las piezas de cada producto
+                         */
+                        while (itDetPiPre.hasNext()) {
+                            detPiPre = itDetPiPre.next();
+                            etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
+                            etapaProd.setDetallePiezaPresupuesto(detPiPre);
 //                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
 //                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
 //                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
@@ -1655,12 +1665,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 //                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
 //                    etapaProd.setInicioEtapa(inicio.getTime());
 //                    etapaProd.setFinEtapa(fin.getTime());
-                    pieza.add(etapaProd);
+                            pieza.add(etapaProd);
 //                    finEtapaAnterior = fin.getTime();
-                }
+                        }
 
-                finEtapaAnterior = null;
-            }
+                    }
+
+                    finEtapaAnterior = null;
+                }
+            }//fin for cant producto
         }
         trtDetalleProcProd.expandAll();
         trtDetalleProcProd.setEditable(true);
@@ -2189,7 +2202,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         public Object getValueAt(int i) {
             switch (i) {
                 case 0:
-                    return producto.getNombre();
+                    return producto.getNombre() + "-" + indexProducto;
             }
             return "";
         }
@@ -2226,6 +2239,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     class PiezaNode extends AbstractMutableTreeTableNode {
 
         private metalsoft.datos.jpa.entity.Pieza pieza;
+        private int indexPieza = 1;
 
         public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
             this.pieza = pieza;
@@ -2238,9 +2252,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         public Object getValueAt(int i) {
             switch (i) {
                 case 0:
-                    return pieza.getNombre();
+                    return pieza.getNombre() + "-" + indexPieza;
             }
             return "";
+        }
+
+        public int getIndexPieza() {
+            return indexPieza;
+        }
+
+        public void setIndexPieza(int indexPieza) {
+            this.indexPieza = indexPieza;
         }
 
         public int getColumnCount() {

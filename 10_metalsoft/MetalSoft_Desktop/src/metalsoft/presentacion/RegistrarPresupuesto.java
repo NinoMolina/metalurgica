@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorPresupuesto;
@@ -154,7 +156,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     }
 
     private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
-        if(tblPedidos.getSelectedRow()<0){
+        if (tblPedidos.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
             return;
         }
@@ -725,16 +727,32 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
         ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
         long idMatPrima = view.getIdmateriaprima();
-        SeleccionarProveedor p = new SeleccionarProveedor(idMatPrima, this);
-        p.setVisible(true);
-        p.setLocationRelativeTo(null);
-        beanBtnGuardar.getBtnGuardar().setEnabled(true);
+        try {
+            SeleccionarProveedor.setIdMateriaPrima(idMatPrima);
+            SeleccionarProveedor.setVentanaPadre(this);
+            JFrameManager.crearVentana(SeleccionarProveedor.class.getName());
+            beanBtnGuardar.getBtnGuardar().setEnabled(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
     private void btnVerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalleActionPerformed
-        RegistrarPresupuest_VerDetalle detalle = new RegistrarPresupuest_VerDetalle(filasProductoPresupuesto);
-        detalle.setLocationRelativeTo(null);
-        detalle.setVisible(true);
+        try {
+            RegistrarPresupuest_VerDetalle.setFilasProductoPresupuesto(filasProductoPresupuesto);
+            RegistrarPresupuest_VerDetalle.setVentanaPadre(this);
+            JFrameManager.crearVentana(RegistrarPresupuest_VerDetalle.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnVerDetalleActionPerformed
 
     private void imprimirPresupuesto() {
@@ -802,7 +820,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         c.add(Calendar.MINUTE, minutos);
         c.add(Calendar.HOUR_OF_DAY, horas);
         c.add(Calendar.DAY_OF_YEAR, dias);
-        c=Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, c);
+        c = Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, c);
         dccFechaEstimadaFinProduccion.setDate(c.getTime());
     }
 
@@ -1098,9 +1116,9 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                 case 6:
                     return view.getNombreetapaproduccion();
                 case 7:
-                    return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza())+" (hh:mm:ss)";
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionetapaxpieza()) + " (hh:mm:ss)";
                 case 8:
-                    return view.getDuraciontotal()+" (hh:mm:ss)";
+                    return view.getDuraciontotal() + " (hh:mm:ss)";
                 default:
                     return null;
             }
@@ -1174,13 +1192,13 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                 case 5:
                     return view.getNombremateriaprima();
                 case 6:
-                    return "$ "+view.getPreciomateriaprima();
+                    return "$ " + view.getPreciomateriaprima();
                 case 7:
                     return view.getCantmateriaprima();
                 case 8:
                     return view.getCanttotal();
                 case 9:
-                    return "$ "+view.getPreciototal();
+                    return "$ " + view.getPreciototal();
                 default:
                     return null;
             }
@@ -1258,9 +1276,9 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                 case 7:
                     return view.getCantprocesocalidad();
                 case 8:
-                    return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza())+" (hh:mm:ss)";
+                    return Fecha.parseToHourMinuteSecond(view.getDuracionprocalidadxpieza()) + " (hh:mm:ss)";
                 case 9:
-                    return view.getDuraciontotal()+" (hh:mm:ss)";
+                    return view.getDuraciontotal() + " (hh:mm:ss)";
                 default:
                     return null;
             }
