@@ -1156,60 +1156,57 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
-        Date finEtapaAnterior = null;
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
         while (it.hasNext()) {
             dp = it.next();
-            prod = new ProductoNode(dp.getIdproducto());
-            raiz.add(prod);
-            List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
-            Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
-            PiezaNode pieza = null;
-            metalsoft.datos.jpa.entity.Detalleproductopresupuesto detProPre = null;
-            /*
-             * recorro los productos del detalle
-             */
-            while (itDetProPre.hasNext()) {
-                detProPre = itDetProPre.next();
-                prod.setDetalleProductoPresupuesto(detProPre);
-                pieza = new PiezaNode(detProPre.getIdpieza());
-                prod.add(pieza);
-                List<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> setDetPiPre = detProPre.getDetallepiezacalidadpresupuestoList();
-                metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto detPiPre = null;
-                Iterator<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> itDetPiPre = setDetPiPre.iterator();
-                ProcesoCalidadNode procesoCalidadNode = null;
-                /*
-                 * recorro las piezas de cada producto
-                 */
-                while (itDetPiPre.hasNext()) {
-                    detPiPre = itDetPiPre.next();
-                    procesoCalidadNode = new ProcesoCalidadNode(detPiPre.getIdprocesocalidad());
-//                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
-                    procesoCalidadNode.setDetallePiezaCalidadPresupuesto(detPiPre);
-//                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
-//                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-//                    Date fechaInicio = null;
-//                    if (finEtapaAnterior == null) {
-//                        fechaInicio = fechaFinPrevista;
-//                        fechaInicio = Fecha.setHoraMinutoSegundo(fechaInicio, horaFinPrevista);
-//                    } else {
-//                        fechaInicio = finEtapaAnterior;
-//                    }
-//                    Calendar inicio = new GregorianCalendar();
-//                    inicio.setTime(fechaInicio);
-////                    inicio.setTime(new Date());
-//                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-//                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-//                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionxpieza().getHours(), detPiPre.getDuracionxpieza().getMinutes());
-//                    procesoCalidadNode.setInicioEtapa(inicio.getTime());
-//                    procesoCalidadNode.setFinEtapa(fin.getTime());
-                    pieza.add(procesoCalidadNode);
-//                    finEtapaAnterior = fin.getTime();
-                }
 
-                finEtapaAnterior = null;
+            int cantProductos = dp.getCantidad();
+            
+            int indexProducto = 0;
+            for (int i = 0; i < cantProductos; i++) {
+
+                prod = new ProductoNode(dp.getIdproducto());
+                prod.setIndexProducto(indexProducto);
+                indexProducto++;
+                raiz.add(prod);
+                List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
+                Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
+                PiezaNode pieza = null;
+                metalsoft.datos.jpa.entity.Detalleproductopresupuesto detProPre = null;
+                /*
+                 * recorro los productos del detalle
+                 */
+                while (itDetProPre.hasNext()) {
+                    detProPre = itDetProPre.next();
+                    prod.setDetalleProductoPresupuesto(detProPre);
+
+                    int cantPiezas = detProPre.getCantpiezas();
+
+                    int indexPieza = 0;
+                    for (int j = 0; j < cantPiezas; j++) {
+                        pieza = new PiezaNode(detProPre.getIdpieza());
+                        pieza.setIndexPieza(indexPieza);
+                        indexPieza++;
+                        prod.add(pieza);
+                        List<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> setDetPiPre = detProPre.getDetallepiezacalidadpresupuestoList();
+                        metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto detPiPre = null;
+                        Iterator<metalsoft.datos.jpa.entity.Detallepiezacalidadpresupuesto> itDetPiPre = setDetPiPre.iterator();
+                        ProcesoCalidadNode procesoCalidadNode = null;
+                        /*
+                         * recorro las piezas de cada producto
+                         */
+                        while (itDetPiPre.hasNext()) {
+                            detPiPre = itDetPiPre.next();
+                            procesoCalidadNode = new ProcesoCalidadNode(detPiPre.getIdprocesocalidad());
+                            procesoCalidadNode.setDetallePiezaCalidadPresupuesto(detPiPre);
+                            pieza.add(procesoCalidadNode);
+                        }
+
+                    }
+
+                }
             }
         }
         trtDetalleProcProd.expandAll();
@@ -1898,6 +1895,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         private metalsoft.datos.jpa.entity.Producto producto;
         private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
+        private int indexProducto = 1;
 
         public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
             this.producto = producto;
@@ -1906,9 +1904,17 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         public Object getValueAt(int i) {
             switch (i) {
                 case 0:
-                    return producto.getNombre();
+                    return producto.getNombre() + "-" + indexProducto;
             }
             return "";
+        }
+
+        public int getIndexProducto() {
+            return indexProducto;
+        }
+
+        public void setIndexProducto(int indexProducto) {
+            this.indexProducto = indexProducto;
         }
 
         public int getColumnCount() {
@@ -1935,6 +1941,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     class PiezaNode extends AbstractMutableTreeTableNode {
 
         private metalsoft.datos.jpa.entity.Pieza pieza;
+        private int indexPieza = 1;
 
         public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
             this.pieza = pieza;
@@ -1947,13 +1954,21 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         public Object getValueAt(int i) {
             switch (i) {
                 case 0:
-                    return pieza.getNombre();
+                    return pieza.getNombre() + "-" + indexPieza;
             }
             return "";
         }
 
         public int getColumnCount() {
             return columnCountTreeTable;
+        }
+
+        public int getIndexPieza() {
+            return indexPieza;
+        }
+
+        public void setIndexPieza(int indexPieza) {
+            this.indexPieza = indexPieza;
         }
 
         public metalsoft.datos.jpa.entity.Pieza getPieza() {

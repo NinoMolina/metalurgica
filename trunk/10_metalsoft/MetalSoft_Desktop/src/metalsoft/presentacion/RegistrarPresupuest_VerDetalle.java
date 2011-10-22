@@ -11,6 +11,7 @@
 package metalsoft.presentacion;
 
 import java.util.LinkedList;
+import javax.swing.JDialog;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.ViewProductoPresupuesto;
 
@@ -19,17 +20,26 @@ import metalsoft.negocio.gestores.ViewProductoPresupuesto;
  * @author Nino
  */
 public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
-        private LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
+
+    private static LinkedList<ViewProductoPresupuesto> filasProductoPresupuesto;
+    private static JDialog ventanaPadre;
     /** Creates new form RegistrarPresupuest_VerDetalle */
-    public RegistrarPresupuest_VerDetalle(LinkedList<ViewProductoPresupuesto> list) {
-        super(Principal.getVtnPrincipal());
+    public RegistrarPresupuest_VerDetalle() {
+        super(ventanaPadre);
         initComponents();
-        filasProductoPresupuesto=list;
         addListeners();
         tblProdPresupuesto.setModel(new ProductoPresupuestoTableModel());
         tblProdPresupuesto.updateUI();
     }
+    
+    public static void setVentanaPadre(JDialog ventana){
+        ventanaPadre = ventana;
+    }
 
+    public static void setFilasProductoPresupuesto(LinkedList<ViewProductoPresupuesto> filas) {
+        filasProductoPresupuesto = filas;
+    }
+    
     private void addListeners() {
         addListenerBtnSalir();
     }
@@ -93,7 +103,7 @@ public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXTable tblProdPresupuesto;
     // End of variables declaration//GEN-END:variables
-class ProductoPresupuestoTableModel extends AbstractTableModel {
+    class ProductoPresupuestoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {"Cantidad",
             "Producto",
@@ -111,9 +121,9 @@ class ProductoPresupuestoTableModel extends AbstractTableModel {
                 case 1:
                     return view.getNombreproducto();
                 case 2:
-                    return "$ "+view.getPreciounitario();
+                    return "$ " + view.getPreciounitario();
                 case 3:
-                    return "$ "+view.getImporte();
+                    return "$ " + view.getImporte();
                 default:
                     return null;
             }

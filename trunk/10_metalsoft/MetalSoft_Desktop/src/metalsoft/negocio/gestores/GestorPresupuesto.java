@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -318,6 +319,7 @@ public class GestorPresupuesto {
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Presupuesto");
             jviewer.setVisible(true);
 

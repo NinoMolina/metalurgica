@@ -33,28 +33,31 @@ import metalsoft.util.Combo;
  */
 public class SeleccionarProveedor extends javax.swing.JDialog {
 
+
     /** Creates new form SeleccionarProveedor */
     private LinkedList<ViewProveedorXMateriaPrima> filasProveedorXMateriaPrima;
-    private long idMateriaPrima;
-    private RegistrarPresupuesto context;
+    private static long idMateriaPrima;
+    private static RegistrarPresupuesto context;
     private MateriaprimaDB matprimaDB;
-    public SeleccionarProveedor() {
-        initComponents();
-        cargarComboTipoMaterial();
-    }
     
-    public SeleccionarProveedor(long idMP, RegistrarPresupuesto context)
+    public SeleccionarProveedor()
     {
-        super(Principal.getVtnPrincipal());
+        super(context);
         initComponents();
-        this.idMateriaPrima=idMP;
-        this.context=context;
         cargarComboTipoMaterial();
         buscarMateriaPrima(idMateriaPrima);
         setearDatos();
         cargarTablaProveedores();
     }
 
+    public static void setIdMateriaPrima(long idMatPrima) {
+        idMateriaPrima = idMatPrima;
+    }
+
+    static void setVentanaPadre(RegistrarPresupuesto owner) {
+        context = owner;
+    }
+    
     private void cargarTablaProveedores()
     {
         PostgreSQLManager pg=new PostgreSQLManager();
