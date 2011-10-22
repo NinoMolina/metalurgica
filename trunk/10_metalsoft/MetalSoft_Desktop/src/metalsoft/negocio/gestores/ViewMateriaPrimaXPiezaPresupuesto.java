@@ -5,6 +5,10 @@
 
 package metalsoft.negocio.gestores;
 
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.CodigodebarraJpaController;
+import metalsoft.negocio.produccion.CodigoDeBarra;
+
 /**
  *
  * @author Nino
@@ -165,6 +169,11 @@ public class ViewMateriaPrimaXPiezaPresupuesto {
 
     public void setNroproducto(long nroproducto) {
         this.nroproducto = nroproducto;
+    }
+
+    public metalsoft.datos.jpa.entity.Codigodebarra getCodigoByID(long idCodigo) {
+       CodigodebarraJpaController controller=new CodigodebarraJpaController(JpaUtil.getEntityManagerFactory());
+        return controller.findCodigodebarra(idCodigo);
     }
 
     
