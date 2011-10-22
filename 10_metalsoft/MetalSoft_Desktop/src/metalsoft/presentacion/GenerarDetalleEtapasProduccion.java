@@ -49,7 +49,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
     private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
 
     public GenerarDetalleEtapasProduccion() {
-        super(Principal.getVtnPrincipal());
+        super(BotonRapidoPresupuesto.getVtnBotonRapido());
         initComponents();
         tcrTblDetallePedido = new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);
