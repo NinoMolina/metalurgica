@@ -98,7 +98,7 @@ public class GestorLanzarProximaEtapa {
     }
 
     private void imprimirCodigoEjecucionEtapa(Long id) {
-        
+
         PostgreSQLManager pg = new PostgreSQLManager();
         Connection cn = null;
         Map param = new HashMap();
@@ -139,11 +139,9 @@ public class GestorLanzarProximaEtapa {
             }
         }
 
-
     }
-    
 //    public static void main(String args[]){
 //        GestorLanzarProximaEtapa g = new GestorLanzarProximaEtapa();
-//        g.imprimirCodigoEjecucionEtapa(38L);
+//        g.imprimirCodigoEjecucionEtapa(39L);
 //    }
 }
