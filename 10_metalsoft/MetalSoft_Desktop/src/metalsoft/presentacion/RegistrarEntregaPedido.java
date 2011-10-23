@@ -11,6 +11,7 @@
 package metalsoft.presentacion;
 
 import com.toedter.calendar.JDateChooser;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
+import metalsoft.negocio.gestores.ViewPresupuestoParaFactura;
 import metalsoft.negocio.ventas.Cliente;
 import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
@@ -41,7 +43,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
     private LinkedList<ViewPedidosClienteSegunEstado> filasPedidos;
-    private LinkedList<ViewDetallePedidoCotizacion> filasDetalle;
+    private LinkedList<ViewPresupuestoParaFactura> filasDetalle;
     private GestorCliente gestorCliente;
     private GestorPedidoCotizacion gestorPedido;
     private Cliente cliente;
@@ -50,6 +52,10 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private EnumOpcionesABM opcion;
     private GestorRegistrarEntregaPedido gestor;
     private long idCliente;
+    private Date fechaVencimientoFactura;
+    private String tipoFactura;
+    private long formaPago;
+    private boolean imprimir = false;
 
     /** Creates new form RegistrarEntregaPedido */
     public RegistrarEntregaPedido() {
@@ -67,8 +73,17 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         cmbPrioridad1.setEnabled(false);
         btnRegistrarEntrega.setEnabled(false);
         btnSeleccionar.setEnabled(false);
-        
+
     }
+
+    public boolean isImprimir() {
+        return imprimir;
+    }
+
+    public void setImprimir(boolean imprimir) {
+        this.imprimir = imprimir;
+    }
+
     private void setearTablas() {
         //DETALLE PEDIDO
         tblPedidos.setModel(new PedidoTableModel());
@@ -89,6 +104,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         tblDetallePedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
+
     private void buscarPedidosClienteEnArmado() {
         filasPedidos = gestor.buscarPedidosClienteEnArmado(idCliente);
         tblPedidos.updateUI();
@@ -586,7 +602,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         } else {
             dccPedidoCotizacion.setDate(ped.getFechapedidocotizacion());
         }
-        lblNroPedido.setText("PED-"+String.valueOf(ped.getNropedido()));
+        lblNroPedido.setText("PED-" + String.valueOf(ped.getNropedido()));
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
@@ -607,38 +623,29 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         result = gestor.updatePedido(db);
         int ok = -1;
         int okRemito = -1;
+        ImprimirFacturaOpciones ventana=null;
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
 
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {
                 imprimirRemito();
-                boolean flag = false;
-                do {
-                    ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
-                    if (ok == JOptionPane.OK_OPTION) {
-                        JComboBox combo=new JComboBox();
-                        JComboBox combotipoFactura=cargarComboTipoFactura();
-                        JDateChooser jdcVencimiento=new JDateChooser();
-                        jdcVencimiento.setDate(Fecha.fechaActualDate());
-
-                        gestor.obtenerFormasDePago(combo);
-                        Object[] obj = {"Forma de Pago:", combo, "Tipo de Factura:",combotipoFactura, "Fecha de Vencimiento:", jdcVencimiento};
-
-                        int res = JOptionPane.showConfirmDialog(null, obj, "Ingresar Forma de Pago y Tipo de Factura", JOptionPane.OK_CANCEL_OPTION);
-
-                        if (res == JOptionPane.OK_OPTION) {
-                            long formaPago=Long.parseLong(((ItemCombo) combo.getSelectedItem()).getId());
-                            String tipoFactura=String.valueOf(((ItemCombo) combotipoFactura.getSelectedItem()).getMostrar());
-                            java.util.Date fechaVencimiento=jdcVencimiento.getDate();
-                            imprimirFactura(formaPago,tipoFactura,fechaVencimiento);
-                            flag=false;
-                        }else{
-                            flag=true;
+                ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
+                if (ok == JOptionPane.OK_OPTION) {
+                    if(imprimir){
+                        try {
+                            ventana =(ImprimirFacturaOpciones) JFrameManager.crearVentana(ImprimirFacturaOpciones.class.getName());
+                            ventana.setVentana(this);
+                            imprimirFactura();
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InstantiationException ex) {
+                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalAccessException ex) {
+                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
                         }
-
                     }
-                } while (flag);
+                }
             }
 
 
@@ -649,27 +656,25 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         pedidoSeleccionado(idPedido);
         btnRegistrarEntrega.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
-    private void imprimirFactura(long idformapago, String tipoFactura, java.util.Date fechaVencimiento) {
-        double monto=0d;
-        for(ViewDetallePedidoCotizacion de : filasDetalle){
-            monto+=de.getPrecio();
 
+    public void setearCamposFactura(long idformapago, String tipoFactura, Date fechaVencimiento) {
+        this.formaPago = idformapago;
+        this.tipoFactura = tipoFactura;
+        this.fechaVencimientoFactura = fechaVencimiento;
+    }
+
+    private void imprimirFactura() {
+        double monto = 0d;
+        for (ViewPresupuestoParaFactura de : filasDetalle) {
+            monto += de.getPrecio();
         }
-        gestor.imprimirFactura(idPedido,idformapago,tipoFactura,fechaVencimiento,monto);
+        gestor.imprimirFactura(idPedido, formaPago, tipoFactura, fechaVencimientoFactura, monto);
     }
 
     private void imprimirRemito() {
         gestor.imprimirRemito(idPedido);
     }
-    private JComboBox cargarComboTipoFactura(){
-        JComboBox combo=new JComboBox();
-        combo.addItem(new ItemCombo("1", "A"));
-        combo.addItem(new ItemCombo("2", "B"));
-        combo.addItem(new ItemCombo("3", "C"));
-        combo.setSelectedIndex(0);
 
-        return combo;
-    }
     /**
      * @param args the command line arguments
      */
@@ -764,7 +769,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         cmbEstado1.removeAllItems();
         gestorPedido.obtenerEstados(cmbEstado1);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnRegistrarEntrega;
@@ -830,7 +834,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return "PED-"+view.getNropedido();
+                    return "PED-" + view.getNropedido();
                 case 1:
                     return view.getNropedidocotizacioncliente();
                 case 2:
@@ -892,19 +896,19 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewDetallePedidoCotizacion view = filasDetalle.get(rowIndex);
+            ViewPresupuestoParaFactura view = filasDetalle.get(rowIndex);
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNumeroProducto();
+                    return view.getNroproducto();
                 case 1:
                     return view.getCantidad();
                 case 2:
-                    return view.getNombreProducto();
+                    return view.getNombre();
                 case 3:
                     return view.getDescripcion();
                 case 4:
-                    return view.getCantidadPiezas();
+                    return view.getCantidad();
                 default:
                     return null;
             }
