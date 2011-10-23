@@ -52,7 +52,7 @@ p.cliente = c.idcliente AND eep.id = $P{ID_EJECUCION_ETAPA}]]>
 	<field name="nombre_apellido" class="java.lang.String"/>
 	<field name="idejecucionetapa" class="java.lang.Long"/>
 	<variable name="CODIGO_BARRA" class="java.lang.String">
-		<variableExpression><![CDATA["mscb-"+$F{idejecucionetapa}]]></variableExpression>
+		<variableExpression><![CDATA["mscb-2-"+$F{idejecucionetapa}]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<detail>
