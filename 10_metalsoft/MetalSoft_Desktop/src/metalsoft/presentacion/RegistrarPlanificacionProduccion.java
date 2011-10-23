@@ -73,7 +73,7 @@ import org.joda.time.Interval;
 public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
     private static Date fechaInicioSiguienteDisp;
-    private static boolean noHaySiguienteDisponibilidad;
+    private static boolean noHaySiguienteDisponibilidad = false;
     /** Creates new form RegistrarPlanificacionProduccion */
     private LinkedList<ViewPedidoNoPlanificado> filasPedidosNoPlanificados;
     private GestorRegistrarPlanificacionProduccion gestor;
@@ -1854,10 +1854,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
     }
 
-    public static Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos, Date fechaActual) {
+    public static synchronized Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos, Date fechaActual) {
 
         fechaInicioSiguienteDisp = null;
-
+        
         Date resultado = null;
 
         /*

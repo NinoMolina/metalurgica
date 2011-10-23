@@ -27,7 +27,7 @@ public class Fecha {
     public static final long MILISEGUNDOS_POR_HORA = 3600000;
     public static final long MILISEGUNDOS_POR_MINUTO = 60000;
     public static final long MILISEGUNDOS_POR_SEGUNDO = 1000;
-    public static final String HORA_MINUTO_SEGUNDO = "hh:mm:ss";
+    public static final String HORA_MINUTO_SEGUNDO = "HH:mm:ss";
     public static final String DD_MM_YYYY = "dd/MM/yyyy";
     public static final String DD_MM_YYYY_GUION = "dd-MM-yyyy";
     public static final String YYYY_MM_DD_GUION = "yyyy-MM-dd";
@@ -56,11 +56,11 @@ public class Fecha {
 
     public static String fechaHoraMinutoSegundoActual() {
         Date fecha = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         return formato.format(fecha);
     }
-    
+
     public static String fechaHomaMinutoSegundoActualParaNovedades() {
         Date fecha = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
@@ -127,7 +127,7 @@ public class Fecha {
 
     public static Date parseToDateConHoraMinuto(String fecha) {
         Date f = null;
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
             f = formato.parse(fecha);
         } catch (ParseException ex) {
@@ -210,7 +210,7 @@ public class Fecha {
 
     public static Date parseToHourMinuteSecond(String fecha) {
         Date f = null;
-        SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
         try {
             f = formato.parse(fecha);
         } catch (ParseException ex) {
@@ -282,7 +282,7 @@ public class Fecha {
         calendar.add(Calendar.HOUR_OF_DAY, -fechaInicio.getHours());
         return calendar.getTime();
     }
-    
+
     public static Date diferenciaEnMinutosHoras(Date fechaInicio, Date fechaFin) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(fechaFin);
@@ -402,7 +402,7 @@ public class Fecha {
         System.out.println(dif.getHours());
         System.out.println(dif.getMinutes());
         System.out.println(dif.getSeconds());
-        
+
 //        int difDias = diferenciaEnDias(d3, fa);
 //        System.out.println(dif);
 //        System.out.println(difDias);
@@ -411,27 +411,27 @@ public class Fecha {
 //
 //        Time time = new Time(difDias * 24, dif.getMinutes(), dif.getSeconds());
 //        System.out.println(time);
-        
+
 //        GregorianCalendar calendar = new GregorianCalendar(2011, 9, 2, 20, 0);
 //        Date d3 = calendar.getTime();
 //        System.out.println(d3);
 //        System.out.println(fechaActualDate());
 //        int dif = diferenciaEnDias(d3, fechaActualDate());
 //        System.out.println(dif);
-        
-        
+
+
     }
-    
-    public static boolean esMismaFecha(Date a, Date b){
+
+    public static boolean esMismaFecha(Date a, Date b) {
         Calendar calA = new GregorianCalendar();
         Calendar calB = new GregorianCalendar();
-        
+
         calA.setTime(a);
         calB.setTime(b);
-        
-        if(calA.get(Calendar.YEAR) == calB.get(Calendar.YEAR) && 
-                calA.get(Calendar.MONTH) == calB.get(Calendar.MONTH) && 
-                calA.get(Calendar.DAY_OF_MONTH) == calB.get(Calendar.DAY_OF_MONTH)){
+
+        if (calA.get(Calendar.YEAR) == calB.get(Calendar.YEAR)
+                && calA.get(Calendar.MONTH) == calB.get(Calendar.MONTH)
+                && calA.get(Calendar.DAY_OF_MONTH) == calB.get(Calendar.DAY_OF_MONTH)) {
             return true;
         }
         return false;
@@ -466,16 +466,16 @@ public class Fecha {
 //        System.out.println(Fecha.parseToString(actual.getTime()));
         return actual.getTime();
     }
-    
-    public static Date dateWithSpecificValues(Date fecha, int horas, int minutos, int segundos){
+
+    public static Date dateWithSpecificValues(Date fecha, int horas, int minutos, int segundos) {
         Date d = new Date(fecha.getTime());
         d.setHours(horas);
         d.setMinutes(minutos);
         d.setSeconds(segundos);
         return d;
     }
-    
-    public static boolean superposicion(Date inicioIntervalo1, Date finIntervalo1, Date inicioIntervalo2, Date finIntervalo2){
+
+    public static boolean superposicion(Date inicioIntervalo1, Date finIntervalo1, Date inicioIntervalo2, Date finIntervalo2) {
         /*
          * intervalo del nodo que se esta recorriendo
          */
