@@ -92,7 +92,7 @@ public class GestorRegistrarEntregaPedido {
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.listDetallePedidoCotizacion(idPedido, cn);
+            list = AccessViews.listDetallePresupuestoParaFactura(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -283,7 +283,7 @@ public class GestorRegistrarEntregaPedido {
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.listDetallePedidoCotizacion(idPedido, cn);
+            list = AccessViews.listDetallePresupuestoParaFactura(idPedido, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
