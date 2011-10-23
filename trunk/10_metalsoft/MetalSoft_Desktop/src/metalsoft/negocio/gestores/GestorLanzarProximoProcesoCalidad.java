@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -57,7 +58,7 @@ public class GestorLanzarProximoProcesoCalidad {
     }
 
     public void lanzarEjecucionProcesoCalidad(Detalleejecucionplanificacioncalidad detalleEjecPlanifCalidad) throws Exception {
-        
+
         DetalleejecucionplanificacioncalidadJpaController detalleejecucionplanificacioncalidadJpaController = new DetalleejecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
         EjecucionprocesocalidadJpaController ejecucionprocesocalidadJpaController = new EjecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
         EstadoejecucionprocesocalidadJpaController estadoejecucionprocesocalidadJpaController = new EstadoejecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
@@ -81,10 +82,7 @@ public class GestorLanzarProximoProcesoCalidad {
     }
 
     private void imprimirCodigoEjecucionProcesoCalidad(Long idejecucion) {
-        String sourceFile = "D:\\rpt\\RptSiguienteEjecucionProcesoCalidad.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
-        JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
         JasperReport masterReport = null;
@@ -92,17 +90,27 @@ public class GestorLanzarProximoProcesoCalidad {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptSiguienteEjecucionProcesoCalidad.jasper"));
             param.put("ID_EJECUCION_PROCESO", idejecucion);
 
-            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+            final JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
 //            boolean dialogoImpresion = false;
 //            JasperPrintManager.printReport(jasperPrint, dialogoImpresion);
+            java.awt.EventQueue.invokeLater(new Runnable() {
 
-            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
-            jviewer.setTitle("PROCESO DE CALIDAD - CODIGO DE BARRA");
-            jviewer.setVisible(true);
+                public void run() {
+                    try {
+                        JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                        jviewer.setTitle("PROCESO DE CALIDAD - CODIGO DE BARRA");
+                        jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+                        jviewer.setVisible(true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            });
 
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);

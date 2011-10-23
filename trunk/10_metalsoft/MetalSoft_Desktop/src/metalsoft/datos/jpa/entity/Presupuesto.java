@@ -37,6 +37,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Presupuesto.findByFechavencimiento", query = "SELECT p FROM Presupuesto p WHERE p.fechavencimiento = :fechavencimiento"),
     @NamedQuery(name = "Presupuesto.findByNropresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.nropresupuesto = :nropresupuesto")})
 public class Presupuesto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,6 +51,8 @@ public class Presupuesto implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "montototal")
     private Double montototal;
+    @Column(name = "gananciaadicional")
+    private Double gananciaadicional;
     @Column(name = "fechavencimiento")
     @Temporal(TemporalType.DATE)
     private Date fechavencimiento;
@@ -123,6 +126,14 @@ public class Presupuesto implements Serializable {
         this.detallepresupuestoList = detallepresupuestoList;
     }
 
+    public Double getGananciaadicional() {
+        return gananciaadicional;
+    }
+
+    public void setGananciaadicional(Double gananciaadicional) {
+        this.gananciaadicional = gananciaadicional;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -147,5 +158,4 @@ public class Presupuesto implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Presupuesto[ idpresupuesto=" + idpresupuesto + " ]";
     }
-    
 }
