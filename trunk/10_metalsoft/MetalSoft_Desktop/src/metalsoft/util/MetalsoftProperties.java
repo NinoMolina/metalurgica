@@ -32,6 +32,7 @@ public class MetalsoftProperties {
     public static final String HORA_INICIO_JORNADA = "hora.inicio.jornada";
     public static final String CANT_HORAS_COMIDA = "cant.horas.comida";
     public static final String MINUTOS_ENTRE_ETAPAS = "minutos.entre.etapas";
+    public static final String TIMEZONE = "timezone";
 
     static {
         FileInputStream fis = null;

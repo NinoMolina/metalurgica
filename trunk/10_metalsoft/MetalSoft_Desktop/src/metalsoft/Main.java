@@ -6,14 +6,20 @@ package metalsoft;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.spi.TimeZoneNameProvider;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import metalsoft.presentacion.AbrirSesion;
 import metalsoft.presentacion.lookandfeel.LookAndFeelManager;
 import metalsoft.presentacion.lookandfeel.Skins;
+import metalsoft.util.MetalsoftProperties;
+import sun.util.resources.TimeZoneNames_es;
 
 /**
  *
@@ -35,6 +41,10 @@ public class Main {
 //                UIManager.put("Button.font", f);
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 LookAndFeelManager.setLookAndFeel(Skins.Moderate);
+                
+                TimeZone timeZone = TimeZone.getTimeZone(MetalsoftProperties.getProperty(MetalsoftProperties.TIMEZONE));
+                TimeZone.setDefault(timeZone);
+                
                 AbrirSesion p = new AbrirSesion();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
