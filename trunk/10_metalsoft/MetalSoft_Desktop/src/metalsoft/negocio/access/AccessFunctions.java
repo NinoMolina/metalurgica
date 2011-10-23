@@ -537,7 +537,7 @@ public class AccessFunctions {
         }
         return result;
     }
-    
+
     public static long nvoNroMantenimientoCorrectivo() {
         String query = "{ ? = call nvonromantcorrectivo()}";
         long result = -1;
@@ -561,4 +561,93 @@ public class AccessFunctions {
         return result;
     }
 
+    public static int cantidadmpenpedido(long idPedido, Connection cn) {
+        String query = "{ ? = call cantidadmpenpedido(?)}";
+        int result = 0;
+        CallableStatement cs = null;
+        try {
+            cs = cn.prepareCall(query);
+            cs.setLong(2, idPedido);
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+            result = cs.getInt(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static int cantidadmpasignada(long idPedido, Connection cn) {
+        String query = "{ ? = call cantidadmpasignada(?)}";
+        int result = 0;
+        CallableStatement cs = null;
+        try {
+            cs = cn.prepareCall(query);
+            cs.setLong(2, idPedido);
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+            result = cs.getInt(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static int cantidadmpenpedido(long idPedido, long idmp, Connection cn) {
+        String query = "{ ? = call cantidadmpenpedido(?,?)}";
+        int result = 0;
+        CallableStatement cs = null;
+        try {
+            cs = cn.prepareCall(query);
+            cs.setLong(2, idPedido);
+            cs.setLong(3, idmp);
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+            result = cs.getInt(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public static int cantidadmpasignada(long idPedido, long idmp, Connection cn) {
+        String query = "{ ? = call cantidadmpasignada(?,?)}";
+        int result = 0;
+        CallableStatement cs = null;
+        try {
+            cs = cn.prepareCall(query);
+            cs.setLong(2, idPedido);
+            cs.setLong(3, idmp);
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+            result = cs.getInt(1);
+        } catch (Exception ex) {
+            Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 }

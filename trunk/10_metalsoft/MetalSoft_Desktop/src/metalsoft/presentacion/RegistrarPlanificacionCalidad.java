@@ -459,6 +459,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         trtDetalleProcProd.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
         trtDetalleProcProd.setRootVisible(true);
+        
+        trtDetalleProcProd.setHorizontalScrollEnabled(true);
     }
 
     private void buscarPedidosConPlanificacionProduccion() {
@@ -1211,6 +1213,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         }
         trtDetalleProcProd.expandAll();
         trtDetalleProcProd.setEditable(true);
+        trtDetalleProcProd.packAll();
 
     }
 
@@ -1526,6 +1529,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         }
         setVisiblePanel(pnlTreeTable.getName());
+        trtDetalleProcProd.packAll();
 }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
 
     private void eliminarNodeDeOtrosEmpleados(Map<Long, List<ProcesoCalidadNode>> mapAsignacionActualEmpleados, Empleado empleadoSeleccionado, ProcesoCalidadNode node) {
@@ -1663,6 +1667,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             }
         }
         setVisiblePanel(pnlTreeTable.getName());
+        trtDetalleProcProd.packAll();
 }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
 
     /**

@@ -72,6 +72,8 @@ import org.joda.time.Interval;
  */
 public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
+    private static Date fechaInicioSiguienteDisp;
+    private static boolean noHaySiguienteDisponibilidad;
     /** Creates new form RegistrarPlanificacionProduccion */
     private LinkedList<ViewPedidoNoPlanificado> filasPedidosNoPlanificados;
     private GestorRegistrarPlanificacionProduccion gestor;
@@ -460,10 +462,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("");
 
         TreeTableModel treeTableModel = new TablaPlanificacionModel(raiz, listColumnNamesTreeTable);
-
         trtDetalleProcProd.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
         trtDetalleProcProd.setRootVisible(true);
+        trtDetalleProcProd.setHorizontalScrollEnabled(true);
     }
 
     private void buscarPedidosNoPlanificados() {
@@ -1052,22 +1054,25 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
 
 //            Date fechaInicioDispBaseDeDatos = null;
-            Date fechaFinDispBaseDeDatos = null;
+            Date fechaIniSigDisp = null;
 //            Date fechaInicioDispSuperposicion = null;
             Date fechaFinDispSuperposicion = null;
 
             boolean continuarBuscando = true;
-
+            boolean noHaySigDisp = false;
+            
             while (continuarBuscando) {
 
                 setInicioFinEtapaProduccion(node, fechaInicial);
 //                fechaInicioDispBaseDeDatos = node.getInicioEtapa();
-                fechaFinDispBaseDeDatos = node.getFinEtapa();
+
+                fechaIniSigDisp = fechaInicioSiguienteDisp;
+                noHaySigDisp = noHaySiguienteDisponibilidad;
 
                 boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
                 if (superposicion) {
 
-                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node, node.getInicioEtapa());
                     node.setInicioEtapa(fechaDispEmpleado);
                     Calendar inicioEtapa = new GregorianCalendar();
                     inicioEtapa.setTime(fechaDispEmpleado);
@@ -1081,10 +1086,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                      * si la fecha de superposicion final es mayor a la fecha fin de disp de base de datos
                      * tendria que buscar otro intervalo en la base.
                      */
-                    if (fechaFinDispSuperposicion.compareTo(fechaFinDispBaseDeDatos) <= 0) {
-                        continuarBuscando = false;
+                    if(fechaIniSigDisp != null){
+                        if (fechaFinDispSuperposicion.compareTo(fechaIniSigDisp) <= 0) {
+                            continuarBuscando = false;
+                        } else {
+                            fechaInicial = fechaFinDispSuperposicion;
+                        }    
                     } else {
-                        fechaInicial = fechaFinDispSuperposicion;
+                        if(noHaySigDisp){
+                            continuarBuscando = false;
+                        }
                     }
                 } else {
                     continuarBuscando = false;
@@ -1105,6 +1116,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         }
 
         setVisiblePanel(pnlTreeTable.getName());
+        trtDetalleProcProd.packAll();
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
     private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
         if (tblEmpleado.getSelectedRow() < 0) {
@@ -1382,6 +1394,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             }
         }
         setVisiblePanel(pnlTreeTable.getName());
+        trtDetalleProcProd.packAll();
     }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
 
     private void limpiarCampos() {
@@ -1677,6 +1690,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         }
         trtDetalleProcProd.expandAll();
         trtDetalleProcProd.setEditable(true);
+        trtDetalleProcProd.packAll();
 
     }
 
@@ -1738,7 +1752,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, EtapaProduccionNode node) {
+    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, EtapaProduccionNode node, Date fechaInicio) {
         Date resultado = null;
 
         int horas = node.getDetallePiezaPresupuesto().getDuracionpiezaxetapa().getHours();
@@ -1748,7 +1762,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstEtapasNode);
 
-        resultado = obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, Fecha.fechaActualDate());
+        resultado = obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, fechaInicio);
 
         return resultado;
     }
@@ -1838,10 +1852,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         Calendar inicioEtapa = new GregorianCalendar();
         inicioEtapa.setTime(inicioEtapaEmpleado);
         node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
-
     }
 
     public static Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos, Date fechaActual) {
+
+        fechaInicioSiguienteDisp = null;
 
         Date resultado = null;
 
@@ -1876,10 +1891,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 if (difFechaActual.getHours() > horas) {
                     resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
                     hayDisponibilidad = true;
+                    fechaInicioSiguienteDisp = fechaInicioDisp;
                     break;
                 } else if (difFechaActual.getHours() == horas && difFechaActual.getMinutes() > fechaActual.getMinutes()) {
                     resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
                     hayDisponibilidad = true;
+                    fechaInicioSiguienteDisp = fechaInicioDisp;
                     break;
                 }
             } else if (ultimaDisp != null) {
@@ -1933,10 +1950,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                         if (horas < dif.getHours()) {
                             resultado = dispAnt;
                             hayDisponibilidad = true;
+                            fechaInicioSiguienteDisp = disp;
                             break;
                         } else if (horas == dif.getHours() && minutos <= dif.getMinutes()) {
                             resultado = dispAnt;
                             hayDisponibilidad = true;
+                            fechaInicioSiguienteDisp = disp;
                             break;
                         }
 
@@ -1969,6 +1988,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                         if (horas <= dif.getHours() && minutos <= dif.getMinutes()) {
                             resultado = dispAnt;
                             hayDisponibilidad = true;
+                            fechaInicioSiguienteDisp = fechaInicioDisp;
                             break;
                         }
                     }
@@ -1998,6 +2018,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                             if (horas <= dif.getHours() && minutos <= dif.getMinutes()) {
                                 resultado = inicioJornada;
                                 hayDisponibilidad = true;
+                                fechaInicioSiguienteDisp = fechaInicioDisp;
                                 break;
                             }
                         }
@@ -2009,6 +2030,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             ultimaDisp = disponibilidadhoraria;
         }//fin for disponibilidades
 
+        noHaySiguienteDisponibilidad = false;
+
         if (!hayDisponibilidad) {
             /*
              * asignar la hora fin de la ultima disp.
@@ -2016,6 +2039,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             Calendar calInicio = new GregorianCalendar();
             calInicio.setTime(Fecha.dateWithSpecificValues(ultimaDisp.getFecha(), ultimaDisp.getHorafin().getHours(), ultimaDisp.getHorafin().getMinutes(), 0));
             resultado = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, calInicio).getTime();
+            noHaySiguienteDisponibilidad = true;
+            fechaInicioSiguienteDisp = null;
         }
 
         return resultado;

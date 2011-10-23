@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -24,7 +25,6 @@ import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.util.Fecha;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -98,9 +98,8 @@ public class GestorLanzarProximaEtapa {
     }
 
     private void imprimirCodigoEjecucionEtapa(Long id) {
-        String sourceFile = "D:\\rpt\\RptSiguienteEjecucionEtapa.jasper";
+        
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
         Connection cn = null;
         Map param = new HashMap();
         JasperReport masterReport = null;
@@ -108,7 +107,7 @@ public class GestorLanzarProximaEtapa {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptSiguienteEjecucionEtapa.jasper"));
             param.put("ID_EJECUCION_ETAPA", id);
 
             final JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
@@ -121,7 +120,8 @@ public class GestorLanzarProximaEtapa {
                 public void run() {
                     try {
                         JasperViewer jviewer = new JasperViewer(jasperPrint, false);
-                        jviewer.setTitle("EJECUCION ETAPA - CODIGO DE BARRA");
+                        jviewer.setTitle("EJECUCIÓN ETAPA DE PRODUCCIÓN - CODIGO DE BARRA");
+                        jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
                         jviewer.setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,4 +141,9 @@ public class GestorLanzarProximaEtapa {
 
 
     }
+    
+//    public static void main(String args[]){
+//        GestorLanzarProximaEtapa g = new GestorLanzarProximaEtapa();
+//        g.imprimirCodigoEjecucionEtapa(38L);
+//    }
 }
