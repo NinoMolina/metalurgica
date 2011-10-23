@@ -891,8 +891,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         String[] columnNames = {"Nro",
             "Cantidad",
             "Producto",
-            "Descripción",
-            "Cant. Piezas"};
+            "Descripción"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -907,8 +906,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
                     return view.getNombre();
                 case 3:
                     return view.getDescripcion();
-                case 4:
-                    return view.getCantidad();
                 default:
                     return null;
             }
