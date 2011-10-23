@@ -46,7 +46,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GestorRegistrarEntregaPedido {
 
-    private LinkedList<ViewDetallePedidoCotizacion> detallePedidoDB;
+    private LinkedList<ViewPresupuestoParaFactura> detallePedidoDB;
 
     public LinkedList<ViewPedidosClienteSegunEstado> buscarPedidosClienteEnArmado(long idCliente) {
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -86,9 +86,9 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoSeleccionado(long idPedido) {
+    public LinkedList<ViewPresupuestoParaFactura> buscarDetallePedidoSeleccionado(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
-        LinkedList<ViewDetallePedidoCotizacion> list = null;
+        LinkedList<ViewPresupuestoParaFactura> list = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
@@ -106,12 +106,7 @@ public class GestorRegistrarEntregaPedido {
     }
 
     public void imprimirFactura(long id, long idformapago, String tipofactura, Date fechaVencimiento,double monto) {
-//        URL sourceFile = null;
-//        try {
-//            sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptFactura.jasper");
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
         String sourceFile = "D:\\rpt\\RptFactura.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
@@ -124,7 +119,7 @@ public class GestorRegistrarEntregaPedido {
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
-            guardarFactura(id, idformapago, tipofactura,fechaVencimiento, cn);
+            guardarFactura(id, idformapago, tipofactura,fechaVencimiento, monto, cn);
 
             masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
 
@@ -137,13 +132,8 @@ public class GestorRegistrarEntregaPedido {
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setTitle("Factura");
             jviewer.setVisible(true);
-
-            //String nroPre = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, presupuestoPedSelecDB.getNropresupuesto());
-            //Se exporta a PDF
-            //JasperExportManager.exportReportToPdfFile(jasperPrint,"G:\\"+nroPre+"-"+Fecha.fechaActual(Fecha.YYYY_MM_DD_GUION)+".pdf");
-            // Visualizar el reporte en el Jasperviwer
-            //JasperViewer.viewReport(jasperPrint, false);
             cn.commit();
+            
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
             try {
@@ -287,9 +277,9 @@ public class GestorRegistrarEntregaPedido {
         }
     }
 
-    public LinkedList<ViewDetallePedidoCotizacion> buscarDetallePedidoCotizacion(long idPedido) {
+    public LinkedList<ViewPresupuestoParaFactura> buscarDetallePedidoCotizacion(long idPedido) {
         PostgreSQLManager pg = new PostgreSQLManager();
-        LinkedList<ViewDetallePedidoCotizacion> list = null;
+        LinkedList<ViewPresupuestoParaFactura> list = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
@@ -306,7 +296,7 @@ public class GestorRegistrarEntregaPedido {
         return list;
     }
 
-    public long guardarFactura(long idPedido, long fp, String tipofactura,Date fechaVencimiento, Connection cn) {
+    public long guardarFactura(long idPedido, long fp, String tipofactura,Date fechaVencimiento, double monto, Connection cn) {
         long result = -1;
         long resultPedido = -1;
         long resultDetalle = -1;
@@ -327,26 +317,23 @@ public class GestorRegistrarEntregaPedido {
         resultPedido = AccessPedido.update(ped, cn);
 
         DetallefacturaDB db = new DetallefacturaDB();
-        Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
-        ViewDetallePedidoCotizacion view = null;
-        Double montoTotal = 0d;
+        Iterator<ViewPresupuestoParaFactura> iter = detallePedidoDB.iterator();
+        ViewPresupuestoParaFactura view = null;
         while (iter.hasNext()) {
             view = iter.next();
 
             db.setCantidad(view.getCantidad());
-            db.setIddetallepedido(view.getIdDetalle());
+            db.setIddetallepedido(view.getIddetalle());
             db.setIdfactura(result);
             db.setIdpedido(idPedido);
             db.setMontoparcial(view.getCantidad() * view.getPrecio());
-            
-            montoTotal += db.getMontoparcial();
             
             resultDetalle = AccessFactura.insertDetalleFactura(db, cn);
         }
         
         facturaDB.setIdfactura(result);
         facturaDB.setNrofactura(result);
-        facturaDB.setMontototal(montoTotal);
+        facturaDB.setMontototal(monto);
         
         AccessFactura.update(facturaDB, cn);
 
@@ -374,15 +361,15 @@ public class GestorRegistrarEntregaPedido {
         result = AccessRemito.insert(remDB, cn);
 
         DetalleremitoDB db = new DetalleremitoDB();
-        Iterator<ViewDetallePedidoCotizacion> iter = detallePedidoDB.iterator();
-        ViewDetallePedidoCotizacion view = null;
+        Iterator<ViewPresupuestoParaFactura> iter = detallePedidoDB.iterator();
+        ViewPresupuestoParaFactura view = null;
         while (iter.hasNext()) {
             view = iter.next();
 
             db.setCantidad(view.getCantidad());
             db.setDescripcion(view.getDescripcion());
             db.setIdremito(result);
-            db.setProducto(view.getIdProducto());
+            db.setProducto(view.getIdproducto());
             resultDetalle = AccessRemito.insertDetalleRemito(db, cn);
         }
         remDB.setIdremito(result);
