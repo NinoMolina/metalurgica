@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.DetallempasignadaDB;
 import metalsoft.datos.dbobject.PlanificacionproduccionDB;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessPedido;
 import metalsoft.negocio.access.AccessPlanificacion;
 import metalsoft.negocio.access.AccessViews;
@@ -91,17 +92,29 @@ public class GestorPlanificacion {
 
     public long mpPermitidaAAsignar(long idPedido, long idmp, Connection cn) {
 
-        long result = -1;
-        result = AccessViews.cantidadMPFaltaAsignar(idPedido, idmp, cn);
-
-        return result;
+        int cantRequerida = 0;
+        int cantAsignada = 0;
+        
+        cantRequerida = AccessFunctions.cantidadmpenpedido(idPedido,idmp, cn);
+        cantAsignada = AccessFunctions.cantidadmpasignada(idPedido, idmp, cn);
+        
+        return cantRequerida - cantAsignada;
 
     }
     public boolean mpEstaTodaAsignada(long idPedido, Connection cn) {
 
+        int cantidadmpenpedido = -1;
+        int cantidadmpasignada = -2;
+        
         boolean result = false;
+        
         try {
-            result = AccessViews.mpEstaTodaAsignada(idPedido, cn);
+            cantidadmpenpedido = AccessFunctions.cantidadmpenpedido(idPedido, cn);
+            cantidadmpasignada = AccessFunctions.cantidadmpasignada(idPedido, cn);
+            
+            if(cantidadmpenpedido == cantidadmpasignada){
+                result = true;
+            }
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } 

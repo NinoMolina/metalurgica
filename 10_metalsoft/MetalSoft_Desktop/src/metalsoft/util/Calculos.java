@@ -141,11 +141,13 @@ public class Calculos {
         if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
             inicio.set(Calendar.MINUTE, 0);
+            inicio.set(Calendar.SECOND, 0);
         }
         if (horaFinJornada < sumar(inicio.get(Calendar.HOUR_OF_DAY), minutosEnProporcion(inicio.get(Calendar.MINUTE)))) {
             inicio.add(Calendar.DAY_OF_YEAR, 1);
             inicio.set(Calendar.HOUR_OF_DAY, horaInicioJornada);
             inicio.set(Calendar.MINUTE, 0);
+            inicio.set(Calendar.SECOND, 0);
         }
         if (horaInicioJornada > inicio.get(Calendar.HOUR_OF_DAY) || horaFinJornada < inicio.get(Calendar.HOUR_OF_DAY)) {
             inicio = calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);

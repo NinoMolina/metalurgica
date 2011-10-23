@@ -468,22 +468,34 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
             cn.setAutoCommit(false);
             if (gestor.mpPermitidaAAsignar(idPedido, idMP, cn) != 0) {//consulta si esa materia prima esta asignada del todo
                 //Antes ver si hay la cantidad de Mat Prima Suficiente
-                int cantidadStock = (int) (materiaPrima.getStock() - view.getCantmateriaprima());
+//                int cantidadStock = (int) (materiaPrima.getStock() - view.getCantmateriaprima());
+                int cantidadStock = (int) (materiaPrima.getStock() - view.getCanttotal());
                 if (cantidadStock >= 0) {
-                    materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
+//                    materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
+                    materiaPrima.setStock(materiaPrima.getStock() - view.getCanttotal());
 
-                    PiezaReal piezaReal = new PiezaReal();
-                    piezaReal.setNroPieza((int)AccessFunctions.nvoNroPiezaReal(cn));
-                    CodigoDeBarra cb = new CodigoDeBarra();
-                    cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL,String.valueOf(piezaReal.getNroPieza())));
-                    piezaReal.setCodigoBarra(cb);
+//                    PiezaReal piezaReal = new PiezaReal();
+//                    piezaReal.setNroPieza((int)AccessFunctions.nvoNroPiezaReal(cn));
+//                    CodigoDeBarra cb = new CodigoDeBarra();
+//                    cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL,String.valueOf(piezaReal.getNroPieza())));
+//                    piezaReal.setCodigoBarra(cb);
 
+                    int cantPiezas = view.getCantpieza() * view.getCantproducto();
+                    
                     PlanificacionproduccionDB plan = gestor.buscarPlanificacionPorPedido(idPedido, cn);
-                    long[] piezasReales = new long[view.getCantpieza()];
+//                    long[] piezasReales = new long[view.getCantpieza()];
+                    long[] piezasReales = new long[cantPiezas];
                     /*
                      * se generan todas las piezas reales necesarias
                      */
-                    for (int i = 0; i < view.getCantpieza(); i++) {
+                    for (int i = 0; i < cantPiezas; i++) {
+
+                        PiezaReal piezaReal = new PiezaReal();
+                        piezaReal.setNroPieza((int) AccessFunctions.nvoNroPiezaReal(cn));
+                        CodigoDeBarra cb = new CodigoDeBarra();
+                        cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL, String.valueOf(piezaReal.getNroPieza())));
+                        piezaReal.setCodigoBarra(cb);
+
                         result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, cn);
                         piezasReales[i] = result;
                         if (result > -1) {
@@ -497,10 +509,12 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
                         long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima, cn);
                         DetallempasignadaDB dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
                         if (dmpa != null) {
-                            idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
+//                            idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
+                            idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCanttotal(), cn);
                             idDetalleMPAsignada = dmpa.getId();
                         } else {
-                            idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
+//                            idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
+                            idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCanttotal(), cn);
                         }
                         /*
                          * guardo la relacion entre la pieza real y el detalle de mp asignada
