@@ -71,11 +71,11 @@ public class AccessViews {
         return view;
     }
 
-    public static LinkedList<ViewPresupuestoParaFactura> listDetallePedidoCotizacion(long idPedido, Connection cn) {
-        ViewPresupuestoParaFactura view = null;
-        LinkedList<ViewPresupuestoParaFactura> ll = new LinkedList<ViewPresupuestoParaFactura>();
+    public static LinkedList<ViewDetallePedidoCotizacion> listDetallePedidoCotizacion(long idPedido, Connection cn) {
+        ViewDetallePedidoCotizacion view = null;
+        LinkedList<ViewDetallePedidoCotizacion> ll = new LinkedList<ViewDetallePedidoCotizacion>();
         String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido" +
-                " FROM viewpresupuestoparafactura" +
+                " FROM viewdetallepedidocotizacion" +
                 " WHERE idpedido=?";
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -84,15 +84,15 @@ public class AccessViews {
             ps.setLong(1, idPedido);
             rs = ps.executeQuery();
             while (rs.next()) {
-                view = new ViewPresupuestoParaFactura();
+                view = new ViewDetallePedidoCotizacion();
                 view.setCantidad(rs.getInt("cantidad"));
                 view.setDescripcion(rs.getString("descripcion"));
                 view.setPrecio(rs.getDouble("precio"));
-                view.setIdproducto(rs.getLong("idproducto"));
-                view.setIddetalle(rs.getLong("iddetalle"));
-                view.setIdpedido(rs.getLong("idpedido"));
-                view.setNombre(rs.getString("nombre"));
-                view.setNroproducto(rs.getLong("nroproducto"));
+                view.setIdProducto(rs.getLong("idproducto"));
+                view.setIdDetalle(rs.getLong("iddetalle"));
+                view.setIdPedido(rs.getLong("idpedido"));
+                view.setNombreProducto(rs.getString("nombre"));
+                view.setNumeroProducto(rs.getInt("nroproducto"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
