@@ -26,6 +26,7 @@ import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
+import metalsoft.negocio.gestores.ViewPresupuestoParaFactura;
 import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -39,7 +40,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class RegistrarCobroPedido extends javax.swing.JDialog {
 
     private LinkedList<ViewPedidoEnListadoProcedimientos> filasPedidos;
-    private LinkedList<ViewDetallePedidoCotizacion> filasDetalle;
+    private LinkedList<ViewPresupuestoParaFactura> filasDetalle;
     private long idPedido;
     private GestorRegistrarEntregaPedido gestor;
     private GestorPedidoCotizacion gestorPedido;
@@ -645,24 +646,21 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         String[] columnNames = {"Nro",
             "Cantidad",
             "Producto",
-            "Descripción",
-            "Cant. Piezas"};
+            "Descripción"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            ViewDetallePedidoCotizacion view = filasDetalle.get(rowIndex);
+            ViewPresupuestoParaFactura view = filasDetalle.get(rowIndex);
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNumeroProducto();
+                    return view.getNroproducto();
                 case 1:
                     return view.getCantidad();
                 case 2:
-                    return view.getNombreProducto();
+                    return view.getNombre();
                 case 3:
                     return view.getDescripcion();
-                case 4:
-                    return view.getCantidadPiezas();
                 default:
                     return null;
             }
