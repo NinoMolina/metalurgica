@@ -849,4 +849,34 @@ public class AccessViews {
             return ll;
         }
     }
+    
+    public static LinkedList<ViewPresupuestoParaFactura> listDetallePresupuestoParaFactura(long idPedido, Connection cn) {
+        ViewPresupuestoParaFactura view = null;
+        LinkedList<ViewPresupuestoParaFactura> ll = new LinkedList<ViewPresupuestoParaFactura>();
+        String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido" +
+                " FROM viewpresupuestoparafactura" +
+                " WHERE idpedido=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = cn.prepareStatement(query);
+            ps.setLong(1, idPedido);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                view = new ViewPresupuestoParaFactura();
+                view.setCantidad(rs.getInt("cantidad"));
+                view.setDescripcion(rs.getString("descripcion"));
+                view.setPrecio(rs.getDouble("precio"));
+                view.setIdproducto(rs.getLong("idproducto"));
+                view.setIddetalle(rs.getLong("iddetalle"));
+                view.setIdpedido(rs.getLong("idpedido"));
+                view.setNombre(rs.getString("nombre"));
+                view.setNroproducto(rs.getLong("nroproducto"));
+                ll.addLast(view);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ll;
+    }
 }
