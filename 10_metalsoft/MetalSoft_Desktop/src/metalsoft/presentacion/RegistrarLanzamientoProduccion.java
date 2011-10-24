@@ -149,7 +149,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Lanzar Producción");
+        setTitle("Registrar Lanzamiento de Producción");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos listos para lanzar"));
 
@@ -226,7 +226,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         lblFechaFinRecalculada.setForeground(new java.awt.Color(102, 0, 0));
         lblFechaFinRecalculada.setText("...");
 
-        txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12));
         txtFechaInicioReal.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
