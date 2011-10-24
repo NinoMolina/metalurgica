@@ -65,7 +65,7 @@ public class OlvidarUsuario extends javax.swing.JDialog {
         lblUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Recuperar Contraseña");
+        setTitle("Recuperar Usuario");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Nombre:");
@@ -106,7 +106,7 @@ public class OlvidarUsuario extends javax.swing.JDialog {
             }
         });
 
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12));
         lblUsuario.setForeground(new java.awt.Color(204, 204, 255));
         lblUsuario.setText("usuario");
 

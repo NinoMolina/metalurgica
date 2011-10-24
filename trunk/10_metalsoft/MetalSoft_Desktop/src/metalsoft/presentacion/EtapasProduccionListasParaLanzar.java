@@ -109,9 +109,9 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
         btnLanzarEtapaDeProduccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Etapas de Producción Listas para Lanzar");
+        setTitle("Etapas de Producción Listas para Ejecutar");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas de Producción Listas para Lanzar"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas de Producción Listas para Ejecutar"));
 
         jScrollPane1.setViewportView(tblEtapasDeProduccion);
 
