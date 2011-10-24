@@ -23,10 +23,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="186" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="182" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblUsuario" min="-2" pref="46" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -42,23 +41,21 @@
                               <Component id="txtClave" pref="210" max="32767" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnIniciar" alignment="0" min="-2" pref="110" max="-2" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnIniciar" min="-2" pref="110" max="-2" attributes="1"/>
+                              <Component id="jLabel5" min="-2" pref="185" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="1">
-                              <Component id="jLabel5" min="-2" pref="193" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblContraseña" pref="47" max="32767" attributes="0"/>
+                              <Component id="lblContraseña" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -197,7 +194,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="AQU&#xcd;"/>
+        <Property name="text" type="java.lang.String" value="aqu&#xed;"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblUsuarioMouseClicked"/>
@@ -223,7 +220,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="AQU&#xcd;"/>
+        <Property name="text" type="java.lang.String" value="aqu&#xed;"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblContrase&#xf1;aMouseClicked"/>
