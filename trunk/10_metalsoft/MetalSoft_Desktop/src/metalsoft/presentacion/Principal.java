@@ -902,6 +902,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniCliente);
 
+        mniRegistrarConfirmacionPedido.setText("Registrar Confirmación de Pedido");
         mniRegistrarConfirmacionPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarConfirmacionPedidoActionPerformed(evt);
@@ -1001,6 +1002,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniTipoMaterial);
 
+        mniArmadoPedido.setText("Registrar Armado de Pedido");
         mniArmadoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniArmadoPedidoActionPerformed(evt);
@@ -1193,8 +1195,6 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuAlmacenamiento);
 
-        mnuMantenimiento.setText("Mantenimiento");
-
         mniRegistrarMaquina.setText("Maquinaria");
         mniRegistrarMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1363,7 +1363,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
