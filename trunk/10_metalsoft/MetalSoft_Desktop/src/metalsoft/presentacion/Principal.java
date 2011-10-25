@@ -369,9 +369,6 @@ public class Principal extends javax.swing.JFrame {
         mniRegistrarIngresoCotizacionTrabajo = new javax.swing.JMenuItem();
         mniConfirmarCotizacionDeTrabajosTercerizados = new javax.swing.JMenuItem();
         mniCancelarPedidoDeCotizacion = new javax.swing.JMenuItem();
-        mnuAlmacenamiento = new javax.swing.JMenu();
-        mniAsignarMPAProduccion = new javax.swing.JMenuItem();
-        mniGenerarSolicitud = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
         mniRegistrarMaquina = new javax.swing.JMenuItem();
         mniRotura = new javax.swing.JMenuItem();
@@ -381,6 +378,9 @@ public class Principal extends javax.swing.JFrame {
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
         mniRegistrarEnvioManPrev = new javax.swing.JMenuItem();
         mniConsultarEnviosManPrev = new javax.swing.JMenuItem();
+        mnuAlmacenamiento = new javax.swing.JMenu();
+        mniAsignarMPAProduccion = new javax.swing.JMenuItem();
+        mniGenerarSolicitud = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
         mniReportesReclamos = new javax.swing.JMenuItem();
@@ -1012,6 +1012,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuProduccion);
 
+        mnuCalidad.setText("Control de Calidad");
+
         mniGenerarDetalleProcedimientosCalidad.setText("Generar Detalle Procedimientos Calidad");
         mniGenerarDetalleProcedimientosCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1175,25 +1177,7 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuTrabajosTercerizados);
 
-        mnuAlmacenamiento.setText("Almacenamiento");
-
-        mniAsignarMPAProduccion.setText("Asignar Materia Prima a Producción");
-        mniAsignarMPAProduccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniAsignarMPAProduccionActionPerformed(evt);
-            }
-        });
-        mnuAlmacenamiento.add(mniAsignarMPAProduccion);
-
-        mniGenerarSolicitud.setText("Generar Solicitud de Reclamo");
-        mniGenerarSolicitud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniGenerarSolicitudActionPerformed(evt);
-            }
-        });
-        mnuAlmacenamiento.add(mniGenerarSolicitud);
-
-        mbrMenu.add(mnuAlmacenamiento);
+        mnuMantenimiento.setText("Mantenimientos");
 
         mniRegistrarMaquina.setText("Maquinaria");
         mniRegistrarMaquina.addActionListener(new java.awt.event.ActionListener() {
@@ -1219,7 +1203,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniServicio);
 
-        mniEmpresaMantenimiento.setText("Administrar Empresas de Mantenimiento");
         mniEmpresaMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEmpresaMantenimientoActionPerformed(evt);
@@ -1251,7 +1234,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniRegistrarEnvioManPrev);
 
-        mniConsultarEnviosManPrev.setText("Consultar Mantenimientos Preventivos enviados");
         mniConsultarEnviosManPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniConsultarEnviosManPrevActionPerformed(evt);
@@ -1260,6 +1242,26 @@ public class Principal extends javax.swing.JFrame {
         mnuMantenimiento.add(mniConsultarEnviosManPrev);
 
         mbrMenu.add(mnuMantenimiento);
+
+        mnuAlmacenamiento.setText("Almacenamiento");
+
+        mniAsignarMPAProduccion.setText("Asignar Materia Prima a Producción");
+        mniAsignarMPAProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAsignarMPAProduccionActionPerformed(evt);
+            }
+        });
+        mnuAlmacenamiento.add(mniAsignarMPAProduccion);
+
+        mniGenerarSolicitud.setText("Generar Solicitud de Reclamo");
+        mniGenerarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniGenerarSolicitudActionPerformed(evt);
+            }
+        });
+        mnuAlmacenamiento.add(mniGenerarSolicitud);
+
+        mbrMenu.add(mnuAlmacenamiento);
 
         mnuReportes.setText("Reportes");
 
