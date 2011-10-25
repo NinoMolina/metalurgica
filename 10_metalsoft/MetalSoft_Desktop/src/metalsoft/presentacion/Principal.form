@@ -272,6 +272,9 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCalidad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Control de Calidad"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniGenerarDetalleProcedimientosCalidad">
               <Properties>
@@ -443,30 +446,10 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuAlmacenamiento">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Almacenamiento"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mniAsignarMPAProduccion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Asignar Materia Prima a Producci&#xf3;n"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAsignarMPAProduccionActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniGenerarSolicitud">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Generar Solicitud de Reclamo"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniGenerarSolicitudActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mnuMantenimiento">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mantenimientos"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniRegistrarMaquina">
               <Properties>
@@ -493,9 +476,6 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniEmpresaMantenimiento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Empresas de Mantenimiento"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEmpresaMantenimientoActionPerformed"/>
               </Events>
@@ -525,11 +505,31 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniConsultarEnviosManPrev">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar Mantenimientos Preventivos enviados"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultarEnviosManPrevActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuAlmacenamiento">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Almacenamiento"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mniAsignarMPAProduccion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Asignar Materia Prima a Producci&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAsignarMPAProduccionActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniGenerarSolicitud">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Generar Solicitud de Reclamo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniGenerarSolicitudActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
