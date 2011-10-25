@@ -837,7 +837,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(mniMateriaPrima);
 
-        mniRegistrarPresupuesto.setText("Presupuestar");
+        mniRegistrarPresupuesto.setText("Registrar Presupuesto");
         mniRegistrarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarPresupuestoActionPerformed(evt);
@@ -845,7 +845,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(mniRegistrarPresupuesto);
 
-        mniProveedor.setText("Proveedor");
+        mniProveedor.setText("Administrar Proveedores");
         mniProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniProveedorActionPerformed(evt);
@@ -869,7 +869,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(jMenuItem4);
 
-        mniReclamoProveedor.setText("Reclamo Proveedor");
         mniReclamoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniReclamoProveedorActionPerformed(evt);
@@ -877,7 +876,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(mniReclamoProveedor);
 
-        mniOrdenDeCompra.setText("Orden de Compra");
+        mniOrdenDeCompra.setText("Órden de Compra");
         mniOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniOrdenDeCompraActionPerformed(evt);
@@ -894,7 +893,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        mniCliente.setText("Cliente");
+        mniCliente.setText("Administrar Clientes");
         mniCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniClienteActionPerformed(evt);
@@ -902,7 +901,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniCliente);
 
-        mniRegistrarConfirmacionPedido.setText("Confirmar Pedido");
         mniRegistrarConfirmacionPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarConfirmacionPedidoActionPerformed(evt);
@@ -910,7 +908,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniRegistrarConfirmacionPedido);
 
-        mniEntregaPedido.setText("Entrega de Pedido");
+        mniEntregaPedido.setText("Registrar Entrega de Pedido");
         mniEntregaPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEntregaPedidoActionPerformed(evt);
@@ -926,7 +924,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniEtapaDeProduccion);
 
-        mniPedidoCotizacion.setText("Pedido");
+        mniPedidoCotizacion.setText("Pedido de Cotización");
         mniPedidoCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniPedidoCotizacionActionPerformed(evt);
@@ -952,9 +950,9 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuVentas);
 
-        mnuProduccion.setText("Produccion");
+        mnuProduccion.setText("Producción");
 
-        jMenuItem1.setText("Generar Detalle Etapas Producción");
+        jMenuItem1.setText("Generar Detalle Etapas de Producción");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -970,7 +968,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniGenerarDetalleMateriaPrima);
 
-        mniLanzarProduccion.setText("Lanzar Producción");
+        mniLanzarProduccion.setText("Ejecutar Producción");
         mniLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniLanzarProduccionActionPerformed(evt);
@@ -986,7 +984,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniMatriz);
 
-        jMenuItem2.setText("Registrar Planificación Producción");
+        jMenuItem2.setText("Registrar Planificación de Producción");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -1002,7 +1000,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniTipoMaterial);
 
-        mniArmadoPedido.setText("Registrar Armado pedido");
         mniArmadoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniArmadoPedidoActionPerformed(evt);
@@ -1011,8 +1008,6 @@ public class Principal extends javax.swing.JFrame {
         mnuProduccion.add(mniArmadoPedido);
 
         mbrMenu.add(mnuProduccion);
-
-        mnuCalidad.setText("Calidad");
 
         mniGenerarDetalleProcedimientosCalidad.setText("Generar Detalle Procedimientos Calidad");
         mniGenerarDetalleProcedimientosCalidad.addActionListener(new java.awt.event.ActionListener() {
@@ -1030,7 +1025,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCalidad.add(mniRegistrarPlanificacionCalidad);
 
-        mniLanzarCalidad.setText("Lanzar Calidad");
+        mniLanzarCalidad.setText("Ejecutar Control de Calidad");
         mniLanzarCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniLanzarCalidadActionPerformed(evt);
@@ -1042,7 +1037,7 @@ public class Principal extends javax.swing.JFrame {
 
         mnuFinanzas.setText("Finanzas");
 
-        mniCobroPedido.setText("Cobro de Pedido");
+        mniCobroPedido.setText("Registrar Cobro de Pedido");
         mniCobroPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCobroPedidoActionPerformed(evt);
@@ -1086,7 +1081,7 @@ public class Principal extends javax.swing.JFrame {
 
         mnuRRHH.setText("RRHH");
 
-        mniRegistrarAsistencia.setText("Registrar Asistencia");
+        mniRegistrarAsistencia.setText("Registrar Asistencia Empleados");
         mniRegistrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarAsistenciaActionPerformed(evt);
@@ -1110,7 +1105,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuRRHH.add(registrarEmpleado);
 
-        mniTipoDoc.setText("Tipo deDocumento");
+        mniTipoDoc.setText("Tipo de Documento");
         mniTipoDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniTipoDocActionPerformed(evt);
@@ -1118,7 +1113,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuRRHH.add(mniTipoDoc);
 
-        mniConfiguracionJornada.setText("Configuración Jornada");
+        mniConfiguracionJornada.setText("Configuración Jornada Laboral");
         mniConfiguracionJornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniConfiguracionJornadaActionPerformed(evt);
@@ -1135,7 +1130,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        mniEmpresaMetalurgica.setText("Empresa Metalúrgica");
+        mniEmpresaMetalurgica.setText("Administrar Empresas Metalúrgicas");
         mniEmpresaMetalurgica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEmpresaMetalurgicaActionPerformed(evt);
@@ -1143,7 +1138,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuTrabajosTercerizados.add(mniEmpresaMetalurgica);
 
-        mniCotizacionTrabajo.setText("Pedido de Cotizacion");
+        mniCotizacionTrabajo.setText("Registrar Pedido de Cotización de Trabajo");
         mniCotizacionTrabajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCotizacionTrabajoActionPerformed(evt);
@@ -1151,7 +1146,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuTrabajosTercerizados.add(mniCotizacionTrabajo);
 
-        mniRegistrarIngresoCotizacionTrabajo.setText("Registrar Envio/Llegada de Cotizacion");
+        mniRegistrarIngresoCotizacionTrabajo.setText("Registrar Envío/Llegada de Cotización de Trabajo");
         mniRegistrarIngresoCotizacionTrabajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarIngresoCotizacionTrabajoActionPerformed(evt);
@@ -1159,7 +1154,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuTrabajosTercerizados.add(mniRegistrarIngresoCotizacionTrabajo);
 
-        mniConfirmarCotizacionDeTrabajosTercerizados.setText("Confirmar Presupuesto");
+        mniConfirmarCotizacionDeTrabajosTercerizados.setText("Confirmar Trabajo");
         mniConfirmarCotizacionDeTrabajosTercerizados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniConfirmarCotizacionDeTrabajosTercerizadosActionPerformed(evt);
@@ -1167,7 +1162,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuTrabajosTercerizados.add(mniConfirmarCotizacionDeTrabajosTercerizados);
 
-        mniCancelarPedidoDeCotizacion.setText("Cancelar Pedido de Cotización");
+        mniCancelarPedidoDeCotizacion.setText("Cancelar Pedido de Cotización de Trabajo");
         mniCancelarPedidoDeCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCancelarPedidoDeCotizacionActionPerformed(evt);
@@ -1179,7 +1174,7 @@ public class Principal extends javax.swing.JFrame {
 
         mnuAlmacenamiento.setText("Almacenamiento");
 
-        mniAsignarMPAProduccion.setText("Asignar MP a Producción");
+        mniAsignarMPAProduccion.setText("Asignar Materia Prima a Producción");
         mniAsignarMPAProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniAsignarMPAProduccionActionPerformed(evt);
@@ -1199,7 +1194,7 @@ public class Principal extends javax.swing.JFrame {
 
         mnuMantenimiento.setText("Mantenimiento");
 
-        mniRegistrarMaquina.setText("Registrar Máquina");
+        mniRegistrarMaquina.setText("Maquinaria");
         mniRegistrarMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarMaquinaActionPerformed(evt);
@@ -1223,7 +1218,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniServicio);
 
-        mniEmpresaMantenimiento.setText("Empresa de Mantenimiento");
+        mniEmpresaMantenimiento.setText("Administrar Empresas de Mantenimiento");
         mniEmpresaMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEmpresaMantenimientoActionPerformed(evt);
@@ -1247,7 +1242,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniMantenimientoPreventivo);
 
-        mniRegistrarEnvioManPrev.setText("Enviar Mantenimiento Preventivo");
+        mniRegistrarEnvioManPrev.setText("Enviar Máquina a Mantenimiento Preventivo");
         mniRegistrarEnvioManPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarEnvioManPrevActionPerformed(evt);
