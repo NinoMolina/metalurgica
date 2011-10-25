@@ -869,6 +869,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(jMenuItem4);
 
+        mniReclamoProveedor.setText("Reclamo a Proveedor");
         mniReclamoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniReclamoProveedorActionPerformed(evt);
