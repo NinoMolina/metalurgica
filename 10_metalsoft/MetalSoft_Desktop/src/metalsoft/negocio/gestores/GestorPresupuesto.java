@@ -56,6 +56,7 @@ public class GestorPresupuesto {
     private Date fechaEstimadaFinProduccion;
     private double montoTotal;
     private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> llProveedorXMateriaPrima;
+    private double porcentaje;
 
     public GestorPresupuesto() {
     }
@@ -74,6 +75,14 @@ public class GestorPresupuesto {
 
     public double getMontoTotal() {
         return montoTotal;
+    }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(double porcentaje) {
+        this.porcentaje = porcentaje;
     }
 
     public LinkedList<ViewPedidoEnListadoProcedimientos> buscarPedidosConDetalleProcesoCalidad() {
@@ -251,11 +260,13 @@ public class GestorPresupuesto {
             DetalleproductopresupuestoDB db = null;
             Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter = llProveedorXMateriaPrima.iterator();
             ViewMateriaPrimaXPiezaPresupuesto view = null;
+            double precio=0d;
             while (iter.hasNext()) {
                 view = iter.next();
                 db = AccessDetalleProductoPresupuesto.findByIdDetalle(view.getIddetalleproductopresupuesto(), cn)[0];
                 db.setIdproveedor(view.getIdproveedor());
-                db.setPreciomateriaprima(view.getPreciomateriaprima());
+                precio=view.getPreciomateriaprima();
+                db.setPreciomateriaprima(precio + precio * porcentaje);
                 AccessDetalleProductoPresupuesto.update(db, cn);
             }
             cn.commit();
