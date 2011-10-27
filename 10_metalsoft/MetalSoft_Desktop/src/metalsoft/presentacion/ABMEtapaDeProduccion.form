@@ -28,15 +28,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Component id="btnnuevo" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnnuevo" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnguardar" min="-2" max="-2" attributes="1"/>
+                      <Component id="btnguardar" linkSize="1" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnModificar" min="-2" max="-2" attributes="1"/>
+                      <Component id="btnModificar" linkSize="1" min="-2" max="-2" attributes="1"/>
                       <EmptySpace pref="165" max="32767" attributes="0"/>
-                      <Component id="btnBuscar" min="-2" max="-2" attributes="1"/>
+                      <Component id="btnBuscar" linkSize="1" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnSalir" min="-2" pref="57" max="-2" attributes="1"/>
+                      <Component id="btnSalir" linkSize="1" min="-2" pref="57" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -57,12 +57,12 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="btnnuevo" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="btnguardar" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnModificar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnnuevo" linkSize="2" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="btnguardar" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnModificar" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalir" linkSize="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" linkSize="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
