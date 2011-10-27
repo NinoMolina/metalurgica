@@ -6,6 +6,7 @@ package metalsoft.presentacion;
 
 import java.awt.Dialog;
 import java.awt.Window;
+import javax.swing.JDialog;
 
 /**
  *
@@ -20,6 +21,12 @@ public class JFrameManager {
 
     public static Window crearVentana(String clase) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Dialog v = (Dialog) Class.forName(clase).newInstance();
+        centrarVentana(v);
+        mostrarVentana(v);
+        return v;
+    }
+
+    public static Window centrarYMostrarVentana(JDialog v) {
         centrarVentana(v);
         mostrarVentana(v);
         return v;

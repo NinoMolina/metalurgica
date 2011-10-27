@@ -26,16 +26,31 @@ import metalsoft.negocio.gestores.IBuscador;
  */
 public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador {
 
-    private static GestorCliente gestor = null;
-    private static JDialog owner = null;
-    private static ABMCliente ventana = null;
+    private GestorCliente gestor = null;
+    private ABMCliente ventana = null;
     private static RegistrarEntregaPedido ventanaRegistrarEntregaPedido = null;
     private Timer timer;
 
     /** Creates new form ABMCliente_Buscar */
-    public ABMCliente_Buscar() {
+    public ABMCliente_Buscar(JDialog owner) {
         super(owner);
         initComponents();
+    }
+
+    public GestorCliente getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorCliente gestor) {
+        this.gestor = gestor;
+    }
+
+    public ABMCliente getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(ABMCliente ventana) {
+        this.ventana = ventana;
     }
 
     public static RegistrarEntregaPedido getVentanaRegistrarEntregaPedido() {
@@ -44,26 +59,6 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
 
     public static void setVentanaRegistrarEntregaPedido(RegistrarEntregaPedido ventana) {
         ventanaRegistrarEntregaPedido = ventana;
-    }
-
-    public static GestorCliente getGestor() {
-        return gestor;
-    }
-
-    public static void setGestor(GestorCliente gestor) {
-        ABMCliente_Buscar.gestor = gestor;
-    }
-
-    public static ABMCliente getVentana() {
-        return ventana;
-    }
-
-    public static void setVentana(ABMCliente ventana) {
-        ABMCliente_Buscar.ventana = ventana;
-    }
-
-    public static void setOwner(JDialog owner) {
-        ABMCliente_Buscar.owner = owner;
     }
 
     /** This method is called from within the constructor to
@@ -139,7 +134,8 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jRadioButton1)
-                            .addContainerGap()))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,18 +213,6 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new ABMCliente_Buscar().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -239,7 +223,6 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
 
     public JList getList(String className) {
         return lstLista;
