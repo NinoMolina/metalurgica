@@ -344,18 +344,11 @@ public class ABMEmpresaMetalurgica extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMEmpresaMetalurgica_Buscar buscar = null;
-        try {
-            buscar = (ABMEmpresaMetalurgica_Buscar) JFrameManager.crearVentana(ABMEmpresaMetalurgica_Buscar.class.getName());
-            buscar.setVentana(this);
-            buscar.setGestor(gestor);
+        buscar = new ABMEmpresaMetalurgica_Buscar(this);
+        buscar.setVentana(this);
+        buscar.setGestor(gestor);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
 
     private void addListenerBtnSalir() {

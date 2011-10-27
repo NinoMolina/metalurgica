@@ -131,20 +131,12 @@ public class ABMCondicionIva extends javax.swing.JDialog {
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        ABMCondicionIva_Buscar buscar = null;
-        try {
-            buscar = (ABMCondicionIva_Buscar) JFrameManager.crearVentana(ABMCondicionIva_Buscar.class.getName());
-            buscar.setVentanaCondicionIva(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMCondicionIva.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMCondicionIva.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMCondicionIva.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ABMCondicionIva_Buscar abm = null;
+
+        abm = new ABMCondicionIva_Buscar(this);
+        abm.setVentanaCondicionIva(this);
+        
+        JFrameManager.centrarYMostrarVentana(abm);
     }
 
     private void addListenerBtnSalir() {

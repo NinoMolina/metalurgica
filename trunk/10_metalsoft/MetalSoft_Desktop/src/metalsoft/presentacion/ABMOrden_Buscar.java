@@ -24,6 +24,7 @@ import metalsoft.util.ItemCombo;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.access.AccessCompra;
 
@@ -38,10 +39,10 @@ public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
     private RegistrarIngresoMateriaPrima ventana2;
    
     /** Creates new form ABMOrden_Buscar */
-    public ABMOrden_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMOrden_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
-             }
+     }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -166,18 +167,7 @@ public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
 
     public void setVentana2(RegistrarIngresoMateriaPrima v2) {
         ventana2=v2;
-    }
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMOrden_Buscar().setVisible(true);
-            }
-        });
-    }
-
+    }   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
