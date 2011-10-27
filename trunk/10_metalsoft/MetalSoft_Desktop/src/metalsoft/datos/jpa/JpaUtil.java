@@ -20,6 +20,7 @@ import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Detallepresupuesto;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Detalleremito;
 import metalsoft.datos.jpa.entity.Detalletrabajotercerizado;
@@ -727,6 +728,20 @@ public class JpaUtil {
                 + "AND NOT m.fechaenviomantenimiento ISNULL";
         try {
             Query q = em.createNativeQuery(sql, Mantenimientocorrectivo.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Detallepresupuesto> get(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "FROM detallepresupuesto dp "
+                + "WHERE dp.idpresupuesto="+nro;
+        try {
+            Query q = em.createNativeQuery(sql, Detallepresupuesto.class);
             return q.getResultList();
         } finally {
             em.close();
