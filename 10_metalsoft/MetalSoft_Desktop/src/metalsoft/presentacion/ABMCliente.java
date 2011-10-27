@@ -133,20 +133,14 @@ public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IR
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
-        ABMCliente_Buscar buscar = null;
-        try {
-            ABMCliente_Buscar.setOwner(this);
-            ABMCliente_Buscar.setVentana(this);
-            ABMCliente_Buscar.setGestor(gestor);
-            JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
+        ABMCliente_Buscar aBMCliente_Buscar = null;
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        aBMCliente_Buscar = new ABMCliente_Buscar(this);
+        aBMCliente_Buscar.setVentana(this);
+        aBMCliente_Buscar.setGestor(gestor);
+        
+        JFrameManager.centrarYMostrarVentana(aBMCliente_Buscar);
+
     }
 
     private void addListenerBtnSalir() {
@@ -163,7 +157,7 @@ public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IR
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(!esValido()){
+        if (!esValido()) {
             JOptionPane.showMessageDialog(this, "No estan todos los campos completados");
             return;
         }
@@ -253,47 +247,66 @@ public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IR
         }
     }
 
-    private boolean esValido(){
-        boolean result=true;
-        if(txtRazonSocial.getText().compareTo("")==0)
-            result=false;
-        if(txtCUIT.getText().compareTo("")==0)
-            result=false;
-        if(cmbCondicionIVA.getSelectedIndex()<=0)
-            result=false;
-        if(cmbEstado.getSelectedIndex()<=0)
-            result=false;
-        if(cmbPrioridad.getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbBarrio().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbLocalidad().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getCmbProvincia().getSelectedIndex()<=0)
-            result=false;
-        if(beanDomicilioCliente.getTxtCalle().getText().compareTo("")==0)
-            result=false;
-        if(beanDomicilioCliente.getTxtNumero().getText().compareTo("")==0)
-            result=false;
+    private boolean esValido() {
+        boolean result = true;
+        if (txtRazonSocial.getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (txtCUIT.getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (cmbCondicionIVA.getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (cmbEstado.getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (cmbPrioridad.getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbBarrio().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbLocalidad().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getCmbProvincia().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getTxtCalle().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanDomicilioCliente.getTxtNumero().getText().compareTo("") == 0) {
+            result = false;
+        }
 
-        if(beanResponsable.getTxtNombre().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getTxtApellido().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getTxtNroDoc().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getCmbTipoDoc().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex()<=0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("")==0)
-            result=false;
-        if(beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("")==0)
-            result=false;
+        if (beanResponsable.getTxtNombre().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getTxtApellido().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getTxtNroDoc().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getCmbTipoDoc().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbBarrio().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbLocalidad().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getCmbProvincia().getSelectedIndex() <= 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getTxtCalle().getText().compareTo("") == 0) {
+            result = false;
+        }
+        if (beanResponsable.getDomicilioResponsable().getTxtNumero().getText().compareTo("") == 0) {
+            result = false;
+        }
 
         return result;
     }
