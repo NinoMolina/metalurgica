@@ -74,11 +74,11 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" pref="923" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jScrollPane1" alignment="0" pref="923" max="32767" attributes="0"/>
                       <Component id="beanBtnSeleccionar" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -88,12 +88,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel2" min="-2" pref="54" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="123" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="118" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="beanBtnSeleccionar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,19 +121,27 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtValorBusqueda" pref="531" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtValorBusqueda" min="-2" pref="339" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="bsyBusquedaPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="166" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtValorBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="jRadioButton3" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jRadioButton2" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jRadioButton1" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtValorBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="bsyBusquedaPedido" alignment="0" pref="23" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -154,6 +162,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtValorBusqueda">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorBusquedaKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton2">
               <Properties>
@@ -170,6 +181,8 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cliente"/>
               </Properties>
+            </Component>
+            <Component class="org.jdesktop.swingx.JXBusyLabel" name="bsyBusquedaPedido">
             </Component>
           </SubComponents>
         </Container>
@@ -227,9 +240,25 @@
           <SubComponents>
             <Container class="org.jdesktop.swingx.JXTaskPane" name="tskPanel">
               <SubComponents>
+                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerPlanificacion">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="1. Ver Planificaci&#xf3;n"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerPlanificacionActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerDisponibilidad">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="2. Ver Disponibilidad"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerDisponibilidadActionPerformed"/>
+                  </Events>
+                </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplAsignarEmpleado">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Asignar Empleado"/>
+                    <Property name="text" type="java.lang.String" value="3. Asignar Empleado"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Cursor de mano"/>
                     </Property>
@@ -240,7 +269,7 @@
                 </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplAsignarMaquinas">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Asignar M&#xe1;quinas"/>
+                    <Property name="text" type="java.lang.String" value="4. Asignar M&#xe1;quinas"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Cursor de mano"/>
                     </Property>
@@ -249,25 +278,9 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplAsignarMaquinasActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerDisponibilidad">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Disponibilidad"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerDisponibilidadActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerPlanificacion">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Planificaci&#xf3;n"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerPlanificacionActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplObservaciones">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Agregar Observaci&#xf3;n"/>
+                    <Property name="text" type="java.lang.String" value="5. Agregar Observaci&#xf3;n"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplObservacionesActionPerformed"/>
@@ -300,8 +313,8 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane2" min="-2" pref="588" max="-2" attributes="1"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="596" max="-2" attributes="1"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="subirBajar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>

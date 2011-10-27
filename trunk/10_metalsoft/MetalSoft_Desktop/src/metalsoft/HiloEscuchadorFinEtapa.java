@@ -44,6 +44,14 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
     private String[] partes = null;
+    private static HiloEscuchadorFinEtapa instance;
+
+    public static HiloEscuchadorFinEtapa getInstance() {
+        if (instance == null) {
+            instance = new HiloEscuchadorFinEtapa();
+        }
+        return instance;
+    }
 
     @Override
     public void run() {

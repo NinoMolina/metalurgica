@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.util.ItemCombo;
@@ -25,14 +26,15 @@ import metalsoft.negocio.gestores.IBuscador;
  */
 public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador {
 
-    private GestorCliente gestor = null;
-    private ABMCliente ventana = null;
-    private static RegistrarEntregaPedido ventanaRegistrarEntregaPedido=null;
+    private static GestorCliente gestor = null;
+    private static JDialog owner = null;
+    private static ABMCliente ventana = null;
+    private static RegistrarEntregaPedido ventanaRegistrarEntregaPedido = null;
     private Timer timer;
 
     /** Creates new form ABMCliente_Buscar */
     public ABMCliente_Buscar() {
-        super(Principal.getVtnPrincipal());
+        super(owner);
         initComponents();
     }
 
@@ -43,20 +45,25 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
     public static void setVentanaRegistrarEntregaPedido(RegistrarEntregaPedido ventana) {
         ventanaRegistrarEntregaPedido = ventana;
     }
-    public GestorCliente getGestor() {
+
+    public static GestorCliente getGestor() {
         return gestor;
     }
 
-    public void setGestor(GestorCliente gestor) {
-        this.gestor = gestor;
+    public static void setGestor(GestorCliente gestor) {
+        ABMCliente_Buscar.gestor = gestor;
     }
 
-    public ABMCliente getVentana() {
+    public static ABMCliente getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMCliente ventana) {
-        this.ventana = ventana;
+    public static void setVentana(ABMCliente ventana) {
+        ABMCliente_Buscar.ventana = ventana;
+    }
+
+    public static void setOwner(JDialog owner) {
+        ABMCliente_Buscar.owner = owner;
     }
 
     /** This method is called from within the constructor to
@@ -222,7 +229,6 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -233,10 +239,6 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-
-    void setVentanaCliente(ABMCliente abm) {
-        ventana = abm;
-    }
 
 
     public JList getList(String className) {

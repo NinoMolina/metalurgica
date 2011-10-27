@@ -32,6 +32,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -63,8 +65,6 @@ import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
-import org.joda.time.Instant;
-import org.joda.time.Interval;
 
 /**
  *
@@ -117,6 +117,23 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         tblPedidos.updateUI();
         tskPanel.setTitle("Asignaciones");
         tskPanel.setAnimated(true);
+        bsyBusquedaPedido.setVisible(false);
+    }
+
+    public static Date getFechaInicioSiguienteDisp() {
+        return fechaInicioSiguienteDisp;
+    }
+
+    public static void setFechaInicioSiguienteDisp(Date fechaInicioSiguienteDisp) {
+        RegistrarPlanificacionProduccion.fechaInicioSiguienteDisp = fechaInicioSiguienteDisp;
+    }
+
+    public static boolean isNoHaySiguienteDisponibilidad() {
+        return noHaySiguienteDisponibilidad;
+    }
+
+    public static void setNoHaySiguienteDisponibilidad(boolean noHaySiguienteDisponibilidad) {
+        RegistrarPlanificacionProduccion.noHaySiguienteDisponibilidad = noHaySiguienteDisponibilidad;
     }
 
     private void addListeners() {
@@ -489,16 +506,17 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtValorBusqueda = new javax.swing.JTextField();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
+        bsyBusquedaPedido = new org.jdesktop.swingx.JXBusyLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
         beanBtnSeleccionar = new metalsoft.beans.BtnSeleccionar();
         jPanel3 = new javax.swing.JPanel();
         jXTaskPaneContainer1 = new org.jdesktop.swingx.JXTaskPaneContainer();
         tskPanel = new org.jdesktop.swingx.JXTaskPane();
+        hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
+        hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
         hplAsignarEmpleado = new org.jdesktop.swingx.JXHyperlink();
         hplAsignarMaquinas = new org.jdesktop.swingx.JXHyperlink();
-        hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
-        hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
         hplObservaciones = new org.jdesktop.swingx.JXHyperlink();
         pnl = new javax.swing.JPanel();
         pnlTreeTable = new javax.swing.JPanel();
@@ -544,6 +562,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         jLabel1.setText("Valor de Búsqueda:");
 
+        txtValorBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorBusquedaKeyReleased(evt);
+            }
+        });
+
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Fecha Pedido");
 
@@ -564,17 +588,23 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(bsyBusquedaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jRadioButton3)
-                .addComponent(jRadioButton2)
-                .addComponent(jRadioButton1)
-                .addComponent(jLabel1)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bsyBusquedaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(tblPedidos);
@@ -583,28 +613,44 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Planificación"));
 
-        hplAsignarEmpleado.setText("Asignar Empleado");
+        hplVerPlanificacion.setText("1. Ver Planificación");
+        hplVerPlanificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerPlanificacionActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerPlanificacion);
+
+        hplVerDisponibilidad.setText("2. Ver Disponibilidad");
+        hplVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerDisponibilidadActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerDisponibilidad);
+
+        hplAsignarEmpleado.setText("3. Asignar Empleado");
         hplAsignarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hplAsignarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,7 +659,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         });
         tskPanel.getContentPane().add(hplAsignarEmpleado);
 
-        hplAsignarMaquinas.setText("Asignar Máquinas");
+        hplAsignarMaquinas.setText("4. Asignar Máquinas");
         hplAsignarMaquinas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hplAsignarMaquinas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -622,23 +668,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         });
         tskPanel.getContentPane().add(hplAsignarMaquinas);
 
-        hplVerDisponibilidad.setText("Ver Disponibilidad");
-        hplVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hplVerDisponibilidadActionPerformed(evt);
-            }
-        });
-        tskPanel.getContentPane().add(hplVerDisponibilidad);
-
-        hplVerPlanificacion.setText("Ver Planificación");
-        hplVerPlanificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hplVerPlanificacionActionPerformed(evt);
-            }
-        });
-        tskPanel.getContentPane().add(hplVerPlanificacion);
-
-        hplObservaciones.setText("Agregar Observación");
+        hplObservaciones.setText("5. Agregar Observación");
         hplObservaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hplObservacionesActionPerformed(evt);
@@ -659,8 +689,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         pnlTreeTableLayout.setHorizontalGroup(
             pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTreeTableLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
         );
@@ -1001,12 +1031,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         if (obj instanceof EtapaProduccionNode) {
             node = (EtapaProduccionNode) obj;
-
-
             /*
              * validar que el empleado seleccionado no este asignado en el mismo horario de la etapa actual
              */
-
             node.setEmpleado(empleadoSeleccionado);
 
             TreeNode parent = node.getParent();
@@ -1053,14 +1080,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             }
 
 
-//            Date fechaInicioDispBaseDeDatos = null;
             Date fechaIniSigDisp = null;
-//            Date fechaInicioDispSuperposicion = null;
             Date fechaFinDispSuperposicion = null;
 
             boolean continuarBuscando = true;
             boolean noHaySigDisp = false;
-            
+
             while (continuarBuscando) {
 
                 setInicioFinEtapaProduccion(node, fechaInicial);
@@ -1086,14 +1111,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                      * si la fecha de superposicion final es mayor a la fecha fin de disp de base de datos
                      * tendria que buscar otro intervalo en la base.
                      */
-                    if(fechaIniSigDisp != null){
+                    if (fechaIniSigDisp != null) {
                         if (fechaFinDispSuperposicion.compareTo(fechaIniSigDisp) <= 0) {
                             continuarBuscando = false;
                         } else {
                             fechaInicial = fechaFinDispSuperposicion;
-                        }    
+                        }
                     } else {
-                        if(noHaySigDisp){
+                        if (noHaySigDisp) {
                             continuarBuscando = false;
                         }
                     }
@@ -1600,7 +1625,29 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         setVisiblePanel(pnlObservaciones.getName());
     }//GEN-LAST:event_hplObservacionesActionPerformed
 
-    private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
+private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
+        bsyBusquedaPedido.setVisible(true);
+        bsyBusquedaPedido.setBusy(true);
+        Timer timer = new Timer();
+        if (txtValorBusqueda.getText().compareTo("") != 0) {
+            final RegistrarPlanificacionProduccion ventana = this;
+            timer.schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+//                    hiloBuscarCliente = new HiloBuscarCliente();
+//                    hiloBuscarCliente.setVentana(ventana);
+//                    hiloBuscarCliente.setValor(txtRazonSocial.getText());
+//                    hiloBuscarCliente.start();
+                }
+            }, 1500);
+        } else {
+            bsyBusquedaPedido.setVisible(false);
+            bsyBusquedaPedido.setBusy(false);
+        }
+    
+}//GEN-LAST:event_txtValorBusquedaKeyReleased
+private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
@@ -1709,6 +1756,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private metalsoft.beans.BtnGuardar beanBtnGuardar;
     private metalsoft.beans.BtnSalirr beanBtnSalir;
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionar;
+    private org.jdesktop.swingx.JXBusyLabel bsyBusquedaPedido;
     private javax.swing.JButton btnAsignarEmpleado;
     private javax.swing.JButton btnAsignarMaquina;
     private javax.swing.JButton btnVerDisponibilidad;
@@ -1857,7 +1905,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     public static synchronized Date obtenerFechaDisponibilidadEmpleado(List<Disponibilidadhoraria> lstDisponibilidad, int horas, int minutos, Date fechaActual) {
 
         fechaInicioSiguienteDisp = null;
-        
+
         Date resultado = null;
 
         /*
@@ -2044,341 +2092,343 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         }
 
         return resultado;
-    }
+    
+
+}
 
 // End of variables declaration
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
-        private String[] columnNames = {
-            "Nro.Ped",
-            "Nro.Ped.Cli",
-            "Fecha Pedido",
-            "Estado",
-            "Nro.Pres",
-            "Monto",
-            "Nro. Cli",
-            "Cliente"
-        };
+    private String[] columnNames = {
+        "Nro.Ped",
+        "Nro.Ped.Cli",
+        "Fecha Pedido",
+        "Estado",
+        "Nro.Pres",
+        "Monto",
+        "Nro. Cli",
+        "Cliente"
+    };
 
-        public int getRowCount() {
-            if (filasPedidosNoPlanificados != null) {
-                return filasPedidosNoPlanificados.size();
-            } else {
-                return 0;
-            }
+    public int getRowCount() {
+        if (filasPedidosNoPlanificados != null) {
+            return filasPedidosNoPlanificados.size();
+        } else {
+            return 0;
         }
+    }
 
-        public String[] getColumnNames() {
-            return columnNames;
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        ViewPedidoNoPlanificado view = filasPedidosNoPlanificados.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0:
+                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
+            case 1:
+                return view.getNropedcotcli();
+            case 2:
+                return Fecha.parseToString(view.getFechapedido());
+            case 3:
+                return view.getEstado();
+            case 4:
+                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
+            case 5:
+                return "$ " + Decimales.con2Decimales(view.getMontototal());
+            case 6:
+                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
+            case 7:
+                return view.getRazonsocial();
+            default:
+                return null;
         }
+    }
+}
 
-        @Override
-        public String getColumnName(int column) {
-            return columnNames[column];
+class EmpleadoTableModel extends AbstractTableModel {
+
+    private String[] columnNames = {
+        "Legajo",
+        "Nombre",
+        "Apellido"
+    };
+
+    public int getRowCount() {
+        if (lstEmpleados != null) {
+            return lstEmpleados.size();
+        } else {
+            return 0;
         }
+    }
 
-        public int getColumnCount() {
-            return columnNames.length;
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        metalsoft.datos.jpa.entity.Empleado empleado = lstEmpleados.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0:
+                return empleado.getLegajo();
+            case 1:
+                return empleado.getNombre();
+            case 2:
+                return empleado.getApellido();
+            default:
+                return null;
         }
+    }
 
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            ViewPedidoNoPlanificado view = filasPedidosNoPlanificados.get(rowIndex);
+    private String disponibilidadEmpleado(Empleado e) {
+        if (hashEmpleadoNoDisponible.get(e.getIdempleado()) == null) {
+            return "Disponible";
+        }
+        return "Ocupado";
+    }
+}
 
-            switch (columnIndex) {
+class MaquinaTableModel extends AbstractTableModel {
+
+    private String[] columnNames = {
+        "Nombre",
+        "Marca",
+        "Descripcion",
+        "Estado"
+    };
+
+    public int getRowCount() {
+        if (lstMaquinas != null) {
+            return lstMaquinas.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        metalsoft.datos.jpa.entity.Maquina maquina = lstMaquinas.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0:
+                return maquina.getNombre();
+            case 1:
+                return maquina.getMarca().getNombre();
+            case 2:
+                return maquina.getDescripcion();
+            case 3:
+                return disponibilidadMaquina(maquina);
+            default:
+                return null;
+        }
+    }
+
+    private String disponibilidadMaquina(Maquina e) {
+        if (hashMaquinasNoDisponible.get(e.getIdmaquina()) == null) {
+            return "Disponible";
+        }
+        return "Ocupado";
+    }
+}
+
+class ProductoNode extends AbstractMutableTreeTableNode {
+
+    private metalsoft.datos.jpa.entity.Producto producto;
+    private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
+    private Integer indexProducto = 1;
+
+    public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
+        this.producto = producto;
+    }
+
+    public Object getValueAt(int i) {
+        switch (i) {
+            case 0:
+                return producto.getNombre() + "-" + indexProducto;
+        }
+        return "";
+    }
+
+    public int getColumnCount() {
+        return columnCountTreeTable;
+    }
+
+    public Detalleproductopresupuesto getDetalleProductoPresupuesto() {
+        return detalleProductoPresupuesto;
+    }
+
+    public void setDetalleProductoPresupuesto(Detalleproductopresupuesto detalleProductoPresupuesto) {
+        this.detalleProductoPresupuesto = detalleProductoPresupuesto;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Integer getIndexProducto() {
+        return indexProducto;
+    }
+
+    public void setIndexProducto(Integer indexProducto) {
+        this.indexProducto = indexProducto;
+    }
+}
+
+class PiezaNode extends AbstractMutableTreeTableNode {
+
+    private metalsoft.datos.jpa.entity.Pieza pieza;
+    private int indexPieza = 1;
+
+    public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
+        this.pieza = pieza;
+    }
+
+    public List<MutableTreeTableNode> getChildren() {
+        return children;
+    }
+
+    public Object getValueAt(int i) {
+        switch (i) {
+            case 0:
+                return pieza.getNombre() + "-" + indexPieza;
+        }
+        return "";
+    }
+
+    public int getIndexPieza() {
+        return indexPieza;
+    }
+
+    public void setIndexPieza(int indexPieza) {
+        this.indexPieza = indexPieza;
+    }
+
+    public int getColumnCount() {
+        return columnCountTreeTable;
+    }
+
+    public metalsoft.datos.jpa.entity.Pieza getPieza() {
+        return pieza;
+    }
+}
+
+class EtapaProduccionNode extends AbstractMutableTreeTableNode {
+
+    private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
+    private metalsoft.datos.jpa.entity.Maquina maquina;
+    private metalsoft.datos.jpa.entity.Empleado empleado;
+    private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
+    private Date inicioEtapa, finEtapa;
+
+    public Date getFinEtapa() {
+        return finEtapa;
+    }
+
+    public void setFinEtapa(Date finEtapa) {
+        this.finEtapa = finEtapa;
+    }
+
+    public Date getInicioEtapa() {
+        return inicioEtapa;
+    }
+
+    public void setInicioEtapa(Date inicioEtapa) {
+        this.inicioEtapa = inicioEtapa;
+    }
+
+    public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
+        this.etapa = etapa;
+    }
+
+    public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
+        return detallePiezaPresupuesto;
+    }
+
+    public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
+        this.detallePiezaPresupuesto = detallePiezaPresupuesto;
+    }
+
+    public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
+        this.etapa = etapa;
+    }
+
+    public metalsoft.datos.jpa.entity.Maquina getMaquina() {
+        return maquina;
+    }
+
+    public void setMaquina(metalsoft.datos.jpa.entity.Maquina maquina) {
+        this.maquina = maquina;
+    }
+
+    @Override
+    public Object getValueAt(int i) {
+        try {
+            switch (i) {
                 case 0:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
+                    return etapa.getNombre();
                 case 1:
-                    return view.getNropedcotcli();
+                    return Fecha.parseToStringFechaHora(getInicioEtapa());
                 case 2:
-                    return Fecha.parseToString(view.getFechapedido());
+                    return Fecha.parseToStringFechaHora(getFinEtapa());
                 case 3:
-                    return view.getEstado();
+                    return empleado.getNombre() + " " + empleado.getApellido();
                 case 4:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
-                case 5:
-                    return "$ " + Decimales.con2Decimales(view.getMontototal());
-                case 6:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
-                case 7:
-                    return view.getRazonsocial();
-                default:
-                    return null;
-            }
-        }
-    }
-
-    class EmpleadoTableModel extends AbstractTableModel {
-
-        private String[] columnNames = {
-            "Legajo",
-            "Nombre",
-            "Apellido"
-        };
-
-        public int getRowCount() {
-            if (lstEmpleados != null) {
-                return lstEmpleados.size();
-            } else {
-                return 0;
-            }
-        }
-
-        public String[] getColumnNames() {
-            return columnNames;
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return columnNames[column];
-        }
-
-        public int getColumnCount() {
-            return columnNames.length;
-        }
-
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            metalsoft.datos.jpa.entity.Empleado empleado = lstEmpleados.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
-                    return empleado.getLegajo();
-                case 1:
-                    return empleado.getNombre();
-                case 2:
-                    return empleado.getApellido();
-                default:
-                    return null;
-            }
-        }
-
-        private String disponibilidadEmpleado(Empleado e) {
-            if (hashEmpleadoNoDisponible.get(e.getIdempleado()) == null) {
-                return "Disponible";
-            }
-            return "Ocupado";
-        }
-    }
-
-    class MaquinaTableModel extends AbstractTableModel {
-
-        private String[] columnNames = {
-            "Nombre",
-            "Marca",
-            "Descripcion",
-            "Estado"
-        };
-
-        public int getRowCount() {
-            if (lstMaquinas != null) {
-                return lstMaquinas.size();
-            } else {
-                return 0;
-            }
-        }
-
-        public String[] getColumnNames() {
-            return columnNames;
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return columnNames[column];
-        }
-
-        public int getColumnCount() {
-            return columnNames.length;
-        }
-
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            metalsoft.datos.jpa.entity.Maquina maquina = lstMaquinas.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
                     return maquina.getNombre();
-                case 1:
-                    return maquina.getMarca().getNombre();
-                case 2:
-                    return maquina.getDescripcion();
-                case 3:
-                    return disponibilidadMaquina(maquina);
-                default:
-                    return null;
             }
+        } catch (NullPointerException ex) {
+            return "----";
         }
-
-        private String disponibilidadMaquina(Maquina e) {
-            if (hashMaquinasNoDisponible.get(e.getIdmaquina()) == null) {
-                return "Disponible";
-            }
-            return "Ocupado";
-        }
+        return "";
     }
-
-    class ProductoNode extends AbstractMutableTreeTableNode {
-
-        private metalsoft.datos.jpa.entity.Producto producto;
-        private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
-        private Integer indexProducto = 1;
-
-        public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
-            this.producto = producto;
-        }
-
-        public Object getValueAt(int i) {
-            switch (i) {
-                case 0:
-                    return producto.getNombre() + "-" + indexProducto;
-            }
-            return "";
-        }
-
-        public int getColumnCount() {
-            return columnCountTreeTable;
-        }
-
-        public Detalleproductopresupuesto getDetalleProductoPresupuesto() {
-            return detalleProductoPresupuesto;
-        }
-
-        public void setDetalleProductoPresupuesto(Detalleproductopresupuesto detalleProductoPresupuesto) {
-            this.detalleProductoPresupuesto = detalleProductoPresupuesto;
-        }
-
-        public Producto getProducto() {
-            return producto;
-        }
-
-        public void setProducto(Producto producto) {
-            this.producto = producto;
-        }
-
-        public Integer getIndexProducto() {
-            return indexProducto;
-        }
-
-        public void setIndexProducto(Integer indexProducto) {
-            this.indexProducto = indexProducto;
-        }
-    }
-
-    class PiezaNode extends AbstractMutableTreeTableNode {
-
-        private metalsoft.datos.jpa.entity.Pieza pieza;
-        private int indexPieza = 1;
-
-        public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
-            this.pieza = pieza;
-        }
-
-        public List<MutableTreeTableNode> getChildren() {
-            return children;
-        }
-
-        public Object getValueAt(int i) {
-            switch (i) {
-                case 0:
-                    return pieza.getNombre() + "-" + indexPieza;
-            }
-            return "";
-        }
-
-        public int getIndexPieza() {
-            return indexPieza;
-        }
-
-        public void setIndexPieza(int indexPieza) {
-            this.indexPieza = indexPieza;
-        }
-
-        public int getColumnCount() {
-            return columnCountTreeTable;
-        }
-
-        public metalsoft.datos.jpa.entity.Pieza getPieza() {
-            return pieza;
-        }
-    }
-
-    class EtapaProduccionNode extends AbstractMutableTreeTableNode {
-
-        private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
-        private metalsoft.datos.jpa.entity.Maquina maquina;
-        private metalsoft.datos.jpa.entity.Empleado empleado;
-        private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
-        private Date inicioEtapa, finEtapa;
-
-        public Date getFinEtapa() {
-            return finEtapa;
-        }
-
-        public void setFinEtapa(Date finEtapa) {
-            this.finEtapa = finEtapa;
-        }
-
-        public Date getInicioEtapa() {
-            return inicioEtapa;
-        }
-
-        public void setInicioEtapa(Date inicioEtapa) {
-            this.inicioEtapa = inicioEtapa;
-        }
-
-        public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
-        }
-
-        public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
-            return detallePiezaPresupuesto;
-        }
-
-        public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
-            this.detallePiezaPresupuesto = detallePiezaPresupuesto;
-        }
-
-        public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
-            return empleado;
-        }
-
-        public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
-            this.empleado = empleado;
-        }
-
-        public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
-            return etapa;
-        }
-
-        public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
-        }
-
-        public metalsoft.datos.jpa.entity.Maquina getMaquina() {
-            return maquina;
-        }
-
-        public void setMaquina(metalsoft.datos.jpa.entity.Maquina maquina) {
-            this.maquina = maquina;
-        }
-
-        @Override
-        public Object getValueAt(int i) {
-            try {
-                switch (i) {
-                    case 0:
-                        return etapa.getNombre();
-                    case 1:
-                        return Fecha.parseToStringFechaHora(getInicioEtapa());
-                    case 2:
-                        return Fecha.parseToStringFechaHora(getFinEtapa());
-                    case 3:
-                        return empleado.getNombre() + " " + empleado.getApellido();
-                    case 4:
-                        return maquina.getNombre();
-                }
-            } catch (NullPointerException ex) {
-                return "----";
-            }
-            return "";
-        }
 
 //        @Override
 //        public void setValueAt(Object aValue, int column) {
@@ -2428,23 +2478,23 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 //            }
 //
 //        }
-        public int getColumnCount() {
-            return columnCountTreeTable;
-        }
+    public int getColumnCount() {
+        return columnCountTreeTable;
+    }
+}
+
+class TablaPlanificacionModel extends DefaultTreeTableModel {
+
+    private TablaPlanificacionModel(DefaultMutableTreeTableNode raiz, ArrayList<String> listColumnNamesTreeTable) {
+        super(raiz, listColumnNamesTreeTable);
     }
 
-    class TablaPlanificacionModel extends DefaultTreeTableModel {
-
-        private TablaPlanificacionModel(DefaultMutableTreeTableNode raiz, ArrayList<String> listColumnNamesTreeTable) {
-            super(raiz, listColumnNamesTreeTable);
-        }
-
-        @Override
-        public boolean isCellEditable(Object node, int column) {
-            switch (column) {
-                default:
-                    return super.isCellEditable(node, column);
-            }
+    @Override
+    public boolean isCellEditable(Object node, int column) {
+        switch (column) {
+            default:
+                return super.isCellEditable(node, column);
         }
     }
+}
 }

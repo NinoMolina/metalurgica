@@ -1050,7 +1050,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         beanBotones.getBtnGuardar().setEnabled(b);
     }
 
-        private void setEnableComponentsNuevo(boolean b) {
+    private void setEnableComponentsNuevo(boolean b) {
         txtNroPedidoCliente.setEnabled(b);
         txtRazonSocial.setEnabled(b);
         txtValorBusqueda.setEnabled(b);

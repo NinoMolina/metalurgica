@@ -28,13 +28,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="beanBtnGuardar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="809" max="32767" attributes="0"/>
-                      <Component id="beanBtnSalir" min="-2" pref="79" max="-2" attributes="0"/>
+                      <EmptySpace pref="831" max="32767" attributes="0"/>
+                      <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jPanel3" alignment="0" min="0" pref="945" max="32767" attributes="1"/>
+                      <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,8 +48,8 @@
               <Component id="jPanel3" min="-2" max="-2" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="beanBtnGuardar" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="beanBtnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="beanBtnGuardar" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -211,9 +213,25 @@
           <SubComponents>
             <Container class="org.jdesktop.swingx.JXTaskPane" name="tskPanel">
               <SubComponents>
+                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerPlanificacion">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="1. Ver Planificaci&#xf3;n"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerPlanificacionActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerDisponibilidad">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="2. Ver Disponibilidad"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerDisponibilidadActionPerformed"/>
+                  </Events>
+                </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplAsignarEmpleado">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Asignar Empleado"/>
+                    <Property name="text" type="java.lang.String" value="3. Asignar Empleado"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Cursor de mano"/>
                     </Property>
@@ -224,7 +242,7 @@
                 </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplAsignarMaquinas">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Asignar M&#xe1;quinas"/>
+                    <Property name="text" type="java.lang.String" value="4. Asignar M&#xe1;quinas"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Cursor de mano"/>
                     </Property>
@@ -233,25 +251,9 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplAsignarMaquinasActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerDisponibilidad">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Disponibilidad"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerDisponibilidadActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="org.jdesktop.swingx.JXHyperlink" name="hplVerPlanificacion">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Planificaci&#xf3;n"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplVerPlanificacionActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="org.jdesktop.swingx.JXHyperlink" name="hplObservaciones">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Agregar Observaci&#xf3;n"/>
+                    <Property name="text" type="java.lang.String" value="5. Agregar Observaci&#xf3;n"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hplObservacionesActionPerformed"/>
@@ -287,21 +289,17 @@
                           <Component id="jScrollPane2" min="-2" pref="588" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="subirBajar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane2" alignment="0" pref="329" max="32767" attributes="1"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="subirBajar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="subirBajar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="276" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane2" alignment="0" pref="340" max="32767" attributes="1"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

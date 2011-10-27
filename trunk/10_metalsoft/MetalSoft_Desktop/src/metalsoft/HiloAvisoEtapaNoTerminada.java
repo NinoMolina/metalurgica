@@ -26,6 +26,14 @@ import metalsoft.util.Fecha;
 public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
+    private static HiloAvisoEtapaNoTerminada instance;
+
+    public static HiloAvisoEtapaNoTerminada getInstance() {
+        if (instance == null) {
+            instance = new HiloAvisoEtapaNoTerminada();
+        }
+        return instance;
+    }
 
     public Principal getVtnPrincipal() {
         return vtnPrincipal;

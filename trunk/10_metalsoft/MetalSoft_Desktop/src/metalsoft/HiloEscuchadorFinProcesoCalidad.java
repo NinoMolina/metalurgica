@@ -44,6 +44,14 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
     private String[] partes = null;
+    private static HiloEscuchadorFinProcesoCalidad instance;
+
+    public static HiloEscuchadorFinProcesoCalidad getInstance() {
+        if (instance == null) {
+            instance = new HiloEscuchadorFinProcesoCalidad();
+        }
+        return instance;
+    }
 
     @Override
     public void run() {

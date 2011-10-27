@@ -26,6 +26,14 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
 
     private GestorLanzarProximaEtapa gestor = new GestorLanzarProximaEtapa();
     private Principal vtnPrincipal;
+    private static HiloAvisoEtapaListaParaIniciar instance;
+
+    public static HiloAvisoEtapaListaParaIniciar getInstance() {
+        if (instance == null) {
+            instance = new HiloAvisoEtapaListaParaIniciar();
+        }
+        return instance;
+    }
 
     @Override
     public void run() {

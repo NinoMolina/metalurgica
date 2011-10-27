@@ -335,18 +335,18 @@ public class Principal extends javax.swing.JFrame {
         mniCliente = new javax.swing.JMenuItem();
         mniRegistrarConfirmacionPedido = new javax.swing.JMenuItem();
         mniEntregaPedido = new javax.swing.JMenuItem();
-        mniEtapaDeProduccion = new javax.swing.JMenuItem();
         mniPedidoCotizacion = new javax.swing.JMenuItem();
-        mniPieza = new javax.swing.JMenuItem();
-        mniProducto = new javax.swing.JMenuItem();
         mnuProduccion = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mniGenerarDetalleEtapas = new javax.swing.JMenuItem();
         mniGenerarDetalleMateriaPrima = new javax.swing.JMenuItem();
         mniLanzarProduccion = new javax.swing.JMenuItem();
         mniMatriz = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mniRegistrarPlanificacionProduccion = new javax.swing.JMenuItem();
         mniTipoMaterial = new javax.swing.JMenuItem();
-        mniArmadoPedido = new javax.swing.JMenuItem();
+        mniMaquinaria = new javax.swing.JMenuItem();
+        mniPieza = new javax.swing.JMenuItem();
+        mniEtapaDeProduccion = new javax.swing.JMenuItem();
+        mniProducto = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
@@ -370,7 +370,6 @@ public class Principal extends javax.swing.JFrame {
         mniConfirmarCotizacionDeTrabajosTercerizados = new javax.swing.JMenuItem();
         mniCancelarPedidoDeCotizacion = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
-        mniRegistrarMaquina = new javax.swing.JMenuItem();
         mniRotura = new javax.swing.JMenuItem();
         mniServicio = new javax.swing.JMenuItem();
         mniEmpresaMantenimiento = new javax.swing.JMenuItem();
@@ -381,6 +380,7 @@ public class Principal extends javax.swing.JFrame {
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mniGenerarSolicitud = new javax.swing.JMenuItem();
+        mniArmadoPedido = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
         mniReporteClientes = new javax.swing.JMenuItem();
         mniReportesReclamos = new javax.swing.JMenuItem();
@@ -918,14 +918,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniEntregaPedido);
 
-        mniEtapaDeProduccion.setText("Etapa de Producción");
-        mniEtapaDeProduccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniEtapaDeProduccionActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniEtapaDeProduccion);
-
         mniPedidoCotizacion.setText("Pedido de Cotización");
         mniPedidoCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -934,33 +926,17 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuVentas.add(mniPedidoCotizacion);
 
-        mniPieza.setText("Pieza");
-        mniPieza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniPiezaActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniPieza);
-
-        mniProducto.setText("Producto");
-        mniProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniProductoActionPerformed(evt);
-            }
-        });
-        mnuVentas.add(mniProducto);
-
         mbrMenu.add(mnuVentas);
 
         mnuProduccion.setText("Producción");
 
-        jMenuItem1.setText("Generar Detalle Etapas de Producción");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mniGenerarDetalleEtapas.setText("Generar Detalle Etapas de Producción");
+        mniGenerarDetalleEtapas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mniGenerarDetalleEtapasActionPerformed(evt);
             }
         });
-        mnuProduccion.add(jMenuItem1);
+        mnuProduccion.add(mniGenerarDetalleEtapas);
 
         mniGenerarDetalleMateriaPrima.setText("Generar Detalle Materia Prima");
         mniGenerarDetalleMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
@@ -986,13 +962,13 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniMatriz);
 
-        jMenuItem2.setText("Registrar Planificación de Producción");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mniRegistrarPlanificacionProduccion.setText("Registrar Planificación de Producción");
+        mniRegistrarPlanificacionProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mniRegistrarPlanificacionProduccionActionPerformed(evt);
             }
         });
-        mnuProduccion.add(jMenuItem2);
+        mnuProduccion.add(mniRegistrarPlanificacionProduccion);
 
         mniTipoMaterial.setText("Tipo Material");
         mniTipoMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -1002,13 +978,37 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniTipoMaterial);
 
-        mniArmadoPedido.setText("Registrar Armado de Pedido");
-        mniArmadoPedido.addActionListener(new java.awt.event.ActionListener() {
+        mniMaquinaria.setText("Maquinaria");
+        mniMaquinaria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniArmadoPedidoActionPerformed(evt);
+                mniMaquinariaActionPerformed(evt);
             }
         });
-        mnuProduccion.add(mniArmadoPedido);
+        mnuProduccion.add(mniMaquinaria);
+
+        mniPieza.setText("Pieza");
+        mniPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPiezaActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniPieza);
+
+        mniEtapaDeProduccion.setText("Etapa de Producción");
+        mniEtapaDeProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEtapaDeProduccionActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniEtapaDeProduccion);
+
+        mniProducto.setText("Producto");
+        mniProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProductoActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniProducto);
 
         mbrMenu.add(mnuProduccion);
 
@@ -1179,14 +1179,6 @@ public class Principal extends javax.swing.JFrame {
 
         mnuMantenimiento.setText("Mantenimientos");
 
-        mniRegistrarMaquina.setText("Maquinaria");
-        mniRegistrarMaquina.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniRegistrarMaquinaActionPerformed(evt);
-            }
-        });
-        mnuMantenimiento.add(mniRegistrarMaquina);
-
         mniRotura.setText("Rotura");
         mniRotura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1262,6 +1254,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuAlmacenamiento.add(mniGenerarSolicitud);
+
+        mniArmadoPedido.setText("Registrar Armado de Pedido");
+        mniArmadoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniArmadoPedidoActionPerformed(evt);
+            }
+        });
+        mnuAlmacenamiento.add(mniArmadoPedido);
 
         mbrMenu.add(mnuAlmacenamiento);
 
@@ -1461,7 +1461,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniMatrizActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mniGenerarDetalleEtapasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGenerarDetalleEtapasActionPerformed
         try {
             JFrameManager.crearVentana(GenerarDetalleEtapasProduccion.class.getName());
         } catch (ClassNotFoundException ex) {
@@ -1471,7 +1471,7 @@ public class Principal extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mniGenerarDetalleEtapasActionPerformed
 
     private void mniMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMateriaPrimaActionPerformed
         try {
@@ -1581,7 +1581,7 @@ public class Principal extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mniRegistrarPlanificacionProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarPlanificacionProduccionActionPerformed
         try {
             JFrameManager.crearVentana(RegistrarPlanificacionProduccion.class.getName());
         } catch (ClassNotFoundException ex) {
@@ -1591,7 +1591,7 @@ public class Principal extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mniRegistrarPlanificacionProduccionActionPerformed
 
     private void mniLanzarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLanzarProduccionActionPerformed
         try {
@@ -1629,7 +1629,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mniAsignarMPAProduccionActionPerformed
 
-    private void mniRegistrarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarMaquinaActionPerformed
+    private void mniMaquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMaquinariaActionPerformed
         try {
             JFrameManager.crearVentana(ABMMaquina.class.getName());
         } catch (ClassNotFoundException ex) {
@@ -1639,7 +1639,7 @@ public class Principal extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_mniRegistrarMaquinaActionPerformed
+    }//GEN-LAST:event_mniMaquinariaActionPerformed
 
     private void mniEntregaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEntregaPedidoActionPerformed
         try {
@@ -1670,6 +1670,7 @@ public class Principal extends javax.swing.JFrame {
         AbrirSesion p = new AbrirSesion();
         p.setVisible(true);
         p.setLocationRelativeTo(null);
+        
         dispose();
     }//GEN-LAST:event_mniCerrarSesionActionPerformed
 
@@ -1946,15 +1947,15 @@ private void mniLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_mniLanzarCalidadActionPerformed
 
 private void btnEjecutarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarProduccionActionPerformed
-      try {
-            JFrameManager.crearVentana(RegistrarLanzamientoProduccion.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        JFrameManager.crearVentana(RegistrarLanzamientoProduccion.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnEjecutarProduccionActionPerformed
 private void mniReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReporteClientesActionPerformed
 
@@ -2165,27 +2166,27 @@ private void btnProcesosCalidadAtrasadosActionPerformed(java.awt.event.ActionEve
 }//GEN-LAST:event_btnProcesosCalidadAtrasadosActionPerformed
 
 private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-      try {
-            JFrameManager.crearVentana(ABMPedidoPresupuesto.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        JFrameManager.crearVentana(ABMPedidoPresupuesto.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnPedidosActionPerformed
 
 private void btnCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrosActionPerformed
-     try {
-            JFrameManager.crearVentana(RegistrarCobroPedido.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        JFrameManager.crearVentana(RegistrarCobroPedido.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnCobrosActionPerformed
 
 private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasAtrasadasActionPerformed
@@ -2362,22 +2363,22 @@ private void mniConfiguracionJornadaActionPerformed(java.awt.event.ActionEvent e
 }//GEN-LAST:event_mniConfiguracionJornadaActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     AbrirSesion p = new AbrirSesion();
-        p.setVisible(true);
-        p.setLocationRelativeTo(null);
-        dispose();
+    AbrirSesion p = new AbrirSesion();
+    p.setVisible(true);
+    p.setLocationRelativeTo(null);
+    dispose();
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
-     try {
-            JFrameManager.crearVentana(ABMCliente.class.getName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        JFrameManager.crearVentana(ABMCliente.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
 private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarProcesoCalidadActionPerformed
@@ -2391,7 +2392,6 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnLanzarProcesoCalidadActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2418,8 +2418,6 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
@@ -2452,6 +2450,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniEntregaPedido;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
     private javax.swing.JMenuItem mniFormaDePago;
+    private javax.swing.JMenuItem mniGenerarDetalleEtapas;
     private javax.swing.JMenuItem mniGenerarDetalleMateriaPrima;
     private javax.swing.JMenuItem mniGenerarDetalleProcedimientosCalidad;
     private javax.swing.JMenuItem mniGenerarSolicitud;
@@ -2460,6 +2459,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniMPrima;
     private javax.swing.JMenuItem mniMantenimientoPreventivo;
     private javax.swing.JMenuItem mniMantenimientos;
+    private javax.swing.JMenuItem mniMaquinaria;
     private javax.swing.JMenuItem mniMateriaPrima;
     private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniNuevoUsuario;
@@ -2475,8 +2475,8 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniRegistrarDiaNoLaboral;
     private javax.swing.JMenuItem mniRegistrarEnvioManPrev;
     private javax.swing.JMenuItem mniRegistrarIngresoCotizacionTrabajo;
-    private javax.swing.JMenuItem mniRegistrarMaquina;
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
+    private javax.swing.JMenuItem mniRegistrarPlanificacionProduccion;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
     private javax.swing.JMenuItem mniReporteAusentismo;
     private javax.swing.JMenuItem mniReporteClientes;
@@ -3177,14 +3177,6 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         this.mniRegistrarIngresoCotizacionTrabajo = mniRegistrarIngresoCotizacionTrabajo;
     }
 
-    public JMenuItem getMniRegistrarMaquina() {
-        return mniRegistrarMaquina;
-    }
-
-    public void setMniRegistrarMaquina(JMenuItem mniRegistrarMaquina) {
-        this.mniRegistrarMaquina = mniRegistrarMaquina;
-    }
-
     public JMenuItem getMniRegistrarPlanificacionCalidad() {
         return mniRegistrarPlanificacionCalidad;
     }
@@ -3409,6 +3401,38 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         this.pnlRegistrarFinalizacion = pnlRegistrarFinalizacion;
     }
 
+    public JMenuItem getMniConfiguracionJornada() {
+        return mniConfiguracionJornada;
+    }
+
+    public void setMniConfiguracionJornada(JMenuItem mniConfiguracionJornada) {
+        this.mniConfiguracionJornada = mniConfiguracionJornada;
+    }
+
+    public JMenuItem getMniGenerarDetalleEtapas() {
+        return mniGenerarDetalleEtapas;
+    }
+
+    public void setMniGenerarDetalleEtapas(JMenuItem mniGenerarDetalleEtapas) {
+        this.mniGenerarDetalleEtapas = mniGenerarDetalleEtapas;
+    }
+
+    public JMenuItem getMniMaquinaria() {
+        return mniMaquinaria;
+    }
+
+    public JMenuItem getMniRegistrarPlanificacionProduccion() {
+        return mniRegistrarPlanificacionProduccion;
+    }
+
+    public void setMniRegistrarPlanificacionProduccion(JMenuItem mniRegistrarPlanificacionProduccion) {
+        this.mniRegistrarPlanificacionProduccion = mniRegistrarPlanificacionProduccion;
+    }
+
+    public void setMniMaquinaria(JMenuItem mniMaquinaria) {
+        this.mniMaquinaria = mniMaquinaria;
+    }
+
     public void setVisibleComponents(boolean b) {
         pnlCalidad.setVisible(b);
         pnlProduccion.setVisible(b);
@@ -3424,5 +3448,31 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         mnuReportes.setVisible(b);
         mnuTrabajosTercerizados.setVisible(b);
         mnuVentas.setVisible(b);
+
+        setVisibleItemsMenuProduccion(b);
+        setVisibleItemsMenuInicio(b);
+        
+        mniCerrarSesion.setVisible(true);
+        mniCambiarContrasenia.setVisible(true);
+    }
+
+    public void setVisibleItemsMenuProduccion(boolean b) {
+        mniEtapaDeProduccion.setVisible(b);
+        mniProducto.setVisible(b);
+        mniPieza.setVisible(b);
+        mniMaquinaria.setVisible(b);
+        mniTipoMaterial.setVisible(b);
+        mniRegistrarPlanificacionProduccion.setVisible(b);
+        mniLanzarProduccion.setVisible(b);
+        mniMatriz.setVisible(b);
+        mniGenerarDetalleMateriaPrima.setVisible(b);
+        mniGenerarDetalleEtapas.setVisible(b);
+    }
+
+    public void setVisibleItemsMenuInicio(boolean b) {
+        mniCerrarSesion.setVisible(b);
+        mniAdministrarUsuarios.setVisible(b);
+        mniCambiarContrasenia.setVisible(b);
+        mniNuevoUsuario.setVisible(b);
     }
 }
