@@ -1203,6 +1203,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniServicio);
 
+        mniEmpresaMantenimiento.setText("Administrar Empresas de Mantenimiento");
         mniEmpresaMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEmpresaMantenimientoActionPerformed(evt);
@@ -1234,6 +1235,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniRegistrarEnvioManPrev);
 
+        mniConsultarEnviosManPrev.setText("Consultar envíos a Mantenimientos Preventivos");
         mniConsultarEnviosManPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniConsultarEnviosManPrevActionPerformed(evt);
