@@ -135,9 +135,10 @@ public class ABMCliente extends javax.swing.JDialog implements IDomiciliable, IR
         opcion = EnumOpcionesABM.BUSCAR;
         ABMCliente_Buscar buscar = null;
         try {
-            buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
-            buscar.setVentanaCliente(this);
-            buscar.setGestor(gestor);
+            ABMCliente_Buscar.setOwner(this);
+            ABMCliente_Buscar.setVentana(this);
+            ABMCliente_Buscar.setGestor(gestor);
+            JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);

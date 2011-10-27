@@ -178,42 +178,43 @@ public class MetalsoftDispatcher {
     }
 
     private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
-        HiloEscuchadorFinEtapa hilo = new HiloEscuchadorFinEtapa();
+        HiloEscuchadorFinEtapa hilo = HiloEscuchadorFinEtapa.getInstance();
         Thread thread = new Thread(hilo);
         hilo.setVtnPrincipal(vtnPrincipal);
         thread.start();
+        
     }
 
     private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal) {
-        HiloAvisoEtapaNoTerminada hilo = new HiloAvisoEtapaNoTerminada();
+        HiloAvisoEtapaNoTerminada hilo = HiloAvisoEtapaNoTerminada.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
     }
 
     private static void lanzarHiloAvisoProcesoCalidadNoTerminado(Principal vtnPrincipal) {
-        HiloAvisoProcesoCalidadNoTerminado hilo = new HiloAvisoProcesoCalidadNoTerminado();
+        HiloAvisoProcesoCalidadNoTerminado hilo = HiloAvisoProcesoCalidadNoTerminado.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
     }
 
     private static void lanzarHiloEscuchadorFinProcesoCalidad(Principal vtnPrincipal) {
-        HiloEscuchadorFinProcesoCalidad hilo = new HiloEscuchadorFinProcesoCalidad();
+        HiloEscuchadorFinProcesoCalidad hilo = HiloEscuchadorFinProcesoCalidad.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
     }
 
     private static void lanzarHiloAvisoEtapaListaParaIniciar(Principal vtnPrincipal) {
-        HiloAvisoEtapaListaParaIniciar hilo = new HiloAvisoEtapaListaParaIniciar();
+        HiloAvisoEtapaListaParaIniciar hilo = HiloAvisoEtapaListaParaIniciar.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
     }
 
     private static void lanzarHiloAvisoProcesoCalidadListoParaLanzar(Principal vtnPrincipal) {
-        HiloAvisoProcesoCalidadListoParaIniciar hilo = new HiloAvisoProcesoCalidadListoParaIniciar();
+        HiloAvisoProcesoCalidadListoParaIniciar hilo = HiloAvisoProcesoCalidadListoParaIniciar.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
         Thread thread = new Thread(hilo);
         thread.start();
@@ -246,17 +247,25 @@ public class MetalsoftDispatcher {
                 break;
             case (int) IdsRol.RESP_PRODUCCION:
                 vtnPrincipal.getMnuProduccion().setVisible(true);
+                vtnPrincipal.setVisibleItemsMenuProduccion(true);
                 vtnPrincipal.getPnlProduccion().setVisible(true);
                 break;
             case (int) IdsRol.RESP_VENTAS:
                 vtnPrincipal.getMnuVentas().setVisible(true);
+                vtnPrincipal.getMnuProduccion().setVisible(true);
+                vtnPrincipal.getMniEtapaDeProduccion().setVisible(true);
+                vtnPrincipal.getMniProducto().setVisible(true);
+                vtnPrincipal.getMniPieza().setVisible(true);
                 vtnPrincipal.getPnlVentas().setVisible(true);
                 break;
             case (int) IdsRol.RESP_MANTENIMIENTO:
                 vtnPrincipal.getMnuMantenimiento().setVisible(true);
+                vtnPrincipal.getMnuProduccion().setVisible(true);
+                vtnPrincipal.getMniMaquinaria().setVisible(true);
                 break;
             case (int) IdsRol.RESP_RRHH:
                 vtnPrincipal.getMnuRRHH().setVisible(true);
+                vtnPrincipal.setVisibleItemsMenuInicio(true);
                 break;
             default:
                 break;

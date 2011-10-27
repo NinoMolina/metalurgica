@@ -26,6 +26,14 @@ import metalsoft.util.Fecha;
 public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
+    private static HiloAvisoProcesoCalidadNoTerminado instance;
+    
+    public static HiloAvisoProcesoCalidadNoTerminado getInstance(){
+        if(instance == null){
+            instance = new HiloAvisoProcesoCalidadNoTerminado();
+        }
+        return instance;
+    }
 
     public Principal getVtnPrincipal() {
         return vtnPrincipal;

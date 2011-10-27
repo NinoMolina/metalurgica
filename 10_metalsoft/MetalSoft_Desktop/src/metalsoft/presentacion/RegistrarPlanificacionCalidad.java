@@ -459,7 +459,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         trtDetalleProcProd.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleProcProd.setTreeTableModel(treeTableModel);
         trtDetalleProcProd.setRootVisible(true);
-        
+
         trtDetalleProcProd.setHorizontalScrollEnabled(true);
     }
 
@@ -489,10 +489,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jXTaskPaneContainer1 = new org.jdesktop.swingx.JXTaskPaneContainer();
         tskPanel = new org.jdesktop.swingx.JXTaskPane();
+        hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
+        hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
         hplAsignarEmpleado = new org.jdesktop.swingx.JXHyperlink();
         hplAsignarMaquinas = new org.jdesktop.swingx.JXHyperlink();
-        hplVerDisponibilidad = new org.jdesktop.swingx.JXHyperlink();
-        hplVerPlanificacion = new org.jdesktop.swingx.JXHyperlink();
         hplObservaciones = new org.jdesktop.swingx.JXHyperlink();
         pnl = new javax.swing.JPanel();
         pnlTreeTable = new javax.swing.JPanel();
@@ -590,7 +590,23 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Planificación"));
 
-        hplAsignarEmpleado.setText("Asignar Empleado");
+        hplVerPlanificacion.setText("1. Ver Planificación");
+        hplVerPlanificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerPlanificacionActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerPlanificacion);
+
+        hplVerDisponibilidad.setText("2. Ver Disponibilidad");
+        hplVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hplVerDisponibilidadActionPerformed(evt);
+            }
+        });
+        tskPanel.getContentPane().add(hplVerDisponibilidad);
+
+        hplAsignarEmpleado.setText("3. Asignar Empleado");
         hplAsignarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hplAsignarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,7 +615,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         });
         tskPanel.getContentPane().add(hplAsignarEmpleado);
 
-        hplAsignarMaquinas.setText("Asignar Máquinas");
+        hplAsignarMaquinas.setText("4. Asignar Máquinas");
         hplAsignarMaquinas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hplAsignarMaquinas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,23 +624,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         });
         tskPanel.getContentPane().add(hplAsignarMaquinas);
 
-        hplVerDisponibilidad.setText("Ver Disponibilidad");
-        hplVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hplVerDisponibilidadActionPerformed(evt);
-            }
-        });
-        tskPanel.getContentPane().add(hplVerDisponibilidad);
-
-        hplVerPlanificacion.setText("Ver Planificación");
-        hplVerPlanificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hplVerPlanificacionActionPerformed(evt);
-            }
-        });
-        tskPanel.getContentPane().add(hplVerPlanificacion);
-
-        hplObservaciones.setText("Agregar Observación");
+        hplObservaciones.setText("5. Agregar Observación");
         hplObservaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hplObservacionesActionPerformed(evt);
@@ -647,17 +647,15 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             .addGroup(pnlTreeTableLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlTreeTableLayout.setVerticalGroup(
             pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTreeTableLayout.createSequentialGroup()
-                .addGroup(pnlTreeTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .addGroup(pnlTreeTableLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addComponent(subirBajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(276, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
 
         pnl.add(pnlTreeTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 340));
@@ -877,11 +875,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 809, Short.MAX_VALUE)
-                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 831, Short.MAX_VALUE)
+                        .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, 0, 945, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1165,7 +1164,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             dp = it.next();
 
             int cantProductos = dp.getCantidad();
-            
+
             int indexProducto = 0;
             for (int i = 0; i < cantProductos; i++) {
 
@@ -1502,20 +1501,52 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 }
             }
 
-            setInicioFinEtapaProduccion(node, fechaInicial);
+            Date fechaIniSigDisp = null;
+            Date fechaFinDispSuperposicion = null;
 
-            boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
-            if (superposicion) {
+            boolean continuarBuscando = true;
+            boolean noHaySigDisp = false;
 
-                Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
-                node.setInicioEtapa(fechaDispEmpleado);
-                Calendar inicioEtapa = new GregorianCalendar();
-                inicioEtapa.setTime(fechaDispEmpleado);
-                int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
-                int minutos = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes();
-                node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+            while (continuarBuscando) {
+
+
+                setInicioFinEtapaProduccion(node, fechaInicial);
+
+                fechaIniSigDisp = RegistrarPlanificacionProduccion.getFechaInicioSiguienteDisp();
+                noHaySigDisp = RegistrarPlanificacionProduccion.isNoHaySiguienteDisponibilidad();
+
+                boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
+                if (superposicion) {
+
+                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                    node.setInicioEtapa(fechaDispEmpleado);
+                    Calendar inicioEtapa = new GregorianCalendar();
+                    inicioEtapa.setTime(fechaDispEmpleado);
+                    int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
+                    int minutos = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getMinutes();
+                    node.setFinEtapa(Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, inicioEtapa, horas, minutos).getTime());
+
+                    fechaFinDispSuperposicion = node.getFinEtapa();
+                    /*
+                     * si la fecha de superposicion final es mayor a la fecha fin de disp de base de datos
+                     * tendria que buscar otro intervalo en la base.
+                     */
+                    if (fechaIniSigDisp != null) {
+                        if (fechaFinDispSuperposicion.compareTo(fechaIniSigDisp) <= 0) {
+                            continuarBuscando = false;
+                        } else {
+                            fechaInicial = fechaFinDispSuperposicion;
+                        }
+                    } else {
+                        if (noHaySigDisp) {
+                            continuarBuscando = false;
+                        }
+                    }
+                } else {
+                    continuarBuscando = false;
+                }
+
             }
-
 
             if (mapAsignacionActualEmpleados.containsKey(empleadoSeleccionado.getIdempleado())) {
                 mapAsignacionActualEmpleados.get(empleadoSeleccionado.getIdempleado()).add(node);

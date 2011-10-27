@@ -27,6 +27,14 @@ public class HiloAvisoProcesoCalidadListoParaIniciar implements Runnable {
 
     private GestorLanzarProximoProcesoCalidad gestor = new GestorLanzarProximoProcesoCalidad();
     private Principal vtnPrincipal;
+    private static HiloAvisoProcesoCalidadListoParaIniciar instance;
+
+    public static HiloAvisoProcesoCalidadListoParaIniciar getInstance() {
+        if (instance == null) {
+            instance = new HiloAvisoProcesoCalidadListoParaIniciar();
+        }
+        return instance;
+    }
 
     @Override
     public void run() {
