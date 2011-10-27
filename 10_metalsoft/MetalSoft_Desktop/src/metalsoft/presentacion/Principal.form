@@ -476,6 +476,9 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniEmpresaMantenimiento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Administrar Empresas de Mantenimiento"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEmpresaMantenimientoActionPerformed"/>
               </Events>
@@ -505,6 +508,9 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniConsultarEnviosManPrev">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar env&#xed;os a Mantenimientos Preventivos"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultarEnviosManPrevActionPerformed"/>
               </Events>
