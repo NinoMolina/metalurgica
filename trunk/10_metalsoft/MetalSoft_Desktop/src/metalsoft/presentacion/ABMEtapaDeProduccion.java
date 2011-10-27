@@ -257,6 +257,9 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                         .add(24, 24, 24))))
             .add(jLabel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        layout.linkSize(new java.awt.Component[] {btnBuscar, btnModificar, btnSalir, btnguardar, btnnuevo}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
@@ -273,6 +276,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                     .add(btnBuscar))
                 .add(19, 19, 19))
         );
+
+        layout.linkSize(new java.awt.Component[] {btnBuscar, btnModificar, btnSalir, btnguardar, btnnuevo}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
