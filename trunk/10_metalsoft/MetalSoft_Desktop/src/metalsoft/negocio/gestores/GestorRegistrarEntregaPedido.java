@@ -311,6 +311,7 @@ public class GestorRegistrarEntregaPedido {
         //facturaDB.setTipoiva(cli.getCondicioniva());
         facturaDB.setFechavencimiento(Fecha.parseToDateSQL(fechaVencimiento));
         //remDB.setUsuario(idPedido);
+        facturaDB.setMontototal(monto);
 
         result = AccessFactura.insert(facturaDB, cn);
         ped.setFactura(result);
@@ -333,7 +334,7 @@ public class GestorRegistrarEntregaPedido {
         
         facturaDB.setIdfactura(result);
         facturaDB.setNrofactura(result);
-        facturaDB.setMontototal(monto);
+        
         
         AccessFactura.update(facturaDB, cn);
 
