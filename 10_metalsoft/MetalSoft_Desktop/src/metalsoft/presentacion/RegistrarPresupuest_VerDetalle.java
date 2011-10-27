@@ -40,6 +40,13 @@ public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
         filasProductoPresupuesto = filas;
     }
     
+    public static void setPreciosConPorcentajes(double porcentaje){
+        for(ViewProductoPresupuesto view : filasProductoPresupuesto){
+            view.setImporte(view.getImporte() + view.getImporte() * porcentaje);
+            view.setPreciounitario(view.getPreciounitario() + view.getPreciounitario() * porcentaje);
+        }
+    }
+    
     private void addListeners() {
         addListenerBtnSalir();
     }
