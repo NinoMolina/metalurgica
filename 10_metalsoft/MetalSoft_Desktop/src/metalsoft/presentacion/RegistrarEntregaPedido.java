@@ -55,7 +55,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private Date fechaVencimientoFactura;
     private String tipoFactura;
     private long formaPago;
-    private boolean imprimir = false;
 
     /** Creates new form RegistrarEntregaPedido */
     public RegistrarEntregaPedido() {
@@ -74,14 +73,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         btnRegistrarEntrega.setEnabled(false);
         btnSeleccionar.setEnabled(false);
 
-    }
-
-    public boolean isImprimir() {
-        return imprimir;
-    }
-
-    public void setImprimir(boolean imprimir) {
-        this.imprimir = imprimir;
     }
 
     private void setearTablas() {
@@ -538,8 +529,8 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMCliente_Buscar buscar = null;
         try {
+            ABMCliente_Buscar.setVentanaRegistrarEntregaPedido(this);
             buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
-            buscar.setVentanaRegistrarEntregaPedido(this);
             buscar.setGestor(gestorCliente);
             limpiarCamposPedido();
             btnRegistrarEntrega.setEnabled(false);
@@ -623,7 +614,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         result = gestor.updatePedido(db);
         int ok = -1;
         int okRemito = -1;
-        ImprimirFacturaOpciones ventana=null;
+        ImprimirFacturaOpciones ventana = null;
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
 
@@ -632,19 +623,18 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
                 imprimirRemito();
                 ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
                 if (ok == JOptionPane.OK_OPTION) {
-                    if(imprimir){
-                        try {
-                            ventana =(ImprimirFacturaOpciones) JFrameManager.crearVentana(ImprimirFacturaOpciones.class.getName());
-                            ventana.setVentana(this);
-                            imprimirFactura();
-                        } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InstantiationException ex) {
-                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalAccessException ex) {
-                            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    try {
+                        ImprimirFacturaOpciones.setVentana(this);
+                        ventana = (ImprimirFacturaOpciones) JFrameManager.crearVentana(ImprimirFacturaOpciones.class.getName());
+                        imprimirFactura();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InstantiationException ex) {
+                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                 }
             }
 
