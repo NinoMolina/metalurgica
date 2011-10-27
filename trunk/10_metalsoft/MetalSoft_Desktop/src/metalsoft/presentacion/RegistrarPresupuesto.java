@@ -188,6 +188,9 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         gestor.setFechaEstimadaFinProduccion(dccFechaEstimadaFinProduccion.getDate());
         gestor.setMontoTotal(lblTotalACobrar.getText());
         gestor.setProveedoresXMateriaPrima(filasMateriaPrimaXPiezaPresupuesto);
+        double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
+        porc = porc / 100;
+        gestor.setPorcentaje(porc);
         int result = -1;
         result = gestor.guardarPresupuesto();
         int ok = -1;
