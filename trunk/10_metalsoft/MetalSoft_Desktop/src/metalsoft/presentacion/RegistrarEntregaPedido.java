@@ -52,9 +52,9 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private EnumOpcionesABM opcion;
     private GestorRegistrarEntregaPedido gestor;
     private long idCliente;
-    private Date fechaVencimientoFactura;
-    private String tipoFactura;
-    private long formaPago;
+    private static Date fechaVencimientoFactura;
+    private static String tipoFactura;
+    private static long formaPago;
 
     /** Creates new form RegistrarEntregaPedido */
     public RegistrarEntregaPedido() {
@@ -647,10 +647,10 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         btnRegistrarEntrega.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarEntregaActionPerformed
 
-    public void setearCamposFactura(long idformapago, String tipoFactura, Date fechaVencimiento) {
-        this.formaPago = idformapago;
-        this.tipoFactura = tipoFactura;
-        this.fechaVencimientoFactura = fechaVencimiento;
+    public static void setearCamposFactura(long idformapago, String tipo, Date fechaVencimiento) {
+        formaPago = idformapago;
+        tipoFactura = tipo;
+        fechaVencimientoFactura = fechaVencimiento;
     }
 
     private void imprimirFactura() {
