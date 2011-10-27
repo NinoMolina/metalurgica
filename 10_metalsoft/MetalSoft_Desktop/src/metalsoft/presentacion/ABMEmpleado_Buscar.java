@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.EmpleadoDB;
@@ -26,8 +27,8 @@ import metalsoft.util.ItemCombo;
 public class ABMEmpleado_Buscar extends javax.swing.JDialog {
 
     /** Creates new form ABMEmpleado_Buscar */
-    public ABMEmpleado_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMEmpleado_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
     private ABMEmpleado ventana;

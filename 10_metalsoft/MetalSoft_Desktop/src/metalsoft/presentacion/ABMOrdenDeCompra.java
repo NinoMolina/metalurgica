@@ -234,18 +234,13 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
-        ABMOrden_Buscar buscar = null;
-        try {
-            buscar = (ABMOrden_Buscar) JFrameManager.crearVentana(ABMOrden_Buscar.class.getName());
-            buscar.setVentana(this);
-            buscar.setGestor(gestor);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ABMOrden_Buscar aBMOrden_Buscar = null;
+
+        aBMOrden_Buscar = new ABMOrden_Buscar(this);
+        aBMOrden_Buscar.setVentana(this);
+        aBMOrden_Buscar.setGestor(gestor);
+
+        JFrameManager.centrarYMostrarVentana(aBMOrden_Buscar);
     }
 
     private void addListenerBtnSalir() {

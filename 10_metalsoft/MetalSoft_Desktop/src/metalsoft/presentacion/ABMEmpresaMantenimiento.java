@@ -156,18 +156,11 @@ public class ABMEmpresaMantenimiento extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMEmpresaMantenimiento_Buscar buscar = null;
-        try {
-            buscar = (ABMEmpresaMantenimiento_Buscar) JFrameManager.crearVentana(ABMEmpresaMantenimiento_Buscar.class.getName());
-            buscar.setVentana(this);
-            buscar.setGestor(gestor);
+        buscar = new ABMEmpresaMantenimiento_Buscar(this);
+        buscar.setVentana(this);
+        buscar.setGestor(gestor);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEmpresaMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
 
     private void addListenerBtnSalir() {

@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.gestores.GestorEmpresaMetalurgica;
@@ -30,8 +31,8 @@ public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JDialog implements
     private Timer timer;
     
     /** Creates new form ABMProveedor_Buscar */
-    public ABMEmpresaMetalurgica_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMEmpresaMetalurgica_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
     public GestorEmpresaMetalurgica getGestor() {
@@ -198,16 +199,7 @@ public class ABMEmpresaMetalurgica_Buscar extends javax.swing.JDialog implements
         this.txtValor = txtValor;
 }//GEN-LAST:event_txtValorKeyReleased
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMEmpresaMetalurgica_Buscar().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
