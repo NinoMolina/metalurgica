@@ -24,7 +24,7 @@ import metalsoft.util.ItemCombo;
 public class ImprimirFacturaOpciones extends javax.swing.JDialog {
 
     /** Creates new form ImprimirFacturaOpciones */
-    private RegistrarEntregaPedido ventana;
+    private static RegistrarEntregaPedido ventana;
     private GestorRegistrarEntregaPedido gestor;
 
     public ImprimirFacturaOpciones() {
@@ -36,7 +36,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         gestor.obtenerFormasDePago(cmbFormaPago);
         cargarComboTipoFactura(cmbTipo);
         dpFecha.setDate(Fecha.fechaActualDate());
-        txtporcentaje.setText("0");
     }
 
     private void addListeners() {
@@ -54,7 +53,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
     }
 
     private void btnSalirActionPerformed(ActionEvent e) {
-        ventana.setImprimir(false);
         this.dispose();
     }
 
@@ -73,16 +71,15 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         java.util.Date fechaVencimiento = dpFecha.getDate();
 
         ventana.setearCamposFactura(formaPago, tipoFactura, fechaVencimiento);
-        ventana.setImprimir(true);
         this.dispose();
     }
 
-    public RegistrarEntregaPedido getVentana() {
+    public static RegistrarEntregaPedido getVentana() {
         return ventana;
     }
 
-    public void setVentana(RegistrarEntregaPedido ventana) {
-        this.ventana = ventana;
+    public static void setVentana(RegistrarEntregaPedido vent) {
+        ventana = vent;
     }
 
     private void cargarComboTipoFactura(JComboBox combo) {
@@ -104,9 +101,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cmbFormaPago = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        txtporcentaje = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
@@ -118,10 +112,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         setTitle("Opciones para imprimir factura");
 
         jLabel1.setText("Forma de Pago:");
-
-        jLabel2.setText("Ingrese Porcentaje de ganancia:");
-
-        jLabel3.setText("%");
 
         jLabel4.setText("Tipo de Factura:");
 
@@ -147,13 +137,7 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(cmbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(47, 47, 47)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtporcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)))
+                            .addGap(47, 47, 47))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,11 +155,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(dpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtporcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -197,11 +176,11 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -249,11 +228,8 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbTipo;
     private org.jdesktop.swingx.JXDatePicker dpFecha;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtporcentaje;
     // End of variables declaration//GEN-END:variables
 }
