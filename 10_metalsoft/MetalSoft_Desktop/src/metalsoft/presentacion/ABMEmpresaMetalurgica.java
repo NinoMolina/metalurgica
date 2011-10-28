@@ -129,7 +129,7 @@ public class ABMEmpresaMetalurgica extends javax.swing.JDialog {
 
         beanResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Responsable"));
 
-        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroCliente.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroCliente.setText("...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

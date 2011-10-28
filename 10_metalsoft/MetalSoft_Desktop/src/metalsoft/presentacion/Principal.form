@@ -1096,7 +1096,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEtapasListasParaLanzarActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton() {&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;//        try {&#xa;//            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock7140471.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;//            setContentAreaFilled(false);&#xa;//        } catch (Exception e) {&#xa;//        }&#xa;        super.paint(g);&#xa;    }&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton() {&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;              try {&#xa;                        g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock7013611.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;                        setContentAreaFilled(false);&#xa;                    } catch (Exception e) {&#xa;                   }&#xa;        super.paint(g);&#xa;    }&#xa;}"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -1115,7 +1115,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/f3.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock3235192.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
           </AuxValues>
         </Component>
         <Container class="metalsoft.beans.JPanelTransparente" name="pnlCalidad">
@@ -1231,7 +1231,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesosCalidadListosParaLanzarActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;//        try {&#xa;//            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fcalidad.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;//            setContentAreaFilled(false);&#xa;//        } catch (Exception e) {&#xa;//        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/canstock4260021.jpg&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
               </AuxValues>
             </Component>
           </SubComponents>
