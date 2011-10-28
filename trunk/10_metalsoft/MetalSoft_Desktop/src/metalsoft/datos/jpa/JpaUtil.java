@@ -734,7 +734,7 @@ public class JpaUtil {
         }
     }
     
-    public static List<Detallepresupuesto> get(String nro) {
+    public static List<Detallepresupuesto> getDetallePresupuestoByPresupuesto(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
