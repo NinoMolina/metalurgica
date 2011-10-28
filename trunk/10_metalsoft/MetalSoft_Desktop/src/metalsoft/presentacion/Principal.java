@@ -211,11 +211,11 @@ public class Principal extends javax.swing.JFrame {
 
             @Override
             public void paint(Graphics g) {
-                //        try {
-                    //            g.drawImage(ImageIO.read(getClass().getResource("/img/canstock7140471.jpg")), 0, 0, getWidth(), getHeight(), this);
-                    //            setContentAreaFilled(false);
-                    //        } catch (Exception e) {
-                    //        }
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/canstock7013611.jpg")), 0, 0, getWidth(), getHeight(), this);
+                    setContentAreaFilled(false);
+                } catch (Exception e) {
+                }
                 super.paint(g);
             }
         };
@@ -224,7 +224,7 @@ public class Principal extends javax.swing.JFrame {
             @Override
             public void paint(Graphics g) {
                 try {
-                    g.drawImage(ImageIO.read(getClass().getResource("/img/f3.png")), 0, 0, getWidth(), getHeight(), this);
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/canstock3235192.jpg")), 0, 0, getWidth(), getHeight(), this);
                     setContentAreaFilled(false);
                 } catch (Exception e) {
                 }
@@ -276,11 +276,11 @@ public class Principal extends javax.swing.JFrame {
 
             @Override
             public void paint(Graphics g) {
-                //        try {
-                    //            g.drawImage(ImageIO.read(getClass().getResource("/img/fcalidad.png")), 0, 0, getWidth(), getHeight(), this);
-                    //            setContentAreaFilled(false);
-                    //        } catch (Exception e) {
-                    //        }
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/canstock4260021.jpg")), 0, 0, getWidth(), getHeight(), this);
+                    setContentAreaFilled(false);
+                } catch (Exception e) {
+                }
                 super.paint(g);
             }
         }
