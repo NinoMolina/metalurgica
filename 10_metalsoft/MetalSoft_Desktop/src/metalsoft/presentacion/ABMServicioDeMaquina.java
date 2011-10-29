@@ -140,19 +140,13 @@ public class ABMServicioDeMaquina extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMServicioMaquina_Buscar buscar = null;
-        try {
-            buscar = (ABMServicioMaquina_Buscar) JFrameManager.crearVentana(ABMServicioMaquina_Buscar.class.getName());
-            buscar.setVentanaServicioMaquina(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMServicioDeMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMServicioMaquina_Buscar(this);
+        buscar.setVentanaServicioMaquina(this);
+       JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
+        
     }
 
     private void addListenerBtnSalir() {

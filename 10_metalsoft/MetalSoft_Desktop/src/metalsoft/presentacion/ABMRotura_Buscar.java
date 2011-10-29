@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.mantenimiento.Rotura;
@@ -30,8 +31,8 @@ public class ABMRotura_Buscar extends javax.swing.JDialog {
     private Rotura[] rot;
     private ABMRotura ventana;
     /** Creates new form ABMRotura_Buscar */
-     public ABMRotura_Buscar() {
-         super(Principal.getVtnPrincipal());
+     public ABMRotura_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -202,17 +203,6 @@ public class ABMRotura_Buscar extends javax.swing.JDialog {
         this.txtValor = txtValor;
     }
 
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMRotura_Buscar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
