@@ -139,19 +139,13 @@ public class ABMTipoMaquina extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMTipoMaquina_Buscar buscar = null;
-        try {
-            buscar = (ABMTipoMaquina_Buscar) JFrameManager.crearVentana(ABMTipoMaquina_Buscar.class.getName());
-            buscar.setVentanaTipoMaquina(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMTipoMaquina_Buscar(this);
+        buscar.setVentanaTipoMaquina(this);
+        JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
+       
     }
 
     private void addListenerBtnSalir() {

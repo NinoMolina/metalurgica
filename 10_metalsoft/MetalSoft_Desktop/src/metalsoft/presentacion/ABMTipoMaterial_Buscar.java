@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.produccion.TipoMaterial;
@@ -30,8 +31,8 @@ public class ABMTipoMaterial_Buscar extends javax.swing.JDialog {
     private TipoMaterial[] tm;
     private ABMTipoMaterial ventana;
     /** Creates new form ABMTipoMaterial_Buscar */
-    public ABMTipoMaterial_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMTipoMaterial_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -176,16 +177,6 @@ public class ABMTipoMaterial_Buscar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMTipoMaterial_Buscar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;

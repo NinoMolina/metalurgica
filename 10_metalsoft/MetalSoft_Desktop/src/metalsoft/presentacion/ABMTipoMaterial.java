@@ -224,16 +224,10 @@ public class ABMTipoMaterial extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         ABMTipoMaterial_Buscar buscar=null;
-        try {
-            buscar=(ABMTipoMaterial_Buscar) JFrameManager.crearVentana(ABMTipoMaterial_Buscar.class.getName());
-            buscar.setVentanaTipoMaterial(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMTipoMaterial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMTipoMaterial_Buscar(this);
+        buscar.setVentanaTipoMaterial(this);
+
+        JFrameManager.centrarYMostrarVentana(buscar);
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
