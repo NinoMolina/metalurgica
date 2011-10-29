@@ -13,6 +13,8 @@ package metalsoft.presentacion;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import metalsoft.datos.jpa.entity.Cliente;
+import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
 import metalsoft.util.Fecha;
 import metalsoft.util.ItemCombo;
@@ -33,8 +35,9 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         addListeners();
         gestor = new GestorRegistrarEntregaPedido();
         ventana = new RegistrarEntregaPedido();
+
         gestor.obtenerFormasDePago(cmbFormaPago);
-        cargarComboTipoFactura(cmbTipo);
+       // cargarComboTipoFactura(cmbTipo);
         dpFecha.setDate(Fecha.fechaActualDate());
     }
 
@@ -67,7 +70,8 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(ActionEvent e) {
         long formaPago = Long.parseLong(((ItemCombo) cmbFormaPago.getSelectedItem()).getId());
-        String tipoFactura = String.valueOf(((ItemCombo) cmbTipo.getSelectedItem()).getMostrar());
+        String tipoFactura= lblTipoFactura.getText();
+        //String tipoFactura = String.valueOf(((ItemCombo) cmbTipo.getSelectedItem()).getMostrar());
         java.util.Date fechaVencimiento = dpFecha.getDate();
 
         ventana.setearCamposFactura(formaPago, tipoFactura, fechaVencimiento);
@@ -88,7 +92,15 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         combo.addItem(new ItemCombo("3", "C"));
         combo.setSelectedIndex(0);
     }
+    private void setTipoFactura (Pedido id){
 
+       if (id.getCliente().getCondicioniva().getIdcondicioniva()== 1)
+
+           lblTipoFactura.setText("A");
+       else
+           lblTipoFactura.setText("B");
+
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -105,6 +117,7 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         cmbTipo = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         dpFecha = new org.jdesktop.swingx.JXDatePicker();
+        lblTipoFactura = new javax.swing.JLabel();
         btnGuardar1 = new metalsoft.beans.BtnGuardar();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
@@ -114,6 +127,12 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
         jLabel1.setText("Forma de Pago:");
 
         jLabel4.setText("Tipo de Factura:");
+
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Fecha de Vencimiento:");
 
@@ -128,16 +147,19 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbFormaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dpFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(47, 47, 47))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dpFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbTipo, 0, 32, Short.MAX_VALUE)
+                        .addGap(14, 14, 14)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,6 +172,7 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
+                    .addComponent(lblTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -185,6 +208,10 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,5 +258,6 @@ public class ImprimirFacturaOpciones extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblTipoFactura;
     // End of variables declaration//GEN-END:variables
 }
