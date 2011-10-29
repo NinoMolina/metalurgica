@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import metalsoft.util.MetalsoftProperties;
 
 /**
@@ -182,13 +183,19 @@ public class ConfiguracionJornada extends javax.swing.JDialog {
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {
-        Integer horaInicioJornada = (Integer) spnHoraInicioJornada.getValue();
-        Integer horasParaComer = (Integer) spnHorasParaComer.getValue();
-        Integer horasLaborales = (Integer) spnHorasLaborales.getValue();
+        try {
+            Integer horaInicioJornada = (Integer) spnHoraInicioJornada.getValue();
+            Integer horasParaComer = (Integer) spnHorasParaComer.getValue();
+            Integer horasLaborales = (Integer) spnHorasLaborales.getValue();
 
-        MetalsoftProperties.savePropertyValue(MetalsoftProperties.HORA_INICIO_JORNADA, String.valueOf(horaInicioJornada));
-        MetalsoftProperties.savePropertyValue(MetalsoftProperties.CANT_HORAS_COMIDA, String.valueOf(horasParaComer));
-        MetalsoftProperties.savePropertyValue(MetalsoftProperties.HORAS_JORNADA, String.valueOf(horasLaborales));
+            MetalsoftProperties.savePropertyValue(MetalsoftProperties.HORA_INICIO_JORNADA, String.valueOf(horaInicioJornada));
+            MetalsoftProperties.savePropertyValue(MetalsoftProperties.CANT_HORAS_COMIDA, String.valueOf(horasParaComer));
+            MetalsoftProperties.savePropertyValue(MetalsoftProperties.HORAS_JORNADA, String.valueOf(horasLaborales));
+
+            JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente.", "Guardar Config. Jornada", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar.", "Guardar Config. Jornada", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void setValoresConfiguracion() {

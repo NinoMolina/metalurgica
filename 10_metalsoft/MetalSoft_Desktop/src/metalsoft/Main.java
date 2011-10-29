@@ -30,17 +30,17 @@ public class Main {
 
             public void run() {
 //                JDialog.setDefaultLookAndFeelDecorated(true);
-                UIManager.put("Button.background", Color.getHSBColor(120,140,115));
-                UIManager.put("JXTable.background", Color.getHSBColor(120,140,115));
+                UIManager.put("Button.background", Color.getHSBColor(120, 140, 115));
+                UIManager.put("JXTable.background", Color.getHSBColor(120, 140, 115));
 //                UIManager.put("Button.foreground", Color.white);
 //                Font f = new Font("Serif", Font.ITALIC, 24);
 //                UIManager.put("Button.font", f);
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 LookAndFeelManager.setLookAndFeel(Skins.Moderate);
-                
+
                 TimeZone timeZone = TimeZone.getTimeZone(MetalsoftProperties.getProperty(MetalsoftProperties.TIMEZONE));
                 TimeZone.setDefault(timeZone);
-                
+
                 AbrirSesion p = new AbrirSesion();
                 p.setVisible(true);
                 p.setLocationRelativeTo(null);
