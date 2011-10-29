@@ -52,7 +52,7 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
         lstLista = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbTodos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Producto");
@@ -78,6 +78,7 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
 
         jScrollPane1.setViewportView(lstLista);
 
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/seleccionar.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,31 +88,36 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Todos");
+        buttonGroup1.add(rbTodos);
+        rbTodos.setText("Todos");
+        rbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTodosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(413, Short.MAX_VALUE)
-                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addGap(126, 126, 126)
-                        .addComponent(jRadioButton2)
+                        .addComponent(rbTodos)
                         .addGap(232, 232, 232))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(363, Short.MAX_VALUE)
+                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +126,7 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbTodos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -134,7 +140,7 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+       this.rbTodos.setSelected(false);
 }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
@@ -184,7 +190,25 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
             ventana.setIdProducto(id);
             ventana.productoSeleccionado();
         }
+        dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
+        txtValor.setText("");
+        this.jRadioButton1.setSelected(false);
+        final ABMProducto_Buscar abm=this;
+            timer=new Timer();
+            timer.schedule(new TimerTask() {
+                private HiloBuscarProducto hiloBuscarProducto;
+                @Override
+                public void run() {
+                    hiloBuscarProducto=new HiloBuscarProducto();
+                    hiloBuscarProducto.setVentana(abm);
+                    hiloBuscarProducto.setValor("");
+                    hiloBuscarProducto.start();
+                }
+            }, 1500);
+    }//GEN-LAST:event_rbTodosActionPerformed
 
 
     public void setVentana(ABMProducto v) {
@@ -196,9 +220,9 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lstLista;
+    private javax.swing.JRadioButton rbTodos;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
