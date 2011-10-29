@@ -210,16 +210,10 @@ public class ABMMaquina extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMMaquina_Buscar buscar = null;
-        try {
-            buscar = (ABMMaquina_Buscar) JFrameManager.crearVentana(ABMMaquina_Buscar.class.getName());
-            buscar.setVentana(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMaquina.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMMaquina_Buscar(this);
+        buscar.setVentana(this);
+        buscar.setGestor(gestor);
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
 
     private void addListenerBtnSalir() {

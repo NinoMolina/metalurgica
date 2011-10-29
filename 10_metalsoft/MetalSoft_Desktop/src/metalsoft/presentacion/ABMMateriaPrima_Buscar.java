@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.MateriaprimaDB;
@@ -31,8 +32,8 @@ public class ABMMateriaPrima_Buscar extends javax.swing.JDialog {
     private MateriaprimaDB[] materiasPrimasDB;
 
     /** Creates new form ABMMateriaPrima_Buscar */
-    public ABMMateriaPrima_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMMateriaPrima_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 

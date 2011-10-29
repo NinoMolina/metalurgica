@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
@@ -38,8 +39,8 @@ public class ABMEtapaDeProduccion_Buscar extends javax.swing.JDialog implements 
         return ventana;
     }
     /** Creates new form ABMEtapaDeProduccion_Buscar */
-    public ABMEtapaDeProduccion_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMEtapaDeProduccion_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 

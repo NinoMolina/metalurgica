@@ -147,20 +147,14 @@ public class ABMMatriz extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMMatriz_Buscar buscar = null;
-        try {
-            buscar = (ABMMatriz_Buscar) JFrameManager.crearVentana(ABMMatriz_Buscar.class.getName());
-            buscar.setVentanaMatriz(this);
-            buscar.setGestor(gestor);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMMatriz_Buscar(this);
+        buscar.setVentanaMatriz(this);
+        buscar.setGestor(gestor);
+        JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
+        
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
