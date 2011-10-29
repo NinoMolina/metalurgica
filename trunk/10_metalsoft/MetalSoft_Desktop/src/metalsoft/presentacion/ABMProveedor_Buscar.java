@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.ProveedorDB;
@@ -26,7 +27,7 @@ import metalsoft.negocio.gestores.IBuscador;
  */
 public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscador{
     private GestorProveedor gestor=null;
-    private ABMProveedor ventana=null;
+    private ABMProveedor ventana;
     private Timer timer;
     private ProveedorDB[] proveedorDB;
 
@@ -38,8 +39,8 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
         this.proveedorDB = proveedorDB;
     }
     /** Creates new form ABMProveedor_Buscar */
-    public ABMProveedor_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMProveedor_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
     public GestorProveedor getGestor() {
@@ -198,18 +199,8 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
         long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
         ventana.setIdProveedor(id);
         ventana.proveedorSeleccionado();
+        dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMProveedor_Buscar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
@@ -222,9 +213,6 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
     private javax.swing.JList lstLista;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-    void setVentanaProveedor(ABMProveedor abm) {
-        ventana=abm;
-    }
 
     public JList getList(String className) {
         return lstLista;
