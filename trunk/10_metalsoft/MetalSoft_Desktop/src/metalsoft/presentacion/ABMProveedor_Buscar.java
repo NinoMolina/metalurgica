@@ -10,26 +10,33 @@
  */
 
 package metalsoft.presentacion;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorProveedor;
 import metalsoft.negocio.gestores.IBuscador;
+import metalsoft.datos.jpa.entity.Proveedor;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
  * @author Vicky
  */
-public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscador{
+public class ABMProveedor_Buscar extends javax.swing.JDialog {
     private GestorProveedor gestor=null;
     private ABMProveedor ventana;
     private Timer timer;
     private ProveedorDB[] proveedorDB;
+    private List<Proveedor> filasProveedor;
 
     public ProveedorDB[] getProveedorDB() {
         return proveedorDB;
@@ -42,7 +49,24 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
     public ABMProveedor_Buscar(JDialog owner) {
         super(owner);
         initComponents();
+        setearTabla();
     }
+     public void setVentanaProveedor(ABMProveedor abm) {
+        ventana=abm;
+    }
+
+    private void setearTabla() {
+        //PROVEEDOR
+        tblProveedor.setModel(new ProveedorTableModel());
+        tblProveedor.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblProveedor.setShowHorizontalLines(false);
+        tblProveedor.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblProveedor.setHighlighters(
+        new UIColorHighlighter(HighlightPredicate.ODD));
+    }
+
     public GestorProveedor getGestor() {
         return gestor;
     }
@@ -69,21 +93,21 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
 
         buscar1 = new metalsoft.beans.Buscar();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rbNombre = new javax.swing.JRadioButton();
         txtValor = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstLista = new javax.swing.JList();
         btnSeleccionar = new javax.swing.JButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbTodos = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProveedor = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Proveedor");
 
-        jRadioButton1.setText("Nombre");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        rbNombre.setText("Razón Social");
+        rbNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbNombreActionPerformed(evt);
             }
         });
 
@@ -98,8 +122,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
             }
         });
 
-        jScrollPane1.setViewportView(lstLista);
-
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/beans/seleccionar.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,85 +130,89 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
             }
         });
 
-        jRadioButton2.setText("Todos");
+        rbTodos.setText("Todos");
+        rbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTodosActionPerformed(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
+
+        tblProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProveedorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProveedor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jRadioButton1)
-                .addGap(133, 133, 133)
-                .addComponent(jRadioButton2))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtValor, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(389, Short.MAX_VALUE)
-                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(rbNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(rbTodos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 522, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(7, 7, 7)
-                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbNombre)
+                    .addComponent(rbTodos)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void rbNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombreActionPerformed
+        filasProveedor = new LinkedList<Proveedor>();
+        tblProveedor.updateUI();
+        txtValor.setEnabled(true);
+        this.rbTodos.setSelected(false);
+}//GEN-LAST:event_rbNombreActionPerformed
 
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        if(txtValor.getText().compareTo("")!=0) {
-            final ABMProveedor_Buscar abm=this;
-            timer=new Timer();
-            timer.schedule(new TimerTask() {
-                private HiloBuscarProveedor hiloBuscarProveedor;
-                @Override
-                public void run() {
-                    hiloBuscarProveedor=new HiloBuscarProveedor();
-                    hiloBuscarProveedor.setVentana(abm);
-                    hiloBuscarProveedor.setValor(txtValor.getText());
-                    hiloBuscarProveedor.start();
-                }
-            }, 1500);
+
+        if (txtValor.getText().compareTo("") != 0) {
+            filasProveedor = gestor.buscarProveedorByNroLike(txtValor.getText());
+            tblProveedor.updateUI();
         }
+
     }
 
-    public JList getLstLista() {
-        return lstLista;
-    }
-
-    public void setLstLista(JList lstLista) {
-        this.lstLista = lstLista;
-    }
+//    public JList getLstLista() {
+//        return lstLista;
+//    }
+//
+//    public void setLstLista(JList lstLista) {
+//        this.lstLista = lstLista;
+//    }
 
     public JTextField getTxtValor() {
         return txtValor;
@@ -196,27 +223,39 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
 }//GEN-LAST:event_txtValorKeyReleased
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
-        ventana.setIdProveedor(id);
+        Proveedor prov = filasProveedor.get(tblProveedor.getSelectedRow());
+        //long id=Long.parseLong(((ItemCombo)lstLista.getSelectedValue()).getId());
+        ventana.setIdProveedor(prov.getIdproveedor());
         ventana.proveedorSeleccionado();
         dispose();
 }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void tblProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseClicked
+}//GEN-LAST:event_tblProveedorMouseClicked
+
+    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
+        filasProveedor = new LinkedList<Proveedor>();
+        filasProveedor = gestor.buscarProveedorByNroLike("");
+        tblProveedor.updateUI();
+        this.rbNombre.setSelected(false);
+        txtValor.setText("");
+    }//GEN-LAST:event_rbTodosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private metalsoft.beans.Buscar buscar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList lstLista;
+    private javax.swing.JRadioButton rbNombre;
+    private javax.swing.JRadioButton rbTodos;
+    private org.jdesktop.swingx.JXTable tblProveedor;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
-    public JList getList(String className) {
-        return lstLista;
-    }
+//    public JList getList(String className) {
+//        return lstLista;
+//    }
 
     public JComboBox getCombo(String className) {
         return null;
@@ -224,5 +263,61 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog  implements IBuscad
 
     public void setBusqueda(Object[] obj) {
         proveedorDB =(ProveedorDB[]) obj;
+    }
+
+    class ProveedorTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Nro Proveedor",
+            "Razón Social",
+            "Responsable",
+            "Cuil",
+            "Telefono"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+           Proveedor view = filasProveedor.get(rowIndex);
+//      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return String.valueOf(view.getNroproveedor());
+                case 1:
+                    return String.valueOf(view.getRazonsocial());
+                case 2:
+                    return String.valueOf(view.getResponsable().getNombre() + " "+ view.getResponsable().getApellido());
+                case 3:
+                    return String.valueOf(view.getCuil());
+                case 4:
+                    return String.valueOf(view.getTelefono());
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasProveedor != null) {
+                return filasProveedor.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
     }
 }

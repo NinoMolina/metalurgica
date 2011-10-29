@@ -40,6 +40,7 @@ import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
+import metalsoft.negocio.compras.Proveedor;
 
 /**
  *
@@ -742,6 +743,19 @@ public class JpaUtil {
                 + "WHERE dp.idpresupuesto="+nro;
         try {
             Query q = em.createNativeQuery(sql, Detallepresupuesto.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<metalsoft.datos.jpa.entity.Proveedor> getProveedorByNombreLike(String text) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "FROM proveedor "
+                + "WHERE razonsocial ILIKE '"+text+"%'";
+        try {
+            Query q = em.createNativeQuery(sql, metalsoft.datos.jpa.entity.Proveedor.class);
             return q.getResultList();
         } finally {
             em.close();
