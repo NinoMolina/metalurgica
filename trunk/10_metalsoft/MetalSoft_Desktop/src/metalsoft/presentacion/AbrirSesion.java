@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import metalsoft.Main;
 import metalsoft.MetalsoftDispatcher;
 import metalsoft.negocio.gestores.GestorIniciarSesion;
 
@@ -153,11 +152,9 @@ public class AbrirSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-
     }//GEN-LAST:event_formKeyReleased
 
     private void iniciarSesionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iniciarSesionKeyReleased
-
     }//GEN-LAST:event_iniciarSesionKeyReleased
     /**
      * @param args the command line arguments
@@ -195,5 +192,5 @@ public class AbrirSesion extends javax.swing.JFrame {
                 }
             }
         });
-    }    
+    }
 }

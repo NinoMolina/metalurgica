@@ -10,7 +10,9 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -68,8 +70,21 @@ public class Principal extends javax.swing.JFrame {
         mapEtapasListasParaLanzar = new HashMap<Long, Detalleplanificacionproduccion>();
         mapProcesosListosParaLanzar = new HashMap<Long, Detalleplanificacioncalidad>();
 
+        Dimension de = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        this.setResizable(false);
+        this.setPreferredSize(de);
+        this.setMaximumSize(de);
+        
+        
+        System.out.println(this.getPreferredSize());
+        System.out.println(this.getMaximumSize());
+        
         initComponents();
 
+        System.out.println(this.getPreferredSize());
+        System.out.println(this.getMaximumSize());
+        
         iniciarReloj();
 
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
@@ -90,6 +105,8 @@ public class Principal extends javax.swing.JFrame {
 
         setVisibleComponents(false);
         vtnPrincipal = this;
+
+        
     }
 
     public static Principal getVtnPrincipal() {
