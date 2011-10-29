@@ -139,19 +139,14 @@ public class ABMRotura extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMRotura_Buscar buscar = null;
-        try {
-            buscar = (ABMRotura_Buscar) JFrameManager.crearVentana(ABMRotura_Buscar.class.getName());
-            buscar.setVentanaRotura(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMRotura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMRotura_Buscar(this);
+        buscar.setVentanaRotura(this);
+
+        JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
+        
     }
 
     private void addListenerBtnSalir() {
