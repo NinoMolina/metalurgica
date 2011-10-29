@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.ventas.FormaDePago;
@@ -31,8 +32,8 @@ public class ABMFormaDePago_Buscar extends javax.swing.JDialog {
     private ABMFormaDePago ventana;
 
     /** Creates new form ABMFormaDePago_Buscar */
-    public ABMFormaDePago_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMFormaDePago_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -177,16 +178,6 @@ public class ABMFormaDePago_Buscar extends javax.swing.JDialog {
         this.txtValor = txtValor;
     }
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMFormaDePago_Buscar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;

@@ -252,19 +252,12 @@ public class ABMFormaDePago extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMFormaDePago_Buscar buscar = null;
-        try {
-            buscar = (ABMFormaDePago_Buscar) JFrameManager.crearVentana(ABMFormaDePago_Buscar.class.getName());
-            buscar.setVentanaFormaDePago(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMFormaDePago.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMFormaDePago.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMFormaDePago.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMFormaDePago_Buscar(this);
+        buscar.setVentanaFormaDePago(this);
+        JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
     }
 
     private void addListenerBtnSalir() {

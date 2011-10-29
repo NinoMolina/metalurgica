@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.jpa.entity.Matriz;
@@ -33,8 +34,8 @@ public class ABMMatriz_Buscar extends javax.swing.JDialog {
     private GestorMatriz gestor;
 
     /** Creates new form ABMMatriz_Buscar */
-    public ABMMatriz_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMMatriz_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -220,17 +221,6 @@ public class ABMMatriz_Buscar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new ABMMatriz_Buscar().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.ButtonGroup buttonGroup1;

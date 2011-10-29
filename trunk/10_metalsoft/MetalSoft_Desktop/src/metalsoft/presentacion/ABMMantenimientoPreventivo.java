@@ -556,18 +556,10 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
         opcion = EnumOpcionesABM.BUSCAR;
         ABMMantenimientoPreventivo_Buscar buscar = null;
-        try {
-            limpiarComponentes();
-            ABMMantenimientoPreventivo_Buscar.setVentana(this);
-            buscar = (ABMMantenimientoPreventivo_Buscar) JFrameManager.crearVentana(ABMMantenimientoPreventivo_Buscar.class.getName());
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEmpresaMetalurgica.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        limpiarComponentes();
+        buscar = new ABMMantenimientoPreventivo_Buscar(this);
+        buscar.setVentana(this);
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
 
     private void addListenerBtnSalir() {

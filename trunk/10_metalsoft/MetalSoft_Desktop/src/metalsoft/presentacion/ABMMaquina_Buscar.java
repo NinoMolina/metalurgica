@@ -13,6 +13,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.datos.dbobject.MaquinaDB;
@@ -61,8 +62,8 @@ public class ABMMaquina_Buscar extends javax.swing.JDialog {
         this.ventana = ventana;
     }
     /** Creates new form ABMMaquina_Buscar */
-    public ABMMaquina_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMMaquina_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 

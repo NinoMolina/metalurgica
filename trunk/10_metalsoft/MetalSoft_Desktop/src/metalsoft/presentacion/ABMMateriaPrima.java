@@ -182,16 +182,9 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
         ABMMateriaPrima_Buscar buscar=null;
-        try {
-            buscar=(ABMMateriaPrima_Buscar) JFrameManager.crearVentana(ABMMateriaPrima_Buscar.class.getName());
-            buscar.setVentana(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMMateriaPrima_Buscar(this);
+        buscar.setVentana(this);
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
     private void enableComponents(boolean b)
     {
