@@ -6,6 +6,7 @@
 package metalsoft.negocio.gestores;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -28,6 +29,7 @@ import metalsoft.datos.idao.LocalidadDAO;
 import metalsoft.datos.idao.ProvinciaDAO;
 import metalsoft.datos.idao.ResponsableDAO;
 import metalsoft.datos.idao.TipodocumentoDAO;
+import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.negocio.access.AccessProveedor;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.compras.Responsable;
@@ -1135,6 +1137,11 @@ public class GestorProveedor {
             }
         }
         return result;
+    }
+
+    public List<metalsoft.datos.jpa.entity.Proveedor> buscarProveedorByNroLike(String text) {
+        List<metalsoft.datos.jpa.entity.Proveedor> list=JpaUtil.getProveedorByNombreLike(text);
+        return list;
     }
 
 //    public long buscarIdEstadoBaja(Connection cn) {
