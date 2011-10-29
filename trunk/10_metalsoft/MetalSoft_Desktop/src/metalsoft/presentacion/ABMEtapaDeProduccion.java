@@ -361,17 +361,10 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        ABMEtapaDeProduccion_Buscar buscar=null;
-        try {
-            buscar=(ABMEtapaDeProduccion_Buscar) JFrameManager.crearVentana(ABMEtapaDeProduccion_Buscar.class.getName());
-            buscar.setVentana(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       ABMEtapaDeProduccion_Buscar buscar=null;
+        buscar = new ABMEtapaDeProduccion_Buscar(this);
+        buscar.setVentana(this);
+        JFrameManager.centrarYMostrarVentana(buscar);buscar.setVentana(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
