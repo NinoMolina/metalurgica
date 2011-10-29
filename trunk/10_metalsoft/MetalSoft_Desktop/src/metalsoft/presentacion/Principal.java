@@ -30,6 +30,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.Timer;
 import metalsoft.Main;
+import metalsoft.MetalsoftDispatcher;
 import metalsoft.beans.JPanelTransparente;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
@@ -75,7 +76,16 @@ public class Principal extends javax.swing.JFrame {
 
         obtenerRolUsuario(usuario.getIdusuario());
 
-        lblRol.setText(roles[0].getRol());
+        String rolesTxt = "";
+        for (int i = 0; i < roles.length; i++) {
+            if ((i + 1) == roles.length) {
+                rolesTxt += roles[i].getRol();
+            } else {
+                rolesTxt += roles[i].getRol() + ",";
+            }
+        }
+        lblRol.setText(rolesTxt);
+        lblRol.setToolTipText(rolesTxt);
         lblUsuario.setText(usuario.getUsuario());
 
         setVisibleComponents(false);
@@ -431,11 +441,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(204, 204, 0));
         jLabel3.setText("Rol:");
 
-        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblUsuario.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(227, 233, 255));
         lblUsuario.setText("...");
 
-        lblRol.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblRol.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblRol.setForeground(new java.awt.Color(227, 233, 255));
         lblRol.setText("...");
 
@@ -451,7 +461,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addGap(10, 10, 10)
-                .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1667,10 +1677,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
         //System.exit(0);
+        MetalsoftDispatcher.detenerTodosLosHilos();
         AbrirSesion p = new AbrirSesion();
         p.setVisible(true);
         p.setLocationRelativeTo(null);
-        
+
         dispose();
     }//GEN-LAST:event_mniCerrarSesionActionPerformed
 
@@ -3451,7 +3462,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
 
         setVisibleItemsMenuProduccion(b);
         setVisibleItemsMenuInicio(b);
-        
+
         mniCerrarSesion.setVisible(true);
         mniCambiarContrasenia.setVisible(true);
     }

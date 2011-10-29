@@ -13,7 +13,6 @@ import metalsoft.datos.jpa.controller.DetalleplanificacioncalidadJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
-import metalsoft.negocio.gestores.GestorLanzarProximoProcesoCalidad;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionProcesoCalidad;
 import metalsoft.presentacion.Principal;
@@ -23,10 +22,13 @@ import metalsoft.util.Fecha;
  *
  * @author Nino
  */
-public class HiloAvisoProcesoCalidadListoParaIniciar implements Runnable {
+public class HiloAvisoProcesoCalidadListoParaIniciar extends HiloSyncBase implements Runnable {
 
-    private GestorLanzarProximoProcesoCalidad gestor = new GestorLanzarProximoProcesoCalidad();
     private Principal vtnPrincipal;
+    private Thread thread;
+    private boolean stop = false;
+    private TimerTask timerTask;
+    private Timer timer;
     private static HiloAvisoProcesoCalidadListoParaIniciar instance;
 
     public static HiloAvisoProcesoCalidadListoParaIniciar getInstance() {
@@ -38,18 +40,71 @@ public class HiloAvisoProcesoCalidadListoParaIniciar implements Runnable {
 
     @Override
     public void run() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
 
             @Override
             public void run() {
                 procesarDatos();
             }
-        }, 0, 30000);
+        };
+        timer.schedule(timerTask, 0, 30000);
 
     }
 
-    private void procesarDatos() {
+    @Override
+    public void setVtnPrincipal(Principal vtnPrincipal) {
+        this.vtnPrincipal = vtnPrincipal;
+    }
+
+    private void comprobarEstadoProcesoAnteriorYLanzar(Detalleplanificacioncalidad detalleplanificacioncalidad, Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) throws Exception {
+        Long idDetAnt = detalleplanificacioncalidad.getDetalleanterior();
+
+        if (idDetAnt == null) {
+            /*
+             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
+             */
+            vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
+        } else {
+            /*
+             * no es la primera de la pieza, ver si la anterior esta finalizada
+             */
+
+            DetalleplanificacioncalidadJpaController detalleplanificacioncalidadJpaController = new DetalleplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+            Detalleplanificacioncalidad detalleplanificacioncalidadAnterior = detalleplanificacioncalidadJpaController.findDetalleplanificacioncalidad(idDetAnt);
+            Long idEstadoEjecucionAnterior = detalleplanificacioncalidadAnterior.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getEstado().getIdestado();
+
+            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
+                /*
+                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
+                 */
+                vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
+            }
+        }
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+
+        stop = false;
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            stop = true;
+            thread = null;
+            timerTask.cancel();
+            timer.cancel();
+        }
+    }
+
+    @Override
+    public void templatedMethod() {
         /*
          * -Buscar las etapas en estado GENERADA
          * -Ver si está en fecha y hora de iniciar 
@@ -109,36 +164,6 @@ public class HiloAvisoProcesoCalidadListoParaIniciar implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setVtnPrincipal(Principal vtnPrincipal) {
-        this.vtnPrincipal = vtnPrincipal;
-    }
-
-    private void comprobarEstadoProcesoAnteriorYLanzar(Detalleplanificacioncalidad detalleplanificacioncalidad, Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) throws Exception {
-        Long idDetAnt = detalleplanificacioncalidad.getDetalleanterior();
-
-        if (idDetAnt == null) {
-            /*
-             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
-             */
-            vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
-        } else {
-            /*
-             * no es la primera de la pieza, ver si la anterior esta finalizada
-             */
-
-            DetalleplanificacioncalidadJpaController detalleplanificacioncalidadJpaController = new DetalleplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
-            Detalleplanificacioncalidad detalleplanificacioncalidadAnterior = detalleplanificacioncalidadJpaController.findDetalleplanificacioncalidad(idDetAnt);
-            Long idEstadoEjecucionAnterior = detalleplanificacioncalidadAnterior.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getEstado().getIdestado();
-
-            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
-                /*
-                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
-                 */
-                vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
-            }
         }
     }
 }

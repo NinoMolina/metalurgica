@@ -26,10 +26,14 @@ import metalsoft.util.Fecha;
 public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
+    private Thread thread;
+    private boolean stop = false;
+    private TimerTask timerTask;
+    private Timer timer;
     private static HiloAvisoProcesoCalidadNoTerminado instance;
-    
-    public static HiloAvisoProcesoCalidadNoTerminado getInstance(){
-        if(instance == null){
+
+    public static HiloAvisoProcesoCalidadNoTerminado getInstance() {
+        if (instance == null) {
             instance = new HiloAvisoProcesoCalidadNoTerminado();
         }
         return instance;
@@ -39,20 +43,26 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
         return vtnPrincipal;
     }
 
+    @Override
     public void setVtnPrincipal(Principal vtnPrincipal) {
         this.vtnPrincipal = vtnPrincipal;
     }
 
     @Override
     public void run() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
 
             @Override
             public void run() {
+//                if (stop) {
+//                    this.cancel();
+//                    return;
+//                }
                 procesarDatos();
             }
-        }, 0, 30000);
+        };
+        timer.schedule(timerTask, 0, 30000);
     }
 
     @Override
@@ -130,5 +140,25 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
 
     private void notificarAlerta(Ejecucionplanificacioncalidad ejecucionplanificacioncalidad, Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad) {
         vtnPrincipal.alertaProcesoCalidadNoFinalizado(ejecucionplanificacioncalidad, detalleejecucionplanificacioncalidad);
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+
+        stop = false;
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            stop = true;
+            thread = null;
+            timerTask.cancel();
+            timer.cancel();
+        }
     }
 }

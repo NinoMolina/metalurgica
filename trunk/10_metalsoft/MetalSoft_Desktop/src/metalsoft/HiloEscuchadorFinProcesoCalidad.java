@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import metalsoft.datos.jpa.JpaUtil;
@@ -25,7 +27,6 @@ import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
 import metalsoft.datos.jpa.entity.Estadoejecplancalidad;
 import metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad;
 import metalsoft.negocio.access.AccessFunctions;
-import metalsoft.negocio.gestores.GestorLanzarProximoProcesoCalidad;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionCalidad;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionProcesoCalidad;
 import metalsoft.presentacion.Principal;
@@ -44,6 +45,8 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
     private String[] partes = null;
+    private Thread thread;
+    private boolean stop = false;
     private static HiloEscuchadorFinProcesoCalidad instance;
 
     public static HiloEscuchadorFinProcesoCalidad getInstance() {
@@ -55,7 +58,7 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
 
     @Override
     public void run() {
-        while (true) {
+        while (!stop) {
             try {
                 if (serverSocket == null) {
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
@@ -66,7 +69,6 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
                 procesarDatos();
 
             } catch (IOException ex) {
-                ex.printStackTrace();
             } finally {
                 try {
                     if (ois != null) {
@@ -260,7 +262,32 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
         return vtnPrincipal;
     }
 
+    @Override
     public void setVtnPrincipal(Principal vtnPrincipal) {
         this.vtnPrincipal = vtnPrincipal;
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+
+        stop = false;
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            stop = true;
+            thread = null;
+            try {
+                serverSocket.close();
+                serverSocket = null;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

@@ -13,7 +13,6 @@ import metalsoft.datos.jpa.controller.DetalleplanificacionproduccionJpaControlle
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
-import metalsoft.negocio.gestores.GestorLanzarProximaEtapa;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.presentacion.Principal;
 import metalsoft.util.Fecha;
@@ -22,10 +21,13 @@ import metalsoft.util.Fecha;
  *
  * @author Nino
  */
-public class HiloAvisoEtapaListaParaIniciar implements Runnable {
+public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runnable {
 
-    private GestorLanzarProximaEtapa gestor = new GestorLanzarProximaEtapa();
     private Principal vtnPrincipal;
+    private Thread thread;
+    private boolean stop = false;
+    private TimerTask timerTask;
+    private Timer timer;
     private static HiloAvisoEtapaListaParaIniciar instance;
 
     public static HiloAvisoEtapaListaParaIniciar getInstance() {
@@ -37,20 +39,75 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
 
     @Override
     public void run() {
-
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
 
             @Override
             public void run() {
                 procesarDatos();
             }
-        }, 0, 30000);
+        };
+        timer.schedule(timerTask, 0, 30000);
 
     }
 
-    private void procesarDatos() {
+    @Override
+    public void setVtnPrincipal(Principal vtnPrincipal) {
+        this.vtnPrincipal = vtnPrincipal;
+    }
+
+    private void comprobarEstadoEtapaAnteriorYLanzar(Detalleplanificacionproduccion detalleplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) throws Exception {
+        Long idDetAnt = detalleplanificacionproduccion.getDetalleanterior();
+
+        if (idDetAnt == null) {
+            /*
+             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
+             */
+            System.out.println("HiloAvisoEtapaListaParaIniciar: etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
+            vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
+//            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+        } else {
+            /*
+             * no es la primera de la pieza, ver si la anterior esta finalizada
+             */
+
+            DetalleplanificacionproduccionJpaController detalleplanificacionproduccionJpaController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+            Detalleplanificacionproduccion detalleplanificacionproduccionAnterior = detalleplanificacionproduccionJpaController.findDetalleplanificacionproduccion(idDetAnt);
+            Long idEstadoEjecucionAnterior = detalleplanificacionproduccionAnterior.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
+
+            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
+                /*
+                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
+                 */
+                System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId());
+                vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
+//                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
+            }
+        }
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+
+        stop = false;
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            stop = true;
+            thread = null;
+            timerTask.cancel();
+            timer.cancel();
+        }
+    }
+
+    @Override
+    public void templatedMethod() {
         /*
          * -Buscar las etapas en estado GENERADA
          * -Ver si está en fecha y hora de iniciar 
@@ -110,40 +167,6 @@ public class HiloAvisoEtapaListaParaIniciar implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setVtnPrincipal(Principal vtnPrincipal) {
-        this.vtnPrincipal = vtnPrincipal;
-    }
-
-    private void comprobarEstadoEtapaAnteriorYLanzar(Detalleplanificacionproduccion detalleplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) throws Exception {
-        Long idDetAnt = detalleplanificacionproduccion.getDetalleanterior();
-
-        if (idDetAnt == null) {
-            /*
-             * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
-             */
-            System.out.println("HiloAvisoEtapaListaParaIniciar: etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
-            vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
-//            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
-        } else {
-            /*
-             * no es la primera de la pieza, ver si la anterior esta finalizada
-             */
-
-            DetalleplanificacionproduccionJpaController detalleplanificacionproduccionJpaController = new DetalleplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-            Detalleplanificacionproduccion detalleplanificacionproduccionAnterior = detalleplanificacionproduccionJpaController.findDetalleplanificacionproduccion(idDetAnt);
-            Long idEstadoEjecucionAnterior = detalleplanificacionproduccionAnterior.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
-
-            if (idEstadoEjecucionAnterior != null && idEstadoEjecucionAnterior == IdsEstadoEjecucionEtapaProduccion.FINALIZADA) {
-                /*
-                 * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
-                 */
-                System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId());
-                vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
-//                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
-            }
         }
     }
 }

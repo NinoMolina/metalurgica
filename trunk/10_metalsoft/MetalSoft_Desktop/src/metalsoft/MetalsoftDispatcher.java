@@ -35,106 +35,85 @@ public class MetalsoftDispatcher {
 
         List<Usuarioxrol> lstUsuarioXRol = usuarioJpa.getUsuarioxrolList();
 
-//        if (lstUsuarioXRol.size() == 1) {
-//            String rol = lstUsuarioXRol.get(0).getRol().getRol();
-//            if (rol.equals("OPERARIO")) {
-//                PrincipalOperario principalOperario = new PrincipalOperario();
-//                principalOperario.setVisible(true);
-//                principalOperario.setLocationRelativeTo(null);
-//            } else if (rol.equals("ADMIN")) {
-//                Principal p = new Principal(usuario);
-//
-//                lanzarHiloAvisoEtapaNoTerminada(p);
-//                lanzarHiloEscuchadorFinEtapa(p);
-//                lanzarHiloAvisoEtapaListaParaIniciar(p);
-//                lanzarHiloAvisoProcesoCalidadNoTerminado(p);
-//                lanzarHiloEscuchadorFinProcesoCalidad(p);
-//                lanzarHiloAvisoProcesoCalidadListoParaLanzar(p);
-//
-//                p.setVisible(true);
-//                p.setLocationRelativeTo(null);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
-//            }
-//        }
 
-        if (true) {
+        boolean lanzarHiloAvisoEtapaNoTerminada = false;
+        boolean lanzarHiloEscuchadorFinEtapa = false;
+        boolean lanzarHiloAvisoEtapaListaParaIniciar = false;
+        boolean lanzarHiloAvisoProcesoCalidadNoTerminado = false;
+        boolean lanzarHiloEscuchadorFinProcesoCalidad = false;
+        boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar = false;
 
-            boolean lanzarHiloAvisoEtapaNoTerminada = false;
-            boolean lanzarHiloEscuchadorFinEtapa = false;
-            boolean lanzarHiloAvisoEtapaListaParaIniciar = false;
-            boolean lanzarHiloAvisoProcesoCalidadNoTerminado = false;
-            boolean lanzarHiloEscuchadorFinProcesoCalidad = false;
-            boolean lanzarHiloAvisoProcesoCalidadListoParaLanzar = false;
+        boolean usuarioConRol = false;
 
-            boolean usuarioConRol = false;
+        Principal p = new Principal(usuario);
 
-            Principal p = new Principal(usuario);
+        for (Usuarioxrol usuarioxrol : lstUsuarioXRol) {
+            Rol rol = usuarioxrol.getRol();
+            if (rol.getIdrol() == IdsRol.ADMIN) {
 
-            for (Usuarioxrol usuarioxrol : lstUsuarioXRol) {
-                Rol rol = usuarioxrol.getRol();
-                if (rol.getIdrol() == IdsRol.ADMIN) {
+                usuarioConRol = true;
 
-                    usuarioConRol = true;
+                lanzarHiloAvisoEtapaNoTerminada = true;
+                lanzarHiloEscuchadorFinEtapa = true;
+                lanzarHiloAvisoEtapaListaParaIniciar = true;
+                lanzarHiloAvisoProcesoCalidadNoTerminado = true;
+                lanzarHiloEscuchadorFinProcesoCalidad = true;
+                lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
 
-                    lanzarHiloAvisoEtapaNoTerminada = true;
-                    lanzarHiloEscuchadorFinEtapa = true;
-                    lanzarHiloAvisoEtapaListaParaIniciar = true;
-                    lanzarHiloAvisoProcesoCalidadNoTerminado = true;
-                    lanzarHiloEscuchadorFinProcesoCalidad = true;
-                    lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.OPERARIO_PRODUCCION) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.OPERARIO_PRODUCCION) {
-//                    PrincipalOperario principalOperario = new PrincipalOperario();
-//                    principalOperario.setVisible(true);
-//                    principalOperario.setLocationRelativeTo(null);
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.OPERARIO_CALIDAD) {
+                usuarioConRol = true;
 
-                    usuarioConRol = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_PRODUCCION) {
+                usuarioConRol = true;
+                
+                lanzarHiloAvisoEtapaListaParaIniciar = true;
+                lanzarHiloAvisoEtapaNoTerminada = true;
+                lanzarHiloEscuchadorFinEtapa = true;
+                
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_CALIDAD) {
+                usuarioConRol = true;
+                
+                lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
+                lanzarHiloAvisoProcesoCalidadNoTerminado = true;
+                lanzarHiloEscuchadorFinProcesoCalidad =true;
+                
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_ALMACENAMIENTO) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.OPERARIO_CALIDAD) {
-                    usuarioConRol = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_COMPRAS) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_PRODUCCION) {
-                    usuarioConRol = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_VENTAS) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_CALIDAD) {
-                    usuarioConRol = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_MANTENIMIENTO) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_ALMACENAMIENTO) {
-                    usuarioConRol = true;
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
+            }
+            if (rol.getIdrol() == IdsRol.RESP_RRHH) {
+                usuarioConRol = true;
 
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_COMPRAS) {
-                    usuarioConRol = true;
-
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_VENTAS) {
-                    usuarioConRol = true;
-
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_MANTENIMIENTO) {
-                    usuarioConRol = true;
-
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
-                if (rol.getIdrol() == IdsRol.RESP_RRHH) {
-                    usuarioConRol = true;
-
-                    habilitarComponentesSegunRol(rol.getIdrol(), p);
-                }
+                habilitarComponentesSegunRol(rol.getIdrol(), p);
             }
 
             if (usuarioConRol) {
@@ -179,45 +158,50 @@ public class MetalsoftDispatcher {
 
     private static void lanzarHiloEscuchadorFinEtapa(Principal vtnPrincipal) {
         HiloEscuchadorFinEtapa hilo = HiloEscuchadorFinEtapa.getInstance();
-        Thread thread = new Thread(hilo);
         hilo.setVtnPrincipal(vtnPrincipal);
-        thread.start();
-        
+        hilo.start();
+
     }
 
     private static void lanzarHiloAvisoEtapaNoTerminada(Principal vtnPrincipal) {
         HiloAvisoEtapaNoTerminada hilo = HiloAvisoEtapaNoTerminada.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
-        Thread thread = new Thread(hilo);
-        thread.start();
+        hilo.start();
+
     }
 
     private static void lanzarHiloAvisoProcesoCalidadNoTerminado(Principal vtnPrincipal) {
         HiloAvisoProcesoCalidadNoTerminado hilo = HiloAvisoProcesoCalidadNoTerminado.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
-        Thread thread = new Thread(hilo);
-        thread.start();
+        hilo.start();
     }
 
     private static void lanzarHiloEscuchadorFinProcesoCalidad(Principal vtnPrincipal) {
         HiloEscuchadorFinProcesoCalidad hilo = HiloEscuchadorFinProcesoCalidad.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
-        Thread thread = new Thread(hilo);
-        thread.start();
+        hilo.start();
     }
 
     private static void lanzarHiloAvisoEtapaListaParaIniciar(Principal vtnPrincipal) {
         HiloAvisoEtapaListaParaIniciar hilo = HiloAvisoEtapaListaParaIniciar.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
-        Thread thread = new Thread(hilo);
-        thread.start();
+        hilo.start();
     }
 
     private static void lanzarHiloAvisoProcesoCalidadListoParaLanzar(Principal vtnPrincipal) {
         HiloAvisoProcesoCalidadListoParaIniciar hilo = HiloAvisoProcesoCalidadListoParaIniciar.getInstance();
         hilo.setVtnPrincipal(vtnPrincipal);
-        Thread thread = new Thread(hilo);
-        thread.start();
+        hilo.start();
+    }
+
+    public static void detenerTodosLosHilos() {
+        HiloAvisoProcesoCalidadListoParaIniciar.getInstance().stop();
+        HiloAvisoEtapaListaParaIniciar.getInstance().stop();
+        HiloEscuchadorFinProcesoCalidad.getInstance().stop();
+        HiloAvisoProcesoCalidadNoTerminado.getInstance().stop();
+        HiloAvisoEtapaNoTerminada.getInstance().stop();
+        HiloEscuchadorFinEtapa.getInstance().stop();
+
     }
 
     private static void habilitarComponentesSegunRol(Long idrol, Principal vtnPrincipal) {
