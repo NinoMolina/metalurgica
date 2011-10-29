@@ -546,12 +546,12 @@
                       <Component id="cmbPrioridad" max="32767" attributes="1"/>
                       <Component id="cmbEstado" alignment="0" pref="162" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="1"/>
                       <Component id="jLabel12" min="-2" pref="141" max="-2" attributes="1"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="1"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="dccPedidoCotizacion" linkSize="3" min="-2" pref="104" max="-2" attributes="1"/>
                       <Component id="dccFechaReqCotizacion" linkSize="3" min="-2" pref="101" max="-2" attributes="0"/>
