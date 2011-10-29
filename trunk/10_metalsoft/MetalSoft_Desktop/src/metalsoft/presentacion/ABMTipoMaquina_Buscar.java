@@ -15,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.mantmaquinarias.TipoMaquina;
@@ -31,8 +32,8 @@ public class ABMTipoMaquina_Buscar extends javax.swing.JDialog {
     private ABMTipoMaquina ventana;
 
     /** Creates new form ABMTipoMaquina_Buscar */
-    public ABMTipoMaquina_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMTipoMaquina_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -177,16 +178,7 @@ public class ABMTipoMaquina_Buscar extends javax.swing.JDialog {
     public void setTxtValor(JTextField txtValor) {
         this.txtValor = txtValor;
     }
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMTipoMaquina_Buscar().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;

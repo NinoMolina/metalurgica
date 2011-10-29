@@ -142,19 +142,14 @@ public class ABMTipoDocumento extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         ABMTipoDocumento_Buscar buscar = null;
-        try {
-            buscar = (ABMTipoDocumento_Buscar) JFrameManager.crearVentana(ABMTipoDocumento_Buscar.class.getName());
-            buscar.setVentanaTipoDocumento(this);
-            botones.getBtnModificar().setEnabled(true);
-            botones.getBtnGuardar().setEnabled(false);
-            botones.getBtnEliminar().setEnabled(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMTipoDocumento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMTipoDocumento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMTipoDocumento.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMTipoDocumento_Buscar(this);
+        buscar.setVentanaTipoDocumento(this);
+
+        JFrameManager.centrarYMostrarVentana(buscar);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnEliminar().setEnabled(true);
+       
     }
 
     private void addListenerBtnSalir() {
