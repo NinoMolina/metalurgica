@@ -16,6 +16,7 @@ import metalsoft.negocio.gestores.IBuscador;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -101,8 +102,8 @@ public class ABMPieza_Buscar extends javax.swing.JDialog implements IBuscador {
     }
 
     /** Creates new form ABMPieza_Buscar */
-    public ABMPieza_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMPieza_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -249,18 +250,6 @@ public class ABMPieza_Buscar extends javax.swing.JDialog implements IBuscador {
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new ABMPieza_Buscar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;

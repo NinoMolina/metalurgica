@@ -236,19 +236,12 @@ public class ABMPieza extends javax.swing.JDialog {
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            // TODO add your handling code here:
-            ABMPieza_Buscar frmBuscarPieza = null;
-            frmBuscarPieza = (ABMPieza_Buscar) JFrameManager.crearVentana(ABMPieza_Buscar.class.getName());
-            frmBuscarPieza.setGestor(gestorPieza);
-            frmBuscarPieza.setVentana(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMPieza.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       // TODO add your handling code here:
+        ABMPieza_Buscar buscar = null;
+        buscar = new ABMPieza_Buscar(this);
+        buscar.setVentana(this);
+
+        JFrameManager.centrarYMostrarVentana(buscar);
 
     }
 
