@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -535,8 +536,13 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
                             limpiarCampos();
                         }
                         cn.commit();
+                        limpiarCampos();
                         JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
-
+                        if (cont>1)
+                        {
+                            JOptionPane.showMessageDialog(this, "Seleccione una nueva Materia Prima a asignar");
+                        }
+                        
                     } else {
                         cn.rollback();
                         JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
