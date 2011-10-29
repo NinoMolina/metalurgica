@@ -14,6 +14,7 @@ package metalsoft.presentacion;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import metalsoft.negocio.gestores.GestorProducto;
@@ -30,8 +31,8 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
     private ABMProducto ventana;
     private Timer timer;
     private GestorProducto gestor;
-    public ABMProducto_Buscar() {
-        super(Principal.getVtnPrincipal());
+    public ABMProducto_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
     }
 
@@ -188,16 +189,6 @@ public class ABMProducto_Buscar extends javax.swing.JDialog implements IBuscador
 
     public void setVentana(ABMProducto v) {
         ventana=v;
-    }
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ABMProducto_Buscar().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

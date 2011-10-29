@@ -206,17 +206,11 @@ public class ABMProducto extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.BUSCAR;
         ABMProducto_Buscar buscar = null;
-        try {
-            buscar = (ABMProducto_Buscar) JFrameManager.crearVentana(ABMProducto_Buscar.class.getName());
-            buscar.setVentana(this);
-            buscar.setGestor(gestor);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ABMMatriz.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar = new ABMProducto_Buscar(this);
+        buscar.setVentana(this);
+        buscar.setGestor(gestor);
+
+        JFrameManager.centrarYMostrarVentana(buscar);
     }
 
     private void addListenerBtnSalir() {
