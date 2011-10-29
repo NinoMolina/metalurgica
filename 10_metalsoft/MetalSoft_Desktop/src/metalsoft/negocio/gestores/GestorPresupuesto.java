@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,9 @@ import metalsoft.datos.dbobject.DetallepresupuestoDB;
 import metalsoft.datos.dbobject.DetalleproductopresupuestoDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.PresupuestoDB;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.DetallepresupuestoJpaController;
+import metalsoft.datos.jpa.entity.Detallepresupuesto;
 import metalsoft.negocio.access.AccessDetallePresupuesto;
 import metalsoft.negocio.access.AccessDetalleProductoPresupuesto;
 import metalsoft.negocio.access.AccessFunctions;
@@ -251,12 +255,14 @@ public class GestorPresupuesto {
         presupuestoPedSelecDB.setMontototal(montoTotal);
         pedidoSeleccionadoDB.setFechaentregaestipulada(Fecha.parseToDateSQL(fechaEstimadaFinProduccion));
         pedidoSeleccionadoDB.setEstado(IdsEstadoPedido.PRESUPUESTADO);
+        List<Detallepresupuesto> listDet=JpaUtil.getDetallePresupuestoByPresupuesto(String.valueOf(presupuestoPedSelecDB.getIdpresupuesto()));
+        DetallepresupuestoJpaController con=new DetallepresupuestoJpaController(JpaUtil.getEntityManagerFactory());
         try {
             cn = pg.concectGetCn();
             cn.setAutoCommit(false);
             result = AccessPresupuesto.update(presupuestoPedSelecDB, cn);
             result += AccessPedido.update(pedidoSeleccionadoDB, cn);
-
+            
             DetalleproductopresupuestoDB db = null;
             Iterator<ViewMateriaPrimaXPiezaPresupuesto> iter = llProveedorXMateriaPrima.iterator();
             ViewMateriaPrimaXPiezaPresupuesto view = null;
@@ -265,11 +271,16 @@ public class GestorPresupuesto {
                 view = iter.next();
                 db = AccessDetalleProductoPresupuesto.findByIdDetalle(view.getIddetalleproductopresupuesto(), cn)[0];
                 db.setIdproveedor(view.getIdproveedor());
-                precio=view.getPreciomateriaprima();
-                db.setPreciomateriaprima(precio + precio * porcentaje);
+                precio=precio + precio * porcentaje;
+                db.setPreciomateriaprima(view.getPreciomateriaprima());
                 AccessDetalleProductoPresupuesto.update(db, cn);
             }
             cn.commit();
+            
+            for(Detallepresupuesto dp : listDet){
+                dp.setPrecio(dp.getPrecio()+dp.getPrecio()*porcentaje);
+                con.edit(dp);
+            }
         } catch (Exception ex) {
             Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
             try {
