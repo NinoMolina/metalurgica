@@ -44,6 +44,8 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
     private String[] partes = null;
+    private Thread thread = null;
+    private boolean stop = false;
     private static HiloEscuchadorFinEtapa instance;
 
     public static HiloEscuchadorFinEtapa getInstance() {
@@ -57,7 +59,7 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
     public void run() {
 
 
-        while (true) {
+        while (!stop) {
             try {
                 if (serverSocket == null) {
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
@@ -68,7 +70,6 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
                 procesarDatos();
 
             } catch (IOException ex) {
-                ex.printStackTrace();
             } finally {
                 try {
                     if (ois != null) {
@@ -97,7 +98,8 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
 
     }
 
-    void setVtnPrincipal(Principal vtnPrincipal) {
+    @Override
+    public void setVtnPrincipal(Principal vtnPrincipal) {
         this.vtnPrincipal = vtnPrincipal;
     }
 
@@ -262,5 +264,29 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
          */
         System.out.println("INFO: Se procesaron los datos recibidos.");
         oos.writeObject("OK");
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+
+        stop = false;
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            stop = true;
+            thread = null;
+            try {
+                serverSocket.close();
+                serverSocket = null;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

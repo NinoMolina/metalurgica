@@ -26,6 +26,11 @@ import metalsoft.util.Fecha;
 public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable {
 
     private Principal vtnPrincipal;
+    private Thread thread;
+    private boolean stop = false;
+    private TimerTask timerTask;
+    private Timer timer;
+    
     private static HiloAvisoEtapaNoTerminada instance;
 
     public static HiloAvisoEtapaNoTerminada getInstance() {
@@ -39,20 +44,22 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
         return vtnPrincipal;
     }
 
+    @Override
     public void setVtnPrincipal(Principal vtnPrincipal) {
         this.vtnPrincipal = vtnPrincipal;
     }
 
     @Override
     public void run() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
 
             @Override
             public void run() {
                 procesarDatos();
             }
-        }, 0, 30000);
+        };
+        timer.schedule(timerTask, 0, 30000);
     }
 
     private void notificarAlerta(Ejecucionplanificacionproduccion ejecucionplanificacionproduccion, Detalleejecucionplanificacion detalleejecucionplanificacion) {
@@ -129,6 +136,26 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(instance);
+            thread.start();
+        }
+        
+        stop = false;
+    }
+    
+    @Override
+    public void stop(){
+        if (thread != null){
+            stop = true;
+            thread = null;
+            timerTask.cancel();
+            timer.cancel();
         }
     }
 }
