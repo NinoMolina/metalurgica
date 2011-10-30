@@ -33,10 +33,10 @@
                   <Component id="jScrollPane2" alignment="0" pref="625" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnRegistrarConfirmacion" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRegistrarConfirmacion" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnListaMP" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="188" max="32767" attributes="0"/>
+                      <Component id="btnListaMP" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="156" max="32767" attributes="0"/>
                       <Component id="beanBtnSalir" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="beanBtnSeleccionar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -44,12 +44,14 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="jLabel15" alignment="0" pref="645" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="jLabel15" min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="120" max="-2" attributes="0"/>
@@ -61,9 +63,9 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="beanBtnSalir" alignment="0" max="32767" attributes="1"/>
                   <Component id="btnRegistrarConfirmacion" alignment="0" max="32767" attributes="1"/>
-                  <Component id="btnListaMP" alignment="0" pref="39" max="32767" attributes="1"/>
+                  <Component id="btnListaMP" alignment="0" min="-2" pref="39" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -372,6 +374,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListaMPActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel15">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fondopantallas2.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

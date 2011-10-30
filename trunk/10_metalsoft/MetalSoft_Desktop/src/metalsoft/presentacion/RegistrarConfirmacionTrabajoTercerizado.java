@@ -10,7 +10,9 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -146,11 +148,23 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
         tblDetalleTrabajoTercerizado = new org.jdesktop.swingx.JXTable();
         btnconfirmar = new javax.swing.JButton();
         btnSalirr1 = new metalsoft.beans.BtnSalirr();
+        jLabel15 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Confirmación Presupuesto");
+        setTitle("Confirmación Presupuesto de Trabajo Tercerizado");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar el ingreso de los Pedidos de Cotizacion de Trabajo enviados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar ingreso de Pedidos de Cotización de Trabajo enviados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         tblTrabajosTercerizados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -159,7 +173,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
         });
         jScrollPane2.setViewportView(tblTrabajosTercerizados);
 
-        jLabel2.setText("Seleccionar Pedido de Cotizacion de Trabajo Generado:");
+        jLabel2.setText("Seleccionar Pedido de Cotización de Trabajo Generado:");
 
         dccFechaPedido.setEnabled(false);
 
@@ -175,13 +189,13 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
 
         jLabel1.setText("Nro. Trabajo Tercerizado:");
 
-        jLabel7.setText("Fecha de Envio a Empresa:");
+        jLabel7.setText("Fecha de Envío a Empresa:");
 
         jLabel8.setText("Fecha del Ingreso Cotización:");
 
         dccFechaIngreso.setEnabled(false);
 
-        jLabel9.setText("Monto Total Cotización:");
+        jLabel9.setText("Monto Total Cotización:  $");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -208,7 +222,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
                                         .addComponent(lblNroPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(dccFechaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -325,13 +339,16 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnconfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
                         .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +356,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnconfirmar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -383,6 +400,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
     private com.toedter.calendar.JDateChooser dccFechaIngreso;
     private com.toedter.calendar.JDateChooser dccFechaPedido;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
