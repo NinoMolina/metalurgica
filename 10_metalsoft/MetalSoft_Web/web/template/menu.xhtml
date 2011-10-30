@@ -50,13 +50,13 @@
                 <ice:menuItem value="Ayuda"
                               id="help" action="#{helpControlador.irAHelp}">
                 </ice:menuItem>
-                
+
                 <!-- Login -->
                 <ice:menuItem value="#{sesionVista.estadoSesion}"
                               id="sesion" action="#{sesionControlador.irAIniciarSesion}">
                 </ice:menuItem>
                 <div style="background-image: url(./imagenes/background.jpg); text-align: right">
-                <ice:outputText id="resultado" value="#{sesionVista.mensajeDeBienvenida}" style="color:#ffffff" />
+                    <ice:outputText id="resultado" value="#{sesionVista.mensajeDeBienvenida}" style="color:#ffffff" />
                 </div>
             </ice:menuBar>
         </ice:panelGroup>
