@@ -5,6 +5,7 @@
 package metalsoft.web.controlador;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -162,7 +163,7 @@ public class NuevoPedidoControlador {
     }
 
     public boolean validacionCampos() {
-        if (nvoPedidoVista.getFechaNecesidad() != null && nvoPedidoVista.getFechaPedido() != null && !nvoPedidoVista.getListPrevisoriaDetalles().isEmpty()) {
+        if (nvoPedidoVista.getFechaNecesidad() != null && nvoPedidoVista.getFechaPedido() != null && !nvoPedidoVista.getListPrevisoriaDetalles().isEmpty() && nvoPedidoVista.getFechaNecesidad().after(new Date())) {
             return true;
         } else {
             nvoPedidoVista.setMensValidacion("Debe completar todos los campos");
