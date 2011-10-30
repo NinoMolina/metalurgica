@@ -35,6 +35,7 @@ import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
+import metalsoft.datos.jpa.entity.Presupuesto;
 import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -757,6 +758,20 @@ public class JpaUtil {
         try {
             Query q = em.createNativeQuery(sql, metalsoft.datos.jpa.entity.Proveedor.class);
             return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static Presupuesto getPresupuestoByPedido(String nro) {
+
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "FROM presupuesto p "
+                + "WHERE p.idpresupuesto="+nro;
+        try {
+            Query q = em.createNativeQuery(sql, Presupuesto.class);
+            return (Presupuesto) q.getSingleResult();
         } finally {
             em.close();
         }
