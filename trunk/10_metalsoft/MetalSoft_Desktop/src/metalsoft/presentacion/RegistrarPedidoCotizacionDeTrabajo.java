@@ -540,7 +540,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
                 .addComponent(beanBtnSeleccionarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido de Cotizacion de Trabajo"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido de Cotización de Trabajo"));
 
         jScrollPane1.setViewportView(tblPedidoCotizacion);
 

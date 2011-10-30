@@ -311,7 +311,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Pedido de Cotizacion de Trabajo"/>
+                <TitledBorder title="Pedido de Cotizaci&#xf3;n de Trabajo"/>
               </Border>
             </Property>
           </Properties>
