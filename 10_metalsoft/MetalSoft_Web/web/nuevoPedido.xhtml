@@ -150,14 +150,23 @@
                             </f:facet>
                             <f:facet name="body">
                                 <ice:panelGroup styleClass="popupBody">
-                                    <ice:outputText value="#{nuevoPedidoVista.mensValidacion}"/><br/>
-                                    <ice:commandButton id="modalPnlCloseButton" type="submit"
-                                                       value="Aceptar"
-                                                       action="#{nuevoPedidoControlador.cambiarMensaje}"/>
+                                    <h:panelGrid columns="1">
+                                        <h:column>
+                                            <ice:outputText value="#{nuevoPedidoVista.mensValidacion}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <div align="center">
+                                                <ice:commandButton id="modalPnlCloseButton" type="submit"
+                                                                   value="Aceptar"
+                                                                   action="#{nuevoPedidoControlador.cambiarMensaje}"
+                                                                   style=""/>
+                                            </div>
+                                        </h:column>
+                                    </h:panelGrid>
                                 </ice:panelGroup>
                             </f:facet>
                         </ice:panelPopup>
-                       
+
                     </ice:column>
                 </h:panelGrid>
                 <h:commandButton value="Guardar Pedido" action="#{nuevoPedidoControlador.guardarPedido}"/>
