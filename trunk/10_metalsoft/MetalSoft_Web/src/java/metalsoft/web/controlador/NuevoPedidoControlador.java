@@ -159,7 +159,7 @@ public class NuevoPedidoControlador {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            return pedidoControlados.todosLosPedidos();
+            return null;
         } else {
             return null;
         }
