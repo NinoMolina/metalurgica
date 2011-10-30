@@ -83,6 +83,18 @@
                     </ice:dataTable>
 
                 </ice:column>
+                <ice:column style="vertical-align: top">
+                    <ice:outputLabel value="Datos del Cliente" rendered="#{pedidoVista.selected}" />
+                    <ice:panelGrid rendered="#{pedidoVista.selected}" columns="1">
+                        <ice:outputText value="Nro. Cliente: CLI-#{pedidoVista.pedido.cliente.nrocliente}"/>
+                        <ice:outputText value="Razón Social: #{pedidoVista.pedido.cliente.razonsocial}"/>
+                        <ice:outputText value="Teléfono Empresa: #{pedidoVista.pedido.cliente.telefono}"/>
+                        <ice:outputText value="Email Empresa: #{pedidoVista.pedido.cliente.mail}"/>
+                        <ice:outputText value="Responsable: #{pedidoVista.pedido.cliente.responsable.nombre} #{pedidoVista.pedido.cliente.responsable.apellido}"/>
+                        <ice:outputText value="Teléfono Responsable: #{pedidoVista.pedido.cliente.responsable.telefono}"/>
+                    </ice:panelGrid>
+
+                </ice:column>
             </h:panelGrid>
             <ice:commandButton value="Confirmar" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
             <ice:commandButton value="Cancelar" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
