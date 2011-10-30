@@ -48,6 +48,7 @@ public class NuevoPedidoVista {
     private Detallepedido detalleSeleccionado;
     private FileInfo planoSeleccionado;
     private boolean seleccionoPlano=false;
+    private boolean guardarPedido=false;
     private final List<FileInfo> fileList =
             Collections.synchronizedList(new ArrayList());
     private String mensSubePlano;
@@ -210,6 +211,14 @@ public class NuevoPedidoVista {
     public void setMensSubePlano(String mensSubePlano) {
         this.mensSubePlano = mensSubePlano;
     }
+
+    public boolean isGuardarPedido() {
+        return guardarPedido;
+    }
+
+    public void setGuardarPedido(boolean guardarPedido) {
+        this.guardarPedido = guardarPedido;
+    }
     
     public void limpiarCampos(){
         pedido = new Pedido();
@@ -225,5 +234,6 @@ public class NuevoPedidoVista {
         seleccionoPlano=false;
         fileList.clear();
         mensSubePlano="No hay plano seleccionado";
+        guardarPedido=false;
     }
 }
