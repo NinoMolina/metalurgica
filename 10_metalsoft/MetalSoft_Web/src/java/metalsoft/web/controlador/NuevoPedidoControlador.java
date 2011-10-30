@@ -69,6 +69,7 @@ public class NuevoPedidoControlador {
         Producto prod = con.findProducto(nvoPedidoVista.getProductoSeleccionado().getIdproducto());
         for (Detallepedido det : nvoPedidoVista.getListPrevisoriaDetalles()) {
             if (prod.getIdproducto() == det.getProducto().getIdproducto()) {
+                nvoPedidoVista.setMensValidacion("Este Producto ya esta en la lista.");
                 nvoPedidoVista.setMostrarMensaje(true);
                 return null;
             }
@@ -151,7 +152,7 @@ public class NuevoPedidoControlador {
                 }
                 em.getTransaction().commit();
                 nvoPedidoVista.setMensValidacion("El pedido se ha guardado correctamente");
-                nvoPedidoVista.setGuardarPedido(true);
+                nvoPedidoVista.setMostrarMensaje(true);
                 nvoPedidoVista.limpiarCampos();
             } catch (PreexistingEntityException ex) {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,17 +169,17 @@ public class NuevoPedidoControlador {
     public boolean validacionCampos() {
         if (nvoPedidoVista.getFechaNecesidad() == null || !nvoPedidoVista.getFechaNecesidad().after(new Date())) {
             nvoPedidoVista.setMensValidacion("La fecha de Necesidad de Cotización debe ser mayor a la fecha actual");
-            nvoPedidoVista.setGuardarPedido(true);
+            nvoPedidoVista.setMostrarMensaje(true);
             return false;
         } 
         if(nvoPedidoVista.getFechaPedido() == null){
             nvoPedidoVista.setMensValidacion("Debe seleccionar una fecha de pedido");
-            nvoPedidoVista.setGuardarPedido(true);
+            nvoPedidoVista.setMostrarMensaje(true);
             return false;
         }
         if(nvoPedidoVista.getListPrevisoriaDetalles().isEmpty()){
             nvoPedidoVista.setMensValidacion("Debe seleccionar al menos un producto");
-            nvoPedidoVista.setGuardarPedido(true);
+            nvoPedidoVista.setMostrarMensaje(true);
             return false;
         }
         
