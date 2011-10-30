@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,10 @@ import metalsoft.datos.dbobject.FacturaDB;
 import metalsoft.datos.dbobject.FormadepagoDB;
 import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.datos.dbobject.RemitoDB;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.DetallepresupuestoJpaController;
+import metalsoft.datos.jpa.entity.Detallepresupuesto;
+import metalsoft.datos.jpa.entity.Presupuesto;
 import metalsoft.negocio.access.AccessCliente;
 import metalsoft.negocio.access.AccessComprobantePago;
 import metalsoft.negocio.access.AccessFactura;
@@ -300,6 +305,8 @@ public class GestorRegistrarEntregaPedido {
         long result = -1;
         long resultPedido = -1;
         long resultDetalle = -1;
+        Presupuesto pre=JpaUtil.getPresupuestoByPedido(String.valueOf(idPedido));
+        //List<Detallepresupuesto> listDetalle=JpaUtil.getDetallePresupuestoByPresupuesto(String.valueOf(pre.getIdpresupuesto()));
         FacturaDB facturaDB = new FacturaDB();
         PedidoDB ped = AccessPedido.findByIdPedido(idPedido, cn);
         ClienteDB cli = AccessCliente.findByIdCliente(ped.getCliente(), cn);
@@ -308,26 +315,26 @@ public class GestorRegistrarEntregaPedido {
         facturaDB.setFechaemision(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         facturaDB.setFormapago(fp);
         facturaDB.setTipofactura(tipofactura);
-        //facturaDB.setTipoiva(cli.getCondicioniva());
         facturaDB.setFechavencimiento(Fecha.parseToDateSQL(fechaVencimiento));
-        //remDB.setUsuario(idPedido);
-        facturaDB.setMontototal(monto);
+        facturaDB.setMontototal(pre.getMontototal());
 
         result = AccessFactura.insert(facturaDB, cn);
         ped.setFactura(result);
         resultPedido = AccessPedido.update(ped, cn);
 
         DetallefacturaDB db = new DetallefacturaDB();
+        DetallepresupuestoJpaController conDe=new DetallepresupuestoJpaController(JpaUtil.getEntityManagerFactory());
+        Detallepresupuesto dpre=new Detallepresupuesto();
         Iterator<ViewPresupuestoParaFactura> iter = detallePedidoDB.iterator();
         ViewPresupuestoParaFactura view = null;
         while (iter.hasNext()) {
             view = iter.next();
-
+            dpre=conDe.findDetallepresupuesto(view.getIddetallepresupuesto());
             db.setCantidad(view.getCantidad());
             db.setIddetallepedido(view.getIddetalle());
             db.setIdfactura(result);
             db.setIdpedido(idPedido);
-            db.setMontoparcial(view.getCantidad() * view.getPrecio());
+            db.setMontoparcial(dpre.getPrecio());
             
             resultDetalle = AccessFactura.insertDetalleFactura(db, cn);
         }
