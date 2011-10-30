@@ -64,6 +64,7 @@ public class HiloAvisoProcesoCalidadListoParaIniciar extends HiloSyncBase implem
             /*
              * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
              */
+            System.out.println("HiloAvisoProcesoCalidadListoParaIniciar: proceso ID: " + detalleejecucionplanificacioncalidad.getIdprocesocalidad().getIdprocesocalidad() + " listo para lanzar, esta en tiempo y es el primero de la pieza...");
             vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
         } else {
             /*
@@ -78,6 +79,7 @@ public class HiloAvisoProcesoCalidadListoParaIniciar extends HiloSyncBase implem
                 /*
                  * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
                  */
+                System.out.println("HiloAvisoProcesoCalidadListoParaIniciar: el proceso anterior esta finalizado, con lo cual se puede lanzar el proceso ID:  " + detalleejecucionplanificacioncalidad.getIdprocesocalidad().getIdprocesocalidad());
                 vtnPrincipal.alertaProcesoListoParaLanzar(detalleplanificacioncalidad);
             }
         }
@@ -114,6 +116,7 @@ public class HiloAvisoProcesoCalidadListoParaIniciar extends HiloSyncBase implem
          * en estado finalizado. Si no esta finalizada no se puede iniciar la proxima etapa
          */
 
+        System.out.println(Fecha.fechaActualDate() + ": ############# HiloAvisoProcesoCalidadListoParaIniciar --> Running #############");
         try {
             List<Ejecucionprocesocalidad> lstEjecucionProcesoCalidad = JpaUtil.getEjecucionprocesocalidadByEstado(IdsEstadoEjecucionProcesoCalidad.GENERADA);
 
@@ -145,7 +148,7 @@ public class HiloAvisoProcesoCalidadListoParaIniciar extends HiloSyncBase implem
                     int horasDif = difMinHoras.getHours();
                     int minDif = difMinHoras.getMinutes();
 
-                    if (horasDif == 0 && minDif < 3) {
+                    if ((horasDif == 0 && minDif < 3) || fechaActual.compareTo(fechaInicio) > 0) {
                         /*
                          * es una etapa en tiempo para lanzar, ver si tiene etapa anterior y si esta finalizada
                          */

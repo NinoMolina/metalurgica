@@ -64,6 +64,8 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
                     serverSocket = new ServerSocket(Integer.parseInt(puertoString));
                 }
+                
+                System.out.println(Fecha.fechaActualDate() + ": ############# HiloEscuchadorFinProcesoCalidad --> Running #############");
                 clienteSocket = serverSocket.accept();
 
                 procesarDatos();
