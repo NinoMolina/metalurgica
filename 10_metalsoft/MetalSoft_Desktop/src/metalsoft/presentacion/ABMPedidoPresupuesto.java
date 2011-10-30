@@ -300,7 +300,14 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         int result = JOptionPane.showConfirmDialog(null, obj, "Ingresar Cantidad", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
-
+            String cant = txtCant.getText();
+            for (ViewDetallePedidoCotizacion view : filas) {
+                if (view.getIdProducto() == idProducto) {
+                    view.setCantidad(view.getCantidad() + Integer.parseInt(cant));
+                    tblDetallePedidoCotizacion.updateUI();
+                    return;
+                }
+            }
             ProductoDB db = gestor.buscarProductoDB(idProducto);
             v.setIdProducto(idProducto);
             v.setNombreProducto(db.getNombre());
@@ -310,11 +317,11 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
 
             int cantPiezas = gestor.obtenerCantidadPiezasXProducto(idProducto);
             v.setCantidadPiezas(cantPiezas);
-            String cant = txtCant.getText();
             v.setCantidad(Integer.parseInt(cant));
             agregarFila(v);
             tblDetallePedidoCotizacion.updateUI();
         }
+
     }
 
     private void addListenerBtnQuitar() {
@@ -877,15 +884,12 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
 }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void lstResultadoBusquedaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaValueChanged
-
 }//GEN-LAST:event_lstResultadoBusquedaValueChanged
 
     private void lstResultadoBusquedaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaCaretPositionChanged
-
 }//GEN-LAST:event_lstResultadoBusquedaCaretPositionChanged
 
     private void lstResultadoBusquedaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lstResultadoBusquedaInputMethodTextChanged
-
 }//GEN-LAST:event_lstResultadoBusquedaInputMethodTextChanged
 
     private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
@@ -927,6 +931,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
     public void agregarFila(ViewDetallePedidoCotizacion v) {
         filas.addLast(v);
     }
+
     /**
      * @param args the command line arguments
      */
