@@ -8,15 +8,16 @@
                 xmlns:ace="http://www.icefaces.org/icefaces/components"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-    <h:form >
-        <h:panelGrid columns="2">
-            <h:column>
+    <h:form>
+        <ice:panelGroup>
+            <div style="margin-top: 1ex">
                 <ice:outputText value="Industria Metalúrgica: 'CANOVAS Y BARALE S.R.L'      Ubicación: Calle Pellegrini 1146, B° San Vicente.       Tel: 0351-4555340" />
-            </h:column>
-            <h:column>
-                <h:graphicImage value="./imagenes/logoMetalsoft.gif"  style="left: inherit "/>
-            </h:column>
-        </h:panelGrid>
+            </div>
+            <div style="text-align: right; margin-top: -2.5ex; margin-right: 5ex">
+                <ice:outputText value="METALSOFT SYSTEM"/>
+                <ice:graphicImage value="./imagenes/logo.animadoChico.gif" style="text-align: right"/>
+            </div>
+        </ice:panelGroup>
     </h:form>
 </ui:composition>
 
