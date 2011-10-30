@@ -68,6 +68,8 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
     @Override
     public void templatedMethod() {
 
+        System.out.println(Fecha.fechaActualDate() + ": ############# HiloAvisoProcesoCalidadNoTerminado --> Running #############");
+
         try {
 
             List<Ejecucionplanificacioncalidad> lstEjecucionplanificacioncalidad = null;
@@ -94,7 +96,7 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
 
                         if (difDias < 0) {
                             notificarAlerta(ejecucionplanificacioncalidad, detalleejecucionplanificacioncalidad);
-                            System.out.println("ProcesoCalidad " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
+                            System.out.println("ProcesoCalidad ID: " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
                             System.out.println("dias");
                         } else if (difDias == 0) {
                             /*
@@ -111,7 +113,7 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
 
                             if (horaFin < horaActual) {
                                 notificarAlerta(ejecucionplanificacioncalidad, detalleejecucionplanificacioncalidad);
-                                System.out.println("ProcesoCalidad " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
+                                System.out.println("ProcesoCalidad ID: " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
                                 System.out.println("horas");
                             } else if (horaFin == horaActual) {
                                 /*
@@ -122,7 +124,7 @@ public class HiloAvisoProcesoCalidadNoTerminado extends HiloSyncBase implements 
 
                                 if (minutoFin < minutoActual) {
                                     notificarAlerta(ejecucionplanificacioncalidad, detalleejecucionplanificacioncalidad);
-                                    System.out.println("ProcesoCalidad " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
+                                    System.out.println("ProcesoCalidad ID: " + detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion() + " no a finalizado en el tiempo esperado");
                                     System.out.println("minutos");
                                 }
                             }

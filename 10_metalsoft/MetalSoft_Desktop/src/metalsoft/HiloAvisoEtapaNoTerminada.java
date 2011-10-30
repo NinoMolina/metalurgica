@@ -69,6 +69,7 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
     @Override
     public void templatedMethod() {
 
+        System.out.println(Fecha.fechaActualDate() + ": ############# HiloAvisoEtapaNoTerminada --> Running #############");
         try {
 
             List<Ejecucionplanificacionproduccion> lstEjecucionplanificacionproduccion = null;
@@ -96,7 +97,7 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
 
                         if (difDias < 0) {
                             notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
-                            System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
+                            System.out.println("Etapa ID: " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
                             System.out.println("dias");
                         } else if (difDias == 0) {
                             /*
@@ -113,7 +114,7 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
 
                             if (horaFin < horaActual) {
                                 notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
-                                System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
+                                System.out.println("Etapa ID: " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
                                 System.out.println("horas");
                             } else if (horaFin == horaActual) {
                                 /*
@@ -124,7 +125,7 @@ public class HiloAvisoEtapaNoTerminada extends HiloSyncBase implements Runnable 
 
                                 if (minutoFin < minutoActual) {
                                     notificarAlerta(ejecucionplanificacionproduccion, detalleejecucionplanificacion);
-                                    System.out.println("Etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
+                                    System.out.println("Etapa ID: " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " no a finalizado en el tiempo esperado");
                                     System.out.println("minutos");
                                 }
                             }

@@ -65,6 +65,8 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
                     serverSocket = new ServerSocket(Integer.parseInt(puertoString));
                 }
+                
+                System.out.println(Fecha.fechaActualDate() + ": ############# HiloEscuchadorFinEtapa --> Running #############");
                 clienteSocket = serverSocket.accept();
 
                 procesarDatos();

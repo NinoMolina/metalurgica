@@ -63,7 +63,7 @@ public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runn
             /*
              * etapa lista para lanzar, esta en tiempo y es la primera de la pieza
              */
-            System.out.println("HiloAvisoEtapaListaParaIniciar: etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
+            System.out.println("HiloAvisoEtapaListaParaIniciar: etapa ID: " + detalleejecucionplanificacion.getEjecucionetapa().getId() + " lista para lanzar, esta en tiempo y es la primera de la pieza...");
             vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
 //            gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
         } else {
@@ -79,7 +79,7 @@ public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runn
                 /*
                  * la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa actual
                  */
-                System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa " + detalleejecucionplanificacion.getEjecucionetapa().getId());
+                System.out.println("HiloAvisoEtapaListaParaIniciar: la etapa anterior esta finalizada, con lo cual se puede lanzar la etapa ID: " + detalleejecucionplanificacion.getEjecucionetapa().getId());
                 vtnPrincipal.alertaEtapaListaParaLanzar(detalleplanificacionproduccion);
 //                gestor.lanzarEjecucionEtapa(detalleejecucionplanificacion);
             }
@@ -116,7 +116,7 @@ public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runn
          * -Si la etapa esta en fecha y hora ver si la etapa anterior esta 
          * en estado finalizado. Si no esta finalizada no se puede iniciar la proxima etapa
          */
-        System.out.println("HiloAvisoEtapaListaParaIniciar: Procesando datos...");
+        System.out.println(Fecha.fechaActualDate() + ": ############# HiloAvisoEtapaListaParaIniciar --> Running #############");
         try {
             List<Ejecucionetapaproduccion> lstEjecucionEtapaProduccion = JpaUtil.getEjecucionetapaproduccionByEstado(IdsEstadoEjecucionEtapaProduccion.GENERADA);
 
@@ -125,7 +125,7 @@ public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runn
                 System.out.println("HiloAvisoEtapaListaParaIniciar: Analizando ejecucion etapa " + ejecucionetapaproduccion.getId());
                 Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
                 Detalleplanificacionproduccion detalleplanificacionproduccion = JpaUtil.getDetalleplanificacionproduccionPorIdDetalleejecucion(detalleejecucionplanificacion.getId());
-                Date fechaInicio = detalleplanificacionproduccion.getFechainicio();
+                Date fechaInicio = (Date) detalleplanificacionproduccion.getFechainicio().clone();
                 fechaInicio.setHours(detalleplanificacionproduccion.getHorainicio().getHours());
                 fechaInicio.setMinutes(detalleplanificacionproduccion.getHorainicio().getMinutes());
                 fechaInicio.setSeconds(detalleplanificacionproduccion.getHorainicio().getSeconds());
@@ -148,7 +148,7 @@ public class HiloAvisoEtapaListaParaIniciar extends HiloSyncBase implements Runn
                     int horasDif = difMinHoras.getHours();
                     int minDif = difMinHoras.getMinutes();
 
-                    if (horasDif == 0 && minDif < 3) {
+                    if ((horasDif == 0 && minDif < 3) || fechaActual.compareTo(fechaInicio) > 0) {
                         /*
                          * es una etapa en tiempo para lanzar, ver si tiene etapa anterior y si esta finalizada
                          */
