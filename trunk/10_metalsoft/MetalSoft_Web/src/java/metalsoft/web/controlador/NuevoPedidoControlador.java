@@ -84,6 +84,7 @@ public class NuevoPedidoControlador {
 
     public String cambiarMensaje() {
         nvoPedidoVista.setMostrarMensaje(false);
+        nvoPedidoVista.setGuardarPedido(false);
         return null;
     }
 
@@ -149,6 +150,8 @@ public class NuevoPedidoControlador {
                     conDetalle.create(de);
                 }
                 em.getTransaction().commit();
+                nvoPedidoVista.setMensValidacion("El pedido se ha guardado correctamente");
+                nvoPedidoVista.setGuardarPedido(true);
                 nvoPedidoVista.limpiarCampos();
             } catch (PreexistingEntityException ex) {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -163,12 +166,23 @@ public class NuevoPedidoControlador {
     }
 
     public boolean validacionCampos() {
-        if (nvoPedidoVista.getFechaNecesidad() != null && nvoPedidoVista.getFechaPedido() != null && !nvoPedidoVista.getListPrevisoriaDetalles().isEmpty() && nvoPedidoVista.getFechaNecesidad().after(new Date())) {
-            return true;
-        } else {
-            nvoPedidoVista.setMensValidacion("Debe completar todos los campos");
+        if (nvoPedidoVista.getFechaNecesidad() == null || !nvoPedidoVista.getFechaNecesidad().after(new Date())) {
+            nvoPedidoVista.setMensValidacion("La fecha de Necesidad de Cotización debe ser mayor a la fecha actual");
+            nvoPedidoVista.setGuardarPedido(true);
+            return false;
+        } 
+        if(nvoPedidoVista.getFechaPedido() == null){
+            nvoPedidoVista.setMensValidacion("Debe seleccionar una fecha de pedido");
+            nvoPedidoVista.setGuardarPedido(true);
             return false;
         }
+        if(nvoPedidoVista.getListPrevisoriaDetalles().isEmpty()){
+            nvoPedidoVista.setMensValidacion("Debe seleccionar al menos un producto");
+            nvoPedidoVista.setGuardarPedido(true);
+            return false;
+        }
+        
+        return true;
     }
 
     public NuevoPedidoVista getNvoPedidoVista() {
