@@ -59,10 +59,14 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         addListeners();
         setEnabledComponents(false);
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         filasMateriaPrimaSeleccionada = new LinkedList<ViewMateriaPrima>();
         tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.packAll();
     }
 
     private void limpiarCampos() {
@@ -79,9 +83,13 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
             filasMateriaPrimaSeleccionada.clear();
         }
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.packAll();
         txtEtapaProduccion.setText("");
         txtPedidoCotizacion.setText("");
         lblPedidoSeleccionado.setText("...");
@@ -105,6 +113,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
+        tblDetallePedido.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -114,6 +123,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleProducto.setShowHorizontalLines(false);
         tblDetalleProducto.setShowVerticalLines(false);
+        tblDetalleProducto.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -123,6 +133,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         /* On supprime les traits des lignes et des colonnes */
         tblMateriaPrima.setShowHorizontalLines(false);
         tblMateriaPrima.setShowVerticalLines(false);
+        tblMateriaPrima.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblMateriaPrima.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -132,6 +143,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         /* On supprime les traits des lignes et des colonnes */
         tblMateriaPrimaSeleccionada.setShowHorizontalLines(false);
         tblMateriaPrimaSeleccionada.setShowVerticalLines(false);
+        tblMateriaPrimaSeleccionada.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblMateriaPrimaSeleccionada.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -202,8 +214,11 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         MateriaprimaDB db = gestor.buscarMateriaPrimaDePieza(v.getIdPieza());
         separarEtapasDeProduccion(db);
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.packAll();
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         idPiezaSeleccionada = v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
         beanAgregarQuitar.getBtnAgregar().setEnabled(true);
@@ -230,6 +245,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         idProductoSeleccionado = idPro;
         lblProductoSeleccionado.setText(v.getNombreProducto());
         beanBtnSeleccionarPieza.setEnabled(true);
@@ -254,6 +270,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         idPedidoSeleccionado = idPed;
         lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
         setEnabledComponents(false);
@@ -283,7 +300,9 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         ViewMateriaPrima v = filasMateriaPrima.remove(tblMateriaPrima.getSelectedRow());
         filasMateriaPrimaSeleccionada.add(v);
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.packAll();
         if (filasMateriaPrima.isEmpty()) {
             beanAgregarQuitar.getBtnAgregar().setEnabled(false);
         }
@@ -308,7 +327,9 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         ViewMateriaPrima v = filasMateriaPrimaSeleccionada.remove(tblMateriaPrimaSeleccionada.getSelectedRow());
         filasMateriaPrima.add(v);
         tblMateriaPrima.updateUI();
+        tblMateriaPrima.packAll();
         tblMateriaPrimaSeleccionada.updateUI();
+        tblMateriaPrimaSeleccionada.packAll();
         if (filasMateriaPrimaSeleccionada.isEmpty()) {
             beanAgregarQuitar.getBtnQuitar().setEnabled(false);
         }
