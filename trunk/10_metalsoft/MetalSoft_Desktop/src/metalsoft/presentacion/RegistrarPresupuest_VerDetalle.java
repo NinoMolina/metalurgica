@@ -29,7 +29,9 @@ public class RegistrarPresupuest_VerDetalle extends javax.swing.JDialog {
         initComponents();
         addListeners();
         tblProdPresupuesto.setModel(new ProductoPresupuestoTableModel());
+        tblProdPresupuesto.setHorizontalScrollEnabled(true);
         tblProdPresupuesto.updateUI();
+        tblProdPresupuesto.packAll();
     }
     
     public static void setVentanaPadre(JDialog ventana){
