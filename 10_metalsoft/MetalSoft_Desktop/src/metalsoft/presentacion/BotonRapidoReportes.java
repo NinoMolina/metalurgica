@@ -13,17 +13,32 @@ package metalsoft.presentacion;
 
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Lorreine Prescott
  */
-public class BotonRapidoReportes extends javax.swing.JFrame {
+public class BotonRapidoReportes extends javax.swing.JDialog {
+
+      private static BotonRapidoReportes vtnBotonRapido = null;
 
     /** Creates new form BotonRapidoReportes */
     public BotonRapidoReportes() {
+         super(Principal.getVtnPrincipal());
         initComponents();
+        vtnBotonRapido = this;
     }
+
+     public static BotonRapidoReportes getVtnBotonRapido() {
+        return vtnBotonRapido;
+    }
+
+    public static void setVtnBotonRapido(BotonRapidoReportes vtnBotonRapido) {
+        BotonRapidoReportes.vtnBotonRapido = vtnBotonRapido;
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
