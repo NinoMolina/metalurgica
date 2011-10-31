@@ -69,9 +69,11 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
         tblDetalleReclamo.setModel(new DetalleReclamoTableModel());
         tblDetalleReclamo.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleReclamo.updateUI();
+        tblDetalleReclamo.packAll();
         tblDetalleTransaccion.setModel(new DetalleTransaccionTableModel());
         tblDetalleTransaccion.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleTransaccion.updateUI();
+        tblDetalleTransaccion.packAll();
 
     }
 
@@ -82,6 +84,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleReclamo.setShowHorizontalLines(false);
         tblDetalleReclamo.setShowVerticalLines(false);
+        tblDetalleReclamo.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleReclamo.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -92,6 +95,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleTransaccion.setShowHorizontalLines(false);
         tblDetalleTransaccion.setShowVerticalLines(false);
+        tblDetalleTransaccion.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleTransaccion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -466,6 +470,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
         int selectedRow = tblDetalleReclamo.getSelectedRow();
         filas.remove(selectedRow);
         tblDetalleReclamo.updateUI();
+        tblDetalleReclamo.packAll();
 }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
@@ -557,6 +562,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
 
         }
         this.tblDetalleTransaccion.updateUI();
+        this.tblDetalleTransaccion.packAll();
     }
 
     /**
@@ -624,6 +630,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
 
         }
             tblDetalleReclamo.updateUI();
+            tblDetalleReclamo.packAll();
     }
 
     public void agregarFila(String nombreArticulo, int cant, String motivo, long idDetalle) {
@@ -653,6 +660,7 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
                 < cantidadFilas; i++) {
             filas.remove(0);
             tblDetalleReclamo.updateUI();
+            tblDetalleReclamo.packAll();
         }
     }
 
@@ -663,11 +671,13 @@ public class GenerarSolicitudReclamo extends javax.swing.JDialog {
             for (int i = 0; i < cantidadFilas; i++) {
                 filasCompra.remove(0);
                 tblDetalleTransaccion.updateUI();
+                tblDetalleTransaccion.packAll();
             }
         } else {
             for (int i = 0; i < cantidadFilas; i++) {
                 filasTrabajo.remove(0);
                 tblDetalleTransaccion.updateUI();
+                tblDetalleTransaccion.packAll();
             }
         }
     }
