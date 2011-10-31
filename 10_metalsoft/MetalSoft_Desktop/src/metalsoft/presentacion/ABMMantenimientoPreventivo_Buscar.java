@@ -49,6 +49,7 @@ public class ABMMantenimientoPreventivo_Buscar extends javax.swing.JDialog {
         tblMantenimiento.setShowHorizontalLines(false);
         tblMantenimiento.setShowVerticalLines(false);
         tblMantenimiento.setHighlighters(new UIColorHighlighter(HighlightPredicate.ODD));
+        tblMantenimiento.setHorizontalScrollEnabled(true); 
     }
 
     private void addListeners() {
