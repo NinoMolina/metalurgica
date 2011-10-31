@@ -261,6 +261,7 @@ public class RegistrarReclamoEmpresaMetalurgica extends javax.swing.JDialog {
         int selectedRow = tblDetalleReclamo.getSelectedRow();
         filas.remove(selectedRow);
         tblDetalleReclamo.updateUI();
+        tblDetalleReclamo.packAll();
 }//GEN-LAST:event_btnQuitarActionPerformed
 
     /**
