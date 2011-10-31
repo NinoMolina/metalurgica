@@ -10,6 +10,8 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
@@ -63,11 +65,23 @@ public class SeleccionarEtapa extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         cmbprocesos = new javax.swing.JComboBox();
         btnaceptar = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seleccionar proceso");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("Seleccionar el proceso que desea hacerle a la pieza:");
 
         cmbprocesos.addActionListener(new java.awt.event.ActionListener() {
@@ -97,12 +111,14 @@ public class SeleccionarEtapa extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnaceptar)
                         .addComponent(jLabel1)))
-                .addContainerGap())
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbprocesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,5 +170,6 @@ public class SeleccionarEtapa extends javax.swing.JDialog {
     private javax.swing.JButton btnaceptar;
     private javax.swing.JComboBox cmbprocesos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel25;
     // End of variables declaration//GEN-END:variables
 }

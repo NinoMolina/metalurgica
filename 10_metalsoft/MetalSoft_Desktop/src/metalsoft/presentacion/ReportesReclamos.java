@@ -11,7 +11,9 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorReportes;
 
@@ -50,6 +52,18 @@ public class ReportesReclamos extends javax.swing.JDialog {
         dccFechaDesde = new com.toedter.calendar.JDateChooser();
         dccFechaHasta = new com.toedter.calendar.JDateChooser();
         btnReportesClientes = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes de Reclamos");
@@ -122,11 +136,13 @@ public class ReportesReclamos extends javax.swing.JDialog {
                         .addGap(123, 123, 123)
                         .addComponent(btnReportesClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReclamosProveedores)
                     .addComponent(btnReclamosEmpresasM))
@@ -192,6 +208,7 @@ public class ReportesReclamos extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser dccFechaHasta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

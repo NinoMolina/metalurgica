@@ -11,6 +11,8 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorReportes;
 
@@ -42,6 +44,18 @@ public class ReportesEmpleados extends javax.swing.JDialog {
         btnEmpleadosCompleto = new javax.swing.JRadioButton();
         btnEmpleadosXCargo = new javax.swing.JRadioButton();
         btnEmpleadosXCategoria = new javax.swing.JRadioButton();
+        jLabel25 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte de Empleados");
@@ -86,11 +100,13 @@ public class ReportesEmpleados extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addComponent(btnEmpleadosXCargo)))
                 .addContainerGap())
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmpleadosXCargo)
                     .addComponent(btnEmpleadosXCategoria))
@@ -139,6 +155,7 @@ public class ReportesEmpleados extends javax.swing.JDialog {
     private javax.swing.JRadioButton btnEmpleadosXCategoria;
     private javax.swing.JButton btnReportes;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel25;
     // End of variables declaration//GEN-END:variables
 
 }
