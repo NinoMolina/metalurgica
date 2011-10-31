@@ -73,7 +73,7 @@ public class FacturaDAOImpl implements FacturaDAO {
             }
             ps.setLong(8, factura.getEstado());
             ps.setString(9, factura.getTipofactura());
-            ps.setDouble(12, factura.getMontototal());
+            ps.setDouble(10, factura.getMontototal());
             ps.setLong(11, facturapk.getIdfactura());
 
             return (ps.executeUpdate());
