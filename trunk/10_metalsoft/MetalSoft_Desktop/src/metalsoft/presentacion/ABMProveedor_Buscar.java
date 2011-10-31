@@ -65,6 +65,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog {
         /* On dit de surligner une ligne sur deux */
         tblProveedor.setHighlighters(
         new UIColorHighlighter(HighlightPredicate.ODD));
+        tblProveedor.setHorizontalScrollEnabled(true);
     }
 
     public GestorProveedor getGestor() {
@@ -189,6 +190,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog {
     private void rbNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombreActionPerformed
         filasProveedor = new LinkedList<Proveedor>();
         tblProveedor.updateUI();
+        tblProveedor.packAll();
         txtValor.setEnabled(true);
         this.rbTodos.setSelected(false);
 }//GEN-LAST:event_rbNombreActionPerformed
@@ -202,6 +204,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog {
         if (txtValor.getText().compareTo("") != 0) {
             filasProveedor = gestor.buscarProveedorByNroLike(txtValor.getText());
             tblProveedor.updateUI();
+            tblProveedor.packAll();
         }
 
     }
@@ -237,6 +240,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog {
         filasProveedor = new LinkedList<Proveedor>();
         filasProveedor = gestor.buscarProveedorByNroLike("");
         tblProveedor.updateUI();
+        tblProveedor.packAll();
         this.rbNombre.setSelected(false);
         txtValor.setText("");
     }//GEN-LAST:event_rbTodosActionPerformed
