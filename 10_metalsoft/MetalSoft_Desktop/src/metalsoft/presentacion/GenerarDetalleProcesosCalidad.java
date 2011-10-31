@@ -59,10 +59,14 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         setEnabledComponents(false);
         setearTablas();
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblProcesoCalidad.updateUI();
+        tblProcesoCalidad.packAll();
         filasProcesoCalidadSeleccionado = new LinkedList<ViewProcesoCalidad>();
         tblProcesoCalidadSeleccionado.updateUI();
+        tblProcesoCalidadSeleccionado.packAll();
     }
 
     private void limpiarCampos() {
@@ -79,9 +83,13 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
             filasProcesoCalidadSeleccionado.clear();
         }
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblProcesoCalidad.updateUI();
+        tblProcesoCalidad.packAll();
         tblProcesoCalidadSeleccionado.updateUI();
+        tblProcesoCalidadSeleccionado.packAll();
         txtProcesoCalidad.setText("");
         lblPedidoSeleccionado.setText("...");
         lblPiezaSeleccionada.setText("...");
@@ -104,6 +112,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
+        tblDetallePedido.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -113,6 +122,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleProducto.setShowHorizontalLines(false);
         tblDetalleProducto.setShowVerticalLines(false);
+        tblDetalleProducto.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -122,6 +132,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         /* On supprime les traits des lignes et des colonnes */
         tblProcesoCalidad.setShowHorizontalLines(false);
         tblProcesoCalidad.setShowVerticalLines(false);
+        tblProcesoCalidad.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblProcesoCalidad.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -131,6 +142,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         /* On supprime les traits des lignes et des colonnes */
         tblProcesoCalidadSeleccionado.setShowHorizontalLines(false);
         tblProcesoCalidadSeleccionado.setShowVerticalLines(false);
+        tblProcesoCalidadSeleccionado.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblProcesoCalidadSeleccionado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -187,7 +199,9 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         filasProcesoCalidad = gestor.obtenerProcesosCalidad();
         filasProcesoCalidadSeleccionado.clear();
         tblProcesoCalidad.updateUI();
+        tblProcesoCalidad.packAll();
         tblProcesoCalidadSeleccionado.updateUI();
+        tblProcesoCalidadSeleccionado.packAll();
         idPiezaSeleccionada = v.getIdPieza();
         lblPiezaSeleccionada.setText(v.getNombrePieza());
         beanAgregarQuitar.getBtnAgregar().setEnabled(true);
@@ -214,6 +228,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         idProductoSeleccionado = idPro;
         lblProductoSeleccionado.setText(v.getNombreProducto());
         beanBtnSeleccionarPieza.setEnabled(true);
@@ -248,6 +263,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         idPedidoSeleccionado = idPed;
         lblPedidoSeleccionado.setText(String.valueOf(v.getNropedido()));
         setEnabledComponents(false);
@@ -281,7 +297,9 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
             v.setCantProcesos(cantProcesos);
             filasProcesoCalidadSeleccionado.add(v);
             tblProcesoCalidad.updateUI();
+            tblProcesoCalidad.packAll();
             tblProcesoCalidadSeleccionado.updateUI();
+            tblProcesoCalidadSeleccionado.packAll();
             if (filasProcesoCalidad.isEmpty()) {
                 beanAgregarQuitar.getBtnAgregar().setEnabled(false);
             }
@@ -308,7 +326,9 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         ViewProcesoCalidad v = filasProcesoCalidadSeleccionado.remove(tblProcesoCalidadSeleccionado.getSelectedRow());
         filasProcesoCalidad.add(v);
         tblProcesoCalidad.updateUI();
+        tblProcesoCalidad.packAll();
         tblProcesoCalidadSeleccionado.updateUI();
+        tblProcesoCalidadSeleccionado.packAll();
         if (filasProcesoCalidadSeleccionado.isEmpty()) {
             beanAgregarQuitar.getBtnQuitar().setEnabled(false);
         }
