@@ -88,6 +88,7 @@ public class NuevoUsuario extends javax.swing.JDialog {
         filasRoles.add(gestor.getRolSeleccionado(item.getId()));
         cmbRoles.removeItem(item);
         tblRoles.updateUI();
+        tblRoles.packAll();
     }
 
     private void btnQuitarActionPerformed(ActionEvent e) {
@@ -95,6 +96,7 @@ public class NuevoUsuario extends javax.swing.JDialog {
         ItemCombo item = new ItemCombo(String.valueOf(rol.getIdrol()), rol.getRol());
         cmbRoles.addItem(item);
         tblRoles.updateUI();
+        tblRoles.packAll();
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {
@@ -117,6 +119,7 @@ public class NuevoUsuario extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblRoles.setShowHorizontalLines(false);
         tblRoles.setShowVerticalLines(false);
+        tblRoles.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblRoles.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
