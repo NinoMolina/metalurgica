@@ -67,6 +67,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         cargarComboPrioridad();
         cargarComboEstado();
         tblDetallePedidoCotizacion.updateUI();
+        tblDetallePedidoCotizacion.packAll();
         setEnableComponents(false);
     }
 
@@ -305,6 +306,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                 if (view.getIdProducto() == idProducto) {
                     view.setCantidad(view.getCantidad() + Integer.parseInt(cant));
                     tblDetallePedidoCotizacion.updateUI();
+                    tblDetallePedidoCotizacion.packAll();
                     return;
                 }
             }
@@ -320,6 +322,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
             v.setCantidad(Integer.parseInt(cant));
             agregarFila(v);
             tblDetallePedidoCotizacion.updateUI();
+            tblDetallePedidoCotizacion.packAll();
         }
 
     }
@@ -340,6 +343,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         }
         filas.remove(selectedRow);
         tblDetallePedidoCotizacion.updateUI();
+        tblDetallePedidoCotizacion.packAll();
     }
 
     /** This method is called from within the constructor to
@@ -1101,6 +1105,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
 
         filas.clear();
         tblDetallePedidoCotizacion.updateUI();
+        tblDetallePedidoCotizacion.packAll();
 
         cmbEstado.setSelectedIndex(-1);
         cmbPrioridad.setSelectedIndex(-1);
