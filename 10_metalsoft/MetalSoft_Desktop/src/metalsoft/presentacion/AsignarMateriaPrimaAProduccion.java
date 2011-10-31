@@ -108,11 +108,13 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
     public void buscarPedidosConMPAsignada() {
         filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(null);
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     public void buscarPedidosConMPAsignada(Connection cn) {
         filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(cn);
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     private void cargarTablaMatPrima() {
@@ -539,6 +541,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
                             buscarPedidosConMPAsignada(cn);
                             filasMateriaPrimaXPiezaPresupuesto.clear();
                             tblMatPrimaXPieza.updateUI();
+                            tblMatPrimaXPieza.packAll();
                             limpiarCampos();
                         }
                         cn.commit();
