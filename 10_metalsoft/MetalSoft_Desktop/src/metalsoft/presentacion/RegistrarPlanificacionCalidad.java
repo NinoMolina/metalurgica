@@ -119,6 +119,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         buscarPedidosConPlanificacionProduccion();
         iniciarTreeTable();
         tblPedidos.updateUI();
+        tblPedidos.packAll();
         tskPanel.setTitle("Asignaciones");
         tskPanel.setAnimated(true);
     }
@@ -401,6 +402,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -410,6 +412,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblEmpleado.setShowHorizontalLines(false);
         tblEmpleado.setShowVerticalLines(false);
+        tblEmpleado.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblEmpleado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -419,6 +422,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMaquinas.setShowHorizontalLines(false);
         tblMaquinas.setShowVerticalLines(false);
+        tblMaquinas.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblMaquinas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -1157,6 +1161,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         setEnabledComponents(false);
         setVisiblePanel(pnlTreeTable.getName());
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
@@ -1238,6 +1243,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             empleadosNoDisponibles(
                     lstEmpleados);
             tblEmpleado.updateUI();
+            tblEmpleado.packAll();
         }
 }//GEN-LAST:event_hplAsignarEmpleadoActionPerformed
 
@@ -1248,6 +1254,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             maquinasNoDisponibles(
                     lstMaquinas);
             tblMaquinas.updateUI();
+            tblMaquinas.packAll();
         }
 }//GEN-LAST:event_hplAsignarMaquinasActionPerformed
 
