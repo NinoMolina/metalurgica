@@ -1921,14 +1921,12 @@ public class Principal extends javax.swing.JFrame {
     private void mniCambiarContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCambiarContraseniaActionPerformed
         CambiarContrasenia v = null;
         try {
-            v = (CambiarContrasenia) JFrameManager.crearVentana(CambiarContrasenia.class.getName());
+
+            v = new CambiarContrasenia();
             GestorNuevoUsuario gestor = new GestorNuevoUsuario();
             v.setUsuario(gestor.buscarUsuario(usuario.getIdusuario()));
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+            JFrameManager.centrarYMostrarVentana(v);
+        } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mniCambiarContraseniaActionPerformed
@@ -2499,7 +2497,7 @@ private void mniParadaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_mniParadaMaquinaActionPerformed
 
 private void mniEnvioMantenimientoCorrectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEnvioMantenimientoCorrectivoActionPerformed
-   try {
+    try {
         JFrameManager.crearVentana(RegistrarEnvioMantenimientoCorrectivo.class.getName());
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -2521,7 +2519,6 @@ private void mniConsultarEnviosMantenimientosCorrectivosActionPerformed(java.awt
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniConsultarEnviosMantenimientosCorrectivosActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
