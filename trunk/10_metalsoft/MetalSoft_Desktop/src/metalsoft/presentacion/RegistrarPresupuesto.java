@@ -95,9 +95,13 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
             filasPedidos = gestor.buscarPedidosConDetalleProcesoCalidad();
         }
         tblPedidos.updateUI();
+        tblPedidos.packAll();
         tblEtapasXPieza.updateUI();
+        tblEtapasXPieza.packAll();
         tblMatPrimaXPieza.updateUI();
+        tblMatPrimaXPieza.packAll();
         tblProCalidadXPieza.updateUI();
+        tblProCalidadXPieza.packAll();
     }
 
     private void setEnabledComponents(boolean b) {
@@ -116,6 +120,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -125,6 +130,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblEtapasXPieza.setShowHorizontalLines(false);
         tblEtapasXPieza.setShowVerticalLines(false);
+        tblEtapasXPieza.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEtapasXPieza.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -134,6 +140,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMatPrimaXPieza.setShowHorizontalLines(false);
         tblMatPrimaXPieza.setShowVerticalLines(false);
+        tblMatPrimaXPieza.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblMatPrimaXPieza.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -143,6 +150,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblProCalidadXPieza.setShowHorizontalLines(false);
         tblProCalidadXPieza.setShowVerticalLines(false);
+        tblProCalidadXPieza.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblProCalidadXPieza.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -261,6 +269,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     private void buscarPedidosConDetalleProcesoCalidad() {
         filasPedidos = gestor.buscarPedidosConDetalleProcesoCalidad();
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     /** This method is called from within the constructor to
@@ -857,10 +866,13 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
         filasEtapasXPiezaPresupuesto = gestor.buscarEtapasXPiezaPresupuesto();
         //System.out.println(filasEtapasXPiezaPresupuesto.get(0).getDuraciontotal());
         tblEtapasXPieza.updateUI();
+        tblEtapasXPieza.packAll();
         filasMateriaPrimaXPiezaPresupuesto = gestor.buscarMatPrimaXPiezaPresupuesto();
         tblMatPrimaXPieza.updateUI();
+        tblMatPrimaXPieza.packAll();
         filasProcesoCalidadXPiezaPresupuesto = gestor.buscarProCalidadXPiezaPresupuesto();
         tblProCalidadXPieza.updateUI();
+        tblProCalidadXPieza.packAll();
         filasProductoPresupuesto = gestor.buscarProductosPresupuesto(idPedido);
 
     }
