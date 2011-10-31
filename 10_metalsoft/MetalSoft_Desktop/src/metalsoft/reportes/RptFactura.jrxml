@@ -84,7 +84,7 @@ GROUP BY df.iddetalle,
 	<field name="calle" class="java.lang.String"/>
 	<field name="numerocalle" class="java.lang.Integer"/>
 	<field name="cuit" class="java.lang.String"/>
-	<field name="iva" class="java.lang.Double"/>
+	<field name="iva" class="java.lang.String"/>
 	<field name="nroremito" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
@@ -94,7 +94,7 @@ GROUP BY df.iddetalle,
 	<field name="cantidadfactura" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="tipofactura" class="java.lang.String"/>
-	<field name="monto" class="java.lang.Double"/>
+	<field name="monto" class="java.lang.Boolean"/>
 	<variable name="importe" class="java.lang.Float">
 		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
 	</variable>
