@@ -39,6 +39,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
         gestor = new GestorTrabajoTercerizado();
         listaTrabajos = gestor.obtenerTrabajosACancelar();
         tblTrabajosTercerizados.updateUI();
+        tblTrabajosTercerizados.packAll();
         addListeners();
         setearTablas();
         btncancelar.setEnabled(false);
@@ -52,6 +53,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleTrabajoTercerizado.setShowHorizontalLines(false);
         tblDetalleTrabajoTercerizado.setShowVerticalLines(false);
+        tblDetalleTrabajoTercerizado.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetalleTrabajoTercerizado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -61,6 +63,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
         /* On supprime les traits des lignes et des colonnes */
         tblTrabajosTercerizados.setShowHorizontalLines(false);
         tblTrabajosTercerizados.setShowVerticalLines(false);
+        tblTrabajosTercerizados.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblTrabajosTercerizados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -93,6 +96,7 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
             lblmontoTotal.setText(String.valueOf(trab.getMontototal()));
             listaDetalle = gestor.buscarDetalleTrabajoTercerizado(trab.getIdtrabajo());
             tblDetalleTrabajoTercerizado.updateUI();
+            tblDetalleTrabajoTercerizado.packAll();
             btncancelar.setEnabled(true);
         }else{
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
@@ -383,8 +387,10 @@ public class RegistrarCancelacionDeTrabajosTercerizados extends javax.swing.JDia
                     JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha confirmado correctamente");
                     listaTrabajos = gestor.obtenerTrabajosACancelar();
                     tblTrabajosTercerizados.updateUI();
+                    tblTrabajosTercerizados.packAll();
                     listaDetalle.clear();
                     tblDetalleTrabajoTercerizado.updateUI();
+                    tblDetalleTrabajoTercerizado.packAll();
                     btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
                     btncancelar.setEnabled(false);
 
