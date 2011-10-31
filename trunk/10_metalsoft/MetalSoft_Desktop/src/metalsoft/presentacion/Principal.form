@@ -269,6 +269,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniProductoActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniParadaMaquina">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Registrar Parada de M&#xe1;quina"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniParadaMaquinaActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCalidad">
@@ -493,7 +501,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniRegistrarEnvioManPrev">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Enviar M&#xe1;quina a Mantenimiento Preventivo"/>
+                <Property name="text" type="java.lang.String" value="Registrar env&#xed;o a Mantenimiento Preventivo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniRegistrarEnvioManPrevActionPerformed"/>
@@ -505,6 +513,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultarEnviosManPrevActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniEnvioMantenimientoCorrectivo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Registrar env&#xed;o a Mantenimiento Correctivo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEnvioMantenimientoCorrectivoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniConsultarEnviosMantenimientosCorrectivos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar env&#xed;os a Mantenimientos Correctivos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultarEnviosMantenimientosCorrectivosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
