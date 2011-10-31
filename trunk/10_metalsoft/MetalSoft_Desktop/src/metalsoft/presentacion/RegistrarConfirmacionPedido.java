@@ -45,6 +45,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         gestor=new GestorRegistrarPedidoConfirmado();
         buscarPedidosNoConfirmados();
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     private void limpiarCampos(){
@@ -69,6 +70,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -400,6 +402,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "El pedido Nro '"+NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido())+"' se registró CORRECTAMENTE!");
                 filasPedidosNoConfirmados.remove(viewPedidoSeleccionado);
                 tblPedidos.updateUI();
+                tblPedidos.packAll();
                 limpiarCampos();
                 setEnabledComponents(false);
             }
