@@ -64,6 +64,7 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblEtapasDeProduccion.setShowHorizontalLines(false);
         tblEtapasDeProduccion.setShowVerticalLines(false);
+        tblEtapasDeProduccion.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEtapasDeProduccion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -196,6 +197,7 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
         gestor.lanzarEjecucionEtapa(detalleplanificacionproduccion.getIddetalleejecucionplanificacion());
         filasEtapas.remove(tblEtapasDeProduccion.getSelectedRow());
         tblEtapasDeProduccion.updateUI();
+        tblEtapasDeProduccion.packAll();
         /*
          * quitar de las etapas a lanzar del boton de la ventana principal
          */
