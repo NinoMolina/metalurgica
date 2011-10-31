@@ -54,6 +54,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleTrabajoTercerizado.setShowHorizontalLines(false);
         tblDetalleTrabajoTercerizado.setShowVerticalLines(false);
+        tblDetalleTrabajoTercerizado.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleTrabajoTercerizado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -63,6 +64,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
         /* On supprime les traits des lignes et des colonnes */
         tblTrabajosTercerizados.setShowHorizontalLines(false);
         tblTrabajosTercerizados.setShowVerticalLines(false);
+        tblTrabajosTercerizados.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblTrabajosTercerizados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
