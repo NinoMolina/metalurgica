@@ -54,6 +54,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleRemito.setShowHorizontalLines(false);
         tblDetalleRemito.setShowVerticalLines(false);
+        tblDetalleRemito.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleRemito.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -63,6 +64,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblRemitos.setShowHorizontalLines(false);
         tblRemitos.setShowVerticalLines(false);
+        tblRemitos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblRemitos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -292,6 +294,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
         filasDetalle = gestor.buscarDetallesRemitoByRemito(v.getIdremito());
         pedido=v.getPedido();
         tblDetalleRemito.updateUI();
+        tblDetalleRemito.packAll();
 
         btnVerDetalle.setEnabled(false);
         btnImprimir.setEnabled(true);
@@ -300,6 +303,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
     private void rbNroFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNroFacturaActionPerformed
         filasRemito = new LinkedList<Remito>();
         tblRemitos.updateUI();
+        tblRemitos.packAll();
         txtNroFactura.setEnabled(true);
         dccFechaEmision.setEnabled(false);
         dccFechaEmision.setDate(null);
@@ -310,6 +314,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
         if (txtNroFactura.getText().compareTo("") != 0) {
             filasRemito = gestor.buscarRemitosByNroLIKE(txtNroFactura.getText());
             tblRemitos.updateUI();
+            tblRemitos.packAll();
         }
 }//GEN-LAST:event_txtNroFacturaKeyReleased
 
@@ -317,6 +322,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
         String fecha = String.valueOf(Fecha.fechaActual());
         filasRemito = gestor.buscarRemitosByFechaEmision(fecha);
         tblRemitos.updateUI();
+        tblRemitos.packAll();
         txtNroFactura.setEnabled(false);
         dccFechaEmision.setEnabled(true);
         txtNroFactura.setText("");
@@ -329,6 +335,7 @@ public class ConsultarRemitos extends javax.swing.JDialog {
             String fecha = String.valueOf(dccFechaEmision.getDate());
             filasRemito = gestor.buscarRemitosByFechaEmision(fecha);
             tblRemitos.updateUI();
+            tblRemitos.packAll();
         }
 }//GEN-LAST:event_dccFechaEmisionActionPerformed
 
