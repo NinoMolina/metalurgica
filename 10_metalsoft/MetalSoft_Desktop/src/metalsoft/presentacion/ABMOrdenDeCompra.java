@@ -76,6 +76,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         tblDetalleOrden.setModel(new DetalleOrdenTableModel());
         tblDetalleOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleOrden.updateUI();
+        tblDetalleOrden.packAll();
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnGuardar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
@@ -91,6 +92,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         /* On dit de surligner une ligne sur deux */
         tblDetalleOrden.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetalleOrden.setHorizontalScrollEnabled(true);
     }
 
     private void cargarComboMateriaprima() {
@@ -119,6 +121,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         {
             filas.remove(0);
             tblDetalleOrden.updateUI();
+            tblDetalleOrden.packAll();
         }
     }
 
@@ -316,6 +319,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             int cant = Integer.parseInt(txtCant.getText());
             agregarFila(idMateriaprima, nombreMateriaPrima, cant);
             tblDetalleOrden.updateUI();
+            tblDetalleOrden.packAll();
         }
     }
 
@@ -379,6 +383,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             agregarFila(v);
         }
         this.tblDetalleOrden.updateUI();
+        this.tblDetalleOrden.packAll();
     }
 
     public boolean validar()
@@ -580,6 +585,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             arlDetCompraAEliminar.add(view2.get(selectedRow));
         }
         tblDetalleOrden.updateUI();
+        tblDetalleOrden.packAll();
 }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
