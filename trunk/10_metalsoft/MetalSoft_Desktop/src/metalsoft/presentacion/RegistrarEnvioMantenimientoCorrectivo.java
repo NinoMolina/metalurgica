@@ -63,6 +63,7 @@ public class RegistrarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         tblDetalle.setShowHorizontalLines(false);
         tblDetalle.setShowVerticalLines(false);
         tblDetalle.setHighlighters(new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetalle.setHorizontalScrollEnabled(true); 
         lblduracionMantenimiento.setText("...");
         btnconfirmar.setEnabled(false);
         InhabilitarComponentes();
@@ -606,6 +607,7 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         lblduracionMantenimiento.setText("...");
         filasDetalle.clear();
         tblDetalle.updateUI();
+        tblDetalle.packAll();
     }
 
     private void setItemComboSeleccionado(JComboBox cmb, long id) {
@@ -647,6 +649,7 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         
         filasDetalle.add(detalle);
         tblDetalle.updateUI();
+        tblDetalle.packAll();
 
         int sumaTotal = 0;
         for (Detallemantenimientocorrectivo de : filasDetalle) {
@@ -707,6 +710,7 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         filasDetalle.remove(tblDetalle.getSelectedRow());
         tblDetalle.updateUI();
+        tblDetalle.packAll();
         if (tblDetalle.getRowCount() <= 0) {
             beanBtnQuitar.getBtnQuitar().setEnabled(false);
         }
