@@ -100,6 +100,7 @@ public class AdministrarUsuario extends javax.swing.JDialog {
             filasRolesModificar.add(gestor.getRolSeleccionado(item.getId()));
             cmbRoles.removeItem(item);
             tblRoles.updateUI();
+            tblRoles.packAll();
             if (filasRolesEliminar.contains(rol)) {
                 filasRolesEliminar.remove(rol);
             }
@@ -112,6 +113,7 @@ public class AdministrarUsuario extends javax.swing.JDialog {
 
         cmbRoles.addItem(item);
         tblRoles.updateUI();
+        tblRoles.packAll();
         if (!filasRolesEliminar.contains(rol)&&filasRolesDelUsuario.contains(rol)) {
             filasRolesEliminar.add(rol);
         }
@@ -133,6 +135,7 @@ public class AdministrarUsuario extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblRoles.setShowHorizontalLines(false);
         tblRoles.setShowVerticalLines(false);
+        tblRoles.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblRoles.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -285,6 +288,7 @@ public class AdministrarUsuario extends javax.swing.JDialog {
             filasRolesModificar = gestor.buscarRolesUsuario(usuario);
             filasRolesDelUsuario = gestor.buscarRolesUsuario(usuario);
             tblRoles.updateUI();
+            tblRoles.packAll();
             cargarComboRoles(usuario.getIdusuario());
         }
     }//GEN-LAST:event_cmbUsuariosActionPerformed
