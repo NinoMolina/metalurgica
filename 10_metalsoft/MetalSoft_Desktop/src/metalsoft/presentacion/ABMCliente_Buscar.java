@@ -28,7 +28,7 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
 
     private GestorCliente gestor = null;
     private ABMCliente ventana = null;
-    private static RegistrarEntregaPedido ventanaRegistrarEntregaPedido = null;
+    private RegistrarEntregaPedido ventanaRegistrarEntregaPedido = null;
     private Timer timer;
 
     /** Creates new form ABMCliente_Buscar */
@@ -53,13 +53,14 @@ public class ABMCliente_Buscar extends javax.swing.JDialog implements IBuscador 
         this.ventana = ventana;
     }
 
-    public static RegistrarEntregaPedido getVentanaRegistrarEntregaPedido() {
+    public RegistrarEntregaPedido getVentanaRegistrarEntregaPedido() {
         return ventanaRegistrarEntregaPedido;
     }
 
-    public static void setVentanaRegistrarEntregaPedido(RegistrarEntregaPedido ventana) {
-        ventanaRegistrarEntregaPedido = ventana;
+    public void setVentanaRegistrarEntregaPedido(RegistrarEntregaPedido ventanaRegistrarEntregaPedido) {
+        this.ventanaRegistrarEntregaPedido = ventanaRegistrarEntregaPedido;
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.

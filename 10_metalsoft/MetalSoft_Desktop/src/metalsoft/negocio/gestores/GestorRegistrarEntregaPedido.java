@@ -5,6 +5,7 @@
 package metalsoft.negocio.gestores;
 
 
+import java.awt.Dialog.ModalExclusionType;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -112,10 +112,10 @@ public class GestorRegistrarEntregaPedido {
 
     public void imprimirFactura(long id, long idformapago, String tipofactura, Date fechaVencimiento,double monto) {
 
-        String sourceFile = "D:\\rpt\\RptFactura.jasper";
+//        String sourceFile = "D:\\rpt\\RptFactura.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -126,7 +126,7 @@ public class GestorRegistrarEntregaPedido {
             cn.setAutoCommit(false);
             guardarFactura(id, idformapago, tipofactura,fechaVencimiento, monto, cn);
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptFactura.jasper"));
 
             param.put("ID_PEDIDO", new Long(id));
             param.put("MONTO", new Double(monto));
@@ -135,6 +135,7 @@ public class GestorRegistrarEntregaPedido {
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Factura");
             jviewer.setVisible(true);
             cn.commit();
@@ -156,15 +157,9 @@ public class GestorRegistrarEntregaPedido {
     }
 
     public void imprimirRemito(long id) {
-//        URL sourceFile = null;
-//        try {
-//           sourceFile = new URL("https://metalurgica.googlecode.com/svn/trunk/10_metalsoft/Reportes/RptRemito.jasper");
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        String sourceFile = "D:\\rpt\\RptRemito.jasper";
+//        String sourceFile = "D:\\rpt\\RptRemito.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -176,13 +171,14 @@ public class GestorRegistrarEntregaPedido {
             guardarRemito(id, cn);
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptRemito.jasper"));
             param.put("ID_PEDIDO", new Long(id));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
             cn.commit();

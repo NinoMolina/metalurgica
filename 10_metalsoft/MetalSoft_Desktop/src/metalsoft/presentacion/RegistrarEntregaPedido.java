@@ -548,21 +548,17 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // TODO add your handling code here:
         opcion = EnumOpcionesABM.BUSCAR;
-        ABMCliente_Buscar buscar = null;
         try {
-            ABMCliente_Buscar.setVentanaRegistrarEntregaPedido(this);
-            buscar = (ABMCliente_Buscar) JFrameManager.crearVentana(ABMCliente_Buscar.class.getName());
+            ABMCliente_Buscar buscar = new ABMCliente_Buscar(this);
             buscar.setGestor(gestorCliente);
+            buscar.setVentanaRegistrarEntregaPedido(this);
+            JFrameManager.centrarYMostrarVentana(buscar);
             limpiarCamposPedido();
             btnRegistrarEntrega.setEnabled(false);
             btnSeleccionar.setEnabled(true);
-        } catch (ClassNotFoundException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
