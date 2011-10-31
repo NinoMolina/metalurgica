@@ -26,6 +26,7 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
 
     /** Creates new form BotonRapidoReportes */
     public BotonRapidoReportes() {
+
          super(Principal.getVtnPrincipal());
         initComponents();
         vtnBotonRapido = this;
@@ -74,7 +75,8 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reportes");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         jButton1.setText("Reporte Ausentismo");
@@ -82,57 +84,57 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton2.setText("Reporte Ausentismo");
+        jButton2.setText("Reportes Cobros");
         jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton3.setText("Reporte Ausentismo");
+        jButton3.setText("Reportes Clientes");
         jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton4.setText("Reporte Ausentismo");
+        jButton4.setText("Reportes Materias Primas");
         jButton4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton5.setText("Reporte Ausentismo");
+        jButton5.setText("Reportes Mantenimientos");
         jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton6.setText("Reporte Ausentismo");
+        jButton6.setText("Reportes Empleados");
         jButton6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton7.setText("Reporte Ausentismo");
+        jButton7.setText("Reportes Trabajos Tercerizados");
         jButton7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton8.setText("Reporte Ausentismo");
+        jButton8.setText("Reportes Reclamos");
         jButton8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton9.setText("Reporte Ausentismo");
+        jButton9.setText("Reportes Proveedores");
         jButton9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton10.setText("Reporte Ausentismo");
+        jButton10.setText("Reportes Defectos");
         jButton10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton11.setText("Reporte Ausentismo");
+        jButton11.setText("Reportes Producción");
         jButton11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
-        jButton12.setText("Reporte Ausentismo");
+        jButton12.setText("Reportes Pedidos");
         jButton12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -140,7 +142,7 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +159,12 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addComponent(jButton7))
+                .addGap(18, 18, 18))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton10, jButton11, jButton12, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8, jButton9});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
