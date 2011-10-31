@@ -10,6 +10,7 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.negocio.gestores.GestorNuevoUsuario;
@@ -31,6 +32,7 @@ public class CambiarContrasenia extends javax.swing.JDialog {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         lblusuario.setText(usuario.getUsuario());
+        lblusuario.setBackground(Color.cyan);
     }
 
     public CambiarContrasenia() {
@@ -38,7 +40,6 @@ public class CambiarContrasenia extends javax.swing.JDialog {
         initComponents();
         addListeners();
         gestor = new GestorNuevoUsuario();
-        
     }
 
     private void addListeners() {
@@ -123,8 +124,15 @@ public class CambiarContrasenia extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cambiar Contraseña");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jLabel1.setText("Usuario:");
+
+        lblusuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel3.setText("Contraseña:");
 
@@ -170,8 +178,8 @@ public class CambiarContrasenia extends javax.swing.JDialog {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(lblusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcontrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,6 +201,10 @@ public class CambiarContrasenia extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+    }//GEN-LAST:event_formFocusGained
 
     /**
      * @param args the command line arguments
