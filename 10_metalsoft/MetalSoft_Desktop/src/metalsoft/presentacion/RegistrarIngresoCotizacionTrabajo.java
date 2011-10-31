@@ -53,8 +53,10 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
 //        filasTrabajosEnviados=new LinkedList<Trabajotercerizado>();
         filasTrabajosGenerados = gestor.obtenerTrabajosGenerados();
         tblTrabajosGenerados.updateUI();
+        tblTrabajosGenerados.packAll();
         filasTrabajosEnviados = gestor.obtenerTrabajosEnviados();
         tblTrabajosEnviados.updateUI();
+        tblTrabajosEnviados.packAll();
         addListeners();
         setearTablas();
         btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
@@ -115,6 +117,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Los datos se han guardado correctamente!");
                 filasTrabajosEnviados = gestor.obtenerTrabajosEnviados();
                 tblTrabajosEnviados.updateUI();
+                tblTrabajosEnviados.packAll();
                 btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos no han podido ser guardados");
@@ -129,6 +132,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblTrabajosGenerados.setShowHorizontalLines(false);
         tblTrabajosGenerados.setShowVerticalLines(false);
+        tblTrabajosGenerados.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblTrabajosGenerados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -138,6 +142,7 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblTrabajosEnviados.setShowHorizontalLines(false);
         tblTrabajosEnviados.setShowVerticalLines(false);
+        tblTrabajosEnviados.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblTrabajosEnviados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -292,8 +297,10 @@ public class RegistrarIngresoCotizacionTrabajo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "El Pedido de Cotización ha sido enviado correctamente");
             filasTrabajosGenerados = gestor.obtenerTrabajosGenerados();
             tblTrabajosGenerados.updateUI();
+            tblTrabajosGenerados.packAll();
             filasTrabajosEnviados = gestor.obtenerTrabajosEnviados();
             tblTrabajosEnviados.updateUI();
+            tblTrabajosEnviados.packAll();
             btnenviar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "El Pedido de Cotización NO podido ser enviado");
