@@ -107,6 +107,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
         jtbAsistencia.setModel(new AsistenciaTableModel());
         jtbAsistencia.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         jtbAsistencia.updateUI();
+        jtbAsistencia.packAll();
 
     }
     private void setearTablas() {
@@ -116,6 +117,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         jtbAsistencia.setShowHorizontalLines(false);
         jtbAsistencia.setShowVerticalLines(false);
+        jtbAsistencia.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         jtbAsistencia.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -435,6 +437,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
         }
 
         jtbAsistencia.updateUI();
+        jtbAsistencia.packAll();
         if (result > 0) {
             txtLegajo.setText("");
             txtNombreApellido.setText("");
@@ -462,6 +465,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
         }
 
         jtbAsistencia.updateUI();
+        jtbAsistencia.packAll();
 }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
@@ -507,6 +511,7 @@ public class RegistrarAsistencia extends javax.swing.JDialog {
         }
 
         jtbAsistencia.updateUI();
+        jtbAsistencia.packAll();
         if (result > 0) {
             txtLegajo.setText("");
             txtNombreApellido.setText("");
