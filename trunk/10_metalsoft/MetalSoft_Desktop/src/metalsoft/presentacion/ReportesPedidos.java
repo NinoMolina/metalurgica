@@ -11,7 +11,9 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorReportes;
 
@@ -50,6 +52,18 @@ public class ReportesPedidos extends javax.swing.JDialog {
         dccFechaHasta = new com.toedter.calendar.JDateChooser();
         btnCompletoPedidos = new javax.swing.JRadioButton();
         btnPedidosXEstados = new javax.swing.JRadioButton();
+        jLabel25 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte de Pedidos");
@@ -121,11 +135,13 @@ public class ReportesPedidos extends javax.swing.JDialog {
                 .addContainerGap(130, Short.MAX_VALUE)
                 .addComponent(btnReportesClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126))
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCompletoPedidos)
                     .addComponent(btnPedidosXEstados))
@@ -189,6 +205,7 @@ public class ReportesPedidos extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser dccFechaDesde;
     private com.toedter.calendar.JDateChooser dccFechaHasta;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

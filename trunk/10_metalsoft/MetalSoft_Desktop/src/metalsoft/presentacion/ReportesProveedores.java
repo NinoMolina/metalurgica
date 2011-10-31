@@ -11,7 +11,9 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import metalsoft.negocio.gestores.GestorReportes;
 
@@ -50,6 +52,18 @@ public class ReportesProveedores extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         dccFechaDesde = new com.toedter.calendar.JDateChooser();
         dccFechaHasta = new com.toedter.calendar.JDateChooser();
+        jLabel25 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes Proveedores");
@@ -124,19 +138,21 @@ public class ReportesProveedores extends javax.swing.JDialog {
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnProvMayNroCompras)
-                            .addComponent(btnProvMayorCantReclamos)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                            .addComponent(btnProvMayorCantReclamos)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(138, 138, 138)
                         .addComponent(btnReportesClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnProvMayorCantReclamos)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addComponent(btnProvMayNroCompras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,6 +217,7 @@ public class ReportesProveedores extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser dccFechaHasta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
