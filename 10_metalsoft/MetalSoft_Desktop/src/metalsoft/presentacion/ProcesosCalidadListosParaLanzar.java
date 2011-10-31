@@ -64,6 +64,7 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblProcesosDeCalidad.setShowHorizontalLines(false);
         tblProcesosDeCalidad.setShowVerticalLines(false);
+        tblProcesosDeCalidad.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblProcesosDeCalidad.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -198,6 +199,7 @@ private void btnEjecutarProcesoCalidadActionPerformed(java.awt.event.ActionEvent
         gestor.lanzarEjecucionProcesoCalidad(detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad());
         filasProcesosCalidad.remove(tblProcesosDeCalidad.getSelectedRow());
         tblProcesosDeCalidad.updateUI();
+        tblProcesosDeCalidad.packAll();
         /*
          * quitar de las etapas a lanzar del boton de la ventana principal
          */
