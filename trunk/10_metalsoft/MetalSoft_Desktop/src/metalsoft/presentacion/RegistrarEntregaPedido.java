@@ -390,7 +390,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
         dccEntregaReal.setEnabled(false);
 
-        jLabel13.setText("Fecha Req de Cotización:");
+        jLabel13.setText("Fecha Req de Pedido:");
 
         dccFechaReqCotizacion.setEnabled(false);
 
