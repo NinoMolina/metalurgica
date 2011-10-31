@@ -74,6 +74,7 @@ public class ABMProducto extends javax.swing.JDialog {
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         tblDetalleProducto.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnGuardar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
@@ -89,9 +90,7 @@ public class ABMProducto extends javax.swing.JDialog {
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
-
-
-
+        tblDetalleProducto.setHorizontalScrollEnabled(true);
     }
 
     private void addListenerBtnNuevo() {
@@ -489,6 +488,7 @@ public class ABMProducto extends javax.swing.JDialog {
             String desc = txtDesc.getText();
             agregarFila(p.getNombre(), desc, Integer.parseInt(cant), p.getAlto(), p.getAncho(), p.getLargo(), p.getTipoMaterial().getNombre(), idPieza, -1, idProducto);
             tblDetalleProducto.updateUI();
+            tblDetalleProducto.packAll();
         }
 
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
@@ -519,6 +519,7 @@ public class ABMProducto extends javax.swing.JDialog {
             arlDetProdAEliminar.add(view.get(selectedRow));
         }
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
     }//GEN-LAST:event_btnQuitarActionPerformed
 
 //    public void agregarFila(String pieza,String desc,String cant,String dim,String mat,String idPieza)
@@ -583,6 +584,7 @@ public class ABMProducto extends javax.swing.JDialog {
             agregarFila(v);
         }
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
     }
 
     private void setEnableComponents(boolean b) {
