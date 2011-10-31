@@ -95,8 +95,11 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         beanBtnSeleccionarProducto.getBtnSeleccionar().setEnabled(false);
         btnQuitar.setEnabled(false);
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblPedidoCotizacion.updateUI();
+        tblPedidoCotizacion.packAll();
         timer = new Timer();
         bsyBuscar.setVisible(false);
         bsyBuscar1.setVisible(false);
@@ -118,6 +121,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
+        tblDetallePedido.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -127,6 +131,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleProducto.setShowHorizontalLines(false);
         tblDetalleProducto.setShowVerticalLines(false);
+        tblDetalleProducto.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -137,6 +142,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         /* On supprime les traits des lignes et des colonnes */
         tblPedidoCotizacion.setShowHorizontalLines(false);
         tblPedidoCotizacion.setShowVerticalLines(false);
+        tblPedidoCotizacion.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -227,8 +233,11 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         }
 
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
         tblPedidoCotizacion.updateUI();
+        tblPedidoCotizacion.packAll();
 
         txtPedidoCotizacion.setText("");
         lblTelefono.setText("");
@@ -297,6 +306,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
             etapa = null;
 
             tblPedidoCotizacion.updateUI();
+            tblPedidoCotizacion.packAll();
             btnQuitar.setEnabled(true);
             beanBtnGuardar.getBtnGuardar().setEnabled(true);
         } else {
@@ -323,6 +333,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
+        tblDetalleProducto.packAll();
 
         beanBtnSeleccionarPieza.setEnabled(true);
     }
@@ -346,6 +357,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
+        tblDetallePedido.packAll();
         idPedidoSeleccionado = idPed;
         setEnabledComponents(false);
         beanBtnSeleccionarProducto.setEnabled(true);
@@ -910,6 +922,7 @@ public class RegistrarPedidoCotizacionDeTrabajo extends javax.swing.JDialog impl
 
         filasPedidoCotizacion.remove(tblPedidoCotizacion.getSelectedRow());
         tblPedidoCotizacion.updateUI();
+        tblPedidoCotizacion.packAll();
         if (tblPedidoCotizacion.getRowCount() <= 0) {
             btnQuitar.setEnabled(false);
             beanBtnGuardar.getBtnGuardar().setEnabled(false);
