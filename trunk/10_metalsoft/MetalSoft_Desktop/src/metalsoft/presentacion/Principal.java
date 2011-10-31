@@ -71,20 +71,20 @@ public class Principal extends javax.swing.JFrame {
         mapProcesosListosParaLanzar = new HashMap<Long, Detalleplanificacioncalidad>();
 
         Dimension de = Toolkit.getDefaultToolkit().getScreenSize();
-        de.setSize(de.width, de.height - 30);
+        de.setSize(de.width, de.height - 40);
         this.setResizable(false);
         this.setPreferredSize(de);
         this.setMaximumSize(de);
-        
-        
+
+
         System.out.println(this.getPreferredSize());
         System.out.println(this.getMaximumSize());
-        
+
         initComponents();
 
         System.out.println(this.getPreferredSize());
         System.out.println(this.getMaximumSize());
-        
+
         iniciarReloj();
 
         this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
@@ -106,7 +106,7 @@ public class Principal extends javax.swing.JFrame {
         setVisibleComponents(false);
         vtnPrincipal = this;
 
-        
+
     }
 
     public static Principal getVtnPrincipal() {
@@ -147,6 +147,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jScrollPane2 = new javax.swing.JScrollPane();
         pnlImagen = new metalsoft.beans.JPanelBackground();
         jPanelTransparente1 = new metalsoft.beans.JPanelTransparente();
         lblReloj = new javax.swing.JLabel();
@@ -437,6 +438,8 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(new java.awt.Color(240, 240, 240));
 
+        jScrollPane2.setAutoscrolls(true);
+
         pnlImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/metalsoft/presentacion/img/FondoMetalsoft.jpg"))); // NOI18N
 
         jPanelTransparente1.setBackground(new java.awt.Color(153, 255, 153));
@@ -478,7 +481,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanelTransparente1Layout.setVerticalGroup(
             jPanelTransparente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,6 +503,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnCobros.setBackground(new java.awt.Color(255, 255, 255));
         btnCobros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cobros", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnCobros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCobros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCobros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,6 +513,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnPedidos.setBackground(new java.awt.Color(255, 255, 255));
         btnPedidos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -517,6 +522,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnNuevoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Cliente"));
+        btnNuevoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNuevoCliente.setPreferredSize(new java.awt.Dimension(191, 181));
         btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -555,6 +561,7 @@ public class Principal extends javax.swing.JFrame {
         pnlProduccion.setTran(0.1F);
 
         btnEjecutarProduccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Producción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEjecutarProduccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEjecutarProduccion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEjecutarProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,6 +570,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnProduccionEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder("En Producción"));
+        btnProduccionEnEjecucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProduccionEnEjecucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProduccionEnEjecucion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -572,6 +580,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnEtapasAtrasadas.setText("<html><font color=red size=+2></font></html>");
         btnEtapasAtrasadas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas Atrasadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEtapasAtrasadas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEtapasAtrasadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasAtrasadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,6 +590,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnEtapasListasParaLanzar.setText("<html><font color=green size=+2></font></html>");
         btnEtapasListasParaLanzar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Etapas A Ejecutar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnEtapasListasParaLanzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEtapasListasParaLanzar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEtapasListasParaLanzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,6 +626,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cerrar Sesión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -628,6 +639,7 @@ public class Principal extends javax.swing.JFrame {
         pnlCalidad.setTran(0.1F);
 
         btnLanzarProcesoCalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ejecutar Control", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnLanzarProcesoCalidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLanzarProcesoCalidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLanzarProcesoCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,6 +649,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnProcesosCalidadAtrasados.setText("<html><font color=red size=+2></font></html>");
         btnProcesosCalidadAtrasados.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procesos Atrasados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProcesosCalidadAtrasados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProcesosCalidadAtrasados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProcesosCalidadAtrasados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,10 +658,12 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnControlesCalidadEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "En calidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnControlesCalidadEnEjecucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnControlesCalidadEnEjecucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btnProcesosCalidadListosParaLanzar.setText("<html><font color=green size=+2></font></html>");
         btnProcesosCalidadListosParaLanzar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procesos A Ejecutar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnProcesosCalidadListosParaLanzar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProcesosCalidadListosParaLanzar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProcesosCalidadListosParaLanzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -686,6 +701,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnReportes.setBackground(new java.awt.Color(255, 255, 255));
         btnReportes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReportes.setPreferredSize(new java.awt.Dimension(190, 180));
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
@@ -695,6 +711,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnPresupuesto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Presupuesto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnPresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPresupuesto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPresupuesto.setPreferredSize(new java.awt.Dimension(191, 181));
         btnPresupuesto.addActionListener(new java.awt.event.ActionListener() {
@@ -779,31 +796,17 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlRegistrarFinalizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(pnlImagenLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap())
-                                .addGroup(pnlImagenLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnPresupuesto, 0, 0, Short.MAX_VALUE)
-                                    .addContainerGap()))
-                            .addGroup(pnlImagenLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                        .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanelTransparente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1273, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlImagenLayout.createSequentialGroup()
-                        .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(pnlRegistrarFinalizacion1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1273, Short.MAX_VALUE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1273, Short.MAX_VALUE))
-                        .addContainerGap())))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnPresupuesto, 0, 0, Short.MAX_VALUE))
+                            .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanelTransparente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1283, Short.MAX_VALUE)
+                    .addComponent(pnlRegistrarFinalizacion1, javax.swing.GroupLayout.DEFAULT_SIZE, 1283, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1283, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlImagenLayout.setVerticalGroup(
             pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,8 +835,10 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(pnlRegistrarFinalizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setViewportView(pnlImagen);
 
         mnuInicio.setText("Inicio");
 
@@ -1407,11 +1412,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1305, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
 
         pack();
@@ -2248,7 +2253,15 @@ private void btnEtapasAtrasadasActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_btnEtapasAtrasadasActionPerformed
 
 private void btnProduccionEnEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProduccionEnEjecucionActionPerformed
-    // TODO add your handling code here:
+    try {
+        JFrameManager.crearVentana(PlanificacionProduccionEnEjecucion.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnProduccionEnEjecucionActionPerformed
 
 private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
@@ -2437,7 +2450,6 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnLanzarProcesoCalidadActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2468,6 +2480,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem jMenuItem4;
     private metalsoft.beans.JPanelTransparente jPanelTransparente1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblReloj;

@@ -92,7 +92,7 @@ public class JpaUtil {
         return getEntityManager().createNamedQuery(name);
     }
 
-    public static List getEjecucionplanificacionproduccionSegunEstado(long idestado) {
+    public static List<Ejecucionplanificacionproduccion> getEjecucionplanificacionproduccionSegunEstado(long idestado) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT e FROM Ejecucionplanificacionproduccion e"
                 + " WHERE e.estado.idestado = :id";
