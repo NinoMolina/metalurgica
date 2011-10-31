@@ -12,7 +12,9 @@
 package metalsoft.presentacion;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.negocio.rrhh.TipoDocumento;
@@ -63,7 +65,18 @@ public class OlvidarUsuario extends javax.swing.JDialog {
         btnConsultar = new javax.swing.JButton();
         cmbTipoDoc = new javax.swing.JComboBox();
         lblUsuario = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Recuperar Usuario");
@@ -112,13 +125,10 @@ public class OlvidarUsuario extends javax.swing.JDialog {
         lblUsuario.setForeground(new java.awt.Color(204, 204, 255));
         lblUsuario.setText("usuario");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +160,13 @@ public class OlvidarUsuario extends javax.swing.JDialog {
                             .addComponent(txtNroDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                             .addComponent(cmbTipoDoc, 0, 286, Short.MAX_VALUE))))
                 .addGap(56, 56, 56))
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -234,11 +246,11 @@ public class OlvidarUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnConsultar;
     private javax.swing.JComboBox cmbTipoDoc;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
