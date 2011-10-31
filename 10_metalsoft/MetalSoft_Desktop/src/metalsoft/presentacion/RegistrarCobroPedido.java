@@ -52,6 +52,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         gestor = new GestorRegistrarEntregaPedido();
         filasPedidos = gestor.buscarPedidosEntregados();
         tblPedidos.updateUI();
+        tblPedidos.packAll();
         btnRegistrarCobro.setEnabled(false);
     }
 
@@ -62,6 +63,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -71,6 +73,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedidoCotizacion.setShowHorizontalLines(false);
         tblDetallePedidoCotizacion.setShowVerticalLines(false);
+        tblDetallePedidoCotizacion.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetallePedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -453,6 +456,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
+        tblDetallePedidoCotizacion.packAll();
         btnRegistrarCobro.setEnabled(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void limpiarCamposPedido() {
@@ -461,6 +465,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         if (filasDetalle != null) {
             filasDetalle.clear();
             tblDetallePedidoCotizacion.updateUI();
+            tblDetallePedidoCotizacion.packAll();
         }
 
         cmbEstado1.setSelectedIndex(-1);
@@ -534,6 +539,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         pedidoSeleccionado(idPedido);
         filasPedidos = gestor.buscarPedidosEntregados();
         tblPedidos.updateUI();
+        tblPedidos.packAll();
         btnRegistrarCobro.setEnabled(false);
 }//GEN-LAST:event_btnRegistrarCobroActionPerformed
 
