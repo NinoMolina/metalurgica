@@ -180,6 +180,7 @@ public class RegistrarIngresoMateriaPrima extends javax.swing.JDialog {
         int selectedRow = tblDetalleOrden.getSelectedRow();
         filas.remove(selectedRow);
         tblDetalleOrden.updateUI();
+        tblDetalleOrden.packAll();
 }//GEN-LAST:event_btnQuitarActionPerformed
 
     /**
