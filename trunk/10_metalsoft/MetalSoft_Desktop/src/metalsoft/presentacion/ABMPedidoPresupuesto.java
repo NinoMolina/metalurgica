@@ -68,6 +68,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         cargarComboEstado();
         tblDetallePedidoCotizacion.updateUI();
         tblDetallePedidoCotizacion.packAll();
+        jLabel12.setText("Fecha Req. de Pedido: ");
         setEnableComponents(false);
     }
 
