@@ -570,7 +570,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Fecha Req de Cotizaci&#xf3;n:"/>
+                    <Property name="text" type="java.lang.String" value="Fecha Req de Pedido:"/>
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="dccFechaReqCotizacion">
