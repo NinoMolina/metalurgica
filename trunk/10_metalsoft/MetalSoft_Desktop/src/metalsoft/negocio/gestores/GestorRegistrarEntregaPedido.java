@@ -237,9 +237,9 @@ public class GestorRegistrarEntregaPedido {
 //        } catch (MalformedURLException ex) {
 //            Logger.getLogger(GestorRegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        String sourceFile = "D:\\rpt\\RptComprobanteDePago.jasper";
+//        String sourceFile = "D:\\rpt\\RptComprobanteDePago.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -251,13 +251,14 @@ public class GestorRegistrarEntregaPedido {
             long result=guardarComprobanteDePago(id, monto, idformapago, cn);
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptComprobanteDePago.jasper"));
             param.put("ID_COMPROBANTE", new Long(result));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Recibo");
             jviewer.setVisible(true);
             cn.commit();
