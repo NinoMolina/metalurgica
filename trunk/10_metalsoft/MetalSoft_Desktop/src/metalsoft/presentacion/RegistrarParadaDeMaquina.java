@@ -47,6 +47,8 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
         btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
         btnGuardar1.getBtnGuardar().setEnabled(false);
         listaPedidos = gestor.obtenerListaPedidos();
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
         lblnro.setText("...");
     }
 
@@ -183,6 +185,7 @@ public class RegistrarParadaDeMaquina extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
