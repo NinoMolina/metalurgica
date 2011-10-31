@@ -297,6 +297,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         /* On supprime les traits des lignes et des colonnes */
         tblEtapasAtrasadas.setShowHorizontalLines(false);
         tblEtapasAtrasadas.setShowVerticalLines(false);
+        tblEtapasAtrasadas.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblEtapasAtrasadas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
