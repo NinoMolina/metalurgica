@@ -54,7 +54,9 @@ public class RegistrarReclamoProveedor extends javax.swing.JDialog {
         this.tblDetalleReclamo.setEnabled(false);
         tblDetalleReclamo.setModel(new DetalleReclamoTableModel());
         tblDetalleReclamo.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDetalleReclamo.setHorizontalScrollEnabled(true); 
         tblDetalleReclamo.updateUI();
+        tblDetalleReclamo.packAll();
         this.txtMotivo.setEnabled(false);
         txtMotivo.setText("");
     }
@@ -296,6 +298,7 @@ public class RegistrarReclamoProveedor extends javax.swing.JDialog {
                 Logger.getLogger(GenerarSolicitudReclamo.class.getName()).log(Level.SEVERE, null, ex);
             }
             tblDetalleReclamo.updateUI();
+            tblDetalleReclamo.packAll();
             cmbReclamo.setEnabled(false);
             txtMotivo.setText("");
     }//GEN-LAST:event_cmbReclamoActionPerformed
@@ -321,7 +324,7 @@ public class RegistrarReclamoProveedor extends javax.swing.JDialog {
                 < cantidadFilas; i++) {
             filas.remove(0);
             tblDetalleReclamo.updateUI();
-
+            tblDetalleReclamo.packAll();
 
         }
     }
