@@ -64,6 +64,7 @@ public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JDial
         /* On dit de surligner une ligne sur deux */
         tblDetalleTrabajoTercerizado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetalleTrabajoTercerizado.setHorizontalScrollEnabled(true);
         btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
 
     }
@@ -95,6 +96,7 @@ public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JDial
             }
             listaDetalle.get(tblDetalleTrabajoTercerizado.getSelectedRow()).setMontoparcial(monto);
             tblDetalleTrabajoTercerizado.updateUI();
+            tblDetalleTrabajoTercerizado.packAll();
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
             
         } else {
@@ -147,6 +149,7 @@ public class ActualizarMontosDetalleTrabajoTercerizado extends javax.swing.JDial
     public void setListaDetalle(List<Detalletrabajotercerizado> listaDetalle) {
         this.listaDetalle = listaDetalle;
         tblDetalleTrabajoTercerizado.updateUI();
+        tblDetalleTrabajoTercerizado.packAll();
     }
 
     public Trabajotercerizado getTrabajo() {
