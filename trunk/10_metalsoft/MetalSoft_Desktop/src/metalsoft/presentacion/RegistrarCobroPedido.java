@@ -522,11 +522,11 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "El monto de la ingresado supera lo requerido por pagar. Lo que resta por pagar son $" + diferenciaMontos);
+                        JOptionPane.showMessageDialog(this, "El monto ingresado supera lo requerido por pagar. Lo que resta por pagar son $" + diferenciaMontos);
                     }
                 }
             } else {
-                flag = true;
+                flag = false;
             }
 
         } while (flag);
