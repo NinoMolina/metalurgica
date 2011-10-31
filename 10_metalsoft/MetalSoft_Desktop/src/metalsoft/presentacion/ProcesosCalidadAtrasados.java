@@ -278,6 +278,7 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
         /* On supprime les traits des lignes et des colonnes */
         tblProcesosAtrasados.setShowHorizontalLines(false);
         tblProcesosAtrasados.setShowVerticalLines(false);
+        tblProcesosAtrasados.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblProcesosAtrasados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
