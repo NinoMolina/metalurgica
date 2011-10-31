@@ -84,6 +84,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -93,6 +94,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedidoCotizacion.setShowHorizontalLines(false);
         tblDetallePedidoCotizacion.setShowVerticalLines(false);
+        tblDetallePedidoCotizacion.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetallePedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -101,6 +103,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private void buscarPedidosClienteEnArmado() {
         filasPedidos = gestor.buscarPedidosClienteEnArmado(idCliente);
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     /** This method is called from within the constructor to
@@ -614,6 +617,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
         filasDetalle = gestor.buscarDetallePedidoSeleccionado(idPedido);
         tblDetallePedidoCotizacion.updateUI();
+        tblDetallePedidoCotizacion.packAll();
         btnRegistrarEntrega.setEnabled(true);
 
     }//GEN-LAST:event_btnSeleccionarActionPerformed
@@ -711,6 +715,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         setDatosCliente();
         filasPedidos = gestor.buscarPedidosClienteEnArmado(idCliente);
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     private void setDatosCliente() {
@@ -749,6 +754,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         if (filasDetalle != null) {
             filasDetalle.clear();
             tblDetallePedidoCotizacion.updateUI();
+            tblDetallePedidoCotizacion.packAll();
         }
 
         cmbEstado1.setSelectedIndex(-1);
