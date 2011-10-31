@@ -40,6 +40,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
         gestor = new GestorTrabajoTercerizado();
         listaTrabajos = gestor.obtenerTrabajosPresupuestados();
         tblTrabajosTercerizados.updateUI();
+        tblTrabajosTercerizados.packAll();
         addListeners();
         setearTablas();
         btnconfirmar.setEnabled(false);
@@ -94,6 +95,7 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
             lblmontoTotal.setText(String.valueOf(trab.getMontototal()));
             listaDetalle = gestor.buscarDetalleTrabajoTercerizado(trab.getIdtrabajo());
             tblDetalleTrabajoTercerizado.updateUI();
+            tblDetalleTrabajoTercerizado.packAll();
             btnconfirmar.setEnabled(true);
         } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
@@ -381,8 +383,10 @@ public class RegistrarConfirmacionTrabajoTercerizado extends javax.swing.JDialog
                 JOptionPane.showMessageDialog(this, "El trabajo tercerizado se ha cancelado correctamente");
                 listaTrabajos = gestor.obtenerTrabajosPresupuestados();
                 tblTrabajosTercerizados.updateUI();
+                tblTrabajosTercerizados.packAll();
                 listaDetalle.clear();
                 tblDetalleTrabajoTercerizado.updateUI();
+                tblDetalleTrabajoTercerizado.packAll();
                 btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
                 btnconfirmar.setEnabled(false);
 
