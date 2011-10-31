@@ -11,9 +11,11 @@
 package metalsoft.presentacion;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import metalsoft.MetalsoftDispatcher;
@@ -109,7 +111,18 @@ public class AbrirSesion extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         iniciarSesion = new metalsoft.beans.IniciarSesion();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
 
         jLabel2.setText("jLabel2");
 
@@ -127,23 +140,21 @@ public class AbrirSesion extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, 0, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(iniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(iniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -161,8 +172,8 @@ public class AbrirSesion extends javax.swing.JFrame {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.IniciarSesion iniciarSesion;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
     private void addListenerTxt() {
