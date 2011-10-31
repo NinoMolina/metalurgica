@@ -76,6 +76,7 @@ public class ABMMantenimientoPreventivo extends javax.swing.JDialog {
         tblServicios.setShowHorizontalLines(false);
         tblServicios.setShowVerticalLines(false);
         tblServicios.setHighlighters(new UIColorHighlighter(HighlightPredicate.ODD));
+        tblServicios.setHorizontalScrollEnabled(true); 
         InhabilitarComponentes();
         lblduracionMantenimiento.setText("...");
 
@@ -702,6 +703,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
             filasservicios.add(detalle);
             tblServicios.updateUI();
+            tblServicios.packAll();
 
             int sumaTotal = 0;
             for (Detallemantenimientopreventivo de : filasservicios) {
@@ -726,6 +728,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             detalleAgregar.add(detalle);
             filasservicios.add(detalle);
             tblServicios.updateUI();
+            tblServicios.packAll();
             int sumaTotal = 0;
             for (Detallemantenimientopreventivo de : filasservicios) {
                 sumaTotal += de.getDuracion();
@@ -781,6 +784,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if (opcion.equals(EnumOpcionesABM.NUEVO)) {
             filasservicios.remove(tblServicios.getSelectedRow());
             tblServicios.updateUI();
+            tblServicios.packAll();
             if (tblServicios.getRowCount() <= 0) {
                 beanBtnQuitar.getBtnQuitar().setEnabled(false);
             }
@@ -795,6 +799,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             seleccion = filasservicios.get(tblServicios.getSelectedRow());
             filasservicios.remove(seleccion);
             tblServicios.updateUI();
+            tblServicios.packAll();
 
             if (tblServicios.getRowCount() <= 0) {
                 beanBtnQuitar.getBtnQuitar().setEnabled(false);
@@ -868,6 +873,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         setItemComboSeleccionado(cmbMaquina, maq.getIdmaquina());
         filasservicios = gestor.obtenerDetalleDeMantenimiento(String.valueOf(mantenimientop.getIdmantenimientopreventivo()));
         tblServicios.updateUI();
+        tblServicios.packAll();
         txtPeriodo.setText(String.valueOf(mantenimientop.getPeriodo()));
         lblduracionMantenimiento.setText(String.valueOf(mantenimientop.getDuraciontotal()));
         txtfechaMantenimiento.setText(Fecha.parseToString(mantenimientop.getFechamantenimientoprevisto(), "dd/MM/yyyy"));
@@ -935,6 +941,7 @@ private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         detalleAgregar.clear();
         detalleQuitar.clear();
         tblServicios.updateUI();
+        tblServicios.packAll();
     }
 
     private void setItemComboSeleccionado(JComboBox cmb, long id) {
