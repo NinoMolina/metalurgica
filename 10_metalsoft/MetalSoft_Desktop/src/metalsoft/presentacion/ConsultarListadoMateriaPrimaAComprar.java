@@ -57,6 +57,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedido.setShowHorizontalLines(false);
         tblPedido.setShowVerticalLines(false);
+        tblPedido.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -67,6 +68,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblListadoMP.setShowHorizontalLines(false);
         tblListadoMP.setShowVerticalLines(false);
+        tblListadoMP.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblListadoMP.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -93,6 +95,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         }
         filasListadoMP = gestor.buscarListadoMPByPedido(String.valueOf(pedido.getIdpedido()));
         tblListadoMP.updateUI();
+        tblListadoMP.packAll();
     }
 
     private void addListenerBtnSalirr() {
@@ -272,6 +275,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         if (txtPedidoCotizacion.getText().compareTo("") != 0) {
             filasPedidos = gestor.buscarPedidosByNroLIKE(txtPedidoCotizacion.getText());
             tblPedido.updateUI();
+            tblPedido.packAll();
         }
         bsyBuscar1.setVisible(false);
         bsyBuscar1.setBusy(false);
