@@ -71,6 +71,7 @@ public class ConsultarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleMantenimiento.setShowHorizontalLines(false);
         tblDetalleMantenimiento.setShowVerticalLines(false);
+        tblDetalleMantenimiento.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetalleMantenimiento.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -80,6 +81,7 @@ public class ConsultarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMantenimientos.setShowHorizontalLines(false);
         tblMantenimientos.setShowVerticalLines(false);
+        tblMantenimientos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblMantenimientos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -113,6 +115,7 @@ public class ConsultarEnvioMantenimientoCorrectivo extends javax.swing.JDialog {
             dccFechaEnvio.setDate(man.getFechaenviomantenimiento());
             
             tblDetalleMantenimiento.updateUI();
+            tblDetalleMantenimiento.packAll();
         } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
         }
@@ -468,6 +471,7 @@ private void txtNroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
 // TODO add your handling code here:
     listaMantenimientos = gestor.buscarCorrectivosEnviadosPorNro(txtNro.getText());
     tblMantenimientos.updateUI();
+    tblMantenimientos.packAll();
 }//GEN-LAST:event_txtNroKeyReleased
 
 private void rbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFechaActionPerformed
@@ -483,6 +487,7 @@ private void rbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
         listaMantenimientos = gestor.buscarCorrectivosEnviadosEntreFechas(inicio, fin);
         tblMantenimientos.updateUI();
+        tblMantenimientos.packAll();
     }
 }//GEN-LAST:event_rbFechaActionPerformed
 
@@ -492,6 +497,7 @@ private void txtFechaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
     listaMantenimientos = gestor.buscarCorrectivosEnviadosEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
+    tblMantenimientos.packAll();
 }//GEN-LAST:event_txtFechaAltaActionPerformed
 
 private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaBajaActionPerformed
@@ -500,6 +506,7 @@ private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String fin = Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
     listaMantenimientos = gestor.buscarCorrectivosEnviadosEntreFechas(inicio, fin);
     tblMantenimientos.updateUI();
+    tblMantenimientos.packAll();
 }//GEN-LAST:event_txtFechaBajaActionPerformed
 
 private void rbMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMaquinaActionPerformed
@@ -518,6 +525,7 @@ private void cmbmaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if (!nro.equals("-1")) {
             listaMantenimientos = gestor.buscarCorrectivosEnviadosPorMaquina(nro);
             tblMantenimientos.updateUI();
+            tblMantenimientos.packAll();
         }
     }
 }//GEN-LAST:event_cmbmaquinaActionPerformed
@@ -539,6 +547,7 @@ private void cmbProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GE
         if (!nro.equals("-1")) {
             listaMantenimientos = gestor.buscarCorrectivosEnviadosPorProveedor(nro);
             tblMantenimientos.updateUI();
+            tblMantenimientos.packAll();
         }
     }
 }//GEN-LAST:event_cmbProveedoresActionPerformed
