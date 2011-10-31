@@ -59,6 +59,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleFactura.setShowHorizontalLines(false);
         tblDetalleFactura.setShowVerticalLines(false);
+        tblDetalleFactura.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleFactura.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -68,6 +69,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblFacturas.setShowHorizontalLines(false);
         tblFacturas.setShowVerticalLines(false);
+        tblFacturas.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblFacturas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -331,6 +333,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         String fecha = String.valueOf(Fecha.fechaActual());
         filasFactura = gestor.buscarFacturasByFechaEmision(fecha);
         tblFacturas.updateUI();
+        tblFacturas.packAll();
         txtNroFactura.setEnabled(false);
         dccFechaEmision.setEnabled(true);
         dccFechaVencimiento.setEnabled(false);
@@ -346,6 +349,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         if (txtNroFactura.getText().compareTo("") != 0) {
             filasFactura = gestor.buscarFacturasByNroLike(txtNroFactura.getText());
             tblFacturas.updateUI();
+            tblFacturas.packAll();
         }
         bsyBuscar1.setVisible(false);
         bsyBuscar1.setBusy(false);
@@ -354,6 +358,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
     private void rbNroFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNroFacturaActionPerformed
         filasFactura = new LinkedList<Factura>();
         tblFacturas.updateUI();
+        tblFacturas.packAll();
         txtNroFactura.setEnabled(true);
         dccFechaEmision.setEnabled(false);
         dccFechaVencimiento.setEnabled(false);
@@ -365,6 +370,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         String fecha = String.valueOf(Fecha.fechaActual());
         filasFactura = gestor.buscarFacturasByFechaVto(fecha);
         tblFacturas.updateUI();
+        tblFacturas.packAll();
         txtNroFactura.setEnabled(false);
         dccFechaEmision.setEnabled(false);
         dccFechaVencimiento.setEnabled(true);
@@ -381,6 +387,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
             String fecha = String.valueOf(dccFechaEmision.getDate());
             filasFactura = gestor.buscarFacturasByFechaEmision(fecha);
             tblFacturas.updateUI();
+            tblFacturas.packAll();
         }
         bsyBuscar1.setVisible(false);
         bsyBuscar1.setBusy(false);
@@ -393,6 +400,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
             String fecha = String.valueOf(dccFechaEmision.getDate());
             filasFactura = gestor.buscarFacturasByFechaVto(fecha);
             tblFacturas.updateUI();
+            tblFacturas.packAll();
         }
         bsyBuscar1.setVisible(false);
         bsyBuscar1.setBusy(false);
@@ -406,6 +414,7 @@ public class ConsultarFacturas extends javax.swing.JDialog {
         Factura v = filasFactura.get(tblFacturas.getSelectedRow());
         filasDetalle = gestor.buscarDetalleFacturaByFactura(v.getIdfactura());
         tblDetalleFactura.updateUI();
+        tblDetalleFactura.packAll();
         
         for(Detallefactura de : filasDetalle){
             monto+=de.getMontoparcial();
