@@ -46,7 +46,6 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
         super(Principal.getVtnPrincipal());
         initComponents();
         gestor = new GestorLanzarProximoProcesoCalidad();
-        initComponents();
         addListeners();
         setearTablas();
     }

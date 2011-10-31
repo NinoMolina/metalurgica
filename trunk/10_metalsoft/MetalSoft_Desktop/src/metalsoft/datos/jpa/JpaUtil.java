@@ -66,8 +66,13 @@ public class JpaUtil {
     }
 
     public static void main(String arg[]) {
-        BarrioJpaController c = new BarrioJpaController(getEntityManagerFactory());
-        c.findBarrio(1l);
+//        BarrioJpaController c = new BarrioJpaController(getEntityManagerFactory());
+//        c.findBarrio(1l);
+        
+        List<Detalleplanificacionproduccion> lst = getDetalleplanificacionproduccionPorIdPlanificacionProduccion(74L);
+        for (Detalleplanificacionproduccion detalleplanificacionproduccion : lst) {
+            System.out.println(detalleplanificacionproduccion.getId());
+        }
     }
 
     public static List query(String query, Class clase) {
@@ -569,7 +574,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Detallemantenimientocorrectivo> getDetalleMantenimientocorrectivo(String id) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -658,7 +663,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoHastaFechaActual(String fecha) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -672,7 +677,7 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Mantenimientocorrectivo> getMantenimientocorrectivoEnviadoPorFecha(String inicio, String fin) {
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -735,13 +740,13 @@ public class JpaUtil {
             em.close();
         }
     }
-    
+
     public static List<Detallepresupuesto> getDetallePresupuestoByPresupuesto(String nro) {
 
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
                 + "FROM detallepresupuesto dp "
-                + "WHERE dp.idpresupuesto="+nro;
+                + "WHERE dp.idpresupuesto=" + nro;
         try {
             Query q = em.createNativeQuery(sql, Detallepresupuesto.class);
             return q.getResultList();
@@ -754,9 +759,22 @@ public class JpaUtil {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
                 + "FROM proveedor "
-                + "WHERE razonsocial ILIKE '"+text+"%'";
+                + "WHERE razonsocial ILIKE '" + text + "%'";
         try {
             Query q = em.createNativeQuery(sql, metalsoft.datos.jpa.entity.Proveedor.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Detalleplanificacionproduccion> getDetalleplanificacionproduccionPorIdPlanificacionProduccion(Long idplanificacionproduccion) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "SELECT * FROM Detalleplanificacionproduccion e"
+                + " WHERE e.idplanificacionproduccion = " + idplanificacionproduccion
+                + " ORDER BY e.id ASC";
+        try {
+            Query q = em.createNativeQuery(sql, Detalleplanificacionproduccion.class);
             return q.getResultList();
         } finally {
             em.close();

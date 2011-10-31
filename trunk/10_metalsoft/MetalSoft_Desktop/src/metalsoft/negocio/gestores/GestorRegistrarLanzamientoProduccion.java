@@ -41,6 +41,7 @@ import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
 import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Mpasignadaxpiezareal;
+import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Productoreal;
 import metalsoft.negocio.access.AccessFunctions;
@@ -139,7 +140,9 @@ public class GestorRegistrarLanzamientoProduccion {
 
             lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
 
-            lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
+//            lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
+
+            lstDetallePlanificacion = JpaUtil.getDetalleplanificacionproduccionPorIdPlanificacionProduccion(planificacionProduccion.getIdplanificacionproduccion());
 
             DetalleejecucionplanificacionJpaController depController = new DetalleejecucionplanificacionJpaController(JpaUtil.getEntityManagerFactory());
             EjecucionetapaproduccionJpaController eepController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
@@ -152,16 +155,18 @@ public class GestorRegistrarLanzamientoProduccion {
              */
             Map<Long, Integer> mapIndexPiezaReal = new HashMap<Long, Integer>();
             Map<String, Productoreal> mapProductoReal = new HashMap<String, Productoreal>();
+            Map<String, Piezareal> mapProdPiezaXPiezareal = new HashMap<String, Piezareal>();
 
             for (Detalleplanificacionproduccion detalleplanificacionproduccion : lstDetallePlanificacion) {
 
                 Long idProducto = detalleplanificacionproduccion.getIdproducto().getIdproducto();
+                Long idPieza = detalleplanificacionproduccion.getIdpieza().getIdpieza();
                 Integer indexProducto = detalleplanificacionproduccion.getIndexproducto();
-                String key = String.valueOf(idProducto) + String.valueOf(indexProducto);
-
+                String keyProductoMasIndex = String.valueOf(idProducto) + String.valueOf(indexProducto);
+                String keyProdIndexPieza = keyProductoMasIndex + String.valueOf(idPieza);
                 Productoreal productoreal = null;
 
-                if (!mapProductoReal.containsKey(key)) {
+                if (!mapProductoReal.containsKey(keyProductoMasIndex)) {
                     productoreal = new Productoreal();
                     productoreal.setDetalleproductorealList(new ArrayList<Detalleproductoreal>());
                     productoreal.setProducto(detalleplanificacionproduccion.getIdproducto());
@@ -170,7 +175,7 @@ public class GestorRegistrarLanzamientoProduccion {
                     Codigodebarra codigodebarra = new Codigodebarra();
                     codigodebarra.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PRODUCTO_REAL, String.valueOf(productoreal.getNroproducto())));
                     productoreal.setCodigobarra(codigodebarra);
-                    mapProductoReal.put(key, productoreal);
+                    mapProductoReal.put(keyProductoMasIndex, productoreal);
                 }
 
                 /*
@@ -194,18 +199,27 @@ public class GestorRegistrarLanzamientoProduccion {
                     if (idMateriaPrima == detallempasignada.getIdmateriaprima().getIdmateriaprima()) {
                         List<Mpasignadaxpiezareal> lstMpasignadaxpiezareal = detallempasignada.getMpasignadaxpiezarealList();
                         Integer index = mapIndexPiezaReal.get(idMateriaPrima);
-                        detalleejecucionplanificacion.setPiezareal(lstMpasignadaxpiezareal.get(index).getIdpiezareal());
-                        mapIndexPiezaReal.put(idMateriaPrima, index + 1);
+                        Piezareal piezareal = null;
+
+                        if (!mapProdPiezaXPiezareal.containsKey(keyProdIndexPieza)) {
+                            piezareal = lstMpasignadaxpiezareal.get(index).getIdpiezareal();
+                            mapProdPiezaXPiezareal.put(keyProdIndexPieza, piezareal);
+                            mapIndexPiezaReal.put(idMateriaPrima, index + 1);
+                        } else {
+                            piezareal = mapProdPiezaXPiezareal.get(keyProdIndexPieza);
+                        }
+                        detalleejecucionplanificacion.setPiezareal(piezareal);
+
                         break forDetallempasignada;
                     }
                 }
 
-                productoreal = mapProductoReal.get(key);
+                productoreal = mapProductoReal.get(keyProductoMasIndex);
                 Detalleproductoreal detalleproductoreal = new Detalleproductoreal();
                 detalleproductoreal.setIdpiezareal(detalleejecucionplanificacion.getPiezareal());
                 detalleproductoreal.setIdproductoreal(productoreal);
                 productoreal.getDetalleproductorealList().add(detalleproductoreal);
-                mapProductoReal.put(key, productoreal);
+                mapProductoReal.put(keyProductoMasIndex, productoreal);
 
                 /*
                  * Creacion ejecucion etapa produccion
@@ -216,21 +230,21 @@ public class GestorRegistrarLanzamientoProduccion {
                 long nroEjecucion = generarNvoNroEjecucionEtapa();
                 ejecucionetapaproduccion.setNroejecucion(nroEjecucion);
                 ejecucionetapaproduccion.setMaquina(detalleplanificacionproduccion.getIdmaquina());
-                
+
                 EstadoejecetapaprodJpaController estadoEjecEtapaController = new EstadoejecetapaprodJpaController(JpaUtil.getEntityManagerFactory());
 
                 Estadoejecetapaprod estadoEjecEtapaProd = null;
 //                boolean etapaEnEjecucion = false;
 //                if (detalleplanificacionproduccion.getOrden() == 1) {
-                    Date fechaActual = Fecha.fechaActualDate();
-                    detalleejecucionplanificacion.setFechainicio(fechaActual);
-                    detalleejecucionplanificacion.setHorainicio(fechaActual);
-                    ejecucionetapaproduccion.setFechainicio(fechaActual);
-                    ejecucionetapaproduccion.setHorainicio(fechaActual);
+                Date fechaActual = Fecha.fechaActualDate();
+                detalleejecucionplanificacion.setFechainicio(fechaActual);
+                detalleejecucionplanificacion.setHorainicio(fechaActual);
+                ejecucionetapaproduccion.setFechainicio(fechaActual);
+                ejecucionetapaproduccion.setHorainicio(fechaActual);
 //                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.ENEJECUCION);
 //                    etapaEnEjecucion = true;
 //                } else {
-                    estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
+                estadoEjecEtapaProd = estadoEjecEtapaController.findEstadoejecetapaprod(IdsEstadoEjecucionEtapaProduccion.GENERADA);
 //                }
                 ejecucionetapaproduccion.setEstado(estadoEjecEtapaProd);
 
@@ -260,13 +274,13 @@ public class GestorRegistrarLanzamientoProduccion {
                 List<Detalleproductoreal> lstDetalle = productoreal.getDetalleproductorealList();
 
                 codigodebarraJpaController.create(productoreal.getCodigobarra());
-                
+
                 productoreal.setDetalleproductorealList(null);
-                
+
                 productorealJpaController.create(productoreal);
-                
+
                 productoreal.setDetalleproductorealList(lstDetalle);
-                
+
                 for (Detalleproductoreal detalleproductoreal : lstDetalle) {
                     detalleproductoreal.setIdproductoreal(productoreal);
                     detalleproductorealJpaController.create(detalleproductoreal);

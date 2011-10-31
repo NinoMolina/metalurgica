@@ -1857,7 +1857,7 @@ private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupu
             int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaFin);
 
             if (difDias != 0) {
-                horaFinDisponibilidad = fechaInicio;
+                horaFinDisponibilidad = (Date) fechaInicio.clone();
                 horaFinDisponibilidad.setHours(Jornada.HORA_FIN_JORNADA);
                 horaFinDisponibilidad.setMinutes(0);
                 horaFinDisponibilidad.setSeconds(0);
@@ -1870,7 +1870,7 @@ private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupu
                     Disponibilidadhoraria disphoraria = new Disponibilidadhoraria();
 
                     Calendar calendar = new GregorianCalendar();
-                    calendar.setTime(fechaInicio);
+                    calendar.setTime((Date)fechaInicio.clone());
 
                     Date newFechaInicio = Fecha.addDias(calendar, i + 1).getTime();
                     Date newFechaFin = (Date) newFechaInicio.clone();

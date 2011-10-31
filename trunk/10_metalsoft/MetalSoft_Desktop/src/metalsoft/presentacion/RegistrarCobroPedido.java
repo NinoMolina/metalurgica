@@ -11,8 +11,6 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
@@ -24,10 +22,7 @@ import metalsoft.datos.dbobject.PedidoDB;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorPresupuesto;
 import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
-import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
-import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
-import metalsoft.negocio.gestores.ViewPedidosClienteSegunEstado;
 import metalsoft.negocio.gestores.ViewPresupuestoParaFactura;
 import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
@@ -504,7 +499,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
             Double diferenciaMontos = montoFactura - gestor.montoPagadoPorFactura(idPedido);
             JComboBox combo = new JComboBox();
             JTextField monto = new JTextField();
-            JLabel saldo = new JLabel("$ "+String.valueOf(diferenciaMontos));
+            JLabel saldo = new JLabel("$ " + String.valueOf(diferenciaMontos));
             gestor.obtenerFormasDePago(combo);
             Object[] obj = {"Forma de Pago:", combo, "Saldo:", saldo, "Monto a Cobrar:", monto};
 
