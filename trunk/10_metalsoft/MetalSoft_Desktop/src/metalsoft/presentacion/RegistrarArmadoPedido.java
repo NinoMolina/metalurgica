@@ -118,6 +118,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
                     JOptionPane.showMessageDialog(this, "El armado del Pedido se ha finalizado correctamente");
                     filasDetallePedido.clear();
                     this.tblDetallePedido.updateUI();
+                    this.tblDetallePedido.packAll();
 //                    filasPedidos.remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
                     pedidosSinArmar1.getFilasPedidos().remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
                     pedidosSinArmar1.updateTblPedidos();
@@ -149,6 +150,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();        
+        tblDetallePedido.packAll();
     }
 
     private void setearTablas() {
@@ -158,6 +160,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
+        tblDetallePedido.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
         new UIColorHighlighter(HighlightPredicate.ODD));
@@ -383,6 +386,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
     private void limpiarCampos() {
         this.tblDetallePedido.setEnabled(true);
         this.tblDetallePedido.updateUI();
+        this.tblDetallePedido.packAll();
     }
 
     class DetallePedidoConCalidadTableModel extends AbstractTableModel {
