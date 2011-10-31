@@ -261,6 +261,7 @@ private void rbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
     filasMan=gestor.buscarEntreFechas(inicio, fin);
     tblMantenimiento.updateUI();
+    tblMantenimiento.packAll();
 }//GEN-LAST:event_rbFechaActionPerformed
 
 private void txtFechaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaAltaActionPerformed
@@ -269,6 +270,7 @@ private void txtFechaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
     filasMan=gestor.buscarEntreFechas(inicio, fin);
     tblMantenimiento.updateUI();
+    tblMantenimiento.packAll();
 }//GEN-LAST:event_txtFechaAltaActionPerformed
 
 private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaBajaActionPerformed
@@ -277,12 +279,14 @@ private void txtFechaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String fin=Fecha.parseToString(txtFechaBaja.getDate(), "dd/MM/yyyy");
     filasMan=gestor.buscarEntreFechas(inicio, fin);
     tblMantenimiento.updateUI();
+    tblMantenimiento.packAll();
 }//GEN-LAST:event_txtFechaBajaActionPerformed
 
 private void txtNroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroKeyReleased
 // TODO add your handling code here:
     filasMan=gestor.buscarPorNro(txtNro.getText());
     tblMantenimiento.updateUI();
+    tblMantenimiento.packAll();
 }//GEN-LAST:event_txtNroKeyReleased
 
 private void txtNroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNroActionPerformed
