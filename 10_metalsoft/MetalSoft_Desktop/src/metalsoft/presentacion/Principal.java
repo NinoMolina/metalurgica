@@ -2265,7 +2265,15 @@ private void btnProduccionEnEjecucionActionPerformed(java.awt.event.ActionEvent 
 }//GEN-LAST:event_btnProduccionEnEjecucionActionPerformed
 
 private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-    // TODO add your handling code here:
+    try {
+        JFrameManager.crearVentana(BotonRapidoReportes.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnReportesActionPerformed
 
 private void btnEtapasListasParaLanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEtapasListasParaLanzarActionPerformed
