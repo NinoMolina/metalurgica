@@ -49,6 +49,7 @@ public class RegistrarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         gestor = new GestorMantenimiento();
         listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
         tblMantenimientos.updateUI();
+        tblMantenimientos.packAll();
         cargarComboProveedor();
         addListeners();
         setearTablas();
@@ -63,6 +64,7 @@ public class RegistrarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleMantenimiento.setShowHorizontalLines(false);
         tblDetalleMantenimiento.setShowVerticalLines(false);
+        tblDetalleMantenimiento.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblDetalleMantenimiento.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -72,6 +74,7 @@ public class RegistrarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMantenimientos.setShowHorizontalLines(false);
         tblMantenimientos.setShowVerticalLines(false);
+        tblMantenimientos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblMantenimientos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -102,6 +105,7 @@ public class RegistrarEnvioMantenimientoPreventivo extends javax.swing.JDialog {
             lblPeriodo.setText(String.valueOf(man.getPeriodo() + " días"));
             listaDetalle = gestor.obtenerDetalleDeMantenimiento(String.valueOf(man.getIdmantenimientopreventivo()));
             tblDetalleMantenimiento.updateUI();
+            tblDetalleMantenimiento.packAll();
             btnconfirmar.setEnabled(false);
         } else {
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
@@ -419,8 +423,10 @@ private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             dccFechaEnvio.setDate(Fecha.fechaActualDate());
             listaMantenimientos = gestor.buscarMantenimientosHastaFechaActual();
             tblMantenimientos.updateUI();
+            tblMantenimientos.packAll();
             listaDetalle.clear();
             tblDetalleMantenimiento.updateUI();
+            tblDetalleMantenimiento.packAll();
             btnSeleccionar1.getBtnSeleccionar().setEnabled(false);
             btnconfirmar.setEnabled(false);
 
