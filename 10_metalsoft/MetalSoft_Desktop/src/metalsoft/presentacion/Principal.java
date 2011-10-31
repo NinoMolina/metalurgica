@@ -376,6 +376,7 @@ public class Principal extends javax.swing.JFrame {
         mniPieza = new javax.swing.JMenuItem();
         mniEtapaDeProduccion = new javax.swing.JMenuItem();
         mniProducto = new javax.swing.JMenuItem();
+        mniParadaMaquina = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
@@ -406,6 +407,8 @@ public class Principal extends javax.swing.JFrame {
         mniMantenimientoPreventivo = new javax.swing.JMenuItem();
         mniRegistrarEnvioManPrev = new javax.swing.JMenuItem();
         mniConsultarEnviosManPrev = new javax.swing.JMenuItem();
+        mniEnvioMantenimientoCorrectivo = new javax.swing.JMenuItem();
+        mniConsultarEnviosMantenimientosCorrectivos = new javax.swing.JMenuItem();
         mnuAlmacenamiento = new javax.swing.JMenu();
         mniAsignarMPAProduccion = new javax.swing.JMenuItem();
         mniGenerarSolicitud = new javax.swing.JMenuItem();
@@ -796,7 +799,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlRegistrarFinalizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1059,6 +1062,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuProduccion.add(mniProducto);
 
+        mniParadaMaquina.setText("Registrar Parada de Máquina");
+        mniParadaMaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniParadaMaquinaActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(mniParadaMaquina);
+
         mbrMenu.add(mnuProduccion);
 
         mnuCalidad.setText("Control de Calidad");
@@ -1268,7 +1279,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuMantenimiento.add(mniMantenimientoPreventivo);
 
-        mniRegistrarEnvioManPrev.setText("Enviar Máquina a Mantenimiento Preventivo");
+        mniRegistrarEnvioManPrev.setText("Registrar envío a Mantenimiento Preventivo");
         mniRegistrarEnvioManPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniRegistrarEnvioManPrevActionPerformed(evt);
@@ -1283,6 +1294,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuMantenimiento.add(mniConsultarEnviosManPrev);
+
+        mniEnvioMantenimientoCorrectivo.setText("Registrar envío a Mantenimiento Correctivo");
+        mniEnvioMantenimientoCorrectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEnvioMantenimientoCorrectivoActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniEnvioMantenimientoCorrectivo);
+
+        mniConsultarEnviosMantenimientosCorrectivos.setText("Consultar envíos a Mantenimientos Correctivos");
+        mniConsultarEnviosMantenimientosCorrectivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultarEnviosMantenimientosCorrectivosActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mniConsultarEnviosMantenimientosCorrectivos);
 
         mbrMenu.add(mnuMantenimiento);
 
@@ -2458,6 +2485,43 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnLanzarProcesoCalidadActionPerformed
+
+private void mniParadaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniParadaMaquinaActionPerformed
+    try {
+        JFrameManager.crearVentana(RegistrarParadaDeMaquina.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniParadaMaquinaActionPerformed
+
+private void mniEnvioMantenimientoCorrectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEnvioMantenimientoCorrectivoActionPerformed
+   try {
+        JFrameManager.crearVentana(RegistrarEnvioMantenimientoCorrectivo.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniEnvioMantenimientoCorrectivoActionPerformed
+
+private void mniConsultarEnviosMantenimientosCorrectivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultarEnviosMantenimientosCorrectivosActionPerformed
+    try {
+        JFrameManager.crearVentana(ConsultarEnvioMantenimientoCorrectivo.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniConsultarEnviosMantenimientosCorrectivosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2508,6 +2572,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniConfiguracionJornada;
     private javax.swing.JMenuItem mniConfirmarCotizacionDeTrabajosTercerizados;
     private javax.swing.JMenuItem mniConsultarEnviosManPrev;
+    private javax.swing.JMenuItem mniConsultarEnviosMantenimientosCorrectivos;
     private javax.swing.JMenuItem mniConsultarFacturas;
     private javax.swing.JMenuItem mniConsultarRemitos;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
@@ -2515,6 +2580,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
     private javax.swing.JMenuItem mniEntregaPedido;
+    private javax.swing.JMenuItem mniEnvioMantenimientoCorrectivo;
     private javax.swing.JMenuItem mniEtapaDeProduccion;
     private javax.swing.JMenuItem mniFormaDePago;
     private javax.swing.JMenuItem mniGenerarDetalleEtapas;
@@ -2531,6 +2597,7 @@ private void btnLanzarProcesoCalidadActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniMatriz;
     private javax.swing.JMenuItem mniNuevoUsuario;
     private javax.swing.JMenuItem mniOrdenDeCompra;
+    private javax.swing.JMenuItem mniParadaMaquina;
     private javax.swing.JMenuItem mniPedidoCotizacion;
     private javax.swing.JMenuItem mniPieza;
     private javax.swing.JMenuItem mniProducto;
