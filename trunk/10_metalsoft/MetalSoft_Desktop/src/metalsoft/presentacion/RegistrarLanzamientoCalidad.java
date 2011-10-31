@@ -56,10 +56,12 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true); 
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
         tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     private void setearEnabledComponents(boolean b) {
