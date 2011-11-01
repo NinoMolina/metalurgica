@@ -204,15 +204,18 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEtapasAtrasadasMouseClicked
-    int row = tblEtapasAtrasadas.getSelectedRow();
-    int col = tblEtapasAtrasadas.getSelectedColumn();
+    try {
+        int row = tblEtapasAtrasadas.getSelectedRow();
+        int col = tblEtapasAtrasadas.getSelectedColumn();
 
-    if (row >= 0) {
-        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
-        EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
-        Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = controller.findEjecucionplanificacionproduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
-        txtNovedades.setText(ejecucionplanificacionproduccion.getNovedades());
+        if (row >= 0) {
+            Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
+            EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
+            Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = controller.findEjecucionplanificacionproduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
+            txtNovedades.setText(ejecucionplanificacionproduccion.getNovedades());
 //                    System.out.println(System.getProperty("line.separator").toString());
+        }
+    } catch (Exception ex) {
     }
 }//GEN-LAST:event_tblEtapasAtrasadasMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -297,7 +300,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         /* On supprime les traits des lignes et des colonnes */
         tblEtapasAtrasadas.setShowHorizontalLines(false);
         tblEtapasAtrasadas.setShowVerticalLines(false);
-        tblEtapasAtrasadas.setHorizontalScrollEnabled(true); 
+        tblEtapasAtrasadas.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEtapasAtrasadas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
