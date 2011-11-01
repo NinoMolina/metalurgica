@@ -318,7 +318,7 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         );
 
         btnLanzarCalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
-        btnLanzarCalidad.setText("Lanzar Calidad");
+        btnLanzarCalidad.setText("Ejecutar Calidad");
         btnLanzarCalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLanzarCalidadActionPerformed(evt);
@@ -332,7 +332,7 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnLanzarCalidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
                 .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
@@ -387,7 +387,7 @@ private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
         gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
 
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Ya se ha lanzado el control de calidad!\nLos datos se guardaron CORRECTAMENTE!");
+            JOptionPane.showMessageDialog(this, "Se ha registrado el comienzo del control de calidad!\nLos datos se guardaron CORRECTAMENTE!");
             filasPedidosConProduccionFinalizada.remove(tblPedidos.getSelectedRow());
             setearEnabledComponents(false);
             limpiarCampos();

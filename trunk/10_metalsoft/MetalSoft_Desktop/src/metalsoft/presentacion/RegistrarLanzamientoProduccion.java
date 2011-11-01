@@ -312,7 +312,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         );
 
         btnLanzarProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
-        btnLanzarProduccion.setText("Lanzar Producción");
+        btnLanzarProduccion.setText("Ejecutar Producción");
         btnLanzarProduccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLanzarProduccionActionPerformed(evt);
@@ -328,7 +328,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnLanzarProduccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
                         .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -377,7 +377,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
             long resultPedido = gestor.actualizarEstadoPedido(viewPedidoSeleccionado.getIdpedido());
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Ya se ha lanzado la Producción!\nLos datos se guardaron CORRECTAMENTE!");
+                JOptionPane.showMessageDialog(this, "Se ha registrado el comienzo de la Producción\nLos datos se guardaron CORRECTAMENTE!");
                 filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
                 setearEnabledComponents(false);
                 limpiarCampos();
