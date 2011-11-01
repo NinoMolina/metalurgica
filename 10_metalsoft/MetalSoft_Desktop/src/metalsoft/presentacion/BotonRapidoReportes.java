@@ -92,41 +92,81 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         btnReporteCobro.setText("Reportes Cobros");
         btnReporteCobro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteCobro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteCobro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteCobroActionPerformed(evt);
+            }
+        });
 
         btnReporteCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteCliente.setText("Reportes Clientes");
         btnReporteCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteClienteActionPerformed(evt);
+            }
+        });
 
         btnReporteMateriaPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteMateriaPrima.setText("Reportes Materias Primas");
         btnReporteMateriaPrima.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteMateriaPrima.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMateriaPrimaActionPerformed(evt);
+            }
+        });
 
         btnReporteMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteMantenimiento.setText("Reportes Mantenimientos");
         btnReporteMantenimiento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteMantenimiento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMantenimientoActionPerformed(evt);
+            }
+        });
 
         btnReporteEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteEmpleado.setText("Reportes Empleados");
         btnReporteEmpleado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnReporteTrabajo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteTrabajo.setText("Reportes Trabajos Tercerizados");
         btnReporteTrabajo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteTrabajo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteTrabajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteTrabajoActionPerformed(evt);
+            }
+        });
 
         btnReporteReclamo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteReclamo.setText("Reportes Reclamos");
         btnReporteReclamo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteReclamo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteReclamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteReclamoActionPerformed(evt);
+            }
+        });
 
         btnReporteProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteProveedor.setText("Reportes Proveedores");
         btnReporteProveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteProveedor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteProveedorActionPerformed(evt);
+            }
+        });
 
         btnReporteDefecto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteDefecto.setText("Reportes Defectos");
@@ -142,6 +182,11 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         btnReportePedido.setText("Reportes Pedidos");
         btnReportePedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReportePedido.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReportePedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportePedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,6 +260,114 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReporteAusentismoActionPerformed
+
+    private void btnReporteClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteClienteActionPerformed
+       try {
+            JFrameManager.crearVentana(Reportes.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteClienteActionPerformed
+
+    private void btnReporteCobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteCobroActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesCobros.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteCobroActionPerformed
+
+    private void btnReporteEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteEmpleadoActionPerformed
+       try {
+            JFrameManager.crearVentana(ReportesEmpleados.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteEmpleadoActionPerformed
+
+    private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesMaquinas.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
+
+    private void btnReporteMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMateriaPrimaActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesMateriasPrimas.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteMateriaPrimaActionPerformed
+
+    private void btnReporteTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteTrabajoActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesTrabajosTercerizados.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteTrabajoActionPerformed
+
+    private void btnReporteReclamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteReclamoActionPerformed
+      try {
+            JFrameManager.crearVentana(ReportesReclamos.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteReclamoActionPerformed
+
+    private void btnReporteProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteProveedorActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesProveedores.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteProveedorActionPerformed
+
+    private void btnReportePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportePedidoActionPerformed
+        try {
+            JFrameManager.crearVentana(ReportesPedidos.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReportePedidoActionPerformed
 
     /**
     * @param args the command line arguments
