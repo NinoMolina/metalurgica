@@ -103,6 +103,7 @@ public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
         ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Procesos de Calidad en ejecución");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ejecución de Calidad"));
 
