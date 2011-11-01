@@ -29,10 +29,10 @@ public class GestorReportes {
 
     public void ReporteClientes(){
 
-        String sourceFile = "L:\\rpt\\reporteClientesMetalsoft.jasper";
+//        String sourceFile = "L:\\rpt\\reporteClientesMetalsoft.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -41,7 +41,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteClientesMetalsoft.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
@@ -65,10 +65,10 @@ public class GestorReportes {
 
     public void ReporteClientesMorosos() {
 
-        String sourceFile = "L:\\rpt\\reporteClientesMorosos.jasper";
+//        String sourceFile = "L:\\rpt\\reporteClientesMorosos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -77,7 +77,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteClientesMorosos.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
@@ -102,10 +102,10 @@ public class GestorReportes {
 
     public void ReportePedidos(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reportePedidos.jasper";
+//        String sourceFile = "L:\\rpt\\reportePedidos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -114,7 +114,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reportePedidos.jasper"));
 
             param.put("FECHA_DESDE", (fechaDesde));
             param.put("FECHA_HASTA",(fechaHasta));
@@ -142,10 +142,10 @@ public class GestorReportes {
 
     public void ReporteProveedores(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
+//        String sourceFile = "L:\\rpt\\reporteReclamoProveedores.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -154,7 +154,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteReclamoProveedores.jasper"));
 
             param.put("FECHA_DESDE", (fechaDesde));
             param.put("FECHA_HASTA",(fechaHasta));
@@ -183,10 +183,10 @@ public class GestorReportes {
 
     public void ReporteEmpresasMetalurgicas(Date fechaDesde, Date fechaHasta) {
 
-    String sourceFile = "L:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
+//    String sourceFile = "L:\\rpt\\reporteReclamoEmpresasMetalurgicas.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -195,7 +195,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteReclamoEmpresasMetalurgicas.jasper"));
 
             param.put("FECHA_DESDE", (fechaDesde));
             param.put("FECHA_HASTA",(fechaHasta));
@@ -238,7 +238,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteAusentismo.jasper"));
 
             param.put("FECHA", (fecha));
 

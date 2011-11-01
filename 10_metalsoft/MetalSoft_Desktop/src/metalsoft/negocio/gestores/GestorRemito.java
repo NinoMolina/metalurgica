@@ -29,10 +29,10 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GestorRemito {
     public void imprimirRemito(long id) {
-        String sourceFile = "D:\\rpt\\RptRemito.jasper";
+//        String sourceFile = "D:\\rpt\\RptRemito.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -41,7 +41,7 @@ public class GestorRemito {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptRemito.jasper"));
 
             param.put("ID_PEDIDO", new Long(id));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
