@@ -84,7 +84,7 @@ GROUP BY df.iddetalle,
 	<field name="calle" class="java.lang.String"/>
 	<field name="numerocalle" class="java.lang.Integer"/>
 	<field name="cuit" class="java.lang.String"/>
-	<field name="iva" class="java.lang.String"/>
+	<field name="iva" class="java.lang.Double"/>
 	<field name="nroremito" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
@@ -94,11 +94,11 @@ GROUP BY df.iddetalle,
 	<field name="cantidadfactura" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="tipofactura" class="java.lang.String"/>
-	<field name="monto" class="java.lang.Boolean"/>
-	<variable name="importe" class="java.lang.Float">
+	<field name="monto" class="java.lang.Double"/>
+	<variable name="importe" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
 	</variable>
-	<variable name="subtotal" class="java.lang.Float" calculation="Sum">
+	<variable name="subtotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Double">
@@ -384,7 +384,7 @@ Fecha de Inicio: 01/04/87]]></text>
 					<text><![CDATA[Cliente:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="77" y="6" width="503" height="20"/>
+					<reportElement x="77" y="6" width="499" height="20"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
