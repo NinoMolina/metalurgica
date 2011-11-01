@@ -27,21 +27,21 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="47" pref="47" max="47" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton1" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton4" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton5" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton6" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton2" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton3" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteAusentismo" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteMateriaPrima" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteMantenimiento" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteEmpleado" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteCobro" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteCliente" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton9" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton10" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton11" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton12" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton8" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="jButton7" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReporteProveedor" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteDefecto" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteProduccion" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReportePedido" linkSize="1" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteReclamo" linkSize="1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <Component id="btnReporteTrabajo" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
@@ -53,33 +53,33 @@
               <Component id="jLabel14" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton12" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteAusentismo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReportePedido" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton11" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteProduccion" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteCliente" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton10" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteDefecto" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteCobro" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton9" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton6" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteProveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteEmpleado" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton8" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton5" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteReclamo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteMantenimiento" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton7" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteTrabajo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btnReporteMateriaPrima" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
@@ -92,7 +92,7 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fondopantallas2.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnReporteAusentismo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -105,8 +105,11 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteAusentismoActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnReporteCobro">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -120,7 +123,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnReporteCliente">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -134,7 +137,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnReporteMateriaPrima">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -148,7 +151,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btnReporteMantenimiento">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -162,7 +165,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btnReporteEmpleado">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -176,7 +179,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
+    <Component class="javax.swing.JButton" name="btnReporteTrabajo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -190,7 +193,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
+    <Component class="javax.swing.JButton" name="btnReporteReclamo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -204,7 +207,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton9">
+    <Component class="javax.swing.JButton" name="btnReporteProveedor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -218,7 +221,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton10">
+    <Component class="javax.swing.JButton" name="btnReporteDefecto">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -232,7 +235,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton11">
+    <Component class="javax.swing.JButton" name="btnReporteProduccion">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
@@ -246,7 +249,7 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton12">
+    <Component class="javax.swing.JButton" name="btnReportePedido">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/canstock7137940.jpg"/>
