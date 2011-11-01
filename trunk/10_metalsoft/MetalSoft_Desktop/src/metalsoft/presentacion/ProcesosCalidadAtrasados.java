@@ -63,7 +63,6 @@ public class ProcesosCalidadAtrasados extends javax.swing.JDialog {
         ProcesosCalidadAtrasados.instance = instance;
     }
 
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -185,17 +184,18 @@ public class ProcesosCalidadAtrasados extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProcesosAtrasadosMouseClicked
-    int row = tblProcesosAtrasados.getSelectedRow();
+    try {
+        int row = tblProcesosAtrasados.getSelectedRow();
 
-    if (row >= 0) {
-        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
-        EjecucionplanificacioncalidadJpaController controller = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
-        Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = controller.findEjecucionplanificacioncalidad(detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion());
-        txtNovedades.setText(ejecucionplanificacioncalidad.getNovedades());
+        if (row >= 0) {
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
+            EjecucionplanificacioncalidadJpaController controller = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+            Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = controller.findEjecucionplanificacioncalidad(detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion());
+            txtNovedades.setText(ejecucionplanificacioncalidad.getNovedades());
+        }
+    } catch (Exception ex) {
     }
 }//GEN-LAST:event_tblProcesosAtrasadosMouseClicked
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnNovedades btnNovedades1;
     private metalsoft.beans.BtnSalirr btnSalirr1;
@@ -278,7 +278,7 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
         /* On supprime les traits des lignes et des colonnes */
         tblProcesosAtrasados.setShowHorizontalLines(false);
         tblProcesosAtrasados.setShowVerticalLines(false);
-        tblProcesosAtrasados.setHorizontalScrollEnabled(true); 
+        tblProcesosAtrasados.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblProcesosAtrasados.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -394,5 +394,4 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
 
         }
     }
-    
 }
