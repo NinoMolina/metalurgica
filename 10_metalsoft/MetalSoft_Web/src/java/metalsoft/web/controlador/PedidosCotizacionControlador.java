@@ -134,14 +134,19 @@ public class PedidosCotizacionControlador {
 
     public String cancelarPedido() {
         EstadopedidoJpaController conPedido = new EstadopedidoJpaController(JpaUtil.getEntityManagerFactory());
-        pedidoVista.getPedido().setEstado(conPedido.findEstadopedido(15L));
+
         Pedido p = pedidoVista.getPedido();
+        p.setEstado(conPedido.findEstadopedido(15L));
         PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
         try {
             controller.edit(p);
             entroAListener = "El Pedido ha sido " + p.getEstado().getNombre();
-            List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
-            pedidoVista.setPedidosVista(new ListDataModel(list));
+            if (sesionVista.isEsCliente()) {
+                this.misPedidos();
+            }
+            if(sesionVista.isEsAdministrador()){
+                this.todosLosPedidos();
+            }
             if (pedidoVista.getPedido().getEstado().getIdestado() == 2 || pedidoVista.getPedido().getEstado().getIdestado() == 1) {
                 pedidoVista.setActivarBotonCancelar(true);
             } else {
