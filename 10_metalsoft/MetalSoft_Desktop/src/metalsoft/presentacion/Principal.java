@@ -424,6 +424,8 @@ public class Principal extends javax.swing.JFrame {
         mniTrabajosTercerizados = new javax.swing.JMenuItem();
         mniEmpleados = new javax.swing.JMenuItem();
         mniMantenimientos = new javax.swing.JMenuItem();
+        mniProducción = new javax.swing.JMenuItem();
+        mniDefectos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -1420,13 +1422,18 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuReportes.add(mniEmpleados);
 
-        mniMantenimientos.setText("Mantenimientos");
         mniMantenimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniMantenimientosActionPerformed(evt);
             }
         });
         mnuReportes.add(mniMantenimientos);
+
+        mniProducción.setText("Producción");
+        mnuReportes.add(mniProducción);
+
+        mniDefectos.setText("Defectos");
+        mnuReportes.add(mniDefectos);
 
         mbrMenu.add(mnuReportes);
 
@@ -2590,6 +2597,7 @@ private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.Action
     private javax.swing.JMenuItem mniConsultarFacturas;
     private javax.swing.JMenuItem mniConsultarRemitos;
     private javax.swing.JMenuItem mniCotizacionTrabajo;
+    private javax.swing.JMenuItem mniDefectos;
     private javax.swing.JMenuItem mniEmpleados;
     private javax.swing.JMenuItem mniEmpresaMantenimiento;
     private javax.swing.JMenuItem mniEmpresaMetalurgica;
@@ -2614,6 +2622,7 @@ private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.Action
     private javax.swing.JMenuItem mniParadaMaquina;
     private javax.swing.JMenuItem mniPedidoCotizacion;
     private javax.swing.JMenuItem mniPieza;
+    private javax.swing.JMenuItem mniProducción;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
     private javax.swing.JMenuItem mniProveedores;
