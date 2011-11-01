@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.dbobject.ClienteDB;
 import metalsoft.datos.dbobject.PedidoDB;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.PedidoJpaController;
+import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.gestores.GestorCliente;
 import metalsoft.negocio.gestores.GestorPedidoCotizacion;
 import metalsoft.negocio.gestores.GestorRegistrarEntregaPedido;
@@ -635,7 +638,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         result = gestor.updatePedido(db);
         int ok = -1;
         int okRemito = -1;
-        ImprimirFacturaOpciones ventana = null;
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
 
@@ -645,16 +647,16 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
                 ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
                 if (ok == JOptionPane.OK_OPTION) {
                     try {
-                        ImprimirFacturaOpciones.setVentana(this);
-                        ventana = (ImprimirFacturaOpciones) JFrameManager.crearVentana(ImprimirFacturaOpciones.class.getName());
+                        ImprimirFacturaOpciones facturaOpciones = new ImprimirFacturaOpciones(this);
+                        facturaOpciones.setVentana(this);
+                        PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
+                        Pedido p= controller.findPedido(idPedido);
+                        facturaOpciones.setTipoFactura(p);
+                        JFrameManager.centrarYMostrarVentana(facturaOpciones);
                         imprimirFactura();
-                    } catch (ClassNotFoundException ex) {
+                    } catch (Exception ex) {
                         Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InstantiationException ex) {
-                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    } 
 
                 }
             }
