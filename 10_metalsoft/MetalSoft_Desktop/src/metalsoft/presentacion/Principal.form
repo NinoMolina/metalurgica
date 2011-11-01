@@ -1260,6 +1260,9 @@
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnControlesCalidadEnEjecucionActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton(){&#xa;&#xa;    @Override&#xa;    public void paint(Graphics g) {&#xa;        try {&#xa;            g.drawImage(ImageIO.read(getClass().getResource(&quot;/img/fEncalidad.png&quot;)), 0, 0, getWidth(), getHeight(), this);&#xa;            setContentAreaFilled(false);&#xa;        } catch (Exception e) {&#xa;        }&#xa;        super.paint(g);&#xa;    }&#xa;}&#xa;"/>
                   </AuxValues>

@@ -4,6 +4,7 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.math.BigInteger;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import java.sql.Connection;
@@ -369,6 +370,7 @@ public class GestorRegistrarLanzamientoProduccion {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("ETAPAS EN EJECUCION - CODIGOS DE BARRA");
             jviewer.setVisible(true);
 

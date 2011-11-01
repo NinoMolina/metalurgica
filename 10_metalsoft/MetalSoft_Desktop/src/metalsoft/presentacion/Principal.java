@@ -663,6 +663,11 @@ public class Principal extends javax.swing.JFrame {
         btnControlesCalidadEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "En calidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnControlesCalidadEnEjecucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnControlesCalidadEnEjecucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnControlesCalidadEnEjecucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnControlesCalidadEnEjecucionActionPerformed(evt);
+            }
+        });
 
         btnProcesosCalidadListosParaLanzar.setText("<html><font color=green size=+2></font></html>");
         btnProcesosCalidadListosParaLanzar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procesos A Ejecutar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -2519,6 +2524,18 @@ private void mniConsultarEnviosMantenimientosCorrectivosActionPerformed(java.awt
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_mniConsultarEnviosMantenimientosCorrectivosActionPerformed
+private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnControlesCalidadEnEjecucionActionPerformed
+    try {
+        JFrameManager.crearVentana(PlanificacionCalidadEnEjecucion.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_btnControlesCalidadEnEjecucionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;

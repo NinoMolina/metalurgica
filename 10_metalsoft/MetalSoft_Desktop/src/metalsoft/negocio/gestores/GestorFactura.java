@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -57,10 +58,10 @@ public class GestorFactura {
 //    }
 
     public void imprimirFactura(long id, double monto) {
-        String sourceFile = "D:\\rpt\\RptFactura.jasper";
+//        String sourceFile = "D:\\rpt\\RptFactura.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -69,7 +70,7 @@ public class GestorFactura {
         try {
             cn = pg.concectGetCn();
             
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptFactura.jasper"));
 
             param.put("ID_PEDIDO", new Long(id));
             param.put("MONTO", new Double(monto));
@@ -78,6 +79,7 @@ public class GestorFactura {
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Factura");
             jviewer.setVisible(true);
 

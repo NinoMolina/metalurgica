@@ -4,9 +4,9 @@
  */
 
 /*
- * PlanificacionProduccionEnEjecucion.java
+ * PlanificacionCalidadEnEjecucion.java
  *
- * Created on 31/10/2011, 18:55:00
+ * Created on 01/11/2011, 14:38:07
  */
 package metalsoft.presentacion;
 
@@ -20,9 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.JpaUtil;
-import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
+import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.negocio.gestores.NumerosAMostrar;
-import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionPedido;
+import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionCalidad;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
@@ -31,14 +31,14 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Nino
  */
-public class PlanificacionProduccionEnEjecucion extends javax.swing.JDialog {
+public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
 
     private JButton btnSeleccionar;
     private JButton btnSalir;
-    private List<Ejecucionplanificacionproduccion> lstEjecucionPlanificacion;
+    private List<Ejecucionplanificacioncalidad> lstEjecucionPlanificacion;
 
-    /** Creates new form PlanificacionProduccionEnEjecucion */
-    public PlanificacionProduccionEnEjecucion() {
+    /** Creates new form PlanificacionCalidadEnEjecucion */
+    public PlanificacionCalidadEnEjecucion() {
         super(Principal.getVtnPrincipal());
         initComponents();
         btnSeleccionar = btnSeleccionar1.getBtnSeleccionar();
@@ -103,9 +103,8 @@ public class PlanificacionProduccionEnEjecucion extends javax.swing.JDialog {
         ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("En Producción\n");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ejecución de Producción"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ejecución de Calidad"));
 
         jScrollPane1.setViewportView(tblEnEjecucion);
 
@@ -326,26 +325,29 @@ public class PlanificacionProduccionEnEjecucion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalirr1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(673, Short.MAX_VALUE)
+                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -425,24 +427,24 @@ public class PlanificacionProduccionEnEjecucion extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una ejecución.");
             return;
         }
-        
-        Ejecucionplanificacionproduccion ep = lstEjecucionPlanificacion.get(tblEnEjecucion.getSelectedRow());
-        
-        lblCliente.setText(ep.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial());
-        lblFechaFinPrevista.setText(Fecha.parseToStringFechaHora(ep.getIdplanificacionproduccion().getFechafinprevista()));
-        lblFechaInicioPrevista.setText(Fecha.parseToStringFechaHora(ep.getIdplanificacionproduccion().getFechainicioprevista()));
+
+        Ejecucionplanificacioncalidad ep = lstEjecucionPlanificacion.get(tblEnEjecucion.getSelectedRow());
+
+        lblCliente.setText(ep.getIdplanificacioncalidad().getPedido().getCliente().getRazonsocial());
+        lblFechaFinPrevista.setText(Fecha.parseToStringFechaHora(ep.getIdplanificacioncalidad().getFechafinprevista()));
+        lblFechaInicioPrevista.setText(Fecha.parseToStringFechaHora(ep.getIdplanificacioncalidad().getFechainicioprevista()));
         lblFechaInicio.setText(Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(ep.getFechainicio(), ep.getHorainicio().getHours(), ep.getHorainicio().getMinutes(), ep.getHorainicio().getSeconds())));
-        lblNroEjecucionPlanificacion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_PLANIFICACION_PRODUCCION, ep.getNroejecucionplanificacion().longValue()));
-        lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, ep.getIdplanificacionproduccion().getPedido().getNropedido()));
-        lblNroPedidoCotizCliente.setText(String.valueOf(ep.getIdplanificacionproduccion().getPedido().getNropedidocotizacioncliente()));
-        lblNroPlanificacion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, ep.getIdplanificacionproduccion().getNroplanificacion().longValue()));
-        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, ep.getIdplanificacionproduccion().getPedido().getPresupuesto().getNropresupuesto().longValue()));
+        lblNroEjecucionPlanificacion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_PLANIFICACION_PRODUCCION, ep.getNroejecucionplanificacioncalidad().longValue()));
+        lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, ep.getIdplanificacioncalidad().getPedido().getNropedido()));
+        lblNroPedidoCotizCliente.setText(String.valueOf(ep.getIdplanificacioncalidad().getPedido().getNropedidocotizacioncliente()));
+        lblNroPlanificacion.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PLANIF_PRODUCCION, ep.getIdplanificacioncalidad().getNroplanificacion().longValue()));
+        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, ep.getIdplanificacioncalidad().getPedido().getPresupuesto().getNropresupuesto().longValue()));
         txtNovedades.setText(ep.getNovedades());
-        cbxEsPedidoWeb.setSelected(ep.getIdplanificacionproduccion().getPedido().getEspedidoweb());
+        cbxEsPedidoWeb.setSelected(ep.getIdplanificacioncalidad().getPedido().getEspedidoweb());
     }
 
     private void buscarEjecucion() {
-        lstEjecucionPlanificacion = JpaUtil.getEjecucionplanificacionproduccionSegunEstado(IdsEstadoEjecucionPlanificacionPedido.ENEJECUCION);
+        lstEjecucionPlanificacion = JpaUtil.getEjecucionplanificacioncalidadSegunEstado(IdsEstadoEjecucionPlanificacionCalidad.ENEJECUCION);
         tblEnEjecucion.updateUI();
         tblEnEjecucion.packAll();
     }
@@ -456,13 +458,13 @@ public class PlanificacionProduccionEnEjecucion extends javax.swing.JDialog {
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            Ejecucionplanificacionproduccion view = lstEjecucionPlanificacion.get(rowIndex);
+            Ejecucionplanificacioncalidad view = lstEjecucionPlanificacion.get(rowIndex);
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_PLANIFICACION_PRODUCCION, view.getNroejecucionplanificacion().longValue());
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_PLANIFICACION_CALIDAD, view.getNroejecucionplanificacioncalidad().longValue());
                 case 1:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getIdplanificacionproduccion().getPedido().getNropedido());
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getIdplanificacioncalidad().getPedido().getNropedido());
                 case 2:
                     Date fecha = (Date) view.getFechainicio().clone();
                     fecha.setHours(view.getHorainicio().getHours());
