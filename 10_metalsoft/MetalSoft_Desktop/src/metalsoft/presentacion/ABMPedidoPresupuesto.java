@@ -66,6 +66,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         bsyBuscarProducto.setVisible(false);
         cargarComboPrioridad();
         cargarComboEstado();
+        tblDetallePedidoCotizacion.setModel(new DetallePedidoCotizacionTableModel());
         tblDetallePedidoCotizacion.updateUI();
         tblDetallePedidoCotizacion.packAll();
         jLabel12.setText("Fecha Req. de Pedido: ");
@@ -1129,10 +1130,10 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
     class DetallePedidoCotizacionTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nro",
-            "Cantidad",
             "Producto",
             "Descripción",
-            "Cant. Piezas"};
+            "Cant. Piezas",
+            "Cantidad"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -1140,15 +1141,15 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return view.getNumeroProducto();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, view.getNumeroProducto());
                 case 1:
-                    return view.getCantidad();
-                case 2:
                     return view.getNombreProducto();
-                case 3:
+                case 2:
                     return view.getDescripcion();
-                case 4:
+                case 3:
                     return view.getCantidadPiezas();
+                case 4:
+                    return view.getCantidad();
                 default:
                     return null;
             }
