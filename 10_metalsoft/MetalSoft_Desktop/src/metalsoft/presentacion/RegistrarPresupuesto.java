@@ -108,7 +108,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         beanBtnGuardar.getBtnGuardar().setEnabled(b);
         btnSeleccionarProveedor.setEnabled(b);
         btnVerDetalle.setEnabled(b);
-        dccFechaEstimadaFinProduccion.setEnabled(b);
+//        dccFechaEstimadaFinProduccion.setEnabled(b);
         dccFechaPresupuesto.setEnabled(b);
         dccFechaVencimiento.setEnabled(b);
     }
@@ -201,7 +201,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         gestor.setFechaPresupuesto(dccFechaPresupuesto.getDate());
         gestor.setFechaVencimientoPresupuesto(dccFechaVencimiento.getDate());
-        gestor.setFechaEstimadaFinProduccion(dccFechaEstimadaFinProduccion.getDate());
+//        gestor.setFechaEstimadaFinProduccion(dccFechaEstimadaFinProduccion.getDate());
         gestor.setMontoTotal(lblTotalACobrar.getText());
         gestor.setProveedoresXMateriaPrima(filasMateriaPrimaXPiezaPresupuesto);
         double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
@@ -312,7 +312,6 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         lblNroPresupuesto = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         lblDuracionTotal = new javax.swing.JLabel();
         lblCostoTotal = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -329,7 +328,6 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         lblHoraJornada = new javax.swing.JLabel();
         dccFechaPresupuesto = new com.toedter.calendar.JDateChooser();
         dccFechaVencimiento = new com.toedter.calendar.JDateChooser();
-        dccFechaEstimadaFinProduccion = new com.toedter.calendar.JDateChooser();
         btnVerDetalle = new javax.swing.JButton();
         jsPorcentaje = new javax.swing.JSpinner();
         jLabel24 = new javax.swing.JLabel();
@@ -366,7 +364,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, beanBtnSeleccionarPedido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -537,8 +535,6 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
 
         jLabel20.setText("DURACIÓN TOTAL:");
 
-        jLabel1.setText("Fecha Estimada Fin Producción:");
-
         lblDuracionTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblDuracionTotal.setText("...");
 
@@ -612,29 +608,22 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                         .add(jLabel11)
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel19)
-                                    .add(jLabel18))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, dccFechaPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblNroPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, dccFechaVencimiento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
-                                .add(jLabel1)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))))
+                        .add(jPanel7Layout.createSequentialGroup()
+                            .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jLabel19)
+                                .add(jLabel18))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, dccFechaPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, lblNroPresupuesto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, dccFechaVencimiento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))))
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel22)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(lblTotalACobrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(309, Short.MAX_VALUE))
+                        .addContainerGap(315, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
-                            .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                         .addContainerGap())
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -647,9 +636,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                                     .add(jPanel7Layout.createSequentialGroup()
                                         .add(lblCostoTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                                         .add(101, 101, 101))
-                                    .add(jPanel7Layout.createSequentialGroup()
-                                        .add(lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))))
+                                    .add(lblDuracionTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)))
                             .add(jPanel7Layout.createSequentialGroup()
                                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jPanel7Layout.createSequentialGroup()
@@ -683,8 +670,11 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                         .add(jsPorcentaje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel6)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 254, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 260, Short.MAX_VALUE)
                         .add(btnVerDetalle)
+                        .addContainerGap())
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel7Layout.setVerticalGroup(
@@ -702,13 +692,9 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel19)
                     .add(dccFechaVencimiento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel1)
-                    .add(dccFechaEstimadaFinProduccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                .add(32, 32, 32)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(18, 18, 18)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel20)
                     .add(lblDuracionTotal)
@@ -779,10 +765,10 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .add(beanBtnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1107, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 1113, Short.MAX_VALUE)
                 .add(beanBtnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .add(jLabel25, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1241, Short.MAX_VALUE)
+            .add(jLabel25, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1247, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -932,7 +918,7 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
         c.add(Calendar.HOUR_OF_DAY, horas);
         c.add(Calendar.DAY_OF_YEAR, dias);
         c = Calculos.calcularFechaFin(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, c);
-        dccFechaEstimadaFinProduccion.setDate(c.getTime());
+//        dccFechaEstimadaFinProduccion.setDate(c.getTime());
     }
 
     private void calcularCostoTotal() {
@@ -1068,10 +1054,8 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarPedido;
     private javax.swing.JButton btnSeleccionarProveedor;
     private javax.swing.JButton btnVerDetalle;
-    private com.toedter.calendar.JDateChooser dccFechaEstimadaFinProduccion;
     private com.toedter.calendar.JDateChooser dccFechaPresupuesto;
     private com.toedter.calendar.JDateChooser dccFechaVencimiento;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
