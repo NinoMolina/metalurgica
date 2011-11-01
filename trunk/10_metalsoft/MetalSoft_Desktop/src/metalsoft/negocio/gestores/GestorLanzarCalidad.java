@@ -4,10 +4,10 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,7 +28,6 @@ import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.controller.PlanificacioncalidadJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Detallempasignada;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
@@ -251,6 +250,7 @@ public class GestorLanzarCalidad {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("PROCESOS DE CALIDAD EN EJECUCION - CODIGOS DE BARRA");
             jviewer.setVisible(true);
 

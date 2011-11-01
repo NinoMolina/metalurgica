@@ -5,18 +5,14 @@
 
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.util.*;
 import java.sql.Connection;
-import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
 
@@ -50,6 +46,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Clientes");
             jviewer.setVisible(true);
 
@@ -85,6 +82,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Clientes Morosos");
             jviewer.setVisible(true);
 
@@ -124,6 +122,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Pedidos");
             jviewer.setVisible(true);
 
@@ -163,6 +162,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Proveedores");
             jviewer.setVisible(true);
 
@@ -203,6 +203,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Empresas Metalúrgicas");
             jviewer.setVisible(true);
 
@@ -245,6 +246,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Ausentismo");
             jviewer.setVisible(true);
 
@@ -263,10 +265,10 @@ public class GestorReportes {
 
     public void ReportePedidosXEstados(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reportePedidosXEstado.jasper";
+//        String sourceFile = "L:\\rpt\\reportePedidosXEstado.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -275,7 +277,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reportePedidosXEstado.jasper"));
 
             param.put("Fecha_Desde", (fechaDesde));
             param.put("Fecha_Hasta",(fechaHasta));
@@ -283,6 +285,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Estados por Estados");
             jviewer.setVisible(true);
 
@@ -302,10 +305,10 @@ public class GestorReportes {
 
     public void ReporteMateriasPrimas() {
 
-         String sourceFile = "L:\\rpt\\reporteMateriasPrimas.jasper";
+//         String sourceFile = "L:\\rpt\\reporteMateriasPrimas.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -314,11 +317,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteMateriasPrimas.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Materias Primas en Stock");
             jviewer.setVisible(true);
 
@@ -341,10 +345,10 @@ public class GestorReportes {
 
     public void ReporteMateriaPrimaXProveedor(String materiaprima) {
 
-         String sourceFile = "L:\\rpt\\reporteMateriaPrimaXProveedor.jasper";
+//         String sourceFile = "L:\\rpt\\reporteMateriaPrimaXProveedor.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -353,7 +357,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteMateriaPrimaXProveedor.jasper"));
 
             param.put("MATERIA_PRIMA", (materiaprima));
 
@@ -361,6 +365,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Materia Prima por Proveedor");
             jviewer.setVisible(true);
 
@@ -379,10 +384,10 @@ public class GestorReportes {
 
     public void ReporteVolumenReclamoXProveedor() {
 
-        String sourceFile = "L:\\rpt\\reporteVolumenReclamosXProveedor.jasper";
+//        String sourceFile = "L:\\rpt\\reporteVolumenReclamosXProveedor.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -391,11 +396,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteVolumenReclamosXProveedor.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Cantidad de Reclamos por Proveedor");
             jviewer.setVisible(true);
 
@@ -416,10 +422,10 @@ public class GestorReportes {
 
     public void ReporteProveedoresMayorNroCompras(Date fechaDesde, Date fechaHasta) {
 
-         String sourceFile = "L:\\rpt\\reporteProveedorresMayorNroCompras.jasper";
+//         String sourceFile = "L:\\rpt\\reporteProveedorresMayorNroCompras.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -428,7 +434,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteProveedorresMayorNroCompras.jasper"));
 
             param.put("Fecha_Desde", (fechaDesde));
             param.put("Fecha_Hasta",(fechaHasta));
@@ -436,6 +442,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Proveedores con mayor volumen de Compras");
             jviewer.setVisible(true);
 
@@ -455,10 +462,10 @@ public class GestorReportes {
 
     public void ReporteCobros(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reporteCobros.jasper";
+//        String sourceFile = "L:\\rpt\\reporteCobros.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -467,7 +474,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteCobros.jasper"));
 
             param.put("FECHA_DESDE", (fechaDesde));
             param.put("FECHA_HASTA",(fechaHasta));
@@ -475,6 +482,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Cobros");
             jviewer.setVisible(true);
 
@@ -493,10 +501,10 @@ public class GestorReportes {
 
     public void ReporteCobrosXFormaPago(Date fechaDesde, Date fechaHasta) {
 
-         String sourceFile = "L:\\rpt\\reporteCobrosXFormaPago.jasper";
+//         String sourceFile = "L:\\rpt\\reporteCobrosXFormaPago.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -505,7 +513,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteCobrosXFormaPago.jasper"));
 
             param.put("Fecha_Desde", (fechaDesde));
             param.put("Fecha_Hasta",(fechaHasta));
@@ -513,6 +521,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Cobros por Forma de Pago");
             jviewer.setVisible(true);
 
@@ -531,10 +540,10 @@ public class GestorReportes {
 
     public void ReporteVolumenReclamoXEmpresaMetalurgica() {
 
-         String sourceFile = "L:\\rpt\\reporteVolumenReclamosXEmpresaM.jasper";
+//         String sourceFile = "L:\\rpt\\reporteVolumenReclamosXEmpresaM.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -543,11 +552,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteVolumenReclamosXEmpresaM.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Cantidad de Reclamos por Empresa Metalúrgica");
             jviewer.setVisible(true);
 
@@ -566,10 +576,10 @@ public class GestorReportes {
 
     public void ReporteEmpresasMetalurgicasMayorNroCompras(Date fechaDesde, Date fechaHasta) {
 
-        String sourceFile = "L:\\rpt\\reporteEmpresasMetalurgicasMayorNroTrabajos.jasper";
+//        String sourceFile = "L:\\rpt\\reporteEmpresasMetalurgicasMayorNroTrabajos.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -578,7 +588,7 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteEmpresasMetalurgicasMayorNroTrabajos.jasper"));
 
             param.put("Fecha_Desde", (fechaDesde));
             param.put("Fecha_Hasta",(fechaHasta));
@@ -586,6 +596,7 @@ public class GestorReportes {
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Empresas Metalúrgicas con mayor volumen de Trabajos");
             jviewer.setVisible(true);
 
@@ -604,10 +615,10 @@ public class GestorReportes {
 
     public void ReporteEmpleadosCompleto() {
 
-        String sourceFile = "L:\\rpt\\reporteEmpleados.jasper";
+//        String sourceFile = "L:\\rpt\\reporteEmpleados.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -616,11 +627,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteEmpleados.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte Completo de Empleados");
             jviewer.setVisible(true);
 
@@ -639,10 +651,10 @@ public class GestorReportes {
 
     public void ReporteEmpleadosXCargo() {
 
-        String sourceFile = "L:\\rpt\\reporteEmpleadosXCargo.jasper";
+//        String sourceFile = "L:\\rpt\\reporteEmpleadosXCargo.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -651,11 +663,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteEmpleadosXCargo.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte de Empleados por Cargo");
             jviewer.setVisible(true);
 
@@ -675,10 +688,10 @@ public class GestorReportes {
 
     public void ReporteEmpleadosXCategoria() {
 
-        String sourceFile = "L:\\rpt\\reporteEmpleadosXCategoria.jasper";
+//        String sourceFile = "L:\\rpt\\reporteEmpleadosXCategoria.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -687,11 +700,12 @@ public class GestorReportes {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteEmpleadosXCategoria.jasper"));
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Reporte de Empleados por Categoría");
             jviewer.setVisible(true);
 

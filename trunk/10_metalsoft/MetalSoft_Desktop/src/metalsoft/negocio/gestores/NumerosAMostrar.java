@@ -30,7 +30,8 @@ public class NumerosAMostrar {
     public static final int NRO_MANTENIMIENTO_CORRECTIVO = 18;
     public static final int NRO_PLANIF_CALIDAD = 19;
     public static final int NRO_EJECUCION_ETAPA = 20;
-    public static final int NRO_EJECUCION_PLANIFICACION = 21;
+    public static final int NRO_EJECUCION_PLANIFICACION_PRODUCCION = 21;
+    public static final int NRO_EJECUCION_PLANIFICACION_CALIDAD = 22;
 
     public static String getNumeroString(int tiponro, long nro) {
         switch (tiponro) {
@@ -74,8 +75,10 @@ public class NumerosAMostrar {
                 return "PLANCAL-" + String.valueOf(nro);
             case NRO_EJECUCION_ETAPA:
                 return "EJECEP-" + String.valueOf(nro);
-            case NRO_EJECUCION_PLANIFICACION:
-                return "EJECPLA-" + String.valueOf(nro);
+            case NRO_EJECUCION_PLANIFICACION_PRODUCCION:
+                return "EJECPROD-" + String.valueOf(nro);
+            case NRO_EJECUCION_PLANIFICACION_CALIDAD:
+                return "EJECCALI-" + String.valueOf(nro);
             default:
                 return null;
         }

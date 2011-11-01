@@ -5,6 +5,7 @@
 
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ public class GestorRemito {
 
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             jviewer.setTitle("Remito");
             jviewer.setVisible(true);
 
