@@ -151,16 +151,17 @@ public class NuevoPedidoControlador {
                     conDetalle.create(de);
                 }
                 em.getTransaction().commit();
+                
+                nvoPedidoVista.limpiarCampos();
                 nvoPedidoVista.setMensValidacion("El pedido se ha guardado correctamente");
                 nvoPedidoVista.setMostrarMensaje(true);
-                nvoPedidoVista.limpiarCampos();
             } catch (PreexistingEntityException ex) {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(NuevoPedidoControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            return null;
+            return this.irANuevoPedido();
         } else {
             return null;
         }
