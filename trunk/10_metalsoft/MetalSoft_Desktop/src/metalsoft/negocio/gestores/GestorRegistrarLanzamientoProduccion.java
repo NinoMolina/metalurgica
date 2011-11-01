@@ -353,9 +353,9 @@ public class GestorRegistrarLanzamientoProduccion {
 
     private void imprimirInicioEtapasProduccion(List<Long> lstIdsEjecucionEtapasAIniciar) {
 
-        String sourceFile = "D:\\rpt\\RptInicioEjecucionEtapa.jasper";
+//        String sourceFile = "D:\\rpt\\RptInicioEjecucionEtapa.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -364,7 +364,7 @@ public class GestorRegistrarLanzamientoProduccion {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptInicioEjecucionEtapa.jasper"));
             param.put("ID_EJECUCION_ETAPA", lstIdsEjecucionEtapasAIniciar);
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);

@@ -310,9 +310,9 @@ public class GestorPresupuesto {
 //        } catch (MalformedURLException ex) {
 //            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        String sourceFile = "\\rpt\\RptPresupuesto.jasper";
+//        String sourceFile = "\\rpt\\RptPresupuesto.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -333,7 +333,7 @@ public class GestorPresupuesto {
             cn = pg.concectGetCn();
 //            ps=cn.prepareStatement(query);
 //            rs=ps.executeQuery();
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptPresupuesto.jasper"));
             long id = pedidoSeleccionadoDB.getIdpedido();
             param.put("ID_PEDIDO", new Long(id));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);

@@ -233,9 +233,9 @@ public class GestorLanzarCalidad {
 
     private void imprimirInicioProcesoCalidad(List<Long> lstIdsEjecucionProcesosAIniciar) {
 
-        String sourceFile = "D:\\rpt\\RptInicioEjecucionProcesoCalidad.jasper";
+//        String sourceFile = "D:\\rpt\\RptInicioEjecucionProcesoCalidad.jasper";
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -244,7 +244,7 @@ public class GestorLanzarCalidad {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptInicioEjecucionProcesoCalidad.jasper"));
             param.put("ID_EJECUCION_PROCESO", lstIdsEjecucionProcesosAIniciar);
 
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);

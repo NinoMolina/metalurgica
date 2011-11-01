@@ -40,10 +40,10 @@ public class GestorListadoMateriaPrimaAComprar {
         return list;
     }
     public void imprimirFactura(long id) {
-        String sourceFile = "D:\\rpt\\RptListadoMateriaPrimaAcomprar.jasper";
+//        String sourceFile = "D:\\rpt\\RptListadoMateriaPrimaAcomprar.jasper";
 
         PostgreSQLManager pg = new PostgreSQLManager();
-        System.out.println(sourceFile);
+//        System.out.println(sourceFile);
         JasperPrint jasperPrint = null;
         Connection cn = null;
         Map param = new HashMap();
@@ -52,7 +52,7 @@ public class GestorListadoMateriaPrimaAComprar {
         try {
             cn = pg.concectGetCn();
 
-            masterReport = (JasperReport) JRLoader.loadObject(sourceFile);
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptListadoMateriaPrimaAcomprar.jasper"));
 
             param.put("ID_PEDIDO", new Long(id));
 //            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
