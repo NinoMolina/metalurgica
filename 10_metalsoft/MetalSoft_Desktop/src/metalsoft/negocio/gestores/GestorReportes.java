@@ -722,5 +722,17 @@ public class GestorReportes {
         }
     }
 
+    public void ReporteVolumenReclamoXEmpresaMantenimiento() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void ReporteEmpresasMantenimientoMayorNroMantenimientos(Date fechaDesde, Date fechaHasta) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void ReporteMaquinaXTipo() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     
 }
