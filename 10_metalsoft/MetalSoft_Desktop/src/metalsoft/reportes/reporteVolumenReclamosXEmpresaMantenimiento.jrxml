@@ -2,15 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteVolumenReclamosXEmpresaMantenimiento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="189"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select pro.razonsocial, pro.idproveedor, count(*)
-from reclamoproveedor repro, compra c, proveedor pro
-where repro.compra = c.idcompra and c.proveedor = pro.idproveedor
-group by pro.idproveedor, pro.razonsocial]]>
+		<![CDATA[select pmm.razonsocial, pmm.idproveedormantenimiento, count(*)
+from reclamoempresamantenimiento reem, mantenimientopreventivo mp, mantenimientocorrectivo mc, proveedormantenimientomaquina pmm
+where reem.mantenimientopreventivo = mp.idmantenimientopreventivo and reem.mantenimientocorrectivo = mc.idmantenimientocorrectivo and mp.proveedormantenimiento = pmm.idproveedormantenimiento and mc.proveedormantenimiento = pmm.idproveedormantenimiento
+group by pmm.razonsocial, pmm.idproveedormantenimiento]]>
 	</queryString>
 	<field name="razonsocial" class="java.lang.String"/>
-	<field name="idproveedor" class="java.lang.Long"/>
+	<field name="idproveedormantenimiento" class="java.lang.Long"/>
 	<field name="count" class="java.lang.Long"/>
 	<variable name="Total" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{count}]]></variableExpression>
@@ -69,7 +69,7 @@ Construcción de Herramientas en gral.
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
 				<textElement textAlignment="Center">
-					<font size="16" isBold="true" isItalic="true" isUnderline="true"/>
+					<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de Empresas de Mantenimiento con mayor cantidad de Reclamos]]></text>
 			</staticText>
@@ -81,14 +81,14 @@ Construcción de Herramientas en gral.
 				<reportElement x="0" y="10" width="555" height="1" forecolor="#000066"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="11" width="146" height="19" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="0" y="11" width="167" height="19" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Left">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Proveedor]]></text>
+				<text><![CDATA[Empresa de Mantenimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="146" y="11" width="129" height="19" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="167" y="11" width="160" height="19" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -99,25 +99,27 @@ Construcción de Herramientas en gral.
 	<detail>
 		<band height="14" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="275" height="1" forecolor="#000066"/>
+				<reportElement x="0" y="0" width="327" height="1" forecolor="#000066"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement mode="Opaque" x="185" y="0" width="90" height="14" backcolor="#CCFFCC"/>
+				<reportElement x="0" y="1" width="52" height="13"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{count}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{idproveedormantenimiento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="58" y="0" width="127" height="14" backcolor="#CCFFCC"/>
+				<reportElement x="52" y="0" width="115" height="14"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="58" height="13" backcolor="#CCFFCC"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{idproveedor}]]></textFieldExpression>
+				<reportElement x="167" y="0" width="160" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{count}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEmpresasMantenimienotsMayorNroMantenimientos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="426"/>
+	<property name="ireport.y" value="620"/>
 	<parameter name="Fecha_Desde" class="java.util.Date"/>
 	<parameter name="Fecha_Hasta" class="java.util.Date"/>
 	<queryString>
@@ -81,7 +81,7 @@ Construcción de Herramientas en gral.
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Reporte de Empresas Metalúrgicas con mayor volumen de Trabajos]]></text>
+				<text><![CDATA[Reporte de Empresas de Mantenimientos con mayor volumen de Mantenimientos]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -98,11 +98,11 @@ Construcción de Herramientas en gral.
 				<text><![CDATA[Empresas de Mantenimientos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="176" y="56" width="124" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="176" y="56" width="185" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Cantidad de Trabajos]]></text>
+				<text><![CDATA[Cantidad de Mantenimientos]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="16" width="100" height="20"/>
@@ -144,7 +144,7 @@ Construcción de Herramientas en gral.
 	<detail>
 		<band height="17" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="300" height="1" forecolor="#000066"/>
+				<reportElement x="0" y="0" width="361" height="1" forecolor="#000066"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
@@ -155,7 +155,7 @@ Construcción de Herramientas en gral.
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="176" y="1" width="124" height="16" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="176" y="1" width="185" height="16" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression class="java.lang.Long"><![CDATA[$F{count}]]></textFieldExpression>
 			</textField>
@@ -198,11 +198,11 @@ Construcción de Herramientas en gral.
 				</pie3DPlot>
 			</pie3DChart>
 			<staticText>
-				<reportElement mode="Opaque" x="286" y="321" width="177" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
+				<reportElement mode="Opaque" x="257" y="321" width="206" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Cantidad Total de Trabajos:]]></text>
+				<text><![CDATA[Cantidad Total de Mantenimientos:]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="463" y="321" width="92" height="29" forecolor="#000066" backcolor="#CCFFCC"/>
