@@ -18,6 +18,7 @@ import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detallefactura;
 import metalsoft.datos.jpa.entity.Detallemantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Detallemantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Detallempasignada;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detallepresupuesto;
@@ -68,7 +69,7 @@ public class JpaUtil {
     public static void main(String arg[]) {
 //        BarrioJpaController c = new BarrioJpaController(getEntityManagerFactory());
 //        c.findBarrio(1l);
-        
+
         List<Detalleplanificacionproduccion> lst = getDetalleplanificacionproduccionPorIdPlanificacionProduccion(74L);
         for (Detalleplanificacionproduccion detalleplanificacionproduccion : lst) {
             System.out.println(detalleplanificacionproduccion.getId());
@@ -780,16 +781,30 @@ public class JpaUtil {
             em.close();
         }
     }
-    
-    public static Presupuesto getPresupuestoByPedido(String nro) {
+
+    public static Presupuesto getPresupuestoByPedido(long idPedido) {
 
         EntityManager em = JpaUtil.getEntityManager();
-        String sql = "Select * "
-                + "FROM presupuesto p "
-                + "WHERE p.idpresupuesto="+nro;
+        String sql = "Select p.* "
+                + "FROM presupuesto p, pedido pe "
+                + "WHERE p.idpresupuesto = pe.presupuesto "
+                + "AND pe.idpedido = " + idPedido;
         try {
             Query q = em.createNativeQuery(sql, Presupuesto.class);
             return (Presupuesto) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Detallempasignada> getDetallempasignadaPorPlanificacionProduccion(Long idplanificacionproduccion) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "FROM detallempasignada p "
+                + "WHERE p.idplanificacionproduccion=" + idplanificacionproduccion;
+        try {
+            Query q = em.createNativeQuery(sql, Detallempasignada.class);
+            return q.getResultList();
         } finally {
             em.close();
         }

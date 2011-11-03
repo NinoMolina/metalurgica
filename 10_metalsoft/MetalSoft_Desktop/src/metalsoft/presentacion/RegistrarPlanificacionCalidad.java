@@ -154,10 +154,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             ProcesoCalidadNode nodeAnterior = (ProcesoCalidadNode) objAnterior;
 //            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
 //            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
-            Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
+//            Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
 //            System.out.println("Node NvoFin: "+fin);
-            node.setFinEtapa(fin);
-            node.setInicioEtapa(nodeAnterior.getInicioEtapa());
+//            node.setFinEtapa(fin);
+//            node.setInicioEtapa(nodeAnterior.getInicioEtapa());
 //            Date d=null;
 //            if(node.getFinEtapa().getMinutes()!=0){
 //                d=(Date) node.getFinEtapa().clone();
@@ -168,20 +168,37 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 //            else{
 //                d=node.getFinEtapa();
 //            }
-            GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
-            fechaNuevoInicio.setTime(node.getFinEtapa());
-            fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-            fin = recalcularFechaFin(nodeAnterior.getInicioEtapa(), fechaNuevoInicio.getTime(), nodeAnterior.getFinEtapa());
+//            GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+//            fechaNuevoInicio.setTime(node.getFinEtapa());
+//            fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//            fin = recalcularFechaFin(nodeAnterior.getInicioEtapa(), fechaNuevoInicio.getTime(), nodeAnterior.getFinEtapa());
 //            System.out.println("NodeAnterior NvoFin: "+fin);
-            nodeAnterior.setFinEtapa(fin);
-            nodeAnterior.setInicioEtapa(fechaNuevoInicio.getTime());
+//            nodeAnterior.setFinEtapa(fin);
+//            nodeAnterior.setInicioEtapa(fechaNuevoInicio.getTime());
             int indexNode = node.getParent().getIndex(node);
             int indexNodeAnterior = nodeAnterior.getParent().getIndex(nodeAnterior);
+
             PiezaNode parent = (PiezaNode) nodeAnterior.getParent();
+
             parent.getChildren().set(indexNode, nodeAnterior);
             parent.getChildren().set(indexNodeAnterior, node);
+
+            for (int i = indexNode; i < parent.getChildCount(); i++) {
+                ProcesoCalidadNode child = (ProcesoCalidadNode) parent.getChildAt(i);
+                if (child.getEmpleado() != null) {
+                    if (mapAsignacionActualEmpleados.containsKey(child.getEmpleado().getIdempleado())) {
+                        List<ProcesoCalidadNode> lst = mapAsignacionActualEmpleados.get(child.getEmpleado().getIdempleado());
+                        lst.remove(child);
+                    }
+                }
+                child.setEmpleado(null);
+                child.setFinEtapa(null);
+                child.setInicioEtapa(null);
+                child.setMaquina(null);
+            }
         }
         trtDetalleProcProd.updateUI();
+        trtDetalleProcProd.packAll();
     }
 
     private Date recalcularFechaFin(Date inicioActual, Date inicioNuevo, Date fin) {
@@ -211,24 +228,43 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             if (obj instanceof ProcesoCalidadNode && objSiguiente instanceof ProcesoCalidadNode) {
                 ProcesoCalidadNode node = (ProcesoCalidadNode) obj;
                 ProcesoCalidadNode nodeSiguiente = (ProcesoCalidadNode) objSiguiente;
-                Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
+//                Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
 //            System.out.println("Node NvoFin: "+fin);
-                nodeSiguiente.setFinEtapa(fin);
-                nodeSiguiente.setInicioEtapa(node.getInicioEtapa());
-                GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
-                fechaNuevoInicio.setTime(nodeSiguiente.getFinEtapa());
-                fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-                fin = recalcularFechaFin(node.getInicioEtapa(), fechaNuevoInicio.getTime(), node.getFinEtapa());
+//                nodeSiguiente.setFinEtapa(fin);
+//                nodeSiguiente.setInicioEtapa(node.getInicioEtapa());
+//                GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+//                fechaNuevoInicio.setTime(nodeSiguiente.getFinEtapa());
+//                fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//                fin = recalcularFechaFin(node.getInicioEtapa(), fechaNuevoInicio.getTime(), node.getFinEtapa());
 //            System.out.println("NodeAnterior NvoFin: "+fin);
-                node.setFinEtapa(fin);
-                node.setInicioEtapa(fechaNuevoInicio.getTime());
+//                node.setFinEtapa(fin);
+//                node.setInicioEtapa(fechaNuevoInicio.getTime());
+
                 int indexNode = node.getParent().getIndex(node);
                 int indexNodeSiguiente = nodeSiguiente.getParent().getIndex(nodeSiguiente);
+
                 PiezaNode parent = (PiezaNode) nodeSiguiente.getParent();
+
                 parent.getChildren().set(indexNode, nodeSiguiente);
                 parent.getChildren().set(indexNodeSiguiente, node);
+
+                for (int i = indexNodeSiguiente; i < parent.getChildCount(); i++) {
+                    ProcesoCalidadNode child = (ProcesoCalidadNode) parent.getChildAt(i);
+                    if (child.getEmpleado() != null) {
+                        if (mapAsignacionActualEmpleados.containsKey(child.getEmpleado().getIdempleado())) {
+                            List<ProcesoCalidadNode> lst = mapAsignacionActualEmpleados.get(child.getEmpleado().getIdempleado());
+                            lst.remove(child);
+                        }
+                    }
+                    child.setEmpleado(null);
+                    child.setFinEtapa(null);
+                    child.setInicioEtapa(null);
+                    child.setMaquina(null);
+
+                }
             }
             trtDetalleProcProd.updateUI();
+            trtDetalleProcProd.packAll();
         } catch (Exception ex) {
 //            ex.printStackTrace();
         }
@@ -402,7 +438,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
-        tblPedidos.setHorizontalScrollEnabled(true); 
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -412,7 +448,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblEmpleado.setShowHorizontalLines(false);
         tblEmpleado.setShowVerticalLines(false);
-        tblEmpleado.setHorizontalScrollEnabled(true); 
+        tblEmpleado.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEmpleado.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -422,7 +458,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblMaquinas.setShowHorizontalLines(false);
         tblMaquinas.setShowVerticalLines(false);
-        tblMaquinas.setHorizontalScrollEnabled(true); 
+        tblMaquinas.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblMaquinas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -1333,8 +1369,6 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                                 lstSubTasks.add(subTaskActual);
                             }
 
-//                            lstSubTasks.add(subTaskActual);
-
                             if (minDatePieza == null) {
                                 minDatePieza = node.getInicioEtapa();
                             } else {
@@ -1370,7 +1404,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
-        JFreeChart chart = ChartFactory.createGanttChart("Control de Calidad", "Piezas", "Fecha", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createGanttChart("Control de Calidad", "Piezas", "Fecha/Hora", dataset, true, true, false);
         final CategoryPlot plot = (CategoryPlot) chart.getPlot();
         //      plot.getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
         final CategoryItemRenderer renderer = plot.getRenderer();

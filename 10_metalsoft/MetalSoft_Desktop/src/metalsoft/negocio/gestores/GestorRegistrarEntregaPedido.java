@@ -302,7 +302,7 @@ public class GestorRegistrarEntregaPedido {
         long result = -1;
         long resultPedido = -1;
         long resultDetalle = -1;
-        Presupuesto pre=JpaUtil.getPresupuestoByPedido(String.valueOf(idPedido));
+        Presupuesto pre=JpaUtil.getPresupuestoByPedido(idPedido);
         //List<Detallepresupuesto> listDetalle=JpaUtil.getDetallePresupuestoByPresupuesto(String.valueOf(pre.getIdpresupuesto()));
         FacturaDB facturaDB = new FacturaDB();
         PedidoDB ped = AccessPedido.findByIdPedido(idPedido, cn);

@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.gestores.ViewDetallePedidoReal;
 import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
@@ -853,7 +854,7 @@ public class AccessViews {
     public static LinkedList<ViewPresupuestoParaFactura> listDetallePresupuestoParaFactura(long idPedido, Connection cn) {
         ViewPresupuestoParaFactura view = null;
         LinkedList<ViewPresupuestoParaFactura> ll = new LinkedList<ViewPresupuestoParaFactura>();
-        String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido" +
+        String query = "SELECT nroproducto,nombre,descripcion,cantidad,precio,idproducto,iddetalle,idpedido,iddetallepresupuesto" +
                 " FROM viewpresupuestoparafactura" +
                 " WHERE idpedido=?";
         PreparedStatement ps = null;
@@ -872,11 +873,20 @@ public class AccessViews {
                 view.setIdpedido(rs.getLong("idpedido"));
                 view.setNombre(rs.getString("nombre"));
                 view.setNroproducto(rs.getLong("nroproducto"));
+                view.setIddetallepresupuesto(rs.getLong("iddetallepresupuesto"));
                 ll.addLast(view);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ll;
+    }
+    
+    public static void main(String arg[]){
+        try {
+            listDetallePresupuestoParaFactura(57L, new PostgreSQLManager().concectGetCn());
+        } catch (Exception ex) {
+            Logger.getLogger(AccessViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -1062,7 +1062,6 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         @Override
         public String getColumnName(int column) {
             return columnNames[column];
-
         }
     }
 }

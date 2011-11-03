@@ -139,7 +139,8 @@ public class GestorRegistrarLanzamientoProduccion {
             result = ejecucion.getIdejecucion();
 
 
-            lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
+//            lstDetallempasignada = planificacionProduccion.getDetallempasignadaList();
+            lstDetallempasignada = JpaUtil.getDetallempasignadaPorPlanificacionProduccion(planificacionProduccion.getIdplanificacionproduccion());
 
 //            lstDetallePlanificacion = planificacionProduccion.getDetalleplanificacionproduccionList();
 
