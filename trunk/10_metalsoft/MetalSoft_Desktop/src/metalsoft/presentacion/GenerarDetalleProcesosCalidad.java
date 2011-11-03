@@ -962,7 +962,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, view.getNroproceso());
                 case 1:
-                    return view.getNombreaccioncalidad();
+                    return view.getNombreproceso();
                 case 2:
                     return view.getNombreaccioncalidad();
                 case 3:
@@ -1018,7 +1018,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, view.getNroproceso());
                 case 1:
-                    return view.getNombreaccioncalidad();
+                    return view.getNombreproceso();
                 case 2:
                     return view.getNombreaccioncalidad();
                 case 3:

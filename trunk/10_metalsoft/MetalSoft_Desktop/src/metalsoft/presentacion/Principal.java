@@ -745,8 +745,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         txtComunicacion.setColumns(20);
-        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 18));
+        txtComunicacion.setEditable(false);
+        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        txtComunicacion.setLineWrap(true);
         txtComunicacion.setRows(5);
+        txtComunicacion.setWrapStyleWord(true);
         txtComunicacion.setOpaque(false);
         jScrollPane1.setViewportView(txtComunicacion);
 
@@ -2386,7 +2389,8 @@ private void btnEnviarFinalizacionActionPerformed(java.awt.event.ActionEvent evt
     try {
         System.out.println("INFO: Conectando con el servidor...");
         txtComunicacion.append(System.getProperty("line.separator"));
-        txtComunicacion.append("INFO: Conectando con el servidor...");
+        txtComunicacion.append("#########  " + Fecha.parseToStringFechaHora(Fecha.fechaActualDate()) + "  #########");
+        txtComunicacion.append("\nINFO: Conectando con el servidor...");
 
         String codigoBarra = txtCodigoBarras.getText();
 
@@ -2408,19 +2412,19 @@ private void btnEnviarFinalizacionActionPerformed(java.awt.event.ActionEvent evt
         oos = new ObjectOutputStream(cliente.getOutputStream());
         ois = new ObjectInputStream(cliente.getInputStream());
 
-        System.out.println("INFO: Enviando datos");
-        txtComunicacion.append("INFO: Enviando datos");
+        System.out.println("\nINFO: Enviando datos");
+        txtComunicacion.append("\nINFO: Enviando datos");
 
         oos.writeObject(txtCodigoBarras.getText());
 
-        System.out.println("INFO: Recibiendo respuesta");
-        txtComunicacion.append("INFO: Recibiendo respuesta");
+        System.out.println("\nINFO: Recibiendo respuesta");
+        txtComunicacion.append("\nINFO: Recibiendo respuesta");
 
         String respuesta = (String) ois.readObject();
-        txtComunicacion.append("INFO: Respuesta --> " + respuesta);
+        txtComunicacion.append("\nINFO: Respuesta --> " + respuesta);
 
-        System.out.println("INFO: Fin envio de datos");
-        txtComunicacion.append("INFO: Fin envio de datos");
+        System.out.println("\nINFO: Fin envio de datos");
+        txtComunicacion.append("\nINFO: Fin envio de datos");
 
     } catch (UnknownHostException ex) {
         ex.printStackTrace();

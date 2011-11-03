@@ -169,10 +169,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             EtapaProduccionNode nodeAnterior = (EtapaProduccionNode) objAnterior;
 //            System.out.println("Node: "+node.getInicioEtapa()+" "+node.getFinEtapa());
 //            System.out.println("NodeAnterior: "+nodeAnterior.getInicioEtapa()+" "+nodeAnterior.getFinEtapa());
-            Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
+//            Date fin = recalcularFechaFin(node.getInicioEtapa(), nodeAnterior.getInicioEtapa(), node.getFinEtapa());
 //            System.out.println("Node NvoFin: "+fin);
-            node.setFinEtapa(fin);
-            node.setInicioEtapa(nodeAnterior.getInicioEtapa());
+//            node.setFinEtapa(fin);
+//            node.setInicioEtapa(nodeAnterior.getInicioEtapa());
 //            Date d=null;
 //            if(node.getFinEtapa().getMinutes()!=0){
 //                d=(Date) node.getFinEtapa().clone();
@@ -183,20 +183,37 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 //            else{
 //                d=node.getFinEtapa();
 //            }
-            GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
-            fechaNuevoInicio.setTime(node.getFinEtapa());
-            fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-            fin = recalcularFechaFin(nodeAnterior.getInicioEtapa(), fechaNuevoInicio.getTime(), nodeAnterior.getFinEtapa());
+//            GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+//            fechaNuevoInicio.setTime(node.getFinEtapa());
+//            fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//            fin = recalcularFechaFin(nodeAnterior.getInicioEtapa(), fechaNuevoInicio.getTime(), nodeAnterior.getFinEtapa());
 //            System.out.println("NodeAnterior NvoFin: "+fin);
-            nodeAnterior.setFinEtapa(fin);
-            nodeAnterior.setInicioEtapa(fechaNuevoInicio.getTime());
+//            nodeAnterior.setFinEtapa(fin);
+//            nodeAnterior.setInicioEtapa(fechaNuevoInicio.getTime());
             int indexNode = node.getParent().getIndex(node);
             int indexNodeAnterior = nodeAnterior.getParent().getIndex(nodeAnterior);
             PiezaNode parent = (PiezaNode) nodeAnterior.getParent();
+
             parent.getChildren().set(indexNode, nodeAnterior);
             parent.getChildren().set(indexNodeAnterior, node);
+
+            for (int i = indexNode; i < parent.getChildCount(); i++) {
+                EtapaProduccionNode child = (EtapaProduccionNode) parent.getChildAt(i);
+                if (child.getEmpleado() != null) {
+                    if (mapAsignacionActualEmpleados.containsKey(child.getEmpleado().getIdempleado())) {
+                        List<EtapaProduccionNode> lst = mapAsignacionActualEmpleados.get(child.getEmpleado().getIdempleado());
+                        lst.remove(child);
+                    }
+                }
+                child.setEmpleado(null);
+                child.setFinEtapa(null);
+                child.setInicioEtapa(null);
+                child.setMaquina(null);
+            }
+
         }
         trtDetalleProcProd.updateUI();
+        trtDetalleProcProd.packAll();
     }
 
     private Date recalcularFechaFin(Date inicioActual, Date inicioNuevo, Date fin) {
@@ -226,24 +243,42 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             if (obj instanceof EtapaProduccionNode && objSiguiente instanceof EtapaProduccionNode) {
                 EtapaProduccionNode node = (EtapaProduccionNode) obj;
                 EtapaProduccionNode nodeSiguiente = (EtapaProduccionNode) objSiguiente;
-                Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
+//                Date fin = recalcularFechaFin(nodeSiguiente.getInicioEtapa(), node.getInicioEtapa(), nodeSiguiente.getFinEtapa());
 //            System.out.println("Node NvoFin: "+fin);
-                nodeSiguiente.setFinEtapa(fin);
-                nodeSiguiente.setInicioEtapa(node.getInicioEtapa());
-                GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
-                fechaNuevoInicio.setTime(nodeSiguiente.getFinEtapa());
-                fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-                fin = recalcularFechaFin(node.getInicioEtapa(), fechaNuevoInicio.getTime(), node.getFinEtapa());
+//                nodeSiguiente.setFinEtapa(fin);
+//                nodeSiguiente.setInicioEtapa(node.getInicioEtapa());
+//                GregorianCalendar fechaNuevoInicio = new GregorianCalendar();
+//                fechaNuevoInicio.setTime(nodeSiguiente.getFinEtapa());
+//                fechaNuevoInicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
+//                fin = recalcularFechaFin(node.getInicioEtapa(), fechaNuevoInicio.getTime(), node.getFinEtapa());
 //            System.out.println("NodeAnterior NvoFin: "+fin);
-                node.setFinEtapa(fin);
-                node.setInicioEtapa(fechaNuevoInicio.getTime());
+//                node.setFinEtapa(fin);
+//                node.setInicioEtapa(fechaNuevoInicio.getTime());
                 int indexNode = node.getParent().getIndex(node);
                 int indexNodeSiguiente = nodeSiguiente.getParent().getIndex(nodeSiguiente);
+
                 PiezaNode parent = (PiezaNode) nodeSiguiente.getParent();
+
                 parent.getChildren().set(indexNode, nodeSiguiente);
                 parent.getChildren().set(indexNodeSiguiente, node);
+
+                for (int i = indexNodeSiguiente; i < parent.getChildCount(); i++) {
+                    EtapaProduccionNode child = (EtapaProduccionNode) parent.getChildAt(i);
+                    if (child.getEmpleado() != null) {
+                        if (mapAsignacionActualEmpleados.containsKey(child.getEmpleado().getIdempleado())) {
+                            List<EtapaProduccionNode> lst = mapAsignacionActualEmpleados.get(child.getEmpleado().getIdempleado());
+                            lst.remove(child);
+                        }
+                    }
+                    child.setEmpleado(null);
+                    child.setFinEtapa(null);
+                    child.setInicioEtapa(null);
+                    child.setMaquina(null);
+
+                }
             }
             trtDetalleProcProd.updateUI();
+            trtDetalleProcProd.packAll();
         } catch (Exception ex) {
 //            ex.printStackTrace();
         }
@@ -1538,8 +1573,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                                 lstSubTasks.add(subTaskActual);
                             }
 
-//                            lstSubTasks.add(subTaskActual);
-
                             if (minDatePieza == null) {
                                 minDatePieza = node.getInicioEtapa();
                             } else {
@@ -1575,67 +1608,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
-        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Piezas", "Fecha", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createGanttChart("Producción", "Piezas", "Fecha/Hora", dataset, true, true, false);
         final CategoryPlot plot = (CategoryPlot) chart.getPlot();
         //      plot.getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
         final CategoryItemRenderer renderer = plot.getRenderer();
         renderer.setSeriesPaint(0, Color.green);
 
-
-        // //////////
-
-//        StandardCategoryItemLabelGenerator generator = new StandardCategoryItemLabelGenerator() {
-//
-//            public String generateLabel(CategoryDataset dataset,
-//                    int series, int category) {
-//                return dataset.getColumnKey(category).toString();
-////                return "GENERATE LABEL !!!";
-//            }
-//        };
-//        renderer.setItemLabelGenerator(generator);
-//        renderer.setItemLabelsVisible(true);
-//        renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator() {
-//
-//            public String generateToolTip(CategoryDataset dataset,
-//                    int series, int category) {
-//                Comparable com = dataset.getColumnKey(category);
-//                DatasetGroup dg = dataset.getGroup();
-//                return dataset.getColumnKey(category).toString();
-////                return "GENERATE TOOLTIP !!!";
-//            }
-//        });
-
-        // /////////
-
-
-        // ///////////////////////////////////////////////
-
-//        MyGanttRenderer renderer = new MyGanttRenderer();
-//        plot.setRenderer(renderer);
-//
-//        renderer.setBaseItemLabelGenerator(new CategoryItemLabelGenerator() {
-//
-//            public String generateLabel(CategoryDataset dataSet, int series, int categories) {
-//                /* your code to get the label */
-//                return "Label";
-//            }
-//
-//            public String generateColumnLabel(CategoryDataset dataset, int categories) {
-//                return dataset.getColumnKey(categories).toString();
-//            }
-//
-//            public String generateRowLabel(CategoryDataset dataset, int series) {
-//                return dataset.getRowKey(series).toString();
-//            }
-//        });
-//
-//        renderer.setSeriesPaint(0, Color.green);
-//        renderer.setBaseItemLabelsVisible(true);
-//        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE9, TextAnchor.CENTER_LEFT));
-
-        // ///////////////////////////////////////////////
-
-        // add the chart to a panel...
         final ChartPanel chartPanel = new ChartPanel(chart);
 
         chart.setBorderVisible(true);
@@ -1653,28 +1631,28 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     }//GEN-LAST:event_hplObservacionesActionPerformed
 
 private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
-        bsyBusquedaPedido.setVisible(true);
-        bsyBusquedaPedido.setBusy(true);
-        Timer timer = new Timer();
-        if (txtValorBusqueda.getText().compareTo("") != 0) {
-            final RegistrarPlanificacionProduccion ventana = this;
-            timer.schedule(new TimerTask() {
+    bsyBusquedaPedido.setVisible(true);
+    bsyBusquedaPedido.setBusy(true);
+    Timer timer = new Timer();
+    if (txtValorBusqueda.getText().compareTo("") != 0) {
+        final RegistrarPlanificacionProduccion ventana = this;
+        timer.schedule(new TimerTask() {
 
-                @Override
-                public void run() {
+            @Override
+            public void run() {
 //                    hiloBuscarCliente = new HiloBuscarCliente();
 //                    hiloBuscarCliente.setVentana(ventana);
 //                    hiloBuscarCliente.setValor(txtRazonSocial.getText());
 //                    hiloBuscarCliente.start();
-                }
-            }, 1500);
-        } else {
-            bsyBusquedaPedido.setVisible(false);
-            bsyBusquedaPedido.setBusy(false);
-        }
-    
+            }
+        }, 1500);
+    } else {
+        bsyBusquedaPedido.setVisible(false);
+        bsyBusquedaPedido.setBusy(false);
+    }
+
 }//GEN-LAST:event_txtValorBusquedaKeyReleased
-private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
+    private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
@@ -1877,7 +1855,7 @@ private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupu
                     Disponibilidadhoraria disphoraria = new Disponibilidadhoraria();
 
                     Calendar calendar = new GregorianCalendar();
-                    calendar.setTime((Date)fechaInicio.clone());
+                    calendar.setTime((Date) fechaInicio.clone());
 
                     Date newFechaInicio = Fecha.addDias(calendar, i + 1).getTime();
                     Date newFechaFin = (Date) newFechaInicio.clone();
@@ -2120,343 +2098,343 @@ private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupu
         }
 
         return resultado;
-    
 
-}
+
+    }
 
 // End of variables declaration
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
-    private String[] columnNames = {
-        "Nro.Ped",
-        "Nro.Ped.Cli",
-        "Fecha Pedido",
-        "Estado",
-        "Nro.Pres",
-        "Monto",
-        "Nro. Cli",
-        "Cliente"
-    };
+        private String[] columnNames = {
+            "Nro.Ped",
+            "Nro.Ped.Cli",
+            "Fecha Pedido",
+            "Estado",
+            "Nro.Pres",
+            "Monto",
+            "Nro. Cli",
+            "Cliente"
+        };
 
-    public int getRowCount() {
-        if (filasPedidosNoPlanificados != null) {
-            return filasPedidosNoPlanificados.size();
-        } else {
-            return 0;
+        public int getRowCount() {
+            if (filasPedidosNoPlanificados != null) {
+                return filasPedidosNoPlanificados.size();
+            } else {
+                return 0;
+            }
+        }
+
+        public String[] getColumnNames() {
+            return columnNames;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+        }
+
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            ViewPedidoNoPlanificado view = filasPedidosNoPlanificados.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
+                case 1:
+                    return view.getNropedcotcli();
+                case 2:
+                    return Fecha.parseToString(view.getFechapedido());
+                case 3:
+                    return view.getEstado();
+                case 4:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
+                case 5:
+                    return "$ " + Decimales.con2Decimales(view.getMontototal());
+                case 6:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
+                case 7:
+                    return view.getRazonsocial();
+                default:
+                    return null;
+            }
         }
     }
 
-    public String[] getColumnNames() {
-        return columnNames;
-    }
+    class EmpleadoTableModel extends AbstractTableModel {
 
-    @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-    }
+        private String[] columnNames = {
+            "Legajo",
+            "Nombre",
+            "Apellido"
+        };
 
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        ViewPedidoNoPlanificado view = filasPedidosNoPlanificados.get(rowIndex);
-
-        switch (columnIndex) {
-            case 0:
-                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
-            case 1:
-                return view.getNropedcotcli();
-            case 2:
-                return Fecha.parseToString(view.getFechapedido());
-            case 3:
-                return view.getEstado();
-            case 4:
-                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
-            case 5:
-                return "$ " + Decimales.con2Decimales(view.getMontototal());
-            case 6:
-                return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
-            case 7:
-                return view.getRazonsocial();
-            default:
-                return null;
+        public int getRowCount() {
+            if (lstEmpleados != null) {
+                return lstEmpleados.size();
+            } else {
+                return 0;
+            }
         }
-    }
-}
 
-class EmpleadoTableModel extends AbstractTableModel {
+        public String[] getColumnNames() {
+            return columnNames;
+        }
 
-    private String[] columnNames = {
-        "Legajo",
-        "Nombre",
-        "Apellido"
-    };
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+        }
 
-    public int getRowCount() {
-        if (lstEmpleados != null) {
-            return lstEmpleados.size();
-        } else {
-            return 0;
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            metalsoft.datos.jpa.entity.Empleado empleado = lstEmpleados.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return empleado.getLegajo();
+                case 1:
+                    return empleado.getNombre();
+                case 2:
+                    return empleado.getApellido();
+                default:
+                    return null;
+            }
+        }
+
+        private String disponibilidadEmpleado(Empleado e) {
+            if (hashEmpleadoNoDisponible.get(e.getIdempleado()) == null) {
+                return "Disponible";
+            }
+            return "Ocupado";
         }
     }
 
-    public String[] getColumnNames() {
-        return columnNames;
-    }
+    class MaquinaTableModel extends AbstractTableModel {
 
-    @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-    }
+        private String[] columnNames = {
+            "Nombre",
+            "Marca",
+            "Descripcion",
+            "Estado"
+        };
 
-    public int getColumnCount() {
-        return columnNames.length;
-    }
+        public int getRowCount() {
+            if (lstMaquinas != null) {
+                return lstMaquinas.size();
+            } else {
+                return 0;
+            }
+        }
 
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        metalsoft.datos.jpa.entity.Empleado empleado = lstEmpleados.get(rowIndex);
+        public String[] getColumnNames() {
+            return columnNames;
+        }
 
-        switch (columnIndex) {
-            case 0:
-                return empleado.getLegajo();
-            case 1:
-                return empleado.getNombre();
-            case 2:
-                return empleado.getApellido();
-            default:
-                return null;
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+        }
+
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            metalsoft.datos.jpa.entity.Maquina maquina = lstMaquinas.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return maquina.getNombre();
+                case 1:
+                    return maquina.getMarca().getNombre();
+                case 2:
+                    return maquina.getDescripcion();
+                case 3:
+                    return disponibilidadMaquina(maquina);
+                default:
+                    return null;
+            }
+        }
+
+        private String disponibilidadMaquina(Maquina e) {
+            if (hashMaquinasNoDisponible.get(e.getIdmaquina()) == null) {
+                return "Disponible";
+            }
+            return "Ocupado";
         }
     }
 
-    private String disponibilidadEmpleado(Empleado e) {
-        if (hashEmpleadoNoDisponible.get(e.getIdempleado()) == null) {
-            return "Disponible";
+    class ProductoNode extends AbstractMutableTreeTableNode {
+
+        private metalsoft.datos.jpa.entity.Producto producto;
+        private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
+        private Integer indexProducto = 1;
+
+        public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
+            this.producto = producto;
         }
-        return "Ocupado";
-    }
-}
 
-class MaquinaTableModel extends AbstractTableModel {
-
-    private String[] columnNames = {
-        "Nombre",
-        "Marca",
-        "Descripcion",
-        "Estado"
-    };
-
-    public int getRowCount() {
-        if (lstMaquinas != null) {
-            return lstMaquinas.size();
-        } else {
-            return 0;
-        }
-    }
-
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-    }
-
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        metalsoft.datos.jpa.entity.Maquina maquina = lstMaquinas.get(rowIndex);
-
-        switch (columnIndex) {
-            case 0:
-                return maquina.getNombre();
-            case 1:
-                return maquina.getMarca().getNombre();
-            case 2:
-                return maquina.getDescripcion();
-            case 3:
-                return disponibilidadMaquina(maquina);
-            default:
-                return null;
-        }
-    }
-
-    private String disponibilidadMaquina(Maquina e) {
-        if (hashMaquinasNoDisponible.get(e.getIdmaquina()) == null) {
-            return "Disponible";
-        }
-        return "Ocupado";
-    }
-}
-
-class ProductoNode extends AbstractMutableTreeTableNode {
-
-    private metalsoft.datos.jpa.entity.Producto producto;
-    private metalsoft.datos.jpa.entity.Detalleproductopresupuesto detalleProductoPresupuesto;
-    private Integer indexProducto = 1;
-
-    public ProductoNode(metalsoft.datos.jpa.entity.Producto producto) {
-        this.producto = producto;
-    }
-
-    public Object getValueAt(int i) {
-        switch (i) {
-            case 0:
-                return producto.getNombre() + "-" + indexProducto;
-        }
-        return "";
-    }
-
-    public int getColumnCount() {
-        return columnCountTreeTable;
-    }
-
-    public Detalleproductopresupuesto getDetalleProductoPresupuesto() {
-        return detalleProductoPresupuesto;
-    }
-
-    public void setDetalleProductoPresupuesto(Detalleproductopresupuesto detalleProductoPresupuesto) {
-        this.detalleProductoPresupuesto = detalleProductoPresupuesto;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public Integer getIndexProducto() {
-        return indexProducto;
-    }
-
-    public void setIndexProducto(Integer indexProducto) {
-        this.indexProducto = indexProducto;
-    }
-}
-
-class PiezaNode extends AbstractMutableTreeTableNode {
-
-    private metalsoft.datos.jpa.entity.Pieza pieza;
-    private int indexPieza = 1;
-
-    public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
-        this.pieza = pieza;
-    }
-
-    public List<MutableTreeTableNode> getChildren() {
-        return children;
-    }
-
-    public Object getValueAt(int i) {
-        switch (i) {
-            case 0:
-                return pieza.getNombre() + "-" + indexPieza;
-        }
-        return "";
-    }
-
-    public int getIndexPieza() {
-        return indexPieza;
-    }
-
-    public void setIndexPieza(int indexPieza) {
-        this.indexPieza = indexPieza;
-    }
-
-    public int getColumnCount() {
-        return columnCountTreeTable;
-    }
-
-    public metalsoft.datos.jpa.entity.Pieza getPieza() {
-        return pieza;
-    }
-}
-
-class EtapaProduccionNode extends AbstractMutableTreeTableNode {
-
-    private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
-    private metalsoft.datos.jpa.entity.Maquina maquina;
-    private metalsoft.datos.jpa.entity.Empleado empleado;
-    private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
-    private Date inicioEtapa, finEtapa;
-
-    public Date getFinEtapa() {
-        return finEtapa;
-    }
-
-    public void setFinEtapa(Date finEtapa) {
-        this.finEtapa = finEtapa;
-    }
-
-    public Date getInicioEtapa() {
-        return inicioEtapa;
-    }
-
-    public void setInicioEtapa(Date inicioEtapa) {
-        this.inicioEtapa = inicioEtapa;
-    }
-
-    public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-        this.etapa = etapa;
-    }
-
-    public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
-        return detallePiezaPresupuesto;
-    }
-
-    public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
-        this.detallePiezaPresupuesto = detallePiezaPresupuesto;
-    }
-
-    public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
-        return etapa;
-    }
-
-    public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-        this.etapa = etapa;
-    }
-
-    public metalsoft.datos.jpa.entity.Maquina getMaquina() {
-        return maquina;
-    }
-
-    public void setMaquina(metalsoft.datos.jpa.entity.Maquina maquina) {
-        this.maquina = maquina;
-    }
-
-    @Override
-    public Object getValueAt(int i) {
-        try {
+        public Object getValueAt(int i) {
             switch (i) {
                 case 0:
-                    return etapa.getNombre();
-                case 1:
-                    return Fecha.parseToStringFechaHora(getInicioEtapa());
-                case 2:
-                    return Fecha.parseToStringFechaHora(getFinEtapa());
-                case 3:
-                    return empleado.getNombre() + " " + empleado.getApellido();
-                case 4:
-                    return maquina.getNombre();
+                    return producto.getNombre() + "-" + indexProducto;
             }
-        } catch (NullPointerException ex) {
-            return "----";
+            return "";
         }
-        return "";
+
+        public int getColumnCount() {
+            return columnCountTreeTable;
+        }
+
+        public Detalleproductopresupuesto getDetalleProductoPresupuesto() {
+            return detalleProductoPresupuesto;
+        }
+
+        public void setDetalleProductoPresupuesto(Detalleproductopresupuesto detalleProductoPresupuesto) {
+            this.detalleProductoPresupuesto = detalleProductoPresupuesto;
+        }
+
+        public Producto getProducto() {
+            return producto;
+        }
+
+        public void setProducto(Producto producto) {
+            this.producto = producto;
+        }
+
+        public Integer getIndexProducto() {
+            return indexProducto;
+        }
+
+        public void setIndexProducto(Integer indexProducto) {
+            this.indexProducto = indexProducto;
+        }
     }
+
+    class PiezaNode extends AbstractMutableTreeTableNode {
+
+        private metalsoft.datos.jpa.entity.Pieza pieza;
+        private int indexPieza = 1;
+
+        public PiezaNode(metalsoft.datos.jpa.entity.Pieza pieza) {
+            this.pieza = pieza;
+        }
+
+        public List<MutableTreeTableNode> getChildren() {
+            return children;
+        }
+
+        public Object getValueAt(int i) {
+            switch (i) {
+                case 0:
+                    return pieza.getNombre() + "-" + indexPieza;
+            }
+            return "";
+        }
+
+        public int getIndexPieza() {
+            return indexPieza;
+        }
+
+        public void setIndexPieza(int indexPieza) {
+            this.indexPieza = indexPieza;
+        }
+
+        public int getColumnCount() {
+            return columnCountTreeTable;
+        }
+
+        public metalsoft.datos.jpa.entity.Pieza getPieza() {
+            return pieza;
+        }
+    }
+
+    class EtapaProduccionNode extends AbstractMutableTreeTableNode {
+
+        private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
+        private metalsoft.datos.jpa.entity.Maquina maquina;
+        private metalsoft.datos.jpa.entity.Empleado empleado;
+        private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
+        private Date inicioEtapa, finEtapa;
+
+        public Date getFinEtapa() {
+            return finEtapa;
+        }
+
+        public void setFinEtapa(Date finEtapa) {
+            this.finEtapa = finEtapa;
+        }
+
+        public Date getInicioEtapa() {
+            return inicioEtapa;
+        }
+
+        public void setInicioEtapa(Date inicioEtapa) {
+            this.inicioEtapa = inicioEtapa;
+        }
+
+        public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
+            this.etapa = etapa;
+        }
+
+        public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
+            return detallePiezaPresupuesto;
+        }
+
+        public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
+            this.detallePiezaPresupuesto = detallePiezaPresupuesto;
+        }
+
+        public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
+            return empleado;
+        }
+
+        public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
+            this.empleado = empleado;
+        }
+
+        public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
+            return etapa;
+        }
+
+        public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
+            this.etapa = etapa;
+        }
+
+        public metalsoft.datos.jpa.entity.Maquina getMaquina() {
+            return maquina;
+        }
+
+        public void setMaquina(metalsoft.datos.jpa.entity.Maquina maquina) {
+            this.maquina = maquina;
+        }
+
+        @Override
+        public Object getValueAt(int i) {
+            try {
+                switch (i) {
+                    case 0:
+                        return etapa.getNombre();
+                    case 1:
+                        return Fecha.parseToStringFechaHora(getInicioEtapa());
+                    case 2:
+                        return Fecha.parseToStringFechaHora(getFinEtapa());
+                    case 3:
+                        return empleado.getNombre() + " " + empleado.getApellido();
+                    case 4:
+                        return maquina.getNombre();
+                }
+            } catch (NullPointerException ex) {
+                return "----";
+            }
+            return "";
+        }
 
 //        @Override
 //        public void setValueAt(Object aValue, int column) {
@@ -2506,23 +2484,23 @@ class EtapaProduccionNode extends AbstractMutableTreeTableNode {
 //            }
 //
 //        }
-    public int getColumnCount() {
-        return columnCountTreeTable;
-    }
-}
-
-class TablaPlanificacionModel extends DefaultTreeTableModel {
-
-    private TablaPlanificacionModel(DefaultMutableTreeTableNode raiz, ArrayList<String> listColumnNamesTreeTable) {
-        super(raiz, listColumnNamesTreeTable);
-    }
-
-    @Override
-    public boolean isCellEditable(Object node, int column) {
-        switch (column) {
-            default:
-                return super.isCellEditable(node, column);
+        public int getColumnCount() {
+            return columnCountTreeTable;
         }
     }
-}
+
+    class TablaPlanificacionModel extends DefaultTreeTableModel {
+
+        private TablaPlanificacionModel(DefaultMutableTreeTableNode raiz, ArrayList<String> listColumnNamesTreeTable) {
+            super(raiz, listColumnNamesTreeTable);
+        }
+
+        @Override
+        public boolean isCellEditable(Object node, int column) {
+            switch (column) {
+                default:
+                    return super.isCellEditable(node, column);
+            }
+        }
+    }
 }
