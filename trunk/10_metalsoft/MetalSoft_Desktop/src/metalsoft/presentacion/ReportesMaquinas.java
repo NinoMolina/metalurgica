@@ -30,6 +30,7 @@ public class ReportesMaquinas extends javax.swing.JDialog {
     public ReportesMaquinas() {
         super(Principal.getVtnPrincipal());
         initComponents();
+         jPanel1.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -142,6 +143,11 @@ public class ReportesMaquinas extends javax.swing.JDialog {
 
         buttonGroup1.add(btnReporteMaquinaXTipo);
         btnReporteMaquinaXTipo.setText("Reporte de Máquinas por Tipo");
+        btnReporteMaquinaXTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMaquinaXTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +186,8 @@ public class ReportesMaquinas extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnReportesClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnReportesClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,6 +225,10 @@ public class ReportesMaquinas extends javax.swing.JDialog {
     private void btnEMMayNroTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEMMayNroTrabajosActionPerformed
         jPanel1.setVisible(true);
 }//GEN-LAST:event_btnEMMayNroTrabajosActionPerformed
+
+    private void btnReporteMaquinaXTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMaquinaXTipoActionPerformed
+       jPanel1.setVisible(false);
+    }//GEN-LAST:event_btnReporteMaquinaXTipoActionPerformed
 
     /**
      * @param args the command line arguments
