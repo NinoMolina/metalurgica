@@ -723,16 +723,117 @@ public class GestorReportes {
     }
 
     public void ReporteVolumenReclamoXEmpresaMantenimiento() {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+          PostgreSQLManager pg = new PostgreSQLManager();
+//        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteVolumenReclamosXEmpresaMantenimiento.jasper"));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Reporte Cantidad de Reclamos por Empresa de Mantenimiento");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }
 
     public void ReporteEmpresasMantenimientoMayorNroMantenimientos(Date fechaDesde, Date fechaHasta) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+//         String sourceFile = "L:\\rpt\\reporteProveedorresMayorNroCompras.jasper";
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+//       System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteEmpresasMantenimientoMayorNroMantenimientos.jasper"));
+
+            param.put("Fecha_Desde", (fechaDesde));
+            param.put("Fecha_Hasta",(fechaHasta));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Reporte Empresas de Mantenimiento con mayor volumen de Mantenimientos");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
+    
 
     public void ReporteMaquinaXTipo() {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+//        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteMaquinasXTipo.jasper"));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Reporte de Máquinas por Tipo");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
+    
 
     
 }
