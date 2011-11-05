@@ -161,6 +161,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
         boolean result = gestor.guardarPiezaXProcesoCalidad();
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+            buscarPedidosConDetalleMateriaPrima();
             limpiarCampos();
             setEnabledComponents(false);
         } else {

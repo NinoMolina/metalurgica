@@ -172,6 +172,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
         boolean result = gestor.guardarMateriaPrimaPiezaPresupuesto();
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+            buscarPedidosCDetalleProcedimientos();
             limpiarCampos();
             setEnabledComponents(false);
         } else {
