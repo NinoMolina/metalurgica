@@ -87,7 +87,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
-        tblPedidos.setHorizontalScrollEnabled(true); 
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -97,7 +97,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedidoCotizacion.setShowHorizontalLines(false);
         tblDetallePedidoCotizacion.setShowVerticalLines(false);
-        tblDetallePedidoCotizacion.setHorizontalScrollEnabled(true); 
+        tblDetallePedidoCotizacion.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetallePedidoCotizacion.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -564,7 +564,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
             btnSeleccionar.setEnabled(true);
         } catch (Exception ex) {
             Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
@@ -586,11 +586,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
             Combo.setItemComboSeleccionado(cmbPrioridad1, ped.getPrioridad());
         }
 
-//        if (ped.getFechacancelacion() == null) {
-//            dccCancelacion.setDate(null);
-//        } else {
-//            dccCancelacion.setDate(ped.getFechacancelacion());
-//        }
         if (ped.getFechaconfirmacionpedido() == null) {
             dccConfirmacionPedido.setDate(null);
         } else {
@@ -636,7 +631,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         db.setEstado(IdsEstadoPedido.ENTREGADO);
         db.setFechaentregareal(Fecha.parseToDateSQL(Fecha.parseToDate(Fecha.fechaActual())));
         result = gestor.updatePedido(db);
-        int ok = -1;
         int okRemito = -1;
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
@@ -644,25 +638,18 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {
                 imprimirRemito();
-                ok = JOptionPane.showConfirmDialog(this, "Desea Generar la Factura?");
-                if (ok == JOptionPane.OK_OPTION) {
-                    try {
-                        ImprimirFacturaOpciones facturaOpciones = new ImprimirFacturaOpciones(this);
-                        facturaOpciones.setVentana(this);
-                        PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
-                        Pedido p= controller.findPedido(idPedido);
-                        facturaOpciones.setTipoFactura(p);
-                        JFrameManager.centrarYMostrarVentana(facturaOpciones);
-                        imprimirFactura();
-                    } catch (Exception ex) {
-                        Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
-
+                try {
+                    ImprimirFacturaOpciones facturaOpciones = new ImprimirFacturaOpciones(this);
+                    facturaOpciones.setVentana(this);
+                    PedidoJpaController controller = new PedidoJpaController(JpaUtil.getEntityManagerFactory());
+                    Pedido p = controller.findPedido(idPedido);
+                    facturaOpciones.setTipoFactura(p);
+                    JFrameManager.centrarYMostrarVentana(facturaOpciones);
+                    imprimirFactura();
+                } catch (Exception ex) {
+                    Logger.getLogger(RegistrarEntregaPedido.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-
-
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo registrar la entrega del Pedido!");
         }
