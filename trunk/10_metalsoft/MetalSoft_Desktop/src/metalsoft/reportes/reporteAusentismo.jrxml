@@ -34,11 +34,11 @@ WHERE
 		<band height="180" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="275" height="120"/>
-				<imageExpression class="java.lang.String"><![CDATA["L:\\UTN\\5to Año\\Proyecto Final\\Metalurgica\\07_Fotos Metalúrgica\\logo_anima_empresa2.gif"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA[".\\logo_anima_empresa2.gif"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="275" y="0" width="280" height="120"/>
-				<imageExpression class="java.lang.String"><![CDATA["L:\\UTN\\5to Año\\Proyecto Final\\Metalurgica\\07_Fotos Metalúrgica\\logo.animado.gif"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA[".\\logo.animado.gif"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="120" width="275" height="60" forecolor="#003300" backcolor="#ECEC95"/>
