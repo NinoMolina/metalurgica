@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import java.awt.Color;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private EtapadeproduccionDB etapaDeProduccionDB;
     private long idEtapaDeProduccion=-1;
     private EnumOpcionesABM opcion;
+    private long nroEtapa;
     /** Creates new form ABMEtapaDeProduccion */
     public ABMEtapaDeProduccion() {
         super(Principal.getVtnPrincipal());
@@ -46,6 +48,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         cargarComboMaquina();
         cargarComboUnidadMedida();
         setComponentes(false);
+        dccFecha.setEnabled(false);
+        lblFormat.setEnabled(false);
     }
 
     public void etapaSeleccionada() {
@@ -94,6 +98,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         lblNroEtapa = new javax.swing.JLabel();
         dccFecha = new com.toedter.calendar.JDateChooser();
+        lblFormat = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,39 +155,39 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
         lblNroEtapa.setText("...");
 
+        lblFormat.setText("hh:mm:ss");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel7)
+                        .add(8, 8, 8)
+                        .add(cmbUnidadMedida, 0, 333, Short.MAX_VALUE))
+                    .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel8)
-                                    .add(jLabel1)
-                                    .add(jLabel2)))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(10, 10, 10)
-                                .add(jLabel7))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(10, 10, 10)
-                                .add(jLabel6)))
+                            .add(jLabel8)
+                            .add(jLabel1)
+                            .add(jLabel2))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, lblNroEtapa)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cmbUnidadMedida, 0, 357, Short.MAX_VALUE)
-                            .add(txtnombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-                            .add(cmbmaquinas, 0, 357, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, dccFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, txtnombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, cmbmaquinas, 0, 352, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(10, 10, 10)
                         .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
-                        .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(149, 149, 149)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(lblFormat))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(dccFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -199,23 +204,20 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
                     .add(cmbmaquinas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(52, 52, 52)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(jLabel5))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(14, 14, 14)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblFormat))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(cmbUnidadMedida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(11, 11, 11)
+                .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel6)
                     .add(dccFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
@@ -224,39 +226,38 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel9)
+            .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(16, 16, 16)
-                        .add(btnnuevo)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnguardar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnModificar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 179, Short.MAX_VALUE)
-                        .add(btnBuscar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnSalir)))
-                .add(26, 26, 26))
+                .add(16, 16, 16)
+                .add(btnnuevo)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnguardar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnModificar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 153, Short.MAX_VALUE)
+                .add(btnBuscar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnSalir)
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(15, 15, 15)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(26, 26, 26)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnnuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btnguardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btnModificar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,7 +283,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         // TODO add your handling code here:
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
-        long nroEtapa = gestor.generarNvoNroEtapa();
+        nroEtapa = gestor.generarNvoNroEtapa();
         lblNroEtapa.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, nroEtapa));
         dccFecha.setDate(Fecha.fechaActualDate());
         setComponentes(true);
@@ -291,8 +292,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void setComponentes(boolean b)
-    {
-        dccFecha.setEnabled(b);
+    {        
         txtduracion.setEnabled(b);
 //        txthorashombre.setEnabled(b);
 //        txthorasmaquina.setEnabled(b);
@@ -315,11 +315,11 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         EtapaDeProduccion ep=new EtapaDeProduccion();
         ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
-        ep.setFechaCreacion(Fecha.parseToDate(dccFecha.getDateFormatString()));
+        ep.setFechaCreacion(dccFecha.getDate());
 //        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
 //        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
         ep.setNombre(txtnombre.getText());
-        ep.setNumeroEtapa(Long.parseLong(lblNroEtapa.getText()));
+        ep.setNumeroEtapa(nroEtapa);
         long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {   
@@ -390,6 +390,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblFormat;
     private javax.swing.JLabel lblNroEtapa;
     private javax.swing.JTextField txtduracion;
     private javax.swing.JTextField txtnombre;
