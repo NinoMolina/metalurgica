@@ -273,8 +273,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 //        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
         txtnombre.setText(String.valueOf(ep.getNombre()));
         
-        if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
-        else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getMaquina());
+        if(ep.getTipomaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
+        else Combo.setItemComboSeleccionado(cmbmaquinas, ep.getTipomaquina());
         if(ep.getUnidadmedida()<1) Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
         else Combo.setItemComboSeleccionado(cmbUnidadMedida, ep.getUnidadmedida());
     }

@@ -41,6 +41,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Etapadeproduccion.findByDuracionestimada", query = "SELECT e FROM Etapadeproduccion e WHERE e.duracionestimada = :duracionestimada"),
     @NamedQuery(name = "Etapadeproduccion.findByFechacreacion", query = "SELECT e FROM Etapadeproduccion e WHERE e.fechacreacion = :fechacreacion")})
 public class Etapadeproduccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -75,9 +76,9 @@ public class Etapadeproduccion implements Serializable {
     @JoinColumn(name = "unidaddemedida", referencedColumnName = "idunidadmedida")
     @ManyToOne
     private Unidadmedida unidaddemedida;
-    @JoinColumn(name = "maquina", referencedColumnName = "idmaquina")
+    @JoinColumn(name = "tipomaquina", referencedColumnName = "idtipomaquina")
     @ManyToOne
-    private Maquina maquina;
+    private Tipomaquina tipomaquina;
     @OneToMany(mappedBy = "idetapa")
     private List<Detallepiezapresupuesto> detallepiezapresupuestoList;
     @OneToMany(mappedBy = "idetapaproduccion")
@@ -188,12 +189,12 @@ public class Etapadeproduccion implements Serializable {
         this.unidaddemedida = unidaddemedida;
     }
 
-    public Maquina getMaquina() {
-        return maquina;
+    public Tipomaquina getTipomaquina() {
+        return tipomaquina;
     }
 
-    public void setMaquina(Maquina maquina) {
-        this.maquina = maquina;
+    public void setTipomaquina(Tipomaquina tipomaquina) {
+        this.tipomaquina = tipomaquina;
     }
 
     public List<Detallepiezapresupuesto> getDetallepiezapresupuestoList() {
@@ -244,5 +245,4 @@ public class Etapadeproduccion implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Etapadeproduccion[ idetapaproduccion=" + idetapaproduccion + " ]";
     }
-    
 }

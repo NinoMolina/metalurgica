@@ -69,8 +69,6 @@ public class Maquina implements Serializable {
     private Estadomaquina estado;
     @OneToMany(mappedBy = "maquina")
     private List<Detalleplanificacioncalidad> detalleplanificacioncalidadList;
-    @OneToMany(mappedBy = "maquina")
-    private List<Etapadeproduccion> etapadeproduccionList;
 
     public Maquina() {
     }
@@ -173,14 +171,6 @@ public class Maquina implements Serializable {
 
     public void setDetalleplanificacioncalidadList(List<Detalleplanificacioncalidad> detalleplanificacioncalidadList) {
         this.detalleplanificacioncalidadList = detalleplanificacioncalidadList;
-    }
-
-    public List<Etapadeproduccion> getEtapadeproduccionList() {
-        return etapadeproduccionList;
-    }
-
-    public void setEtapadeproduccionList(List<Etapadeproduccion> etapadeproduccionList) {
-        this.etapadeproduccionList = etapadeproduccionList;
     }
 
     @Override

@@ -27,6 +27,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Tipomaquina.findByNombre", query = "SELECT t FROM Tipomaquina t WHERE t.nombre = :nombre"),
     @NamedQuery(name = "Tipomaquina.findByDescripcion", query = "SELECT t FROM Tipomaquina t WHERE t.descripcion = :descripcion")})
 public class Tipomaquina implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -38,6 +39,8 @@ public class Tipomaquina implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "tipomaquina")
     private List<Maquina> maquinaList;
+    @OneToMany(mappedBy = "tipomaquina")
+    private List<Etapadeproduccion> etapadeproduccionList;
 
     public Tipomaquina() {
     }
@@ -78,6 +81,14 @@ public class Tipomaquina implements Serializable {
         this.maquinaList = maquinaList;
     }
 
+    public List<Etapadeproduccion> getEtapadeproduccionList() {
+        return etapadeproduccionList;
+    }
+
+    public void setEtapadeproduccionList(List<Etapadeproduccion> etapadeproduccionList) {
+        this.etapadeproduccionList = etapadeproduccionList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -102,5 +113,4 @@ public class Tipomaquina implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Tipomaquina[ idtipomaquina=" + idtipomaquina + " ]";
     }
-    
 }

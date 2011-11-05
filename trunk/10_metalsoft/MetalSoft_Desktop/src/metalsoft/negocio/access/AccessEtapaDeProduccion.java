@@ -66,7 +66,7 @@ public class AccessEtapaDeProduccion {
 
         try {
             etapaDeProduccionDB=Parser.parseToEtapaDeProduccionDB(etapaDeProduccion);
-            etapaDeProduccionDB.setMaquina(idmaquina);
+            etapaDeProduccionDB.setTipomaquina(idmaquina);
             etapaDeProduccionDB.setUnidadmedida(idunidadmedida);
 
             
@@ -87,7 +87,7 @@ public class AccessEtapaDeProduccion {
         EtapadeproduccionPKDB pk=new EtapadeproduccionPKDB(idEtapaDeProduccion);
         try {
             etapaDeProduccionDB=Parser.parseToEtapaDeProduccionDB(etapaDeProduccion);
-            etapaDeProduccionDB.setMaquina(idmaquina);
+            etapaDeProduccionDB.setTipomaquina(idmaquina);
             etapaDeProduccionDB.setUnidadmedida(idUnidadMedida);
 
             result=dao.update(pk,etapaDeProduccionDB, cn);
