@@ -27,6 +27,7 @@ import metalsoft.datos.jpa.controller.EstadopedidoJpaController;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.controller.PlanificacioncalidadJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacioncalidad;
@@ -149,6 +150,10 @@ public class GestorLanzarCalidad {
 
             DetalleplanificacioncalidadJpaController detallePlanificacionCalidadController = new DetalleplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
 
+//            List<Detalleejecucionplanificacion> lstDetalleEjecProduccion = planificacionCalidad.getPedido().getPlanificacionproduccionList().get(0).getEjecucionplanificacionproduccionList().get(0).getDetalleejecucionplanificacionList();
+//            System.out.println("Detalle ejec prod: " + lstDetalleEjecProduccion.size());
+            
+            
             for (Detalleplanificacioncalidad detalleplanificacioncalidad : lstDetallePlanificacion) {
                 /*
                  * Creacion del detalle ejecucion planificacion
@@ -173,15 +178,15 @@ public class GestorLanzarCalidad {
                 Estadoejecucionprocesocalidad estadoejecucionprocesocalidad = null;
 //                boolean procesoEnEjecucion = false;
 //                if (detalleplanificacioncalidad.getOrden() == 1) {
-                    Date fechaActual = Fecha.fechaActualDate();
-                    detalleejecucionplanificacioncalidad.setFechainicio(fechaActual);
-                    detalleejecucionplanificacioncalidad.setHorainicio(fechaActual);
-                    ejecucionprocesocalidad.setFechainicio(fechaActual);
-                    ejecucionprocesocalidad.setHorainicio(fechaActual);
+                Date fechaActual = Fecha.fechaActualDate();
+                detalleejecucionplanificacioncalidad.setFechainicio(fechaActual);
+                detalleejecucionplanificacioncalidad.setHorainicio(fechaActual);
+                ejecucionprocesocalidad.setFechainicio(fechaActual);
+                ejecucionprocesocalidad.setHorainicio(fechaActual);
 //                    estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.ENEJECUCION);
 //                    procesoEnEjecucion = true;
 //                } else {
-                    estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.GENERADA);
+                estadoejecucionprocesocalidad = estadoEjecProcesoCalidadController.findEstadoejecucionprocesocalidad(IdsEstadoEjecucionProcesoCalidad.GENERADA);
 //                }
                 ejecucionprocesocalidad.setEstado(estadoejecucionprocesocalidad);
 
