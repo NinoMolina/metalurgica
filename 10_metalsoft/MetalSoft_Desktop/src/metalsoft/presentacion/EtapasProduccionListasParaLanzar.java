@@ -255,17 +255,17 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
     // End of variables declaration//GEN-END:variables
 
     class EtapaProduccionALanzarTableModel extends AbstractTableModel {
-
+//pedido- cliente-producto-pieza- etapa
         String[] columnNames = {"Nro",
+            "Pedido",
+            "Cliente",
+            "Producto",
+            "Pieza",
             "Etapa",
             "Inicio Planif.",
             "Fin Planif.",
             "Empleado",
-            "Máquina",
-            "Pieza",
-            "Producto",
-            "Pedido",
-            "Cliente"};
+            "Máquina"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -275,8 +275,16 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getNroejecucion());
                 case 1:
-                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getIdetapaproduccion().getNombre();
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
                 case 2:
+                    return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
+                case 3:
+                    return detalleplanificacionproduccion.getIdproducto().getNombre();
+                case 4:
+                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getPieza().getNombre();
+                case 5:
+                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getIdetapaproduccion().getNombre();
+                case 6:
                     Date fechaInicioPlanif = detalleplanificacionproduccion.getFechainicio();
                     Date horaInicioPlanif = detalleplanificacionproduccion.getHorainicio();
                     fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
@@ -284,7 +292,7 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
                     fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
 
                     return Fecha.parseToStringFechaHora(fechaInicioPlanif);
-                case 3:
+                case 7:
                     Date fechaFinPlanif = detalleplanificacionproduccion.getFechafin();
                     Date horaFinPlanif = detalleplanificacionproduccion.getHorafin();
                     fechaFinPlanif.setHours(horaFinPlanif.getHours());
@@ -292,23 +300,14 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
                     fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
 
                     return Fecha.parseToStringFechaHora(fechaFinPlanif);
-                case 4:
+                case 8:
                     return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getNombre() + " " + detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getApellido();
-                case 5:
+                case 9:
                     if (detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina() == null) {
                         return "";
                     } else {
                         return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina().getNombre();
                     }
-
-                case 6:
-                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getPieza().getNombre();
-                case 7:
-                    return detalleplanificacionproduccion.getIdproducto().getNombre();
-                case 8:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
-                case 9:
-                    return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
                 default:
                     return null;
             }
