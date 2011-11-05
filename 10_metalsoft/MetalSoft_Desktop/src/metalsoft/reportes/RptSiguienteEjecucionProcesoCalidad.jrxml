@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptSiguienteEjecucionProcesoCalidad" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.x" value="166"/>
+	<property name="ireport.y" value="34"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -15,7 +15,13 @@
 pro.nombre AS nombre_producto,
 ('PIEZ-') as nropieza, pi.nombre AS nombre_pieza,
 (e.nombre || ' ' || e.apellido) AS nombre_apellido,
-eep.idejecucion as idejecucionetapa
+eep.idejecucion as idejecucionetapa,
+(SELECT m.nombre
+FROM maquina m
+WHERE eep.maquina = m.idmaquina
+) as maquina,
+ep.nombre as proceso_calidad,
+ep.herramienta as herramientas
 
 from ejecucionprocesocalidad eep,
 detalleejecucionplanificacioncalidad dep,
@@ -49,25 +55,34 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 	<field name="nombre_pieza" class="java.lang.String"/>
 	<field name="nombre_apellido" class="java.lang.String"/>
 	<field name="idejecucionetapa" class="java.lang.Long"/>
+	<field name="maquina" class="java.lang.String"/>
+	<field name="proceso_calidad" class="java.lang.String"/>
+	<field name="herramientas" class="java.lang.String"/>
 	<variable name="CODIGO_BARRA" class="java.lang.String">
 		<variableExpression><![CDATA["mscb-4-"+$F{idejecucionetapa}]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
+	<variable name="varMaquina" class="java.lang.String">
+		<variableExpression><![CDATA[$F{maquina}.equals( null ) ? "" : $F{maquina}]]></variableExpression>
+	</variable>
+	<variable name="varHerramientas" class="java.lang.String">
+		<variableExpression><![CDATA[$F{herramientas}.equals( null ) ? "" : $F{herramientas}]]></variableExpression>
+	</variable>
 	<detail>
-		<band height="213">
+		<band height="234">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="212" width="555" height="1"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="233" width="555" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="2" y="46" width="79" height="20"/>
+				<reportElement style="Column header" x="2" y="46" width="82" height="20"/>
 				<textElement/>
 				<text><![CDATA[Nro Pedido:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="2" y="66" width="92" height="20"/>
+				<reportElement style="Column header" x="2" y="66" width="82" height="20"/>
 				<textElement/>
 				<text><![CDATA[Nro Producto:]]></text>
 			</staticText>
@@ -97,53 +112,53 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 				<text><![CDATA[Pieza:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="99" y="46" width="100" height="20"/>
+				<reportElement x="84" y="46" width="131" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropedido}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropedido}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="46" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="99" y="66" width="100" height="20"/>
+				<reportElement x="84" y="66" width="131" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nroproducto}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nroproducto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="66" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_producto}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_producto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="99" y="86" width="100" height="20"/>
+				<reportElement x="84" y="86" width="131" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropieza}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropieza}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="86" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_pieza}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="99" y="106" width="456" height="20"/>
+				<reportElement x="84" y="106" width="131" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_apellido}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_apellido}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Title" x="2" y="1" width="553" height="33"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Ejecución Proceso de Calidad]]></text>
+				<text><![CDATA[Orden de Trabajo: Calidad]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="2" y="136" width="553" height="46"/>
+				<reportElement x="2" y="166" width="553" height="46"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
 					<jr:codeExpression><![CDATA[$V{CODIGO_BARRA}.toString()]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField>
-				<reportElement x="0" y="182" width="555" height="20"/>
+				<reportElement x="2" y="212" width="553" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{CODIGO_BARRA}]]></textFieldExpression>
 			</textField>
@@ -153,6 +168,36 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement style="Column header" x="215" y="106" width="66" height="20"/>
+				<textElement/>
+				<text><![CDATA[Máquina:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="281" y="106" width="274" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{varMaquina}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="2" y="126" width="124" height="20"/>
+				<textElement/>
+				<text><![CDATA[Proceso de Calidad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="126" width="429" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{proceso_calidad}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="2" y="146" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Herramientas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="146" width="461" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{varHerramientas}.toUpperCase()]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
