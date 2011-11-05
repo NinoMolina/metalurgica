@@ -11,6 +11,7 @@
 
 package metalsoft.presentacion;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.DocFlavor.STRING;
@@ -23,6 +24,7 @@ import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
 import metalsoft.util.Combo;
 import metalsoft.negocio.ventas.EtapaDeProduccion;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.Fecha;
 
@@ -81,21 +83,17 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        txtNroEtapa = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cmbmaquinas = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txthorasmaquina = new javax.swing.JTextField();
-        txthorashombre = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtduracion = new javax.swing.JTextField();
         cmbUnidadMedida = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtFechaCreacion = new javax.swing.JTextField();
+        lblNroEtapa = new javax.swing.JLabel();
+        dccFecha = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -144,15 +142,13 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
         jLabel2.setText("Máquina:");
 
-        jLabel3.setText("Horas Máquina:");
-
-        jLabel4.setText("Horas Hombre:");
-
         jLabel5.setText("Duración estimada por Unidad de Medida:");
 
         jLabel7.setText("Unidad de Medida:");
 
         jLabel6.setText("Fecha de Creación:");
+
+        lblNroEtapa.setText("...");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -167,9 +163,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel8)
                                     .add(jLabel1)
-                                    .add(jLabel2)
-                                    .add(jLabel3)
-                                    .add(jLabel4)))
+                                    .add(jLabel2)))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(10, 10, 10)
                                 .add(jLabel7))
@@ -177,18 +171,18 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                                 .add(10, 10, 10)
                                 .add(jLabel6)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(cmbUnidadMedida, 0, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txtNroEtapa, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txtnombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, cmbmaquinas, 0, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txthorasmaquina, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txthorashombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txtFechaCreacion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 234, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblNroEtapa)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, cmbUnidadMedida, 0, 357, Short.MAX_VALUE)
+                            .add(txtnombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                            .add(cmbmaquinas, 0, 357, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, dccFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(10, 10, 10)
-                        .add(jLabel5)))
+                        .add(jLabel5)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
+                        .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(149, 149, 149)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,7 +190,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
-                    .add(txtNroEtapa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblNroEtapa))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
@@ -205,27 +199,23 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
                     .add(cmbmaquinas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(txthorasmaquina, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(txthorashombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
-                    .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(52, 52, 52)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(18, 18, 18)
+                        .add(jLabel5))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(txtduracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(14, 14, 14)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(cmbUnidadMedida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(11, 11, 11)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel6)
-                    .add(txtFechaCreacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .add(dccFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
@@ -235,23 +225,23 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jLabel9)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(6, 6, 6)
+                        .add(16, 16, 16)
                         .add(btnnuevo)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnguardar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnModificar)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 191, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 179, Short.MAX_VALUE)
                         .add(btnBuscar)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnSalir)
-                        .add(4, 4, 4))
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .add(btnSalir)))
+                .add(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -261,12 +251,12 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btnnuevo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btnguardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnModificar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .add(btnModificar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -274,12 +264,12 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
     private void mostrarDatosEtapaDeProduccion(EtapadeproduccionDB ep) {
         long fecha=ep.getFechacreacion().getTime();
-        String fechaCreacion=Fecha.parseToString(fecha);
-        txtFechaCreacion.setText(String.valueOf(fechaCreacion));
-        txtNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
+        Date fechaCreacion=Fecha.parseToDate(fecha);
+        dccFecha.setDate(fechaCreacion);
+        lblNroEtapa.setText(String.valueOf(ep.getNroetapaproduccion()));
         txtduracion.setText(String.valueOf(ep.getDuracionestimada()));
-        txthorashombre.setText(String.valueOf(ep.getHorashombre()));
-        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
+//        txthorashombre.setText(String.valueOf(ep.getHorashombre()));
+//        txthorasmaquina.setText(String.valueOf(ep.getHorasmaquina()));
         txtnombre.setText(String.valueOf(ep.getNombre()));
         
         if(ep.getMaquina()<1) Combo.setItemComboSeleccionado(cmbmaquinas, -1);
@@ -292,6 +282,9 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         // TODO add your handling code here:
         opcion=EnumOpcionesABM.NUEVO;
         limpiarCampos();
+        long nroEtapa = gestor.generarNvoNroEtapa();
+        lblNroEtapa.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_ETAPA_PRODUCCION, nroEtapa));
+        dccFecha.setDate(Fecha.fechaActualDate());
         setComponentes(true);
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         Combo.setItemComboSeleccionado(cmbmaquinas, -1);
@@ -299,11 +292,10 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
     private void setComponentes(boolean b)
     {
-        txtFechaCreacion.setEnabled(b);
-        txtNroEtapa.setEnabled(b);
+        dccFecha.setEnabled(b);
         txtduracion.setEnabled(b);
-        txthorashombre.setEnabled(b);
-        txthorasmaquina.setEnabled(b);
+//        txthorashombre.setEnabled(b);
+//        txthorasmaquina.setEnabled(b);
         txtnombre.setEnabled(b);
         cmbUnidadMedida.setEnabled(b);
         cmbmaquinas.setEnabled(b);
@@ -312,11 +304,10 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
     public void limpiarCampos()
 {
-    txtFechaCreacion.setText("");
-    txtNroEtapa.setText("");
+    dccFecha.setDate(null);
     txtduracion.setText("");
-    txthorashombre.setText("");
-    txthorasmaquina.setText("");
+//    txthorashombre.setText("");
+//    txthorasmaquina.setText("");
     txtnombre.setText("");
     cmbUnidadMedida.setSelectedIndex(-1);
     cmbmaquinas.setSelectedIndex(-1);
@@ -324,11 +315,11 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         EtapaDeProduccion ep=new EtapaDeProduccion();
         ep.setDuracionEstimadaXUnidMed(Fecha.parseToDate(txtduracion.getText(),"hh:mm:ss"));
-        ep.setFechaCreacion(Fecha.parseToDate(txtFechaCreacion.getText()));
-        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
-        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
+        ep.setFechaCreacion(Fecha.parseToDate(dccFecha.getDateFormatString()));
+//        ep.setHorasHombre(Fecha.parseToDate(txthorashombre.getText(),"hh:mm:ss"));
+//        ep.setHorasMaquina(Fecha.parseToDate(txthorasmaquina.getText(),"hh:mm:ss"));
         ep.setNombre(txtnombre.getText());
-        ep.setNumeroEtapa(Long.parseLong(txtNroEtapa.getText()));
+        ep.setNumeroEtapa(Long.parseLong(lblNroEtapa.getText()));
         long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {   
@@ -390,21 +381,17 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     private javax.swing.JButton btnnuevo;
     private javax.swing.JComboBox cmbUnidadMedida;
     private javax.swing.JComboBox cmbmaquinas;
+    private com.toedter.calendar.JDateChooser dccFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtFechaCreacion;
-    private javax.swing.JTextField txtNroEtapa;
+    private javax.swing.JLabel lblNroEtapa;
     private javax.swing.JTextField txtduracion;
-    private javax.swing.JTextField txthorashombre;
-    private javax.swing.JTextField txthorasmaquina;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 

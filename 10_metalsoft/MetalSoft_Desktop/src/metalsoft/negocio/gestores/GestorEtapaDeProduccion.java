@@ -23,6 +23,7 @@ import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.EtapadeproduccionDAO;
 import metalsoft.datos.idao.MaquinaDAO;
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
+import metalsoft.negocio.access.AccessFunctions;
 import metalsoft.negocio.access.AccessMaquina;
 import metalsoft.negocio.access.AccessUnidadDeMedida;
 import metalsoft.negocio.ventas.EtapaDeProduccion;
@@ -259,5 +260,25 @@ public class GestorEtapaDeProduccion {
         }
     }
 
-   
+    public long generarNvoNroEtapa() {
+        long result=-1;
+        PostgreSQLManager pg=null;
+        Connection cn=null;
+        pg=new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            result=AccessFunctions.nvoNroEtapa(cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }   
 }
