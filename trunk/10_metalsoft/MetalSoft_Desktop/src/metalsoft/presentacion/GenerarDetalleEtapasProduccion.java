@@ -87,7 +87,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
-        tblDetallePedido.setHorizontalScrollEnabled(true); 
+        tblDetallePedido.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -97,7 +97,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On supprime les traits des lignes et des colonnes */
         tblDetalleProducto.setShowHorizontalLines(false);
         tblDetalleProducto.setShowVerticalLines(false);
-        tblDetalleProducto.setHorizontalScrollEnabled(true); 
+        tblDetalleProducto.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -107,7 +107,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On supprime les traits des lignes et des colonnes */
         tblEtapa.setShowHorizontalLines(false);
         tblEtapa.setShowVerticalLines(false);
-        tblEtapa.setHorizontalScrollEnabled(true); 
+        tblEtapa.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEtapa.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -117,7 +117,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On supprime les traits des lignes et des colonnes */
         tblEtapaSeleccionada.setShowHorizontalLines(false);
         tblEtapaSeleccionada.setShowVerticalLines(false);
-        tblEtapaSeleccionada.setHorizontalScrollEnabled(true); 
+        tblEtapaSeleccionada.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblEtapaSeleccionada.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -146,6 +146,9 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         boolean result = gestor.guardarEtapasPiezaPresupuesto();
         if (result) {
             JOptionPane.showMessageDialog(this, "Los datos se guardaron Correctamente..!");
+            filasPedidos = gestor.buscarPedidosGenerados();
+            beanTblPedidos.setFilasPedidos(filasPedidos);
+            beanTblPedidos.updateTblPedidos();
             limpiarCampos();
             setEnabledComponents(false);
         } else {
