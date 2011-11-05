@@ -22,7 +22,6 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import java.util.ArrayList;
 import java.util.List;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Etapadeproduccion;
 
 /**
  *
@@ -45,9 +44,6 @@ public class MaquinaJpaController implements Serializable {
         }
         if (maquina.getDetalleplanificacioncalidadList() == null) {
             maquina.setDetalleplanificacioncalidadList(new ArrayList<Detalleplanificacioncalidad>());
-        }
-        if (maquina.getEtapadeproduccionList() == null) {
-            maquina.setEtapadeproduccionList(new ArrayList<Etapadeproduccion>());
         }
         EntityManager em = null;
         try {
@@ -85,12 +81,6 @@ public class MaquinaJpaController implements Serializable {
                 attachedDetalleplanificacioncalidadList.add(detalleplanificacioncalidadListDetalleplanificacioncalidadToAttach);
             }
             maquina.setDetalleplanificacioncalidadList(attachedDetalleplanificacioncalidadList);
-            List<Etapadeproduccion> attachedEtapadeproduccionList = new ArrayList<Etapadeproduccion>();
-            for (Etapadeproduccion etapadeproduccionListEtapadeproduccionToAttach : maquina.getEtapadeproduccionList()) {
-                etapadeproduccionListEtapadeproduccionToAttach = em.getReference(etapadeproduccionListEtapadeproduccionToAttach.getClass(), etapadeproduccionListEtapadeproduccionToAttach.getIdetapaproduccion());
-                attachedEtapadeproduccionList.add(etapadeproduccionListEtapadeproduccionToAttach);
-            }
-            maquina.setEtapadeproduccionList(attachedEtapadeproduccionList);
             em.persist(maquina);
             if (idunidadmedida != null) {
                 idunidadmedida.getMaquinaList().add(maquina);
@@ -126,15 +116,6 @@ public class MaquinaJpaController implements Serializable {
                     oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(oldMaquinaOfDetalleplanificacioncalidadListDetalleplanificacioncalidad);
                 }
             }
-            for (Etapadeproduccion etapadeproduccionListEtapadeproduccion : maquina.getEtapadeproduccionList()) {
-                Maquina oldMaquinaOfEtapadeproduccionListEtapadeproduccion = etapadeproduccionListEtapadeproduccion.getMaquina();
-                etapadeproduccionListEtapadeproduccion.setMaquina(maquina);
-                etapadeproduccionListEtapadeproduccion = em.merge(etapadeproduccionListEtapadeproduccion);
-                if (oldMaquinaOfEtapadeproduccionListEtapadeproduccion != null) {
-                    oldMaquinaOfEtapadeproduccionListEtapadeproduccion.getEtapadeproduccionList().remove(etapadeproduccionListEtapadeproduccion);
-                    oldMaquinaOfEtapadeproduccionListEtapadeproduccion = em.merge(oldMaquinaOfEtapadeproduccionListEtapadeproduccion);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findMaquina(maquina.getIdmaquina()) != null) {
@@ -166,8 +147,6 @@ public class MaquinaJpaController implements Serializable {
             List<Detalleplanificacionproduccion> detalleplanificacionproduccionListNew = maquina.getDetalleplanificacionproduccionList();
             List<Detalleplanificacioncalidad> detalleplanificacioncalidadListOld = persistentMaquina.getDetalleplanificacioncalidadList();
             List<Detalleplanificacioncalidad> detalleplanificacioncalidadListNew = maquina.getDetalleplanificacioncalidadList();
-            List<Etapadeproduccion> etapadeproduccionListOld = persistentMaquina.getEtapadeproduccionList();
-            List<Etapadeproduccion> etapadeproduccionListNew = maquina.getEtapadeproduccionList();
             if (idunidadmedidaNew != null) {
                 idunidadmedidaNew = em.getReference(idunidadmedidaNew.getClass(), idunidadmedidaNew.getIdunidadmedida());
                 maquina.setIdunidadmedida(idunidadmedidaNew);
@@ -198,13 +177,6 @@ public class MaquinaJpaController implements Serializable {
             }
             detalleplanificacioncalidadListNew = attachedDetalleplanificacioncalidadListNew;
             maquina.setDetalleplanificacioncalidadList(detalleplanificacioncalidadListNew);
-            List<Etapadeproduccion> attachedEtapadeproduccionListNew = new ArrayList<Etapadeproduccion>();
-            for (Etapadeproduccion etapadeproduccionListNewEtapadeproduccionToAttach : etapadeproduccionListNew) {
-                etapadeproduccionListNewEtapadeproduccionToAttach = em.getReference(etapadeproduccionListNewEtapadeproduccionToAttach.getClass(), etapadeproduccionListNewEtapadeproduccionToAttach.getIdetapaproduccion());
-                attachedEtapadeproduccionListNew.add(etapadeproduccionListNewEtapadeproduccionToAttach);
-            }
-            etapadeproduccionListNew = attachedEtapadeproduccionListNew;
-            maquina.setEtapadeproduccionList(etapadeproduccionListNew);
             maquina = em.merge(maquina);
             if (idunidadmedidaOld != null && !idunidadmedidaOld.equals(idunidadmedidaNew)) {
                 idunidadmedidaOld.getMaquinaList().remove(maquina);
@@ -272,23 +244,6 @@ public class MaquinaJpaController implements Serializable {
                     }
                 }
             }
-            for (Etapadeproduccion etapadeproduccionListOldEtapadeproduccion : etapadeproduccionListOld) {
-                if (!etapadeproduccionListNew.contains(etapadeproduccionListOldEtapadeproduccion)) {
-                    etapadeproduccionListOldEtapadeproduccion.setMaquina(null);
-                    etapadeproduccionListOldEtapadeproduccion = em.merge(etapadeproduccionListOldEtapadeproduccion);
-                }
-            }
-            for (Etapadeproduccion etapadeproduccionListNewEtapadeproduccion : etapadeproduccionListNew) {
-                if (!etapadeproduccionListOld.contains(etapadeproduccionListNewEtapadeproduccion)) {
-                    Maquina oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion = etapadeproduccionListNewEtapadeproduccion.getMaquina();
-                    etapadeproduccionListNewEtapadeproduccion.setMaquina(maquina);
-                    etapadeproduccionListNewEtapadeproduccion = em.merge(etapadeproduccionListNewEtapadeproduccion);
-                    if (oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion != null && !oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion.equals(maquina)) {
-                        oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion.getEtapadeproduccionList().remove(etapadeproduccionListNewEtapadeproduccion);
-                        oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion = em.merge(oldMaquinaOfEtapadeproduccionListNewEtapadeproduccion);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -347,11 +302,6 @@ public class MaquinaJpaController implements Serializable {
             for (Detalleplanificacioncalidad detalleplanificacioncalidadListDetalleplanificacioncalidad : detalleplanificacioncalidadList) {
                 detalleplanificacioncalidadListDetalleplanificacioncalidad.setMaquina(null);
                 detalleplanificacioncalidadListDetalleplanificacioncalidad = em.merge(detalleplanificacioncalidadListDetalleplanificacioncalidad);
-            }
-            List<Etapadeproduccion> etapadeproduccionList = maquina.getEtapadeproduccionList();
-            for (Etapadeproduccion etapadeproduccionListEtapadeproduccion : etapadeproduccionList) {
-                etapadeproduccionListEtapadeproduccion.setMaquina(null);
-                etapadeproduccionListEtapadeproduccion = em.merge(etapadeproduccionListEtapadeproduccion);
             }
             em.remove(maquina);
             em.getTransaction().commit();

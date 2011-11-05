@@ -27,7 +27,7 @@ public interface EtapadeproduccionDAO
 	public EtapadeproduccionDB[] findByNombre(String nombre,Connection con) throws EtapadeproduccionException;
 	public EtapadeproduccionDB[] findByHorasmaquina(Time horasmaquina,Connection con) throws EtapadeproduccionException;
 	public EtapadeproduccionDB[] findByHorashombre(Time horashombre,Connection con) throws EtapadeproduccionException;
-	public EtapadeproduccionDB[] findByMaquina(long maquina,Connection con) throws EtapadeproduccionException;
+	public EtapadeproduccionDB[] findByTipomaquina(long tipomaquina,Connection con) throws EtapadeproduccionException;
 	public EtapadeproduccionDB[] findByDuracionestimada(Time duracionestimada,Connection con) throws EtapadeproduccionException;
 	public EtapadeproduccionDB[] findByFechacreacion(Date fechacreacion,Connection con) throws EtapadeproduccionException;
 	public EtapadeproduccionDB[] findExecutingUserSelect(String selectStatement, Object[] sqlParams, Connection con) throws EtapadeproduccionException;
