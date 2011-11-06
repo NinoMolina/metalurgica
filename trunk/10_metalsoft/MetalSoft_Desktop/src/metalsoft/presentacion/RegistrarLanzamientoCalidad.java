@@ -412,6 +412,7 @@ private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
 
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se ha registrado el comienzo del control de calidad!\nLos datos se guardaron CORRECTAMENTE!");
+            gestor.imprimirHojaDePieza(viewPedidoSeleccionado.getIdpedido());
             filasPedidosConProduccionFinalizada.remove(tblPedidos.getSelectedRow());
             setearEnabledComponents(false);
             limpiarCampos();
