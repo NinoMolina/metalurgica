@@ -385,6 +385,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 dpp.setIdplanificacionproduccion(plan);
                 dpp.setOrden(orden);
                 dpp.setIndexproducto(productoNode.getIndexProducto());
+                dpp.setIndexpieza(piezaNode.getIndexPieza());
 
                 if (setDetAnterior) {
                     dpp.setDetalleanterior(null);
@@ -395,7 +396,6 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 detAnterior = dpp;
 
                 detalle.add(dpp);
-
 
                 orden++;
             }
@@ -1662,7 +1662,6 @@ private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIR
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
-        Date finEtapaAnterior = null;
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
@@ -1714,29 +1713,11 @@ private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIR
                             detPiPre = itDetPiPre.next();
                             etapaProd = new EtapaProduccionNode(detPiPre.getIdetapa());
                             etapaProd.setDetallePiezaPresupuesto(detPiPre);
-//                    etapaProd.setMaquina(detPiPre.getIdetapa().getMaquina());
-//                    int horaInicioJornada = Jornada.HORA_INICIO_JORNADA;
-//                    int horaFinJornada = Jornada.HORA_FIN_JORNADA;
-//                    Date fechaInicio = null;
-//                    if (finEtapaAnterior == null) {
-//                        fechaInicio = Fecha.fechaActualDate();
-//                    } else {
-//                        fechaInicio = finEtapaAnterior;
-//                    }
-//                    GregorianCalendar inicio = new GregorianCalendar();
-//                    inicio.setTime(fechaInicio);
-//                    inicio.add(Calendar.MINUTE, Jornada.MINUTOS_ENTRE_ETAPAS);
-//                    inicio = Calculos.calcularFechaInicio(horaInicioJornada, horaFinJornada, inicio);
-//                    GregorianCalendar fin = Calculos.calcularFechaFin(horaInicioJornada, horaFinJornada, inicio, detPiPre.getDuracionpiezaxetapa().getHours(), detPiPre.getDuracionpiezaxetapa().getMinutes());
-//                    etapaProd.setInicioEtapa(inicio.getTime());
-//                    etapaProd.setFinEtapa(fin.getTime());
                             pieza.add(etapaProd);
-//                    finEtapaAnterior = fin.getTime();
                         }
 
                     }
 
-                    finEtapaAnterior = null;
                 }
             }//fin for cant producto
         }

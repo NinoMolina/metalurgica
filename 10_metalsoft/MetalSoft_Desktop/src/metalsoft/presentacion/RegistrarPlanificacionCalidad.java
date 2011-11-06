@@ -93,7 +93,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private final int EMPLEADO = 1;
     private final int MAQUINA = 2;
     private final int EMPLEADO_MAQUINA = 3;
-    private Date fechaFinPrevista;
+    private Date fechaFinPrevistaProduccion;
     private Date horaFinPrevista;
     private Map<Long, List<ProcesoCalidadNode>> mapAsignacionActualEmpleados;
 
@@ -290,6 +290,8 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         List<Detalleplanificacioncalidad> detalle = new ArrayList<Detalleplanificacioncalidad>();
         Planificacioncalidad plan = new Planificacioncalidad();
         Date menor = null, mayor = null;
+        Detalleplanificacioncalidad detAnterior = null;
+        boolean setDetAnterior = false;
         /*
          * recorro los nodos del arbol jtree
          */
@@ -315,6 +317,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     orden = 1;
                     piezaNodeAnterior = piezaNode;
                     prodNodeAnterior = productoNode;
+                    setDetAnterior = true;
 
                 } else {
                     /*
@@ -326,6 +329,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     if (piezaNodeAnterior != piezaNode) {
                         orden = 1;
                         piezaNodeAnterior = piezaNode;
+                        setDetAnterior = true;
                     }
                 }
                 /*
@@ -366,6 +370,17 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 dpp.setProducto(prod);
                 dpp.setIdplanificacioncalidad(plan);
                 dpp.setOrden(orden);
+                dpp.setIndexproducto(productoNode.getIndexProducto());
+                dpp.setIndexpieza(piezaNode.getIndexPieza());
+
+                if (setDetAnterior) {
+                    dpp.setDetalleanterior(null);
+                    setDetAnterior = false;
+                } else {
+                    dpp.setDetalleanterior(detAnterior.getIddetalle());
+                }
+                detAnterior = dpp;
+
                 detalle.add(dpp);
 
                 orden++;
@@ -423,12 +438,15 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         setVisiblePanel(pnlTreeTable.getName());
         setEnabledComponents(true);
         cargarDatosTreeTable(presupuesto.getDetallepresupuestoList());
+        fechaFinPrevistaProduccion = buscarFechaHoraFinProduccionPrevista();
     }
 
-    private void buscarFechaHoraFinProduccionPrevista() {
-        fechaFinPrevista = viewPedidoSeleccionado.getFechafinprevista();
+    private Date buscarFechaHoraFinProduccionPrevista() {
+        Date fecha = viewPedidoSeleccionado.getFechafinprevista();
         Long idPlanificacionProduccion = viewPedidoSeleccionado.getIdplanificacionproduccion();
-        horaFinPrevista = gestor.obtenerHoraFinPrevista(idPlanificacionProduccion);
+        Date hora = gestor.obtenerHoraFinPrevista(idPlanificacionProduccion);
+
+        return Fecha.dateWithSpecificValues(fecha, hora.getHours(), hora.getMinutes(), hora.getSeconds());
     }
 
     private void setearTablas() {
@@ -1202,8 +1220,6 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
 
-        buscarFechaHoraFinProduccionPrevista();
-
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
         trtDetalleProcProd.setTreeTableModel(new TablaPlanificacionModel(raiz, listColumnNamesTreeTable));
@@ -1213,21 +1229,29 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
+        
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
+        Map<Long, Integer> mapIndexProducto = new HashMap<Long, Integer>();
+        
         while (it.hasNext()) {
             dp = it.next();
 
             int cantProductos = dp.getCantidad();
 
-            int indexProducto = 0;
             for (int i = 0; i < cantProductos; i++) {
 
+                if (!mapIndexProducto.containsKey(dp.getIdproducto().getIdproducto())) {
+                    mapIndexProducto.put(dp.getIdproducto().getIdproducto(), 0);
+                } else {
+                    Integer index = mapIndexProducto.get(dp.getIdproducto().getIdproducto());
+                    mapIndexProducto.put(dp.getIdproducto().getIdproducto(), index + 1);
+                }
                 prod = new ProductoNode(dp.getIdproducto());
-                prod.setIndexProducto(indexProducto);
-                indexProducto++;
+                prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
                 raiz.add(prod);
+                
                 List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
                 Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
                 PiezaNode pieza = null;
@@ -1240,7 +1264,6 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     prod.setDetalleProductoPresupuesto(detProPre);
 
                     int cantPiezas = detProPre.getCantpiezas();
-
                     int indexPieza = 0;
                     for (int j = 0; j < cantPiezas; j++) {
                         pieza = new PiezaNode(detProPre.getIdpieza());
@@ -1521,7 +1544,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
             TreeNode anterior = null;
 
-            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.fechaActualCalendar()).getTime();
+            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.parseToCalendar(fechaFinPrevistaProduccion)).getTime();
 
             if (indexNodeActual > 0) {
                 anterior = parent.getChildAt(indexNodeAnterior);
@@ -1545,14 +1568,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 for (int i = indexNodeActual + 1; i < childCount; i++) {
                     ProcesoCalidadNode nodeSig = (ProcesoCalidadNode) parent.getChildAt(i);
                     if (nodeSig.getEmpleado() != null) {
-//                        if (nodeSig.getEmpleado().getIdempleado() == node.getEmpleado().getIdempleado()) {
                         if (mapAsignacionActualEmpleados.containsKey(nodeSig.getEmpleado().getIdempleado())) {
                             mapAsignacionActualEmpleados.get(nodeSig.getEmpleado().getIdempleado()).remove(nodeSig);
                         }
                         nodeSig.setEmpleado(null);
                         nodeSig.setInicioEtapa(null);
                         nodeSig.setFinEtapa(null);
-//                        }
                     }
                 }
             }

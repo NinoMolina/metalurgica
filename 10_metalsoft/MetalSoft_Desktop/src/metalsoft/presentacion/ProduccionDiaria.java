@@ -12,11 +12,10 @@ package metalsoft.presentacion;
 
 import java.awt.Window;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Etapadeproduccion;
@@ -27,6 +26,8 @@ import metalsoft.negocio.gestores.GestorProduccionDiaria;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 import org.jdesktop.swingx.treetable.AbstractMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
@@ -72,10 +73,14 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("");
 
         TreeTableModel treeTableModel = new TablaProduccionDiariaModel(raiz, listColumnNamesTreeTable);
+        trtDetalleDiario.setColumnControlVisible(true);
+        trtDetalleDiario.setAutoCreateRowSorter(true);
         trtDetalleDiario.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
         trtDetalleDiario.setTreeTableModel(treeTableModel);
         trtDetalleDiario.setRootVisible(true);
         trtDetalleDiario.setHorizontalScrollEnabled(true);
+        trtDetalleDiario.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
     /** This method is called from within the constructor to
@@ -188,7 +193,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
             }
 
 
-            EtapaProduccionNode etapaProduccionNode = new EtapaProduccionNode(etapaproduccion);
+            EtapaProduccionNode etapaProduccionNode = new EtapaProduccionNode(detalleplanificacion, detalleplanificacion.getIddetalleejecucionplanificacion());
 
             piezaNode.add(etapaProduccionNode);
 
@@ -333,62 +338,12 @@ public class ProduccionDiaria extends javax.swing.JDialog {
 
     class EtapaProduccionNode extends AbstractMutableTreeTableNode {
 
-        private metalsoft.datos.jpa.entity.Etapadeproduccion etapa;
-        private metalsoft.datos.jpa.entity.Maquina maquina;
-        private metalsoft.datos.jpa.entity.Empleado empleado;
-        private metalsoft.datos.jpa.entity.Detallepiezapresupuesto detallePiezaPresupuesto;
-        private Date inicioEtapa, finEtapa;
+        private Detalleplanificacionproduccion dpp;
+        private Detalleejecucionplanificacion dep;
 
-        public Date getFinEtapa() {
-            return finEtapa;
-        }
-
-        public void setFinEtapa(Date finEtapa) {
-            this.finEtapa = finEtapa;
-        }
-
-        public Date getInicioEtapa() {
-            return inicioEtapa;
-        }
-
-        public void setInicioEtapa(Date inicioEtapa) {
-            this.inicioEtapa = inicioEtapa;
-        }
-
-        public EtapaProduccionNode(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
-        }
-
-        public Detallepiezapresupuesto getDetallePiezaPresupuesto() {
-            return detallePiezaPresupuesto;
-        }
-
-        public void setDetallePiezaPresupuesto(Detallepiezapresupuesto detallePiezaPresupuesto) {
-            this.detallePiezaPresupuesto = detallePiezaPresupuesto;
-        }
-
-        public metalsoft.datos.jpa.entity.Empleado getEmpleado() {
-            return empleado;
-        }
-
-        public void setEmpleado(metalsoft.datos.jpa.entity.Empleado empleado) {
-            this.empleado = empleado;
-        }
-
-        public metalsoft.datos.jpa.entity.Etapadeproduccion getEtapa() {
-            return etapa;
-        }
-
-        public void setEtapa(metalsoft.datos.jpa.entity.Etapadeproduccion etapa) {
-            this.etapa = etapa;
-        }
-
-        public metalsoft.datos.jpa.entity.Maquina getMaquina() {
-            return maquina;
-        }
-
-        public void setMaquina(metalsoft.datos.jpa.entity.Maquina maquina) {
-            this.maquina = maquina;
+        public EtapaProduccionNode(Detalleplanificacionproduccion dpp, Detalleejecucionplanificacion dep) {
+            this.dpp = dpp;
+            this.dep = dep;
         }
 
         @Override
@@ -396,15 +351,45 @@ public class ProduccionDiaria extends javax.swing.JDialog {
             try {
                 switch (i) {
                     case 0:
-                        return etapa.getNombre();
+                        return dpp.getIdetapaproduccion().getNombre();
                     case 1:
-                        return Fecha.parseToStringFechaHora(getInicioEtapa());
+                        return Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(dpp.getFechainicio(), dpp.getHorainicio().getHours(), dpp.getHorainicio().getMinutes(), dpp.getHorainicio().getSeconds()));
                     case 2:
-                        return Fecha.parseToStringFechaHora(getFinEtapa());
+                        return Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(dpp.getFechafin(), dpp.getHorafin().getHours(), dpp.getHorafin().getMinutes(), dpp.getHorafin().getSeconds()));
                     case 3:
-                        return empleado.getNombre() + " " + empleado.getApellido();
+                        if (dep != null) {
+                            return Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(dep.getFechainicio(), dep.getHorainicio().getHours(), dep.getHorainicio().getMinutes(), dep.getHorainicio().getSeconds()));
+                        } else {
+                            return "";
+                        }
                     case 4:
-                        return maquina.getNombre();
+                        if (dep != null) {
+                            return Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(dep.getFechafin(), dep.getHorafin().getHours(), dep.getHorafin().getMinutes(), dep.getHorafin().getSeconds()));
+                        } else {
+                            return "";
+                        }
+                    case 5:
+                        if (dep != null) {
+                            return dep.getEjecucionetapa().getEstado().getNombre();
+                        } else {
+                            return "";
+                        }
+                    case 6:
+                        if (dep != null) {
+                            return dep.getEjecucionetapa().getEmpleado().getNombre() + " " + dep.getEjecucionetapa().getEmpleado().getApellido();
+                        } else {
+                            return dpp.getIdempleado().getNombre() + " " + dpp.getIdempleado().getApellido();
+                        }
+                    case 7:
+                        if (dep != null && dep.getEjecucionetapa().getMaquina() != null) {
+                            return dep.getEjecucionetapa().getMaquina().getNombre();
+                        } else {
+                            if (dpp.getIdmaquina() != null) {
+                                return dpp.getIdmaquina().getNombre();
+                            } else {
+                                return "";
+                            }
+                        }
                 }
             } catch (NullPointerException ex) {
                 return "----";
