@@ -61,6 +61,10 @@ public class Detalleplanificacioncalidad implements Serializable {
     private Integer orden;
     @Column(name = "detalleanterior")
     private Long detalleanterior;
+    @Column(name = "indexproducto")
+    private Integer indexproducto;
+    @Column(name = "indexpieza")
+    private Integer indexpieza;
     @JoinColumn(name = "producto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto producto;
@@ -88,6 +92,22 @@ public class Detalleplanificacioncalidad implements Serializable {
 
     public Detalleplanificacioncalidad(Long iddetalle) {
         this.iddetalle = iddetalle;
+    }
+
+    public Integer getIndexpieza() {
+        return indexpieza;
+    }
+
+    public void setIndexpieza(Integer indexpieza) {
+        this.indexpieza = indexpieza;
+    }
+
+    public Integer getIndexproducto() {
+        return indexproducto;
+    }
+
+    public void setIndexproducto(Integer indexproducto) {
+        this.indexproducto = indexproducto;
     }
 
     public Long getDetalleanterior() {

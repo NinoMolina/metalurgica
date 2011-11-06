@@ -62,6 +62,8 @@ public class Detalleplanificacionproduccion implements Serializable {
     private Integer orden;
     @Column(name = "indexproducto")
     private Integer indexproducto;
+    @Column(name = "indexpieza")
+    private Integer indexpieza;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto idproducto;
@@ -99,6 +101,14 @@ public class Detalleplanificacionproduccion implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIndexpieza() {
+        return indexpieza;
+    }
+
+    public void setIndexpieza(Integer indexpieza) {
+        this.indexpieza = indexpieza;
     }
 
     public Date getFechainicio() {
