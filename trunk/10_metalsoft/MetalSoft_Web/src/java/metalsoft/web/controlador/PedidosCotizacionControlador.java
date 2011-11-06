@@ -19,6 +19,7 @@ import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.web.vista.PedidoCotizacionVista;
 import metalsoft.datos.jpa.controller.EstadopedidoJpaController;
 import metalsoft.datos.jpa.entity.Detallepedido;
+import metalsoft.util.Fecha;
 import metalsoft.web.vista.SesionVista;
 
 /**
@@ -45,7 +46,9 @@ public class PedidosCotizacionControlador {
         pedidoVista.limpiarCampos();
 
         List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
-
+        for(Pedido p : list){
+            p.setFechapedidocotizacion(Fecha.parseToDate(String.valueOf(p.getFechapedidocotizacion()), "dd/MM/yyyy"));
+        }
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
         return "gestionPedidos";
@@ -56,7 +59,9 @@ public class PedidosCotizacionControlador {
         pedidoVista.limpiarCampos();
 
         List<Pedido> list = JpaUtil.getPedidosNoFinalizados();
-
+        for(Pedido p : list){
+            p.setFechapedidocotizacion(Fecha.parseToDate(String.valueOf(p.getFechapedidocotizacion()), "dd/MM/yyyy"));
+        }
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
         return "gestionPedidos";
