@@ -402,19 +402,16 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         jLabel18 = new javax.swing.JLabel();
         rbtNombre = new javax.swing.JRadioButton();
         btnNuevoProducto = new javax.swing.JButton();
-        beanBtnAgregar = new metalsoft.beans.BtnAgregar();
         bsyBuscarProducto = new org.jdesktop.swingx.JXBusyLabel();
         jPanel2 = new javax.swing.JPanel();
-        beanBtnQuitar = new metalsoft.beans.BtnQuitar();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblDetallePedidoCotizacion = new org.jdesktop.swingx.JXTable();
+        tblDetallePedidoCotizacion = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         dccCancelacion = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtMotivoCancelacion = new javax.swing.JTextArea();
-        beanBotones = new metalsoft.beans.ABM_Botones();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -433,6 +430,12 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         jLabel7.setText("Prioridad:");
 
         jLabel8.setText("Estado:");
+
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstadoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Fecha Req de Cotización:");
 
@@ -646,6 +649,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle"));
 
+        tblDetallePedidoCotizacion.setModel(new DetallePedidoCotizacionTableModel());
         jScrollPane3.setViewportView(tblDetallePedidoCotizacion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -653,19 +657,15 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
-                    .addComponent(beanBtnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(beanBtnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -689,8 +689,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(bsyBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnNuevoProducto)
-                            .addComponent(beanBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnNuevoProducto)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -709,13 +708,11 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(beanBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(27, 27, 27)
                         .addComponent(btnNuevoProducto))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Cancelación Pedido"));
@@ -770,7 +767,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -778,10 +775,6 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(beanBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -795,8 +788,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(beanBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -935,6 +927,10 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         }
 }//GEN-LAST:event_btnNuevoProductoActionPerformed
 
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+
     public void agregarFila(ViewDetallePedidoCotizacion v) {
         filas.addLast(v);
     }
@@ -951,9 +947,6 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private metalsoft.beans.ABM_Botones beanBotones;
-    private metalsoft.beans.BtnAgregar beanBtnAgregar;
-    private metalsoft.beans.BtnQuitar beanBtnQuitar;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscarProducto;
     private javax.swing.JButton btnNuevoCliente;
@@ -993,7 +986,7 @@ public class ABMPedidoPresupuesto extends javax.swing.JDialog implements IBuscad
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JList lstResultadoBusqueda;
     private javax.swing.JRadioButton rbtNombre;
-    private org.jdesktop.swingx.JXTable tblDetallePedidoCotizacion;
+    private javax.swing.JTable tblDetallePedidoCotizacion;
     private javax.swing.JTextArea txtMotivoCancelacion;
     private javax.swing.JTextField txtNroPedidoCliente;
     private javax.swing.JTextField txtRazonSocial;
