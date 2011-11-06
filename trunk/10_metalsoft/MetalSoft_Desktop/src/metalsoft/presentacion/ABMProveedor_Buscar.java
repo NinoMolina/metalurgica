@@ -274,7 +274,7 @@ public class ABMProveedor_Buscar extends javax.swing.JDialog {
         String[] columnNames = {"Nro Proveedor",
             "Razón Social",
             "Responsable",
-            "Cuil",
+            "CUIT",
             "Telefono"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
