@@ -139,6 +139,7 @@ public class TipomaquinaDAOImpl implements TipomaquinaDAO
 * @return  Tipomaquina[]
 */
 
+    @Override
 	public TipomaquinaDB[] findByIdtipomaquina(long idtipomaquina, Connection con) throws TipomaquinaException{
 			PreparedStatement stmt = null;
 			ResultSet rs = null;

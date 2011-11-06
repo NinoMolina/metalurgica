@@ -25,12 +25,14 @@ import metalsoft.datos.dbobject.ProcesocalidadDB;
 import metalsoft.datos.dbobject.ProductoDB;
 import metalsoft.datos.dbobject.ProveedorDB;
 import metalsoft.datos.dbobject.EmpresametalurgicaDB;
+import metalsoft.datos.dbobject.TipomaquinaDB;
 import metalsoft.datos.dbobject.TipomaterialDB;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.calidad.DetallePiezaCalidadPresupuesto;
 import metalsoft.negocio.calidad.ProcesoCalidad;
 import metalsoft.negocio.compras.Proveedor;
 import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 import metalsoft.negocio.produccion.EjecucionPlanificacionProduccion;
 import metalsoft.negocio.produccion.TipoMaterial;
 import metalsoft.datos.dbobject.PiezaDB;
@@ -39,6 +41,7 @@ import metalsoft.negocio.ventas.DetallePedido;
 import metalsoft.negocio.ventas.DetallePresupuesto;
 import metalsoft.negocio.ventas.DetalleProducto;
 import metalsoft.negocio.ventas.DetalleProductoPresupuesto;
+import metalsoft.negocio.ventas.EtapaDeProduccion;
 import metalsoft.negocio.ventas.Pedido;
 import metalsoft.negocio.ventas.Presupuesto;
 import metalsoft.negocio.ventas.Producto;
@@ -543,6 +546,38 @@ public class Parser {
         db.setHorafin(Fecha.parseToTimeSQL(ejecucion.getHoraFin()));
         db.setHorainicio(Fecha.parseToTimeSQL(ejecucion.getHoraInicio()));
         return db;
+    }
+
+    static EtapaDeProduccion parseToEtapaDeProduccion(EtapadeproduccionDB x) {
+        if(x==null)return null;
+        EtapaDeProduccion c=new EtapaDeProduccion();
+        c.setNombre(x.getNombre());
+        
+        c.setDuracionEstimadaXUnidMed(x.getDuracionestimada());
+        c.setFechaCreacion(x.getFechacreacion());
+        c.setHorasHombre(x.getHorashombre());
+        c.setHorasMaquina(x.getHorasmaquina());
+        c.setNumeroEtapa(x.getNroetapaproduccion());
+        return c;
+    }
+
+    static Maquina parseToMaquina(MaquinaDB x) {
+       if(x==null)return null;
+        Maquina m=new Maquina();
+        m.setNombre(x.getNombre());
+        m.setDescripcion(x.getDescripcion());
+        m.setFechaAlta(x.getFechaAlta());
+        m.setFechaBaja(x.getFechaBaja());
+
+        return m;
+    }
+
+    static TipoMaquina parseToTipoMaquina(TipomaquinaDB x) {
+        if(x==null)return null;
+        TipoMaquina m=new TipoMaquina();
+        m.setNombre(x.getNombre());
+        m.setDescripcion(x.getDescripcion());
+        return m;
     }
    
 }
