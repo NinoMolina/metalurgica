@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
+
+import java.util.Date;
 
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -16,7 +17,6 @@ import java.util.logging.Logger;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.negocio.gestores.ViewDetallePedidoReal;
 import metalsoft.negocio.gestores.ViewPedidoConPlanificacionProduccion;
-import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.ViewDetallePedidoCotizacion;
 import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
@@ -622,11 +622,12 @@ public class AccessViews {
         return ll;
     }
 
-    public static LinkedList<ViewPedidosConMPAsignada> listPedidosConMPAsignada(Connection cn) {
+    public static LinkedList<ViewPedidosConMPAsignada> listPedidosConMPAsignada(Date fecha, Connection cn) {
         ViewPedidosConMPAsignada view = null;
         LinkedList<ViewPedidosConMPAsignada> ll = new LinkedList<ViewPedidosConMPAsignada>();
         String query = "SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacionproduccion" +
-                " FROM viewpedidosconmpasignada";
+                " FROM viewpedidosconmpasignada" +
+                " WHERE fechainicioprevista <='" + Fecha.parseToString(fecha) + "'";
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -787,11 +788,13 @@ public class AccessViews {
         }
     }
 
-    public static LinkedList<ViewPedidosConProduccionFinalizada> listPedidosConProduccionFinalizada(Connection cn) {
+    public static LinkedList<ViewPedidosConProduccionFinalizada> listPedidosConProduccionFinalizada(Date fecha, Connection cn) {
         ViewPedidosConProduccionFinalizada view = null;
+//        java.sql.Date date = new java.sql.Date(fecha.getTime());
         LinkedList<ViewPedidosConProduccionFinalizada> ll = new LinkedList<ViewPedidosConProduccionFinalizada>();
         String query = "SELECT nropedido,nroplanificacionproduccion,fechacreacion,fechainicioprevista,fechafinprevista,observaciones,idpedido,idplanificacioncalidad,idplanificacionproduccion,idejecplanifproduccion" +
-                " FROM viewpedidosproduccionfin";
+                " FROM viewpedidosproduccionfin" +
+                " WHERE fechainicioprevista <= '" + Fecha.parseToString(fecha) + "'";
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

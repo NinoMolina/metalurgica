@@ -11,6 +11,8 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
@@ -45,6 +47,7 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         gestor = new GestorLanzarCalidad();
         limpiarCampos();
         setearEnabledComponents(false);
+        jdcFehaFiltro.setDate(Fecha.fechaActualDate());
         buscarPedidosConProduccionFinalizada();
         setearTablaPedidos();
         addListeners();
@@ -56,12 +59,11 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
-        tblPedidos.setHorizontalScrollEnabled(true); 
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
-        tblPedidos.updateUI();
-        tblPedidos.packAll();
+
     }
 
     private void setearEnabledComponents(boolean b) {
@@ -82,6 +84,30 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
     private void addListeners() {
         addListenerBtnSeleccionarPedido();
         addListenerBtnSalir();
+        addListenerJdcFehaFiltro();
+    }
+
+    private void addListenerJdcFehaFiltro() {
+        jdcFehaFiltro.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jdcFechaFiltroActionPerformed(e);
+            }
+        });
+
+    }
+
+    private void jdcFechaFiltroActionPerformed(ActionEvent e) {
+        Date fechaSeleccionada = jdcFehaFiltro.getDate();
+        limpiarCampos();
+        if (fechaSeleccionada.compareTo(Fecha.fechaActualDate()) > 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha menor o igual a la fecha actual (" + Fecha.fechaActual() + ")", "Información", JOptionPane.WARNING_MESSAGE);
+            jdcFehaFiltro.setDate(Fecha.fechaActualDate());
+            return;
+        }
+        jdcFehaFiltro.setDate(fechaSeleccionada);
+        buscarPedidosConProduccionFinalizada();
     }
 
     private void addListenerBtnSeleccionarPedido() {
@@ -139,8 +165,8 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
         jLabel1 = new javax.swing.JLabel();
-        jdcFehaFiltro = new com.toedter.calendar.JDateChooser();
         beanBtnSeleccionarPedido = new metalsoft.beans.BtnSeleccionar();
+        jdcFehaFiltro = new org.jdesktop.swingx.JXDatePicker();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -171,15 +197,13 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
         ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Registrar Lanzamiento Procesos de Calidad");
+        setTitle("Registrar Ejecución Procesos de Calidad");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos listos para lanzar"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos listos para Ejecutar"));
 
         jScrollPane1.setViewportView(tblPedidos);
 
-        jLabel1.setText("Fecha prevista de lanzamiento:");
-
-        jdcFehaFiltro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel1.setText("Fecha prevista de inicio:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,7 +216,7 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(beanBtnSeleccionarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -200,10 +224,10 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanBtnSeleccionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,7 +377,7 @@ public class RegistrarLanzamientoCalidad extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLanzarCalidad))
@@ -451,7 +475,7 @@ private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcFehaFiltro;
+    private org.jdesktop.swingx.JXDatePicker jdcFehaFiltro;
     private javax.swing.JLabel lblFechaFinPrevista;
     private javax.swing.JLabel lblFechaFinRecalculada;
     private javax.swing.JLabel lblFechaInicioPrevista;
@@ -462,17 +486,19 @@ private void btnLanzarCalidadActionPerformed(java.awt.event.ActionEvent evt) {//
     // End of variables declaration//GEN-END:variables
 
     private void buscarPedidosConProduccionFinalizada() {
-        filasPedidosConProduccionFinalizada = gestor.buscarPedidosConProduccionFinalizada();
+        filasPedidosConProduccionFinalizada = gestor.buscarPedidosConProduccionFinalizada(jdcFehaFiltro.getDate());
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
     }
 
     class PedidoNoLanzadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {
-            "NroPedido",
-            "NroPlanificacionCalidad",
-            "FechaCreacion",
-            "FechaInicioPrevista",
-            "FechaFinPrevista",
+            "Nro. Pedido",
+            "Nro. Planif. Calidad",
+            "Fecha Creación",
+            "Fecha Inicio Prevista",
+            "Fecha Fin Prevista",
             "Observaciones"
         };
 
