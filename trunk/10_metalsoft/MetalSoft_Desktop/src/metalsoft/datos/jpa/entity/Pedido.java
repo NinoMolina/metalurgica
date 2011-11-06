@@ -45,6 +45,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Pedido.findByFecharegpedcotiz", query = "SELECT p FROM Pedido p WHERE p.fecharegpedcotiz = :fecharegpedcotiz"),
     @NamedQuery(name = "Pedido.findByIdpedido", query = "SELECT p FROM Pedido p WHERE p.idpedido = :idpedido")})
 public class Pedido implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "nropedido")
@@ -69,6 +70,8 @@ public class Pedido implements Serializable {
     private Date fecharequeridacotizacion;
     @Column(name = "motivocancelacion")
     private String motivocancelacion;
+    @Column(name = "observaciones")
+    private String observaciones;
     @Column(name = "espedidoweb")
     private Boolean espedidoweb;
     @Column(name = "nropedidocotizacioncliente")
@@ -133,6 +136,14 @@ public class Pedido implements Serializable {
     public Pedido(Long idpedido, long nropedido) {
         this.idpedido = idpedido;
         this.nropedido = nropedido;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public long getNropedido() {
@@ -383,5 +394,4 @@ public class Pedido implements Serializable {
     public String toString() {
         return "metalsoft.datos.jpa.entity.Pedido[ idpedido=" + idpedido + " ]";
     }
-    
 }
