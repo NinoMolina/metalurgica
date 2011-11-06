@@ -55,13 +55,13 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GestorLanzarCalidad {
 
-    public LinkedList<ViewPedidosConProduccionFinalizada> buscarPedidosConProduccionFinalizada() {
+    public LinkedList<ViewPedidosConProduccionFinalizada> buscarPedidosConProduccionFinalizada(Date fecha) {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPedidosConProduccionFinalizada> list = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.listPedidosConProduccionFinalizada(cn);
+            list = AccessViews.listPedidosConProduccionFinalizada(fecha, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

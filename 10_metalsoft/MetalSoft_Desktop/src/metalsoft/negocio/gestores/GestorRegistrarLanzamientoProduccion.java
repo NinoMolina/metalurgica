@@ -64,13 +64,13 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GestorRegistrarLanzamientoProduccion {
 
-    public LinkedList<ViewPedidosConMPAsignada> buscarPedidosConMPAsignada() {
+    public LinkedList<ViewPedidosConMPAsignada> buscarPedidosConMPAsignada(Date fecha) {
         PostgreSQLManager pg = new PostgreSQLManager();
         LinkedList<ViewPedidosConMPAsignada> list = null;
         Connection cn = null;
         try {
             cn = pg.concectGetCn();
-            list = AccessViews.listPedidosConMPAsignada(cn);
+            list = AccessViews.listPedidosConMPAsignada(fecha, cn);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
