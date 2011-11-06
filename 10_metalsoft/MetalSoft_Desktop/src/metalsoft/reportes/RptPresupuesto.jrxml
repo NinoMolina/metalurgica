@@ -259,7 +259,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 			</staticText>
 			<image>
 				<reportElement x="0" y="25" width="264" height="109" backcolor="#CCFFFF"/>
-				<imageExpression class="java.lang.String"><![CDATA[".\\logo_anima_empresa2.gif"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["logo_anima_empresa2.gif"]]></imageExpression>
 			</image>
 		</band>
 	</title>
