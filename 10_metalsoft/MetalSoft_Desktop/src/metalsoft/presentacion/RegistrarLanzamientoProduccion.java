@@ -381,6 +381,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
 
             if (result > 0) {
                 JOptionPane.showMessageDialog(this, "Se ha registrado el comienzo de la Producción\nLos datos se guardaron CORRECTAMENTE!");
+                gestor.imprimirHojaDePieza(viewPedidoSeleccionado.getIdpedido());
                 filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
                 setearEnabledComponents(false);
                 limpiarCampos();
@@ -393,6 +394,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnLanzarProduccionActionPerformed
+    
     private void setearDatosPedidoSeleccionado() {
         lblFechaFinPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechafinprevista()));
         lblFechaInicioPrevista.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechainicioprevista()));
