@@ -390,4 +390,35 @@ public class GestorRegistrarLanzamientoProduccion {
             }
         }
     }
+    
+    public void imprimirHojaDePieza(long idPedido){
+        PostgreSQLManager pg = new PostgreSQLManager();
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+        try {
+            cn = pg.concectGetCn();
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptHojaDePieza.jasper"));
+            
+            param.put("ID_PEDIDO", new Long(idPedido));
+           
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Hoja de Pieza");
+            jviewer.setVisible(true);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
