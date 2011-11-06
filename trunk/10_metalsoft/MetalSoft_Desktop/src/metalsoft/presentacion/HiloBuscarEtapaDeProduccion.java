@@ -14,25 +14,28 @@ import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
 
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
+import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
+import metalsoft.negocio.gestores.GestorPieza;
+import metalsoft.negocio.gestores.IBuscador;
 import metalsoft.util.ItemCombo;
 /**
  *
  * @author Vicky
  */
 public class HiloBuscarEtapaDeProduccion extends Thread {
-    private ABMEtapaDeProduccion_Buscar ventana;
     private String valor;
+    private IBuscador ventana;
 
     @Override
     public void run() {
         buscarEtapaDeProduccion();
     }
 
-    public ABMEtapaDeProduccion_Buscar getVentana() {
+    public IBuscador getVentana() {
         return ventana;
     }
 
-    public void setVentana(ABMEtapaDeProduccion_Buscar ventana) {
+    public void setVentana(IBuscador ventana) {
         this.ventana = ventana;
     }
 
@@ -47,27 +50,35 @@ public class HiloBuscarEtapaDeProduccion extends Thread {
 
     private void buscarEtapaDeProduccion()
     {
-        Connection cn=null;
-        PostgreSQLManager pg=null;
-        pg=new PostgreSQLManager();
-        EtapadeproduccionDB[] etapaDeProduccionDB=null;
-        try {
-            cn = pg.concectGetCn();
-            etapaDeProduccionDB=AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
-            JList combo=ventana.getLstLista();
-            combo.removeAll();
-            cargarCombo(combo,etapaDeProduccionDB);
-        } catch (Exception ex) {
-            Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            try {
-                pg.disconnect();
-            } catch (SQLException ex) {
-                Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        Connection cn=null;
+//        PostgreSQLManager pg=null;
+//        pg=new PostgreSQLManager();
+//        EtapadeproduccionDB[] etapaDeProduccionDB=null;
+//        try {
+//            cn = pg.concectGetCn();
+//            etapaDeProduccionDB=AccessEtapaDeProduccion.findByNombreILIKE(valor, cn);
+//            JList combo=ventana.getList(HiloBuscarEtapaDeProduccion.class.getName());
+//            combo.removeAll();
+//            cargarCombo(combo,etapaDeProduccionDB);
+//        } catch (Exception ex) {
+//            Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        finally
+//        {
+//            try {
+//                pg.disconnect();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(HiloBuscarEtapaDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+
+        GestorEtapaDeProduccion gestor=new GestorEtapaDeProduccion();
+        metalsoft.datos.dbobject.EtapadeproduccionDB[] ep=gestor.buscarConILIKE(valor);
+        JList list=ventana.getList(HiloBuscarEtapaDeProduccion.class.getName());
+        list.removeAll();
+        ventana.setBusqueda(ep);
+        cargarCombo(list,ep);
+
     }
 
     private void cargarCombo(JList combo, EtapadeproduccionDB[] dbs) {

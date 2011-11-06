@@ -3,11 +3,13 @@
 package metalsoft.negocio.ventas;
 
 import java.sql.Connection;
+import java.sql.Time;
 import java.util.Date;
 import java.util.Timer;
 import metalsoft.negocio.access.AccessEtapaDeProduccion;
 import metalsoft.negocio.produccion.EjecucionEtapaDeProduccion;
 import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
 import metalsoft.negocio.produccion.UnidadMedida;
 import metalsoft.negocio.rrhh.Empleado;
 
@@ -17,7 +19,7 @@ public class EtapaDeProduccion
    private String nombre;
    private Date horasMaquina;
    private Date horasHombre;
-   private Maquina maquina;
+   private TipoMaquina maquina;
    private UnidadMedida unidadMedida;
    private Date duracionEstimadaXUnidMed;
    private Date fechaCreacion;
@@ -89,11 +91,11 @@ public class EtapaDeProduccion
         this.horasMaquina = horasMaquina;
     }
 
-    public Maquina getMaquina() {
+    public TipoMaquina getMaquina() {
         return maquina;
     }
 
-    public void setMaquina(Maquina maquina) {
+    public void setMaquina(TipoMaquina maquina) {
         this.maquina = maquina;
     }
 

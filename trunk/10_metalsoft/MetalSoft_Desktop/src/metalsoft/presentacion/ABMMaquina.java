@@ -541,7 +541,6 @@ public class ABMMaquina extends javax.swing.JDialog {
         txtDescripcion.setText("");
         txtNombre.setText("");
         lblnroMaquina.setText("");
-        ;
         txtTiempoProduccion.setText("");
 
         dccFechaAlta.setDate(null);

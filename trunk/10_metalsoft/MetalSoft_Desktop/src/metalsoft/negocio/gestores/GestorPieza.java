@@ -4,15 +4,21 @@ package metalsoft.negocio.gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.EtapadeproduccionDB;
+import metalsoft.datos.dbobject.MaquinaDB;
 import metalsoft.datos.dbobject.MateriaprimaDB;
 import metalsoft.datos.dbobject.PiezaDB;
 import metalsoft.datos.dbobject.PiezaPKDB;
 import metalsoft.datos.dbobject.PiezarealDB;
+import metalsoft.datos.dbobject.PiezaxetapadeproduccionDB;
+import metalsoft.datos.dbobject.TipomaquinaDB;
 import metalsoft.datos.factory.DAOFactoryImpl;
 //import metalsoft.datos.idao.PiezaDAO;
 import metalsoft.datos.idao.PiezaDAO;
@@ -25,12 +31,19 @@ import metalsoft.negocio.produccion.Matriz;
 import metalsoft.datos.idao.MatrizDAO;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.datos.idao.MateriaprimaDAO;
+import metalsoft.datos.idao.PiezaxetapadeproduccionDAO;
+import metalsoft.negocio.access.AccessMaquina;
 import metalsoft.negocio.access.AccessPieza;
+import metalsoft.negocio.access.AccessTipoMaquina;
+import metalsoft.negocio.mantmaquinarias.Maquina;
+import metalsoft.negocio.mantmaquinarias.TipoMaquina;
+import metalsoft.negocio.ventas.EtapaDeProduccion;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.produccion.PiezaReal;
+import metalsoft.presentacion.HiloBuscarEtapaDeProduccion;
 
 
-public class GestorPieza 
+public class GestorPieza  implements IBuscador
 {
    private PiezaDB[] piezas;
    private TipomaterialDB[] tipoMaterial;
@@ -38,6 +51,8 @@ public class GestorPieza
    private EtapadeproduccionDB[] etapaDeProduccion;
    private metalsoft.datos.dbobject.MatrizDB[] matriz;
    private metalsoft.datos.dbobject.PiezarealDB[] piezaReal;
+   private metalsoft.datos.dbobject.EtapadeproduccionDB[] etapasDB;
+   private JList lstEtapas;
 
 
    /**
@@ -671,4 +686,105 @@ public class GestorPieza
             }
         }
     }
+
+    public EtapaDeProduccion buscarEtapaParaDetalleProducto(long id) {
+        EtapadeproduccionDB epDB=buscarEtapasEnEncontradas(id);
+        TipomaquinaDB mDB=buscarMaquina(epDB.getTipomaquina());
+        EtapaDeProduccion ep=Parser.parseToEtapaDeProduccion(epDB);
+        TipoMaquina m=Parser.parseToTipoMaquina(mDB);
+        ep.setMaquina(m);
+        return ep;
+    }
+
+    public EtapadeproduccionDB buscarEtapasEnEncontradas(long id)
+    {
+        int elementos=etapasDB.length;
+        EtapadeproduccionDB ep=null;
+        for(int i=0;i<elementos;i++)
+        {
+            ep=etapasDB[i];
+            if(ep.getIdetapaproduccion()==id)return ep;
+        }
+        return null;
+    }
+
+    private TipomaquinaDB buscarMaquina(long id) {
+        return AccessTipoMaquina.findById(id);
+    }
+
+    public void setListaEtapas(JList lst) {
+        lstEtapas=lst;
+    }
+     public JList getList() {
+        return lstEtapas;
+    }
+
+
+        public void buscarEtapas(final String valor)
+    {
+        if(valor.compareTo("")!=0) {
+            final GestorPieza x=this;
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                private HiloBuscarEtapaDeProduccion hiloBuscarEtapaDeProduccion;
+                @Override
+                public void run() {
+                    hiloBuscarEtapaDeProduccion=new HiloBuscarEtapaDeProduccion();
+                    hiloBuscarEtapaDeProduccion.setVentana(x);
+                    hiloBuscarEtapaDeProduccion.setValor(valor);
+                    hiloBuscarEtapaDeProduccion.start();
+                }
+            }, 1500);
+        }
+    }
+
+    @Override
+    public JList getList(String className) {
+        return lstEtapas;
+    }
+
+    @Override
+    public JComboBox getCombo(String className) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setBusqueda(Object[] obj) {
+        etapasDB=(EtapadeproduccionDB[]) obj;
+    }
+
+    public boolean guardarEtapasXPieza(ViewPiezaXEtapa piezaxEtapa, long idPieza) {
+        PiezaxetapadeproduccionDAO dao = new DAOFactoryImpl().createPiezaxetapadeproduccionDAO();
+        PiezaxetapadeproduccionDB pxe = new PiezaxetapadeproduccionDB();
+        pxe.setIdetapaproduccion(piezaxEtapa.getIdEtapaProduccion());
+        pxe.setIdpieza(idPieza);
+
+        Connection cn=null;
+        try {
+            cn = new PostgreSQLManager().concectGetCn();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+
+        try {
+            dao.insert(pxe, cn);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        finally
+        {
+            if(cn!=null)
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorPieza.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+        }
+        return true;
+    }
+
 }
