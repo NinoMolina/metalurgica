@@ -1,0 +1,890 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * AsignarMateriaPrimaAProduccion.java
+ *
+ * Created on 17/10/2010, 04:56:29
+ */
+package metalsoft.presentacion;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dbobject.DetallempasignadaDB;
+import metalsoft.datos.dbobject.MateriaprimaDB;
+import metalsoft.datos.dbobject.PlanificacionproduccionDB;
+import metalsoft.datos.jpa.entity.Codigodebarra;
+import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.gestores.GestorCodigoBarra;
+import metalsoft.negocio.gestores.GestorMateriaPrima;
+import metalsoft.negocio.gestores.GestorPlanificacion;
+import metalsoft.negocio.gestores.GestorPresupuesto;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.negocio.gestores.ViewMateriaPrimaXPiezaPresupuesto;
+import metalsoft.negocio.gestores.ViewPlanificacion;
+import metalsoft.negocio.gestores.GestorPiezaReal;
+import metalsoft.negocio.produccion.CodigoDeBarra;
+import metalsoft.negocio.produccion.PiezaReal;
+import metalsoft.util.BarCodeUtil;
+import metalsoft.util.Combo;
+import metalsoft.util.Fecha;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
+import org.jdesktop.swingx.table.ColumnControlButton;
+
+/**
+ *
+ * @author Vicky
+ */
+public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
+
+    private LinkedList<ViewPlanificacion> filasPedidos;
+    private LinkedList<ViewMateriaPrimaXPiezaPresupuesto> filasMateriaPrimaXPiezaPresupuesto;
+    private long idPedido;
+    private GestorPlanificacion gestor;
+    private GestorPresupuesto gestorPresupuesto;
+    private GestorMateriaPrima gestorMateriaPrima;
+    private GestorPiezaReal gestorPiezaReal;
+    private GestorCodigoBarra gestorCodigoBarra;
+    private MateriaprimaDB materiaPrima;
+
+    /** Creates new form AsignarMateriaPrimaAProduccion */
+    public AsignarMateriaPrimaAProduccion() {
+        super(Principal.getVtnPrincipal());
+        initComponents();
+        lblNroPresupuesto.setVisible(false);
+        gestor = new GestorPlanificacion();
+        gestorPresupuesto = new GestorPresupuesto();
+        gestorMateriaPrima = new GestorMateriaPrima();
+        gestorPiezaReal = new GestorPiezaReal();
+        gestorCodigoBarra = new GestorCodigoBarra();
+        cargarComboTipoMaterial();
+        cargarComboUnidadMedida();
+        buscarPedidosConMPAsignada();
+        setEnableFalse();
+        btnSeleccionarProveedor.setEnabled(false);
+        btnAsignarMP.setEnabled(false);
+        setearTablas();
+    }
+
+    private void setearTablas() {
+        //DETALLE PEDIDO
+        tblPedidos.setModel(new PedidoTableModel());
+        tblPedidos.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblPedidos.setShowHorizontalLines(false);
+        tblPedidos.setShowVerticalLines(false);
+        tblPedidos.setHorizontalScrollEnabled(true);
+        tblPedidos.packAll();
+        /* On dit de surligner une ligne sur deux */
+        tblPedidos.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+        //DETALLE PRODUCTO
+        tblMatPrimaXPieza.setModel(new MateriaPrimaXPiezaPresupuestoTableModel());
+        tblMatPrimaXPieza.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblMatPrimaXPieza.setShowHorizontalLines(false);
+        tblMatPrimaXPieza.setShowVerticalLines(false);
+        tblMatPrimaXPieza.setHorizontalScrollEnabled(true);
+        tblMatPrimaXPieza.packAll();
+        /* On dit de surligner une ligne sur deux */
+        tblMatPrimaXPieza.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+
+
+    }
+
+    public void buscarPedidosConMPAsignada() {
+        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(null);
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
+    }
+
+    public void buscarPedidosConMPAsignada(Connection cn) {
+        filasPedidos = gestor.buscarPlanificacionConRecursosAsignados(cn);
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
+    }
+
+    private void cargarTablaMatPrima() {
+        filasMateriaPrimaXPiezaPresupuesto = gestorPresupuesto.buscarMatPrimaXPiezaPresupuesto();
+        tblMatPrimaXPieza.updateUI();
+        tblMatPrimaXPieza.packAll();
+
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel14 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
+        jPanel2 = new javax.swing.JPanel();
+        btnSeleccionar = new javax.swing.JButton();
+        lblNroPresupuesto = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        btnSeleccionarProveedor = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblMatPrimaXPieza = new org.jdesktop.swingx.JXTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPedidos = new org.jdesktop.swingx.JXTable();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        cmbUnidadMedida = new javax.swing.JComboBox();
+        dimensiones1 = new metalsoft.beans.Dimensiones();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblNroMateriaPrima = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cmbTipoMaterial = new javax.swing.JComboBox();
+        dccFechaAlta = new com.toedter.calendar.JDateChooser();
+        dccFechaBaja = new com.toedter.calendar.JDateChooser();
+        lblNombre = new javax.swing.JLabel();
+        lblStock = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
+        btnAsignarMP = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Asignar Materia Prima a Producción");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos sin Materia Prima asignada"));
+
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/48-check.png"))); // NOI18N
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Materia Prima"));
+
+        btnSeleccionarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/48-check.png"))); // NOI18N
+        btnSeleccionarProveedor.setText("Seleccionar");
+        btnSeleccionarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarProveedorActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setViewportView(tblMatPrimaXPieza);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeleccionarProveedor))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSeleccionarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jScrollPane2.setViewportView(tblPedidos);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1308, 1308, 1308)
+                        .addComponent(lblNroPresupuesto))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSeleccionar))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(lblNroPresupuesto))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Materia Prima"));
+
+        jLabel7.setText("Fecha Alta:");
+
+        jLabel8.setText("Fecha Baja:");
+
+        jLabel4.setText("Descripción:");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        jLabel5.setText("Unidad de Medida:");
+
+        dimensiones1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dimensiones"));
+
+        jLabel2.setText("Nombre:");
+
+        jLabel1.setText("Nro. Materia Prima:");
+
+        lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblNroMateriaPrima.setText("...");
+
+        jLabel11.setText("Cod. Barra:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setText("Stock:");
+
+        jLabel6.setText("Tipo de Material:");
+
+        lblNombre.setText("...");
+
+        lblStock.setText("...");
+
+        lblCodigo.setText("...");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblNroMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(240, 240, 240)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbTipoMaterial, 0, 165, Short.MAX_VALUE))))))
+                .addGap(139, 139, 139))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblStock)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNroMateriaPrima)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(lblCodigo)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel8)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(cmbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnAsignarMP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save1.png"))); // NOI18N
+        btnAsignarMP.setText("Asignar Materia Prima");
+        btnAsignarMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarMPActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit1.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAsignarMP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 700, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 942, Short.MAX_VALUE)
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel2, jPanel3});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAsignarMP)
+                    .addComponent(btnSalir))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+}//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAsignarMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMPActionPerformed
+
+        long result = -1;
+        long resultCB = -1;
+        long idDetalleMPAsignada = -1;
+        long idMPAsigXPieza = -1;
+        int cont = 0;
+        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        long idMP = view.getIdmateriaprima();
+
+        PostgreSQLManager pg = null;
+        Connection cn = null;
+        pg = new PostgreSQLManager();
+        try {
+            cn = pg.concectGetCn();
+            cn.setAutoCommit(false);
+            if (gestor.mpPermitidaAAsignar(idPedido, idMP, cn) != 0) {//consulta si esa materia prima esta asignada del todo
+                //Antes ver si hay la cantidad de Mat Prima Suficiente
+//                int cantidadStock = (int) (materiaPrima.getStock() - view.getCantmateriaprima());
+                int cantidadStock = (int) (materiaPrima.getStock() - view.getCanttotal());
+                if (cantidadStock >= 0) {
+//                    materiaPrima.setStock(materiaPrima.getStock() - view.getCantmateriaprima());
+                    materiaPrima.setStock(materiaPrima.getStock() - view.getCanttotal());
+
+//                    PiezaReal piezaReal = new PiezaReal();
+//                    piezaReal.setNroPieza((int)AccessFunctions.nvoNroPiezaReal(cn));
+//                    CodigoDeBarra cb = new CodigoDeBarra();
+//                    cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL,String.valueOf(piezaReal.getNroPieza())));
+//                    piezaReal.setCodigoBarra(cb);
+
+                    int cantPiezas = view.getCantpieza() * view.getCantproducto();
+                    
+                    PlanificacionproduccionDB plan = gestor.buscarPlanificacionPorPedido(idPedido, cn);
+//                    long[] piezasReales = new long[view.getCantpieza()];
+                    long[] piezasReales = new long[cantPiezas];
+                    /*
+                     * se generan todas las piezas reales necesarias
+                     */
+                    for (int i = 0; i < cantPiezas; i++) {
+
+                        PiezaReal piezaReal = new PiezaReal();
+                        piezaReal.setNroPieza((int) AccessFunctions.nvoNroPiezaReal(cn));
+                        CodigoDeBarra cb = new CodigoDeBarra();
+                        cb.setCodigo(BarCodeUtil.generarCodigo(BarCodeUtil.COD_PIEZA_REAL, String.valueOf(piezaReal.getNroPieza())));
+                        piezaReal.setCodigoBarra(cb);
+
+                        result = gestorPiezaReal.guardar(piezaReal, view.getIdpieza(), 1, cn);
+                        piezasReales[i] = result;
+                        if (result > -1) {
+                            cont++;
+                        }
+                    }
+                    /*
+                     * Tengo que guardar un detalle de mp por cada materia prima
+                     */
+                    if (cont > 0) {
+                        long idmateria = gestorMateriaPrima.modificarMateriaPrimaDB(materiaPrima, cn);
+                        DetallempasignadaDB dmpa = gestor.buscarDetalleMPAsisnada(view.getIdmateriaprima(), plan.getIdplanificacionproduccion(), cn);
+                        if (dmpa != null) {
+//                            idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCantmateriaprima(), cn);
+                            idDetalleMPAsignada = gestor.modificarDetalleAsignacionMP(dmpa.getId(), dmpa.getIdplanificacionproduccion(), dmpa.getIdmateriaprima(), dmpa.getCantidadmp() + view.getCanttotal(), cn);
+                            idDetalleMPAsignada = dmpa.getId();
+                        } else {
+//                            idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCantmateriaprima(), cn);
+                            idDetalleMPAsignada = gestor.guardarDetalleAsignacionMP(plan.getIdplanificacionproduccion(), view.getIdmateriaprima(), view.getCanttotal(), cn);
+                        }
+                        /*
+                         * guardo la relacion entre la pieza real y el detalle de mp asignada
+                         */
+                        if (idDetalleMPAsignada > 0) {
+                            for (int i = 0; i < piezasReales.length; i++) {
+                                gestor.guardarMPAsignadaXPieza(piezasReales[i], idDetalleMPAsignada, cn);
+                            }
+                        }
+                    }
+
+                    if (result > -1 && cont > 0) {
+                        if (gestor.mpEstaTodaAsignada(idPedido, cn)) {
+                            gestor.setEstadoMateriaPrimaAsignada(idPedido, cn);
+                            buscarPedidosConMPAsignada(cn);
+                            filasMateriaPrimaXPiezaPresupuesto.clear();
+                            tblMatPrimaXPieza.updateUI();
+                            tblMatPrimaXPieza.packAll();
+                            limpiarCampos();
+                        }
+                        cn.commit();
+                        limpiarCampos();
+                        JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
+                        if (cont>1)
+                        {
+                            JOptionPane.showMessageDialog(this, "Seleccione una nueva Materia Prima a asignar");
+                        }
+                        
+                    } else {
+                        cn.rollback();
+                        JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+                        btnAsignarMP.setEnabled(false);
+                        limpiarCampos();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay suficiente Stock de la materia prima " + materiaPrima.getNombre());
+                    btnAsignarMP.setEnabled(false);
+                    limpiarCampos();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "El pedido ya tiene asignado toda la materia prima seleccionada");
+                btnAsignarMP.setEnabled(false);
+                limpiarCampos();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                cn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(AsignarMateriaPrimaAProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAsignarMPActionPerformed
+
+    private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
+        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        long idMatPrima = view.getIdmateriaprima();
+        materiaPrima = gestorMateriaPrima.buscarPorId(idMatPrima);
+        long idCodigo = materiaPrima.getCodbarra();
+        Codigodebarra cb = view.getCodigoByID(idCodigo);
+        String codigo = cb.getCodigo();
+        mostrarDatosMateriaPrima(materiaPrima, codigo);
+        btnAsignarMP.setEnabled(true);
+    }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        idPedido = viewPedido.getIdpedido();
+
+        long nroPresupuesto = gestorPresupuesto.buscarNroPresupuesto(idPedido);
+        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
+        cargarTablaMatPrima();
+        btnSeleccionarProveedor.setEnabled(true);
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+    private void mostrarDatosMateriaPrima(MateriaprimaDB mp, String codigo) {
+        lblCodigo.setText(codigo);
+        //txtCodBarra.setText(String.valueOf(mp.getCodbarra()));
+        lblNombre.setText(mp.getNombre());
+        txtDescripcion.setText(mp.getDescripcion());
+        //txtNombre.setText(mp.getNombre());
+        lblNroMateriaPrima.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, mp.getNromateriaprima()));
+        //txtPrecio.setText(String.valueOf(materiaPrima.g)
+        //txtStock.setText(String.valueOf(mp.getStock()));
+        lblStock.setText(String.valueOf(mp.getStock()));
+
+
+        if (mp.getFechaalta() == null) {
+            dccFechaAlta.setDate(null);
+        } else {
+            dccFechaAlta.setDate(mp.getFechaalta());
+        }
+
+        if (mp.getFechabaja() == null) {
+            dccFechaBaja.setDate(null);
+        } else {
+
+            dccFechaBaja.setDate(mp.getFechabaja());
+        }
+        dimensiones1.getTxtAlto().setText(String.valueOf(mp.getAlto()));
+        dimensiones1.getTxtAncho().setText(String.valueOf(mp.getAncho()));
+        dimensiones1.getTxtLargo().setText(String.valueOf(mp.getLargo()));
+
+        if (mp.getTipomaterial() < 1) {
+            Combo.setItemComboSeleccionado(cmbTipoMaterial, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbTipoMaterial, mp.getTipomaterial());
+        }
+        if (mp.getUnidaddemedida() < 1) {
+            Combo.setItemComboSeleccionado(cmbUnidadMedida, -1);
+        } else {
+            Combo.setItemComboSeleccionado(cmbUnidadMedida, mp.getUnidaddemedida());
+        }
+    }
+
+    private void cargarComboTipoMaterial() {
+        cmbTipoMaterial.removeAllItems();
+        gestorMateriaPrima.obtenerTipoMateriales(cmbTipoMaterial);
+    }
+
+    private void cargarComboUnidadMedida() {
+        cmbUnidadMedida.removeAllItems();
+        gestorMateriaPrima.obternerUnidadMedida(cmbUnidadMedida);
+    }
+
+    public void limpiarCampos() {
+        //txtCodBarra.setText("");
+        txtDescripcion.setText("");
+        //txtNombre.setText("");
+        lblNroMateriaPrima.setText("");
+        //txtPrecio.setText(String.valueOf(materiaPrima.g)
+        //txtStock.setText("");
+        lblCodigo.setText("");
+        lblNombre.setText("");
+        lblStock.setText("");
+
+        dccFechaAlta.setDate(null);
+        dccFechaBaja.setDate(null);
+
+        dimensiones1.getTxtAlto().setText("");
+        dimensiones1.getTxtAncho().setText("");
+        dimensiones1.getTxtLargo().setText("");
+
+        cmbUnidadMedida.setSelectedIndex(-1);
+        cmbTipoMaterial.setSelectedIndex(-1);
+    }
+
+    public void setEnableFalse() {
+        lblCodigo.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        lblNombre.setEnabled(false);
+        lblNroMateriaPrima.setEnabled(false);
+        //txtPrecio.setText(String.valueOf(materiaPrima.g)
+        lblStock.setEnabled(false);
+
+        dccFechaAlta.setEnabled(false);
+        dccFechaBaja.setEnabled(false);
+
+        dimensiones1.getTxtAlto().setEnabled(false);
+        dimensiones1.getTxtAncho().setEnabled(false);
+        dimensiones1.getTxtLargo().setEnabled(false);
+
+        cmbUnidadMedida.setEnabled(false);
+        cmbTipoMaterial.setEnabled(false);
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new AsignarMateriaPrimaAProduccion().setVisible(true);
+            }
+        });
+    }
+
+    class PedidoTableModel extends AbstractTableModel {
+
+        private String[] columnNames = {"Nro",
+            "Pedido Cotiz Cliente",
+            "Cliente",
+            "Prioridad",
+            "Fecha de Entrega",
+            "Presupuesto"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewPlanificacion view = filasPedidos.get(rowIndex);
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return "PED-" + view.getNropedido();
+                case 1:
+                    return view.getNropedidocotizacioncliente();
+                case 2:
+                    return view.getRazonsocial();
+                case 3:
+                    return view.getPrioridad();
+                case 4:
+                    if (view.getFechaentregaestipulada() == null) {
+                        return "";
+                    } else {
+                        return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                    }
+                case 5:
+                    return view.getIdpresupuesto();
+
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasPedidos != null) {
+                return filasPedidos.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
+
+    class MateriaPrimaXPiezaPresupuestoTableModel extends AbstractTableModel {
+
+        private String[] columnNames = {"Nro Prod",
+            "Nombre",
+            "Cant Prod",
+            "Nombre Pieza",
+            "Cant Pieza",
+            "Mat Prima",
+            "Precio",
+            "Cant MP",
+            "Cant Total",
+            "Precio Total"};
+
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            ViewMateriaPrimaXPiezaPresupuesto view = null;
+            view = filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+//            try
+//            {
+//                view=filasMateriaPrimaXPiezaPresupuesto.get(rowIndex);
+//            }
+//            catch(Exception ex)
+//            {
+//                return "";
+//            }
+            //      Object[] df=filas.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return "PROD-" + view.getNroproducto();
+                case 1:
+                    return view.getNombreproducto();
+                case 2:
+                    return view.getCantproducto();
+                case 3:
+                    return view.getNombrepieza();
+                case 4:
+                    return view.getCantpieza();
+                case 5:
+                    return view.getNombremateriaprima();
+                case 6:
+                    return "$ " + view.getPreciomateriaprima();
+                case 7:
+                    return view.getCantmateriaprima();
+                case 8:
+                    return view.getCanttotal();
+                case 9:
+                    return "$ " + view.getPreciototal();
+                default:
+                    return null;
+            }
+
+        }
+
+        /**
+         * Retorna la cantidad de columnas que tiene la tabla
+         * @return Numero de filas que contendra la tabla
+         */
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if (filasMateriaPrimaXPiezaPresupuesto != null) {
+                return filasMateriaPrimaXPiezaPresupuesto.size();
+            }
+            return 0;
+        }
+
+        /**
+         * Devuelve el nombre de las columnas para mostrar en el encabezado
+         * @param column Numero de la columna cuyo nombre se quiere
+         * @return Nombre de la columna
+         */
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+
+        }
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignarMP;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton btnSeleccionarProveedor;
+    private javax.swing.JComboBox cmbTipoMaterial;
+    private javax.swing.JComboBox cmbUnidadMedida;
+    private com.toedter.calendar.JDateChooser dccFechaAlta;
+    private com.toedter.calendar.JDateChooser dccFechaBaja;
+    private metalsoft.beans.Dimensiones dimensiones1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNroMateriaPrima;
+    private javax.swing.JLabel lblNroPresupuesto;
+    private javax.swing.JLabel lblStock;
+    private org.jdesktop.swingx.JXTable tblMatPrimaXPieza;
+    private org.jdesktop.swingx.JXTable tblPedidos;
+    private javax.swing.JTextArea txtDescripcion;
+    // End of variables declaration//GEN-END:variables
+}

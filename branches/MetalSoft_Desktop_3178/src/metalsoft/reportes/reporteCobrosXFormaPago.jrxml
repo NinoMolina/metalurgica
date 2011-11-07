@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCobrosXFormaPago" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Fecha_Desde" class="java.util.Date"/>
+	<parameter name="Fecha_Hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT fp.nombre, count(*)
+FROM comprobantepago cp, formadepago fp
+WHERE cp.formadepago = fp.idformapago
+and cp.fechaemision >= $P{Fecha_Desde}
+and cp.fechaemision < $P{Fecha_Hasta}
+group by fp.nombre]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<variable name="SUM_TOTAL" class="java.lang.Double" resetType="None" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sum" class="java.lang.String"/>
+	<variable name="TotalPedidos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="180" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="275" height="120"/>
+				<imageExpression class="java.lang.String"><![CDATA[".\\logo_anima_empresa2.gif"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="275" y="0" width="280" height="120"/>
+				<imageExpression class="java.lang.String"><![CDATA[".\\logo.animado.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="-91" width="275" height="60" forecolor="#003300" backcolor="#ECEC95"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tornería, Rectificados y Afilados.
+Construcción de Herramientas en gral.
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="120" width="119" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha del Reporte:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="394" y="120" width="161" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="120" width="275" height="60" forecolor="#003300" backcolor="#ECEC95"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tornería, Rectificados y Afilados.
+Construcción de Herramientas en gral.
+
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="37" forecolor="#000066" backcolor="#08D19F"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Cobros según Forma de Pago]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="16" width="125" height="20" forecolor="#006699"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RANGO DE FECHAS:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="36" width="555" height="1" forecolor="#000066"/>
+			</line>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="146" y="16" width="129" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{Fecha_Desde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="16" width="29" height="20" forecolor="#003366"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="333" y="16" width="118" height="20" forecolor="#000066"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{Fecha_Hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="56" width="113" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Cobros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="56" width="111" height="20" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="111" y="0" width="113" height="14" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="14" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="483" y="0" width="72" height="20" backcolor="#CCFFCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="483" height="20" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="200" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="11" y="0" width="555" height="184"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{count}]]></valueExpression>
+					<labelExpression><![CDATA[$F{nombre}+ '= ' +$F{count}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</pie3DPlot>
+			</pie3DChart>
+			<textField>
+				<reportElement mode="Opaque" x="413" y="184" width="142" height="16" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{TotalPedidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="255" y="184" width="158" height="16" forecolor="#000066" backcolor="#CCFFCC"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Número Total de Pedidos:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
