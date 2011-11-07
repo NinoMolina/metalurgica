@@ -11,7 +11,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.ProductoJpaController;
+import metalsoft.datos.jpa.entity.Producto;
+import metalsoft.util.ItemCombo;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
@@ -832,6 +837,32 @@ public class GestorReportes {
             }
         }
 
+    }
+
+
+
+    public void obtenerProductos(JComboBox combo) {
+       try {
+            List<Producto> productos = null;
+            ProductoJpaController controller = new ProductoJpaController(JpaUtil.getEntityManagerFactory());
+            productos = controller.findProductoEntities();
+            ItemCombo item = null;
+            combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
+            for (Producto prod : productos) {
+                item = new ItemCombo();
+                item.setId(String.valueOf(prod.getIdproducto()));
+                item.setMostrar(prod.getNombre());
+                combo.addItem(item);
+            }
+            combo.setSelectedIndex(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void ReporteProduccion(Producto prod1, Producto prod2, Producto prod3,Date fechaDesde, Date fechaHasta) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 
