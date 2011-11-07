@@ -23,7 +23,7 @@ import metalsoft.util.ItemCombo;
  *
  * @author Lorreine Prescott
  */
-public class ReporteProduccion extends javax.swing.JFrame {
+public class ReporteProduccion extends javax.swing.JDialog {
 
     private GestorReportes gestor = new GestorReportes();
     private Date fechaDesde;
@@ -75,7 +75,8 @@ public class ReporteProduccion extends javax.swing.JFrame {
         cmbpro2 = new javax.swing.JComboBox();
         cmbpro3 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reporte Producción");
 
         btnReportesClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icono_impresora.png"))); // NOI18N
         btnReportesClientes.setText("Imprimir Reporte");
