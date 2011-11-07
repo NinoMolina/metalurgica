@@ -16,9 +16,20 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3">
+                <ice:column style="vertical-align: top">
+                    <ice:outputLabel value="Datos del Cliente" rendered="#{pedidoVista.selected}" />
+                    <ice:panelGrid rendered="#{pedidoVista.selected}" columns="1">
+                        <ice:outputText value="Nro. Cliente: CLI-#{pedidoVista.pedido.cliente.nrocliente}"/>
+                        <ice:outputText value="Razón Social: #{pedidoVista.pedido.cliente.razonsocial}"/>
+                        <ice:outputText value="Teléfono Empresa: #{pedidoVista.pedido.cliente.telefono}"/>
+                        <ice:outputText value="Email Empresa: #{pedidoVista.pedido.cliente.mail}"/>
+                        <ice:outputText value="Responsable: #{pedidoVista.pedido.cliente.responsable.nombre} #{pedidoVista.pedido.cliente.responsable.apellido}"/>
+                        <ice:outputText value="Teléfono Responsable: #{pedidoVista.pedido.cliente.responsable.telefono}"/>
+                    </ice:panelGrid>
+
+                </ice:column>
                 <ice:column>
-                    <ice:dataTable id="pedidosList"
-                                   var="pedido"   
+                    <ice:dataTable var="pedido"   
                                    value="#{pedidoVista.pedidosVista}" 
                                    columnClasses="tableCol">
                         <ice:column>
@@ -26,7 +37,16 @@
                                 <ice:outputText id="column1"
                                                 value="Numero" style="color: #000000"/>
                             </f:facet>
-                            <ice:outputText id="Number" value="#{pedido.nropedido}"/>
+                            <ice:outputText id="Number1" value="#{pedido.nropedido}"/>
+
+                        </ice:column>
+
+                        <ice:column rendered="#{sesionVista.esAdministrador}">
+                            <f:facet name="header" >
+                                <ice:outputText id="cli"
+                                                value="Cliente" style="color: #000000"/>
+                            </f:facet>
+                            <ice:outputText id="Number" value="#{pedido.cliente.razonsocial}"/>
 
                         </ice:column>
 
@@ -35,8 +55,14 @@
                                 <ice:outputText id="column2"
                                                 value="Fecha de Pedido" style="color: #000000"/>
                             </f:facet>
-                            <ice:outputText id="FechaPedido"
-                                            value="#{pedido.fechapedidocotizacion}"/>
+                            <ice:selectInputDate id="FechaPedido" renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true"
+                                                     value="#{pedido.fechapedidocotizacion}"
+                                                     title=""
+                                                     renderAsPopup="true"
+                                                     disabled="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"
+                                                       timeZone="#{nuevoPedidoControlador.timeZone}"/>
+                                </ice:selectInputDate>
                         </ice:column>
                         <ice:column>
                             <f:facet name="header" >
@@ -83,18 +109,7 @@
                     </ice:dataTable>
 
                 </ice:column>
-                <ice:column style="vertical-align: top">
-                    <ice:outputLabel value="Datos del Cliente" rendered="#{pedidoVista.selected}" />
-                    <ice:panelGrid rendered="#{pedidoVista.selected}" columns="1">
-                        <ice:outputText value="Nro. Cliente: CLI-#{pedidoVista.pedido.cliente.nrocliente}"/>
-                        <ice:outputText value="Razón Social: #{pedidoVista.pedido.cliente.razonsocial}"/>
-                        <ice:outputText value="Teléfono Empresa: #{pedidoVista.pedido.cliente.telefono}"/>
-                        <ice:outputText value="Email Empresa: #{pedidoVista.pedido.cliente.mail}"/>
-                        <ice:outputText value="Responsable: #{pedidoVista.pedido.cliente.responsable.nombre} #{pedidoVista.pedido.cliente.responsable.apellido}"/>
-                        <ice:outputText value="Teléfono Responsable: #{pedidoVista.pedido.cliente.responsable.telefono}"/>
-                    </ice:panelGrid>
 
-                </ice:column>
             </h:panelGrid>
             <ice:commandButton value="Confirmar" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
             <ice:commandButton value="Cancelar" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
