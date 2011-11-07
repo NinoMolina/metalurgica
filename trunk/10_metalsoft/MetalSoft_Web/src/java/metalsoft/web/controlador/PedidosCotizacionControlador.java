@@ -4,6 +4,7 @@
  */
 package metalsoft.web.controlador;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,6 @@ public class PedidosCotizacionControlador {
     private String entroAListener = "";
 
     public PedidosCotizacionControlador() {
-        //pedidosSeleccionados = JpaUtil.getDetallePedidoByPedido(36);
     }
 
     public String misPedidos() {
@@ -46,9 +46,7 @@ public class PedidosCotizacionControlador {
         pedidoVista.limpiarCampos();
 
         List<Pedido> list = JpaUtil.getPedidosByCliente(sesionVista.getCliente().getIdcliente());
-        for(Pedido p : list){
-            p.setFechapedidocotizacion(Fecha.parseToDate(String.valueOf(p.getFechapedidocotizacion()), "dd/MM/yyyy"));
-        }
+
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
         return "gestionPedidos";
@@ -59,9 +57,6 @@ public class PedidosCotizacionControlador {
         pedidoVista.limpiarCampos();
 
         List<Pedido> list = JpaUtil.getPedidosNoFinalizados();
-        for(Pedido p : list){
-            p.setFechapedidocotizacion(Fecha.parseToDate(String.valueOf(p.getFechapedidocotizacion()), "dd/MM/yyyy"));
-        }
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
         return "gestionPedidos";
@@ -149,7 +144,7 @@ public class PedidosCotizacionControlador {
             if (sesionVista.isEsCliente()) {
                 this.misPedidos();
             }
-            if(sesionVista.isEsAdministrador()){
+            if (sesionVista.isEsAdministrador()) {
                 this.todosLosPedidos();
             }
             if (pedidoVista.getPedido().getEstado().getIdestado() == 2 || pedidoVista.getPedido().getEstado().getIdestado() == 1) {
