@@ -1,9 +1,0 @@
-Cosas para hacer 6ta iter
-
-**Requerimientos:
-Cambiar Descrip de reportes: 	
-Cambiar CU reportes Proveedores (Prov con mayor nro de compras)(Volumen de reclamos a prov)
-
-
-**Implementación: Cambiar del menu ABM tipo de Máquina ( está en mantenimiento, pasar a Producción)
-Agregar a Reportes: 2 de mantenimi y uno de prod
