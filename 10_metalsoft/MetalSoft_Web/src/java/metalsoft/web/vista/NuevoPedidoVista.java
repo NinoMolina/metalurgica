@@ -52,6 +52,7 @@ public class NuevoPedidoVista {
     private final List<FileInfo> fileList =
             Collections.synchronizedList(new ArrayList());
     private String mensSubePlano;
+    private String observaciones;
     /** Creates a new instance of nuevoPedidoVista */
     public NuevoPedidoVista() {
         pedido = new Pedido();
@@ -65,6 +66,7 @@ public class NuevoPedidoVista {
         mensValidacion="";
         detalleSeleccionado=null;
         mensSubePlano="No hay plano seleccionado";
+        observaciones="";
     }
 
     public Pedido getPedido() {
@@ -219,6 +221,14 @@ public class NuevoPedidoVista {
     public void setGuardarPedido(boolean guardarPedido) {
         this.guardarPedido = guardarPedido;
     }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
     
     public void limpiarCampos(){
         pedido = new Pedido();
@@ -235,5 +245,6 @@ public class NuevoPedidoVista {
         fileList.clear();
         mensSubePlano="No hay plano seleccionado";
         guardarPedido=false;
+        observaciones="";
     }
 }
