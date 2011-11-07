@@ -856,13 +856,49 @@ public class GestorReportes {
             }
             combo.setSelectedIndex(0);
         } catch (Exception ex) {
-            Logger.getLogger(GestorMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     public void ReporteProduccion(Producto prod1, Producto prod2, Producto prod3,Date fechaDesde, Date fechaHasta) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+         PostgreSQLManager pg = new PostgreSQLManager();
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteProduccion.jasper"));
+
+            param.put("Producto_1", (prod1));
+            param.put("Producto_2", (prod2));
+            param.put("Producto_3", (prod3));
+            param.put("Fecha_Desde", (fechaDesde));
+            param.put("Fecha_Hasta",(fechaHasta));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Reporte Producción");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
     
 
