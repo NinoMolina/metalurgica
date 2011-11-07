@@ -4,9 +4,9 @@
  */
 
 /*
- * ProduccionDiaria.java
+ * ControlCalidadDiario.java
  *
- * Created on 06/11/2011, 02:51:15
+ * Created on 06/11/2011, 22:18:52
  */
 package metalsoft.presentacion;
 
@@ -16,13 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
+import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
-import metalsoft.datos.jpa.entity.Etapadeproduccion;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Pieza;
+import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Producto;
-import metalsoft.negocio.gestores.GestorProduccionDiaria;
+import metalsoft.negocio.gestores.GestorControlCalidadDiario;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
@@ -38,17 +40,17 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
  *
  * @author Nino
  */
-public class ProduccionDiaria extends javax.swing.JDialog {
+public class ControlCalidadDiario extends javax.swing.JDialog {
 
     private static Window owner;
     private ArrayList<String> listColumnNamesTreeTable;
-    private GestorProduccionDiaria gestor;
-    private List<Detalleplanificacionproduccion> lstDetallePlanificacion;
+    private GestorControlCalidadDiario gestor;
+    private List<Detalleplanificacioncalidad> lstDetallePlanificacion;
 
-    /** Creates new form ProduccionDiaria */
-    public ProduccionDiaria() {
+    /** Creates new form ControlCalidadDiario */
+    public ControlCalidadDiario(java.awt.Frame parent, boolean modal) {
         super(owner);
-        gestor = new GestorProduccionDiaria();
+        gestor = new GestorControlCalidadDiario();
         initComponents();
         iniciarTreeTable();
         buscarPedidosEnEjecucionOAEjecutar();
@@ -56,7 +58,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
     }
 
     public static void setOwner(Window owner) {
-        ProduccionDiaria.owner = owner;
+        ControlCalidadDiario.owner = owner;
     }
 
     private void iniciarTreeTable() {
@@ -108,7 +110,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,6 +124,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 753, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -129,6 +132,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 555, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,6 +141,50 @@ public class ProduccionDiaria extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ControlCalidadDiario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ControlCalidadDiario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ControlCalidadDiario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ControlCalidadDiario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                ControlCalidadDiario dialog = new ControlCalidadDiario(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -155,11 +203,11 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         Map<Long, PedidoNode> mapPedido = new HashMap<Long, PedidoNode>();
         Map<String, ProductoNode> mapProducto = new HashMap<String, ProductoNode>();
         Map<String, PiezaNode> mapPieza = new HashMap<String, PiezaNode>();
-        for (Detalleplanificacionproduccion detalleplanificacion : lstDetallePlanificacion) {
-            Pedido pedido = detalleplanificacion.getIdplanificacionproduccion().getPedido();
-            Producto producto = detalleplanificacion.getIdproducto();
-            Pieza pieza = detalleplanificacion.getIdpieza();
-            Etapadeproduccion etapaproduccion = detalleplanificacion.getIdetapaproduccion();
+        for (Detalleplanificacioncalidad detalleplanificacion : lstDetallePlanificacion) {
+            Pedido pedido = detalleplanificacion.getIdplanificacioncalidad().getPedido();
+            Producto producto = detalleplanificacion.getProducto();
+            Pieza pieza = detalleplanificacion.getPieza();
+            Procesocalidad procesocalidad = detalleplanificacion.getProcesocalidad();
 
             PedidoNode pedidoNode = null;
             if (mapPedido.containsKey(pedido.getIdpedido())) {
@@ -191,7 +239,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
             }
 
 
-            EtapaProduccionNode etapaProduccionNode = new EtapaProduccionNode(detalleplanificacion, detalleplanificacion.getIddetalleejecucionplanificacion());
+            ProcesoCalidadNode etapaProduccionNode = new ProcesoCalidadNode(detalleplanificacion, detalleplanificacion.getIddetalleejecucionplanificacioncalidad());
 
             piezaNode.add(etapaProduccionNode);
 
@@ -334,12 +382,12 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         }
     }
 
-    class EtapaProduccionNode extends AbstractMutableTreeTableNode {
+    class ProcesoCalidadNode extends AbstractMutableTreeTableNode {
 
-        private Detalleplanificacionproduccion dpp;
-        private Detalleejecucionplanificacion dep;
+        private Detalleplanificacioncalidad dpp;
+        private Detalleejecucionplanificacioncalidad dep;
 
-        public EtapaProduccionNode(Detalleplanificacionproduccion dpp, Detalleejecucionplanificacion dep) {
+        public ProcesoCalidadNode(Detalleplanificacioncalidad dpp, Detalleejecucionplanificacioncalidad dep) {
             this.dpp = dpp;
             this.dep = dep;
         }
@@ -349,7 +397,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
             try {
                 switch (i) {
                     case 0:
-                        return dpp.getIdetapaproduccion().getNombre();
+                        return dpp.getProcesocalidad().getNombre();
                     case 1:
                         return Fecha.parseToStringFechaHora(Fecha.dateWithSpecificValues(dpp.getFechainicio(), dpp.getHorainicio().getHours(), dpp.getHorainicio().getMinutes(), dpp.getHorainicio().getSeconds()));
                     case 2:
@@ -368,22 +416,22 @@ public class ProduccionDiaria extends javax.swing.JDialog {
                         }
                     case 5:
                         if (dep != null) {
-                            return dep.getEjecucionetapa().getEstado().getNombre();
+                            return dep.getEjecucionprocesocalidad().getEstado().getNombre();
                         } else {
                             return "";
                         }
                     case 6:
                         if (dep != null) {
-                            return dep.getEjecucionetapa().getEmpleado().getNombre() + " " + dep.getEjecucionetapa().getEmpleado().getApellido();
+                            return dep.getEjecucionprocesocalidad().getEmpleado().getNombre() + " " + dep.getEjecucionprocesocalidad().getEmpleado().getApellido();
                         } else {
-                            return dpp.getIdempleado().getNombre() + " " + dpp.getIdempleado().getApellido();
+                            return dpp.getEmpleado().getNombre() + " " + dpp.getEmpleado().getApellido();
                         }
                     case 7:
-                        if (dep != null && dep.getEjecucionetapa().getMaquina() != null) {
-                            return dep.getEjecucionetapa().getMaquina().getNombre();
+                        if (dep != null && dep.getEjecucionprocesocalidad().getMaquina() != null) {
+                            return dep.getEjecucionprocesocalidad().getMaquina().getNombre();
                         } else {
-                            if (dpp.getIdmaquina() != null) {
-                                return dpp.getIdmaquina().getNombre();
+                            if (dpp.getMaquina() != null) {
+                                return dpp.getMaquina().getNombre();
                             } else {
                                 return "";
                             }
