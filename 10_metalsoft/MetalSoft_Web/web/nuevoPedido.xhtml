@@ -15,7 +15,7 @@
 
     <ui:define name="content" >
         <h:form>
-            <h:panelGrid> 
+            <h:panelGrid > 
                 <ice:outputText style="color: #FFFFFF" value="Número de Pedido:"/> <ice:outputText id="nropedido" style="color: #FFFFFF" value="PED-#{nuevoPedidoVista.nroAMostrar}"/>
 
                 <ice:outputText value="Fecha de Pedido:" style="color: #FFFFFF"/>
@@ -88,16 +88,15 @@
                                        useSessionSubdir="true"
                                        absolutePath="/Documentos/files"
                                        style="color: #FFFFFF"
-
+                                       
+                                       requiredMessage="no hay archivo seleccionado"
                                        fileEntryListener="#{nuevoPedidoControlador.listener}" >
 
-                            <h:commandButton value="Cargar Archivo Seleccionada"
+                            <h:commandButton value="Cargar Archivo Seleccionado"
                                              styleClass="boton-cargar-imagen" />
                         </ace:fileEntry>
                         <!-- progress bar, percent value is upated via progressListener-->
 
-<!--                <ice:outputProgress value="#{inputFileController.fileProgress}"
-                                    styleClass="uploadProgressBar"/>-->
                         <ice:dataTable
                             width="450px"
                             value="#{nuevoPedidoVista.fileList}"
@@ -169,7 +168,13 @@
 
                     </ice:column>
                 </h:panelGrid>
-                <h:commandButton value="Guardar Pedido" action="#{nuevoPedidoControlador.guardarPedido}"/>
+
+                <ice:outputText style="color: #FFFFFF" value="Observaciones:"/>
+                <ice:inputTextarea value="#{nuevoPedidoVista.observaciones}" style= "width: 500px; height: 100px"/>
+
+
+                <h:commandButton value="Guardar Pedido" action="#{nuevoPedidoControlador.guardarPedido}" style=""/>
+
                 <ice:outputText value="#{nuevoPedidoVista.mensValidacion}" style="font-style: italic; color: #D20005"/>
             </h:panelGrid>
         </h:form>
