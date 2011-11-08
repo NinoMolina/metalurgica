@@ -812,8 +812,9 @@ public class JpaUtil {
 
     public static List<Detalleplanificacionproduccion> getDetallePlanificacionProduccionDiaria(Date fecha) {
         EntityManager em = getEntityManager();
-        String query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.fechainicio <= :fechainicio";
-//                + " AND d.idplanificacionproduccion.pedido.estado.idestado IN (3,6)";
+        String query = "SELECT d FROM Detalleplanificacionproduccion d WHERE d.fechainicio <= :fechainicio"
+                + " AND d.idplanificacionproduccion.pedido.estado.idestado IN (3,6)"
+                + " AND d.iddetalleejecucionplanificacion.ejecucionetapa.estado.idestado NOT IN (4,6)";
         try {
             Query q = em.createQuery(query, Detalleplanificacionproduccion.class);
             q.setParameter("fechainicio", fecha);
@@ -826,7 +827,8 @@ public class JpaUtil {
     public static List<Detalleplanificacioncalidad> getDetallePlanificacionCalidadDiaria(Date fechaActualDate) {
         EntityManager em = getEntityManager();
         String query = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.fechainicio <= :fechainicio"
-                + " AND d.idplanificacioncalidad.pedido.estado.idestado IN (6,7)";
+                + " AND d.idplanificacioncalidad.pedido.estado.idestado IN (6,7)"
+                + " AND d.iddetalleejecucionplanificacioncalidad.ejecucionprocesocalidad.estado.idestado NOT IN (4,6)";
         try {
             Query q = em.createQuery(query, Detalleplanificacioncalidad.class);
             q.setParameter("fechainicio", fechaActualDate);
