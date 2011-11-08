@@ -4,10 +4,10 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.util.Date;
 import java.util.List;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
-import metalsoft.util.Fecha;
 
 /**
  *
@@ -15,8 +15,7 @@ import metalsoft.util.Fecha;
  */
 public class GestorControlCalidadDiario {
 
-    public List<Detalleplanificacioncalidad> buscarPlanificacionDiaria() {
-        return JpaUtil.getDetallePlanificacionCalidadDiaria(Fecha.fechaActualDate());
+    public List<Detalleplanificacioncalidad> buscarPlanificacionDiaria(Date fecha) {
+        return JpaUtil.getDetallePlanificacionCalidadDiaria(fecha);
     }
-    
 }

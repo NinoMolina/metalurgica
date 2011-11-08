@@ -10,15 +10,20 @@
  */
 package metalsoft.presentacion;
 
+import java.awt.Graphics;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
+import javax.imageio.ImageIO;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
-import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Pieza;
@@ -52,9 +57,52 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         super(owner);
         gestor = new GestorControlCalidadDiario();
         initComponents();
+        addListeners();
+        jdcFehaFiltro.setFormats(Fecha.DD_MM_YYYY);
+        jdcFehaFiltro.setDate(Fecha.fechaActualDate());
         iniciarTreeTable();
         buscarPedidosEnEjecucionOAEjecutar();
         cargarTreeTable();
+    }
+    
+    private void addListeners() {
+        addListenerBtnSalir();
+        addListenerJdcFehaFiltro();
+    }
+    
+    private void addListenerJdcFehaFiltro() {
+        jdcFehaFiltro.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jdcFechaFiltroActionPerformed(e);
+            }
+        });
+
+    }
+    
+    private void jdcFechaFiltroActionPerformed(ActionEvent e) {
+        Date fechaSeleccionada = jdcFehaFiltro.getDate();
+        if (fechaSeleccionada.compareTo(Fecha.fechaActualDate()) > 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha menor o igual a la fecha actual (" + Fecha.fechaActual() + ")", "Información", JOptionPane.WARNING_MESSAGE);
+            jdcFehaFiltro.setDate(Fecha.fechaActualDate());
+            return;
+        }
+        jdcFehaFiltro.setDate(fechaSeleccionada);
+        buscarPedidosEnEjecucionOAEjecutar();
+    }
+
+    private void addListenerBtnSalir() {
+        btnSalirr1.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        dispose();
     }
 
     public static void setOwner(Window owner) {
@@ -97,6 +145,21 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         trtDetalleDiario = new org.jdesktop.swingx.JXTreeTable();
+        jdcFehaFiltro = new org.jdesktop.swingx.JXDatePicker();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel(){
+
+            @Override
+            public void paint(Graphics g) {
+                try {
+                    g.drawImage(ImageIO.read(getClass().getResource("/img/fondopantallas2.png")), 0, 0, getWidth(), getHeight(), this);
+                } catch (Exception e) {
+                }
+                super.paint(g);
+            }
+        }
+        ;
+        btnSalirr1 = new metalsoft.beans.BtnSalirr();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,26 +179,44 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jLabel1.setText("Fecha:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(287, 287, 287)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(308, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(686, Short.MAX_VALUE)
+                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jdcFehaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -186,17 +267,22 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private metalsoft.beans.BtnSalirr btnSalirr1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private org.jdesktop.swingx.JXDatePicker jdcFehaFiltro;
     private org.jdesktop.swingx.JXTreeTable trtDetalleDiario;
     // End of variables declaration//GEN-END:variables
 
     private void buscarPedidosEnEjecucionOAEjecutar() {
-        lstDetallePlanificacion = gestor.buscarPlanificacionDiaria();
+        lstDetallePlanificacion = gestor.buscarPlanificacionDiaria(jdcFehaFiltro.getDate());
+        cargarTreeTable();
     }
 
     private void cargarTreeTable() {
-        DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode("---");
+        DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(Fecha.parseToString(jdcFehaFiltro.getDate()));
         trtDetalleDiario.removeAll();
         trtDetalleDiario.setTreeTableModel(new TablaProduccionDiariaModel(raiz, listColumnNamesTreeTable));
 
