@@ -101,6 +101,7 @@ public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
             }
         }
         ;
+        btnVerEstadoDiarioProduccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Procesos de Calidad en ejecución");
@@ -322,6 +323,14 @@ public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnVerEstadoDiarioProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/calendar_icon.gif"))); // NOI18N
+        btnVerEstadoDiarioProduccion.setText("Ver Control Calidad Diario");
+        btnVerEstadoDiarioProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEstadoDiarioProduccionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,7 +343,9 @@ public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(673, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnVerEstadoDiarioProduccion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 480, Short.MAX_VALUE)
                 .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -347,15 +358,25 @@ public class PlanificacionCalidadEnEjecucion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalirr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerEstadoDiarioProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void btnVerEstadoDiarioProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEstadoDiarioProduccionActionPerformed
+    ControlCalidadDiario.setOwner(this);
+    ControlCalidadDiario controlCalidadDiario = new ControlCalidadDiario();
+    JFrameManager.centrarYMostrarVentana(controlCalidadDiario);
+}//GEN-LAST:event_btnVerEstadoDiarioProduccionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private metalsoft.beans.BtnSeleccionar btnSeleccionar1;
+    private javax.swing.JButton btnVerEstadoDiarioProduccion;
     private javax.swing.JCheckBox cbxEsPedidoWeb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
