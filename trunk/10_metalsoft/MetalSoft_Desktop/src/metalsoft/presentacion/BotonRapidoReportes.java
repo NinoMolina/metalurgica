@@ -172,6 +172,11 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
         btnReporteDefecto.setText("Reportes Defectos");
         btnReporteDefecto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnReporteDefecto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReporteDefecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteDefectoActionPerformed(evt);
+            }
+        });
 
         btnReporteProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/canstock7137940.jpg"))); // NOI18N
         btnReporteProduccion.setText("Reportes Producción");
@@ -385,6 +390,18 @@ public class BotonRapidoReportes extends javax.swing.JDialog {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReporteProduccionActionPerformed
+
+    private void btnReporteDefectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteDefectoActionPerformed
+       try {
+            JFrameManager.crearVentana(ReporteDefectos.class.getName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteDefectoActionPerformed
 
     /**
     * @param args the command line arguments
