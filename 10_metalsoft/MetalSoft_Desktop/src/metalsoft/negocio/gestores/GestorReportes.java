@@ -900,6 +900,45 @@ public class GestorReportes {
         }
 
     }
+
+    public void ReporteDefectos(Date fechaDesde, Date fechaHasta) {
+
+
+        PostgreSQLManager pg = new PostgreSQLManager();
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/reporteDefectos.jasper"));
+
+            param.put("Fecha_Desde", (fechaDesde));
+            param.put("Fecha_Hasta",(fechaHasta));
+
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Reporte de Defectos");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+    }
     
 
     
