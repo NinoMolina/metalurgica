@@ -31,9 +31,9 @@ public class ReporteProduccion extends javax.swing.JDialog {
     private Producto prod1= new Producto();
     private Producto prod2= new Producto();
     private Producto prod3= new Producto();
-    private String indexString_1;
-    private String indexString_2;
-    private String indexString_3;
+    private String String_1;
+    private String String_2;
+    private String String_3;
 
     /** Creates new form ReporteProduccion */
     public ReporteProduccion() {
@@ -232,18 +232,12 @@ public class ReporteProduccion extends javax.swing.JDialog {
                 return;
             } else
 
-            indexString_1 = ((ItemCombo) cmbpro1.getSelectedItem()).toString();
-            indexString_2 = ((ItemCombo) cmbpro2.getSelectedItem()).toString();
-           indexString_3 = ((ItemCombo) cmbpro3.getSelectedItem()).toString();
+            String_1 = ((ItemCombo) cmbpro1.getSelectedItem()).toString();
+            String_2 = ((ItemCombo) cmbpro2.getSelectedItem()).toString();
+           String_3 = ((ItemCombo) cmbpro3.getSelectedItem()).toString();
 
-         /*   prod1= ((Producto) cmbpro1.getSelectedItem());
-            prod2= ((Producto) cmbpro2.getSelectedItem());
-            prod3= ((Producto) cmbpro3.getSelectedItem());
-            fechaDesde= dccFechaDesde.getDate();
-            fechaHasta= dccFechaHasta.getDate();
-*/
-          //  gestor.ReporteProduccion(prod1,prod2,prod3, fechaDesde,fechaHasta);
-    gestor.ReporteProduccion(indexString_1,indexString_2,indexString_3, fechaDesde,fechaHasta);
+   
+    gestor.ReporteProduccion(String_1,String_2,String_3, fechaDesde,fechaHasta);
 
 
 
