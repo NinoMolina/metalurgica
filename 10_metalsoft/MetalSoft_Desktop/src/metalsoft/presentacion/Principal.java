@@ -357,7 +357,6 @@ public class Principal extends javax.swing.JFrame {
         mniRegistrarPresupuesto = new javax.swing.JMenuItem();
         mniProveedor = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         mniReclamoProveedor = new javax.swing.JMenuItem();
         mniOrdenDeCompra = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
@@ -377,6 +376,7 @@ public class Principal extends javax.swing.JFrame {
         mniEtapaDeProduccion = new javax.swing.JMenuItem();
         mniProducto = new javax.swing.JMenuItem();
         mniParadaMaquina = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mnuCalidad = new javax.swing.JMenu();
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
@@ -746,7 +746,7 @@ public class Principal extends javax.swing.JFrame {
 
         txtComunicacion.setColumns(20);
         txtComunicacion.setEditable(false);
-        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        txtComunicacion.setFont(new java.awt.Font("Monospaced", 1, 14));
         txtComunicacion.setLineWrap(true);
         txtComunicacion.setRows(5);
         txtComunicacion.setWrapStyleWord(true);
@@ -923,14 +923,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuCompras.add(jMenuItem3);
 
-        jMenuItem4.setText("Listado Materia Prima A Comprar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        mnuCompras.add(jMenuItem4);
-
         mniReclamoProveedor.setText("Reclamo a Proveedor");
         mniReclamoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1079,6 +1071,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuProduccion.add(mniParadaMaquina);
+
+        jMenuItem4.setText("Listado Materia Prima Necesaria");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuProduccion.add(jMenuItem4);
 
         mbrMenu.add(mnuProduccion);
 
