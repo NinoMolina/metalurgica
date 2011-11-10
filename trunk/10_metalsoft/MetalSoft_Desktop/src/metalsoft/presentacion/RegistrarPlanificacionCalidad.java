@@ -1342,7 +1342,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                     /*
                      * para cada pieza agrego subtareas que en este caso serian las etapas de produccion
                      */
-                    if (mutableTreeTableNode instanceof EtapaProduccionNode) {
+                    if (mutableTreeTableNode instanceof ProcesoCalidadNode) {
                         ProcesoCalidadNode node = (ProcesoCalidadNode) mutableTreeTableNode;
 
                         if (node.getInicioEtapa() != null) {
@@ -1543,8 +1543,14 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             int indexNodeAnterior = indexNodeActual - 1;
 
             TreeNode anterior = null;
+            
+            Date fechaAux = fechaFinPrevistaProduccion;
+            
+            if(fechaFinPrevistaProduccion.compareTo(Fecha.fechaActualDate())<0){
+                fechaAux = Fecha.fechaActualDate();
+            }
 
-            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.parseToCalendar(fechaFinPrevistaProduccion)).getTime();
+            Date fechaInicial = Calculos.calcularFechaInicio(Jornada.HORA_INICIO_JORNADA, Jornada.HORA_FIN_JORNADA, Fecha.parseToCalendar(fechaAux)).getTime();
 
             if (indexNodeActual > 0) {
                 anterior = parent.getChildAt(indexNodeAnterior);
