@@ -50,6 +50,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         setComponentes(false);
         dccFecha.setEnabled(false);
         lblFormat.setEnabled(false);
+        this.btnguardar.setEnabled(false);
+       this.btnModificar.setEnabled(false);
     }
 
     public void etapaSeleccionada() {
@@ -289,6 +291,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         setComponentes(true);
         Combo.setItemComboSeleccionado(cmbUnidadMedida, 2);
         Combo.setItemComboSeleccionado(cmbmaquinas, -1);
+        this.btnguardar.setEnabled(true);
+        this.btnModificar.setEnabled(false);
 }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void setComponentes(boolean b)
@@ -311,6 +315,7 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
     txtnombre.setText("");
     cmbUnidadMedida.setSelectedIndex(-1);
     cmbmaquinas.setSelectedIndex(-1);
+    this.lblNroEtapa.setText("...");
 }
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         EtapaDeProduccion ep=new EtapaDeProduccion();
@@ -329,6 +334,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Etapa de Produccion: "+txtnombre.getText());
                 setComponentes(false);
                 limpiarCampos();
+                this.btnguardar.setEnabled(false);
+                this.btnModificar.setEnabled(false);
             }
             else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
@@ -349,6 +356,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
     opcion=EnumOpcionesABM.MODIFICAR;
+    this.btnguardar.setEnabled(false);
+    this.btnModificar.setEnabled(true);
 }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -356,6 +365,8 @@ public class ABMEtapaDeProduccion extends javax.swing.JDialog {
         buscar = new ABMEtapaDeProduccion_Buscar(this);
         buscar.setVentana(this);
         JFrameManager.centrarYMostrarVentana(buscar);buscar.setVentana(this);
+        this.btnguardar.setEnabled(true);
+        this.btnModificar.setEnabled(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
