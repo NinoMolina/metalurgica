@@ -303,8 +303,6 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
             }
         });
     }
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarProducto;
     private org.jdesktop.swingx.JXBusyLabel bsyBuscar1;
@@ -337,7 +335,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
                 //      Object[] df=filas.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return "PEDI-"+String.valueOf(view.getNropedido());
+                        return "PEDI-" + String.valueOf(view.getNropedido());
                     case 1:
                         return view.getPrioridad().getNombre();
                     case 2:
@@ -347,7 +345,11 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
                     case 4:
                         return Fecha.parseToString(view.getFecharequeridacotizacion().getTime());
                     case 5:
-                        return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                        if (view.getFechaentregaestipulada() != null) {
+                            return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
+                        } else {
+                            return "";
+                        }
                     case 6:
                         return view.getEstado().getNombre();
                     default:
@@ -397,7 +399,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
                 Detalleproductopresupuesto view = filasListadoMP.get(rowIndex);
                 //      Object[] df=filas.get(rowIndex);
                 switch (columnIndex) {
-                     case 0:
+                    case 0:
                         return view.getIdpieza().getNombre();
                     case 1:
                         return view.getIdmateriaprima().getNombre();
