@@ -12,6 +12,7 @@ package metalsoft.presentacion;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -290,10 +291,22 @@ public class ABMPieza extends javax.swing.JDialog {
         txtNombre.setText("");
         idpieza.setText("");;
         txtValor.setText("");
-        this.tblDetallePieza.removeAll();
-        this.lstResultadoBusqueda.removeAll();
+        limpiarTabla();
+        lstResultadoBusqueda.setListData(new Vector<Object>());
         this.jRadioButton1.setSelected(false);
     }
+
+    private void limpiarTabla()
+    {
+        int cantidadFilas = tblDetallePieza.getRowCount();
+        for(int i=0; i<cantidadFilas; i++)
+        {
+            filas.remove(0);
+            tblDetallePieza.updateUI();
+            tblDetallePieza.packAll();
+        }
+    }
+
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -441,12 +454,10 @@ public class ABMPieza extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
@@ -463,7 +474,7 @@ public class ABMPieza extends javax.swing.JDialog {
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(cmbMateriaPrima, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 146, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(cmbMatriz, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(16, 16, 16))
+                .add(26, 26, 26))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {cmbMateriaPrima, cmbMatriz}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -489,9 +500,9 @@ public class ABMPieza extends javax.swing.JDialog {
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel11)
                             .add(cmbMatriz, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 11, Short.MAX_VALUE)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Etapas"));
