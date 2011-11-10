@@ -1229,12 +1229,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         Iterator<metalsoft.datos.jpa.entity.Detallepresupuesto> it = detallepresupuestos.iterator();
         metalsoft.datos.jpa.entity.Detallepresupuesto dp = null;
         ProductoNode prod = null;
-        
+
         /*
          * recorro el detalle para obtener cada uno de los productos con sus piezas y etapas
          */
         Map<Long, Integer> mapIndexProducto = new HashMap<Long, Integer>();
-        
+
         while (it.hasNext()) {
             dp = it.next();
 
@@ -1251,7 +1251,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 prod = new ProductoNode(dp.getIdproducto());
                 prod.setIndexProducto(mapIndexProducto.get(dp.getIdproducto().getIdproducto()));
                 raiz.add(prod);
-                
+
                 List<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> setDetProPre = dp.getDetalleproductopresupuestoList();
                 Iterator<metalsoft.datos.jpa.entity.Detalleproductopresupuesto> itDetProPre = setDetProPre.iterator();
                 PiezaNode pieza = null;
@@ -1543,10 +1543,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             int indexNodeAnterior = indexNodeActual - 1;
 
             TreeNode anterior = null;
-            
+
             Date fechaAux = fechaFinPrevistaProduccion;
-            
-            if(fechaFinPrevistaProduccion.compareTo(Fecha.fechaActualDate())<0){
+
+            if (fechaFinPrevistaProduccion.compareTo(Fecha.fechaActualDate()) < 0) {
                 fechaAux = Fecha.fechaActualDate();
             }
 
