@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -147,6 +148,7 @@ public class ABMProducto extends javax.swing.JDialog {
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar.", "Guardar", JOptionPane.ERROR_MESSAGE);
         }
@@ -598,6 +600,28 @@ public class ABMProducto extends javax.swing.JDialog {
         btnAgregarPieza.setEnabled(b);
         btnNuevaPieza.setEnabled(b);
         btnQuitar.setEnabled(b);
+    }
+    
+        private void limpiar()
+    {
+        txtDescripcion.setText("");
+        txtNombre.setText("");
+        txtNumero.setText("");
+        txtPrecioUnitario.setText("");
+        txtValorBusqueda.setText("");
+        lstResultadoBusqueda.setListData(new Vector<Object>());
+        limpiarTabla();
+        this.jRadioButton1.setSelected(false);
+    }
+         private void limpiarTabla()
+    {
+        int cantidadFilas = this.tblDetalleProducto.getRowCount();
+        for(int i=0; i<cantidadFilas; i++)
+        {
+            filas.remove(0);
+            tblDetalleProducto.updateUI();
+            tblDetalleProducto.packAll();
+        }
     }
 
     /**

@@ -191,7 +191,10 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         }
         if (result) {
             if(opcion == EnumOpcionesABM.NUEVO)
+            {
                 JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla();
+            }
             else
                 JOptionPane.showMessageDialog(this, "Los datos se modificaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             setEnableComponents(false);
@@ -600,6 +603,16 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         this.btnQuitar.setEnabled(b);
         this.btnAgregarPieza.setEnabled(b);
     }
+    private void limpiarTabla()
+    {
+        int cantidadFilas = this.tblDetalleOrden.getRowCount();
+        for(int i=0; i<cantidadFilas; i++)
+        {
+            filas.remove(0);
+            tblDetalleOrden.updateUI();
+            tblDetalleOrden.packAll();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -647,6 +660,8 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             }
 
         }
+
+
 
         /**
          * Retorna la cantidad de columnas que tiene la tabla
