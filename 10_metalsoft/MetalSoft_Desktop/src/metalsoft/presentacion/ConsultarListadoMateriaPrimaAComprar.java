@@ -11,12 +11,16 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
+import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.negocio.gestores.GestorListadoMateriaPrimaAComprar;
 import metalsoft.util.Fecha;
@@ -31,15 +35,17 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
 
     /** Creates new form ConsultarListadoMateriaPrimaAComprar */
     private List<Pedido> filasPedidos;
-    private List<Detalleproductopresupuesto> filasListadoMP;
     private GestorListadoMateriaPrimaAComprar gestor;
     private Pedido pedido;
+    private Map<Long, FilaTabla> mapFilasTabla;
+    private List<FilaTabla> filasTablaVista;
 
     public ConsultarListadoMateriaPrimaAComprar() {
         super(Principal.getVtnPrincipal());
         initComponents();
+        mapFilasTabla = new HashMap<Long, FilaTabla>();
         addListeners();
-        filasListadoMP = new LinkedList<Detalleproductopresupuesto>();
+        filasTablaVista = new LinkedList<FilaTabla>();
         filasPedidos = new LinkedList<Pedido>();
         setearTablas();
         gestor = new GestorListadoMateriaPrimaAComprar();
@@ -90,7 +96,25 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
             return;
         }
-        filasListadoMP = gestor.buscarListadoMPByPedido(String.valueOf(pedido.getIdpedido()));
+        List<Detalleproductopresupuesto> lst = gestor.buscarListadoMPByPedido(String.valueOf(pedido.getIdpedido()));
+
+        FilaTabla fila = null;
+        for (Detalleproductopresupuesto de : lst) {
+
+            if (mapFilasTabla.containsKey(de.getIdmateriaprima().getIdmateriaprima())) {
+                fila = mapFilasTabla.get(de.getIdmateriaprima().getIdmateriaprima());
+            } else {
+                mapFilasTabla.put(de.getIdmateriaprima().getIdmateriaprima(), new FilaTabla());
+                fila = mapFilasTabla.get(de.getIdmateriaprima().getIdmateriaprima());
+                fila.setMateriaPrima(de.getIdmateriaprima());
+            }
+
+            fila.addCantidadProducto(de.getIddetallepresupuesto().getCantidad());
+            fila.addCantidadMateriaPrima(de.getCantmateriaprima());
+            fila.recalcularMPTotal();
+            fila.calcularMpAComprar();            
+        }
+        filasTablaVista.addAll(mapFilasTabla.values());
         tblListadoMP.updateUI();
         tblListadoMP.packAll();
     }
@@ -386,24 +410,28 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
 
     class ListadoMateriaPrimaTableModel extends AbstractTableModel {
 
-        String[] columnNames = {"Pieza",
+        String[] columnNames = {"Nro. Mat. Prima",
             "Materia Prima",
-            "Cantidad de Materia Prima",
-            "Precio Unitario"};
+            "Mat. Prima Necesaria",
+            "Stock de Mat. Prima",
+            "Cant. Recomendada a Comprar"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
-            if (filasListadoMP != null) {
-                Detalleproductopresupuesto view = filasListadoMP.get(rowIndex);
+            if (filasTablaVista != null) {
+                FilaTabla view = filasTablaVista.get(rowIndex);
                 //      Object[] df=filas.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return view.getIdpieza().getNombre();
+                        return "MP-" + String.valueOf(view.getMateriaPrima().getNromateriaprima());
                     case 1:
-                        return view.getIdmateriaprima().getNombre();
+                        return view.getMateriaPrima().getNombre();
                     case 2:
-                        return String.valueOf(view.getCantmateriaprima());
+
+                        return String.valueOf(view.getCantMpTotal());
                     case 3:
-                        return String.valueOf(view.getPreciomateriaprima());
+                        return String.valueOf(view.getMateriaPrima().getStock());
+                    case 4:
+                        return String.valueOf(view.getCantMpRecomendada());   
                     default:
                         return null;
                 }
@@ -421,8 +449,8 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         }
 
         public int getRowCount() {
-            if (filasListadoMP != null) {
-                return filasListadoMP.size();
+            if (filasTablaVista != null) {
+                return filasTablaVista.size();
             }
             return 0;
         }
@@ -436,6 +464,76 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         public String getColumnName(int column) {
             return columnNames[column];
 
+        }
+    }
+
+    class FilaTabla {
+
+        private int cantMp = 0;
+        private int cantProd = 0;
+        private int cantMpTotal = 0;
+        private Materiaprima materiaPrima;
+        private int cantMpRecomendada = 0;
+
+        private void addCantidadProducto(Integer cantidad) {
+            cantProd += cantidad;
+        }
+
+        private void addCantidadMateriaPrima(Integer cantmateriaprima) {
+            cantMp += cantmateriaprima;
+        }
+
+        private void recalcularMPTotal() {
+            cantMpTotal = cantProd * cantMp;
+        }
+
+        private void calcularMpAComprar() {
+            this.cantMpRecomendada = this.materiaPrima.getStock().intValue() - this.cantMpTotal;
+            if (this.cantMpRecomendada < 0) {
+                this.cantMpRecomendada = Math.abs(this.cantMpRecomendada);
+            } else {
+                this.cantMpRecomendada = 0;
+            }
+        }
+
+        public int getCantMp() {
+            return cantMp;
+        }
+
+        public void setCantMp(int cantMp) {
+            this.cantMp = cantMp;
+        }
+
+        public int getCantMpTotal() {
+            return cantMpTotal;
+        }
+
+        public void setCantMpTotal(int cantMpTotal) {
+            this.cantMpTotal = cantMpTotal;
+        }
+
+        public int getCantProd() {
+            return cantProd;
+        }
+
+        public void setCantProd(int cantProd) {
+            this.cantProd = cantProd;
+        }
+
+        public Materiaprima getMateriaPrima() {
+            return materiaPrima;
+        }
+
+        public void setMateriaPrima(Materiaprima materiaPrima) {
+            this.materiaPrima = materiaPrima;
+        }
+
+        public int getCantMpRecomendada() {
+            return cantMpRecomendada;
+        }
+
+        public void setCantMpRecomendada(int cantMpRecomendada) {
+            this.cantMpRecomendada = cantMpRecomendada;
         }
     }
 }
