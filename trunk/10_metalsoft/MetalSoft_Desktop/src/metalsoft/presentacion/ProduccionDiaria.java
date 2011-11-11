@@ -61,7 +61,6 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         jdcFehaFiltro.setDate(Fecha.fechaActualDate());
         iniciarTreeTable();
         buscarPedidosEnEjecucionOAEjecutar();
-        cargarTreeTable();
     }
 
     private void addListeners() {
@@ -249,6 +248,13 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         Map<String, ProductoNode> mapProducto = new HashMap<String, ProductoNode>();
         Map<String, PiezaNode> mapPieza = new HashMap<String, PiezaNode>();
         for (Detalleplanificacionproduccion detalleplanificacion : lstDetallePlanificacion) {
+            
+            if(detalleplanificacion.getIddetalleejecucionplanificacion() != null){ 
+                long idestado = detalleplanificacion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
+                if(idestado == 4 || idestado == 6){
+                    continue;
+                }
+            }
             Pedido pedido = detalleplanificacion.getIdplanificacionproduccion().getPedido();
             Producto producto = detalleplanificacion.getIdproducto();
             Pieza pieza = detalleplanificacion.getIdpieza();
@@ -463,7 +469,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
                         if (dep != null) {
                             return dep.getEjecucionetapa().getEstado().getNombre();
                         } else {
-                            return "";
+                            return "PLANIFICADA";
                         }
                     case 6:
                         if (dep != null) {

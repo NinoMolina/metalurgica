@@ -261,7 +261,7 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
 
     }
 
-    public static void setProcesosAtrasados(Map<Long, Detalleejecucionplanificacioncalidad> mapProcesosAtrasados) {
+    public void setProcesosAtrasados(Map<Long, Detalleejecucionplanificacioncalidad> mapProcesosAtrasados) {
         Collection<Detalleejecucionplanificacioncalidad> collection = mapProcesosAtrasados.values();
         Iterator<Detalleejecucionplanificacioncalidad> it = collection.iterator();
         Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = null;
@@ -270,6 +270,8 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
             detalleejecucionplanificacioncalidad = it.next();
             filasProcesosAtrasados.add(detalleejecucionplanificacioncalidad);
         }
+        tblProcesosAtrasados.updateUI();
+        tblProcesosAtrasados.packAll();
     }
 
     private void setearTablas() {
