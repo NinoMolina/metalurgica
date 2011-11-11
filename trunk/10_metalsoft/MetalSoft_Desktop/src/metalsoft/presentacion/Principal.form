@@ -721,17 +721,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="pnlProduccion" min="-2" pref="546" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Component id="pnlCalidad" min="-2" pref="546" max="-2" attributes="1"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" attributes="1">
                                       <Component id="pnlVentas" min="-2" pref="455" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="pnlRegistrarFinalizacion" pref="667" max="32767" attributes="1"/>
@@ -749,10 +749,10 @@
                           <Component id="jPanelTransparente1" alignment="0" max="32767" attributes="1"/>
                           <Component id="jSeparator1" alignment="1" pref="1283" max="32767" attributes="1"/>
                           <Component id="pnlRegistrarFinalizacion1" alignment="0" pref="1283" max="32767" attributes="1"/>
-                          <Component id="jSeparator2" alignment="1" pref="1283" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jSeparator2" alignment="0" pref="1303" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -783,11 +783,11 @@
                               <Component id="btnPresupuesto" min="-2" pref="111" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="pnlRegistrarFinalizacion1" min="-2" pref="119" max="-2" attributes="1"/>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1192,7 +1192,7 @@
                           <Component id="btnControlesCalidadEnEjecucion" min="-2" pref="115" max="-2" attributes="1"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnProcesosCalidadAtrasados" min="-2" pref="115" max="-2" attributes="1"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="btnProcesosCalidadListosParaLanzar" min="-2" pref="115" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
