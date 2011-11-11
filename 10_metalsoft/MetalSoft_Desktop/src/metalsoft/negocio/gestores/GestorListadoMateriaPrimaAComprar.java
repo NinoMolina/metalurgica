@@ -8,6 +8,7 @@ package metalsoft.negocio.gestores;
 import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class GestorListadoMateriaPrimaAComprar {
     }
     public List<Detalleproductopresupuesto> buscarListadoMPByPedido(String id){
         List<Detalleproductopresupuesto> list=JpaUtil.getListadoMateriaPrimaAcomprar(id);
+        
         return list;
     }
     public void imprimirFactura(long id) {
