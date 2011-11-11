@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detalleplanificacioncalidad;
@@ -64,12 +63,12 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         buscarPedidosEnEjecucionOAEjecutar();
         cargarTreeTable();
     }
-    
+
     private void addListeners() {
         addListenerBtnSalir();
         addListenerJdcFehaFiltro();
     }
-    
+
     private void addListenerJdcFehaFiltro() {
         jdcFehaFiltro.addActionListener(new ActionListener() {
 
@@ -80,7 +79,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         });
 
     }
-    
+
     private void jdcFechaFiltroActionPerformed(ActionEvent e) {
         Date fechaSeleccionada = jdcFehaFiltro.getDate();
         if (fechaSeleccionada.compareTo(Fecha.fechaActualDate()) > 0) {
@@ -223,8 +222,6 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private metalsoft.beans.BtnSalirr btnSalirr1;
     private javax.swing.JLabel jLabel1;
@@ -249,6 +246,14 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         Map<String, ProductoNode> mapProducto = new HashMap<String, ProductoNode>();
         Map<String, PiezaNode> mapPieza = new HashMap<String, PiezaNode>();
         for (Detalleplanificacioncalidad detalleplanificacion : lstDetallePlanificacion) {
+
+            if (detalleplanificacion.getIddetalleejecucionplanificacioncalidad() != null) {
+                long idestado = detalleplanificacion.getIddetalleejecucionplanificacioncalidad().getEjecucionprocesocalidad().getEstado().getIdestado();
+                if (idestado == 4 || idestado == 6) {
+                    continue;
+                }
+            }
+
             Pedido pedido = detalleplanificacion.getIdplanificacioncalidad().getPedido();
             Producto producto = detalleplanificacion.getProducto();
             Pieza pieza = detalleplanificacion.getPieza();
@@ -463,7 +468,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
                         if (dep != null) {
                             return dep.getEjecucionprocesocalidad().getEstado().getNombre();
                         } else {
-                            return "";
+                            return "PLANIFICADO";
                         }
                     case 6:
                         if (dep != null) {

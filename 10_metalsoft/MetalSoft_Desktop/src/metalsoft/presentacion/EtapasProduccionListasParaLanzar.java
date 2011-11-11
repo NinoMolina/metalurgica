@@ -37,7 +37,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
 
     /** Creates new form EtapasProduccionListasParaLanzar */
-    private static List<Detalleplanificacionproduccion> filasEtapas;
+    private List<Detalleplanificacionproduccion> filasEtapas;
     private static Principal vtnPrincipal;
     private JButton btnSalir;
     private GestorLanzarProximaEtapa gestor;
@@ -85,7 +85,7 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
         this.dispose();
     }
 
-    public static void setEtapasALanzar(Map<Long, Detalleplanificacionproduccion> mapEtapasALanzar) {
+    public void setEtapasALanzar(Map<Long, Detalleplanificacionproduccion> mapEtapasALanzar) {
         Collection<Detalleplanificacionproduccion> collection = mapEtapasALanzar.values();
         Iterator<Detalleplanificacionproduccion> it = collection.iterator();
         Detalleplanificacionproduccion detalleplanificacionproduccion = null;
@@ -94,6 +94,8 @@ public class EtapasProduccionListasParaLanzar extends javax.swing.JDialog {
             detalleplanificacionproduccion = it.next();
             filasEtapas.add(detalleplanificacionproduccion);
         }
+        tblEtapasDeProduccion.updateUI();
+        tblEtapasDeProduccion.packAll();
     }
 
     /** This method is called from within the constructor to

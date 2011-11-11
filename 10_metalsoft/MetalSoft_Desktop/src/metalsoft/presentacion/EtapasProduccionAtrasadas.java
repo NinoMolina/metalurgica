@@ -33,7 +33,6 @@ import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.util.Fecha;
-import metalsoft.util.JTableUtils;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -283,7 +282,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
 
     }
 
-    public static void setEtapasAtrasadas(Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas) {
+    public void setEtapasAtrasadas(Map<Long, Detalleejecucionplanificacion> mapEtapasAtrasadas) {
         Collection<Detalleejecucionplanificacion> collection = mapEtapasAtrasadas.values();
         Iterator<Detalleejecucionplanificacion> it = collection.iterator();
         Detalleejecucionplanificacion detalleejecucionplanificacion = null;
@@ -292,6 +291,8 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
             detalleejecucionplanificacion = it.next();
             filasEtapasAtrasadas.add(detalleejecucionplanificacion);
         }
+        tblEtapasAtrasadas.updateUI();
+        tblEtapasAtrasadas.packAll();
     }
 
     private void setearTablas() {
@@ -305,7 +306,7 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         tblEtapasAtrasadas.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
 //        tblEtapasAtrasadas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        JTableUtils.packColumns(tblEtapasAtrasadas);
+
     }
 
     private void addListenerBtnSalir() {

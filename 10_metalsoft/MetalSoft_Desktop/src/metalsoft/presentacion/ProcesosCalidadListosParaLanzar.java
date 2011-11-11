@@ -37,7 +37,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
 
     /** Creates new form ProcesosCalidadListosParaLanzar */
-    private static List<Detalleplanificacioncalidad> filasProcesosCalidad;
+    private List<Detalleplanificacioncalidad> filasProcesosCalidad;
     private static Principal vtnPrincipal;
     private JButton btnSalir;
     private GestorLanzarProximoProcesoCalidad gestor;
@@ -64,7 +64,7 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
         /* On supprime les traits des lignes et des colonnes */
         tblProcesosDeCalidad.setShowHorizontalLines(false);
         tblProcesosDeCalidad.setShowVerticalLines(false);
-        tblProcesosDeCalidad.setHorizontalScrollEnabled(true); 
+        tblProcesosDeCalidad.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblProcesosDeCalidad.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
@@ -85,7 +85,7 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
         this.dispose();
     }
 
-    public static void setProcesosALanzar(Map<Long, Detalleplanificacioncalidad> mapProcesosALanzar) {
+    public void setProcesosALanzar(Map<Long, Detalleplanificacioncalidad> mapProcesosALanzar) {
         Collection<Detalleplanificacioncalidad> collection = mapProcesosALanzar.values();
         Iterator<Detalleplanificacioncalidad> it = collection.iterator();
         Detalleplanificacioncalidad detalleplanificacioncalidad = null;
@@ -94,6 +94,8 @@ public class ProcesosCalidadListosParaLanzar extends javax.swing.JDialog {
             detalleplanificacioncalidad = it.next();
             filasProcesosCalidad.add(detalleplanificacioncalidad);
         }
+        tblProcesosDeCalidad.updateUI();
+        tblProcesosDeCalidad.packAll();
     }
 
     /** This method is called from within the constructor to
