@@ -38,6 +38,7 @@ import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Presupuesto;
+import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
 import metalsoft.datos.jpa.entity.Trabajotercerizado;
@@ -850,6 +851,24 @@ public class JpaUtil {
         try {
             Query q = em.createNativeQuery(query, Materiaprima.class);
             return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static Proveedorxmateriaprima getRowMateriaPrimaXProveedor(long idProv, long idMat) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT pxm.* " +
+                        "FROM proveedor p, " +
+                        "materiaprima mp, " +
+                        "proveedorxmateriaprima pxm " +
+                        "WHERE mp.idmateriaprima = pxm.idmateriaprima " +
+                            "AND p.idproveedor = pxm.idproveedor " +
+                            "AND p.idproveedor = " + idProv +
+                            " AND mp.idmateriaprima = " + idMat;
+        try {
+            Query q = em.createNativeQuery(query, Proveedorxmateriaprima.class);
+            return (Proveedorxmateriaprima) q.getSingleResult();
         } finally {
             em.close();
         }
