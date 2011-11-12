@@ -33,6 +33,7 @@ import metalsoft.datos.jpa.entity.Empleado;
 import metalsoft.datos.jpa.entity.Factura;
 import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
+import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
@@ -826,12 +827,28 @@ public class JpaUtil {
 
     public static List<Detalleplanificacioncalidad> getDetallePlanificacionCalidadDiaria(Date fechaActualDate) {
         EntityManager em = getEntityManager();
-        String query = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.fechainicio <= :fechainicio"
+        String sql = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.fechainicio <= :fechainicio"
                 + " AND d.idplanificacioncalidad.pedido.estado.idestado IN (6,7)";
-//                + " AND d.iddetalleejecucionplanificacioncalidad.ejecucionprocesocalidad.estado.idestado NOT IN (4,6)";
+//              
         try {
-            Query q = em.createQuery(query, Detalleplanificacioncalidad.class);
-            q.setParameter("fechainicio", fechaActualDate);
+            Query q = em.createNativeQuery(sql, Detalleplanificacioncalidad.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Materiaprima> getMateriaPrimaByProveedor(long id) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT mp.* " +
+                        "FROM proveedor p, " +
+                        "materiaprima mp, " +
+                        "proveedorxmateriaprima  " +
+                        "WHERE mp.idmateriaprima = pxm.idmateriaprima " +
+                            "AND p.idproveedor = pxm.idproveedor " +
+                            "AND p.idproveedor = " + id;
+        try {
+            Query q = em.createQuery(query, Materiaprima.class);
             return q.getResultList();
         } finally {
             em.close();
