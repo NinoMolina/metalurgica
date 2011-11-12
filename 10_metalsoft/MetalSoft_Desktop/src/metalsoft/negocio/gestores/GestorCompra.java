@@ -207,7 +207,7 @@ public class GestorCompra implements IBuscador {
                 datos = iter.next();
                 monto = monto + datos.getCantidad() * datos.getPrecioProv();
             }
-            compra.setPreciototal(0);
+            compra.setPreciototal(monto);
             compra.setMotivo("");
 
             CompraDAOImpl daoCompra = new CompraDAOImpl();
