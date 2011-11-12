@@ -34,9 +34,9 @@ import metalsoft.negocio.access.AccessCompra;
  */
 public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
     private static Timer timer;
-    private ABMOrdenDeCompra ventana;
-    private GestorCompra gestor;
-    private RegistrarIngresoMateriaPrima ventana2;
+    private static ABMOrdenDeCompra ventana;
+    private static GestorCompra gestor;
+    private static RegistrarIngresoMateriaPrima ventana2;
    
     /** Creates new form ABMOrden_Buscar */
     public ABMOrden_Buscar(JDialog owner) {
@@ -112,11 +112,11 @@ public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void setGestor(GestorCompra gestor) {
-        this.gestor=gestor;
+    public static void setGestor(GestorCompra gest) {
+        gestor=gest;
     }
 
-    public GestorCompra getGestor()
+    public static GestorCompra getGestor()
     {
         return gestor;
     }
@@ -161,11 +161,11 @@ public class ABMOrden_Buscar extends javax.swing.JDialog implements IBuscador{
         // TODO add your handling code here:
 }//GEN-LAST:event_txtValorActionPerformed
 
-    public void setVentana(ABMOrdenDeCompra v) {
+    public static void setVentana(ABMOrdenDeCompra v) {
         ventana=v;
     }
 
-    public void setVentana2(RegistrarIngresoMateriaPrima v2) {
+    public static void setVentana2(RegistrarIngresoMateriaPrima v2) {
         ventana2=v2;
     }   
     // Variables declaration - do not modify//GEN-BEGIN:variables
