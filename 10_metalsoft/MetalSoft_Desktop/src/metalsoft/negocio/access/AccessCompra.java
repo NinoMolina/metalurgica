@@ -77,9 +77,10 @@ public class AccessCompra {
         PreparedStatement pstmt=null;
         ResultSet rs=null;
 
-        String consulta="SELECT detalle.idDetalle, detalle.idCompra, detalle.cantidad, detalle.materiaPrima, detalle.precioHistorico, detalle.estado, mp.nombre " +
-                        "FROM DetalleCompra detalle, MateriaPrima mp, Compra com "+
-                        "WHERE detalle.materiaPrima=mp.idMateriaPrima AND com.idcompra=detalle.idcompra AND com.idCompra=?";
+        String consulta="SELECT detalle.idDetalle, detalle.idCompra, detalle.cantidad, detalle.materiaPrima, detalle.precioHistorico, detalle.estado, mp.nombre, pxm.precio " +
+                        "FROM DetalleCompra detalle, MateriaPrima mp, Compra com, proveedorxmateriaprima pxm, proveedor p"+
+                        "WHERE detalle.materiaPrima=mp.idMateriaPrima AND com.idcompra=detalle.idcompra AND com.idCompra=? "+
+                        "AND pxm.idproveedor = p.idproveedor AND pxm.idmateriaprima = mp.idmateriaprima";
         try {
             pstmt=cn.prepareStatement(consulta);
             pstmt.setLong(1, id);
