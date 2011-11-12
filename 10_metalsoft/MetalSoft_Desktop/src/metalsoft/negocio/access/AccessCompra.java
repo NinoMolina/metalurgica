@@ -92,6 +92,7 @@ public class AccessCompra {
                 view.setCantidad(rs.getInt(3));
                 view.setIdMateriaPrima(rs.getInt(4));
                 view.setNombreMateriaPrima(rs.getString(7));
+                view.setPrecioProv(rs.getDouble(8));
                 arl.add(view);
             }
         } catch (SQLException ex) {
