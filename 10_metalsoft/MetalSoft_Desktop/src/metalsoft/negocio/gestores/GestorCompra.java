@@ -29,7 +29,9 @@ import metalsoft.datos.dbobject.EstadocompraDB;
 import metalsoft.datos.dbobject.EstadodetallecompraDB;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.ProveedorJpaController;
+import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Proveedor;
+import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.negocio.access.AccessCompra;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.compras.Compra;
@@ -360,5 +362,10 @@ public class GestorCompra implements IBuscador {
                 Logger.getLogger(GestorCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public double getPrecioDeMatPriByProv(long idProv, long idMat){
+        Proveedorxmateriaprima pmp = JpaUtil.getRowMateriaPrimaXProveedor(idProv, idMat);
+        return pmp.getPrecio();
     }
 }
