@@ -224,7 +224,7 @@ public class GestorCompra implements IBuscador {
             String idCompra = daoCompra.getUltimoIDCompra(con);
 
             DetallecompraDAOImpl daoDetalleCompra = new DetallecompraDAOImpl();
-            
+            iter = filasDetalle.iterator();
             while (iter.hasNext()) {
                 datos = iter.next();
                 DetallecompraDB detalleCompra = new DetallecompraDB();
@@ -237,6 +237,7 @@ public class GestorCompra implements IBuscador {
             }
 
             con.commit();
+            this.imprimirOrden(Long.parseLong(idCompra));
             return true;
 
         } catch (Exception ex) {
@@ -273,7 +274,9 @@ public class GestorCompra implements IBuscador {
                 Logger.getLogger(GestorCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        this.imprimirOrden(idOrden);
         return result3;
+        
     }
 
     public long getIdOrden() {
