@@ -178,7 +178,9 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         tblEtapaSeleccionada.updateUI();
         tblEtapaSeleccionada.packAll();
         txtEtapaProduccion.setText("");
-        txtPedidoCotizacion.setText("");
+        txtNroPedido.setText("");
+        txtPrioridad.setText("");
+        txtCliente.setText("");
         lblPedidoSeleccionado.setText("...");
         lblPiezaSeleccionada.setText("...");
         lblProductoSeleccionado.setText("...");
@@ -349,8 +351,6 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtPedidoCotizacion = new javax.swing.JTextField();
         beanTblPedidos = new metalsoft.beans.PedidosSinAlgEtapaProd();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -390,40 +390,33 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             }
         }
         ;
+        jPanel8 = new javax.swing.JPanel();
+        txtCliente = new javax.swing.JTextField();
+        txtNroPedido = new javax.swing.JTextField();
+        txtPrioridad = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Generar Detalle Etapas de Producción");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Generados No Cotizados"));
 
-        jLabel1.setText("Nro. de Pedido de Cotización:");
-
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtPedidoCotizacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(562, 562, 562))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
-                        .addContainerGap())))
+                .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(txtPedidoCotizacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(8, 8, 8))
+                .add(beanTblPedidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Pedido"));
@@ -571,31 +564,82 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
                 .addContainerGap())
         );
 
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
+
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClienteKeyReleased(evt);
+            }
+        });
+
+        txtNroPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNroPedidoKeyReleased(evt);
+            }
+        });
+
+        txtPrioridad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrioridadKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setText("Nro Pedido:");
+
+        jLabel10.setText("Prioridad:");
+
+        jLabel11.setText("Cliente:");
+
+        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .add(21, 21, 21)
+                .add(jLabel6)
+                .add(18, 18, 18)
+                .add(txtNroPedido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(85, 85, 85)
+                .add(jLabel10)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtPrioridad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 117, Short.MAX_VALUE)
+                .add(jLabel11)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(txtCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(39, 39, 39))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel6)
+                .add(txtNroPedido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabel11)
+                .add(txtCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabel10)
+                .add(txtPrioridad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(beanBtnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 822, Short.MAX_VALUE)
+                        .add(beanBtnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(10, 10, 10)
+                        .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .add(jLabel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(10, 10, 10)
-                .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(beanBtnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 822, Short.MAX_VALUE)
-                .add(beanBtnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
 
         layout.linkSize(new java.awt.Component[] {beanBtnGuardar, beanBtnSalir}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -604,19 +648,20 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jLabel14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(9, 9, 9)
+                .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 7, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(beanBtnSalir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(beanBtnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(beanBtnGuardar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         layout.linkSize(new java.awt.Component[] {beanBtnGuardar, beanBtnSalir}, org.jdesktop.layout.GroupLayout.VERTICAL);
@@ -699,6 +744,65 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         beanBtnGuardar.getBtnGuardar().setEnabled(true);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
+    private void txtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyReleased
+        txtNroPedido.setText("");
+        txtPrioridad.setText("");
+        if (txtCliente.getText().compareTo("") != 0) {
+            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                String cliente=filasPedidos.get(i).getCliente().toLowerCase();
+                if(!cliente.contains(txtCliente.getText().toLowerCase())) {
+                    filasPedidos.remove(i);
+                    i--;
+                    beanTblPedidos.getTblPedidos().updateUI();
+                }
+            }
+        }
+        if (txtCliente.getText().compareTo("") == 0) {
+            buscarPedidosGenerados();
+            beanTblPedidos.getTblPedidos().updateUI();
+        }
+}//GEN-LAST:event_txtClienteKeyReleased
+
+    private void txtNroPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroPedidoKeyReleased
+        txtPrioridad.setText("");
+        txtCliente.setText("");
+        if (txtNroPedido.getText().compareTo("") != 0) {
+            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                int nroPedido=filasPedidos.get(i).getNropedido();
+                if(nroPedido != (Integer.parseInt(txtNroPedido.getText()))) {
+                    long nro=filasPedidos.get(i).getNropedido();
+                    filasPedidos.remove(i);
+                    i--;
+                    beanTblPedidos.getTblPedidos().updateUI();
+                }
+            }
+        }
+        if (txtNroPedido.getText().compareTo("") == 0) {
+            buscarPedidosGenerados();
+            beanTblPedidos.getTblPedidos().updateUI();
+        }
+}//GEN-LAST:event_txtNroPedidoKeyReleased
+
+    private void txtPrioridadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrioridadKeyReleased
+        txtNroPedido.setText("");
+        txtCliente.setText("");
+        if (txtPrioridad.getText().compareTo("") != 0) {
+            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                String prioridad=filasPedidos.get(i).getPrioridad().toLowerCase();
+                if(!prioridad.contains(txtPrioridad.getText().toLowerCase())) {
+                    filasPedidos.remove(i);
+                    i--;
+                    beanTblPedidos.getTblPedidos().updateUI();
+                }
+            }
+        }
+        if (txtPrioridad.getText().compareTo("") == 0) {
+            buscarPedidosGenerados();
+            beanTblPedidos.getTblPedidos().updateUI();
+
+        }
+}//GEN-LAST:event_txtPrioridadKeyReleased
+
     /*
      * 0: no se pudo agregar
      * -1: se agrego correctamente
@@ -740,16 +844,19 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionarProducto;
     private metalsoft.beans.PedidosSinAlgEtapaProd beanTblPedidos;
     private javax.swing.JButton btnAsignar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -762,8 +869,10 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
     private org.jdesktop.swingx.JXTable tblDetalleProducto;
     private org.jdesktop.swingx.JXTable tblEtapa;
     private org.jdesktop.swingx.JXTable tblEtapaSeleccionada;
+    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtEtapaProduccion;
-    private javax.swing.JTextField txtPedidoCotizacion;
+    private javax.swing.JTextField txtNroPedido;
+    private javax.swing.JTextField txtPrioridad;
     // End of variables declaration//GEN-END:variables
 
     public JTable getTable(String className) {
