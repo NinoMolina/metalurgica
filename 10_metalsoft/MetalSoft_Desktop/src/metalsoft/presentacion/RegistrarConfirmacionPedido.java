@@ -12,6 +12,8 @@ package metalsoft.presentacion;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -32,7 +34,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
 
     /** Creates new form RegistrarConfirmacionPedido */
-    private LinkedList<ViewPedidoNoConfirmado> filasPedidosNoConfirmados;
+    private List<ViewPedidoNoConfirmado> filasPedidosNoConfirmados;
     private ViewPedidoNoConfirmado viewPedidoSeleccionado;
     private GestorRegistrarPedidoConfirmado gestor;
     public RegistrarConfirmacionPedido() {
@@ -57,7 +59,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         lblNroPedido.setText("...");
         lblNroPedCliente.setText("...");
         lblNroPresupuesto.setText("...");
-        txtValorBusqueda.setText("");
+        txtCliente.setText("");
     }
 
     private void setEnabledComponents(boolean b){
@@ -129,11 +131,12 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        txtCliente = new javax.swing.JTextField();
+        txtNroPedido = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtValorBusqueda = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -177,43 +180,73 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Nro Pedido");
+        txtCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtClienteFocusLost(evt);
+            }
+        });
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClienteKeyReleased(evt);
+            }
+        });
 
-        jLabel1.setText("Valor de Búsqueda:");
+        txtNroPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNroPedidoFocusLost(evt);
+            }
+        });
+        txtNroPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNroPedidoKeyReleased(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Fecha Pedido");
+        txtFecha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaFocusLost(evt);
+            }
+        });
+        txtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFechaKeyReleased(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Cliente");
+        jLabel1.setText("Nro Pedido:");
+
+        jLabel10.setText("Fecha Pedido:");
+
+        jLabel11.setText("Cliente:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRadioButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jRadioButton3)
-                .addComponent(jRadioButton2)
-                .addComponent(jRadioButton1)
                 .addComponent(jLabel1)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel10)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel11)
+                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Pedido Seleccionado"));
@@ -259,17 +292,17 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNroPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+                                .addComponent(lblNroPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -289,12 +322,12 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFechaVencimientoPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                        .addComponent(lblFechaVencimientoPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)))
+                        .addComponent(lblCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -354,18 +387,18 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegistrarConfirmacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnListaMP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                         .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnListaMP, btnRegistrarConfirmacion});
@@ -374,7 +407,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,6 +454,97 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnListaMPActionPerformed
 
+    private void txtNroPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroPedidoKeyReleased
+        txtFecha.setText("");
+        txtCliente.setText("");
+        if (txtNroPedido.getText().compareTo("") != 0) {
+//        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
+            for (int i=0; i<tblPedidos.getRowCount(); i++)
+            {
+                String nroPedido=tblPedidos.getStringAt(i, 0).substring(5);
+                if(!nroPedido.contains(txtNroPedido.getText()))
+                {
+                    long nro=filasPedidosNoConfirmados.get(i).getNropedido();
+                    filasPedidosNoConfirmados.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtNroPedido.getText().compareTo("") == 0) {
+        buscarPedidosNoConfirmados();
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
+        }
+}//GEN-LAST:event_txtNroPedidoKeyReleased
+
+    private void txtFechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaKeyReleased
+        txtNroPedido.setText("");
+        txtCliente.setText("");
+        if (txtFecha.getText().compareTo("") != 0) {
+//        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
+            for (int i=0; i<tblPedidos.getRowCount(); i++)
+            {
+                String fecha=tblPedidos.getStringAt(i, 2);
+                if(!fecha.contains(txtFecha.getText()))
+                {
+                    filasPedidosNoConfirmados.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtFecha.getText().compareTo("") == 0) {
+        buscarPedidosNoConfirmados();
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
+        }
+    }//GEN-LAST:event_txtFechaKeyReleased
+
+    private void txtNroPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNroPedidoFocusLost
+//        buscarPedidosNoConfirmados();
+//        tblPedidos.updateUI();
+//        tblPedidos.packAll();
+    }//GEN-LAST:event_txtNroPedidoFocusLost
+
+    private void txtFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaFocusLost
+//        buscarPedidosNoConfirmados();
+//        tblPedidos.updateUI();
+//        tblPedidos.packAll();
+    }//GEN-LAST:event_txtFechaFocusLost
+
+    private void txtClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusLost
+//        buscarPedidosNoConfirmados();
+//        tblPedidos.updateUI();
+//        tblPedidos.packAll();
+    }//GEN-LAST:event_txtClienteFocusLost
+
+    private void txtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyReleased
+        txtNroPedido.setText("");
+        txtFecha.setText("");
+        if (txtCliente.getText().compareTo("") != 0) {
+//        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
+            for (int i=0; i<tblPedidos.getRowCount(); i++)
+            {
+                String cliente=tblPedidos.getStringAt(i, 7).toLowerCase();
+                if(!cliente.contains(txtCliente.getText().toLowerCase()))
+                {
+                    filasPedidosNoConfirmados.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtCliente.getText().compareTo("") == 0) {
+        buscarPedidosNoConfirmados();
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
+        }
+    }//GEN-LAST:event_txtClienteKeyReleased
+
 
     private void setDatosPedidoSeleccionado(){
         lblCliente.setText(viewPedidoSeleccionado.getRazonsocial());
@@ -450,6 +574,8 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     private javax.swing.JButton btnRegistrarConfirmacion;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -461,9 +587,6 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -476,7 +599,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     private javax.swing.JLabel lblNroPedido;
     private javax.swing.JLabel lblNroPresupuesto;
     private org.jdesktop.swingx.JXTable tblPedidos;
-    private javax.swing.JTextField txtValorBusqueda;
+    private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtNroPedido;
     // End of variables declaration//GEN-END:variables
 
     class PedidoNoConfirmadoTableModel extends AbstractTableModel {
