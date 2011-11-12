@@ -173,7 +173,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
         ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Listado de Materia Prima a Comprar");
+        setTitle("Listado de Materia Prima Necesaria");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Pedido"));
 
