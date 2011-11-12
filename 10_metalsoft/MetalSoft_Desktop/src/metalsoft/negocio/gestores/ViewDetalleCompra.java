@@ -14,6 +14,7 @@ public class ViewDetalleCompra {
     private long idMateriaPrima;
     String nombreMateriaPrima;
     private long idDetalleCompra;
+    private double precioProv;
 
 
     public ViewDetalleCompra() {
@@ -41,6 +42,14 @@ public class ViewDetalleCompra {
 
     public void setNombreMateriaPrima(String nombreMateriaPrima) {
         this.nombreMateriaPrima = nombreMateriaPrima;
+    }
+
+    public double getPrecioProv() {
+        return precioProv;
+    }
+
+    public void setPrecioProv(double precioProv) {
+        this.precioProv = precioProv;
     }
 
     public long getIdDetalleCompra() {
