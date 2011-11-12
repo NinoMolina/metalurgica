@@ -537,15 +537,16 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtValorBusqueda = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new org.jdesktop.swingx.JXTable();
         beanBtnSeleccionar = new metalsoft.beans.BtnSeleccionar();
+        jPanel7 = new javax.swing.JPanel();
+        txtCliente1 = new javax.swing.JTextField();
+        txtNroPedido = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jXTaskPaneContainer1 = new org.jdesktop.swingx.JXTaskPaneContainer();
         tskPanel = new org.jdesktop.swingx.JXTaskPane();
@@ -597,45 +598,63 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos Confirmados"));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
-
-        jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Nro Pedido");
-
-        jLabel1.setText("Valor de Búsqueda:");
-
-        jRadioButton2.setText("Fecha Pedido");
-
-        jRadioButton1.setText("Cliente");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRadioButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jRadioButton3)
-                .addComponent(jRadioButton2)
-                .addComponent(jRadioButton1)
-                .addComponent(jLabel1)
-                .addComponent(txtValorBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jScrollPane1.setViewportView(tblPedidos);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Datos"));
+
+        txtCliente1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliente1KeyReleased(evt);
+            }
+        });
+
+        txtNroPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNroPedidoKeyReleased(evt);
+            }
+        });
+
+        txtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFechaKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setText("Nro Pedido:");
+
+        jLabel10.setText("Fecha Pedido:");
+
+        jLabel11.setText("Cliente:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(txtCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel3)
+                .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel11)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel10))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -644,16 +663,17 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -944,15 +964,14 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(831, 831, 831)
                 .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -960,9 +979,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGap(1, 1, 1)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(beanBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1210,7 +1229,9 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         tblEmpleado.removeAll();
         tblMaquinas.removeAll();
         pnlDispHoraria.removeAll();
-        txtValorBusqueda.setText("");
+        txtNroPedido.setText("");
+        txtFecha.setText("");
+        txtCliente1.setText("");
         txtObservaciones.setText("");
         setEnabledComponents(false);
         setVisiblePanel(pnlTreeTable.getName());
@@ -1784,6 +1805,70 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         trtDetalleProcProd.packAll();
 }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
 
+    private void txtCliente1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliente1KeyReleased
+        txtNroPedido.setText("");
+        txtFecha.setText("");
+        if (txtCliente1.getText().compareTo("") != 0) {
+            for (int i=0; i<tblPedidos.getRowCount(); i++) {
+                String cliente=tblPedidos.getStringAt(i, 7).toLowerCase();
+                if(!cliente.contains(txtCliente1.getText().toLowerCase())) {
+                    filasPedidosConPlanificacionProduccion.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtCliente1.getText().compareTo("") == 0) {
+            buscarPedidosConPlanificacionProduccion();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
+        }
+}//GEN-LAST:event_txtCliente1KeyReleased
+
+    private void txtNroPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroPedidoKeyReleased
+        txtFecha.setText("");
+        txtCliente1.setText("");
+        if (txtNroPedido.getText().compareTo("") != 0) {
+            for (int i=0; i<tblPedidos.getRowCount(); i++) {
+                String nroPedido=tblPedidos.getStringAt(i, 0).substring(5);
+                if(!nroPedido.contains(txtNroPedido.getText())) {
+                    long nro=filasPedidosConPlanificacionProduccion.get(i).getNropedido();
+                    filasPedidosConPlanificacionProduccion.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtNroPedido.getText().compareTo("") == 0) {
+             buscarPedidosConPlanificacionProduccion();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
+        }
+}//GEN-LAST:event_txtNroPedidoKeyReleased
+
+    private void txtFechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaKeyReleased
+        txtNroPedido.setText("");
+        txtCliente1.setText("");
+        if (txtFecha.getText().compareTo("") != 0) {
+            for (int i=0; i<tblPedidos.getRowCount(); i++) {
+                String fecha=tblPedidos.getStringAt(i, 2);
+                if(!fecha.contains(txtFecha.getText())) {
+                    filasPedidosConPlanificacionProduccion.remove(i);
+                    i--;
+                    tblPedidos.updateUI();
+                    tblPedidos.packAll();
+                }
+            }
+        }
+        if (txtFecha.getText().compareTo("") == 0) {
+            buscarPedidosConPlanificacionProduccion();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
+        }
+}//GEN-LAST:event_txtFechaKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1807,17 +1892,16 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXHyperlink hplObservaciones;
     private org.jdesktop.swingx.JXHyperlink hplVerDisponibilidad;
     private org.jdesktop.swingx.JXHyperlink hplVerPlanificacion;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1838,8 +1922,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXTable tblPedidos;
     private org.jdesktop.swingx.JXTreeTable trtDetalleProcProd;
     private org.jdesktop.swingx.JXTaskPane tskPanel;
+    private javax.swing.JTextField txtCliente1;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtNroPedido;
     private javax.swing.JTextArea txtObservaciones;
-    private javax.swing.JTextField txtValorBusqueda;
     // End of variables declaration//GEN-END:variables
 
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
