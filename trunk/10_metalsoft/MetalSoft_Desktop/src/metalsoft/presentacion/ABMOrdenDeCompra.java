@@ -70,8 +70,8 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         addListenerBtnEliminar();
         this.gestor= new GestorCompra();
         view = new ViewProveedorXMateriaPrima();
+        cargarComboProveedores();
         cargarComboMateriaprima();
-        cargarComboProveedores();        
         setEnableComponents(false);
         tblDetalleOrden.setModel(new DetalleOrdenTableModel());
         tblDetalleOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -448,6 +448,12 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
         jLabel1.setText("Nro. de  Órden: ");
 
+        cmbProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProveedorActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Proveedor: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -594,6 +600,13 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
     private void btnAgregarPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPiezaActionPerformed
         agregarDetalleCompra();
     }//GEN-LAST:event_btnAgregarPiezaActionPerformed
+
+private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+// TODO add your handling code here:
+    limpiarTabla();
+    view.setIdproveedor(Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId()));
+    this.cargarComboMateriaprima();
+}//GEN-LAST:event_cmbProveedorActionPerformed
 
     private void setEnableComponents(boolean b) {
 
