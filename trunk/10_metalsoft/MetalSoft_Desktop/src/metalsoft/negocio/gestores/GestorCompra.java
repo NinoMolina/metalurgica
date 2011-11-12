@@ -4,13 +4,16 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -31,6 +34,11 @@ import metalsoft.negocio.access.AccessCompra;
 import metalsoft.negocio.almacenamiento.MateriaPrima;
 import metalsoft.negocio.compras.Compra;
 import metalsoft.util.ItemCombo;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -133,6 +141,41 @@ public class GestorCompra implements IBuscador {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public void imprimirOrden(Long id){
+        PostgreSQLManager pg = new PostgreSQLManager();
+//        System.out.println(sourceFile);
+        JasperPrint jasperPrint = null;
+        Connection cn = null;
+        Map param = new HashMap();
+        JasperReport masterReport = null;
+
+        try {
+            cn = pg.concectGetCn();
+
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptOrdenDeCompra.jasper"));
+
+            param.put("ID_PEDIDO", new Long(id));
+//            JRResultSetDataSource rsDatparam.put("ID_PEDIDO", new Long(pedidoSeleccionadoDB.getIdpedido()));aSource = new JRResultSetDataSource(rs);
+            jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
+
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+            jviewer.setTitle("Orden de compra");
+            jviewer.setVisible(true);
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorListadoMateriaPrimaAComprar.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                pg.disconnect();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorListadoMateriaPrimaAComprar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     public boolean registrarOrden() {
         try {
             //Registrar la compra
@@ -156,6 +199,14 @@ public class GestorCompra implements IBuscador {
             compra.setProveedor(proveedor.getNroProveedor());
 
             compra.setDocumentoremito(0);
+            double monto=0d;
+            Iterator<ViewDetalleCompra> iter = filasDetalle.iterator();
+            ViewDetalleCompra datos = null;
+            
+            while (iter.hasNext()) {
+                datos = iter.next();
+                monto = monto + datos.getCantidad() * datos.getPrecioProv();
+            }
             compra.setPreciototal(0);
             compra.setMotivo("");
 
@@ -173,8 +224,7 @@ public class GestorCompra implements IBuscador {
             String idCompra = daoCompra.getUltimoIDCompra(con);
 
             DetallecompraDAOImpl daoDetalleCompra = new DetallecompraDAOImpl();
-            Iterator<ViewDetalleCompra> iter = filasDetalle.iterator();
-            ViewDetalleCompra datos = null;
+            
             while (iter.hasNext()) {
                 datos = iter.next();
                 DetallecompraDB detalleCompra = new DetallecompraDB();
