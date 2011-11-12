@@ -348,8 +348,9 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="pnlDispHoraria" alignment="1" max="32767" attributes="1"/>
                               <Component id="jPanel4" alignment="0" max="32767" attributes="1"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="601" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnAmpliarGraficoOcupacionEmpleado" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="496" max="32767" attributes="0"/>
                                   <Component id="btnAsignarEmpleado" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -364,7 +365,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlDispHoraria" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnAsignarEmpleado" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnAsignarEmpleado" max="32767" attributes="1"/>
+                              <Component id="btnAmpliarGraficoOcupacionEmpleado" alignment="0" pref="34" max="32767" attributes="1"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -385,7 +389,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="517" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="531" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnVerDisponibilidad" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -395,12 +399,9 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                                      <Component id="btnVerDisponibilidad" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane3" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnVerDisponibilidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="1" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -410,7 +411,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="btnVerDisponibilidad">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Ver Disponibilidad"/>
+                        <Property name="text" type="java.lang.String" value="Ver Ocupaci&#xf3;n"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerDisponibilidadActionPerformed"/>
@@ -433,7 +434,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Disponibilidad Horaria"/>
+                        <TitledBorder title="Ocupaci&#xf3;n Horaria"/>
                       </Border>
                     </Property>
                   </Properties>
@@ -446,7 +447,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="106" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -457,6 +458,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAsignarEmpleadoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnAmpliarGraficoOcupacionEmpleado">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ampliar Gr&#xe1;fico"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAmpliarGraficoOcupacionEmpleadoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -557,14 +566,32 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <EmptySpace min="0" pref="680" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnAmpliarGrafico" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="575" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <EmptySpace min="0" pref="340" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="307" max="32767" attributes="0"/>
+                          <Component id="btnAmpliarGrafico" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="btnAmpliarGrafico">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ampliar Gr&#xe1;fico"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAmpliarGraficoActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnlObservaciones">
               <Properties>

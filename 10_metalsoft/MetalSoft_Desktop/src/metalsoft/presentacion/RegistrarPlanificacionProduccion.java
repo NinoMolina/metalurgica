@@ -11,7 +11,9 @@
 package metalsoft.presentacion;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import metalsoft.datos.jpa.controller.PedidoJpaController;
 import metalsoft.datos.jpa.entity.Detallepiezapresupuesto;
 import metalsoft.datos.jpa.entity.Detalleproductopresupuesto;
@@ -36,6 +38,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -74,6 +77,7 @@ import org.jfree.data.gantt.TaskSeriesCollection;
  */
 public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
+    private ChartPanel ctpVerDisponibilidad;
     private static Date fechaInicioSiguienteDisp;
     private static boolean noHaySiguienteDisponibilidad = false;
     /** Creates new form RegistrarPlanificacionProduccion */
@@ -95,6 +99,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private final int MAQUINA = 2;
     private final int EMPLEADO_MAQUINA = 3;
     private Map<Long, List<EtapaProduccionNode>> mapAsignacionActualEmpleados;
+    private ChartPanel ctpDisponibilidadEmpelado;
 
     public RegistrarPlanificacionProduccion() {
         super(Principal.getVtnPrincipal());
@@ -564,6 +569,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         trtDetalleProcProd = new org.jdesktop.swingx.JXTreeTable();
         subirBajar = new metalsoft.beans.SubirBajar();
         pnlEmpleado = new javax.swing.JPanel();
+        btnAmpliarGraficoDispEmpleado = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnVerDisponibilidad = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -577,6 +583,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblMaquinas = new org.jdesktop.swingx.JXTable();
         pnlDisponibilidad = new javax.swing.JPanel();
+        btnAmpliarGrafico = new javax.swing.JButton();
         pnlObservaciones = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -762,9 +769,16 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         pnlEmpleado.setName("pnlEmpleado"); // NOI18N
 
+        btnAmpliarGraficoDispEmpleado.setText("Ampliar Gráfico");
+        btnAmpliarGraficoDispEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmpliarGraficoDispEmpleadoActionPerformed(evt);
+            }
+        });
+
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleado"));
 
-        btnVerDisponibilidad.setText("Ver Disponibilidad");
+        btnVerDisponibilidad.setText("Ver Ocupación");
         btnVerDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerDisponibilidadActionPerformed(evt);
@@ -779,7 +793,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerDisponibilidad)
                 .addContainerGap())
@@ -787,15 +801,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnVerDisponibilidad))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVerDisponibilidad)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlDispHoraria.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilidad Horaria"));
+        pnlDispHoraria.setBorder(javax.swing.BorderFactory.createTitledBorder("Ocupación Horaria"));
 
         javax.swing.GroupLayout pnlDispHorariaLayout = new javax.swing.GroupLayout(pnlDispHoraria);
         pnlDispHoraria.setLayout(pnlDispHorariaLayout);
@@ -805,7 +817,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         );
         pnlDispHorariaLayout.setVerticalGroup(
             pnlDispHorariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+            .addGap(0, 101, Short.MAX_VALUE)
         );
 
         btnAsignarEmpleado.setText("Asignar");
@@ -822,10 +834,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEmpleadoLayout.createSequentialGroup()
                 .addGroup(pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlDispHoraria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlEmpleadoLayout.createSequentialGroup()
-                        .addContainerGap(601, Short.MAX_VALUE)
-                        .addComponent(btnAsignarEmpleado)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEmpleadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAmpliarGraficoDispEmpleado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 486, Short.MAX_VALUE)
+                        .addComponent(btnAsignarEmpleado))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlEmpleadoLayout.setVerticalGroup(
@@ -835,7 +849,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDispHoraria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAsignarEmpleado)
+                .addGroup(pnlEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAsignarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(btnAmpliarGraficoDispEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -892,15 +908,26 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
         pnlDisponibilidad.setName("pnlDisponibilidad"); // NOI18N
 
+        btnAmpliarGrafico.setText("Ampliar Gráfico");
+        btnAmpliarGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmpliarGraficoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlDisponibilidadLayout = new javax.swing.GroupLayout(pnlDisponibilidad);
         pnlDisponibilidad.setLayout(pnlDisponibilidadLayout);
         pnlDisponibilidadLayout.setHorizontalGroup(
             pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(pnlDisponibilidadLayout.createSequentialGroup()
+                .addComponent(btnAmpliarGrafico)
+                .addContainerGap(575, Short.MAX_VALUE))
         );
         pnlDisponibilidadLayout.setVerticalGroup(
             pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDisponibilidadLayout.createSequentialGroup()
+                .addContainerGap(307, Short.MAX_VALUE)
+                .addComponent(btnAmpliarGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pnl.add(pnlDisponibilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
@@ -1003,6 +1030,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private void hplAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hplAsignarEmpleadoActionPerformed
         if (validarEtapaSeleccionada()) {
             setVisiblePanel(pnlEmpleado.getName());
+            btnAmpliarGraficoDispEmpleado.setEnabled(false);
+            pnlDispHoraria.removeAll();
             lstEmpleados = gestor.obtenerEmpleados();
             empleadosNoDisponibles(
                     lstEmpleados);
@@ -1209,6 +1238,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             return;
         }
         empleadoSeleccionado = (metalsoft.datos.jpa.entity.Empleado) lstEmpleados.get(tblEmpleado.getSelectedRow());
+        btnAmpliarGraficoDispEmpleado.setEnabled(true);
         //validar que disp horaria no sea null
         try {
 //            lstDisponibilidad.setListData(empleadoSeleccionado.getDisponibilidadhorarias().toArray());
@@ -1262,19 +1292,19 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
             dataset.add(unavailable);
 // title, domain axis, range axis, dataset, legend, tooltip, urls
-            JFreeChart chart = ChartFactory.createGanttChart("", "Días", "Horas", dataset, true, true, false);
+            JFreeChart chart = ChartFactory.createGanttChart(empleadoSeleccionado.getNombre() + " " + empleadoSeleccionado.getApellido(), "Días", "Horas", dataset, true, true, false);
 
             final CategoryPlot plot = (CategoryPlot) chart.getPlot();
             final CategoryItemRenderer renderer = plot.getRenderer();
             renderer.setSeriesPaint(0, Color.ORANGE);
 
-            ChartPanel chartPanel = new ChartPanel(chart);
+            ctpDisponibilidadEmpelado = new ChartPanel(chart);
 
             chart.setBorderVisible(true);
-            chartPanel.setBounds(10, 15, pnlDispHoraria.getWidth() - 20, pnlDispHoraria.getHeight() - 30);
+            ctpDisponibilidadEmpelado.setBounds(10, 15, pnlDispHoraria.getWidth() - 20, pnlDispHoraria.getHeight() - 30);
 
             pnlDispHoraria.removeAll();
-            pnlDispHoraria.add(chartPanel);
+            pnlDispHoraria.add(ctpDisponibilidadEmpelado);
             pnlDispHoraria.updateUI();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1448,12 +1478,14 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
                 detalleFin.set(Calendar.HOUR_OF_DAY, detalle.getHorafin().getHours());
                 detalleFin.set(Calendar.MINUTE, detalle.getHorafin().getMinutes());
                 detalleFin.set(Calendar.SECOND, detalle.getHorafin().getSeconds());
-                if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
-                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
-                } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
-                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
-                } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
-                    hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                if (node.getInicioEtapa() != null) {
+                    if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) >= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) < 0) {
+                        hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                    } else if (node.getFinEtapa().compareTo(detalleFin.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleInicio.getTime()) > 0) {
+                        hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                    } else if (node.getInicioEtapa().compareTo(detalleInicio.getTime()) <= 0 && node.getFinEtapa().compareTo(detalleFin.getTime()) >= 0) {
+                        hashMaquinasNoDisponible.put(maquina.getIdmaquina(), maquina);
+                    }
                 }
             }
         }
@@ -1513,6 +1545,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             // si es una pieza entonces genero una nueva tarea para que se muestre en el grafico
             if (obj instanceof PiezaNode) {
                 PiezaNode piezaNode = (PiezaNode) obj;
+                ProductoNode productoNode = (ProductoNode) piezaNode.getParent();
 
                 Date minDatePieza = null;
                 Date maxDatePieza = null;
@@ -1594,14 +1627,15 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 
                 }
 
-
+                String nombreTask = productoNode.getProducto().getNombre() + "-" + productoNode.getIndexProducto() + "|" + piezaNode.getPieza().getNombre() + "-" + piezaNode.getIndexPieza();
                 if (minDatePieza != null && maxDatePieza != null) {
-                    taskActual = new Task(piezaNode.getPieza().getNombre(), minDatePieza, maxDatePieza);
+                    taskActual = new Task(nombreTask, minDatePieza, maxDatePieza);
                     for (Task task : lstSubTasks) {
                         taskActual.addSubtask(task);
                     }
                 } else {
-                    taskActual = new Task(piezaNode.getPieza().getNombre(), Fecha.fechaActualDate(), Fecha.fechaActualDate());
+                    Date f = Fecha.fechaActualDate();
+                    taskActual = new Task(nombreTask, f, f);
                 }
                 //agrego la tarea la serie de taras
                 unavailable.add(taskActual);
@@ -1616,11 +1650,11 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         final CategoryItemRenderer renderer = plot.getRenderer();
         renderer.setSeriesPaint(0, Color.green);
 
-        final ChartPanel chartPanel = new ChartPanel(chart);
-
+        ctpVerDisponibilidad = new ChartPanel(chart);
         chart.setBorderVisible(true);
-        chartPanel.setBounds(0, 0, pnlDisponibilidad.getWidth(), pnlDisponibilidad.getHeight());
-        pnlDisponibilidad.add(chartPanel);
+        ctpVerDisponibilidad.setBounds(0, 0, pnlDisponibilidad.getWidth(), pnlDisponibilidad.getHeight() - btnAmpliarGrafico.getHeight());
+        pnlDisponibilidad.add(ctpVerDisponibilidad);
+        pnlDisponibilidad.add(btnAmpliarGrafico);
 
         setVisiblePanel(pnlDisponibilidad.getName());
     }//GEN-LAST:event_hplVerDisponibilidadActionPerformed
@@ -1695,6 +1729,23 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             tblPedidos.packAll();
         }
 }//GEN-LAST:event_txtCliente1KeyReleased
+
+private void btnAmpliarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoActionPerformed
+    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Planificación Producción", true);
+    Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
+    vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
+    vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpVerDisponibilidad.getChart()));
+//    vtnGraficoDisponibilidades.pack();
+    JFrameManager.centrarYMostrarVentana(vtnGraficoDisponibilidades);
+}//GEN-LAST:event_btnAmpliarGraficoActionPerformed
+
+private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoDispEmpleadoActionPerformed
+    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Ocupación Empleado", true);
+    Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
+    vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
+    vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpDisponibilidadEmpelado.getChart()));
+    JFrameManager.centrarYMostrarVentana(vtnGraficoDisponibilidades);
+}//GEN-LAST:event_btnAmpliarGraficoDispEmpleadoActionPerformed
     private void cargarDatosTreeTable(List<metalsoft.datos.jpa.entity.Detallepresupuesto> detallepresupuestos) {
         DefaultMutableTreeTableNode raiz = new DefaultMutableTreeTableNode(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
         trtDetalleProcProd.removeAll();
@@ -1785,6 +1836,8 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     private metalsoft.beans.BtnGuardar beanBtnGuardar;
     private metalsoft.beans.BtnSalirr beanBtnSalir;
     private metalsoft.beans.BtnSeleccionar beanBtnSeleccionar;
+    private javax.swing.JButton btnAmpliarGrafico;
+    private javax.swing.JButton btnAmpliarGraficoDispEmpleado;
     private javax.swing.JButton btnAsignarEmpleado;
     private javax.swing.JButton btnAsignarMaquina;
     private javax.swing.JButton btnVerDisponibilidad;
