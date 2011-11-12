@@ -848,7 +848,7 @@ public class JpaUtil {
                             "AND p.idproveedor = pxm.idproveedor " +
                             "AND p.idproveedor = " + id;
         try {
-            Query q = em.createQuery(query, Materiaprima.class);
+            Query q = em.createNativeQuery(query, Materiaprima.class);
             return q.getResultList();
         } finally {
             em.close();
