@@ -843,7 +843,7 @@ public class JpaUtil {
         String query = "SELECT mp.* " +
                         "FROM proveedor p, " +
                         "materiaprima mp, " +
-                        "proveedorxmateriaprima  " +
+                        "proveedorxmateriaprima pxm " +
                         "WHERE mp.idmateriaprima = pxm.idmateriaprima " +
                             "AND p.idproveedor = pxm.idproveedor " +
                             "AND p.idproveedor = " + id;
