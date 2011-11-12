@@ -96,6 +96,12 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
             return;
         }
+        if (!mapFilasTabla.isEmpty() || !filasTablaVista.isEmpty()) {
+            mapFilasTabla.clear();
+            filasTablaVista.clear();
+            tblListadoMP.updateUI();
+            tblListadoMP.packAll();
+        }
         List<Detalleproductopresupuesto> lst = gestor.buscarListadoMPByPedido(String.valueOf(pedido.getIdpedido()));
 
         FilaTabla fila = null;
@@ -112,7 +118,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
             fila.addCantidadProducto(de.getIddetallepresupuesto().getCantidad());
             fila.addCantidadMateriaPrima(de.getCantmateriaprima());
             fila.recalcularMPTotal();
-            fila.calcularMpAComprar();            
+            fila.calcularMpAComprar();
         }
         filasTablaVista.addAll(mapFilasTabla.values());
         tblListadoMP.updateUI();
@@ -431,7 +437,7 @@ public class ConsultarListadoMateriaPrimaAComprar extends javax.swing.JDialog {
                     case 3:
                         return String.valueOf(view.getMateriaPrima().getStock());
                     case 4:
-                        return String.valueOf(view.getCantMpRecomendada());   
+                        return String.valueOf(view.getCantMpRecomendada());
                     default:
                         return null;
                 }
