@@ -68,10 +68,10 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         addListenerBtnBuscar();
         addListenerBtnSalir();
         addListenerBtnEliminar();
-        this.gestor= new GestorCompra();
+        this.gestor = new GestorCompra();
         view = new ViewProveedorXMateriaPrima();
         cargarComboProveedores();
-        cargarComboMateriaprima();
+        cmbMateriaPrima.setEnabled(false);
         setEnableComponents(false);
         tblDetalleOrden.setModel(new DetalleOrdenTableModel());
         tblDetalleOrden.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -114,11 +114,9 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         });
     }
 
-    private void limpiarTablaDetalleOrden()
-    {
+    private void limpiarTablaDetalleOrden() {
         int cantidadFilas = tblDetalleOrden.getRowCount();
-        for(int i=0; i<cantidadFilas; i++)
-        {
+        for (int i = 0; i < cantidadFilas; i++) {
             filas.remove(0);
             tblDetalleOrden.updateUI();
             tblDetalleOrden.packAll();
@@ -126,15 +124,15 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        this.cmbMateriaPrima.setSelectedIndex(0);
+        this.cmbMateriaPrima.removeAllItems();
         this.cmbProveedor.setSelectedIndex(0);
         limpiarTablaDetalleOrden();
         opcion = EnumOpcionesABM.NUEVO;
-        int numOrden=Integer.parseInt(gestor.generarNuevoNumeroOrden());
-        if (numOrden==0){
-            numOrden ++;
+        int numOrden = Integer.parseInt(gestor.generarNuevoNumeroOrden());
+        if (numOrden == 0) {
+            numOrden++;
         }
-        String orden = "" +numOrden;
+        String orden = "" + numOrden;
         this.txtNroOrden.setText(orden);
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
@@ -169,10 +167,11 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         return null;
     }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {        
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         boolean validarProveedor = validar();
-        if(!validarProveedor)
+        if (!validarProveedor) {
             return;
+        }
         String numero = txtNroOrden.getText();
         long idProv = Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId());
         Proveedor Prov = searchProveedorById(idProv);
@@ -180,7 +179,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         gestor.setnumero(numero);
         gestor.setproveedor(Prov);
         gestor.setListaDetalle(filas);
-        
+
         boolean result = false;
         if (opcion == EnumOpcionesABM.NUEVO) {
             result = gestor.registrarOrden();
@@ -190,14 +189,15 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             result = gestor.modificarOrden();
         }
         if (result) {
-            if(opcion == EnumOpcionesABM.NUEVO)
-            {
+            if (opcion == EnumOpcionesABM.NUEVO) {
                 JOptionPane.showMessageDialog(this, "Los datos se guardaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
                 limpiarTabla();
-            }
-            else
+                
+            } else {
                 JOptionPane.showMessageDialog(this, "Los datos se modificaron correctamente..!", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+            }
             setEnableComponents(false);
+            
             botones.getBtnGuardar().setEnabled(false);
             botones.getBtnModificar().setEnabled(false);
             botones.getBtnEliminar().setEnabled(false);
@@ -218,8 +218,8 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         long idEstadoOrdenSeleccionada = this.getEstado();
-        if(idEstadoOrdenSeleccionada != 1){
-            JOptionPane.showMessageDialog(this,"El estado de la Orden de Compra no permite su modificación","Atención", JOptionPane.WARNING_MESSAGE);
+        if (idEstadoOrdenSeleccionada != 1) {
+            JOptionPane.showMessageDialog(this, "El estado de la Orden de Compra no permite su modificación", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
         opcion = EnumOpcionesABM.MODIFICAR;
@@ -271,46 +271,41 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         long idEstadoOrdenSeleccionada = this.getEstado();
-        if(idEstadoOrdenSeleccionada != 1){
-            JOptionPane.showMessageDialog(this,"El estado de la Orden de Compra no permite su cancelación","Atención", JOptionPane.WARNING_MESSAGE);
+        if (idEstadoOrdenSeleccionada != 1) {
+            JOptionPane.showMessageDialog(this, "El estado de la Orden de Compra no permite su cancelación", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
         JTextField txtMotivo = new JTextField("");
         Object[] obj = {"Motivo", txtMotivo};
         JOptionPane.showMessageDialog(null, obj, "Ingresar Motivo", JOptionPane.INFORMATION_MESSAGE);
-        if (JOptionPane.showConfirmDialog(this,"Esta seguro que desea cancelar la orden de compra?") == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Esta seguro que desea cancelar la orden de compra?") == JOptionPane.OK_OPTION) {
             opcion = EnumOpcionesABM.ELIMINAR;
             idOrden = this.getIdOrden();
-            int result = gestor.cancelarOrden(idOrden,txtMotivo.getText());
-            if(result != -1){
+            int result = gestor.cancelarOrden(idOrden, txtMotivo.getText());
+            if (result != -1) {
                 JOptionPane.showMessageDialog(this, "La Orden de Compra ha sido cancelada correctamente");
                 this.limpiarCampos();
             }
         }
     }
 
-    private void limpiarCampos(){
-       this.cmbMateriaPrima.setEnabled(false);
-       this.cmbProveedor.setEnabled(false);
-       this.txtNroOrden.setText("");
-       this.cmbMateriaPrima.setSelectedIndex(0);
-       this.cmbProveedor.setSelectedIndex(0);
-       limpiarTablaDetalleOrden();
-       botones.getBtnEliminar().setEnabled(false);
-       botones.getBtnGuardar().setEnabled(false);
-       botones.getBtnModificar().setEnabled(false);
+    private void limpiarCampos() {
+        this.cmbMateriaPrima.setEnabled(false);
+        this.cmbProveedor.setEnabled(false);
+        this.txtNroOrden.setText("");
+        this.cmbMateriaPrima.removeAllItems();
+        this.cmbProveedor.setSelectedIndex(0);
+        limpiarTablaDetalleOrden();
+        botones.getBtnEliminar().setEnabled(false);
+        botones.getBtnGuardar().setEnabled(false);
+        botones.getBtnModificar().setEnabled(false);
     }
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {
-        agregarDetalleCompra();
-    }
-
-    private void agregarDetalleCompra()
-    {
+    private void agregarDetalleCompra() {
         long idMateriaprima = Long.parseLong(((ItemCombo) cmbMateriaPrima.getSelectedItem()).getId());
         String nombreMateriaPrima = (((ItemCombo) cmbMateriaPrima.getSelectedItem()).toString());
         JTextField txtCant = new JTextField("1");
@@ -328,10 +323,12 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     public void agregarFila(long idMateriaPrima, String nombreMateriaPrima, int cant) {
         //vector de tipo Object que contiene los datos de una fila
+        long idProv = Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId());
         ViewDetalleCompra datosFila = new ViewDetalleCompra();
         datosFila.setNombreMateriaPrima(nombreMateriaPrima);
         datosFila.setIdMateriaPrima(idMateriaPrima);
         datosFila.setCantidad(cant);
+        datosFila.setPrecioProv(gestor.getPrecioDeMatPriByProv(idProv, idMateriaPrima));
         filas.addLast(datosFila);
     }
 
@@ -356,7 +353,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
     }
 
     public void ordenSeleccionada() {
-        
+
         compraDB = gestor.buscarCompraDB(idOrden);
         view2 = gestor.viewDetalleCompra(idOrden);
         mostrarDatosCompra();
@@ -367,7 +364,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
     }
 
-        private void mostrarDatosCompra() {
+    private void mostrarDatosCompra() {
         //seteo los datos de la compra
         this.txtNroOrden.setText("" + compraDB.getNrocompra());
         if (compraDB.getProveedor() < 1) {
@@ -376,7 +373,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
             Combo.setItemComboSeleccionado(this.cmbProveedor, compraDB.getProveedor());
         }
         this.setEstado(compraDB.getEstado());
-        
+
         //seteo los datos del detalle de la compra (la tabla)
         filas.clear();
         Iterator i = view2.iterator();
@@ -389,17 +386,14 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         this.tblDetalleOrden.packAll();
     }
 
-    public boolean validar()
-    {
+    public boolean validar() {
         String prov = cmbProveedor.getSelectedItem().toString();
-        if ( prov == ("--Seleccionar--"))
-        {
-             JOptionPane.showMessageDialog(this, "Debe Ingresar un Proveedor", "Atención", JOptionPane.INFORMATION_MESSAGE);
-             return false;
+        if (prov == ("--Seleccionar--")) {
+            JOptionPane.showMessageDialog(this, "Debe Ingresar un Proveedor", "Atención", JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }
         return true;
     }
-  
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -603,9 +597,18 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
 
 private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
 // TODO add your handling code here:
-    limpiarTabla();
-    view.setIdproveedor(Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId()));
-    this.cargarComboMateriaprima();
+    if (!((ItemCombo) cmbProveedor.getSelectedItem()).getId().equals("-1")) {
+        limpiarTabla();
+        cmbMateriaPrima.setEnabled(true);
+        view.setIdproveedor(Long.parseLong(((ItemCombo) cmbProveedor.getSelectedItem()).getId()));
+        this.cargarComboMateriaprima();
+        
+    } else {
+        limpiarTabla();
+        cmbMateriaPrima.removeAllItems();
+        cmbMateriaPrima.setEnabled(false);
+    }
+
 }//GEN-LAST:event_cmbProveedorActionPerformed
 
     private void setEnableComponents(boolean b) {
@@ -616,11 +619,10 @@ private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.btnQuitar.setEnabled(b);
         this.btnAgregarPieza.setEnabled(b);
     }
-    private void limpiarTabla()
-    {
+
+    private void limpiarTabla() {
         int cantidadFilas = this.tblDetalleOrden.getRowCount();
-        for(int i=0; i<cantidadFilas; i++)
-        {
+        for (int i = 0; i < cantidadFilas; i++) {
             filas.remove(0);
             tblDetalleOrden.updateUI();
             tblDetalleOrden.packAll();
@@ -673,8 +675,6 @@ private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             }
 
         }
-
-
 
         /**
          * Retorna la cantidad de columnas que tiene la tabla
