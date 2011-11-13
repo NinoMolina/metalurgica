@@ -59,7 +59,7 @@ public class GestorProcesoCalidad {
     
     public long nuevoNumeroProceso(){
         ProcesocalidadJpaController con = new ProcesocalidadJpaController(JpaUtil.getEntityManagerFactory());
-        List<Procesocalidad> list = new ArrayList<Procesocalidad>();
+        List<Procesocalidad> list = con.findProcesocalidadEntities();
         long nro = 0;
         for(Procesocalidad p : list){
             if(p.getNroproceso().longValue() > nro){
