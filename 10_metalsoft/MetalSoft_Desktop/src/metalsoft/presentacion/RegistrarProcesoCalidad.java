@@ -194,9 +194,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        ABMMateriaPrima_Buscar buscar=null;
-        buscar = new ABMMateriaPrima_Buscar(this);
-//        buscar.setVentana(this);
+        ProcesoCalidad_Buscar buscar=new ProcesoCalidad_Buscar(this);
+        buscar.setVentana(this);
         JFrameManager.centrarYMostrarVentana(buscar);
     }
     
