@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.datos.PostgreSQLManager;
 import metalsoft.datos.dbobject.MateriaprimaDB;
@@ -327,8 +328,11 @@ public class SeleccionarProveedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        
-        context.addProveedorXMateriaPrima(filasProveedorXMateriaPrima.get(tblProvXMatPrima.getSelectedRow()));
+        if(tblProvXMatPrima.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Proveedor", "Información", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        context.addProveedorXMateriaPrima(filasProveedorXMateriaPrima.get(tblProvXMatPrima.convertRowIndexToModel(tblProvXMatPrima.getSelectedRow())));
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

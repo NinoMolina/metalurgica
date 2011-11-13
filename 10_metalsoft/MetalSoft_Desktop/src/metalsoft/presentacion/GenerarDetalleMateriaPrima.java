@@ -211,7 +211,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
             JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
             return;
         }
-        ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.convertRowIndexToModel(tblDetalleProducto.getSelectedRow()));
         filasMateriaPrima = gestor.obtenerAllMateriaPrima();
 
         filasMateriaPrimaSeleccionada.clear();
@@ -246,7 +246,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
             return;
         }
-        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.convertRowIndexToModel(tblDetallePedido.getSelectedRow()));
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
@@ -271,7 +271,8 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
             return;
         }
         limpiarCampos();
-        ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        JTable tbl = beanTblPedidos.getTblPedidos();
+        ViewPedidoEnListadoProcedimientos v = filasPedidos.get(tbl.convertRowIndexToModel(tbl.getSelectedRow()));
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();

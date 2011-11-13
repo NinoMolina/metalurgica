@@ -194,7 +194,7 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
         return;
     }
 
-    Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(tblEtapasDeProduccion.getSelectedRow());
+    Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(tblEtapasDeProduccion.convertRowIndexToModel(tblEtapasDeProduccion.getSelectedRow()));
     try {
         gestor.lanzarEjecucionEtapa(detalleplanificacionproduccion.getIddetalleejecucionplanificacion());
         filasEtapas.remove(tblEtapasDeProduccion.getSelectedRow());

@@ -451,7 +451,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido.");
             return;
         }
-        viewPedidoSeleccionado = filasPedidosNoPlanificados.get(tblPedidos.getSelectedRow());
+        viewPedidoSeleccionado = filasPedidosNoPlanificados.get(tblPedidos.convertRowIndexToModel(tblPedidos.getSelectedRow()));
         presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
         setVisiblePanel(pnlTreeTable.getName());
         setEnabledComponents(true);
@@ -1118,7 +1118,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
             return;
         }
 
-        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.getSelectedRow());
+        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.convertRowIndexToModel(tblEmpleado.getSelectedRow()));
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
@@ -1241,10 +1241,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAsignarEmpleadoActionPerformed
     private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
         if (tblEmpleado.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione el Empleado para el cual\nse desea ver su disponibilidad");
+            JOptionPane.showMessageDialog(this, "Por favor seleccione el Empleado para el cual\nse desea ver su ocupación");
             return;
         }
-        empleadoSeleccionado = (metalsoft.datos.jpa.entity.Empleado) lstEmpleados.get(tblEmpleado.getSelectedRow());
+        empleadoSeleccionado = (metalsoft.datos.jpa.entity.Empleado) lstEmpleados.get(tblEmpleado.convertRowIndexToModel(tblEmpleado.getSelectedRow()));
         btnAmpliarGraficoDispEmpleado.setEnabled(true);
         //validar que disp horaria no sea null
         try {
@@ -1499,7 +1499,12 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     }
 
     private void btnAsignarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMaquinaActionPerformed
-        maquinaSeleccionada = (metalsoft.datos.jpa.entity.Maquina) lstMaquinas.get(tblMaquinas.getSelectedRow());
+        if (tblMaquinas.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Máquina!");
+            return;
+        }
+
+        maquinaSeleccionada = (metalsoft.datos.jpa.entity.Maquina) lstMaquinas.get(tblMaquinas.convertRowIndexToModel(tblMaquinas.getSelectedRow()));
         //obtengo el nodo seleccionado
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();

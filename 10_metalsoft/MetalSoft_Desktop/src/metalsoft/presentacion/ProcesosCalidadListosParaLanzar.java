@@ -196,7 +196,7 @@ private void btnEjecutarProcesoCalidadActionPerformed(java.awt.event.ActionEvent
         return;
     }
 
-    Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(tblProcesosDeCalidad.getSelectedRow());
+    Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(tblProcesosDeCalidad.convertRowIndexToModel(tblProcesosDeCalidad.getSelectedRow()));
     try {
         gestor.lanzarEjecucionProcesoCalidad(detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad());
         filasProcesosCalidad.remove(tblProcesosDeCalidad.getSelectedRow());

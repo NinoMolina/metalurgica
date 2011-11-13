@@ -437,7 +437,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido..!");
             return;
         }
-        viewPedidoSeleccionado = filasPedidosConPlanificacionProduccion.get(tblPedidos.getSelectedRow());
+        viewPedidoSeleccionado = filasPedidosConPlanificacionProduccion.get(tblPedidos.convertRowIndexToModel(tblPedidos.getSelectedRow()));
         presupuesto = gestor.buscarPresupuesto(viewPedidoSeleccionado.getIdpresupuesto());
         setVisiblePanel(pnlTreeTable.getName());
         setEnabledComponents(true);
@@ -1379,7 +1379,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             if (obj instanceof PiezaNode) {
                 PiezaNode piezaNode = (PiezaNode) obj;
                 ProductoNode productoNode = (ProductoNode) piezaNode.getParent();
-                
+
                 Date minDatePieza = null;
                 Date maxDatePieza = null;
 
@@ -1503,10 +1503,10 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     private void btnVerDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDisponibilidadActionPerformed
         if (tblEmpleado.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione el Empleado para el cual\nse desea ver su disponibilidad");
+            JOptionPane.showMessageDialog(this, "Por favor seleccione el Empleado para el cual\nse desea ver su ocupación");
             return;
         }
-        empleadoSeleccionado = (metalsoft.datos.jpa.entity.Empleado) lstEmpleados.get(tblEmpleado.getSelectedRow());
+        empleadoSeleccionado = (metalsoft.datos.jpa.entity.Empleado) lstEmpleados.get(tblEmpleado.convertRowIndexToModel(tblEmpleado.getSelectedRow()));
         btnAmpliarGraficoOcupacionEmpleado.setEnabled(true);
         //validar que disp horaria no sea null
         try {
@@ -1575,7 +1575,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
             return;
         }
 
-        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.getSelectedRow());
+        empleadoSeleccionado = lstEmpleados.get(tblEmpleado.convertRowIndexToModel(tblEmpleado.getSelectedRow()));
 
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
@@ -1813,7 +1813,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
     }
 
     private void btnAsignarMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMaquinaActionPerformed
-        maquinaSeleccionada = (metalsoft.datos.jpa.entity.Maquina) lstMaquinas.get(tblMaquinas.getSelectedRow());
+        if (tblMaquinas.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Máquina");
+            return;
+        }
+
+        maquinaSeleccionada = (metalsoft.datos.jpa.entity.Maquina) lstMaquinas.get(tblMaquinas.convertRowIndexToModel(tblMaquinas.getSelectedRow()));
         //obtengo el nodo seleccionado
         TreePath tp = trtDetalleProcProd.getPathForRow(trtDetalleProcProd.getSelectedRow());
         Object obj = tp.getLastPathComponent();
@@ -1837,7 +1842,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 }//GEN-LAST:event_btnAsignarMaquinaActionPerformed
 
 private void btnAmpliarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoActionPerformed
-    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Planificación Control de Calidad", true);
+    JDialog vtnGraficoDisponibilidades = new JDialog(this, "Gráfico Planificación Control de Calidad", true);
     Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
     vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
     vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpVerDisponibilidad.getChart()));
@@ -1845,7 +1850,7 @@ private void btnAmpliarGraficoActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_btnAmpliarGraficoActionPerformed
 
 private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoOcupacionEmpleadoActionPerformed
-    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Planificación Control de Calidad", true);
+    JDialog vtnGraficoDisponibilidades = new JDialog(this, "Gráfico Planificación Control de Calidad", true);
     Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
     vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
     vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpOcupacionEmpelado.getChart()));
@@ -1856,9 +1861,9 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         txtNroPedido.setText("");
         txtFecha.setText("");
         if (txtCliente1.getText().compareTo("") != 0) {
-            for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String cliente=tblPedidos.getStringAt(i, 2).toLowerCase();
-                if(!cliente.contains(txtCliente1.getText().toLowerCase())) {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String cliente = tblPedidos.getStringAt(i, 2).toLowerCase();
+                if (!cliente.contains(txtCliente1.getText().toLowerCase())) {
                     filasPedidosConPlanificacionProduccion.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -1877,10 +1882,10 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         txtFecha.setText("");
         txtCliente1.setText("");
         if (txtNroPedido.getText().compareTo("") != 0) {
-            for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String nroPedido=tblPedidos.getStringAt(i, 0).substring(5);
-                if(!nroPedido.contains(txtNroPedido.getText())) {
-                    long nro=filasPedidosConPlanificacionProduccion.get(i).getNropedido();
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String nroPedido = tblPedidos.getStringAt(i, 0).substring(5);
+                if (!nroPedido.contains(txtNroPedido.getText())) {
+                    long nro = filasPedidosConPlanificacionProduccion.get(i).getNropedido();
                     filasPedidosConPlanificacionProduccion.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -1889,7 +1894,7 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
             }
         }
         if (txtNroPedido.getText().compareTo("") == 0) {
-             buscarPedidosConPlanificacionProduccion();
+            buscarPedidosConPlanificacionProduccion();
             tblPedidos.updateUI();
             tblPedidos.packAll();
         }
@@ -1899,9 +1904,9 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         txtNroPedido.setText("");
         txtCliente1.setText("");
         if (txtFecha.getText().compareTo("") != 0) {
-            for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String fecha=tblPedidos.getStringAt(i, 4);
-                if(!fecha.contains(txtFecha.getText())) {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String fecha = tblPedidos.getStringAt(i, 4);
+                if (!fecha.contains(txtFecha.getText())) {
                     filasPedidosConPlanificacionProduccion.remove(i);
                     i--;
                     tblPedidos.updateUI();

@@ -188,7 +188,7 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
         int row = tblProcesosAtrasados.getSelectedRow();
 
         if (row >= 0) {
-            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
+            Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.convertRowIndexToModel(row));
             EjecucionplanificacioncalidadJpaController controller = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
             Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = controller.findEjecucionplanificacioncalidad(detalleejecucionplanificacioncalidad.getEjecucionprocesocalidad().getIdejecucion());
             txtNovedades.setText(ejecucionplanificacioncalidad.getNovedades());
@@ -231,9 +231,8 @@ private void tblProcesosAtrasadosMouseClicked(java.awt.event.MouseEvent evt) {//
             return;
         }
 
-        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.getSelectedRow());
+        Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = filasProcesosAtrasados.get(tblProcesosAtrasados.convertRowIndexToModel(tblProcesosAtrasados.getSelectedRow()));
         Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
-
 
         JTextArea txtNuevaNovedad = new JTextArea(10, 50);
         txtNuevaNovedad.setLineWrap(true);

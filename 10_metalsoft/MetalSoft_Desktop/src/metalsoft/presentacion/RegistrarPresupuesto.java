@@ -62,10 +62,10 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         initComponents();
         addListeners();
         setearTablas();
-        filasPedidos = null;        
+        filasPedidos = null;
         limpiarCampos();
         setEnabledComponents(false);
-        
+
         gestor = new GestorPresupuesto();
         buscarPedidosConDetalleProcesoCalidad();
     }
@@ -179,7 +179,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         limpiarCampos();
         setEnabledComponents(true);
         beanBtnGuardar.getBtnGuardar().setEnabled(false);
-        ViewPedidoEnListadoProcedimientos viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        ViewPedidoEnListadoProcedimientos viewPedido = filasPedidos.get(tblPedidos.convertRowIndexToModel(tblPedidos.getSelectedRow()));
         idPedido = viewPedido.getIdpedido();
         long nroPresupuesto = gestor.buscarNroPresupuesto(idPedido);
         lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, nroPresupuesto));
@@ -332,7 +332,6 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         jsPorcentaje = new javax.swing.JSpinner();
         jLabel24 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         beanBtnGuardar = new metalsoft.beans.BtnGuardar();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
         jLabel25 = new javax.swing.JLabel(){
@@ -597,8 +596,6 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
 
         jLabel6.setText("%");
 
-        jLabel2.setText("horas)");
-
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -660,10 +657,8 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel5)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblHoraJornada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel2)
-                        .add(31, 31, 31))
+                        .add(lblHoraJornada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 116, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
                         .add(jLabel24)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -699,8 +694,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
                     .add(jLabel20)
                     .add(lblDuracionTotal)
                     .add(lblHoraJornada)
-                    .add(jLabel5)
-                    .add(jLabel2))
+                    .add(jLabel5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel16)
@@ -791,7 +785,12 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
-        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        if (tblMatPrimaXPieza.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Materia Prima", "Información", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.convertRowIndexToModel(tblMatPrimaXPieza.getSelectedRow()));
         long idMatPrima = view.getIdmateriaprima();
         try {
             SeleccionarProveedor.setIdMateriaPrima(idMatPrima);
@@ -1063,7 +1062,6 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

@@ -10,7 +10,6 @@
  */
 package metalsoft.presentacion;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,7 +40,6 @@ import metalsoft.util.Combo;
 import metalsoft.util.Fecha;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
-import org.jdesktop.swingx.table.ColumnControlButton;
 
 /**
  *
@@ -587,7 +585,12 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAsignarMPActionPerformed
 
     private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
-        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.getSelectedRow());
+        if(tblMatPrimaXPieza.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Materia Prima", "Información", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        ViewMateriaPrimaXPiezaPresupuesto view = filasMateriaPrimaXPiezaPresupuesto.get(tblMatPrimaXPieza.convertRowIndexToModel(tblMatPrimaXPieza.getSelectedRow()));
         long idMatPrima = view.getIdmateriaprima();
         materiaPrima = gestorMateriaPrima.buscarPorId(idMatPrima);
         long idCodigo = materiaPrima.getCodbarra();
@@ -598,7 +601,12 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.getSelectedRow());
+        if(tblPedidos.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Pedido", "Información", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        ViewPlanificacion viewPedido = filasPedidos.get(tblPedidos.convertRowIndexToModel(tblPedidos.getSelectedRow()));
         idPedido = viewPedido.getIdpedido();
 
         long nroPresupuesto = gestorPresupuesto.buscarNroPresupuesto(idPedido);

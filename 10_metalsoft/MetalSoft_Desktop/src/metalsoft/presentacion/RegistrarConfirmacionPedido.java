@@ -11,9 +11,7 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,6 +35,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     private List<ViewPedidoNoConfirmado> filasPedidosNoConfirmados;
     private ViewPedidoNoConfirmado viewPedidoSeleccionado;
     private GestorRegistrarPedidoConfirmado gestor;
+
     public RegistrarConfirmacionPedido() {
         super(Principal.getVtnPrincipal());
         initComponents();
@@ -44,13 +43,13 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         setearTablas();
         setEnabledComponents(false);
         limpiarCampos();
-        gestor=new GestorRegistrarPedidoConfirmado();
+        gestor = new GestorRegistrarPedidoConfirmado();
         buscarPedidosNoConfirmados();
         tblPedidos.updateUI();
         tblPedidos.packAll();
     }
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         lblCliente.setText("...");
         lblEstado.setText("...");
         lblFechaPedido.setText("...");
@@ -62,27 +61,27 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         txtCliente.setText("");
     }
 
-    private void setEnabledComponents(boolean b){
+    private void setEnabledComponents(boolean b) {
         btnRegistrarConfirmacion.setEnabled(b);
         this.btnListaMP.setEnabled(b);
     }
-    private void setearTablas(){
+
+    private void setearTablas() {
         tblPedidos.setModel(new PedidoNoConfirmadoTableModel());
         tblPedidos.setColumnControlVisible(true);
         /* On supprime les traits des lignes et des colonnes */
         tblPedidos.setShowHorizontalLines(false);
         tblPedidos.setShowVerticalLines(false);
-        tblPedidos.setHorizontalScrollEnabled(true); 
+        tblPedidos.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
-    private void addListeners(){
+    private void addListeners() {
         addListenerBtnSalir();
         addListenerBtnSeleccionarPedido();
     }
-
 
     private void addListenerBtnSeleccionarPedido() {
         beanBtnSeleccionar.getBtnSeleccionar().addActionListener(new java.awt.event.ActionListener() {
@@ -94,15 +93,16 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     }
 
     private void btnSeleccionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
-        if(tblPedidos.getSelectedRow()<0){
+        if (tblPedidos.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido...");
             return;
         }
-        viewPedidoSeleccionado = filasPedidosNoConfirmados.get(tblPedidos.getSelectedRow());
+        viewPedidoSeleccionado = filasPedidosNoConfirmados.get(tblPedidos.convertRowIndexToModel(tblPedidos.getSelectedRow()));
         setDatosPedidoSeleccionado();
         btnRegistrarConfirmacion.setEnabled(true);
         btnListaMP.setEnabled(true);
     }
+
     private void addListenerBtnSalir() {
         beanBtnSalir.getBtnSalir().addActionListener(new java.awt.event.ActionListener() {
 
@@ -116,8 +116,8 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         this.dispose();
     }
 
-    private void buscarPedidosNoConfirmados(){
-        filasPedidosNoConfirmados=gestor.buscarPedidosNoConfirmados();
+    private void buscarPedidosNoConfirmados() {
+        filasPedidosNoConfirmados = gestor.buscarPedidosNoConfirmados();
     }
 
     /** This method is called from within the constructor to
@@ -427,12 +427,12 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarConfirmacionActionPerformed
-        int result=JOptionPane.showConfirmDialog(this, "Está por modificar el pedido Nro '"+NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido())+"' como CONFIRMADO \nDesea Continuar?","Aviso",JOptionPane.OK_CANCEL_OPTION);
-        boolean guardo=false;
-        if(result==JOptionPane.OK_OPTION){
-            guardo=gestor.registrarPedidoConfirmado(viewPedidoSeleccionado.getIdpedido());
-            if(guardo){
-                JOptionPane.showMessageDialog(this, "El pedido Nro '"+NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido())+"' se registró CORRECTAMENTE!");
+        int result = JOptionPane.showConfirmDialog(this, "Está por modificar el pedido Nro '" + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()) + "' como CONFIRMADO \nDesea Continuar?", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+        boolean guardo = false;
+        if (result == JOptionPane.OK_OPTION) {
+            guardo = gestor.registrarPedidoConfirmado(viewPedidoSeleccionado.getIdpedido());
+            if (guardo) {
+                JOptionPane.showMessageDialog(this, "El pedido Nro '" + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()) + "' se registró CORRECTAMENTE!");
                 filasPedidosNoConfirmados.remove(viewPedidoSeleccionado);
                 tblPedidos.updateUI();
                 tblPedidos.packAll();
@@ -443,7 +443,7 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegistrarConfirmacionActionPerformed
 
     private void btnListaMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaMPActionPerformed
-         try {
+        try {
             JFrameManager.crearVentana(ConsultarListadoMateriaPrimaAComprar.class.getName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ABMPedidoPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
@@ -459,12 +459,10 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         txtCliente.setText("");
         if (txtNroPedido.getText().compareTo("") != 0) {
 //        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
-            for (int i=0; i<tblPedidos.getRowCount(); i++)
-            {
-                String nroPedido=tblPedidos.getStringAt(i, 0).substring(5);
-                if(!nroPedido.contains(txtNroPedido.getText()))
-                {
-                    long nro=filasPedidosNoConfirmados.get(i).getNropedido();
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String nroPedido = tblPedidos.getStringAt(i, 0).substring(5);
+                if (!nroPedido.contains(txtNroPedido.getText())) {
+                    long nro = filasPedidosNoConfirmados.get(i).getNropedido();
                     filasPedidosNoConfirmados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -473,9 +471,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             }
         }
         if (txtNroPedido.getText().compareTo("") == 0) {
-        buscarPedidosNoConfirmados();
-        tblPedidos.updateUI();
-        tblPedidos.packAll();
+            buscarPedidosNoConfirmados();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
         }
 }//GEN-LAST:event_txtNroPedidoKeyReleased
 
@@ -484,11 +482,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         txtCliente.setText("");
         if (txtFecha.getText().compareTo("") != 0) {
 //        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
-            for (int i=0; i<tblPedidos.getRowCount(); i++)
-            {
-                String fecha=tblPedidos.getStringAt(i, 2);
-                if(!fecha.contains(txtFecha.getText()))
-                {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String fecha = tblPedidos.getStringAt(i, 2);
+                if (!fecha.contains(txtFecha.getText())) {
                     filasPedidosNoConfirmados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -497,9 +493,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             }
         }
         if (txtFecha.getText().compareTo("") == 0) {
-        buscarPedidosNoConfirmados();
-        tblPedidos.updateUI();
-        tblPedidos.packAll();
+            buscarPedidosNoConfirmados();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
         }
     }//GEN-LAST:event_txtFechaKeyReleased
 
@@ -526,11 +522,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         txtFecha.setText("");
         if (txtCliente.getText().compareTo("") != 0) {
 //        filasPedidosNoConfirmados= gestor.buscarPedidosNoConfByNroLike(txtNroPedido.getText());
-            for (int i=0; i<tblPedidos.getRowCount(); i++)
-            {
-                String cliente=tblPedidos.getStringAt(i, 7).toLowerCase();
-                if(!cliente.contains(txtCliente.getText().toLowerCase()))
-                {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String cliente = tblPedidos.getStringAt(i, 7).toLowerCase();
+                if (!cliente.contains(txtCliente.getText().toLowerCase())) {
                     filasPedidosNoConfirmados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -539,14 +533,13 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             }
         }
         if (txtCliente.getText().compareTo("") == 0) {
-        buscarPedidosNoConfirmados();
-        tblPedidos.updateUI();
-        tblPedidos.packAll();
+            buscarPedidosNoConfirmados();
+            tblPedidos.updateUI();
+            tblPedidos.packAll();
         }
     }//GEN-LAST:event_txtClienteKeyReleased
 
-
-    private void setDatosPedidoSeleccionado(){
+    private void setDatosPedidoSeleccionado() {
         lblCliente.setText(viewPedidoSeleccionado.getRazonsocial());
         lblEstado.setText(viewPedidoSeleccionado.getEstado());
         lblFechaPedido.setText(Fecha.parseToString(viewPedidoSeleccionado.getFechapedido()));
@@ -554,8 +547,9 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
         lblMontoTotal.setText(String.valueOf(viewPedidoSeleccionado.getMontototal()));
         lblNroPedCliente.setText(String.valueOf(viewPedidoSeleccionado.getNropedcotcli()));
         lblNroPedido.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, viewPedidoSeleccionado.getNropedido()));
-        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO,viewPedidoSeleccionado.getNropresupuesto()));
+        lblNroPresupuesto.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, viewPedidoSeleccionado.getNropresupuesto()));
     }
+
     /**
      * @param args the command line arguments
      */
@@ -634,7 +628,6 @@ public class RegistrarConfirmacionPedido extends javax.swing.JDialog {
             return columnNames[column];
         }
 
-        
         public int getColumnCount() {
             return columnNames.length;
         }
