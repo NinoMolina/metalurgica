@@ -316,10 +316,8 @@
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="bsyBuscar" min="0" pref="0" max="32767" attributes="1"/>
-                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="txtRazonSocial" alignment="1" max="32767" attributes="1"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="txtRazonSocial" alignment="1" max="32767" attributes="1"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -450,8 +448,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="bsyBuscarProducto" pref="23" max="32767" attributes="1"/>
-                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="rbtNombre" alignment="0" max="32767" attributes="1"/>
+                      <Component id="rbtNombre" alignment="0" max="32767" attributes="1"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtValorBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>

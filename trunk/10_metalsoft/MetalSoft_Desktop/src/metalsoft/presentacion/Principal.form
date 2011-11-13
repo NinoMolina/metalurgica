@@ -1365,16 +1365,16 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane1" alignment="0" pref="635" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCodigoBarras" pref="464" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnEnviarFinalizacion" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCodigoBarras" min="-2" pref="421" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblEnvioCodBarra" pref="120" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1386,9 +1386,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtCodigoBarras" alignment="3" pref="23" max="32767" attributes="1"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCodigoBarras" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnEnviarFinalizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEnvioCodBarra" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" pref="102" max="32767" attributes="0"/>
@@ -1399,19 +1399,14 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txtCodigoBarras">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoBarrasKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo de Barras:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="btnEnviarFinalizacion">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Enviar"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarFinalizacionActionPerformed"/>
-                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                   <AuxValues>
@@ -1435,6 +1430,11 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="lblEnvioCodBarra">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="metalsoft.beans.JPanelTransparente" name="pnlRegistrarFinalizacion1">
