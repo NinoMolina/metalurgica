@@ -6,6 +6,8 @@ package metalsoft;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import metalsoft.datos.PostgreSQLManager;
+import metalsoft.datos.dao.UsuarioDAOImpl;
 import metalsoft.datos.dbobject.UsuarioDB;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.UsuarioJpaController;
@@ -14,13 +16,18 @@ import metalsoft.datos.jpa.entity.Usuario;
 import metalsoft.datos.jpa.entity.Usuarioxrol;
 import metalsoft.negocio.gestores.IdsRol;
 import metalsoft.presentacion.Principal;
-import metalsoft.presentacion.PrincipalOperario;
 
 /**
  *
  * @author Nino
  */
 public class MetalsoftDispatcher {
+    
+    public static void main(String arg[]) throws Exception{
+        
+        UsuarioDB usuario = new UsuarioDAOImpl().findByPrimaryKey(2L, new PostgreSQLManager().concectGetCn());
+        dispatchUser(usuario);
+    }
 
     public static void dispatchUser(UsuarioDB usuario) {
         /*
@@ -74,20 +81,20 @@ public class MetalsoftDispatcher {
             }
             if (rol.getIdrol() == IdsRol.RESP_PRODUCCION) {
                 usuarioConRol = true;
-                
+
                 lanzarHiloAvisoEtapaListaParaIniciar = true;
                 lanzarHiloAvisoEtapaNoTerminada = true;
                 lanzarHiloEscuchadorFinEtapa = true;
-                
+
                 habilitarComponentesSegunRol(rol.getIdrol(), p);
             }
             if (rol.getIdrol() == IdsRol.RESP_CALIDAD) {
                 usuarioConRol = true;
-                
+
                 lanzarHiloAvisoProcesoCalidadListoParaLanzar = true;
                 lanzarHiloAvisoProcesoCalidadNoTerminado = true;
-                lanzarHiloEscuchadorFinProcesoCalidad =true;
-                
+                lanzarHiloEscuchadorFinProcesoCalidad = true;
+
                 habilitarComponentesSegunRol(rol.getIdrol(), p);
             }
             if (rol.getIdrol() == IdsRol.RESP_ALMACENAMIENTO) {
@@ -127,6 +134,8 @@ public class MetalsoftDispatcher {
 
 
     }
+    
+    
 
     private static void lanzarHilos(boolean lanzarHiloAvisoEtapaNoTerminada,
             boolean lanzarHiloEscuchadorFinEtapa,

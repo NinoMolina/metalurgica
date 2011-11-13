@@ -30,6 +30,7 @@ import metalsoft.negocio.gestores.ViewDetalleProducto;
 import metalsoft.negocio.gestores.ViewEtapaDeProduccion;
 import metalsoft.negocio.gestores.ViewPedidoEnListadoProcedimientos;
 import metalsoft.util.Fecha;
+import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
@@ -51,7 +52,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
     private long idPedidoSeleccionado, idProductoSeleccionado, idPiezaSeleccionada;
 
     public GenerarDetalleEtapasProduccion() {
-        super(BotonRapidoPresupuesto.getVtnBotonRapido());
+        super(Principal.getVtnPrincipal());
         initComponents();
         tcrTblDetallePedido = new TableCellRender();
         tblDetallePedido.setDefaultRenderer(Object.class, tcrTblDetallePedido);
@@ -91,6 +92,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetallePedido.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
+
         //DETALLE PRODUCTO
         tblDetalleProducto.setModel(new DetalleProductoTableModel());
         tblDetalleProducto.setColumnControlVisible(true);
@@ -101,6 +104,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On dit de surligner une ligne sur deux */
         tblDetalleProducto.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetalleProducto.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
 
         tblEtapa.setModel(new EtapaTableModel());
         tblEtapa.setColumnControlVisible(true);
@@ -111,6 +115,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On dit de surligner une ligne sur deux */
         tblEtapa.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblEtapa.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
 
         tblEtapaSeleccionada.setModel(new EtapaSeleccionadaTableModel());
         tblEtapaSeleccionada.setColumnControlVisible(true);
@@ -121,6 +126,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         /* On dit de surligner une ligne sur deux */
         tblEtapaSeleccionada.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblEtapaSeleccionada.setSelectionMode(SelectionMode.SINGLE_SELECTION.ordinal());
     }
 
     private void addListeners() {
@@ -213,7 +219,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             JOptionPane.showMessageDialog(this, "Debe seleccionar una pieza!");
             return;
         }
-        ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.getSelectedRow());
+        ViewDetalleProducto v = (ViewDetalleProducto) filasDetalleProducto.get(tblDetalleProducto.convertRowIndexToModel(tblDetalleProducto.getSelectedRow()));
         filasEtapaProduccion = gestor.obtenerEtapasDeProduccion();
         filasEtapaProduccionSeleccionada.clear();
         PiezaxetapadeproduccionDB[] pxeDB = gestor.buscarEtapasDePieza(v.getIdPieza());
@@ -244,7 +250,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto!");
             return;
         }
-        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+//        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.getSelectedRow());
+        ViewDetallePedidoCotizacion v = filasDetallePedido.get(tblDetallePedido.convertRowIndexToModel(tblDetallePedido.getSelectedRow()));
         long idPro = v.getIdProducto();
         filasDetalleProducto = gestor.buscarDetalleProducto(idPro);
         tblDetalleProducto.updateUI();
@@ -269,7 +276,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             return;
         }
         limpiarCampos();
-        ViewPedidoEnListadoProcedimientos v = filasPedidos.get(beanTblPedidos.getTblPedidos().getSelectedRow());
+        JTable tbl = beanTblPedidos.getTblPedidos();
+        ViewPedidoEnListadoProcedimientos v = filasPedidos.get(tbl.convertRowIndexToModel(tbl.getSelectedRow()));
         long idPed = v.getIdpedido();
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
         tblDetallePedido.updateUI();
@@ -291,16 +299,21 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
 
     private void btnBeanAgregarActionPerformed(java.awt.event.ActionEvent evt) {
         if (tblEtapa.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un proceso de calidad!");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Etapa de Producción");
             return;
         }
         if (filasEtapaProduccionSeleccionada.isEmpty()) {
             beanAgregarQuitar.getBtnQuitar().setEnabled(true);
         }
+//        System.out.println(tblEtapa.getSelectedRow());
+//        System.out.println(tblEtapa.convertRowIndexToModel(tblEtapa.getSelectedRow()));
+
+//        ViewEtapaDeProduccion v = filasEtapaProduccion.remove(tblEtapa.convertRowIndexToModel(tblEtapa.getSelectedRow()));
         ViewEtapaDeProduccion v = filasEtapaProduccion.remove(tblEtapa.getSelectedRow());
         filasEtapaProduccionSeleccionada.add(v);
         tblEtapa.updateUI();
-        tblEtapa.packAll();
+        System.out.println(filasEtapaProduccion.size());
+//        tblEtapa.packAll();
         tblEtapaSeleccionada.updateUI();
         tblEtapaSeleccionada.packAll();
         if (filasEtapaProduccion.isEmpty()) {
@@ -324,6 +337,7 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         if (filasEtapaProduccion.isEmpty()) {
             beanAgregarQuitar.getBtnAgregar().setEnabled(true);
         }
+//        ViewEtapaDeProduccion v = filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.convertRowIndexToModel(tblEtapaSeleccionada.getSelectedRow()));
         ViewEtapaDeProduccion v = filasEtapaProduccionSeleccionada.remove(tblEtapaSeleccionada.getSelectedRow());
         filasEtapaProduccion.add(v);
         tblEtapa.updateUI();
@@ -748,9 +762,9 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         txtNroPedido.setText("");
         txtPrioridad.setText("");
         if (txtCliente.getText().compareTo("") != 0) {
-            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
-                String cliente=filasPedidos.get(i).getCliente().toLowerCase();
-                if(!cliente.contains(txtCliente.getText().toLowerCase())) {
+            for (int i = 0; i < beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                String cliente = filasPedidos.get(i).getCliente().toLowerCase();
+                if (!cliente.contains(txtCliente.getText().toLowerCase())) {
                     filasPedidos.remove(i);
                     i--;
                     beanTblPedidos.getTblPedidos().updateUI();
@@ -767,10 +781,10 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         txtPrioridad.setText("");
         txtCliente.setText("");
         if (txtNroPedido.getText().compareTo("") != 0) {
-            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
-                int nroPedido=filasPedidos.get(i).getNropedido();
-                if(nroPedido != (Integer.parseInt(txtNroPedido.getText()))) {
-                    long nro=filasPedidos.get(i).getNropedido();
+            for (int i = 0; i < beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                int nroPedido = filasPedidos.get(i).getNropedido();
+                if (nroPedido != (Integer.parseInt(txtNroPedido.getText()))) {
+                    long nro = filasPedidos.get(i).getNropedido();
                     filasPedidos.remove(i);
                     i--;
                     beanTblPedidos.getTblPedidos().updateUI();
@@ -787,9 +801,9 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
         txtNroPedido.setText("");
         txtCliente.setText("");
         if (txtPrioridad.getText().compareTo("") != 0) {
-            for (int i=0; i<beanTblPedidos.getTblPedidos().getRowCount(); i++) {
-                String prioridad=filasPedidos.get(i).getPrioridad().toLowerCase();
-                if(!prioridad.contains(txtPrioridad.getText().toLowerCase())) {
+            for (int i = 0; i < beanTblPedidos.getTblPedidos().getRowCount(); i++) {
+                String prioridad = filasPedidos.get(i).getPrioridad().toLowerCase();
+                if (!prioridad.contains(txtPrioridad.getText().toLowerCase())) {
                     filasPedidos.remove(i);
                     i--;
                     beanTblPedidos.getTblPedidos().updateUI();
@@ -996,6 +1010,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
                     return view.getDescripcion();
                 case 4:
                     return view.getCantidadPiezas();
+                case 5:
+                    return view.getIdDetalle();
                 default:
                     return null;
             }
@@ -1091,7 +1107,8 @@ public class GenerarDetalleEtapasProduccion extends javax.swing.JDialog implemen
             "Nombre"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
-
+//            System.out.println(filasEtapaProduccion.size());
+//            System.out.println(rowIndex);
             ViewEtapaDeProduccion view = filasEtapaProduccion.get(rowIndex);
             //      Object[] df=filas.get(rowIndex);
             switch (columnIndex) {

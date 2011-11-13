@@ -109,6 +109,40 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
+    public Principal() {
+        mapEtapasAtrasadas = new HashMap<Long, Detalleejecucionplanificacion>();
+        mapProcesosCalidadAtrasados = new HashMap<Long, Detalleejecucionplanificacioncalidad>();
+        mapEtapasListasParaLanzar = new HashMap<Long, Detalleplanificacionproduccion>();
+        mapProcesosListosParaLanzar = new HashMap<Long, Detalleplanificacioncalidad>();
+
+        Dimension de = Toolkit.getDefaultToolkit().getScreenSize();
+        de.setSize(de.width, de.height - 40);
+        this.setResizable(false);
+        this.setPreferredSize(de);
+        this.setMaximumSize(de);
+
+        System.out.println(this.getPreferredSize());
+        System.out.println(this.getMaximumSize());
+
+        initComponents();
+
+        System.out.println(this.getPreferredSize());
+        System.out.println(this.getMaximumSize());
+
+        iniciarReloj();
+
+        this.setIconImage(new ImageIcon(getClass().getResource("/metalsoft/presentacion/img/LogoMS7.png")).getImage());
+
+        setVisibleComponents(false);
+        vtnPrincipal = this;
+
+    }
+
+    public static void main(String arg[]) {
+        Principal p = new Principal();
+        p.setVisible(true);
+    }
+
     public static Principal getVtnPrincipal() {
         return vtnPrincipal;
     }
@@ -125,11 +159,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         tiempo.start();
-    }
-
-    public Principal() {
-        initComponents();
-
     }
 
     /** This method is called from within the constructor to

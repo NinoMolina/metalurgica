@@ -35,12 +35,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.RowSorterEvent;
+import javax.swing.event.RowSorterListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -469,6 +469,13 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         /* On dit de surligner une ligne sur deux */
         tblPedidos.setHighlighters(
                 new UIColorHighlighter(HighlightPredicate.ODD));
+        tblPedidos.getRowSorter().addRowSorterListener(new RowSorterListener() {
+
+            @Override
+            public void sorterChanged(RowSorterEvent e) {
+                System.out.println(e.toString());
+            }
+        });
         //EMPLEADO
         tblEmpleado.setModel(new EmpleadoTableModel());
         tblEmpleado.setColumnControlVisible(true);
@@ -1670,9 +1677,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtNroPedido.setText("");
         txtCliente1.setText("");
         if (txtFecha.getText().compareTo("") != 0) {
-           for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String fecha=tblPedidos.getStringAt(i, 2);
-                if(!fecha.contains(txtFecha.getText())) {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String fecha = tblPedidos.getStringAt(i, 2);
+                if (!fecha.contains(txtFecha.getText())) {
                     filasPedidosNoPlanificados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -1691,10 +1698,10 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtFecha.setText("");
         txtCliente1.setText("");
         if (txtNroPedido.getText().compareTo("") != 0) {
-            for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String nroPedido=tblPedidos.getStringAt(i, 0).substring(5);
-                if(!nroPedido.contains(txtNroPedido.getText())) {
-                    long nro=filasPedidosNoPlanificados.get(i).getNropedido();
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String nroPedido = tblPedidos.getStringAt(i, 0).substring(5);
+                if (!nroPedido.contains(txtNroPedido.getText())) {
+                    long nro = filasPedidosNoPlanificados.get(i).getNropedido();
                     filasPedidosNoPlanificados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -1713,9 +1720,9 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtNroPedido.setText("");
         txtFecha.setText("");
         if (txtCliente1.getText().compareTo("") != 0) {
-            for (int i=0; i<tblPedidos.getRowCount(); i++) {
-                String cliente=tblPedidos.getStringAt(i, 7).toLowerCase();
-                if(!cliente.contains(txtCliente1.getText().toLowerCase())) {
+            for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+                String cliente = tblPedidos.getStringAt(i, 7).toLowerCase();
+                if (!cliente.contains(txtCliente1.getText().toLowerCase())) {
                     filasPedidosNoPlanificados.remove(i);
                     i--;
                     tblPedidos.updateUI();
@@ -1731,7 +1738,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
 }//GEN-LAST:event_txtCliente1KeyReleased
 
 private void btnAmpliarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoActionPerformed
-    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Planificación Producción", true);
+    JDialog vtnGraficoDisponibilidades = new JDialog(this, "Gráfico Planificación Producción", true);
     Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
     vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
     vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpVerDisponibilidad.getChart()));
@@ -1740,7 +1747,7 @@ private void btnAmpliarGraficoActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_btnAmpliarGraficoActionPerformed
 
 private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmpliarGraficoDispEmpleadoActionPerformed
-    JDialog vtnGraficoDisponibilidades = new JDialog(this,"Gráfico Ocupación Empleado", true);
+    JDialog vtnGraficoDisponibilidades = new JDialog(this, "Gráfico Ocupación Empleado", true);
     Dimension dimSys = Toolkit.getDefaultToolkit().getScreenSize();
     vtnGraficoDisponibilidades.setSize(dimSys.width, dimSys.height - 40);
     vtnGraficoDisponibilidades.getContentPane().add(new ChartPanel(ctpDisponibilidadEmpelado.getChart()));
