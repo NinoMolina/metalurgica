@@ -90,4 +90,18 @@ public class GestorProcesoCalidad {
         
         return p.getIdprocesocalidad();
     }
+    
+    public Procesocalidad getProcesoCalidad(long id){
+        ProcesocalidadJpaController con = new ProcesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        return con.findProcesocalidad(id);
+    }
+    
+    public List<Procesocalidad> getListProcesoCalidad(){
+        ProcesocalidadJpaController con = new ProcesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        return con.findProcesocalidadEntities();
+    }
+    
+    public List<Procesocalidad> getListProcesoCalidadByName(String text){
+        return JpaUtil.getProcesoCalidadByNombreLike(text);
+    }
 }
