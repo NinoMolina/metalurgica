@@ -119,6 +119,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     {
         opcion=EnumOpcionesABM.NUEVO;
         lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, gestor.nuevoNumeroProceso()));
+        enableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
