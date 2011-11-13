@@ -66,7 +66,7 @@ public class GestorProcesoCalidad {
                 nro = p.getNroproceso().longValue();
             }
         }
-        return nro;
+        return nro+1;
     }
     
     public long guardarProceso(Procesocalidad p){
