@@ -12,11 +12,14 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
+import java.math.BigInteger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.text.StyledEditorKit.ItalicAction;
 import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.negocio.gestores.GestorProcesoCalidad;
+import metalsoft.negocio.gestores.NumerosAMostrar;
+import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
 import metalsoft.util.ItemCombo;
 
@@ -29,6 +32,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     /** Creates new form RegistrarProcesoCalidad */
     private EnumOpcionesABM opcion;
     private GestorProcesoCalidad gestor;
+    private Procesocalidad procesoModificar;
+    
     public RegistrarProcesoCalidad() {
         super(Principal.getVtnPrincipal());
         initComponents();
@@ -43,7 +48,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         botones.getBtnModificar().setEnabled(false);
     }
     
-    public void enableComponents(boolean b){
+    private void enableComponents(boolean b){
         txtEspecificaciones.setEnabled(b);
         txtHerramientas.setEnabled(b);
         txtTolerancia.setEnabled(b);
@@ -61,8 +66,22 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         cmbAccion.setSelectedIndex(0);
         cmbTipoDeMaquina.setSelectedIndex(0);
         jspDuracion.setValue(0);
+        lblNroProceso.setText("...");
     }
-    public void addListeners(){
+    
+    public void cargarDatos(Procesocalidad p){
+        
+        txtEspecificaciones.setText(p.getEspecificacion());
+        txtHerramientas.setText(p.getHerramienta());
+        txtTolerancia.setText(p.getTolerancia());
+        txtnombre.setText(p.getNombre());
+        Combo.setItemComboSeleccionado(cmbAccion,p.getAccioncalidad().getIdaccioncalidad());
+        //cmbTipoDeMaquina.setSelectedIndex(0);
+        jspDuracion.setValue(0);
+        lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, p.getNroproceso().longValue()));
+    
+    }
+    private void addListeners(){
         addListenerBtnNuevo();
         addListenerBtnGuardar();
         addListenerBtnModificar();
@@ -92,7 +111,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
     {
         opcion=EnumOpcionesABM.NUEVO;
-        
+        lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, gestor.nuevoNumeroProceso()));
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
@@ -151,6 +170,14 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         botones.getBtnEliminar().setEnabled(false);
     }
 
+    public Procesocalidad getProcesoModificar() {
+        return procesoModificar;
+    }
+
+    public void setProcesoModificar(Procesocalidad procesoModificar) {
+        this.procesoModificar = procesoModificar;
+    }
+
     private void addListenerBtnBuscar() {
         botones.getBtnBuscar().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +201,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         pc.setNombre(txtnombre.getText());
         pc.setAccioncalidad(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbAccion.getSelectedItem()).getId())));
         //pc.setTipoMaquina(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbTipoDeMaquina.getSelectedItem()).getId())));
-        
+        pc.setNroproceso(BigInteger.valueOf(gestor.nuevoNumeroProceso()));
         jspDuracion.setValue(0);
         return pc;
     }
@@ -222,7 +249,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         cmbAccion = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblNroProceso = new javax.swing.JLabel();
         jspDuracion = new javax.swing.JSpinner();
         botones = new metalsoft.beans.ABM_Botones();
 
@@ -311,9 +338,9 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
 
         jLabel2.setText("Nro. de Proceso:");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("...");
-        jLabel9.setEnabled(false);
+        lblNroProceso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNroProceso.setText("...");
+        lblNroProceso.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -329,7 +356,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -361,7 +388,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel9))
+                    .addComponent(lblNroProceso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -440,7 +467,6 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -449,6 +475,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JSpinner jspDuracion;
+    private javax.swing.JLabel lblNroProceso;
     private javax.swing.JLabel minutos;
     private javax.swing.JTextArea txtEspecificaciones;
     private javax.swing.JTextArea txtHerramientas;
