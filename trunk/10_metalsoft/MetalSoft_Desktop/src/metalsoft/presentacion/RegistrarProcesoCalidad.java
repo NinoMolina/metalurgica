@@ -212,6 +212,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         Calendar c= Calendar.getInstance();
         c.setTime(new Date());
         pc.setFechacreacion(c.getTime());
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.HOUR, (Integer)jsphoras.getValue());
         c.set(Calendar.MINUTE, (Integer)jspMin.getValue());
         c.set(Calendar.SECOND, 0);
@@ -230,6 +232,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private Procesocalidad modificarProceso(){
         Calendar c= Calendar.getInstance();
         c.setTime(new Date());
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.HOUR, (Integer)jsphoras.getValue());
         c.set(Calendar.MINUTE, (Integer)jspMin.getValue());
         c.set(Calendar.SECOND, 0);
@@ -388,6 +392,10 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         lblNroProceso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroProceso.setText("...");
         lblNroProceso.setEnabled(false);
+
+        jsphoras.setModel(new javax.swing.SpinnerNumberModel(0, 0, 24, 1));
+
+        jspMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
         minutos1.setText("minutos");
 
