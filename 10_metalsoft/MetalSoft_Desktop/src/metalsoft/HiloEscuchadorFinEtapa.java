@@ -139,8 +139,8 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
                  * si los datos recibidos no coinciden con la expresion regular
                  * entonces no se hace nada
                  */
-                System.out.println("WARNING: Los datos recibidos no coinciden con el patron de codigo de barra de MetalSoft.");
-                oos.writeObject("WARNING: Los datos enviados no coinciden con el patron de codigo de barra de MetalSoft.");
+                System.out.println("ERROR: Los datos recibidos no coinciden con el patron de codigo de barra de MetalSoft.");
+                oos.writeObject("ERROR: Los datos enviados no coinciden con el patron de codigo de barra de MetalSoft.");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -265,7 +265,7 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
          * si los datos se procesaron correctamente aviso que todo esta ok
          */
         System.out.println("INFO: Se procesaron los datos recibidos.");
-        oos.writeObject("OK");
+        oos.writeObject("Los datos se procesaron correctamente.");
     }
 
     @Override

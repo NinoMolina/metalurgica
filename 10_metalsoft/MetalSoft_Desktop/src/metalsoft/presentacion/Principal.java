@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -105,7 +106,6 @@ public class Principal extends javax.swing.JFrame {
 
         setVisibleComponents(false);
         vtnPrincipal = this;
-
 
     }
 
@@ -370,9 +370,9 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarFinalizacion = new metalsoft.beans.JPanelTransparente();
         txtCodigoBarras = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        btnEnviarFinalizacion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtComunicacion = new javax.swing.JTextArea();
+        lblEnvioCodBarra = new javax.swing.JLabel();
         pnlRegistrarFinalizacion1 = new metalsoft.beans.JPanelTransparente();
         jLabel1 = new javax.swing.JLabel();
         mbrMenu = new javax.swing.JMenuBar();
@@ -764,14 +764,13 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarFinalizacion.setPreferredSize(new java.awt.Dimension(450, 200));
         pnlRegistrarFinalizacion.setTran(0.1F);
 
-        jLabel4.setText("Código de Barras:");
-
-        btnEnviarFinalizacion.setText("Enviar");
-        btnEnviarFinalizacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarFinalizacionActionPerformed(evt);
+        txtCodigoBarras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoBarrasKeyReleased(evt);
             }
         });
+
+        jLabel4.setText("Código de Barras:");
 
         txtComunicacion.setColumns(20);
         txtComunicacion.setEditable(false);
@@ -782,20 +781,22 @@ public class Principal extends javax.swing.JFrame {
         txtComunicacion.setOpaque(false);
         jScrollPane1.setViewportView(txtComunicacion);
 
+        lblEnvioCodBarra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout pnlRegistrarFinalizacionLayout = new javax.swing.GroupLayout(pnlRegistrarFinalizacion);
         pnlRegistrarFinalizacion.setLayout(pnlRegistrarFinalizacionLayout);
         pnlRegistrarFinalizacionLayout.setHorizontalGroup(
             pnlRegistrarFinalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRegistrarFinalizacionLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistrarFinalizacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRegistrarFinalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                     .addGroup(pnlRegistrarFinalizacionLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnviarFinalizacion)))
+                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEnvioCodBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlRegistrarFinalizacionLayout.setVerticalGroup(
@@ -803,9 +804,9 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnlRegistrarFinalizacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRegistrarFinalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnviarFinalizacion))
+                    .addComponent(lblEnvioCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                 .addContainerGap())
@@ -2385,81 +2386,6 @@ private void mniConsultarEnviosManPrevActionPerformed(java.awt.event.ActionEvent
     }
 }//GEN-LAST:event_mniConsultarEnviosManPrevActionPerformed
 
-private void btnEnviarFinalizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarFinalizacionActionPerformed
-    Socket cliente = null;
-    ObjectInputStream ois = null;
-    ObjectOutputStream oos = null;
-    try {
-        System.out.println("INFO: Conectando con el servidor...");
-        txtComunicacion.append(System.getProperty("line.separator"));
-        txtComunicacion.append("#########  " + Fecha.parseToStringFechaHora(Fecha.fechaActualDate()) + "  #########");
-        txtComunicacion.append("\nINFO: Conectando con el servidor...");
-
-        String codigoBarra = txtCodigoBarras.getText();
-
-        String parts[] = codigoBarra.split(Pattern.quote("-"));
-
-        String ip = null;
-        String puerto = null;
-
-        if (parts[1].equals(String.valueOf(BarCodeUtil.COD_EJECUCION_PROCESO_CALIDAD))) {
-            ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_PROCESO_CALIDAD);
-            puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
-        } else if (parts[1].equals(String.valueOf(BarCodeUtil.COD_EJECUCION_ETAPA_PRODUCCION))) {
-            ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_ETAPA);
-            puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
-        }
-
-        cliente = new Socket(ip, Integer.parseInt(puerto));
-
-        oos = new ObjectOutputStream(cliente.getOutputStream());
-        ois = new ObjectInputStream(cliente.getInputStream());
-
-        System.out.println("\nINFO: Enviando datos");
-        txtComunicacion.append("\nINFO: Enviando datos");
-
-        oos.writeObject(txtCodigoBarras.getText());
-
-        System.out.println("\nINFO: Recibiendo respuesta");
-        txtComunicacion.append("\nINFO: Recibiendo respuesta");
-
-        String respuesta = (String) ois.readObject();
-        txtComunicacion.append("\nINFO: Respuesta --> " + respuesta);
-
-        System.out.println("\nINFO: Fin envio de datos");
-        txtComunicacion.append("\nINFO: Fin envio de datos");
-
-    } catch (UnknownHostException ex) {
-        ex.printStackTrace();
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    } catch (ClassNotFoundException ex) {
-        ex.printStackTrace();
-    } finally {
-        try {
-            if (ois != null) {
-                ois.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            if (oos != null) {
-                oos.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            if (cliente != null) {
-                cliente.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-}//GEN-LAST:event_btnEnviarFinalizacionActionPerformed
-
 private void mniConfiguracionJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConfiguracionJornadaActionPerformed
     try {
         JFrameManager.crearVentana(ConfiguracionJornada.class.getName());
@@ -2549,11 +2475,16 @@ private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.Action
         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnControlesCalidadEnEjecucionActionPerformed
+
+private void txtCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoBarrasKeyReleased
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        enviarCodigoDeBarras();
+    }
+}//GEN-LAST:event_txtCodigoBarrasKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
     private javax.swing.JButton btnEjecutarProduccion;
-    private javax.swing.JButton btnEnviarFinalizacion;
     private javax.swing.JButton btnEtapasAtrasadas;
     private javax.swing.JButton btnEtapasListasParaLanzar;
     private javax.swing.JButton btnLanzarProcesoCalidad;
@@ -2582,6 +2513,7 @@ private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.Action
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblEnvioCodBarra;
     private javax.swing.JLabel lblReloj;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblUsuario;
@@ -3638,5 +3570,82 @@ private void btnControlesCalidadEnEjecucionActionPerformed(java.awt.event.Action
         mniAdministrarUsuarios.setVisible(b);
         mniCambiarContrasenia.setVisible(b);
         mniNuevoUsuario.setVisible(b);
+    }
+
+    private void enviarCodigoDeBarras() {
+        Socket cliente = null;
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos = null;
+
+        lblEnvioCodBarra.setText("Enviando...");
+        
+        try {
+//            Thread.sleep(3000);
+            System.out.println("INFO: Conectando con el servidor...");
+            txtComunicacion.append(System.getProperty("line.separator"));
+            txtComunicacion.append("#########  " + Fecha.parseToStringFechaHora(Fecha.fechaActualDate()) + "  #########");
+            txtComunicacion.append("\nINFO: Conectando con el servidor...");
+
+            String codigoBarra = txtCodigoBarras.getText();
+
+            String parts[] = codigoBarra.split(Pattern.quote("-"));
+
+            String ip = null;
+            String puerto = null;
+
+            if (parts[1].equals(String.valueOf(BarCodeUtil.COD_EJECUCION_PROCESO_CALIDAD))) {
+                ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_PROCESO_CALIDAD);
+                puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
+            } else if (parts[1].equals(String.valueOf(BarCodeUtil.COD_EJECUCION_ETAPA_PRODUCCION))) {
+                ip = MetalsoftProperties.getProperty(MetalsoftProperties.IP_FIN_ETAPA);
+                puerto = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
+            } else {
+                txtComunicacion.append("\nERROR: El código de barras " + codigoBarra + " no es válido");
+                return;
+            }
+
+            cliente = new Socket(ip, Integer.parseInt(puerto));
+
+            oos = new ObjectOutputStream(cliente.getOutputStream());
+            ois = new ObjectInputStream(cliente.getInputStream());
+
+            System.out.println("\nINFO: Enviando datos");
+            txtComunicacion.append("\nINFO: Enviando datos: " + codigoBarra + " A " + ip + ":" + puerto);
+
+            oos.writeObject(txtCodigoBarras.getText());
+            String respuesta = (String) ois.readObject();
+
+            System.out.println("\nINFO: Recibiendo respuesta: " + respuesta);
+            txtComunicacion.append("\nINFO: Recibiendo respuesta: " + respuesta);
+
+            System.out.println("\nINFO: Fin envio de datos");
+            txtComunicacion.append("\nINFO: Fin envio de datos");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            lblEnvioCodBarra.setText("");
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                if (oos != null) {
+                    oos.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                if (cliente != null) {
+                    cliente.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
