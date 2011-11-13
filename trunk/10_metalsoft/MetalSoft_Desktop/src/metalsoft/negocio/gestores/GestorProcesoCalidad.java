@@ -4,12 +4,15 @@
  */
 package metalsoft.negocio.gestores;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.AccioncalidadJpaController;
+import metalsoft.datos.jpa.controller.ProcesocalidadJpaController;
 import metalsoft.datos.jpa.controller.TipomaquinaJpaController;
 import metalsoft.datos.jpa.entity.Accioncalidad;
+import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Tipomaquina;
 import metalsoft.util.ItemCombo;
 
@@ -48,5 +51,17 @@ public class GestorProcesoCalidad {
     public Tipomaquina getTipoMaquina(long id){
         TipomaquinaJpaController con=new TipomaquinaJpaController(JpaUtil.getEntityManagerFactory());
         return con.findTipomaquina(id);
+    }
+    
+    public long nuevoNumeroProceso(){
+        ProcesocalidadJpaController con = new ProcesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        List<Procesocalidad> list = new ArrayList<Procesocalidad>();
+        long nro = 0;
+        for(Procesocalidad p : list){
+            if(p.getNroproceso().longValue() > nro){
+                nro = p.getNroproceso().longValue();
+            }
+        }
+        return nro;
     }
 }
