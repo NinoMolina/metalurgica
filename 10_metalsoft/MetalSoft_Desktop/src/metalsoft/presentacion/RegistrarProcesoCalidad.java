@@ -110,28 +110,28 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         
         if(opcion==EnumOpcionesABM.NUEVO)
         {
-            id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-            if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
+//            id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
+//            if(id>-1){
+//                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
                 botones.getBtnEliminar();
-            }
-            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+//            }
+//            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificar(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-            if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
+//            id=gestor.modificar(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
+//            if(id>-1){
+//                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
                 botones.getBtnEliminar();
-            }
-            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
+//            }
+//            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
         //limpiarCampos();
     }
@@ -162,7 +162,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     {
         ABMMateriaPrima_Buscar buscar=null;
         buscar = new ABMMateriaPrima_Buscar(this);
-        buscar.setVentana(this);
+//        buscar.setVentana(this);
         JFrameManager.centrarYMostrarVentana(buscar);
     }
     
@@ -172,9 +172,11 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         pc.setHerramienta(txtHerramientas.getText());
         pc.setTolerancia(txtTolerancia.getText());
         pc.setNombre(txtnombre.getText());
-        ((ItemCombo)cmbAccion.getSelectedItem()).getId();
-        cmbTipoDeMaquina.setSelectedIndex(0);
+        pc.setAccioncalidad(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbAccion.getSelectedItem()).getId())));
+        //pc.setTipoMaquina(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbTipoDeMaquina.getSelectedItem()).getId())));
+        
         jspDuracion.setValue(0);
+        return pc;
     }
 
     /** This method is called from within the constructor to
