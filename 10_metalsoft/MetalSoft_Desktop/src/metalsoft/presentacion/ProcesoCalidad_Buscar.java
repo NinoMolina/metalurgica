@@ -58,6 +58,7 @@ public class ProcesoCalidad_Buscar extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         btnSeleccionar = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         txtValor = new javax.swing.JTextField();
@@ -76,6 +77,7 @@ public class ProcesoCalidad_Buscar extends javax.swing.JDialog {
             }
         });
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Nombre");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +98,7 @@ public class ProcesoCalidad_Buscar extends javax.swing.JDialog {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Todos");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +198,7 @@ private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
