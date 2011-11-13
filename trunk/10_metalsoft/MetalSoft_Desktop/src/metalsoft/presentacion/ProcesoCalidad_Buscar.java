@@ -24,15 +24,16 @@ import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
  *
  * @author Vicky
  */
-public class ProcesoCalidad_Buscar extends javax.swing.JFrame {
+public class ProcesoCalidad_Buscar extends javax.swing.JDialog {
 
-    private RegistrarProcesoCalidad ventana;
+    private static RegistrarProcesoCalidad ventana;
     private Timer timer;
     private GestorProcesoCalidad gestor = null;
     private List<Procesocalidad> lista;
 
     /** Creates new form ProcesoCalidad_Buscar */
-    public ProcesoCalidad_Buscar() {
+    public ProcesoCalidad_Buscar(JDialog owner) {
+        super(owner);
         initComponents();
         txtValor.setEnabled(false);
         txtValor.setText("");
@@ -180,6 +181,14 @@ private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     table.updateUI();
     table.packAll();
 }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    public static RegistrarProcesoCalidad getVentana() {
+        return ventana;
+    }
+
+    public static void setVentana(RegistrarProcesoCalidad ventana) {
+        ProcesoCalidad_Buscar.ventana = ventana;
+    }
 
     /**
      * @param args the command line arguments
