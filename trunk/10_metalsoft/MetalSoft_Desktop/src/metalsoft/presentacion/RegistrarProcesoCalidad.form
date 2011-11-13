@@ -214,9 +214,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtTolerancia" alignment="0" pref="377" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jspDuracion" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="jsphoras" min="-2" pref="46" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="minutos" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jspMin" min="-2" pref="46" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="minutos1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -263,8 +267,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jspDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jsphoras" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="minutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jspMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="minutos1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -296,7 +302,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="minutos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="minutos"/>
+            <Property name="text" type="java.lang.String" value="horas"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTolerancia">
@@ -359,7 +365,14 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="jspDuracion">
+        <Component class="javax.swing.JSpinner" name="jsphoras">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jspMin">
+        </Component>
+        <Component class="javax.swing.JLabel" name="minutos1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="minutos"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

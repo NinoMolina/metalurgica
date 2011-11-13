@@ -13,6 +13,8 @@ package metalsoft.presentacion;
 
 import java.awt.Graphics;
 import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.text.StyledEditorKit.ItalicAction;
@@ -55,7 +57,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         txtnombre.setEnabled(b);
         cmbAccion.setEnabled(b);
         cmbTipoDeMaquina.setEnabled(b);
-        jspDuracion.setEnabled(b);
+        jsphoras.setEnabled(b);
+        jspMin.setEnabled(b);
     }
     
     public void limpiarCampos(){
@@ -65,20 +68,24 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         txtnombre.setText("");
         cmbAccion.setSelectedIndex(0);
         cmbTipoDeMaquina.setSelectedIndex(0);
-        jspDuracion.setValue(0);
+        jsphoras.setValue(0);
+        jspMin.setValue(0);
         lblNroProceso.setText("...");
     }
     
-    public void cargarDatos(Procesocalidad p){
+    public void cargarDatos(){
+        Calendar c= Calendar.getInstance();
+        c.setTime(procesoModificar.getDuracionestimada());
         
-        txtEspecificaciones.setText(p.getEspecificacion());
-        txtHerramientas.setText(p.getHerramienta());
-        txtTolerancia.setText(p.getTolerancia());
-        txtnombre.setText(p.getNombre());
-        Combo.setItemComboSeleccionado(cmbAccion,p.getAccioncalidad().getIdaccioncalidad());
+        txtEspecificaciones.setText(procesoModificar.getEspecificacion());
+        txtHerramientas.setText(procesoModificar.getHerramienta());
+        txtTolerancia.setText(procesoModificar.getTolerancia());
+        txtnombre.setText(procesoModificar.getNombre());
+        Combo.setItemComboSeleccionado(cmbAccion,procesoModificar.getAccioncalidad().getIdaccioncalidad());
         //cmbTipoDeMaquina.setSelectedIndex(0);
-        jspDuracion.setValue(0);
-        lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, p.getNroproceso().longValue()));
+        jsphoras.setValue(c.get(Calendar.HOUR));
+        jspMin.setValue(c.get(Calendar.MINUTE));
+        lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, procesoModificar.getNroproceso().longValue()));
     
     }
     private void addListeners(){
@@ -126,33 +133,33 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        long id;
         if(opcion==EnumOpcionesABM.NUEVO)
         {
-//            id=gestor.guardar(ep,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-//            if(id>-1){
-//                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtNombre.getText());
+            id=gestor.guardarProceso(this.nuevoProceso());
+            if(id>-1){
+                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtnombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
-                botones.getBtnEliminar();
-//            }
-//            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
+                botones.getBtnEliminar().setEnabled(false);
+            }
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron guardar");
         }
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-//            id=gestor.modificar(ep,idMateriaPrima,((ItemCombo)cmbTipoMaterial.getSelectedItem()).getId(),((ItemCombo)cmbUnidadMedida.getSelectedItem()).getId(),idCodBarra);
-//            if(id>-1){
-//                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtNombre.getText());
+            id=gestor.modificarProceso(procesoModificar);
+            if(id>-1){
+                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtnombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
-                botones.getBtnEliminar();
-//            }
-//            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
+                botones.getBtnEliminar().setEnabled(false);
+            }
+            else JOptionPane.showMessageDialog(this, "Los datos no se pudieron modificar");
         }
-        //limpiarCampos();
+        limpiarCampos();
     }
     private void addListenerBtnModificar() {
         botones.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +201,11 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     
     private Procesocalidad nuevoProceso(){
+        Calendar c= Calendar.getInstance();
+        c.setTime(new Date());
+        c.set(Calendar.HOUR, (Integer)jsphoras.getValue());
+        c.set(Calendar.MINUTE, (Integer)jspMin.getValue());
+        c.set(Calendar.SECOND, 0);
         Procesocalidad pc=new Procesocalidad();
         pc.setEspecificacion(txtEspecificaciones.getText());
         pc.setHerramienta(txtHerramientas.getText());
@@ -202,10 +214,27 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         pc.setAccioncalidad(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbAccion.getSelectedItem()).getId())));
         //pc.setTipoMaquina(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbTipoDeMaquina.getSelectedItem()).getId())));
         pc.setNroproceso(BigInteger.valueOf(gestor.nuevoNumeroProceso()));
-        jspDuracion.setValue(0);
+        pc.setDuracionestimada(c.getTime());
         return pc;
     }
 
+    private Procesocalidad modificarProceso(){
+        Calendar c= Calendar.getInstance();
+        c.setTime(new Date());
+        c.set(Calendar.HOUR, (Integer)jsphoras.getValue());
+        c.set(Calendar.MINUTE, (Integer)jspMin.getValue());
+        c.set(Calendar.SECOND, 0);
+        
+        procesoModificar.setEspecificacion(txtEspecificaciones.getText());
+        procesoModificar.setHerramienta(txtHerramientas.getText());
+        procesoModificar.setTolerancia(txtTolerancia.getText());
+        procesoModificar.setNombre(txtnombre.getText());
+        procesoModificar.setAccioncalidad(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbAccion.getSelectedItem()).getId())));
+        //pc.setTipoMaquina(gestor.getAccionCalidad(Long.parseLong(((ItemCombo)cmbTipoDeMaquina.getSelectedItem()).getId())));
+        procesoModificar.setNroproceso(BigInteger.valueOf(gestor.nuevoNumeroProceso()));
+        procesoModificar.setDuracionestimada(c.getTime());
+        return procesoModificar;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -250,7 +279,9 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblNroProceso = new javax.swing.JLabel();
-        jspDuracion = new javax.swing.JSpinner();
+        jsphoras = new javax.swing.JSpinner();
+        jspMin = new javax.swing.JSpinner();
+        minutos1 = new javax.swing.JLabel();
         botones = new metalsoft.beans.ABM_Botones();
 
         jTextArea1.setColumns(20);
@@ -320,7 +351,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
 
         jLabel3.setText("Duración Estimada:");
 
-        minutos.setText("minutos");
+        minutos.setText("horas");
 
         jLabel7.setText("Tolerancia:");
 
@@ -341,6 +372,8 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         lblNroProceso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNroProceso.setText("...");
         lblNroProceso.setEnabled(false);
+
+        minutos1.setText("minutos");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -365,9 +398,13 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTolerancia, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jspDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jsphoras, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(minutos))))
+                                .addComponent(minutos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jspMin, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minutos1))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -401,8 +438,10 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jspDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minutos))
+                    .addComponent(jsphoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minutos)
+                    .addComponent(jspMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minutos1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -474,9 +513,11 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JSpinner jspDuracion;
+    private javax.swing.JSpinner jspMin;
+    private javax.swing.JSpinner jsphoras;
     private javax.swing.JLabel lblNroProceso;
     private javax.swing.JLabel minutos;
+    private javax.swing.JLabel minutos1;
     private javax.swing.JTextArea txtEspecificaciones;
     private javax.swing.JTextArea txtHerramientas;
     private javax.swing.JTextField txtTolerancia;
