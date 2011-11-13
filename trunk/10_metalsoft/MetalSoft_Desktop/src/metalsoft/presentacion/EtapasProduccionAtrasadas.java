@@ -205,14 +205,12 @@ public class EtapasProduccionAtrasadas extends javax.swing.JDialog {
 private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEtapasAtrasadasMouseClicked
     try {
         int row = tblEtapasAtrasadas.getSelectedRow();
-        int col = tblEtapasAtrasadas.getSelectedColumn();
 
         if (row >= 0) {
-            Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
+            Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.convertRowIndexToModel(row));
             EjecucionplanificacionproduccionJpaController controller = new EjecucionplanificacionproduccionJpaController(JpaUtil.getEntityManagerFactory());
             Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = controller.findEjecucionplanificacionproduccion(detalleejecucionplanificacion.getIdejecucionplanificacionproduccion().getIdejecucion());
             txtNovedades.setText(ejecucionplanificacionproduccion.getNovedades());
-//                    System.out.println(System.getProperty("line.separator").toString());
         }
     } catch (Exception ex) {
     }
@@ -252,9 +250,8 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
             return;
         }
 
-        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.getSelectedRow());
+        Detalleejecucionplanificacion detalleejecucionplanificacion = filasEtapasAtrasadas.get(tblEtapasAtrasadas.convertRowIndexToModel(tblEtapasAtrasadas.getSelectedRow()));
         Ejecucionplanificacionproduccion ejecucionplanificacionproduccion = detalleejecucionplanificacion.getIdejecucionplanificacionproduccion();
-
 
         JTextArea txtNuevaNovedad = new JTextArea(10, 50);
         txtNuevaNovedad.setLineWrap(true);
