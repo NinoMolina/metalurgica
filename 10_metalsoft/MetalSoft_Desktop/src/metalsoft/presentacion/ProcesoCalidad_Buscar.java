@@ -36,6 +36,7 @@ public class ProcesoCalidad_Buscar extends javax.swing.JDialog {
     public ProcesoCalidad_Buscar(JDialog owner) {
         super(owner);
         initComponents();
+        gestor=new GestorProcesoCalidad();
         txtValor.setEnabled(false);
         txtValor.setText("");
         lista = new ArrayList<Procesocalidad>();
