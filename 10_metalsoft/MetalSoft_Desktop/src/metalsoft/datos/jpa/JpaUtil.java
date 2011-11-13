@@ -879,7 +879,7 @@ public class JpaUtil {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "Select * "
                 + "FROM procesocalidad "
-                + "WHERE nombre LIKE '" + text + "%'";
+                + "WHERE nombre ILIKE '" + text + "%'";
         try {
             Query q = em.createNativeQuery(sql, Procesocalidad.class);
             return q.getResultList();
