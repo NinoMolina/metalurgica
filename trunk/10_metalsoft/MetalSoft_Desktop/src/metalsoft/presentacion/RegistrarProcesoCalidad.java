@@ -194,6 +194,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt)
     {
+        opcion=EnumOpcionesABM.BUSCAR;
         ProcesoCalidad_Buscar buscar=new ProcesoCalidad_Buscar(this);
         buscar.setVentana(this);
         JFrameManager.centrarYMostrarVentana(buscar);
