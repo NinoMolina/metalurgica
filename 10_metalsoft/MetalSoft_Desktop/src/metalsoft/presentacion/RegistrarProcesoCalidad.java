@@ -141,7 +141,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         {
             id=gestor.guardarProceso(this.nuevoProceso());
             if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se Guardó la siguiente Materia Prima: "+txtnombre.getText());
+                JOptionPane.showMessageDialog(this, "Se Guardó el siguiente Proceso de Calidad: "+txtnombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
@@ -152,9 +152,9 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
 
         if(opcion==EnumOpcionesABM.MODIFICAR)
         {
-            id=gestor.modificarProceso(procesoModificar);
+            id=gestor.modificarProceso(this.modificarProceso());
             if(id>-1){
-                JOptionPane.showMessageDialog(this, "Se modifico la siguiente Materia Prima: "+txtnombre.getText());
+                JOptionPane.showMessageDialog(this, "Se modifico el siguiente Proceso de Calidad: "+txtnombre.getText());
                 enableComponents(false);
                 botones.getBtnGuardar().setEnabled(false);
                 botones.getBtnModificar().setEnabled(false);
