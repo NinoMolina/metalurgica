@@ -38,6 +38,7 @@ import metalsoft.datos.jpa.entity.Pedido;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Presupuesto;
+import metalsoft.datos.jpa.entity.Procesocalidad;
 import metalsoft.datos.jpa.entity.Proveedorxmateriaprima;
 import metalsoft.datos.jpa.entity.Remito;
 import metalsoft.datos.jpa.entity.Rol;
@@ -869,6 +870,19 @@ public class JpaUtil {
         try {
             Query q = em.createNativeQuery(query, Proveedorxmateriaprima.class);
             return (Proveedorxmateriaprima) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Procesocalidad> getProcesoCalidadByNombreLike(String text) {
+        EntityManager em = JpaUtil.getEntityManager();
+        String sql = "Select * "
+                + "FROM procesocalidad "
+                + "WHERE nombre LIKE '" + text + "%'";
+        try {
+            Query q = em.createNativeQuery(sql, Procesocalidad.class);
+            return q.getResultList();
         } finally {
             em.close();
         }
