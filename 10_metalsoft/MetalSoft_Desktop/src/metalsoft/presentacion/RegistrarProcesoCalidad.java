@@ -76,6 +76,9 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     
     public void cargarDatos(){
+        botones.getBtnEliminar().setEnabled(true);
+        botones.getBtnModificar().setEnabled(true);
+        botones.getBtnNuevo().setEnabled(true);
         Calendar c= Calendar.getInstance();
         c.setTime(procesoModificar.getDuracionestimada());
         txtDescripcion.setText(procesoModificar.getDescripcion());
@@ -122,6 +125,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         opcion=EnumOpcionesABM.NUEVO;
         lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, gestor.nuevoNumeroProceso()));
         enableComponents(true);
+        limpiarCampos();
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
