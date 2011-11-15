@@ -3625,6 +3625,7 @@ private void txtCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
             ex.printStackTrace();
         } finally {
             lblEnvioCodBarra.setText("");
+            txtCodigoBarras.setText("");
             try {
                 if (ois != null) {
                     ois.close();

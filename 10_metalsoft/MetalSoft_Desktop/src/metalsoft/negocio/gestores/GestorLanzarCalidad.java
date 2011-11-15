@@ -153,6 +153,7 @@ public class GestorLanzarCalidad {
 //            List<Detalleejecucionplanificacion> lstDetalleEjecProduccion = planificacionCalidad.getPedido().getPlanificacionproduccionList().get(0).getEjecucionplanificacionproduccionList().get(0).getDetalleejecucionplanificacionList();
 //            System.out.println("Detalle ejec prod: " + lstDetalleEjecProduccion.size());
             
+            List<ViewPiezarealParaCalidad> lstViewPiezasParaCalidad = null;
             
             for (Detalleplanificacioncalidad detalleplanificacioncalidad : lstDetallePlanificacion) {
                 /*
@@ -163,7 +164,21 @@ public class GestorLanzarCalidad {
                 detalleejecucionplanificacioncalidad.setIdprocesocalidad(detalleplanificacioncalidad.getProcesocalidad());
                 detalleejecucionplanificacioncalidad.setOrden(detalleplanificacioncalidad.getOrden());
                 detalleejecucionplanificacioncalidad.setPieza(detalleplanificacioncalidad.getPieza());
-
+                
+                if(lstViewPiezasParaCalidad == null){
+                    lstViewPiezasParaCalidad = AccessViews.getListViewPiezarealParaCalidad(detalleplanificacioncalidad.getIdplanificacioncalidad().getPedido().getIdpedido()); 
+                }
+                
+                forPiezaReal: for (ViewPiezarealParaCalidad viewPiezarealParaCalidad : lstViewPiezasParaCalidad) {
+                    
+                    String keyView = viewPiezarealParaCalidad.getIdproducto().toString() + viewPiezarealParaCalidad.getIndexproducto().toString() + viewPiezarealParaCalidad.getIdpieza().toString() + viewPiezarealParaCalidad.getIndexpieza().toString();
+                    String keyPiezaDetalle = detalleplanificacioncalidad.getProducto().getIdproducto().toString() + detalleplanificacioncalidad.getIndexproducto().toString() + detalleplanificacioncalidad.getPieza().getIdpieza().toString() + detalleplanificacioncalidad.getIndexpieza().toString();
+                    
+                    if(keyView.equals(keyPiezaDetalle)){
+                        detalleejecucionplanificacioncalidad.setPiezareal(JpaUtil.getPiezaReal(viewPiezarealParaCalidad.getIdpiezareal()));
+                        break forPiezaReal;
+                    }
+                }
                 /*
                  * Creacion ejecucion etapa produccion
                  */

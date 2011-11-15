@@ -197,13 +197,13 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
     Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(tblEtapasDeProduccion.convertRowIndexToModel(tblEtapasDeProduccion.getSelectedRow()));
     try {
         gestor.lanzarEjecucionEtapa(detalleplanificacionproduccion.getIddetalleejecucionplanificacion());
-        filasEtapas.remove(tblEtapasDeProduccion.getSelectedRow());
+        filasEtapas.remove(tblEtapasDeProduccion.convertRowIndexToModel(tblEtapasDeProduccion.getSelectedRow()));
         tblEtapasDeProduccion.updateUI();
         tblEtapasDeProduccion.packAll();
         /*
          * quitar de las etapas a lanzar del boton de la ventana principal
          */
-        
+
         vtnPrincipal.eliminarEtapaALanzar(detalleplanificacionproduccion.getId());
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "No se pudo lanzar la etapa de producción!");
@@ -258,6 +258,7 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
 
     class EtapaProduccionALanzarTableModel extends AbstractTableModel {
 //pedido- cliente-producto-pieza- etapa
+
         String[] columnNames = {"Nro",
             "Pedido",
             "Cliente",
@@ -271,47 +272,51 @@ private void btnLanzarEtapaDeProduccionActionPerformed(java.awt.event.ActionEven
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(rowIndex);
+            try {
+                Detalleplanificacionproduccion detalleplanificacionproduccion = filasEtapas.get(rowIndex);
 
-            switch (columnIndex) {
-                case 0:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getNroejecucion());
-                case 1:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
-                case 2:
-                    return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
-                case 3:
-                    return detalleplanificacionproduccion.getIdproducto().getNombre();
-                case 4:
-                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getPieza().getNombre();
-                case 5:
-                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getIdetapaproduccion().getNombre();
-                case 6:
-                    Date fechaInicioPlanif = detalleplanificacionproduccion.getFechainicio();
-                    Date horaInicioPlanif = detalleplanificacionproduccion.getHorainicio();
-                    fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
-                    fechaInicioPlanif.setMinutes(horaInicioPlanif.getMinutes());
-                    fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
+                switch (columnIndex) {
+                    case 0:
+                        return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getNroejecucion());
+                    case 1:
+                        return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getNropedido());
+                    case 2:
+                        return detalleplanificacionproduccion.getIdplanificacionproduccion().getPedido().getCliente().getRazonsocial();
+                    case 3:
+                        return detalleplanificacionproduccion.getIdproducto().getNombre();
+                    case 4:
+                        return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getPieza().getNombre();
+                    case 5:
+                        return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getIdetapaproduccion().getNombre();
+                    case 6:
+                        Date fechaInicioPlanif = detalleplanificacionproduccion.getFechainicio();
+                        Date horaInicioPlanif = detalleplanificacionproduccion.getHorainicio();
+                        fechaInicioPlanif.setHours(horaInicioPlanif.getHours());
+                        fechaInicioPlanif.setMinutes(horaInicioPlanif.getMinutes());
+                        fechaInicioPlanif.setSeconds(horaInicioPlanif.getSeconds());
 
-                    return Fecha.parseToStringFechaHora(fechaInicioPlanif);
-                case 7:
-                    Date fechaFinPlanif = detalleplanificacionproduccion.getFechafin();
-                    Date horaFinPlanif = detalleplanificacionproduccion.getHorafin();
-                    fechaFinPlanif.setHours(horaFinPlanif.getHours());
-                    fechaFinPlanif.setMinutes(horaFinPlanif.getMinutes());
-                    fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
+                        return Fecha.parseToStringFechaHora(fechaInicioPlanif);
+                    case 7:
+                        Date fechaFinPlanif = detalleplanificacionproduccion.getFechafin();
+                        Date horaFinPlanif = detalleplanificacionproduccion.getHorafin();
+                        fechaFinPlanif.setHours(horaFinPlanif.getHours());
+                        fechaFinPlanif.setMinutes(horaFinPlanif.getMinutes());
+                        fechaFinPlanif.setSeconds(horaFinPlanif.getSeconds());
 
-                    return Fecha.parseToStringFechaHora(fechaFinPlanif);
-                case 8:
-                    return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getNombre() + " " + detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getApellido();
-                case 9:
-                    if (detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina() == null) {
-                        return "";
-                    } else {
-                        return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina().getNombre();
-                    }
-                default:
-                    return null;
+                        return Fecha.parseToStringFechaHora(fechaFinPlanif);
+                    case 8:
+                        return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getNombre() + " " + detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEmpleado().getApellido();
+                    case 9:
+                        if (detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina() == null) {
+                            return "";
+                        } else {
+                            return detalleplanificacionproduccion.getIddetalleejecucionplanificacion().getEjecucionetapa().getMaquina().getNombre();
+                        }
+                    default:
+                        return null;
+                }
+            } catch (Exception ex) {
+                return null;
             }
         }
 

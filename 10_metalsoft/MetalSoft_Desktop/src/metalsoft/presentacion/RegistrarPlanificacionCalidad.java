@@ -1489,6 +1489,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         chart.setBorderVisible(true);
         ctpVerDisponibilidad.setBounds(0, 0, pnlDisponibilidad.getWidth(), pnlDisponibilidad.getHeight() - btnAmpliarGrafico.getHeight());
         pnlDisponibilidad.add(ctpVerDisponibilidad);
+        pnlDisponibilidad.add(btnAmpliarGrafico);
 
         setVisiblePanel(pnlDisponibilidad.getName());
 }//GEN-LAST:event_hplVerDisponibilidadActionPerformed
@@ -1571,7 +1572,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
     private void btnAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpleadoActionPerformed
         if (tblEmpleado.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado!");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado.");
             return;
         }
 
@@ -1653,7 +1654,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 boolean superposicion = haySuperposicionAsignacion(node, EMPLEADO);
                 if (superposicion) {
 
-                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node);
+                    Date fechaDispEmpleado = obtenerFechaDisponibilidadEmpleadoAsignacionActual(empleadoSeleccionado, node, node.getInicioEtapa());
                     node.setInicioEtapa(fechaDispEmpleado);
                     Calendar inicioEtapa = new GregorianCalendar();
                     inicioEtapa.setTime(fechaDispEmpleado);
@@ -1711,7 +1712,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         }
     }
 
-    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, ProcesoCalidadNode node) {
+    private Date obtenerFechaDisponibilidadEmpleadoAsignacionActual(Empleado empleado, ProcesoCalidadNode node, Date fechaInicio) {
         Date resultado = null;
 
         int horas = node.getDetallePiezaCalidadPresupuesto().getDuracionxpieza().getHours();
@@ -1721,7 +1722,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         List<Disponibilidadhoraria> lstDisp = crearListDisponibilidadHoraria(lstProcesoNode);
 
-        resultado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, Fecha.fechaActualDate());
+        resultado = RegistrarPlanificacionProduccion.obtenerFechaDisponibilidadEmpleado(lstDisp, horas, minutos, fechaInicio);
 
         return resultado;
     }

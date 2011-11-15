@@ -164,8 +164,9 @@ public class GestorRegistrarLanzamientoProduccion {
                 Long idProducto = detalleplanificacionproduccion.getIdproducto().getIdproducto();
                 Long idPieza = detalleplanificacionproduccion.getIdpieza().getIdpieza();
                 Integer indexProducto = detalleplanificacionproduccion.getIndexproducto();
+                Integer indexPieza = detalleplanificacionproduccion.getIndexpieza();
                 String keyProductoMasIndex = String.valueOf(idProducto) + String.valueOf(indexProducto);
-                String keyProdIndexPieza = keyProductoMasIndex + String.valueOf(idPieza);
+                String keyProdIndexPieza = keyProductoMasIndex + String.valueOf(idPieza) + String.valueOf(indexPieza);
                 Productoreal productoreal = null;
 
                 if (!mapProductoReal.containsKey(keyProductoMasIndex)) {

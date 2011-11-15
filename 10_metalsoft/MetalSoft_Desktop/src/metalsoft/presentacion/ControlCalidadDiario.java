@@ -274,6 +274,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
                 productoNode = mapProducto.get(keyProducto);
             } else {
                 productoNode = new ProductoNode(producto);
+                productoNode.setIndexProducto(detalleplanificacion.getIndexproducto());
                 pedidoNode.add(productoNode);
                 mapProducto.put(keyProducto, productoNode);
             }
@@ -284,6 +285,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
                 piezaNode = mapPieza.get(keyPieza);
             } else {
                 piezaNode = new PiezaNode(pieza);
+                piezaNode.setIndexPieza(detalleplanificacion.getIndexpieza());
                 productoNode.add(piezaNode);
                 mapPieza.put(keyPieza, piezaNode);
             }
@@ -343,7 +345,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         }
 
         public void setIndexProducto(Integer indexProducto) {
-            this.indexProducto = indexProducto;
+            this.indexProducto += indexProducto;
         }
     }
 
@@ -420,7 +422,7 @@ public class ControlCalidadDiario extends javax.swing.JDialog {
         }
 
         public void setIndexPieza(int indexPieza) {
-            this.indexPieza = indexPieza;
+            this.indexPieza += indexPieza;
         }
 
         public int getColumnCount() {

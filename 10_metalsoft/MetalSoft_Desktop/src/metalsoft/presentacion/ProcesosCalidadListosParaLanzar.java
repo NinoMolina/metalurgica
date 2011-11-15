@@ -199,7 +199,7 @@ private void btnEjecutarProcesoCalidadActionPerformed(java.awt.event.ActionEvent
     Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(tblProcesosDeCalidad.convertRowIndexToModel(tblProcesosDeCalidad.getSelectedRow()));
     try {
         gestor.lanzarEjecucionProcesoCalidad(detalleplanificacioncalidad.getIddetalleejecucionplanificacioncalidad());
-        filasProcesosCalidad.remove(tblProcesosDeCalidad.getSelectedRow());
+        filasProcesosCalidad.remove(tblProcesosDeCalidad.convertRowIndexToModel(tblProcesosDeCalidad.getSelectedRow()));
         tblProcesosDeCalidad.updateUI();
         tblProcesosDeCalidad.packAll();
         /*
@@ -232,10 +232,13 @@ private void btnEjecutarProcesoCalidadActionPerformed(java.awt.event.ActionEvent
             "Pieza",
             "Producto",
             "Pedido",
-            "Cliente"};
-
+            "Cliente"};        
+        
         public Object getValueAt(int rowIndex, int columnIndex) {
 
+//            System.out.println("ROW: " + rowIndex);
+//            System.out.println("ROW 2: " + tblProcesosDeCalidad.convertRowIndexToModel(rowIndex));
+//            System.out.println("ROW 3: " + tblProcesosDeCalidad.convertRowIndexToView(rowIndex));
             Detalleplanificacioncalidad detalleplanificacioncalidad = filasProcesosCalidad.get(rowIndex);
 
             switch (columnIndex) {
