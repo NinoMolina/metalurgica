@@ -64,7 +64,7 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_PROCESO_CALIDAD);
                     serverSocket = new ServerSocket(Integer.parseInt(puertoString));
                 }
-                
+
                 System.out.println(Fecha.fechaActualDate() + ": ############# HiloEscuchadorFinProcesoCalidad --> Running #############");
                 clienteSocket = serverSocket.accept();
 
@@ -152,6 +152,12 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
 
         EjecucionprocesocalidadJpaController ejecProcesoCalidadController = new EjecucionprocesocalidadJpaController(JpaUtil.getEntityManagerFactory());
         Ejecucionprocesocalidad ejecucionprocesocalidad = ejecProcesoCalidadController.findEjecucionprocesocalidad(Long.parseLong(idEjecProcesoCalidad));
+
+        if (ejecucionprocesocalidad.getEstado().getIdestado() != IdsEstadoEjecucionProcesoCalidad.ENEJECUCION) {
+            System.out.println("INFO: La etapa no esta en ejecución");
+            oos.writeObject("Los datos enviados no corresponden a un proceso de calidad en ejecución");
+            return;
+        }
 
         Detalleejecucionplanificacioncalidad detalleejecucionplanificacioncalidad = JpaUtil.getDetalleejecucionplanificacioncalidadByEjecucionProcesoCalidad(ejecucionprocesocalidad.getIdejecucion());
 

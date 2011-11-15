@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import metalsoft.datos.dbobject.Ejecucionetapaproduccion;
 import metalsoft.datos.jpa.controller.BarrioJpaController;
+import metalsoft.datos.jpa.controller.PiezarealJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacioncalidad;
 import metalsoft.datos.jpa.entity.Detallefactura;
@@ -35,6 +36,7 @@ import metalsoft.datos.jpa.entity.Mantenimientocorrectivo;
 import metalsoft.datos.jpa.entity.Mantenimientopreventivo;
 import metalsoft.datos.jpa.entity.Materiaprima;
 import metalsoft.datos.jpa.entity.Pedido;
+import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.datos.jpa.entity.Planificacioncalidad;
 import metalsoft.datos.jpa.entity.Planificacionproduccion;
 import metalsoft.datos.jpa.entity.Presupuesto;
@@ -72,11 +74,11 @@ public class JpaUtil {
     public static void main(String arg[]) {
 //        BarrioJpaController c = new BarrioJpaController(getEntityManagerFactory());
 //        c.findBarrio(1l);
-
-        List<Detalleplanificacionproduccion> lst = getDetalleplanificacionproduccionPorIdPlanificacionProduccion(74L);
-        for (Detalleplanificacionproduccion detalleplanificacionproduccion : lst) {
-            System.out.println(detalleplanificacionproduccion.getId());
-        }
+        
+//        List<Detalleplanificacionproduccion> lst = getDetalleplanificacionproduccionPorIdPlanificacionProduccion(74L);
+//        for (Detalleplanificacionproduccion detalleplanificacionproduccion : lst) {
+//            System.out.println(detalleplanificacionproduccion.getId());
+//        }
     }
 
     public static List query(String query, Class clase) {
@@ -886,5 +888,10 @@ public class JpaUtil {
         } finally {
             em.close();
         }
+    }
+
+    public static Piezareal getPiezaReal(Long idpiezareal) {
+        PiezarealJpaController c = new PiezarealJpaController(getEntityManagerFactory());
+        return c.findPiezareal(idpiezareal);
     }
 }

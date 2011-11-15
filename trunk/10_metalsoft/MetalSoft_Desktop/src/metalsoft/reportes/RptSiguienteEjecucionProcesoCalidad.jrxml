@@ -13,7 +13,7 @@
 	<queryString>
 		<![CDATA[select ('PEDI-'||p.nropedido) as nropedido, c.razonsocial, ('PROD-'||pro.nroproducto) as nroproducto,
 pro.nombre AS nombre_producto,
-('PIEZ-') as nropieza, pi.nombre AS nombre_pieza,
+('PIEZ-' || pir.nropieza) as nropieza, pi.nombre AS nombre_pieza,
 (e.nombre || ' ' || e.apellido) AS nombre_apellido,
 eep.idejecucion as idejecucionetapa,
 (SELECT m.nombre
@@ -37,14 +37,16 @@ cliente c,
 empleado e,
 procesocalidad ep,
 pieza pi,
-producto pro
+producto pro,
+piezareal pir
 
 WHERE
 eep.empleado = e.idempleado and
 dep.idprocesocalidad = ep.idprocesocalidad AND
 eep.idejecucion = dep.ejecucionprocesocalidad and
 dep.iddetalle = dpp.iddetalleejecucionplanificacioncalidad and
-dpp.pieza = pi.idpieza and
+dpp.pieza = pi.idpieza AND
+dep.piezareal = pir.idpiezareal AND
 dpp.producto = pro.idproducto AND
 dep.idejecucionplanificacioncalidad = epp.idejecucion and
 epp.idplanificacioncalidad = pp.idplanificacion and

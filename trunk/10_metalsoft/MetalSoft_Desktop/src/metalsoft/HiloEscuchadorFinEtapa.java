@@ -65,7 +65,7 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
                     String puertoString = MetalsoftProperties.getProperty(MetalsoftProperties.PUERTO_FIN_ETAPA);
                     serverSocket = new ServerSocket(Integer.parseInt(puertoString));
                 }
-                
+
                 System.out.println(Fecha.fechaActualDate() + ": ############# HiloEscuchadorFinEtapa --> Running #############");
                 clienteSocket = serverSocket.accept();
 
@@ -159,6 +159,12 @@ public class HiloEscuchadorFinEtapa extends HiloSyncBase implements Runnable {
 
         EjecucionetapaproduccionJpaController ejecEtapaController = new EjecucionetapaproduccionJpaController(JpaUtil.getEntityManagerFactory());
         Ejecucionetapaproduccion ejecucionetapaproduccion = ejecEtapaController.findEjecucionetapaproduccion(Long.parseLong(idEjecEtapa));
+
+        if (ejecucionetapaproduccion.getEstado().getIdestado() != IdsEstadoEjecucionEtapaProduccion.ENEJECUCION) {
+            System.out.println("INFO: La etapa no esta en ejecución");
+            oos.writeObject("Los datos enviados no corresponden a una etapa de producción en ejecución");
+            return;
+        }
 
         Detalleejecucionplanificacion detalleejecucionplanificacion = JpaUtil.getDetalleejecucionplanificacionByEjecucionetapa(ejecucionetapaproduccion.getId());
 

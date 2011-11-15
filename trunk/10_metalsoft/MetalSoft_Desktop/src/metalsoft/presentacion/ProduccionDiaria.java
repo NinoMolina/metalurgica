@@ -67,7 +67,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         addListenerBtnSalir();
         addListenerJdcFehaFiltro();
     }
-    
+
     private void addListenerJdcFehaFiltro() {
         jdcFehaFiltro.addActionListener(new ActionListener() {
 
@@ -78,7 +78,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         });
 
     }
-    
+
     private void jdcFechaFiltroActionPerformed(ActionEvent e) {
         Date fechaSeleccionada = jdcFehaFiltro.getDate();
         if (fechaSeleccionada.compareTo(Fecha.fechaActualDate()) > 0) {
@@ -248,10 +248,10 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         Map<String, ProductoNode> mapProducto = new HashMap<String, ProductoNode>();
         Map<String, PiezaNode> mapPieza = new HashMap<String, PiezaNode>();
         for (Detalleplanificacionproduccion detalleplanificacion : lstDetallePlanificacion) {
-            
-            if(detalleplanificacion.getIddetalleejecucionplanificacion() != null){ 
+
+            if (detalleplanificacion.getIddetalleejecucionplanificacion() != null) {
                 long idestado = detalleplanificacion.getIddetalleejecucionplanificacion().getEjecucionetapa().getEstado().getIdestado();
-                if(idestado == 4 || idestado == 6){
+                if (idestado == 4 || idestado == 6) {
                     continue;
                 }
             }
@@ -275,6 +275,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
                 productoNode = mapProducto.get(keyProducto);
             } else {
                 productoNode = new ProductoNode(producto);
+                productoNode.setIndexProducto(detalleplanificacion.getIndexproducto());
                 pedidoNode.add(productoNode);
                 mapProducto.put(keyProducto, productoNode);
             }
@@ -285,6 +286,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
                 piezaNode = mapPieza.get(keyPieza);
             } else {
                 piezaNode = new PiezaNode(pieza);
+                piezaNode.setIndexPieza(detalleplanificacion.getIndexpieza());
                 productoNode.add(piezaNode);
                 mapPieza.put(keyPieza, piezaNode);
             }
@@ -344,7 +346,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         }
 
         public void setIndexProducto(Integer indexProducto) {
-            this.indexProducto = indexProducto;
+            this.indexProducto += indexProducto;
         }
     }
 
@@ -421,7 +423,7 @@ public class ProduccionDiaria extends javax.swing.JDialog {
         }
 
         public void setIndexPieza(int indexPieza) {
-            this.indexPieza = indexPieza;
+            this.indexPieza += indexPieza;
         }
 
         public int getColumnCount() {

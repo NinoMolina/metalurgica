@@ -1114,7 +1114,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
     }
     private void btnAsignarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpleadoActionPerformed
         if (tblEmpleado.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado!");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Empleado.");
             return;
         }
 
@@ -2054,12 +2054,12 @@ private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionE
                      * la hora fin de la anterior como inicio de etapa
                      */
 
-                    Date dispAnt = ultimaDisp.getFecha();
+                    Date dispAnt = (Date) ultimaDisp.getFecha().clone();
                     dispAnt.setHours(ultimaDisp.getHorafin().getHours());
                     dispAnt.setMinutes(ultimaDisp.getHorafin().getMinutes());
                     dispAnt.setSeconds(0);
 
-                    Date disp = disponibilidadhoraria.getFecha();
+                    Date disp = (Date) disponibilidadhoraria.getFecha().clone();
                     disp.setHours(disponibilidadhoraria.getHorainicio().getHours());
                     disp.setMinutes(disponibilidadhoraria.getHorainicio().getMinutes());
                     disp.setSeconds(0);

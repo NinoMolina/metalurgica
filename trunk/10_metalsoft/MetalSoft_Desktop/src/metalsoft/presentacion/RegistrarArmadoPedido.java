@@ -41,7 +41,6 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
     private LinkedList<ViewDetallePedidoReal> filasDetallePedido;
     private GestorPedidoCotizacion gestorPedido;
 
-
     /** Creates new form RegistrarArmadoPedido */
     public RegistrarArmadoPedido() {
         super(Principal.getVtnPrincipal());
@@ -104,7 +103,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         this.dispose();
     }
 
-        private void addListenerBtnGuardar() {
+    private void addListenerBtnGuardar() {
         btnGuardar1.getBtnGuardar().addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,25 +112,25 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         });
     }
 
-   private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-            if (pedidosSinArmar1.getTblPedidos().getSelectedRow() > -1) {
-                long result = 0;
-                Pedido ped = filasPedidos.get(pedidosSinArmar1.getTblPedidos().getSelectedRow());                
-                result = gestor.modificarPedido(ped, filasDetallePedido);
-                if (result > 0) {
-                    JOptionPane.showMessageDialog(this, "El armado del Pedido se ha finalizado correctamente");
-                    filasDetallePedido.clear();
-                    this.tblDetallePedido.updateUI();
-                    this.tblDetallePedido.packAll();
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (pedidosSinArmar1.getTblPedidos().getSelectedRow() > -1) {
+            long result = 0;
+            Pedido ped = filasPedidos.get(pedidosSinArmar1.getTblPedidos().getSelectedRow());
+            result = gestor.modificarPedido(ped, filasDetallePedido);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(this, "El armado del Pedido se ha finalizado correctamente");
+                filasDetallePedido.clear();
+                this.tblDetallePedido.updateUI();
+                this.tblDetallePedido.packAll();
 //                    filasPedidos.remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
-                    pedidosSinArmar1.getFilasPedidos().remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
-                    pedidosSinArmar1.updateTblPedidos();
-                    this.tblDetallePedido.setEnabled(false);
+                pedidosSinArmar1.getFilasPedidos().remove(pedidosSinArmar1.getTblPedidos().getSelectedRow());
+                pedidosSinArmar1.updateTblPedidos();
+                this.tblDetallePedido.setEnabled(false);
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "El armado del Pedido NO se ha finalizado correctamente");
-                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El armado del Pedido NO se ha finalizado correctamente");
             }
+        }
     }
 
     private void addListenerBtnSeleccionarPedido() {
@@ -144,7 +143,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         });
     }
 
-        private void cargarComboPrioridad1() {
+    private void cargarComboPrioridad1() {
         cmbPrioridad1.removeAllItems();
         gestorPedido.obtenerPrioridades(cmbPrioridad1);
     }
@@ -165,7 +164,9 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         Pedido ped = filasPedidos.get(pedidosSinArmar1.getTblPedidos().getSelectedRow());
         long idPed = ped.getIdpedido();
 
-        txtNroFactura.setText(String.valueOf(ped.getFactura().getNrofactura()));
+        if (ped.getFactura() != null) {
+            txtNroFactura.setText(String.valueOf(ped.getFactura().getNrofactura()));
+        }
         txtNroPedidoCliente.setText(String.valueOf(ped.getNropedidocotizacioncliente()));
         if (ped.getEstado().getIdestado() < 1) {
             Combo.setItemComboSeleccionado(cmbEstado1, -1);
@@ -213,7 +214,7 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
 
 
         filasDetallePedido = gestor.buscarDetallePedido(idPed);
-        tblDetallePedido.updateUI();        
+        tblDetallePedido.updateUI();
         tblDetallePedido.packAll();
     }
 
@@ -224,10 +225,10 @@ public class RegistrarArmadoPedido extends javax.swing.JDialog implements IBusca
         /* On supprime les traits des lignes et des colonnes */
         tblDetallePedido.setShowHorizontalLines(false);
         tblDetallePedido.setShowVerticalLines(false);
-        tblDetallePedido.setHorizontalScrollEnabled(true); 
+        tblDetallePedido.setHorizontalScrollEnabled(true);
         /* On dit de surligner une ligne sur deux */
         tblDetallePedido.setHighlighters(
-        new UIColorHighlighter(HighlightPredicate.ODD));
+                new UIColorHighlighter(HighlightPredicate.ODD));
     }
 
     /** This method is called from within the constructor to
