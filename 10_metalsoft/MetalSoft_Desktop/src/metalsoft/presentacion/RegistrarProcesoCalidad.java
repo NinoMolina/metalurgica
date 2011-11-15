@@ -99,6 +99,7 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
         addListenerBtnModificar();
         addListenerBtnBuscar();
         addListenerBtnSalir();
+        addListenerBtnEliminar();
     }
     
     private void addListenerBtnSalir() {
@@ -111,6 +112,23 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt)
     {
         this.dispose();
+    }
+    
+    private void addListenerBtnEliminar() {
+        botones.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+    }
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        boolean result = gestor.eliminarProceso(procesoModificar);
+        if(result){
+            JOptionPane.showMessageDialog(this, "Se ha eliminado el siguiente Proceso de Calidad: "+txtnombre.getText());
+        }else{
+            JOptionPane.showMessageDialog(this, "No se ha podido eliminar el proceso de calidad");
+        }
     }
     
     private void addListenerBtnNuevo() {
