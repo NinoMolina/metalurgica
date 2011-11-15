@@ -104,4 +104,18 @@ public class GestorProcesoCalidad {
     public List<Procesocalidad> getListProcesoCalidadByName(String text){
         return JpaUtil.getProcesoCalidadByNombreLike(text);
     }
+    
+    public boolean eliminarProceso(Procesocalidad p){
+        ProcesocalidadJpaController con = new ProcesocalidadJpaController(JpaUtil.getEntityManagerFactory());
+        try {
+            con.destroy(p.getIdprocesocalidad());
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(GestorProcesoCalidad.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(GestorProcesoCalidad.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
 }
