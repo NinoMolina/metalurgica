@@ -22,9 +22,9 @@ import metalsoft.presentacion.Principal;
  * @author Nino
  */
 public class MetalsoftDispatcher {
-    
-    public static void main(String arg[]) throws Exception{
-        
+
+    public static void main(String arg[]) throws Exception {
+
         UsuarioDB usuario = new UsuarioDAOImpl().findByPrimaryKey(2L, new PostgreSQLManager().concectGetCn());
         dispatchUser(usuario);
     }
@@ -123,19 +123,17 @@ public class MetalsoftDispatcher {
                 habilitarComponentesSegunRol(rol.getIdrol(), p);
             }
 
-            if (usuarioConRol) {
-                p.setVisible(true);
-                p.setLocationRelativeTo(null);
-                lanzarHilos(lanzarHiloAvisoEtapaNoTerminada, lanzarHiloEscuchadorFinEtapa, lanzarHiloAvisoEtapaListaParaIniciar, lanzarHiloAvisoProcesoCalidadNoTerminado, lanzarHiloEscuchadorFinProcesoCalidad, lanzarHiloAvisoProcesoCalidadListoParaLanzar, p);
-            } else {
-                JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
-            }
+        }
+        if (usuarioConRol) {
+            p.setVisible(true);
+            p.setLocationRelativeTo(null);
+            lanzarHilos(lanzarHiloAvisoEtapaNoTerminada, lanzarHiloEscuchadorFinEtapa, lanzarHiloAvisoEtapaListaParaIniciar, lanzarHiloAvisoProcesoCalidadNoTerminado, lanzarHiloEscuchadorFinProcesoCalidad, lanzarHiloAvisoProcesoCalidadListoParaLanzar, p);
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario " + usuarioJpa.getUsuario() + " no tiene ningún rol asociado.\nNo se puede iniciar la aplicación");
         }
 
 
     }
-    
-    
 
     private static void lanzarHilos(boolean lanzarHiloAvisoEtapaNoTerminada,
             boolean lanzarHiloEscuchadorFinEtapa,
@@ -218,6 +216,7 @@ public class MetalsoftDispatcher {
         switch (idrol.intValue()) {
             case (int) IdsRol.ADMIN:
                 vtnPrincipal.setVisibleComponents(true);
+                vtnPrincipal.getPnlRegistrarFinalizacion().setVisible(false);
                 break;
             case (int) IdsRol.CLIENTE:
                 break;
