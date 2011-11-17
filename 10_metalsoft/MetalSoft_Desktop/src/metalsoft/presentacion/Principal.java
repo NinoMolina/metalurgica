@@ -1451,6 +1451,7 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuReportes.add(mniEmpleados);
 
+        mniMantenimientos.setText("Mantenimiento");
         mniMantenimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniMantenimientosActionPerformed(evt);
