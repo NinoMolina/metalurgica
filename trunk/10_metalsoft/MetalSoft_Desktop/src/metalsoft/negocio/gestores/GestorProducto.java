@@ -327,11 +327,11 @@ public class GestorProducto implements IBuscador{
         return lstPiezas;
     }
 
-    public String generarNuevoNumeroProducto() {
+    public long generarNuevoNumeroProducto() {
 
         PostgreSQLManager pg=null;
         Connection cn=null;
-        String nro="-1";
+        long nro=-1;
         try {
             pg=new PostgreSQLManager();
             cn = pg.concectGetCn();
