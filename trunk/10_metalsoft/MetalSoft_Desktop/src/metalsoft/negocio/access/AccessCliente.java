@@ -15,6 +15,12 @@ import metalsoft.datos.dbobject.ClientePKDB;
 import metalsoft.datos.exception.ClienteException;
 import metalsoft.datos.factory.DAOFactoryImpl;
 import metalsoft.datos.idao.ClienteDAO;
+import metalsoft.datos.jpa.JpaUtil;
+import metalsoft.datos.jpa.controller.RolJpaController;
+import metalsoft.datos.jpa.controller.UsuarioJpaController;
+import metalsoft.datos.jpa.controller.UsuarioxrolJpaController;
+import metalsoft.datos.jpa.entity.Usuario;
+import metalsoft.datos.jpa.entity.Usuarioxrol;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.ventas.Cliente;
 
@@ -28,7 +34,12 @@ public class AccessCliente {
         long result=-1;
         ClienteDAO dao=new DAOFactoryImpl().createClienteDAO();
         ClienteDB clienteDB = null;
-
+        UsuarioJpaController con=new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
+        UsuarioxrolJpaController conUXR=new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
+        RolJpaController conRol=new RolJpaController(JpaUtil.getEntityManagerFactory());
+        Usuario user=new Usuario();
+        Usuarioxrol uxr=new Usuarioxrol();
+        
         try {
             clienteDB=Parser.parseToClienteDB(cliente);
             clienteDB.setCondicioniva(idCondIva);
@@ -36,7 +47,13 @@ public class AccessCliente {
             clienteDB.setEstado(idEstado);
             clienteDB.setPrioridad(idPrioridad);
             clienteDB.setResponsable(idResponsable);
-            clienteDB.setUsuario(1);
+            user.setClave(clienteDB.getCuit());
+            user.setUsuario(clienteDB.getRazonsocial());
+            con.create(user);
+            clienteDB.setUsuario(user.getIdusuario());
+            uxr.setRol(conRol.findRol(8L));
+            uxr.setUsuario(user);
+            conUXR.create(uxr);
             
             result=dao.insert(clienteDB, cn);
             clienteDB.setIdcliente(result);
