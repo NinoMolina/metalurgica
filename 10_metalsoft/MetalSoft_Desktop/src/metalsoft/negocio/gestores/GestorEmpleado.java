@@ -53,8 +53,11 @@ import metalsoft.datos.jpa.controller.DomicilioJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoJpaController;
 import metalsoft.datos.jpa.controller.EmpleadoxturnoJpaController;
 import metalsoft.datos.jpa.controller.LocalidadJpaController;
+import metalsoft.datos.jpa.controller.RolJpaController;
 import metalsoft.datos.jpa.controller.TipodocumentoJpaController;
 import metalsoft.datos.jpa.controller.TurnoJpaController;
+import metalsoft.datos.jpa.controller.UsuarioJpaController;
+import metalsoft.datos.jpa.controller.UsuarioxrolJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
 import metalsoft.datos.jpa.entity.Barrio;
 import metalsoft.datos.jpa.entity.Cargo;
@@ -64,6 +67,8 @@ import metalsoft.datos.jpa.entity.Empleadoxturno;
 import metalsoft.datos.jpa.entity.EmpleadoxturnoPK;
 import metalsoft.datos.jpa.entity.Localidad;
 import metalsoft.datos.jpa.entity.Tipodocumento;
+import metalsoft.datos.jpa.entity.Usuario;
+import metalsoft.datos.jpa.entity.Usuarioxrol;
 import metalsoft.negocio.rrhh.Asistencia;
 
 /**
@@ -781,10 +786,21 @@ public class GestorEmpleado {
         DomicilioJpaController controllerDomicilio = new DomicilioJpaController(JpaUtil.getEntityManagerFactory());
         EmpleadoxturnoJpaController controllerEmpTurno = new EmpleadoxturnoJpaController(JpaUtil.getEntityManagerFactory());
         TurnoJpaController controllerTurno = new TurnoJpaController(JpaUtil.getEntityManagerFactory());
-
+        UsuarioJpaController conUsu=new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
+        UsuarioxrolJpaController conUXR=new UsuarioxrolJpaController(JpaUtil.getEntityManagerFactory());
+        RolJpaController conRol=new RolJpaController(JpaUtil.getEntityManagerFactory());
+        Usuario user=new Usuario();
+        Usuarioxrol uxr=new Usuarioxrol();
         try {
             controllerDomicilio.create(empleado.getDomicilio());
             controller.create(empleado);
+            user.setClave(String.valueOf(empleado.getNrodocumento()));
+            user.setUsuario(String.valueOf(empleado.getApellido()));
+            conUsu.create(user);
+            empleado.setUsuario(user);
+            uxr.setRol(conRol.findRol(7L));
+            uxr.setUsuario(user);
+            conUXR.create(uxr);
             Iterator it = idturno.iterator();
             while (it.hasNext()) {
                 Empleadoxturno ext = new Empleadoxturno();
