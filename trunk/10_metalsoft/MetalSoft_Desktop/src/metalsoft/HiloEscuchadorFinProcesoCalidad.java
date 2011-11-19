@@ -10,8 +10,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import metalsoft.datos.jpa.JpaUtil;
@@ -27,9 +25,11 @@ import metalsoft.datos.jpa.entity.Ejecucionprocesocalidad;
 import metalsoft.datos.jpa.entity.Estadoejecplancalidad;
 import metalsoft.datos.jpa.entity.Estadoejecucionprocesocalidad;
 import metalsoft.negocio.access.AccessFunctions;
+import metalsoft.negocio.gestores.NumerosAMostrar;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanificacionCalidad;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionProcesoCalidad;
 import metalsoft.presentacion.Principal;
+import metalsoft.util.BarCodeUtil;
 import metalsoft.util.Fecha;
 import metalsoft.util.MetalsoftProperties;
 
@@ -108,10 +108,13 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
              * si coincide con la expresion regular de los codigos de barra proceso los datos
              */
             String expresionRegularCodigoBarra = MetalsoftProperties.getProperty(MetalsoftProperties.EXPRESION_REGULAR_CODIGO_BARRA);
+
             Pattern pattern = null;
             Matcher matcher = null;
+
             pattern = Pattern.compile(expresionRegularCodigoBarra);
             matcher = pattern.matcher(datosRecibidos);
+
             if (matcher.find()) {
                 System.out.println("INFO: Se recibio un patron de datos correspondiente a un codigo de barras de MetalSoft...");
                 try {
@@ -211,6 +214,25 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
          */
 
 
+        EjecucionplanificacioncalidadJpaController ejecucionplanificacioncalidadJpaController = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
+        
+        Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
+        
+        String novedades = ejecucionplanificacioncalidad.getNovedades();
+        String nuevaNovedad = null;
+        if (partes[3].equalsIgnoreCase(BarCodeUtil.COD_PROCESO_CALIDAD_OK)) {
+            ejecucionprocesocalidad.setResultado("El proceso de calidad finalizó correctamente");
+        } else {
+            ejecucionprocesocalidad.setResultado("El proceso de calidad no finalizó correctamente");
+            nuevaNovedad = "El proceso de calidad '" + detalleejecucionplanificacioncalidad.getIdprocesocalidad().getNombre() + "' de la pieza '" + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PIEZA_REAL, detalleejecucionplanificacioncalidad.getPiezareal().getNropieza()) + "' ha encontrado problemas en la pieza";
+            novedades += Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_PROCESO_CALIDAD, detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad().getNroejecucionplanificacioncalidad().longValue()) + ": " + nuevaNovedad;
+            novedades += System.getProperty("line.separator") + System.getProperty("line.separator");
+        }
+        
+        ejecucionplanificacioncalidad.setNovedades(novedades);
+        
+        ejecucionplanificacioncalidadJpaController.edit(ejecucionplanificacioncalidad);
+        
         /*
          * si es la ultima etapa de la produccion tengo que registrar
          * la finalizacion de la linea de produccion
@@ -223,12 +245,10 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
             EstadoejecplancalidadJpaController estadoejecplancalidadJpaController = new EstadoejecplancalidadJpaController(JpaUtil.getEntityManagerFactory());
             Estadoejecplancalidad estadoejecplancalidad = estadoejecplancalidadJpaController.findEstadoejecplancalidad(IdsEstadoEjecucionPlanificacionCalidad.FINALIZADA);
 
-            Ejecucionplanificacioncalidad ejecucionplanificacioncalidad = detalleejecucionplanificacioncalidad.getIdejecucionplanificacioncalidad();
             ejecucionplanificacioncalidad.setEstado(estadoejecplancalidad);
             ejecucionplanificacioncalidad.setFechafin(Fecha.fechaActualDate());
             ejecucionplanificacioncalidad.setHorafin(Fecha.fechaActualDate());
 
-            EjecucionplanificacioncalidadJpaController ejecucionplanificacioncalidadJpaController = new EjecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
             ejecucionplanificacioncalidadJpaController.edit(ejecucionplanificacioncalidad);
         }
 
@@ -245,16 +265,6 @@ public class HiloEscuchadorFinProcesoCalidad extends HiloSyncBase implements Run
 
         DetalleejecucionplanificacioncalidadJpaController detalleejecucionplanificacioncalidadJpaController = new DetalleejecucionplanificacioncalidadJpaController(JpaUtil.getEntityManagerFactory());
         detalleejecucionplanificacioncalidadJpaController.edit(detalleejecucionplanificacioncalidad);
-
-//        Date fechaInicio = null;
-//        fechaInicio = Fecha.setHoraMinutoSegundo(ejecucionprocesocalidad.getFechainicio(), ejecucionprocesocalidad.getHorainicio());
-//        Date difHoras = Fecha.diferenciaEnHoras(fechaInicio, fechaActual);
-//        int difDias = Fecha.diferenciaEnDias(fechaInicio, fechaActual);
-//        int horas = difHoras.getHours();
-//        int minutos = difHoras.getMinutes();
-//        int segundos = difHoras.getSeconds();
-//        String totalHrsHombre = String.valueOf((difDias * 24) + horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
-//        ejecucionprocesocalidad.setTotalhorashombre(totalHrsHombre);
 
         ejecProcesoCalidadController.edit(ejecucionprocesocalidad);
 

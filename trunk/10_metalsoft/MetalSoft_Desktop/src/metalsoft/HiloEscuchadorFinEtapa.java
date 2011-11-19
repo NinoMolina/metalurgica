@@ -25,7 +25,6 @@ import metalsoft.datos.jpa.entity.Ejecucionplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Estadoejecetapaprod;
 import metalsoft.datos.jpa.entity.Estadoejecplanifpedido;
 import metalsoft.negocio.access.AccessFunctions;
-import metalsoft.negocio.gestores.GestorLanzarProximaEtapa;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionPlanifPedido;
 import metalsoft.presentacion.Principal;

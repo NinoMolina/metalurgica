@@ -18,10 +18,15 @@ import metalsoft.datos.jpa.JpaUtil;
 import metalsoft.datos.jpa.controller.DetalleejecucionplanificacionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
+import metalsoft.datos.jpa.controller.EstadopiezarealJpaController;
+import metalsoft.datos.jpa.controller.PiezarealJpaController;
 import metalsoft.datos.jpa.entity.Detalleejecucionplanificacion;
 import metalsoft.datos.jpa.entity.Detalleplanificacionproduccion;
 import metalsoft.datos.jpa.entity.Ejecucionetapaproduccion;
+import metalsoft.datos.jpa.entity.Estadopiezareal;
+import metalsoft.datos.jpa.entity.Piezareal;
 import metalsoft.negocio.gestores.estados.IdsEstadoEjecucionEtapaProduccion;
+import metalsoft.negocio.gestores.estados.IdsEstadoPiezaReal;
 import metalsoft.util.Fecha;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -89,6 +94,16 @@ public class GestorLanzarProximaEtapa {
 
         ejecucionetapaproduccionJpaController.edit(ejecucionetapaproduccion);
         detalleejecucionplanificacionJpaController.edit(detalleejecucionplanificacion);
+        
+        PiezarealJpaController piezarealJpaController = new PiezarealJpaController(JpaUtil.getEntityManagerFactory());
+        Piezareal piezaReal = detalleejecucionplanificacion.getPiezareal();
+        
+        EstadopiezarealJpaController estadopiezarealJpaController = new EstadopiezarealJpaController(JpaUtil.getEntityManagerFactory());
+        Estadopiezareal estadopiezareal = estadopiezarealJpaController.findEstadopiezareal(IdsEstadoPiezaReal.EN_PRODUCCION);
+        
+        piezaReal.setEstado(estadopiezareal);
+        
+        piezarealJpaController.edit(piezaReal);
 
         /*
          * imprimir el codigo de barra para la ejecucion de la etapa

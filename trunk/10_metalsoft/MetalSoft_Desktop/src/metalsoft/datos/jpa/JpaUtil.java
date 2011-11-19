@@ -829,13 +829,14 @@ public class JpaUtil {
         }
     }
 
-    public static List<Detalleplanificacioncalidad> getDetallePlanificacionCalidadDiaria(Date fechaActualDate) {
+    public static List<Detalleplanificacioncalidad> getDetallePlanificacionCalidadDiaria(Date fecha) {
         EntityManager em = getEntityManager();
         String sql = "SELECT d FROM Detalleplanificacioncalidad d WHERE d.fechainicio <= :fechainicio"
                 + " AND d.idplanificacioncalidad.pedido.estado.idestado IN (6,7)";
 //              
         try {
-            Query q = em.createNativeQuery(sql, Detalleplanificacioncalidad.class);
+            Query q = em.createQuery(sql, Detalleplanificacioncalidad.class);
+            q.setParameter("fechainicio", fecha);
             return q.getResultList();
         } finally {
             em.close();

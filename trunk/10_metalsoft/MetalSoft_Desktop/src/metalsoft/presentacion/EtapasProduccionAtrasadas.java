@@ -263,8 +263,8 @@ private void tblEtapasAtrasadasMouseClicked(java.awt.event.MouseEvent evt) {//GE
         int res = JOptionPane.showConfirmDialog(null, obj, "Agregar Novedades", JOptionPane.OK_CANCEL_OPTION);
 
         if (res == JOptionPane.OK_OPTION) {
-            String nuevaNovedad = txtNuevaNovedad.getText();
-            nuevaNovedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + ": " + nuevaNovedad;
+            String nuevaNovedad = null;
+            nuevaNovedad = Fecha.fechaHomaMinutoSegundoActualParaNovedades() + ": " + NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_EJECUCION_ETAPA, detalleejecucionplanificacion.getEjecucionetapa().getNroejecucion()) + ": " + txtNuevaNovedad.getText();
             nuevaNovedad += System.getProperty("line.separator") + System.getProperty("line.separator");
             ejecucionplanificacionproduccion.setNovedades(ejecucionplanificacionproduccion.getNovedades() + nuevaNovedad);
 
