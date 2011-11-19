@@ -74,7 +74,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="beanBtnSeleccionar" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" alignment="0" pref="929" max="32767" attributes="1"/>
-                      <Component id="jPanel7" alignment="0" min="-2" max="-2" attributes="1"/>
+                      <Component id="jPanel7" alignment="0" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -124,7 +124,7 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtNroPedido" min="-2" pref="159" max="-2" attributes="0"/>
-                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                      <EmptySpace pref="92" max="32767" attributes="0"/>
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtFecha" min="-2" pref="158" max="-2" attributes="0"/>
@@ -172,7 +172,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Fecha Entrega Pedido:"/>
+                <Property name="text" type="java.lang.String" value="Fecha Pedido:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">

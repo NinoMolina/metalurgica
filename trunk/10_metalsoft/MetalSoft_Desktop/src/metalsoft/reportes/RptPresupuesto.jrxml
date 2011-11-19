@@ -2,13 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT ped.idpedido,dpre.cantidad, pro.nombre,dpre.precio,cli.razonsocial,pre.fechapresupuesto,pre.fechavencimiento,pre.nropresupuesto FROM pedido ped,presupuesto pre,detallepresupuesto dpre,producto pro, cliente cli
+		<![CDATA[SELECT ped.idpedido,ped.fechaentregaestipulada,dpre.cantidad, pro.nombre,dpre.precio,cli.razonsocial,pre.fechapresupuesto,pre.fechavencimiento,pre.nropresupuesto FROM pedido ped,presupuesto pre,detallepresupuesto dpre,producto pro, cliente cli
 WHERE   ped.presupuesto = pre.idpresupuesto
 	AND ped.idpedido = $P{ID_PEDIDO}
 	AND dpre.idpresupuesto = pre.idpresupuesto
@@ -16,6 +16,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 	AND cli.idcliente = ped.cliente;]]>
 	</queryString>
 	<field name="idpedido" class="java.lang.Long"/>
+	<field name="fechaentregaestipulada" class="java.sql.Date"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="precio" class="java.lang.Double"/>
@@ -201,54 +202,68 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 			<frame>
 				<reportElement mode="Opaque" x="264" y="25" width="292" height="109" backcolor="#CCFFFF"/>
 				<staticText>
-					<reportElement x="13" y="49" width="132" height="20" forecolor="#000066"/>
+					<reportElement x="1" y="31" width="132" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Fecha Presupuesto:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="13" y="69" width="132" height="20" forecolor="#000066"/>
+					<reportElement x="1" y="51" width="132" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Fecha Fin Vigencia:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="13" y="89" width="132" height="20" forecolor="#000066"/>
+					<reportElement x="1" y="11" width="132" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Nro Presupuesto:]]></text>
 				</staticText>
 				<textField pattern="dd MMMMM yyyy">
-					<reportElement x="145" y="49" width="146" height="20" forecolor="#000066"/>
+					<reportElement x="145" y="31" width="146" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression class="java.util.Date"><![CDATA[$F{fechapresupuesto}]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd MMMMM yyyy">
-					<reportElement x="145" y="69" width="146" height="20" forecolor="#000066"/>
+					<reportElement x="145" y="51" width="146" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression class="java.util.Date"><![CDATA[$F{fechavencimiento}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="190" y="89" width="101" height="20" forecolor="#000066"/>
+					<reportElement x="190" y="11" width="101" height="20" forecolor="#000066"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression class="java.lang.Long"><![CDATA[$F{nropresupuesto}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="145" y="89" width="45" height="20" forecolor="#000066"/>
+					<reportElement x="145" y="11" width="45" height="20" forecolor="#000066"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[PRES-]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="1" y="71" width="144" height="20" forecolor="#000066"/>
+					<textElement>
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha Entrega Pedido:]]></text>
+				</staticText>
+				<textField pattern="dd MMMMM yyyy">
+					<reportElement x="145" y="71" width="146" height="20" forecolor="#000066"/>
+					<textElement>
+						<font size="14" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{fechaentregaestipulada}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<staticText>
 				<reportElement x="1" y="0" width="554" height="25"/>

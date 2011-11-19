@@ -628,7 +628,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
 
         jLabel3.setText("Nro Pedido:");
 
-        jLabel10.setText("Fecha Entrega Pedido:");
+        jLabel10.setText("Fecha Pedido:");
 
         jLabel11.setText("Cliente:");
 
@@ -641,7 +641,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -671,7 +671,7 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beanBtnSeleccionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -908,14 +908,12 @@ public class RegistrarPlanificacionCalidad extends javax.swing.JDialog {
         pnlDisponibilidad.setLayout(pnlDisponibilidadLayout);
         pnlDisponibilidadLayout.setHorizontalGroup(
             pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
             .addGroup(pnlDisponibilidadLayout.createSequentialGroup()
                 .addComponent(btnAmpliarGrafico)
                 .addContainerGap(575, Short.MAX_VALUE))
         );
         pnlDisponibilidadLayout.setVerticalGroup(
             pnlDisponibilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDisponibilidadLayout.createSequentialGroup()
                 .addContainerGap(307, Short.MAX_VALUE)
                 .addComponent(btnAmpliarGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1863,7 +1861,7 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         txtFecha.setText("");
         if (txtCliente1.getText().compareTo("") != 0) {
             for (int i = 0; i < tblPedidos.getRowCount(); i++) {
-                String cliente = tblPedidos.getStringAt(i, 2).toLowerCase();
+                String cliente = tblPedidos.getStringAt(i, 5).toLowerCase();
                 if (!cliente.contains(txtCliente1.getText().toLowerCase())) {
                     filasPedidosConPlanificacionProduccion.remove(i);
                     i--;
@@ -1906,7 +1904,7 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         txtCliente1.setText("");
         if (txtFecha.getText().compareTo("") != 0) {
             for (int i = 0; i < tblPedidos.getRowCount(); i++) {
-                String fecha = tblPedidos.getStringAt(i, 4);
+                String fecha = tblPedidos.getStringAt(i, 1);
                 if (!fecha.contains(txtFecha.getText())) {
                     filasPedidosConPlanificacionProduccion.remove(i);
                     i--;
@@ -1985,12 +1983,13 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
 
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
-        private String[] columnNames = {"Nro",
-            "Pedido Cotiz Cliente",
-            "Cliente",
-            "Prioridad",
+        private String[] columnNames = {"Nro.Pedido",
+            "Fecha Pedido",
             "Fecha de Entrega",
-            "Presupuesto"};
+            "Prioridad",
+            "Nro.Ped.Cli",
+            "Cliente",
+            "Nro.Pres"};
 
         public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -2000,20 +1999,21 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
-                    return view.getNropedidocotizacioncliente();
+                    return Fecha.parseToString(view.getFechapedido());
                 case 2:
-                    return view.getRazonsocial();
-                case 3:
-                    return view.getPrioridad();
-                case 4:
                     if (view.getFechaentregaestipulada() == null) {
                         return "";
                     } else {
                         return Fecha.parseToString(view.getFechaentregaestipulada().getTime());
                     }
+                case 3:
+                    return view.getPrioridad();
+                case 4:
+                    return view.getNropedidocotizacioncliente();
                 case 5:
-                    return view.getIdpresupuesto();
-
+                    return view.getRazonsocial();
+                case 6:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getIdpresupuesto());
                 default:
                     return null;
             }

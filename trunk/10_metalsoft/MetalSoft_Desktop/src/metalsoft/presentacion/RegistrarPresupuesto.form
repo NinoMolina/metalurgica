@@ -436,9 +436,15 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="dccFechaPresupuesto" alignment="0" pref="99" max="32767" attributes="0"/>
                                       <Component id="lblNroPresupuesto" alignment="0" pref="99" max="32767" attributes="0"/>
-                                      <Component id="dccFechaVencimiento" alignment="0" pref="121" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="dccFechaPresupuesto" alignment="0" pref="121" max="32767" attributes="0"/>
+                                              <Component id="dccFechaVencimiento" alignment="0" pref="121" max="32767" attributes="0"/>
+                                              <Component id="dccFechaEntregaEstipulada" alignment="1" pref="121" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -517,6 +523,7 @@
                               <Component id="jSeparator1" pref="642" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -539,7 +546,12 @@
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                           <Component id="dccFechaVencimiento" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                          <Component id="dccFechaEntregaEstipulada" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -748,6 +760,13 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="%"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel26">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fecha Entrega Estipulada:"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="dccFechaEntregaEstipulada">
             </Component>
           </SubComponents>
         </Container>
