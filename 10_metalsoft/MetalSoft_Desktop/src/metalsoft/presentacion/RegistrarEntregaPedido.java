@@ -632,7 +632,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         result = gestor.updatePedido(db);
         int okRemito = -1;
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Se registro la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
+            JOptionPane.showMessageDialog(this, "Se registró la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
 
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {

@@ -611,7 +611,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Registrar Planificación");
+        setTitle("Registrar Planificación de Producción");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -824,7 +824,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         );
         pnlDispHorariaLayout.setVerticalGroup(
             pnlDispHorariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 101, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
 
         btnAsignarEmpleado.setText("Asignar");
@@ -1683,7 +1683,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtCliente1.setText("");
         if (txtFecha.getText().compareTo("") != 0) {
             for (int i = 0; i < tblPedidos.getRowCount(); i++) {
-                String fecha = tblPedidos.getStringAt(i, 2);
+                String fecha = tblPedidos.getStringAt(i, 1);
                 if (!fecha.contains(txtFecha.getText())) {
                     filasPedidosNoPlanificados.remove(i);
                     i--;
@@ -1726,7 +1726,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         txtFecha.setText("");
         if (txtCliente1.getText().compareTo("") != 0) {
             for (int i = 0; i < tblPedidos.getRowCount(); i++) {
-                String cliente = tblPedidos.getStringAt(i, 7).toLowerCase();
+                String cliente = tblPedidos.getStringAt(i, 5).toLowerCase();
                 if (!cliente.contains(txtCliente1.getText().toLowerCase())) {
                     filasPedidosNoPlanificados.remove(i);
                     i--;
@@ -1865,7 +1865,6 @@ private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionE
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1890,7 +1889,6 @@ private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionE
     private org.jdesktop.swingx.JXTable tblPedidos;
     private org.jdesktop.swingx.JXTreeTable trtDetalleProcProd;
     private org.jdesktop.swingx.JXTaskPane tskPanel;
-    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCliente1;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNroPedido;
@@ -2197,14 +2195,13 @@ private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionE
     class PedidoNoPlanificadoTableModel extends AbstractTableModel {
 
         private String[] columnNames = {
-            "Nro.Ped",
-            "Nro.Ped.Cli",
+            "Nro.Pedido",
             "Fecha Pedido",
             "Estado",
-            "Nro.Pres",
-            "Monto",
             "Nro. Cli",
-            "Cliente"
+            "Nro.Ped.Cli",
+            "Cliente",
+            "Nro.Pres"            
         };
 
         public int getRowCount() {
@@ -2235,19 +2232,20 @@ private void btnAmpliarGraficoDispEmpleadoActionPerformed(java.awt.event.ActionE
                 case 0:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PEDIDO, view.getNropedido());
                 case 1:
-                    return view.getNropedcotcli();
-                case 2:
                     return Fecha.parseToString(view.getFechapedido());
-                case 3:
+                    
+                case 2:
                     return view.getEstado();
-                case 4:
-                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
-                case 5:
-                    return "$ " + Decimales.con2Decimales(view.getMontototal());
-                case 6:
+                case 3:
                     return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_CLIENTE, view.getNrocliente());
-                case 7:
+                case 4:
+                    return view.getNropedcotcli();
+//                case 5:
+//                    return "$ " + Decimales.con2Decimales(view.getMontototal());
+                case 5:
                     return view.getRazonsocial();
+                case 6:
+                    return NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRESUPUESTO, view.getNropresupuesto());
                 default:
                     return null;
             }
