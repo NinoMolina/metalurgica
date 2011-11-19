@@ -115,7 +115,7 @@ GROUP BY nropieza, nropedido, nroproducto, nombre_producto, nombre_pieza, c.razo
 			<staticText>
 				<reportElement style="Title" x="2" y="1" width="553" height="33"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Hoja de Pieza - Calidad]]></text>
+				<text><![CDATA[Seguimiento de Pieza - Calidad]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1"/>

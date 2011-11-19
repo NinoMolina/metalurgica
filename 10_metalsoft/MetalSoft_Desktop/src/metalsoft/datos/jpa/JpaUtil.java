@@ -895,4 +895,36 @@ public class JpaUtil {
         PiezarealJpaController c = new PiezarealJpaController(getEntityManagerFactory());
         return c.findPiezareal(idpiezareal);
     }
+    
+    public static List<Empleado> findEmpleadosOperariosProduccion(){
+        EntityManager em = getEntityManager();
+        String sql = "SELECT e.* "
+                + "FROM empleado e, usuario u, usuarioxrol uxr, rol r "
+                + "WHERE e.usuario = u.idusuario AND "
+                + "u.idusuario = uxr.idusuario AND "
+                + "r.idrol = uxr.idrol AND "
+                + "r.idrol = 7";
+        try {
+            Query q = em.createNativeQuery(sql, Empleado.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static List<Empleado> findEmpleadosOperariosCalidad() {
+        EntityManager em = getEntityManager();
+        String sql = "SELECT e.* "
+                + "FROM empleado e, usuario u, usuarioxrol uxr, rol r "
+                + "WHERE e.usuario = u.idusuario AND "
+                + "u.idusuario = uxr.idusuario AND "
+                + "r.idrol = uxr.idrol AND "
+                + "r.idrol = 9";
+        try {
+            Query q = em.createNativeQuery(sql, Empleado.class);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
