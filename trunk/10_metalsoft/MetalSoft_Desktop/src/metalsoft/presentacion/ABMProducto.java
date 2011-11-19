@@ -105,7 +105,7 @@ public class ABMProducto extends javax.swing.JDialog {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         opcion = EnumOpcionesABM.NUEVO;
-        String numProducto = gestor.generarNuevoNumeroProducto();
+        String numProducto = NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PRODUCTO, gestor.generarNuevoNumeroProducto());
         txtNumero.setText(numProducto);
         setEnableComponents(true);
         botones.getBtnGuardar().setEnabled(true);
