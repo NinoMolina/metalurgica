@@ -137,10 +137,11 @@ public class RegistrarProcesoCalidad extends javax.swing.JDialog {
     }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt)
     {
+        limpiarCampos();
         opcion=EnumOpcionesABM.NUEVO;
         lblNroProceso.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_PROCESO_CALIDAD, gestor.nuevoNumeroProceso()));
         enableComponents(true);
-        limpiarCampos();
+        
         botones.getBtnGuardar().setEnabled(true);
         botones.getBtnEliminar().setEnabled(false);
         botones.getBtnModificar().setEnabled(false);
