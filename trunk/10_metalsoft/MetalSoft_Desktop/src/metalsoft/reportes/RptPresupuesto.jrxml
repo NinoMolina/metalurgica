@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -23,16 +23,16 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 	<field name="fechapresupuesto" class="java.sql.Date"/>
 	<field name="fechavencimiento" class="java.sql.Date"/>
 	<field name="nropresupuesto" class="java.lang.Long"/>
-	<variable name="importe" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
+	<variable name="importe" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{cantidad}.intValue() * $F{precio}.doubleValue()]]></variableExpression>
 	</variable>
-	<variable name="subtotal" class="java.lang.Double">
+	<variable name="subtotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
 	<variable name="iva" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{subtotal}*0.21]]></variableExpression>
+		<variableExpression><![CDATA[$V{subtotal}.doubleValue() * (0.21d)]]></variableExpression>
 	</variable>
-	<variable name="TOTAL" class="java.lang.Double" calculation="Sum">
+	<variable name="TOTAL" class="java.lang.Double">
 		<variableExpression><![CDATA[$V{subtotal}+$V{iva}]]></variableExpression>
 	</variable>
 	<group name="Group3">
@@ -183,7 +183,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 					</textElement>
 					<text><![CDATA[$]]></text>
 				</staticText>
-				<textField>
+				<textField pattern="###0.00">
 					<reportElement x="461" y="41" width="94" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
@@ -275,7 +275,7 @@ WHERE   ped.presupuesto = pre.idpresupuesto
 					<text><![CDATA[Cliente:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="84" y="10" width="146" height="20"/>
+					<reportElement x="84" y="10" width="472" height="20"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
@@ -320,13 +320,6 @@ Email: canovasybarale@gmail.com
 	</columnHeader>
 	<detail>
 		<band height="23">
-			<textField>
-				<reportElement x="0" y="0" width="52" height="22"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_NUMBER}]]></textFieldExpression>
-			</textField>
 			<textField pattern="###0.00">
 				<reportElement x="430" y="1" width="51" height="20"/>
 				<textElement textAlignment="Center">
@@ -390,6 +383,13 @@ Email: canovasybarale@gmail.com
 				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="1" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{Group3_COUNT}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

@@ -85,32 +85,32 @@ GROUP BY nropieza, nropedido, nroproducto, nombre_producto, nombre_pieza, c.razo
 			<textField>
 				<reportElement x="99" y="46" width="100" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropedido}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropedido}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="46" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="99" y="66" width="100" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nroproducto}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nroproducto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="66" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_producto}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_producto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="99" y="86" width="100" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropieza}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nropieza}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="281" y="86" width="274" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_pieza}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Title" x="2" y="1" width="553" height="33"/>
