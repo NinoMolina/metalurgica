@@ -403,6 +403,7 @@ public class Principal extends javax.swing.JFrame {
         mniGenerarDetalleProcedimientosCalidad = new javax.swing.JMenuItem();
         mniRegistrarPlanificacionCalidad = new javax.swing.JMenuItem();
         mniLanzarCalidad = new javax.swing.JMenuItem();
+        mniRegistrarProcesoCalidad = new javax.swing.JMenuItem();
         mnuFinanzas = new javax.swing.JMenu();
         mniCobroPedido = new javax.swing.JMenuItem();
         mniCondicionIva = new javax.swing.JMenuItem();
@@ -1133,6 +1134,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mnuCalidad.add(mniLanzarCalidad);
+
+        mniRegistrarProcesoCalidad.setText("Registrar Proceso de Calidad");
+        mniRegistrarProcesoCalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRegistrarProcesoCalidadActionPerformed(evt);
+            }
+        });
+        mnuCalidad.add(mniRegistrarProcesoCalidad);
 
         mbrMenu.add(mnuCalidad);
 
@@ -2471,6 +2480,20 @@ private void txtCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
         enviarCodigoDeBarras();
     }
 }//GEN-LAST:event_txtCodigoBarrasKeyReleased
+
+private void mniRegistrarProcesoCalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRegistrarProcesoCalidadActionPerformed
+    try {
+        JFrameManager.crearVentana(RegistrarProcesoCalidad.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+}//GEN-LAST:event_mniRegistrarProcesoCalidadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2561,6 +2584,7 @@ private void txtCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     private javax.swing.JMenuItem mniRegistrarPlanificacionCalidad;
     private javax.swing.JMenuItem mniRegistrarPlanificacionProduccion;
     private javax.swing.JMenuItem mniRegistrarPresupuesto;
+    private javax.swing.JMenuItem mniRegistrarProcesoCalidad;
     private javax.swing.JMenuItem mniReporteAusentismo;
     private javax.swing.JMenuItem mniReporteClientes;
     private javax.swing.JMenuItem mniReportePedidos;
