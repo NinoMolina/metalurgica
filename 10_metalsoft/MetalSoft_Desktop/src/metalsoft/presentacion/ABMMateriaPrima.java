@@ -117,9 +117,8 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
         ep.setAncho(Double.parseDouble(dimensiones1.getTxtAncho().getText()));
         ep.setLargo(Double.parseDouble(dimensiones1.getTxtLargo().getText()));
         //ep.setCodBarra(txt);
-        String idCodBarra=txtCodBarra.getText();
-        //GENERAR EL CODIGO DE BARRA!!!!
-        idCodBarra="1";
+        String idCodBarra=null;
+        
         //long idcdoB=gestor.guardarCodigoBarra(idCodBarra);
         ep.setCodProducto(0);
         ep.setNroMateriaPrima(NumerosAMostrar.getNumeroLong(lblNroMateriaPrima.getText()));
@@ -188,7 +187,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     }
     private void enableComponents(boolean b)
     {
-        txtCodBarra.setEnabled(b);
         txtDescripcion.setEnabled(b);
         txtNombre.setEnabled(b);
         lblNroMateriaPrima.setEnabled(b);
@@ -241,8 +239,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
         txtDescripcion = new javax.swing.JTextArea();
         cmbTipoMaterial = new javax.swing.JComboBox();
         cmbUnidadMedida = new javax.swing.JComboBox();
-        jLabel11 = new javax.swing.JLabel();
-        txtCodBarra = new javax.swing.JTextField();
         lblNroMateriaPrima = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botones = new metalsoft.beans.ABM_Botones();
@@ -253,167 +249,77 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar Materia Prima");
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Nro. Materia Prima:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(10, 36, 93, 14);
 
         jLabel2.setText("Nombre:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(251, 39, 41, 14);
 
         jLabel4.setText("Descripción:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(10, 242, 58, 14);
 
         jLabel5.setText("Unidad de Medida:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(10, 108, 89, 14);
 
         dimensiones1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dimensiones"));
+        getContentPane().add(dimensiones1);
+        dimensiones1.setBounds(83, 146, 290, 47);
 
         jLabel6.setText("Tipo de Material:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(10, 77, 80, 14);
 
         jLabel7.setText("Fecha Alta:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(10, 210, 55, 14);
 
         jLabel8.setText("Fecha Baja:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(281, 210, 57, 14);
+        getContentPane().add(txtNombre);
+        txtNombre.setBounds(296, 36, 200, 20);
+        getContentPane().add(txtStock);
+        txtStock.setBounds(350, 70, 71, 20);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jLabel11.setText("Cod. Barra:");
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(69, 242, 427, 72);
+
+        getContentPane().add(cmbTipoMaterial);
+        cmbTipoMaterial.setBounds(108, 74, 159, 20);
+
+        getContentPane().add(cmbUnidadMedida);
+        cmbUnidadMedida.setBounds(103, 108, 164, 20);
 
         lblNroMateriaPrima.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNroMateriaPrima.setText("...");
+        getContentPane().add(lblNroMateriaPrima);
+        lblNroMateriaPrima.setBounds(109, 39, 107, 14);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(10, 325, 504, 10);
+        getContentPane().add(botones);
+        botones.setBounds(10, 341, 504, 44);
+        getContentPane().add(dccFechaBaja);
+        dccFechaBaja.setBounds(356, 204, 140, 20);
+        getContentPane().add(dccFechaAlta);
+        dccFechaAlta.setBounds(75, 204, 140, 20);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(0, 0, 524, 25);
 
         jLabel3.setText("Stock:");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(lblNroMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(38, 38, 38)
-                        .addComponent(txtNombre))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbTipoMaterial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(36, 36, 36))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(58, 58, 58)
-                                        .addComponent(txtCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtStock)))))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNroMateriaPrima)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(cmbTipoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(24, 24, 24))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel11)
-                        .addGap(3, 3, 3))
-                    .addComponent(txtCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(cmbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(dimensiones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel7))
-                    .addComponent(dccFechaBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dccFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(75, 75, 75))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(310, 74, 30, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -438,7 +344,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     private metalsoft.beans.Dimensiones dimensiones1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,7 +354,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNroMateriaPrima;
-    private javax.swing.JTextField txtCodBarra;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtStock;
@@ -457,7 +361,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
 
     private void mostrarDatosMateriaPrima(MateriaprimaDB mp) {
 
-        txtCodBarra.setText(String.valueOf(mp.getCodbarra()));
         txtDescripcion.setText(mp.getDescripcion());
         txtNombre.setText(mp.getNombre());
         lblNroMateriaPrima.setText(NumerosAMostrar.getNumeroString(NumerosAMostrar.NRO_MATERIAPRIMA, mp.getNromateriaprima()));
@@ -487,7 +390,6 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
     }
     public void limpiarCampos()
     {
-        txtCodBarra.setText("");
         txtDescripcion.setText("");
         txtNombre.setText("");
         lblNroMateriaPrima.setText("");
