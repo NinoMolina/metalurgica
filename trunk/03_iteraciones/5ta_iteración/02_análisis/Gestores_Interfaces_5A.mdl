@@ -19969,17 +19969,17 @@
 				    (object ClassDiagram "Diagrama Parcial de Gestores"
 					quid       	"4C1FF4270192"
 					title      	"Diagrama Parcial de Gestores"
-					zoom       	45
+					zoom       	75
 					max_height 	28350
 					max_width  	21600
-					origin_x   	3562
-					origin_y   	4266
+					origin_x   	11940
+					origin_y   	8640
 					items      	(list diagram_item_list
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorBarrio" @131
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(2317, 2832)
+						location   	(2203, 2907)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -19991,10 +19991,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@131
-						    location   	(2093, 2488)
+						    location   	(1956, 2527)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	448
+						    max_width  	494
 						    justify    	0
 						    label      	"GestorBarrio")
 						icon_style 	"Icon"
@@ -20003,7 +20003,7 @@
 						quidu      	"4C20613F0093"
 						compartment 	(object Compartment
 						    Parent_View 	@131
-						    location   	(2093, 2544)
+						    location   	(1956, 2588)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20017,17 +20017,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	14
-						    max_width  	494
+						    max_width  	500
 						    justify    	1)
-						width      	466
-						height     	710
+						width      	512
+						height     	784
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorCalendario" @132
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(1370, 602)
+						location   	(1383, 612)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20039,10 +20039,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@132
-						    location   	(1068, 78)
+						    location   	(1052, 32)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	604
+						    max_width  	662
 						    justify    	0
 						    label      	"GestorCalendario")
 						icon_style 	"Icon"
@@ -20051,7 +20051,7 @@
 						quidu      	"4C20613F00A2"
 						compartment 	(object Compartment
 						    Parent_View 	@132
-						    location   	(1068, 134)
+						    location   	(1052, 93)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20065,17 +20065,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	22
-						    max_width  	645
+						    max_width  	659
 						    justify    	1)
-						width      	622
-						height     	1070
+						width      	680
+						height     	1184
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorCambioDeContraseña" @133
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(641, 2292)
+						location   	(641, 2428)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20087,10 +20087,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@133
-						    location   	(314, 1992)
+						    location   	(271, 2098)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	654
+						    max_width  	740
 						    justify    	0
 						    label      	"GestorCambioDeContraseña")
 						icon_style 	"Icon"
@@ -20099,7 +20099,7 @@
 						quidu      	"4C1FF60D00F9"
 						compartment 	(object Compartment
 						    Parent_View 	@133
-						    location   	(314, 2048)
+						    location   	(271, 2159)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20113,17 +20113,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	12
-						    max_width  	719
+						    max_width  	738
 						    justify    	1)
-						width      	672
-						height     	622
+						width      	758
+						height     	684
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorCliente" @134
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(2194, 1232)
+						location   	(2164, 1243)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20135,10 +20135,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@134
-						    location   	(1858, 123)
+						    location   	(1800, 12)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	672
+						    max_width  	728
 						    justify    	0
 						    label      	"GestorCliente")
 						icon_style 	"Icon"
@@ -20147,7 +20147,7 @@
 						quidu      	"4C1FF60D010C"
 						compartment 	(object Compartment
 						    Parent_View 	@134
-						    location   	(1858, 179)
+						    location   	(1800, 73)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20161,17 +20161,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	48
-						    max_width  	717
+						    max_width  	734
 						    justify    	1)
-						width      	690
-						height     	2240
+						width      	746
+						height     	2486
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorConfirmacionPedidoWeb" @135
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(1498, 2852)
+						location   	(1429, 2790)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20183,10 +20183,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@135
-						    location   	(1182, 2485)
+						    location   	(1078, 2385)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	632
+						    max_width  	702
 						    justify    	0
 						    label      	"GestorConfirmacionPedidoWeb")
 						icon_style 	"Icon"
@@ -20195,7 +20195,7 @@
 						quidu      	"4C1FF60D0135"
 						compartment 	(object Compartment
 						    Parent_View 	@135
-						    location   	(1182, 2541)
+						    location   	(1078, 2446)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20209,17 +20209,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	15
-						    max_width  	681
+						    max_width  	705
 						    justify    	1)
-						width      	650
-						height     	756
+						width      	720
+						height     	834
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorConsultarClientesMorosos" @136
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(1393, 1798)
+						location   	(1404, 1816)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20231,10 +20231,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@136
-						    location   	(1081, 1409)
+						    location   	(1059, 1382)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	624
+						    max_width  	690
 						    justify    	0
 						    label      	"GestorConsultarClientesMorosos")
 						icon_style 	"Icon"
@@ -20243,7 +20243,7 @@
 						quidu      	"4C1FF60D014F"
 						compartment 	(object Compartment
 						    Parent_View 	@136
-						    location   	(1081, 1465)
+						    location   	(1059, 1443)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20257,17 +20257,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	16
-						    max_width  	664
+						    max_width  	684
 						    justify    	1)
-						width      	642
-						height     	800
+						width      	708
+						height     	892
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorConsultarDetalle" @137
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(2978, 620)
+						location   	(2993, 549)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20279,10 +20279,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@137
-						    location   	(2590, 163)
+						    location   	(2571, 44)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	776
+						    max_width  	844
 						    justify    	0
 						    label      	"GestorConsultarDetalle")
 						icon_style 	"Icon"
@@ -20291,7 +20291,7 @@
 						quidu      	"4C1FF60D015C"
 						compartment 	(object Compartment
 						    Parent_View 	@137
-						    location   	(2590, 219)
+						    location   	(2571, 105)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20305,17 +20305,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	19
-						    max_width  	832
+						    max_width  	842
 						    justify    	1)
-						width      	794
-						height     	936
+						width      	862
+						height     	1034
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorDisponibilidadHoraria" @138
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(649, 3004)
+						location   	(462, 3128)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20327,10 +20327,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@138
-						    location   	(300, 2727)
+						    location   	(81, 2823)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	698
+						    max_width  	762
 						    justify    	0
 						    label      	"GestorDisponibilidadHoraria")
 						icon_style 	"Icon"
@@ -20339,7 +20339,7 @@
 						quidu      	"4C20613F00B9"
 						compartment 	(object Compartment
 						    Parent_View 	@138
-						    location   	(300, 2783)
+						    location   	(81, 2884)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20353,17 +20353,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	11
-						    max_width  	746
+						    max_width  	759
 						    justify    	1)
-						width      	716
-						height     	576
+						width      	780
+						height     	634
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorEmpleado" @139
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(602, 986)
+						location   	(608, 1042)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20375,10 +20375,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@139
-						    location   	(271, 57)
+						    location   	(246, 12)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	662
+						    max_width  	724
 						    justify    	0
 						    label      	"GestorEmpleado")
 						icon_style 	"Icon"
@@ -20387,7 +20387,7 @@
 						quidu      	"4C20613F00C5"
 						compartment 	(object Compartment
 						    Parent_View 	@139
-						    location   	(271, 113)
+						    location   	(246, 73)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20401,17 +20401,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	40
-						    max_width  	707
+						    max_width  	721
 						    justify    	1)
-						width      	680
-						height     	1880
+						width      	742
+						height     	2084
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorEmpresaMetalurgica" @140
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(3851, 1157)
+						location   	(3857, 1268)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20423,10 +20423,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@140
-						    location   	(3482, 25)
+						    location   	(3454, 12)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	738
+						    max_width  	806
 						    justify    	0
 						    label      	"GestorEmpresaMetalurgica")
 						icon_style 	"Icon"
@@ -20435,7 +20435,7 @@
 						quidu      	"4C20613F00FC"
 						compartment 	(object Compartment
 						    Parent_View 	@140
-						    location   	(3482, 81)
+						    location   	(3454, 73)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20449,17 +20449,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	49
-						    max_width  	789
+						    max_width  	813
 						    justify    	1)
-						width      	756
-						height     	2286
+						width      	824
+						height     	2536
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorEtapaProduccion" @141
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(2985, 1881)
+						location   	(3003, 1886)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20471,10 +20471,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@141
-						    location   	(2696, 1177)
+						    location   	(2685, 1106)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	578
+						    max_width  	636
 						    justify    	0
 						    label      	"GestorEtapaProduccion")
 						icon_style 	"Icon"
@@ -20483,7 +20483,7 @@
 						quidu      	"4C1FF60D016C"
 						compartment 	(object Compartment
 						    Parent_View 	@141
-						    location   	(2696, 1233)
+						    location   	(2685, 1167)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20497,10 +20497,10 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	30
-						    max_width  	625
+						    max_width  	638
 						    justify    	1)
-						width      	596
-						height     	1430
+						width      	654
+						height     	1584
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorTipoDocumento" @142
@@ -20545,7 +20545,7 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	21
-						    max_width  	575
+						    max_width  	584
 						    justify    	1)
 						width      	544
 						height     	1026
@@ -20555,7 +20555,7 @@
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(4595, 1831)
+						location   	(4618, 1838)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20567,10 +20567,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@143
-						    location   	(4375, 1374)
+						    location   	(4375, 1332)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	440
+						    max_width  	486
 						    justify    	0
 						    label      	"GestorSesion")
 						icon_style 	"Icon"
@@ -20579,7 +20579,7 @@
 						quidu      	"4C1FF60D0364"
 						compartment 	(object Compartment
 						    Parent_View 	@143
-						    location   	(4375, 1430)
+						    location   	(4375, 1393)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20593,17 +20593,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	19
-						    max_width  	475
+						    max_width  	484
 						    justify    	1)
-						width      	458
-						height     	936
+						width      	504
+						height     	1036
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorGenerarPresupuesto" @144
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(5449, 1353)
+						location   	(5468, 1367)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20615,10 +20615,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@144
-						    location   	(4994, 401)
+						    location   	(4971, 311)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	910
+						    max_width  	994
 						    justify    	0
 						    label      	"GestorGenerarPresupuesto")
 						icon_style 	"Icon"
@@ -20627,7 +20627,7 @@
 						quidu      	"4C1FF42C00A0"
 						compartment 	(object Compartment
 						    Parent_View 	@144
-						    location   	(4994, 457)
+						    location   	(4971, 372)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20641,17 +20641,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	41
-						    max_width  	972
+						    max_width  	992
 						    justify    	1)
-						width      	928
-						height     	1926
+						width      	1012
+						height     	2136
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorLocalidad" @145
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(5415, 2892)
+						location   	(5438, 2901)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20663,10 +20663,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@145
-						    location   	(5166, 2570)
+						    location   	(5156, 2545)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	498
+						    max_width  	564
 						    justify    	0
 						    label      	"GestorLocalidad")
 						icon_style 	"Icon"
@@ -20675,7 +20675,7 @@
 						quidu      	"4C20613F00EE"
 						compartment 	(object Compartment
 						    Parent_View 	@145
-						    location   	(5166, 2626)
+						    location   	(5156, 2606)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20689,17 +20689,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	13
-						    max_width  	544
+						    max_width  	563
 						    justify    	1)
-						width      	516
-						height     	666
+						width      	582
+						height     	736
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMaquina" @146
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8235, 1756)
+						location   	(9029, 2108)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20711,10 +20711,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@146
-						    location   	(7919, 1051)
+						    location   	(8685, 1328)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	632
+						    max_width  	688
 						    justify    	0
 						    label      	"GestorMaquina")
 						icon_style 	"Icon"
@@ -20723,7 +20723,7 @@
 						quidu      	"4C1FF60D018B"
 						compartment 	(object Compartment
 						    Parent_View 	@146
-						    location   	(7919, 1107)
+						    location   	(8685, 1389)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20737,17 +20737,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	30
-						    max_width  	673
+						    max_width  	688
 						    justify    	1)
-						width      	650
-						height     	1432
+						width      	706
+						height     	1584
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMateriaPrima" @147
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(7274, 1074)
+						location   	(7310, 1092)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20759,10 +20759,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@147
-						    location   	(6960, 189)
+						    location   	(6964, 111)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	628
+						    max_width  	692
 						    justify    	0
 						    label      	"GestorMateriaPrima")
 						icon_style 	"Icon"
@@ -20771,7 +20771,7 @@
 						quidu      	"4C1FF60D01AA"
 						compartment 	(object Compartment
 						    Parent_View 	@147
-						    location   	(6960, 245)
+						    location   	(6964, 172)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20785,17 +20785,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	38
-						    max_width  	675
+						    max_width  	688
 						    justify    	1)
-						width      	646
-						height     	1792
+						width      	710
+						height     	1986
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMatriz" @148
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(6353, 2927)
+						location   	(6217, 2895)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20807,10 +20807,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@148
-						    location   	(6037, 2650)
+						    location   	(5839, 2595)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	632
+						    max_width  	757
 						    justify    	0
 						    label      	"GestorMatriz")
 						icon_style 	"Icon"
@@ -20819,7 +20819,7 @@
 						quidu      	"4C20613F0087"
 						compartment 	(object Compartment
 						    Parent_View 	@148
-						    location   	(6037, 2706)
+						    location   	(5839, 2656)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20833,17 +20833,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	11
-						    max_width  	669
+						    max_width  	688
 						    justify    	1)
-						width      	650
-						height     	576
+						width      	775
+						height     	625
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPedidoCotizacionTrabajo" @149
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(7362, 2776)
+						location   	(7346, 2824)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20855,10 +20855,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@149
-						    location   	(6938, 2161)
+						    location   	(6885, 2144)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	848
+						    max_width  	922
 						    justify    	0
 						    label      	"GestorPedidoCotizacionTrabajo")
 						icon_style 	"Icon"
@@ -20867,7 +20867,7 @@
 						quidu      	"4C20613F012E"
 						compartment 	(object Compartment
 						    Parent_View 	@149
-						    location   	(6938, 2217)
+						    location   	(6885, 2205)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20881,17 +20881,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	26
-						    max_width  	904
+						    max_width  	921
 						    justify    	1)
-						width      	866
-						height     	1252
+						width      	940
+						height     	1384
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPedidoCotizacionWeb" @150
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(6438, 1261)
+						location   	(6459, 1283)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20903,10 +20903,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@150
-						    location   	(6079, 196)
+						    location   	(6066, 103)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	718
+						    max_width  	786
 						    justify    	0
 						    label      	"GestorPedidoCotizacionWeb")
 						icon_style 	"Icon"
@@ -20915,7 +20915,7 @@
 						quidu      	"4C1FF60D01FD"
 						compartment 	(object Compartment
 						    Parent_View 	@150
-						    location   	(6079, 252)
+						    location   	(6066, 164)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20929,17 +20929,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	46
-						    max_width  	765
+						    max_width  	784
 						    justify    	1)
-						width      	736
-						height     	2152
+						width      	804
+						height     	2384
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPedidoMatriz" @151
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8074, 526)
+						location   	(8106, 550)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20951,10 +20951,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@151
-						    location   	(7762, 136)
+						    location   	(7769, 119)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	624
+						    max_width  	674
 						    justify    	0
 						    label      	"GestorPedidoMatriz")
 						icon_style 	"Icon"
@@ -20963,7 +20963,7 @@
 						quidu      	"4C1FF60D022C"
 						compartment 	(object Compartment
 						    Parent_View 	@151
-						    location   	(7762, 192)
+						    location   	(7769, 180)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -20977,17 +20977,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	16
-						    max_width  	669
+						    max_width  	680
 						    justify    	1)
-						width      	642
-						height     	802
+						width      	692
+						height     	886
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPerfilDeUsuario" @152
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8247, 2965)
+						location   	(8248, 2828)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -20999,10 +20999,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@152
-						    location   	(7960, 2598)
+						    location   	(7937, 2422)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	574
+						    max_width  	622
 						    justify    	0
 						    label      	"GestorPerfilDeUsuario")
 						icon_style 	"Icon"
@@ -21011,7 +21011,7 @@
 						quidu      	"4C1FF60D023D"
 						compartment 	(object Compartment
 						    Parent_View 	@152
-						    location   	(7960, 2654)
+						    location   	(7937, 2483)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21025,17 +21025,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	15
-						    max_width  	613
+						    max_width  	630
 						    justify    	1)
-						width      	592
-						height     	756
+						width      	640
+						height     	836
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPieza" @153
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(284, 4011)
+						location   	(3591, 3538)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21047,10 +21047,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@153
-						    location   	(161, 3351)
+						    location   	(3285, 2758)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	246
+						    max_width  	612
 						    justify    	0
 						    label      	"GestorPieza")
 						icon_style 	"Icon"
@@ -21059,7 +21059,7 @@
 						quidu      	"4C1FF60D0254"
 						compartment 	(object Compartment
 						    Parent_View 	@153
-						    location   	(161, 3409)
+						    location   	(3285, 2819)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21073,17 +21073,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	30
-						    max_width  	69
+						    max_width  	613
 						    justify    	1)
-						width      	264
-						height     	1342
+						width      	630
+						height     	1584
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPrecioMateriaPrima" @154
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(3909, 3219)
+						location   	(4513, 3345)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21095,10 +21095,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@154
-						    location   	(3667, 2580)
+						    location   	(4003, 2590)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	484
+						    max_width  	1020
 						    justify    	0
 						    label      	"GestorPrecioMateriaPrima")
 						icon_style 	"Icon"
@@ -21107,7 +21107,7 @@
 						quidu      	"4C1FF60D0273"
 						compartment 	(object Compartment
 						    Parent_View 	@154
-						    location   	(3667, 2638)
+						    location   	(4003, 2651)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21121,17 +21121,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	29
-						    max_width  	69
+						    max_width  	1030
 						    justify    	1)
-						width      	502
-						height     	1300
+						width      	1038
+						height     	1534
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPresupuesto" @155
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(1013, 4122)
+						location   	(437, 4272)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21143,10 +21143,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@155
-						    location   	(826, 3462)
+						    location   	(99, 3491)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	374
+						    max_width  	676
 						    justify    	0
 						    label      	"GestorPresupuesto")
 						icon_style 	"Icon"
@@ -21155,7 +21155,7 @@
 						quidu      	"4C1FF60D029B"
 						compartment 	(object Compartment
 						    Parent_View 	@155
-						    location   	(826, 3520)
+						    location   	(99, 3552)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21169,17 +21169,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	30
-						    max_width  	69
+						    max_width  	675
 						    justify    	1)
-						width      	392
-						height     	1342
+						width      	694
+						height     	1586
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorProcesoDeCalidad" @156
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(1788, 4147)
+						location   	(1241, 4168)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21191,10 +21191,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@156
-						    location   	(1552, 3382)
+						    location   	(910, 3262)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	472
+						    max_width  	662
 						    justify    	0
 						    label      	"GestorProcesoDeCalidad")
 						icon_style 	"Icon"
@@ -21203,7 +21203,7 @@
 						quidu      	"4C20613F0149"
 						compartment 	(object Compartment
 						    Parent_View 	@156
-						    location   	(1552, 3440)
+						    location   	(910, 3323)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21217,17 +21217,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	35
-						    max_width  	69
+						    max_width  	663
 						    justify    	1)
-						width      	490
-						height     	1552
+						width      	680
+						height     	1836
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorProducto" @157
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(2584, 3993)
+						location   	(2006, 4082)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21239,10 +21239,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@157
-						    location   	(2432, 3375)
+						    location   	(1663, 3351)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	304
+						    max_width  	686
 						    justify    	0
 						    label      	"GestorProducto")
 						icon_style 	"Icon"
@@ -21251,7 +21251,7 @@
 						quidu      	"4C1FF60D02BE"
 						compartment 	(object Compartment
 						    Parent_View 	@157
-						    location   	(2432, 3433)
+						    location   	(1663, 3412)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21265,17 +21265,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	28
-						    max_width  	69
+						    max_width  	688
 						    justify    	1)
-						width      	322
-						height     	1258
+						width      	704
+						height     	1486
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorProveedor" @158
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(3141, 3951)
+						location   	(2858, 4213)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21287,10 +21287,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@158
-						    location   	(2980, 2682)
+						    location   	(2495, 2707)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	322
+						    max_width  	726
 						    justify    	0
 						    label      	"GestorProveedor")
 						icon_style 	"Icon"
@@ -21299,7 +21299,7 @@
 						quidu      	"4C1FF60D02DB"
 						compartment 	(object Compartment
 						    Parent_View 	@158
-						    location   	(2980, 2740)
+						    location   	(2495, 2768)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21313,17 +21313,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	59
-						    max_width  	69
+						    max_width  	734
 						    justify    	1)
-						width      	340
-						height     	2560
+						width      	744
+						height     	3036
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorRegistrarConfirmacionPedido" @159
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(4710, 4060)
+						location   	(879, 5486)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21335,10 +21335,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@159
-						    location   	(4376, 3757)
+						    location   	(540, 5131)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	668
+						    max_width  	678
 						    justify    	0
 						    label      	"GestorRegistrarConfirmacionPedido")
 						icon_style 	"Icon"
@@ -21347,7 +21347,7 @@
 						quidu      	"4C1FF60D0315"
 						compartment 	(object Compartment
 						    Parent_View 	@159
-						    location   	(4376, 3815)
+						    location   	(540, 5192)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21361,17 +21361,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	13
-						    max_width  	69
+						    max_width  	675
 						    justify    	1)
-						width      	686
-						height     	628
+						width      	696
+						height     	734
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorRegistrarPlan" @160
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(6075, 3775)
+						location   	(7417, 5245)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21383,10 +21383,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@160
-						    location   	(5882, 3346)
+						    location   	(7066, 4739)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	386
+						    max_width  	702
 						    justify    	0
 						    label      	"GestorRegistrarPlan")
 						icon_style 	"Icon"
@@ -21395,7 +21395,7 @@
 						quidu      	"4C1FF60D0323"
 						compartment 	(object Compartment
 						    Parent_View 	@160
-						    location   	(5882, 3404)
+						    location   	(7066, 4800)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21409,17 +21409,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	19
-						    max_width  	69
+						    max_width  	709
 						    justify    	1)
-						width      	404
-						height     	880
+						width      	720
+						height     	1036
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorRegistrarUsuario" @161
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(4631, 3004)
+						location   	(4467, 4720)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21431,10 +21431,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@161
-						    location   	(4405, 2533)
+						    location   	(4138, 4165)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	452
+						    max_width  	658
 						    justify    	0
 						    label      	"GestorRegistrarUsuario")
 						icon_style 	"Icon"
@@ -21443,7 +21443,7 @@
 						quidu      	"4C1FF60D0337"
 						compartment 	(object Compartment
 						    Parent_View 	@161
-						    location   	(4405, 2591)
+						    location   	(4138, 4226)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21457,17 +21457,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	21
-						    max_width  	69
+						    max_width  	655
 						    justify    	1)
-						width      	470
-						height     	964
+						width      	676
+						height     	1134
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorRegistrarUsuarioWeb" @162
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(4643, 4818)
+						location   	(1954, 5278)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21479,10 +21479,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@162
-						    location   	(4379, 4473)
+						    location   	(1665, 4873)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	528
+						    max_width  	578
 						    justify    	0
 						    label      	"GestorRegistrarUsuarioWeb")
 						icon_style 	"Icon"
@@ -21491,7 +21491,7 @@
 						quidu      	"4C1FF60D0354"
 						compartment 	(object Compartment
 						    Parent_View 	@162
-						    location   	(4379, 4531)
+						    location   	(1665, 4934)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21505,17 +21505,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	15
-						    max_width  	69
+						    max_width  	584
 						    justify    	1)
-						width      	546
-						height     	712
+						width      	596
+						height     	834
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorTipoMaterial" @163
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(3894, 4474)
+						location   	(9330, 4917)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21527,10 +21527,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@163
-						    location   	(3715, 4087)
+						    location   	(8987, 4461)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	358
+						    max_width  	686
 						    justify    	0
 						    label      	"GestorTipoMaterial")
 						icon_style 	"Icon"
@@ -21539,7 +21539,7 @@
 						quidu      	"4C1FF60D037F"
 						compartment 	(object Compartment
 						    Parent_View 	@163
-						    location   	(3715, 4145)
+						    location   	(8987, 4522)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21553,17 +21553,17 @@
 						    fill_color 	16777215
 						    anchor     	2
 						    nlines     	17
-						    max_width  	69
+						    max_width  	688
 						    justify    	1)
-						width      	376
-						height     	796
+						width      	704
+						height     	936
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPedido" @164
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8909, 687)
+						location   	(9010, 629)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21575,10 +21575,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@164
-						    location   	(8771, 174)
+						    location   	(8645, 23)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	276
+						    max_width  	730
 						    justify    	0
 						    label      	"GestorPedido")
 						icon_style 	"Icon"
@@ -21587,7 +21587,7 @@
 						quidu      	"4C8B9EE30165"
 						compartment 	(object Compartment
 						    Parent_View 	@164
-						    location   	(8771, 234)
+						    location   	(8645, 84)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21601,17 +21601,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	23
-						    max_width  	69
+						    max_width  	734
 						    justify    	1)
-						width      	294
-						height     	1050
+						width      	748
+						height     	1236
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorOrdenDeCompra" @165
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(9466, 743)
+						location   	(10677, 756)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21623,10 +21623,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@165
-						    location   	(9239, 125)
+						    location   	(10317, 25)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	454
+						    max_width  	720
 						    justify    	0
 						    label      	"GestorOrdenDeCompra")
 						icon_style 	"Icon"
@@ -21635,7 +21635,7 @@
 						quidu      	"4C8D486103C2"
 						compartment 	(object Compartment
 						    Parent_View 	@165
-						    location   	(9239, 185)
+						    location   	(10317, 86)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21649,17 +21649,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	28
-						    max_width  	69
+						    max_width  	721
 						    justify    	1)
-						width      	472
-						height     	1260
+						width      	738
+						height     	1486
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorReclamo" @166
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(9920, 3389)
+						location   	(10775, 2507)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21671,10 +21671,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@166
-						    location   	(9766, 2708)
+						    location   	(10324, 1702)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	308
+						    max_width  	902
 						    justify    	0
 						    label      	"GestorReclamo")
 						icon_style 	"Icon"
@@ -21683,7 +21683,7 @@
 						quidu      	"4CA76B0B02EF"
 						compartment 	(object Compartment
 						    Parent_View 	@166
-						    location   	(9766, 2768)
+						    location   	(10324, 1763)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21697,17 +21697,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	31
-						    max_width  	69
+						    max_width  	900
 						    justify    	1)
-						width      	326
-						height     	1386
+						width      	920
+						height     	1634
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPlanificacionProduccion" @167
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8905, 1871)
+						location   	(8198, 1670)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21719,10 +21719,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@167
-						    location   	(8622, 1379)
+						    location   	(7828, 1091)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	566
+						    max_width  	741
 						    justify    	0
 						    label      	"GestorPlanificacionProduccion")
 						icon_style 	"Icon"
@@ -21731,7 +21731,7 @@
 						quidu      	"4CA76CFC0044"
 						compartment 	(object Compartment
 						    Parent_View 	@167
-						    location   	(8622, 1439)
+						    location   	(7828, 1152)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21745,17 +21745,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	22
-						    max_width  	69
+						    max_width  	721
 						    justify    	1)
-						width      	584
-						height     	1008
+						width      	759
+						height     	1183
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorEntregaPedido" @168
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(9694, 2073)
+						location   	(9862, 683)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21767,10 +21767,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@168
-						    location   	(9489, 1539)
+						    location   	(9511, 52)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	410
+						    max_width  	702
 						    justify    	0
 						    label      	"GestorEntregaPedido")
 						icon_style 	"Icon"
@@ -21779,7 +21779,7 @@
 						quidu      	"4CB7154D029F"
 						compartment 	(object Compartment
 						    Parent_View 	@168
-						    location   	(9489, 1599)
+						    location   	(9511, 113)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21793,17 +21793,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	24
-						    max_width  	69
+						    max_width  	705
 						    justify    	1)
-						width      	428
-						height     	1092
+						width      	720
+						height     	1286
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorConsultaWeb" @169
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8957, 4519)
+						location   	(10058, 4815)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21815,10 +21815,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@169
-						    location   	(8762, 4258)
+						    location   	(9813, 4509)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	390
+						    max_width  	490
 						    justify    	0
 						    label      	"GestorConsultaWeb")
 						icon_style 	"Icon"
@@ -21827,7 +21827,7 @@
 						quidu      	"4CB8694C0040"
 						compartment 	(object Compartment
 						    Parent_View 	@169
-						    location   	(8762, 4318)
+						    location   	(9813, 4570)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21841,17 +21841,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	11
-						    max_width  	69
+						    max_width  	488
 						    justify    	1)
-						width      	408
-						height     	546
+						width      	508
+						height     	636
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorFactura" @170
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8829, 3039)
+						location   	(10199, 3891)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21863,10 +21863,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@170
-						    location   	(8687, 2610)
+						    location   	(9868, 3385)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	284
+						    max_width  	662
 						    justify    	0
 						    label      	"GestorFactura")
 						icon_style 	"Icon"
@@ -21875,7 +21875,7 @@
 						quidu      	"4CB86A8A00FA"
 						compartment 	(object Compartment
 						    Parent_View 	@170
-						    location   	(8687, 2670)
+						    location   	(9868, 3446)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21889,17 +21889,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	19
-						    max_width  	69
+						    max_width  	663
 						    justify    	1)
-						width      	302
-						height     	882
+						width      	680
+						height     	1036
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorRemito" @171
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(9361, 3039)
+						location   	(9831, 1845)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21911,10 +21911,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@171
-						    location   	(9226, 2694)
+						    location   	(9442, 1439)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	270
+						    max_width  	778
 						    justify    	0
 						    label      	"GestorRemito")
 						icon_style 	"Icon"
@@ -21923,7 +21923,7 @@
 						quidu      	"4CB86DD10009"
 						compartment 	(object Compartment
 						    Parent_View 	@171
-						    location   	(9226, 2754)
+						    location   	(9442, 1500)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21937,17 +21937,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	15
-						    max_width  	69
+						    max_width  	780
 						    justify    	1)
-						width      	288
-						height     	714
+						width      	796
+						height     	836
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorCobro" @172
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(9422, 4033)
+						location   	(9283, 3787)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -21959,10 +21959,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@172
-						    location   	(9297, 3541)
+						    location   	(8938, 3207)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	250
+						    max_width  	690
 						    justify    	0
 						    label      	"GestorCobro")
 						icon_style 	"Icon"
@@ -21971,7 +21971,7 @@
 						quidu      	"4CB872C603E6"
 						compartment 	(object Compartment
 						    Parent_View 	@172
-						    location   	(9297, 3601)
+						    location   	(8938, 3268)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -21985,17 +21985,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	22
-						    max_width  	69
+						    max_width  	696
 						    justify    	1)
-						width      	268
-						height     	1008
+						width      	708
+						height     	1184
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorVencimientoFactura" @173
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(6722, 6388)
+						location   	(6535, 5439)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22007,10 +22007,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@173
-						    location   	(6480, 6127)
+						    location   	(6207, 5138)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	484
+						    max_width  	657
 						    justify    	0
 						    label      	"GestorVencimientoFactura")
 						icon_style 	"Icon"
@@ -22019,7 +22019,7 @@
 						quidu      	"4CB8BEC6016E"
 						compartment 	(object Compartment
 						    Parent_View 	@173
-						    location   	(6480, 6187)
+						    location   	(6207, 5199)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22033,17 +22033,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	11
-						    max_width  	69
+						    max_width  	671
 						    justify    	1)
-						width      	502
-						height     	546
+						width      	675
+						height     	626
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorPlanificacionControlCalidad" @174
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(5435, 4383)
+						location   	(5607, 4530)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22055,10 +22055,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@174
-						    location   	(5120, 3387)
+						    location   	(5183, 3349)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	630
+						    max_width  	848
 						    justify    	0
 						    label      	"GestorPlanificacionControlCalidad")
 						icon_style 	"Icon"
@@ -22067,7 +22067,7 @@
 						quidu      	"4CB9C92800A3"
 						compartment 	(object Compartment
 						    Parent_View 	@174
-						    location   	(5120, 3447)
+						    location   	(5183, 3410)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22081,17 +22081,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	46
-						    max_width  	69
+						    max_width  	846
 						    justify    	1)
-						width      	648
-						height     	2016
+						width      	866
+						height     	2386
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMantenimientoPreventivo" @175
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8270, 4241)
+						location   	(8364, 4328)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22103,10 +22103,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@175
-						    location   	(7978, 3455)
+						    location   	(7915, 3398)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	584
+						    max_width  	898
 						    justify    	0
 						    label      	"GestorMantenimientoPreventivo")
 						icon_style 	"Icon"
@@ -22115,7 +22115,7 @@
 						quidu      	"4CB9E00500B5"
 						compartment 	(object Compartment
 						    Parent_View 	@175
-						    location   	(7978, 3515)
+						    location   	(7915, 3459)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22129,17 +22129,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	36
-						    max_width  	69
+						    max_width  	905
 						    justify    	1)
-						width      	602
-						height     	1596
+						width      	916
+						height     	1884
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMantenimientoCorrectivo" @176
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(7426, 4095)
+						location   	(7407, 4099)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22151,10 +22151,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@176
-						    location   	(7136, 3624)
+						    location   	(7066, 3544)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	580
+						    max_width  	682
 						    justify    	0
 						    label      	"GestorMantenimientoCorrectivo")
 						icon_style 	"Icon"
@@ -22163,7 +22163,7 @@
 						quidu      	"4CB9E2A30356"
 						compartment 	(object Compartment
 						    Parent_View 	@176
-						    location   	(7136, 3684)
+						    location   	(7066, 3605)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22177,17 +22177,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	21
-						    max_width  	69
+						    max_width  	688
 						    justify    	1)
-						width      	598
-						height     	966
+						width      	700
+						height     	1134
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorInformes" @177
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(8890, 3897)
+						location   	(9854, 2825)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22199,10 +22199,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@177
-						    location   	(8738, 3657)
+						    location   	(9463, 2545)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	304
+						    max_width  	782
 						    justify    	0
 						    label      	"GestorInformes")
 						icon_style 	"Icon"
@@ -22211,7 +22211,7 @@
 						quidu      	"4CB9E6DD0106"
 						compartment 	(object Compartment
 						    Parent_View 	@177
-						    location   	(8738, 3717)
+						    location   	(9463, 2606)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22225,17 +22225,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	10
-						    max_width  	69
+						    max_width  	788
 						    justify    	1)
-						width      	322
-						height     	504
+						width      	800
+						height     	584
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorEmpresaMantenimiento" @178
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(6717, 4241)
+						location   	(6507, 4175)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22247,10 +22247,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@178
-						    location   	(6435, 3539)
+						    location   	(6114, 3344)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	564
+						    max_width  	786
 						    justify    	0
 						    label      	"GestorEmpresaMantenimiento")
 						icon_style 	"Icon"
@@ -22259,7 +22259,7 @@
 						quidu      	"4CBA24DC0159"
 						compartment 	(object Compartment
 						    Parent_View 	@178
-						    location   	(6435, 3599)
+						    location   	(6114, 3405)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22273,17 +22273,17 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	32
-						    max_width  	69
+						    max_width  	792
 						    justify    	1)
-						width      	582
-						height     	1428
+						width      	804
+						height     	1686
 						annotation 	8
 						autoResize 	TRUE)
 					    (object ClassView "Class" "Logical View::metalsoft::negocio::gestores::GestorMateriaPrimaAProveedor" @179
 						ShowCompartmentStereotypes 	TRUE
 						IncludeAttribute 	TRUE
 						IncludeOperation 	TRUE
-						location   	(7676, 6479)
+						location   	(3666, 4807)
 						font       	(object Font
 						    size       	9
 						    face       	"Arial"
@@ -22295,10 +22295,10 @@
 						    default_color 	TRUE)
 						label      	(object ItemLabel
 						    Parent_View 	@179
-						    location   	(7388, 6134)
+						    location   	(3344, 4401)
 						    fill_color 	13434879
 						    nlines     	1
-						    max_width  	576
+						    max_width  	644
 						    justify    	0
 						    label      	"GestorMateriaPrimaAProveedor")
 						icon_style 	"Icon"
@@ -22307,7 +22307,7 @@
 						quidu      	"4C9506BC03BA"
 						compartment 	(object Compartment
 						    Parent_View 	@179
-						    location   	(7388, 6194)
+						    location   	(3344, 4462)
 						    font       	(object Font
 							size       	9
 							face       	"Arial"
@@ -22321,10 +22321,10 @@
 						    fill_color 	13434879
 						    anchor     	2
 						    nlines     	15
-						    max_width  	69
+						    max_width  	650
 						    justify    	1)
-						width      	594
-						height     	714
+						width      	662
+						height     	836
 						annotation 	8
 						autoResize 	TRUE)))
 				    (object ClassDiagram "Diagrama Parcial Gestores 2"
