@@ -11,6 +11,7 @@
 package metalsoft.presentacion;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import javax.imageio.ImageIO;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -55,6 +56,7 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     private double netoTotalACobrar;
     private long idPedido;
     private double subTotal, iva;
+    private double subTotalInicial;
 
     /** Creates new form RegistrarCotización */
     public RegistrarPresupuesto() {
@@ -825,8 +827,10 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVerDetalleActionPerformed
 
 private void jsPorcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsPorcentajeKeyReleased
-// TODO add your handling code here:
-    calcularNetoTotalACobrar();
+
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        calcularNetoTotalACobrar();
+    }
 }//GEN-LAST:event_jsPorcentajeKeyReleased
 
 private void jsPorcentajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsPorcentajeKeyPressed
@@ -837,7 +841,6 @@ private void jsPorcentajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_jsPorcentajeKeyTyped
 
 private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsPorcentajeStateChanged
-// TODO add your handling code here:
     calcularNetoTotalACobrar();
 }//GEN-LAST:event_jsPorcentajeStateChanged
 
@@ -876,6 +879,7 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
         calcularDuracionTotal();
         //calcularCostoTotal();
         calcularSubTotal();
+        subTotalInicial = subTotal;
         //calcularGanancia();
         calcularIVA();
         calcularNetoTotalACobrar();
@@ -893,15 +897,16 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
     }
 
     private void calcularNetoTotalACobrar() {
+
+        double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
+        porc = porc / 100;
+        subTotal = subTotalInicial + subTotalInicial * porc;
+        lblBrutoTotal.setText(Decimales.con2Decimales(subTotal));
+        calcularGanancia();
+        calcularIVA();
+
         netoTotalACobrar = subTotal + iva;
-        if (!jsPorcentaje.getValue().toString().equals("0")) {
-            double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
-            porc = porc / 100;
-            netoTotalACobrar = netoTotalACobrar + netoTotalACobrar * porc;
-            subTotal = subTotal + subTotal * porc;
-            calcularGanancia();
-            calcularIVA();
-        }
+        
         lblTotalACobrar.setText(Decimales.con2Decimales(netoTotalACobrar));
     }
 
