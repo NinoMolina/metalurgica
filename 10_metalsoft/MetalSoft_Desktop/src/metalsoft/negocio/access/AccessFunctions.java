@@ -46,14 +46,14 @@ public class AccessFunctions {
         return result;
     }
 
-    public static String nvoNroProducto(Connection cn) {
+    public static long nvoNroProducto(Connection cn) {
         String query = "{ ? = call nvonroproducto()}";
-        String result = "-1";
+        long result = -1;
         try {
             CallableStatement cs = cn.prepareCall(query);
-            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+            cs.registerOutParameter(1, java.sql.Types.BIGINT);
             cs.execute();
-            result = cs.getString(1);
+            result = cs.getLong(1);
         } catch (SQLException ex) {
             Logger.getLogger(AccessFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
