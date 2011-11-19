@@ -830,8 +830,7 @@ public class GestorCliente
             clienteDB.setResponsable(idResponsable);
 
             clienteDB.setTelefono(cliente.getTelefono());
-            //deberia autogenerar un usario y contraseña
-            clienteDB.setUsuario(1);
+            
 
             result=dao.update(pk,clienteDB, cn);
             clienteDB.setIdcliente(idCliente);
