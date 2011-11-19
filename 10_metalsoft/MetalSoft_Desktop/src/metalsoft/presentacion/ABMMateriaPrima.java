@@ -117,7 +117,7 @@ public class ABMMateriaPrima extends javax.swing.JDialog {
         ep.setAncho(Double.parseDouble(dimensiones1.getTxtAncho().getText()));
         ep.setLargo(Double.parseDouble(dimensiones1.getTxtLargo().getText()));
         //ep.setCodBarra(txt);
-        String idCodBarra=null;
+        String idCodBarra="0";
         
         //long idcdoB=gestor.guardarCodigoBarra(idCodBarra);
         ep.setCodProducto(0);
