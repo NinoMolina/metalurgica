@@ -28,6 +28,7 @@ import metalsoft.datos.jpa.controller.EjecucionetapaproduccionJpaController;
 import metalsoft.datos.jpa.controller.EjecucionplanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecetapaprodJpaController;
 import metalsoft.datos.jpa.controller.EstadoejecplanifpedidoJpaController;
+import metalsoft.datos.jpa.controller.PiezarealJpaController;
 import metalsoft.datos.jpa.controller.PlanificacionproduccionJpaController;
 import metalsoft.datos.jpa.controller.ProductorealJpaController;
 import metalsoft.datos.jpa.controller.exceptions.PreexistingEntityException;
@@ -212,7 +213,6 @@ public class GestorRegistrarLanzamientoProduccion {
                             piezareal = mapProdPiezaXPiezareal.get(keyProdIndexPieza);
                         }
                         detalleejecucionplanificacion.setPiezareal(piezareal);
-
                         break forDetallempasignada;
                     }
                 }
@@ -406,10 +406,9 @@ public class GestorRegistrarLanzamientoProduccion {
            
             jasperPrint = JasperFillManager.fillReport(masterReport, param, cn);
 
-
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-            jviewer.setTitle("Hoja de Pieza");
+            jviewer.setTitle("Hoja de Pieza - Producción");
             jviewer.setVisible(true);
 
         } catch (Exception ex) {

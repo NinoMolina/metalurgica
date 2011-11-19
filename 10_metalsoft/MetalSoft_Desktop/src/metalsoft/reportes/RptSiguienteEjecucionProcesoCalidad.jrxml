@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptSiguienteEjecucionProcesoCalidad" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="70"/>
+	<property name="ireport.y" value="43"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -68,8 +68,8 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 	<field name="horainicio" class="java.lang.String"/>
 	<field name="fechafin" class="java.util.Date"/>
 	<field name="horafin" class="java.lang.String"/>
-	<variable name="CODIGO_BARRA" class="java.lang.String">
-		<variableExpression><![CDATA["mscb-4-"+$F{idejecucionetapa}]]></variableExpression>
+	<variable name="CODIGO_BARRA_OK" class="java.lang.String">
+		<variableExpression><![CDATA["mscb-4-"+$F{idejecucionetapa}+"-OK"]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<variable name="varMaquina" class="java.lang.String">
@@ -78,10 +78,13 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 	<variable name="varHerramientas" class="java.lang.String">
 		<variableExpression><![CDATA[$F{herramientas}.equals( null ) ? "" : $F{herramientas}]]></variableExpression>
 	</variable>
+	<variable name="CODIGO_BARRA_ERROR" class="java.lang.String">
+		<variableExpression><![CDATA["mscb-4-"+$F{idejecucionetapa}+"-ERROR"]]></variableExpression>
+	</variable>
 	<detail>
-		<band height="258">
+		<band height="240">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="255" width="555" height="1"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="238" width="555" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -162,15 +165,15 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 				<text><![CDATA[Orden de Trabajo: Calidad]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="2" y="188" width="553" height="46"/>
+				<reportElement x="2" y="188" width="250" height="30"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$V{CODIGO_BARRA}.toString()]]></jr:codeExpression>
+					<jr:codeExpression><![CDATA[$V{CODIGO_BARRA_OK}.toString()]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField>
-				<reportElement x="2" y="234" width="553" height="20"/>
+				<reportElement x="2" y="218" width="250" height="21"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{CODIGO_BARRA}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{CODIGO_BARRA_OK}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1"/>
@@ -237,6 +240,17 @@ p.cliente = c.idcliente AND eep.idejecucion = $P{ID_EJECUCION_PROCESO}]]>
 				<reportElement x="346" y="166" width="81" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{horafin}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="305" y="188" width="250" height="30"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$V{CODIGO_BARRA_ERROR}.toString()]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="305" y="218" width="250" height="21"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{CODIGO_BARRA_ERROR}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

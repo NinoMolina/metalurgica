@@ -16,6 +16,8 @@ public class BarCodeUtil {
     public static final String COD_EJECUCION_PROCESO_CALIDAD = "4";
     
     public static final String TAG_COMIENZO = "mscb";
+    public static final String COD_PROCESO_CALIDAD_OK = "OK";
+    public static final String COD_PROCESO_CALIDAD_ERROR = "ERROR";
     
     public static String generarCodigo(String COD,String valor) {
         String cod = "";

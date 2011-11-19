@@ -830,12 +830,10 @@ private void jsPorcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_jsPorcentajeKeyReleased
 
 private void jsPorcentajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsPorcentajeKeyPressed
-    calcularNetoTotalACobrar();
 }//GEN-LAST:event_jsPorcentajeKeyPressed
 
 private void jsPorcentajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsPorcentajeKeyTyped
 // TODO add your handling code here:
-    calcularNetoTotalACobrar();
 }//GEN-LAST:event_jsPorcentajeKeyTyped
 
 private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsPorcentajeStateChanged
@@ -900,6 +898,9 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
             double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
             porc = porc / 100;
             netoTotalACobrar = netoTotalACobrar + netoTotalACobrar * porc;
+            subTotal = subTotal + subTotal * porc;
+            calcularGanancia();
+            calcularIVA();
         }
         lblTotalACobrar.setText(Decimales.con2Decimales(netoTotalACobrar));
     }

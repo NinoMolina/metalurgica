@@ -299,7 +299,7 @@ public class GestorLanzarCalidad {
         JasperReport masterReport = null;
         try {
             cn = pg.concectGetCn();
-            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptHojaDePieza.jasper"));
+            masterReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/metalsoft/reportes/RptHojaDePiezaCalidad.jasper"));
             
             param.put("ID_PEDIDO", new Long(idPedido));
            
@@ -308,7 +308,7 @@ public class GestorLanzarCalidad {
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             jviewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-            jviewer.setTitle("Hoja de Pieza");
+            jviewer.setTitle("Hoja de Pieza - Calidad");
             jviewer.setVisible(true);
 
         } catch (Exception ex) {
