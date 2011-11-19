@@ -114,9 +114,8 @@ public class MateriaprimaDAOImpl implements MateriaprimaDAO
 				ps.setDate(3,materiaprima.getFechaalta());
 				ps.setDate(4,materiaprima.getFechabaja());
 				//ps.setLong(5,materiaprima.getCodbarra());
-                long id5=materiaprima.getCodbarra();
-                if(id5>0) ps.setLong(5,materiaprima.getCodbarra());
-                else ps.setNull(5,java.sql.Types.NULL);
+                
+                                ps.setNull(5,java.sql.Types.NULL);
 
 				ps.setDouble(6,materiaprima.getAlto());
 				ps.setLong(7,materiaprima.getStock());
