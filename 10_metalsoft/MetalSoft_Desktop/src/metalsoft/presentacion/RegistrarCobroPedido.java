@@ -498,9 +498,11 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
         boolean flag = false;
         do {
             Double montoFactura = gestor.montoFactura(idPedido);
-            Double diferenciaMontos = montoFactura - gestor.montoPagadoPorFactura(idPedido);
+            Double diferenciaMontos = (montoFactura - gestor.montoPagadoPorFactura(idPedido));
+            diferenciaMontos += (diferenciaMontos*0.21d);
             JComboBox combo = new JComboBox();
             JTextField monto = new JTextField();
+            monto.setText(String.valueOf(diferenciaMontos));
             JLabel saldo = new JLabel("$ " + String.valueOf(diferenciaMontos));
             gestor.obtenerFormasDePago(combo);
             Object[] obj = {"Forma de Pago:", combo, "Saldo:", saldo, "Monto a Cobrar:", monto};
