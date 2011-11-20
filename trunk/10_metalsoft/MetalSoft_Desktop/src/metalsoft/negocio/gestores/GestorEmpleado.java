@@ -792,8 +792,6 @@ public class GestorEmpleado {
         Usuario user=new Usuario();
         Usuarioxrol uxr=new Usuarioxrol();
         try {
-            controllerDomicilio.create(empleado.getDomicilio());
-            controller.create(empleado);
             user.setClave(String.valueOf(empleado.getNrodocumento()));
             user.setUsuario(String.valueOf(empleado.getApellido()));
             conUsu.create(user);
@@ -801,6 +799,9 @@ public class GestorEmpleado {
             uxr.setRol(conRol.findRol(7L));
             uxr.setUsuario(user);
             conUXR.create(uxr);
+            controllerDomicilio.create(empleado.getDomicilio());
+            controller.create(empleado);
+            
             Iterator it = idturno.iterator();
             while (it.hasNext()) {
                 Empleadoxturno ext = new Empleadoxturno();
