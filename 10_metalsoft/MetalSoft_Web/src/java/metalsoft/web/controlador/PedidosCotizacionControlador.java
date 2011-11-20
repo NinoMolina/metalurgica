@@ -49,6 +49,14 @@ public class PedidosCotizacionControlador {
 
         pedidoVista.setPedidosVista(new ListDataModel(list));
 
+        if (!list.isEmpty()) {
+            pedidoVista.getPedidosVista().setRowIndex(0);
+
+            pedidoVista.setPedido(pedidoVista.getPedidosVista().getRowData());
+
+            pedidoVista.setSelected(true);
+        }
+
         return "gestionPedidos";
     }
 
