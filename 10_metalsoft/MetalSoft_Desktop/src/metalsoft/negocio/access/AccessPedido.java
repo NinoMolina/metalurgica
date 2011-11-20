@@ -15,6 +15,7 @@ import metalsoft.datos.idao.PedidoDAO;
 import metalsoft.negocio.gestores.estados.IdsEstadoPedido;
 import metalsoft.negocio.gestores.Parser;
 import metalsoft.negocio.ventas.Pedido;
+import metalsoft.util.Fecha;
 
 /**
  *
@@ -64,6 +65,7 @@ public class AccessPedido {
         try {
             db=findByIdPedido(idpedido, cn);
             db.setEstado(idestado);
+            db.setFechaconfirmacionpedido(new java.sql.Date(Fecha.fechaActualDate().getTime()));
             result=dao.update(pk,db, cn);
         } catch (Exception ex) {
             Logger.getLogger(AccessPedido.class.getName()).log(Level.SEVERE, null, ex);

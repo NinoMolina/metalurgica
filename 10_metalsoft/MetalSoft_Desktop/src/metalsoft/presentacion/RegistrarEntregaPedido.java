@@ -632,7 +632,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private void imprimirFactura() {
         double monto = 0d;
         for (ViewPresupuestoParaFactura de : filasDetalle) {
-            monto += de.getPrecio();
+            monto += de.getPrecio() * de.getCantidad();
         }
         gestor.imprimirFactura(idPedido, formaPago, tipoFactura, fechaVencimientoFactura, monto);
     }

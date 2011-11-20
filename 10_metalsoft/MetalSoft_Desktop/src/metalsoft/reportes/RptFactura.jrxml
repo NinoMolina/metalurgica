@@ -15,7 +15,7 @@
   f.nrofactura,
   f.fechavencimiento,
   f.fechaemision,
-  f.montototal,
+  pre.montototal as montototal,
   cli.razonsocial,
   dom.calle,
   dom.numerocalle,
@@ -24,9 +24,9 @@
   rem.nroremito,
   pro.nombre AS producto,
   pro.descripcion,
-  dp.cantidad,
-  dp.precio,
-  df.montoparcial,
+  dpre.cantidad,
+  dpre.precio,
+  (dpre.precio * dpre.cantidad) as montoparcial,
   df.cantidad AS cantidadfactura,
   fp.nombre,
   f.tipofactura,
@@ -42,10 +42,14 @@ FROM
   producto pro,
   detallepedido dp,
   detallefactura df,
-  formadepago fp
+  formadepago fp,
+  presupuesto pre,
+detallepresupuesto dpre
 WHERE
   ped.factura = f.idfactura AND
   ped.idpedido = $P{ID_PEDIDO} AND
+  ped.presupuesto = pre.idpresupuesto AND
+  pre.idpresupuesto = dpre.idpresupuesto AND
   df.idfactura = f.idfactura AND
   rem.pedido = ped.idpedido AND
   dp.idpedido = ped.idpedido AND
@@ -61,7 +65,7 @@ GROUP BY df.iddetalle,
   f.nrofactura,
   f.fechavencimiento,
   f.fechaemision,
-  f.montototal,
+  pre.montototal,
   cli.razonsocial,
   dom.calle,
   dom.numerocalle,
@@ -70,8 +74,8 @@ GROUP BY df.iddetalle,
   rem.nroremito,
   pro.nombre,
   pro.descripcion,
-  dp.cantidad,
-  dp.precio,
+  dpre.cantidad,
+  dpre.precio,
   df.montoparcial,
   df.cantidad,
   fp.nombre,
@@ -101,11 +105,11 @@ GROUP BY df.iddetalle,
 	<variable name="importe" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
 	</variable>
-	<variable name="subtotal" class="java.lang.Double">
+	<variable name="subtotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
-	<variable name="total" class="java.lang.Double">
-		<variableExpression><![CDATA[]]></variableExpression>
+	<variable name="total" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[$V{subtotal}.doubleValue() + $V{iva}.doubleValue()]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="iva" class="java.lang.Double">
@@ -113,6 +117,9 @@ GROUP BY df.iddetalle,
 	</variable>
 	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
+	</variable>
+	<variable name="iva2" class="java.lang.String">
+		<variableExpression><![CDATA[$V{subtotal}.doubleValue() * (0.21d)]]></variableExpression>
 	</variable>
 	<group name="Group3">
 		<groupHeader>
@@ -209,13 +216,6 @@ GROUP BY df.iddetalle,
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$V{iva}]]></textFieldExpression>
-				</textField>
-				<textField pattern="###0.00">
-					<reportElement x="210" y="22" width="84" height="20"/>
-					<textElement textAlignment="Center">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$V{total}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="451" y="0" width="1" height="20"/>

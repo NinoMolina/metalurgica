@@ -42,7 +42,7 @@ public static TipomaquinaDB[] findAll(Connection cn)
             x = dao.findByIdtipomaquina(valor, cn);
            tm = x[0];
         } catch (Exception ex) {
-            Logger.getLogger(AccessTipoMaquina.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(AccessTipoMaquina.class.getName() + ": " + ex.getMessage());
         }
         return tm;
     }
