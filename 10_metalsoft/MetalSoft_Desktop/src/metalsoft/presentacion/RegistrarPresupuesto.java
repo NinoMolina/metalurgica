@@ -206,27 +206,31 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        gestor.setFechaPresupuesto(dccFechaPresupuesto.getDate());
-        gestor.setFechaVencimientoPresupuesto(dccFechaVencimiento.getDate());
-        gestor.setFechaEstimadaFinProduccion(dccFechaEntregaEstipulada.getDate());
-        gestor.setMontoTotal(lblTotalACobrar.getText());
-        gestor.setProveedoresXMateriaPrima(filasMateriaPrimaXPiezaPresupuesto);
-        double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
-        porc = porc / 100;
-        gestor.setPorcentaje(porc);
-        int result = -1;
-        result = gestor.guardarPresupuesto();
-        int ok = -1;
-        if (result > 0) {
-            ok = JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
-            limpiarCampos();
-            setEnabledComponents(false);
-            if (ok == JOptionPane.OK_OPTION) {
-                imprimirPresupuesto();
+       if(dccFechaEntregaEstipulada.getDate()!=null){
+            gestor.setFechaPresupuesto(dccFechaPresupuesto.getDate());
+            gestor.setFechaVencimientoPresupuesto(dccFechaVencimiento.getDate());
+            gestor.setFechaEstimadaFinProduccion(dccFechaEntregaEstipulada.getDate());
+            gestor.setMontoTotal(lblTotalACobrar.getText());
+            gestor.setProveedoresXMateriaPrima(filasMateriaPrimaXPiezaPresupuesto);
+            double porc = Double.parseDouble(jsPorcentaje.getValue().toString());
+            porc = porc / 100;
+            gestor.setPorcentaje(porc);
+            int result = -1;
+            result = gestor.guardarPresupuesto();
+            int ok = -1;
+            if (result > 0) {
+                ok = JOptionPane.showConfirmDialog(this, "Los datos se guardaron correctamente..!\n Desea imprimir el Presupuesto?");
+                limpiarCampos();
+                setEnabledComponents(false);
+                if (ok == JOptionPane.OK_OPTION) {
+                    imprimirPresupuesto();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el Presupuesto!");
-        }
+       }else{
+           JOptionPane.showMessageDialog(this, "Debe ingresar la fecha de enrega estipulada");
+       }
     }
 
     private void addListenerBtnSalir() {
