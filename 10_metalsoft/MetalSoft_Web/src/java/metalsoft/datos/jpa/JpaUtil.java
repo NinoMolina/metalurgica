@@ -394,7 +394,8 @@ public class JpaUtil {
     public static List getPedidosByCliente(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         String sql = "SELECT * FROM Pedido e"
-                + " WHERE e.cliente=" + id;
+                + " WHERE e.cliente=" + id +
+                " And e.estado not IN (10,12,15)";
         try {
             Query q = em.createNativeQuery(sql, Pedido.class);
 //        Query q = em.createQuery(sql, Pedido.class);
