@@ -151,11 +151,9 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         dccConfirmacionPedido = new com.toedter.calendar.JDateChooser();
         dccEntregaEstipulada = new com.toedter.calendar.JDateChooser();
         dccPedidoCotizacion = new com.toedter.calendar.JDateChooser();
-        dccEntregaReal = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         dccFechaReqCotizacion = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
@@ -383,15 +381,11 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
 
         jLabel14.setText("Fecha Pedido Cotización:");
 
-        jLabel16.setText("Fecha de Entrega Real:");
-
         dccConfirmacionPedido.setEnabled(false);
 
         dccEntregaEstipulada.setEnabled(false);
 
         dccPedidoCotizacion.setEnabled(false);
-
-        dccEntregaReal.setEnabled(false);
 
         jLabel13.setText("Fecha Req de Pedido:");
 
@@ -407,20 +401,18 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel16)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                     .addComponent(dccEntregaEstipulada, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                    .addComponent(dccEntregaReal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                     .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                     .addComponent(dccConfirmacionPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
                     .addComponent(dccFechaReqCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -436,11 +428,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
                     .addComponent(dccPedidoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16)
-                    .addComponent(dccEntregaReal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle"));
@@ -595,11 +583,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         } else {
             dccEntregaEstipulada.setDate(ped.getFechaentregaestipulada());
         }
-        if (ped.getFechaentregareal() == null) {
-            dccEntregaReal.setDate(null);
-        } else {
-            dccEntregaReal.setDate(ped.getFechaentregareal());
-        }
         if (ped.getFecharequeridacotizacion() == null) {
             dccFechaReqCotizacion.setDate(null);
         } else {
@@ -633,7 +616,7 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         int okRemito = -1;
         if (result > 0) {
             JOptionPane.showMessageDialog(this, "Se registró la entrega del Pedido nro " + db.getNropedido() + ", en la fecha " + Fecha.fechaActual());
-
+            limpiarCamposPedido();
             okRemito = JOptionPane.showConfirmDialog(this, "Desea imprimir el Remito?");
             if (okRemito == JOptionPane.OK_OPTION) {
                 imprimirRemito();
@@ -744,6 +727,9 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
             tblDetallePedidoCotizacion.updateUI();
             tblDetallePedidoCotizacion.packAll();
         }
+        filasPedidos = gestor.buscarPedidosClienteEnArmado(idCliente);
+        tblPedidos.updateUI();
+        tblPedidos.packAll();
 
         cmbEstado1.setSelectedIndex(-1);
         cmbPrioridad1.setSelectedIndex(-1);
@@ -751,7 +737,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
         //dccCancelacion.setDate(null);
         dccConfirmacionPedido.setDate(null);
         dccEntregaEstipulada.setDate(null);
-        dccEntregaReal.setDate(null);
         dccFechaReqCotizacion.setDate(null);
         dccPedidoCotizacion.setDate(null);
         lblNroPedido.setText("");
@@ -781,7 +766,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbPrioridad1;
     private com.toedter.calendar.JDateChooser dccConfirmacionPedido;
     private com.toedter.calendar.JDateChooser dccEntregaEstipulada;
-    private com.toedter.calendar.JDateChooser dccEntregaReal;
     private com.toedter.calendar.JDateChooser dccFechaReqCotizacion;
     private com.toedter.calendar.JDateChooser dccPedidoCotizacion;
     private javax.swing.JLabel jLabel1;
@@ -791,7 +775,6 @@ public class RegistrarEntregaPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
