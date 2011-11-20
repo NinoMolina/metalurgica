@@ -55,20 +55,25 @@ public class SesionControlador {
             for (Usuario user : list) {
                 if (user.getUsuario().equals(sesionVista.getUsuarioIngresado()) && user.getClave().equals(sesionVista.getPasswordIngresada())) {
                     sesionVista.setUsuario(user);
-                    sesionVista.setRolUsuario(JpaUtil.getRolByUsuario(user.getIdusuario()));
-                    sesionVista.setCliente(JpaUtil.getClienteByUsuario(user.getIdusuario()));
+                    
+                    List<Rol> lstRoles = JpaUtil.getRolByUsuario(user.getIdusuario());
+                    sesionVista.setRolUsuario(lstRoles);
+                    
+                    String usuario = sesionVista.getUsuarioIngresado();
                     sesionVista.setEstadoSesion("Cerrar Sesion");
-                    sesionVista.setPasswordIngresada("");
+                    sesionVista.setUsuarioIngresado("");
                     sesionVista.setPasswordIngresada("");
                     for(Rol rol : sesionVista.getRolUsuario()) {
                         if(rol.getIdrol()==8) {
                             sesionVista.setEsCliente(true);
+                            sesionVista.setCliente(JpaUtil.getClienteByUsuario(user.getIdusuario()));
+                            sesionVista.setMensajeDeBienvenida("Bienvenido " + sesionVista.getCliente().getRazonsocial() + " !!");
                         }
                         if(rol.getIdrol()==1) {
                             sesionVista.setEsAdministrador(true);
+                            sesionVista.setMensajeDeBienvenida("Bienvenido " + usuario);
                         }
                     }
-                    sesionVista.setMensajeDeBienvenida("Bienvenido " + sesionVista.getCliente().getRazonsocial() + " !!");
                     return "principal";
                 }
             }
