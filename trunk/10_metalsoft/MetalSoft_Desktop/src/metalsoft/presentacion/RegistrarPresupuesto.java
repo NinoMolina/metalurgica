@@ -84,6 +84,11 @@ public class RegistrarPresupuesto extends javax.swing.JDialog {
         lblNroPresupuesto.setText("...");
         lblTotalACobrar.setText("...");
         lblDuracionTotal.setText("...");
+        
+        dccFechaEntregaEstipulada.setDate(null);
+        dccFechaPresupuesto.setDate(null);
+        dccFechaVencimiento.setDate(null);
+        
         if (filasEtapasXPiezaPresupuesto != null) {
             filasEtapasXPiezaPresupuesto.clear();
         }

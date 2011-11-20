@@ -143,17 +143,17 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblNroPedido = new javax.swing.JLabel();
         lblNroPlanifProduccion = new javax.swing.JLabel();
-        lblFechaInicioPrevista = new javax.swing.JLabel();
         lblFechaFinPrevista = new javax.swing.JLabel();
         btnVerObservaciones = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblFechaFinRecalculada = new javax.swing.JLabel();
         txtFechaInicioReal = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblFechaInicioPrevista = new javax.swing.JLabel();
         btnLanzarProduccion = new javax.swing.JButton();
         beanBtnSalir = new metalsoft.beans.BtnSalirr();
         jLabel15 = new javax.swing.JLabel(){
@@ -213,8 +213,6 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
 
         jLabel3.setText("Nro Planificación:");
 
-        jLabel4.setText("Fecha Inicio Prevista:");
-
         jLabel5.setText("Fecha Fin Prevista:");
 
         lblNroPedido.setFont(new java.awt.Font("Tahoma", 1, 12));
@@ -222,9 +220,6 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
 
         lblNroPlanifProduccion.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblNroPlanifProduccion.setText("...");
-
-        lblFechaInicioPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
-        lblFechaInicioPrevista.setText("...");
 
         lblFechaFinPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
         lblFechaFinPrevista.setText("...");
@@ -248,6 +243,11 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
         txtFechaInicioReal.setFont(new java.awt.Font("Tahoma", 1, 12));
         txtFechaInicioReal.setText("...");
 
+        jLabel4.setText("Fecha Inicio Prevista:");
+
+        lblFechaInicioPrevista.setFont(new java.awt.Font("Tahoma", 1, 12));
+        lblFechaInicioPrevista.setText("...");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -262,19 +262,19 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFechaInicioPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblNroPlanifProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNroPlanifProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(3, 3, 3)
-                                .addComponent(txtFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+                                .addComponent(txtFechaInicioReal, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFechaInicioPrevista, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -283,7 +283,7 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblFechaFinPrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblFechaFinRecalculada, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                        .addGap(10, 10, 10))
+                        .addGap(22, 22, 22))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnVerObservaciones)
                         .addContainerGap(530, Short.MAX_VALUE))))
@@ -294,18 +294,18 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(lblNroPedido))
+                        .addComponent(lblNroPedido)
+                        .addComponent(jLabel4)
+                        .addComponent(lblFechaInicioPrevista))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNroPlanifProduccion)
-                        .addComponent(jLabel3)
                         .addComponent(jLabel5)
                         .addComponent(lblFechaFinPrevista)))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(lblFechaInicioPrevista)
-                        .addComponent(jLabel6))
+                        .addComponent(jLabel6)
+                        .addComponent(lblNroPlanifProduccion)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
                         .addComponent(lblFechaFinRecalculada)
