@@ -19,17 +19,17 @@ import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import metalsoft.negocio.gestores.GestorEtapaDeProduccion;
 import metalsoft.util.ItemCombo;
 import metalsoft.negocio.gestores.GestorPieza;
-import metalsoft.negocio.gestores.ViewEtapasXPiezaPresupuesto;
 import metalsoft.negocio.gestores.ViewPiezaXEtapa;
 import metalsoft.negocio.ventas.EtapaDeProduccion;
 import metalsoft.util.Combo;
 import metalsoft.util.EnumOpcionesABM;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.HighlighterFactory.UIColorHighlighter;
 
 /**
  *
@@ -116,7 +116,14 @@ public class ABMPieza extends javax.swing.JDialog {
         idpieza.setText("");
         setEnableComponents(false);
         this.tblDetallePieza.setModel(new EtapaTableModel());
-        tblDetallePieza.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDetallePieza.setColumnControlVisible(true);
+        /* On supprime les traits des lignes et des colonnes */
+        tblDetallePieza.setShowHorizontalLines(false);
+        tblDetallePieza.setShowVerticalLines(false);
+        /* On dit de surligner une ligne sur deux */
+        tblDetallePieza.setHighlighters(
+                new UIColorHighlighter(HighlightPredicate.ODD));
+        tblDetallePieza.setHorizontalScrollEnabled(true);
         tblDetallePieza.updateUI();
         tblDetallePieza.packAll();
         botones.getBtnEliminar().setEnabled(false);
@@ -213,7 +220,7 @@ public class ABMPieza extends javax.swing.JDialog {
         this.btnNuevaPieza.setEnabled(b);
         this.btnQuitar.setEnabled(b);
         this.lstResultadoBusqueda.setEnabled(b);
-        this.jRadioButton1.setEnabled(b);
+//        this.jRadioButton1.setEnabled(b);
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +300,7 @@ public class ABMPieza extends javax.swing.JDialog {
         txtValor.setText("");
         limpiarTabla();
         lstResultadoBusqueda.setListData(new Vector<Object>());
-        this.jRadioButton1.setSelected(false);
+//        this.jRadioButton1.setSelected(false);
     }
 
     private void limpiarTabla()
@@ -383,7 +390,6 @@ public class ABMPieza extends javax.swing.JDialog {
         idpieza = new javax.swing.JLabel();
         botones = new metalsoft.beans.ABM_Botones();
         jPanel3 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
         btnAgregarPieza = new javax.swing.JButton();
         btnNuevaPieza = new javax.swing.JButton();
         txtValor = new javax.swing.JTextField();
@@ -455,7 +461,7 @@ public class ABMPieza extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .add(25, 25, 25)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel1Layout.createSequentialGroup()
@@ -463,10 +469,10 @@ public class ABMPieza extends javax.swing.JDialog {
                             .add(jLabel1)
                             .add(jLabel7))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(cmbTipoMaterial, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(txtNombre))
-                        .add(18, 18, 18)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(cmbTipoMaterial, 0, 135, Short.MAX_VALUE)
+                            .add(txtNombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel8)
                             .add(jLabel11))
@@ -483,7 +489,7 @@ public class ABMPieza extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(txtNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -507,8 +513,6 @@ public class ABMPieza extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Etapas"));
 
-        jRadioButton1.setText("Nombre");
-
         btnAgregarPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
         btnAgregarPieza.setText("Agregar");
         btnAgregarPieza.addActionListener(new java.awt.event.ActionListener() {
@@ -517,7 +521,7 @@ public class ABMPieza extends javax.swing.JDialog {
             }
         });
 
-        btnNuevaPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/del1.png"))); // NOI18N
+        btnNuevaPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new1.png"))); // NOI18N
         btnNuevaPieza.setText("Nueva Etapa");
         btnNuevaPieza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,7 +535,7 @@ public class ABMPieza extends javax.swing.JDialog {
             }
         });
 
-        jLabel5.setText("Valor de Búsqueda:");
+        jLabel5.setText("Nombre Etapa:");
 
         jScrollPane3.setViewportView(lstResultadoBusqueda);
 
@@ -543,11 +547,10 @@ public class ABMPieza extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(jRadioButton1)
-                        .add(36, 36, 36)
+                        .add(99, 99, 99)
                         .add(jLabel5)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(txtValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(txtValor, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                     .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -558,12 +561,10 @@ public class ABMPieza extends javax.swing.JDialog {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(txtValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel5))
-                    .add(jRadioButton1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 6, Short.MAX_VALUE)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, Short.MAX_VALUE)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -711,7 +712,6 @@ public class ABMPieza extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList lstResultadoBusqueda;

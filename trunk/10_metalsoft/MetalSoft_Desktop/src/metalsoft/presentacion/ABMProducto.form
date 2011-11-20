@@ -206,7 +206,9 @@
             <Component class="javax.swing.JTextArea" name="txtDescripcion">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -237,11 +239,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtValorBusqueda" pref="193" max="32767" attributes="1"/>
+                          <Component id="txtValorBusqueda" pref="217" max="32767" attributes="1"/>
                       </Group>
                       <Component id="jScrollPane3" alignment="1" pref="395" max="32767" attributes="0"/>
                   </Group>
@@ -265,14 +266,11 @@
                           <Component id="btnNuevaPieza" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="txtValorBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jRadioButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtValorBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="15" max="32767" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="104" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -282,11 +280,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnAgregarPieza">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -301,7 +294,7 @@
         <Component class="javax.swing.JButton" name="btnNuevaPieza">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/del1.png"/>
+              <Image iconType="3" name="/img/new1.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nueva Pieza"/>
           </Properties>
@@ -316,7 +309,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor de B&#xfa;squeda:"/>
+            <Property name="text" type="java.lang.String" value="Nombre Pieza:"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
