@@ -131,19 +131,17 @@ GROUP BY p.nropedido,
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="0" width="595" height="81" backcolor="#006699"/>
 				<staticText>
-					<reportElement x="0" y="0" width="595" height="40" forecolor="#FFFFFF"/>
+					<reportElement x="162" y="0" width="413" height="80" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Center" lineSpacing="Single">
 						<font size="24" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Canovas y Barale S.R.L]]></text>
+					<text><![CDATA[Canovas y Barale S.R.L
+Listado Materia Prima Necesaria]]></text>
 				</staticText>
-				<staticText>
-					<reportElement x="0" y="40" width="595" height="40" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Center" lineSpacing="Single">
-						<font size="24" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Listado Materia Prima Necesaria]]></text>
-				</staticText>
+				<image>
+					<reportElement x="0" y="2" width="162" height="79"/>
+					<imageExpression class="java.lang.String"><![CDATA[".\\logo_anima_empresa2.gif"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
