@@ -14,17 +14,27 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid>
-                <ice:outputText value="Ingrese Usuario:" style="color: #FFFFFF"/>
-                <ice:inputText id="user" value="#{sesionVista.usuarioIngresado}" />
-                
-                <ice:outputText value="Ingrese Contraseña:" style="color: #FFFFFF"/>
-                <ice:inputSecret id="pass" value="#{sesionVista.passwordIngresada}" />
-                
-                
-                <ice:commandButton value="Iniciar Sesion" action="#{sesionControlador.iniciarSesion}"/>
-                
-                <ice:outputText value="#{sesionVista.resultadoSesion}" style="color: red"/>
+            
+            <h:panelGrid columns="1" width="100%" style="text-align: center ; "  >
+                <h:graphicImage value="/imagenes/f1.png"/>
+                <h:column >
+                    <ice:outputText value="Ingrese Usuario:" style="color: #FFFFFF ; "  />
+                </h:column>
+                <h:column >
+                    <ice:inputText id="user" value="#{sesionVista.usuarioIngresado}" />
+                </h:column>
+                <h:column>
+                    <ice:outputText value="Ingrese Contraseña:" style="color: #FFFFFF"/>
+                </h:column>
+                <h:column >
+                    <ice:inputSecret id="pass" value="#{sesionVista.passwordIngresada}" />
+                </h:column>
+                <h:column>
+                    <ice:commandButton value="Iniciar Sesion" action="#{sesionControlador.iniciarSesion}"/>
+                </h:column>
+                <h:column >
+                    <ice:outputText value="#{sesionVista.resultadoSesion}" style="color: red"/>
+                </h:column>
             </h:panelGrid>
         </h:form>
     </ui:define>
