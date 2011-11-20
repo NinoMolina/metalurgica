@@ -128,10 +128,11 @@ public class JpaUtil {
 
     public static List getPedidosNoFinalizados() {
         EntityManager em = JpaUtil.getEntityManager();
-        String sql = "SELECT e FROM Pedido e"
-                + " WHERE e.estado.idestado not IN (10,12,15)";
+        
+        String sql = "SELECT * FROM Pedido e"
+                + " WHERE e.estado not IN (10,12,15)";
         try {
-            Query q = em.createQuery(sql, Pedido.class);
+            Query q = em.createNativeQuery(sql, Pedido.class);
             return q.getResultList();
         } finally {
             em.close();
@@ -393,6 +394,7 @@ public class JpaUtil {
 
     public static List getPedidosByCliente(long id) {
         EntityManager em = JpaUtil.getEntityManager();
+
         String sql = "SELECT * FROM Pedido e"
                 + " WHERE e.cliente=" + id +
                 " And e.estado not IN (10,12,15)";
