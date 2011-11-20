@@ -77,8 +77,10 @@ public class GestorRegistrarPlanificacionProduccion {
     }
 
     public List<metalsoft.datos.jpa.entity.Empleado> obtenerEmpleados() {
-        EmpleadoJpaController ctrl = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
-        return ctrl.findEmpleadoEntities();
+//        EmpleadoJpaController ctrl = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+//        return ctrl.findEmpleadoEntities();
+        
+        return JpaUtil.findEmpleadosOperariosProduccion();
 
 //        Dao<Empleado> daoEmpleado=new DaoEmpleado<Empleado>();
 //        return daoEmpleado.findAll(Empleado.class.getSimpleName());

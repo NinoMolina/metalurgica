@@ -189,8 +189,10 @@ public class GestorRegistrarPlanificacionCalidad {
     }
 
     public List<metalsoft.datos.jpa.entity.Empleado> obtenerEmpleados() {
-        EmpleadoJpaController ctrl = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
-        return ctrl.findEmpleadoEntities();
+//        EmpleadoJpaController ctrl = new EmpleadoJpaController(JpaUtil.getEntityManagerFactory());
+//        return ctrl.findEmpleadoEntities();
+        
+        return JpaUtil.findEmpleadosOperariosCalidad();
     }
 
     public List<metalsoft.datos.jpa.entity.Maquina> obtenerMaquinas() {

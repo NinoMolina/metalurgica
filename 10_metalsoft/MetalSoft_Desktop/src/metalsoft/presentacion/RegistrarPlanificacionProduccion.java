@@ -114,7 +114,7 @@ public class RegistrarPlanificacionProduccion extends javax.swing.JDialog {
         listColumnNamesTreeTable.add("Inicio");
         listColumnNamesTreeTable.add("Fin");
         listColumnNamesTreeTable.add("Empleado");
-        listColumnNamesTreeTable.add("Máquinas");
+        listColumnNamesTreeTable.add("Máquina");
         setearTablas();
         gestor = new GestorRegistrarPlanificacionProduccion();
         mapAsignacionActualEmpleados = new HashMap<Long, List<EtapaProduccionNode>>();
