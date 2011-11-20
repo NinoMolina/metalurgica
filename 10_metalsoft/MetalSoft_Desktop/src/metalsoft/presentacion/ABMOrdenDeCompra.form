@@ -71,7 +71,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="&#xd3;rden de Compra"/>
+            <TitledBorder title="Orden de Compra"/>
           </Border>
         </Property>
         <Property name="name" type="java.lang.String" value="Orden de Compra" noResource="true"/>
@@ -117,7 +117,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nro. de  &#xd3;rden: "/>
+            <Property name="text" type="java.lang.String" value="Nro. de  Orden: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbProveedor">
@@ -196,7 +196,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Detalle &#xd3;rden de Compra"/>
+            <TitledBorder title="Detalle Orden de Compra"/>
           </Border>
         </Property>
       </Properties>

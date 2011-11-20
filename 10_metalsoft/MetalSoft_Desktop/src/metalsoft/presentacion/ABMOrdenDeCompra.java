@@ -434,13 +434,13 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
         setTitle("Orden de Compra");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Órden de Compra"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Orden de Compra"));
         jPanel1.setName("Orden de Compra"); // NOI18N
 
         txtNroOrden.setText("...");
         txtNroOrden.setEnabled(false);
 
-        jLabel1.setText("Nro. de  Órden: ");
+        jLabel1.setText("Nro. de  Orden: ");
 
         cmbProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,7 +508,7 @@ public class ABMOrdenDeCompra extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Órden de Compra"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Orden de Compra"));
 
         tblDetalleOrden.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tblDetalleOrden);
