@@ -447,7 +447,7 @@ public class Principal extends javax.swing.JFrame {
         mniTrabajosTercerizados = new javax.swing.JMenuItem();
         mniEmpleados = new javax.swing.JMenuItem();
         mniMantenimientos = new javax.swing.JMenuItem();
-        mniProducción = new javax.swing.JMenuItem();
+        mniProduccion = new javax.swing.JMenuItem();
         mniDefectos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
 
@@ -1468,10 +1468,20 @@ public class Principal extends javax.swing.JFrame {
         });
         mnuReportes.add(mniMantenimientos);
 
-        mniProducción.setText("Producción");
-        mnuReportes.add(mniProducción);
+        mniProduccion.setText("Producción");
+        mniProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProduccionActionPerformed(evt);
+            }
+        });
+        mnuReportes.add(mniProduccion);
 
         mniDefectos.setText("Defectos");
+        mniDefectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDefectosActionPerformed(evt);
+            }
+        });
         mnuReportes.add(mniDefectos);
 
         mbrMenu.add(mnuReportes);
@@ -2494,6 +2504,30 @@ private void mniRegistrarProcesoCalidadActionPerformed(java.awt.event.ActionEven
     
 }//GEN-LAST:event_mniRegistrarProcesoCalidadActionPerformed
 
+private void mniProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProduccionActionPerformed
+    try {
+        JFrameManager.crearVentana(ReporteProduccion.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniProduccionActionPerformed
+
+private void mniDefectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDefectosActionPerformed
+    try {
+        JFrameManager.crearVentana(ReporteDefectos.class.getName());
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_mniDefectosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCobros;
     private javax.swing.JButton btnControlesCalidadEnEjecucion;
@@ -2571,7 +2605,7 @@ private void mniRegistrarProcesoCalidadActionPerformed(java.awt.event.ActionEven
     private javax.swing.JMenuItem mniParadaMaquina;
     private javax.swing.JMenuItem mniPedidoCotizacion;
     private javax.swing.JMenuItem mniPieza;
-    private javax.swing.JMenuItem mniProducción;
+    private javax.swing.JMenuItem mniProduccion;
     private javax.swing.JMenuItem mniProducto;
     private javax.swing.JMenuItem mniProveedor;
     private javax.swing.JMenuItem mniProveedores;

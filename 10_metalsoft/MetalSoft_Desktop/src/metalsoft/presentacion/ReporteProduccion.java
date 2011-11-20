@@ -37,6 +37,7 @@ public class ReporteProduccion extends javax.swing.JDialog {
 
     /** Creates new form ReporteProduccion */
     public ReporteProduccion() {
+        super(Principal.getVtnPrincipal());
         initComponents();
         cargarComboProducto1();
         cargarComboProducto2();
