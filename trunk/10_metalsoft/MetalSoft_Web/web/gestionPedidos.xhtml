@@ -29,6 +29,7 @@
 
                 </ice:column>
                 <ice:column>
+                    <ice:outputLabel value="Lista de Pedidos" style="text-decoration: underline"/>
                     <ice:dataTable var="pedido"   
                                    value="#{pedidoVista.pedidosVista}" 
                                    columnClasses="tableCol">
@@ -84,7 +85,7 @@
                 <ice:column style="vertical-align: top">
 
                     <ice:outputLabel id="results"
-                                     value="Detalle de pedido" rendered="#{pedidoVista.selected}" />
+                                     value="Detalle de pedido" rendered="#{pedidoVista.selected} "  style="text-decoration: underline" />
                     <ice:dataTable id="selectedRows" 
                                    var="detalle"
                                    value="#{pedidoVista.detallePedido}"
@@ -109,10 +110,14 @@
                     </ice:dataTable>
 
                 </ice:column>
-
+                <ice:column>
+                </ice:column>
+                <ice:column>
+                    <ice:commandButton value="Confirmar" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
+                    <ice:commandButton value="Cancelar" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
+                </ice:column>
             </h:panelGrid>
-            <ice:commandButton value="Confirmar" action="#{pedidosControlador.confirmarPedido}" rendered="#{pedidoVista.activarBoton}"/> 
-            <ice:commandButton value="Cancelar" action="#{pedidosControlador.cancelarPedido}" rendered="#{pedidoVista.activarBotonCancelar}"/> 
+            
             <ice:outputText value="#{pedidosControlador.entroAListener}"/>
         </h:form>
     </ui:define>
