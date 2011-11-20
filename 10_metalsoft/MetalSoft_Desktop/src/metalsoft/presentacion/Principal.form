@@ -80,6 +80,9 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCompras">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Compras"/>
+          </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniProveedor">
               <Properties>

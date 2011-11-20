@@ -916,6 +916,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuInicio);
 
+        mnuCompras.setText("Compras");
+
         mniProveedor.setText("Administrar Proveedores");
         mniProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
