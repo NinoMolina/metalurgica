@@ -23,13 +23,14 @@ import metalsoft.negocio.gestores.GestorReportes;
  */
 public class ReporteDefectos extends javax.swing.JDialog{
 
-      private GestorReportes gestor = new GestorReportes();
+    private GestorReportes gestor = new GestorReportes();
     private Date fechaDesde;
     private Date fechaHasta;
 
 
     /** Creates new form ReporteDefectos */
     public ReporteDefectos() {
+        super(Principal.getVtnPrincipal());
         initComponents();
     }
 

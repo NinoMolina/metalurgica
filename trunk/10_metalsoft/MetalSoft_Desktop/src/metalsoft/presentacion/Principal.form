@@ -657,15 +657,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniMantenimientosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniProducci&#xf3;n">
+            <MenuItem class="javax.swing.JMenuItem" name="mniProduccion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Producci&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniProduccionActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniDefectos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Defectos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniDefectosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
