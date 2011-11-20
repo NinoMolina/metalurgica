@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptFactura" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="320"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -15,6 +15,7 @@
   f.nrofactura,
   f.fechavencimiento,
   f.fechaemision,
+  f.montototal,
   cli.razonsocial,
   dom.calle,
   dom.numerocalle,
@@ -60,6 +61,7 @@ GROUP BY df.iddetalle,
   f.nrofactura,
   f.fechavencimiento,
   f.fechaemision,
+  f.montototal,
   cli.razonsocial,
   dom.calle,
   dom.numerocalle,
@@ -80,11 +82,12 @@ GROUP BY df.iddetalle,
 	<field name="nrofactura" class="java.lang.Long"/>
 	<field name="fechavencimiento" class="java.sql.Date"/>
 	<field name="fechaemision" class="java.sql.Date"/>
+	<field name="montototal" class="java.lang.Double"/>
 	<field name="razonsocial" class="java.lang.String"/>
 	<field name="calle" class="java.lang.String"/>
 	<field name="numerocalle" class="java.lang.Integer"/>
 	<field name="cuit" class="java.lang.String"/>
-	<field name="iva" class="java.lang.Double"/>
+	<field name="iva" class="java.lang.String"/>
 	<field name="nroremito" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
@@ -94,19 +97,19 @@ GROUP BY df.iddetalle,
 	<field name="cantidadfactura" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="tipofactura" class="java.lang.String"/>
-	<field name="monto" class="java.lang.Double"/>
+	<field name="monto" class="java.lang.Boolean"/>
 	<variable name="importe" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{cantidad}*$F{precio}]]></variableExpression>
 	</variable>
-	<variable name="subtotal" class="java.lang.Double" calculation="Sum">
+	<variable name="subtotal" class="java.lang.Double">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.lang.Double">
-		<variableExpression><![CDATA[$P{MONTO}+$V{iva}]]></variableExpression>
+		<variableExpression><![CDATA[]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="iva" class="java.lang.Double">
-		<variableExpression><![CDATA[$P{MONTO}*0.21]]></variableExpression>
+		<variableExpression><![CDATA[$P{MONTO}.doubleValue() * (0.21d)]]></variableExpression>
 	</variable>
 	<variable name="contarFilas" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{COLUMN_NUMBER}]]></variableExpression>
@@ -179,7 +182,7 @@ GROUP BY df.iddetalle,
 	<group name="Totales">
 		<groupFooter>
 			<band height="63">
-				<textField isBlankWhenNull="false">
+				<textField pattern="###0.00" isBlankWhenNull="false">
 					<reportElement x="471" y="0" width="84" height="20"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
@@ -200,19 +203,19 @@ GROUP BY df.iddetalle,
 					</textElement>
 					<text><![CDATA[TOTAL:]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="452" y="21" width="104" height="20"/>
+				<textField pattern="###0.00">
+					<reportElement x="473" y="21" width="83" height="20"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{iva}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{iva}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="471" y="42" width="84" height="20"/>
+				<textField pattern="###0.00">
+					<reportElement x="210" y="22" width="84" height="20"/>
 					<textElement textAlignment="Center">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{total}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{total}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="451" y="0" width="1" height="20"/>
@@ -254,6 +257,20 @@ GROUP BY df.iddetalle,
 				</staticText>
 				<staticText>
 					<reportElement x="456" y="1" width="17" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[$]]></text>
+				</staticText>
+				<textField pattern="###0.00">
+					<reportElement x="471" y="41" width="84" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{montototal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="456" y="22" width="17" height="20"/>
 					<textElement textAlignment="Center">
 						<font size="14" isBold="false"/>
 					</textElement>
