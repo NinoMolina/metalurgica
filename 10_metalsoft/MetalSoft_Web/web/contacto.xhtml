@@ -15,21 +15,52 @@
 
     <ui:define name="content">
         <h:form>
-            <ice:panelGrid>
-                <ice:outputText value="*Ingrese su nombre:" style="color: #FFFFFF"/>                
+            <ice:panelGrid columns=""  width="100%" style="text-align: center ; ">
+                <h:column>
+                <ice:outputText value="*Ingrese su nombre:" style="color: #FFFFFF"/> 
+                </h:column>
+                <h:column/>
+                <h:column>
                 <ice:inputText value="#{contactView.nombreContacto}" size="75"/>
-
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:outputText value="*Ingrese su e-mail asi podremos comunicarnos con ud:" style="color: #FFFFFF"/>
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:inputText value="#{contactView.mail}" size="75"/>
-
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:outputText value="*Ingrese su número de telefono:" style="color: #FFFFFF"/>
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:inputText value="#{contactView.telefono}" size="75" />
-
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:outputText value="*Ingrese su Consulta:" style="color: #FFFFFF"/>
+                </h:column>
+                <h:column/>
+                
+                <h:column>
                 <ice:inputTextarea value="#{contactView.descripcion}" style=" width: 500px; height: 200px"/>
-
+                </h:column>
+                <h:column>
+                </h:column>
+                
+                <h:column>
                 <ice:commandButton value="Enviar Consulta" action="#{contactoControlador.enviarConsulta}"/> 
-
+                </h:column>
+                <h:column/>
+                
                 <!-- Modal Panel Popup -->
                 <ice:panelPopup id="modalPnlPop"
                                 draggable="false" modal="true"
