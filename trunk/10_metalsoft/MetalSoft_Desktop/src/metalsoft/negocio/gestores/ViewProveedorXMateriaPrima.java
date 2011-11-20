@@ -178,7 +178,12 @@ public class ViewProveedorXMateriaPrima implements Comparable {
 
     public void cargarComboMateriaprima(JComboBox combo) {
         materiaprima = null;
-        materiaprima = JpaUtil.getMateriaPrimaByProveedor(idproveedor);
+        
+        MateriaprimaJpaController controller = new MateriaprimaJpaController(JpaUtil.getEntityManagerFactory());
+        materiaprima = controller.findMateriaprimaEntities();
+        
+//        materiaprima = JpaUtil.getMateriaPrimaByProveedor(idproveedor);
+        
         ItemCombo item = null;
         combo.addItem(new ItemCombo("-1", "--Seleccionar--"));
         for (Materiaprima mp : materiaprima) {
