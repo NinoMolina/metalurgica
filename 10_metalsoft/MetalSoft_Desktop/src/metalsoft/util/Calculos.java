@@ -111,6 +111,14 @@ public class Calculos {
 
         return entranTotal;
     }
+    
+    public static void main(String arg[]){
+        Date duracion = new Date();
+        duracion.setHours(0);
+        duracion.setMinutes(0);
+        duracion.setSeconds(10);
+        Calculos.calcularDuracionPiezaXEtapa(duracion, 10, 10, 10);
+    }
 
     public static Date calcularDuracionPiezaXEtapa(Date duracionEstimada, double alto, double ancho, double largo) {
         double volumen = alto * ancho * largo;
@@ -122,11 +130,17 @@ public class Calculos {
         horas = (int) (horas * volumen);
         minutos = (int) (minutos * volumen);
         segundos = (int) (segundos * volumen);
+        
+        System.out.println(horas);
+        System.out.println(minutos);
+        System.out.println(segundos);
 
         Date duracion = (Date) duracionEstimada.clone();
         duracion.setHours(horas);
         duracion.setMinutes(minutos);
         duracion.setSeconds(segundos);
+        
+        System.out.println("calcularDuracionPiezaXEtapa:" + duracion);
 
         //duracion=Fecha.diferenciaEnSegundosMinutosHoras(duracionEstimada, duracion);
 
