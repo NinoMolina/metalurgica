@@ -473,7 +473,7 @@ public class GestorRegistrarEntregaPedido {
             cp = AccessFactura.findDetalles(pedido.getFactura(), cn);
             monto = (double) 0;
             for (int i = 0; i < cp.length; i++) {
-                monto = monto + cp[i].getMontoparcial();
+                monto = monto + (cp[i].getMontoparcial() * cp[i].getCantidad());
             }
 
         } catch (Exception ex) {
