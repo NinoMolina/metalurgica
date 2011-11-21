@@ -5,16 +5,16 @@
 	<property name="ireport.y" value="107"/>
 	<parameter name="Fecha_Desde" class="java.util.Date"/>
 	<parameter name="Fecha_Hasta" class="java.util.Date"/>
-	<parameter name="Producto_1" class="java.lang.String"/>
-	<parameter name="Producto_2" class="java.lang.String"/>
-	<parameter name="Producto_3" class="java.lang.String"/>
+	<parameter name="Producto_1" class="java.lang.Integer"/>
+	<parameter name="Producto_2" class="java.lang.Integer"/>
+	<parameter name="Producto_3" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select pro.nombre, dp.cantidad, pe.fechaconfirmacionpedido
 from detallepedido dp, pedido pe, producto pro
 where dp.idpedido = pe.idpedido
 and dp.producto = pro.idproducto
 and pe.fechaconfirmacionpedido is not null
-and pro.nombre IN ($P{Producto_1}, $P{Producto_2}, $P{Producto_3})
+and pro.idproducto IN ($P{Producto_1}, $P{Producto_2}, $P{Producto_3})
 and pe.fechaconfirmacionpedido >= $P{Fecha_Desde} and pe.fechaconfirmacionpedido <= $P{Fecha_Hasta}]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
