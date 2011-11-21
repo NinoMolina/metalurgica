@@ -31,9 +31,9 @@ public class ReporteProduccion extends javax.swing.JDialog {
     private Producto prod1= new Producto();
     private Producto prod2= new Producto();
     private Producto prod3= new Producto();
-    private String String_1;
-    private String String_2;
-    private String String_3;
+    private int String_1;
+    private int String_2;
+    private int String_3;
 
     /** Creates new form ReporteProduccion */
     public ReporteProduccion() {
@@ -231,14 +231,17 @@ public class ReporteProduccion extends javax.swing.JDialog {
             if (dccFechaDesde.getDate()== null || dccFechaHasta.getDate()== null){
                 JOptionPane.showMessageDialog(this, "Debe ingresar las fechas!");
                 return;
-            } else
+            } else{
+                fechaDesde = dccFechaDesde.getDate();
+                fechaHasta = dccFechaHasta.getDate();
+            }
 
-            String_1 = ((ItemCombo) cmbpro1.getSelectedItem()).toString();
-            String_2 = ((ItemCombo) cmbpro2.getSelectedItem()).toString();
-           String_3 = ((ItemCombo) cmbpro3.getSelectedItem()).toString();
+            String_1 = Integer.parseInt(((ItemCombo) cmbpro1.getSelectedItem()).getId());
+            String_2 = Integer.parseInt(((ItemCombo) cmbpro2.getSelectedItem()).getId());
+           String_3 = Integer.parseInt(((ItemCombo) cmbpro3.getSelectedItem()).getId());
 
    
-    gestor.ReporteProduccion(String_1,String_2,String_3, fechaDesde,fechaHasta);
+    gestor.reporteProduccion(String_1,String_2,String_3, fechaDesde,fechaHasta);
 
 
 
