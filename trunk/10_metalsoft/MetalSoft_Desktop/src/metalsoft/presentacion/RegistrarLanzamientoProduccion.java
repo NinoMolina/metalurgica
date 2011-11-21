@@ -385,6 +385,8 @@ public class RegistrarLanzamientoProduccion extends javax.swing.JDialog {
                 filasPedidosConMPAsignada.remove(tblPedidos.getSelectedRow());
                 setearEnabledComponents(false);
                 limpiarCampos();
+                tblPedidos.updateUI();
+                tblPedidos.packAll();
             } else {
                 JOptionPane.showMessageDialog(this, "Los datos NO se pudieron guardar!!!");
             }

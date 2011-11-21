@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metalsoft.negocio.gestores;
 
 /**
@@ -15,12 +14,16 @@ public class ViewDetallePedidoReal {
     private int cantidad;
     private int numeroProducto;
     private double precio;
-    private long idProducto,idDetalle,idPedido;
+    private long idProducto, idDetalle, idPedido;
     private String codigoBarra;
+    private String descripcion;
 
     public ViewDetallePedidoReal() {
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
     public double getPrecio() {
         return precio;
@@ -84,5 +87,9 @@ public class ViewDetallePedidoReal {
 
     public void setCodigoBarra(String codigoBarra) {
         this.codigoBarra = codigoBarra;
+    }
+
+    public void setDescripcion(String string) {
+        this.descripcion = string;
     }
 }
