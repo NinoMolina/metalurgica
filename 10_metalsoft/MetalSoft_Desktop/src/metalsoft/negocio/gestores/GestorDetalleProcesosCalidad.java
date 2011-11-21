@@ -131,6 +131,10 @@ public class GestorDetalleProcesosCalidad {
         }
         return list;
     }
+    
+    public void setArlPiezaXProcesoCalidad(ArrayList arl){
+        arlPiezaXProcesoCalidad = arl;
+    }
 
     public int addPiezaXProcesoCalidad(PiezaXProcesosCalidad pxpc) {
         if(arlPiezaXProcesoCalidad==null)arlPiezaXProcesoCalidad=new ArrayList<PiezaXProcesosCalidad>();
