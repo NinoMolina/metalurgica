@@ -262,6 +262,7 @@ public class GenerarDetalleProcesosCalidad extends javax.swing.JDialog implement
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido!");
             return;
         }
+        gestor.setArlPiezaXProcesoCalidad(null);
         limpiarCampos();
         JTable tbl = beanTblPedidos.getTblPedidos();
         ViewPedidoEnListadoProcedimientos v = filasPedidos.get(tbl.convertRowIndexToModel(tbl.getSelectedRow()));

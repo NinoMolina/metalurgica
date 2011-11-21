@@ -988,10 +988,12 @@ private void jsPorcentajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
         int sumarHoras = minutos / 60;
         minutos = minutos - (60 * sumarHoras);
         horas += sumarHoras;
-        int sumarDias = horas / 24;
-        horas = horas - (24 * sumarDias);
+//        int sumarDias = horas / 24;
+//        horas = horas - (24 * sumarDias);
+        int sumarDias = horas / Jornada.HORAS_JORNADA;
+        horas = horas - (Jornada.HORAS_JORNADA * sumarDias);
         dias = sumarDias;
-        dias = (dias * 24) / Jornada.HORAS_JORNADA;
+//        dias = (dias * 24) / Jornada.HORAS_JORNADA;
         String durTotal = dias + " dias, " + horas + " horas, " + minutos + " minutos, " + segundos + " segundos";
         lblDuracionTotal.setText(durTotal);
     }
