@@ -1386,6 +1386,8 @@ public class Principal extends javax.swing.JFrame {
 
         mbrMenu.add(mnuAlmacenamiento);
 
+        mnuReportes.setText("Reportes");
+
         mniReporteAusentismo.setText("Ausentismo");
         mniReporteAusentismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
