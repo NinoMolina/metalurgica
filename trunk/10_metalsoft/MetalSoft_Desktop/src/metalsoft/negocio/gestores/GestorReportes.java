@@ -861,7 +861,7 @@ public class GestorReportes {
 
     }
 
-    public void ReporteProduccion(String prod1, String prod2, String prod3,Date fechaDesde, Date fechaHasta) {
+    public void reporteProduccion(int prod1, int prod2, int prod3,Date fechaDesde, Date fechaHasta) {
 
          PostgreSQLManager pg = new PostgreSQLManager();
         JasperPrint jasperPrint = null;
