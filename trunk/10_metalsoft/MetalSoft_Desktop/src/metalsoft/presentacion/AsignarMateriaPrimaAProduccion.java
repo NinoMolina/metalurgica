@@ -527,7 +527,7 @@ public class AsignarMateriaPrimaAProduccion extends javax.swing.JDialog {
                         cn.commit();
                         limpiarCampos();
                         JOptionPane.showMessageDialog(this, "Se guardaron los datos Correctamente");
-                        if (cont>1)
+                        if (cont>1 && !filasMateriaPrimaXPiezaPresupuesto.isEmpty())
                         {
                             JOptionPane.showMessageDialog(this, "Seleccione una nueva Materia Prima a asignar");
                         }
