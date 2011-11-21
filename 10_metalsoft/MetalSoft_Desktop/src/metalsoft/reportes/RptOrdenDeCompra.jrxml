@@ -182,7 +182,7 @@ WHERE c.proveedor = p.idproveedor
 					</textElement>
 					<text><![CDATA[$]]></text>
 				</staticText>
-				<textField>
+				<textField pattern="###0.00">
 					<reportElement mode="Transparent" x="473" y="21" width="83" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -203,7 +203,7 @@ WHERE c.proveedor = p.idproveedor
 					</textElement>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{total}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="###0.00">
 					<reportElement mode="Transparent" x="473" y="1" width="81" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -217,25 +217,25 @@ WHERE c.proveedor = p.idproveedor
 		<band/>
 	</background>
 	<title>
-		<band height="97">
+		<band height="116">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="0" width="595" height="96" backcolor="#006699"/>
+				<reportElement mode="Opaque" x="0" y="0" width="556" height="115" backcolor="#006699"/>
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="595" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+					<reportElement mode="Opaque" x="0" y="1" width="554" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 					<textElement textAlignment="Center">
 						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="385" y="0" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="360" y="0" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Fecha de Emisión:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="317" y="21" width="57" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="373" y="21" width="57" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
@@ -249,7 +249,7 @@ WHERE c.proveedor = p.idproveedor
 					<text><![CDATA[Nro Orden:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="21" y="52" width="277" height="40" forecolor="#FFFFFF"/>
+					<reportElement x="202" y="62" width="168" height="52" forecolor="#FFFFFF"/>
 					<textElement>
 						<font size="10" isBold="false"/>
 					</textElement>
@@ -258,17 +258,17 @@ Carlos Pelegrini 1146 -T: 4555340 B:San Vicente - 5006 Cba.
 IVA RESPONSABLE INSCRIPTO]]></text>
 				</staticText>
 				<line>
-					<reportElement x="297" y="20" width="1" height="75"/>
+					<reportElement x="371" y="21" width="1" height="92"/>
 				</line>
 				<staticText>
-					<reportElement x="0" y="22" width="296" height="30" forecolor="#FFFFFF"/>
+					<reportElement x="202" y="21" width="168" height="41" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Center" lineSpacing="Single">
-						<font size="18" isBold="true"/>
+						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Canovas y Barale S.R.L]]></text>
 				</staticText>
 				<line>
-					<reportElement x="0" y="20" width="595" height="1"/>
+					<reportElement x="20" y="20" width="534" height="1"/>
 				</line>
 				<staticText>
 					<reportElement mode="Transparent" x="19" y="0" width="103" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -278,35 +278,35 @@ IVA RESPONSABLE INSCRIPTO]]></text>
 					<text><![CDATA[ORDEN DE COMPRA]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="317" y="41" width="31" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="373" y="42" width="31" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[CUIT:]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Transparent" x="317" y="61" width="258" height="35" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="403" y="62" width="152" height="35" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{dir}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Transparent" x="348" y="41" width="227" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="404" y="42" width="151" height="20" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{cuit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Transparent" x="376" y="22" width="199" height="19" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="430" y="23" width="125" height="19" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{razonsocial}]]></textFieldExpression>
 				</textField>
 				<textField pattern="d/M/yyyy">
-					<reportElement mode="Transparent" x="476" y="0" width="98" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement mode="Transparent" x="451" y="0" width="103" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
@@ -319,6 +319,10 @@ IVA RESPONSABLE INSCRIPTO]]></text>
 					</textElement>
 					<textFieldExpression class="java.lang.Long"><![CDATA[$F{nrocompra}]]></textFieldExpression>
 				</textField>
+				<image>
+					<reportElement x="1" y="21" width="201" height="93"/>
+					<imageExpression class="java.lang.String"><![CDATA["logo_anima_empresa2.gif"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
@@ -328,7 +332,7 @@ IVA RESPONSABLE INSCRIPTO]]></text>
 	<columnHeader>
 		<band height="21">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="575" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="0" y="0" width="556" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>

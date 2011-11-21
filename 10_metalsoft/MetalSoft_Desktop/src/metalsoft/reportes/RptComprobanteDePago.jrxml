@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPresupuesto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="243"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ID_COMPROBANTE" class="java.lang.Long">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -86,9 +86,9 @@ WHERE
 					<text><![CDATA[Nro.:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="20" y="80" width="210" height="54" forecolor="#FFFFFF"/>
+					<reportElement x="20" y="88" width="210" height="46" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Center">
-						<font size="12" isBold="false"/>
+						<font size="11" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Carlos Pelegrini 1146 - Tel.: 4555340
 San Vicente - 5006 Cba.
@@ -101,13 +101,6 @@ IVA RESPONSABLE INSCRIPTO]]></text>
 					</textElement>
 					<textFieldExpression class="java.util.Date"><![CDATA[$F{fechaemision}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="20" y="40" width="210" height="40" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Center" lineSpacing="Single">
-						<font size="24" isBold="true"/>
-					</textElement>
-					<text><![CDATA[y Barale S.R.L]]></text>
-				</staticText>
 				<rectangle radius="10">
 					<reportElement x="259" y="0" width="76" height="60" backcolor="#006699"/>
 				</rectangle>
@@ -153,13 +146,10 @@ como Factura]]></text>
 					</textElement>
 					<text><![CDATA[X]]></text>
 				</staticText>
-				<staticText>
-					<reportElement x="20" y="0" width="210" height="40" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Center" lineSpacing="Single">
-						<font size="24" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Canovas ]]></text>
-				</staticText>
+				<image>
+					<reportElement x="21" y="3" width="238" height="85"/>
+					<imageExpression class="java.lang.String"><![CDATA["logo_anima_empresa2.gif"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
