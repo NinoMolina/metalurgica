@@ -57,7 +57,6 @@ public class BotonRapidoPresupuesto extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondopantallas2.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(116, 181, 181));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fchiqui.jpg"))); // NOI18N
         jButton1.setText("Generar Detalle de Etapas de Producción");
         jButton1.setBorderPainted(false);
