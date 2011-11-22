@@ -521,7 +521,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
 
                     if (diferenciaMontos >= montoPago) {
 
-                        ok = JOptionPane.showConfirmDialog(this, "Esta seguro que desea imprimir el comprobante de pago por $" + monto.getText() + "?");
+                        ok = JOptionPane.showConfirmDialog(this, "Está seguro que desea imprimir el comprobante de pago por $" + monto.getText() + "?");
                         if (ok == JOptionPane.OK_OPTION) {
                             gestor.imprimirComprobantePago(idPedido, montoPago, formaPago);
                             flag = false;
@@ -601,12 +601,12 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
 
     class PedidoTableModel extends AbstractTableModel {
 
-        private String[] columnNames = {"Nro",
-            "Nro Ped Cliente",
+        private String[] columnNames = {"Nro.",
+            "Nro. Ped. Cliente",
             "Prioridad",
             "Cliente",
-            "Ped Cotizacion",
-            "Cot Req Para",
+            "Ped. Cotización",
+            "Cot. Req. Para",
             "Entrega Estipulada",
             "Estado"};
 
