@@ -20,7 +20,7 @@ import metalsoft.datos.jpa.entity.Usuario;
 @SessionScoped
 public class SesionVista {
 
-    private String estadoSesion = "Iniciar Sesion";
+    private String estadoSesion = "Iniciar Sesión";
     private Usuario usuario;
     private List<Rol> rolUsuario;
     private String usuarioIngresado;
@@ -117,7 +117,7 @@ public class SesionVista {
     }
 
     public void cleanData() {
-        estadoSesion = "Iniciar Sesion";
+        estadoSesion = "Iniciar Sesión";
         usuario=new Usuario();
         usuarioIngresado="";
         passwordIngresada="";
