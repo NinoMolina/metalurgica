@@ -2047,8 +2047,7 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
         private String[] columnNames = {
             "Legajo",
             "Nombre",
-            "Apellido",
-            "Estado"
+            "Apellido"
         };
 
         public int getRowCount() {
@@ -2082,10 +2081,10 @@ private void btnAmpliarGraficoOcupacionEmpleadoActionPerformed(java.awt.event.Ac
                     return empleado.getNombre();
                 case 2:
                     return empleado.getApellido();
-                case 3:
-                    return disponibilidadEmpleado(empleado);
+//                case 3:
+//                    return disponibilidadEmpleado(empleado);
                 default:
-                    return null;
+                    return "";
             }
         }
 
