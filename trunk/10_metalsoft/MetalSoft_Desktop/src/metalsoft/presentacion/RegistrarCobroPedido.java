@@ -542,6 +542,7 @@ public class RegistrarCobroPedido extends javax.swing.JDialog {
 
         pedidoSeleccionado(idPedido);
         filasPedidos = gestor.buscarPedidosEntregados();
+        filasPedidos.clear();
         tblPedidos.updateUI();
         tblPedidos.packAll();
         btnRegistrarCobro.setEnabled(false);
