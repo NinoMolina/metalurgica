@@ -469,7 +469,7 @@ public class ABMProducto extends javax.swing.JDialog {
         JTextField txtCant = new JTextField("1");
         JTextArea txtDesc = new JTextArea("");
         JScrollPane scroll = new JScrollPane(txtDesc);
-        Object[] obj = {"Cantidad", txtCant, "Descripcion", scroll};
+        Object[] obj = {"Cantidad", txtCant, "Descripción", scroll};
 //        JOptionPane optionPane=new JOptionPane(obj, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
 //        JDialog dialog = optionPane.createDialog(this, "Ingresar Cantidad y Descripción");
 //        dialog.setVisible(true);
@@ -658,7 +658,7 @@ public class ABMProducto extends javax.swing.JDialog {
     public class DetalleProductoTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Pieza",
-            "Descripcion",
+            "Descripción",
             "Cantidad",
             "Dimensiones",
             "Material"};
