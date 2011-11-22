@@ -1,0 +1,16 @@
+Problem: Getting ugly shadows around tiny pie charts.
+ 
+Solution: In palette select Theme as “aegean”
+ 
+We will get this following error
+ 
+Caused by: net.sf.jasperreports.engine.JRRuntimeException: Chart theme ‘aegean’ not found.
+ 
+We need to add to the pom file.
+ jasperreports-chart-themes-3.6.x.jar
+ castor-1.2.jar
+ spring-core-2.5.5.jar
+ spring-beans-2.5.5.jar
+ 
+Maven is not pulling them from repository.
+ We need to install.
