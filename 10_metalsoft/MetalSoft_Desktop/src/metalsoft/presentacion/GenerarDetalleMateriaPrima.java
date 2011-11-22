@@ -1037,7 +1037,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
     class DetalleProductoTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Pieza",
-            "Descripcion",
+            "Descripción",
             "Cantidad",
             "Dimensiones",
             "Material"};
@@ -1093,7 +1093,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
     class MateriaPrimaTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nombre",
-            "Descripcion",
+            "Descripción",
             "Dimensiones",
             "Unidad",
             "Material"};
@@ -1149,7 +1149,7 @@ public class GenerarDetalleMateriaPrima extends javax.swing.JDialog implements I
     class MateriaPrimaSeleccionadaTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Nombre",
-            "Descripcion",
+            "Descripción",
             "Dimensiones",
             "Unidad",
             "Material"};

@@ -595,7 +595,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnProduccionEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder("En Producción"));
+        btnProduccionEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder("Producción Diaria"));
         btnProduccionEnEjecucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProduccionEnEjecucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProduccionEnEjecucion.addActionListener(new java.awt.event.ActionListener() {
@@ -677,7 +677,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnControlesCalidadEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "En calidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        btnControlesCalidadEnEjecucion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Diario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         btnControlesCalidadEnEjecucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnControlesCalidadEnEjecucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnControlesCalidadEnEjecucion.addActionListener(new java.awt.event.ActionListener() {
