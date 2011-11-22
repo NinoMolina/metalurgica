@@ -36,7 +36,7 @@
                         <ice:column>
                             <f:facet name="header" >
                                 <ice:outputText id="column1"
-                                                value="Numero" style="color: #000000"/>
+                                                value="Número" style="color: #000000"/>
                             </f:facet>
                             <ice:outputText id="Number1" value="#{pedido.nropedido}"/>
 
@@ -84,8 +84,7 @@
                 </ice:column>
                 <ice:column style="vertical-align: top">
 
-                    <ice:outputLabel id="results"
-                                     value="Detalle de pedido" rendered="#{pedidoVista.selected} "  style="text-decoration: underline" />
+                    <ice:outputLabel id="results" value="Detalle de pedido" rendered="#{pedidoVista.selected}" style="text-decoration: underline" />
                     <ice:dataTable id="selectedRows" 
                                    var="detalle"
                                    value="#{pedidoVista.detallePedido}"

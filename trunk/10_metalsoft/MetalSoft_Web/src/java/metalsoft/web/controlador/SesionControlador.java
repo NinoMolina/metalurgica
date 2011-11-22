@@ -30,10 +30,10 @@ public class SesionControlador {
     }
 
     public String irAIniciarSesion() {
-        if (sesionVista.getEstadoSesion().equals("Cerrar Sesion")) {
+        if (sesionVista.getEstadoSesion().equals("Cerrar Sesión")) {
             sesionVista.cleanData();
             return "principal";
-        } else if (sesionVista.getEstadoSesion().equals("Iniciar Sesion")) {
+        } else if (sesionVista.getEstadoSesion().equals("Iniciar Sesión")) {
             return "iniciarSesion";
         }else{
             return null;
@@ -51,7 +51,7 @@ public class SesionControlador {
     public String iniciarSesion() {
         UsuarioJpaController controller = new UsuarioJpaController(JpaUtil.getEntityManagerFactory());
         List<Usuario> list = controller.findUsuarioEntities();
-        if (sesionVista.getEstadoSesion().equals("Iniciar Sesion")) {
+        if (sesionVista.getEstadoSesion().equals("Iniciar Sesión")) {
             for (Usuario user : list) {
                 if (user.getUsuario().equals(sesionVista.getUsuarioIngresado()) && user.getClave().equals(sesionVista.getPasswordIngresada())) {
                     sesionVista.setUsuario(user);
@@ -60,7 +60,7 @@ public class SesionControlador {
                     sesionVista.setRolUsuario(lstRoles);
                     
                     String usuario = sesionVista.getUsuarioIngresado();
-                    sesionVista.setEstadoSesion("Cerrar Sesion");
+                    sesionVista.setEstadoSesion("Cerrar Sesión");
                     sesionVista.setUsuarioIngresado("");
                     sesionVista.setPasswordIngresada("");
                     for(Rol rol : sesionVista.getRolUsuario()) {
