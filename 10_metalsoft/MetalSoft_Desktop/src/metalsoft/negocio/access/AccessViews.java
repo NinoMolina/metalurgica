@@ -827,7 +827,7 @@ public class AccessViews {
     public static LinkedList<ViewDetallePedidoReal> listDetallePedidoReal(long idPed, Connection cn) {
         ViewDetallePedidoReal view = null;
         LinkedList<ViewDetallePedidoReal> ll = new LinkedList<ViewDetallePedidoReal>();
-        String query = "SELECT pr.codigobarra, pr.nroproducto, pr.idproductoreal, dp.cantidad, dp.iddetalle, dp.precio, pro.nombre, pro.descripcion, dp.idpedido "
+        String query = "SELECT pr.codigobarra, pro.nroproducto, pr.idproductoreal, dp.cantidad, dp.iddetalle, dp.precio, pro.nombre, pro.descripcion, dp.idpedido "
                 + "FROM pedido p, productoreal pr, detallepedido dp, producto pro "
                 + "WHERE pr.idpedido = p.idpedido and dp.idpedido = p.idpedido and dp.producto = pro.idproducto and pr.producto = pro.idproducto and p.idpedido = " + idPed;
         PreparedStatement ps = null;
